@@ -8,12 +8,6 @@ A bespoke UI Framework built on Aurelia for desktop business application
 
 ---
 
-<style>
-table th img {
-  height: 48px;
-}
-</style>
-
 ### Browser Support
 
 |  |![Safari](images/browsers/safari.png)|![Chrome](images/browsers/chrome.png)|![Opera](images/browsers/opera.png)|![Firefox](images/browsers/firefox.png)|![Edge](images/browsers/edge.png)|
