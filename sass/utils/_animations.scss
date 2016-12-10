@@ -1,0 +1,74 @@
+// 
+// @description :
+// @author      : Adarsh Pastakia
+// @copyright   : 2016
+// @license     : MIT
+@include keyframes(spin) {
+  0% {
+    @include transform(rotate(0deg));
+  }
+
+  100% {
+    @include transform(rotate(360deg));
+  }
+}
+@include keyframes(spin-opp) {
+  0% {
+    @include transform(rotate(0deg));
+  }
+
+  100% {
+    @include transform(rotate(-360deg));
+  }
+}
+@include keyframes(pendulum) {
+  0% {
+    @include transform(rotate(0deg));
+  }
+
+  50% {
+    @include transform(rotate(180deg));
+  }
+
+  100% {
+    @include transform(rotate(0deg));
+  }
+}
+@include keyframes(pulse) {
+  0% {
+    @include transform(scale(.75));
+  }
+
+  100% {
+    @include transform(scale(2));
+  }
+}
+
+[class*='fi-'],
+[class^='fi-'] {
+  line-height: 1em;
+
+  display    : inline-block;
+
+  width      : 1em;
+  height     : 1em;
+
+  text-align : center;
+  @include transform-origin(50% 50%);
+
+  &.ui-spin {
+    @include animation(spin 2.5s linear infinite);
+  }
+
+  &.ui-spin-opp {
+    @include animation(spin-opp 2.5s linear infinite);
+  }
+
+  &.ui-pulse {
+    @include animation(spin 1s infinite steps(8));
+  }
+
+  &.ui-pendulum {
+    @include animation(pendulum 1s linear infinite);
+  }
+}

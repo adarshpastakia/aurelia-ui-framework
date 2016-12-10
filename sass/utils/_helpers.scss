@@ -1,0 +1,103 @@
+// 
+// @description : 
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+
+.ui-scroll {
+  @include scroll();
+}
+
+.ui-hidden {
+  display: none !important;
+}
+
+.ui-hide {
+  visibility: hidden !important;
+}
+
+// BACKGROUNDS
+.ui-bg-primary {
+  background-color: $primary;
+}
+
+.ui-bg-secondary {
+  background-color: $secondary;
+}
+
+.ui-bg-info {
+  background-color: $info;
+}
+
+.ui-bg-danger {
+  background-color: $danger;
+}
+
+.ui-bg-success {
+  background-color: $success;
+}
+
+.ui-bg-warning {
+  background-color: $warning;
+}
+
+.ui-bg-light {
+  background-color: $light;
+}
+
+.ui-bg-dark {
+  background-color: $dark;
+}
+
+// BORDERS
+.ui-border-none {
+  border: none;
+}
+
+.ui-border-all {
+  border: 1px solid $base-border-color;
+}
+
+.ui-border-h {
+  border      : 1px solid $base-border-color;
+  border-width: 1px 0;
+}
+
+.ui-border-v {
+  border      : 1px solid $base-border-color;
+  border-width: 0 1px;
+}
+
+.ui-border-t {
+  border-top: 1px solid $base-border-color;
+}
+
+.ui-border-b {
+  border-bottom: 1px solid $base-border-color;
+}
+
+.ui-border-s {
+  @include border(start, 1px solid $base-border-color);
+}
+
+.ui-border-e {
+  @include border(end, 1px solid $base-border-color);
+}
+
+// MARGINS 
+.ui-margin-none {
+  margin: 0;
+}
+
+.ui-margin-all {
+  margin: $base-padding;
+}
+
+// MARGINS 
+.ui-pad-none {
+  padding: 0;
+}
+
+.ui-pad-all {
+  padding: $base-padding;
+}

@@ -1,0 +1,153 @@
+// 
+// @description : 
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+
+// HEADINGS
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2.2rem;
+}
+
+h3 {
+  font-size: 2rem;
+}
+
+h4 {
+  font-size: 1.8rem;
+}
+
+h5 {
+  font-size: 1.5rem;
+}
+
+h6 {
+  font-size: 1.2rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  small {
+    font-size: .7em;
+    display  : block;
+    color    : $muted;
+  }
+}
+
+// LARGE DISPLAY TEXT
+.ui-display-1 {
+  font-size  : 4rem;
+  font-weight: 300;
+}
+
+.ui-display-2 {
+  font-size  : 3rem;
+  font-weight: 300;
+}
+
+.ui-display-3 {
+  font-size  : 2rem;
+  font-weight: 300;
+}
+
+// FONT SIZES
+.ui-font-large {
+  font-size: 1.5em;
+}
+
+.ui-font-big,
+big {
+  font-size: 1.2em;
+}
+
+.ui-font-small,
+small {
+  font-size: .7em;
+}
+
+// FONT WEIGHTS
+.ui-bold,
+b {
+  font-weight: $font-weight-bold;
+}
+
+.ui-strong,
+strong {
+  font-weight: $font-weight-strong;
+}
+
+.ui-thin {
+  font-weight: $font-weight-thin;
+}
+
+// ALIGNMENTS
+.ui-text-center {
+  text-align: center;
+}
+
+.ui-text-start {
+  text-align: left;
+  text-align: start;
+}
+
+.ui-text-end {
+  text-align: right;
+  text-align: end;
+}
+
+.ui-text-justify {
+  text-align: justify;
+}
+
+// COLORS
+.ui-link {
+  color: $link-text;
+
+  &:hover {
+    color: $link-hover-text;
+  }
+}
+
+.ui-text-primary {
+  color: $primary;
+}
+
+.ui-text-secondary {
+  color: $secondary;
+}
+
+.ui-text-info {
+  color: $info;
+}
+
+.ui-text-danger {
+  color: $danger;
+}
+
+.ui-text-success {
+  color: $success;
+}
+
+.ui-text-warning {
+  color: $warning;
+}
+
+.ui-text-light {
+  color: $light;
+}
+
+.ui-text-muted {
+  color: $muted;
+}
+
+.ui-text-dark {
+  color: $dark;
+}
