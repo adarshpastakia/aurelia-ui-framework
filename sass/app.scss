@@ -1,0 +1,39 @@
+// 
+// @description : 
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+@import url( '//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,500italic,600italic,300,400,500,600');
+@import url( '//fonts.googleapis.com/css?family=Source+Code+Pro');
+@import url( '//fonts.googleapis.com/css?family=Lato');
+@import "framework";
+
+.indicator {
+  display      : inline-block;
+  width        : 1em;
+  height       : 1em;
+  border-radius: 1em;
+}
+
+.card {
+  display      : block;
+  padding      : 1em 3em;
+  text-align   : center;
+  border-radius: .25em;
+  height       : 8em;
+  width        : 8em;
+  border       : 1px solid $secondary;
+  @include flex-column($align: center, $justify: center);
+
+  &:hover {
+    background: rgba($secondary, .05);
+  }
+
+  img {
+    height: 2em;
+  }
+
+  p {
+    margin: .5em 0;
+  }
+}
