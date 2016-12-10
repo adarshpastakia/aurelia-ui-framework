@@ -1,0 +1,96 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <ui-content scroll padded>
+    <ui-container>
+      <ui-row>
+        <ui-column size="md-6" padded>
+          <ui-input-group>
+            <ui-input-label required>Input</ui-input-label>
+            <ui-input email></ui-input>
+            <ui-input-addon>@</ui-input-addon>
+            <ui-input url></ui-input>
+            <ui-input-addon>.com</ui-input-addon>
+          </ui-input-group>
+          <ui-input-group>
+            <ui-input-label required>Input</ui-input-label>
+            <ui-input value="Errored input..." class="ui-invalid" errors.bind="['Input required', 'Input must be minimum 5 characters']"></ui-input>
+          </ui-input-group>
+          <ui-input-group>
+            <ui-input-label required>Input</ui-input-label>
+            <ui-input clear value="Testing clear..."></ui-input>
+          </ui-input-group>
+          <ui-input-group>
+            <ui-input-label required>Input</ui-input-label>
+            <ui-input counter value="Testing the counter...."></ui-input>
+          </ui-input-group>
+          <ui-input-group>
+            <ui-input-label required>Input</ui-input-label>
+            <ui-checkbox checked.bind="indis"></ui-checkbox>
+            <ui-input clear disabled.bind="!indis" value="Testing disabled...."></ui-input>
+          </ui-input-group>
+          <ui-input-group>
+            <ui-input-label required>Input</ui-input-label>
+            <ui-checkbox checked.bind="inred"></ui-checkbox>
+            <ui-input readonly.bind="!inred" value="Testing readonly...."></ui-input>
+          </ui-input-group>
+          <ui-input-group>
+            <ui-input-addon glyph='search'></ui-input-addon>
+            <ui-input placeholder="Search..."></ui-input>
+            <ui-dropdown value="2" width="6em">
+              <ui-list-group label="List items">
+                <ui-list-item value="0">Site</ui-list-item>
+                <ui-list-item value="1">Posts</ui-list-item>
+                <ui-list-item value="2">Blogs</ui-list-item>
+                <ui-list-item value="3">Contacts</ui-list-item>
+              </ui-list-group>
+            </ui-dropdown>
+          </ui-input-group>
+        </ui-column>
+        <ui-column size="md-6" padded>
+          <ui-input-group>
+            <ui-input-label required align-top>Textarea</ui-input-label>
+            <ui-textarea clear counter value="Testing the textarea...." auto-complete="Alpha,Bravo,Charlie,Delta,Echo,Foxtrot,Lima,Omega,Sigma,Theta,Zulu"></ui-textarea>
+            <ui-input-info class="ui-text-info ui-bg-light">Info line</ui-input-info>
+          </ui-input-group>
+
+          <ui-fieldset legend="Phone Inputs" enabled="true">
+            <ui-input-group>
+              <ui-input-label required>Phone</ui-input-label>
+              <ui-phone></ui-phone>
+            </ui-input-group>
+            <ui-input-group>
+              <ui-input-label required>Phone</ui-input-label>
+              <ui-dropdown value="2">
+                <ui-list-item value="0">Home</ui-list-item>
+                <ui-list-item value="1">Work</ui-list-item>
+                <ui-list-item value="2">Mobile</ui-list-item>
+              </ui-dropdown>
+              <ui-phone country="ae"></ui-phone>
+            </ui-input-group>
+          </ui-fieldset>
+
+          <ui-fieldset legend="Option Inputs">
+            <ui-option-group>
+              <ui-input-label required>Checkboxes</ui-input-label>
+              <ui-checkbox>Checkbox</ui-checkbox>
+              <ui-checkbox>Checkbox</ui-checkbox>
+              <ui-checkbox disabled="true">Checkbox</ui-checkbox>
+            </ui-option-group>
+            <ui-option-group value="1">
+              <ui-input-label required>Radios</ui-input-label>
+              <ui-radio value="0">Radio</ui-radio>
+              <ui-radio value="1">Radio</ui-radio>
+              <ui-radio value="2">Radio</ui-radio>
+              <ui-radio value="3" disabled="true">Radio</ui-radio>
+            </ui-option-group>
+          </ui-fieldset>
+        </ui-column>
+      </ui-row>
+
+    </ui-container>
+  </ui-content>
+</template>
