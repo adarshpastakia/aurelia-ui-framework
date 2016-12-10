@@ -1,0 +1,212 @@
+// 
+// @description : 
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+
+.ui-fieldset {
+  fieldset {
+    margin       : .75em .5em;
+    overflow     : hidden;
+    max-height   : 20rem;
+    border-radius: $base-border-radius;
+    border       : 1px solid $base-border-color;
+    @include transition(max-height .5s);
+  }
+
+  legend {
+    margin   : 0 .25em;
+    padding  : 0 .25em;
+    font-size: .9em;
+
+    > span {
+      font-size: .9em;
+      color    : $input-label-text;
+    }
+  }
+
+  &.ui-collapse fieldset {
+    max-height: 1.25rem;
+  }
+}
+
+.ui-input-group {
+  @include flex-row($display: flex, $align:flex-start);
+  margin   : .75em .5em;
+  max-width: 100%;
+
+  .ui-input-label {
+    @include flex(0 0 8em);
+    @include padding(end, .5rem);
+    position : relative;
+    font-size: .9em;
+    margin   : .25em 0;
+    color    : $input-label-text;
+
+    &.ui-required:after {
+      content  : '*';
+      color    : $secondary;
+      position : absolute;
+      font-size: .7rem;
+      margin   : 0 .2rem;
+      top      : .1rem;
+    }
+
+    &.ui-align-top {
+      @include flex-basis(100%);
+    }
+  }
+
+  &.ui-focus .ui-input-label {
+    font-weight: 600;
+  }
+
+  .ui-input-info {
+    font-size: .75em;
+    padding  : $base-padding;
+  }
+
+  > div {
+    @include flex(1 1 12em);
+  }
+
+  .ui-group-wrapper {
+    @include flex-row($display: flex, $align: stretch, $wrap: false);
+
+    .ui-input-addon,
+    .ui-option {
+      margin: .25em 0;
+      @include flex-auto();
+    }
+  }
+}
+
+.ui-input-control {
+  @include flex-row($display: inline-flex, $wrap:false, $align: stretch);
+  @include flex(1 1 4em);
+  color     : $input-text;
+  background: $input-bg;
+  max-width : 100%;
+  margin    : 0 .1em;
+  position  : relative;
+  box-shadow: 0 -1px 0 0 $base-border-color inset;
+  @include transition(box-shadow .5s);
+
+  &.ui-focus {
+    box-shadow: 0 -2px 0 0 $input-focus-border inset;
+  }
+
+  &.ui-invalid {
+    box-shadow: 0 -1px 0 0 $input-invalid-border inset;
+
+    &.ui-focus {
+      box-shadow: 0 -2px 0 0 $input-invalid-border inset;
+    }
+  }
+
+  &.ui-disabled {
+    box-shadow: 0 -1px 0 0 rgba($base-border-color,.5) inset !important;
+    color     : rgba($input-text, .5) !important;
+
+    &:after {
+      content   : '';
+      @include position(absolute, 0);
+      background: rgba($input-disabled-bg, 0.1);
+    }
+  }
+
+  &.ui-readonly {
+    background: $input-readonly-bg;
+    box-shadow: none !important;
+  }
+
+  &.ui-textarea {
+    position: relative;
+
+    textarea {
+      margin-bottom: 1em;
+      resize       : none;
+    }
+
+    .ui-counter {
+      position  : absolute;
+      display   : block;
+      bottom    : 2px;
+      left      : 0;
+      right     : 0;
+      background: $input-bg;
+      padding   : .1em .25em;
+    }
+  }
+
+  &.ui-phone {
+    span:first-child {
+      font-size: .9em;
+      @include align-self(center);
+    }
+  }
+
+  input,
+  textarea {
+    @include flex-fill();
+    background: none;
+    border    : none;
+    margin    : 0;
+    color     : inherit;
+    min-height: 25px;
+    padding   : $base-padding;
+  }
+
+  .ui-error {
+    @include flex-auto();
+    @include glyph($fi-ui-error-line);
+    padding   : .1em 0;
+    color     : $input-error-text;
+    background: $input-error-bg;
+
+    .ui-error-list {
+      display   : none;
+      position  : absolute;
+      background: $danger;
+      color     : $white;
+      font-size : .8em;
+      z-index   : 5;
+      padding   : $base-padding;
+    }
+
+    &:hover .ui-error-list {
+      display: block;
+    }
+  }
+
+  .ui-caret {
+    @include flex-auto();
+    @include glyph($fi-ui-caret);
+    padding: .25em .1em;
+    cursor : pointer;
+    color  : $muted;
+
+    &:hover {
+      color: $base-text;
+    }
+  }
+
+  .ui-counter {
+    @include flex-auto();
+    color      : $muted;
+    font-size  : .75em;
+    padding    : .4em .25em;
+    line-height: 1em;
+  }
+
+  .ui-clear {
+    @include flex-auto();
+    color  : $muted;
+    padding: .1em .25em;
+    cursor : pointer;
+
+    &:hover {
+      color: $base-text;
+    }
+  }
+}
