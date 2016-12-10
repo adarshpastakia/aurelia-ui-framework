@@ -1,6 +1,6 @@
     /*
     Flaticon icon font: Flaticon
-    Creation date: 08/12/2016 12:33
+    Creation date: 10/12/2016 18:27
     */
 
     @font-face {
@@ -55,28 +55,36 @@
 .flaticon-bars-circle:before { content: "\f110"; }
 .flaticon-bars-thin:before { content: "\f111"; }
 .flaticon-bars-wide:before { content: "\f112"; }
-.flaticon-caret:before { content: "\f113"; }
-.flaticon-check-off:before { content: "\f114"; }
-.flaticon-check-on:before { content: "\f115"; }
-.flaticon-dialog-close:before { content: "\f116"; }
-.flaticon-dialog-close-1:before { content: "\f117"; }
-.flaticon-dialog-expand:before { content: "\f118"; }
-.flaticon-dialog-minimize:before { content: "\f119"; }
-.flaticon-dialog-resize:before { content: "\f11a"; }
-.flaticon-dialog-restore:before { content: "\f11b"; }
-.flaticon-error-fill:before { content: "\f11c"; }
-.flaticon-error-line:before { content: "\f11d"; }
-.flaticon-radio-off:before { content: "\f11e"; }
-.flaticon-radio-on:before { content: "\f11f"; }
-.flaticon-refresh:before { content: "\f120"; }
-.flaticon-search:before { content: "\f121"; }
-.flaticon-sort-asc:before { content: "\f122"; }
-.flaticon-sort-desc:before { content: "\f123"; }
-.flaticon-square:before { content: "\f124"; }
-.flaticon-tree-check-off:before { content: "\f125"; }
-.flaticon-tree-check-on:before { content: "\f126"; }
-.flaticon-tree-check-partial:before { content: "\f127"; }
-.flaticon-tree-expand:before { content: "\f128"; }
+.flaticon-calendar-fill:before { content: "\f113"; }
+.flaticon-calendar-line:before { content: "\f114"; }
+.flaticon-caret:before { content: "\f115"; }
+.flaticon-check-off:before { content: "\f116"; }
+.flaticon-check-on:before { content: "\f117"; }
+.flaticon-close:before { content: "\f118"; }
+.flaticon-delete-fill:before { content: "\f119"; }
+.flaticon-delete-line:before { content: "\f11a"; }
+.flaticon-dialog-close:before { content: "\f11b"; }
+.flaticon-dialog-expand:before { content: "\f11c"; }
+.flaticon-dialog-minimize:before { content: "\f11d"; }
+.flaticon-dialog-resize:before { content: "\f11e"; }
+.flaticon-dialog-restore:before { content: "\f11f"; }
+.flaticon-edit-fill:before { content: "\f120"; }
+.flaticon-edit-line:before { content: "\f121"; }
+.flaticon-error-fill:before { content: "\f122"; }
+.flaticon-error-line:before { content: "\f123"; }
+.flaticon-overflow-fill:before { content: "\f124"; }
+.flaticon-overflow-line:before { content: "\f125"; }
+.flaticon-radio-off:before { content: "\f126"; }
+.flaticon-radio-on:before { content: "\f127"; }
+.flaticon-refresh:before { content: "\f128"; }
+.flaticon-search:before { content: "\f129"; }
+.flaticon-sort-asc:before { content: "\f12a"; }
+.flaticon-sort-desc:before { content: "\f12b"; }
+.flaticon-square:before { content: "\f12c"; }
+.flaticon-tree-check-off:before { content: "\f12d"; }
+.flaticon-tree-check-on:before { content: "\f12e"; }
+.flaticon-tree-check-partial:before { content: "\f12f"; }
+.flaticon-tree-expand:before { content: "\f130"; }
     
     $font-Flaticon-alert-error-fill: "\f100";
     $font-Flaticon-alert-error-line: "\f101";
@@ -97,25 +105,33 @@
     $font-Flaticon-bars-circle: "\f110";
     $font-Flaticon-bars-thin: "\f111";
     $font-Flaticon-bars-wide: "\f112";
-    $font-Flaticon-caret: "\f113";
-    $font-Flaticon-check-off: "\f114";
-    $font-Flaticon-check-on: "\f115";
-    $font-Flaticon-dialog-close: "\f116";
-    $font-Flaticon-dialog-close-1: "\f117";
-    $font-Flaticon-dialog-expand: "\f118";
-    $font-Flaticon-dialog-minimize: "\f119";
-    $font-Flaticon-dialog-resize: "\f11a";
-    $font-Flaticon-dialog-restore: "\f11b";
-    $font-Flaticon-error-fill: "\f11c";
-    $font-Flaticon-error-line: "\f11d";
-    $font-Flaticon-radio-off: "\f11e";
-    $font-Flaticon-radio-on: "\f11f";
-    $font-Flaticon-refresh: "\f120";
-    $font-Flaticon-search: "\f121";
-    $font-Flaticon-sort-asc: "\f122";
-    $font-Flaticon-sort-desc: "\f123";
-    $font-Flaticon-square: "\f124";
-    $font-Flaticon-tree-check-off: "\f125";
-    $font-Flaticon-tree-check-on: "\f126";
-    $font-Flaticon-tree-check-partial: "\f127";
-    $font-Flaticon-tree-expand: "\f128";
+    $font-Flaticon-calendar-fill: "\f113";
+    $font-Flaticon-calendar-line: "\f114";
+    $font-Flaticon-caret: "\f115";
+    $font-Flaticon-check-off: "\f116";
+    $font-Flaticon-check-on: "\f117";
+    $font-Flaticon-close: "\f118";
+    $font-Flaticon-delete-fill: "\f119";
+    $font-Flaticon-delete-line: "\f11a";
+    $font-Flaticon-dialog-close: "\f11b";
+    $font-Flaticon-dialog-expand: "\f11c";
+    $font-Flaticon-dialog-minimize: "\f11d";
+    $font-Flaticon-dialog-resize: "\f11e";
+    $font-Flaticon-dialog-restore: "\f11f";
+    $font-Flaticon-edit-fill: "\f120";
+    $font-Flaticon-edit-line: "\f121";
+    $font-Flaticon-error-fill: "\f122";
+    $font-Flaticon-error-line: "\f123";
+    $font-Flaticon-overflow-fill: "\f124";
+    $font-Flaticon-overflow-line: "\f125";
+    $font-Flaticon-radio-off: "\f126";
+    $font-Flaticon-radio-on: "\f127";
+    $font-Flaticon-refresh: "\f128";
+    $font-Flaticon-search: "\f129";
+    $font-Flaticon-sort-asc: "\f12a";
+    $font-Flaticon-sort-desc: "\f12b";
+    $font-Flaticon-square: "\f12c";
+    $font-Flaticon-tree-check-off: "\f12d";
+    $font-Flaticon-tree-check-on: "\f12e";
+    $font-Flaticon-tree-check-partial: "\f12f";
+    $font-Flaticon-tree-expand: "\f130";

@@ -1,6 +1,6 @@
 	/*
   	Flaticon icon font: Flaticon
-  	Creation date: 08/12/2016 12:33
+  	Creation date: 10/12/2016 18:27
   	*/
 
 @font-face {
@@ -48,25 +48,33 @@ margin-left: 20px;
 .flaticon-bars-circle:before { content: "\f110"; }
 .flaticon-bars-thin:before { content: "\f111"; }
 .flaticon-bars-wide:before { content: "\f112"; }
-.flaticon-caret:before { content: "\f113"; }
-.flaticon-check-off:before { content: "\f114"; }
-.flaticon-check-on:before { content: "\f115"; }
-.flaticon-dialog-close:before { content: "\f116"; }
-.flaticon-dialog-close-1:before { content: "\f117"; }
-.flaticon-dialog-expand:before { content: "\f118"; }
-.flaticon-dialog-minimize:before { content: "\f119"; }
-.flaticon-dialog-resize:before { content: "\f11a"; }
-.flaticon-dialog-restore:before { content: "\f11b"; }
-.flaticon-error-fill:before { content: "\f11c"; }
-.flaticon-error-line:before { content: "\f11d"; }
-.flaticon-radio-off:before { content: "\f11e"; }
-.flaticon-radio-on:before { content: "\f11f"; }
-.flaticon-refresh:before { content: "\f120"; }
-.flaticon-search:before { content: "\f121"; }
-.flaticon-sort-asc:before { content: "\f122"; }
-.flaticon-sort-desc:before { content: "\f123"; }
-.flaticon-square:before { content: "\f124"; }
-.flaticon-tree-check-off:before { content: "\f125"; }
-.flaticon-tree-check-on:before { content: "\f126"; }
-.flaticon-tree-check-partial:before { content: "\f127"; }
-.flaticon-tree-expand:before { content: "\f128"; }
+.flaticon-calendar-fill:before { content: "\f113"; }
+.flaticon-calendar-line:before { content: "\f114"; }
+.flaticon-caret:before { content: "\f115"; }
+.flaticon-check-off:before { content: "\f116"; }
+.flaticon-check-on:before { content: "\f117"; }
+.flaticon-close:before { content: "\f118"; }
+.flaticon-delete-fill:before { content: "\f119"; }
+.flaticon-delete-line:before { content: "\f11a"; }
+.flaticon-dialog-close:before { content: "\f11b"; }
+.flaticon-dialog-expand:before { content: "\f11c"; }
+.flaticon-dialog-minimize:before { content: "\f11d"; }
+.flaticon-dialog-resize:before { content: "\f11e"; }
+.flaticon-dialog-restore:before { content: "\f11f"; }
+.flaticon-edit-fill:before { content: "\f120"; }
+.flaticon-edit-line:before { content: "\f121"; }
+.flaticon-error-fill:before { content: "\f122"; }
+.flaticon-error-line:before { content: "\f123"; }
+.flaticon-overflow-fill:before { content: "\f124"; }
+.flaticon-overflow-line:before { content: "\f125"; }
+.flaticon-radio-off:before { content: "\f126"; }
+.flaticon-radio-on:before { content: "\f127"; }
+.flaticon-refresh:before { content: "\f128"; }
+.flaticon-search:before { content: "\f129"; }
+.flaticon-sort-asc:before { content: "\f12a"; }
+.flaticon-sort-desc:before { content: "\f12b"; }
+.flaticon-square:before { content: "\f12c"; }
+.flaticon-tree-check-off:before { content: "\f12d"; }
+.flaticon-tree-check-on:before { content: "\f12e"; }
+.flaticon-tree-check-partial:before { content: "\f12f"; }
+.flaticon-tree-expand:before { content: "\f130"; }
