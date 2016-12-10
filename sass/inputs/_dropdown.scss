@@ -1,0 +1,97 @@
+// 
+// @description : 
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+
+.ui-dropdown {
+  background: darken($light, 2%);
+  cursor    : pointer;
+  position  : relative;
+  display   : inline-block;
+  padding   : $base-padding;
+
+  .ui-label {
+    @include ellipsis();
+    @include flex-row($wrap:false, $justify: space-between);
+    font-size: .9em;
+
+    &:after {
+      font-family: 'Framework';
+      content    : $fi-ui-caret;
+      color      : $muted;
+      font-size  : .65em;
+      // right      : .5em;
+      // top        : .75em;
+      // position   : absolute;
+      @include flex-auto();
+    }
+  }
+
+  &:hover .ui-label:after {
+    color: $input-label-text;
+  }
+
+  &.ui-open {
+    &.ui-tether-top {
+      box-shadow: 0 0 2px 0 $base-shadow-color;
+    }
+
+    &.ui-tether-bottom {
+      box-shadow: 0 0 2px 0 $base-shadow-color;
+    }
+
+    .ui-list-container {
+      display: block;
+    }
+  }
+
+}
+
+.ui-list-container {
+  max-height: 10em;
+  overflow  : auto;
+  background: $input-bg;
+
+  &.ui-floating {
+    position: fixed;
+    display : none;
+    z-index : $z-index-floating;
+
+    &.ui-tether-top {
+      box-shadow: 0 1px 2px 0 $base-shadow-color;
+    }
+
+    &.ui-tether-bottom {
+      box-shadow: 0 -1px 2px 0 $base-shadow-color;
+    }
+  }
+
+  &.ui-open {
+    display: block;
+  }
+
+  .ui-list-group {
+    color    : $muted;
+    font-size: .8em;
+    display  : list-item;
+    padding  : $base-padding;
+  }
+
+  .ui-list-item {
+    font-size: .9em;
+    display  : list-item;
+    padding  : $base-padding;
+
+    &.ui-hilight {
+      color     : $list-hover-text;
+      background: $list-hover-bg;
+    }
+
+    &.ui-selected,
+    &:active {
+      color     : $list-selected-text;
+      background: $list-selected-bg;
+    }
+  }
+}
