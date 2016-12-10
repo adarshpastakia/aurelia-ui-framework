@@ -32,11 +32,23 @@
 
     .ui-app-title {
       @include flex-auto();
-      padding: .5rem 1rem;
+      padding: .5rem 0;
+    }
+    
+    > :first-child {
+      margin-left: 1em;
+      margin-start: 1em;
     }
 
     .ui-app-logo {
       height: 3rem;
+    }
+    
+    .ui-link {
+      color: $app-header-link-text;
+      &:hover {
+        color: $app-header-link-hover-text;
+      }
     }
   }
 

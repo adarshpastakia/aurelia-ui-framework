@@ -6,11 +6,11 @@
 .ui-flag {
   background-repeat  : no-repeat;
   background-position: center center;
-  min-width          : 24px;
-  min-height         : 16px;
+  min-width          : 18px;
+  min-height         : 12px;
   display            : inline-block;
   background-size    : cover;
-  border             : 1px solid #e5e5e5;
+  box-shadow         : 0 0 0 1px #e5e5e5;
 }
 
 .ui-flag {

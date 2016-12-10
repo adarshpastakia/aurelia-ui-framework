@@ -1,6 +1,7 @@
 <template>
   <ui-viewport class="ui-fullscreen">
     <ui-app-header>
+      <ui-drawer-toggle drawer.bind="menuDrawer"></ui-drawer-toggle>
       <ui-app-title src="images/logo.png">
         <h6>
           <span>Aurelia UI Framework</span>
@@ -8,6 +9,9 @@
         </h6>
       </ui-app-title>
     </ui-app-header>
+    
+    <ui-drawer ref="menuDrawer" padded scroll></ui-drawer>
+    
     <ui-router-view></ui-router-view>
     <ui-app-footer>
       <small>Version: 3.0.0</small>
