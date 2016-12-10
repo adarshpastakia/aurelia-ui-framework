@@ -1,0 +1,248 @@
+// 
+// @description : 
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+@include font-face( 'Framework', font_files('glyphs/Flaticon.woff', woff, 'glyphs/Flaticon.ttf', ttf, 'glyphs/Flaticon.svg', svg ), ('glyphs/Flaticon.eot'), normal, normal );
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+   @font-face{
+    font-family: 'Framework';
+    src        : url('../fonts/glyphs/Flaticon.svg#Flaticon') format("svg");
+  }
+}
+@mixin glyph($glyph) {
+  &:before {
+    font-family: 'Framework';
+    content    : $glyph;
+  }
+}
+
+.fi-ui {
+  font-size  : 1em;
+  display    : inline-block;
+  width      : 1em;
+  height     : 1em;
+  line-height: 1em;
+}
+
+[class*=' fi-ui-']:before,
+[class^='fi-ui-']:before {
+  display                : inline-block;
+  font-family            : 'Framework';
+  font-style             : normal;
+  font-weight            : normal;
+  font-variant           : normal;
+  line-height            : 1;
+  text-decoration        : inherit;
+  text-rendering         : optimizeLegibility;
+  text-transform         : none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing : antialiased;
+  font-smoothing         : antialiased;
+}
+
+.fi-ui-alert-error-fill:before {
+  content: '\f100';
+}
+
+.fi-ui-alert-error-line:before {
+  content: '\f101';
+}
+
+.fi-ui-alert-exclaim-fill:before {
+  content: '\f102';
+}
+
+.fi-ui-alert-exclaim-line:before {
+  content: '\f103';
+}
+
+.fi-ui-alert-info-fill:before {
+  content: '\f104';
+}
+
+.fi-ui-alert-info-line:before {
+  content: '\f105';
+}
+
+.fi-ui-alert-question-fill:before {
+  content: '\f106';
+}
+
+.fi-ui-alert-question-line:before {
+  content: '\f107';
+}
+
+.fi-ui-angle-down:before {
+  content: '\f108';
+}
+
+.fi-ui-angle-left:before {
+  content: '\f109';
+}
+
+.fi-ui-angle-right:before {
+  content: '\f10a';
+}
+
+.fi-ui-angle-up:before {
+  content: '\f10b';
+}
+
+.fi-ui-arrow-down:before {
+  content: '\f10c';
+}
+
+.fi-ui-arrow-left:before {
+  content: '\f10d';
+}
+
+.fi-ui-arrow-right:before {
+  content: '\f10e';
+}
+
+.fi-ui-arrow-up:before {
+  content: '\f10f';
+}
+
+.fi-ui-bars-circle:before {
+  content: '\f110';
+}
+
+.fi-ui-bars-thin:before {
+  content: '\f111';
+}
+
+.fi-ui-bars-wide:before {
+  content: '\f112';
+}
+
+.fi-ui-caret:before {
+  content: '\f113';
+}
+
+.fi-ui-check-off:before {
+  content: '\f114';
+}
+
+.fi-ui-check-on:before {
+  content: '\f115';
+}
+
+.fi-ui-dialog-close:before {
+  content: '\f116';
+}
+
+.fi-ui-dialog-close-1:before {
+  content: '\f117';
+}
+
+.fi-ui-dialog-expand:before {
+  content: '\f118';
+}
+
+.fi-ui-dialog-minimize:before {
+  content: '\f119';
+}
+
+.fi-ui-dialog-resize:before {
+  content: '\f11a';
+}
+
+.fi-ui-dialog-restore:before {
+  content: '\f11b';
+}
+
+.fi-ui-error-fill:before {
+  content: '\f11c';
+}
+
+.fi-ui-error-line:before {
+  content: '\f11d';
+}
+
+.fi-ui-radio-off:before {
+  content: '\f11e';
+}
+
+.fi-ui-radio-on:before {
+  content: '\f11f';
+}
+
+.fi-ui-refresh:before {
+  content: '\f120';
+}
+
+.fi-ui-search:before {
+  content: '\f121';
+}
+
+.fi-ui-sort-asc:before {
+  content: '\f122';
+}
+
+.fi-ui-sort-desc:before {
+  content: '\f123';
+}
+
+.fi-ui-square:before {
+  content: '\f124';
+}
+
+.fi-ui-tree-check-off:before {
+  content: '\f125';
+}
+
+.fi-ui-tree-check-on:before {
+  content: '\f126';
+}
+
+.fi-ui-tree-check-partial:before {
+  content: '\f127';
+}
+
+.fi-ui-tree-expand:before {
+  content: '\f128';
+}
+
+$fi-ui-alert-error-fill: '\f100';
+$fi-ui-alert-error-line: '\f101';
+$fi-ui-alert-exclaim-fill: '\f102';
+$fi-ui-alert-exclaim-line: '\f103';
+$fi-ui-alert-info-fill: '\f104';
+$fi-ui-alert-info-line: '\f105';
+$fi-ui-alert-question-fill: '\f106';
+$fi-ui-alert-question-line: '\f107';
+$fi-ui-angle-down: '\f108';
+$fi-ui-angle-left: '\f109';
+$fi-ui-angle-right: '\f10a';
+$fi-ui-angle-up: '\f10b';
+$fi-ui-arrow-down: '\f10c';
+$fi-ui-arrow-left: '\f10d';
+$fi-ui-arrow-right: '\f10e';
+$fi-ui-arrow-up: '\f10f';
+$fi-ui-bars-circle: '\f110';
+$fi-ui-bars-thin: '\f111';
+$fi-ui-bars-wide: '\f112';
+$fi-ui-caret: '\f113';
+$fi-ui-check-off: '\f114';
+$fi-ui-check-on: '\f115';
+$fi-ui-dialog-close: '\f116';
+$fi-ui-dialog-close-1: '\f117';
+$fi-ui-dialog-expand: '\f118';
+$fi-ui-dialog-minimize: '\f119';
+$fi-ui-dialog-resize: '\f11a';
+$fi-ui-dialog-restore: '\f11b';
+$fi-ui-error-fill: '\f11c';
+$fi-ui-error-line: '\f11d';
+$fi-ui-radio-off: '\f11e';
+$fi-ui-radio-on: '\f11f';
+$fi-ui-refresh: '\f120';
+$fi-ui-search: '\f121';
+$fi-ui-sort-asc: '\f122';
+$fi-ui-sort-desc: '\f123';
+$fi-ui-square: '\f124';
+$fi-ui-tree-check-off: '\f125';
+$fi-ui-tree-check-on: '\f126';
+$fi-ui-tree-check-partial: '\f127';
+$fi-ui-tree-expand: '\f128';
