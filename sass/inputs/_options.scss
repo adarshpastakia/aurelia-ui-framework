@@ -1,0 +1,85 @@
+// 
+// @description : 
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+
+.ui-option-group {
+  .ui-group-wrapper {
+    @include flex(1 1 1em);
+    @include flex-wrap(wrap);
+
+    .ui-option {
+      @include margin(end, 1rem);
+    }
+  }
+
+  &.ui-vertical .ui-group-wrapper {
+    @include flex-direction(column);
+  }
+}
+
+.ui-option {
+  height  : 1em;
+  position: relative;
+  display : inline-block;
+
+  input {
+    width   : 1em;
+    height  : 1em;
+    opacity : 0;
+    cursor  : pointer;
+    position: absolute;
+
+    &:focus ~ span,
+    &:hover ~ span {
+      color: $input-focus-border;
+    }
+  }
+
+  span {
+    color: $input-text;
+  }
+
+  &.ui-checkbox span {
+    @include glyph($fi-ui-check-off);
+  }
+
+  &.ui-radio span {
+    @include glyph($fi-ui-radio-off);
+  }
+
+  &.ui-checkbox input:checked ~ span {
+    @include glyph($fi-ui-check-on);
+  }
+
+  &.ui-radio input:checked ~ span {
+    @include glyph($fi-ui-radio-on);
+  }
+
+  .ui-option-label {
+    font-size: .9em;
+    margin   : .25em 0;
+    color    : $input-label-text;
+  }
+
+  &.ui-radio .ui-option-label {
+    margin: .25em .3em;
+  }
+
+  &.ui-disabled {
+    .ui-option-label {
+      color: rgba($input-label-text, .5);
+    }
+
+    span {
+      color: rgba($input-text, .5) !important;
+    }
+
+    &:after {
+      content   : '';
+      @include position(absolute, 0);
+      background: rgba($input-disabled-bg, 0.1);
+    }
+  }
+}
