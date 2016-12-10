@@ -1,0 +1,114 @@
+// 
+// @description : 
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+
+.ui-splash {
+  background: #fff no-repeat center center;
+  @include position(absolute);
+  @if $splash-image {
+    background-image: image-url($splash-image);
+  }
+}
+
+.ui-viewport {
+  @include position(fixed, 0);
+  overflow: auto;
+
+  &.ui-fullscreen {
+    @include flex-column();
+    overflow: hidden;
+
+    .ui-app-footer {
+      font-size: .7em;
+    }
+  }
+
+  .ui-app-header {
+    background: $app-header-bg;
+    color     : $app-header-text;
+    @include flex-row($align:center, $wrap:false);
+
+    .ui-app-title {
+      @include flex-auto();
+      padding: .5rem 1rem;
+    }
+
+    .ui-app-logo {
+      height: 3rem;
+    }
+  }
+
+  .ui-app-taskbar {
+    @include flex-row($align:center, $wrap:true);
+    @include box-shadow(0 0 2px 0 $base-shadow-color);
+    padding: .1rem .5rem;
+  }
+
+  .ui-app-footer {
+    @include flex-row($justify:space-between, $wrap:false);
+    background: $app-footer-bg;
+    color     : $app-footer-text;
+    padding   : .1rem .5rem;
+  }
+
+  .ui-router-view {
+    z-index : 0;
+    overflow: hidden;
+    position: relative;
+    @include flex-fill();
+    @include flex-column();
+  }
+
+  .ui-loader {
+    @include position(absolute, 0);
+    background: rgba($base-bg, .15);
+    cursor    : wait;
+    direction : ltr;
+    z-index   : $z-index-splash;
+
+    .ui-loader-div {
+      @include box-shadow(0 0 20px 0 $base-shadow-color);
+      @include position(absolute, 50% auto auto 50%);
+      @include transform(translateX(-50%) translateY(-50%));
+
+      background   : $base-bg;
+      overflow     : hidden;
+      padding      : .8em .5em;
+      line-height  : 1;
+      z-index      : $z-index-splash;
+      border-radius: $base-border-radius;
+
+      span:first-child {
+        font-size: 2em;
+        color    : $primary;
+      }
+
+      span:last-child {
+        font-size  : 1.25em;
+        margin-left: -5px;
+        color      : $muted;
+      }
+    }
+  }
+
+  .ui-dialog-container {
+    pointer-events: none;
+    z-index       : $z-index-dialog;
+    @include position(absolute, 0);
+
+    &.ui-dragging {
+      pointer-events: all;
+    }
+  }
+
+  .ui-overlay-container {
+    overflow      : hidden;
+    padding       : 3em 0 1em;
+    pointer-events: none;
+    z-index       : $z-index-toast;
+    @include position(absolute, 0);
+    @include flex-column(flex-end, flex-start);
+  }
+}
