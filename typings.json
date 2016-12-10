@@ -1,0 +1,15 @@
+{
+  "name": "unamed-framework",
+  "dependencies": {},
+  "globalDevDependencies": {
+    "angular-protractor": "registry:dt/angular-protractor#1.5.0+20160425143459",
+    "jasmine": "registry:dt/jasmine#2.2.0+20160505161446",
+    "node": "registry:dt/node",
+    "selenium-webdriver": "registry:dt/selenium-webdriver#2.44.0+20160317120654"
+  },
+  "globalDependencies": {
+    "lodash": "registry:dt/lodash#4.14.0+20161110215204",
+    "moment": "registry:dt/moment#2.11.1+20161010105546",
+    "numeraljs": "registry:dt/numeraljs#0.0.0+20161014114953"
+  }
+}
