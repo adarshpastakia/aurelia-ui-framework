@@ -1,0 +1,117 @@
+// 
+// @description : 
+// @author      : Adarsh Pastakia
+// @copyright   : 2016
+// @license     : MIT
+
+.ui-panel-group {
+  > .ui-panel {
+    border-radius      : 0;
+    border-bottom-width: 0;
+
+    &:first-child {
+      border-top-left-radius : $base-border-radius;
+      border-top-right-radius: $base-border-radius;
+    }
+
+    &:last-child {
+      border-bottom-width       : 1px;
+      border-bottom-left-radius : $base-border-radius;
+      border-bottom-right-radius: $base-border-radius;
+    }
+  }
+}
+
+.ui-panel {
+  overflow     : hidden;
+  position     : relative;
+  max-height   : 50em;
+  border       : 1px solid $base-border-color;
+  border-radius: $base-border-radius;
+  @include flex-column($align:stretch);
+  @include transition(max-height .5s);
+
+  .ui-panel-body {
+    max-height: 50em;
+    @include flex(1 1 auto);
+  }
+
+  &.ui-collapse {
+    .ui-header-button.ui-collapse span:before {
+      @include transform(rotate(-180deg));
+    }
+
+    max-height: 2em !important;
+  }
+}
+@mixin header-theme($theme, $bg) {
+  $color: contrast-color($bg, $black, $white);
+  
+  &.ui-#{$theme} {
+    background: darken($bg, 5%);
+    color     : $color;
+
+    .ui-drawer-toggle {
+      color: $color !important;
+    }
+
+    .ui-header-button {
+      color     : rgba($color, .7);
+      background: darken($bg, 2%);
+      border    : 1px solid rgba($color, .3);
+      padding   : .25em .5em;
+
+      &:hover {
+        color       : rgba($color, .9);
+        border-color: rgba($color, .5);
+      }
+
+      &:active {
+        background: darken($bg, 4%);
+      }
+    }
+  }
+}
+
+.ui-header {
+  @include flex-auto();
+  @include flex-row($align:center);
+  max-height   : 2.2em !important;
+  padding      : $base-padding;
+  text-shadow  : -1px -1px 0 rgba(0, 0, 0, .1);
+  border-bottom: 1px solid rgba($base-border-color, .3);
+
+  .ui-header-title {
+    @include ellipsis();
+  }
+
+  .ui-header-button {
+    color        : rgba($base-text, .7);
+    background   : lighten($base-bg, 2%);
+    border-radius: $base-border-radius;
+    border       : 1px solid rgba($base-text, .3);
+    text-shadow  : -1px -1px 0 rgba(0, 0, 0, .1);
+
+    span:before {
+      @include transition(transform .5s);
+      @include transform-origin(50% 50% 0);
+    }
+
+    &:hover {
+      color       : rgba($base-text, .9);
+      border-color: rgba($base-text, .5);
+    }
+
+    &:active {
+      background: darken($base-bg, 9%);
+    }
+  }
+  @include header-theme(dark, $dark);
+  @include header-theme(light, $light);
+  @include header-theme(primary, $primary);
+  @include header-theme(secondary, $secondary);
+  @include header-theme(info, $info);
+  @include header-theme(danger, $danger);
+  @include header-theme(success, $success);
+  @include header-theme(warning, $warning);
+}
