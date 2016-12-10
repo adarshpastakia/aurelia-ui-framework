@@ -31,7 +31,10 @@ import './elements/core/ui-page';
 import './elements/inputs/ui-form';
 import './elements/inputs/ui-input';
 import './elements/inputs/ui-textarea';
-import './elements/inputs/ui-dropdown';
+
+import './elements/components/ui-panel';
+import './elements/components/ui-drawer';
+import './elements/components/ui-dropdown';
 
 export function configure(config: FrameworkConfiguration) {
   // Core Elements
@@ -46,7 +49,12 @@ export function configure(config: FrameworkConfiguration) {
     './elements/inputs/ui-input',
     './elements/inputs/ui-phone',
     './elements/inputs/ui-options',
-    './elements/inputs/ui-textarea',
-    './elements/inputs/ui-dropdown'
+    './elements/inputs/ui-textarea'
+  ]);
+  // Components
+  config.globalResources([
+    './elements/components/ui-panel',
+    './elements/components/ui-drawer',
+    './elements/components/ui-dropdown'
   ]);
 }
