@@ -1,7 +1,7 @@
 {
-  "name": "unamed-framework",
+  "name": "aurelia-ui-framework",
   "description": "An Aurelia UI/UX framework.",
-  "version": "0.0.1",
+  "version": "3.0.0",
   "keywords": [
     "ui-framework",
     "desktop-framework",
@@ -14,8 +14,8 @@
   },
   "license": "MIT",
   "author": "Adarsh Pastakia <adarshpastakia@outlook.com> (http://adarshpastakia.github.io/)",
-  "main": "dist/unamed-framework.js",
-  "typings": "dist/typings/unamed-framework.d.ts",
+  "main": "dist/aurelia-ui-framework.js",
+  "typings": "dist/typings/aurelia-ui-framework.d.ts",
   "repository":
   {
     "type": "git",
