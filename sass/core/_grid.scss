@@ -1,0 +1,129 @@
+// 
+// @description : 
+// @author      : Adarsh Pastakia
+// @copyright   : 2016
+// @license     : MIT
+@mixin grid-columns($prefix, $size) {
+   @media only screen and (min-width : $size){
+    @if($size > $grid-sm-min) {
+      .ui-container {
+        display  : block;
+        position : relative;
+        margin   : 0 auto;
+        max-width: $size - 16px;
+      }
+    }
+
+    .ui-hidden-#{$prefix}-up {
+      display: none;
+    }
+    @for $i from 1 through 12 {
+      .ui-col-#{$prefix}-#{$i} {
+        @include flex(0 0 (($i/12)*100%));
+      }
+    }
+  }
+  @media only screen and (max-width : $size) {
+    .ui-hidden-#{$prefix}-down {
+      display: none;
+    }
+  }
+}
+
+// Resposive Row Horizontal
+.ui-row {
+  position: relative;
+  @include flex-row(flex-start);
+}
+
+.ui-row-vertical {
+  position: relative;
+  @include flex-column();
+}
+
+.ui-row-reverse {
+  @include flex-direction(row-reverse);
+}
+
+.ui-row-nowrap {
+  @include flex-wrap(nowrap);
+}
+
+.ui-row-top {
+  @include align-items(flex-start);
+}
+
+.ui-row-middle {
+  @include align-items(center);
+}
+
+.ui-row-bottom {
+  @include align-items(flex-end);
+}
+
+.ui-row-stretch {
+  @include align-items(stretch);
+}
+
+.ui-row-start {
+  @include justify-content(flex-start);
+}
+
+.ui-row-center {
+  @include justify-content(center);
+}
+
+.ui-row-end {
+  @include justify-content(flex-end);
+}
+
+.ui-row-spaced {
+  @include justify-content(space-between);
+}
+
+[class*=" ui-col-"],
+[class^="ui-col-"] {
+  @include flex-basis(100%);
+  position: relative;
+}
+
+.ui-col {
+  position: relative;
+  @include flex-auto();
+}
+
+.ui-col-auto {
+  position: relative;
+  @include flex-auto();
+}
+
+.ui-col-fill {
+  position: relative;
+  @include flex-fill();
+}
+
+.ui-col-full {
+  position: relative;
+  @include flex(1 1 100%);
+}
+
+.ui-col-top {
+  @include align-self(flex-start);
+}
+
+.ui-col-middle {
+  @include align-self(center);
+}
+
+.ui-col-bottom {
+  @include align-self(flex-end);
+}
+
+.ui-col-stretch {
+  @include align-self(stretch);
+}
+@include grid-columns(xs, $grid-xs-min);
+@include grid-columns(sm, $grid-sm-min);
+@include grid-columns(md, $grid-md-min);
+@include grid-columns(lg, $grid-lg-min);
+@include grid-columns(xl, $grid-xl-min);
