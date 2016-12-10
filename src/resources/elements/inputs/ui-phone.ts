@@ -81,7 +81,8 @@ export class UIPhone extends UIBaseInput {
       let len = val.length;
       let start = evt.target.selectionStart;
 
-      if (!this.national && !(/^\+/.test(val))) val = '+' + val;
+      if (val == '' || val == '+') val = '';
+      else if (!this.national && !(/^\+/.test(val))) val = '+' + val;
       this.formatPhone(val);
       if (len < this.inputEl.value.length) start += (this.inputEl.value.length - len);
       try { evt.target.setSelectionRange(start, start); } catch (e) { }
