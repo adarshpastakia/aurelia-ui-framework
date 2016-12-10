@@ -1,0 +1,20 @@
+# Dependency directories
+/typings
+/aurelia_project
+/build
+/custom_typings
+/favicons
+/fonts
+/images
+/scripts
+
+.sass-cache
+
+.DS_Store
+
+/.travis.yml
+/gulpfile.js
+/index.html
+/tsconfig.json
+/tslint.json
+/typings.json
