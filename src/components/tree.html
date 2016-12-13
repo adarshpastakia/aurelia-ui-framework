@@ -1,0 +1,50 @@
+<template>
+  <style>
+    .tree-container {
+      position: relative;
+      height: 450px;
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      justify-items: stretch;
+      border: 1px solid #e5e5e5;
+    }
+
+  </style>
+  <ui-page page-title="Tree">
+    <ui-content padded scroll>
+      <ui-container>
+        <div class="tree-container">
+          <ui-section row-layout>
+          <ui-sidebar scroll>
+            <ui-tree searchable options.bind="treeOpts" model.bind="treeModel" value.bind="treeSelected"></ui-tree>
+          </ui-sidebar>
+          <ui-content padded scroll>
+            <p repeat.for="v of treeSelected | split">
+              <span class="ui-flag ${v}"></span> <span>${countries[v].name || v}</span>
+            </p>
+          </ui-content>
+          <ui-sidebar scroll position="end" label="Options">
+            <ui-option-group>
+              <ui-checkbox change.trigger="clearSelection($event)" checked="true">Show Checkboxes</ui-checkbox>
+            </ui-option-group>
+            <ui-input-group if.bind="treeOpts.showCheckbox">
+              <ui-input-label>Checkbox Level</ui-input-label>
+              <ui-dropdown value.bind="treeOpts.checkboxLevel">
+                <ui-list-item value="0">0</ui-list-item>
+                <ui-list-item value="1">1</ui-list-item>
+              </ui-dropdown>
+            </ui-input-group>
+            <ui-input-group if.bind="!treeOpts.showCheckbox">
+              <ui-input-label>Selection Level</ui-input-label>
+              <ui-dropdown value.bind="treeOpts.selectionLevel">
+                <ui-list-item value="0">0</ui-list-item>
+                <ui-list-item value="1">1</ui-list-item>
+              </ui-dropdown>
+            </ui-input-group>
+          </ui-sidebar>
+        </div>
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>

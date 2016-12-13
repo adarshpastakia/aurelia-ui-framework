@@ -7,8 +7,8 @@ import {autoinject, customElement, bindable, bindingMode, children, inlineView, 
 
 @autoinject()
 @inlineView(`<template class="ui-drawer \${position}">
-  <div class="ui-drawer-content ui-row-column ui-align-stretch">
-    <a class="fi-ui ui-drawer-close ui-col-auto" click.trigger="closeDrawer()"></a>
+  <div class="ui-drawer-content ui-row-vertical ui-align-stretch">
+    <a class="ui-drawer-close ui-col-auto" click.trigger="closeDrawer()"></a>
     <div class="ui-drawer-body ui-col-fill \${bodyCls}"><slot></slot></div>
   </div>
   <div class="ui-drawer-shim" click.trigger="closeDrawer()"></div>
@@ -24,6 +24,8 @@ export class UIDrawer {
   bind(bindingContext: Object, overrideContext: Object) {
     if (this.element.hasAttribute('scroll')) this.bodyCls += ' ui-scroll';
     if (this.element.hasAttribute('padded')) this.bodyCls += ' ui-pad-all';
+
+    if (this.position == 'end') this.glyph = 'arrow-right';
   }
   attached() { }
   detached() { }
@@ -32,6 +34,7 @@ export class UIDrawer {
 
   @bindable() position = "start";
 
+  private glyph = 'arrow-left';
   private bodyCls = '';
 
   closeDrawer() {
@@ -40,7 +43,7 @@ export class UIDrawer {
 }
 
 @autoinject()
-@inlineView('<template class="ui-drawer-toggle ui-link" click.trigger="openDrawer($event)"><slot><span class="fi-ui-${glyph}"></span></slot></template>')
+@inlineView('<template class="ui-drawer-toggle ui-link" click.trigger="openDrawer($event)"><slot><ui-glyph glyph.bind="glyph"></ui-glyph></slot></template>')
 @customElement('ui-drawer-toggle')
 export class UIDrawerToggle {
   constructor(public element: Element) { }
@@ -54,7 +57,7 @@ export class UIDrawerToggle {
   // end aurelia hooks
 
   @bindable() drawer;
-  @bindable() glyph = 'bars-wide';
+  @bindable() glyph = 'bars-thin';
 
   openDrawer(evt) {
     if (evt.button != 0) return true;

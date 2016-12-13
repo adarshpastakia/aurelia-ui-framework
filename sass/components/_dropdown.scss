@@ -5,7 +5,7 @@
 // @license     : MIT
 
 .ui-dropdown {
-  background: darken($light, 2%);
+  background: $light;
   cursor    : pointer;
   position  : relative;
   display   : inline-block;
@@ -15,21 +15,15 @@
     @include ellipsis();
     @include flex-row($wrap:false, $justify: space-between);
     font-size: .9em;
-
-    &:after {
-      font-family: 'Framework';
-      content    : $fi-ui-caret;
-      color      : $muted;
-      font-size  : .65em;
-      // right      : .5em;
-      // top        : .75em;
-      // position   : absolute;
-      @include flex-auto();
-    }
   }
 
-  &:hover .ui-label:after {
-    color: $input-label-text;
+  .ui-caret {
+    font-size: .5em;
+    color    : rgba($input-text, .5);
+  }
+
+  &:hover .ui-caret {
+    color: rgba($input-text, .85);
   }
 
   &.ui-open {
@@ -79,9 +73,20 @@
   }
 
   .ui-list-item {
-    font-size: .9em;
-    display  : list-item;
-    padding  : $base-padding;
+    font-size  : .9em;
+    line-height: 1.5;
+    display    : list-item;
+    padding    : $base-padding;
+
+    * {
+      pointer-events: none;
+    }
+
+    &.ui-disabled {
+      pointer-events: none;
+      color         : $muted;
+      background    : none;
+    }
 
     &.ui-hilight {
       color     : $list-hover-text;

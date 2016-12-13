@@ -1,0 +1,52 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <style>
+    .flag-card {
+      display: inline-block;
+      border-radius: 0.5em;
+      margin: 0.5em;
+      width: 128px;
+      text-align: center;
+    }
+    .flag-card .ui-flag {
+      margin: 0.5rem auto;
+      width: 32px;
+      height: 21px;
+    }
+    .flag-card .name {
+      font-size: 0.8rem;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .flag-card .code {
+      font-size: .6rem;
+    }
+  </style>
+  <ui-page page-title="Flag Icons">
+    <ui-content padded scroll>
+      <ui-container>
+        <h5>Flag Icons
+          <small>
+            Downloaded from
+            <a class="ui-link" target="_blank" href="http://www.flaticon.com/packs/international-flags">Flaticon</a>
+          </small>
+        </h5>
+        <ui-row>
+          <div repeat.for="key of countries | keys">
+            <h5 class="section-title">${key}</h5>
+            <div class="flag-card ui-border-all ui-border-light" repeat.for="c of countries[key]">
+              <div class="ui-flag ${c.iso3}"></div>
+              <div class="name">${c.name}</div>
+              <div class="code ui-text-info ui-selectable">${c.iso2} &nbsp;&nbsp;&nbsp; ${c.iso3}</div>
+            </div>
+          </div>
+        </ui-row>
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>

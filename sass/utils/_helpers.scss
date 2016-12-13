@@ -3,6 +3,51 @@
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
+@mixin color-helper($class, $property) {
+  .ui-#{$class}-primary {
+    #{$property}: $primary;
+  }
+
+  .ui-#{$class}-secondary {
+    #{$property}: $secondary;
+  }
+
+  .ui-#{$class}-white {
+    #{$property}: $white;
+  }
+
+  .ui-#{$class}-black {
+    #{$property}: $black;
+  }
+
+  .ui-#{$class}-light {
+    #{$property}: $light;
+  }
+
+  .ui-#{$class}-muted {
+    #{$property}: $muted;
+  }
+
+  .ui-#{$class}-dark {
+    #{$property}: $dark;
+  }
+
+  .ui-#{$class}-info {
+    #{$property}: $info;
+  }
+
+  .ui-#{$class}-danger {
+    #{$property}: $danger;
+  }
+
+  .ui-#{$class}-success {
+    #{$property}: $success;
+  }
+
+  .ui-#{$class}-warning {
+    #{$property}: $warning;
+  }
+}
 
 .ui-scroll {
   @include scroll();
@@ -14,39 +59,6 @@
 
 .ui-hide {
   visibility: hidden !important;
-}
-
-// BACKGROUNDS
-.ui-bg-primary {
-  background-color: $primary;
-}
-
-.ui-bg-secondary {
-  background-color: $secondary;
-}
-
-.ui-bg-info {
-  background-color: $info;
-}
-
-.ui-bg-danger {
-  background-color: $danger;
-}
-
-.ui-bg-success {
-  background-color: $success;
-}
-
-.ui-bg-warning {
-  background-color: $warning;
-}
-
-.ui-bg-light {
-  background-color: $light;
-}
-
-.ui-bg-dark {
-  background-color: $dark;
 }
 
 // BORDERS
@@ -93,6 +105,14 @@
   margin: $base-padding;
 }
 
+.ui-margin-v {
+  margin: nth($base-padding,1) 0;
+}
+
+.ui-margin-h {
+  margin: 0 nth($base-padding,2);
+}
+
 // MARGINS 
 .ui-pad-none {
   padding: 0;
@@ -101,3 +121,16 @@
 .ui-pad-all {
   padding: $base-padding;
 }
+
+.ui-pad-v {
+  padding: nth($base-padding,1) 0;
+}
+
+.ui-pad-h {
+  padding: 0 nth($base-padding,2);
+}
+
+// COLOR HELPERS
+@include color-helper(bg, background-color);
+@include color-helper(text, color);
+@include color-helper(border, border-color);

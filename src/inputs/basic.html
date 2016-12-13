@@ -4,93 +4,154 @@
 // @license     : MIT
 -->
 <template>
-  <ui-content scroll padded>
-    <ui-container>
-      <ui-row>
-        <ui-column size="md-6" padded>
-          <ui-input-group>
-            <ui-input-label required>Input</ui-input-label>
-            <ui-input email></ui-input>
-            <ui-input-addon>@</ui-input-addon>
-            <ui-input url></ui-input>
-            <ui-input-addon>.com</ui-input-addon>
-          </ui-input-group>
-          <ui-input-group>
-            <ui-input-label required>Input</ui-input-label>
-            <ui-input value="Errored input..." class="ui-invalid" errors.bind="['Input required', 'Input must be minimum 5 characters']"></ui-input>
-          </ui-input-group>
-          <ui-input-group>
-            <ui-input-label required>Input</ui-input-label>
-            <ui-input clear value="Testing clear..."></ui-input>
-          </ui-input-group>
-          <ui-input-group>
-            <ui-input-label required>Input</ui-input-label>
-            <ui-input counter value="Testing the counter...."></ui-input>
-          </ui-input-group>
-          <ui-input-group>
-            <ui-input-label required>Input</ui-input-label>
-            <ui-checkbox checked.bind="indis"></ui-checkbox>
-            <ui-input clear disabled.bind="!indis" value="Testing disabled...."></ui-input>
-          </ui-input-group>
-          <ui-input-group>
-            <ui-input-label required>Input</ui-input-label>
-            <ui-checkbox checked.bind="inred"></ui-checkbox>
-            <ui-input readonly.bind="!inred" value="Testing readonly...."></ui-input>
-          </ui-input-group>
-          <ui-input-group>
-            <ui-input-addon glyph='search'></ui-input-addon>
-            <ui-input placeholder="Search..."></ui-input>
-            <ui-dropdown value="2" width="6em">
-              <ui-list-group label="List items">
-                <ui-list-item value="0">Site</ui-list-item>
-                <ui-list-item value="1">Posts</ui-list-item>
-                <ui-list-item value="2">Blogs</ui-list-item>
-                <ui-list-item value="3">Contacts</ui-list-item>
-              </ui-list-group>
-            </ui-dropdown>
-          </ui-input-group>
-        </ui-column>
-        <ui-column size="md-6" padded>
-          <ui-input-group>
-            <ui-input-label required align-top>Textarea</ui-input-label>
-            <ui-textarea clear counter value="Testing the textarea...." auto-complete="Alpha,Bravo,Charlie,Delta,Echo,Foxtrot,Lima,Omega,Sigma,Theta,Zulu"></ui-textarea>
-            <ui-input-info class="ui-text-info">Info line</ui-input-info>
-          </ui-input-group>
+  <ui-page page-title="Text Inputs">
+    <ui-content scroll padded>
+      <ui-container>
+        <ui-row>
+          <ui-column full>
+            <ui-fieldset legend="Basic Inputs">
+              <ui-row>
+                <ui-column size="md-6" padded>
+                  <ui-input-group>
+                    <ui-input-label>Text</ui-input-label>
+                    <ui-input placeholder="Any text..."></ui-input>
+                  </ui-input-group>
+                  <ui-input-group>
+                    <ui-input-label>Password</ui-input-label>
+                    <ui-input password placeholder="Any text...">
+                      <ui-input-addon><strong class="ui-font-small">Strong</strong></ui-input-addon>
+                    </ui-input>
+                  </ui-input-group>
+                  <ui-input-group>
+                    <ui-input-label>Number</ui-input-label>
+                    <ui-input number placeholder="Any number..."></ui-input>
+                  </ui-input-group>
+                  <ui-input-group>
+                    <ui-input-label>Decimal</ui-input-label>
+                    <ui-input decimal placeholder="Any decimal..."></ui-input>
+                  </ui-input-group>
+                  <ui-input-group>
+                    <ui-input-label>Email</ui-input-label>
+                    <ui-input email placeholder="user@domain.com">
+                      <ui-input-addon glyph="icon-email-line"></ui-input-addon>
+                    </ui-input>
+                  </ui-input-group>
+                  <ui-input-group>
+                    <ui-input-label>URL</ui-input-label>
+                    <ui-input url placeholder="http://domain.com">
+                      <ui-input-addon glyph="icon-web-line"></ui-input-addon>
+                    </ui-input>
+                  </ui-input-group>
+                  <ui-input-group>
+                    <ui-input-label>File</ui-input-label>
+                    <ui-input file placeholder="Any file...">
+                      <ui-input-addon glyph="icon-image-line"></ui-input-addon>
+                    </ui-input>
+                  </ui-input-group>
+                </ui-column>
+                <ui-column size="md-6" padded>
+                  <div class="ui-text-primary">Input States</div>
+                  <ui-input-group>
+                    <ui-input-label>Readonly</ui-input-label>
+                    <ui-input readonly="true" value="Input value..."></ui-input>
+                  </ui-input-group>
+                  <ui-input-group>
+                    <ui-input-label>Disabled</ui-input-label>
+                    <ui-input disabled="true" value="Input value..."></ui-input>
+                  </ui-input-group>
+                  <ui-input-group>
+                    <ui-input-label>Invalid</ui-input-label>
+                    <ui-input value="Errored input..." class="ui-invalid" errors.bind="['Input required', 'Input must be minimum 5 characters']"></ui-input>
+                  </ui-input-group>
+                  <hr/>
+                  <div class="ui-text-primary">Input Extras</div>
+                  <ui-input-group>
+                    <ui-input-label>Clear</ui-input-label>
+                    <ui-input clear value="Text value"></ui-input>
+                  </ui-input-group>
+                  <ui-input-group>
+                    <ui-input-label>Counter</ui-input-label>
+                    <ui-input counter value="Text value"></ui-input>
+                    <ui-input-info class="ui-text-muted">Display remaining length</ui-input-info>
+                  </ui-input-group>
+                </ui-column>
+                <ui-column size="md-6" padded>
+                  <hr/>
+                  <div class="ui-text-primary">Phone Input</div>
+                  <ui-input-group>
+                    <ui-input-label>International</ui-input-label>
+                    <ui-phone>
+                      <ui-input-addon glyph="icon-phone-line"></ui-input-addon>
+                    </ui-phone>
+                  </ui-input-group>
+                  <ui-input-group>
+                    <ui-input-label>National</ui-input-label>
+                    <ui-dropdown value="2">
+                      <ui-list-item value="0">Home</ui-list-item>
+                      <ui-list-item value="1">Work</ui-list-item>
+                      <ui-list-item value="2">Mobile</ui-list-item>
+                    </ui-dropdown>
+                    <ui-phone country="ae">
+                      <ui-input-addon glyph="icon-phone-line"></ui-input-addon>
+                    </ui-phone>
+                  </ui-input-group>
+                </ui-column>
+                <ui-column size="md-6" padded>
+                  <hr/>
+                  <div class="ui-text-primary">Multiline Input</div>
+                  <ui-input-group>
+                    <ui-input-label>Textarea</ui-input-label>
+                    <ui-textarea clear counter value="With auto-complete..." auto-complete="Alpha,Bravo,Charlie,Delta,Echo,Foxtrot,Lima,Omega,Sigma,Theta,Zulu"></ui-textarea>
+                  </ui-input-group>
+                </ui-column>
+              </ui-row>
+            </ui-fieldset>
+          </ui-column>
+          <ui-column full>
+            <ui-fieldset legend="Optional Inputs">
+              <ui-row>
+                <ui-column size="md-6" padded>
+                  <h6 class="ui-text-primary">Single</h6>
+                  <ui-input-group>
+                    <ui-input-label>Microsoft Live</ui-input-label>
+                    <ui-radio name="rdis" value="0" checked.bind="rdis" change.trigger="ropt2=(ropt3='')"></ui-radio>
+                    <ui-input disabled.bind="rdis!=0" value.bind="ropt1"></ui-input>
+                  </ui-input-group>
+                  <ui-input-group>
+                    <ui-input-label>Google</ui-input-label>
+                    <ui-radio name="rdis" value="1" checked.bind="rdis" change.trigger="ropt1=(ropt3='')"></ui-radio>
+                    <ui-input disabled.bind="rdis!=1" value.bind="ropt2"></ui-input>
+                  </ui-input-group>
+                  <ui-input-group>
+                    <ui-input-label>Facebook</ui-input-label>
+                    <ui-radio name="rdis" value="2" checked.bind="rdis" change.trigger="ropt1=(ropt2='')"></ui-radio>
+                    <ui-input disabled.bind="rdis!=2" value.bind="ropt3"></ui-input>
+                  </ui-input-group>
+                </ui-column>
+                <ui-column size="md-6" padded>
+                  <h6 class="ui-text-primary">Multiple</h6>
+                  <ui-input-group>
+                    <ui-input-label>Google+</ui-input-label>
+                    <ui-checkbox checked.bind="dis1" change.trigger="opt1=''"></ui-checkbox>
+                    <ui-input disabled.bind="!dis1" value.bind="opt1" placeholder="Google+ profile..."></ui-input>
+                  </ui-input-group>
+                  <ui-input-group>
+                    <ui-input-label>Facebook</ui-input-label>
+                    <ui-checkbox checked.bind="dis2" change.trigger="opt2=''"></ui-checkbox>
+                    <ui-input disabled.bind="!dis2" value.bind="opt2" placeholder="Facebook profile..."></ui-input>
+                  </ui-input-group>
+                  <ui-input-group>
+                    <ui-input-label>Twitter</ui-input-label>
+                    <ui-checkbox checked.bind="dis3" change.trigger="opt3=''"></ui-checkbox>
+                    <ui-input disabled.bind="!dis3" value.bind="opt3" placeholder="Twitter handle..."></ui-input>
+                  </ui-input-group>
+                </ui-column>
+              </ui-row>
+            </ui-fieldset>
+          </ui-column>
+        </ui-row>
 
-          <ui-fieldset legend="Phone Inputs" enabled="true">
-            <ui-input-group>
-              <ui-input-label required>Phone</ui-input-label>
-              <ui-phone></ui-phone>
-            </ui-input-group>
-            <ui-input-group>
-              <ui-input-label required>Phone</ui-input-label>
-              <ui-dropdown value="2">
-                <ui-list-item value="0">Home</ui-list-item>
-                <ui-list-item value="1">Work</ui-list-item>
-                <ui-list-item value="2">Mobile</ui-list-item>
-              </ui-dropdown>
-              <ui-phone country="ae"></ui-phone>
-            </ui-input-group>
-          </ui-fieldset>
-
-          <ui-fieldset legend="Option Inputs">
-            <ui-option-group>
-              <ui-input-label required>Checkboxes</ui-input-label>
-              <ui-checkbox>Checkbox</ui-checkbox>
-              <ui-checkbox>Checkbox</ui-checkbox>
-              <ui-checkbox disabled="true">Checkbox</ui-checkbox>
-            </ui-option-group>
-            <ui-option-group value="1">
-              <ui-input-label required>Radios</ui-input-label>
-              <ui-radio value="0">Radio</ui-radio>
-              <ui-radio value="1">Radio</ui-radio>
-              <ui-radio value="2">Radio</ui-radio>
-              <ui-radio value="3" disabled="true">Radio</ui-radio>
-            </ui-option-group>
-          </ui-fieldset>
-        </ui-column>
-      </ui-row>
-
-    </ui-container>
-  </ui-content>
+      </ui-container>
+    </ui-content>
+  </ui-page>
 </template>

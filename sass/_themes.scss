@@ -1,0 +1,138 @@
+// 
+// @description : 
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+
+// Switch
+@mixin switch-theme($theme, $offBg: $light, $offText: $muted, $onBg: $dark, $onText: $white) {
+  .ui-switch.#{$theme} {
+    > .ui-switch-input ~ .ui-switch-inner {
+      background-color: $offBg;
+
+      &:before {
+        color: $offText;
+      }
+    }
+
+    > .ui-switch-input:checked ~ .ui-switch-inner {
+      background-color: $onBg;
+
+      &:after {
+        color: $onText;
+      }
+    }
+  }
+}
+//
+
+// Headers
+@mixin header-theme($theme, $bg) {
+  $color: contrast-color($bg, $secondary, $white);
+  
+  .ui-header.#{$theme} {
+    background: darken($bg, 5%);
+    color     : $color;
+
+    .ui-drawer-toggle {
+      color: $color !important;
+    }
+
+    .ui-header-button {
+      color     : rgba($color, .7);
+      background: darken($bg, 2%);
+      border    : 1px solid rgba($color, .3);
+      padding   : .25em .5em;
+
+      &:hover {
+        color       : rgba($color, .9);
+        border-color: rgba($color, .5);
+      }
+
+      &:active {
+        background: darken($bg, 4%);
+      }
+    }
+  }
+}
+//
+
+// Breadcrumbs
+@mixin breadcrumb-theme($theme, $themecolor) {
+  .ui-breadcrumb.#{$theme} .ui-crumb {
+    @for $i from 0 through 12 {
+      $color: lighten($themecolor, $i * 3%);
+      $hover: darken($color, 5%);
+
+      &:nth-child(#{$i + 1}) a {
+        background: $color;
+
+        &:after {
+          border-left-color: $color;
+        }
+
+        &:hover {
+          background: $hover;
+
+          &:after {
+            border-left-color: $hover;
+          }
+        }
+      }
+    }
+  }
+
+  .rtl,
+  [dir="rtl"] {
+    .ui-breadcrumb.#{$theme} .ui-crumb {
+      @for $i from 0 through 12 {
+        $color: lighten($themecolor, $i * 3%);
+        $hover: darken($color, 5%);
+
+        &:nth-child(#{$i + 1}) a {
+          &:after {
+            border-right-color: $color;
+          }
+
+          &:hover:after {
+            border-right-color: $hover;
+          }
+        }
+      }
+    }
+  }
+}
+//
+
+// Buttons
+@mixin button-theme($style, $bg, $text, $hoverBg, $hoverText, $activeBg, $activeText) {
+  .ui-button-group.ui-toggle .ui-button.#{$style}.ui-active {
+    color         : $text;
+    background    : $bg;
+    border-color  : rgba(darken($bg, 15%),.5);
+    cursor        : default;
+    pointer-events: none;
+  }
+
+  .ui-button.#{$style} {
+    color       : $text;
+    background  : $bg;
+    border-color: rgba(darken($bg, 15%),.5);
+
+    &.ui-btn-dropdown:after {
+      color: rgba($text, .8);
+    }
+
+    &:hover {
+      color       : $hoverText;
+      background  : $hoverBg;
+      border-color: rgba(darken($hoverBg, 15%),.5);
+    }
+
+    &:active {
+      color       : $activeText;
+      background  : $activeBg;
+      border-color: rgba(darken($activeBg, 15%),.5);
+    }
+  }
+}

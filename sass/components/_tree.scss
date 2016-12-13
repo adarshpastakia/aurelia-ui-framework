@@ -1,0 +1,114 @@
+// 
+// @description : 
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+.ui-tree-panel {
+  font-size: .9em;
+  display  : block;
+
+  &.has-search {}
+
+  a {
+    text-decoration: none;
+  }
+
+  .ui-search {
+    z-index: 50;
+    top    : 0;
+    margin : 0;
+    width  : 100%;
+    @include sticky();
+  }
+
+  .ui-tree-level {
+    z-index: 10;
+    @include padding(start, .75em);
+  }
+
+  .ui-tree-level .ui-tree-level {
+    @include padding(start, 1.5em);
+  }
+
+  .ui-tree-item {
+    display: block;
+  }
+
+  .ui-tree-item > .ui-tree-item-link {
+    @include flex-row($align: center, $wrap: false);
+    margin: .1em 0;
+
+    &.ui-disabled {
+      pointer-events: none;
+      opacity       : .5;
+    }
+
+    a.ui-expander {
+      font-size    : 1em;
+      line-height  : 1;
+
+      margin       : 0 .1em;
+      padding      : .125em;
+
+      color        : $muted;
+      border-radius: .2em;
+      @include flex(0 0 auto);
+
+      &:hover {
+        color: $primary;
+      }
+    }
+
+    a.ui-node-checkbox {
+      font-size  : 1em;
+      line-height: 1;
+      padding    : .25em;
+      color      : $dark;
+      @include flex(0 0 auto);
+
+      &:hover {
+        color: $tree-active-bg;
+      }
+
+      &.on {
+        & ~ a.ui-link {}
+      }
+    }
+
+    a.ui-node-link {
+      padding    : .25em .25rem;
+      white-space: nowrap;
+      color      : $base-text;
+      @include flex(1 1 1em);
+      @include flex-row($wrap: false);
+
+      span.ui-icon {
+        font-weight: normal;
+        margin     : 0 .25em;
+      }
+
+      b {
+        text-decoration: underline;
+        color          : $tree-active-bg;
+      }
+
+      &:hover {
+        background-color: rgba($tree-active-bg, .25);
+      }
+
+      &.ui-active {
+        color           : $tree-active-text;
+        background-color: rgba($tree-active-bg, .75);
+
+        b {
+          color: $tree-active-text;
+        }
+      }
+
+      &.ui-partial {
+        color          : $tree-active-bg;
+        text-decoration: underline;
+      }
+    }
+  }
+}

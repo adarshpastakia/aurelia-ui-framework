@@ -17,7 +17,7 @@ import {UIUtils} from "../../utils/ui-utils";
     disabled.bind="isDisabled" readonly.bind="readonly"></textarea>
   <ul class="ui-list-container ui-floating" ref="dropdown"><li class="ui-list-item" mouseover.trigger="hilightItem($event)" repeat.for="item of acList" innerhtml.bind="item" data-value.bind="item" click.trigger="replace(item)"></li></ul>
   <span class="ui-clear" if.bind="clear && value" click.trigger="clearInput()">&times;</span>
-  <span class="ui-counter" if.bind="counter" innerhtml.bind="maxlength - value.length"></span>
+  <span class="ui-counter" if.bind="counter" innerhtml.bind="value.length + ' of ' + maxlength"></span>
 </template>`)
 @customElement('ui-textarea')
 export class UITextarea extends UIBaseInput {

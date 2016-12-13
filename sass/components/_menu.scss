@@ -1,0 +1,225 @@
+// 
+// @description : 
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+
+a.ui-menu-item {
+  padding    : .3em .7em;
+  position   : relative;
+  line-height: 1.5;
+
+  color      : $menu-link-text;
+  @include transition(all .5s);
+
+  .ui-menu-label {
+    max-width: 20em;
+    display  : inline-block;
+    @include ellipsis();
+    @include transition(max-width 0.5s);
+  }
+
+  .ui-menu-icon {
+    margin             : 0 .15em;
+    background-position: left center;
+    background-repeat  : no-repeat;
+    background-size    : 1em 1em;
+    @include transition(font-size 0.5s);
+  }
+
+  &:hover {
+    color           : $menu-link-hover-text;
+    background-color: $menu-link-hover-bg;
+  }
+
+  &.ui-disabled {
+    pointer-events: none;
+    color         : $menu-link-disabled;
+  }
+
+  &.ui-active {
+    background      : none;
+    pointer-events  : none;
+    color           : $menu-link-active-text;
+    background-color: $menu-link-active-bg;
+    @include box-shadow(0 -4px 0 0 $primary inset);
+  }
+}
+
+.ui-menu-section-title {
+  font-size: .8em;
+  padding  : .2em .5em;
+  color    : $menu-section-title;
+  display  : block;
+  @include ellipsis();
+}
+
+.ui-menubar {
+  z-index         : 5;
+  font-size       : .8em;
+  @include flex(0 0 auto);
+  @include flex-row($align: center, $wrap:false);
+
+  background-color: $menubar-bg;
+  border-bottom   : 1px solid rgba($base-border-color,.25);
+
+  .ui-menubar-toggle {
+    cursor : pointer;
+    padding: .5em 1em;
+  }
+
+  .ui-menubar-overflow {
+    margin: 0 -.5em;
+  }
+
+  .ui-menubar-wrapper {
+    overflow: hidden;
+    @include flex(1 1 auto);
+    @include flex-row($align: stretch, $wrap:false);
+  }
+
+  .ui-menu-section {
+    margin       : .2em;
+    display      : block;
+    overflow     : hidden;
+    flex         : 0 0 auto;
+    border       : 1px solid rgba($base-border-color, .5);
+    border-radius: $base-border-radius;
+  }
+
+  .ui-menu-section-title {
+    text-align: center;
+  }
+
+  a.ui-menu-item {
+    line-height: 2;
+    white-space: nowrap;
+
+    &:hover {
+      @include box-shadow(0 -4px 0 0 $menu-link-hover-bg inset);
+    }
+
+    &.ui-active {
+      @include box-shadow(0 -4px 0 0 $primary inset);
+    }
+  }
+
+  > a.ui-menu-item {
+    border: {
+      left : 1px solid $dark;
+      right: 1px solid $light;
+    }
+
+    &:first-child {
+      border-left: none;
+    }
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+}
+
+.ui-menu {
+  &:not(.ui-floating) {
+    display: block;
+  }
+
+  &.ui-floating {
+    font-size       : .9em;
+    min-width       : 10em;
+    max-width       : 18em;
+    background-color: $menu-dropdown-bg;
+    border-radius   : $base-border-radius;
+    position        : fixed;
+    display         : none;
+    z-index         : $z-index-floating;
+    @include box-shadow(0 0 2px 0 $base-shadow-color);
+
+    &.ui-tether-top {
+      box-shadow: 0 1px 2px 0 $base-shadow-color;
+    }
+
+    &.ui-tether-bottom {
+      box-shadow: 0 -1px 2px 0 $base-shadow-color;
+    }
+
+    &.ui-open {
+      display: block;
+    }
+
+    .ui-menu-section-title {
+      font-size: .8em;
+    }
+
+    &.ui-tether-top {
+      border-top-left-radius : 0;
+      border-top-right-radius: 0;
+    }
+
+    &.ui-tether-bottom {
+      border-bottom-left-radius : 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+
+  .ui-menu-section {
+    margin  : .25em 0;
+    display : block;
+    overflow: hidden;
+    border  : none;
+
+    .ui-menu-section-title {
+      text-align: left;
+      text-align: start;
+    }
+  }
+
+  .ui-menu-section:not(:first-child):before {
+    content: ' ';
+    display: block;
+    border : {
+      top   : 1px solid $dark;
+      bottom: 1px solid $light;
+    }
+    @include transform(scaleY(.5));
+  }
+
+  .ui-menu-divider {
+    display: block;
+    border : {
+      top   : 1px solid $dark;
+      bottom: 1px solid $light;
+    }
+    @include transform(scaleY(.5));
+  }
+
+  .ui-menu-item {
+    display: block;
+    margin : .5em 0;
+    @include ellipsis();
+
+    &:hover {
+      @include box-shadow(4px 0 0 0 $menu-link-active-bg inset);
+    }
+
+    &.ui-active {
+      color           : $menu-link-active-text;
+      background-color: $menu-link-active-bg;
+      @include box-shadow(4px 0 0 0 $primary inset);
+    }
+  }
+}
+
+.rtl,
+[dir="rtl"] {
+  .ui-menu-item {
+    &:hover {
+      @include box-shadow(-4px 0 0 0 $menu-link-active-bg inset);
+    }
+
+    &.ui-active {
+      @include box-shadow(-4px 0 0 0 $primary inset);
+    }
+  }
+}

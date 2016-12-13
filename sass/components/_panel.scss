@@ -44,34 +44,6 @@
     max-height: 2em !important;
   }
 }
-@mixin header-theme($theme, $bg) {
-  $color: contrast-color($bg, $black, $white);
-  
-  &.ui-#{$theme} {
-    background: darken($bg, 5%);
-    color     : $color;
-
-    .ui-drawer-toggle {
-      color: $color !important;
-    }
-
-    .ui-header-button {
-      color     : rgba($color, .7);
-      background: darken($bg, 2%);
-      border    : 1px solid rgba($color, .3);
-      padding   : .25em .5em;
-
-      &:hover {
-        color       : rgba($color, .9);
-        border-color: rgba($color, .5);
-      }
-
-      &:active {
-        background: darken($bg, 4%);
-      }
-    }
-  }
-}
 
 .ui-header {
   @include flex-auto();
@@ -106,12 +78,12 @@
       background: darken($base-bg, 9%);
     }
   }
-  @include header-theme(dark, $dark);
-  @include header-theme(light, $light);
-  @include header-theme(primary, $primary);
-  @include header-theme(secondary, $secondary);
-  @include header-theme(info, $info);
-  @include header-theme(danger, $danger);
-  @include header-theme(success, $success);
-  @include header-theme(warning, $warning);
 }
+@include header-theme(dark, $dark);
+@include header-theme(light, $light);
+@include header-theme(primary, $primary);
+@include header-theme(secondary, $secondary);
+@include header-theme(info, $info);
+@include header-theme(danger, $danger);
+@include header-theme(success, $success);
+@include header-theme(warning, $warning);

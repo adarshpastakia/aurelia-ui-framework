@@ -1,0 +1,127 @@
+// 
+// @description : 
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+
+.ui-switch-control {
+  @include flex-row($display: inline-flex, $wrap:false);
+
+  .ui-switch-label {
+    font-size: .9em;
+    color    : $input-label-text;
+    @include ellipsis();
+    @include flex(0 1 auto);
+  }
+
+  .ui-switch {
+    overflow     : hidden;
+    display      : inline-block;
+    margin       : .2em;
+    white-space  : nowrap;
+    position     : relative;
+    border-radius: 1em;
+    min-width    : 3em;
+    height       : 1.2em;
+    direction    : ltr;
+    @include flex-auto();
+    @include box-shadow(0 0 0 1px $base-border-color);
+
+    &.ui-focus,
+    &:hover {
+      box-shadow: 0 0 4px 0 $input-focus-border, 0 0 0 1px $base-border-color;
+    }
+
+    &.ui-disabled {
+      cursor        : not-allowed;
+      pointer-events: none;
+
+      &:after {
+        content      : ' ';
+        border-radius: inherit;
+        background   : rgba($input-disabled-bg, .5);
+        @include position(absolute, 0);
+      }
+    }
+
+    .ui-switch-input {
+      opacity: 0;
+      @include position(absolute,0);
+    }
+
+    .ui-switch-inner {
+      font-size       : .7em;
+      display         : block;
+      height          : inherit;
+      cursor          : pointer;
+      text-transform  : uppercase;
+      border-radius   : inherit;
+      background-color: $light;
+      @include transition(background .25s ease-out);
+    }
+
+    .ui-switch-inner:after,
+    .ui-switch-inner:before {
+      text-align: center;
+      padding   : .25em .5em;
+      @include position(absolute, 0);
+      @include transition(opacity .25s ease-out);
+    }
+
+    .ui-switch-inner:before {
+      content    : attr(data-off);
+      color      : $muted;
+      text-shadow: 0 1px rgba($white, .5);
+      @include padding(start, 1.5em);
+    }
+
+    .ui-switch-inner:after {
+      content    : attr(data-on);
+      opacity    : 0;
+      color      : $white;
+      text-shadow: 0 1px rgba($black, .2);
+      @include padding(end, 1.5em);
+    }
+
+    .ui-switch-input:checked ~ .ui-switch-inner {
+      background-color: $dark;
+    }
+
+    .ui-switch-input:checked ~ .ui-switch-inner:before {
+      opacity: 0;
+    }
+
+    .ui-switch-input:checked ~ .ui-switch-inner:after {
+      opacity: 1;
+    }
+
+    .ui-switch-handle {
+      width         : 1em;
+      height        : 1em;
+      margin        : .125em;
+      border-radius : 1em;
+      background    : $white linear-gradient(top, $white, desaturate($white, 5%));
+      border        : 1px solid $base-border-color;
+      box-shadow    : 1px 0 2px 0 rgba(0, 0, 0, .2);
+      pointer-events: none;
+      @include transition(all .25s ease-out);
+      @include position(absolute, 0 auto auto 0);
+    }
+
+    .ui-switch-input:checked ~ .ui-switch-handle {
+      left       : 100%;
+      margin-left: -1.125em;
+      box-shadow : -1px 0 2px 0 rgba(0, 0, 0, .2);
+    }
+  }
+}
+
+//
+@include switch-theme(primary, $onBg: $primary);
+@include switch-theme(secondary, $onBg: $secondary);
+@include switch-theme(info, $onBg: $info);
+@include switch-theme(danger, $onBg: $danger);
+@include switch-theme(success, $onBg: $success);
+@include switch-theme(warning, $onBg: $warning);
+@include switch-theme(ampm, #FBE033, $black, #333333, $white);
+@include switch-theme(gender, #1993C0, $white, #FA60A9, $white);

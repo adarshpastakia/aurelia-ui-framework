@@ -1,0 +1,92 @@
+// 
+// @description : 
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+
+.ui-input-list {
+  .ui-dropdown-handle {
+    cursor   : pointer;
+    font-size: .8rem !important;
+  }
+
+  .ui-tag-item {
+    background   : darken($input-bg, 1%);
+    border-radius: $base-border-radius;
+    border       : 1px solid rgba($base-border-color, .5);
+    padding      : $base-padding;
+    font-size    : .8rem;
+    position     : relative;
+    line-height  : 1;
+    margin       : .2rem;
+    max-width    : 10em;
+    padding-right: 1.5em;
+    @include flex(0 0 auto);
+    @include padding(end, 1.5em);
+    @include ellipsis();
+
+    .ui-clear {
+      right   : 0;
+      position: absolute;
+    }
+  }
+
+  &.tags {
+    @include flex-wrap(wrap);
+  }
+
+  &.listbox {
+    @include flex-wrap(wrap);
+
+    .ui-input.ui-remove {
+      position: absolute;
+      top     : -100%;
+    }
+
+    .ui-list-container {
+      background: none;
+      border-top: 1px solid rgba($base-border-color, .3);
+      @include flex(1 1 100%);
+    }
+  }
+
+  &.reorder {
+    .ui-list-container {
+      background: none;
+      position  : relative;
+      @include flex(1 1 100%);
+    }
+
+    .ui-list-item {
+      cursor: move;
+      @include flex-row($align:center, $wrap: false);
+
+      > span:first-child {
+        @include margin(end, .5em);
+        color: $muted;
+      }
+
+      &:hover {
+        background: none;
+      }
+
+      &.dragging {
+        visibility: hidden;
+      }
+
+      > .ui-icon {
+        // cursor: pointer;
+      }
+    }
+
+    .ui-ghost {
+      color     : $list-hover-text;
+      background: $list-hover-bg;
+      border    : 1px dotted $secondary;
+
+      position  : absolute;
+      left      : 0;
+      right     : 0;
+    }
+  }
+}

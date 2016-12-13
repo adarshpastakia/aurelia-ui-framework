@@ -1,0 +1,194 @@
+// 
+// @description : 
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+
+.ui-button-group {
+  margin: .2rem;
+
+  > .ui-button {
+    @include flex(0 0 auto);
+    margin       : 0;
+    border-radius: 0;
+  }
+
+  &.ui-toggle > .ui-button {
+    color       : $button-default-text;
+    background  : $button-default-bg;
+    border-color: rgba(darken($button-default-bg, 15%),.5);
+  }
+
+  &.ui-disabled > .ui-button {
+    border-color  : darken($button-disabled-bg,10%) !important;
+    box-shadow    : none !important;
+    pointer-events: none !important;
+
+    &:after {
+      content      : ' ';
+      border-radius: inherit;
+      background   : rgba($button-disabled-bg, .5);
+      @include position(absolute, 0);
+    }
+  }
+
+  &.ui-horizontal {
+    @include flex-row($display:inline-flex, $align: stretch);
+  }
+
+  &.ui-vertical {
+    @include flex-column($display:inline-flex, $align: stretch);
+
+    > .ui-button {
+      &:first-child {
+        border-top-left-radius : $base-border-radius;
+        border-top-right-radius: $base-border-radius;
+      }
+
+      &:last-child {
+        border-bottom-left-radius : $base-border-radius;
+        border-bottom-right-radius: $base-border-radius;
+      }
+    }
+  }
+}
+
+.ui-button {
+  font-size    : 1em;
+  color        : $dark;
+  margin       : .2rem;
+  max-width    : 12em;
+  padding      : .3em 1em;
+  line-height  : 1.5;
+  text-shadow  : -1px -1px 0 rgba(0, 0, 0, .1);
+  border-radius: $base-border-radius;
+  border       : 1px solid $base-border-color;
+  position     : relative;
+  cursor       : pointer;
+  display      : inline-block;
+  @include transition(padding .5s);
+  @include box-shadow(1px 1px 2px 0 $base-shadow-color);
+
+  span,
+  strong {
+    pointer-events: none;
+  }
+
+  &.ui-disabled,
+  &[disabled] {
+    border-color  : rgba(darken($button-disabled-bg,10%),.5) !important;
+    box-shadow    : none !important;
+    pointer-events: none !important;
+
+    &:before {
+      content      : ' ';
+      border-radius: inherit;
+      background   : rgba($button-disabled-bg, .75);
+      box-shadow   : 0 0 0 1px rgba($button-disabled-bg, .5);
+      @include position(absolute, 0);
+    }
+  }
+
+  &.ui-busy {
+    box-shadow    : none !important;
+    pointer-events: none !important;
+    padding-left  : 2em;
+    padding-start : 2em;
+    border-color  : rgba(darken($button-disabled-bg,10%),.75) !important;
+
+    .ui-indicator {
+      z-index    : 2;
+      text-shadow: none;
+      position   : absolute;
+      left       : .75em;
+      top        : .5em;
+      // color      : $black;
+    }
+
+    &:after {
+      content      : ' ';
+      z-index      : 0;
+      border-radius: inherit;
+      background   : rgba($white, .25);
+      @include position(absolute, 0);
+    }
+  }
+
+  &.ui-square {
+    padding: .3em;
+  }
+
+  &.ui-round {
+    border-radius: 1.2em;
+  }
+
+  &.ui-big {
+    font-size: 1.3rem;
+  }
+
+  &.ui-small {
+    font-size  : .8rem;
+    font-weight: 600;
+  }
+
+  &.ui-icon-top {
+    text-align: center;
+
+    .ui-label {
+      display: block;
+    }
+
+    &.ui-round {
+      border-radius: 2em;
+    }
+  }
+
+  &.ui-btn-dropdown {
+    &:after {
+      font-size  : .7em;
+      font-family: 'Framework';
+      content    : $fi-ui-caret-down;
+      @include margin(start, 1em);
+    }
+  }
+
+  &.ui-open {
+    &.ui-tether-top {
+      border-top-left-radius : 0;
+      border-top-right-radius: 0;
+    }
+
+    &.ui-tether-bottom {
+      border-bottom-left-radius : 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+
+  .ui-icon {
+    margin: 0 .25em;
+  }
+
+  .ui-label {
+    @include ellipsis();
+  }
+
+  .ui-button-icon {
+    background-position: left center;
+    background-repeat  : no-repeat;
+    background-size    : 1em 1em;
+  }
+
+  &.ui-open,
+  &:active {
+    @include box-shadow(-1px -1px 0 0 rgba($white,.5) inset, 1px 1px 0 0 rgba($base-shadow-color,.5) inset);
+  }
+}
+// @include button-theme(default, $button-default-bg, $button-default-text, $button-default-hover-bg, $button-default-hover-text, $button-default-active-bg, $button-default-active-text);
+@include button-theme(light, $button-light-bg, $button-light-text, $button-light-hover-bg, $button-light-hover-text, $button-light-active-bg, $button-light-active-text);
+@include button-theme(dark, $button-dark-bg, $button-dark-text, $button-dark-hover-bg, $button-dark-hover-text, $button-dark-active-bg, $button-dark-active-text);
+@include button-theme(primary, $button-primary-bg, $button-primary-text, $button-primary-hover-bg, $button-primary-hover-text, $button-primary-active-bg, $button-primary-active-text);
+@include button-theme(secondary, $button-secondary-bg, $button-secondary-text, $button-secondary-hover-bg, $button-secondary-hover-text, $button-secondary-active-bg, $button-secondary-active-text);
+@include button-theme(info, $button-info-bg, $button-info-text, $button-info-hover-bg, $button-info-hover-text, $button-info-active-bg, $button-info-active-text);
+@include button-theme(danger, $button-danger-bg, $button-danger-text, $button-danger-hover-bg, $button-danger-hover-text, $button-danger-active-bg, $button-danger-active-text);
+@include button-theme(success, $button-success-bg, $button-success-text, $button-success-hover-bg, $button-success-hover-text, $button-success-active-bg, $button-success-active-text);
+@include button-theme(warning, $button-warning-bg, $button-warning-text, $button-warning-hover-bg, $button-warning-hover-text, $button-warning-active-bg, $button-warning-active-text);

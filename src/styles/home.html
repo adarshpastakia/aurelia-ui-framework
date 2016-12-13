@@ -1,0 +1,120 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <style>
+    .color-card {
+      min-width: 5rem;
+      font-size: .8rem;
+      text-align: center;
+      padding: 0.5rem 1rem;
+      margin: 0.25rem;
+      display: inline-block;
+      border-radius: 0.5em;
+    }
+
+    .grid-container {
+      position: relative;
+      height: 320px;
+    }
+    .grid-container div {
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-width: .1em;
+      padding: 0.5em 1em;
+      text-align: right;
+      text-align: end;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+    .grid-container .xs {
+      width: 20%;
+      height: 64px;
+    }
+    .grid-container .sm {
+      width: 30%;
+      height: 128px;
+    }
+    .grid-container .md {
+      width: 50%;
+      height: 192px;
+    }
+    .grid-container .lg {
+      width: 75%;
+      height: 256px;
+    }
+    .grid-container .xl {
+      width: 100%;
+      height: 320px;
+    }
+
+  </style>
+  <ui-page page-title="Theming Overview">
+    <ui-content padded scroll>
+      <ui-container>
+        <h5 class="section-title">Theme Colors</h5>
+        <div>
+          <div class="color-card ui-text-light ui-bg-primary">Primary</div>
+          <div class="color-card ui-text-light ui-bg-secondary">Secondary</div>
+          <div class="color-card ui-text-dark ui-bg-light">Light</div>
+          <div class="color-card ui-text-light ui-bg-muted">Muted</div>
+          <div class="color-card ui-text-light ui-bg-dark">Dark</div>
+          <div class="color-card ui-text-light ui-bg-info">Info</div>
+          <div class="color-card ui-text-light ui-bg-danger">Danger</div>
+          <div class="color-card ui-text-light ui-bg-success">Success</div>
+          <div class="color-card ui-text-light ui-bg-warning">Warning</div>
+        </div>
+
+        <hr/>
+        <h5 class="section-title">Fonts</h5>
+        
+        <h6 class="ui-pad-all ui-text-muted">Default</h6>
+        <h4 class="ui-pad-all ui-font-default ui-thin" innerhtml.bind="chars"></h4>
+        <br>
+        <h6 class="ui-pad-all ui-text-muted">Serif</h6>
+        <h4 class="ui-pad-all ui-font-serif ui-thin" innerhtml.bind="chars"></h4>
+        <br>
+        <h6 class="ui-pad-all ui-text-muted">Input</h6>
+        <h4 class="ui-pad-all ui-font-input ui-thin" innerhtml.bind="chars"></h4>
+        <br>
+        <h6 class="ui-pad-all ui-text-muted">Fixed Width</h6>
+        <h4 class="ui-pad-all ui-font-fixed ui-thin" innerhtml.bind="chars"></h4>
+
+        <hr/>
+        <h5 class="section-title">Responsive Sizing</h5>
+        <p class="ui-pad-v">Responsive layout breakpoints</p>
+        <div class="grid-container">
+          <div class="xl ui-hidden-xl-down ui-border-all ui-border-primary">
+            <span class="ui-text-primary">Large Monitor</span>
+            <h6>X-Large<small>1536px &hArr; &infin;</small>
+            </h6>
+          </div>
+          <div class="lg ui-hidden-lg-down ui-border-all ui-border-secondary">
+            <span class="ui-text-secondary">Small Monitor</span>
+            <h6>Large<small>1024px &hArr; 1536px</small>
+            </h6>
+          </div>
+          <div class="md ui-hidden-md-down ui-border-all ui-border-info">
+          <span class="ui-text-info">Tablet</span>
+            <h6>Medium<small>768px &hArr; 1024px</small>
+            </h6>
+          </div>
+          <div class="sm ui-hidden-sm-down ui-border-all ui-border-danger">
+            <span class="ui-text-danger">Mobile</span>
+            <h6>Small<small>480px &hArr; 768px</small>
+            </h6>
+          </div>
+          <div class="xs ui-hidden-xs-down ui-border-all ui-border-warning">
+            <span class="ui-text-danger"></span>
+            <h6>X-Small<small>320px &hArr; 480px</small>
+            </h6>
+          </div>
+        </div>
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>

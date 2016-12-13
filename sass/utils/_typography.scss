@@ -35,10 +35,32 @@ h3,
 h4,
 h5,
 h6 {
+  line-height: 1.5;
+
   small {
     font-size: .7em;
     display  : block;
-    color    : $muted;
+    opacity  : .6;
+  }
+}
+
+p.ui-para {
+  &.emphasis:first-letter {
+    font-size  : 1.5em;
+    line-height: 1;
+    color      : $secondary;
+  }
+
+  &.emphasis-big:first-letter {
+    font-size  : 2.5em;
+    line-height: 1;
+    color      : $secondary;
+  }
+
+  &.emphasis-large:first-letter {
+    font-size  : 4em;
+    line-height: 1;
+    color      : $secondary;
   }
 }
 
@@ -70,10 +92,32 @@ big {
 
 .ui-font-small,
 small {
-  font-size: .7em;
+  font-size: .8em;
+}
+
+.ui-font-default {
+  font-family: $base-font-family;
+}
+
+.ui-font-serif {
+  font-family: $base-font-family-serif;
+}
+
+.ui-font-fixed {
+  font-family: $base-font-family-fixed;
+}
+
+.ui-font-input {
+  font-family: $base-font-family-input;
 }
 
 // FONT WEIGHTS
+.ui-italic,
+em,
+i {
+  font-style: italic;
+}
+
 .ui-bold,
 b {
   font-weight: $font-weight-bold;
@@ -86,6 +130,23 @@ strong {
 
 .ui-thin {
   font-weight: $font-weight-thin;
+}
+
+// TRANSFORM
+.ui-uppercase {
+  text-transform: uppercase;
+}
+
+.ui-lowercase {
+  text-transform: lowercase;
+}
+
+.ui-titlecase {
+  text-transform: capitalize;
+}
+
+.ui-small-caps {
+  font-variant: small-caps;
 }
 
 // ALIGNMENTS
@@ -105,49 +166,4 @@ strong {
 
 .ui-text-justify {
   text-align: justify;
-}
-
-// COLORS
-.ui-link {
-  color: $link-text;
-
-  &:hover {
-    color: $link-hover-text;
-  }
-}
-
-.ui-text-primary {
-  color: $primary;
-}
-
-.ui-text-secondary {
-  color: $secondary;
-}
-
-.ui-text-info {
-  color: $info;
-}
-
-.ui-text-danger {
-  color: $danger;
-}
-
-.ui-text-success {
-  color: $success;
-}
-
-.ui-text-warning {
-  color: $warning;
-}
-
-.ui-text-light {
-  color: $light;
-}
-
-.ui-text-muted {
-  color: $muted;
-}
-
-.ui-text-dark {
-  color: $dark;
 }

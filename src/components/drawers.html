@@ -1,0 +1,39 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <style>
+    .example-container {
+      position: relative;
+      height: 450px;
+      border: 1px solid #f0f0f0;
+    }
+
+  </style>
+  <ui-page page-title="Sidebar">
+    <ui-content padded scroll>
+      <ui-container>
+        <ui-panel>
+          <ui-header light>
+            <ui-drawer-toggle drawer.bind="drawerLeft"></ui-drawer-toggle>
+            <ui-filler></ui-filler>
+            <ui-drawer-toggle drawer.bind="drawerRight" glyph="ellipsis-v"></ui-drawer-toggle>
+          </ui-header>
+          
+          <ui-drawer ref="drawerLeft" position="start" scroll padded>
+            <compose view="../home/lipsum-small.html"></compose>
+          </ui-drawer>
+          <ui-drawer ref="drawerRight" position="end" scroll padded>
+            <compose view="../home/lipsum-small.html"></compose>
+          </ui-drawer>
+          
+          <ui-panel-body max-height="400px" padded scroll>
+            <compose view="../home/lipsum-big.html"></compose>
+          </ui-panel-body>
+        </ui-panel>
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>

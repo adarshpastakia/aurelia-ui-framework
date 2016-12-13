@@ -117,7 +117,7 @@ export class UIInputInfo {
 
 @autoinject()
 @customElement('ui-input-addon')
-@inlineView(`<template class="ui-input-addon" click.trigger="focusEl()"><slot></slot></template>`)
+@inlineView(`<template class="ui-input-addon" click.trigger="focusEl()"><slot><ui-glyph glyph.bind="glyph"></ui-glyph></slot></template>`)
 export class UIInputAddon {
   constructor(public element: Element) {
     if (element.hasAttribute('end')) element.classList.add('ui-end');
@@ -126,19 +126,13 @@ export class UIInputAddon {
 
   // aurelia hooks
   created(owningView: View, myView: View) { }
-  bind(bindingContext: Object, overrideContext: Object) {
-    if (this.glyph) this.element.classList.add('fi-ui-' + this.glyph);
-  }
+  bind(bindingContext: Object, overrideContext: Object) { }
   attached() { }
   detached() { }
   unbind() { }
   // end aurelia hooks
 
   @bindable() glyph = '';
-
-  glyphChanged(newValue) {
-    if (newValue) this.element.classList.add('fi-ui-' + newValue);
-  }
 
   focusEl() {
     let el = this.element.nextElementSibling;

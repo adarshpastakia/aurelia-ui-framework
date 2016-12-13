@@ -1,0 +1,47 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <style>
+    .glyph-card {
+      display: inline-block;
+      border-radius: 0.5em;
+      margin: 0.5em;
+      width: 128px;
+      text-align: center;
+    }
+    .glyph-card .ui-icon {
+      margin: 1rem auto;
+      font-size: 2rem;
+    }
+    .glyph-card .name {
+      font-size: 0.8rem;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+  </style>
+  <ui-page page-title="Glyphs">
+    <ui-content padded scroll>
+      <ui-container>
+        <h5>Icon Glyphs
+        <small>
+          Downloaded from
+          <a class="ui-link" target="_blank" href="http://www.flaticon.com/">Flaticon</a>
+        </small></h5>
+        <div repeat.for="key of glyphs | keys">
+          <h5 class="section-title">${key}</h5>
+          <ui-row>
+            <div class="glyph-card ui-border-all ui-border-light" repeat.for="c of glyphs[key] | sort">
+              <ui-glyph glyph.bind="c"></ui-glyph>
+              <div class="name ui-selectable">${c}</div>
+            </div>
+          </div>
+        </ui-row>
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>

@@ -4,78 +4,338 @@
 // @license     : MIT
 -->
 <template>
+  <style>
+    .browser-list {}
+    .browser-list td {
+      line-height: 1;
+      font-size: 1rem;
+      font-weight: 300;
+      padding: 0.4em 0.8em;
+      border: 1px solid #f0f0f0;
+    }
+
+    .browser-list td.op1 {
+      background: url('images/browsers/success.png') no-repeat center center;
+    }
+    .browser-list td.op2 {
+      background: url('images/browsers/error.png') no-repeat center center;
+    }
+    .browser-list td.op0 {
+      background: url('images/browsers/warning.png') no-repeat center center;
+    }
+    .browser-list tbody tr:nth-child(odd) {
+      background: #fcfcfc;
+    }
+
+    .ui-column > p {
+      margin: 0 0 1em;
+    }
+
+  </style>
   <ui-content scroll padded>
     <ui-container>
-      <div class="ui-text-end ui-pad-all">
-        <div class="indicator ui-bg-primary"></div>
-        <div class="indicator ui-bg-secondary"></div>
-        <div class="indicator ui-bg-info"></div>
-        <div class="indicator ui-bg-danger"></div>
-        <div class="indicator ui-bg-success"></div>
-        <div class="indicator ui-bg-warning"></div>
-      </div>
-      <h1 class="ui-display-1 ui-row ui-row-middle ui-row-center">
+      
+      <div class="ui-row ui-row-middle ui-row-center">
         <img src="images/logo.png" height="64"/>
-        <span class="ui-text-primary">&nbsp;Aurelia UI Framework</span>
-      </h1>
+        <h1 class="ui-display-1 ui-text-primary">&nbsp;Aurelia UI Framework</h1>
+        <div class="ui-col-full ui-font-large ui-thin ui-text-center">A complete UI Framework for desktop business applications.</div>
+      </div>
       <hr/>
+
       <ui-row>
-        <ui-column full padded>
-          <h5>Core Elements</h5>
+        <ui-column fill padded width="320px">
+          <h5 class="section-title">Theming</h5>
+          <p class="ui-para">Themeable stylings built on Compass-Sass</p>
+          <ui-row>
+            <ui-column padded size="sm-6 md-4 lg-6 xl-3">
+              <a href="#/theme/home">Overview
+                <small class="fi-ui-arrow-right"></small>
+              </a>
+              <p class="ui-thin">Basic theming overview</p>
+            </ui-column>
+            <ui-column padded size="sm-6 md-4 lg-6 xl-3">
+              <a href="#/theme/typo">Typography
+                <small class="fi-ui-arrow-right"></small>
+              </a>
+              <p class="ui-thin">Font styles and contextual colors</p>
+            </ui-column>
+            <ui-column padded size="sm-6 md-4 lg-6 xl-3">
+              <a href="#/theme/glyphs">Icon Glyphs
+                <small class="fi-ui-arrow-right"></small>
+              </a>
+              <p class="ui-thin">Font icon glyphs</p>
+            </ui-column>
+            <ui-column padded size="sm-6 md-4 lg-6 xl-3">
+              <a href="#/theme/flags">Flags Icons
+                <small class="fi-ui-arrow-right"></small>
+              </a>
+              <p class="ui-thin">Country flags</p>
+            </ui-column>
+          </ui-row>
+
+          <h5 class="section-title">Core Components</h5>
+          <p class="ui-para">Core viewport and page components for building applications</p>
+          <ui-row>
+            <ui-column padded size="sm-6 md-4 lg-6 xl-3">
+              <a href="#/viewport">Viewport
+                <small class="fi-ui-arrow-right"></small>
+              </a>
+              <p class="ui-thin">Main application viewport</p>
+            </ui-column>
+            <ui-column padded size="sm-6 md-4 lg-6 xl-3">
+              <a href="#/page">Page Components
+                <small class="fi-ui-arrow-right"></small>
+              </a>
+              <p class="ui-thin">Page components for creating various page layouts</p>
+            </ui-column>
+            <ui-column padded size="sm-6 md-4 lg-6 xl-3">
+              <a href="#/grid">Responsive Layout
+                <small class="fi-ui-arrow-right"></small>
+              </a>
+              <p class="ui-thin">Responsive layout for various display viewports</p>
+            </ui-column>
+          </ui-row>
+
+          <h5 class="section-title">Input Elements</h5>
+          <p class="ui-para">Comprehensive input elements for business related forms</p>
+          <ui-row>
+            <ui-column padded size="sm-6 md-4 lg-6 xl-3">
+              <a href="#/inputs/buttons">Buttons
+                <small class="fi-ui-arrow-right"></small>
+              </a>
+              <p class="ui-thin">Basic buttons with groups and dropdowns</p>
+            </ui-column>
+            <ui-column padded size="sm-6 md-4 lg-6 xl-3">
+              <a href="#/inputs/basic">Text Inputs
+                <small class="fi-ui-arrow-right"></small>
+              </a>
+              <p class="ui-thin">Basic inputs for text, numbers and phone numbers</p>
+            </ui-column>
+            <ui-column padded size="sm-6 md-4 lg-6 xl-3">
+              <a href="#/inputs/basic">Multiline Input
+                <small class="fi-ui-arrow-right"></small>
+              </a>
+              <p class="ui-thin">Multiline input with auto-complete</p>
+            </ui-column>
+            <ui-column padded size="sm-6 md-4 lg-6 xl-3">
+              <a href="#/inputs/options">Option Inputs
+                <small class="fi-ui-arrow-right"></small>
+              </a>
+              <p class="ui-thin">Checkbox, radio and switch controls</p>
+            </ui-column>
+            <ui-column padded size="sm-6 md-4 lg-6 xl-3">
+              <a href="#/inputs/lists">List Inputs
+                <small class="fi-ui-arrow-right"></small>
+              </a>
+              <p class="ui-thin">Common list, combo and tag inputs, with search capability</p>
+            </ui-column>
+            <ui-column padded size="sm-6 md-4 lg-6 xl-3">
+              <a href="#/inputs/dates">Date Inputs
+                <small class="fi-ui-arrow-right"></small>
+              </a>
+              <p class="ui-thin">Date/Time inputs</p>
+            </ui-column>
+            <ui-column padded size="sm-6 md-4 lg-6 xl-3">
+              <a href="#/inputs">Content Editors
+                <small class="fi-ui-arrow-right"></small>
+              </a>
+              <p class="ui-thin">Content editors for multi-language and markdown content</p>
+            </ui-column>
+            <ui-column padded size="sm-6 md-4 lg-6 xl-3">
+              <a href="#/inputs">Input Validation
+                <small class="fi-ui-arrow-right"></small>
+              </a>
+              <p class="ui-thin">Input validations and error displays</p>
+            </ui-column>
+          </ui-row>
+
+          <h5 class="section-title">UI Components</h5>
+          <ui-row>
+            <ui-column padded size="sm-6 md-4 lg-6 xl-3">
+              <a href="#/menus/">Menus
+                <small class="fi-ui-arrow-right"></small>
+              </a>
+              <p class="ui-thin">Menu components for creating menu lists and menubars</p>
+            </ui-column>
+            <ui-column padded size="sm-6 md-4 lg-6 xl-3">
+              <a href="#/drawer/">Drawer
+                <small class="fi-ui-arrow-right"></small>
+              </a>
+              <p class="ui-thin">Sliding side drawer</p>
+            </ui-column>
+            <ui-column padded size="sm-6 md-4 lg-6 xl-3">
+              <a href="#/sidebar/">Sidebar
+                <small class="fi-ui-arrow-right"></small>
+              </a>
+              <p class="ui-thin">In page sidebar</p>
+            </ui-column>
+            <ui-column padded size="sm-6 md-4 lg-6 xl-3">
+              <a href="#/toolbar/">Toolbar
+                <small class="fi-ui-arrow-right"></small>
+              </a>
+              <p class="ui-thin">Simple toolbar for dialogs and panels</p>
+            </ui-column>
+            <ui-column padded size="sm-6 md-4 lg-6 xl-3">
+              <a href="#/statsbar/">Statsbar
+                <small class="fi-ui-arrow-right"></small>
+              </a>
+              <p class="ui-thin">Horizontal simple statistics display</p>
+            </ui-column>
+            <ui-column padded size="sm-6 md-4 lg-6 xl-3">
+              <a href="#/panels/">Panels
+                <small class="fi-ui-arrow-right"></small>
+              </a>
+              <p class="ui-thin">Create panels with optional collapsible and closable</p>
+            </ui-column>
+            <ui-column padded size="sm-6 md-4 lg-6 xl-3">
+              <a href="#/dialogs/">Dialogs
+                <small class="fi-ui-arrow-right"></small>
+              </a>
+              <p class="ui-thin">Create panels with optional collapsible and closable</p>
+            </ui-column>
+            <ui-column padded size="sm-6 md-4 lg-6 xl-3">
+              <a href="#/alerts/">Alerts
+                <small class="fi-ui-arrow-right"></small>
+              </a>
+              <p class="ui-thin">Alert dialogs and floating toast messages</p>
+            </ui-column>
+            <ui-column padded size="sm-6 md-4 lg-6 xl-3">
+              <a href="#/breadcrumbs/">Breadcrumbs
+                <small class="fi-ui-arrow-right"></small>
+              </a>
+              <p class="ui-thin">Themed breadcrumbs for navugating through various levels</p>
+            </ui-column>
+            <ui-column padded size="sm-6 md-4 lg-6 xl-3">
+              <a href="#/tabs/">Tab Panel
+                <small class="fi-ui-arrow-right"></small>
+              </a>
+              <p class="ui-thin">Tabbed panels</p>
+            </ui-column>
+            <ui-column padded size="sm-6 md-4 lg-6 xl-3">
+              <a href="#/tree/">Tree Panel
+                <small class="fi-ui-arrow-right"></small>
+              </a>
+              <p class="ui-thin">Tree styled data display with optional checkable nodes</p>
+            </ui-column>
+            <ui-column padded size="sm-6 md-4 lg-6 xl-3">
+              <a href="#/datagrid/">Datagrid
+                <small class="fi-ui-arrow-right"></small>
+              </a>
+              <p class="ui-thin">Functional datagrid with resizable columns and summary row.</p>
+            </ui-column>
+          </ui-row>
+
+          <h5 class="section-title">App Modules</h5>
+          <ui-row>
+            <ui-column padded size="sm-6 md-4 lg-6 xl-3">
+              <a href="#/application/">Application
+                <small class="fi-ui-arrow-right"></small>
+              </a>
+              <p class="ui-thin">Application singleton for common functionality shared across entire app</p>
+            </ui-column>
+            <ui-column padded size="sm-6 md-4 lg-6 xl-3">
+              <a href="#/http-client/">Http Client
+                <small class="fi-ui-arrow-right"></small>
+              </a>
+              <p class="ui-thin">Extended aurelia-fetch-client for http requests</p>
+            </ui-column>
+            <ui-column padded size="sm-6 md-4 lg-6 xl-3">
+              <a href="#/data-model/">Data Model
+                <small class="fi-ui-arrow-right"></small>
+              </a>
+              <p class="ui-thin">Generic data model for serializing/desrializing pojo data</p>
+            </ui-column>
+            <ui-column padded size="sm-6 md-4 lg-6 xl-3">
+              <a href="#/value-converters/">Value Converters
+                <small class="fi-ui-arrow-right"></small>
+              </a>
+              <p class="ui-thin">Basic value converters for strings and collections</p>
+            </ui-column>
+          </ui-row>
         </ui-column>
-        <ui-column padded auto>
-          <a href="#/viewport" class="card ui-link">
-            <img src="images/icons/viewport.png"/>
-            <p>Viewport<br/>&nbsp;</p>
-          </a>
-        </ui-column>
-        <ui-column padded auto>
-          <a href="#/grid" class="card ui-link">
-            <img src="images/icons/grid.png"/>
-            <p>Responsive Layout</p>
-          </a>
-        </ui-column>
-        <ui-column padded auto>
-          <a href="#/grid" class="card ui-link">
-            <img src="images/icons/page.png"/>
-            <p>Page Layout</p>
-          </a>
-        </ui-column>
-      </ui-row>
-      <br/>
-      <ui-row>
-        <ui-column full padded>
-          <h5>Input Elements</h5>
-        </ui-column>
-        <ui-column padded auto>
-          <a href="#/inputs/basic" class="card ui-link">
-            <img src="images/icons/input.png"/>
-            <p>Basic Inputs</p>
-          </a>
-        </ui-column>
-        <ui-column padded auto>
-          <a href="#/inputs/basic" class="card ui-link">
-            <img src="images/icons/combo-box.png"/>
-            <p>List Inputs</p>
-          </a>
-        </ui-column>
-        <ui-column padded auto>
-          <a href="#/inputs/basic" class="card ui-link">
-            <img src="images/icons/options.png"/>
-            <p>Option Inputs</p>
-          </a>
-        </ui-column>
-        <ui-column padded auto>
-          <a href="#/inputs/basic" class="card ui-link">
-            <img src="images/icons/date-input.png"/>
-            <p>Date/Time Inputs</p>
-          </a>
-        </ui-column>
-        <ui-column padded auto>
-          <a href="#/inputs/basic" class="card ui-link">
-            <img src="images/icons/md-editor.png"/>
-            <p>Markdown Editor</p>
-          </a>
+
+        <ui-column auto padded>
+          <h5 class="section-title">Browser Support</h5>
+          <table class="browser-list">
+            <tr>
+              <td colspan="7" style="border:none;text-align:right;">
+                <span class="ui-font-small"><img src="images/browsers/success.png" height="12px"/>
+                  Tested&nbsp;&nbsp;</span>
+                <span class="ui-font-small"><img src="images/browsers/warning.png" height="12px"/>
+                  Untested&nbsp;&nbsp;</span>
+                <span class="ui-font-small"><img src="images/browsers/error.png" height="12px"/>
+                  Known Issues</span>
+              </td>
+            </tr>
+            <tr>
+              <td width="180px">&nbsp;</td>
+              <td><img src="images/browsers/safari.png" width="32"/></td>
+              <td><img src="images/browsers/chrome.png" width="32"/></td>
+              <td><img src="images/browsers/firefox.png" width="32"/></td>
+              <td><img src="images/browsers/opera.png" width="32"/></td>
+              <td><img src="images/browsers/edge.png" width="32"/></td>
+            </tr>
+            <tbody>
+              <tr>
+                <td colspan="7">
+                  <span class="ui-strong ui-text-primary">Core Components</span>
+                </td>
+              </tr>
+              <tr repeat.for="el of core">
+                <td>${el.label}</td>
+                <td class="op${el.s}"></td>
+                <td class="op${el.c}"></td>
+                <td class="op${el.f}"></td>
+                <td class="op${el.o}"></td>
+                <td class="op${el.e}"></td>
+              </tr>
+            </tbody>
+            <tbody>
+              <tr>
+                <td colspan="7">
+                  <span class="ui-strong ui-text-primary">Input Elements</span>
+                </td>
+              </tr>
+              <tr repeat.for="el of inputs">
+                <td>${el.label}</td>
+                <td class="op${el.s}"></td>
+                <td class="op${el.c}"></td>
+                <td class="op${el.f}"></td>
+                <td class="op${el.o}"></td>
+                <td class="op${el.e}"></td>
+              </tr>
+            </tbody>
+            <tbody>
+              <tr>
+                <td colspan="7">
+                  <span class="ui-strong ui-text-primary">UI Components</span>
+                </td>
+              </tr>
+              <tr repeat.for="el of comps">
+                <td>${el.label}</td>
+                <td class="op${el.s}"></td>
+                <td class="op${el.c}"></td>
+                <td class="op${el.f}"></td>
+                <td class="op${el.o}"></td>
+                <td class="op${el.e}"></td>
+              </tr>
+            </tbody>
+            <tbody>
+              <tr>
+                <td colspan="7">
+                  <span class="ui-strong ui-text-primary">Features</span>
+                </td>
+              </tr>
+              <tr repeat.for="el of features">
+                <td>${el.label}</td>
+                <td class="op${el.s}"></td>
+                <td class="op${el.c}"></td>
+                <td class="op${el.f}"></td>
+                <td class="op${el.o}"></td>
+                <td class="op${el.e}"></td>
+              </tr>
+            </tbody>
+          </table>
         </ui-column>
       </ui-row>
 

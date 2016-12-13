@@ -9,26 +9,25 @@ import {UIUtils} from "../../utils/ui-utils";
 import {UIEvent} from "../../utils/ui-event";
 
 @autoinject()
-@inlineView(`<template class="ui-viewport">
+@inlineView(`<template class="ui-viewport ui-fullscreen">
   <slot name="ui-app-header"></slot>
   <slot></slot>
   <slot name="ui-app-taskbar"></slot>
   <slot name="ui-app-footer"></slot>
-
+  
   <div class="ui-dialog-container" ref="__dialogContainer"></div>
   <div class="ui-overlay-container" ref="__overlayContainer"></div>
 
   <div class="ui-loader" show.bind="router.isNavigating || httpClient.isRequesting">
     <div class="ui-loader-div">
-      <span class="fi-ui-settings ui-spin"></span>
-      <span class="fi-ui-settings ui-spin-opp"></span>
+      <span class="fi-ui-load2 ui-anim-loader"></span>
     </div>
   </div>
 </template>`)
 @customElement('ui-viewport')
 export class UIViewport {
   constructor(public element: Element, public httpClient: HttpClient, container: Container) {
-    if (element.hasAttribute('fullscreen')) element.classList.add('fullscreen');
+    //if (element.hasAttribute('fullscreen')) element.classList.add('fullscreen');
     UIUtils.auContainer = container;
 
     var __resizeTimer;

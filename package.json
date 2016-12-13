@@ -24,12 +24,11 @@
   "scripts":
   {
     "start": "au run --watch",
-    "staging": "au build --env stage && concurrently \"gulp production\"",
-    "production": "au build --env prod && concurrently \"gulp production\""
+    "staging": "au build --env stage && gulp production",
+    "production": "au build --env prod && gulp production"
   },
   "dependencies":
   {
-    "aurelia-animator-css": "^1.0.0",
     "aurelia-bootstrapper": "^1.0.0",
     "aurelia-fetch-client": "^1.0.1",
     "aurelia-validation": "^0.14.0",

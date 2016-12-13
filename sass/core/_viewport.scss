@@ -33,21 +33,23 @@
     .ui-app-title {
       @include flex-auto();
       padding: .5rem 0;
+      color  : $app-header-link-text;
     }
-    
+
     > :first-child {
-      margin-left: 1em;
+      margin-left : 1em;
       margin-start: 1em;
     }
 
     .ui-app-logo {
       height: 3rem;
     }
-    
+
     .ui-link {
       color: $app-header-link-text;
+
       &:hover {
-        color: $app-header-link-hover-text;
+        color: $secondary;
       }
     }
   }
@@ -87,21 +89,11 @@
 
       background   : $base-bg;
       overflow     : hidden;
-      padding      : .8em .5em;
+      padding      : .8rem;
       line-height  : 1;
+      font-size    : 2rem;
       z-index      : $z-index-splash;
       border-radius: $base-border-radius;
-
-      span:first-child {
-        font-size: 2em;
-        color    : $primary;
-      }
-
-      span:last-child {
-        font-size  : 1.25em;
-        margin-left: -5px;
-        color      : $muted;
-      }
     }
   }
 

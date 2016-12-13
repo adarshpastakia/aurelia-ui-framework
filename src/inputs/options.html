@@ -1,0 +1,70 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <ui-page page-title="Option Inputs">
+    <ui-content scroll padded>
+      <ui-container>
+        <ui-row>
+          <ui-column size="md-6">
+            <ui-fieldset legend="Checkboxes">
+              <ui-option-group columns="4">
+                <ui-input-label>Colors</ui-input-label>
+                <ui-checkbox checked="true">Red</ui-checkbox>
+                <ui-checkbox checked="false">Green</ui-checkbox>
+                <ui-checkbox checked="false">Blue</ui-checkbox>
+                <ui-checkbox checked="false">Orange</ui-checkbox>
+                <ui-checkbox checked="false">Yellow</ui-checkbox>
+                <ui-checkbox checked="false">Purple</ui-checkbox>
+                <ui-checkbox checked="false">Indigo</ui-checkbox>
+                <ui-checkbox checked="false">Brown</ui-checkbox>
+              </ui-option-group>
+            </ui-fieldset>
+          </ui-column>
+          <ui-column size="md-6">
+            <ui-fieldset legend="Radio">
+              <ui-option-group columns="3" value="square" name="shapes">
+                <ui-input-label>Shape</ui-input-label>
+                <ui-radio value="line">Line</ui-radio>
+                <ui-radio value="square">Square</ui-radio>
+                <ui-radio value="circle">Circle</ui-radio>
+                <ui-radio value="ellipse">Ellipse</ui-radio>
+                <ui-radio value="star">Star</ui-radio>
+                <ui-radio value="triangle">Triangle</ui-radio>
+              </ui-option-group>
+            </ui-fieldset>
+          </ui-column>
+          <ui-column size="md-6">
+            <ui-fieldset legend="Switches">
+              <ui-option-group columns="2">
+                <ui-input-label>Pattern</ui-input-label>
+                <ui-switch primary>Moire</ui-switch>
+                <ui-switch secondary>Cross Hatch</ui-switch>
+                <ui-switch info>Bubbles</ui-switch>
+                <ui-switch danger>Bricks</ui-switch>
+              </ui-option-group>
+            </ui-fieldset>
+          </ui-column>
+          <ui-column size="md-6">
+            <ui-fieldset legend="Custom Switches">
+              <ui-option-group>
+                <ui-input-label>Time</ui-input-label>
+                <ui-switch theme="ampm" on-label="PM" off-label="AM"></ui-switch>
+              </ui-option-group>
+              <ui-option-group>
+                <ui-input-label>Gender</ui-input-label>
+                <ui-switch theme="gender" on-label="Female" off-label="Male" size="5em"></ui-switch>
+              </ui-option-group>
+              <ui-option-group>
+                <ui-input-label></ui-input-label>
+                <ui-switch danger on-label="High Priority" off-label="Low Priority" size="7em"></ui-switch>
+              </ui-option-group>
+            </ui-fieldset>
+          </ui-column>
+        </ui-row>
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>

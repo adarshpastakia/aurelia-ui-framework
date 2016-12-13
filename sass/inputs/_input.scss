@@ -4,83 +4,6 @@
 // @copyright   : 2017
 // @license     : MIT
 
-.ui-fieldset {
-  fieldset {
-    margin       : .75em .5em;
-    overflow     : hidden;
-    max-height   : 20rem;
-    border-radius: $base-border-radius;
-    border       : 1px solid $base-border-color;
-    @include transition(max-height .5s);
-  }
-
-  legend {
-    margin   : 0 .25em;
-    padding  : 0 .25em;
-    font-size: .9em;
-
-    > span {
-      font-size: .9em;
-      color    : $input-label-text;
-    }
-  }
-
-  &.ui-collapse fieldset {
-    max-height: 1.25rem;
-  }
-}
-
-.ui-input-group {
-  @include flex-row($display: flex, $align:flex-start);
-  margin   : .75em .5em;
-  max-width: 100%;
-
-  .ui-input-label {
-    @include flex(0 0 8em);
-    @include padding(end, .5rem);
-    position : relative;
-    font-size: .9em;
-    margin   : .25em 0;
-    color    : $input-label-text;
-
-    &.ui-required:after {
-      content  : '*';
-      color    : $secondary;
-      position : absolute;
-      font-size: .7rem;
-      margin   : 0 .2rem;
-      top      : .1rem;
-    }
-
-    &.ui-align-top {
-      @include flex-basis(100%);
-    }
-  }
-
-  &.ui-focus .ui-input-label {
-    font-weight: 600;
-  }
-
-  .ui-input-info {
-    font-size: .75em;
-    padding  : $base-padding;
-  }
-
-  > div {
-    @include flex(1 1 12em);
-  }
-
-  .ui-group-wrapper {
-    @include flex-row($display: flex, $align: stretch, $wrap: false);
-
-    .ui-input-addon,
-    .ui-option {
-      margin: .25em 0;
-      @include flex-auto();
-    }
-  }
-}
-
 .ui-input-control {
   @include flex-row($display: inline-flex, $wrap:false, $align: stretch);
   @include flex(1 1 4em);
@@ -111,7 +34,7 @@
     &:after {
       content   : '';
       @include position(absolute, 0);
-      background: rgba($input-disabled-bg, 0.1);
+      background: rgba($input-disabled-bg, 0.5);
     }
   }
 
@@ -159,7 +82,6 @@
 
   .ui-error {
     @include flex-auto();
-    @include glyph($fi-ui-error-line);
     padding   : .1em 0;
     color     : $input-error-text;
     background: $input-error-bg;
@@ -181,7 +103,6 @@
 
   .ui-caret {
     @include flex-auto();
-    @include glyph($fi-ui-caret);
     padding: .25em .1em;
     cursor : pointer;
     color  : $muted;

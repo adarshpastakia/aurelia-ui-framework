@@ -43,6 +43,49 @@
     @include transform(scale(2));
   }
 }
+@include keyframes(color) {
+  0% {
+    color: $info;
+  }
+  24% {
+    color: $info;
+  }
+  25% {
+    color: $danger;
+  }
+  49% {
+    color: $danger;
+  }
+  50% {
+    color: $success;
+  }
+  74% {
+    color: $success;
+  }
+  75% {
+    color: $warning;
+  }
+  99% {
+    color: $warning;
+  }
+  100% {
+    color: $info;
+  }
+}
+@include keyframes(icon) {
+  0% {
+      content: '$fi-ui-load1';
+  }
+  25% {
+      content: '$fi-ui-load2';
+  }
+  50% {
+      content: '$fi-ui-load3';
+  }
+  75% {
+      content: '$fi-ui-load4';
+  }
+}
 
 [class*='fi-'],
 [class^='fi-'] {
@@ -70,5 +113,9 @@
 
   &.ui-pendulum {
     @include animation(pendulum 1s linear infinite);
+  }
+
+  &.ui-anim-loader {
+    @include animation(spin 2s linear infinite, color 8s linear infinite);
   }
 }

@@ -25,8 +25,6 @@ export class UIPhone extends UIBaseInput {
     this.clear = element.hasAttribute('clear');
 
     if (this.national = element.hasAttribute('country')) this.country = 'us';
-
-    element['focus'] = () => this.focus();
   }
 
   // aurelia hooks
@@ -34,6 +32,7 @@ export class UIPhone extends UIBaseInput {
   bind(bindingContext: Object, overrideContext: Object) {
     super.bind.call(this, arguments);
     this.countryChanged(this.country);
+    UIEvent.queueTask(() => this.valueChanged(this.value));
   }
   attached() { }
   detached() { }

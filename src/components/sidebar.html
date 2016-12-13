@@ -1,0 +1,78 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <style>
+    .example-container {
+      position: relative;
+      height: 450px;
+      border: 1px solid #f0f0f0;
+    }
+
+  </style>
+  <ui-page page-title="Sidebar">
+    <ui-content padded scroll>
+      <ui-container>
+        <ui-panel>
+          <ui-panel-body max-height="400px" flex>
+            <ui-section row-layout>
+              <ui-sidebar label="Sidebar" collapsible padded scroll>
+                <compose view="../home/lipsum-small.html"></compose>
+              </ui-sidebar>
+              <ui-content padded scroll>
+                <compose view="../home/lipsum-big.html"></compose>
+              </ui-content>
+            </ui-section>
+          </ui-panel-body>
+        </ui-panel>
+        <br/><br/>
+        <ui-panel>
+          <ui-panel-body max-height="400px" flex>
+            <ui-section row-layout>
+              <ui-content padded scroll>
+                <compose view="../home/lipsum-big.html"></compose>
+              </ui-content>
+              <ui-sidebar label="Sidebar" collapsible padded scroll position="end">
+                <compose view="../home/lipsum-small.html"></compose>
+              </ui-sidebar>
+            </ui-section>
+          </ui-panel-body>
+        </ui-panel>
+        <br/><br/>
+        <h5 class="section-title">Collapsing Mini Display</h5>
+        <ui-panel>
+          <ui-panel-body max-height="400px" flex>
+            <ui-section row-layout>
+              <ui-sidebar label="Sidebar" collapsed="true" collapsible scroll mini-display>
+                <ui-menu>
+                  <ui-menu-item active="true" glyph="icon-email-line">
+                    Inbox</ui-menu-item>
+                  <ui-menu-item glyph="icon-calendar-line">
+                    Calendar</ui-menu-item>
+                  <ui-menu-item glyph="icon-comments-line">
+                    Notification</ui-menu-item>
+                  <ui-menu-divider></ui-menu-divider>
+                  <ui-menu-item glyph="icon-cog-line">
+                    Settings</ui-menu-item>
+                </ui-menu>
+              </ui-sidebar>
+              <ui-content padded scroll>
+                <compose view="../home/lipsum-big.html"></compose>
+              </ui-content>
+              <ui-sidebar class="ui-font-small" label="Sidebar" collapsed="true" scroll mini-display position="end">
+                <ui-menu>
+                  <ui-menu-item glyph="icon-add"></ui-menu-item>
+                  <ui-menu-item glyph="icon-remove"></ui-menu-item>
+                  <ui-menu-item glyph="icon-notify"></ui-menu-item>
+                </ui-menu>
+              </ui-sidebar>
+            </ui-section>
+          </ui-panel-body>
+        </ui-panel>
+        <br/><br/>
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>

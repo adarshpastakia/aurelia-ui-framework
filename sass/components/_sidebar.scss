@@ -1,0 +1,203 @@
+// 
+// @description : 
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+.ui-sidebar {
+  z-index   : 5;
+  overflow  : hidden;
+  position  : relative;
+  background: $drawer-bg;
+  max-width : $sidebar-width;
+  @include flex(0 0 $sidebar-width);
+  @include transition(max-width .5s);
+
+  .ui-sidebar-title {
+    color         : rgba($base-text, .75);
+    pointer-events: none;
+    font-size     : 1.2em;
+    padding       : $base-padding;
+    left          : 0;
+    top           : 0;
+    line-height   : 1.2;
+    @include ellipsis();
+    @include transition(all .25s);
+    @include apply-origin(0% 0% 0, false);
+  }
+
+  .ui-sidebar-head {
+    border-bottom: 1px solid rgba($base-border-color, .25);
+
+    .ui-sidebar-close {
+      line-height: 1;
+    }
+  }
+
+  &.start {
+    @include order(-1);
+    @include border(end, 1px solid rgba($base-border-color, .5));
+
+    .ui-sidebar-close {
+      @include glyph($fi-ui-arrow-left);
+    }
+
+    &.ui-collapse {
+      &:not(.ui-mini-display) {
+        .ui-sidebar-content {
+          left: -1 * $sidebar-width;
+          @include transition(left .5s);
+          @include border(end, 1px solid $base-border-color);
+        }
+
+        .ui-sidebar-close {
+          @include glyph($fi-ui-arrow-right);
+        }
+
+        &.ui-show-overlay {
+          .ui-sidebar-content {
+            left: 2rem;
+            @include box-shadow(25px 0 50px 5px rgba($base-shadow-color, .25));
+          }
+        }
+      }
+    }
+  }
+
+  &.end {
+    @include order(1);
+    @include border(start, 1px solid rgba($base-border-color, .5));
+
+    .ui-sidebar-head {
+      @include flex-direction(row-reverse);
+    }
+
+    .ui-sidebar-close {
+      @include glyph($fi-ui-arrow-right);
+    }
+
+    &.ui-collapse {
+      &:not(.ui-mini-display) {
+        .ui-sidebar-content {
+          right: -1 * $sidebar-width;
+          @include transition(right .5s);
+          @include border(start, 1px solid $base-border-color);
+        }
+
+        .ui-sidebar-close {
+          @include glyph($fi-ui-arrow-left);
+        }
+
+        &.ui-show-overlay {
+          .ui-sidebar-content {
+            right: 2rem;
+            @include box-shadow(-25px 0 50px 5px rgba($base-shadow-color, .25));
+          }
+        }
+      }
+    }
+  }
+
+  &.ui-collapse {
+    overflow: visible;
+
+    &:not(.ui-mini-display) {
+      z-index  : 10;
+      max-width: 2rem;
+
+      .ui-sidebar-content {
+        width           : $sidebar-width;
+        z-index         : $z-index-floating;
+        background-color: $drawer-bg;
+        @include position(absolute, 0 auto);
+      }
+
+      .ui-sidebar-title {
+        @include transform(rotate(90deg) translate(2em,-100%));
+        position: absolute;
+      }
+    }
+
+    &.ui-font-small {
+      font-size: .5rem;
+    }
+
+    &.ui-mini-display {
+      max-width: 4em;
+
+      .ui-sidebar-title {
+        display: none;
+      }
+
+      .ui-menu-item {
+        text-overflow: clip;
+
+        .ui-menu-icon {
+          font-size: 2em;
+        }
+
+        .ui-menu-label {
+          max-width: 0;
+        }
+      }
+    }
+  }
+}
+
+.rtl,
+[dir="rtl"] {
+  .ui-sidebar {
+    &.start {
+      .ui-sidebar-close {
+        @include glyph($fi-ui-arrow-right);
+      }
+
+      &.ui-collapse {
+        .ui-sidebar-close {
+          @include glyph($fi-ui-arrow-left);
+        }
+
+        &:not(.ui-mini-display) {
+          .ui-sidebar-content {
+            left : auto;
+            right: -1 * $sidebar-width;
+            @include transition(right .5s);
+          }
+
+          &.ui-show-overlay {
+            .ui-sidebar-content {
+              right: 2rem;
+              @include box-shadow(-25px 0 50px 5px rgba($base-shadow-color, .25));
+            }
+          }
+        }
+      }
+    }
+
+    &.end {
+      .ui-sidebar-close {
+        @include glyph($fi-ui-arrow-left);
+      }
+
+      &.ui-collapse {
+        .ui-sidebar-close {
+          @include glyph($fi-ui-arrow-right);
+        }
+
+        &:not(.ui-mini-display) {
+          .ui-sidebar-content {
+            right: auto;
+            left : -1 * $sidebar-width;
+            @include transition(left .5s);
+          }
+
+          &.ui-show-overlay {
+            .ui-sidebar-content {
+              left: 2rem;
+              @include box-shadow(25px 0 50px 5px rgba($base-shadow-color, .25));
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -18,6 +18,7 @@ export class UIBaseInput {
   isDisabled = false;
 
   bind(bindingContext: Object, overrideContext: Object) {
+    this.element['focus'] = () => this.focus();
     this.disabledChanged(this.disabled);
     this.readonlyChanged(this.readonly);
   }
@@ -60,7 +61,8 @@ export class UIBaseInput {
 }
 
 @autoinject()
-@inlineView(`<template role="input" class="ui-input-control"><span class="ui-error" if.bind="errors"><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
+@inlineView(`<template role="input" class="ui-input-control"><slot></slot>
+  <span class="ui-error" if.bind="errors"><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
   <input ref="inputEl" type.bind="type" value.bind="value" size.bind="size" maxlength.bind="maxlength" dir.bind="dir"
     focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)"
     input.trigger="fireEvent($event)" change.trigger="fireEvent($event)"
@@ -82,8 +84,6 @@ export class UIInput extends UIBaseInput {
     if (element.hasAttribute('number') || element.hasAttribute('number.bind')) this.type = 'number';
     if (element.hasAttribute('decimal') || element.hasAttribute('decimal.bind')) this.type = 'number';
     if (element.hasAttribute('password')) this.type = 'password';
-
-    element['focus'] = () => this.focus();
   }
 
   // aurelia hooks

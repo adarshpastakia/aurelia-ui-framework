@@ -7,7 +7,7 @@ import {autoinject, customElement, bindable, bindingMode, children, inlineView, 
 import {UIEvent} from "../../utils/ui-event";
 
 @autoinject()
-@inlineView(`<template class="ui-panel \${collapsed?'ui-collapse':''}" collapse.trigger="toggleCollapse()" close.trigger="closePanel()"><slot></slot></template>`)
+@inlineView(`<template class="ui-panel \${collapsed?'ui-collapse':''}" collapse.trigger="toggleCollapse()" close.trigger="close()"><slot></slot></template>`)
 @customElement('ui-panel')
 export class UIPanel {
   constructor(public element: Element) {
@@ -22,12 +22,18 @@ export class UIPanel {
   unbind() { }
   // end aurelia hooks
 
-  closePanel() {
+  close() {
     DOM.removeNode(this.element);
+  }
+  collapse() {
+    this.collapsed = true;
+  }
+  expand() {
+    this.collapsed = false;
   }
 
   private collapsed = false;
-  toggleCollapse() {
+  private toggleCollapse() {
     setTimeout(() => this.collapsed = !this.collapsed, 200);
   }
 }
@@ -72,25 +78,25 @@ export class UIPanelGroup {
 
   @children('ui-panel') panels;
 
-  uncollapse() {
+  private uncollapse() {
     // let panel: any = _.find(this.panels, ['collapsed', false])
     // if (panel) panel.collapsed = true;
   }
 }
 
 @autoinject()
-@inlineView(`<template class="ui-header"><slot></slot></template>`)
+@inlineView(`<template class="ui-header \${theme}"><slot></slot></template>`)
 @customElement('ui-header')
 export class UIHeader {
   constructor(public element: Element) {
-    if (this.element.hasAttribute('primary')) element.classList.add('ui-primary');
-    else if (this.element.hasAttribute('secondary')) element.classList.add('ui-secondary');
-    else if (this.element.hasAttribute('dark')) element.classList.add('ui-dark');
-    else if (this.element.hasAttribute('light')) element.classList.add('ui-light');
-    else if (this.element.hasAttribute('info')) element.classList.add('ui-info');
-    else if (this.element.hasAttribute('danger')) element.classList.add('ui-danger');
-    else if (this.element.hasAttribute('success')) element.classList.add('ui-success');
-    else if (this.element.hasAttribute('warning')) element.classList.add('ui-warning');
+    if (element.hasAttribute('primary')) this.theme = 'primary';
+    else if (element.hasAttribute('secondary')) this.theme = 'secondary';
+    else if (element.hasAttribute('dark')) this.theme = 'dark';
+    else if (element.hasAttribute('light')) this.theme = 'light';
+    else if (element.hasAttribute('info')) this.theme = 'info';
+    else if (element.hasAttribute('danger')) this.theme = 'danger';
+    else if (element.hasAttribute('success')) this.theme = 'success';
+    else if (element.hasAttribute('warning')) this.theme = 'warning';
   }
 
   // aurelia hooks
@@ -100,11 +106,13 @@ export class UIHeader {
   detached() { }
   unbind() { }
   // end aurelia hooks
+
+  @bindable() theme = 'default';
 }
 
 @autoinject()
 @inlineView(`<template><button tabindex="-1" class="ui-header-button ui-\${type}" click.trigger="fireEvent($event)">
-  <slot><span class.bind="icon"></span></slot></button></template>`)
+  <slot><ui-glyph glyph.bind="glyph"></ui-glyph></slot></button></template>`)
 @customElement('ui-header-tool')
 export class UIHeaderTool {
   constructor(public element: Element) {
@@ -114,11 +122,11 @@ export class UIHeaderTool {
     if (element.hasAttribute('expand')) this.type = "expand";
     if (element.hasAttribute('minimize')) this.type = "minimize";
 
-    if (element.hasAttribute('close')) this.icon = "fi-ui-close";
-    if (element.hasAttribute('refresh')) this.icon = "fi-ui-refresh";
-    if (element.hasAttribute('collapse')) this.icon = "fi-ui-angle-up";
-    if (element.hasAttribute('expand')) this.icon = "fi-ui-dialog-expand";
-    if (element.hasAttribute('minimize')) this.icon = "fi-ui-dialog-minimize";
+    if (element.hasAttribute('close')) this.glyph = "dialog-close";
+    if (element.hasAttribute('refresh')) this.glyph = "icon-refresh";
+    if (element.hasAttribute('collapse')) this.glyph = "chevron-up";
+    if (element.hasAttribute('expand')) this.glyph = "dialog-expand";
+    if (element.hasAttribute('minimize')) this.glyph = "dialog-minimize";
   }
 
   // aurelia hooks
@@ -130,9 +138,9 @@ export class UIHeaderTool {
   // end aurelia hooks
 
   private type = '';
-  private icon = '';
+  private glyph = '';
 
-  fireEvent(evt) {
+  private fireEvent(evt) {
     if (evt.button != 0) return true;
     return UIEvent.fireEvent(this.type, this.element);
   }

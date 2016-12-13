@@ -8,7 +8,8 @@ import {UIEvent} from "../../utils/ui-event";
 import {UIUtils} from "../../utils/ui-utils";
 
 @autoinject()
-@inlineView(`<template class="ui-dropdown" select.trigger="select($event)" mouseup.trigger="openDropdown($event)" css.bind="{'min-width':width}"><div class="ui-label" innerhtml.bind="display"></div>
+@inlineView(`<template class="ui-dropdown" select.trigger="select($event)" mouseup.trigger="toggleDropdown($event)" css.bind="{'min-width':width}">
+  <div class="ui-label"><span innerhtml.bind="display"></span><span class="ui-caret fi-ui-caret-down"></span></div>
   <ul class="ui-list-container ui-floating" ref="dropdown"><slot></slot></ul></template>`)
 @customElement('ui-dropdown')
 export class UIDropdown {
@@ -19,7 +20,10 @@ export class UIDropdown {
   bind(bindingContext: Object, overrideContext: Object) { }
   attached() {
     this.tether = UIUtils.tether(this.element, this.dropdown);
-    this.obMouseup = UIEvent.subscribe('mouseclick', () => this.element.classList.remove('ui-open'));
+    this.obMouseup = UIEvent.subscribe('mouseclick', (evt) => {
+      if (getParentByClass(evt.target, 'ui-list-container') == this.dropdown) return;
+      this.element.classList.remove('ui-open');
+    });
     UIEvent.queueTask(() => this.valueChanged(this.value));
   }
   detached() {
@@ -58,7 +62,7 @@ export class UIDropdown {
     this.model = evt.detail.model;
   }
 
-  openDropdown(evt) {
+  toggleDropdown(evt) {
     evt.stopPropagation();
     evt.cancelBubble = true;
     this.element.classList[this.element.classList.contains('ui-open') ? 'remove' : 'add']('ui-open');
@@ -68,7 +72,7 @@ export class UIDropdown {
 
 @autoinject()
 @containerless()
-@inlineView(`<template><p class="ui-list-group" innerhtml.bind="label"></p><slot></slot></template>`)
+@inlineView(`<template><div class="ui-list-group" innerhtml.bind="label"></div><slot></slot></template>`)
 @customElement('ui-list-group')
 export class UIListGroup {
   constructor(public element: Element) { }
@@ -108,8 +112,6 @@ export class UIListItem {
   }
 
   fireSelect(evt) {
-    evt.stopPropagation();
-    evt.cancelBubble = true;
     UIEvent.fireEvent('select', this.element, { value: this.value, model: this.model });
   }
 }
