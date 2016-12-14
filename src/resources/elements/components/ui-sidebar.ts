@@ -10,7 +10,7 @@ import {UIEvent} from "../../utils/ui-event";
 @inlineView(`<template class="ui-sidebar ui-row-vertical ui-row-stretch \${collapsed?'ui-collapse':''} \${position}" click.trigger="showOverlay($event)">
   <div class="ui-col-auto ui-row ui-row-end ui-row-middle ui-sidebar-head \${position=='start'?'':'ui-reverse'}" if.bind="collapsible || label">
   <div class="ui-col-fill ui-sidebar-title">\${label}</div>
-  <a click.trigger="toggleCollapse($event)" class="ui-col-auto ui-pad-all ui-sidebar-close" if.bind="collapsible"></a></div>
+  <a click.trigger="toggleCollapse($event)" class="ui-col-auto ui-sidebar-close" if.bind="collapsible"></a></div>
   <div class="ui-col-fill ui-sidebar-content \${contentCls}"><slot></slot></div>
 </template>`)
 @customElement('ui-sidebar')

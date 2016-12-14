@@ -54,6 +54,7 @@
   border-bottom: 1px solid rgba($base-border-color, .3);
 
   .ui-header-title {
+    line-height: 1.5;
     @include ellipsis();
   }
 

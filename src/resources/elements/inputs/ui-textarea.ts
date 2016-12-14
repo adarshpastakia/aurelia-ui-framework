@@ -9,7 +9,7 @@ import {UIEvent} from "../../utils/ui-event";
 import {UIUtils} from "../../utils/ui-utils";
 
 @autoinject()
-@inlineView(`<template role="input" class="ui-input-control ui-textarea"><span class="ui-error" if.bind="errors"><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
+@inlineView(`<template class="ui-input-wrapper"><div role="input" class="ui-input-control ui-textarea"><span class="ui-error" if.bind="errors"><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
   <textarea ref="inputEl" value.bind="value" rows.bind="rows" cols="5" maxlength.bind="maxlength" dir.bind="dir"
     focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)"
     input.trigger="fireEvent($event)" change.trigger="fireEvent($event)"
@@ -17,7 +17,8 @@ import {UIUtils} from "../../utils/ui-utils";
     disabled.bind="isDisabled" readonly.bind="readonly"></textarea>
   <ul class="ui-list-container ui-floating" ref="dropdown"><li class="ui-list-item" mouseover.trigger="hilightItem($event)" repeat.for="item of acList" innerhtml.bind="item" data-value.bind="item" click.trigger="replace(item)"></li></ul>
   <span class="ui-clear" if.bind="clear && value" click.trigger="clearInput()">&times;</span>
-  <span class="ui-counter" if.bind="counter" innerhtml.bind="value.length + ' of ' + maxlength"></span>
+  <span class="ui-counter" if.bind="counter" innerhtml.bind="value.length + ' of ' + maxlength"></span></div>
+  <div class="ui-input-info" if.bind="info" innerhtml.bind="info"></div>
 </template>`)
 @customElement('ui-textarea')
 export class UITextarea extends UIBaseInput {
@@ -56,6 +57,7 @@ export class UITextarea extends UIBaseInput {
   @bindable() readonly = false;
   @bindable() placeholder = '';
   @bindable() autoComplete = '';
+  @bindable() info = '';
 
   @bindable() beforeReplace;
 

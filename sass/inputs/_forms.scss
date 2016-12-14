@@ -7,7 +7,7 @@
   line-height: 1.2;
 
   fieldset {
-    margin       : .75em .5em;
+    margin       : .8rem .4rem;
     overflow     : hidden;
     max-height   : 80rem;
     border-radius: $base-border-radius;
@@ -16,12 +16,12 @@
   }
 
   legend {
-    margin   : 0 .25em;
-    padding  : 0 .25em;
-    font-size: .9em;
+    margin   : 0 .25rem;
+    padding  : 0 .25rem;
+    font-size: .9rem;
 
     > span {
-      font-size: .9em;
+      font-size: .9rem;
       color    : $input-label-text;
     }
   }
@@ -33,9 +33,8 @@
 
 .ui-input-group {
   @include flex-row($display: flex, $align:flex-start);
-  margin     : .75em .5em;
-  max-width  : 100%;
-  line-height: 1.2;
+  margin   : .8rem .4rem;
+  max-width: 100%;
 
   .ui-input-label {
     @include flex(0 0 8em);
@@ -49,9 +48,9 @@
       content  : '*';
       color    : $secondary;
       position : absolute;
-      font-size: .8rem;
-      margin   : 0 .2rem;
-      top      : .1rem;
+      font-size: .8em;
+      margin   : 0 .2em;
+      top      : .1em;
     }
 
     &.ui-align-top {
@@ -64,9 +63,7 @@
   }
 
   .ui-input-info {
-    font-size  : .75em;
-    line-height: 1;
-    padding    : $base-padding;
+    font-size: .8em;
   }
 
   > div {
@@ -74,23 +71,22 @@
   }
 
   .ui-group-wrapper {
+    border-radius: .1rem;
+    color        : $input-label-text;
+    background   : darken($input-bg, 1%);
+    box-shadow   : 0 0 0 1px rgba($black,.08);
     @include flex-row($display: flex, $align: stretch, $wrap: false);
 
     .ui-input-addon,
     .ui-option {
-      margin     : .25em .2em;
-      line-height: 1;
+      padding: .2rem .25rem;
       @include flex-auto();
-      @include align-self(center);
     }
 
-    .ui-input-addon {
-      font-size: .9em;
-      color    : $input-label-text;
-
-      .svg-icon {
-        font-size: 1rem;
-      }
+    .ui-dropdown {
+      padding: .3rem .8rem;
     }
+
+    .ui-input-addon {}
   }
 }

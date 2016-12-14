@@ -280,7 +280,7 @@ export class BaseListInput {
 }
 
 @autoinject()
-@inlineView(`<template role="input" class="ui-input-control ui-input-list"><slot></slot>
+@inlineView(`<template class="ui-input-wrapper"><div role="input" class="ui-input-control ui-input-list"><slot></slot>
   <span class="ui-error" if.bind="errors"><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
   <input ref="inputEl" type.bind="type" value.bind="elValue" size.bind="size" dir.bind="dir"
     focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)"
@@ -288,7 +288,8 @@ export class BaseListInput {
     keydown.trigger="keyDown($event)" placeholder.bind="placeholder"
     disabled.bind="isDisabled" readonly.bind="!allowSearch || readonly"/>
   <span class="ui-clear" if.bind="clear && value" click.trigger="clearInput()">&times;</span>
-  <span class="ui-input-addon ui-dropdown-handle fi-ui-chevron-down" click.trigger="openDropdown($event, inputEl.focus())"></span>
+  <span class="ui-input-addon ui-dropdown-handle fi-ui-chevron-down" click.trigger="openDropdown($event, inputEl.focus())"></span></div>
+  <div class="ui-input-info" if.bind="info" innerhtml.bind="info"></div>
   
   <div class="ui-list-container ui-floating" ref="dropdown">
     <div if.bind="filtered.length==0" class="ui-list-group">\${emptyText}</div>
@@ -327,6 +328,7 @@ export class UICombo extends BaseListInput {
   @bindable() errors = null;
   @bindable() disabled = false;
   @bindable() readonly = false;
+  @bindable() info = '';
   @bindable() placeholder = '';
   @bindable() emptyText = 'No Results';
 
@@ -355,14 +357,15 @@ export class UICombo extends BaseListInput {
 
 
 @autoinject()
-@inlineView(`<template role="input" class="ui-input-control ui-input-list tags"><slot></slot>
+@inlineView(`<template class="ui-input-wrapper"><div role="input" class="ui-input-control ui-input-list tags"><slot></slot>
   <span class="ui-error" if.bind="errors"><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
   <div class="ui-tag-item" repeat.for="tag of value | split" if.bind="tag!=''">\${getDisplay(tag)}<span class="ui-clear" click.trigger="removeValue(tag)">&times;</span></div>
   <input ref="inputEl" type.bind="type" value.bind="elValue" size.bind="size" dir.bind="dir"
     focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)"
     input.trigger="search() & debounce:200" change.trigger="fireEvent($event)"
     keydown.trigger="keyDown($event)" placeholder.bind="placeholder"
-    disabled.bind="isDisabled" readonly.bind="!allowSearch || readonly"/>
+    disabled.bind="isDisabled" readonly.bind="!allowSearch || readonly"/></div>
+  <div class="ui-input-info" if.bind="info" innerhtml.bind="info"></div>
   
   <div class="ui-list-container ui-floating" ref="dropdown">
     <div if.bind="filtered.length==0" class="ui-list-group">\${emptyText}</div>
@@ -402,6 +405,7 @@ export class UITags extends BaseListInput {
   @bindable() errors = null;
   @bindable() disabled = false;
   @bindable() readonly = false;
+  @bindable() info = '';
   @bindable() placeholder = '';
   @bindable() emptyText = 'No Results';
 
@@ -460,13 +464,13 @@ export class UITags extends BaseListInput {
 }
 
 @autoinject()
-@inlineView(`<template role="input" class="ui-input-control ui-input-list listbox"><slot></slot>
+@inlineView(`<template class="ui-input-wrapper"><div role="input" class="ui-input-control ui-input-list listbox">
   <span class="ui-error" if.bind="errors"><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
-  <input ref="inputEl" type.bind="type" value.bind="elValue" size.bind="size" dir.bind="dir"
+  <input ref="inputEl" type.bind="type" value.bind="elValue" size.bind="size" dir.bind="dir" class="ui-input ui-remove"
     focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)"
     input.trigger="search() & debounce:200" change.trigger="fireEvent($event)"
     keydown.trigger="keyDown($event)" placeholder.bind="placeholder"
-    disabled.bind="isDisabled" readonly.bind="!allowSearch || readonly"/>
+    disabled.bind="isDisabled" readonly.bind="true"/>
   <span class="ui-clear" if.bind="clear && value" click.trigger="clearInput()">&times;</span>
   
   <div class="ui-list-container" ref="dropdown" mouseout.trigger="unhilightItem()">
@@ -476,7 +480,8 @@ export class UITags extends BaseListInput {
       mouseover.trigger="hilightItem($event)" click.trigger="fireSelect(item.model)">
       <span class="\${iconClass} \${item.icon}" if.bind="item.icon"></span>&nbsp;<span innerhtml.bind="item.display"></span></div>
     </template>
-  </div>
+  </div></div>
+  <div class="ui-input-info" if.bind="info" innerhtml.bind="info"></div>
 </template>`)
 @customElement('ui-list')
 export class UIList extends BaseListInput {
@@ -506,6 +511,7 @@ export class UIList extends BaseListInput {
   @bindable() errors = null;
   @bindable() disabled = false;
   @bindable() readonly = false;
+  @bindable() info = '';
   @bindable() placeholder = '';
   @bindable() emptyText = 'No Results';
 
@@ -533,7 +539,7 @@ export class UIList extends BaseListInput {
 }
 
 @autoinject()
-@inlineView(`<template class="ui-input-control ui-input-list reorder">
+@inlineView(`<template class="ui-input-wrapper"><div class="ui-input-control ui-input-list reorder">
     <div class="ui-list-container" ref="dropdown">
         <div model.bind="opt" repeat.for="opt of options & oneTime" class="ui-list-item" data-value="\${$index}" mousedown.trigger="startDrag(opt, $event)">
             <span class="fi-ui-drag-handle"></span>
@@ -544,7 +550,7 @@ export class UIList extends BaseListInput {
             <span class="fi-ui-drag-handle"></span>
             <span class="ui-col-fill" innerhtml.bind="ghostModel[displayProperty] || ghostModel"></span>
         </div>
-    </div>
+    </div></div>
 </template>`)
 @customElement('ui-reorder')
 export class UIReorder {

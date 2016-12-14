@@ -82,7 +82,8 @@ export class UIFieldset {
 }
 
 @autoinject()
-@inlineView('<template class="ui-input-group"><slot name="inputLabel"></slot><div><div class="ui-group-wrapper"><slot></slot></div><slot name="inputInfo"></slot></div></template>')
+@inlineView(`<template class="ui-input-group"><slot name="inputLabel"></slot>
+  <div><div class="ui-group-wrapper"><slot></slot></div><slot name="inputInfo"></slot></div></template>`)
 @customElement('ui-input-group')
 export class UIInputGroup {
   constructor(public element: Element) { }

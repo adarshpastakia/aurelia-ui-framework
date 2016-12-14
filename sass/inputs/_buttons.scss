@@ -54,12 +54,10 @@
 }
 
 .ui-button {
-  font-size    : 1em;
   color        : $dark;
   margin       : .2rem;
   max-width    : 12em;
-  padding      : .3em 1em;
-  line-height  : 1.5;
+  padding      : $base-padding;
   text-shadow  : -1px -1px 0 rgba(0, 0, 0, .1);
   border-radius: $base-border-radius;
   border       : 1px solid $base-border-color;
@@ -115,11 +113,11 @@
   }
 
   &.ui-square {
-    padding: .3em;
+    padding: .3rem;
   }
 
   &.ui-round {
-    border-radius: 1.2em;
+    border-radius: 1em;
   }
 
   &.ui-big {
@@ -183,7 +181,7 @@
     @include box-shadow(-1px -1px 0 0 rgba($white,.5) inset, 1px 1px 0 0 rgba($base-shadow-color,.5) inset);
   }
 }
-// @include button-theme(default, $button-default-bg, $button-default-text, $button-default-hover-bg, $button-default-hover-text, $button-default-active-bg, $button-default-active-text);
+@include button-theme(default, $button-default-bg, $button-default-text, $button-default-hover-bg, $button-default-hover-text, $button-default-active-bg, $button-default-active-text);
 @include button-theme(light, $button-light-bg, $button-light-text, $button-light-hover-bg, $button-light-hover-text, $button-light-active-bg, $button-light-active-text);
 @include button-theme(dark, $button-dark-bg, $button-dark-text, $button-dark-hover-bg, $button-dark-hover-text, $button-dark-active-bg, $button-dark-active-text);
 @include button-theme(primary, $button-primary-bg, $button-primary-text, $button-primary-hover-bg, $button-primary-hover-text, $button-primary-active-bg, $button-primary-active-text);

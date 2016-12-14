@@ -61,7 +61,7 @@ export class UIBaseInput {
 }
 
 @autoinject()
-@inlineView(`<template role="input" class="ui-input-control"><slot></slot>
+@inlineView(`<template class="ui-input-wrapper"><div role="input" class="ui-input-control"><slot></slot>
   <span class="ui-error" if.bind="errors"><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
   <input ref="inputEl" type.bind="type" value.bind="value" size.bind="size" maxlength.bind="maxlength" dir.bind="dir"
     focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)"
@@ -69,7 +69,8 @@ export class UIBaseInput {
     keypress.trigger="checkInput($event)" placeholder.bind="placeholder"
     disabled.bind="isDisabled" readonly.bind="readonly"/>
   <span class="ui-clear" if.bind="clear && value" click.trigger="clearInput()">&times;</span>
-  <span class="ui-counter" if.bind="counter" innerhtml.bind="maxlength - value.length"></span>
+  <span class="ui-counter" if.bind="counter" innerhtml.bind="maxlength - value.length"></span></div>
+  <div class="ui-input-info" if.bind="info" innerhtml.bind="info"></div>
 </template>`)
 @customElement('ui-input')
 export class UIInput extends UIBaseInput {
@@ -101,11 +102,12 @@ export class UIInput extends UIBaseInput {
   @bindable({ defaultBindingMode: bindingMode.twoWay }) decimal;
 
   @bindable() dir = 'ltr';
-  @bindable() size = 5;
+  @bindable() size = 1;
   @bindable() errors = null;
   @bindable() maxlength = 99;
   @bindable() disabled = false;
   @bindable() readonly = false;
+  @bindable() info = '';
   @bindable() placeholder = '';
 
   private type = 'text';

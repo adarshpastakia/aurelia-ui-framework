@@ -9,14 +9,15 @@ import {UIBaseInput} from "./ui-input";
 import {UIEvent} from "../../utils/ui-event";
 
 @autoinject()
-@inlineView(`<template role="input" class="ui-input-control ui-phone"><span ref="prefixEl"></span>
+@inlineView(`<template class="ui-input-wrapper"><div  role="input" class="ui-input-control ui-phone"><span ref="prefixEl"></span>
   <span class="ui-error" if.bind="errors"><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
   <input ref="inputEl" type="tel" size.bind="size" dir="ltr"
     focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)"
     input.trigger="fireEvent($event)" change.trigger="fireEvent($event)"
     keypress.trigger="checkInput($event)" placeholder.bind="placeholder"
     disabled.bind="isDisabled" readonly.bind="readonly"/>
-  <span class="ui-clear" if.bind="clear && value" click.trigger="clearInput()">&times;</span>
+  <span class="ui-clear" if.bind="clear && value" click.trigger="clearInput()">&times;</span></div>
+  <div class="ui-input-info" if.bind="info" innerhtml.bind="info"></div>
 </template>`)
 @customElement('ui-phone')
 export class UIPhone extends UIBaseInput {
@@ -42,11 +43,12 @@ export class UIPhone extends UIBaseInput {
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value = '';
   @bindable({ defaultBindingMode: bindingMode.twoWay }) phone;
 
-  @bindable() size = 5;
+  @bindable() size = 1;
   @bindable() errors = null;
   @bindable() country = '';
   @bindable() disabled = false;
   @bindable() readonly = false;
+  @bindable() info = '';
 
   private clear = false;
   private national = false;

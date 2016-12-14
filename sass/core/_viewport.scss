@@ -21,7 +21,7 @@
     overflow: hidden;
 
     .ui-app-footer {
-      font-size: .7em;
+      font-size: .6rem;
     }
   }
 
@@ -109,7 +109,7 @@
 
   .ui-overlay-container {
     overflow      : hidden;
-    padding       : 3em 0 1em;
+    padding       : 3rem 0 1rem;
     pointer-events: none;
     z-index       : $z-index-toast;
     @include position(absolute, 0);

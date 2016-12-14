@@ -6,18 +6,19 @@
 
 .ui-input-list {
   .ui-dropdown-handle {
-    cursor   : pointer;
-    font-size: .8rem !important;
+    cursor     : pointer;
+    line-height: 1.5;
+    margin     : .1em .5em;
+    font-size  : .8rem !important;
   }
 
   .ui-tag-item {
     background   : darken($input-bg, 1%);
     border-radius: $base-border-radius;
     border       : 1px solid rgba($base-border-color, .5);
-    padding      : $base-padding;
+    padding      : .2rem .4rem;
     font-size    : .8rem;
     position     : relative;
-    line-height  : 1;
     margin       : .2rem;
     max-width    : 10em;
     padding-right: 1.5em;

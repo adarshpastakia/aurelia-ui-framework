@@ -19,7 +19,7 @@
                   <ui-input-group>
                     <ui-input-label>Password</ui-input-label>
                     <ui-input password placeholder="Any text...">
-                      <ui-input-addon><strong class="ui-font-small">Strong</strong></ui-input-addon>
+                      <ui-input-addon><small class="ui-strong ui-text-success">Strong</small></ui-input-addon>
                     </ui-input>
                   </ui-input-group>
                   <ui-input-group>
@@ -33,19 +33,28 @@
                   <ui-input-group>
                     <ui-input-label>Email</ui-input-label>
                     <ui-input email placeholder="user@domain.com">
-                      <ui-input-addon glyph="icon-email-line"></ui-input-addon>
+                      <ui-input-addon class="ui-text-info" glyph="icon-email-line"></ui-input-addon>
                     </ui-input>
                   </ui-input-group>
                   <ui-input-group>
                     <ui-input-label>URL</ui-input-label>
                     <ui-input url placeholder="http://domain.com">
-                      <ui-input-addon glyph="icon-web-line"></ui-input-addon>
+                      <ui-input-addon class="ui-text-info" glyph="icon-web-line"></ui-input-addon>
                     </ui-input>
                   </ui-input-group>
                   <ui-input-group>
                     <ui-input-label>File</ui-input-label>
                     <ui-input file placeholder="Any file...">
                       <ui-input-addon glyph="icon-image-line"></ui-input-addon>
+                    </ui-input>
+                  </ui-input-group>
+                  <ui-input-group>
+                    <ui-input-label>Double Input</ui-input-label>
+                    <ui-input decimal placeholder="Latitude..." info="Latitude">
+                      <ui-input-addon class="ui-bg-warning ui-text-white" glyph="icon-placeholder"></ui-input-addon>
+                    </ui-input>
+                    <ui-input decimal placeholder="Longitude..." info="Longitude">
+                      <ui-input-addon class="ui-bg-warning ui-text-white" glyph="icon-placeholder"></ui-input-addon>
                     </ui-input>
                   </ui-input-group>
                 </ui-column>
@@ -101,6 +110,7 @@
                   <div class="ui-text-primary">Multiline Input</div>
                   <ui-input-group>
                     <ui-input-label>Textarea</ui-input-label>
+                    <ui-input-addon class="ui-bg-info ui-text-white" glyph="icon-pencil"></ui-input-addon>
                     <ui-textarea clear counter value="With auto-complete..." auto-complete="Alpha,Bravo,Charlie,Delta,Echo,Foxtrot,Lima,Omega,Sigma,Theta,Zulu"></ui-textarea>
                   </ui-input-group>
                 </ui-column>

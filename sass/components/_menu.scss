@@ -5,9 +5,9 @@
 // @license     : MIT
 
 a.ui-menu-item {
-  padding    : .3em .7em;
-  position   : relative;
   line-height: 1.5;
+  position   : relative;
+  padding    : .4em .8em;
 
   color      : $menu-link-text;
   @include transition(all .5s);
@@ -48,7 +48,7 @@ a.ui-menu-item {
 
 .ui-menu-section-title {
   font-size: .8em;
-  padding  : .2em .5em;
+  padding  : $base-padding;
   color    : $menu-section-title;
   display  : block;
   @include ellipsis();

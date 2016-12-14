@@ -1209,7 +1209,7 @@ define('resources/elements/inputs/ui-form',["require", "exports", 'aurelia-frame
         UIInputGroup.prototype.unbind = function () { };
         UIInputGroup = __decorate([
             aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView('<template class="ui-input-group"><slot name="inputLabel"></slot><div><div class="ui-group-wrapper"><slot></slot></div><slot name="inputInfo"></slot></div></template>'),
+            aurelia_framework_1.inlineView("<template class=\"ui-input-group\"><slot name=\"inputLabel\"></slot>\n  <div><div class=\"ui-group-wrapper\"><slot></slot></div><slot name=\"inputInfo\"></slot></div></template>"),
             aurelia_framework_1.customElement('ui-input-group'), 
             __metadata('design:paramtypes', [Element])
         ], UIInputGroup);
@@ -1530,11 +1530,12 @@ define('resources/elements/inputs/ui-input',["require", "exports", 'aurelia-fram
             this.element = element;
             this.value = '';
             this.dir = 'ltr';
-            this.size = 5;
+            this.size = 1;
             this.errors = null;
             this.maxlength = 99;
             this.disabled = false;
             this.readonly = false;
+            this.info = '';
             this.placeholder = '';
             this.type = 'text';
             this.clear = false;
@@ -1655,10 +1656,14 @@ define('resources/elements/inputs/ui-input',["require", "exports", 'aurelia-fram
         __decorate([
             aurelia_framework_1.bindable(), 
             __metadata('design:type', Object)
+        ], UIInput.prototype, "info", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(), 
+            __metadata('design:type', Object)
         ], UIInput.prototype, "placeholder", void 0);
         UIInput = __decorate([
             aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template role=\"input\" class=\"ui-input-control\"><slot></slot>\n  <span class=\"ui-error\" if.bind=\"errors\"><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <input ref=\"inputEl\" type.bind=\"type\" value.bind=\"value\" size.bind=\"size\" maxlength.bind=\"maxlength\" dir.bind=\"dir\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\"\n    input.trigger=\"fireEvent($event)\" change.trigger=\"fireEvent($event)\"\n    keypress.trigger=\"checkInput($event)\" placeholder.bind=\"placeholder\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"readonly\"/>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span>\n  <span class=\"ui-counter\" if.bind=\"counter\" innerhtml.bind=\"maxlength - value.length\"></span>\n</template>"),
+            aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper\"><div role=\"input\" class=\"ui-input-control\"><slot></slot>\n  <span class=\"ui-error\" if.bind=\"errors\"><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <input ref=\"inputEl\" type.bind=\"type\" value.bind=\"value\" size.bind=\"size\" maxlength.bind=\"maxlength\" dir.bind=\"dir\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\"\n    input.trigger=\"fireEvent($event)\" change.trigger=\"fireEvent($event)\"\n    keypress.trigger=\"checkInput($event)\" placeholder.bind=\"placeholder\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"readonly\"/>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span>\n  <span class=\"ui-counter\" if.bind=\"counter\" innerhtml.bind=\"maxlength - value.length\"></span></div>\n  <div class=\"ui-input-info\" if.bind=\"info\" innerhtml.bind=\"info\"></div>\n</template>"),
             aurelia_framework_1.customElement('ui-input'), 
             __metadata('design:paramtypes', [Element])
         ], UIInput);
@@ -1689,11 +1694,12 @@ define('resources/elements/inputs/ui-phone',["require", "exports", 'aurelia-fram
             _super.call(this);
             this.element = element;
             this.value = '';
-            this.size = 5;
+            this.size = 1;
             this.errors = null;
             this.country = '';
             this.disabled = false;
             this.readonly = false;
+            this.info = '';
             this.clear = false;
             this.national = false;
             this.placeholder = '';
@@ -1787,9 +1793,13 @@ define('resources/elements/inputs/ui-phone',["require", "exports", 'aurelia-fram
             aurelia_framework_1.bindable(), 
             __metadata('design:type', Object)
         ], UIPhone.prototype, "readonly", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(), 
+            __metadata('design:type', Object)
+        ], UIPhone.prototype, "info", void 0);
         UIPhone = __decorate([
             aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template role=\"input\" class=\"ui-input-control ui-phone\"><span ref=\"prefixEl\"></span>\n  <span class=\"ui-error\" if.bind=\"errors\"><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <input ref=\"inputEl\" type=\"tel\" size.bind=\"size\" dir=\"ltr\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\"\n    input.trigger=\"fireEvent($event)\" change.trigger=\"fireEvent($event)\"\n    keypress.trigger=\"checkInput($event)\" placeholder.bind=\"placeholder\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"readonly\"/>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span>\n</template>"),
+            aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper\"><div  role=\"input\" class=\"ui-input-control ui-phone\"><span ref=\"prefixEl\"></span>\n  <span class=\"ui-error\" if.bind=\"errors\"><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <input ref=\"inputEl\" type=\"tel\" size.bind=\"size\" dir=\"ltr\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\"\n    input.trigger=\"fireEvent($event)\" change.trigger=\"fireEvent($event)\"\n    keypress.trigger=\"checkInput($event)\" placeholder.bind=\"placeholder\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"readonly\"/>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span></div>\n  <div class=\"ui-input-info\" if.bind=\"info\" innerhtml.bind=\"info\"></div>\n</template>"),
             aurelia_framework_1.customElement('ui-phone'), 
             __metadata('design:paramtypes', [Element])
         ], UIPhone);
@@ -1828,6 +1838,7 @@ define('resources/elements/inputs/ui-textarea',["require", "exports", 'aurelia-f
             this.readonly = false;
             this.placeholder = '';
             this.autoComplete = '';
+            this.info = '';
             this.clear = false;
             this.counter = false;
             this.ignore = false;
@@ -2081,10 +2092,14 @@ define('resources/elements/inputs/ui-textarea',["require", "exports", 'aurelia-f
         __decorate([
             aurelia_framework_1.bindable(), 
             __metadata('design:type', Object)
+        ], UITextarea.prototype, "info", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(), 
+            __metadata('design:type', Object)
         ], UITextarea.prototype, "beforeReplace", void 0);
         UITextarea = __decorate([
             aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template role=\"input\" class=\"ui-input-control ui-textarea\"><span class=\"ui-error\" if.bind=\"errors\"><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <textarea ref=\"inputEl\" value.bind=\"value\" rows.bind=\"rows\" cols=\"5\" maxlength.bind=\"maxlength\" dir.bind=\"dir\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\"\n    input.trigger=\"fireEvent($event)\" change.trigger=\"fireEvent($event)\"\n    keyup.trigger=\"checkList($event)\" keydown.trigger=\"checkInput($event)\" placeholder.bind=\"placeholder\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"readonly\"></textarea>\n  <ul class=\"ui-list-container ui-floating\" ref=\"dropdown\"><li class=\"ui-list-item\" mouseover.trigger=\"hilightItem($event)\" repeat.for=\"item of acList\" innerhtml.bind=\"item\" data-value.bind=\"item\" click.trigger=\"replace(item)\"></li></ul>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span>\n  <span class=\"ui-counter\" if.bind=\"counter\" innerhtml.bind=\"value.length + ' of ' + maxlength\"></span>\n</template>"),
+            aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper\"><div role=\"input\" class=\"ui-input-control ui-textarea\"><span class=\"ui-error\" if.bind=\"errors\"><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <textarea ref=\"inputEl\" value.bind=\"value\" rows.bind=\"rows\" cols=\"5\" maxlength.bind=\"maxlength\" dir.bind=\"dir\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\"\n    input.trigger=\"fireEvent($event)\" change.trigger=\"fireEvent($event)\"\n    keyup.trigger=\"checkList($event)\" keydown.trigger=\"checkInput($event)\" placeholder.bind=\"placeholder\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"readonly\"></textarea>\n  <ul class=\"ui-list-container ui-floating\" ref=\"dropdown\"><li class=\"ui-list-item\" mouseover.trigger=\"hilightItem($event)\" repeat.for=\"item of acList\" innerhtml.bind=\"item\" data-value.bind=\"item\" click.trigger=\"replace(item)\"></li></ul>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span>\n  <span class=\"ui-counter\" if.bind=\"counter\" innerhtml.bind=\"value.length + ' of ' + maxlength\"></span></div>\n  <div class=\"ui-input-info\" if.bind=\"info\" innerhtml.bind=\"info\"></div>\n</template>"),
             aurelia_framework_1.customElement('ui-textarea'), 
             __metadata('design:paramtypes', [Element])
         ], UITextarea);
@@ -2386,6 +2401,7 @@ define('resources/elements/inputs/ui-lists',["require", "exports", 'aurelia-fram
             this.errors = null;
             this.disabled = false;
             this.readonly = false;
+            this.info = '';
             this.placeholder = '';
             this.emptyText = 'No Results';
             this.iconClass = '';
@@ -2445,6 +2461,10 @@ define('resources/elements/inputs/ui-lists',["require", "exports", 'aurelia-fram
         __decorate([
             aurelia_framework_1.bindable(), 
             __metadata('design:type', Object)
+        ], UICombo.prototype, "info", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(), 
+            __metadata('design:type', Object)
         ], UICombo.prototype, "placeholder", void 0);
         __decorate([
             aurelia_framework_1.bindable(), 
@@ -2476,7 +2496,7 @@ define('resources/elements/inputs/ui-lists',["require", "exports", 'aurelia-fram
         ], UICombo.prototype, "forceSelect", void 0);
         UICombo = __decorate([
             aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template role=\"input\" class=\"ui-input-control ui-input-list\"><slot></slot>\n  <span class=\"ui-error\" if.bind=\"errors\"><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <input ref=\"inputEl\" type.bind=\"type\" value.bind=\"elValue\" size.bind=\"size\" dir.bind=\"dir\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\"\n    input.trigger=\"search() & debounce:200\" change.trigger=\"fireEvent($event)\"\n    keydown.trigger=\"keyDown($event)\" placeholder.bind=\"placeholder\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"!allowSearch || readonly\"/>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span>\n  <span class=\"ui-input-addon ui-dropdown-handle fi-ui-chevron-down\" click.trigger=\"openDropdown($event, inputEl.focus())\"></span>\n  \n  <div class=\"ui-list-container ui-floating\" ref=\"dropdown\">\n    <div if.bind=\"filtered.length==0\" class=\"ui-list-group\">${emptyText}</div>\n    <template repeat.for=\"group of filtered\"><div if.bind=\"group.label\" class=\"ui-list-group\">${group.label}</div>\n    <div class=\"ui-list-item ${item.value==value?'ui-selected':''} ${item.disabled?'ui-disabled':''}\" repeat.for=\"item of group.items\" \n      mouseover.trigger=\"hilightItem($event)\" click.trigger=\"fireSelect(item.model)\">\n      <span class=\"${iconClass} ${item.icon}\" if.bind=\"item.icon\"></span>&nbsp;<span innerhtml.bind=\"item.display\"></span></div>\n    </template>\n  </div>\n</template>"),
+            aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper\"><div role=\"input\" class=\"ui-input-control ui-input-list\"><slot></slot>\n  <span class=\"ui-error\" if.bind=\"errors\"><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <input ref=\"inputEl\" type.bind=\"type\" value.bind=\"elValue\" size.bind=\"size\" dir.bind=\"dir\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\"\n    input.trigger=\"search() & debounce:200\" change.trigger=\"fireEvent($event)\"\n    keydown.trigger=\"keyDown($event)\" placeholder.bind=\"placeholder\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"!allowSearch || readonly\"/>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span>\n  <span class=\"ui-input-addon ui-dropdown-handle fi-ui-chevron-down\" click.trigger=\"openDropdown($event, inputEl.focus())\"></span></div>\n  <div class=\"ui-input-info\" if.bind=\"info\" innerhtml.bind=\"info\"></div>\n  \n  <div class=\"ui-list-container ui-floating\" ref=\"dropdown\">\n    <div if.bind=\"filtered.length==0\" class=\"ui-list-group\">${emptyText}</div>\n    <template repeat.for=\"group of filtered\"><div if.bind=\"group.label\" class=\"ui-list-group\">${group.label}</div>\n    <div class=\"ui-list-item ${item.value==value?'ui-selected':''} ${item.disabled?'ui-disabled':''}\" repeat.for=\"item of group.items\" \n      mouseover.trigger=\"hilightItem($event)\" click.trigger=\"fireSelect(item.model)\">\n      <span class=\"${iconClass} ${item.icon}\" if.bind=\"item.icon\"></span>&nbsp;<span innerhtml.bind=\"item.display\"></span></div>\n    </template>\n  </div>\n</template>"),
             aurelia_framework_1.customElement('ui-combo'), 
             __metadata('design:paramtypes', [Element])
         ], UICombo);
@@ -2494,6 +2514,7 @@ define('resources/elements/inputs/ui-lists',["require", "exports", 'aurelia-fram
             this.errors = null;
             this.disabled = false;
             this.readonly = false;
+            this.info = '';
             this.placeholder = '';
             this.emptyText = 'No Results';
             this.iconClass = '';
@@ -2590,6 +2611,10 @@ define('resources/elements/inputs/ui-lists',["require", "exports", 'aurelia-fram
         __decorate([
             aurelia_framework_1.bindable(), 
             __metadata('design:type', Object)
+        ], UITags.prototype, "info", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(), 
+            __metadata('design:type', Object)
         ], UITags.prototype, "placeholder", void 0);
         __decorate([
             aurelia_framework_1.bindable(), 
@@ -2621,7 +2646,7 @@ define('resources/elements/inputs/ui-lists',["require", "exports", 'aurelia-fram
         ], UITags.prototype, "forceSelect", void 0);
         UITags = __decorate([
             aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template role=\"input\" class=\"ui-input-control ui-input-list tags\"><slot></slot>\n  <span class=\"ui-error\" if.bind=\"errors\"><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <div class=\"ui-tag-item\" repeat.for=\"tag of value | split\" if.bind=\"tag!=''\">${getDisplay(tag)}<span class=\"ui-clear\" click.trigger=\"removeValue(tag)\">&times;</span></div>\n  <input ref=\"inputEl\" type.bind=\"type\" value.bind=\"elValue\" size.bind=\"size\" dir.bind=\"dir\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\"\n    input.trigger=\"search() & debounce:200\" change.trigger=\"fireEvent($event)\"\n    keydown.trigger=\"keyDown($event)\" placeholder.bind=\"placeholder\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"!allowSearch || readonly\"/>\n  \n  <div class=\"ui-list-container ui-floating\" ref=\"dropdown\">\n    <div if.bind=\"filtered.length==0\" class=\"ui-list-group\">${emptyText}</div>\n    <template repeat.for=\"group of filtered\"><div if.bind=\"group.label\" class=\"ui-list-group\">${group.label}</div>\n    <div class=\"ui-list-item ${item.disabled?'ui-disabled':''}\" repeat.for=\"item of group.items\" \n      mouseover.trigger=\"hilightItem($event)\" click.trigger=\"fireSelect(item.model)\">\n      <span class=\"${iconClass} ${item.icon}\" if.bind=\"item.icon\"></span>&nbsp;<span innerhtml.bind=\"item.display\"></span></div>\n    </template>\n  </div>\n</template>"),
+            aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper\"><div role=\"input\" class=\"ui-input-control ui-input-list tags\"><slot></slot>\n  <span class=\"ui-error\" if.bind=\"errors\"><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <div class=\"ui-tag-item\" repeat.for=\"tag of value | split\" if.bind=\"tag!=''\">${getDisplay(tag)}<span class=\"ui-clear\" click.trigger=\"removeValue(tag)\">&times;</span></div>\n  <input ref=\"inputEl\" type.bind=\"type\" value.bind=\"elValue\" size.bind=\"size\" dir.bind=\"dir\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\"\n    input.trigger=\"search() & debounce:200\" change.trigger=\"fireEvent($event)\"\n    keydown.trigger=\"keyDown($event)\" placeholder.bind=\"placeholder\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"!allowSearch || readonly\"/></div>\n  <div class=\"ui-input-info\" if.bind=\"info\" innerhtml.bind=\"info\"></div>\n  \n  <div class=\"ui-list-container ui-floating\" ref=\"dropdown\">\n    <div if.bind=\"filtered.length==0\" class=\"ui-list-group\">${emptyText}</div>\n    <template repeat.for=\"group of filtered\"><div if.bind=\"group.label\" class=\"ui-list-group\">${group.label}</div>\n    <div class=\"ui-list-item ${item.disabled?'ui-disabled':''}\" repeat.for=\"item of group.items\" \n      mouseover.trigger=\"hilightItem($event)\" click.trigger=\"fireSelect(item.model)\">\n      <span class=\"${iconClass} ${item.icon}\" if.bind=\"item.icon\"></span>&nbsp;<span innerhtml.bind=\"item.display\"></span></div>\n    </template>\n  </div>\n</template>"),
             aurelia_framework_1.customElement('ui-tags'), 
             __metadata('design:paramtypes', [Element])
         ], UITags);
@@ -2639,6 +2664,7 @@ define('resources/elements/inputs/ui-lists',["require", "exports", 'aurelia-fram
             this.errors = null;
             this.disabled = false;
             this.readonly = false;
+            this.info = '';
             this.placeholder = '';
             this.emptyText = 'No Results';
             this.iconClass = '';
@@ -2698,6 +2724,10 @@ define('resources/elements/inputs/ui-lists',["require", "exports", 'aurelia-fram
         __decorate([
             aurelia_framework_1.bindable(), 
             __metadata('design:type', Object)
+        ], UIList.prototype, "info", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(), 
+            __metadata('design:type', Object)
         ], UIList.prototype, "placeholder", void 0);
         __decorate([
             aurelia_framework_1.bindable(), 
@@ -2729,7 +2759,7 @@ define('resources/elements/inputs/ui-lists',["require", "exports", 'aurelia-fram
         ], UIList.prototype, "forceSelect", void 0);
         UIList = __decorate([
             aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template role=\"input\" class=\"ui-input-control ui-input-list listbox\"><slot></slot>\n  <span class=\"ui-error\" if.bind=\"errors\"><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <input ref=\"inputEl\" type.bind=\"type\" value.bind=\"elValue\" size.bind=\"size\" dir.bind=\"dir\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\"\n    input.trigger=\"search() & debounce:200\" change.trigger=\"fireEvent($event)\"\n    keydown.trigger=\"keyDown($event)\" placeholder.bind=\"placeholder\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"!allowSearch || readonly\"/>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span>\n  \n  <div class=\"ui-list-container\" ref=\"dropdown\" mouseout.trigger=\"unhilightItem()\">\n    <div if.bind=\"filtered.length==0\" class=\"ui-list-group\">${emptyText}</div>\n    <template repeat.for=\"group of filtered\"><div if.bind=\"group.label\" class=\"ui-list-group\">${group.label}</div>\n    <div class=\"ui-list-item ${item.value==value?'ui-selected':''} ${item.disabled?'ui-disabled':''}\" repeat.for=\"item of group.items\" \n      mouseover.trigger=\"hilightItem($event)\" click.trigger=\"fireSelect(item.model)\">\n      <span class=\"${iconClass} ${item.icon}\" if.bind=\"item.icon\"></span>&nbsp;<span innerhtml.bind=\"item.display\"></span></div>\n    </template>\n  </div>\n</template>"),
+            aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper\"><div role=\"input\" class=\"ui-input-control ui-input-list listbox\">\n  <span class=\"ui-error\" if.bind=\"errors\"><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <input ref=\"inputEl\" type.bind=\"type\" value.bind=\"elValue\" size.bind=\"size\" dir.bind=\"dir\" class=\"ui-input ui-remove\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\"\n    input.trigger=\"search() & debounce:200\" change.trigger=\"fireEvent($event)\"\n    keydown.trigger=\"keyDown($event)\" placeholder.bind=\"placeholder\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"true\"/>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span>\n  \n  <div class=\"ui-list-container\" ref=\"dropdown\" mouseout.trigger=\"unhilightItem()\">\n    <div if.bind=\"filtered.length==0\" class=\"ui-list-group\">${emptyText}</div>\n    <template repeat.for=\"group of filtered\"><div if.bind=\"group.label\" class=\"ui-list-group\">${group.label}</div>\n    <div class=\"ui-list-item ${item.value==value?'ui-selected':''} ${item.disabled?'ui-disabled':''}\" repeat.for=\"item of group.items\" \n      mouseover.trigger=\"hilightItem($event)\" click.trigger=\"fireSelect(item.model)\">\n      <span class=\"${iconClass} ${item.icon}\" if.bind=\"item.icon\"></span>&nbsp;<span innerhtml.bind=\"item.display\"></span></div>\n    </template>\n  </div></div>\n  <div class=\"ui-input-info\" if.bind=\"info\" innerhtml.bind=\"info\"></div>\n</template>"),
             aurelia_framework_1.customElement('ui-list'), 
             __metadata('design:paramtypes', [Element])
         ], UIList);
@@ -2805,7 +2835,7 @@ define('resources/elements/inputs/ui-lists',["require", "exports", 'aurelia-fram
         ], UIReorder.prototype, "displayProperty", void 0);
         UIReorder = __decorate([
             aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template class=\"ui-input-control ui-input-list reorder\">\n    <div class=\"ui-list-container\" ref=\"dropdown\">\n        <div model.bind=\"opt\" repeat.for=\"opt of options & oneTime\" class=\"ui-list-item\" data-value=\"${$index}\" mousedown.trigger=\"startDrag(opt, $event)\">\n            <span class=\"fi-ui-drag-handle\"></span>\n            <span class=\"ui-col-fill\" innerhtml.bind=\"opt[displayProperty] || opt\"></span>\n        </div>\n\n        <div class=\"ui-list-item ui-ghost\" if.bind=\"ghostModel\" ref=\"ghostEl\" css.bind=\"{top:top+'px'}\">\n            <span class=\"fi-ui-drag-handle\"></span>\n            <span class=\"ui-col-fill\" innerhtml.bind=\"ghostModel[displayProperty] || ghostModel\"></span>\n        </div>\n    </div>\n</template>"),
+            aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper\"><div class=\"ui-input-control ui-input-list reorder\">\n    <div class=\"ui-list-container\" ref=\"dropdown\">\n        <div model.bind=\"opt\" repeat.for=\"opt of options & oneTime\" class=\"ui-list-item\" data-value=\"${$index}\" mousedown.trigger=\"startDrag(opt, $event)\">\n            <span class=\"fi-ui-drag-handle\"></span>\n            <span class=\"ui-col-fill\" innerhtml.bind=\"opt[displayProperty] || opt\"></span>\n        </div>\n\n        <div class=\"ui-list-item ui-ghost\" if.bind=\"ghostModel\" ref=\"ghostEl\" css.bind=\"{top:top+'px'}\">\n            <span class=\"fi-ui-drag-handle\"></span>\n            <span class=\"ui-col-fill\" innerhtml.bind=\"ghostModel[displayProperty] || ghostModel\"></span>\n        </div>\n    </div></div>\n</template>"),
             aurelia_framework_1.customElement('ui-reorder'), 
             __metadata('design:paramtypes', [Element])
         ], UIReorder);
@@ -4034,7 +4064,7 @@ define('resources/elements/components/ui-sidebar',["require", "exports", 'aureli
         ], UISidebar.prototype, "position", void 0);
         UISidebar = __decorate([
             aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template class=\"ui-sidebar ui-row-vertical ui-row-stretch ${collapsed?'ui-collapse':''} ${position}\" click.trigger=\"showOverlay($event)\">\n  <div class=\"ui-col-auto ui-row ui-row-end ui-row-middle ui-sidebar-head ${position=='start'?'':'ui-reverse'}\" if.bind=\"collapsible || label\">\n  <div class=\"ui-col-fill ui-sidebar-title\">${label}</div>\n  <a click.trigger=\"toggleCollapse($event)\" class=\"ui-col-auto ui-pad-all ui-sidebar-close\" if.bind=\"collapsible\"></a></div>\n  <div class=\"ui-col-fill ui-sidebar-content ${contentCls}\"><slot></slot></div>\n</template>"),
+            aurelia_framework_1.inlineView("<template class=\"ui-sidebar ui-row-vertical ui-row-stretch ${collapsed?'ui-collapse':''} ${position}\" click.trigger=\"showOverlay($event)\">\n  <div class=\"ui-col-auto ui-row ui-row-end ui-row-middle ui-sidebar-head ${position=='start'?'':'ui-reverse'}\" if.bind=\"collapsible || label\">\n  <div class=\"ui-col-fill ui-sidebar-title\">${label}</div>\n  <a click.trigger=\"toggleCollapse($event)\" class=\"ui-col-auto ui-sidebar-close\" if.bind=\"collapsible\"></a></div>\n  <div class=\"ui-col-fill ui-sidebar-content ${contentCls}\"><slot></slot></div>\n</template>"),
             aurelia_framework_1.customElement('ui-sidebar'), 
             __metadata('design:paramtypes', [Element])
         ], UISidebar);
@@ -9783,7 +9813,7 @@ var FileTypes = {
 }
 define("resources/libs/filetypes", [],function(){});
 
-define('text!app.html', ['module'], function(module) { module.exports = "<template>\n  <require from=\"./ui-glyphs.html\"></require>\n  <ui-viewport>\n    <ui-app-header>\n      <ui-drawer-toggle drawer.bind=\"menuDrawer\"></ui-drawer-toggle>\n      <ui-app-title src=\"images/logo.png\">\n        <h6>\n          <span>Aurelia UI Framework</span>\n          <small>A brand new framework</small>\n        </h6>\n      </ui-app-title>\n      <ui-filler></ui-filler>\n      <div class=\"ui-text-end ui-pad-all\">\n        <div class=\"indicator ui-bg-primary\"></div>\n        <div class=\"indicator ui-bg-secondary\"></div>\n        <div class=\"indicator ui-bg-info\"></div>\n        <div class=\"indicator ui-bg-danger\"></div>\n        <div class=\"indicator ui-bg-success\"></div>\n        <div class=\"indicator ui-bg-warning\"></div>\n      </div>\n    </ui-app-header>\n    \n    <ui-drawer ref=\"menuDrawer\" scroll close-on-click>\n      <a href=\"/#\" class=\"ui-block\">\n        <fieldset class=\"menu-banner\">\n          <ui-row middle>\n            <div class=\"img-rounded\"><img src=\"../images/logo.png\" height=\"48\"/></div>\n            <ui-column fill class=\"ui-font-big\"><strong>Aurelia UI Framework</strong><div class=\"ui-font-small\">Version 3</div></ui-column>\n          </ui-row>\n        </fieldset>\n      </a>\n      <ui-menu>\n        <ui-menu-group label.bind=\"routes.key\" repeat.for=\"routes of router.navigation | group:'settings.section'\">\n          <ui-menu-item repeat.for=\"route of routes.items\" href.bind=\"route.href\" active.bind=\"route.isActive\" icon.bind=\"route.settings.icon\" disabled.bind=\"route.settings.disabled\">${route.settings.title || route.title}</ui-menu-item>\n        </ui-menu-group>\n      </ui-menu>\n    </ui-drawer>\n    \n    <ui-router-view></ui-router-view>\n    <ui-app-footer>\n      <small>Version: 3.0.0</small>\n      <small>&copy; 2017, Adarsh Pastakia</small>\n    </ui-app-footer>\n  </ui-viewport>\n</template>"; });
+define('text!app.html', ['module'], function(module) { module.exports = "<template>\n  <ui-viewport>\n    <ui-app-header>\n      <ui-drawer-toggle drawer.bind=\"menuDrawer\"></ui-drawer-toggle>\n      <ui-app-title src=\"images/logo.png\">\n        <h6>\n          <span>Aurelia UI Framework</span>\n          <small>A brand new framework</small>\n        </h6>\n      </ui-app-title>\n      <ui-filler></ui-filler>\n      <div class=\"ui-text-end ui-pad-all\">\n        <div class=\"indicator ui-bg-primary\"></div>\n        <div class=\"indicator ui-bg-secondary\"></div>\n        <div class=\"indicator ui-bg-info\"></div>\n        <div class=\"indicator ui-bg-danger\"></div>\n        <div class=\"indicator ui-bg-success\"></div>\n        <div class=\"indicator ui-bg-warning\"></div>\n      </div>\n    </ui-app-header>\n    \n    <ui-drawer ref=\"menuDrawer\" scroll close-on-click>\n      <a href=\"/#\" class=\"ui-block\">\n        <fieldset class=\"menu-banner\">\n          <ui-row middle>\n            <div class=\"img-rounded\"><img src=\"../images/logo.png\" height=\"48\"/></div>\n            <ui-column fill class=\"ui-font-big\"><strong>Aurelia UI Framework</strong><div class=\"ui-font-small\">Version 3</div></ui-column>\n          </ui-row>\n        </fieldset>\n      </a>\n      <ui-menu>\n        <ui-menu-group label.bind=\"routes.key\" repeat.for=\"routes of router.navigation | group:'settings.section'\">\n          <ui-menu-item repeat.for=\"route of routes.items\" href.bind=\"route.href\" active.bind=\"route.isActive\" icon.bind=\"route.settings.icon\" disabled.bind=\"route.settings.disabled\">${route.settings.title || route.title}</ui-menu-item>\n        </ui-menu-group>\n      </ui-menu>\n    </ui-drawer>\n    \n    <ui-router-view></ui-router-view>\n    <ui-app-footer>\n      <span>Version: 3.0.0</span>\n      <span>&copy; 2017, Adarsh Pastakia</span>\n    </ui-app-footer>\n  </ui-viewport>\n</template>"; });
 define('text!components/drawers.html', ['module'], function(module) { module.exports = "<!--\n// @author      : Adarsh Pastakia\n// @copyright   : 2017\n// @license     : MIT\n-->\n<template>\n  <style>\n    .example-container {\n      position: relative;\n      height: 450px;\n      border: 1px solid #f0f0f0;\n    }\n\n  </style>\n  <ui-page page-title=\"Sidebar\">\n    <ui-content padded scroll>\n      <ui-container>\n        <ui-panel>\n          <ui-header light>\n            <ui-drawer-toggle drawer.bind=\"drawerLeft\"></ui-drawer-toggle>\n            <ui-filler></ui-filler>\n            <ui-drawer-toggle drawer.bind=\"drawerRight\" glyph=\"ellipsis-v\"></ui-drawer-toggle>\n          </ui-header>\n          \n          <ui-drawer ref=\"drawerLeft\" position=\"start\" scroll padded>\n            <compose view=\"../home/lipsum-small.html\"></compose>\n          </ui-drawer>\n          <ui-drawer ref=\"drawerRight\" position=\"end\" scroll padded>\n            <compose view=\"../home/lipsum-small.html\"></compose>\n          </ui-drawer>\n          \n          <ui-panel-body max-height=\"400px\" padded scroll>\n            <compose view=\"../home/lipsum-big.html\"></compose>\n          </ui-panel-body>\n        </ui-panel>\n      </ui-container>\n    </ui-content>\n  </ui-page>\n</template>"; });
 define('text!components/sidebar.html', ['module'], function(module) { module.exports = "<!--\n// @author      : Adarsh Pastakia\n// @copyright   : 2017\n// @license     : MIT\n-->\n<template>\n  <style>\n    .example-container {\n      position: relative;\n      height: 450px;\n      border: 1px solid #f0f0f0;\n    }\n\n  </style>\n  <ui-page page-title=\"Sidebar\">\n    <ui-content padded scroll>\n      <ui-container>\n        <ui-panel>\n          <ui-panel-body max-height=\"400px\" flex>\n            <ui-section row-layout>\n              <ui-sidebar label=\"Sidebar\" collapsible padded scroll>\n                <compose view=\"../home/lipsum-small.html\"></compose>\n              </ui-sidebar>\n              <ui-content padded scroll>\n                <compose view=\"../home/lipsum-big.html\"></compose>\n              </ui-content>\n            </ui-section>\n          </ui-panel-body>\n        </ui-panel>\n        <br/><br/>\n        <ui-panel>\n          <ui-panel-body max-height=\"400px\" flex>\n            <ui-section row-layout>\n              <ui-content padded scroll>\n                <compose view=\"../home/lipsum-big.html\"></compose>\n              </ui-content>\n              <ui-sidebar label=\"Sidebar\" collapsible padded scroll position=\"end\">\n                <compose view=\"../home/lipsum-small.html\"></compose>\n              </ui-sidebar>\n            </ui-section>\n          </ui-panel-body>\n        </ui-panel>\n        <br/><br/>\n        <h5 class=\"section-title\">Collapsing Mini Display</h5>\n        <ui-panel>\n          <ui-panel-body max-height=\"400px\" flex>\n            <ui-section row-layout>\n              <ui-sidebar label=\"Sidebar\" collapsed=\"true\" collapsible scroll mini-display>\n                <ui-menu>\n                  <ui-menu-item active=\"true\" glyph=\"icon-email-line\">\n                    Inbox</ui-menu-item>\n                  <ui-menu-item glyph=\"icon-calendar-line\">\n                    Calendar</ui-menu-item>\n                  <ui-menu-item glyph=\"icon-comments-line\">\n                    Notification</ui-menu-item>\n                  <ui-menu-divider></ui-menu-divider>\n                  <ui-menu-item glyph=\"icon-cog-line\">\n                    Settings</ui-menu-item>\n                </ui-menu>\n              </ui-sidebar>\n              <ui-content padded scroll>\n                <compose view=\"../home/lipsum-big.html\"></compose>\n              </ui-content>\n              <ui-sidebar class=\"ui-font-small\" label=\"Sidebar\" collapsed=\"true\" scroll mini-display position=\"end\">\n                <ui-menu>\n                  <ui-menu-item glyph=\"icon-add\"></ui-menu-item>\n                  <ui-menu-item glyph=\"icon-remove\"></ui-menu-item>\n                  <ui-menu-item glyph=\"icon-notify\"></ui-menu-item>\n                </ui-menu>\n              </ui-sidebar>\n            </ui-section>\n          </ui-panel-body>\n        </ui-panel>\n        <br/><br/>\n      </ui-container>\n    </ui-content>\n  </ui-page>\n</template>"; });
 define('text!components/tree.html', ['module'], function(module) { module.exports = "<template>\n  <style>\n    .tree-container {\n      position: relative;\n      height: 450px;\n      display: flex;\n      flex-direction: row;\n      align-items: stretch;\n      justify-items: stretch;\n      border: 1px solid #e5e5e5;\n    }\n\n  </style>\n  <ui-page page-title=\"Tree\">\n    <ui-content padded scroll>\n      <ui-container>\n        <div class=\"tree-container\">\n          <ui-section row-layout>\n          <ui-sidebar scroll>\n            <ui-tree searchable options.bind=\"treeOpts\" model.bind=\"treeModel\" value.bind=\"treeSelected\"></ui-tree>\n          </ui-sidebar>\n          <ui-content padded scroll>\n            <p repeat.for=\"v of treeSelected | split\">\n              <span class=\"ui-flag ${v}\"></span> <span>${countries[v].name || v}</span>\n            </p>\n          </ui-content>\n          <ui-sidebar scroll position=\"end\" label=\"Options\">\n            <ui-option-group>\n              <ui-checkbox change.trigger=\"clearSelection($event)\" checked=\"true\">Show Checkboxes</ui-checkbox>\n            </ui-option-group>\n            <ui-input-group if.bind=\"treeOpts.showCheckbox\">\n              <ui-input-label>Checkbox Level</ui-input-label>\n              <ui-dropdown value.bind=\"treeOpts.checkboxLevel\">\n                <ui-list-item value=\"0\">0</ui-list-item>\n                <ui-list-item value=\"1\">1</ui-list-item>\n              </ui-dropdown>\n            </ui-input-group>\n            <ui-input-group if.bind=\"!treeOpts.showCheckbox\">\n              <ui-input-label>Selection Level</ui-input-label>\n              <ui-dropdown value.bind=\"treeOpts.selectionLevel\">\n                <ui-list-item value=\"0\">0</ui-list-item>\n                <ui-list-item value=\"1\">1</ui-list-item>\n              </ui-dropdown>\n            </ui-input-group>\n          </ui-sidebar>\n        </div>\n      </ui-container>\n    </ui-content>\n  </ui-page>\n</template>"; });
@@ -9792,17 +9822,4318 @@ define('text!core/viewport.html', ['module'], function(module) { module.exports 
 define('text!home/lipsum-big.html', ['module'], function(module) { module.exports = "<!--\n// @author      : Adarsh Pastakia\n// @copyright   : 2016\n// @license     : MIT\n-->\n<template>\n  <p class=\"ui-para emphasis\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ac enim eget lectus consequat feugiat. Integer eu fermentum lacus, et feugiat mi. Mauris quis ex odio. Nulla ex ex, suscipit quis purus ut, sollicitudin\n    consequat nulla. Vivamus pretium tellus dolor. Nulla ex mi, faucibus ut rhoncus quis, rhoncus ut lorem. In interdum id neque in dapibus. Nulla dignissim sagittis luctus. Quisque odio enim, vehicula vel lectus vel, scelerisque elementum felis. Aliquam\n    pulvinar, ex eu pharetra consectetur, mi arcu consectetur ex, quis euismod nibh magna vitae ante. Maecenas finibus finibus ligula, ut ultrices sem convallis vel. Curabitur neque neque, bibendum ut est non, dapibus egestas eros. Suspendisse potenti.\n    Maecenas tristique suscipit quam, quis consectetur ante. Morbi a mi eu dolor condimentum accumsan id in tellus. Cras mi mauris, egestas sit amet tortor faucibus, sagittis euismod metus.</p>\n\n  <p class=\"ui-para\">Aliquam vestibulum vestibulum mauris. Sed nisl ipsum, consectetur vel purus eget, euismod aliquam velit. Suspendisse id consequat magna. Cras ultrices libero eu maximus ornare. Vivamus vulputate ipsum ut scelerisque pellentesque.\n    Praesent sed est urna. Curabitur venenatis laoreet urna at rhoncus. Integer blandit eros mollis, sagittis sem id, dictum tortor. Quisque convallis ornare erat ut laoreet.</p>\n\n  <p class=\"ui-para\">Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris nec neque rhoncus, sollicitudin purus lacinia, aliquam nibh. Nunc aliquam ex sed ligula varius, in porttitor ipsum feugiat. Pellentesque\n    gravida enim ipsum, in fermentum felis ullamcorper id. Sed leo nibh, rutrum vitae dapibus eget, fermentum in diam. Maecenas dignissim ante et lorem ornare, at bibendum tellus tristique. Mauris sagittis erat tellus, ac accumsan sapien tristique ac.\n    Duis nibh nisl, imperdiet non egestas eget, blandit id orci. Vivamus luctus sit amet dolor eget cursus. Maecenas orci nulla, rhoncus quis erat in, ornare euismod neque. Quisque vulputate elementum turpis, ac finibus leo. Donec nec nibh suscipit purus\n    tristique elementum ac sed massa. Suspendisse sit amet dapibus ligula. Quisque lacinia erat vitae odio porttitor, nec dictum justo imperdiet.</p>\n\n  <p class=\"ui-para\">Phasellus dolor tortor, scelerisque id rhoncus volutpat, scelerisque eu lorem. Quisque id nisi eget justo laoreet suscipit. Donec porttitor enim ipsum, sed semper urna gravida sed. Fusce scelerisque nisi sit amet massa imperdiet, a\n    sollicitudin purus elementum. Sed justo nibh, mollis sed venenatis at, blandit vitae ligula. Vestibulum ac diam venenatis, lobortis metus vel, gravida mauris. Morbi porta, nisi sit amet efficitur dignissim, ex mauris dapibus metus, quis interdum\n    massa urna quis purus. Fusce consectetur dolor et nunc pharetra gravida. Aliquam tempor, est eget tempus faucibus, magna turpis pharetra tortor, at accumsan enim leo vel ex. Cras malesuada libero vehicula erat vestibulum, in rhoncus magna rutrum.</p>\n\n  <p class=\"ui-para\">Aliquam erat volutpat. Nunc mollis venenatis porttitor. Etiam bibendum sapien sit amet justo ultricies, nec pretium nibh dignissim. Vivamus efficitur dictum urna, ut posuere nunc hendrerit nec. Nullam pellentesque enim orci, non\n    scelerisque eros ornare ac. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla ac lorem sapien. Vestibulum sed elit eu arcu euismod sodales a quis lorem. Nunc gravida ac lectus non tempus. Aliquam id\n    vestibulum ex. Aenean egestas rutrum dignissim. Donec et lacus et mauris porttitor commodo. Vestibulum massa orci, egestas ac aliquam id, vestibulum et erat.</p>\n</template>"; });
 define('text!home/lipsum-small.html', ['module'], function(module) { module.exports = "<!--\n// @author      : Adarsh Pastakia\n// @copyright   : 2016\n// @license     : MIT\n-->\n<template>\n  <p class=\"ui-para emphasis\"><span class=\"ui-text-info ui-bold\">Lorem ipsum</span> dolor sit amet, consectetur adipiscing elit. Duis ac enim eget lectus consequat feugiat. Integer eu fermentum lacus, et feugiat mi. Mauris quis ex odio. Nulla ex ex, suscipit quis purus ut, sollicitudin\n    consequat nulla. Vivamus pretium tellus dolor. Nulla ex mi, faucibus ut rhoncus quis, rhoncus ut lorem. In interdum id neque in dapibus. Nulla dignissim sagittis luctus. Quisque odio enim, vehicula vel lectus vel, scelerisque elementum felis. Aliquam\n    pulvinar, ex eu pharetra consectetur, mi arcu consectetur ex, quis euismod nibh magna vitae ante. Maecenas finibus finibus ligula, ut ultrices sem convallis vel. Curabitur neque neque, bibendum ut est non, dapibus egestas eros. Suspendisse potenti.\n    Maecenas tristique suscipit quam, quis consectetur ante. Morbi a mi eu dolor condimentum accumsan id in tellus. Cras mi mauris, egestas sit amet tortor faucibus, sagittis euismod metus.</p>\n</template>"; });
 define('text!home/view.html', ['module'], function(module) { module.exports = "<!--\n// @author      : Adarsh Pastakia\n// @copyright   : 2017\n// @license     : MIT\n-->\n<template>\n  <style>\n    .browser-list {}\n    .browser-list td {\n      line-height: 1;\n      font-size: 1rem;\n      font-weight: 300;\n      padding: 0.4em 0.8em;\n      border: 1px solid #f0f0f0;\n    }\n\n    .browser-list td.op1 {\n      background: url('images/browsers/success.png') no-repeat center center;\n    }\n    .browser-list td.op2 {\n      background: url('images/browsers/error.png') no-repeat center center;\n    }\n    .browser-list td.op0 {\n      background: url('images/browsers/warning.png') no-repeat center center;\n    }\n    .browser-list tbody tr:nth-child(odd) {\n      background: #fcfcfc;\n    }\n\n    .ui-column > p {\n      margin: 0 0 1em;\n    }\n\n  </style>\n  <ui-content scroll padded>\n    <ui-container>\n      \n      <div class=\"ui-row ui-row-middle ui-row-center\">\n        <img src=\"images/logo.png\" height=\"64\"/>\n        <h1 class=\"ui-display-1 ui-text-primary\">&nbsp;Aurelia UI Framework</h1>\n        <div class=\"ui-col-full ui-font-large ui-thin ui-text-center\">A complete UI Framework for desktop business applications.</div>\n      </div>\n      <hr/>\n\n      <ui-row>\n        <ui-column fill padded width=\"320px\">\n          <h5 class=\"section-title\">Theming</h5>\n          <p class=\"ui-para\">Themeable stylings built on Compass-Sass</p>\n          <ui-row>\n            <ui-column padded size=\"sm-6 md-4 lg-6 xl-3\">\n              <a href=\"#/theme/home\">Overview\n                <small class=\"fi-ui-arrow-right\"></small>\n              </a>\n              <p class=\"ui-thin\">Basic theming overview</p>\n            </ui-column>\n            <ui-column padded size=\"sm-6 md-4 lg-6 xl-3\">\n              <a href=\"#/theme/typo\">Typography\n                <small class=\"fi-ui-arrow-right\"></small>\n              </a>\n              <p class=\"ui-thin\">Font styles and contextual colors</p>\n            </ui-column>\n            <ui-column padded size=\"sm-6 md-4 lg-6 xl-3\">\n              <a href=\"#/theme/glyphs\">Icon Glyphs\n                <small class=\"fi-ui-arrow-right\"></small>\n              </a>\n              <p class=\"ui-thin\">Font icon glyphs</p>\n            </ui-column>\n            <ui-column padded size=\"sm-6 md-4 lg-6 xl-3\">\n              <a href=\"#/theme/flags\">Flags Icons\n                <small class=\"fi-ui-arrow-right\"></small>\n              </a>\n              <p class=\"ui-thin\">Country flags</p>\n            </ui-column>\n          </ui-row>\n\n          <h5 class=\"section-title\">Core Components</h5>\n          <p class=\"ui-para\">Core viewport and page components for building applications</p>\n          <ui-row>\n            <ui-column padded size=\"sm-6 md-4 lg-6 xl-3\">\n              <a href=\"#/viewport\">Viewport\n                <small class=\"fi-ui-arrow-right\"></small>\n              </a>\n              <p class=\"ui-thin\">Main application viewport</p>\n            </ui-column>\n            <ui-column padded size=\"sm-6 md-4 lg-6 xl-3\">\n              <a href=\"#/page\">Page Components\n                <small class=\"fi-ui-arrow-right\"></small>\n              </a>\n              <p class=\"ui-thin\">Page components for creating various page layouts</p>\n            </ui-column>\n            <ui-column padded size=\"sm-6 md-4 lg-6 xl-3\">\n              <a href=\"#/grid\">Responsive Layout\n                <small class=\"fi-ui-arrow-right\"></small>\n              </a>\n              <p class=\"ui-thin\">Responsive layout for various display viewports</p>\n            </ui-column>\n          </ui-row>\n\n          <h5 class=\"section-title\">Input Elements</h5>\n          <p class=\"ui-para\">Comprehensive input elements for business related forms</p>\n          <ui-row>\n            <ui-column padded size=\"sm-6 md-4 lg-6 xl-3\">\n              <a href=\"#/inputs/buttons\">Buttons\n                <small class=\"fi-ui-arrow-right\"></small>\n              </a>\n              <p class=\"ui-thin\">Basic buttons with groups and dropdowns</p>\n            </ui-column>\n            <ui-column padded size=\"sm-6 md-4 lg-6 xl-3\">\n              <a href=\"#/inputs/basic\">Text Inputs\n                <small class=\"fi-ui-arrow-right\"></small>\n              </a>\n              <p class=\"ui-thin\">Basic inputs for text, numbers and phone numbers</p>\n            </ui-column>\n            <ui-column padded size=\"sm-6 md-4 lg-6 xl-3\">\n              <a href=\"#/inputs/basic\">Multiline Input\n                <small class=\"fi-ui-arrow-right\"></small>\n              </a>\n              <p class=\"ui-thin\">Multiline input with auto-complete</p>\n            </ui-column>\n            <ui-column padded size=\"sm-6 md-4 lg-6 xl-3\">\n              <a href=\"#/inputs/options\">Option Inputs\n                <small class=\"fi-ui-arrow-right\"></small>\n              </a>\n              <p class=\"ui-thin\">Checkbox, radio and switch controls</p>\n            </ui-column>\n            <ui-column padded size=\"sm-6 md-4 lg-6 xl-3\">\n              <a href=\"#/inputs/lists\">List Inputs\n                <small class=\"fi-ui-arrow-right\"></small>\n              </a>\n              <p class=\"ui-thin\">Common list, combo and tag inputs, with search capability</p>\n            </ui-column>\n            <ui-column padded size=\"sm-6 md-4 lg-6 xl-3\">\n              <a href=\"#/inputs/dates\">Date Inputs\n                <small class=\"fi-ui-arrow-right\"></small>\n              </a>\n              <p class=\"ui-thin\">Date/Time inputs</p>\n            </ui-column>\n            <ui-column padded size=\"sm-6 md-4 lg-6 xl-3\">\n              <a href=\"#/inputs\">Content Editors\n                <small class=\"fi-ui-arrow-right\"></small>\n              </a>\n              <p class=\"ui-thin\">Content editors for multi-language and markdown content</p>\n            </ui-column>\n            <ui-column padded size=\"sm-6 md-4 lg-6 xl-3\">\n              <a href=\"#/inputs\">Input Validation\n                <small class=\"fi-ui-arrow-right\"></small>\n              </a>\n              <p class=\"ui-thin\">Input validations and error displays</p>\n            </ui-column>\n          </ui-row>\n\n          <h5 class=\"section-title\">UI Components</h5>\n          <ui-row>\n            <ui-column padded size=\"sm-6 md-4 lg-6 xl-3\">\n              <a href=\"#/menus/\">Menus\n                <small class=\"fi-ui-arrow-right\"></small>\n              </a>\n              <p class=\"ui-thin\">Menu components for creating menu lists and menubars</p>\n            </ui-column>\n            <ui-column padded size=\"sm-6 md-4 lg-6 xl-3\">\n              <a href=\"#/drawer/\">Drawer\n                <small class=\"fi-ui-arrow-right\"></small>\n              </a>\n              <p class=\"ui-thin\">Sliding side drawer</p>\n            </ui-column>\n            <ui-column padded size=\"sm-6 md-4 lg-6 xl-3\">\n              <a href=\"#/sidebar/\">Sidebar\n                <small class=\"fi-ui-arrow-right\"></small>\n              </a>\n              <p class=\"ui-thin\">In page sidebar</p>\n            </ui-column>\n            <ui-column padded size=\"sm-6 md-4 lg-6 xl-3\">\n              <a href=\"#/toolbar/\">Toolbar\n                <small class=\"fi-ui-arrow-right\"></small>\n              </a>\n              <p class=\"ui-thin\">Simple toolbar for dialogs and panels</p>\n            </ui-column>\n            <ui-column padded size=\"sm-6 md-4 lg-6 xl-3\">\n              <a href=\"#/statsbar/\">Statsbar\n                <small class=\"fi-ui-arrow-right\"></small>\n              </a>\n              <p class=\"ui-thin\">Horizontal simple statistics display</p>\n            </ui-column>\n            <ui-column padded size=\"sm-6 md-4 lg-6 xl-3\">\n              <a href=\"#/panels/\">Panels\n                <small class=\"fi-ui-arrow-right\"></small>\n              </a>\n              <p class=\"ui-thin\">Create panels with optional collapsible and closable</p>\n            </ui-column>\n            <ui-column padded size=\"sm-6 md-4 lg-6 xl-3\">\n              <a href=\"#/dialogs/\">Dialogs\n                <small class=\"fi-ui-arrow-right\"></small>\n              </a>\n              <p class=\"ui-thin\">Create panels with optional collapsible and closable</p>\n            </ui-column>\n            <ui-column padded size=\"sm-6 md-4 lg-6 xl-3\">\n              <a href=\"#/alerts/\">Alerts\n                <small class=\"fi-ui-arrow-right\"></small>\n              </a>\n              <p class=\"ui-thin\">Alert dialogs and floating toast messages</p>\n            </ui-column>\n            <ui-column padded size=\"sm-6 md-4 lg-6 xl-3\">\n              <a href=\"#/breadcrumbs/\">Breadcrumbs\n                <small class=\"fi-ui-arrow-right\"></small>\n              </a>\n              <p class=\"ui-thin\">Themed breadcrumbs for navugating through various levels</p>\n            </ui-column>\n            <ui-column padded size=\"sm-6 md-4 lg-6 xl-3\">\n              <a href=\"#/tabs/\">Tab Panel\n                <small class=\"fi-ui-arrow-right\"></small>\n              </a>\n              <p class=\"ui-thin\">Tabbed panels</p>\n            </ui-column>\n            <ui-column padded size=\"sm-6 md-4 lg-6 xl-3\">\n              <a href=\"#/tree/\">Tree Panel\n                <small class=\"fi-ui-arrow-right\"></small>\n              </a>\n              <p class=\"ui-thin\">Tree styled data display with optional checkable nodes</p>\n            </ui-column>\n            <ui-column padded size=\"sm-6 md-4 lg-6 xl-3\">\n              <a href=\"#/datagrid/\">Datagrid\n                <small class=\"fi-ui-arrow-right\"></small>\n              </a>\n              <p class=\"ui-thin\">Functional datagrid with resizable columns and summary row.</p>\n            </ui-column>\n          </ui-row>\n\n          <h5 class=\"section-title\">App Modules</h5>\n          <ui-row>\n            <ui-column padded size=\"sm-6 md-4 lg-6 xl-3\">\n              <a href=\"#/application/\">Application\n                <small class=\"fi-ui-arrow-right\"></small>\n              </a>\n              <p class=\"ui-thin\">Application singleton for common functionality shared across entire app</p>\n            </ui-column>\n            <ui-column padded size=\"sm-6 md-4 lg-6 xl-3\">\n              <a href=\"#/http-client/\">Http Client\n                <small class=\"fi-ui-arrow-right\"></small>\n              </a>\n              <p class=\"ui-thin\">Extended aurelia-fetch-client for http requests</p>\n            </ui-column>\n            <ui-column padded size=\"sm-6 md-4 lg-6 xl-3\">\n              <a href=\"#/data-model/\">Data Model\n                <small class=\"fi-ui-arrow-right\"></small>\n              </a>\n              <p class=\"ui-thin\">Generic data model for serializing/desrializing pojo data</p>\n            </ui-column>\n            <ui-column padded size=\"sm-6 md-4 lg-6 xl-3\">\n              <a href=\"#/value-converters/\">Value Converters\n                <small class=\"fi-ui-arrow-right\"></small>\n              </a>\n              <p class=\"ui-thin\">Basic value converters for strings and collections</p>\n            </ui-column>\n          </ui-row>\n        </ui-column>\n\n        <ui-column auto padded>\n          <h5 class=\"section-title\">Browser Support</h5>\n          <table class=\"browser-list\">\n            <tr>\n              <td colspan=\"7\" style=\"border:none;text-align:right;\">\n                <span class=\"ui-font-small\"><img src=\"images/browsers/success.png\" height=\"12px\"/>\n                  Tested&nbsp;&nbsp;</span>\n                <span class=\"ui-font-small\"><img src=\"images/browsers/warning.png\" height=\"12px\"/>\n                  Untested&nbsp;&nbsp;</span>\n                <span class=\"ui-font-small\"><img src=\"images/browsers/error.png\" height=\"12px\"/>\n                  Known Issues</span>\n              </td>\n            </tr>\n            <tr>\n              <td width=\"180px\">&nbsp;</td>\n              <td><img src=\"images/browsers/safari.png\" width=\"32\"/></td>\n              <td><img src=\"images/browsers/chrome.png\" width=\"32\"/></td>\n              <td><img src=\"images/browsers/firefox.png\" width=\"32\"/></td>\n              <td><img src=\"images/browsers/opera.png\" width=\"32\"/></td>\n              <td><img src=\"images/browsers/edge.png\" width=\"32\"/></td>\n            </tr>\n            <tbody>\n              <tr>\n                <td colspan=\"7\">\n                  <span class=\"ui-strong ui-text-primary\">Core Components</span>\n                </td>\n              </tr>\n              <tr repeat.for=\"el of core\">\n                <td>${el.label}</td>\n                <td class=\"op${el.s}\"></td>\n                <td class=\"op${el.c}\"></td>\n                <td class=\"op${el.f}\"></td>\n                <td class=\"op${el.o}\"></td>\n                <td class=\"op${el.e}\"></td>\n              </tr>\n            </tbody>\n            <tbody>\n              <tr>\n                <td colspan=\"7\">\n                  <span class=\"ui-strong ui-text-primary\">Input Elements</span>\n                </td>\n              </tr>\n              <tr repeat.for=\"el of inputs\">\n                <td>${el.label}</td>\n                <td class=\"op${el.s}\"></td>\n                <td class=\"op${el.c}\"></td>\n                <td class=\"op${el.f}\"></td>\n                <td class=\"op${el.o}\"></td>\n                <td class=\"op${el.e}\"></td>\n              </tr>\n            </tbody>\n            <tbody>\n              <tr>\n                <td colspan=\"7\">\n                  <span class=\"ui-strong ui-text-primary\">UI Components</span>\n                </td>\n              </tr>\n              <tr repeat.for=\"el of comps\">\n                <td>${el.label}</td>\n                <td class=\"op${el.s}\"></td>\n                <td class=\"op${el.c}\"></td>\n                <td class=\"op${el.f}\"></td>\n                <td class=\"op${el.o}\"></td>\n                <td class=\"op${el.e}\"></td>\n              </tr>\n            </tbody>\n            <tbody>\n              <tr>\n                <td colspan=\"7\">\n                  <span class=\"ui-strong ui-text-primary\">Features</span>\n                </td>\n              </tr>\n              <tr repeat.for=\"el of features\">\n                <td>${el.label}</td>\n                <td class=\"op${el.s}\"></td>\n                <td class=\"op${el.c}\"></td>\n                <td class=\"op${el.f}\"></td>\n                <td class=\"op${el.o}\"></td>\n                <td class=\"op${el.e}\"></td>\n              </tr>\n            </tbody>\n          </table>\n        </ui-column>\n      </ui-row>\n\n    </ui-container>\n  </ui-content>\n</template>"; });
-define('text!inputs/basic.html', ['module'], function(module) { module.exports = "<!--\n// @author      : Adarsh Pastakia\n// @copyright   : 2017\n// @license     : MIT\n-->\n<template>\n  <ui-page page-title=\"Text Inputs\">\n    <ui-content scroll padded>\n      <ui-container>\n        <ui-row>\n          <ui-column full>\n            <ui-fieldset legend=\"Basic Inputs\">\n              <ui-row>\n                <ui-column size=\"md-6\" padded>\n                  <ui-input-group>\n                    <ui-input-label>Text</ui-input-label>\n                    <ui-input placeholder=\"Any text...\"></ui-input>\n                  </ui-input-group>\n                  <ui-input-group>\n                    <ui-input-label>Password</ui-input-label>\n                    <ui-input password placeholder=\"Any text...\">\n                      <ui-input-addon><strong class=\"ui-font-small\">Strong</strong></ui-input-addon>\n                    </ui-input>\n                  </ui-input-group>\n                  <ui-input-group>\n                    <ui-input-label>Number</ui-input-label>\n                    <ui-input number placeholder=\"Any number...\"></ui-input>\n                  </ui-input-group>\n                  <ui-input-group>\n                    <ui-input-label>Decimal</ui-input-label>\n                    <ui-input decimal placeholder=\"Any decimal...\"></ui-input>\n                  </ui-input-group>\n                  <ui-input-group>\n                    <ui-input-label>Email</ui-input-label>\n                    <ui-input email placeholder=\"user@domain.com\">\n                      <ui-input-addon glyph=\"icon-email-line\"></ui-input-addon>\n                    </ui-input>\n                  </ui-input-group>\n                  <ui-input-group>\n                    <ui-input-label>URL</ui-input-label>\n                    <ui-input url placeholder=\"http://domain.com\">\n                      <ui-input-addon glyph=\"icon-web-line\"></ui-input-addon>\n                    </ui-input>\n                  </ui-input-group>\n                  <ui-input-group>\n                    <ui-input-label>File</ui-input-label>\n                    <ui-input file placeholder=\"Any file...\">\n                      <ui-input-addon glyph=\"icon-image-line\"></ui-input-addon>\n                    </ui-input>\n                  </ui-input-group>\n                </ui-column>\n                <ui-column size=\"md-6\" padded>\n                  <div class=\"ui-text-primary\">Input States</div>\n                  <ui-input-group>\n                    <ui-input-label>Readonly</ui-input-label>\n                    <ui-input readonly=\"true\" value=\"Input value...\"></ui-input>\n                  </ui-input-group>\n                  <ui-input-group>\n                    <ui-input-label>Disabled</ui-input-label>\n                    <ui-input disabled=\"true\" value=\"Input value...\"></ui-input>\n                  </ui-input-group>\n                  <ui-input-group>\n                    <ui-input-label>Invalid</ui-input-label>\n                    <ui-input value=\"Errored input...\" class=\"ui-invalid\" errors.bind=\"['Input required', 'Input must be minimum 5 characters']\"></ui-input>\n                  </ui-input-group>\n                  <hr/>\n                  <div class=\"ui-text-primary\">Input Extras</div>\n                  <ui-input-group>\n                    <ui-input-label>Clear</ui-input-label>\n                    <ui-input clear value=\"Text value\"></ui-input>\n                  </ui-input-group>\n                  <ui-input-group>\n                    <ui-input-label>Counter</ui-input-label>\n                    <ui-input counter value=\"Text value\"></ui-input>\n                    <ui-input-info class=\"ui-text-muted\">Display remaining length</ui-input-info>\n                  </ui-input-group>\n                </ui-column>\n                <ui-column size=\"md-6\" padded>\n                  <hr/>\n                  <div class=\"ui-text-primary\">Phone Input</div>\n                  <ui-input-group>\n                    <ui-input-label>International</ui-input-label>\n                    <ui-phone>\n                      <ui-input-addon glyph=\"icon-phone-line\"></ui-input-addon>\n                    </ui-phone>\n                  </ui-input-group>\n                  <ui-input-group>\n                    <ui-input-label>National</ui-input-label>\n                    <ui-dropdown value=\"2\">\n                      <ui-list-item value=\"0\">Home</ui-list-item>\n                      <ui-list-item value=\"1\">Work</ui-list-item>\n                      <ui-list-item value=\"2\">Mobile</ui-list-item>\n                    </ui-dropdown>\n                    <ui-phone country=\"ae\">\n                      <ui-input-addon glyph=\"icon-phone-line\"></ui-input-addon>\n                    </ui-phone>\n                  </ui-input-group>\n                </ui-column>\n                <ui-column size=\"md-6\" padded>\n                  <hr/>\n                  <div class=\"ui-text-primary\">Multiline Input</div>\n                  <ui-input-group>\n                    <ui-input-label>Textarea</ui-input-label>\n                    <ui-textarea clear counter value=\"With auto-complete...\" auto-complete=\"Alpha,Bravo,Charlie,Delta,Echo,Foxtrot,Lima,Omega,Sigma,Theta,Zulu\"></ui-textarea>\n                  </ui-input-group>\n                </ui-column>\n              </ui-row>\n            </ui-fieldset>\n          </ui-column>\n          <ui-column full>\n            <ui-fieldset legend=\"Optional Inputs\">\n              <ui-row>\n                <ui-column size=\"md-6\" padded>\n                  <h6 class=\"ui-text-primary\">Single</h6>\n                  <ui-input-group>\n                    <ui-input-label>Microsoft Live</ui-input-label>\n                    <ui-radio name=\"rdis\" value=\"0\" checked.bind=\"rdis\" change.trigger=\"ropt2=(ropt3='')\"></ui-radio>\n                    <ui-input disabled.bind=\"rdis!=0\" value.bind=\"ropt1\"></ui-input>\n                  </ui-input-group>\n                  <ui-input-group>\n                    <ui-input-label>Google</ui-input-label>\n                    <ui-radio name=\"rdis\" value=\"1\" checked.bind=\"rdis\" change.trigger=\"ropt1=(ropt3='')\"></ui-radio>\n                    <ui-input disabled.bind=\"rdis!=1\" value.bind=\"ropt2\"></ui-input>\n                  </ui-input-group>\n                  <ui-input-group>\n                    <ui-input-label>Facebook</ui-input-label>\n                    <ui-radio name=\"rdis\" value=\"2\" checked.bind=\"rdis\" change.trigger=\"ropt1=(ropt2='')\"></ui-radio>\n                    <ui-input disabled.bind=\"rdis!=2\" value.bind=\"ropt3\"></ui-input>\n                  </ui-input-group>\n                </ui-column>\n                <ui-column size=\"md-6\" padded>\n                  <h6 class=\"ui-text-primary\">Multiple</h6>\n                  <ui-input-group>\n                    <ui-input-label>Google+</ui-input-label>\n                    <ui-checkbox checked.bind=\"dis1\" change.trigger=\"opt1=''\"></ui-checkbox>\n                    <ui-input disabled.bind=\"!dis1\" value.bind=\"opt1\" placeholder=\"Google+ profile...\"></ui-input>\n                  </ui-input-group>\n                  <ui-input-group>\n                    <ui-input-label>Facebook</ui-input-label>\n                    <ui-checkbox checked.bind=\"dis2\" change.trigger=\"opt2=''\"></ui-checkbox>\n                    <ui-input disabled.bind=\"!dis2\" value.bind=\"opt2\" placeholder=\"Facebook profile...\"></ui-input>\n                  </ui-input-group>\n                  <ui-input-group>\n                    <ui-input-label>Twitter</ui-input-label>\n                    <ui-checkbox checked.bind=\"dis3\" change.trigger=\"opt3=''\"></ui-checkbox>\n                    <ui-input disabled.bind=\"!dis3\" value.bind=\"opt3\" placeholder=\"Twitter handle...\"></ui-input>\n                  </ui-input-group>\n                </ui-column>\n              </ui-row>\n            </ui-fieldset>\n          </ui-column>\n        </ui-row>\n\n      </ui-container>\n    </ui-content>\n  </ui-page>\n</template>"; });
+define('text!inputs/basic.html', ['module'], function(module) { module.exports = "<!--\n// @author      : Adarsh Pastakia\n// @copyright   : 2017\n// @license     : MIT\n-->\n<template>\n  <ui-page page-title=\"Text Inputs\">\n    <ui-content scroll padded>\n      <ui-container>\n        <ui-row>\n          <ui-column full>\n            <ui-fieldset legend=\"Basic Inputs\">\n              <ui-row>\n                <ui-column size=\"md-6\" padded>\n                  <ui-input-group>\n                    <ui-input-label>Text</ui-input-label>\n                    <ui-input placeholder=\"Any text...\"></ui-input>\n                  </ui-input-group>\n                  <ui-input-group>\n                    <ui-input-label>Password</ui-input-label>\n                    <ui-input password placeholder=\"Any text...\">\n                      <ui-input-addon><small class=\"ui-strong ui-text-success\">Strong</small></ui-input-addon>\n                    </ui-input>\n                  </ui-input-group>\n                  <ui-input-group>\n                    <ui-input-label>Number</ui-input-label>\n                    <ui-input number placeholder=\"Any number...\"></ui-input>\n                  </ui-input-group>\n                  <ui-input-group>\n                    <ui-input-label>Decimal</ui-input-label>\n                    <ui-input decimal placeholder=\"Any decimal...\"></ui-input>\n                  </ui-input-group>\n                  <ui-input-group>\n                    <ui-input-label>Email</ui-input-label>\n                    <ui-input email placeholder=\"user@domain.com\">\n                      <ui-input-addon class=\"ui-text-info\" glyph=\"icon-email-line\"></ui-input-addon>\n                    </ui-input>\n                  </ui-input-group>\n                  <ui-input-group>\n                    <ui-input-label>URL</ui-input-label>\n                    <ui-input url placeholder=\"http://domain.com\">\n                      <ui-input-addon class=\"ui-text-info\" glyph=\"icon-web-line\"></ui-input-addon>\n                    </ui-input>\n                  </ui-input-group>\n                  <ui-input-group>\n                    <ui-input-label>File</ui-input-label>\n                    <ui-input file placeholder=\"Any file...\">\n                      <ui-input-addon glyph=\"icon-image-line\"></ui-input-addon>\n                    </ui-input>\n                  </ui-input-group>\n                  <ui-input-group>\n                    <ui-input-label>Double Input</ui-input-label>\n                    <ui-input decimal placeholder=\"Latitude...\" info=\"Latitude\">\n                      <ui-input-addon class=\"ui-bg-warning ui-text-white\" glyph=\"icon-placeholder\"></ui-input-addon>\n                    </ui-input>\n                    <ui-input decimal placeholder=\"Longitude...\" info=\"Longitude\">\n                      <ui-input-addon class=\"ui-bg-warning ui-text-white\" glyph=\"icon-placeholder\"></ui-input-addon>\n                    </ui-input>\n                  </ui-input-group>\n                </ui-column>\n                <ui-column size=\"md-6\" padded>\n                  <div class=\"ui-text-primary\">Input States</div>\n                  <ui-input-group>\n                    <ui-input-label>Readonly</ui-input-label>\n                    <ui-input readonly=\"true\" value=\"Input value...\"></ui-input>\n                  </ui-input-group>\n                  <ui-input-group>\n                    <ui-input-label>Disabled</ui-input-label>\n                    <ui-input disabled=\"true\" value=\"Input value...\"></ui-input>\n                  </ui-input-group>\n                  <ui-input-group>\n                    <ui-input-label>Invalid</ui-input-label>\n                    <ui-input value=\"Errored input...\" class=\"ui-invalid\" errors.bind=\"['Input required', 'Input must be minimum 5 characters']\"></ui-input>\n                  </ui-input-group>\n                  <hr/>\n                  <div class=\"ui-text-primary\">Input Extras</div>\n                  <ui-input-group>\n                    <ui-input-label>Clear</ui-input-label>\n                    <ui-input clear value=\"Text value\"></ui-input>\n                  </ui-input-group>\n                  <ui-input-group>\n                    <ui-input-label>Counter</ui-input-label>\n                    <ui-input counter value=\"Text value\"></ui-input>\n                    <ui-input-info class=\"ui-text-muted\">Display remaining length</ui-input-info>\n                  </ui-input-group>\n                </ui-column>\n                <ui-column size=\"md-6\" padded>\n                  <hr/>\n                  <div class=\"ui-text-primary\">Phone Input</div>\n                  <ui-input-group>\n                    <ui-input-label>International</ui-input-label>\n                    <ui-phone>\n                      <ui-input-addon glyph=\"icon-phone-line\"></ui-input-addon>\n                    </ui-phone>\n                  </ui-input-group>\n                  <ui-input-group>\n                    <ui-input-label>National</ui-input-label>\n                    <ui-dropdown value=\"2\">\n                      <ui-list-item value=\"0\">Home</ui-list-item>\n                      <ui-list-item value=\"1\">Work</ui-list-item>\n                      <ui-list-item value=\"2\">Mobile</ui-list-item>\n                    </ui-dropdown>\n                    <ui-phone country=\"ae\">\n                      <ui-input-addon glyph=\"icon-phone-line\"></ui-input-addon>\n                    </ui-phone>\n                  </ui-input-group>\n                </ui-column>\n                <ui-column size=\"md-6\" padded>\n                  <hr/>\n                  <div class=\"ui-text-primary\">Multiline Input</div>\n                  <ui-input-group>\n                    <ui-input-label>Textarea</ui-input-label>\n                    <ui-input-addon class=\"ui-bg-info ui-text-white\" glyph=\"icon-pencil\"></ui-input-addon>\n                    <ui-textarea clear counter value=\"With auto-complete...\" auto-complete=\"Alpha,Bravo,Charlie,Delta,Echo,Foxtrot,Lima,Omega,Sigma,Theta,Zulu\"></ui-textarea>\n                  </ui-input-group>\n                </ui-column>\n              </ui-row>\n            </ui-fieldset>\n          </ui-column>\n          <ui-column full>\n            <ui-fieldset legend=\"Optional Inputs\">\n              <ui-row>\n                <ui-column size=\"md-6\" padded>\n                  <h6 class=\"ui-text-primary\">Single</h6>\n                  <ui-input-group>\n                    <ui-input-label>Microsoft Live</ui-input-label>\n                    <ui-radio name=\"rdis\" value=\"0\" checked.bind=\"rdis\" change.trigger=\"ropt2=(ropt3='')\"></ui-radio>\n                    <ui-input disabled.bind=\"rdis!=0\" value.bind=\"ropt1\"></ui-input>\n                  </ui-input-group>\n                  <ui-input-group>\n                    <ui-input-label>Google</ui-input-label>\n                    <ui-radio name=\"rdis\" value=\"1\" checked.bind=\"rdis\" change.trigger=\"ropt1=(ropt3='')\"></ui-radio>\n                    <ui-input disabled.bind=\"rdis!=1\" value.bind=\"ropt2\"></ui-input>\n                  </ui-input-group>\n                  <ui-input-group>\n                    <ui-input-label>Facebook</ui-input-label>\n                    <ui-radio name=\"rdis\" value=\"2\" checked.bind=\"rdis\" change.trigger=\"ropt1=(ropt2='')\"></ui-radio>\n                    <ui-input disabled.bind=\"rdis!=2\" value.bind=\"ropt3\"></ui-input>\n                  </ui-input-group>\n                </ui-column>\n                <ui-column size=\"md-6\" padded>\n                  <h6 class=\"ui-text-primary\">Multiple</h6>\n                  <ui-input-group>\n                    <ui-input-label>Google+</ui-input-label>\n                    <ui-checkbox checked.bind=\"dis1\" change.trigger=\"opt1=''\"></ui-checkbox>\n                    <ui-input disabled.bind=\"!dis1\" value.bind=\"opt1\" placeholder=\"Google+ profile...\"></ui-input>\n                  </ui-input-group>\n                  <ui-input-group>\n                    <ui-input-label>Facebook</ui-input-label>\n                    <ui-checkbox checked.bind=\"dis2\" change.trigger=\"opt2=''\"></ui-checkbox>\n                    <ui-input disabled.bind=\"!dis2\" value.bind=\"opt2\" placeholder=\"Facebook profile...\"></ui-input>\n                  </ui-input-group>\n                  <ui-input-group>\n                    <ui-input-label>Twitter</ui-input-label>\n                    <ui-checkbox checked.bind=\"dis3\" change.trigger=\"opt3=''\"></ui-checkbox>\n                    <ui-input disabled.bind=\"!dis3\" value.bind=\"opt3\" placeholder=\"Twitter handle...\"></ui-input>\n                  </ui-input-group>\n                </ui-column>\n              </ui-row>\n            </ui-fieldset>\n          </ui-column>\n        </ui-row>\n\n      </ui-container>\n    </ui-content>\n  </ui-page>\n</template>"; });
 define('text!inputs/buttons.html', ['module'], function(module) { module.exports = "<!--\n// @author      : Adarsh Pastakia\n// @copyright   : 2017\n// @license     : MIT\n-->\n<template>\n  <ui-page page-title=\"Buttons\">\n    <ui-content scroll padded>\n      <ui-container>\n        <h5 class=\"section-title\">Themes</h5>\n        <ui-row>\n          <ui-column padded auto>\n            <ui-button glyph=\"icon-image-line\">Click Me</ui-button>\n            <div class=\"ui-font-small ui-text-center ui-text-muted\">Default</div>\n          </ui-column>\n          <ui-column padded auto>\n            <ui-button glyph=\"icon-image-line\" light>Click Me</ui-button>\n            <div class=\"ui-font-small ui-text-center ui-text-muted\">Light</div>\n          </ui-column>\n          <ui-column padded auto>\n            <ui-button glyph=\"icon-image-line\" dark>Click Me</ui-button>\n            <div class=\"ui-font-small ui-text-center ui-text-muted\">Dark</div>\n          </ui-column>\n          <ui-column padded auto>\n            <ui-button glyph=\"icon-image-line\" primary>Click Me</ui-button>\n            <div class=\"ui-font-small ui-text-center ui-text-muted\">Primary</div>\n          </ui-column>\n          <ui-column padded auto>\n            <ui-button glyph=\"icon-image-line\" secondary>Click Me</ui-button>\n            <div class=\"ui-font-small ui-text-center ui-text-muted\">Secondary</div>\n          </ui-column>\n          <ui-column padded auto>\n            <ui-button glyph=\"icon-image-line\" info>Click Me</ui-button>\n            <div class=\"ui-font-small ui-text-center ui-text-muted\">Info</div>\n          </ui-column>\n          <ui-column padded auto>\n            <ui-button glyph=\"icon-image-line\" danger>Click Me</ui-button>\n            <div class=\"ui-font-small ui-text-center ui-text-muted\">Danger</div>\n          </ui-column>\n          <ui-column padded auto>\n            <ui-button glyph=\"icon-image-line\" success>Click Me</ui-button>\n            <div class=\"ui-font-small ui-text-center ui-text-muted\">Success</div>\n          </ui-column>\n          <ui-column padded auto>\n            <ui-button glyph=\"icon-image-line\" warning>Click Me</ui-button>\n            <div class=\"ui-font-small ui-text-center ui-text-muted\">Warning</div>\n          </ui-column>\n          <ui-column padded auto>\n            <ui-button glyph=\"icon-image-line\" dropdown.bind=\"btnMenu\" primary>Click Me</ui-button>\n            <div class=\"ui-font-small ui-text-center ui-text-muted\">Dropdown</div>\n          </ui-column>\n          <ui-column padded auto>\n            <ui-button glyph=\"icon-image-line\" dropdown.bind=\"btnMenu\" secondary>Click Me</ui-button>\n            <div class=\"ui-font-small ui-text-center ui-text-muted\">Dropdown</div>\n          </ui-column>\n        </ui-row>\n        <ui-menu ref=\"btnMenu\">\n          <ui-menu-section>Actions</ui-menu-section>\n          <ui-menu-item glyph=\"icon-pencil\">Edit</ui-menu-item>\n          <ui-menu-item glyph=\"icon-search\">Search</ui-menu-item>\n          <ui-menu-item glyph=\"icon-trash\">Delete</ui-menu-item>\n          <ui-menu-section>Options</ui-menu-section>\n          <ui-menu-item glyph=\"icon-bell-line\">Notifications</ui-menu-item>\n          <ui-menu-item glyph=\"icon-cog-line\">Settings</ui-menu-item>\n        </ui-menu>\n        \n        <h5 class=\"section-title\">Styles</h5>\n        <ui-row bottom>\n          <ui-column padded auto>\n            <ui-button glyph=\"icon-image-line\" dark small square></ui-button>\n            <div class=\"ui-font-small ui-text-center ui-text-muted\">Small<br/>Square</div>\n          </ui-column>\n          <ui-column padded auto>\n            <ui-button glyph=\"icon-image-line\" dark square></ui-button>\n            <div class=\"ui-font-small ui-text-center ui-text-muted\">Normal<br/>Square</div>\n          </ui-column>\n          <ui-column padded auto>\n            <ui-button glyph=\"icon-image-line\" dark big square></ui-button>\n            <div class=\"ui-font-small ui-text-center ui-text-muted\">Big<br/>Square</div>\n          </ui-column>\n          <ui-column padded auto>\n            <ui-button glyph=\"icon-image-line\" badge=\"5\" secondary small>Click Me!</ui-button>\n            <div class=\"ui-font-small ui-text-center ui-text-muted\">Small<br/>&nbsp;</div>\n          </ui-column>\n          <ui-column padded auto>\n            <ui-button glyph=\"icon-image-line\" badge=\"5\" secondary>Click Me!</ui-button>\n            <div class=\"ui-font-small ui-text-center ui-text-muted\">Normal<br/>&nbsp;</div>\n          </ui-column>\n          <ui-column padded auto>\n            <ui-button glyph=\"icon-image-line\" badge=\"5\" secondary big>Click Me!</ui-button>\n            <div class=\"ui-font-small ui-text-center ui-text-muted\">Big<br/>&nbsp;</div>\n          </ui-column>\n          <ui-column padded auto>\n            <ui-button glyph=\"icon-image-line\" secondary icon-top small>Click Me!</ui-button>\n            <div class=\"ui-font-small ui-text-center ui-text-muted\">Small<br/>Icon-Top</div>\n          </ui-column>\n          <ui-column padded auto>\n            <ui-button glyph=\"icon-image-line\" secondary icon-top>Click Me!</ui-button>\n            <div class=\"ui-font-small ui-text-center ui-text-muted\">Normal<br/>Icon-Top</div>\n          </ui-column>\n          <ui-column padded auto>\n            <ui-button glyph=\"icon-image-line\" secondary icon-top big>Click Me!</ui-button>\n            <div class=\"ui-font-small ui-text-center ui-text-muted\">Big<br/>Icon-Top</div>\n          </ui-column>\n        </ui-row>\n        \n        <h5 class=\"section-title\">Rounded Styles</h5>\n        <ui-row bottom>\n          <ui-column padded auto>\n            <ui-button glyph=\"icon-image-line\" dark round small square></ui-button>\n            <div class=\"ui-font-small ui-text-center ui-text-muted\">Small<br/>Square</div>\n          </ui-column>\n          <ui-column padded auto>\n            <ui-button glyph=\"icon-image-line\" dark round square></ui-button>\n            <div class=\"ui-font-small ui-text-center ui-text-muted\">Normal<br/>Square</div>\n          </ui-column>\n          <ui-column padded auto>\n            <ui-button glyph=\"icon-image-line\" dark round big square></ui-button>\n            <div class=\"ui-font-small ui-text-center ui-text-muted\">Big<br/>Square</div>\n          </ui-column>\n          <ui-column padded auto>\n            <ui-button glyph=\"icon-image-line\" badge=\"5\" round secondary small>Click Me!</ui-button>\n            <div class=\"ui-font-small ui-text-center ui-text-muted\">Small<br/>&nbsp;</div>\n          </ui-column>\n          <ui-column padded auto>\n            <ui-button glyph=\"icon-image-line\" badge=\"5\" round secondary>Click Me!</ui-button>\n            <div class=\"ui-font-small ui-text-center ui-text-muted\">Normal<br/>&nbsp;</div>\n          </ui-column>\n          <ui-column padded auto>\n            <ui-button glyph=\"icon-image-line\" badge=\"5\" round secondary big>Click Me!</ui-button>\n            <div class=\"ui-font-small ui-text-center ui-text-muted\">Big<br/>&nbsp;</div>\n          </ui-column>\n          <ui-column padded auto>\n            <ui-button glyph=\"icon-image-line\" round secondary icon-top small>Click Me!</ui-button>\n            <div class=\"ui-font-small ui-text-center ui-text-muted\">Small<br/>Icon-Top</div>\n          </ui-column>\n          <ui-column padded auto>\n            <ui-button glyph=\"icon-image-line\" round secondary icon-top>Click Me!</ui-button>\n            <div class=\"ui-font-small ui-text-center ui-text-muted\">Normal<br/>Icon-Top</div>\n          </ui-column>\n          <ui-column padded auto>\n            <ui-button glyph=\"icon-image-line\" round secondary icon-top big>Click Me!</ui-button>\n            <div class=\"ui-font-small ui-text-center ui-text-muted\">Big<br/>Icon-Top</div>\n          </ui-column>\n        </ui-row>\n        \n        <h5 class=\"section-title\">Busy States</h5>\n        <div>Click button to toggle busy state</div>\n        <ui-row>\n          <ui-column padded auto click.trigger=\"busy1=!busy1\">\n            <ui-button glyph=\"icon-image-line\" light busy.bind=\"!busy1\">Click Me</ui-button>\n          </ui-column>\n          <ui-column padded auto click.trigger=\"busy2=!busy2\">\n            <ui-button glyph=\"icon-image-line\" dark busy.bind=\"!busy2\">Click Me</ui-button>\n          </ui-column>\n          <ui-column padded auto click.trigger=\"busy3=!busy3\">\n            <ui-button glyph=\"icon-image-line\" primary busy.bind=\"!busy3\">Click Me</ui-button>\n          </ui-column>\n          <ui-column padded auto click.trigger=\"busy4=!busy4\">\n            <ui-button glyph=\"icon-image-line\" secondary busy.bind=\"!busy4\">Click Me</ui-button>\n          </ui-column>\n          <ui-column padded auto click.trigger=\"busy5=!busy5\">\n            <ui-button glyph=\"icon-image-line\" info busy.bind=\"!busy5\">Click Me</ui-button>\n          </ui-column>\n          <ui-column padded auto click.trigger=\"busy6=!busy6\">\n            <ui-button glyph=\"icon-image-line\" danger busy.bind=\"!busy6\">Click Me</ui-button>\n          </ui-column>\n          <ui-column padded auto click.trigger=\"busy7=!busy7\">\n            <ui-button glyph=\"icon-image-line\" success busy.bind=\"!busy7\">Click Me</ui-button>\n          </ui-column>\n          <ui-column padded auto click.trigger=\"busy8=!busy8\">\n            <ui-button glyph=\"icon-image-line\" warning busy.bind=\"!busy8\">Click Me</ui-button>\n          </ui-column>\n        </ui-row>\n        <h5 class=\"section-title\">Disabled States</h5>\n        <ui-row>\n          <ui-column padded auto>\n            <ui-button glyph=\"icon-image-line\" light disabled=\"true\">Click Me</ui-button>\n          </ui-column>\n          <ui-column padded auto>\n            <ui-button glyph=\"icon-image-line\" dark disabled=\"true\">Click Me</ui-button>\n          </ui-column>\n          <ui-column padded auto>\n            <ui-button glyph=\"icon-image-line\" primary disabled=\"true\">Click Me</ui-button>\n          </ui-column>\n          <ui-column padded auto>\n            <ui-button glyph=\"icon-image-line\" secondary disabled=\"true\">Click Me</ui-button>\n          </ui-column>\n          <ui-column padded auto>\n            <ui-button glyph=\"icon-image-line\" info disabled=\"true\">Click Me</ui-button>\n          </ui-column>\n          <ui-column padded auto>\n            <ui-button glyph=\"icon-image-line\" danger disabled=\"true\">Click Me</ui-button>\n          </ui-column>\n          <ui-column padded auto>\n            <ui-button glyph=\"icon-image-line\" success disabled=\"true\">Click Me</ui-button>\n          </ui-column>\n          <ui-column padded auto>\n            <ui-button glyph=\"icon-image-line\" warning disabled=\"true\">Click Me</ui-button>\n          </ui-column>\n        </ui-row>\n      </ui-container>\n    </ui-content>\n  </ui-page>\n</template>"; });
 define('text!inputs/lists.html', ['module'], function(module) { module.exports = "<!--\n// @author      : Adarsh Pastakia\n// @copyright   : 2017\n// @license     : MIT\n-->\n<template>\n  <ui-page page-title=\"List Inputs\">\n    <ui-content scroll padded>\n      <ui-container>\n\n        <ui-fieldset legend=\"Lists\">\n          <ui-row>\n            <ui-column size=\"md-6\">\n              <ui-input-group>\n                <ui-input-label>Combo</ui-input-label>\n                <ui-combo value.bind=\"ctr\" options.bind=\"countries\" display-property=\"name\" value-property=\"iso3\" icon-property=\"iso3\" icon-class=\"ui-flag\">\n                  <ui-input-addon>\n                    <span class=\"ui-flag ${ctr}\"></span>\n                  </ui-input-addon>\n                </ui-combo>\n              </ui-input-group>\n            </ui-column>\n\n            <ui-column size=\"md-6\">\n              <ui-input-group>\n                <ui-input-label>Tags</ui-input-label>\n                <ui-tags value='UAE,IND' force-select=\"false\" options.bind=\"countries\" display-property=\"name\" value-property=\"iso3\" icon-property=\"iso3\" icon-class=\"ui-flag\"></ui-tags>\n              </ui-input-group>\n            </ui-column>\n\n            <ui-column size=\"md-6\">\n              <ui-input-group>\n                <ui-input-label>List</ui-input-label>\n                <ui-list value.bind=\"ctr\" options.bind=\"countries\" display-property=\"name\" value-property=\"iso3\" icon-property=\"iso3\" icon-class=\"ui-flag\">\n                  <ui-input-addon>\n                    <span class=\"ui-flag ${ctr}\"></span>\n                  </ui-input-addon>\n                </ui-list>\n              </ui-input-group>\n            </ui-column>\n\n            <ui-column size=\"md-6\">\n              <ui-input-group>\n                <ui-input-label>Reorder</ui-input-label>\n                <ui-reorder options.bind=\"reorder\"></ui-reorder>\n              </ui-input-group>\n            </ui-column>\n          </ui-row>\n\n        </ui-fieldset>\n      </ui-container>\n    </ui-content>\n  </ui-page>\n</template>"; });
 define('text!inputs/options.html', ['module'], function(module) { module.exports = "<!--\n// @author      : Adarsh Pastakia\n// @copyright   : 2017\n// @license     : MIT\n-->\n<template>\n  <ui-page page-title=\"Option Inputs\">\n    <ui-content scroll padded>\n      <ui-container>\n        <ui-row>\n          <ui-column size=\"md-6\">\n            <ui-fieldset legend=\"Checkboxes\">\n              <ui-option-group columns=\"4\">\n                <ui-input-label>Colors</ui-input-label>\n                <ui-checkbox checked=\"true\">Red</ui-checkbox>\n                <ui-checkbox checked=\"false\">Green</ui-checkbox>\n                <ui-checkbox checked=\"false\">Blue</ui-checkbox>\n                <ui-checkbox checked=\"false\">Orange</ui-checkbox>\n                <ui-checkbox checked=\"false\">Yellow</ui-checkbox>\n                <ui-checkbox checked=\"false\">Purple</ui-checkbox>\n                <ui-checkbox checked=\"false\">Indigo</ui-checkbox>\n                <ui-checkbox checked=\"false\">Brown</ui-checkbox>\n              </ui-option-group>\n            </ui-fieldset>\n          </ui-column>\n          <ui-column size=\"md-6\">\n            <ui-fieldset legend=\"Radio\">\n              <ui-option-group columns=\"3\" value=\"square\" name=\"shapes\">\n                <ui-input-label>Shape</ui-input-label>\n                <ui-radio value=\"line\">Line</ui-radio>\n                <ui-radio value=\"square\">Square</ui-radio>\n                <ui-radio value=\"circle\">Circle</ui-radio>\n                <ui-radio value=\"ellipse\">Ellipse</ui-radio>\n                <ui-radio value=\"star\">Star</ui-radio>\n                <ui-radio value=\"triangle\">Triangle</ui-radio>\n              </ui-option-group>\n            </ui-fieldset>\n          </ui-column>\n          <ui-column size=\"md-6\">\n            <ui-fieldset legend=\"Switches\">\n              <ui-option-group columns=\"2\">\n                <ui-input-label>Pattern</ui-input-label>\n                <ui-switch primary>Moire</ui-switch>\n                <ui-switch secondary>Cross Hatch</ui-switch>\n                <ui-switch info>Bubbles</ui-switch>\n                <ui-switch danger>Bricks</ui-switch>\n              </ui-option-group>\n            </ui-fieldset>\n          </ui-column>\n          <ui-column size=\"md-6\">\n            <ui-fieldset legend=\"Custom Switches\">\n              <ui-option-group>\n                <ui-input-label>Time</ui-input-label>\n                <ui-switch theme=\"ampm\" on-label=\"PM\" off-label=\"AM\"></ui-switch>\n              </ui-option-group>\n              <ui-option-group>\n                <ui-input-label>Gender</ui-input-label>\n                <ui-switch theme=\"gender\" on-label=\"Female\" off-label=\"Male\" size=\"5em\"></ui-switch>\n              </ui-option-group>\n              <ui-option-group>\n                <ui-input-label></ui-input-label>\n                <ui-switch danger on-label=\"High Priority\" off-label=\"Low Priority\" size=\"7em\"></ui-switch>\n              </ui-option-group>\n            </ui-fieldset>\n          </ui-column>\n        </ui-row>\n      </ui-container>\n    </ui-content>\n  </ui-page>\n</template>"; });
 define('text!inputs/view.html', ['module'], function(module) { module.exports = "<!--\n// @author      : Adarsh Pastakia\n// @copyright   : 2017\n// @license     : MIT\n-->\n<template>\n  <ui-section row-layout>\n    <ui-sidebar label=\"Input Elements\" collapsible scroll class=\"ui-hidden-lg-down\">\n      <ui-menu>\n        <ui-menu-item repeat.for=\"route of router.navigation\" href.bind=\"route.href\" active.bind=\"route.isActive\" icon.bind=\"route.settings.icon\" disabled.bind=\"route.settings.disabled\">${route.settings.title || route.title}</ui-menu-item>\n      </ui-menu>\n    </ui-sidebar>\n    <ui-router-view></ui-router-view>\n  </ui-section>\n</template>"; });
 define('text!styles/flags.html', ['module'], function(module) { module.exports = "<!--\n// @author      : Adarsh Pastakia\n// @copyright   : 2017\n// @license     : MIT\n-->\n<template>\n  <style>\n    .flag-card {\n      display: inline-block;\n      border-radius: 0.5em;\n      margin: 0.5em;\n      width: 128px;\n      text-align: center;\n    }\n    .flag-card .ui-flag {\n      margin: 0.5rem auto;\n      width: 32px;\n      height: 21px;\n    }\n    .flag-card .name {\n      font-size: 0.8rem;\n      overflow: hidden;\n      white-space: nowrap;\n      text-overflow: ellipsis;\n    }\n    .flag-card .code {\n      font-size: .6rem;\n    }\n  </style>\n  <ui-page page-title=\"Flag Icons\">\n    <ui-content padded scroll>\n      <ui-container>\n        <h5>Flag Icons\n          <small>\n            Downloaded from\n            <a class=\"ui-link\" target=\"_blank\" href=\"http://www.flaticon.com/packs/international-flags\">Flaticon</a>\n          </small>\n        </h5>\n        <ui-row>\n          <div repeat.for=\"key of countries | keys\">\n            <h5 class=\"section-title\">${key}</h5>\n            <div class=\"flag-card ui-border-all ui-border-light\" repeat.for=\"c of countries[key]\">\n              <div class=\"ui-flag ${c.iso3}\"></div>\n              <div class=\"name\">${c.name}</div>\n              <div class=\"code ui-text-info ui-selectable\">${c.iso2} &nbsp;&nbsp;&nbsp; ${c.iso3}</div>\n            </div>\n          </div>\n        </ui-row>\n      </ui-container>\n    </ui-content>\n  </ui-page>\n</template>"; });
 define('text!styles/glyphs.html', ['module'], function(module) { module.exports = "<!--\n// @author      : Adarsh Pastakia\n// @copyright   : 2017\n// @license     : MIT\n-->\n<template>\n  <style>\n    .glyph-card {\n      display: inline-block;\n      border-radius: 0.5em;\n      margin: 0.5em;\n      width: 128px;\n      text-align: center;\n    }\n    .glyph-card .ui-icon {\n      margin: 1rem auto;\n      font-size: 2rem;\n    }\n    .glyph-card .name {\n      font-size: 0.8rem;\n      overflow: hidden;\n      white-space: nowrap;\n      text-overflow: ellipsis;\n    }\n\n  </style>\n  <ui-page page-title=\"Glyphs\">\n    <ui-content padded scroll>\n      <ui-container>\n        <h5>Icon Glyphs\n        <small>\n          Downloaded from\n          <a class=\"ui-link\" target=\"_blank\" href=\"http://www.flaticon.com/\">Flaticon</a>\n        </small></h5>\n        <div repeat.for=\"key of glyphs | keys\">\n          <h5 class=\"section-title\">${key}</h5>\n          <ui-row>\n            <div class=\"glyph-card ui-border-all ui-border-light\" repeat.for=\"c of glyphs[key] | sort\">\n              <ui-glyph glyph.bind=\"c\"></ui-glyph>\n              <div class=\"name ui-selectable\">${c}</div>\n            </div>\n          </div>\n        </ui-row>\n      </ui-container>\n    </ui-content>\n  </ui-page>\n</template>"; });
-define('text!styles/home.html', ['module'], function(module) { module.exports = "<!--\n// @author      : Adarsh Pastakia\n// @copyright   : 2017\n// @license     : MIT\n-->\n<template>\n  <style>\n    .color-card {\n      min-width: 5rem;\n      font-size: .8rem;\n      text-align: center;\n      padding: 0.5rem 1rem;\n      margin: 0.25rem;\n      display: inline-block;\n      border-radius: 0.5em;\n    }\n\n    .grid-container {\n      position: relative;\n      height: 320px;\n    }\n    .grid-container div {\n      position: absolute;\n      top: 0;\n      left: 0;\n      border-width: .1em;\n      padding: 0.5em 1em;\n      text-align: right;\n      text-align: end;\n      display: flex;\n      align-items: flex-end;\n      justify-content: space-between;\n    }\n    .grid-container .xs {\n      width: 20%;\n      height: 64px;\n    }\n    .grid-container .sm {\n      width: 30%;\n      height: 128px;\n    }\n    .grid-container .md {\n      width: 50%;\n      height: 192px;\n    }\n    .grid-container .lg {\n      width: 75%;\n      height: 256px;\n    }\n    .grid-container .xl {\n      width: 100%;\n      height: 320px;\n    }\n\n  </style>\n  <ui-page page-title=\"Theming Overview\">\n    <ui-content padded scroll>\n      <ui-container>\n        <h5 class=\"section-title\">Theme Colors</h5>\n        <div>\n          <div class=\"color-card ui-text-light ui-bg-primary\">Primary</div>\n          <div class=\"color-card ui-text-light ui-bg-secondary\">Secondary</div>\n          <div class=\"color-card ui-text-dark ui-bg-light\">Light</div>\n          <div class=\"color-card ui-text-light ui-bg-muted\">Muted</div>\n          <div class=\"color-card ui-text-light ui-bg-dark\">Dark</div>\n          <div class=\"color-card ui-text-light ui-bg-info\">Info</div>\n          <div class=\"color-card ui-text-light ui-bg-danger\">Danger</div>\n          <div class=\"color-card ui-text-light ui-bg-success\">Success</div>\n          <div class=\"color-card ui-text-light ui-bg-warning\">Warning</div>\n        </div>\n\n        <hr/>\n        <h5 class=\"section-title\">Fonts</h5>\n        \n        <h6 class=\"ui-pad-all ui-text-muted\">Default</h6>\n        <h4 class=\"ui-pad-all ui-font-default ui-thin\" innerhtml.bind=\"chars\"></h4>\n        <br>\n        <h6 class=\"ui-pad-all ui-text-muted\">Serif</h6>\n        <h4 class=\"ui-pad-all ui-font-serif ui-thin\" innerhtml.bind=\"chars\"></h4>\n        <br>\n        <h6 class=\"ui-pad-all ui-text-muted\">Input</h6>\n        <h4 class=\"ui-pad-all ui-font-input ui-thin\" innerhtml.bind=\"chars\"></h4>\n        <br>\n        <h6 class=\"ui-pad-all ui-text-muted\">Fixed Width</h6>\n        <h4 class=\"ui-pad-all ui-font-fixed ui-thin\" innerhtml.bind=\"chars\"></h4>\n\n        <hr/>\n        <h5 class=\"section-title\">Responsive Sizing</h5>\n        <p class=\"ui-pad-v\">Responsive layout breakpoints</p>\n        <div class=\"grid-container\">\n          <div class=\"xl ui-hidden-xl-down ui-border-all ui-border-primary\">\n            <span class=\"ui-text-primary\">Large Monitor</span>\n            <h6>X-Large<small>1536px &hArr; &infin;</small>\n            </h6>\n          </div>\n          <div class=\"lg ui-hidden-lg-down ui-border-all ui-border-secondary\">\n            <span class=\"ui-text-secondary\">Small Monitor</span>\n            <h6>Large<small>1024px &hArr; 1536px</small>\n            </h6>\n          </div>\n          <div class=\"md ui-hidden-md-down ui-border-all ui-border-info\">\n          <span class=\"ui-text-info\">Tablet</span>\n            <h6>Medium<small>768px &hArr; 1024px</small>\n            </h6>\n          </div>\n          <div class=\"sm ui-hidden-sm-down ui-border-all ui-border-danger\">\n            <span class=\"ui-text-danger\">Mobile</span>\n            <h6>Small<small>480px &hArr; 768px</small>\n            </h6>\n          </div>\n          <div class=\"xs ui-hidden-xs-down ui-border-all ui-border-warning\">\n            <span class=\"ui-text-danger\"></span>\n            <h6>X-Small<small>320px &hArr; 480px</small>\n            </h6>\n          </div>\n        </div>\n      </ui-container>\n    </ui-content>\n  </ui-page>\n</template>"; });
+define('text!styles/home.html', ['module'], function(module) { module.exports = "<!--\n// @author      : Adarsh Pastakia\n// @copyright   : 2017\n// @license     : MIT\n-->\n<template>\n  <style>\n    .color-card {\n      min-width: 5rem;\n      font-size: 0.8rem;\n      text-align: center;\n      padding: 0.5rem 1rem;\n      margin: 0.25rem;\n      line-height: 1.5;\n      display: inline-block;\n      border-radius: 0.5em;\n    }\n\n    .grid-container {\n      position: relative;\n      height: 320px;\n    }\n    .grid-container div {\n      position: absolute;\n      top: 0;\n      left: 0;\n      border-width: 0.1em;\n      padding: 0.5em 1em;\n      text-align: right;\n      text-align: end;\n      display: flex;\n      align-items: flex-end;\n      justify-content: space-between;\n    }\n    .grid-container .xs {\n      width: 20%;\n      height: 64px;\n    }\n    .grid-container .sm {\n      width: 30%;\n      height: 128px;\n    }\n    .grid-container .md {\n      width: 50%;\n      height: 192px;\n    }\n    .grid-container .lg {\n      width: 75%;\n      height: 256px;\n    }\n    .grid-container .xl {\n      width: 100%;\n      height: 320px;\n    }\n\n  </style>\n  <ui-page page-title=\"Theming Overview\">\n    <ui-content padded scroll>\n      <ui-container>\n        <h5 class=\"section-title\">Theme Colors</h5>\n        <div>\n          <div class=\"color-card ui-text-light ui-bg-primary\">Primary</div>\n          <div class=\"color-card ui-text-light ui-bg-secondary\">Secondary</div>\n          <div class=\"color-card ui-text-dark ui-bg-light\">Light</div>\n          <div class=\"color-card ui-text-light ui-bg-muted\">Muted</div>\n          <div class=\"color-card ui-text-light ui-bg-dark\">Dark</div>\n          <div class=\"color-card ui-text-light ui-bg-info\">Info</div>\n          <div class=\"color-card ui-text-light ui-bg-danger\">Danger</div>\n          <div class=\"color-card ui-text-light ui-bg-success\">Success</div>\n          <div class=\"color-card ui-text-light ui-bg-warning\">Warning</div>\n        </div>\n\n        <hr/>\n        <h5 class=\"section-title\">Fonts</h5>\n\n        <h6 class=\"ui-pad-all ui-text-muted\">Default</h6>\n        <h4 class=\"ui-pad-all ui-font-default ui-thin\" innerhtml.bind=\"chars\"></h4>\n        <br>\n        <h6 class=\"ui-pad-all ui-text-muted\">Serif</h6>\n        <h4 class=\"ui-pad-all ui-font-serif ui-thin\" innerhtml.bind=\"chars\"></h4>\n        <br>\n        <h6 class=\"ui-pad-all ui-text-muted\">Input</h6>\n        <h4 class=\"ui-pad-all ui-font-input ui-thin\" innerhtml.bind=\"chars\"></h4>\n        <br>\n        <h6 class=\"ui-pad-all ui-text-muted\">Fixed Width</h6>\n        <h4 class=\"ui-pad-all ui-font-fixed ui-thin\" innerhtml.bind=\"chars\"></h4>\n\n        <hr/>\n        <h5 class=\"section-title\">Responsive Sizing</h5>\n        <p class=\"ui-pad-v\">Responsive layout breakpoints</p>\n        <div class=\"grid-container\">\n          <div class=\"xl ui-hidden-xl-down ui-border-all ui-border-primary\">\n            <span class=\"ui-text-primary\">Large Monitor</span>\n            <h6>X-Large<small>1536px &hArr; &infin;</small>\n            </h6>\n          </div>\n          <div class=\"lg ui-hidden-lg-down ui-border-all ui-border-secondary\">\n            <span class=\"ui-text-secondary\">Small Monitor</span>\n            <h6>Large<small>1024px &hArr; 1536px</small>\n            </h6>\n          </div>\n          <div class=\"md ui-hidden-md-down ui-border-all ui-border-info\">\n            <span class=\"ui-text-info\">Tablet</span>\n            <h6>Medium<small>768px &hArr; 1024px</small>\n            </h6>\n          </div>\n          <div class=\"sm ui-hidden-sm-down ui-border-all ui-border-danger\">\n            <span class=\"ui-text-danger\">Mobile</span>\n            <h6>Small<small>480px &hArr; 768px</small>\n            </h6>\n          </div>\n          <div class=\"xs ui-hidden-xs-down ui-border-all ui-border-warning\">\n            <span class=\"ui-text-danger\"></span>\n            <h6>X-Small<small>320px &hArr; 480px</small>\n            </h6>\n          </div>\n        </div>\n      </ui-container>\n    </ui-content>\n  </ui-page>\n</template>"; });
 define('text!styles/typo.html', ['module'], function(module) { module.exports = "<!--\n// @author      : Adarsh Pastakia\n// @copyright   : 2017\n// @license     : MIT\n-->\n<template>\n  <ui-page page-title=\"Typography\">\n    <ui-content padded scroll>\n      <ui-container>\n        <ui-row>\n          <ui-column size=\"md-6\" padded>\n            <h5 class=\"section-title\">Headers</h5>\n            <h1>Header 1</h1>\n            <h2>Header 2</h2>\n            <h3>Header 3</h3>\n            <h4>Header 4</h4>\n            <h5>Header 5</h5>\n            <h6>Header 6</h6>\n          </ui-column>\n          <ui-column size=\"md-6\" padded>\n            <h5 class=\"section-title\">Styles</h5>\n            <div class=\"ui-row ui-row-middle\"><div style=\"width:10em\" class=\"ui-thin ui-font-small\">Bold</div><div class=\"ui-col-fill ui-bold\">Lorem ipsum dolor sit amet</div></div>\n            <div class=\"ui-row ui-row-middle\"><div style=\"width:10em\" class=\"ui-thin ui-font-small\">Strong</div><div class=\"ui-col-fill ui-strong\">Lorem ipsum dolor sit amet</div></div>\n            <div class=\"ui-row ui-row-middle\"><div style=\"width:10em\" class=\"ui-thin ui-font-small\">Normal</div><div class=\"ui-col-fill ui-normal\">Lorem ipsum dolor sit amet</div></div>\n            <div class=\"ui-row ui-row-middle\"><div style=\"width:10em\" class=\"ui-thin ui-font-small\">Thin</div><div class=\"ui-col-fill ui-thin\">Lorem ipsum dolor sit amet</div></div>\n            <div class=\"ui-row ui-row-middle\"><div style=\"width:10em\" class=\"ui-thin ui-font-small\">Italic</div><div class=\"ui-col-fill ui-italic\">Lorem ipsum dolor sit amet</div></div>\n            <h5 class=\"section-title\">Sizes</h5>\n            <div class=\"ui-row ui-row-middle\"><div style=\"width:10em\" class=\"ui-thin ui-font-small\">Large</div><div class=\"ui-col-fill ui-font-large\">Lorem ipsum dolor sit amet</div></div>\n            <div class=\"ui-row ui-row-middle\"><div style=\"width:10em\" class=\"ui-thin ui-font-small\">Big</div><div class=\"ui-col-fill ui-font-big\">Lorem ipsum dolor sit amet</div></div>\n            <div class=\"ui-row ui-row-middle\"><div style=\"width:10em\" class=\"ui-thin ui-font-small\">Normal</div><div class=\"ui-col-fill ui-normal\">Lorem ipsum dolor sit amet</div></div>\n            <div class=\"ui-row ui-row-middle\"><div style=\"width:10em\" class=\"ui-thin ui-font-small\">Small</div><div class=\"ui-col-fill ui-font-small\">Lorem ipsum dolor sit amet</div></div>\n          </ui-column>\n        </ui-row>\n        <hr/>\n        <h5 class=\"section-title\">Paragraphs</h5>\n        <p class=\"ui-para emphasis-large\">\n          <b class=\"ui-text-info\">Lorem ipsum</b>\n          dolor sit amet, consectetur adipiscing elit. Etiam vel tincidunt eros, nec venenatis ipsum. Nulla hendrerit urna ex, id sagittis mi scelerisque vitae. Vestibulum posuere rutrum interdum. Sed ut ullamcorper odio, non pharetra eros. Aenean sed lacus\n          sed enim ornare vestibulum quis a felis. Sed cursus nunc sit amet mauris sodales tempus.</p>\n        <p class=\"ui-para\">\n          <em>Fusce mollis</em>\n          sagittis elit ut maximus. Nullam blandit lacus sit amet luctus euismod. Duis luctus leo vel consectetur consequat. Phasellus ex ligula, pellentesque et neque vitae, elementum placerat eros. Proin eleifend odio nec velit lacinia suscipit. Morbi mollis\n          ante nec dapibus gravida. In tincidunt augue eu elit porta, vel condimentum purus posuere.</p>\n        <p class=\"ui-para\">\n          <u>Ut imperdiet</u>\n          dignissim feugiat. Phasellus tristique odio eu justo dapibus, nec rutrum ipsum luctus. Ut posuere nec tortor eu ullamcorper. Etiam pellentesque tincidunt tortor, non sagittis nibh pretium sit amet. Sed neque dolor, blandit eu ornare vel, lacinia\n          porttitor nisi. Vestibulum sit amet diam rhoncus, consectetur enim sit amet, interdum mauris. Praesent feugiat finibus quam, porttitor varius est egestas id.</p>\n\n        <hr/>\n        <h5 class=\"section-title\">Contextual Colors</h5>\n        <ui-row>\n          <ui-column size=\"md-6\">\n            <div class=\"ui-text-primary ui-pad-all\">Primary Text</div>\n            <div class=\"ui-text-secondary ui-pad-all\">Secondary Text</div>\n            <div class=\"ui-text-light ui-pad-all\">\n              <span class=\"ui-bg-dark\">Light Text</span>\n            </div>\n            <div class=\"ui-text-muted ui-pad-all\">Muted Text</div>\n            <div class=\"ui-text-dark ui-pad-all\">Dark Text</div>\n            <div class=\"ui-text-info ui-pad-all\">Info Text</div>\n            <div class=\"ui-text-danger ui-pad-all\">Danger Text</div>\n            <div class=\"ui-text-success ui-pad-all\">Success Text</div>\n            <div class=\"ui-text-warning ui-pad-all\">Warning Text</div>\n          </ui-column>\n          <ui-column size=\"md-6\">\n            <div class=\"ui-bg-primary ui-pad-all ui-text-white\">Primary Bg</div>\n            <div class=\"ui-bg-secondary ui-pad-all ui-text-white\">Secondary Bg</div>\n            <div class=\"ui-bg-light ui-pad-all ui-text-dark\">Light Bg</div>\n            <div class=\"ui-bg-muted ui-pad-all ui-text-white\">Muted Bg</div>\n            <div class=\"ui-bg-dark ui-pad-all ui-text-white\">Dark Bg</div>\n            <div class=\"ui-bg-info ui-pad-all ui-text-white\">Info Bg</div>\n            <div class=\"ui-bg-danger ui-pad-all ui-text-white\">Danger Bg</div>\n            <div class=\"ui-bg-success ui-pad-all ui-text-white\">Success Bg</div>\n            <div class=\"ui-bg-warning ui-pad-all ui-text-white\">Warning Bg</div>\n          </ui-column>\n        </ui-row>\n\n      </ui-container>\n    </ui-content>\n  </ui-page>\n</template>"; });
 define('text!styles/view.html', ['module'], function(module) { module.exports = "<!--\n// @author      : Adarsh Pastakia\n// @copyright   : 2017\n// @license     : MIT\n-->\n<template>\n  <ui-section row-layout>\n    <ui-sidebar label=\"Theming\" collapsible scroll class=\"ui-hidden-lg-down\">\n      <ui-menu>\n        <ui-menu-item repeat.for=\"route of router.navigation\" href.bind=\"route.href\" active.bind=\"route.isActive\" icon.bind=\"route.settings.icon\" disabled.bind=\"route.settings.disabled\">${route.settings.title || route.title}</ui-menu-item>\n      </ui-menu>\n    </ui-sidebar>\n    <ui-router-view></ui-router-view>\n  </ui-section>\n</template>"; });
-define('text!ui-glyphs.html', ['module'], function(module) { module.exports = "<template>\n  <svg xmlns=\"http://www.w3.org/2000/svg\" style=\"display: none;\">\n  <symbol id=\"arrow-down\" viewBox=\"0 0 312.757 312.757\">\n    <title>arrow-down</title><polygon points=\"244.062,184.792 170.623,258.23 170.623,0 142.139,0 142.139,258.247 68.69,184.792 48.549,204.939 156.379,312.757 264.208,204.939 \"/></symbol>\n  <symbol id=\"arrow-left\" viewBox=\"0 0 444.097 444.097\">\n    <title>arrow-left</title><polygon points=\"444.097,201.833 77.425,201.833 181.706,97.551 153.102,68.947 0,222.048 153.094,375.15 181.714,346.586 77.417,242.264 444.097,242.264 \"/></symbol>\n  <symbol id=\"arrow-right\" viewBox=\"0 0 340.034 340.034\">\n    <title>arrow-right</title><polygon points=\"222.814,52.783 200.902,74.686 280.748,154.528 0,154.528 0,185.513 280.748,185.513 200.902,265.353 222.814,287.252 340.034,170.023 \"/></symbol>\n  <symbol id=\"arrow-up\" viewBox=\"0 0 472.14 472.14\">\n    <title>arrow-up</title><polygon points=\"236.07,0 70.41,162.799 101.502,193.354 214.204,82.594 214.204,472.14 257.92,472.14 257.92,82.57 370.647,193.354 401.73,162.799 \"/></symbol>\n  <symbol id=\"bars-bold\" viewBox=\"0 0 283.426 283.426\">\n    <title>bars-bold</title><rect x=\"0\" y=\"40.84\" width=\"283.426\" height=\"47.735\"/><rect x=\"0\" y=\"117.282\" width=\"283.426\" height=\"47.735\"/><rect x=\"0\" y=\"194.851\" width=\"283.426\" height=\"47.735\"/></symbol>\n  <symbol id=\"bars-thin\" viewBox=\"0 0 344.339 344.339\">\n    <title>bars-thin</title>\n    <g>\n      <rect y=\"46.06\" width=\"344.339\" height=\"29.52\"/>\n    </g>\n    <g>\n      <rect y=\"156.506\" width=\"344.339\" height=\"29.52\"/>\n    </g>\n    <g>\n      <rect y=\"268.748\" width=\"344.339\" height=\"29.531\"/>\n    </g>\n  </symbol>\n  <symbol id=\"busy\" viewBox=\"0 0 502.686 502.686\">\n    <title>busy</title><path\n      d=\"M114.562,219.515H0v63.634h114.562V219.515z M219.569,502.675h63.612V388.134h-63.612 C219.569,388.134,219.569,502.675,219.569,502.675z M388.123,219.515v63.634h114.562v-63.634H388.123z M219.569,114.552h63.612 V0.011h-63.612C219.569,0.011,219.569,114.552,219.569,114.552z M51.144,406.577l44.997,45.018l80.977-80.998L132.121,325.6 C132.121,325.6,51.144,406.577,51.144,406.577z M51.144,96.109l80.977,80.977l44.997-44.975L96.141,51.112L51.144,96.109z M325.611,370.554l80.955,80.977l45.04-44.953l-81.063-81.02L325.611,370.554z\"/></symbol>\n  <symbol id=\"caret-down\" viewBox=\"0 0 386.257 386.257\">\n    <title>caret-down</title><polygon points=\"0,96.879 193.129,289.379 386.257,96.879 \"/></symbol>\n  <symbol id=\"caret-left\" viewBox=\"0 0 386.258 386.258\">\n    <title>caret-left</title><polygon points=\"96.879,193.129 289.379,386.258 289.379,0 \"/></symbol>\n  <symbol id=\"caret-right\" viewBox=\"0 0 386.258 386.258\">\n    <title>caret-right</title><polygon points=\"96.879,0 96.879,386.258 289.379,193.129 \"/></symbol>\n  <symbol id=\"caret-up\" viewBox=\"0 0 386.257 386.257\">\n    <title>caret-up</title><polygon points=\"193.129,96.879 0,289.379 386.257,289.379 \"/></symbol>\n  <symbol id=\"check-off\" viewBox=\"0 0 459 459\">\n    <title>check-off</title><path d=\"M408,51v357H51V51H408 M408,0H51C22.95,0,0,22.95,0,51v357c0,28.05,22.95,51,51,51h357c28.05,0,51-22.95,51-51V51 C459,22.95,436.05,0,408,0L408,0z\"/></symbol>\n  <symbol id=\"check-on\" viewBox=\"0 0 459 459\">\n    <title>check-on</title><path d=\"M408,0H51C22.95,0,0,22.95,0,51v357c0,28.05,22.95,51,51,51h357c28.05,0,51-22.95,51-51V51C459,22.95,436.05,0,408,0z M178.5,357L51,229.5l35.7-35.7l91.8,91.8L372.3,91.8l35.7,35.7L178.5,357z\"/></symbol>\n  <symbol id=\"chevron-down-2\" viewBox=\"0 0 407.437 407.437\">\n    <title>chevron-down-2</title><polygon points=\"203.718,322.929 21.179,140.984 0,162.232 203.718,365.287 407.437,162.232 386.258,140.984 \"/><polygon points=\"407.437,63.398 386.258,42.15 203.718,224.095 21.179,42.15 0,63.398 203.718,266.453 \"/></symbol>\n  <symbol id=\"chevron-down\" viewBox=\"0 0 309.156 309.156\">\n    <title>chevron-down</title><polygon points=\"288.461,64.929 154.589,202.766 20.723,64.94 0,85.07 154.589,244.228 309.156,85.07 \"/></symbol>\n  <symbol id=\"chevron-left-2\" viewBox=\"0 0 407.436 407.436\">\n    <title>chevron-left-2</title><polygon points=\"266.452,21.178 245.204,0 42.149,203.718 245.204,407.436 266.452,386.258 84.507,203.718 \"/><polygon points=\"365.286,21.178 344.038,0 140.983,203.718 344.038,407.436 365.286,386.258 183.341,203.718 \"/></symbol>\n  <symbol id=\"chevron-left\" viewBox=\"0 0 370.814 370.814\">\n    <title>chevron-left</title><polygon points=\"292.92,24.848 268.781,0 77.895,185.401 268.781,370.814 292.92,345.961 127.638,185.401 \"/></symbol>\n  <symbol id=\"chevron-right-2\" viewBox=\"0 0 407.436 407.436\">\n    <title>chevron-right-2</title><polygon points=\"162.231,0 140.983,21.178 322.929,203.718 140.983,386.258 162.231,407.436 365.286,203.718 \"/><polygon points=\"63.397,0 42.149,21.178 224.095,203.718 42.149,386.258 63.397,407.436 266.452,203.718 \"/></symbol>\n  <symbol id=\"chevron-right\" viewBox=\"0 0 478.448 478.448\">\n    <title>chevron-right</title><polygon points=\"131.659,0 100.494,32.035 313.804,239.232 100.494,446.373 131.65,478.448 377.954,239.232 \"/></symbol>\n  <symbol id=\"chevron-up-2\" viewBox=\"0 0 407.437 407.437\">\n    <title>chevron-up-2</title><polygon points=\"203.718,84.507 386.258,266.453 407.437,245.205 203.718,42.15 0,245.205 21.179,266.453 \"/><polygon points=\"0,344.039 21.179,365.287 203.718,183.341 386.258,365.287 407.437,344.039 203.718,140.984 \"/></symbol>\n  <symbol id=\"chevron-up\" viewBox=\"0 0 349.629 349.629\">\n    <title>chevron-up</title><polygon points=\"174.827,73.433 0,253.42 23.434,276.19 174.827,120.318 326.216,276.196 349.629,253.42 \"/></symbol>\n  <symbol id=\"dialog-close\" viewBox=\"0 0 449.998 449.998\">\n    <title>dialog-close</title><polygon points=\"449.974,34.855 415.191,0 225.007,190.184 34.839,0 0.024,34.839 190.192,224.999 0.024,415.159 34.839,449.998 225.007,259.797 415.191,449.998 449.974,415.143 259.83,224.999 \"/></symbol>\n  <symbol id=\"dialog-expand\" viewBox=\"0 0 344.351 344.351\">\n    <title>dialog-expand</title>\n    <g>\n      <polygon points=\"344.351,139.458 344.339,0 204.908,0.018 204.872,29.958 293.214,29.981 172.446,150.741 193.643,171.898 314.381,51.14 314.375,139.458 \"/>\n    </g>\n    <g>\n      <polygon points=\"150.708,172.476 29.958,293.226 29.958,204.913 0,204.913 0,344.351 139.396,344.351 139.488,314.411 51.122,314.393 171.875,193.643 \"/>\n    </g>\n  </symbol>\n  <symbol id=\"dialog-minimize\" viewBox=\"0 0 512 512\">\n    <title>dialog-minimize</title><rect y=\"222.609\" width=\"512\" height=\"66.783\"/></symbol>\n  <symbol id=\"dialog-resize\" viewBox=\"0 0 16 16\">\n    <title>dialog-resize</title><path d=\"M6.7 16l9.3-9.3v-1.4l-10.7 10.7z\"/><path d=\"M9.7 16l6.3-6.3v-1.4l-7.7 7.7z\"/><path d=\"M12.7 16l3.3-3.3v-1.4l-4.7 4.7z\"/><path d=\"M15.7 16l0.3-0.3v-1.4l-1.7 1.7z\"/></symbol>\n  <symbol id=\"dialog-restore\" viewBox=\"0 0 436.887 436.887\">\n    <title>dialog-restore</title>\n    <g>\n      <polygon points=\"436.882,26.198 410.643,0 261.143,149.517 261.151,40.171 224.036,40.171 224.044,212.839 396.695,212.814 396.735,175.748 287.365,175.724 \"/>\n    </g>\n    <g>\n      <polygon points=\"40.232,224.048 40.086,261.147 149.505,261.147 0.004,410.631 26.186,436.887 175.711,287.37 175.711,396.699 212.818,396.699 212.802,224.048 \"/>\n    </g>\n  </symbol>\n  <symbol id=\"drag-handle\" viewBox=\"0 0 129 129\">\n    <title>drag-handle</title><path d=\"m91.4,33.5h-53.8c-2.3,0-4.1,1.8-4.1,4.1 0,2.3 1.8,4.1 4.1,4.1h53.9c2.3,0 4.1-1.8 4.1-4.1-0.1-2.3-1.9-4.1-4.2-4.1z\"/><path d=\"m91.4,87.4h-53.8c-2.3,0-4.1,1.8-4.1,4.1 0,2.3 1.8,4.1 4.1,4.1h53.9c2.3,0 4.1-1.8 4.1-4.1-0.1-2.3-1.9-4.1-4.2-4.1z\"/><path d=\"m91.4,60.4h-53.8c-2.3,0-4.1,1.8-4.1,4.1 0,2.3 1.8,4.1 4.1,4.1h53.9c2.3,0 4.1-1.8 4.1-4.1-0.1-2.3-1.9-4.1-4.2-4.1z\"/></symbol>\n  <symbol id=\"ellipsis-h-line\" viewBox=\"0 0 60 60\">\n    <title>ellipsis-h-line</title><path d=\"M8,22c-4.411,0-8,3.589-8,8s3.589,8,8,8s8-3.589,8-8S12.411,22,8,22z M8,36c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6 S11.309,36,8,36z\"/><path d=\"M52,22c-4.411,0-8,3.589-8,8s3.589,8,8,8s8-3.589,8-8S56.411,22,52,22z M52,36c-3.309,0-6-2.691-6-6s2.691-6,6-6 s6,2.691,6,6S55.309,36,52,36z\"/><path d=\"M30,22c-4.411,0-8,3.589-8,8s3.589,8,8,8s8-3.589,8-8S34.411,22,30,22z M30,36c-3.309,0-6-2.691-6-6s2.691-6,6-6 s6,2.691,6,6S33.309,36,30,36z\"/></symbol>\n  <symbol id=\"ellipsis-h\" viewBox=\"0 0 490 490\">\n    <title>ellipsis-h</title><path\n      d=\"M189.8,245c0-30.5,24.7-55.2,55.2-55.2s55.2,24.7,55.2,55.2s-24.7,55.2-55.2,55.2S189.8,275.5,189.8,245z M434.8,189.8 c-30.5,0-55.2,24.7-55.2,55.2s24.7,55.2,55.2,55.2S490,275.5,490,245S465.3,189.8,434.8,189.8z M55.2,189.8 C24.7,189.8,0,214.5,0,245s24.7,55.2,55.2,55.2s55.2-24.7,55.2-55.2C110.4,214.5,85.7,189.8,55.2,189.8z\"/></symbol>\n  <symbol id=\"ellipsis-v-line\" viewBox=\"0 0 60 60\">\n    <title>ellipsis-v-line</title><path d=\"M30,16c4.411,0,8-3.589,8-8s-3.589-8-8-8s-8,3.589-8,8S25.589,16,30,16z M30,2c3.309,0,6,2.691,6,6s-2.691,6-6,6 s-6-2.691-6-6S26.691,2,30,2z\"/><path d=\"M30,44c-4.411,0-8,3.589-8,8s3.589,8,8,8s8-3.589,8-8S34.411,44,30,44z M30,58c-3.309,0-6-2.691-6-6s2.691-6,6-6 s6,2.691,6,6S33.309,58,30,58z\"/><path d=\"M30,22c-4.411,0-8,3.589-8,8s3.589,8,8,8s8-3.589,8-8S34.411,22,30,22z M30,36c-3.309,0-6-2.691-6-6s2.691-6,6-6 s6,2.691,6,6S33.309,36,30,36z\"/></symbol>\n  <symbol id=\"ellipsis-v\" viewBox=\"0 0 384 384\">\n    <title>ellipsis-v</title>\n    <g>\n      <g>\n        <circle cx=\"192\" cy=\"42.667\" r=\"42.667\"/>\n      </g>\n    </g>\n    <g>\n      <g>\n        <circle cx=\"192\" cy=\"192\" r=\"42.667\"/>\n      </g>\n    </g>\n    <g>\n      <g>\n        <circle cx=\"192\" cy=\"341.333\" r=\"42.667\"/>\n      </g>\n    </g>\n  </symbol>\n  <symbol id=\"external-link\" viewBox=\"0 0 511.626 511.627\">\n    <title>external-link</title><path\n      d=\"M392.857,292.354h-18.274c-2.669,0-4.859,0.855-6.563,2.573c-1.718,1.708-2.573,3.897-2.573,6.563v91.361 c0,12.563-4.47,23.315-13.415,32.262c-8.945,8.945-19.701,13.414-32.264,13.414H82.224c-12.562,0-23.317-4.469-32.264-13.414 c-8.945-8.946-13.417-19.698-13.417-32.262V155.31c0-12.562,4.471-23.313,13.417-32.259c8.947-8.947,19.702-13.418,32.264-13.418 h200.994c2.669,0,4.859-0.859,6.57-2.57c1.711-1.713,2.566-3.9,2.566-6.567V82.221c0-2.662-0.855-4.853-2.566-6.563 c-1.711-1.713-3.901-2.568-6.57-2.568H82.224c-22.648,0-42.016,8.042-58.102,24.125C8.042,113.297,0,132.665,0,155.313v237.542 c0,22.647,8.042,42.018,24.123,58.095c16.086,16.084,35.454,24.13,58.102,24.13h237.543c22.647,0,42.017-8.046,58.101-24.13 c16.085-16.077,24.127-35.447,24.127-58.095v-91.358c0-2.669-0.856-4.859-2.574-6.57 C397.709,293.209,395.519,292.354,392.857,292.354z\"/><path\n      d=\"M506.199,41.971c-3.617-3.617-7.905-5.424-12.85-5.424H347.171c-4.948,0-9.233,1.807-12.847,5.424 c-3.617,3.615-5.428,7.898-5.428,12.847s1.811,9.233,5.428,12.85l50.247,50.248L198.424,304.067 c-1.906,1.903-2.856,4.093-2.856,6.563c0,2.479,0.953,4.668,2.856,6.571l32.548,32.544c1.903,1.903,4.093,2.852,6.567,2.852 s4.665-0.948,6.567-2.852l186.148-186.148l50.251,50.248c3.614,3.617,7.898,5.426,12.847,5.426s9.233-1.809,12.851-5.426 c3.617-3.616,5.424-7.898,5.424-12.847V54.818C511.626,49.866,509.813,45.586,506.199,41.971z\"/></symbol>\n  <symbol id=\"icon-add-line\" viewBox=\"0 0 44 44\">\n    <title>icon-add-line</title><path\n      d=\"M22,44c-3.309,0-6-2.665-6-5.941V28H5.941C2.665,28,0,25.309,0,22s2.665-6,5.941-6H16V5.941C16,2.665,18.691,0,22,0 s6,2.665,6,5.941V16h10.059C41.335,16,44,18.691,44,22s-2.665,6-5.941,6H28v10.059C28,41.335,25.309,44,22,44z M5.941,18 C3.805,18,2,19.832,2,22s1.805,4,3.941,4H18v12.059C18,40.195,19.832,42,22,42s4-1.805,4-3.941V26h12.059C40.195,26,42,24.168,42,22 s-1.805-4-3.941-4H26V5.941C26,3.805,24.168,2,22,2s-4,1.805-4,3.941V18H5.941z\"/></symbol>\n  <symbol id=\"icon-add\" viewBox=\"0 0 42 42\">\n    <title>icon-add</title><path d=\"M37.059,16H26V4.941C26,2.224,23.718,0,21,0s-5,2.224-5,4.941V16H4.941C2.224,16,0,18.282,0,21s2.224,5,4.941,5H16v11.059 C16,39.776,18.282,42,21,42s5-2.224,5-4.941V26h11.059C39.776,26,42,23.718,42,21S39.776,16,37.059,16z\"/></symbol>\n  <symbol id=\"icon-anchor-line\" viewBox=\"0 0 340.153 340.153\">\n    <title>icon-anchor-line</title><path\n      style=\"fill:#030303;\"\n      d=\"M171,340.153c-55.659,0-105.463-30.706-127.106-77.364c-5.79,4.15-14.052,4.986-20.785,1.595 c-4.801-2.419-8.38-6.559-10.067-11.665c-1.689-5.111-1.287-10.572,1.132-15.369l25.617-50.908l50.91,25.64 c4.8,2.413,8.374,6.564,10.058,11.665c1.687,5.111,1.284,10.566-1.135,15.37c-3.314,6.575-9.824,10.75-17.131,11.059 c13.002,24.096,38.182,41.925,67.778,47.643v-136h-16.007c-11.102,0-20.13-9.029-20.13-20.13c0-11.102,9.029-20.136,20.13-20.136 h16.007v-5.055c-23.695-8.46-39.886-31.071-39.886-56.479C110.386,26.924,137.31,0,170.403,0 c33.096,0,60.011,26.924,60.011,60.017c0,25.414-16.188,48.031-39.889,56.479v5.055h17.177c11.099,0,20.127,9.029,20.127,20.136 c0,11.101-9.034,20.13-20.127,20.13h-17.177v136.234c30.242-5.472,55.83-23.387,68.999-47.899 c-7.96,0.457-15.394-3.923-18.984-11.048c-4.991-9.915-0.989-22.043,8.921-27.034l50.913-25.64l25.622,50.919 c4.98,9.909,0.983,22.043-8.92,27.029c-6.021,3.064-13.712,2.71-19.407-0.778C275.82,309.733,226.044,340.153,171,340.153z M46.408,236.863l4.654,12.643c17.38,47.214,65.58,78.926,119.944,78.926c53.397,0,101.314-31.003,119.229-77.147l4.46-11.481 l6.09,10.709c2.185,3.837,7.279,5.33,11.024,3.414c4.157-2.093,5.827-7.17,3.745-11.322l-20.355-40.46l-40.443,20.379 c-4.146,2.087-5.821,7.159-3.74,11.311c2.03,4.025,7.217,5.774,11.316,3.728l18.2-9.148l-4.683,13.592 c-12.626,36.67-48.141,63.613-90.471,68.645l-6.542,0.777V150.106h28.882c4.644,0,8.417-3.776,8.417-8.419 s-3.779-8.425-8.417-8.425h-28.882v-25.517l4.301-1.184c20.95-5.738,35.577-24.879,35.577-46.545 c0-26.635-21.666-48.306-48.3-48.306c-26.635,0-48.306,21.671-48.306,48.306c0,21.66,14.632,40.801,35.583,46.545l4.303,1.184 v25.517h-27.718c-4.643,0-8.42,3.782-8.42,8.425c0,4.637,3.777,8.419,8.42,8.419h27.718v161.239l-6.604-0.852 c-41.133-5.323-75.989-31.729-88.789-67.272l-4.963-13.78l16.225,8.137c4.103,2.041,9.286,0.303,11.319-3.734 c1.012-2.013,1.181-4.288,0.472-6.427c-0.706-2.139-2.201-3.865-4.208-4.872l-40.449-20.379l-20.354,40.449 c-1.012,2.019-1.181,4.289-0.472,6.434c0.706,2.144,2.196,3.871,4.203,4.877c4.088,2.07,9.28,0.309,11.307-3.729L46.408,236.863z M170.415,91.477c-17.349,0-31.464-14.109-31.464-31.46c0-17.349,14.115-31.463,31.464-31.463s31.466,14.115,31.466,31.463 C201.88,77.368,187.763,91.477,170.415,91.477z M170.415,40.264c-10.89,0-19.753,8.857-19.753,19.753 c0,10.893,8.857,19.75,19.753,19.75c10.898,0,19.755-8.857,19.755-19.75C190.169,49.121,181.307,40.264,170.415,40.264z\"/></symbol>\n  <symbol id=\"icon-anchor\" viewBox=\"0 0 266.955 266.955\">\n    <title>icon-anchor</title><path\n      d=\"M255.953,190.297l-18.683-37.132l-37.127,18.7c-5.722,2.883-8.028,9.856-5.145,15.577 c2.883,5.727,9.866,8.017,15.583,5.145l4.351-2.187c-9.562,27.772-36.616,48.696-69.593,52.612V122.004h18.716 c6.407,0,11.602-5.194,11.602-11.602s-5.194-11.607-11.602-11.607h-18.716V86.443c18.656-5.113,32.417-22.164,32.417-42.419 C177.755,19.744,158.011,0,133.737,0S89.719,19.744,89.719,44.024c0,20.255,13.761,37.301,32.417,42.419v12.352h-17.769 c-6.407,0-11.602,5.2-11.602,11.607s5.194,11.602,11.602,11.602h17.769v120.883c-32.183-4.161-58.557-24.525-68.298-51.568 l2.54,1.273c5.738,2.877,12.7,0.577,15.583-5.145c2.883-5.722,0.577-12.695-5.145-15.577l-37.127-18.7l-18.683,37.132 c-2.883,5.722-0.571,12.7,5.145,15.577c1.675,0.843,3.454,1.24,5.211,1.24c4.248,0,8.338-2.339,10.372-6.391l0.528-1.044 c14.37,39.042,54.597,67.27,101.955,67.27c46.738,0,86.497-27.505,101.346-65.742c2.121,3.726,5.983,5.907,10.041,5.907 c1.751,0,3.535-0.392,5.211-1.24C256.524,202.997,258.83,196.018,255.953,190.297z M112.922,44.024 c0-11.482,9.333-20.815,20.815-20.815c11.482,0,20.815,9.333,20.815,20.815c0,11.471-9.339,20.81-20.815,20.81 C122.26,64.834,112.922,55.495,112.922,44.024z\"/></symbol>\n  <symbol id=\"icon-bell-line\" viewBox=\"0 0 454.136 454.136\">\n    <title>icon-bell-line</title><path\n      d=\"M391.024,321.948c-27.089-27.089-42.308-63.83-42.308-102.14v-35.833c0-57-39.206-104.837-92.121-118.031V29.526 C256.595,13.22,243.375,0,227.068,0s-29.526,13.22-29.526,29.526v36.417c-52.915,13.195-92.121,61.031-92.121,118.031v35.833 c0,38.31-15.219,75.05-42.308,102.14c-11.907,11.907-15.469,29.814-9.025,45.372c6.444,15.557,21.625,25.701,38.464,25.701h73.4 c0,33.754,27.363,61.116,61.116,61.116s61.116-27.363,61.116-61.116h73.4c16.839,0,32.02-10.143,38.464-25.701 C406.493,351.762,402.931,333.855,391.024,321.948z M227.068,424.137c-17.158,0-31.116-13.959-31.116-31.116h62.232 C258.184,410.178,244.226,424.137,227.068,424.137z M372.332,355.839c-1.807,4.363-6.026,7.181-10.748,7.181H92.552 c-4.722,0-8.941-2.819-10.748-7.181s-0.817-9.339,2.522-12.678c32.949-32.949,51.094-76.757,51.094-123.353v-35.833 c0-50.535,41.113-91.648,91.648-91.648c50.535,0,91.648,41.113,91.648,91.648v35.833c0,46.596,18.146,90.404,51.095,123.353 C373.15,346.5,374.139,351.476,372.332,355.839z\"/></symbol>\n  <symbol id=\"icon-bell\" viewBox=\"0 0 454.137 454.137\">\n    <title>icon-bell</title><path\n      d=\"M391.023,321.947c-27.089-27.089-42.308-63.83-42.308-102.14v-35.833c0-57-39.206-104.837-92.121-118.032V29.526 C256.595,13.22,243.375,0,227.068,0s-29.526,13.22-29.526,29.526v36.417c-52.915,13.195-92.121,61.031-92.121,118.032v35.833 c0,38.31-15.219,75.051-42.308,102.14c-11.907,11.907-15.469,29.814-9.025,45.372c6.444,15.557,21.625,25.701,38.464,25.701h73.4 c0,33.753,27.363,61.116,61.116,61.116s61.116-27.363,61.116-61.116h73.4c16.839,0,32.02-10.144,38.464-25.701 C406.493,351.762,402.931,333.854,391.023,321.947z\"/></symbol>\n  <symbol id=\"icon-calendar-line\" viewBox=\"0 0 60 60\">\n    <title>icon-calendar-line</title><path\n      d=\"M57,4h-7V1c0-0.553-0.447-1-1-1h-7c-0.553,0-1,0.447-1,1v3H19V1c0-0.553-0.447-1-1-1h-7c-0.553,0-1,0.447-1,1v3H3 C2.447,4,2,4.447,2,5v11v43c0,0.553,0.447,1,1,1h54c0.553,0,1-0.447,1-1V16V5C58,4.447,57.553,4,57,4z M43,2h5v3v3h-5V5V2z M12,2h5 v3v3h-5V5V2z M4,6h6v3c0,0.553,0.447,1,1,1h7c0.553,0,1-0.447,1-1V6h22v3c0,0.553,0.447,1,1,1h7c0.553,0,1-0.447,1-1V6h6v9H4V6z M4,58V17h52v41H4z\"/><path\n      d=\"M38,23h-7h-2h-7h-2h-9v9v2v7v2v9h9h2h7h2h7h2h9v-9v-2v-7v-2v-9h-9H38z M31,25h7v7h-7V25z M38,41h-7v-7h7V41z M22,34h7v7h-7 V34z M22,25h7v7h-7V25z M13,25h7v7h-7V25z M13,34h7v7h-7V34z M20,50h-7v-7h7V50z M29,50h-7v-7h7V50z M38,50h-7v-7h7V50z M47,50h-7 v-7h7V50z M47,41h-7v-7h7V41z M47,25v7h-7v-7H47z\"/></symbol>\n  <symbol id=\"icon-calendar\" viewBox=\"0 0 60 60\">\n    <title>icon-calendar</title><rect x=\"22\" y=\"43\" width=\"7\" height=\"7\"/><rect x=\"22\" y=\"25\" width=\"7\" height=\"7\"/><rect x=\"22\" y=\"34\" width=\"7\" height=\"7\"/><rect x=\"13\" y=\"34\" width=\"7\" height=\"7\"/><rect x=\"13\" y=\"25\" width=\"7\" height=\"7\"/><rect x=\"13\" y=\"43\" width=\"7\" height=\"7\"/><rect x=\"40\" y=\"25\" width=\"7\" height=\"7\"/><path\n      d=\"M57,4h-7V1c0-0.553-0.447-1-1-1h-7c-0.553,0-1,0.447-1,1v3H19V1c0-0.553-0.447-1-1-1h-7c-0.553,0-1,0.447-1,1v3H3 C2.447,4,2,4.447,2,5v11v43c0,0.553,0.447,1,1,1h54c0.553,0,1-0.447,1-1V16V5C58,4.447,57.553,4,57,4z M49,32v2v7v2v9h-9h-2h-7h-2 h-7h-2h-9v-9v-2v-7v-2v-9h9h2h7h2h7h2h9V32z M56,15H4V6h6v3c0,0.553,0.447,1,1,1h7c0.553,0,1-0.447,1-1V6h22v3c0,0.553,0.447,1,1,1 h7c0.553,0,1-0.447,1-1V6h6V15z\"/><rect x=\"40\" y=\"34\" width=\"7\" height=\"7\"/><rect x=\"40\" y=\"43\" width=\"7\" height=\"7\"/><rect x=\"31\" y=\"43\" width=\"7\" height=\"7\"/><rect x=\"31\" y=\"34\" width=\"7\" height=\"7\"/><rect x=\"31\" y=\"25\" width=\"7\" height=\"7\"/></symbol>\n  <symbol id=\"icon-clip-line\" viewBox=\"0 0 511.36 511.36\">\n    <title>icon-clip-line</title><path\n      d=\"M454.827,35.2c-46.933-46.933-122.027-46.933-168.96,0L63.147,258.773c-3.413,3.413-3.413,8.533,0,11.947 s8.533,3.413,11.947,0l222.72-223.573c40.107-40.107,104.96-40.107,145.067,0c40.107,40.107,40.107,104.96,0,145.067 L162.133,472.96c-28.16,28.16-74.24,28.16-102.4,0c-28.16-28.16-28.16-74.24,0-102.4l226.133-226.987 c17.067-16.213,43.52-17.067,60.587,0c16.213,17.067,16.213,44.373,0,60.587l-168.96,169.813c-3.413,3.413-3.413,8.533,0,11.947 c3.413,3.413,8.533,3.413,11.947,0L358.4,216.96c23.04-23.04,23.04-61.44,0-84.48c-23.04-23.04-61.44-23.04-84.48,0 L47.787,358.613c-34.987,34.133-34.987,91.307,0,126.293c17.067,17.92,40.107,26.453,63.147,26.453 c23.04,0,46.08-8.533,63.147-26.453L454.827,204.16c22.187-22.187,34.987-52.907,34.987-84.48 C489.813,88.107,477.013,57.387,454.827,35.2z\"/></symbol>\n  <symbol id=\"icon-clip\" viewBox=\"0 0 509.371 509.371\">\n    <title>icon-clip</title><path\n      d=\"M452.758,36.265c-48.354-48.354-127.045-48.354-175.399,0L62.657,250.967c-6.777,6.778-6.777,17.764,0,24.541 c6.786,6.777,17.764,6.777,24.541,0L301.9,60.815c34.825-34.816,91.492-34.816,126.316,0 c16.879,16.87,26.164,39.302,26.164,63.158c0,23.864-9.285,46.288-26.164,63.158L158.392,456.956 c-23.621,23.63-62.073,23.63-85.695,0c-23.621-23.639-23.63-62.074,0-85.704l217.591-217.591 c12.427-12.418,32.638-12.435,45.091,0c12.427,12.418,12.427,32.647,0,45.082L172.902,361.212c-6.777,6.777-6.777,17.764,0,24.541 c6.786,6.778,17.764,6.778,24.55,0l162.469-162.469c25.956-25.964,25.956-68.209,0-94.165c-25.964-25.982-68.209-25.964-94.173,0 l-217.6,217.591c-37.159,37.15-37.159,97.618,0,134.786c18.588,18.588,42.991,27.874,67.402,27.874s48.814-9.294,67.393-27.874 l269.815-269.824c23.439-23.422,36.335-54.567,36.335-87.7C489.092,90.841,476.197,59.696,452.758,36.265z\"/></symbol>\n  <symbol id=\"icon-cog-line\" viewBox=\"0 0 54 54\">\n    <title>icon-cog-line</title><path\n      d=\"M51.22,21h-5.052c-0.812,0-1.481-0.447-1.792-1.197s-0.153-1.54,0.42-2.114l3.572-3.571 c0.525-0.525,0.814-1.224,0.814-1.966c0-0.743-0.289-1.441-0.814-1.967l-4.553-4.553c-1.05-1.05-2.881-1.052-3.933,0l-3.571,3.571 c-0.574,0.573-1.366,0.733-2.114,0.421C33.447,9.313,33,8.644,33,7.832V2.78C33,1.247,31.753,0,30.22,0H23.78 C22.247,0,21,1.247,21,2.78v5.052c0,0.812-0.447,1.481-1.197,1.792c-0.748,0.313-1.54,0.152-2.114-0.421l-3.571-3.571 c-1.052-1.052-2.883-1.05-3.933,0l-4.553,4.553c-0.525,0.525-0.814,1.224-0.814,1.967c0,0.742,0.289,1.44,0.814,1.966l3.572,3.571 c0.573,0.574,0.73,1.364,0.42,2.114S8.644,21,7.832,21H2.78C1.247,21,0,22.247,0,23.78v6.439C0,31.753,1.247,33,2.78,33h5.052 c0.812,0,1.481,0.447,1.792,1.197s0.153,1.54-0.42,2.114l-3.572,3.571c-0.525,0.525-0.814,1.224-0.814,1.966 c0,0.743,0.289,1.441,0.814,1.967l4.553,4.553c1.051,1.051,2.881,1.053,3.933,0l3.571-3.572c0.574-0.573,1.363-0.731,2.114-0.42 c0.75,0.311,1.197,0.98,1.197,1.792v5.052c0,1.533,1.247,2.78,2.78,2.78h6.439c1.533,0,2.78-1.247,2.78-2.78v-5.052 c0-0.812,0.447-1.481,1.197-1.792c0.751-0.312,1.54-0.153,2.114,0.42l3.571,3.572c1.052,1.052,2.883,1.05,3.933,0l4.553-4.553 c0.525-0.525,0.814-1.224,0.814-1.967c0-0.742-0.289-1.44-0.814-1.966l-3.572-3.571c-0.573-0.574-0.73-1.364-0.42-2.114 S45.356,33,46.168,33h5.052c1.533,0,2.78-1.247,2.78-2.78V23.78C54,22.247,52.753,21,51.22,21z M52,30.22 C52,30.65,51.65,31,51.22,31h-5.052c-1.624,0-3.019,0.932-3.64,2.432c-0.622,1.5-0.295,3.146,0.854,4.294l3.572,3.571 c0.305,0.305,0.305,0.8,0,1.104l-4.553,4.553c-0.304,0.304-0.799,0.306-1.104,0l-3.571-3.572c-1.149-1.149-2.794-1.474-4.294-0.854 c-1.5,0.621-2.432,2.016-2.432,3.64v5.052C31,51.65,30.65,52,30.22,52H23.78C23.35,52,23,51.65,23,51.22v-5.052 c0-1.624-0.932-3.019-2.432-3.64c-0.503-0.209-1.021-0.311-1.533-0.311c-1.014,0-1.997,0.4-2.761,1.164l-3.571,3.572 c-0.306,0.306-0.801,0.304-1.104,0l-4.553-4.553c-0.305-0.305-0.305-0.8,0-1.104l3.572-3.571c1.148-1.148,1.476-2.794,0.854-4.294 C10.851,31.932,9.456,31,7.832,31H2.78C2.35,31,2,30.65,2,30.22V23.78C2,23.35,2.35,23,2.78,23h5.052 c1.624,0,3.019-0.932,3.64-2.432c0.622-1.5,0.295-3.146-0.854-4.294l-3.572-3.571c-0.305-0.305-0.305-0.8,0-1.104l4.553-4.553 c0.304-0.305,0.799-0.305,1.104,0l3.571,3.571c1.147,1.147,2.792,1.476,4.294,0.854C22.068,10.851,23,9.456,23,7.832V2.78 C23,2.35,23.35,2,23.78,2h6.439C30.65,2,31,2.35,31,2.78v5.052c0,1.624,0.932,3.019,2.432,3.64 c1.502,0.622,3.146,0.294,4.294-0.854l3.571-3.571c0.306-0.305,0.801-0.305,1.104,0l4.553,4.553c0.305,0.305,0.305,0.8,0,1.104 l-3.572,3.571c-1.148,1.148-1.476,2.794-0.854,4.294c0.621,1.5,2.016,2.432,3.64,2.432h5.052C51.65,23,52,23.35,52,23.78V30.22z\"/><path d=\"M27,18c-4.963,0-9,4.037-9,9s4.037,9,9,9s9-4.037,9-9S31.963,18,27,18z M27,34c-3.859,0-7-3.141-7-7s3.141-7,7-7 s7,3.141,7,7S30.859,34,27,34z\"/></symbol>\n  <symbol id=\"icon-cog\" viewBox=\"0 0 54 54\">\n    <title>icon-cog</title><path\n      d=\"M51.22,21h-5.052c-0.812,0-1.481-0.447-1.792-1.197s-0.153-1.54,0.42-2.114l3.572-3.571 c0.525-0.525,0.814-1.224,0.814-1.966c0-0.743-0.289-1.441-0.814-1.967l-4.553-4.553c-1.05-1.05-2.881-1.052-3.933,0l-3.571,3.571 c-0.475,0.475-0.997,0.574-1.352,0.574c-0.5,0-0.997-0.196-1.364-0.539C33.324,8.984,33,8.534,33,7.832V2.78 C33,1.247,31.753,0,30.22,0H23.78C22.247,0,21,1.247,21,2.78v5.052c0,1.218-0.997,1.945-1.961,1.945c-0.354,0-0.876-0.1-1.351-0.574 l-3.571-3.571c-1.052-1.052-2.883-1.05-3.933,0l-4.553,4.553c-0.525,0.525-0.814,1.224-0.814,1.967c0,0.742,0.289,1.44,0.814,1.966 l3.572,3.571c0.573,0.574,0.73,1.364,0.42,2.114S8.644,21,7.832,21H2.78C1.247,21,0,22.247,0,23.78v6.438C0,31.752,1.247,33,2.78,33 h5.052c0.812,0,1.481,0.447,1.792,1.197s0.153,1.54-0.42,2.114l-3.572,3.571c-0.525,0.525-0.814,1.224-0.814,1.966 c0,0.743,0.289,1.441,0.814,1.967l4.553,4.553c1.051,1.051,2.881,1.053,3.933,0l3.571-3.571c0.475-0.475,0.997-0.574,1.352-0.574 c0.963,0,1.96,0.728,1.96,1.945v5.051C21,52.752,22.247,54,23.78,54h6.439c1.533,0,2.78-1.248,2.78-2.781v-5.051 c0-1.218,0.997-1.945,1.96-1.945c0.354,0,0.877,0.1,1.352,0.574l3.571,3.571c1.052,1.052,2.883,1.05,3.933,0l4.553-4.553 c0.525-0.525,0.814-1.224,0.814-1.967c0-0.742-0.289-1.44-0.814-1.966l-3.572-3.571c-0.573-0.574-0.73-1.364-0.42-2.114 S45.356,33,46.168,33h5.052c1.533,0,2.78-1.248,2.78-2.781V23.78C54,22.247,52.753,21,51.22,21z M34,27c0,3.859-3.141,7-7,7 s-7-3.141-7-7s3.141-7,7-7S34,23.141,34,27z\"/></symbol>\n  <symbol id=\"icon-comments-line\" viewBox=\"0 0 60 60\">\n    <title>icon-comments-line</title><path\n      d=\"M54.07,1H15.93C12.66,1,10,3.66,10,6.93V15H5.93C2.66,15,0,17.66,0,20.929V42.07C0,45.34,2.66,48,5.93,48H12v10 c0,0.413,0.254,0.784,0.64,0.933C12.757,58.978,12.879,59,13,59c0.276,0,0.547-0.115,0.74-0.327L23.442,48H44.07 c3.27,0,5.93-2.66,5.93-5.929V34h4.07c3.27,0,5.93-2.66,5.93-5.93V6.93C60,3.66,57.34,1,54.07,1z M48,42.071 C48,44.237,46.237,46,44.07,46H23c-0.282,0-0.551,0.119-0.74,0.327L14,55.414V47c0-0.552-0.447-1-1-1H5.93 C3.763,46,2,44.237,2,42.07V20.929C2,18.763,3.763,17,5.93,17H11h33.07c2.167,0,3.93,1.763,3.93,3.93V33V42.071z M58,28.07 c0,2.167-1.763,3.93-3.93,3.93H50V20.93c0-3.27-2.66-5.93-5.93-5.93H12V6.93C12,4.763,13.763,3,15.93,3H54.07 C56.237,3,58,4.763,58,6.93V28.07z\"/></symbol>\n  <symbol id=\"icon-comments\" viewBox=\"0 0 60 60\">\n    <title>icon-comments</title><path\n      d=\"M44.07,15H5.93C2.66,15,0,17.66,0,20.929V42.07C0,45.34,2.66,48,5.93,48H12v10c0,0.413,0.254,0.784,0.64,0.933 C12.757,58.978,12.879,59,13,59c0.276,0,0.547-0.115,0.74-0.327L23.442,48H44.07c3.27,0,5.93-2.66,5.93-5.929V20.93 C50,17.66,47.34,15,44.07,15z\"/><path d=\"M54.07,1H15.93C12.655,1,10,3.655,10,6.93V12c0,0.552,0.448,1,1,1h33.658C48.713,13,52,16.287,52,20.342V33 c0,0.552,0.448,1,1,1h4.07c1.618,0,2.93-1.312,2.93-2.93V6.93C60,3.655,57.345,1,54.07,1z\"/></symbol>\n  <symbol id=\"icon-division-line\" viewBox=\"0 0 44 44\">\n    <title>icon-division-line</title><path d=\"M38.059,16H5.941C2.665,16,0,18.691,0,22s2.665,6,5.941,6h32.117C41.335,28,44,25.309,44,22S41.335,16,38.059,16z M38.059,26H5.941C3.805,26,2,24.168,2,22s1.805-4,3.941-4h32.117C40.195,18,42,19.832,42,22S40.195,26,38.059,26z\"/><path d=\"M22,13c3.309,0,6-2.691,6-6s-2.691-6-6-6s-6,2.691-6,6S18.691,13,22,13z M22,3c2.206,0,4,1.794,4,4s-1.794,4-4,4 s-4-1.794-4-4S19.794,3,22,3z\"/><path d=\"M22,31c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6S25.309,31,22,31z M22,41c-2.206,0-4-1.794-4-4s1.794-4,4-4 s4,1.794,4,4S24.206,41,22,41z\"/></symbol>\n  <symbol id=\"icon-division\" viewBox=\"0 0 42 42\">\n    <title>icon-division</title><path d=\"M37.059,16H26H16H4.941C2.224,16,0,18.282,0,21s2.224,5,4.941,5H16h10h11.059C39.776,26,42,23.718,42,21 S39.776,16,37.059,16z\"/><circle cx=\"21\" cy=\"6\" r=\"5\"/><circle cx=\"21\" cy=\"36\" r=\"5\"/></symbol>\n  <symbol id=\"icon-download-line\" viewBox=\"0 0 60 60\">\n    <title>icon-download-line</title><path\n      d=\"M50.976,20.694c-0.528-9-7.947-16.194-16.892-16.194c-5.43,0-10.688,2.663-13.945,7.008 c-0.075-0.039-0.154-0.066-0.23-0.102c-0.198-0.096-0.399-0.187-0.604-0.269c-0.114-0.045-0.228-0.086-0.343-0.126 c-0.203-0.071-0.409-0.134-0.619-0.191c-0.115-0.031-0.229-0.063-0.345-0.089c-0.225-0.051-0.455-0.09-0.687-0.125 c-0.101-0.015-0.2-0.035-0.302-0.046C16.677,10.523,16.341,10.5,16,10.5c-4.963,0-9,4.037-9,9c0,0.129,0.008,0.255,0.017,0.381 C2.857,22.148,0,26.899,0,31.654C0,38.737,5.762,44.5,12.845,44.5H18c0.553,0,1-0.447,1-1s-0.447-1-1-1h-5.155 C6.865,42.5,2,37.635,2,31.654c0-4.154,2.705-8.466,6.433-10.253L9,21.13V20.5c0-0.12,0.008-0.242,0.015-0.365l0.011-0.185 l-0.013-0.194C9.007,19.671,9,19.586,9,19.5c0-3.859,3.141-7,7-7c0.309,0,0.614,0.027,0.917,0.067 c0.078,0.01,0.156,0.023,0.233,0.036c0.267,0.044,0.53,0.102,0.789,0.177c0.035,0.01,0.071,0.017,0.106,0.027 c0.285,0.087,0.563,0.197,0.835,0.321c0.071,0.032,0.14,0.067,0.21,0.101c0.24,0.119,0.475,0.249,0.702,0.396 C21.719,14.873,23,17.038,23,19.5c0,0.553,0.447,1,1,1s1-0.447,1-1c0-2.754-1.246-5.219-3.2-6.871 C24.667,8.879,29.388,6.5,34.084,6.5c7.745,0,14.178,6.135,14.849,13.888c-1.021-0.072-2.552-0.109-4.083,0.124 c-0.546,0.083-0.921,0.593-0.838,1.139c0.075,0.495,0.501,0.85,0.987,0.85c0.05,0,0.101-0.004,0.151-0.012 c2.227-0.337,4.548-0.021,4.684-0.002C54.49,23.372,58,27.661,58,32.472C58,38.001,53.501,42.5,47.972,42.5H44 c-0.553,0-1,0.447-1,1s0.447,1,1,1h3.972C54.604,44.5,60,39.104,60,32.472C60,26.983,56.173,22.06,50.976,20.694z\"/><path\n      d=\"M38.293,45.793L32,52.086V31.5c0-0.553-0.447-1-1-1s-1,0.447-1,1v20.586l-6.293-6.293c-0.391-0.391-1.023-0.391-1.414,0 s-0.391,1.023,0,1.414l7.999,7.999c0.092,0.093,0.203,0.166,0.326,0.217C30.74,55.474,30.87,55.5,31,55.5s0.26-0.026,0.382-0.077 c0.123-0.051,0.234-0.124,0.326-0.217l7.999-7.999c0.391-0.391,0.391-1.023,0-1.414S38.684,45.402,38.293,45.793z\"/></symbol>\n  <symbol id=\"icon-download\" viewBox=\"0 0 56 56\">\n    <title>icon-download</title><path\n      d=\"M35.586,41.586L31,46.172V28c0-1.104-0.896-2-2-2s-2,0.896-2,2v18.172l-4.586-4.586c-0.781-0.781-2.047-0.781-2.828,0 s-0.781,2.047,0,2.828l7.999,7.999c0.093,0.094,0.196,0.177,0.307,0.251c0.047,0.032,0.099,0.053,0.148,0.081 c0.065,0.036,0.127,0.075,0.196,0.103c0.065,0.027,0.133,0.042,0.2,0.062c0.058,0.017,0.113,0.04,0.173,0.051 C28.738,52.986,28.869,53,29,53s0.262-0.014,0.392-0.04c0.06-0.012,0.115-0.034,0.173-0.051c0.067-0.02,0.135-0.035,0.2-0.062 c0.069-0.028,0.131-0.067,0.196-0.103c0.05-0.027,0.101-0.049,0.148-0.081c0.11-0.074,0.213-0.157,0.307-0.251l7.999-7.999 c0.781-0.781,0.781-2.047,0-2.828S36.367,40.805,35.586,41.586z\"/><path\n      d=\"M47.835,18.986c-0.137-0.019-2.457-0.335-4.684,0.002C43.1,18.996,43.049,19,42.999,19c-0.486,0-0.912-0.354-0.987-0.85 c-0.083-0.546,0.292-1.056,0.838-1.139c1.531-0.233,3.062-0.196,4.083-0.124C46.262,9.135,39.83,3,32.085,3 C27.388,3,22.667,5.379,19.8,9.129C21.754,10.781,23,13.246,23,16c0,0.553-0.447,1-1,1s-1-0.447-1-1 c0-2.462-1.281-4.627-3.209-5.876c-0.227-0.147-0.462-0.277-0.702-0.396c-0.069-0.034-0.139-0.069-0.21-0.101 c-0.272-0.124-0.55-0.234-0.835-0.321c-0.035-0.01-0.071-0.017-0.106-0.027c-0.259-0.075-0.522-0.132-0.789-0.177 c-0.078-0.013-0.155-0.025-0.233-0.036C14.614,9.027,14.309,9,14,9c-3.859,0-7,3.141-7,7c0,0.082,0.006,0.163,0.012,0.244 l0.012,0.21l-0.009,0.16C7.008,16.744,7,16.873,7,17v0.63l-0.567,0.271C2.705,19.688,0,24,0,28.154C0,34.135,4.865,39,10.845,39H25 V28c0-2.209,1.791-4,4-4s4,1.791,4,4v11h2.353c0.059,0,0.116-0.005,0.174-0.009l0.198-0.011l0.271,0.011 C36.053,38.995,36.11,39,36.169,39h9.803C51.501,39,56,34.501,56,28.972C56,24.161,52.49,19.872,47.835,18.986z\"/></symbol>\n  <symbol id=\"icon-edit-line\" viewBox=\"0 0 508.52 508.52\">\n    <title>icon-edit-line</title><path d=\"M476.737,0H31.782C14.239,0,0,14.239,0,31.782v444.955c0,17.544,14.239,31.782,31.782,31.782 h444.955c17.544,0,31.782-14.239,31.782-31.782V31.782C508.52,14.239,494.281,0,476.737,0z M476.737,476.737H31.782V31.782 h444.955V476.737z\"/><polygon points=\"327.709,384.854 413.172,413.172 384.854,327.709 221.492,164.315 164.315,221.492 \"/><path d=\"M130.658,187.834l57.177-57.177l-42.08-42.08c-15.796-15.796-41.381-15.796-57.177,0 s-15.796,41.381,0,57.177L130.658,187.834z\"/></symbol>\n  <symbol id=\"icon-edit\" viewBox=\"0 0 508.52 508.52\">\n    <title>icon-edit</title><path\n      d=\"M476.737,0H31.782C14.239,0,0,14.239,0,31.782v444.955c0,17.544,14.239,31.782,31.782,31.782 h444.955c17.544,0,31.782-14.239,31.782-31.782V31.782C508.52,14.239,494.281,0,476.737,0z M88.578,145.754 c-15.796-15.796-15.796-41.381,0-57.177s41.381-15.796,57.177,0l42.08,42.08l-57.177,57.177L88.578,145.754z M327.709,384.854 L164.315,221.46l57.177-57.177l163.362,163.394l28.318,85.495L327.709,384.854z\"/></symbol>\n  <symbol id=\"icon-email-line\" viewBox=\"0 0 60 60\">\n    <title>icon-email-line</title><path\n      d=\"M0,8.5v2.291v38.418V51.5h60v-2.291V10.791V8.5H0z M36.625,30.564l-5.446,5.472c-0.662,0.615-1.698,0.614-2.332,0.026 l-5.473-5.498l0.048-0.047L3.647,10.5h52.719L36.577,30.518L36.625,30.564z M20.524,30.533L2,48.355V11.923L20.524,30.533z M21.934,31.95l5.523,5.549c0.709,0.661,1.619,0.993,2.533,0.993c0.923,0,1.85-0.339,2.581-1.02l5.496-5.522L56.304,49.5H3.686 L21.934,31.95z M39.477,30.534L58,11.922v36.433L39.477,30.534z\"/></symbol>\n  <symbol id=\"icon-email\" viewBox=\"0 0 60 60\">\n    <title>icon-email</title><polygon points=\"60,50.234 60,9.944 39.482,30.536 \"/><polygon points=\"0,9.941 0,50.234 20.519,30.535 \"/><path d=\"M1.387,8.5l21.002,21.08c0.121,0.051,0.471,0.415,0.517,0.519l5.941,5.963c0.635,0.591,1.672,0.59,2.333-0.025l5.911-5.933 c0.046-0.105,0.4-0.473,0.522-0.524L58.615,8.5H1.387z\"/><path d=\"M38.07,31.954l-5.5,5.52c-0.73,0.68-1.657,1.019-2.58,1.019c-0.914,0-1.823-0.332-2.533-0.993l-5.526-5.546L1.569,51.5 h56.862L38.07,31.954z\"/></symbol>\n  <symbol id=\"icon-equal-line\" viewBox=\"0 0 44 44\">\n    <title>icon-equal-line</title><path d=\"M5.941,20h32.117C41.335,20,44,17.309,44,14s-2.665-6-5.941-6H5.941C2.665,8,0,10.691,0,14S2.665,20,5.941,20z M5.941,10 h32.117C40.195,10,42,11.832,42,14s-1.805,4-3.941,4H5.941C3.805,18,2,16.168,2,14S3.805,10,5.941,10z\"/><path d=\"M38.059,24H5.941C2.665,24,0,26.691,0,30s2.665,6,5.941,6h32.117C41.335,36,44,33.309,44,30S41.335,24,38.059,24z M38.059,34H5.941C3.805,34,2,32.168,2,30s1.805-4,3.941-4h32.117C40.195,26,42,27.832,42,30S40.195,34,38.059,34z\"/></symbol>\n  <symbol id=\"icon-equal\" viewBox=\"0 0 42 42\">\n    <title>icon-equal</title><path d=\"M4.941,18H16h10h11.059C39.776,18,42,15.718,42,13s-2.224-5-4.941-5H26H16H4.941C2.224,8,0,10.282,0,13S2.224,18,4.941,18z \"/><path d=\"M37.059,24H26H16H4.941C2.224,24,0,26.282,0,29s2.224,5,4.941,5H16h10h11.059C39.776,34,42,31.718,42,29 S39.776,24,37.059,24z\"/></symbol>\n  <symbol id=\"icon-female-line\" viewBox=\"0 0 55 55\">\n    <title>icon-female-line</title><path\n      d=\"M27.5,0C12.336,0,0,12.337,0,27.5c0,7.976,3.417,15.167,8.86,20.195l-0.072,0.098l0.705,0.604 c3.904,3.342,8.655,5.483,13.681,6.26c0.356,0.056,0.715,0.102,1.075,0.144c0.391,0.045,0.782,0.085,1.176,0.112 c0.579,0.043,1.162,0.071,1.75,0.078c0.062,0,0.123,0.008,0.185,0.008c0.017,0,0.035-0.002,0.052-0.002 c0.03,0,0.059,0.002,0.089,0.002C42.664,55,55,42.663,55,27.5S42.664,0,27.5,0z M27.414,52.998c-0.09,0-0.178-0.006-0.267-0.007 c-0.478-0.004-0.954-0.029-1.429-0.06c-5.298-0.368-10.154-2.359-14.074-5.482c0.381-0.36,0.802-0.665,1.266-0.9l9.137-3.921 c0.739-0.368,1.191-1.186,1.628-2.063c0.274-0.552,0.243-1.195-0.083-1.721C23.265,38.315,22.699,38,22.079,38l-6.347,0.005 c-0.022-0.002-2.195-0.222-3.83-0.924c-0.308-0.132-0.437-0.235-0.474-0.241c0.015-0.042,0.051-0.124,0.141-0.251 c2.264-3.224,6.083-9.643,6.214-16.409c0.008-0.379,0.303-9.287,9.332-9.361c5.365,0.044,7.902,3.189,9.086,5.82 c0.591,1.313,0.939,2.879,1.065,4.785c0.39,5.9,3.1,11.466,5.305,15.095c0.114,0.188,0.148,0.418,0.096,0.631 c-0.049,0.197-0.168,0.361-0.335,0.461c-1.038,0.62-2.389,0.407-2.397,0.404L33.273,38c-0.713,0-1.33,0.45-1.571,1.146 c-0.243,0.702-0.028,1.472,0.536,1.917c0.71,0.561,0.992,0.734,1.104,0.794l7.619,4.609c0.654,0.357,1.229,0.845,1.692,1.434 C38.231,51.229,32.983,52.986,27.414,52.998z M44.25,46.702c-0.633-0.815-1.415-1.491-2.293-1.969l-7.619-4.609 c-0.016-0.009-0.07-0.04-0.19-0.124h5.54c0.436,0.061,2.175,0.222,3.669-0.673c0.627-0.374,1.072-0.977,1.25-1.695 c0.181-0.727,0.062-1.511-0.327-2.151c-2.088-3.438-4.655-8.691-5.018-14.189c-0.143-2.147-0.547-3.938-1.237-5.473 c-1.424-3.164-4.469-6.947-10.91-7c-10.964,0.09-11.33,11.206-11.332,11.32c-0.125,6.47-4.134,12.855-5.851,15.3 c-0.467,0.665-0.616,1.312-0.444,1.921c0.188,0.66,0.719,1.171,1.625,1.56c1.917,0.823,4.322,1.066,4.521,1.081h6.084 c-0.167,0.324-0.395,0.735-0.512,0.813l-9.113,3.908l-0.053,0.024c-0.713,0.356-1.349,0.83-1.914,1.395 C5.132,41.483,2,34.852,2,27.5C2,13.439,13.439,2,27.5,2S53,13.439,53,27.5C53,35.153,49.606,42.024,44.25,46.702z\"/></symbol>\n  <symbol id=\"icon-female\" viewBox=\"0 0 55 55\">\n    <title>icon-female</title><path\n      d=\"M27.5,0C12.336,0,0,12.337,0,27.5c0,7.976,3.417,15.167,8.86,20.195l-0.072,0.098l0.705,0.604 c3.904,3.342,8.655,5.483,13.681,6.26c0.356,0.056,0.715,0.102,1.075,0.144c0.391,0.045,0.782,0.085,1.176,0.112 c0.579,0.043,1.162,0.071,1.75,0.078c0.062,0,0.123,0.008,0.185,0.008c0.017,0,0.035-0.002,0.052-0.002 c0.03,0,0.059,0.002,0.089,0.002C42.664,55,55,42.663,55,27.5S42.664,0,27.5,0z M44.25,46.702 c-0.633-0.815-1.415-1.491-2.293-1.969l-7.619-4.609c-0.016-0.009-0.07-0.04-0.19-0.124h5.539c0.434,0.061,2.162,0.229,3.67-0.673 c0.627-0.374,1.072-0.977,1.25-1.695c0.181-0.727,0.062-1.511-0.327-2.151c-2.088-3.438-4.655-8.691-5.018-14.189 c-0.143-2.147-0.547-3.938-1.237-5.473c-1.424-3.164-4.469-6.947-10.91-7c-10.964,0.09-11.33,11.206-11.332,11.32 c-0.125,6.47-4.134,12.855-5.851,15.3c-0.467,0.665-0.616,1.312-0.444,1.921c0.188,0.66,0.719,1.171,1.625,1.56 c1.917,0.823,4.322,1.066,4.521,1.081h6.084c-0.167,0.324-0.395,0.735-0.512,0.813l-9.166,3.933 c-0.713,0.356-1.349,0.83-1.914,1.395C5.132,41.483,2,34.852,2,27.5C2,13.439,13.439,2,27.5,2S53,13.439,53,27.5 C53,35.153,49.606,42.024,44.25,46.702z\"/></symbol>\n  <symbol id=\"icon-filter-line\" viewBox=\"0 0 52.077 52.077\">\n    <title>icon-filter-line</title><path\n      d=\"M51.039,7c0-4.596-12.577-7-25-7s-25,2.404-25,7c0,1.042,0.651,1.969,1.796,2.783l17.204,23.54v17.528 c0,0.43,0.256,0.813,0.652,0.979l0.686,0.246l10.662-10.663v-8.087L49.224,9.809l-0.001-0.012C50.379,8.98,51.039,8.047,51.039,7z M26.039,2c14.04,0,23,2.961,23,5c0,0.422-0.404,0.883-1.135,1.349l-0.051-0.006l0.017,0.027C45.033,10.151,37.133,12,26.039,12 C14.934,12,7.029,10.148,4.2,8.365l0.017-0.027L3.805,8.093C3.314,7.715,3.039,7.344,3.039,7C3.039,4.961,11.999,2,26.039,2z M30.039,40.586l-8,8V34h8V40.586z M30.533,32h-8.987L6.615,11.567C11.438,13.174,18.763,14,26.039,14 c7.276,0,14.6-0.826,19.424-2.432L30.533,32z\"/></symbol>\n  <symbol id=\"icon-filter\" viewBox=\"0 0 51.913 51.913\">\n    <title>icon-filter</title><path\n      d=\"M50.957,7c0-4.596-12.577-7-25-7s-25,2.404-25,7c0,1.042,0.652,1.97,1.796,2.784l17.204,23.542v17.525l0.062,1.062h1 l0.457-0.018l10.481-10.481v-8.088L49.16,9.784C50.305,8.97,50.957,8.042,50.957,7z M25.957,2c14.04,0,23,2.961,23,5s-8.96,5-23,5 s-23-2.961-23-5S11.917,2,25.957,2z\"/></symbol>\n  <symbol id=\"icon-folder-line\" viewBox=\"0 0 60 60\">\n    <title>icon-folder-line</title><path\n      d=\"M56.98,11.5H28.02V6.52c0-1.665-1.354-3.02-3.02-3.02H3.02C1.354,3.5,0,4.854,0,6.52V20.5v2v30.98 c0,1.665,1.354,3.02,3.02,3.02H56.98c1.665,0,3.02-1.354,3.02-3.02V22.5v-2v-5.98C60,12.854,58.646,11.5,56.98,11.5z M58,53.48 c0,0.563-0.457,1.02-1.02,1.02H3.02C2.457,54.5,2,54.043,2,53.48V22.5h56V53.48z M2,20.5V6.52C2,5.957,2.457,5.5,3.02,5.5H25 c0.562,0,1.02,0.457,1.02,1.02v6.98H56.98c0.563,0,1.02,0.457,1.02,1.02v5.98H2z\"/></symbol>\n  <symbol id=\"icon-folder-open-line\" viewBox=\"0 0 60 60\">\n    <title>icon-folder-open-line</title><path\n      d=\"M57.49,21.5H54v-6.268c0-1.507-1.226-2.732-2.732-2.732H26.515l-5-7H2.732C1.226,5.5,0,6.726,0,8.232v43.687l0.006,0 c-0.005,0.563,0.17,1.114,0.522,1.575C1.018,54.134,1.76,54.5,2.565,54.5h44.759c1.156,0,2.174-0.779,2.45-1.813L60,24.649v-0.177 C60,22.75,58.944,21.5,57.49,21.5z M2,8.232C2,7.828,2.329,7.5,2.732,7.5h17.753l5,7h25.782c0.404,0,0.732,0.328,0.732,0.732V21.5 H12.731c-0.144,0-0.287,0.012-0.426,0.036c-0.973,0.163-1.782,0.873-2.023,1.776L2,45.899V8.232z M47.869,52.083 c-0.066,0.245-0.291,0.417-0.545,0.417H2.565c-0.243,0-0.385-0.139-0.448-0.222c-0.063-0.082-0.16-0.256-0.123-0.408l10.191-27.953 c0.066-0.245,0.291-0.417,0.545-0.417H54h3.49c0.38,0,0.477,0.546,0.502,0.819L47.869,52.083z\"/></symbol>\n  <symbol id=\"icon-folder-open\" viewBox=\"0 0 60 60\">\n    <title>icon-folder-open</title><path d=\"M14,23.5c-0.254,0-0.479,0.172-0.545,0.417L2,52.5v1c0,0.734-0.047,1,0.565,1h44.759c1.156,0,2.174-0.779,2.45-1.813 L60,24.5c0,0,0-0.625,0-1H14z\"/><path d=\"M12.731,21.5H53h1v-6.268c0-1.507-1.226-2.732-2.732-2.732H26.515l-5-7H2.732C1.226,5.5,0,6.726,0,8.232v41.796 l10.282-26.717C10.557,22.279,11.575,21.5,12.731,21.5z\"/></symbol>\n  <symbol id=\"icon-folder\" viewBox=\"0 0 60 60\">\n    <title>icon-folder</title><path d=\"M56.981,11.5H28.019V6.52c0-1.665-1.354-3.02-3.019-3.02H3.019C1.354,3.5,0,4.854,0,6.52V20.5h60v-5.98 C60,12.854,58.646,11.5,56.981,11.5z\"/><path d=\"M0,53.48c0,1.665,1.354,3.02,3.019,3.02h53.962c1.665,0,3.019-1.354,3.019-3.02V22.5H0V53.48z\"/></symbol>\n  <symbol id=\"icon-heart-line\" viewBox=\"0 0 51.997 51.997\">\n    <title>icon-heart-line</title><path\n      d=\"M51.911,16.242C51.152,7.888,45.239,1.827,37.839,1.827c-4.93,0-9.444,2.653-11.984,6.905 c-2.517-4.307-6.846-6.906-11.697-6.906c-7.399,0-13.313,6.061-14.071,14.415c-0.06,0.369-0.306,2.311,0.442,5.478 c1.078,4.568,3.568,8.723,7.199,12.013l18.115,16.439l18.426-16.438c3.631-3.291,6.121-7.445,7.199-12.014 C52.216,18.553,51.97,16.611,51.911,16.242z M49.521,21.261c-0.984,4.172-3.265,7.973-6.59,10.985L25.855,47.481L9.072,32.25 c-3.331-3.018-5.611-6.818-6.596-10.99c-0.708-2.997-0.417-4.69-0.416-4.701l0.015-0.101C2.725,9.139,7.806,3.826,14.158,3.826 c4.687,0,8.813,2.88,10.771,7.515l0.921,2.183l0.921-2.183c1.927-4.564,6.271-7.514,11.069-7.514 c6.351,0,11.433,5.313,12.096,12.727C49.938,16.57,50.229,18.264,49.521,21.261z\"/></symbol>\n  <symbol id=\"icon-heart\" viewBox=\"0 0 51.997 51.997\">\n    <title>icon-heart</title><path\n      d=\"M51.911,16.242C51.152,7.888,45.239,1.827,37.839,1.827c-4.93,0-9.444,2.653-11.984,6.905 c-2.517-4.307-6.846-6.906-11.697-6.906c-7.399,0-13.313,6.061-14.071,14.415c-0.06,0.369-0.306,2.311,0.442,5.478 c1.078,4.568,3.568,8.723,7.199,12.013l18.115,16.439l18.426-16.438c3.631-3.291,6.121-7.445,7.199-12.014 C52.216,18.553,51.97,16.611,51.911,16.242z\"/></symbol>\n  <symbol id=\"icon-home-line\" viewBox=\"0 0 58.365 58.365\">\n    <title>icon-home-line</title><path\n      d=\"M57.863,26.632L29.182,0L0.502,26.632c-0.404,0.376-0.428,1.009-0.052,1.414c0.374,0.404,1.009,0.427,1.413,0.052 l3.319-3.082v33.349h16h16h16V25.015l3.319,3.082c0.192,0.179,0.437,0.267,0.681,0.267c0.269,0,0.536-0.107,0.732-0.319 C58.291,27.641,58.267,27.008,57.863,26.632z M23.182,56.365v-16c0-3.309,2.691-6,6-6s6,2.691,6,6v16H23.182z M51.182,56.365h-14 v-16c0-4.411-3.589-8-8-8s-8,3.589-8,8v16h-14V23.158l22-20.429l22,20.429V56.365z\"/></symbol>\n  <symbol id=\"icon-home\" viewBox=\"0 0 58.365 58.365\">\n    <title>icon-home</title><path\n      d=\"M57.863,26.632L29.182,0L0.502,26.632c-0.404,0.376-0.428,1.009-0.052,1.414c0.374,0.404,1.009,0.427,1.413,0.052 l4.319-4.011v3.278v31h16v-18c0-3.866,3.134-7,7-7s7,3.134,7,7v18h16v-31v-3.278l4.319,4.011c0.192,0.179,0.437,0.267,0.681,0.267 c0.269,0,0.536-0.107,0.732-0.319C58.291,27.641,58.267,27.008,57.863,26.632z\"/></symbol>\n  <symbol id=\"icon-image-line\" viewBox=\"0 0 58 58\">\n    <title>icon-image-line</title><path d=\"M57,6H1C0.448,6,0,6.447,0,7v44c0,0.553,0.448,1,1,1h56c0.552,0,1-0.447,1-1V7C58,6.447,57.552,6,57,6z M56,50H2V8h54V50z\"/><path\n      d=\"M16,28.138c3.071,0,5.569-2.498,5.569-5.568C21.569,19.498,19.071,17,16,17s-5.569,2.498-5.569,5.569 C10.431,25.64,12.929,28.138,16,28.138z M16,19c1.968,0,3.569,1.602,3.569,3.569S17.968,26.138,16,26.138s-3.569-1.601-3.569-3.568 S14.032,19,16,19z\"/><path\n      d=\"M7,46c0.234,0,0.47-0.082,0.66-0.249l16.313-14.362l10.302,10.301c0.391,0.391,1.023,0.391,1.414,0s0.391-1.023,0-1.414 l-4.807-4.807l9.181-10.054l11.261,10.323c0.407,0.373,1.04,0.345,1.413-0.062c0.373-0.407,0.346-1.04-0.062-1.413l-12-11 c-0.196-0.179-0.457-0.268-0.72-0.262c-0.265,0.012-0.515,0.129-0.694,0.325l-9.794,10.727l-4.743-4.743 c-0.374-0.373-0.972-0.392-1.368-0.044L6.339,44.249c-0.415,0.365-0.455,0.997-0.09,1.412C6.447,45.886,6.723,46,7,46z\"/></symbol>\n  <symbol id=\"icon-image\" viewBox=\"0 0 58 58\">\n    <title>icon-image</title><path\n      d=\"M57,6H1C0.448,6,0,6.447,0,7v44c0,0.553,0.448,1,1,1h56c0.552,0,1-0.447,1-1V7C58,6.447,57.552,6,57,6z M16,17 c3.071,0,5.569,2.498,5.569,5.569c0,3.07-2.498,5.568-5.569,5.568s-5.569-2.498-5.569-5.568C10.431,19.498,12.929,17,16,17z M52.737,35.676c-0.373,0.406-1.006,0.435-1.413,0.062L40.063,25.414l-9.181,10.054l4.807,4.807c0.391,0.391,0.391,1.023,0,1.414 s-1.023,0.391-1.414,0L23.974,31.389L7.661,45.751C7.471,45.918,7.235,46,7,46c-0.277,0-0.553-0.114-0.751-0.339 c-0.365-0.415-0.325-1.047,0.09-1.412l17.017-14.982c0.396-0.348,0.994-0.329,1.368,0.044l4.743,4.743l9.794-10.727 c0.179-0.196,0.429-0.313,0.694-0.325c0.264-0.006,0.524,0.083,0.72,0.262l12,11C53.083,34.636,53.11,35.269,52.737,35.676z\"/></symbol>\n  <symbol id=\"icon-key-line\" viewBox=\"0 0 442 442\">\n    <title>icon-key-line</title><path d=\"M216.011,211.814L96.043,331.781c-3.905,3.905-3.905,10.237,0,14.143c1.953,1.952,4.512,2.929,7.071,2.929 s5.118-0.977,7.071-2.929l119.968-119.967c3.905-3.905,3.905-10.237,0-14.142C226.248,207.909,219.916,207.91,216.011,211.814z\"/><path\n      d=\"M403.206,38.769C378.206,13.768,344.966,0,309.61,0s-68.595,13.768-93.596,38.769 c-38.658,38.658-49.441,96.599-27.877,146.252L3.13,370.033c-1.87,1.87-2.923,4.405-2.929,7.05l-0.113,54.775 c0,0.095,0.001,0.191,0.004,0.286c0,0.002,0,0.005,0,0.007c0,0.001,0,0.003,0,0.004c0.068,2.466,1.043,4.912,2.925,6.794 c1.906,1.906,4.39,2.881,6.888,2.927c0,0,0.001,0,0.002,0c0.004,0,0.007,0,0.017,0c0.036-0.016,0.103,0.001,0.153,0.001 L116.302,442c0.004,0,0.008,0,0.012,0c2.649,0,5.192-1.052,7.067-2.925c1.878-1.876,2.933-4.421,2.933-7.075v-41.665h41.664 c5.522,0,10-4.477,10-10l0.001-41.665h41.664c5.522,0,10-4.477,10-10v-47.523l27.311-27.311 c16.953,7.363,34.865,10.955,52.653,10.954c34.31-0.002,68.14-13.372,93.6-38.831C454.814,174.351,454.814,90.377,403.206,38.769z M389.063,211.817c-34.282,34.285-86.426,42.745-129.753,21.055c-3.852-1.929-8.504-1.174-11.548,1.871l-35.191,35.191 c-1.875,1.875-2.929,4.419-2.929,7.071v41.665h-41.664c-5.522,0-10,4.477-10,10l-0.001,41.665h-41.664c-5.522,0-10,4.477-10,10 v41.653l-72.111-0.083l47.699-47.699c3.905-3.905,3.905-10.237,0-14.142c-3.906-3.905-10.236-3.905-14.143,0l-47.621,47.621 l0.055-26.433l187.039-187.043c3.045-3.045,3.799-7.697,1.871-11.547c-21.691-43.326-13.229-95.469,21.055-129.752 C251.38,31.688,279.597,20,309.61,20s58.23,11.688,79.453,32.911c21.223,21.223,32.911,49.439,32.911,79.453 S410.286,190.595,389.063,211.817z\"/><path\n      d=\"M303.38,72.125C303.38,72.125,303.38,72.125,303.38,72.125c-18.324,18.326-18.324,48.143,0,66.469 c9.163,9.163,21.199,13.743,33.234,13.743c12.036,0,24.072-4.581,33.234-13.744c18.324-18.325,18.324-48.143,0-66.468 C351.522,53.801,321.706,53.801,303.38,72.125z M355.706,124.452c-10.527,10.526-27.656,10.526-38.184,0 c-10.527-10.527-10.527-27.657,0-38.185v0c10.527-10.527,27.658-10.526,38.184,0C366.233,96.795,366.233,113.925,355.706,124.452z\"/></symbol>\n  <symbol id=\"icon-key\" viewBox=\"0 0 285.002 285.002\">\n    <title>icon-key</title><path\n      d=\"M279.806,235.505c-0.136-1.772-0.928-3.476-2.227-4.747L165.336,118.515c4.416-10.403,6.747-21.669,6.747-33.312 c0-22.754-8.875-44.163-24.938-60.266C131.059,8.866,109.665,0,86.898,0C64.12,0,42.763,8.869,26.651,24.95 c-33.243,33.225-33.25,87.266-0.005,120.488c16.111,16.115,37.475,24.99,60.241,24.99c11.646,0,22.884-2.35,33.312-6.772 l36.874,36.902c1.534,1.515,3.557,2.319,5.74,2.248l20.095-0.705l-0.656,20.145c-0.062,2.125,0.705,4.193,2.245,5.706 c1.484,1.512,3.569,2.334,5.685,2.248l20.169-0.689l-0.724,20.123c-0.063,2.127,0.754,4.199,2.238,5.712 c1.534,1.512,3.321,2.325,5.74,2.251l20.119-0.684l-0.674,20.126c-0.118,2.232,0.822,4.379,2.418,5.903 c1.472,1.339,3.309,2.06,5.245,2.06c0.278,0,0.563-0.012,0.847-0.037l30.851-3.426c4.169-0.455,7.205-4.175,6.847-8.353 L279.806,235.505z M76.607,74.915c-9.476,9.466-24.796,9.466-34.252,0c-9.47-9.469-9.47-24.786,0-34.246 c9.456-9.46,24.771-9.469,34.252-0.003C86.064,50.125,86.058,65.452,76.607,74.915z M253.471,238.075 c-1.126,1.126-2.635,1.688-4.101,1.688s-2.976-0.563-4.101-1.688l-95.501-95.529c2.659-2.867,5.077-5.885,7.273-9.058l96.429,96.41 C255.722,232.15,255.722,235.824,253.471,238.075z\"/></symbol>\n  <symbol id=\"icon-link-line\" viewBox=\"0 0 52.974 52.974\">\n    <title>icon-link-line</title><path\n      d=\"M49.467,3.51c-4.677-4.679-12.291-4.681-16.97,0l-9.192,9.192c-0.391,0.391-0.391,1.023,0,1.414s1.023,0.391,1.414,0 l9.192-9.192c1.88-1.88,4.391-2.915,7.07-2.915c2.681,0,5.191,1.036,7.071,2.916s2.916,4.391,2.916,7.071 c0,2.68-1.036,5.19-2.916,7.07L36.033,31.088c-3.898,3.898-10.244,3.898-14.143,0c-0.391-0.391-1.023-0.391-1.414,0 s-0.391,1.023,0,1.414c2.34,2.339,5.412,3.509,8.485,3.509s6.146-1.17,8.485-3.509L49.467,20.48 c2.258-2.258,3.502-5.271,3.502-8.485C52.969,8.781,51.725,5.768,49.467,3.51z\"/><path\n      d=\"M26.84,40.279l-7.778,7.778c-1.88,1.88-4.391,2.916-7.071,2.916c-2.68,0-5.19-1.036-7.071-2.916 c-3.898-3.898-3.898-10.243,0-14.142l11.314-11.314c3.899-3.898,10.244-3.896,14.142,0c0.391,0.391,1.023,0.391,1.414,0 s0.391-1.023,0-1.414c-4.677-4.679-12.291-4.681-16.97,0L3.505,32.502c-2.258,2.258-3.501,5.271-3.501,8.485 c0,3.214,1.244,6.227,3.502,8.484s5.271,3.502,8.484,3.502c3.215,0,6.228-1.244,8.485-3.502l7.778-7.778 c0.391-0.391,0.391-1.023,0-1.414S27.231,39.889,26.84,40.279z\"/></symbol>\n  <symbol id=\"icon-link\" viewBox=\"0 0 54.971 54.971\">\n    <title>icon-link</title><path\n      d=\"M51.173,3.801c-5.068-5.068-13.315-5.066-18.384,0l-9.192,9.192c-0.781,0.781-0.781,2.047,0,2.828 c0.781,0.781,2.047,0.781,2.828,0l9.192-9.192c1.691-1.69,3.951-2.622,6.363-2.622c2.413,0,4.673,0.932,6.364,2.623 s2.623,3.951,2.623,6.364c0,2.412-0.932,4.672-2.623,6.363L36.325,31.379c-3.51,3.508-9.219,3.508-12.729,0 c-0.781-0.781-2.047-0.781-2.828,0s-0.781,2.048,0,2.828c2.534,2.534,5.863,3.801,9.192,3.801s6.658-1.267,9.192-3.801 l12.021-12.021c2.447-2.446,3.795-5.711,3.795-9.192C54.968,9.512,53.62,6.248,51.173,3.801z\"/><path\n      d=\"M27.132,40.57l-7.778,7.778c-1.691,1.691-3.951,2.623-6.364,2.623c-2.412,0-4.673-0.932-6.364-2.623 c-3.509-3.509-3.509-9.219,0-12.728L17.94,24.306c1.691-1.69,3.951-2.622,6.364-2.622c2.412,0,4.672,0.932,6.363,2.622 c0.781,0.781,2.047,0.781,2.828,0s0.781-2.047,0-2.828c-5.067-5.067-13.314-5.068-18.384,0L3.797,32.793 c-2.446,2.446-3.794,5.711-3.794,9.192c0,3.48,1.348,6.745,3.795,9.191c2.446,2.447,5.711,3.795,9.191,3.795 c3.481,0,6.746-1.348,9.192-3.795l7.778-7.778c0.781-0.781,0.781-2.047,0-2.828S27.913,39.789,27.132,40.57z\"/></symbol>\n  <symbol id=\"icon-lock-line\" viewBox=\"0 0 54 54\">\n    <title>icon-lock-line</title><path\n      d=\"M43,20.113V14.5C43,6.505,35.822,0,27,0S11,6.505,11,14.5v5.613c-3.401,0.586-6,3.55-6,7.117v19.542 C5,50.757,8.243,54,12.229,54h29.542C45.757,54,49,50.757,49,46.771V27.229C49,23.663,46.401,20.699,43,20.113z M13,14.5 C13,7.607,19.28,2,27,2s14,5.607,14,12.5V20H13V14.5z M47,46.771C47,49.654,44.654,52,41.771,52H12.229C9.346,52,7,49.654,7,46.771 V27.229C7,24.346,9.346,22,12.229,22h29.542C44.654,22,47,24.346,47,27.229V46.771z\"/><path d=\"M27,28c-2.206,0-4,1.794-4,4v6c0,2.206,1.794,4,4,4s4-1.794,4-4v-6C31,29.794,29.206,28,27,28z M29,38c0,1.103-0.897,2-2,2 s-2-0.897-2-2v-6c0-1.103,0.897-2,2-2s2,0.897,2,2V38z\"/></symbol>\n  <symbol id=\"icon-lock\" viewBox=\"0 0 54 54\">\n    <title>icon-lock</title><path\n      d=\"M43,20.113V14.5C43,6.505,35.822,0,27,0S11,6.505,11,14.5v5.613c-3.401,0.586-6,3.55-6,7.117v19.542 C5,50.757,8.243,54,12.229,54h29.542C45.757,54,49,50.757,49,46.771V27.229C49,23.663,46.401,20.699,43,20.113z M13,14.5 C13,7.607,19.28,2,27,2s14,5.607,14,12.5V20H13V14.5z M31,38c0,2.206-1.794,4-4,4s-4-1.794-4-4v-6c0-2.206,1.794-4,4-4s4,1.794,4,4 V38z\"/></symbol>\n  <symbol id=\"icon-message-line\" viewBox=\"0 0 60.062 60.062\">\n    <title>icon-message-line</title><path\n      d=\"M60.046,11.196c0.004-0.024,0.011-0.048,0.013-0.072c0.007-0.074-0.001-0.149-0.01-0.224 c-0.002-0.019,0.001-0.037-0.002-0.056c-0.018-0.099-0.051-0.196-0.1-0.289c-0.008-0.016-0.019-0.031-0.028-0.047 c-0.002-0.002-0.002-0.005-0.003-0.008c-0.001-0.002-0.004-0.003-0.005-0.006c-0.007-0.011-0.013-0.023-0.02-0.033 c-0.062-0.091-0.137-0.166-0.221-0.23c-0.019-0.014-0.041-0.022-0.061-0.035c-0.074-0.049-0.152-0.089-0.236-0.116 c-0.037-0.012-0.074-0.018-0.112-0.025c-0.073-0.015-0.146-0.022-0.222-0.02c-0.04,0.001-0.078,0.003-0.118,0.009 c-0.026,0.004-0.051,0-0.077,0.006L0.798,22.046c-0.413,0.086-0.729,0.421-0.788,0.839s0.15,0.828,0.523,1.025l16.632,8.773 l2.917,16.187c-0.002,0.012,0.001,0.025,0,0.037c-0.01,0.08-0.011,0.158-0.001,0.237c0.005,0.04,0.01,0.078,0.02,0.117 c0.023,0.095,0.06,0.184,0.11,0.268c0.01,0.016,0.01,0.035,0.021,0.051c0.003,0.005,0.008,0.009,0.012,0.013 c0.013,0.019,0.031,0.034,0.046,0.053c0.047,0.058,0.096,0.111,0.152,0.156c0.009,0.007,0.015,0.018,0.025,0.025 c0.015,0.011,0.032,0.014,0.047,0.024c0.061,0.04,0.124,0.073,0.191,0.099c0.027,0.01,0.052,0.022,0.08,0.03 c0.09,0.026,0.183,0.044,0.277,0.044c0.001,0,0.002,0,0.003,0h0c0,0,0,0,0,0c0.004,0,0.008-0.002,0.012-0.002 c0.017,0.001,0.034,0.002,0.051,0.002c0.277,0,0.527-0.124,0.712-0.315l11.079-7.386l11.6,7.54c0.164,0.106,0.354,0.161,0.545,0.161 c0.105,0,0.212-0.017,0.315-0.051c0.288-0.096,0.518-0.318,0.623-0.604l13.996-37.989c0.013-0.034,0.024-0.069,0.033-0.105 c0.004-0.015,0.005-0.03,0.008-0.044C60.042,11.22,60.044,11.208,60.046,11.196z M48.464,17.579L24.471,35.22 c-0.039,0.029-0.07,0.065-0.104,0.099c-0.013,0.012-0.026,0.022-0.037,0.035c-0.021,0.023-0.04,0.046-0.059,0.071 c-0.018,0.024-0.032,0.049-0.048,0.074c-0.037,0.06-0.068,0.122-0.092,0.188c-0.005,0.013-0.013,0.023-0.017,0.036 c-0.001,0.004-0.005,0.006-0.006,0.01l-2.75,8.937l-2.179-12.091L48.464,17.579z M22.908,46.594l2.726-9.004l4.244,2.759 l1.214,0.789l-4.124,2.749L22.908,46.594z M52.044,13.498L18.071,30.899l-14.14-7.458L52.044,13.498z M44.559,47.504L29.154,37.492 l-2.333-1.517l30.154-22.172L44.559,47.504z\"/></symbol>\n  <symbol id=\"icon-message\" viewBox=\"0 0 60.083 60.083\">\n    <title>icon-message</title><path\n      d=\"M60.049,10.871c0-0.002-0.001-0.005-0.001-0.007c-0.023-0.125-0.066-0.239-0.132-0.343 c-0.001-0.001-0.001-0.003-0.001-0.004c-0.001-0.002-0.003-0.003-0.004-0.005c-0.063-0.098-0.139-0.182-0.232-0.253 c-0.019-0.015-0.039-0.026-0.059-0.04c-0.075-0.049-0.152-0.09-0.239-0.117c-0.055-0.019-0.111-0.025-0.168-0.034 c-0.044-0.006-0.083-0.026-0.129-0.026H59.08c-0.039-0.001-0.066,0.003-0.094,0.006c-0.009,0.001-0.017,0-0.026,0.001 c-0.009,0.001-0.019,0-0.029,0.002c-0.027,0.004-0.054,0.008-0.08,0.014L0.798,22.062c-0.413,0.086-0.729,0.421-0.788,0.839 s0.15,0.828,0.523,1.025l16.632,8.773l2.917,16.187c-0.002,0.012,0.001,0.025,0,0.037c-0.01,0.08-0.011,0.158-0.001,0.237 c0.005,0.04,0.01,0.078,0.02,0.117c0.023,0.095,0.06,0.184,0.11,0.268c0.01,0.016,0.01,0.035,0.021,0.051 c0.003,0.005,0.008,0.009,0.012,0.013c0.013,0.019,0.031,0.034,0.046,0.053c0.047,0.058,0.096,0.111,0.152,0.156 c0.009,0.007,0.015,0.018,0.025,0.025c0.015,0.011,0.032,0.014,0.047,0.024c0.061,0.04,0.124,0.073,0.191,0.099 c0.027,0.01,0.052,0.022,0.08,0.03c0.09,0.026,0.183,0.044,0.277,0.044c0.001,0,0.002,0,0.003,0h0c0,0,0,0,0,0 c0.004,0,0.008-0.002,0.012-0.002c0.017,0.001,0.034,0.002,0.051,0.002c0.277,0,0.527-0.124,0.712-0.315l11.079-7.386l11.6,7.54 c0.164,0.106,0.354,0.161,0.545,0.161c0.105,0,0.212-0.017,0.315-0.051c0.288-0.096,0.518-0.318,0.623-0.604l13.936-37.825 c0.093-0.151,0.146-0.33,0.146-0.521C60.083,10.981,60.059,10.928,60.049,10.871z M48.464,17.594L24.471,35.236 c-0.039,0.029-0.07,0.065-0.104,0.099c-0.013,0.012-0.026,0.022-0.037,0.035c-0.021,0.023-0.04,0.046-0.059,0.071 c-0.018,0.024-0.032,0.049-0.048,0.074c-0.037,0.06-0.068,0.122-0.092,0.188c-0.005,0.013-0.013,0.023-0.017,0.036 c-0.001,0.004-0.005,0.006-0.006,0.01l-2.75,8.937l-2.179-12.091L48.464,17.594z M22.908,46.61l2.726-9.004l4.244,2.759l1.214,0.789 l-4.124,2.749L22.908,46.61z\"/></symbol>\n  <symbol id=\"icon-minus-line\" viewBox=\"0 0 44 44\">\n    <title>icon-minus-line</title><path d=\"M38.059,28H5.941C2.665,28,0,25.309,0,22s2.665-6,5.941-6h32.117C41.335,16,44,18.691,44,22S41.335,28,38.059,28z M5.941,18 C3.805,18,2,19.832,2,22s1.805,4,3.941,4h32.117C40.195,26,42,24.168,42,22s-1.805-4-3.941-4H5.941z\"/></symbol>\n  <symbol id=\"icon-minus\" viewBox=\"0 0 42 42\">\n    <title>icon-minus</title><path d=\"M37.059,16H26H16H4.941C2.224,16,0,18.282,0,21s2.224,5,4.941,5H16h10h11.059C39.776,26,42,23.718,42,21 S39.776,16,37.059,16z\"/></symbol>\n  <symbol id=\"icon-notify-line\" viewBox=\"0 0 60 60\">\n    <title>icon-notify-line</title><path\n      d=\"M47.024,31.5v-8.994c0.043-6.857-4.568-11.405-8.53-13.216C37.359,8.771,36.189,8.371,35,8.074V7.5c0-2.757-2.243-5-5-5 s-5,2.243-5,5v0.661c-1.071,0.289-2.124,0.666-3.146,1.138C17.476,11.317,13.04,16.181,13,22.5v9 c0,6.388-2.256,11.869-6.705,16.291c-0.265,0.264-0.361,0.653-0.249,1.01s0.415,0.621,0.784,0.685l9.491,1.639 c1.768,0.305,3.396,0.555,4.945,0.761c1.745,3.42,5.172,5.615,8.916,5.615c3.745,0,7.173-2.196,8.917-5.618 c1.543-0.205,3.163-0.454,4.921-0.758l9.49-1.639c0.369-0.063,0.671-0.328,0.784-0.685c0.113-0.356,0.017-0.746-0.249-1.01 C49.387,43.16,47.024,37.679,47.024,31.5z M27,7.5c0-1.654,1.346-3,3-3s3,1.346,3,3v0.182c-1.993-0.286-4.015-0.274-6,0.047V7.5z M30.183,55.5c-2.532,0-4.898-1.258-6.417-3.315c2.235,0.23,4.321,0.346,6.406,0.346c2.093,0,4.186-0.116,6.43-0.349 C35.082,54.241,32.715,55.5,30.183,55.5z M43.681,49.153c-1.919,0.331-3.678,0.6-5.34,0.812c-0.002,0-0.004,0-0.007,0 c-0.733,0.093-1.445,0.174-2.142,0.244c-0.006,0-0.011,0.001-0.017,0.001c-0.639,0.064-1.263,0.116-1.881,0.16 c-0.116,0.008-0.232,0.016-0.347,0.023c-0.535,0.035-1.064,0.063-1.59,0.083c-0.107,0.004-0.215,0.01-0.322,0.013 c-1.244,0.042-2.471,0.042-3.714,0.001c-0.111-0.004-0.223-0.01-0.334-0.014c-0.517-0.021-1.038-0.047-1.565-0.082 c-0.125-0.008-0.25-0.016-0.376-0.025c-0.599-0.043-1.205-0.093-1.824-0.155c-0.023-0.002-0.045-0.004-0.068-0.006 c-0.692-0.069-1.398-0.15-2.124-0.242c-0.003,0-0.006,0-0.009,0c-1.668-0.211-3.434-0.482-5.361-0.814L9,47.83 c3.983-4.554,6-10.038,6-16.33v-8.994c0.034-5.435,3.888-9.637,7.691-11.391c1.131-0.521,2.304-0.91,3.497-1.183 c0.01-0.002,0.021-0.001,0.031-0.003c2.465-0.554,5.087-0.579,7.58-0.068c0.013,0.003,0.026-0.003,0.039-0.001 c1.304,0.272,2.588,0.684,3.825,1.249c3.689,1.687,7.396,5.861,7.361,11.392v9c0,6.033,2.175,11.643,6.313,16.331L43.681,49.153z\"/><path\n      d=\"M36.417,13.838c-3.875-1.771-8.62-1.773-12.469,0.002c-2.195,1.012-5.918,3.973-5.948,8.654 c-0.003,0.552,0.441,1.002,0.994,1.006c0.002,0,0.004,0,0.006,0c0.549,0,0.997-0.443,1-0.994c0.023-3.677,3.019-6.035,4.785-6.85 c3.33-1.537,7.446-1.533,10.799,0c0.503,0.23,1.096,0.009,1.326-0.493C37.14,14.66,36.918,14.067,36.417,13.838z\"/><path\n      d=\"M4.802,22.793c-0.391-0.391-1.023-0.391-1.414,0C1.203,24.978,0,27.886,0,30.983c0,3.097,1.203,6.006,3.388,8.19 c0.195,0.195,0.451,0.293,0.707,0.293s0.512-0.098,0.707-0.293c0.391-0.391,0.391-1.023,0-1.414C2.995,35.952,2,33.546,2,30.983 c0-2.563,0.995-4.97,2.802-6.776C5.192,23.816,5.192,23.184,4.802,22.793z\"/><path d=\"M8.305,37.19c0.256,0,0.512-0.098,0.707-0.293c0.391-0.391,0.391-1.023,0-1.414c-2.558-2.558-2.558-6.719,0-9.276 c0.391-0.391,0.391-1.023,0-1.414s-1.023-0.391-1.414,0c-3.337,3.337-3.337,8.768,0,12.104C7.793,37.093,8.049,37.19,8.305,37.19z\"/><path\n      d=\"M56.612,22.793c-0.391-0.391-1.023-0.391-1.414,0s-0.391,1.023,0,1.414C57.005,26.014,58,28.42,58,30.983 c0,2.563-0.995,4.969-2.802,6.776c-0.391,0.391-0.391,1.023,0,1.414c0.195,0.195,0.451,0.293,0.707,0.293s0.512-0.098,0.707-0.293 C58.797,36.989,60,34.08,60,30.983C60,27.886,58.797,24.978,56.612,22.793z\"/><path\n      d=\"M50.988,24.793c-0.391,0.391-0.391,1.023,0,1.414c2.558,2.558,2.558,6.719,0,9.276c-0.391,0.391-0.391,1.023,0,1.414 c0.195,0.195,0.451,0.293,0.707,0.293s0.512-0.098,0.707-0.293c3.337-3.337,3.337-8.768,0-12.104 C52.011,24.402,51.378,24.402,50.988,24.793z\"/></symbol>\n  <symbol id=\"icon-notify\" viewBox=\"0 0 60 60\">\n    <title>icon-notify</title><path\n      d=\"M4.802,22.793c-0.391-0.391-1.023-0.391-1.414,0C1.203,24.978,0,27.886,0,30.983c0,3.097,1.203,6.006,3.388,8.19 c0.195,0.195,0.451,0.293,0.707,0.293s0.512-0.098,0.707-0.293c0.391-0.391,0.391-1.023,0-1.414C2.995,35.952,2,33.546,2,30.983 c0-2.563,0.995-4.97,2.802-6.776C5.192,23.816,5.192,23.184,4.802,22.793z\"/><path d=\"M8.305,37.19c0.256,0,0.512-0.098,0.707-0.293c0.391-0.391,0.391-1.023,0-1.414c-2.558-2.558-2.558-6.719,0-9.276 c0.391-0.391,0.391-1.023,0-1.414s-1.023-0.391-1.414,0c-3.337,3.337-3.337,8.768,0,12.104C7.793,37.093,8.049,37.19,8.305,37.19z\"/><path\n      d=\"M56.612,22.793c-0.391-0.391-1.023-0.391-1.414,0s-0.391,1.023,0,1.414C57.005,26.014,58,28.42,58,30.983 c0,2.563-0.995,4.969-2.802,6.776c-0.391,0.391-0.391,1.023,0,1.414c0.195,0.195,0.451,0.293,0.707,0.293s0.512-0.098,0.707-0.293 C58.797,36.989,60,34.08,60,30.983C60,27.886,58.797,24.978,56.612,22.793z\"/><path\n      d=\"M50.988,24.793c-0.391,0.391-0.391,1.023,0,1.414c2.558,2.558,2.558,6.719,0,9.276c-0.391,0.391-0.391,1.023,0,1.414 c0.195,0.195,0.451,0.293,0.707,0.293s0.512-0.098,0.707-0.293c3.337-3.337,3.337-8.768,0-12.104 C52.011,24.402,51.378,24.402,50.988,24.793z\"/><path\n      d=\"M47.025,31.5v-8.994c0.043-6.857-4.568-11.405-8.53-13.216C37.377,8.78,36.2,8.401,35,8.112V7.5c0-2.757-2.243-5-5-5 s-5,2.243-5,5v0.706c-1.079,0.283-2.139,0.629-3.146,1.093C17.476,11.317,13.04,16.181,13,22.5v9 c0,6.388-2.256,11.869-6.705,16.291c-0.265,0.264-0.361,0.653-0.249,1.01c0.112,0.356,0.415,0.621,0.784,0.685l9.491,1.639 c1.79,0.309,3.415,0.556,4.944,0.758c1.745,3.422,5.172,5.618,8.918,5.618c3.747,0,7.175-2.198,8.919-5.621 c1.522-0.201,3.139-0.447,4.92-0.755l9.49-1.639c0.369-0.063,0.671-0.328,0.784-0.685c0.113-0.356,0.017-0.746-0.249-1.01 C49.387,43.16,47.025,37.679,47.025,31.5z M27,7.5c0-1.654,1.346-3,3-3s3,1.346,3,3v0.193c-1.993-0.282-4.024-0.266-6,0.05V7.5z M19,23.5c-0.002,0-0.004,0-0.006,0c-0.552-0.004-0.997-0.454-0.994-1.006c0.03-4.682,3.752-7.643,5.948-8.654 c3.849-1.775,8.594-1.772,12.469-0.002c0.502,0.229,0.723,0.822,0.494,1.325c-0.23,0.502-0.823,0.724-1.326,0.493 c-3.353-1.533-7.469-1.537-10.799,0c-1.767,0.814-4.762,3.173-4.785,6.85C19.997,23.057,19.549,23.5,19,23.5z M36.605,52.178 c-1.519,2.062-3.888,3.322-6.423,3.322c-2.534,0-4.902-1.26-6.421-3.32c0,0,0.001,0,0.001,0c0.392,0.04,0.772,0.073,1.152,0.105 c0.187,0.016,0.379,0.036,0.564,0.051c0.137,0.011,0.269,0.018,0.404,0.027c2.906,0.212,5.583,0.213,8.486,0.006 c0.17-0.012,0.336-0.021,0.508-0.034c0.214-0.017,0.436-0.039,0.654-0.059c0.343-0.03,0.684-0.059,1.036-0.095 C36.58,52.18,36.592,52.179,36.605,52.178z\"/></symbol>\n  <symbol id=\"icon-page-edit-line\" viewBox=\"0 0 60 60\">\n    <title>icon-page-edit-line</title><path d=\"M36.719,22h-25c-0.552,0-1,0.448-1,1s0.448,1,1,1h25c0.552,0,1-0.448,1-1S37.271,22,36.719,22z\"/><path d=\"M11.719,16h10c0.552,0,1-0.448,1-1s-0.448-1-1-1h-10c-0.552,0-1,0.448-1,1S11.167,16,11.719,16z\"/><path d=\"M36.719,30h-25c-0.552,0-1,0.448-1,1s0.448,1,1,1h25c0.552,0,1-0.448,1-1S37.271,30,36.719,30z\"/><path d=\"M28.719,38h-17c-0.552,0-1,0.448-1,1s0.448,1,1,1h17c0.552,0,1-0.448,1-1S29.271,38,28.719,38z\"/><path d=\"M25.719,48c0.552,0,1-0.448,1-1s-0.448-1-1-1h-14c-0.552,0-1,0.448-1,1s0.448,1,1,1H25.719z\"/><path d=\"M2.719,2h29v14h14v18h2V14.586L33.133,0H0.719v60h29v-2h-27V2z M33.719,3.414L44.305,14H33.719V3.414z\"/><path\n      d=\"M58.407,37.162l-2.849-2.85c-1.128-1.128-3.094-1.128-4.222,0l-15.391,15.39l-2.121,7.779L33.305,58 c-0.388,0.388-0.389,1.014-0.006,1.405l-0.005,0.02l0.02-0.005c0.194,0.19,0.446,0.287,0.698,0.287 c0.256,0,0.512-0.098,0.707-0.293l0.519-0.519l7.779-2.121l15.39-15.391c0.564-0.564,0.875-1.313,0.875-2.111 S58.971,37.725,58.407,37.162z M38.254,50.222l10.243-10.243l4.243,4.243L42.497,54.465L38.254,50.222z M37.351,52.147l3.22,3.22 l-4.427,1.207L37.351,52.147z M56.993,39.969l-2.839,2.839l-4.243-4.243l2.839-2.839c0.372-0.372,1.021-0.373,1.393,0l2.85,2.85 c0.186,0.186,0.289,0.433,0.289,0.696C57.281,39.535,57.179,39.783,56.993,39.969z\"/></symbol>\n  <symbol id=\"icon-page-edit\" viewBox=\"0 0 60 60\">\n    <title>icon-page-edit</title><path\n      d=\"M58.407,37.162l-2.849-2.85c-1.128-1.128-3.094-1.128-4.222,0l-15.391,15.39l-2.121,7.779L33.305,58 c-0.388,0.388-0.389,1.014-0.006,1.405l-0.005,0.02l0.02-0.005c0.194,0.19,0.446,0.287,0.698,0.287 c0.256,0,0.512-0.098,0.707-0.293l0.519-0.519l7.779-2.121l15.39-15.391c0.564-0.564,0.875-1.313,0.875-2.111 S58.971,37.725,58.407,37.162z M38.254,50.222l10.243-10.243l4.243,4.243L42.497,54.465L38.254,50.222z M37.351,52.147l3.22,3.22 l-4.427,1.207L37.351,52.147z M56.993,39.969l-2.839,2.839l-4.243-4.243l2.839-2.839c0.372-0.372,1.021-0.373,1.393,0l2.85,2.85 c0.186,0.186,0.289,0.433,0.289,0.696C57.281,39.535,57.179,39.783,56.993,39.969z\"/><path\n      d=\"M33.404,48H11.719c-0.552,0-1-0.447-1-1s0.448-1,1-1h23.686l12.314-12.314v-19.1L33.133,0H0.719v60h29.308l3.233-11.856 L33.404,48z M31.719,2l14,14h-14V2z M11.719,14h10c0.552,0,1,0.447,1,1s-0.448,1-1,1h-10c-0.552,0-1-0.447-1-1S11.167,14,11.719,14 z M11.719,22h25c0.552,0,1,0.447,1,1s-0.448,1-1,1h-25c-0.552,0-1-0.447-1-1S11.167,22,11.719,22z M11.719,30h25 c0.552,0,1,0.447,1,1s-0.448,1-1,1h-25c-0.552,0-1-0.447-1-1S11.167,30,11.719,30z M11.719,38h25c0.552,0,1,0.447,1,1s-0.448,1-1,1 h-25c-0.552,0-1-0.447-1-1S11.167,38,11.719,38z\"/></symbol>\n  <symbol id=\"icon-page-line\" viewBox=\"0 0 60 60\">\n    <title>icon-page-line</title><path d=\"M42.5,22h-25c-0.552,0-1,0.447-1,1s0.448,1,1,1h25c0.552,0,1-0.447,1-1S43.052,22,42.5,22z\"/><path d=\"M17.5,16h10c0.552,0,1-0.447,1-1s-0.448-1-1-1h-10c-0.552,0-1,0.447-1,1S16.948,16,17.5,16z\"/><path d=\"M42.5,30h-25c-0.552,0-1,0.447-1,1s0.448,1,1,1h25c0.552,0,1-0.447,1-1S43.052,30,42.5,30z\"/><path d=\"M42.5,38h-25c-0.552,0-1,0.447-1,1s0.448,1,1,1h25c0.552,0,1-0.447,1-1S43.052,38,42.5,38z\"/><path d=\"M42.5,46h-25c-0.552,0-1,0.447-1,1s0.448,1,1,1h25c0.552,0,1-0.447,1-1S43.052,46,42.5,46z\"/><path d=\"M38.914,0H6.5v60h47V14.586L38.914,0z M39.5,3.414L50.086,14H39.5V3.414z M8.5,58V2h29v14h14v42H8.5z\"/></symbol>\n  <symbol id=\"icon-page-search-line\" viewBox=\"0 0 60 60\">\n    <title>icon-page-search-line</title><path\n      d=\"M53.707,58.293L51,55.586v-35l-0.497-0.497L46,15.586V0H6v52h5v5h38.586l2.707,2.707C52.488,59.902,52.744,60,53,60 s0.512-0.098,0.707-0.293C54.098,59.316,54.098,58.684,53.707,58.293z M47.586,20H36V8.414l10,10L47.586,20z M8,50V2h36v11.586 l-8.089-8.089L35.414,5H11v45H8z M13,55v-3V7h21v15h15v31.586l-7.514-7.514c1.74-2.06,2.795-4.717,2.795-7.619 c0-6.522-5.306-11.828-11.828-11.828s-11.828,5.306-11.828,11.828s5.306,11.828,11.828,11.828c2.902,0,5.559-1.055,7.619-2.795 L47.586,55H13z M32.453,48.281c-5.419,0-9.828-4.409-9.828-9.828s4.409-9.828,9.828-9.828s9.828,4.409,9.828,9.828 S37.872,48.281,32.453,48.281z\"/><path d=\"M26.625,36h6c0.553,0,1-0.447,1-1s-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1S26.072,36,26.625,36z\"/><path d=\"M38.625,40h-12c-0.553,0-1,0.447-1,1s0.447,1,1,1h12c0.553,0,1-0.447,1-1S39.178,40,38.625,40z\"/></symbol>\n  <symbol id=\"icon-page-search\" viewBox=\"0 0 60 60\">\n    <title>icon-page-search</title><polygon points=\"46,13 46,0 6,0 6,52 9,52 9,3 36,3 \"/><path\n      d=\"M53.707,58.293L41.486,46.072c1.74-2.06,2.795-4.717,2.795-7.619c0-6.522-5.306-11.828-11.828-11.828 s-11.828,5.306-11.828,11.828s5.306,11.828,11.828,11.828c2.902,0,5.559-1.055,7.619-2.795l12.221,12.221 C52.488,59.902,52.744,60,53,60s0.512-0.098,0.707-0.293C54.098,59.316,54.098,58.684,53.707,58.293z M22.625,38.453 c0-5.419,4.409-9.828,9.828-9.828s9.828,4.409,9.828,9.828s-4.409,9.828-9.828,9.828S22.625,43.872,22.625,38.453z\"/><path d=\"M38,40H27c-0.553,0-1,0.447-1,1s0.447,1,1,1h11c0.553,0,1-0.447,1-1S38.553,40,38,40z\"/><path d=\"M27,36h6c0.553,0,1-0.447,1-1s-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1S26.447,36,27,36z\"/><path\n      d=\"M32.453,52.281c-7.625,0-13.828-6.203-13.828-13.828s6.203-13.828,13.828-13.828s13.828,6.203,13.828,13.828 c0,2.728-0.805,5.267-2.174,7.412L51,52.758V20.586L35.414,5H11v52h35.758l-6.893-6.893C37.72,51.477,35.181,52.281,32.453,52.281z M34,7.288c0-0.106,0.129-0.16,0.204-0.084l14.592,14.593C48.871,21.872,48.818,22,48.712,22H34V7.288z\"/></symbol>\n  <symbol id=\"icon-page\" viewBox=\"0 0 60 60\">\n    <title>icon-page</title><path\n      d=\"M38.914,0H6.5v60h47V14.586L38.914,0z M32.5,23h7c0.552,0,1,0.447,1,1s-0.448,1-1,1h-7c-0.552,0-1-0.447-1-1 S31.948,23,32.5,23z M33.5,31c0,0.553-0.448,1-1,1h-10c-0.552,0-1-0.447-1-1s0.448-1,1-1h10C33.052,30,33.5,30.447,33.5,31z M28.21,23.29c0.18,0.189,0.29,0.449,0.29,0.71c0,0.26-0.11,0.52-0.29,0.71C28.02,24.89,27.76,25,27.5,25 c-0.26,0-0.52-0.11-0.71-0.29c-0.18-0.19-0.29-0.45-0.29-0.71c0-0.261,0.11-0.521,0.29-0.71C27.17,22.92,27.84,22.92,28.21,23.29z M17.5,15h9c0.552,0,1,0.447,1,1s-0.448,1-1,1h-9c-0.552,0-1-0.447-1-1S16.948,15,17.5,15z M17.5,23h5c0.552,0,1,0.447,1,1 s-0.448,1-1,1h-5c-0.552,0-1-0.447-1-1S16.948,23,17.5,23z M16.79,30.29c0.37-0.37,1.05-0.37,1.42,0 c0.18,0.189,0.29,0.449,0.29,0.71c0,0.26-0.11,0.52-0.29,0.71C18.02,31.89,17.76,32,17.5,32c-0.26,0-0.52-0.11-0.71-0.29 c-0.18-0.19-0.29-0.45-0.29-0.71C16.5,30.729,16.61,30.479,16.79,30.29z M18.21,45.71C18.02,45.89,17.77,46,17.5,46 c-0.26,0-0.52-0.11-0.71-0.29C16.6,45.52,16.5,45.27,16.5,45c0-0.271,0.11-0.53,0.29-0.71c0.38-0.37,1.05-0.37,1.42,0.01 c0.18,0.18,0.29,0.43,0.29,0.7C18.5,45.26,18.39,45.52,18.21,45.71z M32.5,46h-10c-0.552,0-1-0.447-1-1s0.448-1,1-1h10 c0.552,0,1,0.447,1,1S33.052,46,32.5,46z M34.5,39h-17c-0.552,0-1-0.447-1-1s0.448-1,1-1h17c0.552,0,1,0.447,1,1S35.052,39,34.5,39z M44.5,46h-7c-0.552,0-1-0.447-1-1s0.448-1,1-1h7c0.552,0,1,0.447,1,1S45.052,46,44.5,46z M38.5,38c0-0.261,0.11-0.521,0.29-0.71 c0.37-0.37,1.04-0.37,1.42,0c0.18,0.189,0.29,0.449,0.29,0.71c0,0.26-0.11,0.52-0.29,0.71C40.02,38.89,39.77,39,39.5,39 s-0.52-0.101-0.71-0.29C38.61,38.52,38.5,38.26,38.5,38z M45.21,38.71C45.02,38.89,44.77,39,44.5,39s-0.52-0.11-0.71-0.29 c-0.18-0.19-0.29-0.45-0.29-0.71c0-0.261,0.11-0.521,0.29-0.71c0.37-0.37,1.05-0.37,1.42,0c0.18,0.189,0.29,0.449,0.29,0.71 C45.5,38.26,45.39,38.52,45.21,38.71z M44.5,32h-7c-0.552,0-1-0.447-1-1s0.448-1,1-1h7c0.552,0,1,0.447,1,1S45.052,32,44.5,32z M45.21,24.71C45.02,24.89,44.76,25,44.5,25c-0.26,0-0.52-0.11-0.71-0.29c-0.18-0.19-0.29-0.45-0.29-0.71 c0-0.261,0.11-0.521,0.29-0.71c0.38-0.37,1.04-0.37,1.42,0c0.19,0.189,0.29,0.449,0.29,0.71C45.5,24.26,45.4,24.52,45.21,24.71z M37.5,16V2l14,14H37.5z\"/></symbol>\n  <symbol id=\"icon-palette-line\" viewBox=\"0 0 325.04 325.04\">\n    <title>icon-palette-line</title><path\n      d=\"M84.821,210.938c-4.646-3.671-10.469-5.693-16.396-5.693c-8.055,0-15.556,3.579-20.58,9.821 c-4.393,5.464-6.382,12.3-5.598,19.247c0.785,6.962,4.258,13.198,9.778,17.561c4.646,3.672,10.467,5.694,16.393,5.694 c8.061,0,15.563-3.586,20.583-9.834c4.389-5.455,6.376-12.283,5.595-19.227C93.813,221.545,90.342,215.305,84.821,210.938z M79.648,240.215c-2.732,3.402-6.826,5.354-11.23,5.354c-3.283,0-6.379-1.075-8.951-3.108c-2.991-2.364-4.871-5.735-5.296-9.493 c-0.422-3.743,0.652-7.431,3.023-10.379c2.733-3.396,6.827-5.344,11.231-5.344c3.286,0,6.383,1.075,8.954,3.107 c2.99,2.364,4.869,5.737,5.292,9.497C83.092,233.589,82.02,237.269,79.648,240.215z\"/><path\n      d=\"M190.33,149.484c3.958,0,7.785-0.867,11.384-2.582c6.362-3.044,11.141-8.369,13.454-14.995 c2.301-6.584,1.887-13.669-1.163-19.944c-4.363-8.994-13.681-14.806-23.738-14.806c-3.966,0-7.801,0.87-11.399,2.587 c-6.36,3.034-11.141,8.355-13.458,14.983c-2.305,6.589-1.892,13.675,1.163,19.953C170.95,143.673,180.275,149.484,190.33,149.484z M176.736,118.688c1.254-3.585,3.846-6.467,7.298-8.114c1.972-0.94,4.068-1.417,6.232-1.417c5.491,0,10.571,3.157,12.943,8.048 c1.645,3.384,1.868,7.199,0.63,10.745c-1.253,3.587-3.848,6.473-7.296,8.123c-1.965,0.937-4.056,1.411-6.214,1.411 c-5.496,0-10.586-3.162-12.968-8.055C175.718,126.05,175.496,122.236,176.736,118.688z\"/><path\n      d=\"M125.035,107.081c1.93,0.436,3.905,0.657,5.87,0.657c12.352,0,22.905-8.354,25.665-20.327 c1.551-6.789,0.358-13.778-3.356-19.682c-3.745-5.95-9.598-10.086-16.476-11.644c-1.938-0.44-3.921-0.664-5.895-0.664 c-12.344,0-22.886,8.363-25.637,20.334c-1.564,6.784-0.379,13.774,3.336,19.682C112.29,101.395,118.149,105.531,125.035,107.081z M116.901,78.447c1.491-6.491,7.225-11.025,13.942-11.025c1.079,0,2.168,0.123,3.239,0.366c3.752,0.85,6.939,3.099,8.975,6.333 c2.006,3.187,2.65,6.957,1.816,10.605c-1.471,6.381-7.346,11.012-13.969,11.012c-1.076,0-2.161-0.122-3.229-0.363 c-3.753-0.845-6.94-3.092-8.975-6.326C116.698,85.864,116.059,82.1,116.901,78.447z\"/><path\n      d=\"M77.356,122.05c5.514-4.369,8.981-10.61,9.765-17.573c0.781-6.942-1.202-13.77-5.593-19.235 c-5.032-6.239-12.539-9.817-20.594-9.817c-5.921,0-11.738,2.016-16.385,5.681c-5.515,4.356-8.984,10.587-9.771,17.545 c-0.786,6.951,1.202,13.791,5.601,19.265c5.028,6.246,12.536,9.829,20.6,9.829C66.905,127.744,72.722,125.722,77.356,122.05z M49.731,110.393c-2.376-2.956-3.451-6.648-3.027-10.396c0.424-3.753,2.302-7.119,5.282-9.474c2.571-2.028,5.666-3.1,8.949-3.1 c4.408,0,8.511,1.95,11.246,5.341c2.365,2.946,3.437,6.629,3.016,10.37c-0.423,3.764-2.303,7.142-5.292,9.51 c-2.559,2.027-5.646,3.099-8.925,3.099C56.567,115.744,52.467,113.792,49.731,110.393z\"/><path\n      d=\"M322.745,63.336c-1.037-1.046-2.887-2.293-5.806-2.293c-3.423,0-12.516,0-67.74,46.992c-1.11,0.944-2.23,1.901-3.354,2.865 c-9.867-25.739-27.203-48.686-49.542-65.284c-25.614-19.031-56.114-29.096-88.2-29.104c-0.01,0-0.017,0-0.025,0 c-21.654,0-47.976,7.566-68.697,19.749C13.981,51.193-0.005,71.163,0,92.49c0.008,25.748,14.53,36.518,26.199,45.171 c9.515,7.057,17.03,12.63,17.034,24.844c0.003,12.213-7.508,17.781-17.018,24.831c-11.665,8.648-26.184,19.412-26.176,45.163 c0.006,21.324,14.001,41.299,39.406,56.244c20.736,12.198,47.072,19.78,68.73,19.786c0.015,0,0.028,0,0.042,0 c39.305,0,76.254-15.171,104.044-42.72c27.436-27.197,42.695-63.246,43.096-101.661c9.316-10.601,18.341-21.138,26.58-31.067 c14.096-16.986,24.935-31.002,32.216-41.657C323.799,77.311,328.023,68.655,322.745,63.336z M203.814,257.287 c-25.529,25.308-59.475,39.242-95.596,39.242c-0.011,0-0.027,0-0.038,0c-38.707-0.011-96.13-26.903-96.141-64.034 c-0.006-19.707,10.354-27.388,21.323-35.52c10.253-7.602,21.874-16.218,21.87-34.474c-0.006-18.253-11.63-26.874-21.886-34.479 C22.372,119.883,12.006,112.196,12,92.487c-0.005-22.801,20.963-38.533,33.463-45.882c18.698-10.993,43.273-18.094,62.615-18.094 c0.007,0,0.015,0,0.021,0c29.491,0.008,57.517,9.254,81.048,26.736c21.702,16.125,38.268,38.761,46.994,64.049 c-26.025,22.724-54.207,48.924-75.195,69.98c-34.859,4.512-39.608,27.744-43.08,44.811c-2.956,14.532-4.875,21.558-16.092,22.458 c-2.764,0.222-5.015,2.308-5.446,5.047c-0.432,2.738,1.069,5.416,3.631,6.477c0.721,0.298,17.877,7.308,37.921,7.309 c0.003,0,0.005,0,0.007,0c13.968,0,25.95-3.386,35.612-10.063c11.906-8.228,19.979-21.273,24.036-38.767 c13.713-13.874,29.382-30.604,44.876-47.837C238.845,208.381,225.456,235.833,203.814,257.287z M185.48,225.412 c-6.358,25.196-22.356,37.968-47.594,37.967c0,0-0.004,0-0.006,0c-6.655,0-13.028-0.908-18.386-2.04 c6.4-6.527,8.399-16.349,10.13-24.858c3.297-16.208,6.415-31.547,31.923-35.191L185.48,225.412z M268.336,130.652 c-23.785,28.337-52.575,60.159-76.275,84.354l-3.669-3.698l-16.189-16.317c21.488-21.39,49.054-46.895,74.773-69.216l0,0 c2.998-2.602,5.977-5.171,8.913-7.675c29.847-25.455,45.489-36.533,53.468-41.354C304.592,84.773,293.616,100.534,268.336,130.652z \"/></symbol>\n  <symbol id=\"icon-palette\" viewBox=\"0 0 431.985 431.985\">\n    <title>icon-palette</title><path\n      d=\"M423.257,51.829c-0.808-2.045-2.67-3.484-4.853-3.751c-2.177-0.266-4.335,0.682-5.612,2.472 c-7.581,10.629-17.529,14.172-29.053,18.275c-9.292,3.31-18.901,6.73-29.286,14.186c-14.687,10.544-21.405,24.917-18.055,38.54 l-0.358,0.459c-6.133-8.897-12.806-17.126-19.848-24.474c-32.947-34.378-78.984-55.046-126.311-56.703 c-2.085-0.073-4.204-0.11-6.298-0.11c-52.846,0-103.428,23.624-138.775,64.813C9.646,146.512-5.939,199.853,2.051,251.882 c0.668,4.349,1.504,8.743,2.487,13.063c12.996,57.202,46.189,100.717,91.069,119.383c11.063,4.602,22.222,6.934,33.163,6.934 c27.183,0,50.926-14.539,65.143-39.889c5.404-9.646,8.891-19.621,10.36-29.651c0.866-5.92,0.274-11.835-0.3-17.567 c-0.591-5.9-1.149-11.476-0.256-17.09c2.047-12.869,11.036-20.553,24.047-20.553c3.701,0,7.483,0.609,11.26,1.812 c-4.422,8.11-8.438,15.854-11.947,23.032c-7.437,15.212-12.567,27.81-15.252,37.44c-1.655,5.939-6.052,21.722,4.67,29.164 c3.405,2.363,7.722,3.197,12.215,2.361c4.049-0.752,16.369-3.041,51.378-42.896c9.396-10.695,19.521-23.072,30.104-36.794 c27.168-9.15,48.31-31.921,53.903-58.087c1.4-6.541,1.984-13.541,1.735-20.812c10.172-15.72,19.094-30.388,28.072-46.156 c0.172-0.304,0.342-0.628,0.51-0.96c13.031-3.569,24.254-13.71,30.842-27.891C434.872,106.028,434.163,79.428,423.257,51.829z M276.385,149.834c-4.713,7.485-12.814,11.954-21.673,11.954c-4.81,0-9.515-1.361-13.605-3.937 c-5.782-3.642-9.803-9.317-11.316-15.98s-0.345-13.518,3.298-19.301c4.714-7.485,12.816-11.954,21.675-11.954 c4.811,0,9.515,1.361,13.604,3.938c5.782,3.64,9.802,9.315,11.316,15.979C281.197,137.197,280.026,144.051,276.385,149.834z M309.592,196.187c12.934-19.057,26.612-38,39.604-54.85c2.106,1.902,4.461,3.76,7.012,5.53c4.227,2.933,8.648,5.201,13.164,6.754 c-10.969,18.758-22.763,37.342-37.043,58.375c-23.463,34.571-47.859,66.684-68.695,90.424 c-11.638,13.26-21.823,23.498-29.671,29.839c3.029-9.69,8.818-22.989,16.875-38.746 C265.245,265.336,286.111,230.772,309.592,196.187z M82.506,196.023c-4.811,0-9.516-1.361-13.607-3.938 c-5.782-3.641-9.801-9.314-11.315-15.979c-1.514-6.664-0.342-13.519,3.301-19.302c4.711-7.484,12.813-11.953,21.671-11.953 c4.812,0,9.517,1.361,13.607,3.938c11.936,7.518,15.532,23.345,8.019,35.279C99.466,191.554,91.363,196.023,82.506,196.023z M55.688,252.358c4.713-7.486,12.814-11.955,21.673-11.955c4.81,0,9.514,1.362,13.606,3.938c5.782,3.641,9.801,9.315,11.315,15.979 c1.515,6.662,0.343,13.516-3.301,19.301c-4.711,7.483-12.813,11.953-21.671,11.953c-4.811,0-9.517-1.361-13.609-3.938 c-5.782-3.642-9.8-9.315-11.313-15.979C50.876,264.995,52.049,258.14,55.688,252.358z M137.62,100.414 c4.713-7.485,12.815-11.954,21.673-11.954c4.809,0,9.514,1.361,13.604,3.937c11.937,7.516,15.533,23.344,8.019,35.28 c-4.715,7.486-12.817,11.955-21.675,11.955c-4.81,0-9.515-1.361-13.605-3.938c-5.781-3.64-9.799-9.314-11.313-15.979 C132.807,113.052,133.979,106.198,137.62,100.414z\"/></symbol>\n  <symbol id=\"icon-pencil-line\" viewBox=\"0 0 55.25 55.25\">\n    <title>icon-pencil-line</title><path\n      d=\"M52.618,2.631c-3.51-3.508-9.219-3.508-12.729,0L3.827,38.693C3.81,38.71,3.8,38.731,3.785,38.749 c-0.021,0.024-0.039,0.05-0.058,0.076c-0.053,0.074-0.094,0.153-0.125,0.239c-0.009,0.026-0.022,0.049-0.029,0.075 c-0.003,0.01-0.009,0.02-0.012,0.03l-3.535,14.85c-0.016,0.067-0.02,0.135-0.022,0.202C0.004,54.234,0,54.246,0,54.259 c0.001,0.114,0.026,0.225,0.065,0.332c0.009,0.025,0.019,0.047,0.03,0.071c0.049,0.107,0.11,0.21,0.196,0.296 c0.095,0.095,0.207,0.168,0.328,0.218c0.121,0.05,0.25,0.075,0.379,0.075c0.077,0,0.155-0.009,0.231-0.027l14.85-3.535 c0.027-0.006,0.051-0.021,0.077-0.03c0.034-0.011,0.066-0.024,0.099-0.039c0.072-0.033,0.139-0.074,0.201-0.123 c0.024-0.019,0.049-0.033,0.072-0.054c0.008-0.008,0.018-0.012,0.026-0.02l36.063-36.063C56.127,11.85,56.127,6.14,52.618,2.631z M51.204,4.045c2.488,2.489,2.7,6.397,0.65,9.137l-9.787-9.787C44.808,1.345,48.716,1.557,51.204,4.045z M46.254,18.895l-9.9-9.9 l1.414-1.414l9.9,9.9L46.254,18.895z M4.961,50.288c-0.391-0.391-1.023-0.391-1.414,0L2.79,51.045l2.554-10.728l4.422-0.491 l-0.569,5.122c-0.004,0.038,0.01,0.073,0.01,0.11c0,0.038-0.014,0.072-0.01,0.11c0.004,0.033,0.021,0.06,0.028,0.092 c0.012,0.058,0.029,0.111,0.05,0.165c0.026,0.065,0.057,0.124,0.095,0.181c0.031,0.046,0.062,0.087,0.1,0.127 c0.048,0.051,0.1,0.094,0.157,0.134c0.045,0.031,0.088,0.06,0.138,0.084C9.831,45.982,9.9,46,9.972,46.017 c0.038,0.009,0.069,0.03,0.108,0.035c0.036,0.004,0.072,0.006,0.109,0.006c0,0,0.001,0,0.001,0c0,0,0.001,0,0.001,0h0.001 c0,0,0.001,0,0.001,0c0.036,0,0.073-0.002,0.109-0.006l5.122-0.569l-0.491,4.422L4.204,52.459l0.757-0.757 C5.351,51.312,5.351,50.679,4.961,50.288z M17.511,44.809L39.889,22.43c0.391-0.391,0.391-1.023,0-1.414s-1.023-0.391-1.414,0 L16.097,43.395l-4.773,0.53l0.53-4.773l22.38-22.378c0.391-0.391,0.391-1.023,0-1.414s-1.023-0.391-1.414,0L10.44,37.738 l-3.183,0.354L34.94,10.409l9.9,9.9L17.157,47.992L17.511,44.809z M49.082,16.067l-9.9-9.9l1.415-1.415l9.9,9.9L49.082,16.067z\"/></symbol>\n  <symbol id=\"icon-pencil-ruler-line\" viewBox=\"0 0 470.021 470.021\">\n    <title>icon-pencil-ruler-line</title><path\n      d=\"M85.283,62.802c-6.009,0-11.66,2.34-15.91,6.59c-8.771,8.772-8.771,23.047,0.001,31.82c4.25,4.249,9.9,6.589,15.91,6.59 c6.009-0.001,11.659-2.341,15.91-6.591c8.771-8.772,8.771-23.047-0.001-31.82C96.943,65.142,91.293,62.801,85.283,62.802z M90.587,90.604c-1.417,1.417-3.301,2.197-5.304,2.197c-2.004,0-3.888-0.78-5.304-2.196c-2.924-2.925-2.924-7.684-0.001-10.607 c1.417-1.417,3.301-2.196,5.305-2.196c2.003,0,3.887,0.779,5.303,2.195C93.51,82.922,93.51,87.681,90.587,90.604z\"/><path\n      d=\"M400.63,400.647c8.771-8.772,8.771-23.047-0.001-31.82c-4.25-4.249-9.9-6.589-15.909-6.589c-6.01,0-11.66,2.34-15.911,6.59 c-8.771,8.772-8.771,23.047,0.001,31.82c4.25,4.249,9.9,6.59,15.91,6.59C390.729,407.238,396.379,404.897,400.63,400.647z M379.416,379.435c1.417-1.417,3.301-2.196,5.305-2.196c2.003,0,3.887,0.779,5.303,2.195c2.924,2.925,2.924,7.684,0.001,10.607 c-1.417,1.417-3.301,2.197-5.304,2.197c-2.004,0-3.888-0.78-5.304-2.196C376.493,387.117,376.493,382.358,379.416,379.435z\"/><path\n      d=\"M127.168,229.717c1.465,1.464,3.385,2.196,5.304,2.196s3.839-0.732,5.304-2.196c2.929-2.93,2.929-7.678,0-10.607 L18.108,99.443l81.317-81.317l53.032,53.033l-22.981,22.98c-2.929,2.93-2.929,7.678,0,10.607c1.465,1.464,3.385,2.196,5.304,2.196 s3.839-0.732,5.304-2.196l22.981-22.98l20.057,20.058l-22.98,22.98c-2.929,2.93-2.929,7.678,0,10.607 c1.465,1.464,3.385,2.196,5.304,2.196s3.839-0.732,5.304-2.196l22.98-22.98l20.058,20.058l-22.98,22.98 c-2.929,2.93-2.929,7.678,0,10.607c1.465,1.464,3.385,2.196,5.304,2.196s3.839-0.732,5.304-2.196l28.284-28.284 c2.929-2.93,2.929-7.678,0-10.607L104.729,2.216c-2.93-2.928-7.678-2.928-10.607,0L2.198,94.14c-2.929,2.93-2.929,7.678,0,10.607 L127.168,229.717z\"/><path\n      d=\"M342.836,240.322c-2.93-2.928-7.678-2.928-10.607,0l-28.284,28.284c-2.929,2.93-2.929,7.678,0,10.607 c1.465,1.464,3.385,2.196,5.304,2.196s3.839-0.732,5.304-2.196l22.98-22.98l20.058,20.058l-22.98,22.98 c-2.929,2.93-2.929,7.678,0,10.607c1.465,1.464,3.385,2.196,5.304,2.196s3.839-0.732,5.304-2.196l22.98-22.98l20.058,20.058 l-22.981,22.98c-2.929,2.93-2.929,7.678,0,10.607c1.465,1.464,3.385,2.196,5.304,2.196s3.839-0.732,5.304-2.196l22.981-22.98 l53.033,53.032l-81.317,81.317L250.912,332.246c-2.93-2.928-7.678-2.928-10.607,0c-2.929,2.93-2.929,7.678,0,10.607l124.97,124.97 c1.465,1.464,3.385,2.196,5.304,2.196s3.839-0.732,5.304-2.196l91.924-91.924c2.929-2.93,2.929-7.678,0-10.607L342.836,240.322z\"/><path\n      d=\"M397.34,153.999c0.016-0.016,61.715-61.716,61.715-61.716c14.62-14.621,14.62-38.412,0-53.033l-28.284-28.284 c-14.621-14.619-38.411-14.623-53.034,0l-14.144,14.144c-2.929,2.93-2.929,7.678,0,10.607c2.93,2.928,7.678,2.928,10.607,0 l14.143-14.144c8.773-8.772,23.047-8.772,31.82,0l28.284,28.284c8.772,8.772,8.772,23.047,0,31.819l-30.052,30.053l-65.407-65.407 c-2.93-2.928-7.678-2.928-10.607,0l-26.342,26.342c-0.018,0.018-264.344,264.344-264.344,264.344 c-0.015,0.015-0.027,0.031-0.042,0.047c-0.063,0.064-0.121,0.133-0.181,0.2c-0.592,0.647-1.073,1.388-1.408,2.201l-28.872,70.116 c-0.01,0.024-0.02,0.048-0.029,0.071L0.565,459.665c-1.152,2.8-0.509,6.018,1.632,8.159c1.436,1.435,3.354,2.196,5.306,2.196 c0.961,0,1.93-0.185,2.854-0.564l50.027-20.6c0.019-0.008,0.038-0.016,0.058-0.023l70.124-28.875 c0.817-0.337,1.561-0.821,2.211-1.417c0.063-0.057,0.127-0.111,0.188-0.17c0.016-0.016,0.034-0.029,0.05-0.045L397.34,153.999z M130.295,399.829c-2.018-3.443-4.489-6.651-7.364-9.527c-5.88-5.88-13.012-9.975-20.57-12.034l195.992-195.992 c2.929-2.93,2.929-7.678,0-10.607c-2.93-2.928-7.678-2.928-10.607,0L91.754,367.66c-2.06-7.559-6.155-14.69-12.035-20.57 c-2.876-2.875-6.084-5.346-9.528-7.364L321.334,88.584l24.748,24.748l-30.052,30.052c-2.929,2.93-2.929,7.678,0,10.607 c1.465,1.464,3.385,2.196,5.304,2.196s3.839-0.732,5.304-2.196l30.052-30.052l24.749,24.748L130.295,399.829z M59.356,433.057 l-22.392-22.391l24.206-58.785c2.888,1.496,5.576,3.449,7.942,5.816c7.088,7.087,10.372,16.711,8.784,25.742 c-0.424,2.409,0.354,4.873,2.083,6.603c1.729,1.729,4.194,2.507,6.603,2.083c9.032-1.588,18.655,1.697,25.742,8.784 c2.367,2.366,4.32,5.054,5.816,7.942L59.356,433.057z M347.685,62.232l60.104,60.104l-15.745,15.744l-60.104-60.104L347.685,62.232 z M30.776,425.692l13.552,13.553l-23.039,9.486L30.776,425.692z\"/></symbol>\n  <symbol id=\"icon-pencil-ruler\" viewBox=\"0 0 482.55 482.55\">\n    <title>icon-pencil-ruler</title><path\n      d=\"M380.65,0.25l-25.3,25.3l26.6,26.6c3.7,3.7,4.1,9.7,0.6,13.6c-3.8,4.2-10.3,4.4-14.2,0.4l-26.7-27l-25.7,25.7l49.7,49.7 c3.9,3.9,3.8,10.1-0.1,13.9l0,0c-3.8,3.7-9.9,3.7-13.7-0.1l-49.9-49.6l-25.7,25.7l26.8,26.8c3.9,3.9,3.8,10.1-0.1,13.9l0,0 c-3.8,3.7-9.9,3.7-13.7-0.1l-27-27l-14,14.4l102,101.9l132.2-132.2L380.65,0.25z\"/><path\n      d=\"M132.55,248.35l-14.4,14.4l26.7,26.7c3.8,3.8,3.8,10.1-0.1,13.9l0,0c-3.8,3.7-10,3.7-13.7-0.1l-26.5-26.8l-25.7,25.7 l49.8,49.8c3.9,3.9,3.9,10.1,0,13.6c-5.2,4.9-12.1,2.3-14,0l-49.8-49.4l-25.7,25.7l26.5,26.4c3.7,3.7,4.1,9.7,0.7,13.6 c-3.8,4.3-10.3,4.4-14.2,0.5l-26.9-26.9l-25,25.2l101.9,101.9l132.2-132.3L132.55,248.35z\"/><polygon points=\"420.25,396.95 453.35,364.65 142.25,53.55 109.15,85.85 \"/><polygon points=\"85.85,108.05 53.55,142.25 364.65,453.35 396.95,419.15 \"/><path d=\"M94.75,6.15c-8.2-8.2-21-8.2-29.2,0l-59.4,59.5c-8.2,8.2-8.2,21,0,29.2l33.8,33.8l88.7-88.7L94.75,6.15z\"/><polygon points=\"462.25,382.95 382.95,462.25 482.55,482.55 \"/></symbol>\n  <symbol id=\"icon-pencil\" viewBox=\"0 0 55.25 55.25\">\n    <title>icon-pencil</title><path\n      d=\"M0.523,51.933l-0.497,2.085c-0.016,0.067-0.02,0.135-0.022,0.202C0.004,54.234,0,54.246,0,54.259 c0.001,0.114,0.026,0.225,0.065,0.332c0.009,0.025,0.019,0.047,0.03,0.071c0.049,0.107,0.11,0.21,0.196,0.296 c0.095,0.095,0.207,0.168,0.328,0.218c0.121,0.05,0.25,0.075,0.379,0.075c0.077,0,0.155-0.009,0.231-0.027l2.086-0.497 L0.523,51.933z\"/><path\n      d=\"M52.618,2.631c-3.51-3.508-9.219-3.508-12.729,0L3.827,38.693C3.81,38.71,3.8,38.731,3.785,38.749 c-0.021,0.024-0.039,0.05-0.058,0.076c-0.053,0.074-0.094,0.153-0.125,0.239c-0.009,0.026-0.022,0.049-0.029,0.075 c-0.003,0.01-0.009,0.02-0.012,0.03l-2.495,10.48L5.6,54.182l10.48-2.495c0.027-0.006,0.051-0.021,0.077-0.03 c0.034-0.011,0.066-0.024,0.099-0.039c0.072-0.033,0.139-0.074,0.201-0.123c0.024-0.019,0.049-0.033,0.072-0.054 c0.008-0.008,0.018-0.012,0.026-0.02l36.063-36.063C56.127,11.85,56.127,6.14,52.618,2.631z M17.157,47.992l0.354-3.183 L39.889,22.43c0.391-0.391,0.391-1.023,0-1.414s-1.023-0.391-1.414,0L16.097,43.395l-4.773,0.53l0.53-4.773l22.38-22.378 c0.391-0.391,0.391-1.023,0-1.414s-1.023-0.391-1.414,0L10.44,37.738l-3.183,0.354L34.94,10.409l9.9,9.9L17.157,47.992z M46.254,18.895l-9.9-9.9l1.414-1.414l9.9,9.9L46.254,18.895z M49.082,16.067l-9.9-9.9l1.415-1.415l9.9,9.9L49.082,16.067z\"/></symbol>\n  <symbol id=\"icon-phone-line\" viewBox=\"0 0 53.942 53.942\">\n    <title>icon-phone-line</title><path\n      d=\"M53.364,40.912c-2.008-3.796-8.981-7.912-9.288-8.092c-1.277-0.728-2.599-0.956-3.722-0.646 c-0.844,0.234-1.532,0.768-1.995,1.546c-1.02,1.22-2.285,2.646-2.592,2.867c-2.367,1.603-4.25,1.415-6.294-0.629L17.987,24.471 c-2.045-2.045-2.233-3.928-0.632-6.291c0.224-0.309,1.65-1.575,2.87-2.596c0.778-0.463,1.312-1.151,1.546-1.995 c0.311-1.123,0.082-2.444-0.652-3.731c-0.173-0.296-4.291-7.27-8.085-9.277c-1.925-1.019-4.255-0.67-5.796,0.872L4.7,3.99 c-4.014,4.013-5.467,8.562-4.321,13.52c0.956,4.132,3.742,8.529,8.282,13.068l14.705,14.705c5.762,5.762,11.258,8.657,16.298,8.657 c3.701,0,7.157-1.562,10.291-4.695l2.537-2.537C54.033,45.167,54.383,42.838,53.364,40.912z M51.078,45.294l-2.537,2.537 c-6.569,6.567-14.562,5.236-23.76-3.962L10.075,29.164c-4.271-4.271-6.877-8.344-7.747-12.105c-0.995-4.3,0.244-8.112,3.786-11.654 l2.537-2.537c0.567-0.566,1.313-0.862,2.07-0.862c0.467,0,0.939,0.112,1.376,0.344c3.293,1.743,7.256,8.454,7.29,8.511 c0.449,0.787,0.62,1.608,0.457,2.196c-0.1,0.359-0.323,0.633-0.683,0.835l-0.151,0.104c-0.853,0.711-2.882,2.433-3.308,3.061 c-0.612,0.904-1.018,1.792-1.23,2.665c-0.711-1.418-1.286-3.061-1.475-4.881c-0.057-0.549-0.545-0.934-1.098-0.892 c-0.549,0.058-0.949,0.549-0.892,1.099c0.722,6.953,6.129,11.479,6.359,11.668c0.025,0.021,0.056,0.029,0.082,0.047l10.611,10.611 c0.045,0.045,0.09,0.083,0.135,0.127c0.036,0.052,0.059,0.11,0.105,0.156c0.189,0.187,4.704,4.567,11.599,5.283 c0.035,0.003,0.07,0.005,0.104,0.005c0.506,0,0.94-0.383,0.994-0.896c0.057-0.55-0.342-1.041-0.892-1.099 c-2.114-0.219-3.987-0.839-5.549-1.558c0.765-0.23,1.543-0.612,2.332-1.147c0.628-0.425,2.351-2.455,3.062-3.308l0.104-0.151 c0.202-0.359,0.475-0.583,0.835-0.683c0.589-0.164,1.41,0.007,2.187,0.45c0.068,0.04,6.778,4.002,8.521,7.296 C52.202,42.993,51.994,44.378,51.078,45.294z\"/></symbol>\n  <symbol id=\"icon-phone\" viewBox=\"0 0 53.942 53.942\">\n    <title>icon-phone</title><path\n      d=\"M53.364,40.908c-2.008-3.796-8.981-7.912-9.288-8.092c-0.896-0.51-1.831-0.78-2.706-0.78c-1.301,0-2.366,0.596-3.011,1.68 c-1.02,1.22-2.285,2.646-2.592,2.867c-2.376,1.612-4.236,1.429-6.294-0.629L17.987,24.467c-2.045-2.045-2.233-3.928-0.632-6.291 c0.224-0.309,1.65-1.575,2.87-2.596c0.778-0.463,1.312-1.151,1.546-1.995c0.311-1.123,0.082-2.444-0.652-3.731 c-0.173-0.296-4.291-7.27-8.085-9.277c-0.708-0.375-1.506-0.573-2.306-0.573c-1.318,0-2.558,0.514-3.49,1.445L4.7,3.986 c-4.014,4.013-5.467,8.562-4.321,13.52c0.956,4.132,3.742,8.529,8.282,13.068l14.705,14.705c5.746,5.746,11.224,8.66,16.282,8.66 c0,0,0,0,0.001,0c3.72,0,7.188-1.581,10.305-4.698l2.537-2.537C54.033,45.163,54.383,42.833,53.364,40.908z\"/></symbol>\n  <symbol id=\"icon-placeholder-line\" viewBox=\"0 0 54.757 54.757\">\n    <title>icon-placeholder-line</title><path d=\"M27.557,12c-3.859,0-7,3.141-7,7s3.141,7,7,7s7-3.141,7-7S31.416,12,27.557,12z M27.557,24c-2.757,0-5-2.243-5-5 s2.243-5,5-5s5,2.243,5,5S30.314,24,27.557,24z\"/><path\n      d=\"M40.94,5.617C37.318,1.995,32.502,0,27.38,0c-5.123,0-9.938,1.995-13.56,5.617c-6.703,6.702-7.536,19.312-1.804,26.952 L27.38,54.757L42.721,32.6C48.476,24.929,47.643,12.319,40.94,5.617z M41.099,31.431L27.38,51.243L13.639,31.4 C8.44,24.468,9.185,13.08,15.235,7.031C18.479,3.787,22.792,2,27.38,2s8.901,1.787,12.146,5.031 C45.576,13.08,46.321,24.468,41.099,31.431z\"/></symbol>\n  <symbol id=\"icon-placeholder\" viewBox=\"0 0 54.757 54.757\">\n    <title>icon-placeholder</title><path\n      d=\"M40.94,5.617C37.318,1.995,32.502,0,27.38,0c-5.123,0-9.938,1.995-13.56,5.617c-6.703,6.702-7.536,19.312-1.804,26.952 L27.38,54.757L42.721,32.6C48.476,24.929,47.643,12.319,40.94,5.617z M27.557,26c-3.859,0-7-3.141-7-7s3.141-7,7-7s7,3.141,7,7 S31.416,26,27.557,26z\"/></symbol>\n  <symbol id=\"icon-printer-line\" viewBox=\"0 0 512 512\">\n    <title>icon-printer-line</title><path d=\"M280.6,195.267H383c5.12,0,8.533-3.413,8.533-8.533v-51.2c0-5.12-3.413-8.533-8.533-8.533H280.6 c-5.12,0-8.533,3.413-8.533,8.533v51.2C272.067,191.853,275.48,195.267,280.6,195.267z M289.133,144.067h85.333V178.2h-85.333 V144.067z\"/><path\n      d=\"M485.4,84.333h-68.267h-17.067V16.067C400.067,6.68,392.387-1,383-1H127c-9.387,0-17.067,7.68-17.067,17.067v68.267 H92.867H24.6c-14.507,0-25.6,11.093-25.6,25.6v187.733v102.4c0,14.507,11.093,25.6,25.6,25.6h57.99L69.827,490.52 c-0.853,5.12,0.853,11.093,3.413,14.507C75.8,508.44,80.92,511,86.04,511h337.92c5.12,0,9.387-2.56,13.653-5.973 c3.413-4.267,4.267-9.387,3.413-14.507l-13.109-64.853H485.4c14.507,0,25.6-11.093,25.6-25.6v-102.4V109.933 C511,95.427,499.907,84.333,485.4,84.333z M127,16.067h256v68.267H127V16.067z M118.467,101.4h273.067H408.6v85.333 c0,14.507-11.093,25.6-25.6,25.6H127c-14.507,0-25.6-11.093-25.6-25.6V101.4H118.467z M24.6,101.4h59.733v85.333 c0,23.893,18.773,42.667,42.667,42.667h256c23.893,0,42.667-18.773,42.667-42.667V101.4H485.4c5.12,0,8.533,3.413,8.533,8.533 v179.2H16.067v-179.2C16.067,104.813,19.48,101.4,24.6,101.4z M86.04,493.933l14.549-72.747c0.362-0.71,0.64-1.493,0.811-2.347 l15.36-78.507h276.48l15.36,78.507c0.171,0.854,0.448,1.636,0.811,2.347l14.549,72.747H86.04z M493.933,400.067 c0,5.12-3.413,8.533-8.533,8.533h-60.932L408.6,330.093c-0.853-4.267-4.267-6.827-8.533-6.827H109.933 c-4.267,0-7.68,2.56-8.533,6.827L85.949,408.6H24.6c-5.12,0-8.533-3.413-8.533-8.533V306.2h477.867V400.067z\"/><path d=\"M186.733,383h136.533c5.12,0,8.533-3.413,8.533-8.533s-3.413-8.533-8.533-8.533H186.733c-5.12,0-8.533,3.413-8.533,8.533 S181.613,383,186.733,383z\"/><path d=\"M161.133,425.667h187.733c5.12,0,8.533-3.413,8.533-8.533s-3.413-8.533-8.533-8.533H161.133 c-5.12,0-8.533,3.413-8.533,8.533S156.013,425.667,161.133,425.667z\"/><path d=\"M374.467,451.267H135.533c-5.12,0-8.533,3.413-8.533,8.533c0,5.12,3.413,8.533,8.533,8.533h238.933 c5.12,0,8.533-3.413,8.533-8.533C383,454.68,379.587,451.267,374.467,451.267z\"/></symbol>\n  <symbol id=\"icon-printer\" viewBox=\"0 0 512 512\">\n    <title>icon-printer</title>\n    <g>\n      <g>\n        <path d=\"M324.267,366.933H187.733c-5.12,0-8.533,3.413-8.533,8.533s3.413,8.533,8.533,8.533h136.533 c5.12,0,8.533-3.413,8.533-8.533S329.387,366.933,324.267,366.933z\"/>\n      </g>\n    </g>\n    <g>\n      <g>\n        <path d=\"M349.867,409.6H162.133c-5.12,0-8.533,3.413-8.533,8.533s3.413,8.533,8.533,8.533h187.733c5.12,0,8.533-3.413,8.533-8.533 S354.987,409.6,349.867,409.6z\"/>\n      </g>\n    </g>\n    <g>\n      <g>\n        <path d=\"M375.467,452.267H136.533c-5.12,0-8.533,3.413-8.533,8.533c0,5.12,3.413,8.533,8.533,8.533h238.933 c5.12,0,8.533-3.413,8.533-8.533C384,455.68,380.587,452.267,375.467,452.267z\"/>\n      </g>\n    </g>\n    <g>\n      <g>\n        <path\n          d=\"M0,307.2v93.867c0,14.507,11.093,25.6,25.6,25.6h58.027l-12.8,64.853c-0.853,5.12,0,10.24,3.413,14.507 S81.92,512,87.04,512h337.92c5.12,0,10.24-2.56,12.8-5.973c3.413-4.267,4.267-9.387,3.413-14.507l-12.8-64.853H486.4 c14.507,0,25.6-11.093,25.6-25.6V307.2H0z M87.04,494.933l15.36-75.093l15.36-78.507h276.48l15.36,78.507l15.36,75.093H87.04z\"/>\n      </g>\n    </g>\n    <g>\n      <g>\n        <path d=\"M486.4,85.333h-59.733v102.4c0,23.893-18.773,42.667-42.667,42.667H128c-23.893,0-42.667-18.773-42.667-42.667v-102.4 H25.6c-14.507,0-25.6,11.093-25.6,25.6v179.2h512v-179.2C512,96.427,500.907,85.333,486.4,85.333z\"/>\n      </g>\n    </g>\n    <g>\n      <g>\n        <rect x=\"290.133\" y=\"145.067\" width=\"85.333\" height=\"34.133\"/>\n      </g>\n    </g>\n    <g>\n      <g>\n        <path\n          d=\"M401.067,85.333V17.067C401.067,7.68,393.387,0,384,0H128c-9.387,0-17.067,7.68-17.067,17.067v68.267H102.4v102.4 c0,14.507,11.093,25.6,25.6,25.6h256c14.507,0,25.6-11.093,25.6-25.6v-102.4H401.067z M128,17.067h256v68.267H128V17.067z M392.533,187.733c0,5.12-3.413,8.533-8.533,8.533H281.6c-5.12,0-8.533-3.413-8.533-8.533v-51.2c0-5.12,3.413-8.533,8.533-8.533 H384c5.12,0,8.533,3.413,8.533,8.533V187.733z\"/>\n      </g>\n    </g>\n  </symbol>\n  <symbol id=\"icon-reload-left-line\" viewBox=\"0 0 333.656 333.656\">\n    <title>icon-reload-left-line</title><path\n      d=\"M166.831,333.656c-78.221,0-141.853-63.626-141.853-141.84c0-10.161,1.086-20.309,3.22-30.168 c2.571-11.832,14.788-19.795,26.742-17.217c5.887,1.279,10.906,4.762,14.158,9.814c3.252,5.051,4.345,11.073,3.072,16.941 c-1.465,6.735-2.204,13.676-2.204,20.63c0,53.407,43.458,96.852,96.865,96.852s96.859-43.452,96.859-96.852 c0-51.254-40.013-93.337-90.432-96.653l-0.006,31.935c0,11.697-8.091,17.822-16.08,17.822c-2.911,0-7.359-0.816-11.999-4.704 L82.961,88.15c-4.756-3.985-7.487-9.711-7.487-15.701c0-6.003,2.731-11.723,7.487-15.701l62.212-52.051 C149.819,0.816,154.26,0,157.171,0c7.989,0,16.08,6.118,16.08,17.822v32.282c75.252,3.368,135.426,65.65,135.426,141.712 C308.678,270.023,245.046,333.656,166.831,333.656z M50.165,156.77c-4.569,0-8.438,3.123-9.409,7.597 c-1.947,8.965-2.931,18.201-2.931,27.449c0,71.119,57.867,128.987,128.999,128.987c71.126,0,128.993-57.867,128.993-128.987 c0-71.126-57.867-128.999-128.993-128.999h-6.427l0-45.001c0-3.111-1.208-4.968-3.226-4.968c-0.643,0-1.979,0.219-3.753,1.71 L91.206,66.608c-1.832,1.53-2.879,3.657-2.879,5.842c0,2.185,1.048,4.312,2.879,5.848l62.212,52.057 c1.774,1.485,3.111,1.716,3.753,1.716c2.018,0,3.226-1.857,3.226-4.968V82.103h6.427c60.502,0,109.719,49.223,109.719,109.719 s-49.217,109.706-109.712,109.706c-60.502,0-109.719-49.21-109.719-109.706c0-7.873,0.842-15.726,2.494-23.355 c0.546-2.519,0.084-5.096-1.311-7.262c-1.395-2.166-3.548-3.657-6.061-4.203C51.553,156.847,50.859,156.77,50.165,156.77z\"/></symbol>\n  <symbol id=\"icon-reload-left\" viewBox=\"0 0 489.533 489.533\">\n    <title>icon-reload-left</title><path\n      d=\"M268.175,488.161c98.2-11,176.9-89.5,188.1-187.7c14.7-128.4-85.1-237.7-210.2-239.1v-57.6c0-3.2-4-4.9-6.7-2.9 l-118.6,87.1c-2,1.5-2,4.4,0,5.9l118.6,87.1c2.7,2,6.7,0.2,6.7-2.9v-57.5c87.9,1.4,158.3,76.2,152.3,165.6 c-5.1,76.9-67.8,139.3-144.7,144.2c-81.5,5.2-150.8-53-163.2-130c-2.3-14.3-14.8-24.7-29.2-24.7c-17.9,0-31.9,15.9-29.1,33.6 C49.575,418.961,150.875,501.261,268.175,488.161z\"/></symbol>\n  <symbol id=\"icon-reload-line\" viewBox=\"0 0 333.656 333.656\">\n    <title>icon-reload-line</title><path\n      d=\"M166.825,333.656c-78.215,0-141.847-63.626-141.847-141.84c0-76.062,60.174-138.338,135.42-141.712l0.006-32.282 C160.404,6.118,168.496,0,176.484,0c2.911,0,7.359,0.816,11.999,4.704l62.212,52.045c4.756,3.978,7.487,9.705,7.487,15.701 c0,5.996-2.731,11.716-7.487,15.701l-62.212,52.064c-4.647,3.888-9.088,4.704-11.999,4.704c-7.989,0-16.08-6.125-16.08-17.822 V95.162c-50.431,3.316-90.438,45.399-90.438,96.653c0,53.407,43.452,96.852,96.859,96.852s96.865-43.452,96.865-96.852 c0-6.954-0.739-13.895-2.204-20.63c-1.273-5.868-0.18-11.89,3.072-16.941s8.271-8.535,14.145-9.807 c12.037-2.609,24.184,5.379,26.755,17.211c2.134,9.859,3.22,20.007,3.22,30.168C308.678,270.023,245.046,333.656,166.825,333.656z M166.831,62.809c-71.132,0-128.999,57.874-128.999,128.999c0,71.119,57.867,128.987,128.993,128.987 c71.132,0,128.999-57.867,128.999-128.987c0-9.242-0.983-18.484-2.931-27.449c-1.125-5.148-6.273-8.483-11.478-7.372 c-2.506,0.546-4.659,2.037-6.048,4.203c-1.388,2.166-1.857,4.743-1.311,7.262c1.652,7.629,2.494,15.482,2.494,23.355 c0,60.496-49.217,109.706-109.719,109.706c-60.496,0-109.712-49.21-109.712-109.706S106.335,82.09,166.831,82.09h6.427 l0.006,45.001c0,3.111,1.208,4.968,3.226,4.968c0.643,0,1.979-0.225,3.753-1.71l62.212-52.07c1.819-1.523,2.873-3.65,2.873-5.836 s-1.048-4.312-2.879-5.842L180.237,14.55c-1.774-1.485-3.111-1.71-3.753-1.71c-2.018,0-3.226,1.857-3.226,4.968v44.994h-6.427 V62.809z\"/></symbol>\n  <symbol id=\"icon-reload\" viewBox=\"0 0 488.932 488.932\">\n    <title>icon-reload</title><path\n      d=\"M243.158,61.361v-57.6c0-3.2,4-4.9,6.7-2.9l118.4,87c2,1.5,2,4.4,0,5.9l-118.4,87c-2.7,2-6.7,0.2-6.7-2.9v-57.5 c-87.8,1.4-158.1,76-152.1,165.4c5.1,76.8,67.7,139.1,144.5,144c81.4,5.2,150.6-53,163-129.9c2.3-14.3,14.7-24.7,29.2-24.7l0,0 c17.9,0,31.8,15.9,29,33.5c-17.4,109.7-118.5,192-235.7,178.9c-98-11-176.7-89.4-187.8-187.4 C18.558,171.961,118.158,62.761,243.158,61.361z\"/></symbol>\n  <symbol id=\"icon-remove-line\" viewBox=\"0 0 220.496 220.496\">\n    <title>icon-remove-line</title><path\n      d=\"M0.003,192.658c0,7.434,2.897,14.424,8.154,19.684c5.257,5.261,12.25,8.154,19.684,8.154 c7.44,0,14.429-2.894,19.674-8.154l62.732-62.731l62.717,62.72c5.255,5.26,12.244,8.154,19.684,8.154 c7.44,0,14.436-2.895,19.678-8.154c5.255-5.26,8.155-12.25,8.155-19.684s-2.9-14.424-8.155-19.684l-62.714-62.717l62.727-62.727 c5.254-5.257,8.154-12.247,8.154-19.681c0-7.434-2.9-14.427-8.154-19.684C207.084,2.897,200.095,0,192.655,0 c-7.435,0-14.424,2.897-19.678,8.155l-62.724,62.732L47.522,8.155C42.271,2.897,35.281,0,27.847,0 c-7.44,0-14.433,2.897-19.684,8.155c-5.257,5.257-8.155,12.25-8.155,19.684c0,7.434,2.897,14.423,8.155,19.681l62.732,62.727 L8.157,172.974C2.9,178.234,0.003,185.224,0.003,192.658z M16.858,181.681l67.08-67.086c1.156-1.152,1.801-2.714,1.801-4.344 c0-1.631-0.646-3.198-1.801-4.348l-67.08-67.08c-2.939-2.936-4.552-6.836-4.552-10.985c0-4.152,1.618-8.056,4.552-10.989 c2.939-2.933,6.831-4.552,10.989-4.552c4.149,0,8.055,1.619,10.98,4.552l67.079,67.077c2.306,2.306,6.39,2.306,8.695,0 l67.07-67.077c5.867-5.873,16.104-5.861,21.972,0c2.937,2.939,4.552,6.836,4.552,10.989c0,4.149-1.615,8.056-4.552,10.985 l-67.073,67.074c-2.402,2.404-2.402,6.29,0,8.697l67.062,67.056c2.936,2.937,4.545,6.84,4.545,10.989s-1.609,8.053-4.551,10.988 c-5.85,5.867-16.094,5.873-21.966,0l-67.059-67.056c-2.405-2.407-6.29-2.407-8.695,0l-67.085,67.08 c-5.846,5.866-16.09,5.872-21.962,0c-2.939-2.937-4.552-6.84-4.552-10.989C12.307,188.515,13.919,184.612,16.858,181.681z\"/></symbol>\n  <symbol id=\"icon-remove\" viewBox=\"0 0 348.333 348.334\">\n    <title>icon-remove</title><path\n      d=\"M336.559,68.611L231.016,174.165l105.543,105.549c15.699,15.705,15.699,41.145,0,56.85 c-7.844,7.844-18.128,11.769-28.407,11.769c-10.296,0-20.581-3.919-28.419-11.769L174.167,231.003L68.609,336.563 c-7.843,7.844-18.128,11.769-28.416,11.769c-10.285,0-20.563-3.919-28.413-11.769c-15.699-15.698-15.699-41.139,0-56.85 l105.54-105.549L11.774,68.611c-15.699-15.699-15.699-41.145,0-56.844c15.696-15.687,41.127-15.687,56.829,0l105.563,105.554 L279.721,11.767c15.705-15.687,41.139-15.687,56.832,0C352.258,27.466,352.258,52.912,336.559,68.611z\"/></symbol>\n  <symbol id=\"icon-search2-line\" viewBox=\"0 0 53.627 53.627\">\n    <title>icon-search2-line</title><path\n      d=\"M53.627,49.385L37.795,33.553C40.423,30.046,42,25.709,42,21C42,9.42,32.58,0,21,0S0,9.42,0,21s9.42,21,21,21 c4.709,0,9.046-1.577,12.553-4.205l15.832,15.832L53.627,49.385z M2,21C2,10.523,10.523,2,21,2s19,8.523,19,19s-8.523,19-19,19 S2,31.477,2,21z M35.567,36.093c0.178-0.172,0.353-0.347,0.525-0.525c0.146-0.151,0.304-0.29,0.445-0.445l14.262,14.262 l-1.415,1.415L35.123,36.537C35.278,36.396,35.416,36.238,35.567,36.093z\"/></symbol>\n  <symbol id=\"icon-search2\" viewBox=\"0 0 53.627 53.627\">\n    <title>icon-search2</title><path\n      d=\"M53.627,49.385L37.795,33.553C40.423,30.046,42,25.709,42,21C42,9.42,32.58,0,21,0S0,9.42,0,21s9.42,21,21,21 c4.709,0,9.046-1.577,12.553-4.205l15.832,15.832L53.627,49.385z M2,21C2,10.523,10.523,2,21,2s19,8.523,19,19s-8.523,19-19,19 S2,31.477,2,21z\"/></symbol>\n  <symbol id=\"icon-search-line\" viewBox=\"0 0 52.966 52.966\">\n    <title>icon-search-line</title><path\n      d=\"M51.704,51.273L36.845,35.82c3.79-3.801,6.138-9.041,6.138-14.82c0-11.58-9.42-21-21-21s-21,9.42-21,21s9.42,21,21,21 c5.083,0,9.748-1.817,13.384-4.832l14.895,15.491c0.196,0.205,0.458,0.307,0.721,0.307c0.25,0,0.499-0.093,0.693-0.279 C52.074,52.304,52.086,51.671,51.704,51.273z M21.983,40c-10.477,0-19-8.523-19-19s8.523-19,19-19s19,8.523,19,19 S32.459,40,21.983,40z\"/></symbol>\n  <symbol id=\"icon-search\" viewBox=\"0 0 56.966 56.966\">\n    <title>icon-search</title><path\n      d=\"M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23 s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92 c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17 s-17-7.626-17-17S14.61,6,23.984,6z\"/></symbol>\n  <symbol id=\"icon-star-line\" viewBox=\"0 0 55.867 55.867\">\n    <title>icon-star-line</title><path\n      d=\"M11.287,54.548c-0.207,0-0.414-0.064-0.588-0.191c-0.308-0.224-0.462-0.603-0.397-0.978l3.091-18.018L0.302,22.602 c-0.272-0.266-0.37-0.663-0.253-1.024c0.118-0.362,0.431-0.626,0.808-0.681l18.09-2.629l8.091-16.393 c0.168-0.342,0.516-0.558,0.896-0.558l0,0c0.381,0,0.729,0.216,0.896,0.558l8.09,16.393l18.091,2.629 c0.377,0.055,0.689,0.318,0.808,0.681c0.117,0.361,0.02,0.759-0.253,1.024L42.475,35.363l3.09,18.017 c0.064,0.375-0.09,0.754-0.397,0.978c-0.308,0.226-0.717,0.255-1.054,0.076l-16.18-8.506l-16.182,8.506 C11.606,54.51,11.446,54.548,11.287,54.548z M3.149,22.584l12.016,11.713c0.235,0.229,0.343,0.561,0.287,0.885L12.615,51.72 l14.854-7.808c0.291-0.154,0.638-0.154,0.931,0l14.852,7.808l-2.836-16.538c-0.056-0.324,0.052-0.655,0.287-0.885l12.016-11.713 l-16.605-2.413c-0.326-0.047-0.607-0.252-0.753-0.547L27.934,4.578l-7.427,15.047c-0.146,0.295-0.427,0.5-0.753,0.547L3.149,22.584z \"/></symbol>\n  <symbol id=\"icon-star\" viewBox=\"0 0 55.867 55.867\">\n    <title>icon-star</title><path\n      d=\"M55.818,21.578c-0.118-0.362-0.431-0.626-0.808-0.681L36.92,18.268L28.83,1.876c-0.168-0.342-0.516-0.558-0.896-0.558 s-0.729,0.216-0.896,0.558l-8.091,16.393l-18.09,2.629c-0.377,0.055-0.689,0.318-0.808,0.681c-0.117,0.361-0.02,0.759,0.253,1.024 l13.091,12.76l-3.091,18.018c-0.064,0.375,0.09,0.754,0.397,0.978c0.309,0.226,0.718,0.255,1.053,0.076l16.182-8.506l16.18,8.506 c0.146,0.077,0.307,0.115,0.466,0.115c0.207,0,0.413-0.064,0.588-0.191c0.308-0.224,0.462-0.603,0.397-0.978l-3.09-18.017 l13.091-12.761C55.838,22.336,55.936,21.939,55.818,21.578z\"/></symbol>\n  <symbol id=\"icon-tools-line\" viewBox=\"0 0 512 512\">\n    <title>icon-tools-line</title><path\n      d=\"M484.013,334.668c-25.493-25.492-63.013-34.355-97.01-23.333l-72.554-72.555l85.93-85.93l54.653-30.557 c1.52-0.85,2.749-2.138,3.529-3.695l24.559-49.117c1.671-3.343,1.017-7.38-1.626-10.024l-30.7-30.7 c-2.643-2.643-6.683-3.297-10.024-1.626l-49.117,24.558c-1.557,0.779-2.845,2.009-3.695,3.529l-30.557,54.654l-85.93,85.93 l-69.003-69.001c11.02-33.996,2.159-71.518-23.334-97.011C152.277,2.935,112.073-5.467,76.701,8.396 c-2.727,1.068-4.733,3.441-5.331,6.309c-0.599,2.867,0.288,5.843,2.359,7.916l55.236,55.234l-36.839,36.839L36.891,59.457 c-2.072-2.07-5.045-2.953-7.916-2.359c-2.868,0.599-5.24,2.604-6.309,5.331c-13.861,35.368-5.463,75.576,21.394,102.435 c25.492,25.492,63.012,34.354,97.01,23.333l69.001,69.002l-9.954,9.954l-24.559-24.559c-2.13-2.127-5.204-2.996-8.135-2.311 c-2.928,0.691-5.291,2.85-6.243,5.706l-11.267,33.804L60.96,333.508c-0.783,0.474-1.487,1.067-2.085,1.76l-45.757,53.024 c-18.524,21.467-17.278,55.245,2.777,75.3l30.762,30.763c10.52,10.52,24.816,15.843,39.136,15.843 c12.99,0,26.001-4.382,36.223-13.243l54.064-46.865c0.692-0.6,1.286-1.306,1.756-2.091l52.633-87.667l33.792-11.264 c2.854-0.952,5.013-3.314,5.704-6.243s-0.183-6.007-2.311-8.135l-24.558-24.558l9.954-9.954l72.554,72.553 c-11.021,33.996-2.159,71.518,23.334,97.011c18.26,18.26,42.693,27.987,67.58,27.987c11.715-0.001,23.533-2.157,34.854-6.593 c2.727-1.068,4.733-3.441,5.331-6.309c0.599-2.867-0.288-5.843-2.359-7.916l-55.237-55.236l36.84-36.837l55.233,55.234 c2.072,2.071,5.051,2.958,7.916,2.359c2.868-0.599,5.24-2.604,6.309-5.332C519.268,401.734,510.87,361.526,484.013,334.668z M149.467,172.034c-2.44-2.44-6.092-3.201-9.308-1.944c-28.94,11.341-61.843,4.47-83.818-17.505 c-18.665-18.666-26.434-45.212-21.402-70.521l51.047,51.048c3.393,3.391,8.89,3.388,12.28,0l49.118-49.118 c3.391-3.392,3.391-8.888,0-12.28L96.336,20.667c25.306-5.034,51.853,2.736,70.52,21.403 c21.975,21.975,28.847,54.875,17.506,83.818c-1.259,3.214-0.496,6.867,1.944,9.308l72.886,72.885l-36.837,36.837L149.467,172.034z M245.442,337.035l-23.51,7.836c-1.965,0.656-3.631,1.992-4.698,3.768l-53.574,89.235l-53.019,45.959 c-14.751,12.79-37.946,12.001-51.704-1.759l-30.763-30.763c-13.763-13.763-14.621-36.944-1.909-51.674l44.854-51.977 l90.511-54.654c1.767-1.067,3.096-2.729,3.749-4.688l7.836-23.51l20.765,20.765l30.698,30.698L245.442,337.035z M230.818,297.853 l-18.419-18.419l158.134-158.133c0.565-0.565,1.048-1.205,1.438-1.903l29.84-53.371l41.128-20.563l21.849,21.848l-20.565,41.129 l-53.37,29.84c-0.698,0.39-1.338,0.873-1.903,1.438L230.818,297.853z M493.136,417.467l-51.046-51.047 c-3.39-3.388-8.887-3.39-12.279,0l-49.119,49.117c-1.629,1.629-2.544,3.837-2.544,6.14c0,2.303,0.915,4.511,2.543,6.14 l51.048,51.048c-25.306,5.025-51.856-2.739-70.52-21.403c-21.975-21.975-28.847-54.876-17.506-83.818 c1.259-3.214,0.496-6.867-1.944-9.308l-76.438-76.438l36.837-36.838l76.438,76.438c2.442,2.44,6.098,3.203,9.308,1.944 c28.944-11.337,61.844-4.469,83.818,17.505C490.4,365.613,498.168,392.159,493.136,417.467z\"/></symbol>\n  <symbol id=\"icon-tools\" viewBox=\"0 0 486.924 486.924\">\n    <title>icon-tools</title><path d=\"M13.361,409.063c-17.814,17.814-17.814,46.663,0,64.477c8.907,8.907,20.58,13.345,32.254,13.345 s23.347-4.438,32.254-13.345l149.717-149.748l-64.508-64.447L13.361,409.063z\"/><polygon points=\"387.548,131.577 452.755,97.863 486.893,31.866 455.065,0.038 389.098,34.207 355.324,99.353 276.012,178.756 308.175,210.98 \"/><path\n      d=\"M401.835,304.641l-6.141-0.608c-11.126,0-21.675,2.28-31.524,5.928l-187.17-187.2 c3.648-9.849,5.928-20.398,5.928-31.524l-0.608-6.141c-3.222-47.454-42.316-85.058-90.59-85.058 c-14.045,0-27.208,3.435-39.094,9.12l60.586,60.586c3.192,3.192,5.381,6.961,6.84,10.944c3.982,10.761,1.824,23.347-6.84,32.041 c-5.928,5.928-13.71,8.907-21.492,8.907c-3.587,0-7.144-0.79-10.549-2.067c-3.982-1.52-7.752-3.648-10.944-6.87L9.652,52.143 c-5.685,11.886-9.12,25.049-9.12,39.094c0,48.274,37.604,87.368,85.058,90.59l6.141,0.608c11.126,0,21.675-2.28,31.524-5.897 l187.139,187.17c-3.587,9.849-5.867,20.398-5.867,31.524l0.638,6.141c3.162,47.484,42.286,85.058,90.56,85.058 c14.045,0,27.238-3.374,39.094-9.12l-60.586-60.586c-3.162-3.162-5.381-6.961-6.901-10.913 c-3.982-10.761-1.824-23.377,6.901-32.071c5.867-5.928,13.71-8.907,21.492-8.907c3.587,0,7.113,0.76,10.579,2.067 c3.982,1.49,7.782,3.618,10.913,6.84l60.586,60.586c5.715-11.917,9.12-25.049,9.12-39.094 C486.893,346.957,449.289,307.863,401.835,304.641z\"/></symbol>\n  <symbol id=\"icon-trash-line\" viewBox=\"0 0 59 59\">\n    <title>icon-trash-line</title><path d=\"M29.5,51c0.552,0,1-0.447,1-1V17c0-0.553-0.448-1-1-1s-1,0.447-1,1v33C28.5,50.553,28.948,51,29.5,51z\"/><path d=\"M19.5,51c0.552,0,1-0.447,1-1V17c0-0.553-0.448-1-1-1s-1,0.447-1,1v33C18.5,50.553,18.948,51,19.5,51z\"/><path d=\"M39.5,51c0.552,0,1-0.447,1-1V17c0-0.553-0.448-1-1-1s-1,0.447-1,1v33C38.5,50.553,38.948,51,39.5,51z\"/><path\n      d=\"M52.5,6H38.456c-0.11-1.25-0.495-3.358-1.813-4.711C35.809,0.434,34.751,0,33.499,0H23.5c-1.252,0-2.31,0.434-3.144,1.289 C19.038,2.642,18.653,4.75,18.543,6H6.5c-0.552,0-1,0.447-1,1s0.448,1,1,1h2.041l1.915,46.021C10.493,55.743,11.565,59,15.364,59 h28.272c3.799,0,4.871-3.257,4.907-4.958L50.459,8H52.5c0.552,0,1-0.447,1-1S53.052,6,52.5,6z M21.792,2.681 C22.24,2.223,22.799,2,23.5,2h9.999c0.701,0,1.26,0.223,1.708,0.681c0.805,0.823,1.128,2.271,1.24,3.319H20.553 C20.665,4.952,20.988,3.504,21.792,2.681z M46.544,53.979C46.538,54.288,46.4,57,43.636,57H15.364 c-2.734,0-2.898-2.717-2.909-3.042L10.542,8h37.915L46.544,53.979z\"/></symbol>\n  <symbol id=\"icon-trash\" viewBox=\"0 0 59 59\">\n    <title>icon-trash</title><path\n      d=\"M52.5,6H38.456c-0.11-1.25-0.495-3.358-1.813-4.711C35.809,0.434,34.751,0,33.499,0H23.5c-1.252,0-2.31,0.434-3.144,1.289 C19.038,2.642,18.653,4.75,18.543,6H6.5c-0.552,0-1,0.447-1,1s0.448,1,1,1h2.041l1.915,46.021C10.493,55.743,11.565,59,15.364,59 h28.272c3.799,0,4.871-3.257,4.907-4.958L50.459,8H52.5c0.552,0,1-0.447,1-1S53.052,6,52.5,6z M20.5,50c0,0.553-0.448,1-1,1 s-1-0.447-1-1V17c0-0.553,0.448-1,1-1s1,0.447,1,1V50z M30.5,50c0,0.553-0.448,1-1,1s-1-0.447-1-1V17c0-0.553,0.448-1,1-1 s1,0.447,1,1V50z M40.5,50c0,0.553-0.448,1-1,1s-1-0.447-1-1V17c0-0.553,0.448-1,1-1s1,0.447,1,1V50z M21.792,2.681 C22.24,2.223,22.799,2,23.5,2h9.999c0.701,0,1.26,0.223,1.708,0.681c0.805,0.823,1.128,2.271,1.24,3.319H20.553 C20.665,4.952,20.988,3.504,21.792,2.681z\"/></symbol>\n  <symbol id=\"icon-unlock-line\" viewBox=\"0 0 54 54\">\n    <title>icon-unlock-line</title><path\n      d=\"M43,20.113V14.5C43,6.505,35.822,0,27,0S11,6.505,11,14.5c0,0.553,0.447,1,1,1s1-0.447,1-1C13,7.607,19.28,2,27,2 s14,5.607,14,12.5V20H12.229C8.243,20,5,23.243,5,27.229v19.542C5,50.757,8.243,54,12.229,54h29.542C45.757,54,49,50.757,49,46.771 V27.229C49,23.663,46.401,20.699,43,20.113z M47,46.771C47,49.654,44.654,52,41.771,52H12.229C9.346,52,7,49.654,7,46.771V27.229 C7,24.346,9.346,22,12.229,22h29.542C44.654,22,47,24.346,47,27.229V46.771z\"/><path d=\"M27,28c-2.206,0-4,1.794-4,4v6c0,2.206,1.794,4,4,4s4-1.794,4-4v-6C31,29.794,29.206,28,27,28z M29,38c0,1.103-0.897,2-2,2 s-2-0.897-2-2v-6c0-1.103,0.897-2,2-2s2,0.897,2,2V38z\"/></symbol>\n  <symbol id=\"icon-unlock\" viewBox=\"0 0 54 54\">\n    <title>icon-unlock</title><path\n      d=\"M43,20.113V14.5C43,6.505,35.822,0,27,0S11,6.505,11,14.5c0,0.553,0.447,1,1,1s1-0.447,1-1C13,7.607,19.28,2,27,2 s14,5.607,14,12.5V20H12.229C8.243,20,5,23.243,5,27.229v19.542C5,50.757,8.243,54,12.229,54h29.542C45.757,54,49,50.757,49,46.771 V27.229C49,23.663,46.401,20.699,43,20.113z M31,38c0,2.206-1.794,4-4,4s-4-1.794-4-4v-6c0-2.206,1.794-4,4-4s4,1.794,4,4V38z\"/></symbol>\n  <symbol id=\"icon-upload-line\" viewBox=\"0 0 60 60\">\n    <title>icon-upload-line</title><path\n      d=\"M50.975,20.694c-0.527-9-7.946-16.194-16.891-16.194c-5.43,0-10.688,2.663-13.946,7.008 c-0.074-0.039-0.153-0.065-0.228-0.102c-0.198-0.096-0.399-0.188-0.605-0.269c-0.115-0.045-0.23-0.086-0.346-0.127 c-0.202-0.071-0.406-0.133-0.615-0.19c-0.116-0.031-0.231-0.063-0.349-0.09c-0.224-0.051-0.452-0.09-0.683-0.124 c-0.102-0.015-0.202-0.035-0.305-0.047C16.677,10.523,16.341,10.5,16,10.5c-4.962,0-9,4.037-9,9c0,0.129,0.007,0.255,0.016,0.381 C2.857,22.148,0,26.899,0,31.654C0,38.737,5.762,44.5,12.845,44.5H18c0.552,0,1-0.447,1-1s-0.448-1-1-1h-5.155 C6.865,42.5,2,37.635,2,31.654c0-4.154,2.705-8.466,6.432-10.253L9,21.13V20.5c0-0.123,0.008-0.249,0.015-0.375l0.009-0.175 l-0.012-0.188C9.007,19.675,9,19.588,9,19.5c0-3.859,3.14-7,7-7c0.309,0,0.614,0.027,0.917,0.067 c0.078,0.01,0.155,0.023,0.232,0.036c0.268,0.044,0.532,0.102,0.792,0.177c0.034,0.01,0.069,0.016,0.102,0.026 c0.286,0.087,0.565,0.198,0.838,0.322c0.069,0.031,0.137,0.065,0.205,0.099c0.242,0.119,0.479,0.251,0.707,0.399 C21.72,14.875,23,17.039,23,19.5c0,0.553,0.448,1,1,1s1-0.447,1-1c0-2.754-1.246-5.219-3.2-6.871 C24.666,8.879,29.388,6.5,34.084,6.5c7.744,0,14.178,6.135,14.848,13.887c-1.022-0.072-2.553-0.109-4.083,0.125 c-0.546,0.083-0.921,0.593-0.838,1.139c0.075,0.495,0.501,0.85,0.987,0.85c0.05,0,0.101-0.004,0.152-0.012 c2.224-0.336,4.543-0.021,4.684-0.002C54.49,23.372,58,27.661,58,32.472C58,38.001,53.501,42.5,47.972,42.5H44 c-0.552,0-1,0.447-1,1s0.448,1,1,1h3.972C54.604,44.5,60,39.104,60,32.472C60,26.983,56.173,22.06,50.975,20.694z\"/><path\n      d=\"M31.708,30.794c-0.092-0.093-0.203-0.166-0.326-0.217c-0.244-0.101-0.52-0.101-0.764,0 c-0.123,0.051-0.233,0.124-0.326,0.217l-7.999,7.999c-0.391,0.391-0.391,1.023,0,1.414C22.488,40.402,22.744,40.5,23,40.5 s0.512-0.098,0.707-0.293L30,33.914V54.5c0,0.553,0.448,1,1,1s1-0.447,1-1V33.914l6.293,6.293C38.488,40.402,38.744,40.5,39,40.5 s0.512-0.098,0.707-0.293c0.391-0.391,0.391-1.023,0-1.414L31.708,30.794z\"/></symbol>\n  <symbol id=\"icon-upload\" viewBox=\"0 0 56 56\">\n    <title>icon-upload</title><path\n      d=\"M37,36.5c0.512,0,1.024-0.195,1.414-0.586c0.781-0.781,0.781-2.047,0-2.828l-7.999-7.999 c-0.093-0.093-0.196-0.177-0.306-0.25c-0.05-0.034-0.105-0.057-0.158-0.086c-0.062-0.034-0.121-0.071-0.186-0.098 c-0.067-0.028-0.137-0.044-0.206-0.064c-0.056-0.017-0.11-0.038-0.168-0.05c-0.259-0.052-0.525-0.052-0.784,0 c-0.058,0.011-0.112,0.033-0.168,0.05c-0.069,0.02-0.138,0.036-0.205,0.064c-0.066,0.027-0.125,0.065-0.187,0.099 c-0.052,0.029-0.107,0.052-0.157,0.085c-0.11,0.073-0.213,0.157-0.306,0.25l-7.999,7.999c-0.781,0.781-0.781,2.047,0,2.828 C19.976,36.305,20.488,36.5,21,36.5s1.024-0.195,1.414-0.586L27,31.328V49.5c0,1.104,0.896,2,2,2s2-0.896,2-2V31.328l4.586,4.586 C35.976,36.305,36.488,36.5,37,36.5z\"/><path\n      d=\"M47.835,20.486c-0.137-0.019-2.457-0.335-4.684,0.002C43.1,20.496,43.049,20.5,42.999,20.5 c-0.486,0-0.912-0.354-0.987-0.85c-0.083-0.546,0.292-1.056,0.838-1.139c1.531-0.233,3.062-0.196,4.083-0.124 C46.262,10.635,39.83,4.5,32.085,4.5c-4.697,0-9.418,2.379-12.285,6.129c1.954,1.652,3.2,4.117,3.2,6.871c0,0.553-0.447,1-1,1 s-1-0.447-1-1c0-2.462-1.281-4.627-3.209-5.876c-0.227-0.147-0.462-0.277-0.702-0.396c-0.069-0.034-0.139-0.069-0.21-0.101 c-0.272-0.124-0.55-0.234-0.835-0.321c-0.035-0.01-0.071-0.017-0.106-0.027c-0.259-0.075-0.522-0.132-0.789-0.177 c-0.078-0.013-0.155-0.025-0.233-0.036C14.614,10.527,14.309,10.5,14,10.5c-3.859,0-7,3.141-7,7c0,0.082,0.006,0.163,0.012,0.244 l0.012,0.21l-0.009,0.16C7.008,18.244,7,18.373,7,18.5v0.63l-0.567,0.271C2.705,21.188,0,25.5,0,29.654 C0,35.635,4.865,40.5,10.845,40.5h14.184v-4.343l-1.171,1.171c-0.781,0.781-1.805,1.172-2.829,1.172s-2.047-0.391-2.829-1.172 c-1.562-1.562-1.562-4.095,0-5.656l8-8h0c0.186-0.186,0.391-0.352,0.61-0.499c0.098-0.065,0.205-0.111,0.307-0.167 c0.126-0.069,0.248-0.146,0.382-0.201c0.132-0.055,0.27-0.086,0.406-0.126c0.114-0.033,0.223-0.077,0.34-0.101 c0.517-0.103,1.05-0.103,1.567,0c0.118,0.023,0.227,0.067,0.34,0.101c0.136,0.04,0.274,0.071,0.406,0.126 c0.134,0.056,0.256,0.132,0.382,0.201c0.102,0.056,0.209,0.101,0.307,0.167c0.219,0.146,0.424,0.313,0.61,0.499h0l8,8 c1.562,1.562,1.562,4.095,0,5.656c-0.781,0.781-1.805,1.172-2.829,1.172s-2.047-0.391-2.829-1.172l-1.171-1.171V40.5h2.324 c0.059,0,0.116-0.005,0.174-0.009l0.198-0.011l0.271,0.011c0.058,0.004,0.115,0.009,0.174,0.009h9.803 C51.501,40.5,56,36.001,56,30.472C56,25.661,52.49,21.372,47.835,20.486z\"/></symbol>\n  <symbol id=\"icon-user-line\" viewBox=\"0 0 55 55\">\n    <title>icon-user-line</title><path\n      d=\"M55,27.5C55,12.337,42.663,0,27.5,0S0,12.337,0,27.5c0,8.009,3.444,15.228,8.926,20.258l-0.026,0.023l0.892,0.752 c0.058,0.049,0.121,0.089,0.179,0.137c0.474,0.393,0.965,0.766,1.465,1.127c0.162,0.117,0.324,0.234,0.489,0.348 c0.534,0.368,1.082,0.717,1.642,1.048c0.122,0.072,0.245,0.142,0.368,0.212c0.613,0.349,1.239,0.678,1.88,0.98 c0.047,0.022,0.095,0.042,0.142,0.064c2.089,0.971,4.319,1.684,6.651,2.105c0.061,0.011,0.122,0.022,0.184,0.033 c0.724,0.125,1.456,0.225,2.197,0.292c0.09,0.008,0.18,0.013,0.271,0.021C25.998,54.961,26.744,55,27.5,55 c0.749,0,1.488-0.039,2.222-0.098c0.093-0.008,0.186-0.013,0.279-0.021c0.735-0.067,1.461-0.164,2.178-0.287 c0.062-0.011,0.125-0.022,0.187-0.034c2.297-0.412,4.495-1.109,6.557-2.055c0.076-0.035,0.153-0.068,0.229-0.104 c0.617-0.29,1.22-0.603,1.811-0.936c0.147-0.083,0.293-0.167,0.439-0.253c0.538-0.317,1.067-0.648,1.581-1 c0.185-0.126,0.366-0.259,0.549-0.391c0.439-0.316,0.87-0.642,1.289-0.983c0.093-0.075,0.193-0.14,0.284-0.217l0.915-0.764 l-0.027-0.023C51.523,42.802,55,35.55,55,27.5z M2,27.5C2,13.439,13.439,2,27.5,2S53,13.439,53,27.5 c0,7.577-3.325,14.389-8.589,19.063c-0.294-0.203-0.59-0.385-0.893-0.537l-8.467-4.233c-0.76-0.38-1.232-1.144-1.232-1.993v-2.957 c0.196-0.242,0.403-0.516,0.617-0.817c1.096-1.548,1.975-3.27,2.616-5.123c1.267-0.602,2.085-1.864,2.085-3.289v-3.545 c0-0.867-0.318-1.708-0.887-2.369v-4.667c0.052-0.519,0.236-3.448-1.883-5.864C34.524,9.065,31.541,8,27.5,8 s-7.024,1.065-8.867,3.168c-2.119,2.416-1.935,5.345-1.883,5.864v4.667c-0.568,0.661-0.887,1.502-0.887,2.369v3.545 c0,1.101,0.494,2.128,1.34,2.821c0.81,3.173,2.477,5.575,3.093,6.389v2.894c0,0.816-0.445,1.566-1.162,1.958l-7.907,4.313 c-0.252,0.137-0.502,0.297-0.752,0.476C5.276,41.792,2,35.022,2,27.5z M42.459,48.132c-0.35,0.254-0.706,0.5-1.067,0.735 c-0.166,0.108-0.331,0.216-0.5,0.321c-0.472,0.292-0.952,0.57-1.442,0.83c-0.108,0.057-0.217,0.111-0.326,0.167 c-1.126,0.577-2.291,1.073-3.488,1.476c-0.042,0.014-0.084,0.029-0.127,0.043c-0.627,0.208-1.262,0.393-1.904,0.552 c-0.002,0-0.004,0.001-0.006,0.001c-0.648,0.16-1.304,0.293-1.964,0.402c-0.018,0.003-0.036,0.007-0.054,0.01 c-0.621,0.101-1.247,0.174-1.875,0.229c-0.111,0.01-0.222,0.017-0.334,0.025C28.751,52.97,28.127,53,27.5,53 c-0.634,0-1.266-0.031-1.895-0.078c-0.109-0.008-0.218-0.015-0.326-0.025c-0.634-0.056-1.265-0.131-1.89-0.233 c-0.028-0.005-0.056-0.01-0.084-0.015c-1.322-0.221-2.623-0.546-3.89-0.971c-0.039-0.013-0.079-0.027-0.118-0.04 c-0.629-0.214-1.251-0.451-1.862-0.713c-0.004-0.002-0.009-0.004-0.013-0.006c-0.578-0.249-1.145-0.525-1.705-0.816 c-0.073-0.038-0.147-0.074-0.219-0.113c-0.511-0.273-1.011-0.568-1.504-0.876c-0.146-0.092-0.291-0.185-0.435-0.279 c-0.454-0.297-0.902-0.606-1.338-0.933c-0.045-0.034-0.088-0.07-0.133-0.104c0.032-0.018,0.064-0.036,0.096-0.054l7.907-4.313 c1.36-0.742,2.205-2.165,2.205-3.714l-0.001-3.602l-0.23-0.278c-0.022-0.025-2.184-2.655-3.001-6.216l-0.091-0.396l-0.341-0.221 c-0.481-0.311-0.769-0.831-0.769-1.392v-3.545c0-0.465,0.197-0.898,0.557-1.223l0.33-0.298v-5.57l-0.009-0.131 c-0.003-0.024-0.298-2.429,1.396-4.36C21.583,10.837,24.061,10,27.5,10c3.426,0,5.896,0.83,7.346,2.466 c1.692,1.911,1.415,4.361,1.413,4.381l-0.009,5.701l0.33,0.298c0.359,0.324,0.557,0.758,0.557,1.223v3.545 c0,0.713-0.485,1.36-1.181,1.575l-0.497,0.153l-0.16,0.495c-0.59,1.833-1.43,3.526-2.496,5.032c-0.262,0.37-0.517,0.698-0.736,0.949 l-0.248,0.283V39.8c0,1.612,0.896,3.062,2.338,3.782l8.467,4.233c0.054,0.027,0.107,0.055,0.16,0.083 C42.677,47.979,42.567,48.054,42.459,48.132z\"/></symbol>\n  <symbol id=\"icon-user\" viewBox=\"0 0 55 55\">\n    <title>icon-user</title><path\n      d=\"M55,27.5C55,12.337,42.663,0,27.5,0S0,12.337,0,27.5c0,8.009,3.444,15.228,8.926,20.258l-0.026,0.023l0.892,0.752 c0.058,0.049,0.121,0.089,0.179,0.137c0.474,0.393,0.965,0.766,1.465,1.127c0.162,0.117,0.324,0.234,0.489,0.348 c0.534,0.368,1.082,0.717,1.642,1.048c0.122,0.072,0.245,0.142,0.368,0.212c0.613,0.349,1.239,0.678,1.88,0.98 c0.047,0.022,0.095,0.042,0.142,0.064c2.089,0.971,4.319,1.684,6.651,2.105c0.061,0.011,0.122,0.022,0.184,0.033 c0.724,0.125,1.456,0.225,2.197,0.292c0.09,0.008,0.18,0.013,0.271,0.021C25.998,54.961,26.744,55,27.5,55 c0.749,0,1.488-0.039,2.222-0.098c0.093-0.008,0.186-0.013,0.279-0.021c0.735-0.067,1.461-0.164,2.178-0.287 c0.062-0.011,0.125-0.022,0.187-0.034c2.297-0.412,4.495-1.109,6.557-2.055c0.076-0.035,0.153-0.068,0.229-0.104 c0.617-0.29,1.22-0.603,1.811-0.936c0.147-0.083,0.293-0.167,0.439-0.253c0.538-0.317,1.067-0.648,1.581-1 c0.185-0.126,0.366-0.259,0.549-0.391c0.439-0.316,0.87-0.642,1.289-0.983c0.093-0.075,0.193-0.14,0.284-0.217l0.915-0.764 l-0.027-0.023C51.523,42.802,55,35.55,55,27.5z M2,27.5C2,13.439,13.439,2,27.5,2S53,13.439,53,27.5 c0,7.577-3.325,14.389-8.589,19.063c-0.294-0.203-0.59-0.385-0.893-0.537l-8.467-4.233c-0.76-0.38-1.232-1.144-1.232-1.993v-2.957 c0.196-0.242,0.403-0.516,0.617-0.817c1.096-1.548,1.975-3.27,2.616-5.123c1.267-0.602,2.085-1.864,2.085-3.289v-3.545 c0-0.867-0.318-1.708-0.887-2.369v-4.667c0.052-0.52,0.236-3.448-1.883-5.864C34.524,9.065,31.541,8,27.5,8 s-7.024,1.065-8.867,3.168c-2.119,2.416-1.935,5.346-1.883,5.864v4.667c-0.568,0.661-0.887,1.502-0.887,2.369v3.545 c0,1.101,0.494,2.128,1.34,2.821c0.81,3.173,2.477,5.575,3.093,6.389v2.894c0,0.816-0.445,1.566-1.162,1.958l-7.907,4.313 c-0.252,0.137-0.502,0.297-0.752,0.476C5.276,41.792,2,35.022,2,27.5z\"/></symbol>\n  <symbol id=\"icon-web-line\" viewBox=\"0 0 58 58\">\n    <title>icon-web-line</title><path\n      d=\"M50.688,48.222C55.232,43.101,58,36.369,58,29c0-7.667-2.996-14.643-7.872-19.834c0,0,0-0.001,0-0.001 c-0.004-0.006-0.01-0.008-0.013-0.013c-5.079-5.399-12.195-8.855-20.11-9.126l-0.001-0.001L29.439,0.01C29.293,0.005,29.147,0,29,0 s-0.293,0.005-0.439,0.01l-0.563,0.015l-0.001,0.001c-7.915,0.271-15.031,3.727-20.11,9.126c-0.004,0.005-0.01,0.007-0.013,0.013 c0,0,0,0.001-0.001,0.002C2.996,14.357,0,21.333,0,29c0,7.369,2.768,14.101,7.312,19.222c0.006,0.009,0.006,0.019,0.013,0.028 c0.018,0.025,0.044,0.037,0.063,0.06c5.106,5.708,12.432,9.385,20.608,9.665l0.001,0.001l0.563,0.015C28.707,57.995,28.853,58,29,58 s0.293-0.005,0.439-0.01l0.563-0.015l0.001-0.001c8.185-0.281,15.519-3.965,20.625-9.685c0.013-0.017,0.034-0.022,0.046-0.04 C50.682,48.241,50.682,48.231,50.688,48.222z M2.025,30h12.003c0.113,4.239,0.941,8.358,2.415,12.217 c-2.844,1.029-5.563,2.409-8.111,4.131C4.585,41.891,2.253,36.21,2.025,30z M8.878,11.023c2.488,1.618,5.137,2.914,7.9,3.882 C15.086,19.012,14.15,23.44,14.028,28H2.025C2.264,21.493,4.812,15.568,8.878,11.023z M55.975,28H43.972 c-0.122-4.56-1.058-8.988-2.75-13.095c2.763-0.968,5.412-2.264,7.9-3.882C53.188,15.568,55.736,21.493,55.975,28z M28,14.963 c-2.891-0.082-5.729-0.513-8.471-1.283C21.556,9.522,24.418,5.769,28,2.644V14.963z M28,16.963V28H16.028 c0.123-4.348,1.035-8.565,2.666-12.475C21.7,16.396,24.821,16.878,28,16.963z M30,16.963c3.179-0.085,6.3-0.566,9.307-1.438 c1.631,3.91,2.543,8.127,2.666,12.475H30V16.963z M30,14.963V2.644c3.582,3.125,6.444,6.878,8.471,11.036 C35.729,14.45,32.891,14.881,30,14.963z M40.409,13.072c-1.921-4.025-4.587-7.692-7.888-10.835 c5.856,0.766,11.125,3.414,15.183,7.318C45.4,11.017,42.956,12.193,40.409,13.072z M17.591,13.072 c-2.547-0.879-4.991-2.055-7.294-3.517c4.057-3.904,9.327-6.552,15.183-7.318C22.178,5.38,19.512,9.047,17.591,13.072z M16.028,30 H28v10.038c-3.307,0.088-6.547,0.604-9.661,1.541C16.932,37.924,16.141,34.019,16.028,30z M28,42.038v13.318 c-3.834-3.345-6.84-7.409-8.884-11.917C21.983,42.594,24.961,42.124,28,42.038z M30,55.356V42.038 c3.039,0.085,6.017,0.556,8.884,1.4C36.84,47.947,33.834,52.011,30,55.356z M30,40.038V30h11.972 c-0.113,4.019-0.904,7.924-2.312,11.58C36.547,40.642,33.307,40.126,30,40.038z M43.972,30h12.003 c-0.228,6.21-2.559,11.891-6.307,16.348c-2.548-1.722-5.267-3.102-8.111-4.131C43.032,38.358,43.859,34.239,43.972,30z M9.691,47.846c2.366-1.572,4.885-2.836,7.517-3.781c1.945,4.36,4.737,8.333,8.271,11.698C19.328,54.958,13.823,52.078,9.691,47.846 z M32.521,55.763c3.534-3.364,6.326-7.337,8.271-11.698c2.632,0.945,5.15,2.209,7.517,3.781 C44.177,52.078,38.672,54.958,32.521,55.763z\"/></symbol>\n  <symbol id=\"icon-web\" viewBox=\"0 0 57.949 57.949\">\n    <title>icon-web</title><path d=\"M29.975,27.985h11.972c-0.123-4.348-1.033-8.567-2.664-12.477c-3.01,0.874-6.131,1.355-9.308,1.44V27.985z\"/><path d=\"M40.384,13.057c2.928-1.01,5.731-2.392,8.328-4.169l0.653-0.5C44.588,3.658,38.18,0.58,31.071,0.069L30.553,0.49 C34.767,3.979,38.099,8.268,40.384,13.057z\"/><path d=\"M29.975,2.628v12.32c2.891-0.082,5.731-0.513,8.473-1.283C36.421,9.505,33.557,5.753,29.975,2.628z\"/><path d=\"M41.531,42.202c3.13,1.132,6.12,2.668,8.885,4.639l0.868,0.65c3.976-4.785,6.439-10.866,6.665-17.505H43.947 C43.834,34.224,43.006,38.343,41.531,42.202z\"/><path d=\"M9.237,8.888c2.597,1.777,5.401,3.158,8.328,4.169c2.285-4.788,5.617-9.077,9.832-12.567l-0.518-0.421 c-7.125,0.512-13.547,3.603-18.328,8.35L9.237,8.888z\"/><path d=\"M27.975,2.628c-3.583,3.125-6.446,6.878-8.473,11.036c2.742,0.77,5.582,1.202,8.473,1.283V2.628z\"/><path d=\"M14.003,29.985H0c0.227,6.639,2.689,12.719,6.665,17.505l0.85-0.635c2.775-1.977,5.771-3.518,8.906-4.652 C14.943,38.341,14.116,34.222,14.003,29.985z\"/><path d=\"M16.752,14.89c-3.037-1.064-5.945-2.505-8.644-4.351L7.17,9.897C2.901,14.768,0.236,21.072,0,27.985h14.003 C14.124,23.425,15.061,18.997,16.752,14.89z\"/><path d=\"M16.003,27.985h11.972V16.948c-3.179-0.085-6.301-0.566-9.309-1.438C17.035,19.419,16.125,23.637,16.003,27.985z\"/><path d=\"M27.297,57.391c-4.419-3.695-7.841-8.259-10.111-13.341c-2.992,1.074-5.851,2.538-8.492,4.42l-0.689,0.515 c4.774,5.003,11.31,8.304,18.605,8.896L27.297,57.391z\"/><path d=\"M27.975,40.023V29.985H16.003c0.113,4.019,0.905,7.924,2.313,11.58C21.429,40.627,24.669,40.111,27.975,40.023z\"/><path d=\"M49.236,48.456c-2.631-1.875-5.482-3.335-8.469-4.406c-2.272,5.094-5.698,9.662-10.113,13.344l0.685,0.487 c7.295-0.592,13.832-3.892,18.606-8.895L49.236,48.456z\"/><path d=\"M49.885,10.507c-2.72,1.862-5.643,3.311-8.689,4.38c1.692,4.108,2.629,8.537,2.751,13.098h14.003 c-0.237-6.935-2.917-13.256-7.209-18.133L49.885,10.507z\"/><path d=\"M27.975,55.342V42.023c-3.039,0.085-6.016,0.556-8.882,1.4C21.136,47.932,24.141,51.998,27.975,55.342z\"/><path d=\"M41.947,29.985H29.975v10.038c3.307,0.088,6.548,0.604,9.662,1.542C41.041,37.91,41.833,34.005,41.947,29.985z\"/><path d=\"M38.86,43.423c-2.866-0.844-5.845-1.314-8.885-1.4v13.323C33.806,52.013,36.814,47.943,38.86,43.423z\"/></symbol>\n  <symbol id=\"invalid-line\" viewBox=\"0 0 490 490\">\n    <title>invalid-line</title><path d=\"M245,0C109.684,0,0,109.684,0,245s109.684,245,245,245s245-109.684,245-245S380.316,0,245,0z M245,459.375 c-118.213,0-214.375-96.163-214.375-214.375S126.787,30.625,245,30.625S459.375,126.787,459.375,245S363.212,459.375,245,459.375z\"/><polygon points=\"266.836,286.987 275.196,114.874 214.788,114.874 223.532,286.987 \"/><path d=\"M245.184,305.974c-20.136,0-34.178,14.424-34.178,34.576c0,19.738,13.674,34.576,34.178,34.576 c20.503,0,33.825-14.823,33.825-34.576C278.611,320.399,265.304,305.974,245.184,305.974z\"/></symbol>\n  <symbol id=\"load1\" viewBox=\"0 0 399.389 399.389\">\n    <title>load1</title><path\n      d=\"M340.896,58.49C303.18,20.773,253.031,0.001,199.693,0.001c-53.34,0-103.487,20.771-141.204,58.489 C20.772,96.208,0,146.355,0,199.694c0,53.34,20.772,103.489,58.49,141.206c37.717,37.717,87.864,58.488,141.204,58.488 c53.339,0,103.486-20.771,141.205-58.488c37.717-37.717,58.49-87.865,58.49-141.206C399.387,146.355,378.613,96.208,340.896,58.49z M321.93,199.694c0,67.401-54.836,122.236-122.237,122.236S77.457,267.096,77.457,199.694S132.292,77.458,199.693,77.458 S321.93,132.293,321.93,199.694z M328.061,71.327c3.352,3.353,6.553,6.817,9.607,10.379l-29.262,29.262 c-25.766-31.512-64.928-51.664-108.713-51.664c-4.593,0-9.134,0.229-13.615,0.662V18.655c4.508-0.332,9.049-0.5,13.615-0.5 C248.184,18.155,293.771,37.038,328.061,71.327z\"/></symbol>\n  <symbol id=\"load2\" viewBox=\"0 0 399.389 399.389\">\n    <title>load2</title><path\n      d=\"M340.896,58.489C303.18,20.773,253.031,0.001,199.693,0.001c-53.34,0-103.487,20.771-141.204,58.488 C20.772,96.207,0,146.355,0,199.694c0,53.34,20.772,103.489,58.49,141.206c37.717,37.717,87.864,58.488,141.204,58.488 c53.339,0,103.486-20.771,141.205-58.488c37.717-37.717,58.49-87.865,58.49-141.206C399.387,146.355,378.613,96.207,340.896,58.489 z M328.061,71.326c34.289,34.289,53.172,79.878,53.172,128.368h-41.148c0-77.412-62.979-140.391-140.391-140.391 c-4.593,0-9.134,0.229-13.615,0.662v-41.31c4.508-0.332,9.049-0.5,13.615-0.5C248.184,18.155,293.771,37.038,328.061,71.326z M199.693,321.931c-67.401,0-122.236-54.835-122.236-122.236S132.292,77.458,199.693,77.458S321.93,132.293,321.93,199.694 S267.094,321.931,199.693,321.931z\"/></symbol>\n  <symbol id=\"load3\" viewBox=\"0 0 399.389 399.389\">\n    <title>load3</title><path\n      d=\"M340.896,58.489C303.18,20.773,253.031,0.001,199.693,0.001c-53.34,0-103.487,20.771-141.204,58.488 C20.772,96.207,0,146.355,0,199.694c0,53.34,20.772,103.489,58.49,141.206c37.717,37.717,87.864,58.488,141.204,58.488 c53.339,0,103.486-20.771,141.205-58.488c37.717-37.717,58.49-87.865,58.49-141.206C399.387,146.355,378.613,96.207,340.896,58.489 z M77.457,199.694c0-67.401,54.835-122.236,122.236-122.236S321.93,132.293,321.93,199.694s-54.836,122.237-122.237,122.237 S77.457,267.096,77.457,199.694z M328.061,328.063c-34.289,34.287-79.877,53.17-128.368,53.17v-41.147 c77.413,0,140.389-62.979,140.389-140.391c0-77.412-62.979-140.391-140.389-140.391c-4.593,0-9.134,0.229-13.615,0.662V18.655 c4.508-0.332,9.049-0.5,13.615-0.5c48.491,0,94.079,18.883,128.368,53.171c34.289,34.289,53.172,79.878,53.172,128.368 C381.232,248.187,362.35,293.776,328.061,328.063z\"/></symbol>\n  <symbol id=\"load4\" viewBox=\"0 0 399.387 399.387\">\n    <title>load4</title><path\n      d=\"M340.896,58.488C303.18,20.771,253.033,0,199.694,0C146.353,0,96.207,20.771,58.491,58.488 C20.772,96.206,0,146.354,0,199.693c0,53.342,20.772,103.489,58.491,141.206c37.716,37.717,87.863,58.488,141.203,58.488 c53.337,0,103.486-20.771,141.203-58.488c37.719-37.718,58.49-87.865,58.49-141.206C399.387,146.355,378.615,96.207,340.896,58.488 z M199.694,77.457c67.402,0,122.236,54.835,122.236,122.236s-54.834,122.236-122.236,122.236S77.457,267.094,77.457,199.693 S132.292,77.457,199.694,77.457z M328.061,328.062c-34.289,34.287-79.877,53.17-128.367,53.17 c-48.491,0-94.079-18.883-128.367-53.17c-34.289-34.287-53.173-79.877-53.173-128.37h41.148 c0,77.411,62.979,140.391,140.392,140.391c77.412,0,140.39-62.979,140.39-140.391c0-77.412-62.979-140.391-140.39-140.391 c-4.594,0-9.134,0.229-13.615,0.662v-41.31c4.508-0.332,9.049-0.5,13.615-0.5c48.49,0,94.078,18.883,128.367,53.171 c34.289,34.289,53.172,79.878,53.172,128.368C381.232,248.186,362.35,293.775,328.061,328.062z\"/></symbol>\n  <symbol id=\"md-bold\" viewBox=\"0 0 448 448\">\n    <title>md-bold</title><path\n      d=\"M321.939,210.326C340.689,188.055,352,159.322,352,128C352,57.42,294.578,0,224,0h-64H96H64v448h32h64h96 c70.578,0,128-57.421,128-128C384,273.521,359.102,232.752,321.939,210.326z M160,64h50.75c27.984,0,50.75,28.71,50.75,64 s-22.766,64-50.75,64H160V64z M239.5,384H160V256h79.5c29.225,0,53,28.71,53,64S268.725,384,239.5,384z\"/></symbol>\n  <symbol id=\"md-header\" viewBox=\"0 0 16 16\">\n    <title>md-header</title><path d=\"M11 0v7h-6v-7h-3v16h3v-7h6v7h3v-16z\"/></symbol>\n  <symbol id=\"md-help\" viewBox=\"0 0 512 512\">\n    <title>md-help</title><path\n      d=\"M224,352h64v64h-64V352z M352,128c17.674,0,32,14.327,32,32v96l-96,64h-64v-32l96-64v-32H160v-64H352z M256,48 c-55.559,0-107.792,21.636-147.078,60.922C69.636,148.208,48,200.441,48,256c0,55.559,21.636,107.792,60.922,147.078 C148.208,442.364,200.441,464,256,464c55.559,0,107.791-21.636,147.078-60.922C442.363,363.792,464,311.559,464,256 c0-55.559-21.637-107.792-60.922-147.078C363.791,69.636,311.559,48,256,48z M256,0L256,0c141.385,0,256,114.615,256,256 S397.385,512,256,512C114.615,512,0,397.385,0,256S114.615,0,256,0z\"/></symbol>\n  <symbol id=\"md-image\" viewBox=\"0 0 533.333 533.334\">\n    <title>md-image</title><path\n      d=\"M466.667,100h-400v333.333h400V100z M533.333,33.333L533.333,33.333V500H0V33.333H533.333z M433.333,400H100v-66.667 l100-166.667l136.979,166.667l96.354-66.666V300V400z M333.333,183.333c0,27.614,22.386,50,50,50s50-22.386,50-50s-22.386-50-50-50 S333.333,155.719,333.333,183.333z\"/></symbol>\n  <symbol id=\"md-italic\" viewBox=\"0 0 466.666 466.667\">\n    <title>md-italic</title><path d=\"M433.333,0v33.333h-66.667L200,433.333h66.667v33.333H33.333v-33.333H100l166.667-400H200V0H433.333z\"/></symbol>\n  <symbol id=\"md-link\" viewBox=\"0 0 512 512\">\n    <title>md-link</title><path\n      d=\"M476.697,37.322l-2.015-2.021c-47.073-47.066-124.097-47.066-171.162,0L194.467,144.369 c-47.066,47.066-47.066,124.088,0,171.155l2.014,2.013c3.916,3.924,8.073,7.462,12.368,10.729l39.924-39.927 c-4.651-2.747-9.063-6.034-13.059-10.028l-2.021-2.021c-25.557-25.549-25.557-67.136,0-92.695L342.758,74.539 c25.559-25.559,67.137-25.559,92.692,0l2.021,2.012c25.55,25.559,25.55,67.146,0,92.695l-49.343,49.343 c8.565,21.154,12.624,43.7,12.27,66.193L476.7,208.48C523.767,161.412,523.767,84.392,476.697,37.322z M315.521,194.468 c-3.916-3.916-8.073-7.461-12.369-10.72l-39.924,39.916c4.651,2.748,9.062,6.037,13.059,10.031l2.021,2.02 c25.558,25.559,25.558,67.137,0,92.694L169.242,437.476c-25.559,25.553-67.138,25.553-92.694,0l-2.021-2.021 c-25.549-25.561-25.549-67.138,0-92.694l49.344-49.343c-8.566-21.152-12.623-43.701-12.269-66.192l-76.301,76.299 c-47.068,47.064-47.068,124.089,0,171.162l2.013,2.016c47.076,47.062,124.096,47.062,171.164,0l109.055-109.059 c47.066-47.066,47.066-124.099,0-171.164L315.521,194.468z\"/></symbol>\n  <symbol id=\"md-list\" viewBox=\"0 0 533.333 533.333\">\n    <title>md-list</title><path d=\"M0,0h133.333v133.333H0V0z M200,33.333h333.333V100H200V33.333z M0,200h133.333v133.333H0V200z M200,233.333h333.333V300 H200V233.333z M0,400h133.333v133.333H0V400z M200,433.333h333.333V500H200V433.333z\"/></symbol>\n  <symbol id=\"md-number\" viewBox=\"0 0 533.333 533.333\">\n    <title>md-number</title><path\n      d=\"M183.333,433.333h333.333V500H183.333V433.333z M183.333,233.333h333.333V300H183.333V233.333z M183.333,33.333h333.333 V100H183.333V33.333z M83.333,0v133.333H50v-100H16.667V0H83.333z M50,273.958V300h66.667v33.333h-100v-76.042l66.667-31.25V200 H16.667v-33.333h100v76.042L50,273.958z M116.667,366.667v166.666h-100V500h66.667v-33.333H16.667v-33.334h66.667V400H16.667 v-33.333H116.667z\"/></symbol>\n  <symbol id=\"md-preview\" viewBox=\"0 0 511.999 511.999\">\n    <title>md-preview</title><path\n      d=\"M496.131,435.698L374.855,332.551c-12.537-11.283-25.945-16.463-36.777-15.963C366.707,283.055,384,239.549,384,192 C384,85.961,298.039,0,192,0C85.962,0,0,85.961,0,192s85.961,192,192,192c47.549,0,91.055-17.293,124.588-45.922 c-0.5,10.831,4.68,24.238,15.963,36.775L435.697,496.13c17.662,19.623,46.512,21.277,64.109,3.678 C517.406,482.209,515.754,453.359,496.131,435.698z M192,320c-70.692,0-128-57.309-128-128c0-70.692,57.308-128,128-128 c70.691,0,128,57.308,128,128C320,262.691,262.693,320,192,320z\"/></symbol>\n  <symbol id=\"radio-off\" viewBox=\"0 0 510 510\">\n    <title>radio-off</title><path d=\"M255,0C114.75,0,0,114.75,0,255s114.75,255,255,255s255-114.75,255-255S395.25,0,255,0z M255,459 c-112.2,0-204-91.8-204-204S142.8,51,255,51s204,91.8,204,204S367.2,459,255,459z\"/></symbol>\n  <symbol id=\"radio-on\" viewBox=\"0 0 510 510\">\n    <title>radio-on</title><path\n      d=\"M255,127.5c-71.4,0-127.5,56.1-127.5,127.5c0,71.4,56.1,127.5,127.5,127.5c71.4,0,127.5-56.1,127.5-127.5 C382.5,183.6,326.4,127.5,255,127.5z M255,0C114.75,0,0,114.75,0,255s114.75,255,255,255s255-114.75,255-255S395.25,0,255,0z M255,459c-112.2,0-204-91.8-204-204S142.8,51,255,51s204,91.8,204,204S367.2,459,255,459z\"/></symbol>\n  <symbol id=\"sort-asc\" viewBox=\"0 0 16 16\">\n    <title>sort-asc</title><path d=\"M13 12h-10l5-7z\"/></symbol>\n  <symbol id=\"sort-desc\" viewBox=\"0 0 16 16\">\n    <title>sort-desc</title><path d=\"M3 4h10l-5 7z\"/></symbol>\n  <symbol id=\"symbol-dollar\" viewBox=\"0 0 323.962 323.962\">\n    <title>symbol-dollar</title><path\n      d=\"M161.981,0.014C72.688,0.014,0,72.674,0,161.994c0,89.293,72.688,161.954,161.981,161.954 c89.32,0,161.981-72.66,161.981-161.954C323.962,72.674,251.301,0.014,161.981,0.014z M168.997,237.467v25.64h-15.545v-24.639 c-14.278-0.272-28.86-4.727-37.47-10.884l5.912-16.486c8.61,5.668,21.457,10.574,35.278,10.574 c17.487,0,27.777-10.089,27.745-24.182c0.033-13.549-8.017-21.941-26.287-29.344c-25.134-9.877-40.679-21.457-40.679-42.92 c0-20.462,14.517-35.979,36.98-39.705V60.85h15.539v23.97c14.549,0.462,24.65,4.427,32.047,8.61l-6.157,16.279 c-5.183-2.943-15.278-8.637-31.068-8.637c-19.004,0-24.563,11.362-24.563,21.457c0,12.581,7.533,18.977,29.012,28.098 c25.4,10.394,38.22,22.975,38.22,44.921C207.974,215.243,194.403,233.518,168.997,237.467z\"/></symbol>\n  <symbol id=\"symbol-error\" viewBox=\"0 0 512.001 512.001\">\n    <title>symbol-error</title><path\n      d=\"M437.105,74.896c-99.863-99.863-262.35-99.859-362.209,0c-99.859,99.859-99.863,262.346,0,362.209 s262.351,99.86,362.209,0S536.968,174.759,437.105,74.896z M362.324,338.697c6.526,6.526,6.522,17.105,0,23.627 c-6.522,6.522-17.101,6.526-23.627,0l-82.696-82.696l-82.696,82.696c-6.522,6.522-17.101,6.526-23.627,0 c-6.526-6.526-6.522-17.105,0-23.627l82.696-82.696l-82.696-82.696c-6.526-6.526-6.522-17.106,0-23.627s17.101-6.526,23.627,0 l82.696,82.696l82.696-82.696c6.522-6.522,17.101-6.526,23.627,0c6.526,6.526,6.522,17.106,0,23.627l-82.696,82.696 L362.324,338.697z\"/></symbol>\n  <symbol id=\"symbol-exclaim\" viewBox=\"0 0 28.621 28.621\">\n    <title>symbol-exclaim</title><path\n      d=\"M14.311,0c-6.904,0-12.5,5.596-12.5,12.5c0,4.723,2.618,8.828,6.48,10.955l-0.147,5.166l5.898-3.635 C14.131,24.988,14.22,25,14.311,25c6.904,0,12.5-5.596,12.5-12.5C26.811,5.596,21.215,0,14.311,0z M15.99,5.573l-0.465,9.553 h-2.404l-0.483-9.553H15.99z M14.325,20.018c-1.141,0-1.899-0.822-1.899-1.918c0-1.119,0.779-1.92,1.899-1.92 c1.115,0,1.854,0.801,1.875,1.92C16.199,19.193,15.461,20.018,14.325,20.018z\"/></symbol>\n  <symbol id=\"symbol-info\" viewBox=\"0 0 28.621 28.621\">\n    <title>symbol-info</title><path\n      d=\"M14.311,0c-6.904,0-12.5,5.596-12.5,12.5c0,4.723,2.618,8.828,6.48,10.955l-0.147,5.166l5.898-3.635 C14.131,24.988,14.22,25,14.311,25c6.904,0,12.5-5.596,12.5-12.5C26.811,5.596,21.215,0,14.311,0z M15.903,19.784h-3.203V9.474 h3.203V19.784z M14.28,8.211c-1.013,0-1.687-0.718-1.665-1.604c-0.021-0.927,0.652-1.624,1.686-1.624 c1.033,0,1.689,0.697,1.71,1.624C16.01,7.493,15.332,8.211,14.28,8.211z\"/></symbol>\n  <symbol id=\"symbol-questions\" viewBox=\"0 0 28.621 28.621\">\n    <title>symbol-questions</title><path\n      d=\"M14.311,0c-6.904,0-12.5,5.596-12.5,12.5c0,4.723,2.618,8.828,6.48,10.955l-0.147,5.166l5.898-3.635 C14.131,24.988,14.22,25,14.311,25c6.904,0,12.5-5.596,12.5-12.5C26.811,5.596,21.215,0,14.311,0z M13.75,20.018 c-1.116,0-1.876-0.822-1.876-1.918c0-1.119,0.779-1.92,1.876-1.92c1.14,0,1.878,0.801,1.898,1.92 C15.649,19.193,14.891,20.018,13.75,20.018z M16.301,12.173c-0.779,0.865-1.096,1.686-1.074,2.638v0.377h-2.805L12.4,14.641 c-0.063-1.074,0.295-2.173,1.246-3.31c0.673-0.803,1.223-1.477,1.223-2.194c0-0.737-0.487-1.222-1.542-1.263 c-0.693,0-1.539,0.251-2.084,0.632l-0.718-2.301c0.759-0.442,2.022-0.861,3.52-0.861c2.785,0,4.048,1.538,4.048,3.289 C18.094,10.233,17.104,11.287,16.301,12.173z\"/></symbol>\n  <symbol id=\"symbol-warning\" viewBox=\"0 0 493.275 493.275\">\n    <title>symbol-warning</title><path\n      d=\"M482.641,390.538l-204.6-332.7c-17.199-26.801-44-26.801-61.2,0l-206.6,332.7c-23,36.3-5.7,65,36.3,65h399.8 C490.342,455.638,505.641,426.938,482.641,390.538z M247.441,398.237c-11.5,0-19.1-7.6-19.1-19.1s7.7-19.1,19.1-19.1 c11.5,0,19.1,7.699,19.1,19.1S256.941,398.237,247.441,398.237z M266.541,302.638c0,9.6-7.6,19.1-19.1,19.1s-19.1-7.6-19.1-19.1 v-114.8c0-9.601,7.7-19.101,19.1-19.101c11.5,0,19.1,7.7,19.1,19.101V302.638z\"/></symbol>\n  <symbol id=\"tree-check-off\" viewBox=\"0 0 533.333 533.333\">\n    <title>tree-check-off</title><path d=\"M0,0v533.333h533.333V0H0z M500,500H33.333V33.333H500V500z\"/></symbol>\n  <symbol id=\"tree-check-on\" viewBox=\"0 0 533.333 533.333\">\n    <title>tree-check-on</title><path d=\"M0,0v533.333h533.333V0H0z M500,500H33.333V33.333H500V500z M400,116.667L233.333,283.333l-100-100L66.667,250 l166.667,166.667l233.333-233.333L400,116.667z\"/></symbol>\n  <symbol id=\"tree-check-partial\" viewBox=\"0 0 533.333 533.333\">\n    <title>tree-check-partial</title><path d=\"M0,0v533.333h533.333V0H0z M500,500H33.333V33.333H500V500z M133.333,133.333H400V400H133.333V133.333z\"/></symbol>\n  <symbol id=\"tree-collapse\" viewBox=\"0 0 16 16\">\n    <title>tree-collapse</title><path d=\"M4 7h8v2h-8v-2z\"/><path d=\"M15 1h-14v14h14v-14zM14 14h-12v-12h12v12z\"/></symbol>\n  <symbol id=\"tree-expand\" viewBox=\"0 0 16 16\">\n    <title>tree-expand</title><path d=\"M12 7h-3v-3h-2v3h-3v2h3v3h2v-3h3z\"/><path d=\"M15 1h-14v14h14v-14zM14 14h-12v-12h12v12z\"/></symbol>\n</svg>\n</template>\n"; });
+//! moment.js
+//! version : 2.17.0
+//! authors : Tim Wood, Iskren Chernev, Moment.js contributors
+//! license : MIT
+//! momentjs.com
+
+;(function (global, factory) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+    typeof define === 'function' && define.amd ? define('moment',factory) :
+    global.moment = factory()
+}(this, (function () { 'use strict';
+
+var hookCallback;
+
+function hooks () {
+    return hookCallback.apply(null, arguments);
+}
+
+// This is done to register the method called with moment()
+// without creating circular dependencies.
+function setHookCallback (callback) {
+    hookCallback = callback;
+}
+
+function isArray(input) {
+    return input instanceof Array || Object.prototype.toString.call(input) === '[object Array]';
+}
+
+function isObject(input) {
+    // IE8 will treat undefined and null as object if it wasn't for
+    // input != null
+    return input != null && Object.prototype.toString.call(input) === '[object Object]';
+}
+
+function isObjectEmpty(obj) {
+    var k;
+    for (k in obj) {
+        // even if its not own property I'd still call it non-empty
+        return false;
+    }
+    return true;
+}
+
+function isNumber(input) {
+    return typeof input === 'number' || Object.prototype.toString.call(input) === '[object Number]';
+}
+
+function isDate(input) {
+    return input instanceof Date || Object.prototype.toString.call(input) === '[object Date]';
+}
+
+function map(arr, fn) {
+    var res = [], i;
+    for (i = 0; i < arr.length; ++i) {
+        res.push(fn(arr[i], i));
+    }
+    return res;
+}
+
+function hasOwnProp(a, b) {
+    return Object.prototype.hasOwnProperty.call(a, b);
+}
+
+function extend(a, b) {
+    for (var i in b) {
+        if (hasOwnProp(b, i)) {
+            a[i] = b[i];
+        }
+    }
+
+    if (hasOwnProp(b, 'toString')) {
+        a.toString = b.toString;
+    }
+
+    if (hasOwnProp(b, 'valueOf')) {
+        a.valueOf = b.valueOf;
+    }
+
+    return a;
+}
+
+function createUTC (input, format, locale, strict) {
+    return createLocalOrUTC(input, format, locale, strict, true).utc();
+}
+
+function defaultParsingFlags() {
+    // We need to deep clone this object.
+    return {
+        empty           : false,
+        unusedTokens    : [],
+        unusedInput     : [],
+        overflow        : -2,
+        charsLeftOver   : 0,
+        nullInput       : false,
+        invalidMonth    : null,
+        invalidFormat   : false,
+        userInvalidated : false,
+        iso             : false,
+        parsedDateParts : [],
+        meridiem        : null
+    };
+}
+
+function getParsingFlags(m) {
+    if (m._pf == null) {
+        m._pf = defaultParsingFlags();
+    }
+    return m._pf;
+}
+
+var some;
+if (Array.prototype.some) {
+    some = Array.prototype.some;
+} else {
+    some = function (fun) {
+        var t = Object(this);
+        var len = t.length >>> 0;
+
+        for (var i = 0; i < len; i++) {
+            if (i in t && fun.call(this, t[i], i, t)) {
+                return true;
+            }
+        }
+
+        return false;
+    };
+}
+
+var some$1 = some;
+
+function isValid(m) {
+    if (m._isValid == null) {
+        var flags = getParsingFlags(m);
+        var parsedParts = some$1.call(flags.parsedDateParts, function (i) {
+            return i != null;
+        });
+        var isNowValid = !isNaN(m._d.getTime()) &&
+            flags.overflow < 0 &&
+            !flags.empty &&
+            !flags.invalidMonth &&
+            !flags.invalidWeekday &&
+            !flags.nullInput &&
+            !flags.invalidFormat &&
+            !flags.userInvalidated &&
+            (!flags.meridiem || (flags.meridiem && parsedParts));
+
+        if (m._strict) {
+            isNowValid = isNowValid &&
+                flags.charsLeftOver === 0 &&
+                flags.unusedTokens.length === 0 &&
+                flags.bigHour === undefined;
+        }
+
+        if (Object.isFrozen == null || !Object.isFrozen(m)) {
+            m._isValid = isNowValid;
+        }
+        else {
+            return isNowValid;
+        }
+    }
+    return m._isValid;
+}
+
+function createInvalid (flags) {
+    var m = createUTC(NaN);
+    if (flags != null) {
+        extend(getParsingFlags(m), flags);
+    }
+    else {
+        getParsingFlags(m).userInvalidated = true;
+    }
+
+    return m;
+}
+
+function isUndefined(input) {
+    return input === void 0;
+}
+
+// Plugins that add properties should also add the key here (null value),
+// so we can properly clone ourselves.
+var momentProperties = hooks.momentProperties = [];
+
+function copyConfig(to, from) {
+    var i, prop, val;
+
+    if (!isUndefined(from._isAMomentObject)) {
+        to._isAMomentObject = from._isAMomentObject;
+    }
+    if (!isUndefined(from._i)) {
+        to._i = from._i;
+    }
+    if (!isUndefined(from._f)) {
+        to._f = from._f;
+    }
+    if (!isUndefined(from._l)) {
+        to._l = from._l;
+    }
+    if (!isUndefined(from._strict)) {
+        to._strict = from._strict;
+    }
+    if (!isUndefined(from._tzm)) {
+        to._tzm = from._tzm;
+    }
+    if (!isUndefined(from._isUTC)) {
+        to._isUTC = from._isUTC;
+    }
+    if (!isUndefined(from._offset)) {
+        to._offset = from._offset;
+    }
+    if (!isUndefined(from._pf)) {
+        to._pf = getParsingFlags(from);
+    }
+    if (!isUndefined(from._locale)) {
+        to._locale = from._locale;
+    }
+
+    if (momentProperties.length > 0) {
+        for (i in momentProperties) {
+            prop = momentProperties[i];
+            val = from[prop];
+            if (!isUndefined(val)) {
+                to[prop] = val;
+            }
+        }
+    }
+
+    return to;
+}
+
+var updateInProgress = false;
+
+// Moment prototype object
+function Moment(config) {
+    copyConfig(this, config);
+    this._d = new Date(config._d != null ? config._d.getTime() : NaN);
+    if (!this.isValid()) {
+        this._d = new Date(NaN);
+    }
+    // Prevent infinite loop in case updateOffset creates new moment
+    // objects.
+    if (updateInProgress === false) {
+        updateInProgress = true;
+        hooks.updateOffset(this);
+        updateInProgress = false;
+    }
+}
+
+function isMoment (obj) {
+    return obj instanceof Moment || (obj != null && obj._isAMomentObject != null);
+}
+
+function absFloor (number) {
+    if (number < 0) {
+        // -0 -> 0
+        return Math.ceil(number) || 0;
+    } else {
+        return Math.floor(number);
+    }
+}
+
+function toInt(argumentForCoercion) {
+    var coercedNumber = +argumentForCoercion,
+        value = 0;
+
+    if (coercedNumber !== 0 && isFinite(coercedNumber)) {
+        value = absFloor(coercedNumber);
+    }
+
+    return value;
+}
+
+// compare two arrays, return the number of differences
+function compareArrays(array1, array2, dontConvert) {
+    var len = Math.min(array1.length, array2.length),
+        lengthDiff = Math.abs(array1.length - array2.length),
+        diffs = 0,
+        i;
+    for (i = 0; i < len; i++) {
+        if ((dontConvert && array1[i] !== array2[i]) ||
+            (!dontConvert && toInt(array1[i]) !== toInt(array2[i]))) {
+            diffs++;
+        }
+    }
+    return diffs + lengthDiff;
+}
+
+function warn(msg) {
+    if (hooks.suppressDeprecationWarnings === false &&
+            (typeof console !==  'undefined') && console.warn) {
+        console.warn('Deprecation warning: ' + msg);
+    }
+}
+
+function deprecate(msg, fn) {
+    var firstTime = true;
+
+    return extend(function () {
+        if (hooks.deprecationHandler != null) {
+            hooks.deprecationHandler(null, msg);
+        }
+        if (firstTime) {
+            var args = [];
+            var arg;
+            for (var i = 0; i < arguments.length; i++) {
+                arg = '';
+                if (typeof arguments[i] === 'object') {
+                    arg += '\n[' + i + '] ';
+                    for (var key in arguments[0]) {
+                        arg += key + ': ' + arguments[0][key] + ', ';
+                    }
+                    arg = arg.slice(0, -2); // Remove trailing comma and space
+                } else {
+                    arg = arguments[i];
+                }
+                args.push(arg);
+            }
+            warn(msg + '\nArguments: ' + Array.prototype.slice.call(args).join('') + '\n' + (new Error()).stack);
+            firstTime = false;
+        }
+        return fn.apply(this, arguments);
+    }, fn);
+}
+
+var deprecations = {};
+
+function deprecateSimple(name, msg) {
+    if (hooks.deprecationHandler != null) {
+        hooks.deprecationHandler(name, msg);
+    }
+    if (!deprecations[name]) {
+        warn(msg);
+        deprecations[name] = true;
+    }
+}
+
+hooks.suppressDeprecationWarnings = false;
+hooks.deprecationHandler = null;
+
+function isFunction(input) {
+    return input instanceof Function || Object.prototype.toString.call(input) === '[object Function]';
+}
+
+function set (config) {
+    var prop, i;
+    for (i in config) {
+        prop = config[i];
+        if (isFunction(prop)) {
+            this[i] = prop;
+        } else {
+            this['_' + i] = prop;
+        }
+    }
+    this._config = config;
+    // Lenient ordinal parsing accepts just a number in addition to
+    // number + (possibly) stuff coming from _ordinalParseLenient.
+    this._ordinalParseLenient = new RegExp(this._ordinalParse.source + '|' + (/\d{1,2}/).source);
+}
+
+function mergeConfigs(parentConfig, childConfig) {
+    var res = extend({}, parentConfig), prop;
+    for (prop in childConfig) {
+        if (hasOwnProp(childConfig, prop)) {
+            if (isObject(parentConfig[prop]) && isObject(childConfig[prop])) {
+                res[prop] = {};
+                extend(res[prop], parentConfig[prop]);
+                extend(res[prop], childConfig[prop]);
+            } else if (childConfig[prop] != null) {
+                res[prop] = childConfig[prop];
+            } else {
+                delete res[prop];
+            }
+        }
+    }
+    for (prop in parentConfig) {
+        if (hasOwnProp(parentConfig, prop) &&
+                !hasOwnProp(childConfig, prop) &&
+                isObject(parentConfig[prop])) {
+            // make sure changes to properties don't modify parent config
+            res[prop] = extend({}, res[prop]);
+        }
+    }
+    return res;
+}
+
+function Locale(config) {
+    if (config != null) {
+        this.set(config);
+    }
+}
+
+var keys;
+
+if (Object.keys) {
+    keys = Object.keys;
+} else {
+    keys = function (obj) {
+        var i, res = [];
+        for (i in obj) {
+            if (hasOwnProp(obj, i)) {
+                res.push(i);
+            }
+        }
+        return res;
+    };
+}
+
+var keys$1 = keys;
+
+var defaultCalendar = {
+    sameDay : '[Today at] LT',
+    nextDay : '[Tomorrow at] LT',
+    nextWeek : 'dddd [at] LT',
+    lastDay : '[Yesterday at] LT',
+    lastWeek : '[Last] dddd [at] LT',
+    sameElse : 'L'
+};
+
+function calendar (key, mom, now) {
+    var output = this._calendar[key] || this._calendar['sameElse'];
+    return isFunction(output) ? output.call(mom, now) : output;
+}
+
+var defaultLongDateFormat = {
+    LTS  : 'h:mm:ss A',
+    LT   : 'h:mm A',
+    L    : 'MM/DD/YYYY',
+    LL   : 'MMMM D, YYYY',
+    LLL  : 'MMMM D, YYYY h:mm A',
+    LLLL : 'dddd, MMMM D, YYYY h:mm A'
+};
+
+function longDateFormat (key) {
+    var format = this._longDateFormat[key],
+        formatUpper = this._longDateFormat[key.toUpperCase()];
+
+    if (format || !formatUpper) {
+        return format;
+    }
+
+    this._longDateFormat[key] = formatUpper.replace(/MMMM|MM|DD|dddd/g, function (val) {
+        return val.slice(1);
+    });
+
+    return this._longDateFormat[key];
+}
+
+var defaultInvalidDate = 'Invalid date';
+
+function invalidDate () {
+    return this._invalidDate;
+}
+
+var defaultOrdinal = '%d';
+var defaultOrdinalParse = /\d{1,2}/;
+
+function ordinal (number) {
+    return this._ordinal.replace('%d', number);
+}
+
+var defaultRelativeTime = {
+    future : 'in %s',
+    past   : '%s ago',
+    s  : 'a few seconds',
+    m  : 'a minute',
+    mm : '%d minutes',
+    h  : 'an hour',
+    hh : '%d hours',
+    d  : 'a day',
+    dd : '%d days',
+    M  : 'a month',
+    MM : '%d months',
+    y  : 'a year',
+    yy : '%d years'
+};
+
+function relativeTime (number, withoutSuffix, string, isFuture) {
+    var output = this._relativeTime[string];
+    return (isFunction(output)) ?
+        output(number, withoutSuffix, string, isFuture) :
+        output.replace(/%d/i, number);
+}
+
+function pastFuture (diff, output) {
+    var format = this._relativeTime[diff > 0 ? 'future' : 'past'];
+    return isFunction(format) ? format(output) : format.replace(/%s/i, output);
+}
+
+var aliases = {};
+
+function addUnitAlias (unit, shorthand) {
+    var lowerCase = unit.toLowerCase();
+    aliases[lowerCase] = aliases[lowerCase + 's'] = aliases[shorthand] = unit;
+}
+
+function normalizeUnits(units) {
+    return typeof units === 'string' ? aliases[units] || aliases[units.toLowerCase()] : undefined;
+}
+
+function normalizeObjectUnits(inputObject) {
+    var normalizedInput = {},
+        normalizedProp,
+        prop;
+
+    for (prop in inputObject) {
+        if (hasOwnProp(inputObject, prop)) {
+            normalizedProp = normalizeUnits(prop);
+            if (normalizedProp) {
+                normalizedInput[normalizedProp] = inputObject[prop];
+            }
+        }
+    }
+
+    return normalizedInput;
+}
+
+var priorities = {};
+
+function addUnitPriority(unit, priority) {
+    priorities[unit] = priority;
+}
+
+function getPrioritizedUnits(unitsObj) {
+    var units = [];
+    for (var u in unitsObj) {
+        units.push({unit: u, priority: priorities[u]});
+    }
+    units.sort(function (a, b) {
+        return a.priority - b.priority;
+    });
+    return units;
+}
+
+function makeGetSet (unit, keepTime) {
+    return function (value) {
+        if (value != null) {
+            set$1(this, unit, value);
+            hooks.updateOffset(this, keepTime);
+            return this;
+        } else {
+            return get(this, unit);
+        }
+    };
+}
+
+function get (mom, unit) {
+    return mom.isValid() ?
+        mom._d['get' + (mom._isUTC ? 'UTC' : '') + unit]() : NaN;
+}
+
+function set$1 (mom, unit, value) {
+    if (mom.isValid()) {
+        mom._d['set' + (mom._isUTC ? 'UTC' : '') + unit](value);
+    }
+}
+
+// MOMENTS
+
+function stringGet (units) {
+    units = normalizeUnits(units);
+    if (isFunction(this[units])) {
+        return this[units]();
+    }
+    return this;
+}
+
+
+function stringSet (units, value) {
+    if (typeof units === 'object') {
+        units = normalizeObjectUnits(units);
+        var prioritized = getPrioritizedUnits(units);
+        for (var i = 0; i < prioritized.length; i++) {
+            this[prioritized[i].unit](units[prioritized[i].unit]);
+        }
+    } else {
+        units = normalizeUnits(units);
+        if (isFunction(this[units])) {
+            return this[units](value);
+        }
+    }
+    return this;
+}
+
+function zeroFill(number, targetLength, forceSign) {
+    var absNumber = '' + Math.abs(number),
+        zerosToFill = targetLength - absNumber.length,
+        sign = number >= 0;
+    return (sign ? (forceSign ? '+' : '') : '-') +
+        Math.pow(10, Math.max(0, zerosToFill)).toString().substr(1) + absNumber;
+}
+
+var formattingTokens = /(\[[^\[]*\])|(\\)?([Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|YYYYYY|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?|.)/g;
+
+var localFormattingTokens = /(\[[^\[]*\])|(\\)?(LTS|LT|LL?L?L?|l{1,4})/g;
+
+var formatFunctions = {};
+
+var formatTokenFunctions = {};
+
+// token:    'M'
+// padded:   ['MM', 2]
+// ordinal:  'Mo'
+// callback: function () { this.month() + 1 }
+function addFormatToken (token, padded, ordinal, callback) {
+    var func = callback;
+    if (typeof callback === 'string') {
+        func = function () {
+            return this[callback]();
+        };
+    }
+    if (token) {
+        formatTokenFunctions[token] = func;
+    }
+    if (padded) {
+        formatTokenFunctions[padded[0]] = function () {
+            return zeroFill(func.apply(this, arguments), padded[1], padded[2]);
+        };
+    }
+    if (ordinal) {
+        formatTokenFunctions[ordinal] = function () {
+            return this.localeData().ordinal(func.apply(this, arguments), token);
+        };
+    }
+}
+
+function removeFormattingTokens(input) {
+    if (input.match(/\[[\s\S]/)) {
+        return input.replace(/^\[|\]$/g, '');
+    }
+    return input.replace(/\\/g, '');
+}
+
+function makeFormatFunction(format) {
+    var array = format.match(formattingTokens), i, length;
+
+    for (i = 0, length = array.length; i < length; i++) {
+        if (formatTokenFunctions[array[i]]) {
+            array[i] = formatTokenFunctions[array[i]];
+        } else {
+            array[i] = removeFormattingTokens(array[i]);
+        }
+    }
+
+    return function (mom) {
+        var output = '', i;
+        for (i = 0; i < length; i++) {
+            output += array[i] instanceof Function ? array[i].call(mom, format) : array[i];
+        }
+        return output;
+    };
+}
+
+// format date using native date object
+function formatMoment(m, format) {
+    if (!m.isValid()) {
+        return m.localeData().invalidDate();
+    }
+
+    format = expandFormat(format, m.localeData());
+    formatFunctions[format] = formatFunctions[format] || makeFormatFunction(format);
+
+    return formatFunctions[format](m);
+}
+
+function expandFormat(format, locale) {
+    var i = 5;
+
+    function replaceLongDateFormatTokens(input) {
+        return locale.longDateFormat(input) || input;
+    }
+
+    localFormattingTokens.lastIndex = 0;
+    while (i >= 0 && localFormattingTokens.test(format)) {
+        format = format.replace(localFormattingTokens, replaceLongDateFormatTokens);
+        localFormattingTokens.lastIndex = 0;
+        i -= 1;
+    }
+
+    return format;
+}
+
+var match1         = /\d/;            //       0 - 9
+var match2         = /\d\d/;          //      00 - 99
+var match3         = /\d{3}/;         //     000 - 999
+var match4         = /\d{4}/;         //    0000 - 9999
+var match6         = /[+-]?\d{6}/;    // -999999 - 999999
+var match1to2      = /\d\d?/;         //       0 - 99
+var match3to4      = /\d\d\d\d?/;     //     999 - 9999
+var match5to6      = /\d\d\d\d\d\d?/; //   99999 - 999999
+var match1to3      = /\d{1,3}/;       //       0 - 999
+var match1to4      = /\d{1,4}/;       //       0 - 9999
+var match1to6      = /[+-]?\d{1,6}/;  // -999999 - 999999
+
+var matchUnsigned  = /\d+/;           //       0 - inf
+var matchSigned    = /[+-]?\d+/;      //    -inf - inf
+
+var matchOffset    = /Z|[+-]\d\d:?\d\d/gi; // +00:00 -00:00 +0000 -0000 or Z
+var matchShortOffset = /Z|[+-]\d\d(?::?\d\d)?/gi; // +00 -00 +00:00 -00:00 +0000 -0000 or Z
+
+var matchTimestamp = /[+-]?\d+(\.\d{1,3})?/; // 123456789 123456789.123
+
+// any word (or two) characters or numbers including two/three word month in arabic.
+// includes scottish gaelic two word and hyphenated months
+var matchWord = /[0-9]*['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+|[\u0600-\u06FF\/]+(\s*?[\u0600-\u06FF]+){1,2}/i;
+
+
+var regexes = {};
+
+function addRegexToken (token, regex, strictRegex) {
+    regexes[token] = isFunction(regex) ? regex : function (isStrict, localeData) {
+        return (isStrict && strictRegex) ? strictRegex : regex;
+    };
+}
+
+function getParseRegexForToken (token, config) {
+    if (!hasOwnProp(regexes, token)) {
+        return new RegExp(unescapeFormat(token));
+    }
+
+    return regexes[token](config._strict, config._locale);
+}
+
+// Code from http://stackoverflow.com/questions/3561493/is-there-a-regexp-escape-function-in-javascript
+function unescapeFormat(s) {
+    return regexEscape(s.replace('\\', '').replace(/\\(\[)|\\(\])|\[([^\]\[]*)\]|\\(.)/g, function (matched, p1, p2, p3, p4) {
+        return p1 || p2 || p3 || p4;
+    }));
+}
+
+function regexEscape(s) {
+    return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+}
+
+var tokens = {};
+
+function addParseToken (token, callback) {
+    var i, func = callback;
+    if (typeof token === 'string') {
+        token = [token];
+    }
+    if (isNumber(callback)) {
+        func = function (input, array) {
+            array[callback] = toInt(input);
+        };
+    }
+    for (i = 0; i < token.length; i++) {
+        tokens[token[i]] = func;
+    }
+}
+
+function addWeekParseToken (token, callback) {
+    addParseToken(token, function (input, array, config, token) {
+        config._w = config._w || {};
+        callback(input, config._w, config, token);
+    });
+}
+
+function addTimeToArrayFromToken(token, input, config) {
+    if (input != null && hasOwnProp(tokens, token)) {
+        tokens[token](input, config._a, config, token);
+    }
+}
+
+var YEAR = 0;
+var MONTH = 1;
+var DATE = 2;
+var HOUR = 3;
+var MINUTE = 4;
+var SECOND = 5;
+var MILLISECOND = 6;
+var WEEK = 7;
+var WEEKDAY = 8;
+
+var indexOf;
+
+if (Array.prototype.indexOf) {
+    indexOf = Array.prototype.indexOf;
+} else {
+    indexOf = function (o) {
+        // I know
+        var i;
+        for (i = 0; i < this.length; ++i) {
+            if (this[i] === o) {
+                return i;
+            }
+        }
+        return -1;
+    };
+}
+
+var indexOf$1 = indexOf;
+
+function daysInMonth(year, month) {
+    return new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
+}
+
+// FORMATTING
+
+addFormatToken('M', ['MM', 2], 'Mo', function () {
+    return this.month() + 1;
+});
+
+addFormatToken('MMM', 0, 0, function (format) {
+    return this.localeData().monthsShort(this, format);
+});
+
+addFormatToken('MMMM', 0, 0, function (format) {
+    return this.localeData().months(this, format);
+});
+
+// ALIASES
+
+addUnitAlias('month', 'M');
+
+// PRIORITY
+
+addUnitPriority('month', 8);
+
+// PARSING
+
+addRegexToken('M',    match1to2);
+addRegexToken('MM',   match1to2, match2);
+addRegexToken('MMM',  function (isStrict, locale) {
+    return locale.monthsShortRegex(isStrict);
+});
+addRegexToken('MMMM', function (isStrict, locale) {
+    return locale.monthsRegex(isStrict);
+});
+
+addParseToken(['M', 'MM'], function (input, array) {
+    array[MONTH] = toInt(input) - 1;
+});
+
+addParseToken(['MMM', 'MMMM'], function (input, array, config, token) {
+    var month = config._locale.monthsParse(input, token, config._strict);
+    // if we didn't find a month name, mark the date as invalid.
+    if (month != null) {
+        array[MONTH] = month;
+    } else {
+        getParsingFlags(config).invalidMonth = input;
+    }
+});
+
+// LOCALES
+
+var MONTHS_IN_FORMAT = /D[oD]?(\[[^\[\]]*\]|\s)+MMMM?/;
+var defaultLocaleMonths = 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_');
+function localeMonths (m, format) {
+    if (!m) {
+        return this._months;
+    }
+    return isArray(this._months) ? this._months[m.month()] :
+        this._months[(this._months.isFormat || MONTHS_IN_FORMAT).test(format) ? 'format' : 'standalone'][m.month()];
+}
+
+var defaultLocaleMonthsShort = 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_');
+function localeMonthsShort (m, format) {
+    if (!m) {
+        return this._monthsShort;
+    }
+    return isArray(this._monthsShort) ? this._monthsShort[m.month()] :
+        this._monthsShort[MONTHS_IN_FORMAT.test(format) ? 'format' : 'standalone'][m.month()];
+}
+
+function handleStrictParse(monthName, format, strict) {
+    var i, ii, mom, llc = monthName.toLocaleLowerCase();
+    if (!this._monthsParse) {
+        // this is not used
+        this._monthsParse = [];
+        this._longMonthsParse = [];
+        this._shortMonthsParse = [];
+        for (i = 0; i < 12; ++i) {
+            mom = createUTC([2000, i]);
+            this._shortMonthsParse[i] = this.monthsShort(mom, '').toLocaleLowerCase();
+            this._longMonthsParse[i] = this.months(mom, '').toLocaleLowerCase();
+        }
+    }
+
+    if (strict) {
+        if (format === 'MMM') {
+            ii = indexOf$1.call(this._shortMonthsParse, llc);
+            return ii !== -1 ? ii : null;
+        } else {
+            ii = indexOf$1.call(this._longMonthsParse, llc);
+            return ii !== -1 ? ii : null;
+        }
+    } else {
+        if (format === 'MMM') {
+            ii = indexOf$1.call(this._shortMonthsParse, llc);
+            if (ii !== -1) {
+                return ii;
+            }
+            ii = indexOf$1.call(this._longMonthsParse, llc);
+            return ii !== -1 ? ii : null;
+        } else {
+            ii = indexOf$1.call(this._longMonthsParse, llc);
+            if (ii !== -1) {
+                return ii;
+            }
+            ii = indexOf$1.call(this._shortMonthsParse, llc);
+            return ii !== -1 ? ii : null;
+        }
+    }
+}
+
+function localeMonthsParse (monthName, format, strict) {
+    var i, mom, regex;
+
+    if (this._monthsParseExact) {
+        return handleStrictParse.call(this, monthName, format, strict);
+    }
+
+    if (!this._monthsParse) {
+        this._monthsParse = [];
+        this._longMonthsParse = [];
+        this._shortMonthsParse = [];
+    }
+
+    // TODO: add sorting
+    // Sorting makes sure if one month (or abbr) is a prefix of another
+    // see sorting in computeMonthsParse
+    for (i = 0; i < 12; i++) {
+        // make the regex if we don't have it already
+        mom = createUTC([2000, i]);
+        if (strict && !this._longMonthsParse[i]) {
+            this._longMonthsParse[i] = new RegExp('^' + this.months(mom, '').replace('.', '') + '$', 'i');
+            this._shortMonthsParse[i] = new RegExp('^' + this.monthsShort(mom, '').replace('.', '') + '$', 'i');
+        }
+        if (!strict && !this._monthsParse[i]) {
+            regex = '^' + this.months(mom, '') + '|^' + this.monthsShort(mom, '');
+            this._monthsParse[i] = new RegExp(regex.replace('.', ''), 'i');
+        }
+        // test the regex
+        if (strict && format === 'MMMM' && this._longMonthsParse[i].test(monthName)) {
+            return i;
+        } else if (strict && format === 'MMM' && this._shortMonthsParse[i].test(monthName)) {
+            return i;
+        } else if (!strict && this._monthsParse[i].test(monthName)) {
+            return i;
+        }
+    }
+}
+
+// MOMENTS
+
+function setMonth (mom, value) {
+    var dayOfMonth;
+
+    if (!mom.isValid()) {
+        // No op
+        return mom;
+    }
+
+    if (typeof value === 'string') {
+        if (/^\d+$/.test(value)) {
+            value = toInt(value);
+        } else {
+            value = mom.localeData().monthsParse(value);
+            // TODO: Another silent failure?
+            if (!isNumber(value)) {
+                return mom;
+            }
+        }
+    }
+
+    dayOfMonth = Math.min(mom.date(), daysInMonth(mom.year(), value));
+    mom._d['set' + (mom._isUTC ? 'UTC' : '') + 'Month'](value, dayOfMonth);
+    return mom;
+}
+
+function getSetMonth (value) {
+    if (value != null) {
+        setMonth(this, value);
+        hooks.updateOffset(this, true);
+        return this;
+    } else {
+        return get(this, 'Month');
+    }
+}
+
+function getDaysInMonth () {
+    return daysInMonth(this.year(), this.month());
+}
+
+var defaultMonthsShortRegex = matchWord;
+function monthsShortRegex (isStrict) {
+    if (this._monthsParseExact) {
+        if (!hasOwnProp(this, '_monthsRegex')) {
+            computeMonthsParse.call(this);
+        }
+        if (isStrict) {
+            return this._monthsShortStrictRegex;
+        } else {
+            return this._monthsShortRegex;
+        }
+    } else {
+        if (!hasOwnProp(this, '_monthsShortRegex')) {
+            this._monthsShortRegex = defaultMonthsShortRegex;
+        }
+        return this._monthsShortStrictRegex && isStrict ?
+            this._monthsShortStrictRegex : this._monthsShortRegex;
+    }
+}
+
+var defaultMonthsRegex = matchWord;
+function monthsRegex (isStrict) {
+    if (this._monthsParseExact) {
+        if (!hasOwnProp(this, '_monthsRegex')) {
+            computeMonthsParse.call(this);
+        }
+        if (isStrict) {
+            return this._monthsStrictRegex;
+        } else {
+            return this._monthsRegex;
+        }
+    } else {
+        if (!hasOwnProp(this, '_monthsRegex')) {
+            this._monthsRegex = defaultMonthsRegex;
+        }
+        return this._monthsStrictRegex && isStrict ?
+            this._monthsStrictRegex : this._monthsRegex;
+    }
+}
+
+function computeMonthsParse () {
+    function cmpLenRev(a, b) {
+        return b.length - a.length;
+    }
+
+    var shortPieces = [], longPieces = [], mixedPieces = [],
+        i, mom;
+    for (i = 0; i < 12; i++) {
+        // make the regex if we don't have it already
+        mom = createUTC([2000, i]);
+        shortPieces.push(this.monthsShort(mom, ''));
+        longPieces.push(this.months(mom, ''));
+        mixedPieces.push(this.months(mom, ''));
+        mixedPieces.push(this.monthsShort(mom, ''));
+    }
+    // Sorting makes sure if one month (or abbr) is a prefix of another it
+    // will match the longer piece.
+    shortPieces.sort(cmpLenRev);
+    longPieces.sort(cmpLenRev);
+    mixedPieces.sort(cmpLenRev);
+    for (i = 0; i < 12; i++) {
+        shortPieces[i] = regexEscape(shortPieces[i]);
+        longPieces[i] = regexEscape(longPieces[i]);
+    }
+    for (i = 0; i < 24; i++) {
+        mixedPieces[i] = regexEscape(mixedPieces[i]);
+    }
+
+    this._monthsRegex = new RegExp('^(' + mixedPieces.join('|') + ')', 'i');
+    this._monthsShortRegex = this._monthsRegex;
+    this._monthsStrictRegex = new RegExp('^(' + longPieces.join('|') + ')', 'i');
+    this._monthsShortStrictRegex = new RegExp('^(' + shortPieces.join('|') + ')', 'i');
+}
+
+// FORMATTING
+
+addFormatToken('Y', 0, 0, function () {
+    var y = this.year();
+    return y <= 9999 ? '' + y : '+' + y;
+});
+
+addFormatToken(0, ['YY', 2], 0, function () {
+    return this.year() % 100;
+});
+
+addFormatToken(0, ['YYYY',   4],       0, 'year');
+addFormatToken(0, ['YYYYY',  5],       0, 'year');
+addFormatToken(0, ['YYYYYY', 6, true], 0, 'year');
+
+// ALIASES
+
+addUnitAlias('year', 'y');
+
+// PRIORITIES
+
+addUnitPriority('year', 1);
+
+// PARSING
+
+addRegexToken('Y',      matchSigned);
+addRegexToken('YY',     match1to2, match2);
+addRegexToken('YYYY',   match1to4, match4);
+addRegexToken('YYYYY',  match1to6, match6);
+addRegexToken('YYYYYY', match1to6, match6);
+
+addParseToken(['YYYYY', 'YYYYYY'], YEAR);
+addParseToken('YYYY', function (input, array) {
+    array[YEAR] = input.length === 2 ? hooks.parseTwoDigitYear(input) : toInt(input);
+});
+addParseToken('YY', function (input, array) {
+    array[YEAR] = hooks.parseTwoDigitYear(input);
+});
+addParseToken('Y', function (input, array) {
+    array[YEAR] = parseInt(input, 10);
+});
+
+// HELPERS
+
+function daysInYear(year) {
+    return isLeapYear(year) ? 366 : 365;
+}
+
+function isLeapYear(year) {
+    return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+}
+
+// HOOKS
+
+hooks.parseTwoDigitYear = function (input) {
+    return toInt(input) + (toInt(input) > 68 ? 1900 : 2000);
+};
+
+// MOMENTS
+
+var getSetYear = makeGetSet('FullYear', true);
+
+function getIsLeapYear () {
+    return isLeapYear(this.year());
+}
+
+function createDate (y, m, d, h, M, s, ms) {
+    //can't just apply() to create a date:
+    //http://stackoverflow.com/questions/181348/instantiating-a-javascript-object-by-calling-prototype-constructor-apply
+    var date = new Date(y, m, d, h, M, s, ms);
+
+    //the date constructor remaps years 0-99 to 1900-1999
+    if (y < 100 && y >= 0 && isFinite(date.getFullYear())) {
+        date.setFullYear(y);
+    }
+    return date;
+}
+
+function createUTCDate (y) {
+    var date = new Date(Date.UTC.apply(null, arguments));
+
+    //the Date.UTC function remaps years 0-99 to 1900-1999
+    if (y < 100 && y >= 0 && isFinite(date.getUTCFullYear())) {
+        date.setUTCFullYear(y);
+    }
+    return date;
+}
+
+// start-of-first-week - start-of-year
+function firstWeekOffset(year, dow, doy) {
+    var // first-week day -- which january is always in the first week (4 for iso, 1 for other)
+        fwd = 7 + dow - doy,
+        // first-week day local weekday -- which local weekday is fwd
+        fwdlw = (7 + createUTCDate(year, 0, fwd).getUTCDay() - dow) % 7;
+
+    return -fwdlw + fwd - 1;
+}
+
+//http://en.wikipedia.org/wiki/ISO_week_date#Calculating_a_date_given_the_year.2C_week_number_and_weekday
+function dayOfYearFromWeeks(year, week, weekday, dow, doy) {
+    var localWeekday = (7 + weekday - dow) % 7,
+        weekOffset = firstWeekOffset(year, dow, doy),
+        dayOfYear = 1 + 7 * (week - 1) + localWeekday + weekOffset,
+        resYear, resDayOfYear;
+
+    if (dayOfYear <= 0) {
+        resYear = year - 1;
+        resDayOfYear = daysInYear(resYear) + dayOfYear;
+    } else if (dayOfYear > daysInYear(year)) {
+        resYear = year + 1;
+        resDayOfYear = dayOfYear - daysInYear(year);
+    } else {
+        resYear = year;
+        resDayOfYear = dayOfYear;
+    }
+
+    return {
+        year: resYear,
+        dayOfYear: resDayOfYear
+    };
+}
+
+function weekOfYear(mom, dow, doy) {
+    var weekOffset = firstWeekOffset(mom.year(), dow, doy),
+        week = Math.floor((mom.dayOfYear() - weekOffset - 1) / 7) + 1,
+        resWeek, resYear;
+
+    if (week < 1) {
+        resYear = mom.year() - 1;
+        resWeek = week + weeksInYear(resYear, dow, doy);
+    } else if (week > weeksInYear(mom.year(), dow, doy)) {
+        resWeek = week - weeksInYear(mom.year(), dow, doy);
+        resYear = mom.year() + 1;
+    } else {
+        resYear = mom.year();
+        resWeek = week;
+    }
+
+    return {
+        week: resWeek,
+        year: resYear
+    };
+}
+
+function weeksInYear(year, dow, doy) {
+    var weekOffset = firstWeekOffset(year, dow, doy),
+        weekOffsetNext = firstWeekOffset(year + 1, dow, doy);
+    return (daysInYear(year) - weekOffset + weekOffsetNext) / 7;
+}
+
+// FORMATTING
+
+addFormatToken('w', ['ww', 2], 'wo', 'week');
+addFormatToken('W', ['WW', 2], 'Wo', 'isoWeek');
+
+// ALIASES
+
+addUnitAlias('week', 'w');
+addUnitAlias('isoWeek', 'W');
+
+// PRIORITIES
+
+addUnitPriority('week', 5);
+addUnitPriority('isoWeek', 5);
+
+// PARSING
+
+addRegexToken('w',  match1to2);
+addRegexToken('ww', match1to2, match2);
+addRegexToken('W',  match1to2);
+addRegexToken('WW', match1to2, match2);
+
+addWeekParseToken(['w', 'ww', 'W', 'WW'], function (input, week, config, token) {
+    week[token.substr(0, 1)] = toInt(input);
+});
+
+// HELPERS
+
+// LOCALES
+
+function localeWeek (mom) {
+    return weekOfYear(mom, this._week.dow, this._week.doy).week;
+}
+
+var defaultLocaleWeek = {
+    dow : 0, // Sunday is the first day of the week.
+    doy : 6  // The week that contains Jan 1st is the first week of the year.
+};
+
+function localeFirstDayOfWeek () {
+    return this._week.dow;
+}
+
+function localeFirstDayOfYear () {
+    return this._week.doy;
+}
+
+// MOMENTS
+
+function getSetWeek (input) {
+    var week = this.localeData().week(this);
+    return input == null ? week : this.add((input - week) * 7, 'd');
+}
+
+function getSetISOWeek (input) {
+    var week = weekOfYear(this, 1, 4).week;
+    return input == null ? week : this.add((input - week) * 7, 'd');
+}
+
+// FORMATTING
+
+addFormatToken('d', 0, 'do', 'day');
+
+addFormatToken('dd', 0, 0, function (format) {
+    return this.localeData().weekdaysMin(this, format);
+});
+
+addFormatToken('ddd', 0, 0, function (format) {
+    return this.localeData().weekdaysShort(this, format);
+});
+
+addFormatToken('dddd', 0, 0, function (format) {
+    return this.localeData().weekdays(this, format);
+});
+
+addFormatToken('e', 0, 0, 'weekday');
+addFormatToken('E', 0, 0, 'isoWeekday');
+
+// ALIASES
+
+addUnitAlias('day', 'd');
+addUnitAlias('weekday', 'e');
+addUnitAlias('isoWeekday', 'E');
+
+// PRIORITY
+addUnitPriority('day', 11);
+addUnitPriority('weekday', 11);
+addUnitPriority('isoWeekday', 11);
+
+// PARSING
+
+addRegexToken('d',    match1to2);
+addRegexToken('e',    match1to2);
+addRegexToken('E',    match1to2);
+addRegexToken('dd',   function (isStrict, locale) {
+    return locale.weekdaysMinRegex(isStrict);
+});
+addRegexToken('ddd',   function (isStrict, locale) {
+    return locale.weekdaysShortRegex(isStrict);
+});
+addRegexToken('dddd',   function (isStrict, locale) {
+    return locale.weekdaysRegex(isStrict);
+});
+
+addWeekParseToken(['dd', 'ddd', 'dddd'], function (input, week, config, token) {
+    var weekday = config._locale.weekdaysParse(input, token, config._strict);
+    // if we didn't get a weekday name, mark the date as invalid
+    if (weekday != null) {
+        week.d = weekday;
+    } else {
+        getParsingFlags(config).invalidWeekday = input;
+    }
+});
+
+addWeekParseToken(['d', 'e', 'E'], function (input, week, config, token) {
+    week[token] = toInt(input);
+});
+
+// HELPERS
+
+function parseWeekday(input, locale) {
+    if (typeof input !== 'string') {
+        return input;
+    }
+
+    if (!isNaN(input)) {
+        return parseInt(input, 10);
+    }
+
+    input = locale.weekdaysParse(input);
+    if (typeof input === 'number') {
+        return input;
+    }
+
+    return null;
+}
+
+function parseIsoWeekday(input, locale) {
+    if (typeof input === 'string') {
+        return locale.weekdaysParse(input) % 7 || 7;
+    }
+    return isNaN(input) ? null : input;
+}
+
+// LOCALES
+
+var defaultLocaleWeekdays = 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_');
+function localeWeekdays (m, format) {
+    if (!m) {
+        return this._weekdays;
+    }
+    return isArray(this._weekdays) ? this._weekdays[m.day()] :
+        this._weekdays[this._weekdays.isFormat.test(format) ? 'format' : 'standalone'][m.day()];
+}
+
+var defaultLocaleWeekdaysShort = 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_');
+function localeWeekdaysShort (m) {
+    return (m) ? this._weekdaysShort[m.day()] : this._weekdaysShort;
+}
+
+var defaultLocaleWeekdaysMin = 'Su_Mo_Tu_We_Th_Fr_Sa'.split('_');
+function localeWeekdaysMin (m) {
+    return (m) ? this._weekdaysMin[m.day()] : this._weekdaysMin;
+}
+
+function handleStrictParse$1(weekdayName, format, strict) {
+    var i, ii, mom, llc = weekdayName.toLocaleLowerCase();
+    if (!this._weekdaysParse) {
+        this._weekdaysParse = [];
+        this._shortWeekdaysParse = [];
+        this._minWeekdaysParse = [];
+
+        for (i = 0; i < 7; ++i) {
+            mom = createUTC([2000, 1]).day(i);
+            this._minWeekdaysParse[i] = this.weekdaysMin(mom, '').toLocaleLowerCase();
+            this._shortWeekdaysParse[i] = this.weekdaysShort(mom, '').toLocaleLowerCase();
+            this._weekdaysParse[i] = this.weekdays(mom, '').toLocaleLowerCase();
+        }
+    }
+
+    if (strict) {
+        if (format === 'dddd') {
+            ii = indexOf$1.call(this._weekdaysParse, llc);
+            return ii !== -1 ? ii : null;
+        } else if (format === 'ddd') {
+            ii = indexOf$1.call(this._shortWeekdaysParse, llc);
+            return ii !== -1 ? ii : null;
+        } else {
+            ii = indexOf$1.call(this._minWeekdaysParse, llc);
+            return ii !== -1 ? ii : null;
+        }
+    } else {
+        if (format === 'dddd') {
+            ii = indexOf$1.call(this._weekdaysParse, llc);
+            if (ii !== -1) {
+                return ii;
+            }
+            ii = indexOf$1.call(this._shortWeekdaysParse, llc);
+            if (ii !== -1) {
+                return ii;
+            }
+            ii = indexOf$1.call(this._minWeekdaysParse, llc);
+            return ii !== -1 ? ii : null;
+        } else if (format === 'ddd') {
+            ii = indexOf$1.call(this._shortWeekdaysParse, llc);
+            if (ii !== -1) {
+                return ii;
+            }
+            ii = indexOf$1.call(this._weekdaysParse, llc);
+            if (ii !== -1) {
+                return ii;
+            }
+            ii = indexOf$1.call(this._minWeekdaysParse, llc);
+            return ii !== -1 ? ii : null;
+        } else {
+            ii = indexOf$1.call(this._minWeekdaysParse, llc);
+            if (ii !== -1) {
+                return ii;
+            }
+            ii = indexOf$1.call(this._weekdaysParse, llc);
+            if (ii !== -1) {
+                return ii;
+            }
+            ii = indexOf$1.call(this._shortWeekdaysParse, llc);
+            return ii !== -1 ? ii : null;
+        }
+    }
+}
+
+function localeWeekdaysParse (weekdayName, format, strict) {
+    var i, mom, regex;
+
+    if (this._weekdaysParseExact) {
+        return handleStrictParse$1.call(this, weekdayName, format, strict);
+    }
+
+    if (!this._weekdaysParse) {
+        this._weekdaysParse = [];
+        this._minWeekdaysParse = [];
+        this._shortWeekdaysParse = [];
+        this._fullWeekdaysParse = [];
+    }
+
+    for (i = 0; i < 7; i++) {
+        // make the regex if we don't have it already
+
+        mom = createUTC([2000, 1]).day(i);
+        if (strict && !this._fullWeekdaysParse[i]) {
+            this._fullWeekdaysParse[i] = new RegExp('^' + this.weekdays(mom, '').replace('.', '\.?') + '$', 'i');
+            this._shortWeekdaysParse[i] = new RegExp('^' + this.weekdaysShort(mom, '').replace('.', '\.?') + '$', 'i');
+            this._minWeekdaysParse[i] = new RegExp('^' + this.weekdaysMin(mom, '').replace('.', '\.?') + '$', 'i');
+        }
+        if (!this._weekdaysParse[i]) {
+            regex = '^' + this.weekdays(mom, '') + '|^' + this.weekdaysShort(mom, '') + '|^' + this.weekdaysMin(mom, '');
+            this._weekdaysParse[i] = new RegExp(regex.replace('.', ''), 'i');
+        }
+        // test the regex
+        if (strict && format === 'dddd' && this._fullWeekdaysParse[i].test(weekdayName)) {
+            return i;
+        } else if (strict && format === 'ddd' && this._shortWeekdaysParse[i].test(weekdayName)) {
+            return i;
+        } else if (strict && format === 'dd' && this._minWeekdaysParse[i].test(weekdayName)) {
+            return i;
+        } else if (!strict && this._weekdaysParse[i].test(weekdayName)) {
+            return i;
+        }
+    }
+}
+
+// MOMENTS
+
+function getSetDayOfWeek (input) {
+    if (!this.isValid()) {
+        return input != null ? this : NaN;
+    }
+    var day = this._isUTC ? this._d.getUTCDay() : this._d.getDay();
+    if (input != null) {
+        input = parseWeekday(input, this.localeData());
+        return this.add(input - day, 'd');
+    } else {
+        return day;
+    }
+}
+
+function getSetLocaleDayOfWeek (input) {
+    if (!this.isValid()) {
+        return input != null ? this : NaN;
+    }
+    var weekday = (this.day() + 7 - this.localeData()._week.dow) % 7;
+    return input == null ? weekday : this.add(input - weekday, 'd');
+}
+
+function getSetISODayOfWeek (input) {
+    if (!this.isValid()) {
+        return input != null ? this : NaN;
+    }
+
+    // behaves the same as moment#day except
+    // as a getter, returns 7 instead of 0 (1-7 range instead of 0-6)
+    // as a setter, sunday should belong to the previous week.
+
+    if (input != null) {
+        var weekday = parseIsoWeekday(input, this.localeData());
+        return this.day(this.day() % 7 ? weekday : weekday - 7);
+    } else {
+        return this.day() || 7;
+    }
+}
+
+var defaultWeekdaysRegex = matchWord;
+function weekdaysRegex (isStrict) {
+    if (this._weekdaysParseExact) {
+        if (!hasOwnProp(this, '_weekdaysRegex')) {
+            computeWeekdaysParse.call(this);
+        }
+        if (isStrict) {
+            return this._weekdaysStrictRegex;
+        } else {
+            return this._weekdaysRegex;
+        }
+    } else {
+        if (!hasOwnProp(this, '_weekdaysRegex')) {
+            this._weekdaysRegex = defaultWeekdaysRegex;
+        }
+        return this._weekdaysStrictRegex && isStrict ?
+            this._weekdaysStrictRegex : this._weekdaysRegex;
+    }
+}
+
+var defaultWeekdaysShortRegex = matchWord;
+function weekdaysShortRegex (isStrict) {
+    if (this._weekdaysParseExact) {
+        if (!hasOwnProp(this, '_weekdaysRegex')) {
+            computeWeekdaysParse.call(this);
+        }
+        if (isStrict) {
+            return this._weekdaysShortStrictRegex;
+        } else {
+            return this._weekdaysShortRegex;
+        }
+    } else {
+        if (!hasOwnProp(this, '_weekdaysShortRegex')) {
+            this._weekdaysShortRegex = defaultWeekdaysShortRegex;
+        }
+        return this._weekdaysShortStrictRegex && isStrict ?
+            this._weekdaysShortStrictRegex : this._weekdaysShortRegex;
+    }
+}
+
+var defaultWeekdaysMinRegex = matchWord;
+function weekdaysMinRegex (isStrict) {
+    if (this._weekdaysParseExact) {
+        if (!hasOwnProp(this, '_weekdaysRegex')) {
+            computeWeekdaysParse.call(this);
+        }
+        if (isStrict) {
+            return this._weekdaysMinStrictRegex;
+        } else {
+            return this._weekdaysMinRegex;
+        }
+    } else {
+        if (!hasOwnProp(this, '_weekdaysMinRegex')) {
+            this._weekdaysMinRegex = defaultWeekdaysMinRegex;
+        }
+        return this._weekdaysMinStrictRegex && isStrict ?
+            this._weekdaysMinStrictRegex : this._weekdaysMinRegex;
+    }
+}
+
+
+function computeWeekdaysParse () {
+    function cmpLenRev(a, b) {
+        return b.length - a.length;
+    }
+
+    var minPieces = [], shortPieces = [], longPieces = [], mixedPieces = [],
+        i, mom, minp, shortp, longp;
+    for (i = 0; i < 7; i++) {
+        // make the regex if we don't have it already
+        mom = createUTC([2000, 1]).day(i);
+        minp = this.weekdaysMin(mom, '');
+        shortp = this.weekdaysShort(mom, '');
+        longp = this.weekdays(mom, '');
+        minPieces.push(minp);
+        shortPieces.push(shortp);
+        longPieces.push(longp);
+        mixedPieces.push(minp);
+        mixedPieces.push(shortp);
+        mixedPieces.push(longp);
+    }
+    // Sorting makes sure if one weekday (or abbr) is a prefix of another it
+    // will match the longer piece.
+    minPieces.sort(cmpLenRev);
+    shortPieces.sort(cmpLenRev);
+    longPieces.sort(cmpLenRev);
+    mixedPieces.sort(cmpLenRev);
+    for (i = 0; i < 7; i++) {
+        shortPieces[i] = regexEscape(shortPieces[i]);
+        longPieces[i] = regexEscape(longPieces[i]);
+        mixedPieces[i] = regexEscape(mixedPieces[i]);
+    }
+
+    this._weekdaysRegex = new RegExp('^(' + mixedPieces.join('|') + ')', 'i');
+    this._weekdaysShortRegex = this._weekdaysRegex;
+    this._weekdaysMinRegex = this._weekdaysRegex;
+
+    this._weekdaysStrictRegex = new RegExp('^(' + longPieces.join('|') + ')', 'i');
+    this._weekdaysShortStrictRegex = new RegExp('^(' + shortPieces.join('|') + ')', 'i');
+    this._weekdaysMinStrictRegex = new RegExp('^(' + minPieces.join('|') + ')', 'i');
+}
+
+// FORMATTING
+
+function hFormat() {
+    return this.hours() % 12 || 12;
+}
+
+function kFormat() {
+    return this.hours() || 24;
+}
+
+addFormatToken('H', ['HH', 2], 0, 'hour');
+addFormatToken('h', ['hh', 2], 0, hFormat);
+addFormatToken('k', ['kk', 2], 0, kFormat);
+
+addFormatToken('hmm', 0, 0, function () {
+    return '' + hFormat.apply(this) + zeroFill(this.minutes(), 2);
+});
+
+addFormatToken('hmmss', 0, 0, function () {
+    return '' + hFormat.apply(this) + zeroFill(this.minutes(), 2) +
+        zeroFill(this.seconds(), 2);
+});
+
+addFormatToken('Hmm', 0, 0, function () {
+    return '' + this.hours() + zeroFill(this.minutes(), 2);
+});
+
+addFormatToken('Hmmss', 0, 0, function () {
+    return '' + this.hours() + zeroFill(this.minutes(), 2) +
+        zeroFill(this.seconds(), 2);
+});
+
+function meridiem (token, lowercase) {
+    addFormatToken(token, 0, 0, function () {
+        return this.localeData().meridiem(this.hours(), this.minutes(), lowercase);
+    });
+}
+
+meridiem('a', true);
+meridiem('A', false);
+
+// ALIASES
+
+addUnitAlias('hour', 'h');
+
+// PRIORITY
+addUnitPriority('hour', 13);
+
+// PARSING
+
+function matchMeridiem (isStrict, locale) {
+    return locale._meridiemParse;
+}
+
+addRegexToken('a',  matchMeridiem);
+addRegexToken('A',  matchMeridiem);
+addRegexToken('H',  match1to2);
+addRegexToken('h',  match1to2);
+addRegexToken('HH', match1to2, match2);
+addRegexToken('hh', match1to2, match2);
+
+addRegexToken('hmm', match3to4);
+addRegexToken('hmmss', match5to6);
+addRegexToken('Hmm', match3to4);
+addRegexToken('Hmmss', match5to6);
+
+addParseToken(['H', 'HH'], HOUR);
+addParseToken(['a', 'A'], function (input, array, config) {
+    config._isPm = config._locale.isPM(input);
+    config._meridiem = input;
+});
+addParseToken(['h', 'hh'], function (input, array, config) {
+    array[HOUR] = toInt(input);
+    getParsingFlags(config).bigHour = true;
+});
+addParseToken('hmm', function (input, array, config) {
+    var pos = input.length - 2;
+    array[HOUR] = toInt(input.substr(0, pos));
+    array[MINUTE] = toInt(input.substr(pos));
+    getParsingFlags(config).bigHour = true;
+});
+addParseToken('hmmss', function (input, array, config) {
+    var pos1 = input.length - 4;
+    var pos2 = input.length - 2;
+    array[HOUR] = toInt(input.substr(0, pos1));
+    array[MINUTE] = toInt(input.substr(pos1, 2));
+    array[SECOND] = toInt(input.substr(pos2));
+    getParsingFlags(config).bigHour = true;
+});
+addParseToken('Hmm', function (input, array, config) {
+    var pos = input.length - 2;
+    array[HOUR] = toInt(input.substr(0, pos));
+    array[MINUTE] = toInt(input.substr(pos));
+});
+addParseToken('Hmmss', function (input, array, config) {
+    var pos1 = input.length - 4;
+    var pos2 = input.length - 2;
+    array[HOUR] = toInt(input.substr(0, pos1));
+    array[MINUTE] = toInt(input.substr(pos1, 2));
+    array[SECOND] = toInt(input.substr(pos2));
+});
+
+// LOCALES
+
+function localeIsPM (input) {
+    // IE8 Quirks Mode & IE7 Standards Mode do not allow accessing strings like arrays
+    // Using charAt should be more compatible.
+    return ((input + '').toLowerCase().charAt(0) === 'p');
+}
+
+var defaultLocaleMeridiemParse = /[ap]\.?m?\.?/i;
+function localeMeridiem (hours, minutes, isLower) {
+    if (hours > 11) {
+        return isLower ? 'pm' : 'PM';
+    } else {
+        return isLower ? 'am' : 'AM';
+    }
+}
+
+
+// MOMENTS
+
+// Setting the hour should keep the time, because the user explicitly
+// specified which hour he wants. So trying to maintain the same hour (in
+// a new timezone) makes sense. Adding/subtracting hours does not follow
+// this rule.
+var getSetHour = makeGetSet('Hours', true);
+
+// months
+// week
+// weekdays
+// meridiem
+var baseConfig = {
+    calendar: defaultCalendar,
+    longDateFormat: defaultLongDateFormat,
+    invalidDate: defaultInvalidDate,
+    ordinal: defaultOrdinal,
+    ordinalParse: defaultOrdinalParse,
+    relativeTime: defaultRelativeTime,
+
+    months: defaultLocaleMonths,
+    monthsShort: defaultLocaleMonthsShort,
+
+    week: defaultLocaleWeek,
+
+    weekdays: defaultLocaleWeekdays,
+    weekdaysMin: defaultLocaleWeekdaysMin,
+    weekdaysShort: defaultLocaleWeekdaysShort,
+
+    meridiemParse: defaultLocaleMeridiemParse
+};
+
+// internal storage for locale config files
+var locales = {};
+var localeFamilies = {};
+var globalLocale;
+
+function normalizeLocale(key) {
+    return key ? key.toLowerCase().replace('_', '-') : key;
+}
+
+// pick the locale from the array
+// try ['en-au', 'en-gb'] as 'en-au', 'en-gb', 'en', as in move through the list trying each
+// substring from most specific to least, but move to the next array item if it's a more specific variant than the current root
+function chooseLocale(names) {
+    var i = 0, j, next, locale, split;
+
+    while (i < names.length) {
+        split = normalizeLocale(names[i]).split('-');
+        j = split.length;
+        next = normalizeLocale(names[i + 1]);
+        next = next ? next.split('-') : null;
+        while (j > 0) {
+            locale = loadLocale(split.slice(0, j).join('-'));
+            if (locale) {
+                return locale;
+            }
+            if (next && next.length >= j && compareArrays(split, next, true) >= j - 1) {
+                //the next array item is better than a shallower substring of this one
+                break;
+            }
+            j--;
+        }
+        i++;
+    }
+    return null;
+}
+
+function loadLocale(name) {
+    var oldLocale = null;
+    // TODO: Find a better way to register and load all the locales in Node
+    if (!locales[name] && (typeof module !== 'undefined') &&
+            module && module.exports) {
+        try {
+            oldLocale = globalLocale._abbr;
+            require('./locale/' + name);
+            // because defineLocale currently also sets the global locale, we
+            // want to undo that for lazy loaded locales
+            getSetGlobalLocale(oldLocale);
+        } catch (e) { }
+    }
+    return locales[name];
+}
+
+// This function will load locale and then set the global locale.  If
+// no arguments are passed in, it will simply return the current global
+// locale key.
+function getSetGlobalLocale (key, values) {
+    var data;
+    if (key) {
+        if (isUndefined(values)) {
+            data = getLocale(key);
+        }
+        else {
+            data = defineLocale(key, values);
+        }
+
+        if (data) {
+            // moment.duration._locale = moment._locale = data;
+            globalLocale = data;
+        }
+    }
+
+    return globalLocale._abbr;
+}
+
+function defineLocale (name, config) {
+    if (config !== null) {
+        var parentConfig = baseConfig;
+        config.abbr = name;
+        if (locales[name] != null) {
+            deprecateSimple('defineLocaleOverride',
+                    'use moment.updateLocale(localeName, config) to change ' +
+                    'an existing locale. moment.defineLocale(localeName, ' +
+                    'config) should only be used for creating a new locale ' +
+                    'See http://momentjs.com/guides/#/warnings/define-locale/ for more info.');
+            parentConfig = locales[name]._config;
+        } else if (config.parentLocale != null) {
+            if (locales[config.parentLocale] != null) {
+                parentConfig = locales[config.parentLocale]._config;
+            } else {
+                if (!localeFamilies[config.parentLocale]) {
+                    localeFamilies[config.parentLocale] = [];
+                }
+                localeFamilies[config.parentLocale].push({
+                    name: name,
+                    config: config
+                });
+                return null;
+            }
+        }
+        locales[name] = new Locale(mergeConfigs(parentConfig, config));
+
+        if (localeFamilies[name]) {
+            localeFamilies[name].forEach(function (x) {
+                defineLocale(x.name, x.config);
+            });
+        }
+
+        // backwards compat for now: also set the locale
+        // make sure we set the locale AFTER all child locales have been
+        // created, so we won't end up with the child locale set.
+        getSetGlobalLocale(name);
+
+
+        return locales[name];
+    } else {
+        // useful for testing
+        delete locales[name];
+        return null;
+    }
+}
+
+function updateLocale(name, config) {
+    if (config != null) {
+        var locale, parentConfig = baseConfig;
+        // MERGE
+        if (locales[name] != null) {
+            parentConfig = locales[name]._config;
+        }
+        config = mergeConfigs(parentConfig, config);
+        locale = new Locale(config);
+        locale.parentLocale = locales[name];
+        locales[name] = locale;
+
+        // backwards compat for now: also set the locale
+        getSetGlobalLocale(name);
+    } else {
+        // pass null for config to unupdate, useful for tests
+        if (locales[name] != null) {
+            if (locales[name].parentLocale != null) {
+                locales[name] = locales[name].parentLocale;
+            } else if (locales[name] != null) {
+                delete locales[name];
+            }
+        }
+    }
+    return locales[name];
+}
+
+// returns locale data
+function getLocale (key) {
+    var locale;
+
+    if (key && key._locale && key._locale._abbr) {
+        key = key._locale._abbr;
+    }
+
+    if (!key) {
+        return globalLocale;
+    }
+
+    if (!isArray(key)) {
+        //short-circuit everything else
+        locale = loadLocale(key);
+        if (locale) {
+            return locale;
+        }
+        key = [key];
+    }
+
+    return chooseLocale(key);
+}
+
+function listLocales() {
+    return keys$1(locales);
+}
+
+function checkOverflow (m) {
+    var overflow;
+    var a = m._a;
+
+    if (a && getParsingFlags(m).overflow === -2) {
+        overflow =
+            a[MONTH]       < 0 || a[MONTH]       > 11  ? MONTH :
+            a[DATE]        < 1 || a[DATE]        > daysInMonth(a[YEAR], a[MONTH]) ? DATE :
+            a[HOUR]        < 0 || a[HOUR]        > 24 || (a[HOUR] === 24 && (a[MINUTE] !== 0 || a[SECOND] !== 0 || a[MILLISECOND] !== 0)) ? HOUR :
+            a[MINUTE]      < 0 || a[MINUTE]      > 59  ? MINUTE :
+            a[SECOND]      < 0 || a[SECOND]      > 59  ? SECOND :
+            a[MILLISECOND] < 0 || a[MILLISECOND] > 999 ? MILLISECOND :
+            -1;
+
+        if (getParsingFlags(m)._overflowDayOfYear && (overflow < YEAR || overflow > DATE)) {
+            overflow = DATE;
+        }
+        if (getParsingFlags(m)._overflowWeeks && overflow === -1) {
+            overflow = WEEK;
+        }
+        if (getParsingFlags(m)._overflowWeekday && overflow === -1) {
+            overflow = WEEKDAY;
+        }
+
+        getParsingFlags(m).overflow = overflow;
+    }
+
+    return m;
+}
+
+// iso 8601 regex
+// 0000-00-00 0000-W00 or 0000-W00-0 + T + 00 or 00:00 or 00:00:00 or 00:00:00.000 + +00:00 or +0000 or +00)
+var extendedIsoRegex = /^\s*((?:[+-]\d{6}|\d{4})-(?:\d\d-\d\d|W\d\d-\d|W\d\d|\d\d\d|\d\d))(?:(T| )(\d\d(?::\d\d(?::\d\d(?:[.,]\d+)?)?)?)([\+\-]\d\d(?::?\d\d)?|\s*Z)?)?$/;
+var basicIsoRegex = /^\s*((?:[+-]\d{6}|\d{4})(?:\d\d\d\d|W\d\d\d|W\d\d|\d\d\d|\d\d))(?:(T| )(\d\d(?:\d\d(?:\d\d(?:[.,]\d+)?)?)?)([\+\-]\d\d(?::?\d\d)?|\s*Z)?)?$/;
+
+var tzRegex = /Z|[+-]\d\d(?::?\d\d)?/;
+
+var isoDates = [
+    ['YYYYYY-MM-DD', /[+-]\d{6}-\d\d-\d\d/],
+    ['YYYY-MM-DD', /\d{4}-\d\d-\d\d/],
+    ['GGGG-[W]WW-E', /\d{4}-W\d\d-\d/],
+    ['GGGG-[W]WW', /\d{4}-W\d\d/, false],
+    ['YYYY-DDD', /\d{4}-\d{3}/],
+    ['YYYY-MM', /\d{4}-\d\d/, false],
+    ['YYYYYYMMDD', /[+-]\d{10}/],
+    ['YYYYMMDD', /\d{8}/],
+    // YYYYMM is NOT allowed by the standard
+    ['GGGG[W]WWE', /\d{4}W\d{3}/],
+    ['GGGG[W]WW', /\d{4}W\d{2}/, false],
+    ['YYYYDDD', /\d{7}/]
+];
+
+// iso time formats and regexes
+var isoTimes = [
+    ['HH:mm:ss.SSSS', /\d\d:\d\d:\d\d\.\d+/],
+    ['HH:mm:ss,SSSS', /\d\d:\d\d:\d\d,\d+/],
+    ['HH:mm:ss', /\d\d:\d\d:\d\d/],
+    ['HH:mm', /\d\d:\d\d/],
+    ['HHmmss.SSSS', /\d\d\d\d\d\d\.\d+/],
+    ['HHmmss,SSSS', /\d\d\d\d\d\d,\d+/],
+    ['HHmmss', /\d\d\d\d\d\d/],
+    ['HHmm', /\d\d\d\d/],
+    ['HH', /\d\d/]
+];
+
+var aspNetJsonRegex = /^\/?Date\((\-?\d+)/i;
+
+// date from iso format
+function configFromISO(config) {
+    var i, l,
+        string = config._i,
+        match = extendedIsoRegex.exec(string) || basicIsoRegex.exec(string),
+        allowTime, dateFormat, timeFormat, tzFormat;
+
+    if (match) {
+        getParsingFlags(config).iso = true;
+
+        for (i = 0, l = isoDates.length; i < l; i++) {
+            if (isoDates[i][1].exec(match[1])) {
+                dateFormat = isoDates[i][0];
+                allowTime = isoDates[i][2] !== false;
+                break;
+            }
+        }
+        if (dateFormat == null) {
+            config._isValid = false;
+            return;
+        }
+        if (match[3]) {
+            for (i = 0, l = isoTimes.length; i < l; i++) {
+                if (isoTimes[i][1].exec(match[3])) {
+                    // match[2] should be 'T' or space
+                    timeFormat = (match[2] || ' ') + isoTimes[i][0];
+                    break;
+                }
+            }
+            if (timeFormat == null) {
+                config._isValid = false;
+                return;
+            }
+        }
+        if (!allowTime && timeFormat != null) {
+            config._isValid = false;
+            return;
+        }
+        if (match[4]) {
+            if (tzRegex.exec(match[4])) {
+                tzFormat = 'Z';
+            } else {
+                config._isValid = false;
+                return;
+            }
+        }
+        config._f = dateFormat + (timeFormat || '') + (tzFormat || '');
+        configFromStringAndFormat(config);
+    } else {
+        config._isValid = false;
+    }
+}
+
+// date from iso format or fallback
+function configFromString(config) {
+    var matched = aspNetJsonRegex.exec(config._i);
+
+    if (matched !== null) {
+        config._d = new Date(+matched[1]);
+        return;
+    }
+
+    configFromISO(config);
+    if (config._isValid === false) {
+        delete config._isValid;
+        hooks.createFromInputFallback(config);
+    }
+}
+
+hooks.createFromInputFallback = deprecate(
+    'value provided is not in a recognized ISO format. moment construction falls back to js Date(), ' +
+    'which is not reliable across all browsers and versions. Non ISO date formats are ' +
+    'discouraged and will be removed in an upcoming major release. Please refer to ' +
+    'http://momentjs.com/guides/#/warnings/js-date/ for more info.',
+    function (config) {
+        config._d = new Date(config._i + (config._useUTC ? ' UTC' : ''));
+    }
+);
+
+// Pick the first defined of two or three arguments.
+function defaults(a, b, c) {
+    if (a != null) {
+        return a;
+    }
+    if (b != null) {
+        return b;
+    }
+    return c;
+}
+
+function currentDateArray(config) {
+    // hooks is actually the exported moment object
+    var nowValue = new Date(hooks.now());
+    if (config._useUTC) {
+        return [nowValue.getUTCFullYear(), nowValue.getUTCMonth(), nowValue.getUTCDate()];
+    }
+    return [nowValue.getFullYear(), nowValue.getMonth(), nowValue.getDate()];
+}
+
+// convert an array to a date.
+// the array should mirror the parameters below
+// note: all values past the year are optional and will default to the lowest possible value.
+// [year, month, day , hour, minute, second, millisecond]
+function configFromArray (config) {
+    var i, date, input = [], currentDate, yearToUse;
+
+    if (config._d) {
+        return;
+    }
+
+    currentDate = currentDateArray(config);
+
+    //compute day of the year from weeks and weekdays
+    if (config._w && config._a[DATE] == null && config._a[MONTH] == null) {
+        dayOfYearFromWeekInfo(config);
+    }
+
+    //if the day of the year is set, figure out what it is
+    if (config._dayOfYear) {
+        yearToUse = defaults(config._a[YEAR], currentDate[YEAR]);
+
+        if (config._dayOfYear > daysInYear(yearToUse)) {
+            getParsingFlags(config)._overflowDayOfYear = true;
+        }
+
+        date = createUTCDate(yearToUse, 0, config._dayOfYear);
+        config._a[MONTH] = date.getUTCMonth();
+        config._a[DATE] = date.getUTCDate();
+    }
+
+    // Default to current date.
+    // * if no year, month, day of month are given, default to today
+    // * if day of month is given, default month and year
+    // * if month is given, default only year
+    // * if year is given, don't default anything
+    for (i = 0; i < 3 && config._a[i] == null; ++i) {
+        config._a[i] = input[i] = currentDate[i];
+    }
+
+    // Zero out whatever was not defaulted, including time
+    for (; i < 7; i++) {
+        config._a[i] = input[i] = (config._a[i] == null) ? (i === 2 ? 1 : 0) : config._a[i];
+    }
+
+    // Check for 24:00:00.000
+    if (config._a[HOUR] === 24 &&
+            config._a[MINUTE] === 0 &&
+            config._a[SECOND] === 0 &&
+            config._a[MILLISECOND] === 0) {
+        config._nextDay = true;
+        config._a[HOUR] = 0;
+    }
+
+    config._d = (config._useUTC ? createUTCDate : createDate).apply(null, input);
+    // Apply timezone offset from input. The actual utcOffset can be changed
+    // with parseZone.
+    if (config._tzm != null) {
+        config._d.setUTCMinutes(config._d.getUTCMinutes() - config._tzm);
+    }
+
+    if (config._nextDay) {
+        config._a[HOUR] = 24;
+    }
+}
+
+function dayOfYearFromWeekInfo(config) {
+    var w, weekYear, week, weekday, dow, doy, temp, weekdayOverflow;
+
+    w = config._w;
+    if (w.GG != null || w.W != null || w.E != null) {
+        dow = 1;
+        doy = 4;
+
+        // TODO: We need to take the current isoWeekYear, but that depends on
+        // how we interpret now (local, utc, fixed offset). So create
+        // a now version of current config (take local/utc/offset flags, and
+        // create now).
+        weekYear = defaults(w.GG, config._a[YEAR], weekOfYear(createLocal(), 1, 4).year);
+        week = defaults(w.W, 1);
+        weekday = defaults(w.E, 1);
+        if (weekday < 1 || weekday > 7) {
+            weekdayOverflow = true;
+        }
+    } else {
+        dow = config._locale._week.dow;
+        doy = config._locale._week.doy;
+
+        var curWeek = weekOfYear(createLocal(), dow, doy);
+
+        weekYear = defaults(w.gg, config._a[YEAR], curWeek.year);
+
+        // Default to current week.
+        week = defaults(w.w, curWeek.week);
+
+        if (w.d != null) {
+            // weekday -- low day numbers are considered next week
+            weekday = w.d;
+            if (weekday < 0 || weekday > 6) {
+                weekdayOverflow = true;
+            }
+        } else if (w.e != null) {
+            // local weekday -- counting starts from begining of week
+            weekday = w.e + dow;
+            if (w.e < 0 || w.e > 6) {
+                weekdayOverflow = true;
+            }
+        } else {
+            // default to begining of week
+            weekday = dow;
+        }
+    }
+    if (week < 1 || week > weeksInYear(weekYear, dow, doy)) {
+        getParsingFlags(config)._overflowWeeks = true;
+    } else if (weekdayOverflow != null) {
+        getParsingFlags(config)._overflowWeekday = true;
+    } else {
+        temp = dayOfYearFromWeeks(weekYear, week, weekday, dow, doy);
+        config._a[YEAR] = temp.year;
+        config._dayOfYear = temp.dayOfYear;
+    }
+}
+
+// constant that refers to the ISO standard
+hooks.ISO_8601 = function () {};
+
+// date from string and format string
+function configFromStringAndFormat(config) {
+    // TODO: Move this to another part of the creation flow to prevent circular deps
+    if (config._f === hooks.ISO_8601) {
+        configFromISO(config);
+        return;
+    }
+
+    config._a = [];
+    getParsingFlags(config).empty = true;
+
+    // This array is used to make a Date, either with `new Date` or `Date.UTC`
+    var string = '' + config._i,
+        i, parsedInput, tokens, token, skipped,
+        stringLength = string.length,
+        totalParsedInputLength = 0;
+
+    tokens = expandFormat(config._f, config._locale).match(formattingTokens) || [];
+
+    for (i = 0; i < tokens.length; i++) {
+        token = tokens[i];
+        parsedInput = (string.match(getParseRegexForToken(token, config)) || [])[0];
+        // console.log('token', token, 'parsedInput', parsedInput,
+        //         'regex', getParseRegexForToken(token, config));
+        if (parsedInput) {
+            skipped = string.substr(0, string.indexOf(parsedInput));
+            if (skipped.length > 0) {
+                getParsingFlags(config).unusedInput.push(skipped);
+            }
+            string = string.slice(string.indexOf(parsedInput) + parsedInput.length);
+            totalParsedInputLength += parsedInput.length;
+        }
+        // don't parse if it's not a known token
+        if (formatTokenFunctions[token]) {
+            if (parsedInput) {
+                getParsingFlags(config).empty = false;
+            }
+            else {
+                getParsingFlags(config).unusedTokens.push(token);
+            }
+            addTimeToArrayFromToken(token, parsedInput, config);
+        }
+        else if (config._strict && !parsedInput) {
+            getParsingFlags(config).unusedTokens.push(token);
+        }
+    }
+
+    // add remaining unparsed input length to the string
+    getParsingFlags(config).charsLeftOver = stringLength - totalParsedInputLength;
+    if (string.length > 0) {
+        getParsingFlags(config).unusedInput.push(string);
+    }
+
+    // clear _12h flag if hour is <= 12
+    if (config._a[HOUR] <= 12 &&
+        getParsingFlags(config).bigHour === true &&
+        config._a[HOUR] > 0) {
+        getParsingFlags(config).bigHour = undefined;
+    }
+
+    getParsingFlags(config).parsedDateParts = config._a.slice(0);
+    getParsingFlags(config).meridiem = config._meridiem;
+    // handle meridiem
+    config._a[HOUR] = meridiemFixWrap(config._locale, config._a[HOUR], config._meridiem);
+
+    configFromArray(config);
+    checkOverflow(config);
+}
+
+
+function meridiemFixWrap (locale, hour, meridiem) {
+    var isPm;
+
+    if (meridiem == null) {
+        // nothing to do
+        return hour;
+    }
+    if (locale.meridiemHour != null) {
+        return locale.meridiemHour(hour, meridiem);
+    } else if (locale.isPM != null) {
+        // Fallback
+        isPm = locale.isPM(meridiem);
+        if (isPm && hour < 12) {
+            hour += 12;
+        }
+        if (!isPm && hour === 12) {
+            hour = 0;
+        }
+        return hour;
+    } else {
+        // this is not supposed to happen
+        return hour;
+    }
+}
+
+// date from string and array of format strings
+function configFromStringAndArray(config) {
+    var tempConfig,
+        bestMoment,
+
+        scoreToBeat,
+        i,
+        currentScore;
+
+    if (config._f.length === 0) {
+        getParsingFlags(config).invalidFormat = true;
+        config._d = new Date(NaN);
+        return;
+    }
+
+    for (i = 0; i < config._f.length; i++) {
+        currentScore = 0;
+        tempConfig = copyConfig({}, config);
+        if (config._useUTC != null) {
+            tempConfig._useUTC = config._useUTC;
+        }
+        tempConfig._f = config._f[i];
+        configFromStringAndFormat(tempConfig);
+
+        if (!isValid(tempConfig)) {
+            continue;
+        }
+
+        // if there is any input that was not parsed add a penalty for that format
+        currentScore += getParsingFlags(tempConfig).charsLeftOver;
+
+        //or tokens
+        currentScore += getParsingFlags(tempConfig).unusedTokens.length * 10;
+
+        getParsingFlags(tempConfig).score = currentScore;
+
+        if (scoreToBeat == null || currentScore < scoreToBeat) {
+            scoreToBeat = currentScore;
+            bestMoment = tempConfig;
+        }
+    }
+
+    extend(config, bestMoment || tempConfig);
+}
+
+function configFromObject(config) {
+    if (config._d) {
+        return;
+    }
+
+    var i = normalizeObjectUnits(config._i);
+    config._a = map([i.year, i.month, i.day || i.date, i.hour, i.minute, i.second, i.millisecond], function (obj) {
+        return obj && parseInt(obj, 10);
+    });
+
+    configFromArray(config);
+}
+
+function createFromConfig (config) {
+    var res = new Moment(checkOverflow(prepareConfig(config)));
+    if (res._nextDay) {
+        // Adding is smart enough around DST
+        res.add(1, 'd');
+        res._nextDay = undefined;
+    }
+
+    return res;
+}
+
+function prepareConfig (config) {
+    var input = config._i,
+        format = config._f;
+
+    config._locale = config._locale || getLocale(config._l);
+
+    if (input === null || (format === undefined && input === '')) {
+        return createInvalid({nullInput: true});
+    }
+
+    if (typeof input === 'string') {
+        config._i = input = config._locale.preparse(input);
+    }
+
+    if (isMoment(input)) {
+        return new Moment(checkOverflow(input));
+    } else if (isDate(input)) {
+        config._d = input;
+    } else if (isArray(format)) {
+        configFromStringAndArray(config);
+    } else if (format) {
+        configFromStringAndFormat(config);
+    }  else {
+        configFromInput(config);
+    }
+
+    if (!isValid(config)) {
+        config._d = null;
+    }
+
+    return config;
+}
+
+function configFromInput(config) {
+    var input = config._i;
+    if (input === undefined) {
+        config._d = new Date(hooks.now());
+    } else if (isDate(input)) {
+        config._d = new Date(input.valueOf());
+    } else if (typeof input === 'string') {
+        configFromString(config);
+    } else if (isArray(input)) {
+        config._a = map(input.slice(0), function (obj) {
+            return parseInt(obj, 10);
+        });
+        configFromArray(config);
+    } else if (typeof(input) === 'object') {
+        configFromObject(config);
+    } else if (isNumber(input)) {
+        // from milliseconds
+        config._d = new Date(input);
+    } else {
+        hooks.createFromInputFallback(config);
+    }
+}
+
+function createLocalOrUTC (input, format, locale, strict, isUTC) {
+    var c = {};
+
+    if (locale === true || locale === false) {
+        strict = locale;
+        locale = undefined;
+    }
+
+    if ((isObject(input) && isObjectEmpty(input)) ||
+            (isArray(input) && input.length === 0)) {
+        input = undefined;
+    }
+    // object construction must be done this way.
+    // https://github.com/moment/moment/issues/1423
+    c._isAMomentObject = true;
+    c._useUTC = c._isUTC = isUTC;
+    c._l = locale;
+    c._i = input;
+    c._f = format;
+    c._strict = strict;
+
+    return createFromConfig(c);
+}
+
+function createLocal (input, format, locale, strict) {
+    return createLocalOrUTC(input, format, locale, strict, false);
+}
+
+var prototypeMin = deprecate(
+    'moment().min is deprecated, use moment.max instead. http://momentjs.com/guides/#/warnings/min-max/',
+    function () {
+        var other = createLocal.apply(null, arguments);
+        if (this.isValid() && other.isValid()) {
+            return other < this ? this : other;
+        } else {
+            return createInvalid();
+        }
+    }
+);
+
+var prototypeMax = deprecate(
+    'moment().max is deprecated, use moment.min instead. http://momentjs.com/guides/#/warnings/min-max/',
+    function () {
+        var other = createLocal.apply(null, arguments);
+        if (this.isValid() && other.isValid()) {
+            return other > this ? this : other;
+        } else {
+            return createInvalid();
+        }
+    }
+);
+
+// Pick a moment m from moments so that m[fn](other) is true for all
+// other. This relies on the function fn to be transitive.
+//
+// moments should either be an array of moment objects or an array, whose
+// first element is an array of moment objects.
+function pickBy(fn, moments) {
+    var res, i;
+    if (moments.length === 1 && isArray(moments[0])) {
+        moments = moments[0];
+    }
+    if (!moments.length) {
+        return createLocal();
+    }
+    res = moments[0];
+    for (i = 1; i < moments.length; ++i) {
+        if (!moments[i].isValid() || moments[i][fn](res)) {
+            res = moments[i];
+        }
+    }
+    return res;
+}
+
+// TODO: Use [].sort instead?
+function min () {
+    var args = [].slice.call(arguments, 0);
+
+    return pickBy('isBefore', args);
+}
+
+function max () {
+    var args = [].slice.call(arguments, 0);
+
+    return pickBy('isAfter', args);
+}
+
+var now = function () {
+    return Date.now ? Date.now() : +(new Date());
+};
+
+function Duration (duration) {
+    var normalizedInput = normalizeObjectUnits(duration),
+        years = normalizedInput.year || 0,
+        quarters = normalizedInput.quarter || 0,
+        months = normalizedInput.month || 0,
+        weeks = normalizedInput.week || 0,
+        days = normalizedInput.day || 0,
+        hours = normalizedInput.hour || 0,
+        minutes = normalizedInput.minute || 0,
+        seconds = normalizedInput.second || 0,
+        milliseconds = normalizedInput.millisecond || 0;
+
+    // representation for dateAddRemove
+    this._milliseconds = +milliseconds +
+        seconds * 1e3 + // 1000
+        minutes * 6e4 + // 1000 * 60
+        hours * 1000 * 60 * 60; //using 1000 * 60 * 60 instead of 36e5 to avoid floating point rounding errors https://github.com/moment/moment/issues/2978
+    // Because of dateAddRemove treats 24 hours as different from a
+    // day when working around DST, we need to store them separately
+    this._days = +days +
+        weeks * 7;
+    // It is impossible translate months into days without knowing
+    // which months you are are talking about, so we have to store
+    // it separately.
+    this._months = +months +
+        quarters * 3 +
+        years * 12;
+
+    this._data = {};
+
+    this._locale = getLocale();
+
+    this._bubble();
+}
+
+function isDuration (obj) {
+    return obj instanceof Duration;
+}
+
+function absRound (number) {
+    if (number < 0) {
+        return Math.round(-1 * number) * -1;
+    } else {
+        return Math.round(number);
+    }
+}
+
+// FORMATTING
+
+function offset (token, separator) {
+    addFormatToken(token, 0, 0, function () {
+        var offset = this.utcOffset();
+        var sign = '+';
+        if (offset < 0) {
+            offset = -offset;
+            sign = '-';
+        }
+        return sign + zeroFill(~~(offset / 60), 2) + separator + zeroFill(~~(offset) % 60, 2);
+    });
+}
+
+offset('Z', ':');
+offset('ZZ', '');
+
+// PARSING
+
+addRegexToken('Z',  matchShortOffset);
+addRegexToken('ZZ', matchShortOffset);
+addParseToken(['Z', 'ZZ'], function (input, array, config) {
+    config._useUTC = true;
+    config._tzm = offsetFromString(matchShortOffset, input);
+});
+
+// HELPERS
+
+// timezone chunker
+// '+10:00' > ['10',  '00']
+// '-1530'  > ['-15', '30']
+var chunkOffset = /([\+\-]|\d\d)/gi;
+
+function offsetFromString(matcher, string) {
+    var matches = (string || '').match(matcher);
+
+    if (matches === null) {
+        return null;
+    }
+
+    var chunk   = matches[matches.length - 1] || [];
+    var parts   = (chunk + '').match(chunkOffset) || ['-', 0, 0];
+    var minutes = +(parts[1] * 60) + toInt(parts[2]);
+
+    return minutes === 0 ?
+      0 :
+      parts[0] === '+' ? minutes : -minutes;
+}
+
+// Return a moment from input, that is local/utc/zone equivalent to model.
+function cloneWithOffset(input, model) {
+    var res, diff;
+    if (model._isUTC) {
+        res = model.clone();
+        diff = (isMoment(input) || isDate(input) ? input.valueOf() : createLocal(input).valueOf()) - res.valueOf();
+        // Use low-level api, because this fn is low-level api.
+        res._d.setTime(res._d.valueOf() + diff);
+        hooks.updateOffset(res, false);
+        return res;
+    } else {
+        return createLocal(input).local();
+    }
+}
+
+function getDateOffset (m) {
+    // On Firefox.24 Date#getTimezoneOffset returns a floating point.
+    // https://github.com/moment/moment/pull/1871
+    return -Math.round(m._d.getTimezoneOffset() / 15) * 15;
+}
+
+// HOOKS
+
+// This function will be called whenever a moment is mutated.
+// It is intended to keep the offset in sync with the timezone.
+hooks.updateOffset = function () {};
+
+// MOMENTS
+
+// keepLocalTime = true means only change the timezone, without
+// affecting the local hour. So 5:31:26 +0300 --[utcOffset(2, true)]-->
+// 5:31:26 +0200 It is possible that 5:31:26 doesn't exist with offset
+// +0200, so we adjust the time as needed, to be valid.
+//
+// Keeping the time actually adds/subtracts (one hour)
+// from the actual represented time. That is why we call updateOffset
+// a second time. In case it wants us to change the offset again
+// _changeInProgress == true case, then we have to adjust, because
+// there is no such time in the given timezone.
+function getSetOffset (input, keepLocalTime) {
+    var offset = this._offset || 0,
+        localAdjust;
+    if (!this.isValid()) {
+        return input != null ? this : NaN;
+    }
+    if (input != null) {
+        if (typeof input === 'string') {
+            input = offsetFromString(matchShortOffset, input);
+            if (input === null) {
+                return this;
+            }
+        } else if (Math.abs(input) < 16) {
+            input = input * 60;
+        }
+        if (!this._isUTC && keepLocalTime) {
+            localAdjust = getDateOffset(this);
+        }
+        this._offset = input;
+        this._isUTC = true;
+        if (localAdjust != null) {
+            this.add(localAdjust, 'm');
+        }
+        if (offset !== input) {
+            if (!keepLocalTime || this._changeInProgress) {
+                addSubtract(this, createDuration(input - offset, 'm'), 1, false);
+            } else if (!this._changeInProgress) {
+                this._changeInProgress = true;
+                hooks.updateOffset(this, true);
+                this._changeInProgress = null;
+            }
+        }
+        return this;
+    } else {
+        return this._isUTC ? offset : getDateOffset(this);
+    }
+}
+
+function getSetZone (input, keepLocalTime) {
+    if (input != null) {
+        if (typeof input !== 'string') {
+            input = -input;
+        }
+
+        this.utcOffset(input, keepLocalTime);
+
+        return this;
+    } else {
+        return -this.utcOffset();
+    }
+}
+
+function setOffsetToUTC (keepLocalTime) {
+    return this.utcOffset(0, keepLocalTime);
+}
+
+function setOffsetToLocal (keepLocalTime) {
+    if (this._isUTC) {
+        this.utcOffset(0, keepLocalTime);
+        this._isUTC = false;
+
+        if (keepLocalTime) {
+            this.subtract(getDateOffset(this), 'm');
+        }
+    }
+    return this;
+}
+
+function setOffsetToParsedOffset () {
+    if (this._tzm != null) {
+        this.utcOffset(this._tzm);
+    } else if (typeof this._i === 'string') {
+        var tZone = offsetFromString(matchOffset, this._i);
+        if (tZone != null) {
+            this.utcOffset(tZone);
+        }
+        else {
+            this.utcOffset(0, true);
+        }
+    }
+    return this;
+}
+
+function hasAlignedHourOffset (input) {
+    if (!this.isValid()) {
+        return false;
+    }
+    input = input ? createLocal(input).utcOffset() : 0;
+
+    return (this.utcOffset() - input) % 60 === 0;
+}
+
+function isDaylightSavingTime () {
+    return (
+        this.utcOffset() > this.clone().month(0).utcOffset() ||
+        this.utcOffset() > this.clone().month(5).utcOffset()
+    );
+}
+
+function isDaylightSavingTimeShifted () {
+    if (!isUndefined(this._isDSTShifted)) {
+        return this._isDSTShifted;
+    }
+
+    var c = {};
+
+    copyConfig(c, this);
+    c = prepareConfig(c);
+
+    if (c._a) {
+        var other = c._isUTC ? createUTC(c._a) : createLocal(c._a);
+        this._isDSTShifted = this.isValid() &&
+            compareArrays(c._a, other.toArray()) > 0;
+    } else {
+        this._isDSTShifted = false;
+    }
+
+    return this._isDSTShifted;
+}
+
+function isLocal () {
+    return this.isValid() ? !this._isUTC : false;
+}
+
+function isUtcOffset () {
+    return this.isValid() ? this._isUTC : false;
+}
+
+function isUtc () {
+    return this.isValid() ? this._isUTC && this._offset === 0 : false;
+}
+
+// ASP.NET json date format regex
+var aspNetRegex = /^(\-)?(?:(\d*)[. ])?(\d+)\:(\d+)(?:\:(\d+)(\.\d*)?)?$/;
+
+// from http://docs.closure-library.googlecode.com/git/closure_goog_date_date.js.source.html
+// somewhat more in line with 4.4.3.2 2004 spec, but allows decimal anywhere
+// and further modified to allow for strings containing both week and day
+var isoRegex = /^(-)?P(?:(-?[0-9,.]*)Y)?(?:(-?[0-9,.]*)M)?(?:(-?[0-9,.]*)W)?(?:(-?[0-9,.]*)D)?(?:T(?:(-?[0-9,.]*)H)?(?:(-?[0-9,.]*)M)?(?:(-?[0-9,.]*)S)?)?$/;
+
+function createDuration (input, key) {
+    var duration = input,
+        // matching against regexp is expensive, do it on demand
+        match = null,
+        sign,
+        ret,
+        diffRes;
+
+    if (isDuration(input)) {
+        duration = {
+            ms : input._milliseconds,
+            d  : input._days,
+            M  : input._months
+        };
+    } else if (isNumber(input)) {
+        duration = {};
+        if (key) {
+            duration[key] = input;
+        } else {
+            duration.milliseconds = input;
+        }
+    } else if (!!(match = aspNetRegex.exec(input))) {
+        sign = (match[1] === '-') ? -1 : 1;
+        duration = {
+            y  : 0,
+            d  : toInt(match[DATE])                         * sign,
+            h  : toInt(match[HOUR])                         * sign,
+            m  : toInt(match[MINUTE])                       * sign,
+            s  : toInt(match[SECOND])                       * sign,
+            ms : toInt(absRound(match[MILLISECOND] * 1000)) * sign // the millisecond decimal point is included in the match
+        };
+    } else if (!!(match = isoRegex.exec(input))) {
+        sign = (match[1] === '-') ? -1 : 1;
+        duration = {
+            y : parseIso(match[2], sign),
+            M : parseIso(match[3], sign),
+            w : parseIso(match[4], sign),
+            d : parseIso(match[5], sign),
+            h : parseIso(match[6], sign),
+            m : parseIso(match[7], sign),
+            s : parseIso(match[8], sign)
+        };
+    } else if (duration == null) {// checks for null or undefined
+        duration = {};
+    } else if (typeof duration === 'object' && ('from' in duration || 'to' in duration)) {
+        diffRes = momentsDifference(createLocal(duration.from), createLocal(duration.to));
+
+        duration = {};
+        duration.ms = diffRes.milliseconds;
+        duration.M = diffRes.months;
+    }
+
+    ret = new Duration(duration);
+
+    if (isDuration(input) && hasOwnProp(input, '_locale')) {
+        ret._locale = input._locale;
+    }
+
+    return ret;
+}
+
+createDuration.fn = Duration.prototype;
+
+function parseIso (inp, sign) {
+    // We'd normally use ~~inp for this, but unfortunately it also
+    // converts floats to ints.
+    // inp may be undefined, so careful calling replace on it.
+    var res = inp && parseFloat(inp.replace(',', '.'));
+    // apply sign while we're at it
+    return (isNaN(res) ? 0 : res) * sign;
+}
+
+function positiveMomentsDifference(base, other) {
+    var res = {milliseconds: 0, months: 0};
+
+    res.months = other.month() - base.month() +
+        (other.year() - base.year()) * 12;
+    if (base.clone().add(res.months, 'M').isAfter(other)) {
+        --res.months;
+    }
+
+    res.milliseconds = +other - +(base.clone().add(res.months, 'M'));
+
+    return res;
+}
+
+function momentsDifference(base, other) {
+    var res;
+    if (!(base.isValid() && other.isValid())) {
+        return {milliseconds: 0, months: 0};
+    }
+
+    other = cloneWithOffset(other, base);
+    if (base.isBefore(other)) {
+        res = positiveMomentsDifference(base, other);
+    } else {
+        res = positiveMomentsDifference(other, base);
+        res.milliseconds = -res.milliseconds;
+        res.months = -res.months;
+    }
+
+    return res;
+}
+
+// TODO: remove 'name' arg after deprecation is removed
+function createAdder(direction, name) {
+    return function (val, period) {
+        var dur, tmp;
+        //invert the arguments, but complain about it
+        if (period !== null && !isNaN(+period)) {
+            deprecateSimple(name, 'moment().' + name  + '(period, number) is deprecated. Please use moment().' + name + '(number, period). ' +
+            'See http://momentjs.com/guides/#/warnings/add-inverted-param/ for more info.');
+            tmp = val; val = period; period = tmp;
+        }
+
+        val = typeof val === 'string' ? +val : val;
+        dur = createDuration(val, period);
+        addSubtract(this, dur, direction);
+        return this;
+    };
+}
+
+function addSubtract (mom, duration, isAdding, updateOffset) {
+    var milliseconds = duration._milliseconds,
+        days = absRound(duration._days),
+        months = absRound(duration._months);
+
+    if (!mom.isValid()) {
+        // No op
+        return;
+    }
+
+    updateOffset = updateOffset == null ? true : updateOffset;
+
+    if (milliseconds) {
+        mom._d.setTime(mom._d.valueOf() + milliseconds * isAdding);
+    }
+    if (days) {
+        set$1(mom, 'Date', get(mom, 'Date') + days * isAdding);
+    }
+    if (months) {
+        setMonth(mom, get(mom, 'Month') + months * isAdding);
+    }
+    if (updateOffset) {
+        hooks.updateOffset(mom, days || months);
+    }
+}
+
+var add      = createAdder(1, 'add');
+var subtract = createAdder(-1, 'subtract');
+
+function getCalendarFormat(myMoment, now) {
+    var diff = myMoment.diff(now, 'days', true);
+    return diff < -6 ? 'sameElse' :
+            diff < -1 ? 'lastWeek' :
+            diff < 0 ? 'lastDay' :
+            diff < 1 ? 'sameDay' :
+            diff < 2 ? 'nextDay' :
+            diff < 7 ? 'nextWeek' : 'sameElse';
+}
+
+function calendar$1 (time, formats) {
+    // We want to compare the start of today, vs this.
+    // Getting start-of-today depends on whether we're local/utc/offset or not.
+    var now = time || createLocal(),
+        sod = cloneWithOffset(now, this).startOf('day'),
+        format = hooks.calendarFormat(this, sod) || 'sameElse';
+
+    var output = formats && (isFunction(formats[format]) ? formats[format].call(this, now) : formats[format]);
+
+    return this.format(output || this.localeData().calendar(format, this, createLocal(now)));
+}
+
+function clone () {
+    return new Moment(this);
+}
+
+function isAfter (input, units) {
+    var localInput = isMoment(input) ? input : createLocal(input);
+    if (!(this.isValid() && localInput.isValid())) {
+        return false;
+    }
+    units = normalizeUnits(!isUndefined(units) ? units : 'millisecond');
+    if (units === 'millisecond') {
+        return this.valueOf() > localInput.valueOf();
+    } else {
+        return localInput.valueOf() < this.clone().startOf(units).valueOf();
+    }
+}
+
+function isBefore (input, units) {
+    var localInput = isMoment(input) ? input : createLocal(input);
+    if (!(this.isValid() && localInput.isValid())) {
+        return false;
+    }
+    units = normalizeUnits(!isUndefined(units) ? units : 'millisecond');
+    if (units === 'millisecond') {
+        return this.valueOf() < localInput.valueOf();
+    } else {
+        return this.clone().endOf(units).valueOf() < localInput.valueOf();
+    }
+}
+
+function isBetween (from, to, units, inclusivity) {
+    inclusivity = inclusivity || '()';
+    return (inclusivity[0] === '(' ? this.isAfter(from, units) : !this.isBefore(from, units)) &&
+        (inclusivity[1] === ')' ? this.isBefore(to, units) : !this.isAfter(to, units));
+}
+
+function isSame (input, units) {
+    var localInput = isMoment(input) ? input : createLocal(input),
+        inputMs;
+    if (!(this.isValid() && localInput.isValid())) {
+        return false;
+    }
+    units = normalizeUnits(units || 'millisecond');
+    if (units === 'millisecond') {
+        return this.valueOf() === localInput.valueOf();
+    } else {
+        inputMs = localInput.valueOf();
+        return this.clone().startOf(units).valueOf() <= inputMs && inputMs <= this.clone().endOf(units).valueOf();
+    }
+}
+
+function isSameOrAfter (input, units) {
+    return this.isSame(input, units) || this.isAfter(input,units);
+}
+
+function isSameOrBefore (input, units) {
+    return this.isSame(input, units) || this.isBefore(input,units);
+}
+
+function diff (input, units, asFloat) {
+    var that,
+        zoneDelta,
+        delta, output;
+
+    if (!this.isValid()) {
+        return NaN;
+    }
+
+    that = cloneWithOffset(input, this);
+
+    if (!that.isValid()) {
+        return NaN;
+    }
+
+    zoneDelta = (that.utcOffset() - this.utcOffset()) * 6e4;
+
+    units = normalizeUnits(units);
+
+    if (units === 'year' || units === 'month' || units === 'quarter') {
+        output = monthDiff(this, that);
+        if (units === 'quarter') {
+            output = output / 3;
+        } else if (units === 'year') {
+            output = output / 12;
+        }
+    } else {
+        delta = this - that;
+        output = units === 'second' ? delta / 1e3 : // 1000
+            units === 'minute' ? delta / 6e4 : // 1000 * 60
+            units === 'hour' ? delta / 36e5 : // 1000 * 60 * 60
+            units === 'day' ? (delta - zoneDelta) / 864e5 : // 1000 * 60 * 60 * 24, negate dst
+            units === 'week' ? (delta - zoneDelta) / 6048e5 : // 1000 * 60 * 60 * 24 * 7, negate dst
+            delta;
+    }
+    return asFloat ? output : absFloor(output);
+}
+
+function monthDiff (a, b) {
+    // difference in months
+    var wholeMonthDiff = ((b.year() - a.year()) * 12) + (b.month() - a.month()),
+        // b is in (anchor - 1 month, anchor + 1 month)
+        anchor = a.clone().add(wholeMonthDiff, 'months'),
+        anchor2, adjust;
+
+    if (b - anchor < 0) {
+        anchor2 = a.clone().add(wholeMonthDiff - 1, 'months');
+        // linear across the month
+        adjust = (b - anchor) / (anchor - anchor2);
+    } else {
+        anchor2 = a.clone().add(wholeMonthDiff + 1, 'months');
+        // linear across the month
+        adjust = (b - anchor) / (anchor2 - anchor);
+    }
+
+    //check for negative zero, return zero if negative zero
+    return -(wholeMonthDiff + adjust) || 0;
+}
+
+hooks.defaultFormat = 'YYYY-MM-DDTHH:mm:ssZ';
+hooks.defaultFormatUtc = 'YYYY-MM-DDTHH:mm:ss[Z]';
+
+function toString () {
+    return this.clone().locale('en').format('ddd MMM DD YYYY HH:mm:ss [GMT]ZZ');
+}
+
+function toISOString () {
+    var m = this.clone().utc();
+    if (0 < m.year() && m.year() <= 9999) {
+        if (isFunction(Date.prototype.toISOString)) {
+            // native implementation is ~50x faster, use it when we can
+            return this.toDate().toISOString();
+        } else {
+            return formatMoment(m, 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
+        }
+    } else {
+        return formatMoment(m, 'YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
+    }
+}
+
+/**
+ * Return a human readable representation of a moment that can
+ * also be evaluated to get a new moment which is the same
+ *
+ * @link https://nodejs.org/dist/latest/docs/api/util.html#util_custom_inspect_function_on_objects
+ */
+function inspect () {
+    if (!this.isValid()) {
+        return 'moment.invalid(/* ' + this._i + ' */)';
+    }
+    var func = 'moment';
+    var zone = '';
+    if (!this.isLocal()) {
+        func = this.utcOffset() === 0 ? 'moment.utc' : 'moment.parseZone';
+        zone = 'Z';
+    }
+    var prefix = '[' + func + '("]';
+    var year = (0 < this.year() && this.year() <= 9999) ? 'YYYY' : 'YYYYYY';
+    var datetime = '-MM-DD[T]HH:mm:ss.SSS';
+    var suffix = zone + '[")]';
+
+    return this.format(prefix + year + datetime + suffix);
+}
+
+function format (inputString) {
+    if (!inputString) {
+        inputString = this.isUtc() ? hooks.defaultFormatUtc : hooks.defaultFormat;
+    }
+    var output = formatMoment(this, inputString);
+    return this.localeData().postformat(output);
+}
+
+function from (time, withoutSuffix) {
+    if (this.isValid() &&
+            ((isMoment(time) && time.isValid()) ||
+             createLocal(time).isValid())) {
+        return createDuration({to: this, from: time}).locale(this.locale()).humanize(!withoutSuffix);
+    } else {
+        return this.localeData().invalidDate();
+    }
+}
+
+function fromNow (withoutSuffix) {
+    return this.from(createLocal(), withoutSuffix);
+}
+
+function to (time, withoutSuffix) {
+    if (this.isValid() &&
+            ((isMoment(time) && time.isValid()) ||
+             createLocal(time).isValid())) {
+        return createDuration({from: this, to: time}).locale(this.locale()).humanize(!withoutSuffix);
+    } else {
+        return this.localeData().invalidDate();
+    }
+}
+
+function toNow (withoutSuffix) {
+    return this.to(createLocal(), withoutSuffix);
+}
+
+// If passed a locale key, it will set the locale for this
+// instance.  Otherwise, it will return the locale configuration
+// variables for this instance.
+function locale (key) {
+    var newLocaleData;
+
+    if (key === undefined) {
+        return this._locale._abbr;
+    } else {
+        newLocaleData = getLocale(key);
+        if (newLocaleData != null) {
+            this._locale = newLocaleData;
+        }
+        return this;
+    }
+}
+
+var lang = deprecate(
+    'moment().lang() is deprecated. Instead, use moment().localeData() to get the language configuration. Use moment().locale() to change languages.',
+    function (key) {
+        if (key === undefined) {
+            return this.localeData();
+        } else {
+            return this.locale(key);
+        }
+    }
+);
+
+function localeData () {
+    return this._locale;
+}
+
+function startOf (units) {
+    units = normalizeUnits(units);
+    // the following switch intentionally omits break keywords
+    // to utilize falling through the cases.
+    switch (units) {
+        case 'year':
+            this.month(0);
+            /* falls through */
+        case 'quarter':
+        case 'month':
+            this.date(1);
+            /* falls through */
+        case 'week':
+        case 'isoWeek':
+        case 'day':
+        case 'date':
+            this.hours(0);
+            /* falls through */
+        case 'hour':
+            this.minutes(0);
+            /* falls through */
+        case 'minute':
+            this.seconds(0);
+            /* falls through */
+        case 'second':
+            this.milliseconds(0);
+    }
+
+    // weeks are a special case
+    if (units === 'week') {
+        this.weekday(0);
+    }
+    if (units === 'isoWeek') {
+        this.isoWeekday(1);
+    }
+
+    // quarters are also special
+    if (units === 'quarter') {
+        this.month(Math.floor(this.month() / 3) * 3);
+    }
+
+    return this;
+}
+
+function endOf (units) {
+    units = normalizeUnits(units);
+    if (units === undefined || units === 'millisecond') {
+        return this;
+    }
+
+    // 'date' is an alias for 'day', so it should be considered as such.
+    if (units === 'date') {
+        units = 'day';
+    }
+
+    return this.startOf(units).add(1, (units === 'isoWeek' ? 'week' : units)).subtract(1, 'ms');
+}
+
+function valueOf () {
+    return this._d.valueOf() - ((this._offset || 0) * 60000);
+}
+
+function unix () {
+    return Math.floor(this.valueOf() / 1000);
+}
+
+function toDate () {
+    return new Date(this.valueOf());
+}
+
+function toArray () {
+    var m = this;
+    return [m.year(), m.month(), m.date(), m.hour(), m.minute(), m.second(), m.millisecond()];
+}
+
+function toObject () {
+    var m = this;
+    return {
+        years: m.year(),
+        months: m.month(),
+        date: m.date(),
+        hours: m.hours(),
+        minutes: m.minutes(),
+        seconds: m.seconds(),
+        milliseconds: m.milliseconds()
+    };
+}
+
+function toJSON () {
+    // new Date(NaN).toJSON() === null
+    return this.isValid() ? this.toISOString() : null;
+}
+
+function isValid$1 () {
+    return isValid(this);
+}
+
+function parsingFlags () {
+    return extend({}, getParsingFlags(this));
+}
+
+function invalidAt () {
+    return getParsingFlags(this).overflow;
+}
+
+function creationData() {
+    return {
+        input: this._i,
+        format: this._f,
+        locale: this._locale,
+        isUTC: this._isUTC,
+        strict: this._strict
+    };
+}
+
+// FORMATTING
+
+addFormatToken(0, ['gg', 2], 0, function () {
+    return this.weekYear() % 100;
+});
+
+addFormatToken(0, ['GG', 2], 0, function () {
+    return this.isoWeekYear() % 100;
+});
+
+function addWeekYearFormatToken (token, getter) {
+    addFormatToken(0, [token, token.length], 0, getter);
+}
+
+addWeekYearFormatToken('gggg',     'weekYear');
+addWeekYearFormatToken('ggggg',    'weekYear');
+addWeekYearFormatToken('GGGG',  'isoWeekYear');
+addWeekYearFormatToken('GGGGG', 'isoWeekYear');
+
+// ALIASES
+
+addUnitAlias('weekYear', 'gg');
+addUnitAlias('isoWeekYear', 'GG');
+
+// PRIORITY
+
+addUnitPriority('weekYear', 1);
+addUnitPriority('isoWeekYear', 1);
+
+
+// PARSING
+
+addRegexToken('G',      matchSigned);
+addRegexToken('g',      matchSigned);
+addRegexToken('GG',     match1to2, match2);
+addRegexToken('gg',     match1to2, match2);
+addRegexToken('GGGG',   match1to4, match4);
+addRegexToken('gggg',   match1to4, match4);
+addRegexToken('GGGGG',  match1to6, match6);
+addRegexToken('ggggg',  match1to6, match6);
+
+addWeekParseToken(['gggg', 'ggggg', 'GGGG', 'GGGGG'], function (input, week, config, token) {
+    week[token.substr(0, 2)] = toInt(input);
+});
+
+addWeekParseToken(['gg', 'GG'], function (input, week, config, token) {
+    week[token] = hooks.parseTwoDigitYear(input);
+});
+
+// MOMENTS
+
+function getSetWeekYear (input) {
+    return getSetWeekYearHelper.call(this,
+            input,
+            this.week(),
+            this.weekday(),
+            this.localeData()._week.dow,
+            this.localeData()._week.doy);
+}
+
+function getSetISOWeekYear (input) {
+    return getSetWeekYearHelper.call(this,
+            input, this.isoWeek(), this.isoWeekday(), 1, 4);
+}
+
+function getISOWeeksInYear () {
+    return weeksInYear(this.year(), 1, 4);
+}
+
+function getWeeksInYear () {
+    var weekInfo = this.localeData()._week;
+    return weeksInYear(this.year(), weekInfo.dow, weekInfo.doy);
+}
+
+function getSetWeekYearHelper(input, week, weekday, dow, doy) {
+    var weeksTarget;
+    if (input == null) {
+        return weekOfYear(this, dow, doy).year;
+    } else {
+        weeksTarget = weeksInYear(input, dow, doy);
+        if (week > weeksTarget) {
+            week = weeksTarget;
+        }
+        return setWeekAll.call(this, input, week, weekday, dow, doy);
+    }
+}
+
+function setWeekAll(weekYear, week, weekday, dow, doy) {
+    var dayOfYearData = dayOfYearFromWeeks(weekYear, week, weekday, dow, doy),
+        date = createUTCDate(dayOfYearData.year, 0, dayOfYearData.dayOfYear);
+
+    this.year(date.getUTCFullYear());
+    this.month(date.getUTCMonth());
+    this.date(date.getUTCDate());
+    return this;
+}
+
+// FORMATTING
+
+addFormatToken('Q', 0, 'Qo', 'quarter');
+
+// ALIASES
+
+addUnitAlias('quarter', 'Q');
+
+// PRIORITY
+
+addUnitPriority('quarter', 7);
+
+// PARSING
+
+addRegexToken('Q', match1);
+addParseToken('Q', function (input, array) {
+    array[MONTH] = (toInt(input) - 1) * 3;
+});
+
+// MOMENTS
+
+function getSetQuarter (input) {
+    return input == null ? Math.ceil((this.month() + 1) / 3) : this.month((input - 1) * 3 + this.month() % 3);
+}
+
+// FORMATTING
+
+addFormatToken('D', ['DD', 2], 'Do', 'date');
+
+// ALIASES
+
+addUnitAlias('date', 'D');
+
+// PRIOROITY
+addUnitPriority('date', 9);
+
+// PARSING
+
+addRegexToken('D',  match1to2);
+addRegexToken('DD', match1to2, match2);
+addRegexToken('Do', function (isStrict, locale) {
+    return isStrict ? locale._ordinalParse : locale._ordinalParseLenient;
+});
+
+addParseToken(['D', 'DD'], DATE);
+addParseToken('Do', function (input, array) {
+    array[DATE] = toInt(input.match(match1to2)[0], 10);
+});
+
+// MOMENTS
+
+var getSetDayOfMonth = makeGetSet('Date', true);
+
+// FORMATTING
+
+addFormatToken('DDD', ['DDDD', 3], 'DDDo', 'dayOfYear');
+
+// ALIASES
+
+addUnitAlias('dayOfYear', 'DDD');
+
+// PRIORITY
+addUnitPriority('dayOfYear', 4);
+
+// PARSING
+
+addRegexToken('DDD',  match1to3);
+addRegexToken('DDDD', match3);
+addParseToken(['DDD', 'DDDD'], function (input, array, config) {
+    config._dayOfYear = toInt(input);
+});
+
+// HELPERS
+
+// MOMENTS
+
+function getSetDayOfYear (input) {
+    var dayOfYear = Math.round((this.clone().startOf('day') - this.clone().startOf('year')) / 864e5) + 1;
+    return input == null ? dayOfYear : this.add((input - dayOfYear), 'd');
+}
+
+// FORMATTING
+
+addFormatToken('m', ['mm', 2], 0, 'minute');
+
+// ALIASES
+
+addUnitAlias('minute', 'm');
+
+// PRIORITY
+
+addUnitPriority('minute', 14);
+
+// PARSING
+
+addRegexToken('m',  match1to2);
+addRegexToken('mm', match1to2, match2);
+addParseToken(['m', 'mm'], MINUTE);
+
+// MOMENTS
+
+var getSetMinute = makeGetSet('Minutes', false);
+
+// FORMATTING
+
+addFormatToken('s', ['ss', 2], 0, 'second');
+
+// ALIASES
+
+addUnitAlias('second', 's');
+
+// PRIORITY
+
+addUnitPriority('second', 15);
+
+// PARSING
+
+addRegexToken('s',  match1to2);
+addRegexToken('ss', match1to2, match2);
+addParseToken(['s', 'ss'], SECOND);
+
+// MOMENTS
+
+var getSetSecond = makeGetSet('Seconds', false);
+
+// FORMATTING
+
+addFormatToken('S', 0, 0, function () {
+    return ~~(this.millisecond() / 100);
+});
+
+addFormatToken(0, ['SS', 2], 0, function () {
+    return ~~(this.millisecond() / 10);
+});
+
+addFormatToken(0, ['SSS', 3], 0, 'millisecond');
+addFormatToken(0, ['SSSS', 4], 0, function () {
+    return this.millisecond() * 10;
+});
+addFormatToken(0, ['SSSSS', 5], 0, function () {
+    return this.millisecond() * 100;
+});
+addFormatToken(0, ['SSSSSS', 6], 0, function () {
+    return this.millisecond() * 1000;
+});
+addFormatToken(0, ['SSSSSSS', 7], 0, function () {
+    return this.millisecond() * 10000;
+});
+addFormatToken(0, ['SSSSSSSS', 8], 0, function () {
+    return this.millisecond() * 100000;
+});
+addFormatToken(0, ['SSSSSSSSS', 9], 0, function () {
+    return this.millisecond() * 1000000;
+});
+
+
+// ALIASES
+
+addUnitAlias('millisecond', 'ms');
+
+// PRIORITY
+
+addUnitPriority('millisecond', 16);
+
+// PARSING
+
+addRegexToken('S',    match1to3, match1);
+addRegexToken('SS',   match1to3, match2);
+addRegexToken('SSS',  match1to3, match3);
+
+var token;
+for (token = 'SSSS'; token.length <= 9; token += 'S') {
+    addRegexToken(token, matchUnsigned);
+}
+
+function parseMs(input, array) {
+    array[MILLISECOND] = toInt(('0.' + input) * 1000);
+}
+
+for (token = 'S'; token.length <= 9; token += 'S') {
+    addParseToken(token, parseMs);
+}
+// MOMENTS
+
+var getSetMillisecond = makeGetSet('Milliseconds', false);
+
+// FORMATTING
+
+addFormatToken('z',  0, 0, 'zoneAbbr');
+addFormatToken('zz', 0, 0, 'zoneName');
+
+// MOMENTS
+
+function getZoneAbbr () {
+    return this._isUTC ? 'UTC' : '';
+}
+
+function getZoneName () {
+    return this._isUTC ? 'Coordinated Universal Time' : '';
+}
+
+var proto = Moment.prototype;
+
+proto.add               = add;
+proto.calendar          = calendar$1;
+proto.clone             = clone;
+proto.diff              = diff;
+proto.endOf             = endOf;
+proto.format            = format;
+proto.from              = from;
+proto.fromNow           = fromNow;
+proto.to                = to;
+proto.toNow             = toNow;
+proto.get               = stringGet;
+proto.invalidAt         = invalidAt;
+proto.isAfter           = isAfter;
+proto.isBefore          = isBefore;
+proto.isBetween         = isBetween;
+proto.isSame            = isSame;
+proto.isSameOrAfter     = isSameOrAfter;
+proto.isSameOrBefore    = isSameOrBefore;
+proto.isValid           = isValid$1;
+proto.lang              = lang;
+proto.locale            = locale;
+proto.localeData        = localeData;
+proto.max               = prototypeMax;
+proto.min               = prototypeMin;
+proto.parsingFlags      = parsingFlags;
+proto.set               = stringSet;
+proto.startOf           = startOf;
+proto.subtract          = subtract;
+proto.toArray           = toArray;
+proto.toObject          = toObject;
+proto.toDate            = toDate;
+proto.toISOString       = toISOString;
+proto.inspect           = inspect;
+proto.toJSON            = toJSON;
+proto.toString          = toString;
+proto.unix              = unix;
+proto.valueOf           = valueOf;
+proto.creationData      = creationData;
+
+// Year
+proto.year       = getSetYear;
+proto.isLeapYear = getIsLeapYear;
+
+// Week Year
+proto.weekYear    = getSetWeekYear;
+proto.isoWeekYear = getSetISOWeekYear;
+
+// Quarter
+proto.quarter = proto.quarters = getSetQuarter;
+
+// Month
+proto.month       = getSetMonth;
+proto.daysInMonth = getDaysInMonth;
+
+// Week
+proto.week           = proto.weeks        = getSetWeek;
+proto.isoWeek        = proto.isoWeeks     = getSetISOWeek;
+proto.weeksInYear    = getWeeksInYear;
+proto.isoWeeksInYear = getISOWeeksInYear;
+
+// Day
+proto.date       = getSetDayOfMonth;
+proto.day        = proto.days             = getSetDayOfWeek;
+proto.weekday    = getSetLocaleDayOfWeek;
+proto.isoWeekday = getSetISODayOfWeek;
+proto.dayOfYear  = getSetDayOfYear;
+
+// Hour
+proto.hour = proto.hours = getSetHour;
+
+// Minute
+proto.minute = proto.minutes = getSetMinute;
+
+// Second
+proto.second = proto.seconds = getSetSecond;
+
+// Millisecond
+proto.millisecond = proto.milliseconds = getSetMillisecond;
+
+// Offset
+proto.utcOffset            = getSetOffset;
+proto.utc                  = setOffsetToUTC;
+proto.local                = setOffsetToLocal;
+proto.parseZone            = setOffsetToParsedOffset;
+proto.hasAlignedHourOffset = hasAlignedHourOffset;
+proto.isDST                = isDaylightSavingTime;
+proto.isLocal              = isLocal;
+proto.isUtcOffset          = isUtcOffset;
+proto.isUtc                = isUtc;
+proto.isUTC                = isUtc;
+
+// Timezone
+proto.zoneAbbr = getZoneAbbr;
+proto.zoneName = getZoneName;
+
+// Deprecations
+proto.dates  = deprecate('dates accessor is deprecated. Use date instead.', getSetDayOfMonth);
+proto.months = deprecate('months accessor is deprecated. Use month instead', getSetMonth);
+proto.years  = deprecate('years accessor is deprecated. Use year instead', getSetYear);
+proto.zone   = deprecate('moment().zone is deprecated, use moment().utcOffset instead. http://momentjs.com/guides/#/warnings/zone/', getSetZone);
+proto.isDSTShifted = deprecate('isDSTShifted is deprecated. See http://momentjs.com/guides/#/warnings/dst-shifted/ for more information', isDaylightSavingTimeShifted);
+
+function createUnix (input) {
+    return createLocal(input * 1000);
+}
+
+function createInZone () {
+    return createLocal.apply(null, arguments).parseZone();
+}
+
+function preParsePostFormat (string) {
+    return string;
+}
+
+var proto$1 = Locale.prototype;
+
+proto$1.calendar        = calendar;
+proto$1.longDateFormat  = longDateFormat;
+proto$1.invalidDate     = invalidDate;
+proto$1.ordinal         = ordinal;
+proto$1.preparse        = preParsePostFormat;
+proto$1.postformat      = preParsePostFormat;
+proto$1.relativeTime    = relativeTime;
+proto$1.pastFuture      = pastFuture;
+proto$1.set             = set;
+
+// Month
+proto$1.months            =        localeMonths;
+proto$1.monthsShort       =        localeMonthsShort;
+proto$1.monthsParse       =        localeMonthsParse;
+proto$1.monthsRegex       = monthsRegex;
+proto$1.monthsShortRegex  = monthsShortRegex;
+
+// Week
+proto$1.week = localeWeek;
+proto$1.firstDayOfYear = localeFirstDayOfYear;
+proto$1.firstDayOfWeek = localeFirstDayOfWeek;
+
+// Day of Week
+proto$1.weekdays       =        localeWeekdays;
+proto$1.weekdaysMin    =        localeWeekdaysMin;
+proto$1.weekdaysShort  =        localeWeekdaysShort;
+proto$1.weekdaysParse  =        localeWeekdaysParse;
+
+proto$1.weekdaysRegex       =        weekdaysRegex;
+proto$1.weekdaysShortRegex  =        weekdaysShortRegex;
+proto$1.weekdaysMinRegex    =        weekdaysMinRegex;
+
+// Hours
+proto$1.isPM = localeIsPM;
+proto$1.meridiem = localeMeridiem;
+
+function get$1 (format, index, field, setter) {
+    var locale = getLocale();
+    var utc = createUTC().set(setter, index);
+    return locale[field](utc, format);
+}
+
+function listMonthsImpl (format, index, field) {
+    if (isNumber(format)) {
+        index = format;
+        format = undefined;
+    }
+
+    format = format || '';
+
+    if (index != null) {
+        return get$1(format, index, field, 'month');
+    }
+
+    var i;
+    var out = [];
+    for (i = 0; i < 12; i++) {
+        out[i] = get$1(format, i, field, 'month');
+    }
+    return out;
+}
+
+// ()
+// (5)
+// (fmt, 5)
+// (fmt)
+// (true)
+// (true, 5)
+// (true, fmt, 5)
+// (true, fmt)
+function listWeekdaysImpl (localeSorted, format, index, field) {
+    if (typeof localeSorted === 'boolean') {
+        if (isNumber(format)) {
+            index = format;
+            format = undefined;
+        }
+
+        format = format || '';
+    } else {
+        format = localeSorted;
+        index = format;
+        localeSorted = false;
+
+        if (isNumber(format)) {
+            index = format;
+            format = undefined;
+        }
+
+        format = format || '';
+    }
+
+    var locale = getLocale(),
+        shift = localeSorted ? locale._week.dow : 0;
+
+    if (index != null) {
+        return get$1(format, (index + shift) % 7, field, 'day');
+    }
+
+    var i;
+    var out = [];
+    for (i = 0; i < 7; i++) {
+        out[i] = get$1(format, (i + shift) % 7, field, 'day');
+    }
+    return out;
+}
+
+function listMonths (format, index) {
+    return listMonthsImpl(format, index, 'months');
+}
+
+function listMonthsShort (format, index) {
+    return listMonthsImpl(format, index, 'monthsShort');
+}
+
+function listWeekdays (localeSorted, format, index) {
+    return listWeekdaysImpl(localeSorted, format, index, 'weekdays');
+}
+
+function listWeekdaysShort (localeSorted, format, index) {
+    return listWeekdaysImpl(localeSorted, format, index, 'weekdaysShort');
+}
+
+function listWeekdaysMin (localeSorted, format, index) {
+    return listWeekdaysImpl(localeSorted, format, index, 'weekdaysMin');
+}
+
+getSetGlobalLocale('en', {
+    ordinalParse: /\d{1,2}(th|st|nd|rd)/,
+    ordinal : function (number) {
+        var b = number % 10,
+            output = (toInt(number % 100 / 10) === 1) ? 'th' :
+            (b === 1) ? 'st' :
+            (b === 2) ? 'nd' :
+            (b === 3) ? 'rd' : 'th';
+        return number + output;
+    }
+});
+
+// Side effect imports
+hooks.lang = deprecate('moment.lang is deprecated. Use moment.locale instead.', getSetGlobalLocale);
+hooks.langData = deprecate('moment.langData is deprecated. Use moment.localeData instead.', getLocale);
+
+var mathAbs = Math.abs;
+
+function abs () {
+    var data           = this._data;
+
+    this._milliseconds = mathAbs(this._milliseconds);
+    this._days         = mathAbs(this._days);
+    this._months       = mathAbs(this._months);
+
+    data.milliseconds  = mathAbs(data.milliseconds);
+    data.seconds       = mathAbs(data.seconds);
+    data.minutes       = mathAbs(data.minutes);
+    data.hours         = mathAbs(data.hours);
+    data.months        = mathAbs(data.months);
+    data.years         = mathAbs(data.years);
+
+    return this;
+}
+
+function addSubtract$1 (duration, input, value, direction) {
+    var other = createDuration(input, value);
+
+    duration._milliseconds += direction * other._milliseconds;
+    duration._days         += direction * other._days;
+    duration._months       += direction * other._months;
+
+    return duration._bubble();
+}
+
+// supports only 2.0-style add(1, 's') or add(duration)
+function add$1 (input, value) {
+    return addSubtract$1(this, input, value, 1);
+}
+
+// supports only 2.0-style subtract(1, 's') or subtract(duration)
+function subtract$1 (input, value) {
+    return addSubtract$1(this, input, value, -1);
+}
+
+function absCeil (number) {
+    if (number < 0) {
+        return Math.floor(number);
+    } else {
+        return Math.ceil(number);
+    }
+}
+
+function bubble () {
+    var milliseconds = this._milliseconds;
+    var days         = this._days;
+    var months       = this._months;
+    var data         = this._data;
+    var seconds, minutes, hours, years, monthsFromDays;
+
+    // if we have a mix of positive and negative values, bubble down first
+    // check: https://github.com/moment/moment/issues/2166
+    if (!((milliseconds >= 0 && days >= 0 && months >= 0) ||
+            (milliseconds <= 0 && days <= 0 && months <= 0))) {
+        milliseconds += absCeil(monthsToDays(months) + days) * 864e5;
+        days = 0;
+        months = 0;
+    }
+
+    // The following code bubbles up values, see the tests for
+    // examples of what that means.
+    data.milliseconds = milliseconds % 1000;
+
+    seconds           = absFloor(milliseconds / 1000);
+    data.seconds      = seconds % 60;
+
+    minutes           = absFloor(seconds / 60);
+    data.minutes      = minutes % 60;
+
+    hours             = absFloor(minutes / 60);
+    data.hours        = hours % 24;
+
+    days += absFloor(hours / 24);
+
+    // convert days to months
+    monthsFromDays = absFloor(daysToMonths(days));
+    months += monthsFromDays;
+    days -= absCeil(monthsToDays(monthsFromDays));
+
+    // 12 months -> 1 year
+    years = absFloor(months / 12);
+    months %= 12;
+
+    data.days   = days;
+    data.months = months;
+    data.years  = years;
+
+    return this;
+}
+
+function daysToMonths (days) {
+    // 400 years have 146097 days (taking into account leap year rules)
+    // 400 years have 12 months === 4800
+    return days * 4800 / 146097;
+}
+
+function monthsToDays (months) {
+    // the reverse of daysToMonths
+    return months * 146097 / 4800;
+}
+
+function as (units) {
+    var days;
+    var months;
+    var milliseconds = this._milliseconds;
+
+    units = normalizeUnits(units);
+
+    if (units === 'month' || units === 'year') {
+        days   = this._days   + milliseconds / 864e5;
+        months = this._months + daysToMonths(days);
+        return units === 'month' ? months : months / 12;
+    } else {
+        // handle milliseconds separately because of floating point math errors (issue #1867)
+        days = this._days + Math.round(monthsToDays(this._months));
+        switch (units) {
+            case 'week'   : return days / 7     + milliseconds / 6048e5;
+            case 'day'    : return days         + milliseconds / 864e5;
+            case 'hour'   : return days * 24    + milliseconds / 36e5;
+            case 'minute' : return days * 1440  + milliseconds / 6e4;
+            case 'second' : return days * 86400 + milliseconds / 1000;
+            // Math.floor prevents floating point math errors here
+            case 'millisecond': return Math.floor(days * 864e5) + milliseconds;
+            default: throw new Error('Unknown unit ' + units);
+        }
+    }
+}
+
+// TODO: Use this.as('ms')?
+function valueOf$1 () {
+    return (
+        this._milliseconds +
+        this._days * 864e5 +
+        (this._months % 12) * 2592e6 +
+        toInt(this._months / 12) * 31536e6
+    );
+}
+
+function makeAs (alias) {
+    return function () {
+        return this.as(alias);
+    };
+}
+
+var asMilliseconds = makeAs('ms');
+var asSeconds      = makeAs('s');
+var asMinutes      = makeAs('m');
+var asHours        = makeAs('h');
+var asDays         = makeAs('d');
+var asWeeks        = makeAs('w');
+var asMonths       = makeAs('M');
+var asYears        = makeAs('y');
+
+function get$2 (units) {
+    units = normalizeUnits(units);
+    return this[units + 's']();
+}
+
+function makeGetter(name) {
+    return function () {
+        return this._data[name];
+    };
+}
+
+var milliseconds = makeGetter('milliseconds');
+var seconds      = makeGetter('seconds');
+var minutes      = makeGetter('minutes');
+var hours        = makeGetter('hours');
+var days         = makeGetter('days');
+var months       = makeGetter('months');
+var years        = makeGetter('years');
+
+function weeks () {
+    return absFloor(this.days() / 7);
+}
+
+var round = Math.round;
+var thresholds = {
+    s: 45,  // seconds to minute
+    m: 45,  // minutes to hour
+    h: 22,  // hours to day
+    d: 26,  // days to month
+    M: 11   // months to year
+};
+
+// helper function for moment.fn.from, moment.fn.fromNow, and moment.duration.fn.humanize
+function substituteTimeAgo(string, number, withoutSuffix, isFuture, locale) {
+    return locale.relativeTime(number || 1, !!withoutSuffix, string, isFuture);
+}
+
+function relativeTime$1 (posNegDuration, withoutSuffix, locale) {
+    var duration = createDuration(posNegDuration).abs();
+    var seconds  = round(duration.as('s'));
+    var minutes  = round(duration.as('m'));
+    var hours    = round(duration.as('h'));
+    var days     = round(duration.as('d'));
+    var months   = round(duration.as('M'));
+    var years    = round(duration.as('y'));
+
+    var a = seconds < thresholds.s && ['s', seconds]  ||
+            minutes <= 1           && ['m']           ||
+            minutes < thresholds.m && ['mm', minutes] ||
+            hours   <= 1           && ['h']           ||
+            hours   < thresholds.h && ['hh', hours]   ||
+            days    <= 1           && ['d']           ||
+            days    < thresholds.d && ['dd', days]    ||
+            months  <= 1           && ['M']           ||
+            months  < thresholds.M && ['MM', months]  ||
+            years   <= 1           && ['y']           || ['yy', years];
+
+    a[2] = withoutSuffix;
+    a[3] = +posNegDuration > 0;
+    a[4] = locale;
+    return substituteTimeAgo.apply(null, a);
+}
+
+// This function allows you to set the rounding function for relative time strings
+function getSetRelativeTimeRounding (roundingFunction) {
+    if (roundingFunction === undefined) {
+        return round;
+    }
+    if (typeof(roundingFunction) === 'function') {
+        round = roundingFunction;
+        return true;
+    }
+    return false;
+}
+
+// This function allows you to set a threshold for relative time strings
+function getSetRelativeTimeThreshold (threshold, limit) {
+    if (thresholds[threshold] === undefined) {
+        return false;
+    }
+    if (limit === undefined) {
+        return thresholds[threshold];
+    }
+    thresholds[threshold] = limit;
+    return true;
+}
+
+function humanize (withSuffix) {
+    var locale = this.localeData();
+    var output = relativeTime$1(this, !withSuffix, locale);
+
+    if (withSuffix) {
+        output = locale.pastFuture(+this, output);
+    }
+
+    return locale.postformat(output);
+}
+
+var abs$1 = Math.abs;
+
+function toISOString$1() {
+    // for ISO strings we do not use the normal bubbling rules:
+    //  * milliseconds bubble up until they become hours
+    //  * days do not bubble at all
+    //  * months bubble up until they become years
+    // This is because there is no context-free conversion between hours and days
+    // (think of clock changes)
+    // and also not between days and months (28-31 days per month)
+    var seconds = abs$1(this._milliseconds) / 1000;
+    var days         = abs$1(this._days);
+    var months       = abs$1(this._months);
+    var minutes, hours, years;
+
+    // 3600 seconds -> 60 minutes -> 1 hour
+    minutes           = absFloor(seconds / 60);
+    hours             = absFloor(minutes / 60);
+    seconds %= 60;
+    minutes %= 60;
+
+    // 12 months -> 1 year
+    years  = absFloor(months / 12);
+    months %= 12;
+
+
+    // inspired by https://github.com/dordille/moment-isoduration/blob/master/moment.isoduration.js
+    var Y = years;
+    var M = months;
+    var D = days;
+    var h = hours;
+    var m = minutes;
+    var s = seconds;
+    var total = this.asSeconds();
+
+    if (!total) {
+        // this is the same as C#'s (Noda) and python (isodate)...
+        // but not other JS (goog.date)
+        return 'P0D';
+    }
+
+    return (total < 0 ? '-' : '') +
+        'P' +
+        (Y ? Y + 'Y' : '') +
+        (M ? M + 'M' : '') +
+        (D ? D + 'D' : '') +
+        ((h || m || s) ? 'T' : '') +
+        (h ? h + 'H' : '') +
+        (m ? m + 'M' : '') +
+        (s ? s + 'S' : '');
+}
+
+var proto$2 = Duration.prototype;
+
+proto$2.abs            = abs;
+proto$2.add            = add$1;
+proto$2.subtract       = subtract$1;
+proto$2.as             = as;
+proto$2.asMilliseconds = asMilliseconds;
+proto$2.asSeconds      = asSeconds;
+proto$2.asMinutes      = asMinutes;
+proto$2.asHours        = asHours;
+proto$2.asDays         = asDays;
+proto$2.asWeeks        = asWeeks;
+proto$2.asMonths       = asMonths;
+proto$2.asYears        = asYears;
+proto$2.valueOf        = valueOf$1;
+proto$2._bubble        = bubble;
+proto$2.get            = get$2;
+proto$2.milliseconds   = milliseconds;
+proto$2.seconds        = seconds;
+proto$2.minutes        = minutes;
+proto$2.hours          = hours;
+proto$2.days           = days;
+proto$2.weeks          = weeks;
+proto$2.months         = months;
+proto$2.years          = years;
+proto$2.humanize       = humanize;
+proto$2.toISOString    = toISOString$1;
+proto$2.toString       = toISOString$1;
+proto$2.toJSON         = toISOString$1;
+proto$2.locale         = locale;
+proto$2.localeData     = localeData;
+
+// Deprecations
+proto$2.toIsoString = deprecate('toIsoString() is deprecated. Please use toISOString() instead (notice the capitals)', toISOString$1);
+proto$2.lang = lang;
+
+// Side effect imports
+
+// FORMATTING
+
+addFormatToken('X', 0, 0, 'unix');
+addFormatToken('x', 0, 0, 'valueOf');
+
+// PARSING
+
+addRegexToken('x', matchSigned);
+addRegexToken('X', matchTimestamp);
+addParseToken('X', function (input, array, config) {
+    config._d = new Date(parseFloat(input, 10) * 1000);
+});
+addParseToken('x', function (input, array, config) {
+    config._d = new Date(toInt(input));
+});
+
+// Side effect imports
+
+
+hooks.version = '2.17.0';
+
+setHookCallback(createLocal);
+
+hooks.fn                    = proto;
+hooks.min                   = min;
+hooks.max                   = max;
+hooks.now                   = now;
+hooks.utc                   = createUTC;
+hooks.unix                  = createUnix;
+hooks.months                = listMonths;
+hooks.isDate                = isDate;
+hooks.locale                = getSetGlobalLocale;
+hooks.invalid               = createInvalid;
+hooks.duration              = createDuration;
+hooks.isMoment              = isMoment;
+hooks.weekdays              = listWeekdays;
+hooks.parseZone             = createInZone;
+hooks.localeData            = getLocale;
+hooks.isDuration            = isDuration;
+hooks.monthsShort           = listMonthsShort;
+hooks.weekdaysMin           = listWeekdaysMin;
+hooks.defineLocale          = defineLocale;
+hooks.updateLocale          = updateLocale;
+hooks.locales               = listLocales;
+hooks.weekdaysShort         = listWeekdaysShort;
+hooks.normalizeUnits        = normalizeUnits;
+hooks.relativeTimeRounding = getSetRelativeTimeRounding;
+hooks.relativeTimeThreshold = getSetRelativeTimeThreshold;
+hooks.calendarFormat        = getCalendarFormat;
+hooks.prototype             = proto;
+
+return hooks;
+
+})));
+
 /**
  * @license
  * Lodash <https://lodash.com/>
@@ -26869,6 +31200,171 @@ define('text!ui-glyphs.html', ['module'], function(module) { module.exports = "<
   }
 }.call(this));
 
+define('kramed/kramed',['require','exports','module','./utils','./lex/block','./lex/inline','./parser','./renderer'],function (require, exports, module) {/**
+ * kramed - a markdown parser
+ * Copyright (c) 2011-2014, Christopher Jeffrey. (MIT Licensed)
+ * https://github.com/GitbookIO/kramed
+ */
+/**
+ * kramed - a kramdown parser, based off chjj's kramed
+ * Copyright (c) 2014, Aaron O'Mullan. (MIT Licensed)
+ * https://github.com/GitbookIO/kramed
+*/
+
+var _utils = require('./utils');
+var merge = _utils.merge;
+
+var Lexer = require('./lex/block');
+var InlineLexer = require('./lex/inline');
+
+var Parser = require('./parser');
+var Renderer = require('./renderer');
+
+/**
+ * Kramed
+ */
+
+function kramed(src, opt, callback) {
+  if (callback || typeof opt === 'function') {
+    if (!callback) {
+      callback = opt;
+      opt = null;
+    }
+
+    opt = merge({}, kramed.defaults, opt || {});
+
+    var highlight = opt.highlight
+      , tokens
+      , pending
+      , i = 0;
+
+    try {
+      tokens = Lexer.lex(src, opt)
+    } catch (e) {
+      return callback(e);
+    }
+
+    pending = tokens.length;
+
+    var done = function(err) {
+      if (err) {
+        opt.highlight = highlight;
+        return callback(err);
+      }
+
+      var out;
+
+      try {
+        out = Parser.parse(tokens, opt);
+      } catch (e) {
+        err = e;
+      }
+
+      opt.highlight = highlight;
+
+      return err
+        ? callback(err)
+        : callback(null, out);
+    };
+
+    if (!highlight || highlight.length < 3) {
+      return done();
+    }
+
+    delete opt.highlight;
+
+    if (!pending) return done();
+
+    for (; i < tokens.length; i++) {
+      (function(token) {
+        if (token.type !== 'code') {
+          return --pending || done();
+        }
+        return highlight(token.text, token.lang, function(err, code) {
+          if (err) return done(err);
+          if (code == null || code === token.text) {
+            return --pending || done();
+          }
+          token.text = code;
+          token.escaped = true;
+          --pending || done();
+        });
+      })(tokens[i]);
+    }
+
+    return;
+  }
+  try {
+    if (opt) opt = merge({}, kramed.defaults, opt);
+    return Parser.parse(Lexer.lex(src, opt), opt);
+  } catch (e) {
+    e.message += '\nPlease report this to https://github.com/GitbookIO/kramed.';
+    if ((opt || kramed.defaults).silent) {
+      return '<p>An error occured:</p><pre>'
+        + escape(e.message + '', true)
+        + '</pre>';
+    }
+    throw e;
+  }
+}
+
+/**
+ * Options
+ */
+
+kramed.options =
+kramed.setOptions = function(opt) {
+  merge(kramed.defaults, opt);
+  return kramed;
+};
+
+kramed.defaults = {
+  // Lexer options (both block and inline lexers)
+  gfm: true,
+  tables: true,
+  breaks: false,
+  pedantic: false,
+  sanitize: false,
+  smartLists: false,
+  mathjax: true,
+
+  // Kramed options
+  silent: false,
+  highlight: null,
+
+  // Renderer options
+  langPrefix: 'lang-',
+  smartypants: false,
+  headerPrefix: '',
+  headerAutoId: true,
+  xhtml: false,
+
+  // Default rendrer passed to Parser
+  renderer: new Renderer,
+};
+
+/**
+ * Expose
+ */
+
+kramed.Parser = Parser;
+kramed.parser = Parser.parse;
+
+kramed.Renderer = Renderer;
+
+kramed.Lexer = Lexer;
+kramed.lexer = Lexer.lex;
+
+kramed.InlineLexer = InlineLexer;
+kramed.inlineLexer = InlineLexer.output;
+
+kramed.parse = kramed;
+
+module.exports = kramed;
+
+});
+;define('kramed', ['kramed/kramed'], function (main) { return main; });
+
 /*! @preserve
  * numeral.js
  * version : 1.5.6
@@ -27713,4472 +32209,5 @@ define('text!ui-glyphs.html', ['module'], function(module) { module.exports = "<
         });
     }
 }).call(this);
-
-//! moment.js
-//! version : 2.17.0
-//! authors : Tim Wood, Iskren Chernev, Moment.js contributors
-//! license : MIT
-//! momentjs.com
-
-;(function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-    typeof define === 'function' && define.amd ? define('moment',factory) :
-    global.moment = factory()
-}(this, (function () { 'use strict';
-
-var hookCallback;
-
-function hooks () {
-    return hookCallback.apply(null, arguments);
-}
-
-// This is done to register the method called with moment()
-// without creating circular dependencies.
-function setHookCallback (callback) {
-    hookCallback = callback;
-}
-
-function isArray(input) {
-    return input instanceof Array || Object.prototype.toString.call(input) === '[object Array]';
-}
-
-function isObject(input) {
-    // IE8 will treat undefined and null as object if it wasn't for
-    // input != null
-    return input != null && Object.prototype.toString.call(input) === '[object Object]';
-}
-
-function isObjectEmpty(obj) {
-    var k;
-    for (k in obj) {
-        // even if its not own property I'd still call it non-empty
-        return false;
-    }
-    return true;
-}
-
-function isNumber(input) {
-    return typeof input === 'number' || Object.prototype.toString.call(input) === '[object Number]';
-}
-
-function isDate(input) {
-    return input instanceof Date || Object.prototype.toString.call(input) === '[object Date]';
-}
-
-function map(arr, fn) {
-    var res = [], i;
-    for (i = 0; i < arr.length; ++i) {
-        res.push(fn(arr[i], i));
-    }
-    return res;
-}
-
-function hasOwnProp(a, b) {
-    return Object.prototype.hasOwnProperty.call(a, b);
-}
-
-function extend(a, b) {
-    for (var i in b) {
-        if (hasOwnProp(b, i)) {
-            a[i] = b[i];
-        }
-    }
-
-    if (hasOwnProp(b, 'toString')) {
-        a.toString = b.toString;
-    }
-
-    if (hasOwnProp(b, 'valueOf')) {
-        a.valueOf = b.valueOf;
-    }
-
-    return a;
-}
-
-function createUTC (input, format, locale, strict) {
-    return createLocalOrUTC(input, format, locale, strict, true).utc();
-}
-
-function defaultParsingFlags() {
-    // We need to deep clone this object.
-    return {
-        empty           : false,
-        unusedTokens    : [],
-        unusedInput     : [],
-        overflow        : -2,
-        charsLeftOver   : 0,
-        nullInput       : false,
-        invalidMonth    : null,
-        invalidFormat   : false,
-        userInvalidated : false,
-        iso             : false,
-        parsedDateParts : [],
-        meridiem        : null
-    };
-}
-
-function getParsingFlags(m) {
-    if (m._pf == null) {
-        m._pf = defaultParsingFlags();
-    }
-    return m._pf;
-}
-
-var some;
-if (Array.prototype.some) {
-    some = Array.prototype.some;
-} else {
-    some = function (fun) {
-        var t = Object(this);
-        var len = t.length >>> 0;
-
-        for (var i = 0; i < len; i++) {
-            if (i in t && fun.call(this, t[i], i, t)) {
-                return true;
-            }
-        }
-
-        return false;
-    };
-}
-
-var some$1 = some;
-
-function isValid(m) {
-    if (m._isValid == null) {
-        var flags = getParsingFlags(m);
-        var parsedParts = some$1.call(flags.parsedDateParts, function (i) {
-            return i != null;
-        });
-        var isNowValid = !isNaN(m._d.getTime()) &&
-            flags.overflow < 0 &&
-            !flags.empty &&
-            !flags.invalidMonth &&
-            !flags.invalidWeekday &&
-            !flags.nullInput &&
-            !flags.invalidFormat &&
-            !flags.userInvalidated &&
-            (!flags.meridiem || (flags.meridiem && parsedParts));
-
-        if (m._strict) {
-            isNowValid = isNowValid &&
-                flags.charsLeftOver === 0 &&
-                flags.unusedTokens.length === 0 &&
-                flags.bigHour === undefined;
-        }
-
-        if (Object.isFrozen == null || !Object.isFrozen(m)) {
-            m._isValid = isNowValid;
-        }
-        else {
-            return isNowValid;
-        }
-    }
-    return m._isValid;
-}
-
-function createInvalid (flags) {
-    var m = createUTC(NaN);
-    if (flags != null) {
-        extend(getParsingFlags(m), flags);
-    }
-    else {
-        getParsingFlags(m).userInvalidated = true;
-    }
-
-    return m;
-}
-
-function isUndefined(input) {
-    return input === void 0;
-}
-
-// Plugins that add properties should also add the key here (null value),
-// so we can properly clone ourselves.
-var momentProperties = hooks.momentProperties = [];
-
-function copyConfig(to, from) {
-    var i, prop, val;
-
-    if (!isUndefined(from._isAMomentObject)) {
-        to._isAMomentObject = from._isAMomentObject;
-    }
-    if (!isUndefined(from._i)) {
-        to._i = from._i;
-    }
-    if (!isUndefined(from._f)) {
-        to._f = from._f;
-    }
-    if (!isUndefined(from._l)) {
-        to._l = from._l;
-    }
-    if (!isUndefined(from._strict)) {
-        to._strict = from._strict;
-    }
-    if (!isUndefined(from._tzm)) {
-        to._tzm = from._tzm;
-    }
-    if (!isUndefined(from._isUTC)) {
-        to._isUTC = from._isUTC;
-    }
-    if (!isUndefined(from._offset)) {
-        to._offset = from._offset;
-    }
-    if (!isUndefined(from._pf)) {
-        to._pf = getParsingFlags(from);
-    }
-    if (!isUndefined(from._locale)) {
-        to._locale = from._locale;
-    }
-
-    if (momentProperties.length > 0) {
-        for (i in momentProperties) {
-            prop = momentProperties[i];
-            val = from[prop];
-            if (!isUndefined(val)) {
-                to[prop] = val;
-            }
-        }
-    }
-
-    return to;
-}
-
-var updateInProgress = false;
-
-// Moment prototype object
-function Moment(config) {
-    copyConfig(this, config);
-    this._d = new Date(config._d != null ? config._d.getTime() : NaN);
-    if (!this.isValid()) {
-        this._d = new Date(NaN);
-    }
-    // Prevent infinite loop in case updateOffset creates new moment
-    // objects.
-    if (updateInProgress === false) {
-        updateInProgress = true;
-        hooks.updateOffset(this);
-        updateInProgress = false;
-    }
-}
-
-function isMoment (obj) {
-    return obj instanceof Moment || (obj != null && obj._isAMomentObject != null);
-}
-
-function absFloor (number) {
-    if (number < 0) {
-        // -0 -> 0
-        return Math.ceil(number) || 0;
-    } else {
-        return Math.floor(number);
-    }
-}
-
-function toInt(argumentForCoercion) {
-    var coercedNumber = +argumentForCoercion,
-        value = 0;
-
-    if (coercedNumber !== 0 && isFinite(coercedNumber)) {
-        value = absFloor(coercedNumber);
-    }
-
-    return value;
-}
-
-// compare two arrays, return the number of differences
-function compareArrays(array1, array2, dontConvert) {
-    var len = Math.min(array1.length, array2.length),
-        lengthDiff = Math.abs(array1.length - array2.length),
-        diffs = 0,
-        i;
-    for (i = 0; i < len; i++) {
-        if ((dontConvert && array1[i] !== array2[i]) ||
-            (!dontConvert && toInt(array1[i]) !== toInt(array2[i]))) {
-            diffs++;
-        }
-    }
-    return diffs + lengthDiff;
-}
-
-function warn(msg) {
-    if (hooks.suppressDeprecationWarnings === false &&
-            (typeof console !==  'undefined') && console.warn) {
-        console.warn('Deprecation warning: ' + msg);
-    }
-}
-
-function deprecate(msg, fn) {
-    var firstTime = true;
-
-    return extend(function () {
-        if (hooks.deprecationHandler != null) {
-            hooks.deprecationHandler(null, msg);
-        }
-        if (firstTime) {
-            var args = [];
-            var arg;
-            for (var i = 0; i < arguments.length; i++) {
-                arg = '';
-                if (typeof arguments[i] === 'object') {
-                    arg += '\n[' + i + '] ';
-                    for (var key in arguments[0]) {
-                        arg += key + ': ' + arguments[0][key] + ', ';
-                    }
-                    arg = arg.slice(0, -2); // Remove trailing comma and space
-                } else {
-                    arg = arguments[i];
-                }
-                args.push(arg);
-            }
-            warn(msg + '\nArguments: ' + Array.prototype.slice.call(args).join('') + '\n' + (new Error()).stack);
-            firstTime = false;
-        }
-        return fn.apply(this, arguments);
-    }, fn);
-}
-
-var deprecations = {};
-
-function deprecateSimple(name, msg) {
-    if (hooks.deprecationHandler != null) {
-        hooks.deprecationHandler(name, msg);
-    }
-    if (!deprecations[name]) {
-        warn(msg);
-        deprecations[name] = true;
-    }
-}
-
-hooks.suppressDeprecationWarnings = false;
-hooks.deprecationHandler = null;
-
-function isFunction(input) {
-    return input instanceof Function || Object.prototype.toString.call(input) === '[object Function]';
-}
-
-function set (config) {
-    var prop, i;
-    for (i in config) {
-        prop = config[i];
-        if (isFunction(prop)) {
-            this[i] = prop;
-        } else {
-            this['_' + i] = prop;
-        }
-    }
-    this._config = config;
-    // Lenient ordinal parsing accepts just a number in addition to
-    // number + (possibly) stuff coming from _ordinalParseLenient.
-    this._ordinalParseLenient = new RegExp(this._ordinalParse.source + '|' + (/\d{1,2}/).source);
-}
-
-function mergeConfigs(parentConfig, childConfig) {
-    var res = extend({}, parentConfig), prop;
-    for (prop in childConfig) {
-        if (hasOwnProp(childConfig, prop)) {
-            if (isObject(parentConfig[prop]) && isObject(childConfig[prop])) {
-                res[prop] = {};
-                extend(res[prop], parentConfig[prop]);
-                extend(res[prop], childConfig[prop]);
-            } else if (childConfig[prop] != null) {
-                res[prop] = childConfig[prop];
-            } else {
-                delete res[prop];
-            }
-        }
-    }
-    for (prop in parentConfig) {
-        if (hasOwnProp(parentConfig, prop) &&
-                !hasOwnProp(childConfig, prop) &&
-                isObject(parentConfig[prop])) {
-            // make sure changes to properties don't modify parent config
-            res[prop] = extend({}, res[prop]);
-        }
-    }
-    return res;
-}
-
-function Locale(config) {
-    if (config != null) {
-        this.set(config);
-    }
-}
-
-var keys;
-
-if (Object.keys) {
-    keys = Object.keys;
-} else {
-    keys = function (obj) {
-        var i, res = [];
-        for (i in obj) {
-            if (hasOwnProp(obj, i)) {
-                res.push(i);
-            }
-        }
-        return res;
-    };
-}
-
-var keys$1 = keys;
-
-var defaultCalendar = {
-    sameDay : '[Today at] LT',
-    nextDay : '[Tomorrow at] LT',
-    nextWeek : 'dddd [at] LT',
-    lastDay : '[Yesterday at] LT',
-    lastWeek : '[Last] dddd [at] LT',
-    sameElse : 'L'
-};
-
-function calendar (key, mom, now) {
-    var output = this._calendar[key] || this._calendar['sameElse'];
-    return isFunction(output) ? output.call(mom, now) : output;
-}
-
-var defaultLongDateFormat = {
-    LTS  : 'h:mm:ss A',
-    LT   : 'h:mm A',
-    L    : 'MM/DD/YYYY',
-    LL   : 'MMMM D, YYYY',
-    LLL  : 'MMMM D, YYYY h:mm A',
-    LLLL : 'dddd, MMMM D, YYYY h:mm A'
-};
-
-function longDateFormat (key) {
-    var format = this._longDateFormat[key],
-        formatUpper = this._longDateFormat[key.toUpperCase()];
-
-    if (format || !formatUpper) {
-        return format;
-    }
-
-    this._longDateFormat[key] = formatUpper.replace(/MMMM|MM|DD|dddd/g, function (val) {
-        return val.slice(1);
-    });
-
-    return this._longDateFormat[key];
-}
-
-var defaultInvalidDate = 'Invalid date';
-
-function invalidDate () {
-    return this._invalidDate;
-}
-
-var defaultOrdinal = '%d';
-var defaultOrdinalParse = /\d{1,2}/;
-
-function ordinal (number) {
-    return this._ordinal.replace('%d', number);
-}
-
-var defaultRelativeTime = {
-    future : 'in %s',
-    past   : '%s ago',
-    s  : 'a few seconds',
-    m  : 'a minute',
-    mm : '%d minutes',
-    h  : 'an hour',
-    hh : '%d hours',
-    d  : 'a day',
-    dd : '%d days',
-    M  : 'a month',
-    MM : '%d months',
-    y  : 'a year',
-    yy : '%d years'
-};
-
-function relativeTime (number, withoutSuffix, string, isFuture) {
-    var output = this._relativeTime[string];
-    return (isFunction(output)) ?
-        output(number, withoutSuffix, string, isFuture) :
-        output.replace(/%d/i, number);
-}
-
-function pastFuture (diff, output) {
-    var format = this._relativeTime[diff > 0 ? 'future' : 'past'];
-    return isFunction(format) ? format(output) : format.replace(/%s/i, output);
-}
-
-var aliases = {};
-
-function addUnitAlias (unit, shorthand) {
-    var lowerCase = unit.toLowerCase();
-    aliases[lowerCase] = aliases[lowerCase + 's'] = aliases[shorthand] = unit;
-}
-
-function normalizeUnits(units) {
-    return typeof units === 'string' ? aliases[units] || aliases[units.toLowerCase()] : undefined;
-}
-
-function normalizeObjectUnits(inputObject) {
-    var normalizedInput = {},
-        normalizedProp,
-        prop;
-
-    for (prop in inputObject) {
-        if (hasOwnProp(inputObject, prop)) {
-            normalizedProp = normalizeUnits(prop);
-            if (normalizedProp) {
-                normalizedInput[normalizedProp] = inputObject[prop];
-            }
-        }
-    }
-
-    return normalizedInput;
-}
-
-var priorities = {};
-
-function addUnitPriority(unit, priority) {
-    priorities[unit] = priority;
-}
-
-function getPrioritizedUnits(unitsObj) {
-    var units = [];
-    for (var u in unitsObj) {
-        units.push({unit: u, priority: priorities[u]});
-    }
-    units.sort(function (a, b) {
-        return a.priority - b.priority;
-    });
-    return units;
-}
-
-function makeGetSet (unit, keepTime) {
-    return function (value) {
-        if (value != null) {
-            set$1(this, unit, value);
-            hooks.updateOffset(this, keepTime);
-            return this;
-        } else {
-            return get(this, unit);
-        }
-    };
-}
-
-function get (mom, unit) {
-    return mom.isValid() ?
-        mom._d['get' + (mom._isUTC ? 'UTC' : '') + unit]() : NaN;
-}
-
-function set$1 (mom, unit, value) {
-    if (mom.isValid()) {
-        mom._d['set' + (mom._isUTC ? 'UTC' : '') + unit](value);
-    }
-}
-
-// MOMENTS
-
-function stringGet (units) {
-    units = normalizeUnits(units);
-    if (isFunction(this[units])) {
-        return this[units]();
-    }
-    return this;
-}
-
-
-function stringSet (units, value) {
-    if (typeof units === 'object') {
-        units = normalizeObjectUnits(units);
-        var prioritized = getPrioritizedUnits(units);
-        for (var i = 0; i < prioritized.length; i++) {
-            this[prioritized[i].unit](units[prioritized[i].unit]);
-        }
-    } else {
-        units = normalizeUnits(units);
-        if (isFunction(this[units])) {
-            return this[units](value);
-        }
-    }
-    return this;
-}
-
-function zeroFill(number, targetLength, forceSign) {
-    var absNumber = '' + Math.abs(number),
-        zerosToFill = targetLength - absNumber.length,
-        sign = number >= 0;
-    return (sign ? (forceSign ? '+' : '') : '-') +
-        Math.pow(10, Math.max(0, zerosToFill)).toString().substr(1) + absNumber;
-}
-
-var formattingTokens = /(\[[^\[]*\])|(\\)?([Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|YYYYYY|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?|.)/g;
-
-var localFormattingTokens = /(\[[^\[]*\])|(\\)?(LTS|LT|LL?L?L?|l{1,4})/g;
-
-var formatFunctions = {};
-
-var formatTokenFunctions = {};
-
-// token:    'M'
-// padded:   ['MM', 2]
-// ordinal:  'Mo'
-// callback: function () { this.month() + 1 }
-function addFormatToken (token, padded, ordinal, callback) {
-    var func = callback;
-    if (typeof callback === 'string') {
-        func = function () {
-            return this[callback]();
-        };
-    }
-    if (token) {
-        formatTokenFunctions[token] = func;
-    }
-    if (padded) {
-        formatTokenFunctions[padded[0]] = function () {
-            return zeroFill(func.apply(this, arguments), padded[1], padded[2]);
-        };
-    }
-    if (ordinal) {
-        formatTokenFunctions[ordinal] = function () {
-            return this.localeData().ordinal(func.apply(this, arguments), token);
-        };
-    }
-}
-
-function removeFormattingTokens(input) {
-    if (input.match(/\[[\s\S]/)) {
-        return input.replace(/^\[|\]$/g, '');
-    }
-    return input.replace(/\\/g, '');
-}
-
-function makeFormatFunction(format) {
-    var array = format.match(formattingTokens), i, length;
-
-    for (i = 0, length = array.length; i < length; i++) {
-        if (formatTokenFunctions[array[i]]) {
-            array[i] = formatTokenFunctions[array[i]];
-        } else {
-            array[i] = removeFormattingTokens(array[i]);
-        }
-    }
-
-    return function (mom) {
-        var output = '', i;
-        for (i = 0; i < length; i++) {
-            output += array[i] instanceof Function ? array[i].call(mom, format) : array[i];
-        }
-        return output;
-    };
-}
-
-// format date using native date object
-function formatMoment(m, format) {
-    if (!m.isValid()) {
-        return m.localeData().invalidDate();
-    }
-
-    format = expandFormat(format, m.localeData());
-    formatFunctions[format] = formatFunctions[format] || makeFormatFunction(format);
-
-    return formatFunctions[format](m);
-}
-
-function expandFormat(format, locale) {
-    var i = 5;
-
-    function replaceLongDateFormatTokens(input) {
-        return locale.longDateFormat(input) || input;
-    }
-
-    localFormattingTokens.lastIndex = 0;
-    while (i >= 0 && localFormattingTokens.test(format)) {
-        format = format.replace(localFormattingTokens, replaceLongDateFormatTokens);
-        localFormattingTokens.lastIndex = 0;
-        i -= 1;
-    }
-
-    return format;
-}
-
-var match1         = /\d/;            //       0 - 9
-var match2         = /\d\d/;          //      00 - 99
-var match3         = /\d{3}/;         //     000 - 999
-var match4         = /\d{4}/;         //    0000 - 9999
-var match6         = /[+-]?\d{6}/;    // -999999 - 999999
-var match1to2      = /\d\d?/;         //       0 - 99
-var match3to4      = /\d\d\d\d?/;     //     999 - 9999
-var match5to6      = /\d\d\d\d\d\d?/; //   99999 - 999999
-var match1to3      = /\d{1,3}/;       //       0 - 999
-var match1to4      = /\d{1,4}/;       //       0 - 9999
-var match1to6      = /[+-]?\d{1,6}/;  // -999999 - 999999
-
-var matchUnsigned  = /\d+/;           //       0 - inf
-var matchSigned    = /[+-]?\d+/;      //    -inf - inf
-
-var matchOffset    = /Z|[+-]\d\d:?\d\d/gi; // +00:00 -00:00 +0000 -0000 or Z
-var matchShortOffset = /Z|[+-]\d\d(?::?\d\d)?/gi; // +00 -00 +00:00 -00:00 +0000 -0000 or Z
-
-var matchTimestamp = /[+-]?\d+(\.\d{1,3})?/; // 123456789 123456789.123
-
-// any word (or two) characters or numbers including two/three word month in arabic.
-// includes scottish gaelic two word and hyphenated months
-var matchWord = /[0-9]*['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+|[\u0600-\u06FF\/]+(\s*?[\u0600-\u06FF]+){1,2}/i;
-
-
-var regexes = {};
-
-function addRegexToken (token, regex, strictRegex) {
-    regexes[token] = isFunction(regex) ? regex : function (isStrict, localeData) {
-        return (isStrict && strictRegex) ? strictRegex : regex;
-    };
-}
-
-function getParseRegexForToken (token, config) {
-    if (!hasOwnProp(regexes, token)) {
-        return new RegExp(unescapeFormat(token));
-    }
-
-    return regexes[token](config._strict, config._locale);
-}
-
-// Code from http://stackoverflow.com/questions/3561493/is-there-a-regexp-escape-function-in-javascript
-function unescapeFormat(s) {
-    return regexEscape(s.replace('\\', '').replace(/\\(\[)|\\(\])|\[([^\]\[]*)\]|\\(.)/g, function (matched, p1, p2, p3, p4) {
-        return p1 || p2 || p3 || p4;
-    }));
-}
-
-function regexEscape(s) {
-    return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-}
-
-var tokens = {};
-
-function addParseToken (token, callback) {
-    var i, func = callback;
-    if (typeof token === 'string') {
-        token = [token];
-    }
-    if (isNumber(callback)) {
-        func = function (input, array) {
-            array[callback] = toInt(input);
-        };
-    }
-    for (i = 0; i < token.length; i++) {
-        tokens[token[i]] = func;
-    }
-}
-
-function addWeekParseToken (token, callback) {
-    addParseToken(token, function (input, array, config, token) {
-        config._w = config._w || {};
-        callback(input, config._w, config, token);
-    });
-}
-
-function addTimeToArrayFromToken(token, input, config) {
-    if (input != null && hasOwnProp(tokens, token)) {
-        tokens[token](input, config._a, config, token);
-    }
-}
-
-var YEAR = 0;
-var MONTH = 1;
-var DATE = 2;
-var HOUR = 3;
-var MINUTE = 4;
-var SECOND = 5;
-var MILLISECOND = 6;
-var WEEK = 7;
-var WEEKDAY = 8;
-
-var indexOf;
-
-if (Array.prototype.indexOf) {
-    indexOf = Array.prototype.indexOf;
-} else {
-    indexOf = function (o) {
-        // I know
-        var i;
-        for (i = 0; i < this.length; ++i) {
-            if (this[i] === o) {
-                return i;
-            }
-        }
-        return -1;
-    };
-}
-
-var indexOf$1 = indexOf;
-
-function daysInMonth(year, month) {
-    return new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
-}
-
-// FORMATTING
-
-addFormatToken('M', ['MM', 2], 'Mo', function () {
-    return this.month() + 1;
-});
-
-addFormatToken('MMM', 0, 0, function (format) {
-    return this.localeData().monthsShort(this, format);
-});
-
-addFormatToken('MMMM', 0, 0, function (format) {
-    return this.localeData().months(this, format);
-});
-
-// ALIASES
-
-addUnitAlias('month', 'M');
-
-// PRIORITY
-
-addUnitPriority('month', 8);
-
-// PARSING
-
-addRegexToken('M',    match1to2);
-addRegexToken('MM',   match1to2, match2);
-addRegexToken('MMM',  function (isStrict, locale) {
-    return locale.monthsShortRegex(isStrict);
-});
-addRegexToken('MMMM', function (isStrict, locale) {
-    return locale.monthsRegex(isStrict);
-});
-
-addParseToken(['M', 'MM'], function (input, array) {
-    array[MONTH] = toInt(input) - 1;
-});
-
-addParseToken(['MMM', 'MMMM'], function (input, array, config, token) {
-    var month = config._locale.monthsParse(input, token, config._strict);
-    // if we didn't find a month name, mark the date as invalid.
-    if (month != null) {
-        array[MONTH] = month;
-    } else {
-        getParsingFlags(config).invalidMonth = input;
-    }
-});
-
-// LOCALES
-
-var MONTHS_IN_FORMAT = /D[oD]?(\[[^\[\]]*\]|\s)+MMMM?/;
-var defaultLocaleMonths = 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_');
-function localeMonths (m, format) {
-    if (!m) {
-        return this._months;
-    }
-    return isArray(this._months) ? this._months[m.month()] :
-        this._months[(this._months.isFormat || MONTHS_IN_FORMAT).test(format) ? 'format' : 'standalone'][m.month()];
-}
-
-var defaultLocaleMonthsShort = 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_');
-function localeMonthsShort (m, format) {
-    if (!m) {
-        return this._monthsShort;
-    }
-    return isArray(this._monthsShort) ? this._monthsShort[m.month()] :
-        this._monthsShort[MONTHS_IN_FORMAT.test(format) ? 'format' : 'standalone'][m.month()];
-}
-
-function handleStrictParse(monthName, format, strict) {
-    var i, ii, mom, llc = monthName.toLocaleLowerCase();
-    if (!this._monthsParse) {
-        // this is not used
-        this._monthsParse = [];
-        this._longMonthsParse = [];
-        this._shortMonthsParse = [];
-        for (i = 0; i < 12; ++i) {
-            mom = createUTC([2000, i]);
-            this._shortMonthsParse[i] = this.monthsShort(mom, '').toLocaleLowerCase();
-            this._longMonthsParse[i] = this.months(mom, '').toLocaleLowerCase();
-        }
-    }
-
-    if (strict) {
-        if (format === 'MMM') {
-            ii = indexOf$1.call(this._shortMonthsParse, llc);
-            return ii !== -1 ? ii : null;
-        } else {
-            ii = indexOf$1.call(this._longMonthsParse, llc);
-            return ii !== -1 ? ii : null;
-        }
-    } else {
-        if (format === 'MMM') {
-            ii = indexOf$1.call(this._shortMonthsParse, llc);
-            if (ii !== -1) {
-                return ii;
-            }
-            ii = indexOf$1.call(this._longMonthsParse, llc);
-            return ii !== -1 ? ii : null;
-        } else {
-            ii = indexOf$1.call(this._longMonthsParse, llc);
-            if (ii !== -1) {
-                return ii;
-            }
-            ii = indexOf$1.call(this._shortMonthsParse, llc);
-            return ii !== -1 ? ii : null;
-        }
-    }
-}
-
-function localeMonthsParse (monthName, format, strict) {
-    var i, mom, regex;
-
-    if (this._monthsParseExact) {
-        return handleStrictParse.call(this, monthName, format, strict);
-    }
-
-    if (!this._monthsParse) {
-        this._monthsParse = [];
-        this._longMonthsParse = [];
-        this._shortMonthsParse = [];
-    }
-
-    // TODO: add sorting
-    // Sorting makes sure if one month (or abbr) is a prefix of another
-    // see sorting in computeMonthsParse
-    for (i = 0; i < 12; i++) {
-        // make the regex if we don't have it already
-        mom = createUTC([2000, i]);
-        if (strict && !this._longMonthsParse[i]) {
-            this._longMonthsParse[i] = new RegExp('^' + this.months(mom, '').replace('.', '') + '$', 'i');
-            this._shortMonthsParse[i] = new RegExp('^' + this.monthsShort(mom, '').replace('.', '') + '$', 'i');
-        }
-        if (!strict && !this._monthsParse[i]) {
-            regex = '^' + this.months(mom, '') + '|^' + this.monthsShort(mom, '');
-            this._monthsParse[i] = new RegExp(regex.replace('.', ''), 'i');
-        }
-        // test the regex
-        if (strict && format === 'MMMM' && this._longMonthsParse[i].test(monthName)) {
-            return i;
-        } else if (strict && format === 'MMM' && this._shortMonthsParse[i].test(monthName)) {
-            return i;
-        } else if (!strict && this._monthsParse[i].test(monthName)) {
-            return i;
-        }
-    }
-}
-
-// MOMENTS
-
-function setMonth (mom, value) {
-    var dayOfMonth;
-
-    if (!mom.isValid()) {
-        // No op
-        return mom;
-    }
-
-    if (typeof value === 'string') {
-        if (/^\d+$/.test(value)) {
-            value = toInt(value);
-        } else {
-            value = mom.localeData().monthsParse(value);
-            // TODO: Another silent failure?
-            if (!isNumber(value)) {
-                return mom;
-            }
-        }
-    }
-
-    dayOfMonth = Math.min(mom.date(), daysInMonth(mom.year(), value));
-    mom._d['set' + (mom._isUTC ? 'UTC' : '') + 'Month'](value, dayOfMonth);
-    return mom;
-}
-
-function getSetMonth (value) {
-    if (value != null) {
-        setMonth(this, value);
-        hooks.updateOffset(this, true);
-        return this;
-    } else {
-        return get(this, 'Month');
-    }
-}
-
-function getDaysInMonth () {
-    return daysInMonth(this.year(), this.month());
-}
-
-var defaultMonthsShortRegex = matchWord;
-function monthsShortRegex (isStrict) {
-    if (this._monthsParseExact) {
-        if (!hasOwnProp(this, '_monthsRegex')) {
-            computeMonthsParse.call(this);
-        }
-        if (isStrict) {
-            return this._monthsShortStrictRegex;
-        } else {
-            return this._monthsShortRegex;
-        }
-    } else {
-        if (!hasOwnProp(this, '_monthsShortRegex')) {
-            this._monthsShortRegex = defaultMonthsShortRegex;
-        }
-        return this._monthsShortStrictRegex && isStrict ?
-            this._monthsShortStrictRegex : this._monthsShortRegex;
-    }
-}
-
-var defaultMonthsRegex = matchWord;
-function monthsRegex (isStrict) {
-    if (this._monthsParseExact) {
-        if (!hasOwnProp(this, '_monthsRegex')) {
-            computeMonthsParse.call(this);
-        }
-        if (isStrict) {
-            return this._monthsStrictRegex;
-        } else {
-            return this._monthsRegex;
-        }
-    } else {
-        if (!hasOwnProp(this, '_monthsRegex')) {
-            this._monthsRegex = defaultMonthsRegex;
-        }
-        return this._monthsStrictRegex && isStrict ?
-            this._monthsStrictRegex : this._monthsRegex;
-    }
-}
-
-function computeMonthsParse () {
-    function cmpLenRev(a, b) {
-        return b.length - a.length;
-    }
-
-    var shortPieces = [], longPieces = [], mixedPieces = [],
-        i, mom;
-    for (i = 0; i < 12; i++) {
-        // make the regex if we don't have it already
-        mom = createUTC([2000, i]);
-        shortPieces.push(this.monthsShort(mom, ''));
-        longPieces.push(this.months(mom, ''));
-        mixedPieces.push(this.months(mom, ''));
-        mixedPieces.push(this.monthsShort(mom, ''));
-    }
-    // Sorting makes sure if one month (or abbr) is a prefix of another it
-    // will match the longer piece.
-    shortPieces.sort(cmpLenRev);
-    longPieces.sort(cmpLenRev);
-    mixedPieces.sort(cmpLenRev);
-    for (i = 0; i < 12; i++) {
-        shortPieces[i] = regexEscape(shortPieces[i]);
-        longPieces[i] = regexEscape(longPieces[i]);
-    }
-    for (i = 0; i < 24; i++) {
-        mixedPieces[i] = regexEscape(mixedPieces[i]);
-    }
-
-    this._monthsRegex = new RegExp('^(' + mixedPieces.join('|') + ')', 'i');
-    this._monthsShortRegex = this._monthsRegex;
-    this._monthsStrictRegex = new RegExp('^(' + longPieces.join('|') + ')', 'i');
-    this._monthsShortStrictRegex = new RegExp('^(' + shortPieces.join('|') + ')', 'i');
-}
-
-// FORMATTING
-
-addFormatToken('Y', 0, 0, function () {
-    var y = this.year();
-    return y <= 9999 ? '' + y : '+' + y;
-});
-
-addFormatToken(0, ['YY', 2], 0, function () {
-    return this.year() % 100;
-});
-
-addFormatToken(0, ['YYYY',   4],       0, 'year');
-addFormatToken(0, ['YYYYY',  5],       0, 'year');
-addFormatToken(0, ['YYYYYY', 6, true], 0, 'year');
-
-// ALIASES
-
-addUnitAlias('year', 'y');
-
-// PRIORITIES
-
-addUnitPriority('year', 1);
-
-// PARSING
-
-addRegexToken('Y',      matchSigned);
-addRegexToken('YY',     match1to2, match2);
-addRegexToken('YYYY',   match1to4, match4);
-addRegexToken('YYYYY',  match1to6, match6);
-addRegexToken('YYYYYY', match1to6, match6);
-
-addParseToken(['YYYYY', 'YYYYYY'], YEAR);
-addParseToken('YYYY', function (input, array) {
-    array[YEAR] = input.length === 2 ? hooks.parseTwoDigitYear(input) : toInt(input);
-});
-addParseToken('YY', function (input, array) {
-    array[YEAR] = hooks.parseTwoDigitYear(input);
-});
-addParseToken('Y', function (input, array) {
-    array[YEAR] = parseInt(input, 10);
-});
-
-// HELPERS
-
-function daysInYear(year) {
-    return isLeapYear(year) ? 366 : 365;
-}
-
-function isLeapYear(year) {
-    return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
-}
-
-// HOOKS
-
-hooks.parseTwoDigitYear = function (input) {
-    return toInt(input) + (toInt(input) > 68 ? 1900 : 2000);
-};
-
-// MOMENTS
-
-var getSetYear = makeGetSet('FullYear', true);
-
-function getIsLeapYear () {
-    return isLeapYear(this.year());
-}
-
-function createDate (y, m, d, h, M, s, ms) {
-    //can't just apply() to create a date:
-    //http://stackoverflow.com/questions/181348/instantiating-a-javascript-object-by-calling-prototype-constructor-apply
-    var date = new Date(y, m, d, h, M, s, ms);
-
-    //the date constructor remaps years 0-99 to 1900-1999
-    if (y < 100 && y >= 0 && isFinite(date.getFullYear())) {
-        date.setFullYear(y);
-    }
-    return date;
-}
-
-function createUTCDate (y) {
-    var date = new Date(Date.UTC.apply(null, arguments));
-
-    //the Date.UTC function remaps years 0-99 to 1900-1999
-    if (y < 100 && y >= 0 && isFinite(date.getUTCFullYear())) {
-        date.setUTCFullYear(y);
-    }
-    return date;
-}
-
-// start-of-first-week - start-of-year
-function firstWeekOffset(year, dow, doy) {
-    var // first-week day -- which january is always in the first week (4 for iso, 1 for other)
-        fwd = 7 + dow - doy,
-        // first-week day local weekday -- which local weekday is fwd
-        fwdlw = (7 + createUTCDate(year, 0, fwd).getUTCDay() - dow) % 7;
-
-    return -fwdlw + fwd - 1;
-}
-
-//http://en.wikipedia.org/wiki/ISO_week_date#Calculating_a_date_given_the_year.2C_week_number_and_weekday
-function dayOfYearFromWeeks(year, week, weekday, dow, doy) {
-    var localWeekday = (7 + weekday - dow) % 7,
-        weekOffset = firstWeekOffset(year, dow, doy),
-        dayOfYear = 1 + 7 * (week - 1) + localWeekday + weekOffset,
-        resYear, resDayOfYear;
-
-    if (dayOfYear <= 0) {
-        resYear = year - 1;
-        resDayOfYear = daysInYear(resYear) + dayOfYear;
-    } else if (dayOfYear > daysInYear(year)) {
-        resYear = year + 1;
-        resDayOfYear = dayOfYear - daysInYear(year);
-    } else {
-        resYear = year;
-        resDayOfYear = dayOfYear;
-    }
-
-    return {
-        year: resYear,
-        dayOfYear: resDayOfYear
-    };
-}
-
-function weekOfYear(mom, dow, doy) {
-    var weekOffset = firstWeekOffset(mom.year(), dow, doy),
-        week = Math.floor((mom.dayOfYear() - weekOffset - 1) / 7) + 1,
-        resWeek, resYear;
-
-    if (week < 1) {
-        resYear = mom.year() - 1;
-        resWeek = week + weeksInYear(resYear, dow, doy);
-    } else if (week > weeksInYear(mom.year(), dow, doy)) {
-        resWeek = week - weeksInYear(mom.year(), dow, doy);
-        resYear = mom.year() + 1;
-    } else {
-        resYear = mom.year();
-        resWeek = week;
-    }
-
-    return {
-        week: resWeek,
-        year: resYear
-    };
-}
-
-function weeksInYear(year, dow, doy) {
-    var weekOffset = firstWeekOffset(year, dow, doy),
-        weekOffsetNext = firstWeekOffset(year + 1, dow, doy);
-    return (daysInYear(year) - weekOffset + weekOffsetNext) / 7;
-}
-
-// FORMATTING
-
-addFormatToken('w', ['ww', 2], 'wo', 'week');
-addFormatToken('W', ['WW', 2], 'Wo', 'isoWeek');
-
-// ALIASES
-
-addUnitAlias('week', 'w');
-addUnitAlias('isoWeek', 'W');
-
-// PRIORITIES
-
-addUnitPriority('week', 5);
-addUnitPriority('isoWeek', 5);
-
-// PARSING
-
-addRegexToken('w',  match1to2);
-addRegexToken('ww', match1to2, match2);
-addRegexToken('W',  match1to2);
-addRegexToken('WW', match1to2, match2);
-
-addWeekParseToken(['w', 'ww', 'W', 'WW'], function (input, week, config, token) {
-    week[token.substr(0, 1)] = toInt(input);
-});
-
-// HELPERS
-
-// LOCALES
-
-function localeWeek (mom) {
-    return weekOfYear(mom, this._week.dow, this._week.doy).week;
-}
-
-var defaultLocaleWeek = {
-    dow : 0, // Sunday is the first day of the week.
-    doy : 6  // The week that contains Jan 1st is the first week of the year.
-};
-
-function localeFirstDayOfWeek () {
-    return this._week.dow;
-}
-
-function localeFirstDayOfYear () {
-    return this._week.doy;
-}
-
-// MOMENTS
-
-function getSetWeek (input) {
-    var week = this.localeData().week(this);
-    return input == null ? week : this.add((input - week) * 7, 'd');
-}
-
-function getSetISOWeek (input) {
-    var week = weekOfYear(this, 1, 4).week;
-    return input == null ? week : this.add((input - week) * 7, 'd');
-}
-
-// FORMATTING
-
-addFormatToken('d', 0, 'do', 'day');
-
-addFormatToken('dd', 0, 0, function (format) {
-    return this.localeData().weekdaysMin(this, format);
-});
-
-addFormatToken('ddd', 0, 0, function (format) {
-    return this.localeData().weekdaysShort(this, format);
-});
-
-addFormatToken('dddd', 0, 0, function (format) {
-    return this.localeData().weekdays(this, format);
-});
-
-addFormatToken('e', 0, 0, 'weekday');
-addFormatToken('E', 0, 0, 'isoWeekday');
-
-// ALIASES
-
-addUnitAlias('day', 'd');
-addUnitAlias('weekday', 'e');
-addUnitAlias('isoWeekday', 'E');
-
-// PRIORITY
-addUnitPriority('day', 11);
-addUnitPriority('weekday', 11);
-addUnitPriority('isoWeekday', 11);
-
-// PARSING
-
-addRegexToken('d',    match1to2);
-addRegexToken('e',    match1to2);
-addRegexToken('E',    match1to2);
-addRegexToken('dd',   function (isStrict, locale) {
-    return locale.weekdaysMinRegex(isStrict);
-});
-addRegexToken('ddd',   function (isStrict, locale) {
-    return locale.weekdaysShortRegex(isStrict);
-});
-addRegexToken('dddd',   function (isStrict, locale) {
-    return locale.weekdaysRegex(isStrict);
-});
-
-addWeekParseToken(['dd', 'ddd', 'dddd'], function (input, week, config, token) {
-    var weekday = config._locale.weekdaysParse(input, token, config._strict);
-    // if we didn't get a weekday name, mark the date as invalid
-    if (weekday != null) {
-        week.d = weekday;
-    } else {
-        getParsingFlags(config).invalidWeekday = input;
-    }
-});
-
-addWeekParseToken(['d', 'e', 'E'], function (input, week, config, token) {
-    week[token] = toInt(input);
-});
-
-// HELPERS
-
-function parseWeekday(input, locale) {
-    if (typeof input !== 'string') {
-        return input;
-    }
-
-    if (!isNaN(input)) {
-        return parseInt(input, 10);
-    }
-
-    input = locale.weekdaysParse(input);
-    if (typeof input === 'number') {
-        return input;
-    }
-
-    return null;
-}
-
-function parseIsoWeekday(input, locale) {
-    if (typeof input === 'string') {
-        return locale.weekdaysParse(input) % 7 || 7;
-    }
-    return isNaN(input) ? null : input;
-}
-
-// LOCALES
-
-var defaultLocaleWeekdays = 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_');
-function localeWeekdays (m, format) {
-    if (!m) {
-        return this._weekdays;
-    }
-    return isArray(this._weekdays) ? this._weekdays[m.day()] :
-        this._weekdays[this._weekdays.isFormat.test(format) ? 'format' : 'standalone'][m.day()];
-}
-
-var defaultLocaleWeekdaysShort = 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_');
-function localeWeekdaysShort (m) {
-    return (m) ? this._weekdaysShort[m.day()] : this._weekdaysShort;
-}
-
-var defaultLocaleWeekdaysMin = 'Su_Mo_Tu_We_Th_Fr_Sa'.split('_');
-function localeWeekdaysMin (m) {
-    return (m) ? this._weekdaysMin[m.day()] : this._weekdaysMin;
-}
-
-function handleStrictParse$1(weekdayName, format, strict) {
-    var i, ii, mom, llc = weekdayName.toLocaleLowerCase();
-    if (!this._weekdaysParse) {
-        this._weekdaysParse = [];
-        this._shortWeekdaysParse = [];
-        this._minWeekdaysParse = [];
-
-        for (i = 0; i < 7; ++i) {
-            mom = createUTC([2000, 1]).day(i);
-            this._minWeekdaysParse[i] = this.weekdaysMin(mom, '').toLocaleLowerCase();
-            this._shortWeekdaysParse[i] = this.weekdaysShort(mom, '').toLocaleLowerCase();
-            this._weekdaysParse[i] = this.weekdays(mom, '').toLocaleLowerCase();
-        }
-    }
-
-    if (strict) {
-        if (format === 'dddd') {
-            ii = indexOf$1.call(this._weekdaysParse, llc);
-            return ii !== -1 ? ii : null;
-        } else if (format === 'ddd') {
-            ii = indexOf$1.call(this._shortWeekdaysParse, llc);
-            return ii !== -1 ? ii : null;
-        } else {
-            ii = indexOf$1.call(this._minWeekdaysParse, llc);
-            return ii !== -1 ? ii : null;
-        }
-    } else {
-        if (format === 'dddd') {
-            ii = indexOf$1.call(this._weekdaysParse, llc);
-            if (ii !== -1) {
-                return ii;
-            }
-            ii = indexOf$1.call(this._shortWeekdaysParse, llc);
-            if (ii !== -1) {
-                return ii;
-            }
-            ii = indexOf$1.call(this._minWeekdaysParse, llc);
-            return ii !== -1 ? ii : null;
-        } else if (format === 'ddd') {
-            ii = indexOf$1.call(this._shortWeekdaysParse, llc);
-            if (ii !== -1) {
-                return ii;
-            }
-            ii = indexOf$1.call(this._weekdaysParse, llc);
-            if (ii !== -1) {
-                return ii;
-            }
-            ii = indexOf$1.call(this._minWeekdaysParse, llc);
-            return ii !== -1 ? ii : null;
-        } else {
-            ii = indexOf$1.call(this._minWeekdaysParse, llc);
-            if (ii !== -1) {
-                return ii;
-            }
-            ii = indexOf$1.call(this._weekdaysParse, llc);
-            if (ii !== -1) {
-                return ii;
-            }
-            ii = indexOf$1.call(this._shortWeekdaysParse, llc);
-            return ii !== -1 ? ii : null;
-        }
-    }
-}
-
-function localeWeekdaysParse (weekdayName, format, strict) {
-    var i, mom, regex;
-
-    if (this._weekdaysParseExact) {
-        return handleStrictParse$1.call(this, weekdayName, format, strict);
-    }
-
-    if (!this._weekdaysParse) {
-        this._weekdaysParse = [];
-        this._minWeekdaysParse = [];
-        this._shortWeekdaysParse = [];
-        this._fullWeekdaysParse = [];
-    }
-
-    for (i = 0; i < 7; i++) {
-        // make the regex if we don't have it already
-
-        mom = createUTC([2000, 1]).day(i);
-        if (strict && !this._fullWeekdaysParse[i]) {
-            this._fullWeekdaysParse[i] = new RegExp('^' + this.weekdays(mom, '').replace('.', '\.?') + '$', 'i');
-            this._shortWeekdaysParse[i] = new RegExp('^' + this.weekdaysShort(mom, '').replace('.', '\.?') + '$', 'i');
-            this._minWeekdaysParse[i] = new RegExp('^' + this.weekdaysMin(mom, '').replace('.', '\.?') + '$', 'i');
-        }
-        if (!this._weekdaysParse[i]) {
-            regex = '^' + this.weekdays(mom, '') + '|^' + this.weekdaysShort(mom, '') + '|^' + this.weekdaysMin(mom, '');
-            this._weekdaysParse[i] = new RegExp(regex.replace('.', ''), 'i');
-        }
-        // test the regex
-        if (strict && format === 'dddd' && this._fullWeekdaysParse[i].test(weekdayName)) {
-            return i;
-        } else if (strict && format === 'ddd' && this._shortWeekdaysParse[i].test(weekdayName)) {
-            return i;
-        } else if (strict && format === 'dd' && this._minWeekdaysParse[i].test(weekdayName)) {
-            return i;
-        } else if (!strict && this._weekdaysParse[i].test(weekdayName)) {
-            return i;
-        }
-    }
-}
-
-// MOMENTS
-
-function getSetDayOfWeek (input) {
-    if (!this.isValid()) {
-        return input != null ? this : NaN;
-    }
-    var day = this._isUTC ? this._d.getUTCDay() : this._d.getDay();
-    if (input != null) {
-        input = parseWeekday(input, this.localeData());
-        return this.add(input - day, 'd');
-    } else {
-        return day;
-    }
-}
-
-function getSetLocaleDayOfWeek (input) {
-    if (!this.isValid()) {
-        return input != null ? this : NaN;
-    }
-    var weekday = (this.day() + 7 - this.localeData()._week.dow) % 7;
-    return input == null ? weekday : this.add(input - weekday, 'd');
-}
-
-function getSetISODayOfWeek (input) {
-    if (!this.isValid()) {
-        return input != null ? this : NaN;
-    }
-
-    // behaves the same as moment#day except
-    // as a getter, returns 7 instead of 0 (1-7 range instead of 0-6)
-    // as a setter, sunday should belong to the previous week.
-
-    if (input != null) {
-        var weekday = parseIsoWeekday(input, this.localeData());
-        return this.day(this.day() % 7 ? weekday : weekday - 7);
-    } else {
-        return this.day() || 7;
-    }
-}
-
-var defaultWeekdaysRegex = matchWord;
-function weekdaysRegex (isStrict) {
-    if (this._weekdaysParseExact) {
-        if (!hasOwnProp(this, '_weekdaysRegex')) {
-            computeWeekdaysParse.call(this);
-        }
-        if (isStrict) {
-            return this._weekdaysStrictRegex;
-        } else {
-            return this._weekdaysRegex;
-        }
-    } else {
-        if (!hasOwnProp(this, '_weekdaysRegex')) {
-            this._weekdaysRegex = defaultWeekdaysRegex;
-        }
-        return this._weekdaysStrictRegex && isStrict ?
-            this._weekdaysStrictRegex : this._weekdaysRegex;
-    }
-}
-
-var defaultWeekdaysShortRegex = matchWord;
-function weekdaysShortRegex (isStrict) {
-    if (this._weekdaysParseExact) {
-        if (!hasOwnProp(this, '_weekdaysRegex')) {
-            computeWeekdaysParse.call(this);
-        }
-        if (isStrict) {
-            return this._weekdaysShortStrictRegex;
-        } else {
-            return this._weekdaysShortRegex;
-        }
-    } else {
-        if (!hasOwnProp(this, '_weekdaysShortRegex')) {
-            this._weekdaysShortRegex = defaultWeekdaysShortRegex;
-        }
-        return this._weekdaysShortStrictRegex && isStrict ?
-            this._weekdaysShortStrictRegex : this._weekdaysShortRegex;
-    }
-}
-
-var defaultWeekdaysMinRegex = matchWord;
-function weekdaysMinRegex (isStrict) {
-    if (this._weekdaysParseExact) {
-        if (!hasOwnProp(this, '_weekdaysRegex')) {
-            computeWeekdaysParse.call(this);
-        }
-        if (isStrict) {
-            return this._weekdaysMinStrictRegex;
-        } else {
-            return this._weekdaysMinRegex;
-        }
-    } else {
-        if (!hasOwnProp(this, '_weekdaysMinRegex')) {
-            this._weekdaysMinRegex = defaultWeekdaysMinRegex;
-        }
-        return this._weekdaysMinStrictRegex && isStrict ?
-            this._weekdaysMinStrictRegex : this._weekdaysMinRegex;
-    }
-}
-
-
-function computeWeekdaysParse () {
-    function cmpLenRev(a, b) {
-        return b.length - a.length;
-    }
-
-    var minPieces = [], shortPieces = [], longPieces = [], mixedPieces = [],
-        i, mom, minp, shortp, longp;
-    for (i = 0; i < 7; i++) {
-        // make the regex if we don't have it already
-        mom = createUTC([2000, 1]).day(i);
-        minp = this.weekdaysMin(mom, '');
-        shortp = this.weekdaysShort(mom, '');
-        longp = this.weekdays(mom, '');
-        minPieces.push(minp);
-        shortPieces.push(shortp);
-        longPieces.push(longp);
-        mixedPieces.push(minp);
-        mixedPieces.push(shortp);
-        mixedPieces.push(longp);
-    }
-    // Sorting makes sure if one weekday (or abbr) is a prefix of another it
-    // will match the longer piece.
-    minPieces.sort(cmpLenRev);
-    shortPieces.sort(cmpLenRev);
-    longPieces.sort(cmpLenRev);
-    mixedPieces.sort(cmpLenRev);
-    for (i = 0; i < 7; i++) {
-        shortPieces[i] = regexEscape(shortPieces[i]);
-        longPieces[i] = regexEscape(longPieces[i]);
-        mixedPieces[i] = regexEscape(mixedPieces[i]);
-    }
-
-    this._weekdaysRegex = new RegExp('^(' + mixedPieces.join('|') + ')', 'i');
-    this._weekdaysShortRegex = this._weekdaysRegex;
-    this._weekdaysMinRegex = this._weekdaysRegex;
-
-    this._weekdaysStrictRegex = new RegExp('^(' + longPieces.join('|') + ')', 'i');
-    this._weekdaysShortStrictRegex = new RegExp('^(' + shortPieces.join('|') + ')', 'i');
-    this._weekdaysMinStrictRegex = new RegExp('^(' + minPieces.join('|') + ')', 'i');
-}
-
-// FORMATTING
-
-function hFormat() {
-    return this.hours() % 12 || 12;
-}
-
-function kFormat() {
-    return this.hours() || 24;
-}
-
-addFormatToken('H', ['HH', 2], 0, 'hour');
-addFormatToken('h', ['hh', 2], 0, hFormat);
-addFormatToken('k', ['kk', 2], 0, kFormat);
-
-addFormatToken('hmm', 0, 0, function () {
-    return '' + hFormat.apply(this) + zeroFill(this.minutes(), 2);
-});
-
-addFormatToken('hmmss', 0, 0, function () {
-    return '' + hFormat.apply(this) + zeroFill(this.minutes(), 2) +
-        zeroFill(this.seconds(), 2);
-});
-
-addFormatToken('Hmm', 0, 0, function () {
-    return '' + this.hours() + zeroFill(this.minutes(), 2);
-});
-
-addFormatToken('Hmmss', 0, 0, function () {
-    return '' + this.hours() + zeroFill(this.minutes(), 2) +
-        zeroFill(this.seconds(), 2);
-});
-
-function meridiem (token, lowercase) {
-    addFormatToken(token, 0, 0, function () {
-        return this.localeData().meridiem(this.hours(), this.minutes(), lowercase);
-    });
-}
-
-meridiem('a', true);
-meridiem('A', false);
-
-// ALIASES
-
-addUnitAlias('hour', 'h');
-
-// PRIORITY
-addUnitPriority('hour', 13);
-
-// PARSING
-
-function matchMeridiem (isStrict, locale) {
-    return locale._meridiemParse;
-}
-
-addRegexToken('a',  matchMeridiem);
-addRegexToken('A',  matchMeridiem);
-addRegexToken('H',  match1to2);
-addRegexToken('h',  match1to2);
-addRegexToken('HH', match1to2, match2);
-addRegexToken('hh', match1to2, match2);
-
-addRegexToken('hmm', match3to4);
-addRegexToken('hmmss', match5to6);
-addRegexToken('Hmm', match3to4);
-addRegexToken('Hmmss', match5to6);
-
-addParseToken(['H', 'HH'], HOUR);
-addParseToken(['a', 'A'], function (input, array, config) {
-    config._isPm = config._locale.isPM(input);
-    config._meridiem = input;
-});
-addParseToken(['h', 'hh'], function (input, array, config) {
-    array[HOUR] = toInt(input);
-    getParsingFlags(config).bigHour = true;
-});
-addParseToken('hmm', function (input, array, config) {
-    var pos = input.length - 2;
-    array[HOUR] = toInt(input.substr(0, pos));
-    array[MINUTE] = toInt(input.substr(pos));
-    getParsingFlags(config).bigHour = true;
-});
-addParseToken('hmmss', function (input, array, config) {
-    var pos1 = input.length - 4;
-    var pos2 = input.length - 2;
-    array[HOUR] = toInt(input.substr(0, pos1));
-    array[MINUTE] = toInt(input.substr(pos1, 2));
-    array[SECOND] = toInt(input.substr(pos2));
-    getParsingFlags(config).bigHour = true;
-});
-addParseToken('Hmm', function (input, array, config) {
-    var pos = input.length - 2;
-    array[HOUR] = toInt(input.substr(0, pos));
-    array[MINUTE] = toInt(input.substr(pos));
-});
-addParseToken('Hmmss', function (input, array, config) {
-    var pos1 = input.length - 4;
-    var pos2 = input.length - 2;
-    array[HOUR] = toInt(input.substr(0, pos1));
-    array[MINUTE] = toInt(input.substr(pos1, 2));
-    array[SECOND] = toInt(input.substr(pos2));
-});
-
-// LOCALES
-
-function localeIsPM (input) {
-    // IE8 Quirks Mode & IE7 Standards Mode do not allow accessing strings like arrays
-    // Using charAt should be more compatible.
-    return ((input + '').toLowerCase().charAt(0) === 'p');
-}
-
-var defaultLocaleMeridiemParse = /[ap]\.?m?\.?/i;
-function localeMeridiem (hours, minutes, isLower) {
-    if (hours > 11) {
-        return isLower ? 'pm' : 'PM';
-    } else {
-        return isLower ? 'am' : 'AM';
-    }
-}
-
-
-// MOMENTS
-
-// Setting the hour should keep the time, because the user explicitly
-// specified which hour he wants. So trying to maintain the same hour (in
-// a new timezone) makes sense. Adding/subtracting hours does not follow
-// this rule.
-var getSetHour = makeGetSet('Hours', true);
-
-// months
-// week
-// weekdays
-// meridiem
-var baseConfig = {
-    calendar: defaultCalendar,
-    longDateFormat: defaultLongDateFormat,
-    invalidDate: defaultInvalidDate,
-    ordinal: defaultOrdinal,
-    ordinalParse: defaultOrdinalParse,
-    relativeTime: defaultRelativeTime,
-
-    months: defaultLocaleMonths,
-    monthsShort: defaultLocaleMonthsShort,
-
-    week: defaultLocaleWeek,
-
-    weekdays: defaultLocaleWeekdays,
-    weekdaysMin: defaultLocaleWeekdaysMin,
-    weekdaysShort: defaultLocaleWeekdaysShort,
-
-    meridiemParse: defaultLocaleMeridiemParse
-};
-
-// internal storage for locale config files
-var locales = {};
-var localeFamilies = {};
-var globalLocale;
-
-function normalizeLocale(key) {
-    return key ? key.toLowerCase().replace('_', '-') : key;
-}
-
-// pick the locale from the array
-// try ['en-au', 'en-gb'] as 'en-au', 'en-gb', 'en', as in move through the list trying each
-// substring from most specific to least, but move to the next array item if it's a more specific variant than the current root
-function chooseLocale(names) {
-    var i = 0, j, next, locale, split;
-
-    while (i < names.length) {
-        split = normalizeLocale(names[i]).split('-');
-        j = split.length;
-        next = normalizeLocale(names[i + 1]);
-        next = next ? next.split('-') : null;
-        while (j > 0) {
-            locale = loadLocale(split.slice(0, j).join('-'));
-            if (locale) {
-                return locale;
-            }
-            if (next && next.length >= j && compareArrays(split, next, true) >= j - 1) {
-                //the next array item is better than a shallower substring of this one
-                break;
-            }
-            j--;
-        }
-        i++;
-    }
-    return null;
-}
-
-function loadLocale(name) {
-    var oldLocale = null;
-    // TODO: Find a better way to register and load all the locales in Node
-    if (!locales[name] && (typeof module !== 'undefined') &&
-            module && module.exports) {
-        try {
-            oldLocale = globalLocale._abbr;
-            require('./locale/' + name);
-            // because defineLocale currently also sets the global locale, we
-            // want to undo that for lazy loaded locales
-            getSetGlobalLocale(oldLocale);
-        } catch (e) { }
-    }
-    return locales[name];
-}
-
-// This function will load locale and then set the global locale.  If
-// no arguments are passed in, it will simply return the current global
-// locale key.
-function getSetGlobalLocale (key, values) {
-    var data;
-    if (key) {
-        if (isUndefined(values)) {
-            data = getLocale(key);
-        }
-        else {
-            data = defineLocale(key, values);
-        }
-
-        if (data) {
-            // moment.duration._locale = moment._locale = data;
-            globalLocale = data;
-        }
-    }
-
-    return globalLocale._abbr;
-}
-
-function defineLocale (name, config) {
-    if (config !== null) {
-        var parentConfig = baseConfig;
-        config.abbr = name;
-        if (locales[name] != null) {
-            deprecateSimple('defineLocaleOverride',
-                    'use moment.updateLocale(localeName, config) to change ' +
-                    'an existing locale. moment.defineLocale(localeName, ' +
-                    'config) should only be used for creating a new locale ' +
-                    'See http://momentjs.com/guides/#/warnings/define-locale/ for more info.');
-            parentConfig = locales[name]._config;
-        } else if (config.parentLocale != null) {
-            if (locales[config.parentLocale] != null) {
-                parentConfig = locales[config.parentLocale]._config;
-            } else {
-                if (!localeFamilies[config.parentLocale]) {
-                    localeFamilies[config.parentLocale] = [];
-                }
-                localeFamilies[config.parentLocale].push({
-                    name: name,
-                    config: config
-                });
-                return null;
-            }
-        }
-        locales[name] = new Locale(mergeConfigs(parentConfig, config));
-
-        if (localeFamilies[name]) {
-            localeFamilies[name].forEach(function (x) {
-                defineLocale(x.name, x.config);
-            });
-        }
-
-        // backwards compat for now: also set the locale
-        // make sure we set the locale AFTER all child locales have been
-        // created, so we won't end up with the child locale set.
-        getSetGlobalLocale(name);
-
-
-        return locales[name];
-    } else {
-        // useful for testing
-        delete locales[name];
-        return null;
-    }
-}
-
-function updateLocale(name, config) {
-    if (config != null) {
-        var locale, parentConfig = baseConfig;
-        // MERGE
-        if (locales[name] != null) {
-            parentConfig = locales[name]._config;
-        }
-        config = mergeConfigs(parentConfig, config);
-        locale = new Locale(config);
-        locale.parentLocale = locales[name];
-        locales[name] = locale;
-
-        // backwards compat for now: also set the locale
-        getSetGlobalLocale(name);
-    } else {
-        // pass null for config to unupdate, useful for tests
-        if (locales[name] != null) {
-            if (locales[name].parentLocale != null) {
-                locales[name] = locales[name].parentLocale;
-            } else if (locales[name] != null) {
-                delete locales[name];
-            }
-        }
-    }
-    return locales[name];
-}
-
-// returns locale data
-function getLocale (key) {
-    var locale;
-
-    if (key && key._locale && key._locale._abbr) {
-        key = key._locale._abbr;
-    }
-
-    if (!key) {
-        return globalLocale;
-    }
-
-    if (!isArray(key)) {
-        //short-circuit everything else
-        locale = loadLocale(key);
-        if (locale) {
-            return locale;
-        }
-        key = [key];
-    }
-
-    return chooseLocale(key);
-}
-
-function listLocales() {
-    return keys$1(locales);
-}
-
-function checkOverflow (m) {
-    var overflow;
-    var a = m._a;
-
-    if (a && getParsingFlags(m).overflow === -2) {
-        overflow =
-            a[MONTH]       < 0 || a[MONTH]       > 11  ? MONTH :
-            a[DATE]        < 1 || a[DATE]        > daysInMonth(a[YEAR], a[MONTH]) ? DATE :
-            a[HOUR]        < 0 || a[HOUR]        > 24 || (a[HOUR] === 24 && (a[MINUTE] !== 0 || a[SECOND] !== 0 || a[MILLISECOND] !== 0)) ? HOUR :
-            a[MINUTE]      < 0 || a[MINUTE]      > 59  ? MINUTE :
-            a[SECOND]      < 0 || a[SECOND]      > 59  ? SECOND :
-            a[MILLISECOND] < 0 || a[MILLISECOND] > 999 ? MILLISECOND :
-            -1;
-
-        if (getParsingFlags(m)._overflowDayOfYear && (overflow < YEAR || overflow > DATE)) {
-            overflow = DATE;
-        }
-        if (getParsingFlags(m)._overflowWeeks && overflow === -1) {
-            overflow = WEEK;
-        }
-        if (getParsingFlags(m)._overflowWeekday && overflow === -1) {
-            overflow = WEEKDAY;
-        }
-
-        getParsingFlags(m).overflow = overflow;
-    }
-
-    return m;
-}
-
-// iso 8601 regex
-// 0000-00-00 0000-W00 or 0000-W00-0 + T + 00 or 00:00 or 00:00:00 or 00:00:00.000 + +00:00 or +0000 or +00)
-var extendedIsoRegex = /^\s*((?:[+-]\d{6}|\d{4})-(?:\d\d-\d\d|W\d\d-\d|W\d\d|\d\d\d|\d\d))(?:(T| )(\d\d(?::\d\d(?::\d\d(?:[.,]\d+)?)?)?)([\+\-]\d\d(?::?\d\d)?|\s*Z)?)?$/;
-var basicIsoRegex = /^\s*((?:[+-]\d{6}|\d{4})(?:\d\d\d\d|W\d\d\d|W\d\d|\d\d\d|\d\d))(?:(T| )(\d\d(?:\d\d(?:\d\d(?:[.,]\d+)?)?)?)([\+\-]\d\d(?::?\d\d)?|\s*Z)?)?$/;
-
-var tzRegex = /Z|[+-]\d\d(?::?\d\d)?/;
-
-var isoDates = [
-    ['YYYYYY-MM-DD', /[+-]\d{6}-\d\d-\d\d/],
-    ['YYYY-MM-DD', /\d{4}-\d\d-\d\d/],
-    ['GGGG-[W]WW-E', /\d{4}-W\d\d-\d/],
-    ['GGGG-[W]WW', /\d{4}-W\d\d/, false],
-    ['YYYY-DDD', /\d{4}-\d{3}/],
-    ['YYYY-MM', /\d{4}-\d\d/, false],
-    ['YYYYYYMMDD', /[+-]\d{10}/],
-    ['YYYYMMDD', /\d{8}/],
-    // YYYYMM is NOT allowed by the standard
-    ['GGGG[W]WWE', /\d{4}W\d{3}/],
-    ['GGGG[W]WW', /\d{4}W\d{2}/, false],
-    ['YYYYDDD', /\d{7}/]
-];
-
-// iso time formats and regexes
-var isoTimes = [
-    ['HH:mm:ss.SSSS', /\d\d:\d\d:\d\d\.\d+/],
-    ['HH:mm:ss,SSSS', /\d\d:\d\d:\d\d,\d+/],
-    ['HH:mm:ss', /\d\d:\d\d:\d\d/],
-    ['HH:mm', /\d\d:\d\d/],
-    ['HHmmss.SSSS', /\d\d\d\d\d\d\.\d+/],
-    ['HHmmss,SSSS', /\d\d\d\d\d\d,\d+/],
-    ['HHmmss', /\d\d\d\d\d\d/],
-    ['HHmm', /\d\d\d\d/],
-    ['HH', /\d\d/]
-];
-
-var aspNetJsonRegex = /^\/?Date\((\-?\d+)/i;
-
-// date from iso format
-function configFromISO(config) {
-    var i, l,
-        string = config._i,
-        match = extendedIsoRegex.exec(string) || basicIsoRegex.exec(string),
-        allowTime, dateFormat, timeFormat, tzFormat;
-
-    if (match) {
-        getParsingFlags(config).iso = true;
-
-        for (i = 0, l = isoDates.length; i < l; i++) {
-            if (isoDates[i][1].exec(match[1])) {
-                dateFormat = isoDates[i][0];
-                allowTime = isoDates[i][2] !== false;
-                break;
-            }
-        }
-        if (dateFormat == null) {
-            config._isValid = false;
-            return;
-        }
-        if (match[3]) {
-            for (i = 0, l = isoTimes.length; i < l; i++) {
-                if (isoTimes[i][1].exec(match[3])) {
-                    // match[2] should be 'T' or space
-                    timeFormat = (match[2] || ' ') + isoTimes[i][0];
-                    break;
-                }
-            }
-            if (timeFormat == null) {
-                config._isValid = false;
-                return;
-            }
-        }
-        if (!allowTime && timeFormat != null) {
-            config._isValid = false;
-            return;
-        }
-        if (match[4]) {
-            if (tzRegex.exec(match[4])) {
-                tzFormat = 'Z';
-            } else {
-                config._isValid = false;
-                return;
-            }
-        }
-        config._f = dateFormat + (timeFormat || '') + (tzFormat || '');
-        configFromStringAndFormat(config);
-    } else {
-        config._isValid = false;
-    }
-}
-
-// date from iso format or fallback
-function configFromString(config) {
-    var matched = aspNetJsonRegex.exec(config._i);
-
-    if (matched !== null) {
-        config._d = new Date(+matched[1]);
-        return;
-    }
-
-    configFromISO(config);
-    if (config._isValid === false) {
-        delete config._isValid;
-        hooks.createFromInputFallback(config);
-    }
-}
-
-hooks.createFromInputFallback = deprecate(
-    'value provided is not in a recognized ISO format. moment construction falls back to js Date(), ' +
-    'which is not reliable across all browsers and versions. Non ISO date formats are ' +
-    'discouraged and will be removed in an upcoming major release. Please refer to ' +
-    'http://momentjs.com/guides/#/warnings/js-date/ for more info.',
-    function (config) {
-        config._d = new Date(config._i + (config._useUTC ? ' UTC' : ''));
-    }
-);
-
-// Pick the first defined of two or three arguments.
-function defaults(a, b, c) {
-    if (a != null) {
-        return a;
-    }
-    if (b != null) {
-        return b;
-    }
-    return c;
-}
-
-function currentDateArray(config) {
-    // hooks is actually the exported moment object
-    var nowValue = new Date(hooks.now());
-    if (config._useUTC) {
-        return [nowValue.getUTCFullYear(), nowValue.getUTCMonth(), nowValue.getUTCDate()];
-    }
-    return [nowValue.getFullYear(), nowValue.getMonth(), nowValue.getDate()];
-}
-
-// convert an array to a date.
-// the array should mirror the parameters below
-// note: all values past the year are optional and will default to the lowest possible value.
-// [year, month, day , hour, minute, second, millisecond]
-function configFromArray (config) {
-    var i, date, input = [], currentDate, yearToUse;
-
-    if (config._d) {
-        return;
-    }
-
-    currentDate = currentDateArray(config);
-
-    //compute day of the year from weeks and weekdays
-    if (config._w && config._a[DATE] == null && config._a[MONTH] == null) {
-        dayOfYearFromWeekInfo(config);
-    }
-
-    //if the day of the year is set, figure out what it is
-    if (config._dayOfYear) {
-        yearToUse = defaults(config._a[YEAR], currentDate[YEAR]);
-
-        if (config._dayOfYear > daysInYear(yearToUse)) {
-            getParsingFlags(config)._overflowDayOfYear = true;
-        }
-
-        date = createUTCDate(yearToUse, 0, config._dayOfYear);
-        config._a[MONTH] = date.getUTCMonth();
-        config._a[DATE] = date.getUTCDate();
-    }
-
-    // Default to current date.
-    // * if no year, month, day of month are given, default to today
-    // * if day of month is given, default month and year
-    // * if month is given, default only year
-    // * if year is given, don't default anything
-    for (i = 0; i < 3 && config._a[i] == null; ++i) {
-        config._a[i] = input[i] = currentDate[i];
-    }
-
-    // Zero out whatever was not defaulted, including time
-    for (; i < 7; i++) {
-        config._a[i] = input[i] = (config._a[i] == null) ? (i === 2 ? 1 : 0) : config._a[i];
-    }
-
-    // Check for 24:00:00.000
-    if (config._a[HOUR] === 24 &&
-            config._a[MINUTE] === 0 &&
-            config._a[SECOND] === 0 &&
-            config._a[MILLISECOND] === 0) {
-        config._nextDay = true;
-        config._a[HOUR] = 0;
-    }
-
-    config._d = (config._useUTC ? createUTCDate : createDate).apply(null, input);
-    // Apply timezone offset from input. The actual utcOffset can be changed
-    // with parseZone.
-    if (config._tzm != null) {
-        config._d.setUTCMinutes(config._d.getUTCMinutes() - config._tzm);
-    }
-
-    if (config._nextDay) {
-        config._a[HOUR] = 24;
-    }
-}
-
-function dayOfYearFromWeekInfo(config) {
-    var w, weekYear, week, weekday, dow, doy, temp, weekdayOverflow;
-
-    w = config._w;
-    if (w.GG != null || w.W != null || w.E != null) {
-        dow = 1;
-        doy = 4;
-
-        // TODO: We need to take the current isoWeekYear, but that depends on
-        // how we interpret now (local, utc, fixed offset). So create
-        // a now version of current config (take local/utc/offset flags, and
-        // create now).
-        weekYear = defaults(w.GG, config._a[YEAR], weekOfYear(createLocal(), 1, 4).year);
-        week = defaults(w.W, 1);
-        weekday = defaults(w.E, 1);
-        if (weekday < 1 || weekday > 7) {
-            weekdayOverflow = true;
-        }
-    } else {
-        dow = config._locale._week.dow;
-        doy = config._locale._week.doy;
-
-        var curWeek = weekOfYear(createLocal(), dow, doy);
-
-        weekYear = defaults(w.gg, config._a[YEAR], curWeek.year);
-
-        // Default to current week.
-        week = defaults(w.w, curWeek.week);
-
-        if (w.d != null) {
-            // weekday -- low day numbers are considered next week
-            weekday = w.d;
-            if (weekday < 0 || weekday > 6) {
-                weekdayOverflow = true;
-            }
-        } else if (w.e != null) {
-            // local weekday -- counting starts from begining of week
-            weekday = w.e + dow;
-            if (w.e < 0 || w.e > 6) {
-                weekdayOverflow = true;
-            }
-        } else {
-            // default to begining of week
-            weekday = dow;
-        }
-    }
-    if (week < 1 || week > weeksInYear(weekYear, dow, doy)) {
-        getParsingFlags(config)._overflowWeeks = true;
-    } else if (weekdayOverflow != null) {
-        getParsingFlags(config)._overflowWeekday = true;
-    } else {
-        temp = dayOfYearFromWeeks(weekYear, week, weekday, dow, doy);
-        config._a[YEAR] = temp.year;
-        config._dayOfYear = temp.dayOfYear;
-    }
-}
-
-// constant that refers to the ISO standard
-hooks.ISO_8601 = function () {};
-
-// date from string and format string
-function configFromStringAndFormat(config) {
-    // TODO: Move this to another part of the creation flow to prevent circular deps
-    if (config._f === hooks.ISO_8601) {
-        configFromISO(config);
-        return;
-    }
-
-    config._a = [];
-    getParsingFlags(config).empty = true;
-
-    // This array is used to make a Date, either with `new Date` or `Date.UTC`
-    var string = '' + config._i,
-        i, parsedInput, tokens, token, skipped,
-        stringLength = string.length,
-        totalParsedInputLength = 0;
-
-    tokens = expandFormat(config._f, config._locale).match(formattingTokens) || [];
-
-    for (i = 0; i < tokens.length; i++) {
-        token = tokens[i];
-        parsedInput = (string.match(getParseRegexForToken(token, config)) || [])[0];
-        // console.log('token', token, 'parsedInput', parsedInput,
-        //         'regex', getParseRegexForToken(token, config));
-        if (parsedInput) {
-            skipped = string.substr(0, string.indexOf(parsedInput));
-            if (skipped.length > 0) {
-                getParsingFlags(config).unusedInput.push(skipped);
-            }
-            string = string.slice(string.indexOf(parsedInput) + parsedInput.length);
-            totalParsedInputLength += parsedInput.length;
-        }
-        // don't parse if it's not a known token
-        if (formatTokenFunctions[token]) {
-            if (parsedInput) {
-                getParsingFlags(config).empty = false;
-            }
-            else {
-                getParsingFlags(config).unusedTokens.push(token);
-            }
-            addTimeToArrayFromToken(token, parsedInput, config);
-        }
-        else if (config._strict && !parsedInput) {
-            getParsingFlags(config).unusedTokens.push(token);
-        }
-    }
-
-    // add remaining unparsed input length to the string
-    getParsingFlags(config).charsLeftOver = stringLength - totalParsedInputLength;
-    if (string.length > 0) {
-        getParsingFlags(config).unusedInput.push(string);
-    }
-
-    // clear _12h flag if hour is <= 12
-    if (config._a[HOUR] <= 12 &&
-        getParsingFlags(config).bigHour === true &&
-        config._a[HOUR] > 0) {
-        getParsingFlags(config).bigHour = undefined;
-    }
-
-    getParsingFlags(config).parsedDateParts = config._a.slice(0);
-    getParsingFlags(config).meridiem = config._meridiem;
-    // handle meridiem
-    config._a[HOUR] = meridiemFixWrap(config._locale, config._a[HOUR], config._meridiem);
-
-    configFromArray(config);
-    checkOverflow(config);
-}
-
-
-function meridiemFixWrap (locale, hour, meridiem) {
-    var isPm;
-
-    if (meridiem == null) {
-        // nothing to do
-        return hour;
-    }
-    if (locale.meridiemHour != null) {
-        return locale.meridiemHour(hour, meridiem);
-    } else if (locale.isPM != null) {
-        // Fallback
-        isPm = locale.isPM(meridiem);
-        if (isPm && hour < 12) {
-            hour += 12;
-        }
-        if (!isPm && hour === 12) {
-            hour = 0;
-        }
-        return hour;
-    } else {
-        // this is not supposed to happen
-        return hour;
-    }
-}
-
-// date from string and array of format strings
-function configFromStringAndArray(config) {
-    var tempConfig,
-        bestMoment,
-
-        scoreToBeat,
-        i,
-        currentScore;
-
-    if (config._f.length === 0) {
-        getParsingFlags(config).invalidFormat = true;
-        config._d = new Date(NaN);
-        return;
-    }
-
-    for (i = 0; i < config._f.length; i++) {
-        currentScore = 0;
-        tempConfig = copyConfig({}, config);
-        if (config._useUTC != null) {
-            tempConfig._useUTC = config._useUTC;
-        }
-        tempConfig._f = config._f[i];
-        configFromStringAndFormat(tempConfig);
-
-        if (!isValid(tempConfig)) {
-            continue;
-        }
-
-        // if there is any input that was not parsed add a penalty for that format
-        currentScore += getParsingFlags(tempConfig).charsLeftOver;
-
-        //or tokens
-        currentScore += getParsingFlags(tempConfig).unusedTokens.length * 10;
-
-        getParsingFlags(tempConfig).score = currentScore;
-
-        if (scoreToBeat == null || currentScore < scoreToBeat) {
-            scoreToBeat = currentScore;
-            bestMoment = tempConfig;
-        }
-    }
-
-    extend(config, bestMoment || tempConfig);
-}
-
-function configFromObject(config) {
-    if (config._d) {
-        return;
-    }
-
-    var i = normalizeObjectUnits(config._i);
-    config._a = map([i.year, i.month, i.day || i.date, i.hour, i.minute, i.second, i.millisecond], function (obj) {
-        return obj && parseInt(obj, 10);
-    });
-
-    configFromArray(config);
-}
-
-function createFromConfig (config) {
-    var res = new Moment(checkOverflow(prepareConfig(config)));
-    if (res._nextDay) {
-        // Adding is smart enough around DST
-        res.add(1, 'd');
-        res._nextDay = undefined;
-    }
-
-    return res;
-}
-
-function prepareConfig (config) {
-    var input = config._i,
-        format = config._f;
-
-    config._locale = config._locale || getLocale(config._l);
-
-    if (input === null || (format === undefined && input === '')) {
-        return createInvalid({nullInput: true});
-    }
-
-    if (typeof input === 'string') {
-        config._i = input = config._locale.preparse(input);
-    }
-
-    if (isMoment(input)) {
-        return new Moment(checkOverflow(input));
-    } else if (isDate(input)) {
-        config._d = input;
-    } else if (isArray(format)) {
-        configFromStringAndArray(config);
-    } else if (format) {
-        configFromStringAndFormat(config);
-    }  else {
-        configFromInput(config);
-    }
-
-    if (!isValid(config)) {
-        config._d = null;
-    }
-
-    return config;
-}
-
-function configFromInput(config) {
-    var input = config._i;
-    if (input === undefined) {
-        config._d = new Date(hooks.now());
-    } else if (isDate(input)) {
-        config._d = new Date(input.valueOf());
-    } else if (typeof input === 'string') {
-        configFromString(config);
-    } else if (isArray(input)) {
-        config._a = map(input.slice(0), function (obj) {
-            return parseInt(obj, 10);
-        });
-        configFromArray(config);
-    } else if (typeof(input) === 'object') {
-        configFromObject(config);
-    } else if (isNumber(input)) {
-        // from milliseconds
-        config._d = new Date(input);
-    } else {
-        hooks.createFromInputFallback(config);
-    }
-}
-
-function createLocalOrUTC (input, format, locale, strict, isUTC) {
-    var c = {};
-
-    if (locale === true || locale === false) {
-        strict = locale;
-        locale = undefined;
-    }
-
-    if ((isObject(input) && isObjectEmpty(input)) ||
-            (isArray(input) && input.length === 0)) {
-        input = undefined;
-    }
-    // object construction must be done this way.
-    // https://github.com/moment/moment/issues/1423
-    c._isAMomentObject = true;
-    c._useUTC = c._isUTC = isUTC;
-    c._l = locale;
-    c._i = input;
-    c._f = format;
-    c._strict = strict;
-
-    return createFromConfig(c);
-}
-
-function createLocal (input, format, locale, strict) {
-    return createLocalOrUTC(input, format, locale, strict, false);
-}
-
-var prototypeMin = deprecate(
-    'moment().min is deprecated, use moment.max instead. http://momentjs.com/guides/#/warnings/min-max/',
-    function () {
-        var other = createLocal.apply(null, arguments);
-        if (this.isValid() && other.isValid()) {
-            return other < this ? this : other;
-        } else {
-            return createInvalid();
-        }
-    }
-);
-
-var prototypeMax = deprecate(
-    'moment().max is deprecated, use moment.min instead. http://momentjs.com/guides/#/warnings/min-max/',
-    function () {
-        var other = createLocal.apply(null, arguments);
-        if (this.isValid() && other.isValid()) {
-            return other > this ? this : other;
-        } else {
-            return createInvalid();
-        }
-    }
-);
-
-// Pick a moment m from moments so that m[fn](other) is true for all
-// other. This relies on the function fn to be transitive.
-//
-// moments should either be an array of moment objects or an array, whose
-// first element is an array of moment objects.
-function pickBy(fn, moments) {
-    var res, i;
-    if (moments.length === 1 && isArray(moments[0])) {
-        moments = moments[0];
-    }
-    if (!moments.length) {
-        return createLocal();
-    }
-    res = moments[0];
-    for (i = 1; i < moments.length; ++i) {
-        if (!moments[i].isValid() || moments[i][fn](res)) {
-            res = moments[i];
-        }
-    }
-    return res;
-}
-
-// TODO: Use [].sort instead?
-function min () {
-    var args = [].slice.call(arguments, 0);
-
-    return pickBy('isBefore', args);
-}
-
-function max () {
-    var args = [].slice.call(arguments, 0);
-
-    return pickBy('isAfter', args);
-}
-
-var now = function () {
-    return Date.now ? Date.now() : +(new Date());
-};
-
-function Duration (duration) {
-    var normalizedInput = normalizeObjectUnits(duration),
-        years = normalizedInput.year || 0,
-        quarters = normalizedInput.quarter || 0,
-        months = normalizedInput.month || 0,
-        weeks = normalizedInput.week || 0,
-        days = normalizedInput.day || 0,
-        hours = normalizedInput.hour || 0,
-        minutes = normalizedInput.minute || 0,
-        seconds = normalizedInput.second || 0,
-        milliseconds = normalizedInput.millisecond || 0;
-
-    // representation for dateAddRemove
-    this._milliseconds = +milliseconds +
-        seconds * 1e3 + // 1000
-        minutes * 6e4 + // 1000 * 60
-        hours * 1000 * 60 * 60; //using 1000 * 60 * 60 instead of 36e5 to avoid floating point rounding errors https://github.com/moment/moment/issues/2978
-    // Because of dateAddRemove treats 24 hours as different from a
-    // day when working around DST, we need to store them separately
-    this._days = +days +
-        weeks * 7;
-    // It is impossible translate months into days without knowing
-    // which months you are are talking about, so we have to store
-    // it separately.
-    this._months = +months +
-        quarters * 3 +
-        years * 12;
-
-    this._data = {};
-
-    this._locale = getLocale();
-
-    this._bubble();
-}
-
-function isDuration (obj) {
-    return obj instanceof Duration;
-}
-
-function absRound (number) {
-    if (number < 0) {
-        return Math.round(-1 * number) * -1;
-    } else {
-        return Math.round(number);
-    }
-}
-
-// FORMATTING
-
-function offset (token, separator) {
-    addFormatToken(token, 0, 0, function () {
-        var offset = this.utcOffset();
-        var sign = '+';
-        if (offset < 0) {
-            offset = -offset;
-            sign = '-';
-        }
-        return sign + zeroFill(~~(offset / 60), 2) + separator + zeroFill(~~(offset) % 60, 2);
-    });
-}
-
-offset('Z', ':');
-offset('ZZ', '');
-
-// PARSING
-
-addRegexToken('Z',  matchShortOffset);
-addRegexToken('ZZ', matchShortOffset);
-addParseToken(['Z', 'ZZ'], function (input, array, config) {
-    config._useUTC = true;
-    config._tzm = offsetFromString(matchShortOffset, input);
-});
-
-// HELPERS
-
-// timezone chunker
-// '+10:00' > ['10',  '00']
-// '-1530'  > ['-15', '30']
-var chunkOffset = /([\+\-]|\d\d)/gi;
-
-function offsetFromString(matcher, string) {
-    var matches = (string || '').match(matcher);
-
-    if (matches === null) {
-        return null;
-    }
-
-    var chunk   = matches[matches.length - 1] || [];
-    var parts   = (chunk + '').match(chunkOffset) || ['-', 0, 0];
-    var minutes = +(parts[1] * 60) + toInt(parts[2]);
-
-    return minutes === 0 ?
-      0 :
-      parts[0] === '+' ? minutes : -minutes;
-}
-
-// Return a moment from input, that is local/utc/zone equivalent to model.
-function cloneWithOffset(input, model) {
-    var res, diff;
-    if (model._isUTC) {
-        res = model.clone();
-        diff = (isMoment(input) || isDate(input) ? input.valueOf() : createLocal(input).valueOf()) - res.valueOf();
-        // Use low-level api, because this fn is low-level api.
-        res._d.setTime(res._d.valueOf() + diff);
-        hooks.updateOffset(res, false);
-        return res;
-    } else {
-        return createLocal(input).local();
-    }
-}
-
-function getDateOffset (m) {
-    // On Firefox.24 Date#getTimezoneOffset returns a floating point.
-    // https://github.com/moment/moment/pull/1871
-    return -Math.round(m._d.getTimezoneOffset() / 15) * 15;
-}
-
-// HOOKS
-
-// This function will be called whenever a moment is mutated.
-// It is intended to keep the offset in sync with the timezone.
-hooks.updateOffset = function () {};
-
-// MOMENTS
-
-// keepLocalTime = true means only change the timezone, without
-// affecting the local hour. So 5:31:26 +0300 --[utcOffset(2, true)]-->
-// 5:31:26 +0200 It is possible that 5:31:26 doesn't exist with offset
-// +0200, so we adjust the time as needed, to be valid.
-//
-// Keeping the time actually adds/subtracts (one hour)
-// from the actual represented time. That is why we call updateOffset
-// a second time. In case it wants us to change the offset again
-// _changeInProgress == true case, then we have to adjust, because
-// there is no such time in the given timezone.
-function getSetOffset (input, keepLocalTime) {
-    var offset = this._offset || 0,
-        localAdjust;
-    if (!this.isValid()) {
-        return input != null ? this : NaN;
-    }
-    if (input != null) {
-        if (typeof input === 'string') {
-            input = offsetFromString(matchShortOffset, input);
-            if (input === null) {
-                return this;
-            }
-        } else if (Math.abs(input) < 16) {
-            input = input * 60;
-        }
-        if (!this._isUTC && keepLocalTime) {
-            localAdjust = getDateOffset(this);
-        }
-        this._offset = input;
-        this._isUTC = true;
-        if (localAdjust != null) {
-            this.add(localAdjust, 'm');
-        }
-        if (offset !== input) {
-            if (!keepLocalTime || this._changeInProgress) {
-                addSubtract(this, createDuration(input - offset, 'm'), 1, false);
-            } else if (!this._changeInProgress) {
-                this._changeInProgress = true;
-                hooks.updateOffset(this, true);
-                this._changeInProgress = null;
-            }
-        }
-        return this;
-    } else {
-        return this._isUTC ? offset : getDateOffset(this);
-    }
-}
-
-function getSetZone (input, keepLocalTime) {
-    if (input != null) {
-        if (typeof input !== 'string') {
-            input = -input;
-        }
-
-        this.utcOffset(input, keepLocalTime);
-
-        return this;
-    } else {
-        return -this.utcOffset();
-    }
-}
-
-function setOffsetToUTC (keepLocalTime) {
-    return this.utcOffset(0, keepLocalTime);
-}
-
-function setOffsetToLocal (keepLocalTime) {
-    if (this._isUTC) {
-        this.utcOffset(0, keepLocalTime);
-        this._isUTC = false;
-
-        if (keepLocalTime) {
-            this.subtract(getDateOffset(this), 'm');
-        }
-    }
-    return this;
-}
-
-function setOffsetToParsedOffset () {
-    if (this._tzm != null) {
-        this.utcOffset(this._tzm);
-    } else if (typeof this._i === 'string') {
-        var tZone = offsetFromString(matchOffset, this._i);
-        if (tZone != null) {
-            this.utcOffset(tZone);
-        }
-        else {
-            this.utcOffset(0, true);
-        }
-    }
-    return this;
-}
-
-function hasAlignedHourOffset (input) {
-    if (!this.isValid()) {
-        return false;
-    }
-    input = input ? createLocal(input).utcOffset() : 0;
-
-    return (this.utcOffset() - input) % 60 === 0;
-}
-
-function isDaylightSavingTime () {
-    return (
-        this.utcOffset() > this.clone().month(0).utcOffset() ||
-        this.utcOffset() > this.clone().month(5).utcOffset()
-    );
-}
-
-function isDaylightSavingTimeShifted () {
-    if (!isUndefined(this._isDSTShifted)) {
-        return this._isDSTShifted;
-    }
-
-    var c = {};
-
-    copyConfig(c, this);
-    c = prepareConfig(c);
-
-    if (c._a) {
-        var other = c._isUTC ? createUTC(c._a) : createLocal(c._a);
-        this._isDSTShifted = this.isValid() &&
-            compareArrays(c._a, other.toArray()) > 0;
-    } else {
-        this._isDSTShifted = false;
-    }
-
-    return this._isDSTShifted;
-}
-
-function isLocal () {
-    return this.isValid() ? !this._isUTC : false;
-}
-
-function isUtcOffset () {
-    return this.isValid() ? this._isUTC : false;
-}
-
-function isUtc () {
-    return this.isValid() ? this._isUTC && this._offset === 0 : false;
-}
-
-// ASP.NET json date format regex
-var aspNetRegex = /^(\-)?(?:(\d*)[. ])?(\d+)\:(\d+)(?:\:(\d+)(\.\d*)?)?$/;
-
-// from http://docs.closure-library.googlecode.com/git/closure_goog_date_date.js.source.html
-// somewhat more in line with 4.4.3.2 2004 spec, but allows decimal anywhere
-// and further modified to allow for strings containing both week and day
-var isoRegex = /^(-)?P(?:(-?[0-9,.]*)Y)?(?:(-?[0-9,.]*)M)?(?:(-?[0-9,.]*)W)?(?:(-?[0-9,.]*)D)?(?:T(?:(-?[0-9,.]*)H)?(?:(-?[0-9,.]*)M)?(?:(-?[0-9,.]*)S)?)?$/;
-
-function createDuration (input, key) {
-    var duration = input,
-        // matching against regexp is expensive, do it on demand
-        match = null,
-        sign,
-        ret,
-        diffRes;
-
-    if (isDuration(input)) {
-        duration = {
-            ms : input._milliseconds,
-            d  : input._days,
-            M  : input._months
-        };
-    } else if (isNumber(input)) {
-        duration = {};
-        if (key) {
-            duration[key] = input;
-        } else {
-            duration.milliseconds = input;
-        }
-    } else if (!!(match = aspNetRegex.exec(input))) {
-        sign = (match[1] === '-') ? -1 : 1;
-        duration = {
-            y  : 0,
-            d  : toInt(match[DATE])                         * sign,
-            h  : toInt(match[HOUR])                         * sign,
-            m  : toInt(match[MINUTE])                       * sign,
-            s  : toInt(match[SECOND])                       * sign,
-            ms : toInt(absRound(match[MILLISECOND] * 1000)) * sign // the millisecond decimal point is included in the match
-        };
-    } else if (!!(match = isoRegex.exec(input))) {
-        sign = (match[1] === '-') ? -1 : 1;
-        duration = {
-            y : parseIso(match[2], sign),
-            M : parseIso(match[3], sign),
-            w : parseIso(match[4], sign),
-            d : parseIso(match[5], sign),
-            h : parseIso(match[6], sign),
-            m : parseIso(match[7], sign),
-            s : parseIso(match[8], sign)
-        };
-    } else if (duration == null) {// checks for null or undefined
-        duration = {};
-    } else if (typeof duration === 'object' && ('from' in duration || 'to' in duration)) {
-        diffRes = momentsDifference(createLocal(duration.from), createLocal(duration.to));
-
-        duration = {};
-        duration.ms = diffRes.milliseconds;
-        duration.M = diffRes.months;
-    }
-
-    ret = new Duration(duration);
-
-    if (isDuration(input) && hasOwnProp(input, '_locale')) {
-        ret._locale = input._locale;
-    }
-
-    return ret;
-}
-
-createDuration.fn = Duration.prototype;
-
-function parseIso (inp, sign) {
-    // We'd normally use ~~inp for this, but unfortunately it also
-    // converts floats to ints.
-    // inp may be undefined, so careful calling replace on it.
-    var res = inp && parseFloat(inp.replace(',', '.'));
-    // apply sign while we're at it
-    return (isNaN(res) ? 0 : res) * sign;
-}
-
-function positiveMomentsDifference(base, other) {
-    var res = {milliseconds: 0, months: 0};
-
-    res.months = other.month() - base.month() +
-        (other.year() - base.year()) * 12;
-    if (base.clone().add(res.months, 'M').isAfter(other)) {
-        --res.months;
-    }
-
-    res.milliseconds = +other - +(base.clone().add(res.months, 'M'));
-
-    return res;
-}
-
-function momentsDifference(base, other) {
-    var res;
-    if (!(base.isValid() && other.isValid())) {
-        return {milliseconds: 0, months: 0};
-    }
-
-    other = cloneWithOffset(other, base);
-    if (base.isBefore(other)) {
-        res = positiveMomentsDifference(base, other);
-    } else {
-        res = positiveMomentsDifference(other, base);
-        res.milliseconds = -res.milliseconds;
-        res.months = -res.months;
-    }
-
-    return res;
-}
-
-// TODO: remove 'name' arg after deprecation is removed
-function createAdder(direction, name) {
-    return function (val, period) {
-        var dur, tmp;
-        //invert the arguments, but complain about it
-        if (period !== null && !isNaN(+period)) {
-            deprecateSimple(name, 'moment().' + name  + '(period, number) is deprecated. Please use moment().' + name + '(number, period). ' +
-            'See http://momentjs.com/guides/#/warnings/add-inverted-param/ for more info.');
-            tmp = val; val = period; period = tmp;
-        }
-
-        val = typeof val === 'string' ? +val : val;
-        dur = createDuration(val, period);
-        addSubtract(this, dur, direction);
-        return this;
-    };
-}
-
-function addSubtract (mom, duration, isAdding, updateOffset) {
-    var milliseconds = duration._milliseconds,
-        days = absRound(duration._days),
-        months = absRound(duration._months);
-
-    if (!mom.isValid()) {
-        // No op
-        return;
-    }
-
-    updateOffset = updateOffset == null ? true : updateOffset;
-
-    if (milliseconds) {
-        mom._d.setTime(mom._d.valueOf() + milliseconds * isAdding);
-    }
-    if (days) {
-        set$1(mom, 'Date', get(mom, 'Date') + days * isAdding);
-    }
-    if (months) {
-        setMonth(mom, get(mom, 'Month') + months * isAdding);
-    }
-    if (updateOffset) {
-        hooks.updateOffset(mom, days || months);
-    }
-}
-
-var add      = createAdder(1, 'add');
-var subtract = createAdder(-1, 'subtract');
-
-function getCalendarFormat(myMoment, now) {
-    var diff = myMoment.diff(now, 'days', true);
-    return diff < -6 ? 'sameElse' :
-            diff < -1 ? 'lastWeek' :
-            diff < 0 ? 'lastDay' :
-            diff < 1 ? 'sameDay' :
-            diff < 2 ? 'nextDay' :
-            diff < 7 ? 'nextWeek' : 'sameElse';
-}
-
-function calendar$1 (time, formats) {
-    // We want to compare the start of today, vs this.
-    // Getting start-of-today depends on whether we're local/utc/offset or not.
-    var now = time || createLocal(),
-        sod = cloneWithOffset(now, this).startOf('day'),
-        format = hooks.calendarFormat(this, sod) || 'sameElse';
-
-    var output = formats && (isFunction(formats[format]) ? formats[format].call(this, now) : formats[format]);
-
-    return this.format(output || this.localeData().calendar(format, this, createLocal(now)));
-}
-
-function clone () {
-    return new Moment(this);
-}
-
-function isAfter (input, units) {
-    var localInput = isMoment(input) ? input : createLocal(input);
-    if (!(this.isValid() && localInput.isValid())) {
-        return false;
-    }
-    units = normalizeUnits(!isUndefined(units) ? units : 'millisecond');
-    if (units === 'millisecond') {
-        return this.valueOf() > localInput.valueOf();
-    } else {
-        return localInput.valueOf() < this.clone().startOf(units).valueOf();
-    }
-}
-
-function isBefore (input, units) {
-    var localInput = isMoment(input) ? input : createLocal(input);
-    if (!(this.isValid() && localInput.isValid())) {
-        return false;
-    }
-    units = normalizeUnits(!isUndefined(units) ? units : 'millisecond');
-    if (units === 'millisecond') {
-        return this.valueOf() < localInput.valueOf();
-    } else {
-        return this.clone().endOf(units).valueOf() < localInput.valueOf();
-    }
-}
-
-function isBetween (from, to, units, inclusivity) {
-    inclusivity = inclusivity || '()';
-    return (inclusivity[0] === '(' ? this.isAfter(from, units) : !this.isBefore(from, units)) &&
-        (inclusivity[1] === ')' ? this.isBefore(to, units) : !this.isAfter(to, units));
-}
-
-function isSame (input, units) {
-    var localInput = isMoment(input) ? input : createLocal(input),
-        inputMs;
-    if (!(this.isValid() && localInput.isValid())) {
-        return false;
-    }
-    units = normalizeUnits(units || 'millisecond');
-    if (units === 'millisecond') {
-        return this.valueOf() === localInput.valueOf();
-    } else {
-        inputMs = localInput.valueOf();
-        return this.clone().startOf(units).valueOf() <= inputMs && inputMs <= this.clone().endOf(units).valueOf();
-    }
-}
-
-function isSameOrAfter (input, units) {
-    return this.isSame(input, units) || this.isAfter(input,units);
-}
-
-function isSameOrBefore (input, units) {
-    return this.isSame(input, units) || this.isBefore(input,units);
-}
-
-function diff (input, units, asFloat) {
-    var that,
-        zoneDelta,
-        delta, output;
-
-    if (!this.isValid()) {
-        return NaN;
-    }
-
-    that = cloneWithOffset(input, this);
-
-    if (!that.isValid()) {
-        return NaN;
-    }
-
-    zoneDelta = (that.utcOffset() - this.utcOffset()) * 6e4;
-
-    units = normalizeUnits(units);
-
-    if (units === 'year' || units === 'month' || units === 'quarter') {
-        output = monthDiff(this, that);
-        if (units === 'quarter') {
-            output = output / 3;
-        } else if (units === 'year') {
-            output = output / 12;
-        }
-    } else {
-        delta = this - that;
-        output = units === 'second' ? delta / 1e3 : // 1000
-            units === 'minute' ? delta / 6e4 : // 1000 * 60
-            units === 'hour' ? delta / 36e5 : // 1000 * 60 * 60
-            units === 'day' ? (delta - zoneDelta) / 864e5 : // 1000 * 60 * 60 * 24, negate dst
-            units === 'week' ? (delta - zoneDelta) / 6048e5 : // 1000 * 60 * 60 * 24 * 7, negate dst
-            delta;
-    }
-    return asFloat ? output : absFloor(output);
-}
-
-function monthDiff (a, b) {
-    // difference in months
-    var wholeMonthDiff = ((b.year() - a.year()) * 12) + (b.month() - a.month()),
-        // b is in (anchor - 1 month, anchor + 1 month)
-        anchor = a.clone().add(wholeMonthDiff, 'months'),
-        anchor2, adjust;
-
-    if (b - anchor < 0) {
-        anchor2 = a.clone().add(wholeMonthDiff - 1, 'months');
-        // linear across the month
-        adjust = (b - anchor) / (anchor - anchor2);
-    } else {
-        anchor2 = a.clone().add(wholeMonthDiff + 1, 'months');
-        // linear across the month
-        adjust = (b - anchor) / (anchor2 - anchor);
-    }
-
-    //check for negative zero, return zero if negative zero
-    return -(wholeMonthDiff + adjust) || 0;
-}
-
-hooks.defaultFormat = 'YYYY-MM-DDTHH:mm:ssZ';
-hooks.defaultFormatUtc = 'YYYY-MM-DDTHH:mm:ss[Z]';
-
-function toString () {
-    return this.clone().locale('en').format('ddd MMM DD YYYY HH:mm:ss [GMT]ZZ');
-}
-
-function toISOString () {
-    var m = this.clone().utc();
-    if (0 < m.year() && m.year() <= 9999) {
-        if (isFunction(Date.prototype.toISOString)) {
-            // native implementation is ~50x faster, use it when we can
-            return this.toDate().toISOString();
-        } else {
-            return formatMoment(m, 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
-        }
-    } else {
-        return formatMoment(m, 'YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
-    }
-}
-
-/**
- * Return a human readable representation of a moment that can
- * also be evaluated to get a new moment which is the same
- *
- * @link https://nodejs.org/dist/latest/docs/api/util.html#util_custom_inspect_function_on_objects
- */
-function inspect () {
-    if (!this.isValid()) {
-        return 'moment.invalid(/* ' + this._i + ' */)';
-    }
-    var func = 'moment';
-    var zone = '';
-    if (!this.isLocal()) {
-        func = this.utcOffset() === 0 ? 'moment.utc' : 'moment.parseZone';
-        zone = 'Z';
-    }
-    var prefix = '[' + func + '("]';
-    var year = (0 < this.year() && this.year() <= 9999) ? 'YYYY' : 'YYYYYY';
-    var datetime = '-MM-DD[T]HH:mm:ss.SSS';
-    var suffix = zone + '[")]';
-
-    return this.format(prefix + year + datetime + suffix);
-}
-
-function format (inputString) {
-    if (!inputString) {
-        inputString = this.isUtc() ? hooks.defaultFormatUtc : hooks.defaultFormat;
-    }
-    var output = formatMoment(this, inputString);
-    return this.localeData().postformat(output);
-}
-
-function from (time, withoutSuffix) {
-    if (this.isValid() &&
-            ((isMoment(time) && time.isValid()) ||
-             createLocal(time).isValid())) {
-        return createDuration({to: this, from: time}).locale(this.locale()).humanize(!withoutSuffix);
-    } else {
-        return this.localeData().invalidDate();
-    }
-}
-
-function fromNow (withoutSuffix) {
-    return this.from(createLocal(), withoutSuffix);
-}
-
-function to (time, withoutSuffix) {
-    if (this.isValid() &&
-            ((isMoment(time) && time.isValid()) ||
-             createLocal(time).isValid())) {
-        return createDuration({from: this, to: time}).locale(this.locale()).humanize(!withoutSuffix);
-    } else {
-        return this.localeData().invalidDate();
-    }
-}
-
-function toNow (withoutSuffix) {
-    return this.to(createLocal(), withoutSuffix);
-}
-
-// If passed a locale key, it will set the locale for this
-// instance.  Otherwise, it will return the locale configuration
-// variables for this instance.
-function locale (key) {
-    var newLocaleData;
-
-    if (key === undefined) {
-        return this._locale._abbr;
-    } else {
-        newLocaleData = getLocale(key);
-        if (newLocaleData != null) {
-            this._locale = newLocaleData;
-        }
-        return this;
-    }
-}
-
-var lang = deprecate(
-    'moment().lang() is deprecated. Instead, use moment().localeData() to get the language configuration. Use moment().locale() to change languages.',
-    function (key) {
-        if (key === undefined) {
-            return this.localeData();
-        } else {
-            return this.locale(key);
-        }
-    }
-);
-
-function localeData () {
-    return this._locale;
-}
-
-function startOf (units) {
-    units = normalizeUnits(units);
-    // the following switch intentionally omits break keywords
-    // to utilize falling through the cases.
-    switch (units) {
-        case 'year':
-            this.month(0);
-            /* falls through */
-        case 'quarter':
-        case 'month':
-            this.date(1);
-            /* falls through */
-        case 'week':
-        case 'isoWeek':
-        case 'day':
-        case 'date':
-            this.hours(0);
-            /* falls through */
-        case 'hour':
-            this.minutes(0);
-            /* falls through */
-        case 'minute':
-            this.seconds(0);
-            /* falls through */
-        case 'second':
-            this.milliseconds(0);
-    }
-
-    // weeks are a special case
-    if (units === 'week') {
-        this.weekday(0);
-    }
-    if (units === 'isoWeek') {
-        this.isoWeekday(1);
-    }
-
-    // quarters are also special
-    if (units === 'quarter') {
-        this.month(Math.floor(this.month() / 3) * 3);
-    }
-
-    return this;
-}
-
-function endOf (units) {
-    units = normalizeUnits(units);
-    if (units === undefined || units === 'millisecond') {
-        return this;
-    }
-
-    // 'date' is an alias for 'day', so it should be considered as such.
-    if (units === 'date') {
-        units = 'day';
-    }
-
-    return this.startOf(units).add(1, (units === 'isoWeek' ? 'week' : units)).subtract(1, 'ms');
-}
-
-function valueOf () {
-    return this._d.valueOf() - ((this._offset || 0) * 60000);
-}
-
-function unix () {
-    return Math.floor(this.valueOf() / 1000);
-}
-
-function toDate () {
-    return new Date(this.valueOf());
-}
-
-function toArray () {
-    var m = this;
-    return [m.year(), m.month(), m.date(), m.hour(), m.minute(), m.second(), m.millisecond()];
-}
-
-function toObject () {
-    var m = this;
-    return {
-        years: m.year(),
-        months: m.month(),
-        date: m.date(),
-        hours: m.hours(),
-        minutes: m.minutes(),
-        seconds: m.seconds(),
-        milliseconds: m.milliseconds()
-    };
-}
-
-function toJSON () {
-    // new Date(NaN).toJSON() === null
-    return this.isValid() ? this.toISOString() : null;
-}
-
-function isValid$1 () {
-    return isValid(this);
-}
-
-function parsingFlags () {
-    return extend({}, getParsingFlags(this));
-}
-
-function invalidAt () {
-    return getParsingFlags(this).overflow;
-}
-
-function creationData() {
-    return {
-        input: this._i,
-        format: this._f,
-        locale: this._locale,
-        isUTC: this._isUTC,
-        strict: this._strict
-    };
-}
-
-// FORMATTING
-
-addFormatToken(0, ['gg', 2], 0, function () {
-    return this.weekYear() % 100;
-});
-
-addFormatToken(0, ['GG', 2], 0, function () {
-    return this.isoWeekYear() % 100;
-});
-
-function addWeekYearFormatToken (token, getter) {
-    addFormatToken(0, [token, token.length], 0, getter);
-}
-
-addWeekYearFormatToken('gggg',     'weekYear');
-addWeekYearFormatToken('ggggg',    'weekYear');
-addWeekYearFormatToken('GGGG',  'isoWeekYear');
-addWeekYearFormatToken('GGGGG', 'isoWeekYear');
-
-// ALIASES
-
-addUnitAlias('weekYear', 'gg');
-addUnitAlias('isoWeekYear', 'GG');
-
-// PRIORITY
-
-addUnitPriority('weekYear', 1);
-addUnitPriority('isoWeekYear', 1);
-
-
-// PARSING
-
-addRegexToken('G',      matchSigned);
-addRegexToken('g',      matchSigned);
-addRegexToken('GG',     match1to2, match2);
-addRegexToken('gg',     match1to2, match2);
-addRegexToken('GGGG',   match1to4, match4);
-addRegexToken('gggg',   match1to4, match4);
-addRegexToken('GGGGG',  match1to6, match6);
-addRegexToken('ggggg',  match1to6, match6);
-
-addWeekParseToken(['gggg', 'ggggg', 'GGGG', 'GGGGG'], function (input, week, config, token) {
-    week[token.substr(0, 2)] = toInt(input);
-});
-
-addWeekParseToken(['gg', 'GG'], function (input, week, config, token) {
-    week[token] = hooks.parseTwoDigitYear(input);
-});
-
-// MOMENTS
-
-function getSetWeekYear (input) {
-    return getSetWeekYearHelper.call(this,
-            input,
-            this.week(),
-            this.weekday(),
-            this.localeData()._week.dow,
-            this.localeData()._week.doy);
-}
-
-function getSetISOWeekYear (input) {
-    return getSetWeekYearHelper.call(this,
-            input, this.isoWeek(), this.isoWeekday(), 1, 4);
-}
-
-function getISOWeeksInYear () {
-    return weeksInYear(this.year(), 1, 4);
-}
-
-function getWeeksInYear () {
-    var weekInfo = this.localeData()._week;
-    return weeksInYear(this.year(), weekInfo.dow, weekInfo.doy);
-}
-
-function getSetWeekYearHelper(input, week, weekday, dow, doy) {
-    var weeksTarget;
-    if (input == null) {
-        return weekOfYear(this, dow, doy).year;
-    } else {
-        weeksTarget = weeksInYear(input, dow, doy);
-        if (week > weeksTarget) {
-            week = weeksTarget;
-        }
-        return setWeekAll.call(this, input, week, weekday, dow, doy);
-    }
-}
-
-function setWeekAll(weekYear, week, weekday, dow, doy) {
-    var dayOfYearData = dayOfYearFromWeeks(weekYear, week, weekday, dow, doy),
-        date = createUTCDate(dayOfYearData.year, 0, dayOfYearData.dayOfYear);
-
-    this.year(date.getUTCFullYear());
-    this.month(date.getUTCMonth());
-    this.date(date.getUTCDate());
-    return this;
-}
-
-// FORMATTING
-
-addFormatToken('Q', 0, 'Qo', 'quarter');
-
-// ALIASES
-
-addUnitAlias('quarter', 'Q');
-
-// PRIORITY
-
-addUnitPriority('quarter', 7);
-
-// PARSING
-
-addRegexToken('Q', match1);
-addParseToken('Q', function (input, array) {
-    array[MONTH] = (toInt(input) - 1) * 3;
-});
-
-// MOMENTS
-
-function getSetQuarter (input) {
-    return input == null ? Math.ceil((this.month() + 1) / 3) : this.month((input - 1) * 3 + this.month() % 3);
-}
-
-// FORMATTING
-
-addFormatToken('D', ['DD', 2], 'Do', 'date');
-
-// ALIASES
-
-addUnitAlias('date', 'D');
-
-// PRIOROITY
-addUnitPriority('date', 9);
-
-// PARSING
-
-addRegexToken('D',  match1to2);
-addRegexToken('DD', match1to2, match2);
-addRegexToken('Do', function (isStrict, locale) {
-    return isStrict ? locale._ordinalParse : locale._ordinalParseLenient;
-});
-
-addParseToken(['D', 'DD'], DATE);
-addParseToken('Do', function (input, array) {
-    array[DATE] = toInt(input.match(match1to2)[0], 10);
-});
-
-// MOMENTS
-
-var getSetDayOfMonth = makeGetSet('Date', true);
-
-// FORMATTING
-
-addFormatToken('DDD', ['DDDD', 3], 'DDDo', 'dayOfYear');
-
-// ALIASES
-
-addUnitAlias('dayOfYear', 'DDD');
-
-// PRIORITY
-addUnitPriority('dayOfYear', 4);
-
-// PARSING
-
-addRegexToken('DDD',  match1to3);
-addRegexToken('DDDD', match3);
-addParseToken(['DDD', 'DDDD'], function (input, array, config) {
-    config._dayOfYear = toInt(input);
-});
-
-// HELPERS
-
-// MOMENTS
-
-function getSetDayOfYear (input) {
-    var dayOfYear = Math.round((this.clone().startOf('day') - this.clone().startOf('year')) / 864e5) + 1;
-    return input == null ? dayOfYear : this.add((input - dayOfYear), 'd');
-}
-
-// FORMATTING
-
-addFormatToken('m', ['mm', 2], 0, 'minute');
-
-// ALIASES
-
-addUnitAlias('minute', 'm');
-
-// PRIORITY
-
-addUnitPriority('minute', 14);
-
-// PARSING
-
-addRegexToken('m',  match1to2);
-addRegexToken('mm', match1to2, match2);
-addParseToken(['m', 'mm'], MINUTE);
-
-// MOMENTS
-
-var getSetMinute = makeGetSet('Minutes', false);
-
-// FORMATTING
-
-addFormatToken('s', ['ss', 2], 0, 'second');
-
-// ALIASES
-
-addUnitAlias('second', 's');
-
-// PRIORITY
-
-addUnitPriority('second', 15);
-
-// PARSING
-
-addRegexToken('s',  match1to2);
-addRegexToken('ss', match1to2, match2);
-addParseToken(['s', 'ss'], SECOND);
-
-// MOMENTS
-
-var getSetSecond = makeGetSet('Seconds', false);
-
-// FORMATTING
-
-addFormatToken('S', 0, 0, function () {
-    return ~~(this.millisecond() / 100);
-});
-
-addFormatToken(0, ['SS', 2], 0, function () {
-    return ~~(this.millisecond() / 10);
-});
-
-addFormatToken(0, ['SSS', 3], 0, 'millisecond');
-addFormatToken(0, ['SSSS', 4], 0, function () {
-    return this.millisecond() * 10;
-});
-addFormatToken(0, ['SSSSS', 5], 0, function () {
-    return this.millisecond() * 100;
-});
-addFormatToken(0, ['SSSSSS', 6], 0, function () {
-    return this.millisecond() * 1000;
-});
-addFormatToken(0, ['SSSSSSS', 7], 0, function () {
-    return this.millisecond() * 10000;
-});
-addFormatToken(0, ['SSSSSSSS', 8], 0, function () {
-    return this.millisecond() * 100000;
-});
-addFormatToken(0, ['SSSSSSSSS', 9], 0, function () {
-    return this.millisecond() * 1000000;
-});
-
-
-// ALIASES
-
-addUnitAlias('millisecond', 'ms');
-
-// PRIORITY
-
-addUnitPriority('millisecond', 16);
-
-// PARSING
-
-addRegexToken('S',    match1to3, match1);
-addRegexToken('SS',   match1to3, match2);
-addRegexToken('SSS',  match1to3, match3);
-
-var token;
-for (token = 'SSSS'; token.length <= 9; token += 'S') {
-    addRegexToken(token, matchUnsigned);
-}
-
-function parseMs(input, array) {
-    array[MILLISECOND] = toInt(('0.' + input) * 1000);
-}
-
-for (token = 'S'; token.length <= 9; token += 'S') {
-    addParseToken(token, parseMs);
-}
-// MOMENTS
-
-var getSetMillisecond = makeGetSet('Milliseconds', false);
-
-// FORMATTING
-
-addFormatToken('z',  0, 0, 'zoneAbbr');
-addFormatToken('zz', 0, 0, 'zoneName');
-
-// MOMENTS
-
-function getZoneAbbr () {
-    return this._isUTC ? 'UTC' : '';
-}
-
-function getZoneName () {
-    return this._isUTC ? 'Coordinated Universal Time' : '';
-}
-
-var proto = Moment.prototype;
-
-proto.add               = add;
-proto.calendar          = calendar$1;
-proto.clone             = clone;
-proto.diff              = diff;
-proto.endOf             = endOf;
-proto.format            = format;
-proto.from              = from;
-proto.fromNow           = fromNow;
-proto.to                = to;
-proto.toNow             = toNow;
-proto.get               = stringGet;
-proto.invalidAt         = invalidAt;
-proto.isAfter           = isAfter;
-proto.isBefore          = isBefore;
-proto.isBetween         = isBetween;
-proto.isSame            = isSame;
-proto.isSameOrAfter     = isSameOrAfter;
-proto.isSameOrBefore    = isSameOrBefore;
-proto.isValid           = isValid$1;
-proto.lang              = lang;
-proto.locale            = locale;
-proto.localeData        = localeData;
-proto.max               = prototypeMax;
-proto.min               = prototypeMin;
-proto.parsingFlags      = parsingFlags;
-proto.set               = stringSet;
-proto.startOf           = startOf;
-proto.subtract          = subtract;
-proto.toArray           = toArray;
-proto.toObject          = toObject;
-proto.toDate            = toDate;
-proto.toISOString       = toISOString;
-proto.inspect           = inspect;
-proto.toJSON            = toJSON;
-proto.toString          = toString;
-proto.unix              = unix;
-proto.valueOf           = valueOf;
-proto.creationData      = creationData;
-
-// Year
-proto.year       = getSetYear;
-proto.isLeapYear = getIsLeapYear;
-
-// Week Year
-proto.weekYear    = getSetWeekYear;
-proto.isoWeekYear = getSetISOWeekYear;
-
-// Quarter
-proto.quarter = proto.quarters = getSetQuarter;
-
-// Month
-proto.month       = getSetMonth;
-proto.daysInMonth = getDaysInMonth;
-
-// Week
-proto.week           = proto.weeks        = getSetWeek;
-proto.isoWeek        = proto.isoWeeks     = getSetISOWeek;
-proto.weeksInYear    = getWeeksInYear;
-proto.isoWeeksInYear = getISOWeeksInYear;
-
-// Day
-proto.date       = getSetDayOfMonth;
-proto.day        = proto.days             = getSetDayOfWeek;
-proto.weekday    = getSetLocaleDayOfWeek;
-proto.isoWeekday = getSetISODayOfWeek;
-proto.dayOfYear  = getSetDayOfYear;
-
-// Hour
-proto.hour = proto.hours = getSetHour;
-
-// Minute
-proto.minute = proto.minutes = getSetMinute;
-
-// Second
-proto.second = proto.seconds = getSetSecond;
-
-// Millisecond
-proto.millisecond = proto.milliseconds = getSetMillisecond;
-
-// Offset
-proto.utcOffset            = getSetOffset;
-proto.utc                  = setOffsetToUTC;
-proto.local                = setOffsetToLocal;
-proto.parseZone            = setOffsetToParsedOffset;
-proto.hasAlignedHourOffset = hasAlignedHourOffset;
-proto.isDST                = isDaylightSavingTime;
-proto.isLocal              = isLocal;
-proto.isUtcOffset          = isUtcOffset;
-proto.isUtc                = isUtc;
-proto.isUTC                = isUtc;
-
-// Timezone
-proto.zoneAbbr = getZoneAbbr;
-proto.zoneName = getZoneName;
-
-// Deprecations
-proto.dates  = deprecate('dates accessor is deprecated. Use date instead.', getSetDayOfMonth);
-proto.months = deprecate('months accessor is deprecated. Use month instead', getSetMonth);
-proto.years  = deprecate('years accessor is deprecated. Use year instead', getSetYear);
-proto.zone   = deprecate('moment().zone is deprecated, use moment().utcOffset instead. http://momentjs.com/guides/#/warnings/zone/', getSetZone);
-proto.isDSTShifted = deprecate('isDSTShifted is deprecated. See http://momentjs.com/guides/#/warnings/dst-shifted/ for more information', isDaylightSavingTimeShifted);
-
-function createUnix (input) {
-    return createLocal(input * 1000);
-}
-
-function createInZone () {
-    return createLocal.apply(null, arguments).parseZone();
-}
-
-function preParsePostFormat (string) {
-    return string;
-}
-
-var proto$1 = Locale.prototype;
-
-proto$1.calendar        = calendar;
-proto$1.longDateFormat  = longDateFormat;
-proto$1.invalidDate     = invalidDate;
-proto$1.ordinal         = ordinal;
-proto$1.preparse        = preParsePostFormat;
-proto$1.postformat      = preParsePostFormat;
-proto$1.relativeTime    = relativeTime;
-proto$1.pastFuture      = pastFuture;
-proto$1.set             = set;
-
-// Month
-proto$1.months            =        localeMonths;
-proto$1.monthsShort       =        localeMonthsShort;
-proto$1.monthsParse       =        localeMonthsParse;
-proto$1.monthsRegex       = monthsRegex;
-proto$1.monthsShortRegex  = monthsShortRegex;
-
-// Week
-proto$1.week = localeWeek;
-proto$1.firstDayOfYear = localeFirstDayOfYear;
-proto$1.firstDayOfWeek = localeFirstDayOfWeek;
-
-// Day of Week
-proto$1.weekdays       =        localeWeekdays;
-proto$1.weekdaysMin    =        localeWeekdaysMin;
-proto$1.weekdaysShort  =        localeWeekdaysShort;
-proto$1.weekdaysParse  =        localeWeekdaysParse;
-
-proto$1.weekdaysRegex       =        weekdaysRegex;
-proto$1.weekdaysShortRegex  =        weekdaysShortRegex;
-proto$1.weekdaysMinRegex    =        weekdaysMinRegex;
-
-// Hours
-proto$1.isPM = localeIsPM;
-proto$1.meridiem = localeMeridiem;
-
-function get$1 (format, index, field, setter) {
-    var locale = getLocale();
-    var utc = createUTC().set(setter, index);
-    return locale[field](utc, format);
-}
-
-function listMonthsImpl (format, index, field) {
-    if (isNumber(format)) {
-        index = format;
-        format = undefined;
-    }
-
-    format = format || '';
-
-    if (index != null) {
-        return get$1(format, index, field, 'month');
-    }
-
-    var i;
-    var out = [];
-    for (i = 0; i < 12; i++) {
-        out[i] = get$1(format, i, field, 'month');
-    }
-    return out;
-}
-
-// ()
-// (5)
-// (fmt, 5)
-// (fmt)
-// (true)
-// (true, 5)
-// (true, fmt, 5)
-// (true, fmt)
-function listWeekdaysImpl (localeSorted, format, index, field) {
-    if (typeof localeSorted === 'boolean') {
-        if (isNumber(format)) {
-            index = format;
-            format = undefined;
-        }
-
-        format = format || '';
-    } else {
-        format = localeSorted;
-        index = format;
-        localeSorted = false;
-
-        if (isNumber(format)) {
-            index = format;
-            format = undefined;
-        }
-
-        format = format || '';
-    }
-
-    var locale = getLocale(),
-        shift = localeSorted ? locale._week.dow : 0;
-
-    if (index != null) {
-        return get$1(format, (index + shift) % 7, field, 'day');
-    }
-
-    var i;
-    var out = [];
-    for (i = 0; i < 7; i++) {
-        out[i] = get$1(format, (i + shift) % 7, field, 'day');
-    }
-    return out;
-}
-
-function listMonths (format, index) {
-    return listMonthsImpl(format, index, 'months');
-}
-
-function listMonthsShort (format, index) {
-    return listMonthsImpl(format, index, 'monthsShort');
-}
-
-function listWeekdays (localeSorted, format, index) {
-    return listWeekdaysImpl(localeSorted, format, index, 'weekdays');
-}
-
-function listWeekdaysShort (localeSorted, format, index) {
-    return listWeekdaysImpl(localeSorted, format, index, 'weekdaysShort');
-}
-
-function listWeekdaysMin (localeSorted, format, index) {
-    return listWeekdaysImpl(localeSorted, format, index, 'weekdaysMin');
-}
-
-getSetGlobalLocale('en', {
-    ordinalParse: /\d{1,2}(th|st|nd|rd)/,
-    ordinal : function (number) {
-        var b = number % 10,
-            output = (toInt(number % 100 / 10) === 1) ? 'th' :
-            (b === 1) ? 'st' :
-            (b === 2) ? 'nd' :
-            (b === 3) ? 'rd' : 'th';
-        return number + output;
-    }
-});
-
-// Side effect imports
-hooks.lang = deprecate('moment.lang is deprecated. Use moment.locale instead.', getSetGlobalLocale);
-hooks.langData = deprecate('moment.langData is deprecated. Use moment.localeData instead.', getLocale);
-
-var mathAbs = Math.abs;
-
-function abs () {
-    var data           = this._data;
-
-    this._milliseconds = mathAbs(this._milliseconds);
-    this._days         = mathAbs(this._days);
-    this._months       = mathAbs(this._months);
-
-    data.milliseconds  = mathAbs(data.milliseconds);
-    data.seconds       = mathAbs(data.seconds);
-    data.minutes       = mathAbs(data.minutes);
-    data.hours         = mathAbs(data.hours);
-    data.months        = mathAbs(data.months);
-    data.years         = mathAbs(data.years);
-
-    return this;
-}
-
-function addSubtract$1 (duration, input, value, direction) {
-    var other = createDuration(input, value);
-
-    duration._milliseconds += direction * other._milliseconds;
-    duration._days         += direction * other._days;
-    duration._months       += direction * other._months;
-
-    return duration._bubble();
-}
-
-// supports only 2.0-style add(1, 's') or add(duration)
-function add$1 (input, value) {
-    return addSubtract$1(this, input, value, 1);
-}
-
-// supports only 2.0-style subtract(1, 's') or subtract(duration)
-function subtract$1 (input, value) {
-    return addSubtract$1(this, input, value, -1);
-}
-
-function absCeil (number) {
-    if (number < 0) {
-        return Math.floor(number);
-    } else {
-        return Math.ceil(number);
-    }
-}
-
-function bubble () {
-    var milliseconds = this._milliseconds;
-    var days         = this._days;
-    var months       = this._months;
-    var data         = this._data;
-    var seconds, minutes, hours, years, monthsFromDays;
-
-    // if we have a mix of positive and negative values, bubble down first
-    // check: https://github.com/moment/moment/issues/2166
-    if (!((milliseconds >= 0 && days >= 0 && months >= 0) ||
-            (milliseconds <= 0 && days <= 0 && months <= 0))) {
-        milliseconds += absCeil(monthsToDays(months) + days) * 864e5;
-        days = 0;
-        months = 0;
-    }
-
-    // The following code bubbles up values, see the tests for
-    // examples of what that means.
-    data.milliseconds = milliseconds % 1000;
-
-    seconds           = absFloor(milliseconds / 1000);
-    data.seconds      = seconds % 60;
-
-    minutes           = absFloor(seconds / 60);
-    data.minutes      = minutes % 60;
-
-    hours             = absFloor(minutes / 60);
-    data.hours        = hours % 24;
-
-    days += absFloor(hours / 24);
-
-    // convert days to months
-    monthsFromDays = absFloor(daysToMonths(days));
-    months += monthsFromDays;
-    days -= absCeil(monthsToDays(monthsFromDays));
-
-    // 12 months -> 1 year
-    years = absFloor(months / 12);
-    months %= 12;
-
-    data.days   = days;
-    data.months = months;
-    data.years  = years;
-
-    return this;
-}
-
-function daysToMonths (days) {
-    // 400 years have 146097 days (taking into account leap year rules)
-    // 400 years have 12 months === 4800
-    return days * 4800 / 146097;
-}
-
-function monthsToDays (months) {
-    // the reverse of daysToMonths
-    return months * 146097 / 4800;
-}
-
-function as (units) {
-    var days;
-    var months;
-    var milliseconds = this._milliseconds;
-
-    units = normalizeUnits(units);
-
-    if (units === 'month' || units === 'year') {
-        days   = this._days   + milliseconds / 864e5;
-        months = this._months + daysToMonths(days);
-        return units === 'month' ? months : months / 12;
-    } else {
-        // handle milliseconds separately because of floating point math errors (issue #1867)
-        days = this._days + Math.round(monthsToDays(this._months));
-        switch (units) {
-            case 'week'   : return days / 7     + milliseconds / 6048e5;
-            case 'day'    : return days         + milliseconds / 864e5;
-            case 'hour'   : return days * 24    + milliseconds / 36e5;
-            case 'minute' : return days * 1440  + milliseconds / 6e4;
-            case 'second' : return days * 86400 + milliseconds / 1000;
-            // Math.floor prevents floating point math errors here
-            case 'millisecond': return Math.floor(days * 864e5) + milliseconds;
-            default: throw new Error('Unknown unit ' + units);
-        }
-    }
-}
-
-// TODO: Use this.as('ms')?
-function valueOf$1 () {
-    return (
-        this._milliseconds +
-        this._days * 864e5 +
-        (this._months % 12) * 2592e6 +
-        toInt(this._months / 12) * 31536e6
-    );
-}
-
-function makeAs (alias) {
-    return function () {
-        return this.as(alias);
-    };
-}
-
-var asMilliseconds = makeAs('ms');
-var asSeconds      = makeAs('s');
-var asMinutes      = makeAs('m');
-var asHours        = makeAs('h');
-var asDays         = makeAs('d');
-var asWeeks        = makeAs('w');
-var asMonths       = makeAs('M');
-var asYears        = makeAs('y');
-
-function get$2 (units) {
-    units = normalizeUnits(units);
-    return this[units + 's']();
-}
-
-function makeGetter(name) {
-    return function () {
-        return this._data[name];
-    };
-}
-
-var milliseconds = makeGetter('milliseconds');
-var seconds      = makeGetter('seconds');
-var minutes      = makeGetter('minutes');
-var hours        = makeGetter('hours');
-var days         = makeGetter('days');
-var months       = makeGetter('months');
-var years        = makeGetter('years');
-
-function weeks () {
-    return absFloor(this.days() / 7);
-}
-
-var round = Math.round;
-var thresholds = {
-    s: 45,  // seconds to minute
-    m: 45,  // minutes to hour
-    h: 22,  // hours to day
-    d: 26,  // days to month
-    M: 11   // months to year
-};
-
-// helper function for moment.fn.from, moment.fn.fromNow, and moment.duration.fn.humanize
-function substituteTimeAgo(string, number, withoutSuffix, isFuture, locale) {
-    return locale.relativeTime(number || 1, !!withoutSuffix, string, isFuture);
-}
-
-function relativeTime$1 (posNegDuration, withoutSuffix, locale) {
-    var duration = createDuration(posNegDuration).abs();
-    var seconds  = round(duration.as('s'));
-    var minutes  = round(duration.as('m'));
-    var hours    = round(duration.as('h'));
-    var days     = round(duration.as('d'));
-    var months   = round(duration.as('M'));
-    var years    = round(duration.as('y'));
-
-    var a = seconds < thresholds.s && ['s', seconds]  ||
-            minutes <= 1           && ['m']           ||
-            minutes < thresholds.m && ['mm', minutes] ||
-            hours   <= 1           && ['h']           ||
-            hours   < thresholds.h && ['hh', hours]   ||
-            days    <= 1           && ['d']           ||
-            days    < thresholds.d && ['dd', days]    ||
-            months  <= 1           && ['M']           ||
-            months  < thresholds.M && ['MM', months]  ||
-            years   <= 1           && ['y']           || ['yy', years];
-
-    a[2] = withoutSuffix;
-    a[3] = +posNegDuration > 0;
-    a[4] = locale;
-    return substituteTimeAgo.apply(null, a);
-}
-
-// This function allows you to set the rounding function for relative time strings
-function getSetRelativeTimeRounding (roundingFunction) {
-    if (roundingFunction === undefined) {
-        return round;
-    }
-    if (typeof(roundingFunction) === 'function') {
-        round = roundingFunction;
-        return true;
-    }
-    return false;
-}
-
-// This function allows you to set a threshold for relative time strings
-function getSetRelativeTimeThreshold (threshold, limit) {
-    if (thresholds[threshold] === undefined) {
-        return false;
-    }
-    if (limit === undefined) {
-        return thresholds[threshold];
-    }
-    thresholds[threshold] = limit;
-    return true;
-}
-
-function humanize (withSuffix) {
-    var locale = this.localeData();
-    var output = relativeTime$1(this, !withSuffix, locale);
-
-    if (withSuffix) {
-        output = locale.pastFuture(+this, output);
-    }
-
-    return locale.postformat(output);
-}
-
-var abs$1 = Math.abs;
-
-function toISOString$1() {
-    // for ISO strings we do not use the normal bubbling rules:
-    //  * milliseconds bubble up until they become hours
-    //  * days do not bubble at all
-    //  * months bubble up until they become years
-    // This is because there is no context-free conversion between hours and days
-    // (think of clock changes)
-    // and also not between days and months (28-31 days per month)
-    var seconds = abs$1(this._milliseconds) / 1000;
-    var days         = abs$1(this._days);
-    var months       = abs$1(this._months);
-    var minutes, hours, years;
-
-    // 3600 seconds -> 60 minutes -> 1 hour
-    minutes           = absFloor(seconds / 60);
-    hours             = absFloor(minutes / 60);
-    seconds %= 60;
-    minutes %= 60;
-
-    // 12 months -> 1 year
-    years  = absFloor(months / 12);
-    months %= 12;
-
-
-    // inspired by https://github.com/dordille/moment-isoduration/blob/master/moment.isoduration.js
-    var Y = years;
-    var M = months;
-    var D = days;
-    var h = hours;
-    var m = minutes;
-    var s = seconds;
-    var total = this.asSeconds();
-
-    if (!total) {
-        // this is the same as C#'s (Noda) and python (isodate)...
-        // but not other JS (goog.date)
-        return 'P0D';
-    }
-
-    return (total < 0 ? '-' : '') +
-        'P' +
-        (Y ? Y + 'Y' : '') +
-        (M ? M + 'M' : '') +
-        (D ? D + 'D' : '') +
-        ((h || m || s) ? 'T' : '') +
-        (h ? h + 'H' : '') +
-        (m ? m + 'M' : '') +
-        (s ? s + 'S' : '');
-}
-
-var proto$2 = Duration.prototype;
-
-proto$2.abs            = abs;
-proto$2.add            = add$1;
-proto$2.subtract       = subtract$1;
-proto$2.as             = as;
-proto$2.asMilliseconds = asMilliseconds;
-proto$2.asSeconds      = asSeconds;
-proto$2.asMinutes      = asMinutes;
-proto$2.asHours        = asHours;
-proto$2.asDays         = asDays;
-proto$2.asWeeks        = asWeeks;
-proto$2.asMonths       = asMonths;
-proto$2.asYears        = asYears;
-proto$2.valueOf        = valueOf$1;
-proto$2._bubble        = bubble;
-proto$2.get            = get$2;
-proto$2.milliseconds   = milliseconds;
-proto$2.seconds        = seconds;
-proto$2.minutes        = minutes;
-proto$2.hours          = hours;
-proto$2.days           = days;
-proto$2.weeks          = weeks;
-proto$2.months         = months;
-proto$2.years          = years;
-proto$2.humanize       = humanize;
-proto$2.toISOString    = toISOString$1;
-proto$2.toString       = toISOString$1;
-proto$2.toJSON         = toISOString$1;
-proto$2.locale         = locale;
-proto$2.localeData     = localeData;
-
-// Deprecations
-proto$2.toIsoString = deprecate('toIsoString() is deprecated. Please use toISOString() instead (notice the capitals)', toISOString$1);
-proto$2.lang = lang;
-
-// Side effect imports
-
-// FORMATTING
-
-addFormatToken('X', 0, 0, 'unix');
-addFormatToken('x', 0, 0, 'valueOf');
-
-// PARSING
-
-addRegexToken('x', matchSigned);
-addRegexToken('X', matchTimestamp);
-addParseToken('X', function (input, array, config) {
-    config._d = new Date(parseFloat(input, 10) * 1000);
-});
-addParseToken('x', function (input, array, config) {
-    config._d = new Date(toInt(input));
-});
-
-// Side effect imports
-
-
-hooks.version = '2.17.0';
-
-setHookCallback(createLocal);
-
-hooks.fn                    = proto;
-hooks.min                   = min;
-hooks.max                   = max;
-hooks.now                   = now;
-hooks.utc                   = createUTC;
-hooks.unix                  = createUnix;
-hooks.months                = listMonths;
-hooks.isDate                = isDate;
-hooks.locale                = getSetGlobalLocale;
-hooks.invalid               = createInvalid;
-hooks.duration              = createDuration;
-hooks.isMoment              = isMoment;
-hooks.weekdays              = listWeekdays;
-hooks.parseZone             = createInZone;
-hooks.localeData            = getLocale;
-hooks.isDuration            = isDuration;
-hooks.monthsShort           = listMonthsShort;
-hooks.weekdaysMin           = listWeekdaysMin;
-hooks.defineLocale          = defineLocale;
-hooks.updateLocale          = updateLocale;
-hooks.locales               = listLocales;
-hooks.weekdaysShort         = listWeekdaysShort;
-hooks.normalizeUnits        = normalizeUnits;
-hooks.relativeTimeRounding = getSetRelativeTimeRounding;
-hooks.relativeTimeThreshold = getSetRelativeTimeThreshold;
-hooks.calendarFormat        = getCalendarFormat;
-hooks.prototype             = proto;
-
-return hooks;
-
-})));
-
-define('kramed/kramed',['require','exports','module','./utils','./lex/block','./lex/inline','./parser','./renderer'],function (require, exports, module) {/**
- * kramed - a markdown parser
- * Copyright (c) 2011-2014, Christopher Jeffrey. (MIT Licensed)
- * https://github.com/GitbookIO/kramed
- */
-/**
- * kramed - a kramdown parser, based off chjj's kramed
- * Copyright (c) 2014, Aaron O'Mullan. (MIT Licensed)
- * https://github.com/GitbookIO/kramed
-*/
-
-var _utils = require('./utils');
-var merge = _utils.merge;
-
-var Lexer = require('./lex/block');
-var InlineLexer = require('./lex/inline');
-
-var Parser = require('./parser');
-var Renderer = require('./renderer');
-
-/**
- * Kramed
- */
-
-function kramed(src, opt, callback) {
-  if (callback || typeof opt === 'function') {
-    if (!callback) {
-      callback = opt;
-      opt = null;
-    }
-
-    opt = merge({}, kramed.defaults, opt || {});
-
-    var highlight = opt.highlight
-      , tokens
-      , pending
-      , i = 0;
-
-    try {
-      tokens = Lexer.lex(src, opt)
-    } catch (e) {
-      return callback(e);
-    }
-
-    pending = tokens.length;
-
-    var done = function(err) {
-      if (err) {
-        opt.highlight = highlight;
-        return callback(err);
-      }
-
-      var out;
-
-      try {
-        out = Parser.parse(tokens, opt);
-      } catch (e) {
-        err = e;
-      }
-
-      opt.highlight = highlight;
-
-      return err
-        ? callback(err)
-        : callback(null, out);
-    };
-
-    if (!highlight || highlight.length < 3) {
-      return done();
-    }
-
-    delete opt.highlight;
-
-    if (!pending) return done();
-
-    for (; i < tokens.length; i++) {
-      (function(token) {
-        if (token.type !== 'code') {
-          return --pending || done();
-        }
-        return highlight(token.text, token.lang, function(err, code) {
-          if (err) return done(err);
-          if (code == null || code === token.text) {
-            return --pending || done();
-          }
-          token.text = code;
-          token.escaped = true;
-          --pending || done();
-        });
-      })(tokens[i]);
-    }
-
-    return;
-  }
-  try {
-    if (opt) opt = merge({}, kramed.defaults, opt);
-    return Parser.parse(Lexer.lex(src, opt), opt);
-  } catch (e) {
-    e.message += '\nPlease report this to https://github.com/GitbookIO/kramed.';
-    if ((opt || kramed.defaults).silent) {
-      return '<p>An error occured:</p><pre>'
-        + escape(e.message + '', true)
-        + '</pre>';
-    }
-    throw e;
-  }
-}
-
-/**
- * Options
- */
-
-kramed.options =
-kramed.setOptions = function(opt) {
-  merge(kramed.defaults, opt);
-  return kramed;
-};
-
-kramed.defaults = {
-  // Lexer options (both block and inline lexers)
-  gfm: true,
-  tables: true,
-  breaks: false,
-  pedantic: false,
-  sanitize: false,
-  smartLists: false,
-  mathjax: true,
-
-  // Kramed options
-  silent: false,
-  highlight: null,
-
-  // Renderer options
-  langPrefix: 'lang-',
-  smartypants: false,
-  headerPrefix: '',
-  headerAutoId: true,
-  xhtml: false,
-
-  // Default rendrer passed to Parser
-  renderer: new Renderer,
-};
-
-/**
- * Expose
- */
-
-kramed.Parser = Parser;
-kramed.parser = Parser.parse;
-
-kramed.Renderer = Renderer;
-
-kramed.Lexer = Lexer;
-kramed.lexer = Lexer.lex;
-
-kramed.InlineLexer = InlineLexer;
-kramed.inlineLexer = InlineLexer.output;
-
-kramed.parse = kramed;
-
-module.exports = kramed;
-
-});
-;define('kramed', ['kramed/kramed'], function (main) { return main; });
 
 //# sourceMappingURL=app-bundle.js.map

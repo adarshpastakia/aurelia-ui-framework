@@ -19,7 +19,6 @@
     padding       : $base-padding;
     left          : 0;
     top           : 0;
-    line-height   : 1.2;
     @include ellipsis();
     @include transition(all .25s);
     @include apply-origin(0% 0% 0, false);
@@ -29,7 +28,7 @@
     border-bottom: 1px solid rgba($base-border-color, .25);
 
     .ui-sidebar-close {
-      line-height: 1;
+      padding: .5em;
     }
   }
 
@@ -42,15 +41,15 @@
     }
 
     &.ui-collapse {
+      .ui-sidebar-close {
+        @include glyph($fi-ui-arrow-right);
+      }
+
       &:not(.ui-mini-display) {
         .ui-sidebar-content {
           left: -1 * $sidebar-width;
           @include transition(left .5s);
           @include border(end, 1px solid $base-border-color);
-        }
-
-        .ui-sidebar-close {
-          @include glyph($fi-ui-arrow-right);
         }
 
         &.ui-show-overlay {
@@ -76,15 +75,15 @@
     }
 
     &.ui-collapse {
+      .ui-sidebar-close {
+        @include glyph($fi-ui-arrow-left);
+      }
+
       &:not(.ui-mini-display) {
         .ui-sidebar-content {
           right: -1 * $sidebar-width;
           @include transition(right .5s);
           @include border(start, 1px solid $base-border-color);
-        }
-
-        .ui-sidebar-close {
-          @include glyph($fi-ui-arrow-left);
         }
 
         &.ui-show-overlay {

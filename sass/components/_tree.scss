@@ -4,8 +4,7 @@
 // @copyright   : 2017
 // @license     : MIT
 .ui-tree-panel {
-  font-size: .9em;
-  display  : block;
+  display: block;
 
   &.has-search {}
 
@@ -44,8 +43,7 @@
     }
 
     a.ui-expander {
-      font-size    : 1em;
-      line-height  : 1;
+      font-size    : .9em;
 
       margin       : 0 .1em;
       padding      : .125em;
@@ -60,10 +58,9 @@
     }
 
     a.ui-node-checkbox {
-      font-size  : 1em;
-      line-height: 1;
-      padding    : .25em;
-      color      : $dark;
+      font-size: .9em;
+      padding  : .25em;
+      color    : $dark;
       @include flex(0 0 auto);
 
       &:hover {
@@ -76,9 +73,10 @@
     }
 
     a.ui-node-link {
-      padding    : .25em .25rem;
       white-space: nowrap;
       color      : $base-text;
+      padding    : .4rem .2em;
+      font-size  : .9em;
       @include flex(1 1 1em);
       @include flex-row($wrap: false);
 

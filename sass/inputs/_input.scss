@@ -4,32 +4,137 @@
 // @copyright   : 2017
 // @license     : MIT
 
-.ui-input-control {
-  @include flex-row($display: inline-flex, $wrap:false, $align: stretch);
-  @include flex(1 1 4em);
-  color     : $input-text;
-  background: $input-bg;
-  max-width : 100%;
-  margin    : 0 .1em;
-  position  : relative;
-  box-shadow: 0 -1px 0 0 $base-border-color inset;
-  @include transition(box-shadow .5s);
+.ui-input-wrapper {
+  @include flex(1 1 4rem);
 
-  &.ui-focus {
+  &:not(:first-child):not(:last-child) {
+    margin: 0 .1rem;
+  }
+
+  .ui-input-info {
+    font-size : .6rem;
+    color     : $muted;
+    text-align: center;
+    @include ellipsis();
+  }
+
+  .ui-input-control {
+    @include flex-row($wrap:false, $align: stretch);
+    color     : $input-text;
+    background: $input-bg;
+    max-width : 100%;
+    position  : relative;
+    // box-shadow: 0 -1px 0 0 $base-border-color inset;
+    @include transition(box-shadow .5s);
+
+    input,
+    textarea {
+      @include flex-fill();
+      background: none;
+      border    : none;
+      margin    : 0;
+      color     : inherit;
+      min-height: 25px;
+      width     : 1rem;
+      padding   : .2rem .4rem;
+    }
+
+    .ui-error {
+      @include flex-auto();
+      padding   : .2rem .2rem 0;
+      color     : $input-error-text;
+      background: $input-error-bg;
+      @include glyph($fi-ui-invalid-line);
+
+      .ui-error-list {
+        display   : none;
+        position  : absolute;
+        background: $danger;
+        color     : $white;
+        font-size : .8rem;
+        z-index   : 5;
+        padding   : $base-padding;
+      }
+
+      &:hover .ui-error-list {
+        display: block;
+      }
+    }
+
+    .ui-caret {
+      @include flex-auto();
+      padding: .25em .1em;
+      cursor : pointer;
+      color  : $muted;
+
+      &:hover {
+        color: $base-text;
+      }
+    }
+
+    .ui-counter {
+      @include flex-auto();
+      color      : $muted;
+      font-size  : .75em;
+      padding    : .4em .25em;
+      line-height: 1em;
+    }
+
+    .ui-clear {
+      @include flex-auto();
+      color  : $muted;
+      padding: .1em .25em;
+      cursor : pointer;
+
+      &:hover {
+        color: $base-text;
+      }
+    }
+
+    &.ui-phone {
+      span:first-child {
+        font-size: .9em;
+        @include align-self(center);
+      }
+    }
+
+    &.ui-textarea {
+      position: relative;
+
+      textarea {
+        margin-bottom: 1rem;
+        resize       : none;
+      }
+
+      .ui-counter {
+        position  : absolute;
+        display   : block;
+        bottom    : 2px;
+        left      : 0;
+        right     : 0;
+        background: $input-bg;
+        padding   : .1em .25em;
+      }
+    }
+  }
+
+  &.ui-focus .ui-input-control {
     box-shadow: 0 -2px 0 0 $input-focus-border inset;
   }
 
   &.ui-invalid {
-    box-shadow: 0 -1px 0 0 $input-invalid-border inset;
+    .ui-input-control {
+      box-shadow: 0 -1px 0 0 $input-invalid-border inset;
+    }
 
-    &.ui-focus {
+    &.ui-focus .ui-input-control {
       box-shadow: 0 -2px 0 0 $input-invalid-border inset;
     }
   }
 
-  &.ui-disabled {
-    box-shadow: 0 -1px 0 0 rgba($base-border-color,.5) inset !important;
-    color     : rgba($input-text, .5) !important;
+  &.ui-disabled .ui-input-control {
+    // box-shadow: 0 -1px 0 0 rgba($base-border-color,.5) inset !important;
+    color: rgba($input-text, .5) !important;
 
     &:after {
       content   : '';
@@ -38,96 +143,8 @@
     }
   }
 
-  &.ui-readonly {
+  &.ui-readonly .ui-input-control {
     background: $input-readonly-bg;
     box-shadow: none !important;
-  }
-
-  &.ui-textarea {
-    position: relative;
-
-    textarea {
-      margin-bottom: 1em;
-      resize       : none;
-    }
-
-    .ui-counter {
-      position  : absolute;
-      display   : block;
-      bottom    : 2px;
-      left      : 0;
-      right     : 0;
-      background: $input-bg;
-      padding   : .1em .25em;
-    }
-  }
-
-  &.ui-phone {
-    span:first-child {
-      font-size: .9em;
-      @include align-self(center);
-    }
-  }
-
-  input,
-  textarea {
-    @include flex-fill();
-    background: none;
-    border    : none;
-    margin    : 0;
-    color     : inherit;
-    min-height: 25px;
-    padding   : $base-padding;
-  }
-
-  .ui-error {
-    @include flex-auto();
-    padding   : .1em 0;
-    color     : $input-error-text;
-    background: $input-error-bg;
-
-    .ui-error-list {
-      display   : none;
-      position  : absolute;
-      background: $danger;
-      color     : $white;
-      font-size : .8em;
-      z-index   : 5;
-      padding   : $base-padding;
-    }
-
-    &:hover .ui-error-list {
-      display: block;
-    }
-  }
-
-  .ui-caret {
-    @include flex-auto();
-    padding: .25em .1em;
-    cursor : pointer;
-    color  : $muted;
-
-    &:hover {
-      color: $base-text;
-    }
-  }
-
-  .ui-counter {
-    @include flex-auto();
-    color      : $muted;
-    font-size  : .75em;
-    padding    : .4em .25em;
-    line-height: 1em;
-  }
-
-  .ui-clear {
-    @include flex-auto();
-    color  : $muted;
-    padding: .1em .25em;
-    cursor : pointer;
-
-    &:hover {
-      color: $base-text;
-    }
   }
 }

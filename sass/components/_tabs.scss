@@ -19,7 +19,6 @@
       @include flex-row($align:center);
       @include flex-auto();
       z-index                : 2;
-      font-size              : .9rem;
       padding                : $base-padding;
       margin                 : 4px 2px 0;
       border                 : 1px solid $base-border-color;
