@@ -5,11 +5,14 @@
 // @license     : MIT
 
 .ui-switch-control {
+  height: 1.5rem;
   @include flex-row($display: inline-flex, $wrap:false);
 
   .ui-switch-label {
-    font-size: .9em;
-    color    : $input-label-text;
+    color      : $input-label-text;
+    font-size  : .8rem;
+    line-height: 1rem;
+    padding    : 0 .25rem;
     @include ellipsis();
     @include flex(0 1 auto);
   }
@@ -17,12 +20,11 @@
   .ui-switch {
     overflow     : hidden;
     display      : inline-block;
-    margin       : .2em;
     white-space  : nowrap;
     position     : relative;
     border-radius: 1em;
     min-width    : 3em;
-    height       : 1.2em;
+    height       : 1.25rem;
     direction    : ltr;
     @include flex-auto();
     @include box-shadow(0 0 0 1px $base-border-color);
@@ -50,20 +52,20 @@
     }
 
     .ui-switch-inner {
-      font-size       : .7em;
       display         : block;
       height          : inherit;
       cursor          : pointer;
       text-transform  : uppercase;
       border-radius   : inherit;
       background-color: $light;
+      line-height     : 1.25rem;
+      font-size       : .7rem;
       @include transition(background .25s ease-out);
     }
 
     .ui-switch-inner:after,
     .ui-switch-inner:before {
       text-align: center;
-      padding   : .25em .5em;
       @include position(absolute, 0);
       @include transition(opacity .25s ease-out);
     }
@@ -96,10 +98,10 @@
     }
 
     .ui-switch-handle {
-      width         : 1em;
-      height        : 1em;
-      margin        : .125em;
-      border-radius : 1em;
+      width         : 1rem;
+      height        : 1rem;
+      border-radius : 1rem;
+      margin        : .1rem;
       background    : $white linear-gradient(top, $white, desaturate($white, 5%));
       border        : 1px solid $base-border-color;
       box-shadow    : 1px 0 2px 0 rgba(0, 0, 0, .2);
@@ -110,7 +112,7 @@
 
     .ui-switch-input:checked ~ .ui-switch-handle {
       left       : 100%;
-      margin-left: -1.125em;
+      margin-left: -1.15rem;
       box-shadow : -1px 0 2px 0 rgba(0, 0, 0, .2);
     }
   }

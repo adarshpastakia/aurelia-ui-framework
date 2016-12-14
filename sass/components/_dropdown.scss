@@ -5,22 +5,27 @@
 // @license     : MIT
 
 .ui-dropdown {
-  background: $light;
-  cursor    : pointer;
-  position  : relative;
-  display   : inline-block;
-  padding   : $base-padding;
+  background : $light;
+  cursor     : pointer;
+  position   : relative;
+  display    : inline-block;
+  font-size  : .9rem;
+  line-height: 1.5rem;
+  padding    : 0 .5rem;
 
   .ui-label {
-    @include ellipsis();
     @include flex-row($wrap:false, $justify: space-between);
-    font-size: .9em;
+
+    > span:first-child {
+      @include ellipsis();
+    }
   }
 
   .ui-caret {
-    font-size  : .5em;
-    line-height: 1.5;
-    color      : rgba($input-text, .5);
+    font-size: .5rem;
+    position : relative;
+    left     : .2rem;
+    color    : rgba($input-text, .5);
   }
 
   &:hover .ui-caret {
@@ -44,7 +49,7 @@
 }
 
 .ui-list-container {
-  max-height: 10em;
+  max-height: 15rem;
   overflow  : auto;
   background: $input-bg;
 
@@ -67,17 +72,20 @@
   }
 
   .ui-list-group {
-    color    : $muted;
-    font-size: .8em;
-    display  : list-item;
-    padding  : .2rem .4rem;
+    color      : $muted;
+    display    : list-item;
+    font-size  : .8rem;
+    line-height: 1.5rem;
+    padding    : 0 .5rem;
   }
 
   .ui-list-item {
-    line-height: 1.5;
-    font-size  : .9em;
+    font-size  : .9rem;
+    line-height: 1.5rem;
+    padding    : 0 .5rem;
+    color      : $dark;
+    cursor     : pointer;
     display    : list-item;
-    padding    : .2rem .4rem;
 
     * {
       pointer-events: none;

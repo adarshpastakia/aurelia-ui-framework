@@ -48,7 +48,7 @@ export class BaseListInput {
     if (this.floating) {
       this.tether = UIUtils.tether(this.element, this.dropdown);
       this.obMouseup = UIEvent.subscribe('mouseclick', (evt) => {
-        if (getParentByClass(evt.target, 'ui-list-container') == this.dropdown) return;
+        if (getParentByClass(evt.target, 'ui-list-container') == this.dropdown) return true;
         this.closeDropdown();
       });
     }
@@ -93,7 +93,7 @@ export class BaseListInput {
     if (evt.type === 'blur') {
       this.element.classList.remove('ui-focus');
       if (el) el.classList.remove('ui-focus');
-      this.scrollIntoView();
+      if (!this.dropdown.isOpen) this.scrollIntoView();
     }
     UIEvent.fireEvent(evt.type, this.element, this.value);
   }
@@ -344,11 +344,11 @@ export class UICombo extends BaseListInput {
   private clear = false;
 
   fireSelect(model?) {
-    super.fireSelect(model);
     if (model) {
       this.value = model[this.valueProperty] || model;
       UIEvent.fireEvent('select', this.element, model);
     }
+    super.fireSelect(model);
     this.closeDropdown();
   }
 
@@ -361,7 +361,7 @@ export class UICombo extends BaseListInput {
 @autoinject()
 @inlineView(`<template class="ui-input-wrapper"><div role="input" class="ui-input-control ui-input-list tags"><slot></slot>
   <span class="ui-error" if.bind="errors"><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
-  <div class="ui-tag-item" repeat.for="tag of value | split" if.bind="tag!=''">\${getDisplay(tag)}<span class="ui-clear" click.trigger="removeValue(tag)">&times;</span></div>
+  <div class="ui-tag-item" repeat.for="tag of value | split" if.bind="tag!=''"><span innerhtml.bind="getDisplay(tag)"></span><i class="ui-clear" click.trigger="removeValue(tag)">&times;</i></div>
   <input ref="inputEl" type.bind="type" value.bind="elValue" size.bind="size" dir.bind="dir"
     focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)"
     input.trigger="search() & debounce:200" change.trigger="fireEvent($event)"

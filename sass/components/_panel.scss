@@ -34,6 +34,10 @@
   .ui-panel-body {
     max-height: 50em;
     @include flex(1 1 auto);
+
+    &.ui-flexed {
+      @include flex-column();
+    }
   }
 
   &.ui-collapse {
@@ -41,28 +45,35 @@
       @include transform(rotate(-180deg));
     }
 
-    max-height: 2.5em !important;
+    max-height: 2.1em !important;
   }
 }
 
 .ui-header {
-  @include flex-auto();
-  @include flex-row($align:center, $wrap:false);
-  padding: 0.4em 0.5em;
+  line-height  : 2rem;
+  padding      : 0 .5rem;
   text-shadow  : -1px -1px 0 rgba(0, 0, 0, .1);
   border-bottom: 1px solid rgba($base-border-color, .3);
+  @include flex-auto();
+  @include flex-row($align:center, $wrap:false);
 
   .ui-header-title {
-    line-height: 1.5;
     @include ellipsis();
+  }
+
+  .ui-header-tool {
+    line-height: 1;
   }
 
   .ui-header-button {
     color        : rgba($base-text, .7);
     background   : lighten($base-bg, 2%);
     border-radius: $base-border-radius;
-    border       : 1px solid rgba($base-text, .3);
+    border       : 1px solid rgba(shade($base-bg, 20%), .5);
     text-shadow  : -1px -1px 0 rgba(0, 0, 0, .1);
+    line-height  : 1.5;
+    padding      : 0 .5em;
+    margin       : 0 .25em;
 
     .ui-icon:before {
       @include transition(transform .5s);
@@ -71,11 +82,11 @@
 
     &:hover {
       color       : rgba($base-text, .9);
-      border-color: rgba($base-text, .5);
+      border-color: rgba(shade($base-bg, 40%), .5);
     }
 
     &:active {
-      background: darken($base-bg, 9%);
+      background: shade($base-bg, 90%);
     }
   }
 }

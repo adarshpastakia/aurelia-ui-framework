@@ -1,0 +1,113 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <style>
+    .example-container {
+      position: relative;
+      height: 450px;
+      border: 1px solid #f0f0f0;
+    }
+
+  </style>
+  <ui-page page-title="Menus">
+    <ui-content padded scroll>
+      <ui-container>
+        <h5 class="section-title">Basic Menus</h5>
+        <ui-panel>
+          <ui-panel-body flex height="400px">
+            <ui-section row-layout>
+              <ui-sidebar label="Sidebar Menu" collapsible scroll>
+                <ui-menu>
+                  <ui-menu-section>Actions</ui-menu-section>
+                  <ui-menu-item active="true" glyph="icon-pencil">Edit</ui-menu-item>
+                  <ui-menu-item glyph="icon-search">Search</ui-menu-item>
+                  <ui-menu-item glyph="icon-trash">Delete</ui-menu-item>
+                  <ui-menu-section>Options</ui-menu-section>
+                  <ui-menu-item glyph="icon-bell-line">Notifications</ui-menu-item>
+                  <ui-menu-item glyph="icon-cog-line">Settings</ui-menu-item>
+                </ui-menu>
+              </ui-sidebar>
+              <ui-content padded scroll>
+                <ui-menu ref="btnMenu">
+                  <ui-menu-section>Actions</ui-menu-section>
+                  <ui-menu-item glyph="icon-pencil">Edit</ui-menu-item>
+                  <ui-menu-item glyph="icon-search">Search</ui-menu-item>
+                  <ui-menu-item glyph="icon-trash">Delete</ui-menu-item>
+                  <ui-menu-section>Options</ui-menu-section>
+                  <ui-menu-item glyph="icon-bell-line">Notifications</ui-menu-item>
+                  <ui-menu-item glyph="icon-cog-line">Settings</ui-menu-item>
+                </ui-menu>
+                <ui-row>
+                  <ui-column size="md-4" padded>
+                    <h6 class="ui-text-primary">Dropdown Menu</h6>
+                    <ui-button light dropdown.bind="btnMenu">Open Me</ui-button>
+                  </ui-column>
+                  <ui-column size="md-4" padded>
+                    <h6 class="ui-text-primary">Inline Menu</h6>
+                    <ui-menu class="ui-border-all ui-border-light">
+                      <ui-menu-section>Actions</ui-menu-section>
+                      <ui-menu-item glyph="icon-pencil">Edit</ui-menu-item>
+                      <ui-menu-item glyph="icon-search">Search</ui-menu-item>
+                      <ui-menu-item glyph="icon-trash">Delete</ui-menu-item>
+                      <ui-menu-section>Options</ui-menu-section>
+                      <ui-menu-item active="true" glyph="icon-bell-line">Notifications</ui-menu-item>
+                      <ui-menu-item glyph="icon-cog-line">Settings</ui-menu-item>
+                    </ui-menu>
+                  </ui-column>
+                  <ui-column size="md-4" padded>
+                    <h6 class="ui-text-primary">Simple Dropdown</h6>
+                    <ui-dropdown class="ui-pad-all">
+                      <ui-list-group label="Actions">
+                        <ui-list-item value="1">
+                          <ui-glyph glyph="icon-pencil"></ui-glyph>
+                          Edit</ui-list-item>
+                        <ui-list-item value="2">
+                          <ui-glyph glyph="icon-search"></ui-glyph>
+                          Search</ui-list-item>
+                        <ui-list-item value="3">
+                          <ui-glyph glyph="icon-trash"></ui-glyph>
+                          Delete</ui-list-item>
+                      </ui-list-group>
+                      <ui-list-group label="Options">
+                        <ui-list-item value="4">
+                          <ui-glyph glyph="icon-bell-line"></ui-glyph>
+                          Notifications</ui-list-item>
+                        <ui-list-item value="5">
+                          <ui-glyph glyph="icon-cog-line"></ui-glyph>
+                          Settings</ui-list-item>
+                      </ui-list-group>
+                    </ui-menu>
+                  </ui-column>
+                </ui-content>
+              </ui-section>
+            </ui-panel-body>
+          </ui-panel>
+          <h5 class="section-title">Menubar</h5>
+          <ui-menubar>
+            <ui-menu-item glyph="icon-pencil">Edit</ui-menu-item>
+            <ui-menu-item glyph="icon-search">Search</ui-menu-item>
+            <ui-menu-item glyph="icon-trash">Delete</ui-menu-item>
+            <ui-divider></ui-divider>
+            <ui-menu-item glyph="icon-bell-line">Notifications</ui-menu-item>
+            <ui-menu-item glyph="icon-cog-line">Settings</ui-menu-item>
+          </ui-menubar>
+          <br/>
+          <ui-menubar>
+            <ui-menu-group label="Actions">
+              <ui-menu-item glyph="icon-pencil">Edit</ui-menu-item>
+              <ui-menu-item glyph="icon-search">Search</ui-menu-item>
+              <ui-menu-item glyph="icon-trash">Delete</ui-menu-item>
+            </ui-menu-group>
+            <ui-menu-group label="Options">
+              <ui-menu-item glyph="icon-bell-line">Notifications</ui-menu-item>
+              <ui-menu-item glyph="icon-cog-line">Settings</ui-menu-item>
+            </ui-menu-group>
+          </ui-menubar>
+          <br/><br/>
+        </ui-container>
+      </ui-content>
+    </ui-page>
+  </template>

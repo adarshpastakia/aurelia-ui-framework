@@ -18,11 +18,12 @@ export class UISidebar {
   constructor(public element: Element) {
     if (element.hasAttribute('scroll')) this.contentCls += ' ui-scroll';
     if (element.hasAttribute('padded')) this.contentCls += ' ui-pad-all';
-    if (this.miniDisplay = element.hasAttribute('mini-display')) this.element.classList.add('ui-mini-display');
+    if (element.hasAttribute('small')) element.classList.add('ui-small');
+    if (this.miniDisplay = element.hasAttribute('mini-display')) element.classList.add('ui-mini-display');
     this.collapsible = element.hasAttribute('collapsible');
 
     this.obClick = UIEvent.subscribe('mouseclick', () => {
-      this.element.classList.remove('ui-show-overlay');
+      element.classList.remove('ui-show-overlay');
     });
   }
 

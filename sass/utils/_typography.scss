@@ -38,10 +38,16 @@ h6 {
   line-height: 1.5;
 
   small {
-    font-size: .7em;
-    display  : block;
-    opacity  : .6;
+    font-size  : .7em;
+    line-height: 1;
+    display    : block;
+    opacity    : .6;
   }
+}
+
+p {
+  line-height: 1.5;
+  margin     : 0 0 1em;
 }
 
 p.ui-para {

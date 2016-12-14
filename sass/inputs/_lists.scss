@@ -6,29 +6,31 @@
 
 .ui-input-list {
   .ui-dropdown-handle {
-    cursor     : pointer;
-    line-height: 1.5;
-    margin     : .1em .5em;
-    font-size  : .8rem !important;
+    cursor: pointer;
   }
 
   .ui-tag-item {
     background   : darken($input-bg, 1%);
     border-radius: $base-border-radius;
     border       : 1px solid rgba($base-border-color, .5);
-    padding      : .2rem .4rem;
-    font-size    : .8rem;
     position     : relative;
-    margin       : .2rem;
     max-width    : 10em;
-    padding-right: 1.5em;
-    @include flex(0 0 auto);
-    @include padding(end, 1.5em);
-    @include ellipsis();
+    font-size    : .8rem;
+    margin       : .1rem .2rem;
+    @include flex-row($wrap:false);
+    @include flex-auto();
+
+    > span {
+      @include flex-fill();
+      @include ellipsis();
+      line-height: 1rem;
+      padding    : 0 .5rem;
+    }
 
     .ui-clear {
-      right   : 0;
-      position: absolute;
+      line-height: 1rem;
+      padding    : 0 .25rem;
+      @include flex-auto();
     }
   }
 
@@ -46,7 +48,7 @@
 
     .ui-list-container {
       background: none;
-      border-top: 1px solid rgba($base-border-color, .3);
+      // border-top: 1px solid rgba($base-border-color, .3);
       @include flex(1 1 100%);
     }
   }
@@ -63,7 +65,6 @@
       @include flex-row($align:center, $wrap: false);
 
       > span:first-child {
-        @include margin(end, .5em);
         color: $muted;
       }
 

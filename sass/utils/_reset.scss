@@ -11,9 +11,9 @@ html {
   width           : 100%;
   padding         : 0;
   margin          : 0;
+  line-height     : 1.5;
   overflow        : hidden;
   cursor          : default;
-  line-height     : 1.5;
   @include user-select(none);
 
   color           : $base-text;
@@ -70,11 +70,6 @@ hr {
   @include transform(scaleY(.5));
 }
 
-p {
-  line-height: 1.5;
-  margin     : 1em 0;
-}
-
 a,
 button {
   cursor : pointer;
@@ -107,7 +102,8 @@ textarea {
 
 input,
 textarea {
-  font-size  : .9em;
+  font-size  : 1rem;
+  line-height: 1;
   outline    : none !important;
   font-family: $base-font-family-input;
 }

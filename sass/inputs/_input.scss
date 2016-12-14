@@ -6,14 +6,10 @@
 
 .ui-input-wrapper {
   @include flex(1 1 4rem);
-  line-height: 1.2;
 
-  &:not(:first-child):not(:last-child) {
-    margin: 0 .1rem;
-  }
+  &:not(:first-child):not(:last-child) {}
 
   .ui-input-info {
-    font-size : .6rem;
     color     : $muted;
     text-align: center;
     @include ellipsis();
@@ -31,20 +27,23 @@
     input,
     textarea {
       @include flex-fill();
-      background: none;
-      border    : none;
-      margin    : 0;
-      color     : inherit;
-      min-height: 25px;
-      width     : 1rem;
-      padding   : .2rem .4rem;
+      background : none;
+      border     : none;
+      margin     : 0;
+      color      : inherit;
+      min-height : 1rem;
+      width      : 1rem;
+      font-size  : .9rem;
+      line-height: 1.5rem;
+      padding    : 0 .5rem;
     }
 
     .ui-error {
       @include flex-auto();
-      padding   : .2rem .2rem 0;
-      color     : $input-error-text;
-      background: $input-error-bg;
+      color      : $input-error-text;
+      background : $input-error-bg;
+      line-height: 1.5rem;
+      padding    : 0 .25rem;
       @include glyph($fi-ui-invalid-line);
 
       .ui-error-list {
@@ -52,9 +51,12 @@
         position  : absolute;
         background: $danger;
         color     : $white;
-        font-size : .8rem;
         z-index   : 5;
-        padding   : $base-padding;
+        font-size : .8rem;
+
+        > li {
+          padding: 0 .5rem;
+        }
       }
 
       &:hover .ui-error-list {
@@ -75,16 +77,19 @@
 
     .ui-counter {
       @include flex-auto();
-      color     : $muted;
-      font-size : .75em;
-      padding   : .4em .25em;
+      color      : rgba($input-text, .5);
+      font-size  : .7rem;
+      line-height: 1.5rem;
+      padding    : 0 .25rem;
     }
 
     .ui-clear {
       @include flex-auto();
-      color     : $muted;
-      padding   : .1em .25em;
-      cursor    : pointer;
+      color      : rgba($input-text, .5);
+      cursor     : pointer;
+      font-size  : 1rem;
+      line-height: 1.5rem;
+      padding    : 0 .25rem;
 
       &:hover {
         color: $base-text;
@@ -93,7 +98,6 @@
 
     &.ui-phone {
       span:first-child {
-        font-size: .7em;
         @include align-self(center);
       }
     }
@@ -107,13 +111,12 @@
       }
 
       .ui-counter {
-        position  : absolute;
-        display   : block;
-        bottom    : 2px;
-        left      : 0;
-        right     : 0;
-        background: $input-bg;
-        padding   : .1em .25em;
+        position   : absolute;
+        display    : block;
+        line-height: 1rem;
+        bottom     : 0;
+        left       : 0;
+        right      : 0;
       }
     }
   }

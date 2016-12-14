@@ -9,7 +9,8 @@
   flex-flow    : row wrap;
   list-style   : none;
   overflow     : hidden;
-  margin       : 0 .5em;
+  line-height  : 1.5;
+  // margin       : 0 .5em;
   border-radius: $base-border-radius;
   @include flex-auto();
 
@@ -27,7 +28,6 @@
       color          : $link-text;
       background     : $base-bg;
       position       : relative;
-      line-height    : 1.5;
       padding        : .25em .25em .25em 1em;
     }
 

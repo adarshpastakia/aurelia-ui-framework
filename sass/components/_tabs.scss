@@ -12,14 +12,14 @@
   .ui-tab-bar {
     @include flex-auto();
     @include flex-row($align:stretch);
-    padding: 2px 4px 0;
 
     > .ui-tab-button {
       @include flex-row($align:center);
       @include flex-auto();
       z-index                : 2;
-      line-height            : 1;
-      padding                : $base-padding;
+      line-height            : 2;
+      font-size              : .8em;
+      padding                : 0 .5rem;
       margin                 : 4px 2px 0;
       border                 : 1px solid $base-border-color;
       border-bottom-width    : 0;
@@ -29,7 +29,6 @@
       .ui-label {
         @include ellipsis();
         max-width: 8rem;
-        padding  : 0 .5em;
       }
 
       &.ui-disabled {
@@ -46,6 +45,7 @@
       &.ui-active {
         margin-top   : 0;
         margin-bottom: -1px;
+        font-weight  : 600;
         color        : $tab-active-text;
         background   : $tab-active-bg;
         @include box-shadow(0 4px 0 0 $tab-active-text inset);
@@ -64,6 +64,10 @@
   .ui-tab {
     @include flex-fill();
     border: 1px solid $base-border-color;
+
+    &.ui-flexed {
+      @include flex-column();
+    }
 
     &:not(.ui-active) {
       display: none;
@@ -86,8 +90,6 @@
     @include flex-direction(column-reverse);
 
     .ui-tab-bar {
-      padding: 0 4px 2px;
-
       > .ui-tab-button {
         margin                    : 0 2px 4px;
         border-top-width          : 0;

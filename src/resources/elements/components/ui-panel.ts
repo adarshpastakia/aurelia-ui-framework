@@ -7,7 +7,7 @@ import {autoinject, customElement, bindable, bindingMode, children, inlineView, 
 import {UIEvent} from "../../utils/ui-event";
 
 @autoinject()
-@inlineView(`<template class="ui-panel \${collapsed?'ui-collapse':''}" collapse.trigger="toggleCollapse()" close.trigger="close()"><slot></slot></template>`)
+@inlineView(`<template class="ui-panel \${collapsed?'ui-collapse':''}" css.bind="{'height':height}" collapse.trigger="toggleCollapse()" close.trigger="close()"><slot></slot></template>`)
 @customElement('ui-panel')
 export class UIPanel {
   constructor(public element: Element) {
@@ -21,6 +21,8 @@ export class UIPanel {
   detached() { }
   unbind() { }
   // end aurelia hooks
+
+  @bindable() height = 'auto';
 
   close() {
     DOM.removeNode(this.element);
@@ -43,7 +45,7 @@ export class UIPanel {
 @customElement('ui-panel-body')
 export class UIPanelBody {
   constructor(public element: Element) {
-    if (element.hasAttribute('flex')) element.classList.add('ui-row-column');
+    if (element.hasAttribute('flex')) element.classList.add('ui-flexed');
     if (element.hasAttribute('scroll')) element.classList.add('ui-scroll');
     if (element.hasAttribute('padded')) element.classList.add('ui-pad-all');
   }
@@ -111,7 +113,7 @@ export class UIHeader {
 }
 
 @autoinject()
-@inlineView(`<template><button tabindex="-1" class="ui-header-button ui-\${type}" click.trigger="fireEvent($event)">
+@inlineView(`<template class="ui-header-tool"><button tabindex="-1" class="ui-header-button ui-\${type}" click.trigger="fireEvent($event)">
   <slot><ui-glyph glyph.bind="glyph"></ui-glyph></slot></button></template>`)
 @customElement('ui-header-tool')
 export class UIHeaderTool {

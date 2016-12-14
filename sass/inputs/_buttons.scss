@@ -5,8 +5,6 @@
 // @license     : MIT
 
 .ui-button-group {
-  margin: .2rem;
-
   > .ui-button {
     @include flex(0 0 auto);
     margin       : 0;
@@ -16,11 +14,11 @@
   &.ui-toggle > .ui-button {
     color       : $button-default-text;
     background  : $button-default-bg;
-    border-color: rgba(darken($button-default-bg, 15%),.5);
+    border-color: rgba(shade($button-default-bg, 85%),.5);
   }
 
   &.ui-disabled > .ui-button {
-    border-color  : darken($button-disabled-bg,10%) !important;
+    border-color  : shade($button-disabled-bg,90%) !important;
     box-shadow    : none !important;
     pointer-events: none !important;
 
@@ -55,15 +53,15 @@
 
 .ui-button {
   color        : $dark;
-  margin       : .2rem;
   max-width    : 12em;
-  padding      : .2em .8em;
+  line-height  : 1.5;
   text-shadow  : -1px -1px 0 rgba(0, 0, 0, .1);
   border-radius: $base-border-radius;
   border       : 1px solid $base-border-color;
   position     : relative;
   cursor       : pointer;
   display      : inline-block;
+  padding      : .2rem 1rem;
   @include transition(padding .5s);
   @include box-shadow(0 0 2px 0 $base-shadow-color);
 
@@ -74,13 +72,11 @@
 
   &.ui-disabled,
   &[disabled] {
-    border-color  : rgba(darken($button-disabled-bg,10%),.5) !important;
     box-shadow    : none !important;
     pointer-events: none !important;
 
     &:before {
       content      : ' ';
-      border-radius: inherit;
       background   : rgba($button-disabled-bg, .75);
       box-shadow   : 0 0 0 1px rgba($button-disabled-bg, .5);
       @include position(absolute, 0);
@@ -90,17 +86,12 @@
   &.ui-busy {
     box-shadow    : none !important;
     pointer-events: none !important;
-    padding-left  : 2em;
-    padding-start : 2em;
     border-color  : rgba(darken($button-disabled-bg,10%),.75) !important;
 
     .ui-indicator {
       z-index    : 2;
       text-shadow: none;
-      position   : absolute;
-      left       : .75em;
-      top        : .5em;
-      // color      : $black;
+      @include margin(start, -.5rem);
     }
 
     &:after {
@@ -143,10 +134,10 @@
 
   &.ui-btn-dropdown {
     &:after {
-      font-size  : .7em;
+      font-size  : .7rem;
       font-family: 'Framework';
       content    : $fi-ui-caret-down;
-      @include margin(start, 1em);
+      @include padding(start, .5rem);
     }
   }
 

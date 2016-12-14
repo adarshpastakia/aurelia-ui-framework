@@ -12,7 +12,7 @@ import {UIUtils} from "../../utils/ui-utils";
 <template class="ui-menubar">
   <div class="ui-menubar-wrapper" ref="wrapper"><slot></slot></div>
   <div class="ui-menubar-toggle" ref="overflowToggle" show.bind="isOverflow" click.trigger="showOverflow($event)"><span class="fi-ui-ellipsis-v"></span></div>
-  <div class="ui-menu ui-menubar-overflow ui-floating ui-hidden" ref="overflow"></div>
+  <div class="ui-menu ui-menubar-overflow ui-floating" ref="overflow"></div>
 </template>`)
 @customElement('ui-menubar')
 export class UIMenubar {
@@ -23,7 +23,7 @@ export class UIMenubar {
   bind(bindingContext: Object, overrideContext: Object) { }
   attached() {
     this.obResize = UIEvent.subscribe('windowresize', () => this.arrange());
-    this.obClick = UIEvent.subscribe('mouseclick', () => this.overflow.classList.add('ui-hidden'));
+    this.obClick = UIEvent.subscribe('mouseclick', () => this.overflow.classList.remove('ui-open'));
     this.tether = UIUtils.tether(this.overflowToggle, this.overflow, { resize: false, position: 'br' });
     window.setTimeout(() => this.arrange(), 500);
   }
@@ -46,7 +46,7 @@ export class UIMenubar {
   private obResize;
 
   arrange() {
-    this.overflow.classList.add('ui-hidden');
+    this.overflow.classList.remove('ui-open');
     for (let i = 0, c = this.overflow['children']; i < c.length; i++) {
       this.wrapper.appendChild(c[i]);
     }
@@ -61,11 +61,11 @@ export class UIMenubar {
   showOverflow(evt) {
     if (evt.button != 0) return true;
     if (!this.overflow.classList.contains('ui-open')) {
-      this.overflow.classList.remove('ui-open');
+      this.overflow.classList.add('ui-open');
       this.tether.position();
     }
     else
-      this.overflow.classList.add('ui-open');
+      this.overflow.classList.remove('ui-open');
   }
 }
 
@@ -114,21 +114,6 @@ export class UIMenuGroup {
   // end aurelia hooks
 
   @bindable() label = '';
-}
-
-@autoinject()
-@inlineView('<template class="ui-menu-divider"></template>')
-@customElement('ui-menu-divider')
-export class UIMenuDivider {
-  constructor(public element: Element) { }
-
-  // aurelia hooks
-  created(owningView: View, myView: View) { }
-  bind(bindingContext: Object, overrideContext: Object) { }
-  attached() { }
-  detached() { }
-  unbind() { }
-  // end aurelia hooks
 }
 
 @autoinject()

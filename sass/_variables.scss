@@ -73,8 +73,8 @@ $page-title-bg               : $secondary !default;
 $page-title-text             : $white !default;
 
 // MENU
-$menubar-bg                  : $light !default;
-$menu-dropdown-bg            : $white !default;
+$menubar-bg                  : shade($base-bg, 1%) !default;
+$menu-dropdown-bg            : $base-bg !default;
 
 $menu-section-title          : $dark !default;
 
@@ -88,7 +88,7 @@ $menu-link-active-text       : $white !default;
 // DRAWER
 $sidebar-width               : 15em !default;
 $drawer-width                : 18em !default;
-$drawer-bg                   : $white !default;
+$drawer-bg                   : shade($base-bg, 1%) !default;
 $drawer-shim                 : rgba($white, 0) !default;
 
 // TREE
@@ -122,66 +122,66 @@ $input-error-text            : $danger !default;
 
 // BUTTONS
 $button-default-bg           : $white !default;
-$button-default-text         : $black !default;
-$button-default-hover-bg     : desaturate($button-default-bg, 10%) !default;
+$button-default-text         : $dark !default;
+$button-default-hover-bg     : tint($button-default-bg, 10%) !default;
 $button-default-hover-text   : $button-default-text !default;
-$button-default-active-bg    : desaturate($button-default-bg, 20%) !default;
+$button-default-active-bg    : shade($button-default-bg, 10%) !default;
 $button-default-active-text  : $button-default-text !default;
 
 $button-disabled-bg          : #EAE6E3 !default;
 
 $button-light-bg             : $light !default;
 $button-light-text           : $dark !default;
-$button-light-hover-bg       : darken($button-light-bg, 5%) !default;
+$button-light-hover-bg       : tint($button-light-bg, 10%) !default;
 $button-light-hover-text     : $button-light-text !default;
-$button-light-active-bg      : darken($button-light-bg, 10%) !default;
+$button-light-active-bg      : shade($button-light-bg, 10%) !default;
 $button-light-active-text    : $button-light-text !default;
 
 $button-dark-bg              : $dark !default;
 $button-dark-text            : $white !default;
-$button-dark-hover-bg        : darken($button-dark-bg, 5%) !default;
+$button-dark-hover-bg        : tint($button-dark-bg, 10%) !default;
 $button-dark-hover-text      : $button-dark-text !default;
-$button-dark-active-bg       : darken($button-dark-bg, 10%) !default;
+$button-dark-active-bg       : shade($button-dark-bg, 10%) !default;
 $button-dark-active-text     : $button-dark-text !default;
 
 $button-primary-bg           : $primary !default;
 $button-primary-text         : $white !default;
-$button-primary-hover-bg     : darken($button-primary-bg, 5%) !default;
+$button-primary-hover-bg     : tint($button-primary-bg, 10%) !default;
 $button-primary-hover-text   : $button-primary-text !default;
-$button-primary-active-bg    : darken($button-primary-bg, 10%) !default;
+$button-primary-active-bg    : shade($button-primary-bg, 10%) !default;
 $button-primary-active-text  : $button-primary-text !default;
 
 $button-secondary-bg         : $secondary !default;
 $button-secondary-text       : $white !default;
-$button-secondary-hover-bg   : darken($button-secondary-bg, 5%) !default;
+$button-secondary-hover-bg   : tint($button-secondary-bg, 10%) !default;
 $button-secondary-hover-text : $button-secondary-text !default;
-$button-secondary-active-bg  : darken($button-secondary-bg, 10%) !default;
+$button-secondary-active-bg  : shade($button-secondary-bg, 10%) !default;
 $button-secondary-active-text: $button-secondary-text !default;
 
 $button-info-bg              : $info !default;
 $button-info-text            : $white !default;
-$button-info-hover-bg        : darken($button-info-bg, 5%) !default;
+$button-info-hover-bg        : tint($button-info-bg, 10%) !default;
 $button-info-hover-text      : $button-info-text !default;
-$button-info-active-bg       : darken($button-info-bg, 10%) !default;
+$button-info-active-bg       : shade($button-info-bg, 10%) !default;
 $button-info-active-text     : $button-info-text !default;
 
 $button-danger-bg            : $danger !default;
 $button-danger-text          : $white !default;
-$button-danger-hover-bg      : darken($button-danger-bg, 5%) !default;
+$button-danger-hover-bg      : tint($button-danger-bg, 10%) !default;
 $button-danger-hover-text    : $button-danger-text !default;
-$button-danger-active-bg     : darken($button-danger-bg, 10%) !default;
+$button-danger-active-bg     : shade($button-danger-bg, 10%) !default;
 $button-danger-active-text   : $button-danger-text !default;
 
 $button-success-bg           : $success !default;
 $button-success-text         : $white !default;
-$button-success-hover-bg     : darken($button-success-bg, 5%) !default;
+$button-success-hover-bg     : tint($button-success-bg, 10%) !default;
 $button-success-hover-text   : $button-success-text !default;
-$button-success-active-bg    : darken($button-success-bg, 10%) !default;
+$button-success-active-bg    : shade($button-success-bg, 10%) !default;
 $button-success-active-text  : $button-success-text !default;
 
 $button-warning-bg           : $warning !default;
 $button-warning-text         : $white !default;
-$button-warning-hover-bg     : darken($button-warning-bg, 5%) !default;
+$button-warning-hover-bg     : tint($button-warning-bg, 10%) !default;
 $button-warning-hover-text   : $button-warning-text !default;
-$button-warning-active-bg    : darken($button-warning-bg, 10%) !default;
+$button-warning-active-bg    : shade($button-warning-bg, 10%) !default;
 $button-warning-active-text  : $button-warning-text !default;

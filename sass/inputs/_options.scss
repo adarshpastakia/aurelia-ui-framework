@@ -11,11 +11,7 @@
     @include flex(1 1 1em);
     @include flex-wrap(wrap);
 
-    .ui-option {
-      min-width: 4em;
-      margin   : .25rem .2rem;
-      @include padding(end, 1rem);
-    }
+    .ui-option {}
   }
 
   &:not(.ui-vertical) {
@@ -46,7 +42,6 @@
 }
 
 .ui-option {
-  height     : 1em;
   white-space: nowrap;
   position   : relative;
   display    : inline-block;
@@ -55,6 +50,7 @@
     width   : 1em;
     height  : 1em;
     opacity : 0;
+    margin  : 0;
     cursor  : pointer;
     position: absolute;
 
@@ -85,9 +81,9 @@
   }
 
   .ui-option-label {
-    font-size: .9em;
-    margin   : .2em 0;
-    color    : $input-label-text;
+    color      : $input-label-text;
+    font-size  : .8rem;
+    line-height: 1rem;
     @include ellipsis();
   }
 

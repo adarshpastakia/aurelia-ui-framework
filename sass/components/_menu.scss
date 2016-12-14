@@ -5,25 +5,23 @@
 // @license     : MIT
 
 a.ui-menu-item {
-  line-height: 1.5;
+  line-height: 2.5em;
+  margin     : .2em 0;
   position   : relative;
-  padding    : .4em .8em;
-
   color      : $menu-link-text;
+  max-width  : 20em;
+  @include ellipsis();
   @include transition(all .5s);
 
   .ui-menu-label {
-    max-width: 20em;
-    display  : inline-block;
-    @include ellipsis();
-    @include transition(max-width 0.5s);
+    margin: 0 .5em;
   }
 
   .ui-menu-icon {
-    margin             : 0 .15em;
     background-position: left center;
     background-repeat  : no-repeat;
     background-size    : 1em 1em;
+    @include padding(start, .5em);
     @include transition(font-size 0.5s);
   }
 
@@ -32,13 +30,17 @@ a.ui-menu-item {
     background-color: $menu-link-hover-bg;
   }
 
+  &:active {
+    color           : $menu-link-active-text;
+    background-color: $menu-link-active-bg;
+  }
+
   &.ui-disabled {
     pointer-events: none;
     color         : $menu-link-disabled;
   }
 
   &.ui-active {
-    background      : none;
     pointer-events  : none;
     color           : $menu-link-active-text;
     background-color: $menu-link-active-bg;
@@ -47,16 +49,16 @@ a.ui-menu-item {
 }
 
 .ui-menu-section-title {
-  font-size: .8em;
-  padding  : $base-padding;
-  color    : $menu-section-title;
-  display  : block;
+  color      : $menu-section-title;
+  display    : block;
+  font-size  : .8rem;
+  line-height: 2em;
+  padding    : 0 .5rem;
   @include ellipsis();
 }
 
 .ui-menubar {
   z-index         : 5;
-  font-size       : .8em;
   @include flex(0 0 auto);
   @include flex-row($align: center, $wrap:false);
 
@@ -64,12 +66,16 @@ a.ui-menu-item {
   border-bottom   : 1px solid rgba($base-border-color,.25);
 
   .ui-menubar-toggle {
-    cursor : pointer;
-    padding: .5em 1em;
+    cursor: pointer;
+    color : $menu-link-text;
   }
 
   .ui-menubar-overflow {
-    margin: 0 -.5em;
+    display: none;
+
+    &.ui-open {
+      display: block;
+    }
   }
 
   .ui-menubar-wrapper {
@@ -79,20 +85,38 @@ a.ui-menu-item {
   }
 
   .ui-menu-section {
-    margin       : .2em;
     display      : block;
     overflow     : hidden;
+    margin       : .1rem .2rem;
     flex         : 0 0 auto;
     border       : 1px solid rgba($base-border-color, .5);
     border-radius: $base-border-radius;
+
+    .ui-menu-section-title {
+      font-size  : .7rem;
+      line-height: 1rem;
+    }
   }
 
   .ui-menu-section-title {
     text-align: center;
   }
 
+  .ui-divider {
+    display: block;
+    border : {
+      left : 1px solid rgba($dark,.5);
+      right: 1px solid $light;
+    }
+    @include transform(scaleX(.5));
+    @include align-self(stretch);
+  }
+
   a.ui-menu-item {
-    line-height: 2;
+    margin     : 0;
+    font-size  : .9rem;
+    line-height: 1.5rem;
+    padding    : .2rem .3rem;
     white-space: nowrap;
 
     &:hover {
@@ -126,7 +150,6 @@ a.ui-menu-item {
   }
 
   &.ui-floating {
-    font-size       : .9em;
     min-width       : 10em;
     max-width       : 18em;
     background-color: $menu-dropdown-bg;
@@ -148,9 +171,12 @@ a.ui-menu-item {
       display: block;
     }
 
-    .ui-menu-section-title {
-      font-size: .8em;
+    .ui-menu-item {
+      line-height: 2em;
+      font-size  : .9rem;
     }
+
+    .ui-menu-section-title {}
 
     &.ui-tether-top {
       border-top-left-radius : 0;
@@ -164,7 +190,6 @@ a.ui-menu-item {
   }
 
   .ui-menu-section {
-    margin  : .25em 0;
     display : block;
     overflow: hidden;
     border  : none;
@@ -185,7 +210,7 @@ a.ui-menu-item {
     @include transform(scaleY(.5));
   }
 
-  .ui-menu-divider {
+  .ui-divider {
     display: block;
     border : {
       top   : 1px solid $dark;
@@ -196,7 +221,6 @@ a.ui-menu-item {
 
   .ui-menu-item {
     display: block;
-    margin : .5em 0;
     @include ellipsis();
 
     &:hover {

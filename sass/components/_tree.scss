@@ -4,8 +4,7 @@
 // @copyright   : 2017
 // @license     : MIT
 .ui-tree-panel {
-  display    : block;
-  line-height: 1;
+  display: block;
 
   &.has-search {}
 
@@ -23,11 +22,11 @@
 
   .ui-tree-level {
     z-index: 10;
-    @include padding(start, .75em);
+    @include padding(start, .5rem);
   }
 
   .ui-tree-level .ui-tree-level {
-    @include padding(start, 1.5em);
+    @include padding(start, .9rem);
   }
 
   .ui-tree-item {
@@ -36,7 +35,6 @@
 
   .ui-tree-item > .ui-tree-item-link {
     @include flex-row($align: center, $wrap: false);
-    margin: .1em 0;
 
     &.ui-disabled {
       pointer-events: none;
@@ -44,12 +42,8 @@
     }
 
     a.ui-expander {
-      font-size    : .9em;
-
-      margin       : 0 .1em;
-      padding      : .125em;
-
       color        : $muted;
+      font-size    : .9rem;
       border-radius: .2em;
       @include flex(0 0 auto);
 
@@ -59,9 +53,9 @@
     }
 
     a.ui-node-checkbox {
-      font-size: .9em;
-      padding  : .25em;
       color    : $dark;
+      font-size: .9rem;
+      margin   : 0 .2rem;
       @include flex(0 0 auto);
 
       &:hover {
@@ -74,16 +68,17 @@
     }
 
     a.ui-node-link {
+      font-size  : .9rem;
       white-space: nowrap;
       color      : $base-text;
-      padding    : .4rem .2em;
-      font-size  : .9em;
+      padding    : 0 .25rem;
+      line-height: 1.5rem;
       @include flex(1 1 1em);
       @include flex-row($wrap: false);
 
       span.ui-icon {
+        margin     : 0 .2rem;
         font-weight: normal;
-        margin     : 0 .25em;
       }
 
       b {

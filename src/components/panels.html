@@ -24,7 +24,9 @@
           </ui-column>
           <ui-column size="md-6 lg-4" padded>
             <ui-panel>
-              <ui-header light>Light Header</ui-header>
+              <ui-header light>
+                <ui-header-title>Light Header</ui-header-title>
+              </ui-header>
               <ui-panel-body padded>
                 <h4>Header Panel</h4>
               </ui-panel-body>
@@ -32,7 +34,14 @@
           </ui-column>
           <ui-column size="md-6 lg-4" padded>
             <ui-panel>
-              <ui-header dark>Dark Header</ui-header>
+              <ui-header dark>
+                <ui-header-title>Dark Header</ui-header-title>
+                <ui-dropdown value="2">
+                  <ui-list-item value="0">Last 30 Days</ui-list-item>
+                  <ui-list-item value="1">Last 60 Days</ui-list-item>
+                  <ui-list-item value="2">Last 90 Days</ui-list-item>
+                </ui-dropdown>
+              </ui-header>
               <ui-panel-body padded>
                 <h4>Header Panel</h4>
               </ui-panel-body>

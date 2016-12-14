@@ -21,25 +21,22 @@
     overflow: hidden;
 
     .ui-app-footer {
-      font-size: .6rem;
+      font-size: .7em;
     }
   }
 
   .ui-app-header {
     background: $app-header-bg;
     color     : $app-header-text;
+    padding   : 0 .5rem;
     @include flex-row($align:center, $wrap:false);
 
     .ui-app-title {
       @include flex-auto();
-      padding: .5rem 0;
-      color  : $app-header-link-text;
+      color: $app-header-link-text;
     }
 
-    > :first-child {
-      margin-left : 1em;
-      margin-start: 1em;
-    }
+    > :first-child {}
 
     .ui-app-logo {
       height: 3rem;
@@ -57,14 +54,14 @@
   .ui-app-taskbar {
     @include flex-row($align:center, $wrap:true);
     @include box-shadow(0 0 2px 0 $base-shadow-color);
-    padding: .1rem .5rem;
   }
 
   .ui-app-footer {
     @include flex-row($justify:space-between, $wrap:false);
-    background: $app-footer-bg;
-    color     : $app-footer-text;
-    padding   : .1rem .5rem;
+    background : $app-footer-bg;
+    color      : $app-footer-text;
+    padding    : 0 .5rem;
+    line-height: 1.5;
   }
 
   .ui-router-view {
@@ -89,8 +86,7 @@
 
       background   : $base-bg;
       overflow     : hidden;
-      padding      : .8rem;
-      line-height  : 1;
+      padding      : 1rem;
       font-size    : 2rem;
       z-index      : $z-index-splash;
       border-radius: $base-border-radius;
