@@ -2,11 +2,11 @@ var gulp = require('gulp');
 var compass = require('gulp-compass'),
   plumber = require('gulp-plumber');
 var del = require('del');
-var distFolder = './demo';
+var distFolder = './docs';
 
 
 gulp.task('clean-demo', function() {
-  return del([distFolder + '/*', '!' + distFolder + '/CNAME'], {
+  return del([distFolder + '/*', '!' + distFolder + '/CHANGELOG.md', '!' + distFolder + '/CNAME'], {
     force: true
   });
 });
