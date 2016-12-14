@@ -47,75 +47,86 @@
   0% {
     color: $info;
   }
-  24% {
+
+  20% {
     color: $info;
   }
+
   25% {
     color: $danger;
   }
-  49% {
+
+  45% {
     color: $danger;
   }
+
   50% {
     color: $success;
   }
-  74% {
+
+  70% {
     color: $success;
   }
+
   75% {
     color: $warning;
   }
-  99% {
+
+  95% {
     color: $warning;
   }
+
   100% {
     color: $info;
   }
 }
 @include keyframes(icon) {
   0% {
-      content: '$fi-ui-load1';
+    content: '$fi-ui-load1';
   }
+
   25% {
-      content: '$fi-ui-load2';
+    content: '$fi-ui-load2';
   }
+
   50% {
-      content: '$fi-ui-load3';
+    content: '$fi-ui-load3';
   }
+
   75% {
-      content: '$fi-ui-load4';
+    content: '$fi-ui-load4';
   }
 }
 
-[class*='fi-'],
-[class^='fi-'] {
-  line-height: 1em;
+[class*='ui-anim-'],
+[class^='ui-anim-'] {
 
   display    : inline-block;
+  text-align : center;
 
   width      : 1em;
   height     : 1em;
+  line-height: 1;
 
-  text-align : center;
-  @include transform-origin(50% 50%);
+  @include transform-origin(50% 50% 0);
 
-  &.ui-spin {
+  &.ui-anim-spin {
     @include animation(spin 2.5s linear infinite);
   }
 
-  &.ui-spin-opp {
+  &.ui-anim-spin-opp {
     @include animation(spin-opp 2.5s linear infinite);
   }
 
-  &.ui-pulse {
+  &.ui-anim-pulse {
     @include animation(spin 1s infinite steps(8));
   }
 
-  &.ui-pendulum {
+  &.ui-anim-pendulum {
     @include animation(pendulum 1s linear infinite);
   }
 
   &.ui-anim-loader {
-    @include animation(spin 2s linear infinite, color 8s linear infinite);
+    @include animation(spin 1s linear infinite, color 8s linear infinite);
   }
 }

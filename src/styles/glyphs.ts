@@ -33,18 +33,20 @@ export class StyleGlyphs {
       'symbol-dollar', 'symbol-error', 'symbol-exclaim', 'symbol-info', 'symbol-questions', 'symbol-warning'
     ],
     'Icons': [
-      'icon-add', 'icon-add-line', 'icon-anchor', 'icon-anchor-line', 'icon-bell', 'icon-bell-line', 'icon-calendar', 'icon-calendar-line',
-      'icon-clip', 'icon-clip-line', 'icon-cog', 'icon-cog-line', 'icon-comments', 'icon-comments-line', 'icon-division', 'icon-division-line',
+      'icon-add', 'icon-add-line', 'icon-alarm', 'icon-alarm-line', 'icon-anchor', 'icon-anchor-line', 'icon-bed', 'icon-bed-line', 'icon-bell', 'icon-bell-line',
+      'icon-building', 'icon-building-line', 'icon-calendar', 'icon-calendar-line', 'icon-clip', 'icon-clip-line', 'icon-clock', 'icon-clock-line',
+      'icon-coffee-cup', 'icon-coffee-cup-line', 'icon-cog', 'icon-cog-line', 'icon-comments', 'icon-comments-line', 'icon-division', 'icon-division-line',
       'icon-download', 'icon-download-line', 'icon-edit', 'icon-edit-line', 'icon-email', 'icon-email-line', 'icon-equal', 'icon-equal-line',
-      'icon-female', 'icon-female-line', 'icon-filter', 'icon-filter-line', 'icon-folder', 'icon-folder-line', 'icon-folder-open', 'icon-folder-open-line',
-      'icon-heart', 'icon-heart-line', 'icon-home', 'icon-home-line', 'icon-image', 'icon-image-line', 'icon-key', 'icon-key-line',
-      'icon-link', 'icon-link-line', 'icon-lock', 'icon-lock-line', 'icon-message', 'icon-message-line', 'icon-minus', 'icon-minus-line',
-      'icon-notify', 'icon-notify-line', 'icon-page', 'icon-page-edit', 'icon-page-edit-line', 'icon-page-line', 'icon-page-search', 'icon-page-search-line',
-      'icon-palette', 'icon-palette-line', 'icon-pencil', 'icon-pencil-line', 'icon-pencil-ruler', 'icon-pencil-ruler-line',
-      'icon-phone', 'icon-phone-line', 'icon-placeholder', 'icon-placeholder-line', 'icon-printer', 'icon-printer-line',
-      'icon-reload', 'icon-reload-left', 'icon-reload-left-line', 'icon-reload-line', 'icon-remove', 'icon-remove-line',
-      'icon-search', 'icon-search-line', 'icon-search2', 'icon-search2-line', 'icon-star', 'icon-star-line', 'icon-tools', 'icon-tools-line',
-      'icon-trash', 'icon-trash-line', 'icon-unlock', 'icon-unlock-line', 'icon-upload', 'icon-upload-line', 'icon-user', 'icon-user-line',
-      'icon-web', 'icon-web-line',]
+      'icon-fast-food', 'icon-fast-food-line', 'icon-female', 'icon-female-line', 'icon-filter', 'icon-filter-line', 'icon-folder', 'icon-folder-line',
+      'icon-folder-open', 'icon-folder-open-line', 'icon-heart', 'icon-heart-line', 'icon-home', 'icon-home-line', 'icon-image', 'icon-image-line',
+      'icon-key', 'icon-key-line', 'icon-link', 'icon-link-line', 'icon-location', 'icon-location-line', 'icon-lock', 'icon-lock-line', 'icon-meal', 'icon-meal-line',
+      'icon-message', 'icon-message-line', 'icon-minus', 'icon-minus-line', 'icon-notify', 'icon-notify-line', 'icon-page', 'icon-page-edit', 'icon-page-edit-line',
+      'icon-page-line', 'icon-page-search', 'icon-page-search-line', 'icon-palette', 'icon-palette-line', 'icon-parking', 'icon-parking-line',
+      'icon-pencil', 'icon-pencil-line', 'icon-pencil-ruler', 'icon-pencil-ruler-line', 'icon-phone', 'icon-phone-line', 'icon-placeholder', 'icon-placeholder-line',
+      'icon-printer', 'icon-printer-line', 'icon-reload', 'icon-reload-left', 'icon-reload-left-line', 'icon-reload-line', 'icon-remove', 'icon-remove-line',
+      'icon-restaurant', 'icon-restaurant-line', 'icon-search', 'icon-search-line', 'icon-search2', 'icon-search2-line', 'icon-star', 'icon-star-line',
+      'icon-tea-cup', 'icon-tea-cup-line', 'icon-tools', 'icon-tools-line', 'icon-trash', 'icon-trash-line', 'icon-unlock', 'icon-unlock-line',
+      'icon-upload', 'icon-upload-line', 'icon-user', 'icon-user-line', 'icon-web', 'icon-web-line', 'icon-wifi', 'icon-wifi-line'
+    ]
   }
 }

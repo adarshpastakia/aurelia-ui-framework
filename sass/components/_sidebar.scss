@@ -12,20 +12,20 @@
   @include flex(0 0 $sidebar-width);
   @include transition(max-width .5s);
 
-  .ui-sidebar-title {
-    color         : rgba($base-text, .75);
-    pointer-events: none;
-    font-size     : 1.2em;
-    padding       : $base-padding;
-    left          : 0;
-    top           : 0;
-    @include ellipsis();
-    @include transition(all .25s);
-    @include apply-origin(0% 0% 0, false);
-  }
-
   .ui-sidebar-head {
     border-bottom: 1px solid rgba($base-border-color, .25);
+    line-height  : 1;
+
+    .ui-sidebar-title {
+      color         : rgba($base-text, .75);
+      pointer-events: none;
+      padding       : $base-padding;
+      left          : 0;
+      top           : 0;
+      @include ellipsis();
+      @include transition(all .25s);
+      @include apply-origin(0% 0% 0, false);
+    }
 
     .ui-sidebar-close {
       padding: .5em;

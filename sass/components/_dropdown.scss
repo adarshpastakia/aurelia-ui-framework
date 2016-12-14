@@ -18,8 +18,9 @@
   }
 
   .ui-caret {
-    font-size: .5em;
-    color    : rgba($input-text, .5);
+    font-size  : .5em;
+    line-height: 1.5;
+    color      : rgba($input-text, .5);
   }
 
   &:hover .ui-caret {

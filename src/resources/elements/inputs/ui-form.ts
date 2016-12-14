@@ -86,7 +86,9 @@ export class UIFieldset {
   <div><div class="ui-group-wrapper"><slot></slot></div><slot name="inputInfo"></slot></div></template>`)
 @customElement('ui-input-group')
 export class UIInputGroup {
-  constructor(public element: Element) { }
+  constructor(public element: Element) {
+    if (element.hasAttribute('plain')) element.classList.add('ui-plain');
+  }
 
   // aurelia hooks
   created(owningView: View, myView: View) { }

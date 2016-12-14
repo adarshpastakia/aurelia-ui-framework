@@ -6,6 +6,7 @@
 
 .ui-input-wrapper {
   @include flex(1 1 4rem);
+  line-height: 1.2;
 
   &:not(:first-child):not(:last-child) {
     margin: 0 .1rem;
@@ -61,30 +62,29 @@
       }
     }
 
-    .ui-caret {
-      @include flex-auto();
-      padding: .25em .1em;
-      cursor : pointer;
-      color  : $muted;
-
-      &:hover {
-        color: $base-text;
-      }
-    }
+    // .ui-caret {
+    //   @include flex-auto();
+    //   padding: .25em .1em;
+    //   cursor : pointer;
+    //   color  : $muted;
+    // 
+    //   &:hover {
+    //     color: $base-text;
+    //   }
+    // }
 
     .ui-counter {
       @include flex-auto();
-      color      : $muted;
-      font-size  : .75em;
-      padding    : .4em .25em;
-      line-height: 1em;
+      color     : $muted;
+      font-size : .75em;
+      padding   : .4em .25em;
     }
 
     .ui-clear {
       @include flex-auto();
-      color  : $muted;
-      padding: .1em .25em;
-      cursor : pointer;
+      color     : $muted;
+      padding   : .1em .25em;
+      cursor    : pointer;
 
       &:hover {
         color: $base-text;

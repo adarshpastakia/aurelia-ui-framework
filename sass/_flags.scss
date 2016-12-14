@@ -6,8 +6,9 @@
 .ui-flag {
   background-repeat  : no-repeat;
   background-position: center center;
-  min-width          : 18px;
-  min-height         : 12px;
+  width              : 1.5em;
+  height             : 1em;
+  font-size          : .7em;
   display            : inline-block;
   background-size    : cover;
   box-shadow         : 0 0 0 1px rgba(#e5e5e5, .5);

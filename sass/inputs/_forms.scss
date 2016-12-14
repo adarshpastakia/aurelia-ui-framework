@@ -33,8 +33,9 @@
 
 .ui-input-group {
   @include flex-row($display: flex, $align:flex-start);
-  margin   : .8rem .4rem;
-  max-width: 100%;
+  margin     : .8rem .4rem;
+  max-width  : 100%;
+  line-height: 1.2;
 
   .ui-input-label {
     @include flex(0 0 8em);
@@ -88,5 +89,10 @@
     }
 
     .ui-input-addon {}
+  }
+
+  &.ui-plain .ui-group-wrapper {
+    background: none;
+    box-shadow: none;
   }
 }

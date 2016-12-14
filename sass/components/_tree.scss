@@ -4,7 +4,8 @@
 // @copyright   : 2017
 // @license     : MIT
 .ui-tree-panel {
-  display: block;
+  display    : block;
+  line-height: 1;
 
   &.has-search {}
 
@@ -86,6 +87,7 @@
       }
 
       b {
+        font-weight    : 600;
         text-decoration: underline;
         color          : $tree-active-bg;
       }

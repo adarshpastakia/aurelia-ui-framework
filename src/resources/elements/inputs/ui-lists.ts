@@ -93,6 +93,7 @@ export class BaseListInput {
     if (evt.type === 'blur') {
       this.element.classList.remove('ui-focus');
       if (el) el.classList.remove('ui-focus');
+      this.scrollIntoView();
     }
     UIEvent.fireEvent(evt.type, this.element, this.value);
   }
@@ -197,6 +198,7 @@ export class BaseListInput {
       } else {
         this.elValue = '';
       }
+      this.closeDropdown();
       return true;
     }
     if (this.filtered.length == 0) return true;
