@@ -193,7 +193,7 @@ export class App {
         name: 'sidebar'
       }, {
         route: 'toolbar',
-        moduleId: './components/toolbar',
+        moduleId: './components/toolbars',
         title: 'Toolbar',
         nav: true,
         auth: false,
@@ -208,13 +208,13 @@ export class App {
         settings: { section: 'UI Components' },
         name: 'statsbar'
       }, {
-        route: 'panel',
-        moduleId: './components/panel',
+        route: 'panels',
+        moduleId: './components/panels',
         title: 'Panels',
         nav: true,
         auth: false,
         settings: { section: 'UI Components' },
-        name: 'panel'
+        name: 'panels'
       }, {
         route: 'dialog',
         moduleId: './components/dialog',
@@ -232,13 +232,21 @@ export class App {
         settings: { section: 'UI Components' },
         name: 'datagrid'
       }, {
-        route: 'tab',
+        route: 'breadcrumbs',
+        moduleId: './components/breadcrumbs',
+        title: 'Breadcrumbs',
+        nav: true,
+        auth: false,
+        settings: { section: 'UI Components' },
+        name: 'breadcrumbs'
+      }, {
+        route: 'tabs',
         moduleId: './components/tabs',
         title: 'Tab Panel',
         nav: true,
         auth: false,
         settings: { section: 'UI Components' },
-        name: 'tab'
+        name: 'tabs'
       }, {
         route: 'tree',
         moduleId: './components/tree',

@@ -90,3 +90,47 @@ export class UIButton {
     return true;
   }
 }
+
+@autoinject()
+@inlineView(`<template class="ui-button-group \${disabled?'ui-disabled':''}" click.trigger="clickEvent($event)"><slot></slot></template>`)
+@customElement('ui-button-group')
+export class UIButtonGroup {
+  constructor(public element: Element) {
+    if (this.element.hasAttribute('vertical')) this.element.classList.add('ui-vertical');
+    else this.element.classList.add('ui-horizontal');
+
+    if (this.element.hasAttribute('toggle')) this.element.classList.add('ui-toggle');
+  }
+
+  // aurelia hooks
+  created(owningView: View, myView: View) { }
+  bind(bindingContext: Object, overrideContext: Object) {
+    this.disabled = isTrue(this.disabled);
+  }
+  attached() { }
+  detached() { }
+  unbind() { }
+  // end aurelia hooks
+
+  @children('ui-button') buttons = [];
+  @bindable({ defaultBindingMode: bindingMode.twoWay }) value = '';
+  @bindable() disabled = false;
+
+  disabledChanged(newValue) {
+    this.disabled = isTrue(newValue);
+  }
+
+  buttonsChanged() {
+    this.valueChanged(this.value);
+  }
+  active;
+  valueChanged(newValue) {
+    if (this.active) this.active.element.classList.remove('ui-active');
+    if (this.buttons.length > 0 && (this.active = _.find(this.buttons, (b: any) => b.value === this.value)))
+      this.active.element.classList.add('ui-active');
+  }
+
+  clickEvent(evt) {
+    if (evt.target.dataset['value']) this.value = evt.target.dataset['value'];
+  }
+}

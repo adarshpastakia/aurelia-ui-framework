@@ -1,0 +1,46 @@
+<template>
+  <style>
+    .tab-container {
+      height: 320px;
+    }
+
+  </style>
+  <ui-page page-title="Breadcrumbs">
+    <ui-content padded scroll>
+      <ui-container>
+        <h5 class="section-title">With Tabs</h5>
+        <div class="tab-container">
+          <ui-panel>
+            <ui-breadcrumb change.trigger="changeTab($event)">
+              <ui-crumb repeat.for="c of activeTab+1" id.bind="c">${crumbs[c]}</ui-crumb>
+            </ui-breadcrumb>
+            <ui-breadcrumb secondary change.trigger="changeTab($event)">
+              <ui-crumb repeat.for="c of activeTab+1" id.bind="c">${crumbs[c]}</ui-crumb>
+            </ui-breadcrumb>
+            <ui-tab-panel active-tab.bind="activeTab" notabs height="10em" noborder>
+              <ui-tab padded scroll>
+                <h1>Personal Information...</h1>
+              </ui-tab>
+              <ui-tab padded scroll>
+                <h1>Shipping Information...</h1>
+              </ui-tab>
+              <ui-tab padded scroll>
+                <h1>Payment Information...</h1>
+              </ui-tab>
+              <ui-tab padded scroll>
+                <h1>Agreement...</h1>
+                <ui-checkbox checked.bind="agree">Agree to terms</ui-checkbox>
+              </ui-tab>
+            </ui-tab-panel>
+            <ui-toolbar light>
+              <ui-button if.bind="activeTab!=0" click.trigger="prev()">Previous</ui-button>
+              <ui-button if.bind="activeTab+1!=crumbs.length" click.trigger="next()">Next</ui-button>
+              <ui-button secondary if.bind="activeTab+1==crumbs.length" disabled.bind="!agree">Finish</ui-button>
+            </ui-toolbar>
+          </ui-panel>
+        </div>
+        <br/><br/>
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>

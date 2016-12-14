@@ -65,7 +65,7 @@
   cursor       : pointer;
   display      : inline-block;
   @include transition(padding .5s);
-  @include box-shadow(1px 1px 2px 0 $base-shadow-color);
+  @include box-shadow(0 0 2px 0 $base-shadow-color);
 
   span,
   strong {
@@ -113,7 +113,7 @@
   }
 
   &.ui-square {
-    padding: .3rem;
+    padding: .2rem;
   }
 
   &.ui-round {
@@ -125,7 +125,7 @@
   }
 
   &.ui-small {
-    font-size  : .8rem;
+    font-size  : .7rem;
     font-weight: 600;
   }
 

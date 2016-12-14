@@ -31,6 +31,11 @@
   }
 }
 
+.ui-input-addon {
+  padding: .2rem .25rem;
+  @include flex-auto();
+}
+
 .ui-input-group {
   @include flex-row($display: flex, $align:flex-start);
   margin     : .8rem .4rem;
@@ -41,7 +46,7 @@
     @include flex(0 0 8em);
     @include padding(end, .5rem);
     position : relative;
-    font-size: .9em;
+    font-size: .9rem;
     margin   : .3em 0;
     color    : $input-label-text;
 
@@ -78,7 +83,6 @@
     box-shadow   : 0 0 0 1px rgba($black,.08);
     @include flex-row($display: flex, $align: stretch, $wrap: false);
 
-    .ui-input-addon,
     .ui-option {
       padding: .2rem .25rem;
       @include flex-auto();
@@ -87,8 +91,10 @@
     .ui-dropdown {
       padding: .3rem .8rem;
     }
-
-    .ui-input-addon {}
+    
+    .ui-input-control {
+      box-shadow: none;
+    }
   }
 
   &.ui-plain .ui-group-wrapper {

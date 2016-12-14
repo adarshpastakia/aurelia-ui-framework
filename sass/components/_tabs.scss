@@ -12,13 +12,13 @@
   .ui-tab-bar {
     @include flex-auto();
     @include flex-row($align:stretch);
-    height : 2rem;
     padding: 2px 4px 0;
 
     > .ui-tab-button {
       @include flex-row($align:center);
       @include flex-auto();
       z-index                : 2;
+      line-height            : 1;
       padding                : $base-padding;
       margin                 : 4px 2px 0;
       border                 : 1px solid $base-border-color;

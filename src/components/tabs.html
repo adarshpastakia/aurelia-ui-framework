@@ -1,0 +1,50 @@
+<template>
+  <style>
+    .tab-container {
+      position: relative;
+      height: 450px;
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      justify-items: stretch;
+    }
+
+  </style>
+  <ui-page page-title="Tab Panels">
+    <ui-content padded scroll>
+      <ui-container>
+        <div class="tab-container">
+          <ui-tab-panel>
+            <ui-tab label="Active Tab" padded scroll>
+              <compose view="../home/lipsum-big.html"></compose>
+            </ui-tab>
+            <ui-tab label="Disabled Tab" disabled="true">
+              <compose view="../home/lipsum-big.html"></compose>
+            </ui-tab>
+            <ui-tab label="Closeable Tab" closeable padded scroll>
+              <h4>Closeable Tab</h4>
+              <hr/>
+              <compose view="../home/lipsum-big.html"></compose>
+            </ui-tab>
+          </ui-tab-panel>
+        </div>
+        <br/><br/>
+        <div class="tab-container">
+          <ui-tab-panel bottom>
+            <ui-tab label="Active Tab" padded scroll>
+              <compose view="../home/lipsum-big.html"></compose>
+            </ui-tab>
+            <ui-tab label="Disabled Tab" disabled="true">
+              <compose view="../home/lipsum-big.html"></compose>
+            </ui-tab>
+            <ui-tab label="Closeable Tab" closeable padded scroll>
+              <h4>Closeable Tab</h4>
+              <hr/>
+              <compose view="../home/lipsum-big.html"></compose>
+            </ui-tab>
+          </ui-tab-panel>
+        </div>
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>

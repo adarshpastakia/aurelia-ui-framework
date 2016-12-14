@@ -1,0 +1,49 @@
+// 
+// @description : 
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+
+.ui-toolbar {
+  z-index         : 5;
+  background-color: $base-bg;
+  padding         : .2em .4em;
+  border          : 1px solid rgba($base-border-color, .5);
+  border-width    : 1px 0;
+  @include flex-auto();
+  // @include box-shadow(0 0 1px 0 $base-border-color);
+  @include flex-row($align:center, $justify:flex-end, $wrap:false);
+
+  &.ui-start {
+    @include justify-content(flex-start);
+  }
+
+  .ui-divider {
+    display: block;
+    border : {
+      left : 1px solid $dark;
+      right: 1px solid $light;
+    }
+    margin : .5em .2em;
+    @include transform(scaleX(.5));
+    @include align-self(stretch);
+  }
+
+   > .ui-input-wrapper,
+  > .ui-input-group {
+    margin: 0 .25rem;
+  }
+
+   > .ui-button,
+  > .ui-button-group {
+    margin: 0 .2rem;
+  }
+}
+@include toolbar-theme(light, $light, $dark);
+@include toolbar-theme(dark, lighten($dark,5%));
+@include toolbar-theme(primary, lighten($primary,5%));
+@include toolbar-theme(secondary, lighten($secondary,5%));
+@include toolbar-theme(info, lighten($info,5%));
+@include toolbar-theme(danger, lighten($danger,5%));
+@include toolbar-theme(success, lighten($success,5%));
+@include toolbar-theme(warning, lighten($warning,5%));

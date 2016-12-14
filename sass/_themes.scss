@@ -26,10 +26,46 @@
 }
 //
 
+// Toolbars
+@mixin toolbar-theme($theme, $bg, $color: $white) {
+  .ui-toolbar.#{$theme} {
+    background: $bg;
+
+    .ui-dropdown {
+      .ui-caret,
+      .ui-label {
+        color: $color;
+      }
+      background: rgba($white, .1);
+    }
+
+     > .ui-input-wrapper .ui-input-control,
+    > .ui-input-group .ui-group-wrapper {
+      background: rgba($white, .1);
+      color     : $color;
+    }
+
+    > .ui-input-group .ui-group-wrapper .ui-input-control {
+      background: none;
+      color     : $color;
+    }
+
+     > .ui-input-wrapper:not(.ui-focus) .ui-input-control,
+    > .ui-input-group .ui-input-wrapper:not(.ui-focus) .ui-input-control {
+      box-shadow: 0 -1px 0 0 rgba($color, .5) inset;
+    }
+
+     > .ui-input-wrapper.ui-focus .ui-input-control,
+    > .ui-input-group .ui-input-wrapper.ui-focus .ui-input-control {
+      box-shadow: 0 -2px 0 0 $color inset;
+    }
+  }
+}
+
 // Headers
 @mixin header-theme($theme, $bg) {
   $color: contrast-color($bg, $secondary, $white);
-  
+
   .ui-header.#{$theme} {
     background: darken($bg, 5%);
     color     : $color;

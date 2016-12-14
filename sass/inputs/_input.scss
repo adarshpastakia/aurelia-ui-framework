@@ -25,7 +25,7 @@
     background: $input-bg;
     max-width : 100%;
     position  : relative;
-    // box-shadow: 0 -1px 0 0 $base-border-color inset;
+    box-shadow: 0 -1px 0 0 $base-border-color inset;
     @include transition(box-shadow .5s);
 
     input,
@@ -93,7 +93,7 @@
 
     &.ui-phone {
       span:first-child {
-        font-size: .9em;
+        font-size: .7em;
         @include align-self(center);
       }
     }

@@ -19,7 +19,7 @@ export class UITabPanel {
   constructor(public element: Element) {
     if (element.hasAttribute('bottom')) element.classList.add('bottom');
     if (element.hasAttribute('noborder')) element.classList.add('noborder');
-    this.noTabs = element.hasAttribute('no-tabs');
+    this.noTabs = element.hasAttribute('notabs');
   }
 
   // aurelia hooks

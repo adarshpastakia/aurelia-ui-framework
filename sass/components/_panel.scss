@@ -37,19 +37,18 @@
   }
 
   &.ui-collapse {
-    .ui-header-button.ui-collapse span:before {
+    .ui-header-button.ui-collapse .ui-icon:before {
       @include transform(rotate(-180deg));
     }
 
-    max-height: 2em !important;
+    max-height: 2.5em !important;
   }
 }
 
 .ui-header {
   @include flex-auto();
-  @include flex-row($align:center);
-  max-height   : 2.2em !important;
-  padding      : $base-padding;
+  @include flex-row($align:center, $wrap:false);
+  padding: 0.4em 0.5em;
   text-shadow  : -1px -1px 0 rgba(0, 0, 0, .1);
   border-bottom: 1px solid rgba($base-border-color, .3);
 
@@ -65,7 +64,7 @@
     border       : 1px solid rgba($base-text, .3);
     text-shadow  : -1px -1px 0 rgba(0, 0, 0, .1);
 
-    span:before {
+    .ui-icon:before {
       @include transition(transform .5s);
       @include transform-origin(50% 50% 0);
     }

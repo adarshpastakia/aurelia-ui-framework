@@ -11,6 +11,7 @@
   overflow     : hidden;
   margin       : 0 .5em;
   border-radius: $base-border-radius;
+  @include flex-auto();
 
   .ui-crumb {
     margin       : .25em 0;

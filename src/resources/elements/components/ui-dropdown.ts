@@ -8,7 +8,7 @@ import {UIEvent} from "../../utils/ui-event";
 import {UIUtils} from "../../utils/ui-utils";
 
 @autoinject()
-@inlineView(`<template class="ui-dropdown" select.trigger="select($event)" mouseup.trigger="toggleDropdown($event)" css.bind="{'min-width':width}">
+@inlineView(`<template class="ui-dropdown" select.trigger="select($event)" click.trigger="toggleDropdown($event)" css.bind="{'min-width':width}">
   <div class="ui-label"><span innerhtml.bind="display"></span><span class="ui-caret fi-ui-caret-down"></span></div>
   <ul class="ui-list-container ui-floating" ref="dropdown"><slot></slot></ul></template>`)
 @customElement('ui-dropdown')
@@ -63,8 +63,6 @@ export class UIDropdown {
   }
 
   toggleDropdown(evt) {
-    evt.stopPropagation();
-    evt.cancelBubble = true;
     this.element.classList[this.element.classList.contains('ui-open') ? 'remove' : 'add']('ui-open');
     this.tether.position();
   }

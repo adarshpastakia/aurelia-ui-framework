@@ -147,7 +147,7 @@ export class UIHeaderTool {
 }
 
 @autoinject()
-@inlineView(`<template class="ui-header-title ui-inline-block ui-col-fill"><span class="ui-icon \${icon}"></span>&nbsp;<slot></slot></template>`)
+@inlineView(`<template class="ui-header-title ui-inline-block ui-col-fill"><span class="ui-icon fi-ui-\${glyph}" if.bind="glyph"></span>&nbsp;<slot></slot></template>`)
 @customElement('ui-header-title')
 export class UIHeaderTitle {
   constructor(public element: Element) { }
@@ -160,5 +160,5 @@ export class UIHeaderTitle {
   unbind() { }
   // end aurelia hooks
 
-  @bindable() icon = '';
+  @bindable() glyph = '';
 }
