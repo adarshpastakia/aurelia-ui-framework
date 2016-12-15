@@ -10,5 +10,5 @@ install:
   - typings install
 script:
   - gulp build-ts
-  - npm run-script production
+  - gulp sass
   
