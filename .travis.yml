@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - "node"
+sudo: false
+
+install:
+  - gem install compass
+  - npm install -g gulpjs/gulp#4.0 typescript aurelia-cli gulp-sass gulp-compass
+  - npm install
+script:
+  - gulp build-ts
+  - gulp sass
+  - npm run-script production
+  
