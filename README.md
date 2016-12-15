@@ -4,7 +4,7 @@ A bespoke UI Framework built on Aurelia for desktop business application
 
 [![npm version](https://img.shields.io/npm/v/aurelia-ui-framework.svg?style=flat-square)](https://www.npmjs.com/package/aurelia-ui-framework)
 [![npm downloads](https://img.shields.io/npm/dt/aurelia-ui-framework.svg?style=flat-square)](https://www.npmjs.com/package/aurelia-ui-framework)
-[![license](https://img.shields.io/github/license/adarshpastakia/aurelia-ui-framework.svg?style=flat-square)](https://github.com/adarshpastakia/aurelia-ui-framework/LICENSE)
+[![license](https://img.shields.io/github/license/adarshpastakia/aurelia-ui-framework.svg?style=flat-square)](https://github.com/adarshpastakia/aurelia-ui-framework/blob/master/LICENSE)
 [![Travis](https://img.shields.io/travis/adarshpastakia/aurelia-ui-framework.svg?style=flat-square)](https://travis-ci.org/adarshpastakia/aurelia-ui-framework)
 [![David](https://img.shields.io/david/adarshpastakia/aurelia-ui-framework.svg?style=flat-square)](https://github.com/adarshpastakia/aurelia-ui-framework)
 
