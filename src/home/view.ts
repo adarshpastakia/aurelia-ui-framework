@@ -66,6 +66,7 @@ export class HomeView {
     { label: 'Application', s: 1, c: 1, o: 1, f: 1, e: 1, i: 1 },
     { label: 'Http Client', s: 1, c: 1, o: 1, f: 1, e: 1, i: 1 },
     { label: 'Data Model', s: 1, c: 1, o: 1, f: 1, e: 1, i: 1 },
+    { label: 'Event Handling', s: 1, c: 1, o: 1, f: 1, e: 1, i: 1 },
     { label: 'Value Converters', s: 1, c: 1, o: 1, f: 1, e: 1, i: 2 }
   ]
 }

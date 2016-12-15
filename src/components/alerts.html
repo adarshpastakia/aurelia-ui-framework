@@ -46,14 +46,14 @@
                   <ui-list-item value="icon-notify">
                     <ui-glyph glyph="icon-notify"></ui-glyph>
                     Notify</ui-list-item>
-                  <ui-list-item value="symbol-info">
-                    <ui-glyph glyph="symbol-info"></ui-glyph>
+                  <ui-list-item value="symbol-info-bubble">
+                    <ui-glyph glyph="symbol-info-bubble"></ui-glyph>
                     Info</ui-list-item>
-                  <ui-list-item value="symbol-exclaim">
-                    <ui-glyph glyph="symbol-exclaim"></ui-glyph>
+                  <ui-list-item value="symbol-exclaim-bubble">
+                    <ui-glyph glyph="symbol-exclaim-bubble"></ui-glyph>
                     Exclaim</ui-list-item>
-                  <ui-list-item value="symbol-question">
-                    <ui-glyph glyph="symbol-question"></ui-glyph>
+                  <ui-list-item value="symbol-question-bubble">
+                    <ui-glyph glyph="symbol-question-bubble"></ui-glyph>
                     Question</ui-list-item>
                   <ui-list-item value="symbol-warning">
                     <ui-glyph glyph="symbol-warning"></ui-glyph>
@@ -74,6 +74,59 @@
         </ui-fieldset>
         <hr/>
         <h5 class="section-title">Alert Dialogs</h5>
+        <ui-fieldset legend="Toasts">
+          <ui-row>
+            <ui-column fill padded>
+              <ui-input-group>
+                <ui-input-label>Title</ui-input-label>
+                <ui-input value.bind="alert.title" clear></ui-input>
+              </ui-input-group>
+            </ui-column>
+            <ui-column fill padded>
+              <ui-input-group>
+                <ui-input-label>Message</ui-input-label>
+                <ui-input value.bind="alert.message"></ui-input>
+              </ui-input-group>
+            </ui-column>
+          </ui-row>
+          <ui-row>
+            <ui-column fill padded>
+              <ui-input-group>
+                <ui-input-label>Button Labels</ui-input-label>
+                <ui-input value.bind="alert.okLabel" info="Ok Label"></ui-input>
+                <ui-input-addon></ui-input-addon>
+                <ui-input value.bind="alert.cancelLabel" info="Cancel Label"></ui-input>
+              </ui-input-group>
+            </ui-column>
+            <ui-column fill padded>
+              <ui-input-group plain>
+                <ui-input-label>Glyph</ui-input-label>
+                <ui-dropdown value.bind="alert.glyph" width="8em">
+                  <ui-list-item value="">None</ui-list-item>
+                  <ui-list-item value="icon-notify">
+                    <ui-glyph glyph="icon-notify"></ui-glyph>
+                    Notify</ui-list-item>
+                  <ui-list-item value="symbol-info-bubble">
+                    <ui-glyph glyph="symbol-info-bubble"></ui-glyph>
+                    Info</ui-list-item>
+                  <ui-list-item value="symbol-exclaim-bubble">
+                    <ui-glyph glyph="symbol-exclaim-bubble"></ui-glyph>
+                    Exclaim</ui-list-item>
+                  <ui-list-item value="symbol-question-bubble">
+                    <ui-glyph glyph="symbol-question-bubble"></ui-glyph>
+                    Question</ui-list-item>
+                  <ui-list-item value="symbol-warning">
+                    <ui-glyph glyph="symbol-warning"></ui-glyph>
+                    Warning</ui-list-item>
+                </ui-dropdown>
+              </ui-input-group>
+            </ui-column>
+          </ui-row>
+          <ui-toolbar>
+            <ui-button light small click.trigger="openAlert()">Show Alert</ui-button>
+            <ui-button light small click.trigger="openConfirm()">Show Confirm</ui-button>
+          </ui-toolbar>
+        </ui-fieldset>
         
       </ui-container>
     </ui-content>

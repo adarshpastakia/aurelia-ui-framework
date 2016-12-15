@@ -17,6 +17,14 @@
   &.ui-start {
     @include justify-content(flex-start);
   }
+  
+  &:first-child {
+    border-top: none;
+  }
+  
+  &:last-child {
+    border-bottom: none;
+  }
 
   .ui-divider {
     display: block;

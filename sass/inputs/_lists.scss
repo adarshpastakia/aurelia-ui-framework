@@ -25,7 +25,7 @@
     @include flex-auto();
 
     > span {
-      @include flex-fill();
+      @include flex(1 1 auto);
       @include ellipsis();
       line-height: 1em;
       padding    : 0 .25em;

@@ -27,16 +27,59 @@ export module UIUtils {
 
   // Toasts
   export function toast(options: any) {
-    options = Object.assign({ container: this.overlayContainer, theme: 'dark', timeout: 5000, glyph: 'symbol-info' }, options);
-    let alert = DOM.createElement('div');
-    alert.innerHTML = `<ui-toast class="ui-toast opening" glyph="${options.glyph}" timeout="${options.timeout}" ${options.theme} closeable><h1>${options.title}</h1><p>${options.message}</p></ui-toast>`;
-    if (options.container.children.length > 0)
-      options.container.insertBefore(alert, options.container.children[0]);
+    let opts = { container: this.overlayContainer, theme: 'dark', timeout: 5000, glyph: 'symbol-info', message: '', title: '' };
+    if (isString(options)) opts.message = options;
+    else opts = Object.assign(opts, options);
+    let toast = DOM.createElement('div');
+    toast.innerHTML = `<ui-toast class="ui-toast" glyph="${opts.glyph}" timeout="${opts.timeout}" ${opts.theme}><h1>${opts.title}</h1><p>${opts.message}</p></ui-toast>`;
+    if (opts.container.children.length > 0)
+      opts.container.insertBefore(toast, opts.container.children[0]);
     else
-      options.container.appendChild(alert);
+      opts.container.appendChild(toast);
 
     let engine = this.lazy(TemplatingEngine);
-    UIEvent.queueTask(() => engine.enhance({ element: alert }));
+    UIEvent.queueTask(() => engine.enhance({ element: toast }));
+  }
+
+  // Alerts
+  export function alert(options: any) {
+    let opts = { glyph: 'symbol-info', message: '', title: '', okLabel: 'OK' };
+    if (isString(options)) opts.message = options;
+    else opts = Object.assign(opts, options);
+    let alert = DOM.createElement('div');
+    alert.innerHTML = `<ui-alert close.trigger="closing($event)" class="ui-alert-shim" glyph="${opts.glyph}" ok-label="${opts.okLabel}"><h1>${opts.title}</h1><p>${opts.message}</p></ui-alert>`;
+    this.dialogContainer.appendChild(alert);
+
+    let engine = this.lazy(TemplatingEngine);
+    return new Promise((resolve, reject) => {
+      UIEvent.queueTask(() => engine.enhance({
+        element: alert, bindingContext: {
+          closing: function(evt) {
+            resolve(evt.detail);
+          }
+        }
+      }));
+    });
+  }
+
+  export function confirm(options: any) {
+    let opts = { glyph: 'symbol-question', message: '', title: '', okLabel: 'OK', cancelLabel: 'Cancel' };
+    if (isString(options)) opts.message = options;
+    else opts = Object.assign(opts, options);
+    let alert = DOM.createElement('div');
+    alert.innerHTML = `<ui-alert confirm close.trigger="closing($event)" class="ui-alert-shim" glyph="${opts.glyph}" cancel-label="${opts.cancelLabel}" ok-label="${opts.okLabel}"><h1>${opts.title}</h1><p>${opts.message}</p></ui-alert>`;
+    this.dialogContainer.appendChild(alert);
+
+    let engine = this.lazy(TemplatingEngine);
+    return new Promise((resolve, reject) => {
+      UIEvent.queueTask(() => engine.enhance({
+        element: alert, bindingContext: {
+          closing: function(evt) {
+            resolve(evt.detail);
+          }
+        }
+      }));
+    });
   }
 
   // Floating Tether

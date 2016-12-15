@@ -15,7 +15,7 @@
   box-shadow    : 1px 1px 3px 0 $base-shadow-color;
   @include transition(max-height 1s);
 
-  &:not(.closing):not(.opening) {
+  &.open {
     max-height: 5rem;
   }
 
@@ -41,7 +41,7 @@
   .ui-message {
     font-size: .9em;
     padding  : 0 .5em;
-    @include flex-fill();
+    @include flex(1 1 auto);
     @include align-self(center);
 
     h1 {
@@ -65,3 +65,90 @@
 @include toast-theme(danger, tint($danger,15%));
 @include toast-theme(success, tint($success,15%));
 @include toast-theme(warning, tint($warning,15%));
+
+.ui-alert-shim {
+  pointer-events: all;
+  z-index       : $z-index-dialog+10;
+  background    : rgba(0,0,0,.05);
+  @include position(fixed,0);
+
+  &.open .ui-alert {
+    opacity: 1;
+    @include transform(translate(-50%,-50%) scale(1));
+  }
+
+  .ui-alert {
+    top          : 50%;
+    left         : 50%;
+    position     : fixed;
+    background   : $base-bg;
+    min-width    : 18rem;
+    opacity      : 0;
+    z-index      : $z-index-dialog+15;
+    border-radius: $base-border-radius;
+    box-shadow   : 0 0 30px 0 rgba(0,0,0,.3);
+    @include transition(transform .2s, opacity .2s);
+    @include transform(translate(-50%,-50%) scale(0.5));
+
+    .ui-wrapper {
+      padding : 1rem 1.5rem;
+      overflow: hidden;
+      @include flex-row($wrap:false,$align: flex-start);
+    }
+
+    .ui-icon {
+      font-size  : 2em;
+      text-shadow: -1px -1px 0 rgba(0, 0, 0, .1);
+    }
+
+    .ui-message {
+      font-size: .9em;
+      padding  : 0 .5em;
+      @include flex(1 1 auto);
+      @include align-self(center);
+
+      h1 {
+        line-height: 1.2;
+        font-weight: 600;
+        margin     : 0;
+        font-size  : 1.2em;
+      }
+
+      p {
+        margin     : 0;
+        line-height: 1.2;
+      }
+    }
+
+    .ui-button-bar {
+      padding   : .5rem 1rem;
+      box-shadow: 0 1px 0 0 rgba(0,0,0,.01) inset;
+      @include flex-row($wrap:false,$align: center, $justify:center);
+
+      button {
+        background   : none;
+        min-width    : 7rem;
+        border       : 1px solid rgba($secondary, .7);
+        border-radius: $base-border-radius;
+        padding      : .3rem 1rem;
+        font-size    : .9rem;
+        margin       : 0 .5rem;
+        color        : rgba($secondary, .7);
+
+        &:first-child {
+          font-weight: 600;
+        }
+
+        &:hover {
+          color     : rgba($secondary, .9);
+          box-shadow: 0 0 2px 0 rgba($secondary,.5) inset;
+        }
+
+        &:active {
+          background: rgba($secondary, .3);
+          color     : $white;
+        }
+      }
+    }
+  }
+}

@@ -21,11 +21,18 @@ export class CompAlerts {
   // end aurelia hooks
 
   toast = {
-    title: 'Alert!!',
+    title: 'Toast!!',
     message: 'Sample toast message...',
     theme: 'dark',
     timeout: 5000,
-    glyph: 'symbol-info'
+    glyph: 'symbol-info-bubble'
+  }
+  alert = {
+    title: 'Alert!!',
+    message: 'Sample alert message...',
+    okLabel: 'OK',
+    cancelLabel: 'Cancel',
+    glyph: 'symbol-info-bubble'
   }
 
   alertHolder;
@@ -34,5 +41,12 @@ export class CompAlerts {
   }
   toastAlert() {
     UIUtils.toast(this.toast);
+  }
+
+  openAlert() {
+    UIUtils.alert(this.alert).then(b => UIUtils.toast({ theme: 'info', message: 'Alert Closed!!' }));
+  }
+  openConfirm() {
+    UIUtils.confirm(this.alert).then(b => UIUtils.toast({ theme: b ? 'success' : 'danger', message: b ? "That's Correct!!" : "That's Wrong!!" }));
   }
 }
