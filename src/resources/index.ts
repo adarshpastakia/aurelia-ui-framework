@@ -43,6 +43,7 @@ import './elements/components/ui-drawer';
 import './elements/components/ui-dropdown';
 import './elements/components/ui-menu';
 import './elements/components/ui-panel';
+import './elements/components/ui-alerts';
 import './elements/components/ui-sidebar';
 import './elements/components/ui-tab';
 import './elements/components/ui-tree';
@@ -71,6 +72,7 @@ export function configure(config: FrameworkConfiguration) {
     './elements/components/ui-bars',
     './elements/components/ui-menu',
     './elements/components/ui-tree',
+    './elements/components/ui-alerts',
     './elements/components/ui-drawer',
     './elements/components/ui-sidebar',
     './elements/components/ui-dropdown',

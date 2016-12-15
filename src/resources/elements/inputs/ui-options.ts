@@ -7,7 +7,7 @@ import {autoinject, customElement, bindable, bindingMode, children, inlineView, 
 import {UIEvent} from "../../utils/ui-event";
 
 @autoinject()
-@inlineView('<template class="ui-input-group ui-option-group cols-\${columns}"><slot name="inputLabel"></slot><div class="ui-group-wrapper" change.trigger="changed($event)"><slot></slot></div></template>')
+@inlineView('<template class="ui-input-group ui-option-group cols-\${cols}"><slot name="inputLabel"></slot><div class="ui-group-wrapper" change.trigger="changed($event)"><slot></slot></div></template>')
 @customElement('ui-option-group')
 export class UIOptionGroup {
   constructor(public element: Element) {
@@ -31,7 +31,7 @@ export class UIOptionGroup {
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value: any = '';
 
   @bindable() name = '';
-  @bindable() columns = 'auto';
+  @bindable() cols = 'auto';
 
   static seed = 1;
 

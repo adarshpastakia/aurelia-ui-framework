@@ -9,27 +9,31 @@
     cursor: pointer;
   }
 
+  .ui-list-container {
+    max-height: 10rem;
+  }
+
   .ui-tag-item {
     background   : darken($input-bg, 1%);
     border-radius: $base-border-radius;
     border       : 1px solid rgba($base-border-color, .5);
     position     : relative;
     max-width    : 10em;
-    font-size    : .8rem;
-    margin       : .1rem .2rem;
+    font-size    : .8em;
+    margin       : .1em .2em;
     @include flex-row($wrap:false);
     @include flex-auto();
 
     > span {
       @include flex-fill();
       @include ellipsis();
-      line-height: 1rem;
-      padding    : 0 .5rem;
+      line-height: 1em;
+      padding    : 0 .25em;
     }
 
     .ui-clear {
-      line-height: 1rem;
-      padding    : 0 .25rem;
+      line-height: 1em;
+      padding    : 0 .25em;
       @include flex-auto();
     }
   }

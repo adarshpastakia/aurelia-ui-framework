@@ -5,19 +5,18 @@
 // @license     : MIT
 .ui-fieldset {
   fieldset {
-    margin       : .25rem .5rem;
-    padding      : 0 .25rem;
+    margin       : .25em .5em;
     overflow     : hidden;
-    max-height   : 80rem;
+    max-height   : 80em;
     border-radius: $base-border-radius;
     border       : 1px solid $base-border-color;
     @include transition(max-height .5s);
   }
 
   legend {
-    font-size: .8rem;
-    padding  : 0 .25rem;
-    margin   : 0 .5rem;
+    font-size: .8em;
+    padding  : 0 .25em;
+    margin   : 0 .5em;
 
     > span {
       color: $input-label-text;
@@ -25,37 +24,38 @@
   }
 
   &.ui-collapse fieldset {
-    max-height: 1.5rem;
+    max-height: 1.5em;
   }
 }
 
 .ui-input-addon,
 .ui-option {
-  padding    : 0 .25rem;
-  line-height: 1.5rem;
+  padding    : 0 .25em;
+  line-height: 1.5em;
   @include flex-auto();
 }
 
 .ui-input-group {
   @include flex-row($display: flex, $align:flex-start);
-  margin   : .5rem 0;
+  margin   : .5em .25em;
   max-width: 100%;
 
   .ui-input-label {
     @include flex(0 0 8em);
-    @include padding(end, .5rem);
+    @include padding(end, .5em);
     position   : relative;
     color      : $input-label-text;
-    font-size  : .8rem;
+    font-size  : .8em;
     line-height: 1.5rem;
 
     &.ui-required:after {
-      content  : '*';
-      font-size: .5rem;
-      color    : $secondary;
-      margin   : 0 .1rem;
-      top      : -.5em;
-      position : relative;
+      content    : '*';
+      font-size  : .5rem;
+      color      : $secondary;
+      margin     : 0 .1em;
+      top        : -.5em;
+      line-height: 1rem;
+      position   : relative;
     }
 
     &.ui-align-top {
@@ -68,9 +68,9 @@
   }
 
   .ui-input-info {
-    font-size  : .7rem;
-    line-height: 1rem;
-    padding    : 0 .25rem;
+    font-size  : .7em;
+    line-height: 1em;
+    padding    : 0 .25em;
   }
 
   > div {
@@ -78,7 +78,7 @@
   }
 
   .ui-group-wrapper {
-    border-radius: .1rem;
+    border-radius: .1em;
     color        : $input-label-text;
     background   : darken($input-bg, 1%);
     box-shadow   : 0 0 0 1px rgba($black,.08);
@@ -90,9 +90,10 @@
   }
 
   .ui-button {
-    padding    : .2rem;
-    font-size  : .7rem;
+    padding    : .2em;
+    font-size  : 1rem;
     font-weight: 600;
+    line-height: 1rem;
   }
 
   &.ui-plain .ui-group-wrapper {

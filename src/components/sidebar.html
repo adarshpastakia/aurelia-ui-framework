@@ -47,14 +47,14 @@
             <ui-section row-layout>
               <ui-sidebar label="Sidebar" collapsed="true" collapsible scroll mini-display>
                 <ui-menu>
-                  <ui-menu-item active="true" glyph="icon-email-line">
+                  <ui-menu-item active.bind="!active" glyph.bind="!active?'icon-email':'icon-email-line'" click.trigger="active=0">
                     Inbox</ui-menu-item>
-                  <ui-menu-item glyph="icon-calendar-line">
+                  <ui-menu-item active.bind="active==1" glyph.bind="active==1?'icon-calendar':'icon-calendar-line'" click.trigger="active=1">
                     Calendar</ui-menu-item>
-                  <ui-menu-item glyph="icon-comments-line">
+                  <ui-menu-item active.bind="active==2" glyph.bind="active==2?'icon-notify':'icon-notify-line'" click.trigger="active=2">
                     Notification</ui-menu-item>
                   <ui-menu-divider></ui-menu-divider>
-                  <ui-menu-item glyph="icon-cog-line">
+                  <ui-menu-item active.bind="active==3" glyph.bind="active==3?'icon-cog':'icon-cog-line'" click.trigger="active=3">
                     Settings</ui-menu-item>
                 </ui-menu>
               </ui-sidebar>
@@ -65,7 +65,7 @@
                 <ui-menu>
                   <ui-menu-item glyph="icon-add"></ui-menu-item>
                   <ui-menu-item glyph="icon-remove"></ui-menu-item>
-                  <ui-menu-item glyph="icon-notify"></ui-menu-item>
+                  <ui-menu-item glyph="icon-comments"></ui-menu-item>
                 </ui-menu>
               </ui-sidebar>
             </ui-section>

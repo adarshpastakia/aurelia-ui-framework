@@ -1,0 +1,67 @@
+// 
+// @description : 
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+
+.ui-toast {
+  display       : block;
+  max-height    : 0;
+  margin        : .25rem .5em;
+  cursor        : pointer;
+  pointer-events: all;
+  overflow      : hidden;
+  border-radius : $base-border-radius;
+  box-shadow    : 1px 1px 3px 0 $base-shadow-color;
+  @include transition(max-height 1s);
+
+  &:not(.closing):not(.opening) {
+    max-height: 5rem;
+  }
+
+  .ui-close,
+  .ui-icon {
+    @include flex-auto();
+  }
+
+  .ui-wrapper {
+    padding: .5em 1em;
+    @include flex-row($wrap:false,$align: flex-start);
+  }
+
+  .ui-icon {
+    font-size  : 1.5em;
+    text-shadow: -1px -1px 0 rgba(0, 0, 0, .1);
+  }
+
+  .ui-close {
+    text-shadow: -1px -1px 0 rgba(0, 0, 0, .1);
+  }
+
+  .ui-message {
+    font-size: .9em;
+    padding  : 0 .5em;
+    @include flex-fill();
+    @include align-self(center);
+
+    h1 {
+      line-height: 1.2;
+      font-weight: 600;
+      margin     : 0;
+      font-size  : 1.2em;
+    }
+
+    p {
+      margin     : 0;
+      line-height: 1.2;
+    }
+  }
+}
+@include toast-theme(light, $light, $dark);
+@include toast-theme(dark, tint($dark,15%));
+@include toast-theme(primary, tint($primary,15%));
+@include toast-theme(secondary, tint($secondary,15%));
+@include toast-theme(info, tint($info,15%));
+@include toast-theme(danger, tint($danger,15%));
+@include toast-theme(success, tint($success,15%));
+@include toast-theme(warning, tint($warning,15%));

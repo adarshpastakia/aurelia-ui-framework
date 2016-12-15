@@ -3,10 +3,13 @@
 // @author      : Adarsh Pastakia
 // @copyright   : 2016
 // @license     : MIT
-import {Container, Lazy, NewInstance} from "aurelia-framework";
+import {Container, Lazy, NewInstance, DOM, TemplatingEngine} from "aurelia-framework";
+import {UIEvent} from "./ui-event";
 
 export module UIUtils {
   export var auContainer: Container;
+  export var dialogContainer: Container;
+  export var overlayContainer: Container;
 
   export function lazy(T): any {
     if (!this.auContainer) {
@@ -22,6 +25,21 @@ export module UIUtils {
     return NewInstance.of(T).get(this.auContainer);
   }
 
+  // Toasts
+  export function toast(options: any) {
+    options = Object.assign({ container: this.overlayContainer, theme: 'dark', timeout: 5000, glyph: 'symbol-info' }, options);
+    let alert = DOM.createElement('div');
+    alert.innerHTML = `<ui-toast class="ui-toast opening" glyph="${options.glyph}" timeout="${options.timeout}" ${options.theme} closeable><h1>${options.title}</h1><p>${options.message}</p></ui-toast>`;
+    if (options.container.children.length > 0)
+      options.container.insertBefore(alert, options.container.children[0]);
+    else
+      options.container.appendChild(alert);
+
+    let engine = this.lazy(TemplatingEngine);
+    UIEvent.queueTask(() => engine.enhance({ element: alert }));
+  }
+
+  // Floating Tether
   export function tether(parent, child, opts?) {
     opts = Object.assign({ resize: true, position: 'bl' }, opts);
     child.style.position = 'fixed';

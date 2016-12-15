@@ -61,9 +61,9 @@
   position     : relative;
   cursor       : pointer;
   display      : inline-block;
-  padding      : .2rem 1rem;
+  padding      : .2em 1em;
   @include transition(padding .5s);
-  @include box-shadow(0 0 2px 0 $base-shadow-color);
+  @include box-shadow(1px 1px 0 0 $base-shadow-color);
 
   span,
   strong {
@@ -91,7 +91,7 @@
     .ui-indicator {
       z-index    : 2;
       text-shadow: none;
-      @include margin(start, -.5rem);
+      @include margin(start, -.5em);
     }
 
     &:after {
@@ -104,7 +104,7 @@
   }
 
   &.ui-square {
-    padding: .2rem;
+    padding: .2em;
   }
 
   &.ui-round {
@@ -112,11 +112,11 @@
   }
 
   &.ui-big {
-    font-size: 1.3rem;
+    font-size: 1.3em;
   }
 
   &.ui-small {
-    font-size  : .7rem;
+    font-size  : .7em;
     font-weight: 600;
   }
 
@@ -134,10 +134,10 @@
 
   &.ui-btn-dropdown {
     &:after {
-      font-size  : .7rem;
+      font-size  : .7em;
       font-family: 'Framework';
       content    : $fi-ui-caret-down;
-      @include padding(start, .5rem);
+      @include padding(start, .5em);
     }
   }
 

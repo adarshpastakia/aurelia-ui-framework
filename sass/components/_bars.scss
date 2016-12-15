@@ -6,10 +6,10 @@
 
 .ui-toolbar {
   z-index         : 5;
-  background-color: $base-bg;
+  background-color: shade($base-bg, 1%);
   border          : 1px solid rgba($base-border-color, .5);
   border-width    : 1px 0;
-  padding         : .2rem .5rem;
+  padding         : .2em .5em;
   @include flex-auto();
   // @include box-shadow(0 0 1px 0 $base-border-color);
   @include flex-row($align:center, $justify:flex-end, $wrap:false);
@@ -20,6 +20,7 @@
 
   .ui-divider {
     display: block;
+    margin : 0 .2rem;
     border : {
       left : 1px solid $dark;
       right: 1px solid $light;
@@ -28,13 +29,13 @@
     @include align-self(stretch);
   }
 
-   > .ui-input-wrapper,
-  > .ui-input-group {
-    margin: 0 .25rem;
+   > .ui-input-group,
+  > .ui-input-wrapper {
+    margin: 0 .25em;
   }
 
-   > .ui-button,
-  > .ui-button-group {
+   > .ui-button-group,
+  > .ui-button {
     margin: 0 .2rem;
   }
 }
@@ -57,30 +58,30 @@
 
   .ui-stat {
     color  : $dark;
-    padding: .25rem .5rem;
+    padding: .25em .5em;
     @include flex-fill();
     @include flex-row($justify:center, $align:center, $wrap:false);
-    
+
     &:not(:first-child) {
       @include border(start, 1px solid rgba($base-border-color, .5));
     }
 
     .ui-icon {
       margin    : 0 .5rem;
-      font-size : 2.5rem;
+      font-size : 2.5em;
       text-align: center;
     }
 
     .ui-stat-value {
       line-height: 1;
-      font-size  : 2rem;
+      font-size  : 2em;
       text-align : center;
       font-weight: 600;
     }
 
     .ui-stat-label {
       color      : $muted;
-      font-size  : .9rem;
+      font-size  : .5em;
       text-align : center;
       font-weight: 400;
     }
@@ -94,7 +95,6 @@
 @include statsbar-theme(danger, lighten($danger,5%));
 @include statsbar-theme(success, lighten($success,5%));
 @include statsbar-theme(warning, lighten($warning,5%));
-
 @include stat-theme(light, $dark, inherit);
 @include stat-theme(dark, $light, inherit);
 @include stat-theme(primary, lighten($primary,5%), inherit);
@@ -103,7 +103,6 @@
 @include stat-theme(danger, lighten($danger,5%), inherit);
 @include stat-theme(success, lighten($success,5%), inherit);
 @include stat-theme(warning, lighten($warning,5%), inherit);
-
 @include stat-theme(light-bg, $dark, $light);
 @include stat-theme(dark-bg, $light, $dark);
 @include stat-theme(primary-bg, $light, lighten($primary,5%));

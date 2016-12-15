@@ -1,0 +1,87 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <table class="browser-list">
+    <tr>
+      <td colspan="7" style="border:none;text-align:right;">
+        <span class="ui-font-small"><img src="images/browsers/success.png" height="12px"/>
+          Tested&nbsp;&nbsp;</span>
+        <span class="ui-font-small"><img src="images/browsers/warning.png" height="12px"/>
+          Untested&nbsp;&nbsp;</span>
+        <span class="ui-font-small"><img src="images/browsers/error.png" height="12px"/>
+          Known Issues</span>
+      </td>
+    </tr>
+    <tr>
+      <td width="180px">&nbsp;</td>
+      <td><img src="images/browsers/safari.png" width="32"/></td>
+      <td><img src="images/browsers/chrome.png" width="32"/></td>
+      <td><img src="images/browsers/firefox.png" width="32"/></td>
+      <td><img src="images/browsers/opera.png" width="32"/></td>
+      <td><img src="images/browsers/edge.png" width="32"/></td>
+    </tr>
+    <tbody>
+      <tr>
+        <td colspan="7">
+          <span class="ui-strong ui-text-primary">Core Components</span>
+        </td>
+      </tr>
+      <tr repeat.for="el of core">
+        <td>${el.label}</td>
+        <td class="op${el.s}"></td>
+        <td class="op${el.c}"></td>
+        <td class="op${el.f}"></td>
+        <td class="op${el.o}"></td>
+        <td class="op${el.e}"></td>
+      </tr>
+    </tbody>
+    <tbody>
+      <tr>
+        <td colspan="7">
+          <span class="ui-strong ui-text-primary">Input Elements</span>
+        </td>
+      </tr>
+      <tr repeat.for="el of inputs">
+        <td>${el.label}</td>
+        <td class="op${el.s}"></td>
+        <td class="op${el.c}"></td>
+        <td class="op${el.f}"></td>
+        <td class="op${el.o}"></td>
+        <td class="op${el.e}"></td>
+      </tr>
+    </tbody>
+    <tbody>
+      <tr>
+        <td colspan="7">
+          <span class="ui-strong ui-text-primary">UI Components</span>
+        </td>
+      </tr>
+      <tr repeat.for="el of comps">
+        <td>${el.label}</td>
+        <td class="op${el.s}"></td>
+        <td class="op${el.c}"></td>
+        <td class="op${el.f}"></td>
+        <td class="op${el.o}"></td>
+        <td class="op${el.e}"></td>
+      </tr>
+    </tbody>
+    <tbody>
+      <tr>
+        <td colspan="7">
+          <span class="ui-strong ui-text-primary">Features</span>
+        </td>
+      </tr>
+      <tr repeat.for="el of features">
+        <td>${el.label}</td>
+        <td class="op${el.s}"></td>
+        <td class="op${el.c}"></td>
+        <td class="op${el.f}"></td>
+        <td class="op${el.o}"></td>
+        <td class="op${el.e}"></td>
+      </tr>
+    </tbody>
+  </table>
+</template>

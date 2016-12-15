@@ -25,7 +25,7 @@
 .ui-panel {
   overflow     : hidden;
   position     : relative;
-  max-height   : 50em;
+  max-height   : 50rem;
   border       : 1px solid $base-border-color;
   border-radius: $base-border-radius;
   @include flex-column($align:stretch);
@@ -50,8 +50,8 @@
 }
 
 .ui-header {
-  line-height  : 2rem;
-  padding      : 0 .5rem;
+  line-height  : 2em;
+  padding      : 0 .5em;
   text-shadow  : -1px -1px 0 rgba(0, 0, 0, .1);
   border-bottom: 1px solid rgba($base-border-color, .3);
   @include flex-auto();

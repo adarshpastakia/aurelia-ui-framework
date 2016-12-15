@@ -83,7 +83,7 @@ export class UIFieldset {
 
 @autoinject()
 @inlineView(`<template class="ui-input-group"><slot name="inputLabel"></slot>
-  <div><div class="ui-group-wrapper"><slot></slot></div><slot name="inputInfo"></slot></div></template>`)
+  <div><div class="ui-group-wrapper" css.bind="{'width':width}"><slot></slot></div><slot name="inputInfo"></slot></div></template>`)
 @customElement('ui-input-group')
 export class UIInputGroup {
   constructor(public element: Element) {
@@ -97,6 +97,8 @@ export class UIInputGroup {
   detached() { }
   unbind() { }
   // end aurelia hooks
+
+  @bindable() width = 'auto';
 }
 
 @autoinject()

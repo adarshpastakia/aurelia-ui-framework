@@ -5,14 +5,14 @@
 // @license     : MIT
 
 .ui-switch-control {
-  height: 1.5rem;
+  height: 1.5em;
   @include flex-row($display: inline-flex, $wrap:false);
 
   .ui-switch-label {
     color      : $input-label-text;
-    font-size  : .8rem;
-    line-height: 1rem;
-    padding    : 0 .25rem;
+    font-size  : .8em;
+    line-height: 1em;
+    padding    : 0 .25em;
     @include ellipsis();
     @include flex(0 1 auto);
   }
@@ -24,7 +24,7 @@
     position     : relative;
     border-radius: 1em;
     min-width    : 3em;
-    height       : 1.25rem;
+    height       : 1.25em;
     direction    : ltr;
     @include flex-auto();
     @include box-shadow(0 0 0 1px $base-border-color);
@@ -58,8 +58,8 @@
       text-transform  : uppercase;
       border-radius   : inherit;
       background-color: $light;
-      line-height     : 1.25rem;
-      font-size       : .7rem;
+      line-height     : 1.8em;
+      font-size       : .7em;
       @include transition(background .25s ease-out);
     }
 
@@ -98,10 +98,10 @@
     }
 
     .ui-switch-handle {
-      width         : 1rem;
-      height        : 1rem;
-      border-radius : 1rem;
-      margin        : .1rem;
+      width         : 1em;
+      height        : 1em;
+      border-radius : 1em;
+      margin        : .1em;
       background    : $white linear-gradient(top, $white, desaturate($white, 5%));
       border        : 1px solid $base-border-color;
       box-shadow    : 1px 0 2px 0 rgba(0, 0, 0, .2);
@@ -112,7 +112,7 @@
 
     .ui-switch-input:checked ~ .ui-switch-handle {
       left       : 100%;
-      margin-left: -1.15rem;
+      margin-left: -1.15em;
       box-shadow : -1px 0 2px 0 rgba(0, 0, 0, .2);
     }
   }

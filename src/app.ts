@@ -93,7 +93,7 @@ export class App {
         title: 'Viewport',
         nav: true,
         auth: false,
-        settings: { section: 'Core Elements' },
+        settings: { section: 'Core Components' },
         name: 'viewport'
       }, {
         route: 'pages',
@@ -101,7 +101,7 @@ export class App {
         title: 'Pages',
         nav: true,
         auth: false,
-        settings: { section: 'Core Elements' },
+        settings: { section: 'Core Components' },
         name: 'pages'
       }, {
         route: 'grid',
@@ -109,7 +109,7 @@ export class App {
         title: 'Responsive Grid',
         nav: true,
         auth: false,
-        settings: { section: 'Core Elements' },
+        settings: { section: 'Core Components' },
         name: 'grid'
       }, {
         route: 'inputs-buttons',
@@ -216,13 +216,21 @@ export class App {
         settings: { section: 'UI Components' },
         name: 'panels'
       }, {
-        route: 'dialog',
-        moduleId: './components/dialog',
+        route: 'dialogs',
+        moduleId: './components/dialogs',
         title: 'Dialogs',
         nav: true,
         auth: false,
         settings: { section: 'UI Components' },
-        name: 'dialog'
+        name: 'dialogs'
+      }, {
+        route: 'alerts',
+        moduleId: './components/alerts',
+        title: 'Alerts',
+        nav: true,
+        auth: false,
+        settings: { section: 'UI Components' },
+        name: 'alerts'
       }, {
         route: 'datagrid',
         moduleId: './components/datagrid',
@@ -255,6 +263,38 @@ export class App {
         auth: false,
         settings: { section: 'UI Components' },
         name: 'tree'
+      }, {
+        route: 'app',
+        moduleId: './api/app',
+        title: 'Application',
+        nav: true,
+        auth: false,
+        settings: { section: 'API Classes' },
+        name: 'app'
+      }, {
+        route: 'http',
+        moduleId: './api/http',
+        title: 'HTTP Client',
+        nav: true,
+        auth: false,
+        settings: { section: 'API Classes' },
+        name: 'http'
+      }, {
+        route: 'data',
+        moduleId: './api/data',
+        title: 'Data Model',
+        nav: true,
+        auth: false,
+        settings: { section: 'API Classes' },
+        name: 'data'
+      }, {
+        route: 'event',
+        moduleId: './api/event',
+        title: 'Event Handling',
+        nav: true,
+        auth: false,
+        settings: { section: 'API Classes' },
+        name: 'event'
       }]);
   }
 }

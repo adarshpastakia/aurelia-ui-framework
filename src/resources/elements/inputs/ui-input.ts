@@ -91,6 +91,8 @@ export class UIInput extends UIBaseInput {
   created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     super.bind.call(this, arguments);
+    if (this.number) this.numberChanged(this.number);
+    if (this.decimal) this.decimalChanged(this.decimal);
   }
   attached() { }
   detached() { }

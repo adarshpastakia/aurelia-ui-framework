@@ -28,7 +28,7 @@
   .ui-app-header {
     background: $app-header-bg;
     color     : $app-header-text;
-    padding   : 0 .5rem;
+    padding   : 0 .5em;
     @include flex-row($align:center, $wrap:false);
 
     .ui-app-title {
@@ -39,7 +39,7 @@
     > :first-child {}
 
     .ui-app-logo {
-      height: 3rem;
+      height: 3em;
     }
 
     .ui-link {
@@ -60,7 +60,7 @@
     @include flex-row($justify:space-between, $wrap:false);
     background : $app-footer-bg;
     color      : $app-footer-text;
-    padding    : 0 .5rem;
+    padding    : 0 .5em;
     line-height: 1.5;
   }
 
@@ -86,8 +86,8 @@
 
       background   : $base-bg;
       overflow     : hidden;
-      padding      : 1rem;
-      font-size    : 2rem;
+      padding      : 1em;
+      font-size    : 2em;
       z-index      : $z-index-splash;
       border-radius: $base-border-radius;
     }
@@ -105,10 +105,15 @@
 
   .ui-overlay-container {
     overflow      : hidden;
-    padding       : 3rem 0 1rem;
+    padding       : 3em 0 1em;
     pointer-events: none;
     z-index       : $z-index-toast;
     @include position(absolute, 0);
     @include flex-column(flex-end, flex-start);
+
+    .ui-toast {
+      max-width : 18rem;
+      box-shadow: 0 0 .5em 0 rgba(0,0,0,0.25);
+    }
   }
 }

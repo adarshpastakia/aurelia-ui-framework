@@ -22,11 +22,11 @@
 
   .ui-tree-level {
     z-index: 10;
-    @include padding(start, .5rem);
+    @include padding(start, .5em);
   }
 
   .ui-tree-level .ui-tree-level {
-    @include padding(start, .9rem);
+    @include padding(start, .9em);
   }
 
   .ui-tree-item {
@@ -43,7 +43,7 @@
 
     a.ui-expander {
       color        : $muted;
-      font-size    : .9rem;
+      font-size    : .9em;
       border-radius: .2em;
       @include flex(0 0 auto);
 
@@ -54,8 +54,8 @@
 
     a.ui-node-checkbox {
       color    : $dark;
-      font-size: .9rem;
-      margin   : 0 .2rem;
+      font-size: .9em;
+      margin   : 0 .2em;
       @include flex(0 0 auto);
 
       &:hover {
@@ -68,16 +68,16 @@
     }
 
     a.ui-node-link {
-      font-size  : .9rem;
+      font-size  : .9em;
       white-space: nowrap;
       color      : $base-text;
-      padding    : 0 .25rem;
-      line-height: 1.5rem;
+      padding    : 0 .25em;
+      line-height: 1.8em;
       @include flex(1 1 1em);
       @include flex-row($wrap: false);
 
       span.ui-icon {
-        margin     : 0 .2rem;
+        margin     : 0 .2em;
         font-weight: normal;
       }
 

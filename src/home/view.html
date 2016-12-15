@@ -225,117 +225,38 @@
             </ui-column>
           </ui-row>
 
-          <h5 class="section-title">App Modules</h5>
+          <h5 class="section-title">API Classes</h5>
           <ui-row>
             <ui-column padded size="sm-6 md-4 lg-6 xl-3">
-              <a href="#/application/">Application
+              <a href="#/app/">Application
                 <small class="fi-ui-arrow-right"></small>
               </a>
               <p class="ui-thin">Application singleton for common functionality shared across entire app</p>
             </ui-column>
             <ui-column padded size="sm-6 md-4 lg-6 xl-3">
-              <a href="#/http-client/">Http Client
+              <a href="#/http/">Http Client
                 <small class="fi-ui-arrow-right"></small>
               </a>
               <p class="ui-thin">Extended aurelia-fetch-client for http requests</p>
             </ui-column>
             <ui-column padded size="sm-6 md-4 lg-6 xl-3">
-              <a href="#/data-model/">Data Model
+              <a href="#/data/">Data Model
                 <small class="fi-ui-arrow-right"></small>
               </a>
               <p class="ui-thin">Generic data model for serializing/desrializing pojo data</p>
             </ui-column>
             <ui-column padded size="sm-6 md-4 lg-6 xl-3">
-              <a href="#/value-converters/">Value Converters
+              <a href="#/event/">Event Handling
                 <small class="fi-ui-arrow-right"></small>
               </a>
-              <p class="ui-thin">Basic value converters for strings and collections</p>
+              <p class="ui-thin">Helper class for event broadcast, subscribe and task queues</p>
             </ui-column>
           </ui-row>
         </ui-column>
 
         <ui-column auto padded>
           <h5 class="section-title">Browser Support</h5>
-          <table class="browser-list">
-            <tr>
-              <td colspan="7" style="border:none;text-align:right;">
-                <span class="ui-font-small"><img src="images/browsers/success.png" height="12px"/>
-                  Tested&nbsp;&nbsp;</span>
-                <span class="ui-font-small"><img src="images/browsers/warning.png" height="12px"/>
-                  Untested&nbsp;&nbsp;</span>
-                <span class="ui-font-small"><img src="images/browsers/error.png" height="12px"/>
-                  Known Issues</span>
-              </td>
-            </tr>
-            <tr>
-              <td width="180px">&nbsp;</td>
-              <td><img src="images/browsers/safari.png" width="32"/></td>
-              <td><img src="images/browsers/chrome.png" width="32"/></td>
-              <td><img src="images/browsers/firefox.png" width="32"/></td>
-              <td><img src="images/browsers/opera.png" width="32"/></td>
-              <td><img src="images/browsers/edge.png" width="32"/></td>
-            </tr>
-            <tbody>
-              <tr>
-                <td colspan="7">
-                  <span class="ui-strong ui-text-primary">Core Components</span>
-                </td>
-              </tr>
-              <tr repeat.for="el of core">
-                <td>${el.label}</td>
-                <td class="op${el.s}"></td>
-                <td class="op${el.c}"></td>
-                <td class="op${el.f}"></td>
-                <td class="op${el.o}"></td>
-                <td class="op${el.e}"></td>
-              </tr>
-            </tbody>
-            <tbody>
-              <tr>
-                <td colspan="7">
-                  <span class="ui-strong ui-text-primary">Input Elements</span>
-                </td>
-              </tr>
-              <tr repeat.for="el of inputs">
-                <td>${el.label}</td>
-                <td class="op${el.s}"></td>
-                <td class="op${el.c}"></td>
-                <td class="op${el.f}"></td>
-                <td class="op${el.o}"></td>
-                <td class="op${el.e}"></td>
-              </tr>
-            </tbody>
-            <tbody>
-              <tr>
-                <td colspan="7">
-                  <span class="ui-strong ui-text-primary">UI Components</span>
-                </td>
-              </tr>
-              <tr repeat.for="el of comps">
-                <td>${el.label}</td>
-                <td class="op${el.s}"></td>
-                <td class="op${el.c}"></td>
-                <td class="op${el.f}"></td>
-                <td class="op${el.o}"></td>
-                <td class="op${el.e}"></td>
-              </tr>
-            </tbody>
-            <tbody>
-              <tr>
-                <td colspan="7">
-                  <span class="ui-strong ui-text-primary">Features</span>
-                </td>
-              </tr>
-              <tr repeat.for="el of features">
-                <td>${el.label}</td>
-                <td class="op${el.s}"></td>
-                <td class="op${el.c}"></td>
-                <td class="op${el.f}"></td>
-                <td class="op${el.o}"></td>
-                <td class="op${el.e}"></td>
-              </tr>
-            </tbody>
-          </table>
+          <compose view="./browser.html"></compose>
         </ui-column>
       </ui-row>
 

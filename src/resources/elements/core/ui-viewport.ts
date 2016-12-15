@@ -15,8 +15,8 @@ import {UIEvent} from "../../utils/ui-event";
   <slot name="ui-app-taskbar"></slot>
   <slot name="ui-app-footer"></slot>
   
-  <div class="ui-dialog-container" ref="__dialogContainer"></div>
-  <div class="ui-overlay-container" ref="__overlayContainer"></div>
+  <div class="ui-dialog-container" ref="dialogContainer"></div>
+  <div class="ui-overlay-container" ref="overlayContainer"></div>
 
   <div class="ui-loader" show.bind="router.isNavigating || httpClient.isRequesting">
     <div class="ui-loader-div">
@@ -34,6 +34,7 @@ export class UIViewport {
     // Browser events hooks
     document.ondragstart = (e: any) => getParentByClass(e.target, '.ui-draggable') != null;
     document.onmouseup = (e: any) => UIEvent.broadcast('mouseclick', e);
+    document.ontouchstart = (e: any) => UIEvent.broadcast('mouseclick', e);
     window.onresize = (e: any) => {
       window.clearTimeout(__resizeTimer);
       window.setTimeout(() => UIEvent.broadcast('windowresize'), 500);
@@ -44,6 +45,8 @@ export class UIViewport {
   created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) { }
   attached() {
+    UIUtils.dialogContainer = this.dialogContainer;
+    UIUtils.overlayContainer = this.overlayContainer;
     // Fire appready event
     UIEvent.fireEvent('appready', this.element);
 
@@ -53,6 +56,9 @@ export class UIViewport {
   detached() { }
   unbind() { }
   // end aurelia hooks
+
+  private dialogContainer;
+  private overlayContainer;
 }
 
 @autoinject()

@@ -10,11 +10,17 @@
         <ui-row>
           <ui-column full>
             <ui-fieldset legend="Basic Inputs">
+              <div ref="inlineContainer"></div>
+              <ui-toast timeout="0" glyph="icon-notify" danger closeable>Test alert message</ui-toast>
               <ui-row>
                 <ui-column size="md-6" padded>
                   <ui-input-group>
                     <ui-input-label required>Text</ui-input-label>
-                    <ui-input placeholder="Any text..."></ui-input>
+                    <ui-input placeholder="Any text...">
+                      <ui-input-addon>
+                        <small class="ui-strong ui-text-info">User</small>
+                      </ui-input-addon>
+                    </ui-input>
                     <ui-button secondary glyph="arrow-right"></ui-button>
                   </ui-input-group>
                   <ui-input-group>
@@ -53,9 +59,9 @@
                   </ui-input-group>
                   <ui-input-group>
                     <ui-input-label>Double Input</ui-input-label>
-                    <ui-input-addon class="ui-text-warning" glyph="icon-placeholder-line"></ui-input-addon>
+                    <ui-input-addon class="ui-text-warning" glyph="icon-placeholder"></ui-input-addon>
                     <ui-input decimal placeholder="Latitude..." info="Latitude"></ui-input>
-                    <ui-input-addon class="ui-text-warning" glyph="icon-placeholder-line"></ui-input-addon>
+                    <ui-input-addon class="ui-text-warning" glyph="icon-placeholder"></ui-input-addon>
                     <ui-input decimal placeholder="Longitude..." info="Longitude"></ui-input>
                   </ui-input-group>
                 </ui-column>
@@ -82,7 +88,9 @@
                   <ui-input-group>
                     <ui-input-label>Counter</ui-input-label>
                     <ui-input counter value="Text value"></ui-input>
-                    <ui-input-info class="ui-text-muted">Display remaining length</ui-input-info>
+                    <ui-input-info class="ui-text-muted">
+                      <ui-glyph class="ui-text-danger" glyph="icon-help"></ui-glyph>
+                      Display remaining length</ui-input-info>
                   </ui-input-group>
                 </ui-column>
                 <ui-column size="md-6" padded>
@@ -105,6 +113,7 @@
                       <ui-input-addon glyph="icon-phone-line"></ui-input-addon>
                     </ui-phone>
                   </ui-input-group>
+
                 </ui-column>
                 <ui-column size="md-6" padded>
                   <hr/>

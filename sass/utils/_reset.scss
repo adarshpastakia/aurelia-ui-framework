@@ -37,7 +37,7 @@ html {
   @include box-sizing(border-box);
   @include selection($secondary, contrast-color($secondary));
   @include input-placeholder {
-    // color: rgba($input-placeholder,.5);
+    color: rgba($input-text,.3);
   }
 }
 
@@ -102,7 +102,7 @@ textarea {
 
 input,
 textarea {
-  font-size  : 1rem;
+  font-size  : 1em;
   line-height: 1;
   outline    : none !important;
   font-family: $base-font-family-input;
