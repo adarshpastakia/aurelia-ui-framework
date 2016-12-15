@@ -7,6 +7,7 @@ install:
   - gem install compass
   - npm install -g gulpjs/gulp#4.0 typescript aurelia-cli gulp-sass gulp-compass
   - npm install
+  - typings install
 script:
   - gulp build-ts
   - gulp sass
