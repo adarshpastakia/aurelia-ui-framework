@@ -12,7 +12,7 @@ export class App {
   router: Router;
   configureRouter(config: RouterConfiguration, router: Router) {
     this.router = router;
-    // config.title = UIConstants.App.Title;
+    config.title = 'Aurelia UI Framework';
     config.mapUnknownRoutes({
       route: '404',
       moduleId: './home/view',
@@ -23,7 +23,6 @@ export class App {
       {
         route: ['', 'home'],
         moduleId: './home/view',
-        title: 'Home',
         nav: false,
         auth: false,
         name: 'home'
@@ -46,12 +45,14 @@ export class App {
       }, {
         route: 'theme/*path',
         moduleId: './styles/view',
+        title: 'Theming',
         nav: false,
         auth: false,
         name: 'theme'
       }, {
         route: 'inputs/*path',
         moduleId: './inputs/view',
+        title: 'Input Elements',
         nav: false,
         auth: false,
         name: 'inputs'
