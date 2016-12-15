@@ -49,4 +49,7 @@ export class CompAlerts {
   openConfirm() {
     UIUtils.confirm(this.alert).then(b => UIUtils.toast({ theme: b ? 'success' : 'danger', message: b ? "That's Correct!!" : "That's Wrong!!" }));
   }
+  openPrompt() {
+    UIUtils.prompt(this.alert).then(b => UIUtils.toast({ theme: b ? 'success' : 'danger', message: b || '---', title: b !== null ? 'You entered ' : 'Prompt was cancelled' }));
+  }
 }

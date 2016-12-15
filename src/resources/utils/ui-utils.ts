@@ -3,7 +3,7 @@
 // @author      : Adarsh Pastakia
 // @copyright   : 2016
 // @license     : MIT
-import {Container, Lazy, NewInstance, DOM, TemplatingEngine} from "aurelia-framework";
+import {Container, Lazy, NewInstance, DOM, TemplatingEngine, ViewCompiler} from "aurelia-framework";
 import {UIEvent} from "./ui-event";
 
 export module UIUtils {
@@ -66,8 +66,29 @@ export module UIUtils {
     let opts = { glyph: 'symbol-question', message: '', title: '', okLabel: 'OK', cancelLabel: 'Cancel' };
     if (isString(options)) opts.message = options;
     else opts = Object.assign(opts, options);
+
     let alert = DOM.createElement('div');
     alert.innerHTML = `<ui-alert confirm close.trigger="closing($event)" class="ui-alert-shim" glyph="${opts.glyph}" cancel-label="${opts.cancelLabel}" ok-label="${opts.okLabel}"><h1>${opts.title}</h1><p>${opts.message}</p></ui-alert>`;
+    this.dialogContainer.appendChild(alert);
+
+    let engine = this.lazy(TemplatingEngine);
+    return new Promise((resolve, reject) => {
+      UIEvent.queueTask(() => engine.enhance({
+        element: alert, bindingContext: {
+          closing: function(evt) {
+            resolve(evt.detail);
+          }
+        }
+      }));
+    });
+  }
+
+  export function prompt(options: any) {
+    let opts = { glyph: 'symbol-question', message: '', title: '', okLabel: 'OK', cancelLabel: 'Cancel', type: 'single', };
+    if (isString(options)) opts.message = options;
+    else opts = Object.assign(opts, options);
+    let alert = DOM.createElement('div');
+    alert.innerHTML = `<ui-prompt ${opts.type} close.trigger="closing($event)" class="ui-alert-shim" glyph="${opts.glyph}" cancel-label="${opts.cancelLabel}" ok-label="${opts.okLabel}"><h1>${opts.title}</h1><p>${opts.message}</p></ui-prompt>`;
     this.dialogContainer.appendChild(alert);
 
     let engine = this.lazy(TemplatingEngine);

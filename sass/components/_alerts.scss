@@ -120,9 +120,13 @@
       }
     }
 
+    .ui-input-group {
+      margin: 0 1.5rem 1.5rem;
+    }
+
     .ui-button-bar {
-      padding   : .5rem 1rem;
-      box-shadow: 0 1px 0 0 rgba(0,0,0,.01) inset;
+      padding   : 1rem 1.5rem;
+      box-shadow: 0 1px 0 0 rgba(0,0,0,.05) inset;
       @include flex-row($wrap:false,$align: center, $justify:center);
 
       button {

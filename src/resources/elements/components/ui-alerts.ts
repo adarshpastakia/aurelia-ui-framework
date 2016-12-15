@@ -59,7 +59,7 @@ export class UIToast {
 @customElement('ui-alert')
 export class UIAlert {
   constructor(public element: Element) {
-    console.log(this.confirm = element.hasAttribute("confirm"));
+    this.confirm = element.hasAttribute('confirm');
   }
 
   // aurelia hooks
@@ -96,5 +96,63 @@ export class UIAlert {
     let key = ($event.keyCode || $event.which);
     if (key == 13) this.closeAlert(true);
     if (key == 27) this.closeAlert(false);
+  }
+}
+
+@autoinject()
+@inlineView(`<template class="ui-alert-shim"><div class="ui-alert">
+  <div class="ui-wrapper">
+  <ui-glyph glyph.bind="glyph" if.bind="glyph"></ui-glyph>
+  <span class="ui-message"><slot><slot></span></div>
+  <ui-input-group>
+    <ui-input class="\${changed && value==''?'ui-invalid':''}" errors.bind="changed && value==''?['Value needed']:null" if.bind="!multiline" ref="focusBlock" value.bind="value" keydown.trigger="checkKey($event)" blur.trigger="cancelBlur($event)"></ui-input>
+    <ui-textarea class="\${changed && value==''?'ui-invalid':''}" errors.bind="changed && value==''?['Value needed']:null" if.bind="multiline" rows="4" ref="focusBlock" value.bind="value" keydown.trigger="checkKey($event)" blur.trigger="cancelBlur($event)"></ui-textarea>
+  </ui-input-group>
+  <div class="ui-button-bar"><button click.trigger="closeAlert(true)">\${okLabel}</button><button click.trigger="closeAlert(false)">\${cancelLabel}</button></div>
+  </div></template>`)
+@customElement('ui-prompt')
+export class UIPrompt {
+  constructor(public element: Element) {
+    this.multiline = element.hasAttribute('multiline');
+  }
+
+  // aurelia hooks
+  created(owningView: View, myView: View) { }
+  bind(bindingContext: Object, overrideContext: Object) {
+    UIEvent.queueTask(() => {
+      this.element.classList.add('open');
+      if (this.focusBlock) this.focusBlock.focus();
+    });
+  }
+  attached() { }
+  detached() { }
+  unbind() { }
+  // end aurelia hooks
+
+  @bindable() glyph = '';
+  @bindable() value = '';
+  @bindable() okLabel = 'OK';
+  @bindable() cancelLabel = 'Cancel';
+
+  private changed = false;
+  private multiline = false;
+  private focusBlock;
+
+  closeAlert(b) {
+    if (b && isEmpty(this.value)) return this.changed = true;
+    UIEvent.fireEvent('close', this.element, b ? this.value : null);
+    this.element.classList.remove('open');
+    setTimeout(() => DOM.removeNode(this.element), 100);
+  }
+  cancelBlur($event) {
+    $event.preventDefault();
+    this.focusBlock.focus();
+    return false;
+  }
+  checkKey($event) {
+    let key = ($event.keyCode || $event.which);
+    if (!this.multiline && key == 13) this.closeAlert(true);
+    if (key == 27) this.closeAlert(false);
+    return true;
   }
 }

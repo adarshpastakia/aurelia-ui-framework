@@ -37,51 +37,54 @@ import './elements/inputs/ui-options';
 import './elements/inputs/ui-phone';
 import './elements/inputs/ui-textarea';
 
+import './elements/components/ui-alerts';
 import './elements/components/ui-bars';
 import './elements/components/ui-breadcrumb';
 import './elements/components/ui-drawer';
 import './elements/components/ui-dropdown';
 import './elements/components/ui-menu';
 import './elements/components/ui-panel';
-import './elements/components/ui-alerts';
 import './elements/components/ui-sidebar';
 import './elements/components/ui-tab';
 import './elements/components/ui-tree';
 
+import './value-converters/ui-lodash';
+import './value-converters/ui-text';
+
 export function configure(config: FrameworkConfiguration) {
   // Core Elements
   config.globalResources([
-    './elements/core/ui-viewport',
     './elements/core/ui-grid',
-    './elements/core/ui-page'
+    './elements/core/ui-page',
+    './elements/core/ui-viewport'
   ]);
   // Input Elements
   config.globalResources([
-    './elements/inputs/ui-form',
     './elements/inputs/ui-button',
+    './elements/inputs/ui-form',
     './elements/inputs/ui-input',
-    './elements/inputs/ui-phone',
     './elements/inputs/ui-lists',
     './elements/inputs/ui-options',
+    './elements/inputs/ui-phone',
     './elements/inputs/ui-textarea'
   ]);
   // Components
   config.globalResources([
-    './elements/components/ui-panel',
-    './elements/components/ui-tab',
-    './elements/components/ui-bars',
-    './elements/components/ui-menu',
-    './elements/components/ui-tree',
     './elements/components/ui-alerts',
+    './elements/components/ui-bars',
+    './elements/components/ui-breadcrumb',
     './elements/components/ui-drawer',
-    './elements/components/ui-sidebar',
     './elements/components/ui-dropdown',
-    './elements/components/ui-breadcrumb'
+    './elements/components/ui-menu',
+    './elements/components/ui-panel',
+    './elements/components/ui-sidebar',
+    './elements/components/ui-tab',
+    './elements/components/ui-tree'
   ]);
   // Value Converters
   config.globalResources([
-    './value-converters/ui-text',
-    './value-converters/ui-lodash'
+    './value-converters/ui-lodash',
+    './value-converters/ui-text'
   ]);
 
   // LoDash Mixins
