@@ -27,6 +27,7 @@ export class UIToast {
   // aurelia hooks
   created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
+    if (bindingContext) Object.assign(this, bindingContext);
     UIEvent.queueTask(() => {
       this.element.classList.add('open');
       if (!isNaN(this.timeout) && parseInt(this.timeout + '') > 0) {
@@ -65,6 +66,7 @@ export class UIAlert {
   // aurelia hooks
   created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
+    if (bindingContext) Object.assign(this, bindingContext);
     UIEvent.queueTask(() => {
       this.element.classList.add('open');
       if (this.focusBlock) this.focusBlock.focus();
@@ -78,14 +80,17 @@ export class UIAlert {
   @bindable() glyph = '';
   @bindable() okLabel = 'OK';
   @bindable() cancelLabel = 'Cancel';
+  @bindable() closeCallback;
 
   private confirm = false;
   private focusBlock;
 
   closeAlert(b) {
-    UIEvent.fireEvent('close', this.element, b);
     this.element.classList.remove('open');
-    setTimeout(() => DOM.removeNode(this.element), 100);
+    setTimeout(() => {
+      if (this.closeCallback) this.closeCallback(b);
+      DOM.removeNode(this.element);
+    }, 100);
   }
   cancelBlur($event) {
     $event.preventDefault();
@@ -119,6 +124,7 @@ export class UIPrompt {
   // aurelia hooks
   created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
+    if (bindingContext) Object.assign(this, bindingContext);
     UIEvent.queueTask(() => {
       this.element.classList.add('open');
       if (this.focusBlock) this.focusBlock.focus();
@@ -130,19 +136,22 @@ export class UIPrompt {
   // end aurelia hooks
 
   @bindable() glyph = '';
-  @bindable() value = '';
   @bindable() okLabel = 'OK';
   @bindable() cancelLabel = 'Cancel';
+  @bindable() closeCallback;
 
   private changed = false;
   private multiline = false;
   private focusBlock;
+  private value = '';
 
   closeAlert(b) {
     if (b && isEmpty(this.value)) return this.changed = true;
-    UIEvent.fireEvent('close', this.element, b ? this.value : null);
     this.element.classList.remove('open');
-    setTimeout(() => DOM.removeNode(this.element), 100);
+    setTimeout(() => {
+      if (this.closeCallback) this.closeCallback(b ? this.value : null);
+      DOM.removeNode(this.element);
+    }, 100);
   }
   cancelBlur($event) {
     $event.preventDefault();

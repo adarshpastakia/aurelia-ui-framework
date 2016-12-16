@@ -1,0 +1,158 @@
+// 
+// @description : 
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+
+.ui-app-taskbar {
+  border-top      : 1px solid rgba($base-shadow-color, .3);
+  background-color: shade($base-bg, 1%);
+  @include flex-row($wrap: false);
+
+  .ui-app-taskbar-tools {
+    @include flex-auto();
+  }
+
+  .ui-taskbutton-wrapper {
+    @include flex-row();
+    @include flex-fill();
+
+    > button {
+      background: none;
+      color     : $dark;
+      margin    : .05rem;
+      font-size : .8rem;
+      max-width : 8rem;
+      border    : 1px solid shade($base-bg, 10%);
+      @include ellipsis();
+
+      span {
+        pointer-events: none;
+      }
+
+      &:hover {
+        background: rgba($secondary, .2);
+      }
+
+      &.ui-active {
+        color     : $white;
+        background: rgba($secondary, .8);
+      }
+    }
+  }
+}
+
+.ui-dialog-container {
+  &.ui-dragging {
+    pointer-events: all;
+  }
+
+  .ui-dialog-wrapper {
+    padding: 1em 1em 3em;
+    @include position(absolute,0);
+
+    &.ui-modal {
+      pointer-events: all;
+      z-index       : $z-index-dialog+10;
+      background    : rgba(0,0,0,.05);
+      @include flex-column(center, center);
+
+      > .ui-dialog {
+        top : 0 !important;
+        left: 0 !important;
+      }
+    }
+
+    .ui-dialog {
+      pointer-events: all;
+      position      : relative;
+      top           : 0;
+      left          : 0;
+      overflow      : hidden;
+      background    : $base-bg;
+      z-index       : $z-index-dialog;
+      border-radius : $base-border-radius;
+      box-shadow    : 0 0 30px 0 rgba(0,0,0,.15);
+      @include transition(all .25s);
+      @include flex-column($align: stretch, $justify : flex-start);
+
+      .ui-header {
+        z-index   : 5;
+        box-shadow: 0 1px 0 0 $base-bg;
+
+        .ui-header-button {
+          font-size: .8rem;
+        }
+      }
+
+      .ui-resizer {
+        position   : absolute;
+        cursor     : nwse-resize;
+        z-index    : 5;
+        right      : 0;
+        bottom     : 0;
+        line-height: 1;
+        opacity    : .3 !important;
+
+        &:active,
+        &:hover {
+          opacity: .6 !important;
+        }
+      }
+
+      &.ui-maximize {
+        top   : 0 !important;
+        left  : 0 !important;
+        width : 100% !important;
+        height: 100% !important;
+        @include transform(translateY(0%));
+
+        .ui-resizer {
+          display: none;
+        }
+
+        .ui-expand .ui-icon:before {
+          content: $fi-ui-dialog-restore;
+        }
+      }
+
+      &.ui-minimize {
+        min-height: 0 !important;
+        min-width : 0 !important;
+        height    : 2rem !important;
+        width     : 10em !important;
+        margin-top: 100% !important;
+
+        > :not(.ui-header) {
+          visibility: hidden;
+        }
+      }
+
+      &.ui-active {
+        z-index   : 5;
+        box-shadow: 0 0 0 1px $base-bg, 0 0 30px 5px rgba(0,0,0,.2);
+      }
+
+      &.ui-inactive {
+        z-index: 1;
+
+        > .ui-header {
+          opacity: .75;
+        }
+
+        > :not(.ui-header) {
+          opacity: .85;
+        }
+      }
+
+      &.ui-dragging {
+        @include transition(none);
+        background: rgba($base-bg,.95);
+
+        > :not(.ui-header) {
+          opacity: .3;
+        }
+      }
+    }
+  }
+}

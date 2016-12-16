@@ -12,7 +12,7 @@ import {UIEvent} from "../../utils/ui-event";
 @inlineView(`<template class="ui-viewport ui-fullscreen">
   <slot name="ui-app-header"></slot>
   <slot></slot>
-  <slot name="ui-app-taskbar"></slot>
+  <div class="ui-app-taskbar"><slot name="ui-app-taskbar"></slot><div class="ui-taskbutton-wrapper" ref="taskbarContainer"></div></div>
   <slot name="ui-app-footer"></slot>
   
   <div class="ui-dialog-container" ref="dialogContainer"></div>
@@ -47,6 +47,7 @@ export class UIViewport {
   attached() {
     UIUtils.dialogContainer = this.dialogContainer;
     UIUtils.overlayContainer = this.overlayContainer;
+    UIUtils.taskbarContainer = this.taskbarContainer;
     // Fire appready event
     UIEvent.fireEvent('appready', this.element);
 
@@ -59,6 +60,7 @@ export class UIViewport {
 
   private dialogContainer;
   private overlayContainer;
+  private taskbarContainer;
 }
 
 @autoinject()
@@ -115,9 +117,9 @@ export class UIAppFooter {
 
 @autoinject()
 @containerless()
-@inlineView('<template><div class="ui-app-taskbar ${class}" slot="ui-app-taskbar"><slot></slot></div></template>')
-@customElement('ui-app-taskbar')
-export class UIAppTaskbar {
+@inlineView('<template><div class="ui-app-taskbar-tools ${class}" slot="ui-app-taskbar"><slot></slot></div></template>')
+@customElement('ui-app-quick-links')
+export class UIAppQuickLinks {
   constructor(public element: Element) { }
 
   // aurelia hooks

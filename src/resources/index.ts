@@ -20,6 +20,7 @@ export var kramed = km;
 export var moment = mm;
 export var numeral = nm;
 
+export * from './utils/ui-dialog';
 export * from './utils/ui-event';
 export * from './utils/ui-format';
 export * from './utils/ui-tree-model';

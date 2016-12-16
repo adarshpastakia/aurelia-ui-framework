@@ -8,8 +8,9 @@ import {UIEvent} from "./ui-event";
 
 export module UIUtils {
   export var auContainer: Container;
-  export var dialogContainer: Container;
-  export var overlayContainer: Container;
+  export var dialogContainer: Element;
+  export var overlayContainer: Element;
+  export var taskbarContainer: Element;
 
   export function lazy(T): any {
     if (!this.auContainer) {
@@ -30,15 +31,22 @@ export module UIUtils {
     let opts = { container: this.overlayContainer, theme: 'dark', timeout: 5000, glyph: 'symbol-info', message: '', title: '' };
     if (isString(options)) opts.message = options;
     else opts = Object.assign(opts, options);
-    let toast = DOM.createElement('div');
-    toast.innerHTML = `<ui-toast class="ui-toast" glyph="${opts.glyph}" timeout="${opts.timeout}" ${opts.theme}><h1>${opts.title}</h1><p>${opts.message}</p></ui-toast>`;
+    let toast = DOM.createElement('ui-toast');
+    toast.classList.add('ui-toast');
+    toast.classList.add(opts.theme);
+    toast.innerHTML = `<h1>${opts.title}</h1><p>${opts.message}</p>`;
     if (opts.container.children.length > 0)
       opts.container.insertBefore(toast, opts.container.children[0]);
     else
       opts.container.appendChild(toast);
 
     let engine = this.lazy(TemplatingEngine);
-    UIEvent.queueTask(() => engine.enhance({ element: toast }));
+    UIEvent.queueTask(() => engine.enhance({
+      element: toast, bindingContext: {
+        glyph: opts.glyph,
+        timeout: opts.timeout
+      }
+    }));
   }
 
   // Alerts
@@ -46,16 +54,19 @@ export module UIUtils {
     let opts = { glyph: 'symbol-info', message: '', title: '', okLabel: 'OK' };
     if (isString(options)) opts.message = options;
     else opts = Object.assign(opts, options);
-    let alert = DOM.createElement('div');
-    alert.innerHTML = `<ui-alert close.trigger="closing($event)" class="ui-alert-shim" glyph="${opts.glyph}" ok-label="${opts.okLabel}"><h1>${opts.title}</h1><p>${opts.message}</p></ui-alert>`;
+    let alert = DOM.createElement('ui-alert');
+    alert.classList.add('ui-alert-shim');
+    alert.innerHTML = `<h1>${opts.title}</h1><p>${opts.message}</p>`;
     this.dialogContainer.appendChild(alert);
 
     let engine = this.lazy(TemplatingEngine);
     return new Promise((resolve, reject) => {
       UIEvent.queueTask(() => engine.enhance({
         element: alert, bindingContext: {
-          closing: function(evt) {
-            resolve(evt.detail);
+          glyph: opts.glyph,
+          okLabel: opts.okLabel,
+          closeCallback: function(b) {
+            resolve(b);
           }
         }
       }));
@@ -67,16 +78,21 @@ export module UIUtils {
     if (isString(options)) opts.message = options;
     else opts = Object.assign(opts, options);
 
-    let alert = DOM.createElement('div');
-    alert.innerHTML = `<ui-alert confirm close.trigger="closing($event)" class="ui-alert-shim" glyph="${opts.glyph}" cancel-label="${opts.cancelLabel}" ok-label="${opts.okLabel}"><h1>${opts.title}</h1><p>${opts.message}</p></ui-alert>`;
+    let alert = DOM.createElement('ui-alert');
+    alert.classList.add('ui-alert-shim');
+    alert.innerHTML = `<h1>${opts.title}</h1><p>${opts.message}</p>`;
     this.dialogContainer.appendChild(alert);
 
     let engine = this.lazy(TemplatingEngine);
     return new Promise((resolve, reject) => {
       UIEvent.queueTask(() => engine.enhance({
         element: alert, bindingContext: {
-          closing: function(evt) {
-            resolve(evt.detail);
+          confirm: true,
+          glyph: opts.glyph,
+          okLabel: opts.okLabel,
+          cancelLabel: opts.cancelLabel,
+          closeCallback: function(b) {
+            resolve(b);
           }
         }
       }));
@@ -87,16 +103,21 @@ export module UIUtils {
     let opts = { glyph: 'symbol-question', message: '', title: '', okLabel: 'OK', cancelLabel: 'Cancel', type: 'single', };
     if (isString(options)) opts.message = options;
     else opts = Object.assign(opts, options);
-    let alert = DOM.createElement('div');
-    alert.innerHTML = `<ui-prompt ${opts.type} close.trigger="closing($event)" class="ui-alert-shim" glyph="${opts.glyph}" cancel-label="${opts.cancelLabel}" ok-label="${opts.okLabel}"><h1>${opts.title}</h1><p>${opts.message}</p></ui-prompt>`;
+    let alert = DOM.createElement('ui-prompt');
+    alert.classList.add('ui-alert-shim');
+    alert.innerHTML = `<h1>${opts.title}</h1><p>${opts.message}</p>`;
     this.dialogContainer.appendChild(alert);
 
     let engine = this.lazy(TemplatingEngine);
     return new Promise((resolve, reject) => {
       UIEvent.queueTask(() => engine.enhance({
         element: alert, bindingContext: {
-          closing: function(evt) {
-            resolve(evt.detail);
+          type: opts.type,
+          glyph: opts.glyph,
+          okLabel: opts.okLabel,
+          cancelLabel: opts.cancelLabel,
+          closeCallback: function(value) {
+            resolve(value);
           }
         }
       }));

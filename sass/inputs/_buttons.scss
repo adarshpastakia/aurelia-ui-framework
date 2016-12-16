@@ -63,7 +63,6 @@
   display      : inline-block;
   padding      : .2em 1em;
   @include transition(padding .5s);
-  @include box-shadow(1px 1px 0 0 $base-shadow-color);
 
   span,
   strong {
@@ -166,11 +165,6 @@
     background-position: left center;
     background-repeat  : no-repeat;
     background-size    : 1em 1em;
-  }
-
-  &.ui-open,
-  &:active {
-    @include box-shadow(-1px -1px 0 0 rgba($white,.5) inset, 1px 1px 0 0 rgba($base-shadow-color,.5) inset);
   }
 }
 @include button-theme(default, $button-default-bg, $button-default-text, $button-default-hover-bg, $button-default-hover-text, $button-default-active-bg, $button-default-active-text);

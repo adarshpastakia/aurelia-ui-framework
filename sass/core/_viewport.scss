@@ -51,11 +51,6 @@
     }
   }
 
-  .ui-app-taskbar {
-    @include flex-row($align:center, $wrap:true);
-    @include box-shadow(0 0 2px 0 $base-shadow-color);
-  }
-
   .ui-app-footer {
     @include flex-row($justify:space-between, $wrap:false);
     background : $app-footer-bg;

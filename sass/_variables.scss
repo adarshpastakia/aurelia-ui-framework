@@ -114,6 +114,9 @@ $input-label-text            : #35495D !default;
 $input-focus-border          : $secondary !default;
 $input-invalid-border        : $danger !default;
 
+// 1:'invalid', 2:'invalid-line', 3:'invalid-bold'
+$input-invalid-icon          : 2 !default;
+
 $input-readonly-bg           : #FCFCFB !default;
 $input-disabled-bg           : #EAE6E3 !default;
 
