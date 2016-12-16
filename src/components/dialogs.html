@@ -4,13 +4,52 @@
 // @license     : MIT
 -->
 <template>
-<ui-page page-title="Dialogs">
-  <ui-content padded scroll>
-    <ui-container>
-      <ui-button light small click.trigger="openDialog(true)">Show Modal</ui-button>
-      <ui-button light small click.trigger="openDialog(false)">Open Dialog</ui-button>
-      
-    </ui-container>
-  </ui-content>
-</ui-page>
+  <style>
+    .event-console {
+      border: 1px solid #f0f0f0;
+      border-radius: 5px;
+      font-size: 13px;
+      height: 300px;
+      line-height: 2;
+      overflow:auto;
+    }
+    .event-console .tag {
+      color: tomato;
+      padding: 0 10px;
+    }
+    .event-console .time {
+      color: SteelBlue;
+      padding: 0 10px;
+    }
+    .event-console .event {
+      color: slategray;
+      padding: 0 10px;
+    }
+  </style>
+  <ui-page page-title="Dialogs">
+    <ui-content padded scroll>
+      <ui-container>
+        <ui-row>
+          <ui-column fill padded>
+            <h5 class="section-title">Simple Dialogs</h5>
+            <ui-button light click.trigger="openDialog(true)">Show Modal</ui-button>&nbsp;
+            <ui-button light click.trigger="openDialog(false)">Open Dialog</ui-button>&nbsp;
+            <hr/>
+            <h5 class="section-title">Form Dialogs</h5>
+            <ui-button light click.trigger="openForm(true)">Show Modal</ui-button>&nbsp;
+            <ui-button light click.trigger="openForm(false)">Open Dialog</ui-button>&nbsp;
+            <hr/>
+            <h5 class="section-title">Complex Dialogs</h5>
+            <ui-button light click.trigger="openLayout(true)">Show Modal</ui-button>&nbsp;
+            <ui-button light click.trigger="openLayout(false)">Open Dialog</ui-button>&nbsp;
+          </ui-column>
+          
+          <ui-column fill padded>
+            <div class="ui-text-primary">Console</div>
+            <div class="event-console" ref="evtConsole"></div>
+          </ui-column>
+        </ui-row>
+      </ui-container>
+    </ui-content>
+  </ui-page>
 </template>

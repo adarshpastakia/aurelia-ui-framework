@@ -68,7 +68,6 @@
       position      : relative;
       top           : 0;
       left          : 0;
-      overflow      : hidden;
       background    : $base-bg;
       z-index       : $z-index-dialog;
       border-radius : $base-border-radius;
@@ -77,18 +76,28 @@
       @include flex-column($align: stretch, $justify : flex-start);
 
       .ui-header {
-        z-index   : 5;
-        box-shadow: 0 1px 0 0 $base-bg;
+        z-index                : 5;
+        border-top-left-radius : $base-border-radius;
+        border-top-right-radius: $base-border-radius;
 
         .ui-header-button {
           font-size: .8rem;
         }
       }
 
+      > :last-child {
+        border-bottom-left-radius : $base-border-radius;
+        border-bottom-right-radius: $base-border-radius;
+      }
+
+      .ui-sidebar {
+        max-width: $sidebar-width * .75;
+      }
+
       .ui-resizer {
         position   : absolute;
         cursor     : nwse-resize;
-        z-index    : 5;
+        z-index    : 10;
         right      : 0;
         bottom     : 0;
         line-height: 1;

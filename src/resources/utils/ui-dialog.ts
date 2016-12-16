@@ -43,6 +43,12 @@ export class UIDialogService {
     }
   }
 
+  makeActive(id) {
+    let win = _.find(this.windows, ['id', id]);
+    if (win) this.changeActive(win);
+    return !!win;
+  }
+
   show(vm, model?) {
     this.initialize();
     let instruction: any = {

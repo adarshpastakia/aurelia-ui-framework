@@ -17,11 +17,11 @@
   &.ui-start {
     @include justify-content(flex-start);
   }
-  
+
   &:first-child {
     border-top: none;
   }
-  
+
   &:last-child {
     border-bottom: none;
   }
@@ -37,13 +37,13 @@
     @include align-self(stretch);
   }
 
-   > .ui-input-group,
-  > .ui-input-wrapper {
+   > .ui-input-wrapper,
+  > .ui-input-group {
     margin: 0 .25em;
   }
 
-   > .ui-button-group,
-  > .ui-button {
+   > .ui-button,
+  > .ui-button-group {
     margin: 0 .2rem;
   }
 }
@@ -63,6 +63,14 @@
   border-width    : 1px 0;
   @include flex-auto();
   @include flex-row($align:center, $justify:center, $wrap:false);
+
+  &:first-child {
+    border-top: none;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
 
   .ui-stat {
     color  : $dark;

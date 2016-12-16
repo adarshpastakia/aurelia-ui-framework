@@ -33,8 +33,8 @@ export class UIPage {
 export class UISection {
   constructor(public element: Element) {
     // LAYOUT
-    if (element.hasAttribute('row-layout')) element.classList.add('ui-row-layout');
-    else element.classList.add('ui-column-layout');
+    if (element.hasAttribute('row-layout')) element.classList.add('row');
+    else element.classList.add('column');
     // ALIGNMENT
     if (element.hasAttribute('center')) element.classList.add('ui-align-center');
     if (element.hasAttribute('middle')) element.classList.add('ui-align-middle');

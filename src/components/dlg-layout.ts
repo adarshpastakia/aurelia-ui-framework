@@ -7,7 +7,7 @@ import {autoinject} from 'aurelia-framework';
 import {UIDialog} from "../resources/utils/ui-dialog";
 
 @autoinject()
-export class DlgView extends UIDialog {
+export class DlgLayout extends UIDialog {
   constructor() { super(); }
 
   // aurelia hooks
@@ -28,12 +28,15 @@ export class DlgView extends UIDialog {
   deactivate() { this.printConsole(this.id, 'deactivate'); }
   // end aurelia hooks
 
-  id = "dlgView";
-  title = "Simple Dialog";
-  glyph = "icon-page-line";
+  id = "dlgLayout";
+  title = "Complex Dialog";
+  glyph = "tree-check-partial";
 
-  width = "400px";
-  height = "300px";
+  minWidth = "600px";
+  minHeight = "400px";
+
+  width = "800px";
+  height = "600px";
 
   printConsole;
 }

@@ -31,7 +31,7 @@ export class UIPhone extends UIBaseInput {
   // aurelia hooks
   created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
-    super.bind.call(this, arguments);
+    super.bind.apply(this, arguments);
     this.countryChanged(this.country);
     UIEvent.queueTask(() => this.valueChanged(this.value));
   }

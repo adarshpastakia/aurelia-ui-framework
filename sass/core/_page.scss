@@ -30,11 +30,11 @@
   overflow: hidden;
   @include flex-fill();
 
-  &.ui-column-layout {
+  &.column {
     @include flex-column($align:stretch);
   }
 
-  &.ui-row-layout {
+  &.row {
     @include flex-row($align:stretch, $wrap:false);
   }
 

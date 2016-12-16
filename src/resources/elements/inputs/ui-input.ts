@@ -90,7 +90,7 @@ export class UIInput extends UIBaseInput {
   // aurelia hooks
   created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
-    super.bind.call(this, arguments);
+    super.bind.apply(this, arguments);
     if (this.number) this.numberChanged(this.number);
     if (this.decimal) this.decimalChanged(this.decimal);
   }

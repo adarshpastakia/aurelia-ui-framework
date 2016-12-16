@@ -7,7 +7,7 @@ import {autoinject} from 'aurelia-framework';
 import {UIDialog} from "../resources/utils/ui-dialog";
 
 @autoinject()
-export class DlgView extends UIDialog {
+export class DlgForm extends UIDialog {
   constructor() { super(); }
 
   // aurelia hooks
@@ -28,12 +28,9 @@ export class DlgView extends UIDialog {
   deactivate() { this.printConsole(this.id, 'deactivate'); }
   // end aurelia hooks
 
-  id = "dlgView";
-  title = "Simple Dialog";
-  glyph = "icon-page-line";
-
-  width = "400px";
-  height = "300px";
+  id = "dlgForm";
+  title = "Form Dialog";
+  glyph = "icon-page-edit-line";
 
   printConsole;
 }

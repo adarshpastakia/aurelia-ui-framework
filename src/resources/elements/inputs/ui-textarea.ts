@@ -31,7 +31,7 @@ export class UITextarea extends UIBaseInput {
   // aurelia hooks
   created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
-    super.bind.call(this, arguments);
+    super.bind.apply(this, arguments);
     this.autoCompleteChanged(this.autoComplete);
   }
   attached() {
