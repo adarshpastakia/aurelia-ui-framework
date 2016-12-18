@@ -8,7 +8,7 @@ import {autoinject, customElement, bindable, bindingMode, children, inlineView, 
 @autoinject()
 @inlineView(`<template class="ui-drawer \${position}">
   <div class="ui-drawer-content ui-row-vertical ui-align-stretch">
-    <a class="ui-drawer-close ui-col-auto" click.trigger="closeDrawer()"></a>
+    <a class="ui-drawer-close ui-col-auto" click.trigger="closeDrawer()"><ui-glyph glyph.bind="glyph"></ui-glyph></a>
     <div class="ui-drawer-body ui-col-fill \${bodyCls}"><slot></slot></div>
   </div>
   <div class="ui-drawer-shim" click.trigger="closeDrawer()"></div>
@@ -25,7 +25,7 @@ export class UIDrawer {
     if (this.element.hasAttribute('scroll')) this.bodyCls += ' ui-scroll';
     if (this.element.hasAttribute('padded')) this.bodyCls += ' ui-pad-all';
 
-    if (this.position == 'end') this.glyph = 'arrow-right';
+    if (this.position == 'end') this.glyph = 'ui-arrow-right';
   }
   attached() { }
   detached() { }
@@ -34,7 +34,7 @@ export class UIDrawer {
 
   @bindable() position = "start";
 
-  private glyph = 'arrow-left';
+  private glyph = 'ui-arrow-left';
   private bodyCls = '';
 
   closeDrawer() {
@@ -57,7 +57,7 @@ export class UIDrawerToggle {
   // end aurelia hooks
 
   @bindable() drawer;
-  @bindable() glyph = 'bars-thin';
+  @bindable() glyph = 'ui-handle-menu';
 
   openDrawer(evt) {
     if (evt.button != 0) return true;

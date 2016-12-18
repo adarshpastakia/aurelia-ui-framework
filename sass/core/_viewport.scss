@@ -12,6 +12,32 @@
   }
 }
 
+.ui-icon {
+  font-size   : 1em;
+  display     : inline-block;
+  width       : 1em;
+  height      : 1em;
+  stroke-width: 0;
+  line-height : 1;
+  color       : inherit;
+  stroke      : currentColor;
+  fill        : currentColor;
+
+  svg {
+    font-size     : 1em;
+    display       : inline-block;
+    width         : 1em;
+    height        : 1em;
+    stroke-width  : 0;
+    line-height   : 1;
+    color         : inherit;
+    stroke        : currentColor;
+    fill          : currentColor;
+    vertical-align: top;
+    pointer-events: none;
+  }
+}
+
 .ui-viewport {
   @include position(fixed, 0);
   overflow: auto;
@@ -81,8 +107,9 @@
 
       background   : $base-bg;
       overflow     : hidden;
-      padding      : 1em;
-      font-size    : 2em;
+      padding      : .5em;
+      font-size    : 2.5em;
+      line-height  : 1;
       z-index      : $z-index-splash;
       border-radius: $base-border-radius;
     }

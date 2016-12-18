@@ -9,11 +9,12 @@
       <ui-container>
         <ui-row>
           <ui-column full>
+            
             <ui-fieldset legend="Basic Inputs">
               <div ref="inlineContainer"></div>
-              <ui-toast timeout="0" glyph="icon-notify" danger closeable>Test alert message</ui-toast>
+              <ui-toast timeout="0" glyph="ui-alert-info" danger closeable>Test alert message</ui-toast>
               <ui-row>
-                <ui-column size="md-6" padded>
+                <ui-column fill padded>
                   <ui-input-group>
                     <ui-input-label required>Text</ui-input-label>
                     <ui-input placeholder="Any text...">
@@ -21,7 +22,7 @@
                         <small class="ui-strong ui-text-info">User</small>
                       </ui-input-addon>
                     </ui-input>
-                    <ui-button secondary glyph="arrow-right"></ui-button>
+                    <ui-button secondary glyph="ui-arrow-right"></ui-button>
                   </ui-input-group>
                   <ui-input-group>
                     <ui-input-label>Password</ui-input-label>
@@ -42,30 +43,30 @@
                   <ui-input-group>
                     <ui-input-label>Email</ui-input-label>
                     <ui-input email placeholder="user@domain.com">
-                      <ui-input-addon class="ui-text-info" glyph="icon-email-line"></ui-input-addon>
+                      <ui-input-addon class="ui-text-info" glyph="icon-moon-envelop"></ui-input-addon>
                     </ui-input>
                   </ui-input-group>
                   <ui-input-group>
                     <ui-input-label>URL</ui-input-label>
                     <ui-input url placeholder="http://domain.com">
-                      <ui-input-addon class="ui-text-info" glyph="icon-web-line"></ui-input-addon>
+                      <ui-input-addon class="ui-text-info" glyph="icon-moon-link"></ui-input-addon>
                     </ui-input>
                   </ui-input-group>
                   <ui-input-group>
                     <ui-input-label>File</ui-input-label>
                     <ui-input file placeholder="Any file...">
-                      <ui-input-addon glyph="icon-image-line"></ui-input-addon>
+                      <ui-input-addon glyph="icon-moon-file-zip"></ui-input-addon>
                     </ui-input>
                   </ui-input-group>
                   <ui-input-group>
                     <ui-input-label>Double Input</ui-input-label>
-                    <ui-input-addon class="ui-text-warning" glyph="icon-placeholder"></ui-input-addon>
+                    <ui-input-addon class="ui-text-warning" glyph="icon-moon-location"></ui-input-addon>
                     <ui-input decimal placeholder="Latitude..." info="Latitude"></ui-input>
-                    <ui-input-addon class="ui-text-warning" glyph="icon-placeholder"></ui-input-addon>
+                    <ui-input-addon class="ui-text-warning" glyph="icon-moon-location"></ui-input-addon>
                     <ui-input decimal placeholder="Longitude..." info="Longitude"></ui-input>
                   </ui-input-group>
                 </ui-column>
-                <ui-column size="md-6" padded>
+                <ui-column fill padded>
                   <div class="ui-text-primary">Input States</div>
                   <ui-input-group>
                     <ui-input-label>Readonly</ui-input-label>
@@ -89,17 +90,19 @@
                     <ui-input-label>Counter</ui-input-label>
                     <ui-input counter value="Text value"></ui-input>
                     <ui-input-info class="ui-text-muted">
-                      <ui-glyph class="ui-text-danger" glyph="icon-help"></ui-glyph>
+                      <ui-glyph class="ui-text-danger" glyph="icon-moon-lifebuoy"></ui-glyph>
                       Display remaining length</ui-input-info>
                   </ui-input-group>
                 </ui-column>
-                <ui-column size="md-6" padded>
+              </ui-row>
+              <ui-row>
+                <ui-column fill padded>
                   <hr/>
                   <div class="ui-text-primary">Phone Input</div>
                   <ui-input-group>
                     <ui-input-label>International</ui-input-label>
                     <ui-phone>
-                      <ui-input-addon glyph="icon-phone-line"></ui-input-addon>
+                      <ui-input-addon glyph="icon-moon-phone"></ui-input-addon>
                     </ui-phone>
                   </ui-input-group>
                   <ui-input-group>
@@ -110,18 +113,18 @@
                       <ui-list-item value="2">Mobile</ui-list-item>
                     </ui-dropdown>
                     <ui-phone country="ae">
-                      <ui-input-addon glyph="icon-phone-line"></ui-input-addon>
+                      <ui-input-addon glyph="icon-line-phone"></ui-input-addon>
                     </ui-phone>
                   </ui-input-group>
 
                 </ui-column>
-                <ui-column size="md-6" padded>
+                <ui-column fill padded>
                   <hr/>
                   <div class="ui-text-primary">Multiline Input</div>
                   <ui-input-group>
                     <ui-input-label>Textarea</ui-input-label>
-                    <ui-input-addon class="ui-bg-info ui-text-white" glyph="icon-pencil"></ui-input-addon>
-                    <ui-textarea clear counter value="With auto-complete..." auto-complete="Alpha,Bravo,Charlie,Delta,Echo,Foxtrot,Lima,Omega,Sigma,Theta,Zulu"></ui-textarea>
+                    <ui-input-addon class="ui-bg-info ui-text-white" glyph="icon-moon-pencil"></ui-input-addon>
+                    <ui-textarea errors.bind="['Input required', 'Input must be minimum 5 characters']" cols="20" clear counter value="With auto-complete..." auto-complete="Alpha,Bravo,Charlie,Delta,Echo,Foxtrot,Lima,Omega,Sigma,Theta,Zulu"></ui-textarea>
                     <ui-button info>Go!</ui-button>
                   </ui-input-group>
                 </ui-column>
@@ -131,39 +134,39 @@
           <ui-column full>
             <ui-fieldset legend="Optional Inputs" enabled="true">
               <ui-row>
-                <ui-column size="md-6" padded>
+                <ui-column fill padded>
                   <h6 class="ui-text-primary">Single</h6>
                   <ui-input-group>
                     <ui-input-label>Microsoft Live</ui-input-label>
-                    <ui-radio name="rdis" value="0" checked.bind="rdis" change.trigger="ropt2=(ropt3='')"></ui-radio>
+                    <ui-input-addon><ui-radio name="rdis" value="0" checked.bind="rdis" change.trigger="ropt2=(ropt3='')"></ui-radio></ui-input-addon>
                     <ui-input disabled.bind="rdis!=0" value.bind="ropt1"></ui-input>
                   </ui-input-group>
                   <ui-input-group>
                     <ui-input-label>Google</ui-input-label>
-                    <ui-radio name="rdis" value="1" checked.bind="rdis" change.trigger="ropt1=(ropt3='')"></ui-radio>
+                    <ui-input-addon><ui-radio name="rdis" value="1" checked.bind="rdis" change.trigger="ropt1=(ropt3='')"></ui-radio></ui-input-addon>
                     <ui-input disabled.bind="rdis!=1" value.bind="ropt2"></ui-input>
                   </ui-input-group>
                   <ui-input-group>
                     <ui-input-label>Facebook</ui-input-label>
-                    <ui-radio name="rdis" value="2" checked.bind="rdis" change.trigger="ropt1=(ropt2='')"></ui-radio>
+                    <ui-input-addon><ui-radio name="rdis" value="2" checked.bind="rdis" change.trigger="ropt1=(ropt2='')"></ui-radio></ui-input-addon>
                     <ui-input disabled.bind="rdis!=2" value.bind="ropt3"></ui-input>
                   </ui-input-group>
                 </ui-column>
-                <ui-column size="md-6" padded>
+                <ui-column fill padded>
                   <h6 class="ui-text-primary">Multiple</h6>
                   <ui-input-group>
                     <ui-input-label>Google+</ui-input-label>
-                    <ui-checkbox checked.bind="dis1" change.trigger="opt1=''"></ui-checkbox>
+                    <ui-input-addon><ui-checkbox checked.bind="dis1" change.trigger="opt1=''"></ui-checkbox></ui-input-addon>
                     <ui-input disabled.bind="!dis1" value.bind="opt1" placeholder="Google+ profile..."></ui-input>
                   </ui-input-group>
                   <ui-input-group>
                     <ui-input-label>Facebook</ui-input-label>
-                    <ui-checkbox checked.bind="dis2" change.trigger="opt2=''"></ui-checkbox>
+                    <ui-input-addon><ui-checkbox checked.bind="dis2" change.trigger="opt2=''"></ui-checkbox></ui-input-addon>
                     <ui-input disabled.bind="!dis2" value.bind="opt2" placeholder="Facebook profile..."></ui-input>
                   </ui-input-group>
                   <ui-input-group>
                     <ui-input-label>Twitter</ui-input-label>
-                    <ui-checkbox checked.bind="dis3" change.trigger="opt3=''"></ui-checkbox>
+                    <ui-input-addon><ui-checkbox checked.bind="dis3" change.trigger="opt3=''"></ui-checkbox></ui-input-addon>
                     <ui-input disabled.bind="!dis3" value.bind="opt3" placeholder="Twitter handle..."></ui-input>
                   </ui-input-group>
                 </ui-column>

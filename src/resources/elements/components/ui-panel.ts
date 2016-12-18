@@ -124,11 +124,11 @@ export class UIHeaderTool {
     if (element.hasAttribute('expand')) this.type = "expand";
     if (element.hasAttribute('minimize')) this.type = "minimize";
 
-    if (element.hasAttribute('close')) this.glyph = "dialog-close";
-    if (element.hasAttribute('refresh')) this.glyph = "icon-refresh";
-    if (element.hasAttribute('collapse')) this.glyph = "chevron-up";
-    if (element.hasAttribute('expand')) this.glyph = "dialog-expand";
-    if (element.hasAttribute('minimize')) this.glyph = "dialog-minimize";
+    if (element.hasAttribute('close')) this.glyph = "ui-dialog-close";
+    if (element.hasAttribute('refresh')) this.glyph = "ui-icon-refresh";
+    if (element.hasAttribute('collapse')) this.glyph = "ui-chevron-up";
+    if (element.hasAttribute('expand')) this.glyph = "ui-dialog-expand";
+    if (element.hasAttribute('minimize')) this.glyph = "ui-dialog-minimize";
   }
 
   // aurelia hooks
@@ -149,7 +149,7 @@ export class UIHeaderTool {
 }
 
 @autoinject()
-@inlineView(`<template class="ui-header-title ui-inline-block ui-col-fill"><span class="ui-icon fi-ui-\${glyph}" if.bind="glyph"></span>&nbsp;<slot></slot></template>`)
+@inlineView(`<template class="ui-header-title ui-inline-block ui-col-fill"><ui-glyph glyph.bind="glyph" if.bind="glyph"></ui-glyph>&nbsp;<slot></slot></template>`)
 @customElement('ui-header-title')
 export class UIHeaderTitle {
   constructor(public element: Element) { }

@@ -18,6 +18,9 @@ export class UIToolbar {
     if (element.hasAttribute('danger')) element.classList.add('danger');
     if (element.hasAttribute('success')) element.classList.add('success');
     if (element.hasAttribute('warning')) element.classList.add('warning');
+
+    if (element.hasAttribute('start')) element.classList.add('ui-row-start');
+    else element.classList.add('ui-row-end');
   }
 
   // aurelia hooks
@@ -57,6 +60,15 @@ export class UIStatsbar {
     if (element.hasAttribute('danger')) element.classList.add('danger');
     if (element.hasAttribute('success')) element.classList.add('success');
     if (element.hasAttribute('warning')) element.classList.add('warning');
+
+    if (element.hasAttribute('dark-bg')) element.classList.add('dark-bg');
+    if (element.hasAttribute('light-bg')) element.classList.add('light-bg');
+    if (element.hasAttribute('primary-bg')) element.classList.add('primary-bg');
+    if (element.hasAttribute('secondary-bg')) element.classList.add('secondary-bg');
+    if (element.hasAttribute('info-bg')) element.classList.add('info-bg');
+    if (element.hasAttribute('danger-bg')) element.classList.add('danger-bg');
+    if (element.hasAttribute('success-bg')) element.classList.add('success-bg');
+    if (element.hasAttribute('warning-bg')) element.classList.add('warning-bg');
   }
 
   // aurelia hooks

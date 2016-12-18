@@ -3,6 +3,13 @@
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
+
+.ui-form {
+  .ui-column {
+    @include flex-basis(18em);
+  }
+}
+
 .ui-fieldset {
   fieldset {
     margin       : .25em .5em;
@@ -23,15 +30,24 @@
     }
   }
 
+  .ui-column {
+    @include flex-basis(18em);
+  }
+
   &.ui-collapse fieldset {
     max-height: 1.5em;
   }
 }
 
-.ui-input-addon,
-.ui-option {
+.ui-input-addon {
   padding    : 0 .25em;
   line-height: 1.5em;
+  @include flex-auto();
+}
+
+.ui-option {
+  padding    : .15em .25em;
+  line-height: 1em;
   @include flex-auto();
 }
 
@@ -91,7 +107,7 @@
 
   .ui-button {
     padding    : .2em;
-    font-size  : 1rem;
+    font-size  : .9rem;
     font-weight: 600;
     line-height: 1rem;
   }

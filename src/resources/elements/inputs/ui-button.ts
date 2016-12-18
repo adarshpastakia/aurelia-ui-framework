@@ -9,7 +9,9 @@ import {UIUtils} from "../../utils/ui-utils";
 
 @autoinject()
 @inlineView(`<template role="button" class="ui-button \${theme} \${busy?'ui-busy':''} \${disabled?'ui-disabled':''}" click.trigger="toggleDropdown($event)" data-value="\${value}" css.bind="{width: width}">
-    <ui-glyph if.bind="busy" class="ui-indicator ui-anim-pulse" glyph="busy"></ui-glyph><ui-glyph if.bind="glyph" glyph.bind="glyph"></ui-glyph><span class="ui-label"><slot>\${label}</slot></span></template>`)
+    <span class="ui-indicator"><ui-glyph if.bind="busy" class="ui-anim-busy" glyph="ui-busy"></ui-glyph></span>
+    <ui-glyph if.bind="glyph" class="ui-btn-icon \${glyph}" glyph.bind="glyph"></ui-glyph><span class="ui-label"><slot>\${label}</slot></span>
+    <ui-glyph class="ui-caret" glyph="ui-caret-down" if.bind="dropdown"></ui-glyph></template>`)
 @customElement('ui-button')
 export class UIButton {
   constructor(public element: Element) {

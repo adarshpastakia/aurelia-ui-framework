@@ -9,7 +9,7 @@ import {UIEvent} from "../../utils/ui-event";
 @autoinject()
 @customElement('ui-toast')
 @inlineView(`<template class="ui-toast" click.trigger="startClose()"><div class="ui-wrapper">
-  <ui-glyph glyph.bind="glyph" if.bind="glyph"></ui-glyph>
+  <ui-glyph glyph.bind="glyph" class.bind="glyph" if.bind="glyph"></ui-glyph>
   <span class="ui-message"><slot><slot></span><span class="ui-close">&times;</span>
 </div></template>`)
 export class UIToast {
@@ -53,7 +53,7 @@ export class UIToast {
 @inlineView(`<template class="ui-alert-shim"><div class="ui-alert">
   <div class="ui-wrapper">
   <input style="position:absolute;opacity:0;" ref="focusBlock" keydown.trigger="checkKey($event)" blur.trigger="cancelBlur($event)"/>
-  <ui-glyph glyph.bind="glyph" if.bind="glyph"></ui-glyph>
+  <ui-glyph glyph.bind="glyph" class.bind="glyph" if.bind="glyph"></ui-glyph>
   <span class="ui-message"><slot><slot></span></div>
   <div class="ui-button-bar"><button click.trigger="closeAlert(true)">\${okLabel}</button><button show.bind="confirm" click.trigger="closeAlert(false)">\${cancelLabel}</button></div>
   </div></template>`)
@@ -107,7 +107,7 @@ export class UIAlert {
 @autoinject()
 @inlineView(`<template class="ui-alert-shim"><div class="ui-alert">
   <div class="ui-wrapper">
-  <ui-glyph glyph.bind="glyph" if.bind="glyph"></ui-glyph>
+  <ui-glyph glyph.bind="glyph" class.bind="glyph" if.bind="glyph"></ui-glyph>
   <span class="ui-message"><slot><slot></span></div>
   <ui-input-group>
     <ui-input class="\${changed && value==''?'ui-invalid':''}" errors.bind="changed && value==''?['Value needed']:null" if.bind="!multiline" ref="focusBlock" value.bind="value" keydown.trigger="checkKey($event)" blur.trigger="cancelBlur($event)"></ui-input>

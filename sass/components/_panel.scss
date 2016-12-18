@@ -41,7 +41,7 @@
   }
 
   &.ui-collapse {
-    .ui-header-button.ui-collapse .ui-icon:before {
+    .ui-header-button.ui-collapse .ui-icon {
       @include transform(rotate(-180deg));
     }
 
@@ -75,7 +75,8 @@
     padding      : 0 .5em;
     margin       : 0 .25em;
 
-    .ui-icon:before {
+    .ui-icon {
+      margin-top: -.25em;
       @include transition(transform .5s);
       @include transform-origin(50% 50% 0);
     }
@@ -85,9 +86,7 @@
       border-color: rgba(shade($base-bg, 40%), .5);
     }
 
-    &:active {
-      background: shade($base-bg, 90%);
-    }
+    &:active {}
   }
 }
 @include header-theme(dark, $dark);

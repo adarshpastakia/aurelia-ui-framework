@@ -1,10 +1,13 @@
 <template>
+  <compose view="../glyphs/icomoon.svg"></compose>
+  <compose view="../glyphs/hawcons-linear.svg"></compose>
+  <compose view="../glyphs/hawcons-filled.svg"></compose>
   <ui-viewport>
     <ui-app-header>
       <ui-drawer-toggle drawer.bind="menuDrawer"></ui-drawer-toggle>
       <ui-app-title src="images/logo.png">
         <h6>
-          <span>Aurelia UI Framework</span>
+          <span>${constants.App.Title}</span>
           <small>A brand new framework</small>
         </h6>
       </ui-app-title>
@@ -23,8 +26,8 @@
       <a href="#/" class="ui-block">
         <fieldset class="menu-banner">
           <ui-row middle>
-            <div class="img-rounded"><img src="images/logo.png" height="48"/></div>
-            <ui-column fill class="ui-font-big"><strong>Aurelia UI Framework</strong><div class="ui-font-small">Version 3</div></ui-column>
+            <img src="images/logo.png" height="48"/>
+            <ui-column fill class="ui-font-big"><strong>${constants.App.Title}</strong><div class="ui-font-small">Version 3</div></ui-column>
           </ui-row>
         </fieldset>
       </a>
@@ -37,7 +40,7 @@
     
     <ui-router-view></ui-router-view>
     <ui-app-footer>
-      <span>Version: 3.0.0</span>
+      <span>Version: ${constants.App.Version}</span>
       <span>&copy; 2017, Adarsh Pastakia</span>
     </ui-app-footer>
   </ui-viewport>

@@ -25,14 +25,14 @@ export class CompAlerts {
     message: 'Sample toast message...',
     theme: 'dark',
     timeout: 5000,
-    glyph: 'symbol-info-bubble'
+    glyph: 'ui-alert-info'
   }
   alert = {
     title: 'Alert!!',
     message: 'Sample alert message...',
     okLabel: 'OK',
     cancelLabel: 'Cancel',
-    glyph: 'symbol-info-bubble'
+    glyph: 'ui-alert-info'
   }
 
   alertHolder;

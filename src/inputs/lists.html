@@ -10,7 +10,7 @@
 
         <ui-fieldset legend="Lists">
           <ui-row>
-            <ui-column size="md-6" padded>
+            <ui-column fill padded>
               <ui-input-group>
                 <ui-input-label>List</ui-input-label>
                 <ui-list value.bind="ctr" options.bind="countries" display-property="name" value-property="iso3" icon-property="iso3" icon-class="ui-flag">
@@ -21,14 +21,15 @@
               </ui-input-group>
             </ui-column>
 
-            <ui-column size="md-6" padded>
+            <ui-column fill padded>
               <ui-input-group>
                 <ui-input-label>Tags</ui-input-label>
                 <ui-tags value='UAE,IND' force-select="false" options.bind="countries" display-property="name" value-property="iso3" icon-property="iso3" icon-class="ui-flag"></ui-tags>
               </ui-input-group>
             </ui-column>
-
-            <ui-column size="md-6" padded>
+          </ui-row>
+          <ui-row>
+            <ui-column fill padded>
               <ui-input-group>
                 <ui-input-label>Combo</ui-input-label>
                 <ui-combo value.bind="ctr" options.bind="countries" display-property="name" value-property="iso3" icon-property="iso3" icon-class="ui-flag">
@@ -39,7 +40,7 @@
               </ui-input-group>
             </ui-column>
 
-            <ui-column size="md-6" padded>
+            <ui-column fill padded>
               <ui-input-group>
                 <ui-input-label>Reorder</ui-input-label>
                 <ui-reorder options.bind="reorder"></ui-reorder>

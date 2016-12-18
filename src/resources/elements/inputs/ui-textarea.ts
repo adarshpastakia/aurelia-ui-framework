@@ -9,8 +9,8 @@ import {UIEvent} from "../../utils/ui-event";
 import {UIUtils} from "../../utils/ui-utils";
 
 @autoinject()
-@inlineView(`<template class="ui-input-wrapper"><div role="input" class="ui-input-control ui-textarea"><span class="ui-error" if.bind="errors"><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
-  <textarea ref="inputEl" value.bind="value" rows.bind="rows" cols="5" maxlength.bind="maxlength" dir.bind="dir"
+@inlineView(`<template class="ui-input-wrapper"><div role="input" class="ui-input-control ui-textarea"><span class="ui-error" if.bind="errors"><ui-glyph glyph="ui-invalid"></ui-glyph><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
+  <textarea ref="inputEl" value.bind="value" rows.bind="rows" maxlength.bind="maxlength" dir.bind="dir"
     focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)"
     input.trigger="fireEvent($event)" change.trigger="fireEvent($event)"
     keyup.trigger="checkList($event)" keydown.trigger="checkInput($event)" placeholder.bind="placeholder"
@@ -46,8 +46,6 @@ export class UITextarea extends UIBaseInput {
   // end aurelia hooks
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value = '';
-  @bindable({ defaultBindingMode: bindingMode.twoWay }) number;
-  @bindable({ defaultBindingMode: bindingMode.twoWay }) decimal;
 
   @bindable() dir = 'ltr';
   @bindable() rows = 5;
@@ -72,7 +70,7 @@ export class UITextarea extends UIBaseInput {
   private dropdown;
 
   private acList = [];
-  private acShow = false
+  private acShow = false;
 
   valueChanged(newValue) { }
 

@@ -42,6 +42,7 @@
 }
 
 .ui-option {
+  line-height: 1;
   white-space: nowrap;
   position   : relative;
   display    : inline-block;
@@ -54,30 +55,14 @@
     cursor  : pointer;
     position: absolute;
 
-    &:focus ~ span,
-    &:hover ~ span {
+    &:focus ~ .ui-icon,
+    &:hover ~ .ui-icon {
       color: $input-focus-border;
     }
   }
 
   span {
     color: $input-text;
-  }
-
-  &.ui-checkbox span {
-    @include glyph($fi-ui-check-off);
-  }
-
-  &.ui-radio span {
-    @include glyph($fi-ui-radio-off);
-  }
-
-  &.ui-checkbox input:checked ~ span {
-    @include glyph($fi-ui-check-on);
-  }
-
-  &.ui-radio input:checked ~ span {
-    @include glyph($fi-ui-radio-on);
   }
 
   .ui-option-label {
@@ -87,7 +72,13 @@
     @include ellipsis();
   }
 
-  &.ui-radio .ui-option-label {}
+  &.ui-radio input:checked ~ .off {
+    display: none;
+  }
+
+  &.ui-radio input:not(:checked) ~ .on {
+    display: none;
+  }
 
   &.ui-disabled {
     .ui-option-label {

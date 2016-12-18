@@ -38,6 +38,8 @@ export class UIBaseInput {
   clearInput() {
     this.value = '';
     this.inputEl.focus();
+    UIEvent.fireEvent('input', this.element, this.value);
+    UIEvent.fireEvent('change', this.element, this.value);
   }
 
   focus() {
@@ -62,7 +64,7 @@ export class UIBaseInput {
 
 @autoinject()
 @inlineView(`<template class="ui-input-wrapper" css.bind="{width: width}"><div role="input" class="ui-input-control"><slot></slot>
-  <span class="ui-error" if.bind="errors"><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
+  <span class="ui-error" if.bind="errors"><ui-glyph glyph="ui-invalid"></ui-glyph><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
   <input ref="inputEl" type.bind="type" value.bind="value" size.bind="size" maxlength.bind="maxlength" dir.bind="dir"
     focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)"
     input.trigger="fireEvent($event)" change.trigger="fireEvent($event)"

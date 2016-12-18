@@ -30,7 +30,7 @@ export class DlgForm extends UIDialog {
 
   id = "dlgForm";
   title = "Form Dialog";
-  glyph = "icon-page-edit-line";
+  glyph = "icon-fill-document-table";
 
   printConsole;
 }

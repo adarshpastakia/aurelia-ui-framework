@@ -86,13 +86,13 @@ a {
   }
 
   &[target="_blank"]:after {
-    content       : $fi-ui-external-link;
-    font-family   : Framework;
-    font-size     : .5em;
-    vertical-align: super;
+    content       : '\2B08';
+    font-size     : .85em;
     display       : inline-block;
     width         : 1em;
     height        : 1em;
+    margin        : 0 .1em;
+    vertical-align: super;
   }
 }
 

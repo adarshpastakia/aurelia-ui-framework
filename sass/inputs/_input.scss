@@ -15,8 +15,56 @@
     @include ellipsis();
   }
 
+  &.ui-md-editor {
+    .ui-toolbar {
+      border    : none;
+      background: none;
+    }
+
+    div.ui-md-preview {
+      overflow: auto;
+      @include position(absolute, 0);
+    }
+
+    div.ui-watermark {
+      position  : relative;
+      background: $input-bg;
+
+      &.preview {
+        &:before {
+          content: 'PREVIEW';
+        }
+
+        .ui-input-control {
+          visibility: hidden;
+        }
+      }
+
+      &.help {
+        &:before {
+          content: 'HELP';
+        }
+
+        .ui-input-control {
+          visibility: hidden;
+        }
+      }
+
+      &:before {
+        z-index       : 5;
+        color         : rgba($muted, .1);
+        font-size     : 3rem;
+        font-weight   : 800;
+        letter-spacing: 2rem;
+        pointer-events: none;
+        @include transform(translateX(-50%) translateY(-50%) rotate(-10deg));
+        @include position(absolute, 50% auto auto 50%);
+      }
+    }
+  }
+
   .ui-input-control {
-    @include flex-row($wrap:false, $align: stretch);
+    @include flex-row($wrap:false, $align: flex-start);
     color     : $input-text;
     background: $input-bg;
     max-width : 100%;
@@ -39,21 +87,19 @@
     }
 
     .ui-error {
-      $icons     : $fi-ui-invalid $fi-ui-invalid-line $fi-ui-invalid-bold;
-      color      : $input-error-text;
-      background : $input-error-bg;
-      line-height: 1.5em;
-      padding    : 0 .25em;
+      color     : $input-error-text;
+      background: $input-error-bg;
+      padding   : 0 .25em;
       @include flex-auto();
-      @include glyph(nth($icons, $input-invalid-icon));
 
       .ui-error-list {
-        display   : none;
-        position  : absolute;
-        background: $danger;
-        color     : $white;
-        z-index   : 5;
-        font-size : .8em;
+        display    : none;
+        position   : absolute;
+        background : $danger;
+        color      : $white;
+        z-index    : 5;
+        line-height: 1.5em;
+        font-size  : .8em;
 
         > li {
           padding: 0 .5em;
@@ -108,14 +154,13 @@
 
       textarea {
         margin-bottom: 1em;
-        resize       : none;
       }
 
       .ui-counter {
         position   : absolute;
         display    : block;
         line-height: 1em;
-        bottom     : 0;
+        bottom     : 2px;
         left       : 0;
         right      : 0;
       }

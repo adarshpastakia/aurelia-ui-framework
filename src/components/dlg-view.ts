@@ -30,7 +30,7 @@ export class DlgView extends UIDialog {
 
   id = "dlgView";
   title = "Simple Dialog";
-  glyph = "icon-page-line";
+  glyph = "icon-fill-document";
 
   width = "400px";
   height = "300px";

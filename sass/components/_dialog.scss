@@ -119,10 +119,6 @@
         .ui-resizer {
           display: none;
         }
-
-        .ui-expand .ui-icon:before {
-          content: $fi-ui-dialog-restore;
-        }
       }
 
       &.ui-minimize {

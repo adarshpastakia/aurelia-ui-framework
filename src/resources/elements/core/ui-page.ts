@@ -70,7 +70,7 @@ export class UIContent {
 
 @autoinject()
 @customElement('ui-glyph')
-@inlineView(`<template class="ui-icon fi-ui-\${glyph}"></template>`)
+@inlineView(`<template class="ui-icon"><svg><use xlink:href="#\${glyph}"></use></svg></template>`)
 export class UIGlyph {
   constructor(public element: Element) { }
 

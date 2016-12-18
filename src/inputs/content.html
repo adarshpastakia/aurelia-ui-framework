@@ -1,0 +1,21 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <ui-page page-title="Content Editor">
+    <ui-content scroll padded>
+      <ui-container>
+        <ui-row>
+          <ui-column full>
+            <ui-input-group>
+              <ui-input-label align-top>Description</ui-input-label>
+              <ui-markdown info="GitHub Flavoured Markdown" counter clear value.bind="md" rows="30"></ui-markdown>
+            </ui-input-group>
+          </ui-column>
+        </ui-row>
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>

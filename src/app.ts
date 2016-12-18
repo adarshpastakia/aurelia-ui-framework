@@ -6,13 +6,16 @@
 
 import {autoinject} from 'aurelia-framework';
 import {Router, RouterConfiguration} from 'aurelia-router';
+import {UIConstants} from "./resources/utils/ui-constants";
 
 @autoinject()
 export class App {
   router: Router;
+  constants = UIConstants;
+
   configureRouter(config: RouterConfiguration, router: Router) {
     this.router = router;
-    config.title = 'Aurelia UI Framework';
+    config.title = UIConstants.App.Title;
     config.mapUnknownRoutes({
       route: '404',
       moduleId: './home/view',

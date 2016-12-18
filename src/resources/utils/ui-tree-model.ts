@@ -13,6 +13,7 @@ export class UITreeModel {
   level: number;
 
   icon: string;
+  openIcon: string;
 
   root: boolean;
   leaf: boolean;
@@ -42,6 +43,7 @@ export class UITreeModel {
     this.level = level;
 
     this.icon = model.icon;
+    this.openIcon = model.openIcon;
 
     this.root = level == -1;
     this.leaf = (model.children || []).length == 0 || level == maxLevels;

@@ -24,7 +24,7 @@
     position     : relative;
     border-radius: 1em;
     min-width    : 3em;
-    height       : 1.25em;
+    height       : 1.2em;
     direction    : ltr;
     @include flex-auto();
     @include box-shadow(0 0 0 1px $base-border-color);

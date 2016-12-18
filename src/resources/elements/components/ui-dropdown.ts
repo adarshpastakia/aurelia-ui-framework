@@ -9,7 +9,8 @@ import {UIUtils} from "../../utils/ui-utils";
 
 @autoinject()
 @inlineView(`<template class="ui-dropdown" select.trigger="select($event)" click.trigger="toggleDropdown($event)" css.bind="{'min-width':width}">
-  <div class="ui-label"><span innerhtml.bind="display"></span><span class="ui-caret fi-ui-caret-down"></span></div>
+  <div class="ui-label"><span><ui-glyph class.bind="glyph" glyph.bind="glyph" if.bind="glyph"></ui-glyph>\${display}</span>
+  <ui-glyph class="ui-caret" glyph="ui-caret-down"></ui-glyph></div>
   <ul class="ui-list-container ui-floating" ref="dropdown"><slot></slot></ul></template>`)
 @customElement('ui-dropdown')
 export class UIDropdown {
@@ -44,6 +45,7 @@ export class UIDropdown {
   private dropdown;
   private obMouseup;
   private selected;
+  private glyph = '';
   private display = '';
 
   valueChanged(newValue) {
@@ -53,7 +55,8 @@ export class UIDropdown {
     let it = this.items.find(it => it.value == newValue);
     if (!it) it = this.items[0];
     this.value = it.value;
-    this.display = it.element.innerHTML;
+    this.display = it.element.innerText;
+    this.glyph = it.element.au.controller.viewModel.glyph;
     (this.selected = it).element.classList.add('ui-selected');
   }
 
@@ -87,7 +90,8 @@ export class UIListGroup {
 }
 
 @autoinject()
-@inlineView(`<template class="ui-list-item" click.trigger="fireSelect($event)" mouseover.trigger="hilightItem($event)"><slot></slot></template>`)
+@inlineView(`<template class="ui-list-item" click.trigger="fireSelect($event)" mouseover.trigger="hilightItem($event)">
+  <ui-glyph class.bind="glyph" glyph.bind="glyph" if.bind="glyph"></ui-glyph>&nbsp;<slot></slot></template>`)
 @customElement('ui-list-item')
 export class UIListItem {
   constructor(public element: Element) { }
@@ -101,6 +105,7 @@ export class UIListItem {
   // end aurelia hooks
 
   @bindable() model;
+  @bindable() glyph = '';
   @bindable() value = '';
 
   hilightItem(evt) {

@@ -10,7 +10,7 @@
   position   : relative;
   display    : inline-block;
   font-size  : .9em;
-  line-height: 1.5em;
+  line-height: 1.8em;
   padding    : 0 .5em;
 
   .ui-label {
@@ -25,6 +25,7 @@
     font-size: .5rem;
     position : relative;
     left     : .2em;
+    top      : .2em;
     color    : rgba($input-text, .5);
   }
 
@@ -86,6 +87,10 @@
     color      : $dark;
     cursor     : pointer;
     display    : list-item;
+
+    .ui-icon {
+      line-height: 1.2;
+    }
 
     * {
       pointer-events: none;

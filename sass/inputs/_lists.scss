@@ -6,7 +6,18 @@
 
 .ui-input-list {
   .ui-dropdown-handle {
-    cursor: pointer;
+    cursor     : pointer;
+    font-size  : .8em;
+    line-height: 1.5rem;
+    opacity    : .5;
+
+    .ui-icon {
+      margin: 0;
+    }
+
+    &:hover {
+      opacity: .8;
+    }
   }
 
   .ui-list-container {
@@ -20,14 +31,14 @@
     position     : relative;
     max-width    : 10em;
     font-size    : .8em;
-    margin       : .1em .2em;
+    margin       : .15rem .2em;
     @include flex-row($wrap:false);
     @include flex-auto();
 
     > span {
       @include flex(1 1 auto);
       @include ellipsis();
-      line-height: 1em;
+      line-height: 1.5;
       padding    : 0 .25em;
     }
 
@@ -66,10 +77,12 @@
 
     .ui-list-item {
       cursor: move;
+      padding: 0;
       @include flex-row($align:center, $wrap: false);
 
-      > span:first-child {
-        color: $muted;
+      > .ui-icon {
+        fill  : $muted;
+        margin: 0 .5em;
       }
 
       &:hover {
@@ -93,6 +106,10 @@
       position  : absolute;
       left      : 0;
       right     : 0;
+
+      > .ui-icon {
+        fill  : $list-hover-text;
+      }
     }
   }
 }

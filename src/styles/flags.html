@@ -42,9 +42,9 @@
           <div repeat.for="key of countries | keys">
             <h5 class="section-title">${key}</h5>
             <div class="flag-card ui-border-all ui-border-light" repeat.for="c of countries[key]">
-              <div class="ui-flag ${c.iso3}"></div>
+              <ui-glyph class="ui-flag ${c.iso2}"></ui-glyph>
               <div class="name">${c.name}</div>
-              <div class="code ui-text-info ui-selectable">${c.iso2} &nbsp;&nbsp;&nbsp; ${c.iso3}</div>
+              <div class="code ui-text-info ui-selectable">${c.iso2}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${c.iso3}</div>
             </div>
           </div>
         </ui-row>

@@ -15,11 +15,12 @@ a.ui-menu-item {
   @include transition(all .5s);
 
   .ui-menu-label {
-    margin: 0 .5em;
     @include transition(font-size 0.5s);
   }
 
   .ui-menu-icon {
+    line-height        : 1.2;
+    margin             : 0 .5em;
     background-position: left center;
     background-repeat  : no-repeat;
     background-size    : 1em 1em;

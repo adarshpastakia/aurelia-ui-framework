@@ -12,7 +12,7 @@
   padding         : .2em .5em;
   @include flex-auto();
   // @include box-shadow(0 0 1px 0 $base-border-color);
-  @include flex-row($align:center, $justify:flex-end, $wrap:false);
+  @include flex-row($align:center, $justify:inherit, $wrap:false);
 
   &.ui-start {
     @include justify-content(flex-start);
@@ -84,7 +84,7 @@
 
     .ui-icon {
       margin    : 0 .5rem;
-      font-size : 2.5em;
+      font-size : 2em;
       text-align: center;
     }
 
@@ -103,27 +103,19 @@
     }
   }
 }
+@include statsbar-theme(light-bg, $dark, $light);
+@include statsbar-theme(dark-bg, $light, $dark);
+@include statsbar-theme(primary-bg, $light, lighten($primary,5%));
+@include statsbar-theme(secondary-bg, $light, lighten($secondary,5%));
+@include statsbar-theme(info-bg, $light, lighten($info,5%));
+@include statsbar-theme(danger-bg, $light, lighten($danger,5%));
+@include statsbar-theme(success-bg, $light, lighten($success,5%));
+@include statsbar-theme(warning-bg, $light, lighten($warning,5%));
 @include statsbar-theme(light, $dark, $light);
 @include statsbar-theme(dark, $light, $dark);
-@include statsbar-theme(primary, lighten($primary,5%));
-@include statsbar-theme(secondary, lighten($secondary,5%));
-@include statsbar-theme(info, lighten($info,5%));
-@include statsbar-theme(danger, lighten($danger,5%));
-@include statsbar-theme(success, lighten($success,5%));
-@include statsbar-theme(warning, lighten($warning,5%));
-@include stat-theme(light, $dark, inherit);
-@include stat-theme(dark, $light, inherit);
-@include stat-theme(primary, lighten($primary,5%), inherit);
-@include stat-theme(secondary, lighten($secondary,5%), inherit);
-@include stat-theme(info, lighten($info,5%), inherit);
-@include stat-theme(danger, lighten($danger,5%), inherit);
-@include stat-theme(success, lighten($success,5%), inherit);
-@include stat-theme(warning, lighten($warning,5%), inherit);
-@include stat-theme(light-bg, $dark, $light);
-@include stat-theme(dark-bg, $light, $dark);
-@include stat-theme(primary-bg, $light, lighten($primary,5%));
-@include stat-theme(secondary-bg, $light, lighten($secondary,5%));
-@include stat-theme(info-bg, $light, lighten($info,5%));
-@include stat-theme(danger-bg, $light, lighten($danger,5%));
-@include stat-theme(success-bg, $light, lighten($success,5%));
-@include stat-theme(warning-bg, $light, lighten($warning,5%));
+@include statsbar-theme(primary, lighten($primary,5%), inherit);
+@include statsbar-theme(secondary, lighten($secondary,5%), inherit);
+@include statsbar-theme(info, lighten($info,5%), inherit);
+@include statsbar-theme(danger, lighten($danger,5%), inherit);
+@include statsbar-theme(success, lighten($success,5%), inherit);
+@include statsbar-theme(warning, lighten($warning,5%), inherit);

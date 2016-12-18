@@ -28,7 +28,7 @@ export module UIUtils {
 
   // Toasts
   export function toast(options: any) {
-    let opts = { container: this.overlayContainer, theme: 'dark', timeout: 5000, glyph: 'symbol-info', message: '', title: '' };
+    let opts = { container: this.overlayContainer, theme: 'dark', timeout: 5000, glyph: 'ui-alert-info', message: '', title: '' };
     if (isString(options)) opts.message = options;
     else opts = Object.assign(opts, options);
     let toast = DOM.createElement('ui-toast');
@@ -51,7 +51,7 @@ export module UIUtils {
 
   // Alerts
   export function alert(options: any) {
-    let opts = { glyph: 'symbol-info', message: '', title: '', okLabel: 'OK' };
+    let opts = { glyph: 'ui-alert-info', message: '', title: '', okLabel: 'OK' };
     if (isString(options)) opts.message = options;
     else opts = Object.assign(opts, options);
     let alert = DOM.createElement('ui-alert');
@@ -74,7 +74,7 @@ export module UIUtils {
   }
 
   export function confirm(options: any) {
-    let opts = { glyph: 'symbol-question', message: '', title: '', okLabel: 'OK', cancelLabel: 'Cancel' };
+    let opts = { glyph: 'ui-alert-question', message: '', title: '', okLabel: 'OK', cancelLabel: 'Cancel' };
     if (isString(options)) opts.message = options;
     else opts = Object.assign(opts, options);
 
@@ -100,7 +100,7 @@ export module UIUtils {
   }
 
   export function prompt(options: any) {
-    let opts = { glyph: 'symbol-question', message: '', title: '', okLabel: 'OK', cancelLabel: 'Cancel', type: 'single', };
+    let opts = { glyph: 'ui-alert-question', message: '', title: '', okLabel: 'OK', cancelLabel: 'Cancel', type: 'single', };
     if (isString(options)) opts.message = options;
     else opts = Object.assign(opts, options);
     let alert = DOM.createElement('ui-prompt');

@@ -1,4 +1,5 @@
 import {FrameworkConfiguration} from 'aurelia-framework';
+import {UIConstants} from "./utils/ui-constants";
 
 import 'lodash';
 import 'moment';
@@ -37,6 +38,7 @@ import './elements/inputs/ui-lists';
 import './elements/inputs/ui-options';
 import './elements/inputs/ui-phone';
 import './elements/inputs/ui-textarea';
+import './elements/inputs/ui-markdown';
 
 import './elements/components/ui-alerts';
 import './elements/components/ui-bars';
@@ -52,7 +54,22 @@ import './elements/components/ui-tree';
 import './value-converters/ui-lodash';
 import './value-converters/ui-text';
 
-export function configure(config: FrameworkConfiguration) {
+import 'text!./elements/core/framework.html';
+
+export interface UIConfig {
+  title(t: string): UIConfig;
+  version(t: string): UIConfig;
+  appKey(t: string): UIConfig;
+
+  apiUrl(t: string): UIConfig;
+  apiHeaders(t: any): UIConfig;
+  sendAuthHeader(t: boolean): UIConfig;
+
+  languages(l: Array<any>): UIConfig;
+}
+
+export function configure(config: FrameworkConfiguration, configCallback) {
+  // config.container.registerHandler('ui-validator', container => container.get(UIValidationRenderer));
   // Core Elements
   config.globalResources([
     './elements/core/ui-grid',
@@ -67,7 +84,8 @@ export function configure(config: FrameworkConfiguration) {
     './elements/inputs/ui-lists',
     './elements/inputs/ui-options',
     './elements/inputs/ui-phone',
-    './elements/inputs/ui-textarea'
+    './elements/inputs/ui-textarea',
+    './elements/inputs/ui-markdown'
   ]);
   // Components
   config.globalResources([
@@ -87,6 +105,41 @@ export function configure(config: FrameworkConfiguration) {
     './value-converters/ui-lodash',
     './value-converters/ui-text'
   ]);
+
+  var Configure = {
+    title: (t) => {
+      UIConstants.App.Title = t;
+      return Configure;
+    },
+    version: (t) => {
+      UIConstants.App.Version = t;
+      return Configure;
+    },
+    appKey: (t) => {
+      UIConstants.App.Key = t;
+      return Configure;
+    },
+    apiUrl: (t) => {
+      UIConstants.Http.BaseUrl = t;
+      return Configure;
+    },
+    apiHeaders: (t) => {
+      UIConstants.Http.Headers = t;
+      return Configure;
+    },
+    sendAuthHeader: (t) => {
+      UIConstants.Http.AuthorizationHeader = t;
+      return Configure;
+    },
+    languages: (l) => {
+      UIConstants.Languages = l;
+      return Configure;
+    }
+  };
+
+  if (configCallback !== undefined && typeof configCallback === 'function') {
+    configCallback(Configure);
+  }
 
   // LoDash Mixins
   _.mixin({

@@ -5,11 +5,13 @@
 // @license     : MIT
 import {autoinject, customElement, bindable, bindingMode, children, useView, inlineView, containerless, Container, View, DOM} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
+import {UIApplication} from "../../utils/ui-application";
 import {UIUtils} from "../../utils/ui-utils";
 import {UIEvent} from "../../utils/ui-event";
 
 @autoinject()
 @inlineView(`<template class="ui-viewport ui-fullscreen">
+  <compose view="./framework.html"></compose>
   <slot name="ui-app-header"></slot>
   <slot></slot>
   <div class="ui-app-taskbar"><slot name="ui-app-taskbar"></slot><div class="ui-taskbutton-wrapper" ref="taskbarContainer"></div></div>
@@ -18,15 +20,15 @@ import {UIEvent} from "../../utils/ui-event";
   <div class="ui-dialog-container" ref="dialogContainer"></div>
   <div class="ui-overlay-container" ref="overlayContainer"></div>
 
-  <div class="ui-loader" show.bind="router.isNavigating || httpClient.isRequesting">
+  <div class="ui-loader" show.bind="router.isNavigating || httpClient.isRequesting || app.isBusy">
     <div class="ui-loader-div">
-      <span class="fi-ui-load2 ui-anim-loader"></span>
+      <ui-glyph class="ui-anim-loader" glyph="ui-loader"></ui-glyph>
     </div>
   </div>
 </template>`)
 @customElement('ui-viewport')
 export class UIViewport {
-  constructor(public element: Element, public httpClient: HttpClient, container: Container) {
+  constructor(public element: Element, public httpClient: HttpClient, public app: UIApplication, container: Container) {
     //if (element.hasAttribute('fullscreen')) element.classList.add('fullscreen');
     UIUtils.auContainer = container;
 

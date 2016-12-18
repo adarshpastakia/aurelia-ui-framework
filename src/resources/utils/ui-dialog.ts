@@ -14,6 +14,7 @@ import {
   ViewCompiler,
   ViewResources,
   CompositionEngine,
+  TemplatingEngine,
   ViewSlot
 } from "aurelia-framework";
 import {child} from "aurelia-templating";
@@ -28,7 +29,8 @@ export class UIDialogService {
   constructor(private compiler: ViewCompiler,
     private container: Container,
     private resources: ViewResources,
-    private compositionEngine: CompositionEngine) {
+    private compositionEngine: CompositionEngine,
+    private templatingEngine: TemplatingEngine) {
   }
 
   private initialize() {
@@ -96,7 +98,7 @@ export class UIDialogService {
         <ui-header-tool expand click.trigger="expand($event)" if.bind="maximize"></ui-header-tool>
         <ui-header-tool close click.trigger="close($event)" ></ui-header-tool>
       </ui-header>
-      <span class="ui-resizer fi-ui-dialog-resize" if.bind="resize"></span>
+      <ui-glyph class="ui-resizer" glyph="ui-dialog-resize" if.bind="resize"></ui-glyph>
       </div></div></template>`, this.resources);
     let view = viewFactory.create(this.container);
     view.bind(vm);
@@ -109,9 +111,12 @@ export class UIDialogService {
 
       dialog.taskButtonEl = document.createElement('button');
       dialog.taskButtonEl.classList.add('ui-active');
-      dialog.taskButtonEl.innerHTML = `<span class="fi-ui-${dialog.glyph}"></span>&nbsp;<span class="ui-label">${dialog.title}</span>`;
+      dialog.taskButtonEl.innerHTML = `<ui-glyph class="${dialog.glyph}" glyph="${dialog.glyph}"></ui-glyph>&nbsp;<span class="ui-label">${dialog.title}</span>`;
       dialog.taskButtonEl.window = dialog;
-      if (UIUtils.taskbarContainer) UIUtils.taskbarContainer.appendChild(dialog.taskButtonEl);
+      if (UIUtils.taskbarContainer) {
+        UIUtils.taskbarContainer.appendChild(dialog.taskButtonEl);
+        this.templatingEngine.enhance(dialog.taskButtonEl);
+      }
 
       this.changeActive(dialog);
     }

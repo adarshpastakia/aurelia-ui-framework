@@ -9,7 +9,7 @@ import {UIEvent} from "../../utils/ui-event";
 
 @autoinject()
 @inlineView(`<template class="ui-tree-panel"><ui-input-group class="ui-search" if.bind="searchable">
-  <ui-input type="search" placeholder="Search..." clear value.bind="searchText & debounce:200"><span class="ui-input-addon ui-text-muted fi-ui-icon-search2"></span></ui-input></ui-input-group>
+  <ui-input type="search" placeholder="Search..." clear value.bind="searchText" input.trigger="searchTextChanged(searchText) & debounce:200"><ui-input-addon class="ui-text-muted" glyph="ui-search"></ui-input-addon></ui-input></ui-input-group>
   <div class="ui-tree-level">
     <tree-node repeat.for="child of root.children | sort:'name'" node.bind="child" options.bind="options" nodeclick.delegate="itemClicked($event.detail)"></tree-node>
   </div></template>`)
@@ -17,9 +17,6 @@ import {UIEvent} from "../../utils/ui-event";
 export class UITree {
   constructor(public element: Element) {
     if ((this.searchable = element.hasAttribute('searchable'))) element.classList.add('has-search');
-
-    this.obSearch = UIEvent.observe(this, 'searchText')
-      .subscribe(v => this.searchTextChanged(v));
   }
 
   // aurelia hooks
@@ -29,9 +26,7 @@ export class UITree {
     this.valueChanged(this.value);
   }
   attached() { }
-  detached() {
-    if (this.obSearch) this.obSearch.dispose();
-  }
+  detached() { }
   unbind() { }
   // end aurelia hooks
 
@@ -44,7 +39,6 @@ export class UITree {
   private searchText: string = '';
   private selectedNode: any = {};
 
-  private obSearch;
   private searchable = false;
 
   private ignoreChange = false;
@@ -211,13 +205,13 @@ export class UITree {
 @inlineView(`<template class="ui-tree-item">
     <div class="ui-tree-item-link \${node.disabled?'ui-disabled':''}" if.bind="node.isVisible">
         <a class="ui-expander \${node.expanded?'expanded':''}" if.bind="!node.leaf" click.trigger="node.expanded=!node.expanded">
-            <ui-glyph glyph.bind="node.expanded?'tree-collapse':'tree-expand'"></ui-glyph>
+            <ui-glyph glyph.bind="node.expanded?'ui-tree-collapse':'ui-tree-expand'"></ui-glyph>
         </a>
         <a class="ui-node-checkbox" if.bind="options.showCheckbox && node.level>=options.checkboxLevel" click.trigger="fireClicked()">
-          <ui-glyph glyph.bind="node.checked==1?'tree-check-on':(node.checked==2?'tree-check-partial':'tree-check-off')"></ui-glyph>
+          <ui-glyph glyph.bind="node.checked==1?'ui-tree-check-on':(node.checked==2?'ui-tree-check-partial':'ui-tree-check-off')"></ui-glyph>
         </a>
         <a class="ui-node-link \${!options.showCheckbox && node.active?'ui-active':node.childActive?'ui-partial':''}" data-id="\${node.id}" click.trigger="fireClicked()">
-            <span class="ui-icon \${node.icon}" if.bind="node.icon"></span>
+            <ui-glyph glyph.bind="(node.expanded?node.openIcon:'')||node.icon" class.bind="(node.expanded?node.openIcon:'')||node.icon" if.bind="node.icon"></ui-glyph>
             <span innerhtml.bind="node.text"></span>
         </a>
     </div>

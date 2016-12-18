@@ -75,8 +75,6 @@
       color: rgba($color, .75);
     }
   }
-}
-@mixin stat-theme($theme, $color, $bg: $base-bg) {
   .ui-statsbar .ui-stat.#{$theme} {
     color     : $color;
     background: $bg;

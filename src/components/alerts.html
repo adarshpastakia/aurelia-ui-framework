@@ -43,21 +43,10 @@
                 <ui-input-label>Glyph</ui-input-label>
                 <ui-dropdown value.bind="toast.glyph" width="8em">
                   <ui-list-item value="">None</ui-list-item>
-                  <ui-list-item value="icon-notify">
-                    <ui-glyph glyph="icon-notify"></ui-glyph>
-                    Notify</ui-list-item>
-                  <ui-list-item value="symbol-info-bubble">
-                    <ui-glyph glyph="symbol-info-bubble"></ui-glyph>
-                    Info</ui-list-item>
-                  <ui-list-item value="symbol-exclaim-bubble">
-                    <ui-glyph glyph="symbol-exclaim-bubble"></ui-glyph>
-                    Exclaim</ui-list-item>
-                  <ui-list-item value="symbol-question-bubble">
-                    <ui-glyph glyph="symbol-question-bubble"></ui-glyph>
-                    Question</ui-list-item>
-                  <ui-list-item value="symbol-warning">
-                    <ui-glyph glyph="symbol-warning"></ui-glyph>
-                    Warning</ui-list-item>
+                  <ui-list-item value="ui-alert-info" glyph="ui-alert-info">Info</ui-list-item>
+                  <ui-list-item value="ui-alert-exclaim" glyph="ui-alert-exclaim">Exclaim</ui-list-item>
+                  <ui-list-item value="ui-alert-question" glyph="ui-alert-question">Question</ui-list-item>
+                  <ui-list-item value="ui-alert-error" glyph="ui-alert-error">Error</ui-list-item>
                 </ui-dropdown>
               </ui-input-group>
 
@@ -103,21 +92,10 @@
                 <ui-input-label>Glyph</ui-input-label>
                 <ui-dropdown value.bind="alert.glyph" width="8em">
                   <ui-list-item value="">None</ui-list-item>
-                  <ui-list-item value="icon-notify">
-                    <ui-glyph glyph="icon-notify"></ui-glyph>
-                    Notify</ui-list-item>
-                  <ui-list-item value="symbol-info-bubble">
-                    <ui-glyph glyph="symbol-info-bubble"></ui-glyph>
-                    Info</ui-list-item>
-                  <ui-list-item value="symbol-exclaim-bubble">
-                    <ui-glyph glyph="symbol-exclaim-bubble"></ui-glyph>
-                    Exclaim</ui-list-item>
-                  <ui-list-item value="symbol-question-bubble">
-                    <ui-glyph glyph="symbol-question-bubble"></ui-glyph>
-                    Question</ui-list-item>
-                  <ui-list-item value="symbol-warning">
-                    <ui-glyph glyph="symbol-warning"></ui-glyph>
-                    Warning</ui-list-item>
+                  <ui-list-item value="ui-alert-info" glyph="ui-alert-info">Info</ui-list-item>
+                  <ui-list-item value="ui-alert-exclaim" glyph="ui-alert-exclaim">Exclaim</ui-list-item>
+                  <ui-list-item value="ui-alert-question" glyph="ui-alert-question">Question</ui-list-item>
+                  <ui-list-item value="ui-alert-error" glyph="ui-alert-error">Error</ui-list-item>
                 </ui-dropdown>
               </ui-input-group>
             </ui-column>
@@ -128,7 +106,7 @@
             <ui-button light small click.trigger="openConfirm()">Show Confirm</ui-button>
           </ui-toolbar>
         </ui-fieldset>
-        
+
       </ui-container>
     </ui-content>
   </ui-page>

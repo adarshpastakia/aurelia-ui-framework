@@ -66,6 +66,7 @@
 
   span,
   strong {
+    line-height   : 1;
     pointer-events: none;
   }
 
@@ -75,9 +76,9 @@
     pointer-events: none !important;
 
     &:before {
-      content      : ' ';
-      background   : rgba($button-disabled-bg, .75);
-      box-shadow   : 0 0 0 1px rgba($button-disabled-bg, .5);
+      content   : ' ';
+      background: rgba($button-disabled-bg, .75);
+      box-shadow: 0 0 0 1px rgba($button-disabled-bg, .5);
       @include position(absolute, 0);
     }
   }
@@ -89,8 +90,14 @@
 
     .ui-indicator {
       z-index    : 2;
+      line-height: 1;
+      font-size  : 1.2em;
       text-shadow: none;
       @include margin(start, -.5em);
+
+      .ui-icon {
+        margin: 0;
+      }
     }
 
     &:after {
@@ -100,6 +107,17 @@
       background   : rgba($white, .25);
       @include position(absolute, 0);
     }
+  }
+
+  .ui-btn-icon {
+    margin: 0 .25em;
+  }
+
+  .ui-icon.ui-caret {
+    opacity    : .5;
+    line-height: 1.5em;
+    font-size  : .5em;
+    @include margin(end, -.5em);
   }
 
   &.ui-square {
@@ -118,6 +136,10 @@
     font-size  : .7em;
     font-weight: 600;
     text-shadow: none;
+
+    .ui-caret {
+      margin: 0;
+    }
   }
 
   &.ui-icon-top {
@@ -132,15 +154,6 @@
     }
   }
 
-  &.ui-btn-dropdown {
-    &:after {
-      font-size  : .7em;
-      font-family: 'Framework';
-      content    : $fi-ui-caret-down;
-      @include padding(start, .5em);
-    }
-  }
-
   &.ui-open {
     &.ui-tether-top {
       border-top-left-radius : 0;
@@ -151,10 +164,6 @@
       border-bottom-left-radius : 0;
       border-bottom-right-radius: 0;
     }
-  }
-
-  .ui-icon {
-    margin: 0 .25em;
   }
 
   .ui-label {

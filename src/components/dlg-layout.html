@@ -6,22 +6,22 @@
 <template>
   <ui-section column-layout>
     <ui-statsbar class="ui-font-small">
-      <ui-stat primary label="Users" glyph="icon-user-line">7.11K</ui-stat>
-      <ui-stat secondary label="Downloads" glyph="icon-download-line">11.18K</ui-stat>
-      <ui-stat info label="Messages" glyph="icon-comments-line">9.24K</ui-stat>
-      <ui-stat danger label="Likes" glyph="icon-heart-line">18.24K</ui-stat>
+      <ui-stat primary-bg label="Users" glyph="icon-moon-user">7.11K</ui-stat>
+      <ui-stat secondary-bg label="Downloads" glyph="icon-moon-download3">11.18K</ui-stat>
+      <ui-stat info-bg label="Messages" glyph="icon-moon-bubbles3">9.24K</ui-stat>
+      <ui-stat danger-bg label="Likes" glyph="icon-moon-heart">18.24K</ui-stat>
     </ui-statsbar>
     <ui-section row-layout>
       <ui-sidebar label="Sidebar" collapsed="true" collapsible scroll mini-display>
         <ui-menu>
-          <ui-menu-item active.bind="!active" glyph.bind="!active?'icon-email':'icon-email-line'" click.trigger="active=0">
+          <ui-menu-item active.bind="!active" glyph="icon-moon-envelop" click.trigger="active=0">
             Inbox</ui-menu-item>
-          <ui-menu-item active.bind="active==1" glyph.bind="active==1?'icon-calendar':'icon-calendar-line'" click.trigger="active=1">
+          <ui-menu-item active.bind="active==1" glyph="icon-moon-calendar" click.trigger="active=1">
             Calendar</ui-menu-item>
-          <ui-menu-item active.bind="active==2" glyph.bind="active==2?'icon-notify':'icon-notify-line'" click.trigger="active=2">
+          <ui-menu-item active.bind="active==2" glyph="icon-moon-alarm" click.trigger="active=2">
             Notification</ui-menu-item>
           <ui-menu-divider></ui-menu-divider>
-          <ui-menu-item active.bind="active==3" glyph.bind="active==3?'icon-cog':'icon-cog-line'" click.trigger="active=3">
+          <ui-menu-item active.bind="active==3" glyph="icon-moon-cog" click.trigger="active=3">
             Settings</ui-menu-item>
         </ui-menu>
       </ui-sidebar>
@@ -39,19 +39,19 @@
           </ui-input-group>
           <ui-filler></ui-filler>
           <ui-button-group>
-            <ui-button small square glyph="icon-add"></ui-button>
-            <ui-button small square glyph="icon-remove"></ui-button>
+            <ui-button small square glyph="icon-moon-undo2"></ui-button>
+            <ui-button small square glyph="icon-moon-redo2"></ui-button>
           </ui-button-group>
-          <ui-button small square glyph="icon-cog-line" dropdown.bind="btnMenu"></ui-button>
+          <ui-button small square glyph="icon-moon-cog" dropdown.bind="btnMenu"></ui-button>
         </ui-toolbar>
         <ui-menu ref="btnMenu">
           <ui-menu-section>Actions</ui-menu-section>
-          <ui-menu-item glyph="icon-pencil">Edit</ui-menu-item>
-          <ui-menu-item glyph="icon-search">Search</ui-menu-item>
-          <ui-menu-item glyph="icon-trash">Delete</ui-menu-item>
+          <ui-menu-item glyph="icon-moon-pencil">Edit</ui-menu-item>
+          <ui-menu-item glyph="icon-moon-search">Search</ui-menu-item>
+          <ui-menu-item glyph="icon-moon-bin">Delete</ui-menu-item>
           <ui-menu-section>Options</ui-menu-section>
-          <ui-menu-item glyph="icon-bell-line">Notifications</ui-menu-item>
-          <ui-menu-item glyph="icon-cog-line">Settings</ui-menu-item>
+          <ui-menu-item glyph="icon-moon-alarm">Notifications</ui-menu-item>
+          <ui-menu-item glyph="icon-moon-cog">Settings</ui-menu-item>
         </ui-menu>
         <ui-content padded scroll>
           <compose view="../home/lipsum-big.html"></compose>

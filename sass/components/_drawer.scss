@@ -4,9 +4,10 @@
 // @copyright   : 2017
 // @license     : MIT
 .ui-drawer-toggle {
-  cursor : pointer;
-  margin : 0 .5em;
-  display: inline-block;
+  cursor     : pointer;
+  margin     : 0 .5em;
+  display    : inline-block;
+  line-height: 1;
 
   &:hover {}
 }
@@ -28,6 +29,7 @@
       width      : 100%;
       line-height: 2em;
       padding    : 0 .5em;
+      margin-top : -.25em;
       color      : $secondary;
     }
   }
@@ -47,7 +49,6 @@
       > .ui-drawer-close {
         text-align: right;
         text-align: end;
-        @include glyph($fi-ui-arrow-left);
       }
     }
 
@@ -63,7 +64,6 @@
       > .ui-drawer-close {
         text-align: left;
         text-align: start;
-        @include glyph($fi-ui-arrow-right);
       }
     }
 
@@ -89,10 +89,6 @@
     > .ui-drawer-content {
       right: -1 * $drawer-width;
       left : auto;
-
-      > .ui-drawer-close {
-        @include glyph($fi-ui-arrow-right);
-      }
     }
 
     &.show > .ui-drawer-content {
@@ -104,10 +100,6 @@
     > .ui-drawer-content {
       left : -1 * $drawer-width;
       right: auto;
-
-      > .ui-drawer-close {
-        @include glyph($fi-ui-arrow-left);
-      }
     }
 
     &.show > .ui-drawer-content {

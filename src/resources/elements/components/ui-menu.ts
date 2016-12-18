@@ -11,7 +11,7 @@ import {UIUtils} from "../../utils/ui-utils";
 @inlineView(`
 <template class="ui-menubar">
   <div class="ui-menubar-wrapper" ref="wrapper"><slot></slot></div>
-  <div class="ui-menubar-toggle" ref="overflowToggle" show.bind="isOverflow" click.trigger="showOverflow($event)"><span class="fi-ui-ellipsis-v"></span></div>
+  <div class="ui-menubar-toggle" ref="overflowToggle" show.bind="isOverflow" click.trigger="showOverflow($event)"><ui-glyph glyph="ui-handle-overflow"></ui-glyph></div>
   <div class="ui-menu ui-menubar-overflow ui-floating" ref="overflow"></div>
 </template>`)
 @customElement('ui-menubar')
@@ -119,7 +119,7 @@ export class UIMenuGroup {
 @autoinject()
 @containerless()
 @inlineView(`<template><a class="ui-menu-item \${active?'ui-active':''} \${disabled?'ui-disabled':''} \${class}" href.bind="href" click.trigger="click($event)">
-    <span if.bind="glyph" class="ui-menu-icon fi-ui-\${glyph}"></span><span class="ui-menu-label"><slot></slot></span></a></template>`)
+    <ui-glyph if.bind="glyph" class="ui-menu-icon \${glyph}" glyph.bind="glyph"></ui-glyph><span class="ui-menu-label"><slot></slot></span></a></template>`)
 @customElement('ui-menu-item')
 export class UIMenuItem {
   constructor(public element: Element) { }

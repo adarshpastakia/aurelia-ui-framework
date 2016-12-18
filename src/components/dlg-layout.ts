@@ -30,7 +30,7 @@ export class DlgLayout extends UIDialog {
 
   id = "dlgLayout";
   title = "Complex Dialog";
-  glyph = "tree-check-partial";
+  glyph = "icon-fill-note-list";
 
   minWidth = "600px";
   minHeight = "400px";
