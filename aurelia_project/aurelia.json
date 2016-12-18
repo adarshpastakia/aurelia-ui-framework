@@ -78,9 +78,10 @@
         "name": "text",
         "extensions": [
           ".html",
-          ".css"
+          ".css",
+          ".svg"
         ],
-        "stub": true
+        "stub": false
       }]
     },
     "options":
