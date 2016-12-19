@@ -117,7 +117,7 @@
     opacity    : .5;
     line-height: 1.5em;
     font-size  : .5em;
-    @include margin(end, -.5em);
+    margin     : 0 .2rem;
   }
 
   &.ui-square {

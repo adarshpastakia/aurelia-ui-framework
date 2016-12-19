@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
-  "compilerOptions": {
+  "compilerOptions":
+  {
     "sourceMap": true,
     "target": "es5",
     "module": "amd",
@@ -9,6 +10,7 @@
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
     "lib": ["es2015", "dom"]
   },
@@ -21,7 +23,8 @@
     "./typings/index.d.ts",
     "./custom_typings/**/*.d.ts"
   ],
-  "atom": {
+  "atom":
+  {
     "rewriteTsconfig": false
   }
 }

@@ -47,7 +47,7 @@ export class UITextarea extends UIBaseInput {
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value = '';
 
-  @bindable() dir = 'ltr';
+  @bindable() dir = 'inherit';
   @bindable() rows = 5;
   @bindable() errors = null;
   @bindable() maxlength = 5000;

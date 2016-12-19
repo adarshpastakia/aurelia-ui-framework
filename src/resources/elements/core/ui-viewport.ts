@@ -28,10 +28,8 @@ import {UIEvent} from "../../utils/ui-event";
 </template>`)
 @customElement('ui-viewport')
 export class UIViewport {
-  constructor(public element: Element, public httpClient: HttpClient, public app: UIApplication, container: Container) {
+  constructor(public element: Element, public httpClient: HttpClient, public app: UIApplication) {
     //if (element.hasAttribute('fullscreen')) element.classList.add('fullscreen');
-    UIUtils.auContainer = container;
-
     var __resizeTimer;
     // Browser events hooks
     document.ondragstart = (e: any) => getParentByClass(e.target, '.ui-draggable') != null;

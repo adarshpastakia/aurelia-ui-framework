@@ -47,7 +47,7 @@ import {UIUtils} from "../../utils/ui-utils";
   <span class="ui-counter" if.bind="counter" innerhtml.bind="value.length + ' of ' + maxlength"></span>
   </div>
   
-  <div class='ui-md-preview ui-pad-all ui-markdown' show.bind="help">
+  <div class='ui-md-preview ui-pad-all ui-markdown' show.bind="help" dir="ltr">
   <h2 class="ui-small-caps ui-text-primary ui-strong">Markdown Syntax</h2>
   <hr/>
   <p>Add a blank line to create a separate paragraph</p>
@@ -151,7 +151,7 @@ import {UIUtils} from "../../utils/ui-utils";
   <br/>
   <br/></div>
   
-  <div class="ui-md-preview ui-pad-all ui-markdown" show.bind="preview" innerhtml.bind="value | markdown" dir.bind="dir"></div>
+  <div class="ui-md-preview ui-pad-all ui-markdown" dir.bind="dir" show.bind="preview" innerhtml.bind="value | markdown" dir.bind="dir"></div>
   
   </div>
   <div class="ui-input-info" if.bind="info" innerhtml.bind="info"></div>
@@ -173,7 +173,7 @@ export class UIMarkdown extends UIBaseInput {
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value = '';
 
-  @bindable() dir = 'ltr';
+  @bindable() dir = 'inherit';
   @bindable() rows = 15;
   @bindable() errors = null;
   @bindable() maxlength = 5000;

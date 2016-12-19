@@ -105,7 +105,7 @@ export class UIInput extends UIBaseInput {
   @bindable({ defaultBindingMode: bindingMode.twoWay }) number;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) decimal;
 
-  @bindable() dir = 'ltr';
+  @bindable() dir = 'inherit';
   @bindable() size = 1;
   @bindable() width = 'auto';
   @bindable() errors = null;

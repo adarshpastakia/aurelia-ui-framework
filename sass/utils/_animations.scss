@@ -45,39 +45,39 @@
 }
 @include keyframes(color) {
   0% {
-    fill: $info;
+    color: $info;
   }
 
-  20% {
-    fill: $info;
+  24% {
+    color: $info;
   }
 
   25% {
-    fill: $danger;
+    color: $danger;
   }
 
-  45% {
-    fill: $danger;
+  49% {
+    color: $danger;
   }
 
   50% {
-    fill: $success;
+    color: $success;
   }
 
-  70% {
-    fill: $success;
+  74% {
+    color: $success;
   }
 
   75% {
-    fill: $warning;
+    color: $warning;
   }
 
-  95% {
-    fill: $warning;
+  99% {
+    color: $warning;
   }
 
   100% {
-    fill: $info;
+    color: $info;
   }
 }
 @include keyframes(icon) {
@@ -124,6 +124,10 @@
 
   &.ui-anim-pendulum {
     @include animation(pendulum 1s linear infinite);
+  }
+
+  &.ui-anim-color {
+    @include animation(color 60s linear infinite);
   }
 
   &.ui-anim-busy {

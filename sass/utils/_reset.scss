@@ -79,6 +79,7 @@ button {
 
 .ui-link,
 a {
+  position: relative;
   color: $link-text;
 
   &:hover {

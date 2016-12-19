@@ -325,7 +325,7 @@ export class UICombo extends BaseListInput {
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value = '';
 
-  @bindable() dir = 'ltr';
+  @bindable() dir = 'inherit';
   @bindable() size = 5;
   @bindable() errors = null;
   @bindable() disabled = false;
@@ -402,7 +402,7 @@ export class UITags extends BaseListInput {
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value = '';
 
-  @bindable() dir = 'ltr';
+  @bindable() dir = 'inherit';
   @bindable() size = 5;
   @bindable() errors = null;
   @bindable() disabled = false;
@@ -508,7 +508,7 @@ export class UIList extends BaseListInput {
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value = '';
 
-  @bindable() dir = 'ltr';
+  @bindable() dir = 'inherit';
   @bindable() size = 5;
   @bindable() errors = null;
   @bindable() disabled = false;

@@ -1,6 +1,9 @@
 {
   "name": "unamed-framework",
-  "dependencies": {},
+  "dependencies": {
+    "aurelia-i18n": "github:aurelia/i18n",
+    "i18next": "registry:dt/i18next#2.3.4+20161121185947"
+  },
   "globalDevDependencies": {
     "angular-protractor": "registry:dt/angular-protractor#1.5.0+20160425143459",
     "jasmine": "registry:dt/jasmine#2.2.0+20160505161446",
@@ -8,6 +11,7 @@
     "selenium-webdriver": "registry:dt/selenium-webdriver#2.44.0+20160317120654"
   },
   "globalDependencies": {
+    "i18next-xhr-backend": "registry:dt/i18next-xhr-backend#1.2.0+20161005184000",
     "lodash": "registry:dt/lodash#4.14.0+20161110215204",
     "moment": "registry:dt/moment#2.11.1+20161010105546",
     "numeraljs": "registry:dt/numeraljs#0.0.0+20161014114953"

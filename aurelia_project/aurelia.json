@@ -96,6 +96,16 @@
         "[**/*.js]",
         "**/*.{css,html}"
       ],
+      "exclude": [
+        "**/resources/**/*"
+      ]
+    },
+    {
+      "name": "framework-bundle.js",
+      "source": [
+        "[**/resources/**/*.js]",
+        "**/resources/**/*.{css,html}"
+      ],
       "dependencies": [
         "lodash",
         "moment",
@@ -139,6 +149,11 @@
         "aurelia-templating-binding",
         "text",
         {
+          "name": "aurelia-i18n",
+          "path": "../node_modules/aurelia-i18n/dist/amd",
+          "main": "aurelia-i18n"
+        },
+        {
           "name": "aurelia-templating-resources",
           "path": "../node_modules/aurelia-templating-resources/dist/amd",
           "main": "aurelia-templating-resources"
@@ -158,6 +173,21 @@
           "name": "aurelia-validation",
           "path": "../node_modules/aurelia-validation/dist/amd",
           "main": "aurelia-validation"
+        },
+        {
+          "name": "i18next",
+          "path": "../node_modules/i18next/dist/umd",
+          "main": "i18next"
+        },
+        {
+          "name": "i18next-xhr-backend",
+          "path": "../node_modules/i18next-xhr-backend/dist/umd",
+          "main": "i18nextXHRBackend"
+        },
+        {
+          "name": "intl",
+          "path": "../node_modules/intl/dist",
+          "main": "Intl.min"
         }
       ]
     }]

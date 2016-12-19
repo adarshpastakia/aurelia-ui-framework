@@ -1,0 +1,145 @@
+{
+  "theming":
+  {
+    "title": "Teoría",
+    "description": "Estilo estilizado basado en Compass-Sass",
+
+    "titleOverview": "Visión General",
+    "descOverview": "Visión general del tema básico",
+    "titleTypo": "Tipografía",
+    "descTypo": "Estilos de fuentes y colores contextuales",
+    "titleGlyphs": "SVG Glifos",
+    "descGlyphs": "Icono de SVG glifos construido con la aplicación IcoMooon",
+    "titleFlags": "Iconos Bandera",
+    "descFlags": "Banderas de país"
+  },
+  "core":
+  {
+    "title": "Elementos Principales",
+    "description": "Componentes de visor y página de núcleo para aplicaciones de construcción",
+
+    "titleViewport": "Viewport",
+    "descViewport": "Vista principal de la aplicación",
+    "titlePages": "Componentes la Página",
+    "descPages": "Componentes de la página para crear varios diseños de página",
+    "titleGrid": "Disposición Responsive",
+    "descGrid": "Diseño receptivo para diferentes ventanas de visualización"
+  },
+  "inputs":
+  {
+    "title": "Elementos de Entrada",
+    "description": "Elementos integrales de entrada para formularios relacionados con el negocio",
+
+    "titleButtons": "Botones",
+    "descButtons": "Botones básicos con grupos y desplegables",
+    "titleText": "Entradas de Texto",
+    "descText": "Entradas básicas para texto, números y números de teléfono",
+    "titleMulti": "Entrada Multilínea",
+    "descMulti": "Entrada multilínea con autocompletar",
+    "titleOption": "Entradas de Opciones",
+    "descOption": "Caja, radio y controles de interruptor",
+    "titleLists": "Lista de Entradas",
+    "descLists": "Entradas de lista común, combo y etiqueta, con capacidad de búsqueda",
+    "titleDate": "Entradas de Fecha",
+    "descDate": "Entradas Fecha / Hora",
+    "titleMd": "Editor de Contenido",
+    "descMd": "Editores de contenido para contenido multi-idioma y markdown",
+    "titleValidation": "Validación de Entrada",
+    "descValidation": "Validaciones de entrada y visualización de errores"
+  },
+  "comps":
+  {
+    "title": "UI Componentes",
+
+    "titleMenus": "Menús",
+    "descMenus": "Componentes de menú para crear listas de menús y menubars",
+    "titleDrawer": "Cajón",
+    "descDrawer": "Cajón lateral deslizante",
+    "titleSidebar": "Barra Lateral",
+    "descSidebar": "En la barra lateral de la página",
+    "titleToolbar": "Barra de Herramientas",
+    "descToolbar": "Barra de herramientas simple para diálogos y paneles",
+    "titleStats": "Statsbar",
+    "descStats": "Visualización de estadísticas simples horizontales",
+    "titlePanels": "Paneles",
+    "descPanels": "Crear paneles con plegable y cierre opcionales",
+    "titleDialogs": "Diálogos",
+    "descDialogs": "Crear paneles con plegable y cierre opcionales",
+    "titleAlerts": "Alertas",
+    "descAlerts": "Diálogos de alerta y mensajes flotantes de tostadas",
+    "titleCrumbs": "Breadcrumbs",
+    "descCrumbs": "Pan rallado temático para navegar a través de varios niveles",
+    "titleTabs": "Panel de Pestañas",
+    "descTabs": "Paneles tabulados",
+    "titleTree": "Panel de Árbol",
+    "descTree": "Visualización de datos en forma de árbol con nodos factibles opcionales",
+    "titleGrid": "Rejilla de Datos",
+    "descGrid": "Rejilla de datos funcional con columnas redimensionables y fila de resumen."
+  },
+  "apis":
+  {
+    "title": "API Clases",
+
+    "titleApp": "Aplicación",
+    "descApp": "Singleton de aplicación para la funcionalidad común compartida en toda la aplicación",
+    "titleHttp": "Cliente Http",
+    "descHttp": "Extended aurelia-fetch-client para peticiones http",
+    "titleData": "Modelo de datos",
+    "descData": "Modelo de datos genérico para serializar / desrializar datos de pojo",
+    "titleEvent": "Manejo de eventos",
+    "descEvent": "Clase de ayuda para la emisión de eventos, suscripción y colas de tareas"
+  },
+
+  "support":
+  {
+    "title": "Soporte del Navegador",
+
+    "tested": "Probado",
+    "untested": "No Probado",
+    "issues": "Problemas Conocidos",
+
+    "sectionCore": "Elementos Principales",
+    "sectionInputs": "Elementos de Entrada",
+    "sectionComponents": "UI Componentes",
+    "sectionApi": "API Clases",
+
+    "titleGlyphs": "SVG Glifos",
+    "titleGrid": "Disposición Responsive",
+    "titleViewport": "Viewport",
+    "titlePage": "Página",
+    "titleSection": "Sección",
+    "titleContent": "Contenido",
+    "titleButton": "Botón",
+    "titleText": "Texto",
+    "titleMultiline": "Multilínea",
+    "titlePhone": "Teléfono",
+    "titleList": "Lista",
+    "titleCombo": "Combo",
+    "titleTag": "Etiqueta",
+    "titleDate": "Fecha",
+    "titleRadio": "Radio",
+    "titleCheckbox": "Caja",
+    "titleSwitch": "Cambiar",
+    "titleLanguage": "Lenguaje",
+    "titleMarkdown": "Markdown",
+    "titleValidation": "Validación",
+    "titleMenu": "Menú",
+    "titleMenubar": "Barra de Menús",
+    "titlePanel": "Panel",
+    "titleDialog": "Diálogo",
+    "titleAlerts": "Alertas",
+    "titleDrawer": "Cajón",
+    "titleToolbar": "Barra de Herramientas",
+    "titleSidebar": "Barra Lateral",
+    "titleStatsbar": "Statsbar",
+    "titleCrumbs": "Breadcrumbs",
+    "titleTabs": "Panel de Pestañas",
+    "titleTree": "Panel de Árbol",
+    "titleDatagrid": "Rejilla de Datos",
+    "titleApp": "Aplicación",
+    "titleHttp": "Cliente Http",
+    "titleData": "Modelo de Datos",
+    "titleEvent": "Manejo de Eventos",
+    "titleConvert": "Convertidores de Valores"
+  }
+}

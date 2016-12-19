@@ -128,6 +128,7 @@
       font-size  : .7em;
       line-height: 1.5rem;
       padding    : 0 .25em;
+      direction  : ltr;
     }
 
     .ui-clear {
@@ -195,5 +196,18 @@
   &.ui-readonly .ui-input-control {
     background: $input-readonly-bg;
     box-shadow: none !important;
+  }
+}
+
+.rtl,
+[dir="rtl"] {
+  .ui-input-control {
+    &.ui-phone input {
+      text-align: right;
+    }
+
+    .ui-counter {
+      text-align: right;
+    }
   }
 }

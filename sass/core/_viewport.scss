@@ -75,6 +75,14 @@
         color: $secondary;
       }
     }
+
+    .ui-dropdown {
+      .ui-caret,
+      .ui-label {
+        color: $app-header-link-text;
+      }
+      background: rgba($white, .1);
+    }
   }
 
   .ui-app-footer {
@@ -136,6 +144,18 @@
     .ui-toast {
       max-width : 18rem;
       box-shadow: 0 0 .5em 0 rgba(0,0,0,0.25);
+    }
+  }
+}
+
+.rtl,
+[dir="rtl"] {
+  .ui-icon {
+    &[class$="-left"],
+    &[class$="-right"] {
+      svg {
+        transform: rotate(180deg);
+      }
     }
   }
 }

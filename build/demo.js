@@ -13,7 +13,7 @@ gulp.task('clean-demo', function() {
 
 gulp.task('dist-demo', function() {
   return gulp.src(['./index.html',
-      './fonts/**/*', './css/**/*', './images{,/!(flags)}/*', './locales/**/*', './favicons/**/*', './scripts/**/*'
+      './fonts/**/*', './css/**/*', './images{,/!(flags)}/*', './locales/**/*', './favicons/**/*', './scripts/**/*', './glyphs/**/*'
     ], {
       base: './'
     })

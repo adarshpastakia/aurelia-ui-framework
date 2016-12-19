@@ -19,8 +19,7 @@ export class UIToolbar {
     if (element.hasAttribute('success')) element.classList.add('success');
     if (element.hasAttribute('warning')) element.classList.add('warning');
 
-    if (element.hasAttribute('start')) element.classList.add('ui-row-start');
-    else element.classList.add('ui-row-end');
+    if (element.hasAttribute('start')) element.classList.add('ui-start');
   }
 
   // aurelia hooks

@@ -9,6 +9,7 @@
   position  : relative;
   background: $drawer-bg;
   max-width : $sidebar-width;
+  border    : 0 solid rgba($base-border-color, .5);
   @include flex(0 0 $sidebar-width);
   @include transition(max-width .5s);
 
@@ -28,13 +29,17 @@
     }
 
     .ui-sidebar-close {
-      padding    : 0 .5em;
+      padding: 0 .5em;
     }
+  }
+
+  .ui-sidebar-content {
+    border: 0 solid $base-border-color;
   }
 
   &.start {
     @include order(-1);
-    @include border(end, 1px solid rgba($base-border-color, .5));
+    border-width: 0 1px 0 0;
 
     .ui-sidebar-close {}
 
@@ -43,9 +48,9 @@
 
       &:not(.ui-mini-display) {
         .ui-sidebar-content {
-          left: -1 * $sidebar-width;
+          left        : -1 * $sidebar-width;
+          border-width: 0 1px 0 0;
           @include transition(left .5s);
-          @include border(end, 1px solid $base-border-color);
         }
 
         &.ui-show-overlay {
@@ -60,7 +65,7 @@
 
   &.end {
     @include order(1);
-    @include border(start, 1px solid rgba($base-border-color, .5));
+    border-width: 0 0 0 1px;
 
     .ui-sidebar-head {
       @include flex-direction(row-reverse);
@@ -73,9 +78,9 @@
 
       &:not(.ui-mini-display) {
         .ui-sidebar-content {
-          right: -1 * $sidebar-width;
+          right       : -1 * $sidebar-width;
+          border-width: 0 0 0 1px;
           @include transition(right .5s);
-          @include border(start, 1px solid $base-border-color);
         }
 
         &.ui-show-overlay {
@@ -147,6 +152,8 @@
 [dir="rtl"] {
   .ui-sidebar {
     &.start {
+      border-width: 0 0 0 1px;
+
       .ui-sidebar-close {}
 
       &.ui-collapse {
@@ -154,8 +161,9 @@
 
         &:not(.ui-mini-display) {
           .ui-sidebar-content {
-            left : auto;
-            right: -1 * $sidebar-width;
+            left        : auto;
+            border-width: 0 0 0 1px;
+            right       : -1 * $sidebar-width;
             @include transition(right .5s);
           }
 
@@ -170,6 +178,8 @@
     }
 
     &.end {
+      border-width: 0 1px 0 0;
+
       .ui-sidebar-close {}
 
       &.ui-collapse {
@@ -177,8 +187,9 @@
 
         &:not(.ui-mini-display) {
           .ui-sidebar-content {
-            right: auto;
-            left : -1 * $sidebar-width;
+            right       : auto;
+            border-width: 0 1px 0 0;
+            left        : -1 * $sidebar-width;
             @include transition(left .5s);
           }
 

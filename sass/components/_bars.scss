@@ -12,7 +12,7 @@
   padding         : .2em .5em;
   @include flex-auto();
   // @include box-shadow(0 0 1px 0 $base-border-color);
-  @include flex-row($align:center, $justify:inherit, $wrap:false);
+  @include flex-row($align:center, $justify:flex-end, $wrap:false);
 
   &.ui-start {
     @include justify-content(flex-start);

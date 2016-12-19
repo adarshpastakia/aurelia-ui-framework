@@ -8,27 +8,23 @@
     "aurelia-ui-framework"
   ],
   "homepage": "",
-  "bugs":
-  {
+  "bugs": {
     "url": ""
   },
   "license": "MIT",
   "author": "Adarsh Pastakia <adarshpastakia@outlook.com> (http://adarshpastakia.github.io/)",
   "main": "dist/aurelia-ui-framework.js",
   "typings": "dist/typings/aurelia-ui-framework.d.ts",
-  "repository":
-  {
+  "repository": {
     "type": "git",
     "url": ""
   },
-  "scripts":
-  {
+  "scripts": {
     "start": "au run --watch",
     "staging": "au build --env stage && gulp production",
     "production": "au build --env prod && gulp production"
   },
-  "dependencies":
-  {
+  "dependencies": {
     "aurelia-bootstrapper": "^1.0.0",
     "aurelia-fetch-client": "^1.0.1",
     "aurelia-validation": "^0.14.0",
@@ -41,11 +37,10 @@
     "text": "github:requirejs/text#latest",
     "whatwg-fetch": "^2.0.1"
   },
-  "peerDependencies":
-  {},
-  "devDependencies":
-  {
+  "peerDependencies": {},
+  "devDependencies": {
     "aurelia-cli": "^0.22.0",
+    "aurelia-i18n": "^1.2.3",
     "aurelia-testing": "^1.0.0-beta.2.0.0",
     "aurelia-tools": "^0.2.2",
     "browser-sync": "^2.13.0",
@@ -63,6 +58,7 @@
     "gulp-sourcemaps": "^2.0.0-alpha",
     "gulp-tslint": "^5.0.0",
     "gulp-typescript": "^2.13.6",
+    "i18next-xhr-backend": "^1.2.1",
     "jasmine-core": "^2.4.1",
     "karma": "^0.13.22",
     "karma-chrome-launcher": "^1.0.1",

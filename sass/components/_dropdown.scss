@@ -24,8 +24,8 @@
   .ui-caret {
     font-size: .5rem;
     position : relative;
-    left     : .2em;
     top      : .2em;
+    margin   : 0 .2rem;
     color    : rgba($input-text, .5);
   }
 

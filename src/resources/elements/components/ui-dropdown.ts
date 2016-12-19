@@ -58,6 +58,7 @@ export class UIDropdown {
     this.display = it.element.innerText;
     this.glyph = it.element.au.controller.viewModel.glyph;
     (this.selected = it).element.classList.add('ui-selected');
+    UIEvent.queueTask(() => UIEvent.fireEvent('change', this.element, this.value));
   }
 
   select(evt) {

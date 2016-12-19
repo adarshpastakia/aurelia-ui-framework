@@ -5,7 +5,8 @@
 // @license     : MIT
 
 import {autoinject} from 'aurelia-framework';
-import {UITreeOptions, UIEvent} from "../resources/index";
+import {UIEvent} from "../resources/utils/ui-event";
+import {UITreeOptions} from "../resources/utils/ui-tree-model";
 
 @autoinject()
 export class TreeComponent {

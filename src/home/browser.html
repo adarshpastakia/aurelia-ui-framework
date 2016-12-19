@@ -4,15 +4,44 @@
 // @license     : MIT
 -->
 <template>
+  <style>
+    .browser-list {}
+    .browser-list td {
+      width: 32px;
+      line-height: 1;
+      font-size: 1rem;
+      font-weight: 300;
+      padding: 0.4em 0.8em;
+      border: 1px solid #f0f0f0;
+    }
+    .browser-list td:first-child {
+      width: 180px;
+    }
+
+    .browser-list td.op1 {
+      background: url('images/browsers/success.png') no-repeat center center;
+    }
+    .browser-list td.op2 {
+      background: url('images/browsers/error.png') no-repeat center center;
+    }
+    .browser-list td.op0 {
+      background: url('images/browsers/warning.png') no-repeat center center;
+    }
+    .browser-list tbody tr:nth-child(odd) {
+      background: #fcfcfc;
+    }
+
+  </style>
+  <h5 class="section-title" t="home:support.title"></h5>
   <table class="browser-list">
     <tr>
       <td colspan="7" style="border:none;text-align:right;">
         <span class="ui-font-small"><img src="images/browsers/success.png" height="12px"/>
-          Tested&nbsp;&nbsp;</span>
+          ${'home:support.tested' & t}&nbsp;&nbsp;</span>
         <span class="ui-font-small"><img src="images/browsers/warning.png" height="12px"/>
-          Untested&nbsp;&nbsp;</span>
+          ${'home:support.untested' & t}&nbsp;&nbsp;</span>
         <span class="ui-font-small"><img src="images/browsers/error.png" height="12px"/>
-          Known Issues</span>
+          ${'home:support.issues' & t}</span>
       </td>
     </tr>
     <tr>
@@ -26,11 +55,11 @@
     <tbody>
       <tr>
         <td colspan="7">
-          <span class="ui-strong ui-text-primary">Core Components</span>
+          <span class="ui-strong ui-text-primary" t="home:support.sectionCore"></span>
         </td>
       </tr>
       <tr repeat.for="el of core">
-        <td>${el.label}</td>
+        <td t.bind="el.label"></td>
         <td class="op${el.s}"></td>
         <td class="op${el.c}"></td>
         <td class="op${el.f}"></td>
@@ -41,11 +70,11 @@
     <tbody>
       <tr>
         <td colspan="7">
-          <span class="ui-strong ui-text-primary">Input Elements</span>
+          <span class="ui-strong ui-text-primary" t="home:support.sectionInputs"></span>
         </td>
       </tr>
       <tr repeat.for="el of inputs">
-        <td>${el.label}</td>
+        <td t.bind="el.label"></td>
         <td class="op${el.s}"></td>
         <td class="op${el.c}"></td>
         <td class="op${el.f}"></td>
@@ -56,11 +85,11 @@
     <tbody>
       <tr>
         <td colspan="7">
-          <span class="ui-strong ui-text-primary">UI Components</span>
+          <span class="ui-strong ui-text-primary" t="home:support.sectionComponents"></span>
         </td>
       </tr>
       <tr repeat.for="el of comps">
-        <td>${el.label}</td>
+        <td t.bind="el.label"></td>
         <td class="op${el.s}"></td>
         <td class="op${el.c}"></td>
         <td class="op${el.f}"></td>
@@ -71,11 +100,11 @@
     <tbody>
       <tr>
         <td colspan="7">
-          <span class="ui-strong ui-text-primary">API Classes</span>
+          <span class="ui-strong ui-text-primary" t="home:support.sectionApi"></span>
         </td>
       </tr>
       <tr repeat.for="el of features">
-        <td>${el.label}</td>
+        <td t.bind="el.label"></td>
         <td class="op${el.s}"></td>
         <td class="op${el.c}"></td>
         <td class="op${el.f}"></td>

@@ -1,5 +1,6 @@
 import {FrameworkConfiguration} from 'aurelia-framework';
 import {UIConstants} from "./utils/ui-constants";
+import {UIUtils} from "./utils/ui-utils";
 
 import 'lodash';
 import 'moment';
@@ -69,6 +70,8 @@ export interface UIConfig {
 }
 
 export function configure(config: FrameworkConfiguration, configCallback) {
+  UIUtils.auContainer = config.container;
+
   // config.container.registerHandler('ui-validator', container => container.get(UIValidationRenderer));
   // Core Elements
   config.globalResources([
