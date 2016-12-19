@@ -1,0 +1,148 @@
+{
+  "theming":
+  {
+    "title": "سمات",
+    "description": "ستلينغس-موضوع قادرا مبنية على البوصلة-ساس",
+
+    "titleOverview": "نظرة عامة",
+    "descOverview": "نظرة عامة سمات بسيطة",
+    "titleTypo": "الطباعة",
+    "descTypo": "أنماط الخط والألوان السياقية",
+    "titleGlyphs": "رموزا SVG",
+    "descGlyphs": "SVG أيقونة رموزا تم إنشاؤها باستخدام IcoMooon التطبيقات",
+    "titleFlags": "رموز العلم",
+    "descFlags": "أعلام البلد"
+  },
+  "core":
+  {
+    "title": "العناصر الأساسية",
+    "description": "العرض وصفحة المكونات الأساسية لبناء التطبيقات",
+
+    "titleViewport": "منفذ العرض",
+    "descViewport": "الرئيسي العرض تطبيق",
+    "titlePages": "مكونات الصفحة",
+    "descPages": "عناصر الصفحة لإنشاء تخطيطات الصفحات المختلفة",
+    "titleGrid": "تخطيط الاستجابة",
+    "descGrid": "تخطيط الاستجابة لمختلف منافذ العرض على الشاشة"
+  },
+
+  "inputs":
+  {
+    "title": "عناصر الإدخال",
+    "description": "عناصر الإدخال شاملة لأشكال الأعمال التجارية ذات الصلة",
+
+    "titleButtons": "أزرار",
+    "descButtons": "أزرار بسيطة مع المجموعات والقوائم المنسدلة",
+    "titleText": "المدخلات النص",
+    "descText": "المدخلات الأساسية للنص والأرقام وأرقام الهواتف",
+    "titleMulti": "الإدخال متعدد",
+    "descMulti": "الإدخال متعدد الأسطر مع الإكمال التلقائي",
+    "titleOption": "المدخلات الخيار",
+    "descOption": "خانة والإذاعة والتبديل التحكم",
+    "titleLists": "قائمة المدخلات",
+    "descLists": "القائمة العامة,  والسرد وعلامة المدخلات,  مع القدرة على البحث",
+    "titleDate": "المدخلات التاريخ",
+    "descDate": "التاريخ المدخلات / الوقت",
+    "titleMd": "محرر المحتوى",
+    "descMd": "المحررين المحتوى لتعدد اللغات والمحتوى تخفيض السعر",
+    "titleValidation": "التحقق من صحة الإدخال",
+    "descValidation": "التصديقات المدخلات ويعرض خطأ"
+  },
+
+  "comps":
+  {
+    "title": "مكونات واجهة المستخدم",
+
+    "titleMenus": "القوائم",
+    "descMenus": "مكونات القائمة لإنشاء قوائم القائمة وأشرطة القوائم",
+    "titleDrawer": "درج",
+    "descDrawer": "انزلاق الدرج الجانب",
+    "titleSidebar": "الشريط الجانبي",
+    "descSidebar": "في صفحة الشريط الجانبي",
+    "titleToolbar": "شريط الأدوات",
+    "descToolbar": "شريط أدوات بسيطة لالحوارات والألواح",
+    "titleStats": "شريط الإحصاءات",
+    "descStats": "الأفقية عرض إحصاءات بسيطة",
+    "titlePanels": "الفريق",
+    "descPanels": "خلق لوحات مع اختياري للطي ومحكمة السد",
+    "titleDialogs": "الحوارات",
+    "descDialogs": "خلق لوحات مع اختياري للطي ومحكمة السد",
+    "titleAlerts": "التنبيهات",
+    "descAlerts": "الحوارات تنبيه والعائمة الرسائل نخب",
+    "titleCrumbs": "فتات الخبز",
+    "descCrumbs": "فتات الخبز تحت عنوان لتبحر من خلال مختلف المستويات",
+    "titleTabs": "الجدولة لوحة",
+    "descTabs": "لوحات كلفه",
+    "titleTree": "لوحة شجرة",
+    "descTree": "شجرة عرض البيانات على غرار مع العقد قابلة للتحديد اختياري",
+    "titleGrid": "شبكة البيانات",
+    "descGrid": "شبكة البيانات الوظيفية ثانية مع الأعمدة والصفوف ملخص"
+  },
+
+  "apis":
+  {
+    "title": "الفصول الدراسية API",
+
+    "titleApp": "التطبيق",
+    "descApp": "المفرد طلب وظيفة مشتركة مشتركة عبر التطبيق بالكامل",
+    "titleHttp": "المتشعب العميل",
+    "descHttp": "الموسعة أوريليا-جلب العميل طلبات HTTP",
+    "titleData": "نموذج البيانات",
+    "descData": "نموذج بيانات عام للتسلسل /-تسلسل دي البيانات POJO",
+    "titleEvent": "التعامل مع الحدث",
+    "descEvent": "الطبقة مساعد للبث الحدث,  والاشتراك ومهمة طوابير"
+  },
+
+  "support":
+  {
+    "title": "دعم متصفح",
+
+    "tested": "اختبار",
+    "untested": "غير مختبر",
+    "issues": "المشكلات المعروفة",
+
+    "sectionCore": "العناصر الأساسية",
+    "sectionInputs": "عناصر الإدخال",
+    "sectionComponents": "مكونات واجهة المستخدم",
+    "sectionApi": "الفصول الدراسية API",
+
+    "titleGlyphs": "رموزا SVG",
+    "titleGrid": "تخطيط الاستجابة",
+    "titleViewport": "منفذ العرض",
+    "titlePage": "الصفحة",
+    "titleSection": "القسم",
+    "titleContent": "المحتوى",
+    "titleButton": "زر",
+    "titleText": "نص",
+    "titleMultiline": "متعدد الأسطر",
+    "titlePhone": "الهاتف",
+    "titleList": "قائمة",
+    "titleCombo": "كومبو",
+    "titleTag": "العلامة",
+    "titleDate": "التاريخ",
+    "titleRadio": "راديو",
+    "titleCheckbox": "خانة",
+    "titleSwitch": "تبديل",
+    "titleLanguage": "اللغة",
+    "titleMarkdown": "تخفيض السعر",
+    "titleValidation": "التحقق",
+    "titleMenu": "القائمة",
+    "titleMenubar": "القوائم",
+    "titlePanel": "لوحة",
+    "titleDialog": "الحوار",
+    "titleAlerts": "التنبيهات",
+    "titleDrawer": "درج",
+    "titleToolbar": "شريط الأدوات",
+    "titleSidebar": "الشريط الجانبي",
+    "titleStatsbar": "شريط الإحصاءات",
+    "titleCrumbs": "فتات الخبز",
+    "titleTabs": "الجدولة لوحة",
+    "titleTree": "لوحة شجرة",
+    "titleDatagrid": "شبكة البيانات",
+    "titleApp": "التطبيق",
+    "titleHttp": "المتشعب العميل",
+    "titleData": "نموذج البيانات",
+    "titleEvent": "التعامل مع الحدث",
+    "titleConvert": "محولات القيمة"
+  }
+}
