@@ -1,10 +1,13 @@
 import {FrameworkConfiguration} from 'aurelia-framework';
+import {ValidationRules, Validator} from 'aurelia-validation';
+import {UIValidationRenderer} from "./utils/ui-validation";
 import {UIConstants} from "./utils/ui-constants";
 import {UIUtils} from "./utils/ui-utils";
 
 import 'lodash';
 import 'moment';
 import 'numeral';
+import 'moment/min/locales.min';
 
 import './libs/countries';
 import './libs/currencies';
@@ -22,24 +25,27 @@ export var kramed = km;
 export var moment = mm;
 export var numeral = nm;
 
+export * from './utils/ui-application';
 export * from './utils/ui-dialog';
 export * from './utils/ui-event';
 export * from './utils/ui-format';
+export * from './utils/ui-http';
+export * from './utils/ui-model';
 export * from './utils/ui-tree-model';
-export * from './utils/ui-utils';
 
 import './elements/core/ui-grid';
 import './elements/core/ui-page';
 import './elements/core/ui-viewport';
 
 import './elements/inputs/ui-button';
+import './elements/inputs/ui-date';
 import './elements/inputs/ui-form';
 import './elements/inputs/ui-input';
 import './elements/inputs/ui-lists';
+import './elements/inputs/ui-markdown';
 import './elements/inputs/ui-options';
 import './elements/inputs/ui-phone';
 import './elements/inputs/ui-textarea';
-import './elements/inputs/ui-markdown';
 
 import './elements/components/ui-alerts';
 import './elements/components/ui-bars';
@@ -72,7 +78,7 @@ export interface UIConfig {
 export function configure(config: FrameworkConfiguration, configCallback) {
   UIUtils.auContainer = config.container;
 
-  // config.container.registerHandler('ui-validator', container => container.get(UIValidationRenderer));
+  config.container.registerHandler('ui-validator', container => container.get(UIValidationRenderer));
   // Core Elements
   config.globalResources([
     './elements/core/ui-grid',
@@ -82,6 +88,7 @@ export function configure(config: FrameworkConfiguration, configCallback) {
   // Input Elements
   config.globalResources([
     './elements/inputs/ui-button',
+    './elements/inputs/ui-date',
     './elements/inputs/ui-form',
     './elements/inputs/ui-input',
     './elements/inputs/ui-lists',
@@ -143,6 +150,35 @@ export function configure(config: FrameworkConfiguration, configCallback) {
   if (configCallback !== undefined && typeof configCallback === 'function') {
     configCallback(Configure);
   }
+
+  // Validation Rules
+  let validator = UIUtils.lazy(Validator);
+  ValidationRules
+    .customRule('phone', (value, obj) => value === null || value === undefined || value === '' || PhoneLib.isValid(value), '\${$displayName } is not a valid phone number.');
+  ValidationRules
+    .customRule('integer', (value, obj, min, max) => value === null || value === undefined || value === '' || (Number.isInteger(value) && value >= (isEmpty(min) ? Number.MIN_VALUE : min) && value <= (isEmpty(max) ? Number.MAX_VALUE : max)),
+    '\${$displayName} must be an integer value between \${$config.min} and \${$config.max}.', (min, max) => ({ min, max }));
+  ValidationRules
+    .customRule('decimal', (value, obj, min, max) => value === null || value === undefined || value === '' || (isNumber(value) && Math.floor(value % 1) === 0 && value >= (isEmpty(min) ? Number.MIN_VALUE : min) && value <= (isEmpty(max) ? Number.MAX_VALUE : max)),
+    '\${$displayName} must be a decimal value between \${$config.min} and \${$config.max}.', (min, max) => ({ min, max }));
+  ValidationRules
+    .customRule('language', (map, obj, langs = '') => {
+      let promises = [];
+      map.__errored__ = [];
+      _.forEach(map, (model, key) => {
+        if (model) {
+          promises.push(validator.validateObject(model)
+            .then(e => {
+              if (e.length > 0) {
+                map.__errored__.push(key);
+                return true;
+              }
+              return false;
+            }));
+        }
+      });
+      return Promise.all(promises).then(e => _.filter(e).length == 0);
+    }, 'Some language entries contain invalid values');
 
   // LoDash Mixins
   _.mixin({
