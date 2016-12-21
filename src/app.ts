@@ -10,6 +10,7 @@ import {I18N} from 'aurelia-i18n';
 import {UIApplication} from "./resources/utils/ui-application";
 import {UIConstants} from "./resources/utils/ui-constants";
 import {UIEvent} from "./resources/utils/ui-event";
+import * as moment from "moment";
 
 @autoinject()
 export class App {
@@ -26,7 +27,7 @@ export class App {
       {
         route: ['', 'home'], moduleId: './home/view', nav: false, auth: false, name: 'home'
       }, {
-        route: 'start', moduleId: './home/start', title: 'nav.titleStart', nav: true, auth: false, settings: { section: 'nav.sectionFramework' }, name: 'start'
+        route: 'start', moduleId: './start/view', title: 'nav.titleStart', nav: true, auth: false, settings: { section: 'nav.sectionFramework' }, name: 'start'
       }, {
         route: 'example', moduleId: './home/example', title: 'nav.titleExamples', nav: true, auth: false, settings: { section: 'nav.sectionFramework' }, name: 'example'
       }, {
@@ -98,8 +99,8 @@ export class App {
 
 
   constructor(public element: Element, public i18n: I18N, public app: UIApplication) {
-    this.i18n.setLocale(this.currentLocale = app.persist('locale') || 'en');
     UIEvent.subscribe('i18n:locale:changed', payload => this.i18n.updateTranslations(this.element));
+    this.i18n.setLocale(this.currentLocale = app.persist('locale') || 'en');
   }
 
   attached() {
@@ -112,7 +113,7 @@ export class App {
     this.app.isBusy = true;
     this.i18n.setLocale(this.currentLocale).then(() => {
       this.app.persist('locale', this.currentLocale);
-      setTimeout(() => this.app.isBusy = false, 500);
+      setTimeout(() => this.app.isBusy = false, 50);
     });
   }
 }

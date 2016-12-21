@@ -71,7 +71,7 @@ export class UIFieldset {
 
   enabledChanged(newValue: any) {
     this.element.classList[isTrue(newValue) ? 'remove' : 'add']('ui-collapse');
-    let els = this.element.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list');
+    let els = this.element.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list');
     _.forEach(els, el => {
       try {
         el.au.controller.viewModel.disable(isFalse(newValue));

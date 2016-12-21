@@ -16,32 +16,32 @@ export module UIFormat {
   // Dates
   export function date(dt: any, ft: string = 'DD MMM YYYY') {
     let x;
-    return dt === null || !(x = moment(dt)).isValid() ? null : x.format(ft);
+    return !dt || !(x = moment(dt)).isValid() ? null : x.format(ft);
   }
 
   export function time(dt: any, ft: string = 'hh:mm A') {
     let x;
-    return dt === null || !(x = moment(dt)).isValid() ? null : x.format(ft);
+    return !dt || !(x = moment(dt)).isValid() ? null : x.format(ft);
   }
 
   export function datetime(dt: any, ft: string = 'DD MMM YYYY hh:mm A') {
     let x;
-    return dt === null || !(x = moment(dt)).isValid() ? null : x.format(ft);
+    return !dt || !(x = moment(dt)).isValid() ? null : x.format(ft);
   }
 
   export function dateToISO(dt) {
     let x;
-    return dt === null || !(x = moment(dt)).isValid() ? null : x.toISOString();
+    return !dt || !(x = moment(dt)).isValid() ? null : x.toISOString();
   }
 
   export function age(dt: any): string {
     let x;
-    return dt === null || !(x = moment(dt)).isValid() ? '' : x.fromNow(true);
+    return !dt || !(x = moment(dt)).isValid() ? '' : x.fromNow(true);
   }
 
   export function fromNow(dt: any): string {
     let x;
-    return dt === null || !(x = moment(dt)).isValid() ? '' : x.fromNow(false);
+    return !dt || !(x = moment(dt)).isValid() ? '' : x.fromNow(false);
   }
 
   // Numbers

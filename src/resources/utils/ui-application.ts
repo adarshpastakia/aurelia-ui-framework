@@ -71,12 +71,12 @@ export class UIApplication {
     this.persist('AppPassword', user.password);
 
     this.navigateTo(route || 'home');
-    UIEvent.broadcast('login');
+    UIEvent.broadcast('auf:login');
   }
   logout() {
     this.AuthUser = null;
     this.AuthToken = null;
-    UIEvent.broadcast('logout');
+    UIEvent.broadcast('auf:logout');
     this.persist('AppPassword', null);
     this.Authenticated = false;
     this.navigateTo('login');
@@ -198,8 +198,7 @@ export class AuthInterceptor {
   constructor(public appState: UIApplication) {
     this.logger = getLogger('AuthInterceptor');
     this.logger.info('Initialized');
-
-    UIEvent.subscribe('Unauthorized', () => appState.navigateTo('login', { status: 401 }));
+    UIEvent.subscribe('auf:unauthorized', () => appState.navigateTo('login', { status: 401 }));
   }
 
   run(routingContext, next) {
