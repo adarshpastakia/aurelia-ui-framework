@@ -7,6 +7,7 @@ import {autoinject, customElement, bindable, bindingMode, children, inlineView, 
 import {UIBaseInput} from "./ui-input";
 import {UIEvent} from "../../utils/ui-event";
 import {UIUtils} from "../../utils/ui-utils";
+import {UIConstants} from "../../utils/ui-constants";
 
 @autoinject()
 @customElement('ui-markdown')
@@ -33,16 +34,15 @@ import {UIUtils} from "../../utils/ui-utils";
   <ui-button glyph="ui-md-number" data-id="ol" disabled.bind="disableTools||disabled||readonly" square small light></ui-button>
   </div>
   <div class="ui-button-group ui-horizontal">
-  <ui-button glyph="ui-md-help" data-id="help" square small light></ui-button>
-  <ui-button glyph="ui-md-preview" data-id="preview" square small light></ui-button>
+  <ui-button glyph="ui-md-help" data-id="help" disabled.bind="disabled||readonly" square small light></ui-button>
+  <ui-button glyph="ui-md-preview" data-id="preview" disabled.bind="disabled||readonly" square small light></ui-button>
   </div></ui-toolbar>
   <div class="ui-watermark \${preview?'preview':''} \${help?'help':''}">
   <div role="input" class="ui-input-control ui-textarea"><span class="ui-error" if.bind="errors"><ui-glyph glyph="ui-invalid"></ui-glyph><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
   <textarea ref="inputEl" value.bind="value" rows.bind="rows" maxlength.bind="maxlength" dir.bind="dir"
     focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)"
     input.trigger="fireEvent($event)" change.trigger="fireEvent($event)"
-    keyup.trigger="checkList($event)" placeholder.bind="placeholder"
-    disabled.bind="isDisabled" readonly.bind="readonly"></textarea>
+    placeholder.bind="placeholder" disabled.bind="isDisabled" readonly.bind="readonly"></textarea>
   <span class="ui-clear" if.bind="clear && value" click.trigger="clearInput()">&times;</span>
   <span class="ui-counter" if.bind="counter" innerhtml.bind="value.length + ' of ' + maxlength"></span>
   </div>
@@ -165,7 +165,9 @@ export class UIMarkdown extends UIBaseInput {
 
   // aurelia hooks
   created(owningView: View, myView: View) { }
-  bind(bindingContext: Object, overrideContext: Object) { }
+  bind(bindingContext: Object, overrideContext: Object) {
+    super.bind.apply(this, arguments);
+  }
   attached() { }
   detached() { }
   unbind() { }
@@ -242,5 +244,166 @@ export class UIMarkdown extends UIBaseInput {
     }
     this.inputEl.focus();
     if (sub == 'EditThis' && btn != 'preview' && btn != 'help') UIEvent.queueTask(() => this.inputEl.setSelectionRange(start + diff, start + diff + sub.length));
+  }
+}
+
+@autoinject()
+@inlineView(`<template class="ui-input-wrapper ui-input-list"><div role="input" class="ui-input-control">
+  <span class="ui-input-addon" click.trigger="openDropdown($event, show=true, inputEl.focus())"><ui-glyph glyph="ui-language"></ui-glyph></span>
+  <span class="ui-error" if.bind="errors"><ui-glyph glyph="ui-invalid"></ui-glyph><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
+  <input ref="inputEl" type.bind="type" value.bind="elValue" size="10"
+    focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)"
+    change.trigger="fireEvent($event)" placeholder.bind="placeholder"
+    disabled.bind="isDisabled" readonly.bind="true" click.trigger="openDropdown($event, show=true)"/>
+  <span class="ui-input-addon ui-dropdown-handle" click.trigger="openDropdown($event, show=true, inputEl.focus())"><ui-glyph glyph="ui-chevron-down"></ui-glyph></span></div>
+  <div class="ui-input-info" if.bind="info" innerhtml.bind="info"></div>
+  
+  <div class="ui-list-container ui-floating" ref="dropdown">
+    <div class="ui-list-group" t="Selected">Selected</div>
+    <div class="ui-lang-item" repeat.for="item of selectedList">
+      <div class="ui-list-item \${item.id==value?'ui-selected':''} \${item.disabled?'ui-disabled':''}" 
+      mouseover.delegate="hilightItem($event)" click.trigger="fireSelect(item)"><ui-glyph glyph="ui-invalid" if.bind="errored.indexOf(item.id)>-1"></ui-glyph> \${item.name}</div>
+      <ui-glyph class="ui-text-danger ui-font-big" glyph="ui-tree-collapse" click.trigger="removeLanguage(item)"></ui-glyph>
+    </div>
+    <div class="ui-list-group" t="Available">Available</div>
+    <div class="ui-lang-item" repeat.for="item of availableList">
+      <div class="ui-list-item \${item.disabled?'ui-disabled':''}" innerhtml.bind="item.name" 
+      mouseover.delegate="hilightItem($event)" click.trigger="addLanguage(item)"></div>
+      <ui-glyph class="ui-text-info ui-font-big" glyph="ui-tree-expand"></ui-glyph>
+    </div>
+    </template>
+  </div>
+</template>`)
+@customElement('ui-language')
+export class UILanguage {
+  constructor(public element: Element) { }
+
+  // aurelia hooks
+  created(owningView: View, myView: View) { }
+  bind(bindingContext: Object, overrideContext: Object) {
+    this.languagesChanged(this.languages);
+  }
+  attached() {
+    this.tether = UIUtils.tether(this.element, this.dropdown);
+    this.obMouseup = UIEvent.subscribe('mouseclick', (evt) => {
+      if (getParentByClass(evt.target, 'ui-list-container') == this.dropdown) return true;
+      this.closeDropdown();
+    });
+  }
+  detached() {
+    this.tether.dispose();
+    this.obMouseup.dispose();
+  }
+  unbind() { }
+  // end aurelia hooks
+
+  @bindable({ defaultBindingMode: bindingMode.twoWay }) value = '';
+  @bindable({ defaultBindingMode: bindingMode.twoWay }) dir = '';
+
+  @bindable() errors = null;
+  @bindable() disabled = false;
+  @bindable() readonly = false;
+  @bindable() info = '';
+  @bindable() languages;
+  @bindable() placeholder = '';
+
+  errored = [];
+  show = false;
+
+  private inputEl;
+  private elValue;
+  private dropdown;
+
+  protected tether;
+  protected obMouseup;
+
+  private selectedList = [];
+  private availableList = [];
+
+  valueChanged(newValue) {
+    let l = _.find(this.selectedList, ['id', newValue]) || {};
+    this.dir = (l.rtl ? 'rtl' : 'ltr');
+    this.elValue = l.name;
+  }
+
+  languagesChanged(newValue) {
+    this.availableList = _.clone(UIConstants.Languages);
+    if (!isEmpty(newValue)) {
+      let langs = isString(newValue) ? newValue.split(',') : newValue;
+      _.forEach(langs, l => this.selectedList = this.selectedList.concat(_.remove(this.availableList, ['id', l])));
+      this.value = langs[0];
+    }
+  }
+
+  fireEvent(evt) {
+    evt.stopPropagation();
+    let el = getParentByClass(this.element, 'ui-input-group');
+    if (evt.type === 'focus') {
+      this.inputEl.select();
+      this.element.classList.add('ui-focus');
+      if (el) el.classList.add('ui-focus');
+      if (this.show) this.openDropdown();
+    }
+    if (evt.type === 'blur') {
+      this.element.classList.remove('ui-focus');
+      if (el) el.classList.remove('ui-focus');
+      this.closeDropdown();
+    }
+    UIEvent.fireEvent(evt.type, this.element, this.value);
+  }
+
+  hilightItem(evt) {
+    let h = this.dropdown.querySelector('.ui-list-item.ui-hilight');
+    if (h !== null) h.classList.remove('ui-hilight');
+    evt.target.classList.add('ui-hilight');
+  }
+  unhilightItem(evt) {
+    let h = this.dropdown.querySelector('.ui-list-item.ui-hilight');
+    if (h !== null) h.classList.remove('ui-hilight');
+  }
+
+  scrollIntoView() {
+    let h = this.dropdown.querySelector('.ui-list-item.ui-hilight');
+    if (h == null) h = this.dropdown.querySelector('.ui-list-item.ui-selected');
+    this.dropdown.scrollTop = (h !== null ? h.offsetTop - (this.dropdown.offsetHeight / 2) : 0);
+  }
+
+  openDropdown() {
+    if (this.readonly || this.disabled) return true;
+    this.dropdown.isOpen = true;
+    this.dropdown.classList.add('ui-open');
+    this.tether.position();
+    this.scrollIntoView();
+  }
+
+  closeDropdown() {
+    this.dropdown.isOpen = false;
+    this.dropdown.classList.remove('ui-open');
+  }
+
+  toggleDropdown(evt, forceClose = false) {
+    evt.stopPropagation();
+    evt.cancelBubble = true;
+    this.dropdown.isOpen ? this.closeDropdown() : this.openDropdown();
+  }
+
+  addLanguage(model) {
+    UIEvent.fireEvent('add', this.element, model);
+    this.selectedList = this.selectedList.concat(_.remove(this.availableList, ['id', model.id]));
+    this.value = model.id;
+    this.closeDropdown();
+  }
+
+  removeLanguage(model) {
+    UIEvent.fireEvent('remove', this.element, model);
+    this.availableList = this.availableList.concat(_.remove(this.selectedList, ['id', model.id]));
+    this.value = this.selectedList.length > 0 ? this.selectedList[0].id : '';
+  }
+
+  fireSelect(model) {
+    this.value = model.id;
+    this.closeDropdown();
+    this.unhilightItem(null);
+    UIEvent.fireEvent('change', this.element, model)
   }
 }

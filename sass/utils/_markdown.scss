@@ -36,6 +36,15 @@
     text-decoration: underline;
   }
 
+  .note {
+    background   : tint($secondary, 95%);
+    border       : 2px solid tint($secondary, 75%);
+    border-radius: $base-border-radius;
+    padding      : 2em 1em;
+    margin       : 1em;
+    font-style   : italic;
+  }
+
   h1,
   h2,
   h3,
@@ -115,7 +124,7 @@
   }
 
   code {
-    background   : #FDEAE9;
+    background   : rgba(#FDC1BE, .1);
     color        : #7D2C42;
     padding      : 0 .5em;
     border-radius: .2em;
