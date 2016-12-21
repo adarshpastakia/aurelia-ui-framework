@@ -9,7 +9,7 @@ import {UIEvent} from "../../utils/ui-event";
 
 @autoinject()
 @inlineView(`<template class="ui-tree-panel"><ui-input-group class="ui-search" if.bind="searchable">
-  <ui-input type="search" placeholder="Search..." clear value.bind="searchText" input.trigger="searchTextChanged(searchText) & debounce:200"><ui-input-addon class="ui-text-muted" glyph="ui-search"></ui-input-addon></ui-input></ui-input-group>
+  <ui-input type="search" t="[placeholder]Search" placeholder="Search..." clear value.bind="searchText" input.trigger="searchTextChanged(searchText) & debounce:200"><ui-input-addon class="ui-text-muted" glyph="ui-search"></ui-input-addon></ui-input></ui-input-group>
   <div class="ui-tree-level">
     <tree-node repeat.for="child of root.children | sort:'name'" node.bind="child" options.bind="options" nodeclick.delegate="itemClicked($event.detail)"></tree-node>
   </div></template>`)

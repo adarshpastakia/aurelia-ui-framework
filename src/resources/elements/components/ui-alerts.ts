@@ -55,7 +55,7 @@ export class UIToast {
   <input style="position:absolute;opacity:0;" ref="focusBlock" keydown.trigger="checkKey($event)" blur.trigger="cancelBlur($event)"/>
   <ui-glyph glyph.bind="glyph" class.bind="glyph" if.bind="glyph"></ui-glyph>
   <span class="ui-message"><slot><slot></span></div>
-  <div class="ui-button-bar"><button click.trigger="closeAlert(true)">\${okLabel}</button><button show.bind="confirm" click.trigger="closeAlert(false)">\${cancelLabel}</button></div>
+  <div class="ui-button-bar"><button click.trigger="closeAlert(true)" t.bind="okLabel">\${okLabel}</button><button show.bind="confirm" click.trigger="closeAlert(false)" t.bind="cancelLabel">\${cancelLabel}</button></div>
   </div></template>`)
 @customElement('ui-alert')
 export class UIAlert {
@@ -113,7 +113,7 @@ export class UIAlert {
     <ui-input class="\${changed && value==''?'ui-invalid':''}" errors.bind="changed && value==''?['Value needed']:null" if.bind="!multiline" ref="focusBlock" value.bind="value" keydown.trigger="checkKey($event)" blur.trigger="cancelBlur($event)"></ui-input>
     <ui-textarea class="\${changed && value==''?'ui-invalid':''}" errors.bind="changed && value==''?['Value needed']:null" if.bind="multiline" rows="4" ref="focusBlock" value.bind="value" keydown.trigger="checkKey($event)" blur.trigger="cancelBlur($event)"></ui-textarea>
   </ui-input-group>
-  <div class="ui-button-bar"><button click.trigger="closeAlert(true)">\${okLabel}</button><button click.trigger="closeAlert(false)">\${cancelLabel}</button></div>
+  <div class="ui-button-bar"><button click.trigger="closeAlert(true)" t.bind="okLabel">\${okLabel}</button><button click.trigger="closeAlert(false)" t.bind="cancelLabel">\${cancelLabel}</button></div>
   </div></template>`)
 @customElement('ui-prompt')
 export class UIPrompt {
