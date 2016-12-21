@@ -17,8 +17,39 @@
 }
 
 .section-title {
-  padding   : .1em .5em;
-  margin    : 1em -.25em .5em;
+  padding   : .1em .5em !important;
+  margin    : 1em -.25em .5em !important;
   background: $light;
   color     : $primary;
+}
+
+.button-bar {
+  padding   : 2em 0;
+  text-align: center;
+  
+  .ui-divider {
+    display: block;
+    margin : 0 .2rem;
+    border : {
+      left : 1px solid $dark;
+      right: 1px solid $light;
+    }
+    @include transform(scaleX(.5));
+    @include align-self(stretch);
+  }
+
+  .big-button {
+    border       : 1px solid rgba(#f0f0f0, .3);
+    border-radius: 5px;
+    padding      : 1em 2em;
+    margin       : 0 .5em;
+    color        : white;
+    display      : inline-block;
+
+    &:hover {
+      text      : white;
+      background: $primary;
+    }
+  }
+
 }

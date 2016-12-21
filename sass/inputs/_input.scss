@@ -100,10 +100,7 @@
         z-index    : 5;
         line-height: 1.5em;
         font-size  : .8em;
-
-        > li {
-          padding: 0 .5em;
-        }
+        padding    : .75em .5em;
       }
 
       &:hover .ui-error-list {
@@ -174,6 +171,7 @@
 
   &.ui-invalid {
     .ui-input-control {
+      background: tint($input-invalid-border, 95%);
       box-shadow: 0 -1px 0 0 $input-invalid-border inset;
     }
 

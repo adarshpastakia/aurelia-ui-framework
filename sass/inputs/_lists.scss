@@ -22,6 +22,26 @@
 
   .ui-list-container {
     max-height: 10rem;
+
+    .ui-lang-item {
+      @include flex-row($wrap: false);
+
+      > .ui-list-item {
+        @include flex(1 1 auto);
+      }
+
+      .ui-icon {
+        cursor: pointer;
+        @include flex-auto();
+
+        &.ui-invalid {
+          margin       : 0 .2em;
+          border-radius: 1em;
+          color        : $white;
+          background   : $warning;
+        }
+      }
+    }
   }
 
   .ui-tag-item {
@@ -76,7 +96,7 @@
     }
 
     .ui-list-item {
-      cursor: move;
+      cursor : move;
       padding: 0;
       @include flex-row($align:center, $wrap: false);
 
@@ -108,7 +128,7 @@
       right     : 0;
 
       > .ui-icon {
-        fill  : $list-hover-text;
+        fill: $list-hover-text;
       }
     }
   }

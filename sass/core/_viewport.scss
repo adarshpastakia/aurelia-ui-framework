@@ -13,15 +13,16 @@
 }
 
 .ui-icon {
-  font-size   : 1em;
-  display     : inline-block;
-  width       : 1em;
-  height      : 1em;
-  stroke-width: 0;
-  line-height : 1;
-  color       : inherit;
-  stroke      : currentColor;
-  fill        : currentColor;
+  font-size     : 1em;
+  display       : inline-block;
+  width         : 1em;
+  height        : 1em;
+  stroke-width  : 0;
+  line-height   : 1;
+  pointer-events: none;
+  color         : inherit;
+  stroke        : currentColor;
+  fill          : currentColor;
 
   svg {
     font-size     : 1em;

@@ -123,6 +123,19 @@ $input-disabled-bg           : #EAE6E3 !default;
 $input-error-bg              : none !default;
 $input-error-text            : $danger !default;
 
+// DATES
+$date-header-text            : $white !default;
+$date-header-bg              : tint($secondary, 50%) !default;
+
+$date-hover-bg               : tint($secondary, 50%) !default;
+$date-hover-text             : $white !default;
+$date-active-bg              : $secondary !default;
+$date-active-text            : $white !default;
+
+$date-week-text              : $secondary !default;
+$date-today-bg               : $light !default;
+$date-today-text             : $secondary !default;
+
 // BUTTONS
 $button-default-bg           : $white !default;
 $button-default-text         : $dark !default;
