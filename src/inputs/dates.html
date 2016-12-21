@@ -1,0 +1,33 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <ui-page page-title="Date Inputs">
+    <ui-content scroll padded>
+      <ui-container>
+        <ui-row>
+          <ui-column fill padded>
+            <ui-date-view date.bind="date"></ui-date-view>
+            <p>${date}</p>
+            <p>${date | date & t}</p>
+            <p>${date | date & t} ${date | time}</p>
+          </ui-column>
+          <ui-column fill padded>
+            <ui-input-group>
+              <ui-input-label>Date</ui-input-label>
+              <ui-date date.bind="date"></ui-date>
+            </ui-input-group>
+            <ui-input-group>
+              <ui-input-label>Date Range</ui-input-label>
+              <ui-date date.bind="date1"></ui-date>
+              <ui-input-addon><small>TO</small></ui-input-addon>
+              <ui-date date.bind="date2" min-date.bind="date1"></ui-date>
+            </ui-input-group>
+          </ui-column>
+        </ui-row>
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>
