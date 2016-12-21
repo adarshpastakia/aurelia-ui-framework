@@ -10,23 +10,51 @@
     }
 
   </style>
-  <ui-content scroll padded>
+  <ui-content scroll>
     <ui-container>
       
-      <div class="ui-row ui-row-middle ui-row-center">
+      <div class="ui-row ui-row-middle ui-row-center ui-bg-primary">
         <img src="images/logo.png" height="64"/>
-        <h1 class="ui-display-1 ui-text-primary" t="title"></h1>
-        <div class="ui-col-full ui-font-large ui-thin ui-text-center" t="subtitle"></div>
+        <h1 class="ui-display-1 ui-text-white ui-text-center" t="title"></h1>
       </div>
-      <hr/>
 
-      <ui-row>
+      <div class="button-bar ui-bg-secondary ui-text-white ui-text-center">
+        <div class="ui-col-full ui-font-large ui-thin" t="subtitle"></div>
+        <br/><br/>
+        <h4>Features</h4>
+        <br/>
+        <ui-row class="ui-text-start ui-pad-h" middle>
+          <ui-column padded auto><img align="left" src="images/feature-layout.svg" width="64"/></ui-column>
+          <ui-column padded fill>Layout elements for creating pages with drawers, sidebars, tabs</ui-column>
+          <ui-divider></ui-divider>
+          <ui-column padded auto><img align="left" src="images/feature-input.svg" width="64"/></ui-column>
+          <ui-column padded fill>Custom input elements for dates, phone numbers and markdown content</ui-column>
+        </ui-row>
+        <ui-row class="ui-text-start ui-pad-h" middle>
+          <ui-column padded auto><img align="left" src="images/feature-grid.svg" width="64"/></ui-column>
+          <ui-column padded fill>Functional datagrid with sorting and resizeable column</ui-column>
+          <ui-divider></ui-divider>
+          <ui-column padded auto><img align="left" src="images/feature-theme.svg" width="64"/></ui-column>
+          <ui-column padded fill>Completely themeable</ui-column>
+        </ui-row>
+        <br/><br/>
+        <a href="#/start" class="big-button">
+          <span t="home:start.title"></span>
+        </a>
+        <a href="#/examples" class="big-button">
+          <span t="home:examples.title"></span>
+        </a>
+      </div>
+
+      <ui-row center>
         <ui-column fill padded width="320px">
+
           <h5 class="section-title" t="home:theming.title"></h5>
           <p class="ui-para" t="home:theming.description"></p>
           <ui-row>
             <ui-column padded size="sm-6 md-4 lg-6 xl-3" repeat.for="s of sections.theming">
-              <a href.bind="s.link"><span t.bind="s.title"></span>
+              <a href.bind="s.link">
+                <span t.bind="s.title"></span>
                 <ui-glyph glyph="ui-arrow-right"></ui-glyph>
               </a>
               <p class="ui-thin" t.bind="s.desc"></p>
@@ -37,7 +65,8 @@
           <p class="ui-para" t="home:core.description"></p>
           <ui-row>
             <ui-column padded size="sm-6 md-4 lg-6 xl-3" repeat.for="s of sections.core">
-              <a href.bind="s.link"><span t.bind="s.title"></span>
+              <a href.bind="s.link">
+                <span t.bind="s.title"></span>
                 <ui-glyph glyph="ui-arrow-right"></ui-glyph>
               </a>
               <p class="ui-thin" t.bind="s.desc"></p>
@@ -48,7 +77,8 @@
           <p class="ui-para" t="home:inputs.description"></p>
           <ui-row>
             <ui-column padded size="sm-6 md-4 lg-6 xl-3" repeat.for="s of sections.inputs">
-              <a href.bind="s.link"><span t.bind="s.title"></span>
+              <a href.bind="s.link">
+                <span t.bind="s.title"></span>
                 <ui-glyph glyph="ui-arrow-right"></ui-glyph>
               </a>
               <p class="ui-thin" t.bind="s.desc"></p>
@@ -58,7 +88,8 @@
           <h5 class="section-title" t="home:comps.title"></h5>
           <ui-row>
             <ui-column padded size="sm-6 md-4 lg-6 xl-3" repeat.for="s of sections.comps">
-              <a href.bind="s.link"><span t.bind="s.title"></span>
+              <a href.bind="s.link">
+                <span t.bind="s.title"></span>
                 <ui-glyph glyph="ui-arrow-right"></ui-glyph>
               </a>
               <p class="ui-thin" t.bind="s.desc"></p>
@@ -68,7 +99,8 @@
           <h5 class="section-title" t="home:apis.title"></h5>
           <ui-row>
             <ui-column padded size="sm-6 md-4 lg-6 xl-3" repeat.for="s of sections.apis">
-              <a href.bind="s.link"><span t.bind="s.title"></span>
+              <a href.bind="s.link">
+                <span t.bind="s.title"></span>
                 <ui-glyph glyph="ui-arrow-right"></ui-glyph>
               </a>
               <p class="ui-thin" t.bind="s.desc"></p>

@@ -1,0 +1,80 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <ui-page page-title="Pre-Requisites">
+    <ui-content scroll padded>
+      <ui-container class="ui-markdown">
+        <h6 class="section-title">Requirements</h6>
+        <p>
+          <ul>
+            <li>
+              Install NodeJS version 4.x or above.
+              <ul>
+                <li>You can
+                  <a href="https://nodejs.org/en/" target="_blank">download it here</a>.</li>
+              </ul>
+            </li>
+          </ul>
+        </p>
+        <h6 class="section-title">Setup Aurelia Project</h6>
+        <p>
+          <ul>
+            <li>Install the aurelia CLI using npm.
+              <code>npm install aurelia-cli -g</code><br/>
+              <div class="note">You may need to use
+                <code>sudo</code>
+                to global install aureli-cli</div>
+            </li>
+            <li>Create a new aurelia project
+              <code>au new --here</code>
+              <div class="note">
+                You can start with the default blank project or update it with the AUF starter project.
+                <br/>
+                You can
+                <a href="tostarter" target="_blank">download it here</a>.
+              </div>
+            </li>
+            <li>When using the default aurelia project, update the aurelia project config with the following dependency
+              <pre><code>{
+  "name": "framework-bundle.js",
+  "prepend": [
+    "node_modules/whatwg-fetch/fetch.js"
+  ],
+  "dependencies": [
+    "aurelia-fetch-client",
+    "lodash",
+    "numeral",
+    {
+      "name": "aurelia-validation",
+      "path": "../node_modules/aurelia-validation/dist/amd",
+      "main": "aurelia-validation"
+    },
+    {
+      "name": "aurelia-ui-framework",
+      "path": "../aurelia-ui-framework/dist",
+      "main": "aurelia-ui-framework"
+    },
+    {
+      "name": "kramed",
+      "path": "../node_modules/kramed/lib",
+      "main": "kramed"
+    },
+    {
+      "name": "moment",
+      "path": "../node_modules/moment",
+      "main": "moment"
+    }
+  ]
+}
+            </code></pre>
+            </li>
+          </ul>
+        </p>
+
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>
