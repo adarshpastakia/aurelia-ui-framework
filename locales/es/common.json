@@ -3,8 +3,12 @@
   "subtitle": "Un marco de UI completo para aplicaciones empresariales",
   "version": "Versión",
 
-  "Yes": "Sí",
-  "No": "No",
+  "OK": "Aprobar",
+  "Cancel": "Cancelar",
+
+  "Search": "Buscar...",
+  "Selected": "Seleccionado",
+  "Available": "Disponible",
 
   "nav":
   {

@@ -108,12 +108,16 @@
       ],
       "dependencies": [
         "lodash",
-        "moment",
         "numeral",
         {
           "name": "kramed",
           "path": "../node_modules/kramed/lib",
           "main": "kramed"
+        },
+        {
+          "name": "moment",
+          "path": "../node_modules/moment",
+          "main": "moment"
         }
       ]
     },
