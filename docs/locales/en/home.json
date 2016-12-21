@@ -1,4 +1,14 @@
 {
+  "start":
+  {
+    "title": "Getting Started",
+    "description": ""
+  },
+  "examples":
+  {
+    "title": "App Examples",
+    "description": ""
+  },
   "theming":
   {
     "title": "Theming",
