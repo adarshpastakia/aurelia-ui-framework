@@ -50,6 +50,7 @@ import './elements/inputs/ui-textarea';
 import './elements/components/ui-alerts';
 import './elements/components/ui-bars';
 import './elements/components/ui-breadcrumb';
+import './elements/components/ui-datagrid';
 import './elements/components/ui-drawer';
 import './elements/components/ui-dropdown';
 import './elements/components/ui-menu';
@@ -102,6 +103,7 @@ export function configure(config: FrameworkConfiguration, configCallback) {
     './elements/components/ui-alerts',
     './elements/components/ui-bars',
     './elements/components/ui-breadcrumb',
+    './elements/components/ui-datagrid',
     './elements/components/ui-drawer',
     './elements/components/ui-dropdown',
     './elements/components/ui-menu',

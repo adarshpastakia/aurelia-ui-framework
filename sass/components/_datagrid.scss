@@ -1,0 +1,196 @@
+// 
+// @description : 
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+.ui-datagrid {
+  position : relative;
+  min-width: 100%;
+
+  .ui-dg-wrapper {
+    height: 100%;
+    width : 100%;
+  }
+
+  .ui-dg-ghost {
+    top        : 1.7em;
+    bottom     : 0;
+    z-index    : 5;
+    position   : absolute;
+    border-left: 2px dotted $base-border-color;
+  }
+
+  .ui-dg-empty {
+    position  : absolute;
+    z-index   : 5;
+    top       : 1.7em;
+    background: $datagrid-base-bg;
+    width     : 100%;
+    padding   : 1em;
+  }
+
+  &:not(.ui-auto-size) {
+    @include flex-fill();
+
+    .ui-dg-wrapper {
+      overflow: auto;
+      position: absolute;
+    }
+  }
+
+  &.ui-auto-size {
+    table > tbody > tr:last-child {
+      display: none;
+    }
+  }
+
+  table {
+    min-width  : 100%;
+    min-height : 100%;
+    line-height: 1;
+
+    td {
+      &.ui-locked {
+        @include sticky();
+      }
+
+      &.ui-expander {
+        min-width   : 100%;
+        border-right: none;
+      }
+
+      > div {
+        border-right: 1px solid rgba($base-border-color, 0.5);
+        line-height : 1.7rem;
+        @include ellipsis();
+
+        &.btn-fix {
+          line-height: 1;
+          padding    : .15em 0;
+        }
+      }
+
+      &:last-child > div {
+        border-right: none;
+      }
+    }
+
+     > thead > tr > td,
+    > tfoot > tr > td {
+      font-size  : .9em;
+      font-weight: 600;
+    }
+
+    thead {
+      top: 0;
+      @include sticky();
+
+      > tr > td {
+        color     : $datagrid-header-text;
+        background: $datagrid-header-bg;
+
+        > div {
+          @include flex-row($wrap:false, $align: stretch);
+
+          .ui-dg-header {
+            padding: 0 .5em;
+            @include flex-fill();
+          }
+
+          .ui-sort {
+            padding: 0 .2em;
+            @include align-self(center);
+            @include flex-auto();
+
+            &:after,
+            &:before {
+              font-size  : .5em;
+              display    : block;
+              position   : relative;
+              line-height: 1;
+              color      : rgba($datagrid-header-text,.25);
+            }
+
+            &:before {
+              content: '\25B2';
+            }
+
+            &:after {
+              content: '\25BC';
+            }
+
+            &.asc:before {
+              color: rgba($datagrid-header-text,.75);
+            }
+
+            &.desc:after {
+              color: rgba($datagrid-header-text,.75);
+            }
+          }
+
+          .ui-resizer {
+            cursor: ew-resize;
+            @include flex(0 0 2px);
+            @include border(start, 1px solid rgba($datagrid-header-text, .5));
+          }
+        }
+
+        &:last-child > div {
+          border-right: none;
+        }
+      }
+    }
+
+    tbody {
+      > tr {
+        > td {
+          > div {
+            padding: 0 .5em;
+          }
+        }
+
+        &:nth-child(odd) > td {
+          background: $datagrid-row-odd-bg;
+          color     : $datagrid-row-odd-text;
+        }
+
+        &:nth-child(even) > td {
+          background: $datagrid-row-even-bg;
+          color     : $datagrid-row-even-text;
+        }
+
+        &:last-child {
+          min-height: 0;
+          height    : 100%;
+
+          > td {
+            vertical-align: top;
+          }
+
+          > td > div {
+            height: 100%;
+          }
+        }
+
+        &:not(:last-child):hover > td {
+          background: $datagrid-row-hover-bg;
+          color     : $datagrid-row-hover-text;
+        }
+      }
+    }
+
+    tfoot {
+      bottom: 0;
+      @include sticky();
+
+      tr > td {
+        background: $datagrid-footer-bg;
+        color     : $datagrid-footer-text;
+
+        > div {
+          padding: 0 .5em;
+        }
+      }
+    }
+  }
+}

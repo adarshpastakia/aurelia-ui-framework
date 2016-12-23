@@ -106,6 +106,25 @@ $list-hover-text             : $white !default;
 $list-selected-bg            : rgba($secondary, .85) !default;
 $list-selected-text          : $white !default;
 
+// DATAGRID
+$datagrid-base-bg            : $base-bg !default;
+$datagrid-base-text          : $base-text !default;
+
+$datagrid-row-odd-bg         : $datagrid-base-bg !default;
+$datagrid-row-even-bg        : shade($datagrid-base-bg,2%) !default;
+$datagrid-row-hover-bg       : tint($secondary,90%) !default;
+$datagrid-row-active-bg      : tint($secondary,70%) !default;
+$datagrid-row-odd-text       : $datagrid-base-text !default;
+$datagrid-row-even-text      : $datagrid-base-text !default;
+$datagrid-row-hover-text     : $datagrid-base-text !default;
+$datagrid-row-active-text    : $datagrid-base-text !default;
+
+$datagrid-header-bg          : tint($secondary, 15%) !default;
+$datagrid-header-text        : $white !default;
+
+$datagrid-footer-bg          : shade($datagrid-base-bg, 5%) !default;
+$datagrid-footer-text        : $black !default;
+
 // INPUTS
 $input-bg                    : #FFFFFF !default;
 $input-text                  : #2E3E4F !default;

@@ -1,0 +1,37 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <style>
+    .tab-container {
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      justify-items: stretch;
+      border: 1px solid rgba(0,0,0,.1);
+    }
+
+  </style>
+  <ui-page page-title="Tab Panels">
+    <ui-content padded scroll>
+      <ui-container>
+        <div class="tab-container" style="height:500px">
+          <ui-datagrid data.bind="data" summary-row="true">
+            <ui-dg-empty><h5>No records available...</h5></ui-dg-empty>
+            <ui-dg-column data-id="text" sortable resizeable summary="Totals" locked>Text</ui-dg-column>
+            <ui-dg-column data-id="date" sortable resizeable date>Date</ui-dg-column>
+            <ui-dg-column data-id="number" sortable resizeable number summary="sum">Number</ui-dg-column>
+            <ui-dg-column data-id="currency" sortable resizeable currency summary="avg">Currency</ui-dg-column>
+            <ui-dg-link glyph="icon-line-trash-can" label="Delete" width="6em" click.trigger="clicked()">Link</ui-dg-link>
+            <ui-dg-button glyph="icon-line-trash-can" theme="danger" label="Delete" width="6em" click.trigger="clicked()">Button</ui-dg-button>
+          </ui-datagrid>
+        </div>
+        <br/>
+
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>
