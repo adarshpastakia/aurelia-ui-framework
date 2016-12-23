@@ -13,7 +13,7 @@ import {UIUtils} from "../../utils/ui-utils";
 <div show.bind="resizing" ref="ghost" class="ui-dg-ghost"></div>
 <div show.bind="!data || data.length==0" class="ui-dg-empty"><slot name="dg-empty"></slot></div>
 <div class="ui-dg-wrapper" ref="scroller">
-<table width.bind="calculateWidth(cols)" css.bind="{'table-layout': tableWidth?'fixed':'auto' }">
+<table width.bind="calculateWidth(cols,resizing)" css.bind="{'table-layout': tableWidth?'fixed':'auto' }">
   <colgroup>
     <col repeat.for="col of cols" data-index.bind="$index" width.bind="col.width"/>
     <col/>
@@ -39,7 +39,7 @@ import {UIUtils} from "../../utils/ui-utils";
     <td class="ui-expander"><div><span class="ui-dg-header">&nbsp;</span></div></td>
   </tr></thead>
   <tfoot if.bind="summaryRow && data && data.length!=0" ref="dgFoot"><tr>
-    <td repeat.for="col of cols" class="\${col.locked==0?'ui-locked':''}" css.bind="{left: col.left+'px'}"><div innerhtml.bind='col.getSummary(summaryRow, data)'></div></td>
+    <td repeat.for="col of cols" class="\${col.locked==0?'ui-locked':''} \${col.align}" css.bind="{left: col.left+'px'}"><div innerhtml.bind='col.getSummary(summaryRow, data)'></div></td>
     <td class="ui-expander"><div>&nbsp;</div></td>
   </tr></tfoot>
 </table></div></template>`)
@@ -140,7 +140,6 @@ export class UIDatagrid {
     this.resizing = false;
     if (this.colNext) this.colNext.left += this.diff;
     this.colResize.width = (parseInt(this.colResize.width) + this.diff);
-    this.calculateWidth(this.cols);
     document.removeEventListener('mousemove', this.move);
     document.removeEventListener('mouseup', this.stop);
   }
@@ -268,6 +267,7 @@ export class UIDataColumn {
         case 'exrate': retVal = UIFormat.exRate(retVal); break;
       }
     }
+    if (this.summary == 'avg') retVal = '<small>avg.</small> ' + retVal;
     return retVal;
   }
 }
