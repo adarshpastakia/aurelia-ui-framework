@@ -175,7 +175,7 @@ export class UIMarkdown extends UIBaseInput {
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value = '';
 
-  @bindable() dir = 'inherit';
+  @bindable() dir = '';
   @bindable() rows = 15;
   @bindable() errors = null;
   @bindable() maxlength = 5000;

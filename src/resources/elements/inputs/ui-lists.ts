@@ -284,7 +284,7 @@ export class BaseListInput {
 @autoinject()
 @inlineView(`<template class="ui-input-wrapper ui-input-list"><div role="input" class="ui-input-control"><slot></slot>
   <span class="ui-error" if.bind="errors"><ui-glyph glyph="ui-invalid"></ui-glyph><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
-  <input ref="inputEl" value.bind="elValue" size.bind="size"
+  <input ref="inputEl" value.bind="elValue"
     focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)" click.trigger="openDropdown($event)"
     input.trigger="search() & debounce:200" change.trigger="fireEvent($event)"
     keydown.trigger="keyDown($event)" placeholder.bind="placeholder"
@@ -325,8 +325,6 @@ export class UICombo extends BaseListInput {
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value = '';
 
-  @bindable() dir = 'inherit';
-  @bindable() size = 5;
   @bindable() errors = null;
   @bindable() disabled = false;
   @bindable() readonly = false;
@@ -362,7 +360,7 @@ export class UICombo extends BaseListInput {
 @inlineView(`<template class="ui-input-wrapper ui-input-list tags"><div role="input" class="ui-input-control"><slot></slot>
   <span class="ui-error" if.bind="errors"><ui-glyph glyph="ui-invalid"></ui-glyph><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
   <div class="ui-tag-item" repeat.for="tag of value | split" if.bind="tag!=''"><span innerhtml.bind="getDisplay(tag)"></span><i class="ui-clear" click.trigger="removeValue(tag)">&times;</i></div>
-  <input ref="inputEl" value.bind="elValue" size.bind="size"
+  <input ref="inputEl" value.bind="elValue"
     focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)"
     input.trigger="search() & debounce:200" change.trigger="fireEvent($event)"
     keydown.trigger="keyDown($event)" placeholder.bind="placeholder"
@@ -402,8 +400,6 @@ export class UITags extends BaseListInput {
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value = '';
 
-  @bindable() dir = 'inherit';
-  @bindable() size = 5;
   @bindable() errors = null;
   @bindable() disabled = false;
   @bindable() readonly = false;
@@ -468,7 +464,7 @@ export class UITags extends BaseListInput {
 @autoinject()
 @inlineView(`<template class="ui-input-wrapper"><div role="input" class="ui-input-control ui-input-list listbox">
   <span class="ui-error" if.bind="errors"><ui-glyph glyph="ui-invalid"></ui-glyph><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
-  <input ref="inputEl" value.bind="elValue" size.bind="size" class="ui-input ui-remove"
+  <input ref="inputEl" value.bind="elValue" class="ui-input ui-remove"
     focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)"
     input.trigger="search() & debounce:200" change.trigger="fireEvent($event)"
     keydown.trigger="keyDown($event)" placeholder.bind="placeholder"
@@ -508,8 +504,6 @@ export class UIList extends BaseListInput {
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value = '';
 
-  @bindable() dir = 'inherit';
-  @bindable() size = 5;
   @bindable() errors = null;
   @bindable() disabled = false;
   @bindable() readonly = false;

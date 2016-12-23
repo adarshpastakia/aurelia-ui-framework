@@ -72,9 +72,14 @@ export class UICheckbox {
 
   static seed = 1;
   private for = '';
+  isDisabled = false;
 
   disabledChanged(newValue) {
     this.element.classList[(this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');
+  }
+
+  disable(b) {
+    this.element.classList[(this.isDisabled = (b || this.disabled)) ? 'add' : 'remove']('ui-disabled');
   }
 }
 
@@ -105,9 +110,14 @@ export class UIRadio {
 
   static seed = 1;
   private for = '';
+  isDisabled = false;
 
   disabledChanged(newValue) {
     this.element.classList[(this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');
+  }
+
+  disable(b) {
+    this.element.classList[(this.isDisabled = (b || this.disabled)) ? 'add' : 'remove']('ui-disabled');
   }
 
   changed($event) {
@@ -164,12 +174,17 @@ export class UISwitch {
 
   static seed = 1;
   private for = '';
+  isDisabled = false;
 
   checkedChanged(newValue) {
     this.value = newValue ? this.onValue : this.offValue;
   }
   valueChanged(newValue) {
     this.checked = newValue == this.onValue;
+  }
+
+  disable(b) {
+    this.element.classList[(this.isDisabled = (b || this.disabled)) ? 'add' : 'remove']('ui-disabled');
   }
 
   private fireChange($event) {

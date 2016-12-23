@@ -68,6 +68,11 @@ export class UIButton {
 
   private tether;
   private obMouseup;
+  isDisabled = false;
+
+  disable(b) {
+    this.element.classList[(this.isDisabled = (b || this.disabled)) ? 'add' : 'remove']('ui-disabled');
+  }
 
   toggleDropdown(evt) {
     if (evt.button != 0) return true;
