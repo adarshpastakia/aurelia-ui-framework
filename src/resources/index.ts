@@ -7,7 +7,6 @@ import {UIUtils} from "./utils/ui-utils";
 import 'lodash';
 import 'moment';
 import 'numeral';
-import 'moment/min/locales.min';
 
 import './libs/countries';
 import './libs/currencies';
@@ -26,6 +25,7 @@ export var moment = mm;
 export var numeral = nm;
 
 export * from './utils/ui-application';
+export * from './utils/ui-constants';
 export * from './utils/ui-dialog';
 export * from './utils/ui-event';
 export * from './utils/ui-format';
@@ -51,6 +51,7 @@ import './elements/components/ui-alerts';
 import './elements/components/ui-bars';
 import './elements/components/ui-breadcrumb';
 import './elements/components/ui-datagrid';
+import './elements/components/ui-dg-columns';
 import './elements/components/ui-drawer';
 import './elements/components/ui-dropdown';
 import './elements/components/ui-menu';
@@ -104,6 +105,7 @@ export function configure(config: FrameworkConfiguration, configCallback) {
     './elements/components/ui-bars',
     './elements/components/ui-breadcrumb',
     './elements/components/ui-datagrid',
+    './elements/components/ui-dg-columns',
     './elements/components/ui-drawer',
     './elements/components/ui-dropdown',
     './elements/components/ui-menu',
@@ -111,6 +113,10 @@ export function configure(config: FrameworkConfiguration, configCallback) {
     './elements/components/ui-sidebar',
     './elements/components/ui-tab',
     './elements/components/ui-tree'
+  ]);
+  // Attributes
+  config.globalResources([
+    './attributes/ui-badge'
   ]);
   // Value Converters
   config.globalResources([

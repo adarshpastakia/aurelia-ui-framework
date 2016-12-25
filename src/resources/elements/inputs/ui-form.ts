@@ -45,7 +45,7 @@ export class UIForm {
 }
 
 @autoinject()
-@inlineView('<template class="ui-fieldset"><fieldset><legend if.bind="legend"><span if.bind="!collapsable">\${legend}</span><ui-checkbox if.bind="collapsable" checked.bind="enabled">\${legend}</ui-checkbox></legend><slot></slot></fieldset></template>')
+@inlineView('<template class="ui-fieldset"><fieldset><legend if.bind="legend"><span if.bind="!collapsable">\${legend}</span><ui-checkbox if.bind="collapsable" checked.bind="enabled">\${legend}</ui-checkbox></legend><div ref="container"><slot></slot></div></fieldset></template>')
 @customElement('ui-fieldset')
 export class UIFieldset {
   constructor(public element: Element) {
@@ -67,11 +67,12 @@ export class UIFieldset {
   @bindable() legend = '';
   @bindable() enabled = true;
 
+  private container;
   private collapsable = false;
 
   enabledChanged(newValue: any) {
     this.element.classList[isTrue(newValue) ? 'remove' : 'add']('ui-collapse');
-    let els = this.element.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list');
+    let els = this.container.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list');
     _.forEach(els, el => {
       try {
         el.au.controller.viewModel.disable(isFalse(newValue));
@@ -142,6 +143,7 @@ export class UIInputAddon {
   focusEl() {
     let el = this.element.nextElementSibling;
     if (el && el['focus']) el['focus']();
+    return true;
   }
 }
 

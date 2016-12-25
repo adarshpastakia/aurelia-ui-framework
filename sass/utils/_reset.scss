@@ -80,7 +80,7 @@ button {
 .ui-link,
 a {
   position: relative;
-  color: $link-text;
+  color   : $link-text;
 
   &:hover {
     color: $link-hover-text;
@@ -120,4 +120,12 @@ td,
 th {
   padding   : 0;
   text-align: start;
+}
+
+.ui-table {
+  caption,
+  td,
+  th {
+    padding: 0 .25em;
+  }
 }

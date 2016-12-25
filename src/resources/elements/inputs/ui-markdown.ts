@@ -266,9 +266,9 @@ export class UIMarkdown extends UIBaseInput {
       <ui-glyph class="ui-text-danger ui-font-big" glyph="ui-tree-collapse" click.trigger="removeLanguage(item)"></ui-glyph>
     </div>
     <div class="ui-list-group" t="Available">Available</div>
-    <div class="ui-lang-item" repeat.for="item of availableList">
+    <div class="ui-lang-item" repeat.for="item of availableList" click.trigger="addLanguage(item)">
       <div class="ui-list-item \${item.disabled?'ui-disabled':''}" innerhtml.bind="item.name" 
-      mouseover.delegate="hilightItem($event)" click.trigger="addLanguage(item)"></div>
+      mouseover.delegate="hilightItem($event)"></div>
       <ui-glyph class="ui-text-info ui-font-big" glyph="ui-tree-expand"></ui-glyph>
     </div>
     </template>
@@ -286,7 +286,10 @@ export class UILanguage {
   attached() {
     this.tether = UIUtils.tether(this.element, this.dropdown);
     this.obMouseup = UIEvent.subscribe('mouseclick', (evt) => {
-      if (getParentByClass(evt.target, 'ui-list-container') == this.dropdown) return true;
+      if (getParentByClass(evt.target, 'ui-list-container') == this.dropdown) {
+        clearTimeout(this.closing);
+        return true;
+      }
       this.closeDropdown();
     });
   }
@@ -314,8 +317,9 @@ export class UILanguage {
   private elValue;
   private dropdown;
 
-  protected tether;
-  protected obMouseup;
+  private tether;
+  private closing;
+  private obMouseup;
 
   private selectedList = [];
   private availableList = [];
@@ -327,6 +331,7 @@ export class UILanguage {
   }
 
   languagesChanged(newValue) {
+    this.selectedList = [];
     this.availableList = _.clone(UIConstants.Languages);
     if (!isEmpty(newValue)) {
       let langs = isString(newValue) ? newValue.split(',') : newValue;
@@ -347,7 +352,7 @@ export class UILanguage {
     if (evt.type === 'blur') {
       this.element.classList.remove('ui-focus');
       if (el) el.classList.remove('ui-focus');
-      this.closeDropdown();
+      this.closing = setTimeout(() => this.closeDropdown(), 500);
     }
     UIEvent.fireEvent(evt.type, this.element, this.value);
   }

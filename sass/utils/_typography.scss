@@ -173,3 +173,44 @@ strong {
 .ui-text-justify {
   text-align: justify;
 }
+
+//BADGES 
+.ui-badge {
+  position     : absolute;
+  top          : -.5em;
+  right        : -.5em;
+  font-size    : .9em;
+  line-height  : 1.2;
+  border-radius: 1em;
+  padding      : 0 .5em;
+  color        : $white;
+  box-shadow   : 1px 1px 2px 0 rgba($base-shadow-color, .75);
+
+  .ui-bg-dark {
+    background: $dark;
+  }
+
+  .ui-bg-primary {
+    background: $primary;
+  }
+
+  .ui-bg-secondary {
+    background: $secondary;
+  }
+
+  .ui-bg-info {
+    background: $info;
+  }
+
+  .ui-bg-danger {
+    background: $danger;
+  }
+
+  .ui-bg-success {
+    background: $success;
+  }
+
+  .ui-bg-warning {
+    background: $warning;
+  }
+}

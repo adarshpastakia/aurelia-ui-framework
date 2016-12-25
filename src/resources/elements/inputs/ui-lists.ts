@@ -38,8 +38,8 @@ export class BaseListInput {
   protected floating;
 
   bind(bindingContext: Object, overrideContext: Object) {
-    this.readonly = isTrue(this.readonly);
-    this.disabled = isTrue(this.disabled);
+    this.readonlyChanged(this.readonly);
+    this.disabledChanged(this.disabled);
     this.forceSelect = isTrue(this.forceSelect);
     this.optionsChanged(this.options);
   }

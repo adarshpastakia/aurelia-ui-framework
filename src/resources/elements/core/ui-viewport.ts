@@ -20,7 +20,7 @@ import {UIEvent} from "../../utils/ui-event";
   <div class="ui-dialog-container" ref="dialogContainer"></div>
   <div class="ui-overlay-container" ref="overlayContainer"></div>
 
-  <div class="ui-loader" show.bind="router.isNavigating || httpClient.isRequesting || app.isBusy">
+  <div class="ui-app-loader" show.bind="router.isNavigating || httpClient.isRequesting || app.isBusy">
     <div class="ui-loader-div">
       <ui-glyph class="ui-anim-loader" glyph="ui-loader"></ui-glyph>
     </div>
@@ -52,7 +52,7 @@ export class UIViewport {
     UIEvent.fireEvent('appready', this.element);
 
     // Remove splash
-    DOM.removeNode(document.querySelector('.ui-splash'));
+    if (document.querySelector('.ui-splash')) DOM.removeNode(document.querySelector('.ui-splash'));
   }
   detached() { }
   unbind() { }

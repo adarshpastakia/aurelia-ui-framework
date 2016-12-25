@@ -11,6 +11,8 @@ a.ui-menu-item {
   color      : $menu-link-text;
   max-width  : 20em;
   padding    : 0 .5em;
+  text-align : left;
+  text-align : start;
   @include ellipsis();
   @include transition(all .5s);
 

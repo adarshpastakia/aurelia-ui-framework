@@ -102,6 +102,11 @@
   @include flex-fill();
 }
 
+.ui-col-form {
+  position: relative;
+  @include flex-fill(auto);
+}
+
 .ui-col-full {
   position: relative;
   @include flex(1 1 100%);

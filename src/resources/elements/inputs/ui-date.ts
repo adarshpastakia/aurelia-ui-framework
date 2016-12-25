@@ -137,6 +137,7 @@ export class UIDateView {
   }
 
   private buildDatePage(newLocale?) {
+    if (!this.current.isValid || !this.current.isValid()) return;
     if (newLocale) moment.locale(newLocale);
 
     if (this.datePage == 0) {

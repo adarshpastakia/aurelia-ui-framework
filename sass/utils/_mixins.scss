@@ -88,8 +88,8 @@
 @mixin flex-column($align:stretch, $justify: flex-start, $display:flex) {
    @include flexbox(( display:$display, flex-direction:column, align-items:$align, justify-content: $justify, flex-wrap: nowrap ));
 }
-@mixin flex-fill() {
-   @include flex(1 1 0em);
+@mixin flex-fill($basis: 0em) {
+   @include flex(1 1 $basis);
 }
 @mixin flex-auto() {
    @include flex(0 0 auto);

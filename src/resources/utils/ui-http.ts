@@ -29,13 +29,13 @@ export class UIHttpService {
           //.withDefaults({})
           .withInterceptor({
             request(request) {
-              this.logger.info(`Requesting ${request.method} ${request.url}`);
+              self.logger.info(`Requesting ${request.method} ${request.url}`);
               app.isBusy = true;
               //request.url = encodeURI(request.url);
               return request;
             },
             response(response) {
-              this.logger.info(`Response ${response.status} ${response.url}`);
+              self.logger.info(`Response ${response.status} ${response.url}`);
               app.isBusy = false;
 
               if (response instanceof TypeError) {

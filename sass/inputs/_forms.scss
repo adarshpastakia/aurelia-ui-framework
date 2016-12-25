@@ -5,8 +5,12 @@
 // @license     : MIT
 
 .ui-form {
-  .ui-column {
-    @include flex-basis(18em);
+  // .ui-column {
+  //   @include flex-basis(18em);
+  // }
+
+  .ui-col-form .ui-input-group {
+    min-width: 18em;
   }
 }
 
@@ -14,7 +18,7 @@
   fieldset {
     margin       : .25em .5em;
     overflow     : hidden;
-    max-height   : 80em;
+    max-height   : 150em;
     border-radius: $base-border-radius;
     border       : 1px solid $base-border-color;
     @include transition(max-height .5s);
@@ -28,10 +32,6 @@
     > span {
       color: $input-label-text;
     }
-  }
-
-  .ui-column {
-    @include flex-basis(18em);
   }
 
   &.ui-collapse fieldset {
@@ -90,7 +90,7 @@
   }
 
   > div {
-    @include flex(1 1 12em);
+    @include flex(1 1 15em);
   }
 
   .ui-group-wrapper {

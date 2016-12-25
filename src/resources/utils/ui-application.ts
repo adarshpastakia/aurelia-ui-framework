@@ -152,15 +152,15 @@ export class UIApplication {
   /** Toasts / Alerts **/
   toast(config, container?) {
     if (typeof config === 'string') config = { message: config };
-    config.container = container;
+    if (container) config.container = container;
     UIUtils.toast(config);
   }
 
   toastSuccess(config, container?) {
     if (typeof config === 'string') config = { message: config };
     config.theme = 'success';
-    config.container = container;
     config.glyph = config.glyph || 'ui-alert-exclaim';
+    if (container) config.container = container;
     UIUtils.toast(config);
   }
 
@@ -168,7 +168,7 @@ export class UIApplication {
     if (typeof config === 'string') config = { message: config };
     config.theme = 'danger';
     config.glyph = config.glyph || 'ui-alert-error';
-    config.container = container;
+    if (container) config.container = container;
     UIUtils.toast(config);
   }
 

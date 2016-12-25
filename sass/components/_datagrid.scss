@@ -29,6 +29,28 @@
     padding   : 1em;
   }
 
+  .ui-dg-loader {
+    @include position(absolute, 0);
+    background: rgba($base-bg, .15);
+    cursor    : wait;
+    direction : ltr;
+    z-index   : $z-index-splash;
+
+    .ui-loader-div {
+      @include box-shadow(0 0 20px 0 $base-shadow-color);
+      @include position(absolute, 50% auto auto 50%);
+      @include transform(translateX(-50%) translateY(-50%));
+
+      background   : $base-bg;
+      overflow     : hidden;
+      padding      : .5em;
+      font-size    : 1.5em;
+      line-height  : 1;
+      z-index      : $z-index-splash;
+      border-radius: $base-border-radius;
+    }
+  }
+
   &:not(.ui-auto-size) {
     @include flex-fill();
 
@@ -199,6 +221,45 @@
           padding: 0 .5em;
         }
       }
+    }
+  }
+}
+
+.ui-pager {
+  border-radius: $base-border-radius;
+  border       : 1px solid rgba($base-border-color, .5);
+  @include flex-row($display: inline-flex, $wrap:false, $align:stretch);
+
+  a {
+    padding  : .25em .4em;
+    font-size: .8em;
+    color    : $secondary;
+
+    &:hover {
+      color: shade($secondary, 5%);
+    }
+
+    &.disabled {
+      color         : $muted;
+      pointer-events: none;
+    }
+
+    &.pg-first,
+    &.pg-last {
+      font-size  : .9em;
+      line-height: 1.2em;
+    }
+  }
+
+  span {
+    font-size  : .9em;
+    line-height: 1rem;
+    @include align-self(center);
+
+    input {
+      margin    : 0;
+      border    : none;
+      text-align: center;
     }
   }
 }

@@ -10,6 +10,7 @@
   overflow: hidden;
 
   .ui-tab-bar {
+    min-height: 2em;
     @include flex-auto();
     @include flex-row($align:stretch);
 

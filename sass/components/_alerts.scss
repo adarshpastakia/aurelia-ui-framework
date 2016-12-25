@@ -27,11 +27,11 @@
   .ui-wrapper {
     padding: .5em 1em;
     @include flex-row($wrap:false,$align: flex-start);
-  }
 
-  .ui-icon {
-    font-size  : 1.5em;
-    text-shadow: -1px -1px 0 rgba(0, 0, 0, .1);
+    .ui-icon {
+      font-size  : 1.5em;
+      text-shadow: -1px -1px 0 rgba(0, 0, 0, .1);
+    }
   }
 
   .ui-close {
@@ -94,11 +94,11 @@
       padding : 1rem 1.5rem;
       overflow: hidden;
       @include flex-row($wrap:false,$align: flex-start);
-    }
 
-    .ui-icon {
-      font-size  : 2em;
-      text-shadow: -1px -1px 0 rgba(0, 0, 0, .1);
+      .ui-icon {
+        font-size  : 2em;
+        text-shadow: -1px -1px 0 rgba(0, 0, 0, .1);
+      }
     }
 
     .ui-message {

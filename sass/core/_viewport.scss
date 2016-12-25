@@ -13,16 +13,15 @@
 }
 
 .ui-icon {
-  font-size     : 1em;
-  display       : inline-block;
-  width         : 1em;
-  height        : 1em;
-  stroke-width  : 0;
-  line-height   : 1;
-  pointer-events: none;
-  color         : inherit;
-  stroke        : currentColor;
-  fill          : currentColor;
+  font-size   : 1em;
+  display     : inline-block;
+  width       : 1em;
+  height      : 1em;
+  stroke-width: 0;
+  line-height : 1;
+  color       : inherit;
+  stroke      : currentColor;
+  fill        : currentColor;
 
   svg {
     font-size     : 1em;
@@ -84,6 +83,23 @@
       }
       background: rgba($white, .1);
     }
+
+     > .ui-input-wrapper .ui-input-control,
+    > .ui-input-group .ui-group-wrapper {
+      background: rgba($white, .1);
+      color     : $app-header-text;
+    }
+
+    > .ui-input-group .ui-group-wrapper .ui-input-control {
+      background: none;
+      color     : $app-header-text;
+    }
+
+    input {
+      @include input-placeholder {
+        color: rgba($white,.3);
+      }
+    }
   }
 
   .ui-app-footer {
@@ -102,7 +118,7 @@
     @include flex-column();
   }
 
-  .ui-loader {
+  .ui-app-loader {
     @include position(absolute, 0);
     background: rgba($base-bg, .15);
     cursor    : wait;

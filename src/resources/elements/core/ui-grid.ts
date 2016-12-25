@@ -68,6 +68,7 @@ export class UIColumn {
     if (element.hasAttribute('auto')) element.classList.add('ui-col-auto');
     if (element.hasAttribute('fill')) element.classList.add('ui-col-fill');
     if (element.hasAttribute('full')) element.classList.add('ui-col-full');
+    if (element.hasAttribute('form')) element.classList.add('ui-col-form');
 
     if (element.hasAttribute('padded')) element.classList.add('ui-pad-all');
   }

@@ -7,7 +7,7 @@ import {autoinject, customElement, bindable, bindingMode, children, inlineView, 
 import {UIEvent} from "../../utils/ui-event";
 
 @autoinject()
-@inlineView(`<template class="ui-breadcrumb" click.delegate="fireChange($event)"><slot></slot></template>`)
+@inlineView(`<template class="ui-breadcrumb" crumbclicked.delegate="fireChange($event)"><slot></slot></template>`)
 @customElement('ui-breadcrumb')
 export class UIBreadcrumb {
   constructor(public element: Element) {
@@ -28,7 +28,7 @@ export class UIBreadcrumb {
   private fireChange($event) {
     $event.cancelBubble = true;
     $event.stopPropagation();
-    UIEvent.fireEvent('change', this.element, $event.detail);
+    if (!isEmpty($event.detail)) UIEvent.fireEvent('change', this.element, $event.detail);
     return false;
   }
 }
@@ -50,7 +50,9 @@ export class UICrumb {
   @bindable() href = 'javascript:;';
 
   private fireClick($event) {
+    $event.cancelBubble = true;
     $event.stopPropagation();
-    UIEvent.fireEvent('click', this.element, this.id);
+    UIEvent.fireEvent('crumbclicked', this.element, this.id);
+    return false;
   }
 }
