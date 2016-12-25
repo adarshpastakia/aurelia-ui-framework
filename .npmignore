@@ -1,20 +1,29 @@
 # Dependency directories
-/typings
 /aurelia_project
 /build
 /custom_typings
+/docs
 /favicons
-/fonts
+/glyphs
+/icons
 /images
+/locales
 /scripts
+/src
+/test
+/typings
 
 .sass-cache
 
 .DS_Store
 
+/.editorconfig
+/.gitattributes
+/.gitignore
 /.travis.yml
 /gulpfile.js
 /index.html
+/karma.conf.js
 /tsconfig.json
 /tslint.json
 /typings.json

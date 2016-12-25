@@ -12,7 +12,8 @@ var appRoot = 'src/resources/';
 var paths = {
   root: appRoot,
   source: appRoot + '**/*.ts',
-  html: appRoot + '**/*.html',
+  glyphs: appRoot + 'elements/core/framework.html',
+  libs: appRoot + 'libs/**/*',
   typings: appRoot + 'typings/**/*',
   output: 'dist/'
 };
@@ -58,7 +59,7 @@ gulp.task('build-dts', function() {
 });
 
 gulp.task('copy-extras', function() {
-  return gulp.src([paths.typings, paths.html], {
+  return gulp.src([paths.typings, paths.libs, paths.glyphs], {
     base: appRoot
   }).pipe(gulp.dest(paths.output));
 });
@@ -67,10 +68,10 @@ gulp.task('copy-extras', function() {
 gulp.task('build-ts', gulp.series('clean', 'build-ts-amd', 'build-dts', 'copy-extras',
   function(done) {
     gulp.src(paths.output + 'index.js')
-      .pipe(rename("sigma-ui-framework.js"))
+      .pipe(rename("aurelia-ui-framework.js"))
       .pipe(gulp.dest("./dist"));
     gulp.src(paths.output + 'typings/index.d.ts')
-      .pipe(rename("typings/sigma-ui-framework.d.ts"))
+      .pipe(rename("typings/aurelia-ui-framework.d.ts"))
       .pipe(gulp.dest("./dist"));
     del([paths.output + 'index.js', paths.output + 'typings/index.d.ts']);
     done();
