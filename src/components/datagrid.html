@@ -8,7 +8,7 @@
     .tab-container {
       position: relative;
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       align-items: stretch;
       justify-items: stretch;
       border: 1px solid rgba(0,0,0,.1);
@@ -19,7 +19,10 @@
     <ui-content padded scroll>
       <ui-container>
         <div class="tab-container" style="height:500px">
-          <ui-datagrid data.bind="data" summary-row="true">
+          <ui-toolbar>
+            <ui-pager view-model.ref="pager"></ui-pager>
+          </ui-toolbar>
+          <ui-datagrid data.bind="data" summary-row="true" pager.bind="pager">
             <ui-dg-empty><h5>No records available...</h5></ui-dg-empty>
             <ui-dg-column data-id="text" sortable resizeable summary="Totals" locked class="ui-titlecase">Text</ui-dg-column>
             <ui-dg-link glyph="icon-line-search" label="Preview" width="6em" click.trigger="clicked('Link Clicked', $event.detail.record)" locked>Link</ui-dg-link>

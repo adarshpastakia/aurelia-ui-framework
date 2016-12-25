@@ -18,4 +18,6 @@ export class BasicInputs {
   unbind() { }
   deactivate() { }
   // end aurelia hooks
+
+  dis1 = true;
 }

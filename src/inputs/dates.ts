@@ -4,6 +4,7 @@
 // @copyright   : 2017
 // @license     : MIT
 import {autoinject} from 'aurelia-framework';
+import * as moment from "moment";
 
 @autoinject()
 export class InputDates {
@@ -18,4 +19,7 @@ export class InputDates {
   unbind() { }
   deactivate() { }
   // end aurelia hooks
+
+  date1 = moment().toISOString();
+  date2 = moment().add(1, 'month').toISOString();
 }

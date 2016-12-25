@@ -22,6 +22,7 @@
             <ui-input-group>
               <ui-input-label align-top>Description</ui-input-label>
               <ui-markdown info="GitHub Flavoured Markdown" counter clear value.bind="model.languages[language].description" dir.bind="dir" disabled.bind="!language" rows="30"></ui-markdown>
+              <ui-input-info><ui-row middle><ui-column fill><h6>Validate first</h6></ui-column><ui-column auto><ui-button warning>Validate</ui-button></ui-column></ui-row></ui-input-info>
             </ui-input-group>
           </ui-column>
         </ui-row>

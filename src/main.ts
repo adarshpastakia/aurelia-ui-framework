@@ -4,6 +4,8 @@ import {I18N} from 'aurelia-i18n';
 import * as Backend from 'i18next-xhr-backend';
 import environment from './environment';
 
+import 'moment/min/locales.min';
+
 //Configure Bluebird Promises.
 (<any>Promise).config({
   longStackTraces: environment.debug,
