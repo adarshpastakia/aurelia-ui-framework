@@ -41,7 +41,7 @@
     border       : 2px solid tint($secondary, 75%);
     border-radius: $base-border-radius;
     padding      : 2em 1em;
-    margin       : 1em;
+    margin       : 1em 0;
     font-style   : italic;
   }
 
@@ -53,7 +53,7 @@
   h6,
   li,
   p {
-    margin: .5em 0 .2em;
+    margin: .25em 0 1em;
   }
 
   ul {

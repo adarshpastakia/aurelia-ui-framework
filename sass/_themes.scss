@@ -90,7 +90,7 @@
   .ui-toast.#{$theme} {
     background  : $bg;
     color       : $color;
-    border-color: shade($bg, 2%);
+    border-color: shade($bg, 10%);
   }
 }
 

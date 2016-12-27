@@ -1,0 +1,98 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <ui-page page-title="Application">
+    <ui-content scroll padded>
+      <ui-container class="ui-markdown">
+        <h5 class="section-title">Class: UIApplication</h5>
+        <p>Singleton class with common application properties and methods</p>
+<pre><code class="lang-ts">import {autoinject} from "aurelia-framework";
+import {UIApplication} from "aurelia-ui-framework";
+
+@autoinject()
+export class PageView {
+  constructor(public app:UIApplication){}
+}
+</code></pre>
+        <p class="ui-strong">Properties</p>
+        <ul>
+          <li><code>Authenticated:bool</code></li>
+          <p>Boolean indicator</p>
+          
+          <li><code>AuthUser:string</code></li>
+          <p>Authenticated user to use when sending authentication header for Http Client</p>
+          
+          <li><code>AuthToken:string</code></li>
+          <p>Authenticated token to use when sending authentication header for Http Client</p>
+        </ul>
+        <br/>
+        <p class="ui-strong">Methods</p>
+        <ul>
+          <li><code>login(user:UserModel, route?:name)</code></li>
+<pre><code>UserModel {
+  username:string;
+  password:string;
+  token:string;
+}</code></pre>
+          <li><code>logout()</code><p></p></li>
+          <div class="note">Both <em>login</em>, <em>logout</em> methods will broadcast the following events <code>auf:login</code>, <code>auf:logout</code></div>
+          <br/>
+          <li><code>toast(message:string | ToastConfig, container?:HTMLElement)</code></li>
+          <li><code>toastSuccess(message:string | ToastConfig, container?:HTMLElement)</code></li>
+          <li><code>toastError(message:string | ToastConfig, container?:HTMLElement)</code></li>
+          <div class="note">Pass a container element to create inline toast within the page</div>
+<pre><code>ToastConfig {
+  title:string;
+  message:string;
+  glyph:string;
+  theme:string;
+  timeout:number; // 0 disable auto-hide
+}</code></pre>
+
+          <br/>
+          <li><code>alert(message:string | AlertConfig):Promise&lt;bool></code></li>
+          <li><code>confirm(message:string | AlertConfig):Promise&lt;bool></code></li>
+          <li><code>prompt(message:string | AlertConfig):Promise&lt;string></code></li>
+<pre><code>AlertConfig {
+  title:string;
+  message:string;
+  glyph:string;
+  okLabel:string;
+  cancelLabel:string;
+}</code></pre>
+
+          <br/>
+          <li>Data Sharing
+          <ul>
+            <li>Instance sharing
+            <ul><li><code>shared(key:string)</code> get shared property</li>
+            <li><code>shared(key:string, val:any)</code> set shared property</li>
+            <li><code>shared(key:string, null)</code> delete shared property</li></ul></li>
+            
+            <li>Session sharing, uses browser <em>sessionStorage</em>
+            <ul><li><code>session(key:string)</code> get session property</li>
+            <li><code>session(key:string, val:any)</code> set session property</li>
+            <li><code>session(key:string, null)</code> delete session property</li></ul></li>
+            
+            <li>Persistent sharing, uses browser <em>localStorage</em>
+            <ul><li><code>persist(key:string)</code> get persistent property</li>
+            <li><code>persist((key:string, val:any)</code> set persistent property</li>
+            <li><code>persist((key:string, null)</code> delete persistent property</li></ul></li>
+          </ul></li>
+          
+          <br/>
+          <li>Logging
+          <ul>
+            <li><code>info(tag:string, message:string, ...rest:any)</code></li>
+            <li><code>warn(tag:string, message:string, ...rest:any)</code></li>
+            <li><code>error(tag:string, message:string, ...rest:any)</code></li>
+            <li><code>debug(tag:string, message:string, ...rest:any)</code></li>
+          </ul></li>
+        </ul>
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>

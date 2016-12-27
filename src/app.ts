@@ -35,6 +35,8 @@ export class App {
       }, {
         route: 'inputs/*path', moduleId: './inputs/view', title: 'nav.sectionInputs', nav: false, auth: false, name: 'inputs'
       }, {
+        route: 'api/*path', moduleId: './api/view', title: 'nav.sectionApi', nav: false, auth: false, name: 'api'
+      }, {
         route: 'theme-home', redirect: 'theme/home', title: 'nav.titleOverview', nav: true, auth: false, settings: { section: 'nav.sectionTheming' }, name: 'theme'
       }, {
         route: 'theme-typo', redirect: 'theme/typo', title: 'nav.titleTypo', nav: true, auth: false, settings: { section: 'nav.sectionTheming' }, name: 'theme'
@@ -87,13 +89,13 @@ export class App {
       }, {
         route: 'tree', moduleId: './components/tree', title: 'nav.titleTree', nav: true, auth: false, settings: { section: 'nav.sectionComponents' }, name: 'tree'
       }, {
-        route: 'app', moduleId: './api/app', title: 'nav.titleApp', nav: true, auth: false, settings: { section: 'nav.sectionApi' }, name: 'app'
+        route: 'api-app', redirect: 'api/app', title: 'nav.titleApp', nav: true, auth: false, settings: { section: 'nav.sectionApi' }, name: 'app'
       }, {
-        route: 'http', moduleId: './api/http', title: 'nav.titleHttp', nav: true, auth: false, settings: { section: 'nav.sectionApi' }, name: 'http'
+        route: 'api-http', redirect: 'api/http', title: 'nav.titleHttp', nav: true, auth: false, settings: { section: 'nav.sectionApi' }, name: 'http'
       }, {
-        route: 'data', moduleId: './api/data', title: 'nav.titleData', nav: true, auth: false, settings: { section: 'nav.sectionApi' }, name: 'data'
+        route: 'api-data', redirect: 'api/data', title: 'nav.titleData', nav: true, auth: false, settings: { section: 'nav.sectionApi' }, name: 'data'
       }, {
-        route: 'event', moduleId: './api/event', title: 'nav.titleEvent', nav: true, auth: false, settings: { section: 'nav.sectionApi' }, name: 'event'
+        route: 'api-event', redirect: 'api/event', title: 'nav.titleEvent', nav: true, auth: false, settings: { section: 'nav.sectionApi' }, name: 'event'
       }]);
   }
 

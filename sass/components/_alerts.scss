@@ -11,8 +11,9 @@
   cursor        : pointer;
   pointer-events: all;
   overflow      : hidden;
+  border        : 1px solid $base-border-color;
   border-radius : $base-border-radius;
-  box-shadow    : 1px 1px 3px 0 $base-shadow-color;
+  box-shadow    : 1px 1px 2px 0 $base-shadow-color;
   @include transition(max-height 1s);
 
   &.open {
@@ -59,12 +60,12 @@
 }
 @include toast-theme(light, $light, $dark);
 @include toast-theme(dark, tint($dark,15%));
-@include toast-theme(primary, tint($primary,15%));
-@include toast-theme(secondary, tint($secondary,15%));
-@include toast-theme(info, tint($info,15%));
-@include toast-theme(danger, tint($danger,15%));
-@include toast-theme(success, tint($success,15%));
-@include toast-theme(warning, tint($warning,15%));
+@include toast-theme(primary, tint($primary,85%), shade($primary,10%));
+@include toast-theme(secondary, tint($secondary,85%), shade($secondary,10%));
+@include toast-theme(info, tint($info,85%), shade($info,10%));
+@include toast-theme(danger, tint($danger,85%), shade($danger,10%));
+@include toast-theme(success, tint($success,85%), shade($success,10%));
+@include toast-theme(warning, tint($warning,85%), shade($warning,10%));
 
 .ui-alert-shim {
   pointer-events: all;
@@ -132,7 +133,7 @@
       button {
         background   : none;
         min-width    : 7rem;
-        border       : 1px solid rgba($secondary, .7);
+        border       : 1px solid rgba($secondary, .5);
         border-radius: $base-border-radius;
         padding      : .3rem 1rem;
         font-size    : .9rem;
@@ -144,7 +145,7 @@
         }
 
         &:hover {
-          color     : rgba($secondary, .9);
+          color     : rgba($secondary, .7);
           box-shadow: 0 0 2px 0 rgba($secondary,.5) inset;
         }
 

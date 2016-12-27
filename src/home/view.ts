@@ -61,60 +61,60 @@ export class HomeView {
     ],
 
     apis: [
-      { link: "#/app/", "title": "home:apis.titleApp", "desc": "home:apis.descApp" },
-      { link: "#/http/", "title": "home:apis.titleHttp", "desc": "home:apis.descHttp" },
-      { link: "#/data/", "title": "home:apis.titleData", "desc": "home:apis.descData" },
-      { link: "#/event/", "title": "home:apis.titleEvent", "desc": "home:apis.descEvent" }
+      { link: "#/api/app/", "title": "home:apis.titleApp", "desc": "home:apis.descApp" },
+      { link: "#/api/http/", "title": "home:apis.titleHttp", "desc": "home:apis.descHttp" },
+      { link: "#/api/data/", "title": "home:apis.titleData", "desc": "home:apis.descData" },
+      { link: "#/api/event/", "title": "home:apis.titleEvent", "desc": "home:apis.descEvent" }
     ]
   }
 
   core = [
-    { label: 'home:support.titleGlyphs', s: 1, c: 0, o: 0, f: 0, e: 0 },
-    { label: 'home:support.titleGrid', s: 1, c: 0, o: 0, f: 0, e: 0 },
-    { label: 'home:support.titleViewport', s: 1, c: 0, o: 0, f: 0, e: 0 },
-    { label: 'home:support.titlePage', s: 1, c: 0, o: 0, f: 0, e: 0 },
-    { label: 'home:support.titleSection', s: 1, c: 0, o: 0, f: 0, e: 0 },
-    { label: 'home:support.titleContent', s: 1, c: 0, o: 0, f: 0, e: 0 }
+    { label: 'home:support.titleGlyphs', s: 1, c: 1, o: 1, f: 1, e: 1 },
+    { label: 'home:support.titleGrid', s: 1, c: 1, o: 1, f: 1, e: 1 },
+    { label: 'home:support.titleViewport', s: 1, c: 1, o: 1, f: 1, e: 1 },
+    { label: 'home:support.titlePage', s: 1, c: 1, o: 1, f: 1, e: 1 },
+    { label: 'home:support.titleSection', s: 1, c: 1, o: 1, f: 1, e: 1 },
+    { label: 'home:support.titleContent', s: 1, c: 1, o: 1, f: 1, e: 1 }
   ]
 
   inputs = [
-    { label: 'home:support.titleButton', s: 1, c: 0, o: 0, f: 0, e: 0 },
-    { label: 'home:support.titleText', s: 1, c: 0, o: 0, f: 0, e: 0 },
-    { label: 'home:support.titleMultiline', s: 1, c: 0, o: 0, f: 0, e: 0 },
-    { label: 'home:support.titlePhone', s: 1, c: 0, o: 0, f: 0, e: 0 },
-    { label: 'home:support.titleList', s: 1, c: 0, o: 0, f: 0, e: 0 },
-    { label: 'home:support.titleCombo', s: 1, c: 0, o: 0, f: 0, e: 0 },
-    { label: 'home:support.titleTag', s: 1, c: 0, o: 0, f: 0, e: 0 },
-    { label: 'home:support.titleDate', s: 1, c: 0, o: 0, f: 0, e: 0 },
-    { label: 'home:support.titleRadio', s: 1, c: 0, o: 0, f: 0, e: 0 },
-    { label: 'home:support.titleCheckbox', s: 1, c: 0, o: 0, f: 0, e: 0 },
-    { label: 'home:support.titleSwitch', s: 1, c: 0, o: 0, f: 0, e: 0 },
-    { label: 'home:support.titleLanguage', s: 1, c: 0, o: 0, f: 0, e: 0 },
-    { label: 'home:support.titleMarkdown', s: 1, c: 0, o: 0, f: 0, e: 0 },
-    { label: 'home:support.titleValidation', s: 1, c: 0, o: 0, f: 0, e: 0 }
+    { label: 'home:support.titleButton', s: 1, c: 1, o: 1, f: 1, e: 1 },
+    { label: 'home:support.titleText', s: 1, c: 1, o: 1, f: 1, e: 1 },
+    { label: 'home:support.titleMultiline', s: 1, c: 1, o: 1, f: 1, e: 1 },
+    { label: 'home:support.titlePhone', s: 1, c: 1, o: 1, f: 1, e: 1 },
+    { label: 'home:support.titleList', s: 1, c: 1, o: 1, f: 1, e: 1 },
+    { label: 'home:support.titleCombo', s: 1, c: 1, o: 1, f: 1, e: 1 },
+    { label: 'home:support.titleTag', s: 1, c: 1, o: 1, f: 1, e: 1 },
+    { label: 'home:support.titleDate', s: 1, c: 1, o: 1, f: 1, e: 1 },
+    { label: 'home:support.titleRadio', s: 1, c: 1, o: 1, f: 1, e: 1 },
+    { label: 'home:support.titleCheckbox', s: 1, c: 1, o: 1, f: 1, e: 1 },
+    { label: 'home:support.titleSwitch', s: 1, c: 1, o: 1, f: 1, e: 1 },
+    { label: 'home:support.titleLanguage', s: 1, c: 1, o: 1, f: 1, e: 1 },
+    { label: 'home:support.titleMarkdown', s: 1, c: 1, o: 1, f: 1, e: 1 },
+    { label: 'home:support.titleValidation', s: 1, c: 1, o: 1, f: 1, e: 1 }
   ]
 
   comps = [
-    { label: 'home:support.titleMenu', s: 1, c: 0, o: 0, f: 0, e: 0 },
-    { label: 'home:support.titleMenubar', s: 1, c: 0, o: 0, f: 0, e: 0 },
-    { label: 'home:support.titlePanel', s: 1, c: 0, o: 0, f: 0, e: 0 },
-    { label: 'home:support.titleDialog', s: 1, c: 0, o: 0, f: 0, e: 0 },
-    { label: 'home:support.titleAlerts', s: 1, c: 0, o: 0, f: 0, e: 0 },
-    { label: 'home:support.titleDrawer', s: 1, c: 0, o: 0, f: 0, e: 0 },
-    { label: 'home:support.titleToolbar', s: 1, c: 0, o: 0, f: 0, e: 0 },
-    { label: 'home:support.titleSidebar', s: 1, c: 0, o: 0, f: 0, e: 0 },
-    { label: 'home:support.titleStatsbar', s: 1, c: 0, o: 0, f: 0, e: 0 },
-    { label: 'home:support.titleCrumbs', s: 1, c: 0, o: 0, f: 0, e: 0 },
-    { label: 'home:support.titleTabs', s: 1, c: 0, o: 0, f: 0, e: 0 },
-    { label: 'home:support.titleTree', s: 1, c: 0, o: 0, f: 0, e: 0 },
-    { label: 'home:support.titleDatagrid', s: 1, c: 0, o: 0, f: 0, e: 0 }
+    { label: 'home:support.titleMenu', s: 1, c: 1, o: 1, f: 1, e: 1 },
+    { label: 'home:support.titleMenubar', s: 1, c: 1, o: 1, f: 1, e: 1 },
+    { label: 'home:support.titlePanel', s: 1, c: 1, o: 1, f: 1, e: 1 },
+    { label: 'home:support.titleDialog', s: 1, c: 1, o: 1, f: 1, e: 2 },
+    { label: 'home:support.titleAlerts', s: 1, c: 1, o: 1, f: 1, e: 1 },
+    { label: 'home:support.titleDrawer', s: 1, c: 1, o: 1, f: 1, e: 1 },
+    { label: 'home:support.titleToolbar', s: 1, c: 1, o: 1, f: 1, e: 1 },
+    { label: 'home:support.titleSidebar', s: 1, c: 1, o: 1, f: 1, e: 1 },
+    { label: 'home:support.titleStatsbar', s: 1, c: 1, o: 1, f: 1, e: 1 },
+    { label: 'home:support.titleCrumbs', s: 1, c: 1, o: 1, f: 1, e: 1 },
+    { label: 'home:support.titleTabs', s: 1, c: 1, o: 1, f: 1, e: 1 },
+    { label: 'home:support.titleTree', s: 1, c: 1, o: 1, f: 1, e: 1 },
+    { label: 'home:support.titleDatagrid', s: 1, c: 1, o: 1, f: 1, e: 1 }
   ]
 
   features = [
-    { label: 'home:support.titleApp', s: 1, c: 0, o: 0, f: 0, e: 0 },
-    { label: 'home:support.titleHttp', s: 1, c: 0, o: 0, f: 0, e: 0 },
-    { label: 'home:support.titleData', s: 1, c: 0, o: 0, f: 0, e: 0 },
-    { label: 'home:support.titleEvent', s: 1, c: 0, o: 0, f: 0, e: 0 },
-    { label: 'home:support.titleConvert', s: 1, c: 0, o: 0, f: 0, e: 0 }
+    { label: 'home:support.titleApp', s: 1, c: 1, o: 1, f: 1, e: 1 },
+    { label: 'home:support.titleHttp', s: 1, c: 1, o: 1, f: 1, e: 1 },
+    { label: 'home:support.titleData', s: 1, c: 1, o: 1, f: 1, e: 1 },
+    { label: 'home:support.titleEvent', s: 1, c: 1, o: 1, f: 1, e: 1 },
+    { label: 'home:support.titleConvert', s: 1, c: 1, o: 1, f: 1, e: 1 }
   ]
 }
