@@ -53,7 +53,7 @@ export class UIDataColumn {
     return this.width;
   }
   getTitle() {
-    return this.element.innerHTML;
+    return this.element.innerHTML || '&nbsp;';
   }
   getValue(value, record) {
     return this.processValue(value, record) || '&nbsp;';
