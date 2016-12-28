@@ -64,7 +64,7 @@ $app-header-bg               : #3E1B3E !default;
 $app-header-text             : $white !default;
 
 $app-header-link-text        : $white !default;
-$app-header-link-hover-text  : $secondary !default;
+$app-header-link-hover-text  : $primary !default;
 
 $app-footer-bg               : $black !default;
 $app-footer-text             : $white !default;
@@ -78,11 +78,11 @@ $menu-dropdown-bg            : $base-bg !default;
 
 $menu-section-title          : $dark !default;
 
-$menu-link-text              : $secondary !default;
+$menu-link-text              : $primary !default;
 $menu-link-disabled          : $muted !default;
-$menu-link-hover-bg          : rgba($secondary, .5) !default;
+$menu-link-hover-bg          : rgba($primary, .5) !default;
 $menu-link-hover-text        : $white !default;
-$menu-link-active-bg         : $secondary !default;
+$menu-link-active-bg         : $primary !default;
 $menu-link-active-text       : $white !default;
 
 // DRAWER
@@ -92,18 +92,18 @@ $drawer-bg                   : shade($base-bg, .5%) !default;
 $drawer-shim                 : rgba($white, 0) !default;
 
 // TREE
-$tree-active-bg              : $secondary !default;
+$tree-active-bg              : $primary !default;
 $tree-active-text            : $white !default;
 
 // TAB
 $tab-active-bg               : $white !default;
-$tab-active-text             : $secondary !default;
+$tab-active-text             : $primary !default;
 
 // LIST
-$list-hover-bg               : rgba($secondary, .5) !default;
+$list-hover-bg               : rgba($primary, .5) !default;
 $list-hover-text             : $white !default;
 
-$list-selected-bg            : rgba($secondary, .85) !default;
+$list-selected-bg            : rgba($primary, .85) !default;
 $list-selected-text          : $white !default;
 
 // DATAGRID
@@ -112,14 +112,14 @@ $datagrid-base-text          : $base-text !default;
 
 $datagrid-row-odd-bg         : $datagrid-base-bg !default;
 $datagrid-row-even-bg        : shade($datagrid-base-bg,2%) !default;
-$datagrid-row-hover-bg       : tint($secondary,90%) !default;
-$datagrid-row-active-bg      : tint($secondary,70%) !default;
+$datagrid-row-hover-bg       : tint($primary,90%) !default;
+$datagrid-row-active-bg      : tint($primary,70%) !default;
 $datagrid-row-odd-text       : $datagrid-base-text !default;
 $datagrid-row-even-text      : $datagrid-base-text !default;
 $datagrid-row-hover-text     : $datagrid-base-text !default;
 $datagrid-row-active-text    : $datagrid-base-text !default;
 
-$datagrid-header-bg          : tint($secondary, 15%) !default;
+$datagrid-header-bg          : tint($primary, 15%) !default;
 $datagrid-header-text        : $white !default;
 
 $datagrid-footer-bg          : shade($datagrid-base-bg, 5%) !default;
@@ -130,7 +130,7 @@ $input-bg                    : #FFFFFF !default;
 $input-text                  : #2E3E4F !default;
 $input-label-text            : #35495D !default;
 
-$input-focus-border          : $secondary !default;
+$input-focus-border          : $primary !default;
 $input-invalid-border        : $danger !default;
 
 // 1:'invalid-filled', 2:'invalid-line'
@@ -144,11 +144,11 @@ $input-error-text            : $danger !default;
 
 // DATES
 $date-header-text            : $white !default;
-$date-header-bg              : tint($secondary, 50%) !default;
+$date-header-bg              : tint($primary, 50%) !default;
 
-$date-hover-bg               : tint($secondary, 50%) !default;
+$date-hover-bg               : tint($primary, 50%) !default;
 $date-hover-text             : $white !default;
-$date-active-bg              : $secondary !default;
+$date-active-bg              : $primary !default;
 $date-active-text            : $white !default;
 
 $date-week-text              : $secondary !default;
