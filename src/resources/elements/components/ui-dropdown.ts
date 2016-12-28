@@ -18,7 +18,9 @@ export class UIDropdown {
 
   // aurelia hooks
   created(owningView: View, myView: View) { }
-  bind(bindingContext: Object, overrideContext: Object) { }
+  bind(bindingContext: Object, overrideContext: Object) {
+    this.disabledChanged(this.disabled);
+  }
   attached() {
     this.tether = UIUtils.tether(this.element, this.dropdown);
     this.obMouseup = UIEvent.subscribe('mouseclick', (evt) => {
@@ -40,6 +42,7 @@ export class UIDropdown {
 
   @bindable() width = '5em';
   @bindable() model = null;
+  @bindable() disabled = false;
 
   private tether;
   private dropdown;
@@ -59,6 +62,10 @@ export class UIDropdown {
     this.glyph = it.element.au.controller.viewModel.glyph;
     (this.selected = it).element.classList.add('ui-selected');
     UIEvent.queueTask(() => UIEvent.fireEvent('change', this.element, this.value));
+  }
+
+  disabledChanged(newValue) {
+    this.element.classList[(this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');
   }
 
   select(evt) {
