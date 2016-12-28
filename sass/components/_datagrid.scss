@@ -56,7 +56,7 @@
 
     .ui-dg-wrapper {
       overflow: auto;
-      position: absolute;
+      @include position(absolute, 0);
     }
   }
 
@@ -179,17 +179,17 @@
           }
         }
 
-        &:nth-child(odd) > td {
+        &.odd > td {
           background: $datagrid-row-odd-bg;
           color     : $datagrid-row-odd-text;
         }
 
-        &:nth-child(even) > td {
+        &.even > td {
           background: $datagrid-row-even-bg;
           color     : $datagrid-row-even-text;
         }
 
-        &:last-child {
+        &.filler {
           min-height: 0;
           height    : 100%;
 
@@ -198,11 +198,12 @@
           }
 
           > td > div {
+            line-height: 0;
             height: 100%;
           }
         }
 
-        &:not(:last-child):hover > td {
+        &:not(.filler):hover > td {
           background: $datagrid-row-hover-bg;
           color     : $datagrid-row-hover-text;
         }

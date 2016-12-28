@@ -15,7 +15,7 @@ export class CompDatagrid {
   canActivate(model) { return true; }
   activate(model) { return true; }
   bind(bindingContext) {
-    for (let i = 0; i < 250; i++)
+    for (let i = 0; i < 500; i++)
       this.data.push({
         id: i + 1,
         text: this.getString(),

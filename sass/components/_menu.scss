@@ -48,7 +48,7 @@ a.ui-menu-item {
     pointer-events  : none;
     color           : $menu-link-active-text;
     background-color: $menu-link-active-bg;
-    @include box-shadow(0 -4px 0 0 $primary inset);
+    @include box-shadow(0 -4px 0 0 $menu-link-active-hilight inset);
   }
 }
 
@@ -128,7 +128,7 @@ a.ui-menu-item {
     }
 
     &.ui-active {
-      @include box-shadow(0 -4px 0 0 $primary inset);
+      @include box-shadow(0 -4px 0 0 $menu-link-active-hilight inset);
     }
   }
 
@@ -233,7 +233,7 @@ a.ui-menu-item {
     &.ui-active {
       color           : $menu-link-active-text;
       background-color: $menu-link-active-bg;
-      @include box-shadow(4px 0 0 0 $primary inset);
+      @include box-shadow(4px 0 0 0 $menu-link-active-hilight inset);
     }
   }
 }
@@ -246,7 +246,7 @@ a.ui-menu-item {
     }
 
     &.ui-active {
-      @include box-shadow(-4px 0 0 0 $primary inset);
+      @include box-shadow(-4px 0 0 0 $menu-link-active-hilight inset);
     }
   }
 }

@@ -8,6 +8,25 @@ import {UIFormat} from "../../utils/ui-format";
 import {UIEvent} from "../../utils/ui-event";
 import {UIUtils} from "../../utils/ui-utils";
 
+@inlineView(`<template>
+  <td repeat.for="col of cols" class="\${col.locked==0?'ui-locked':''} \${col.align}" css.bind="{left: col.left+'px'}">
+  <div if.bind="col.type=='normal'"><span class="\${col.class}" innerhtml.bind='col.getValue(record[col.dataId],record)'></span></div>
+  <div if.bind="col.type=='link'"><a class="ui-link \${col.class} \${col.isDisabled(record[col.dataId],record)?'ui-disabled':''}" click.trigger="col.fireClick($event,record[col.dataId],record)"><ui-glyph glyph.bind="col.getGlyph(record[col.dataId],record)" if.bind="col.glyph"></ui-glyph> <span innerhtml.bind="col.getLabel(record[col.dataId],record)"></span></a></div>
+  <div if.bind="col.type=='button'" class="btn-fix"><ui-button click.trigger="col.fireClick($event,record[col.dataId],record)" theme.bind="col.getTheme(record[col.dataId],record)" small square glyph.bind="col.getGlyph(record[col.dataId],record)" disabled.bind="col.isDisabled(record[col.dataId],record)" dropdown.bind="dropdown" menuopen.trigger="col.fireMenuOpen($event, record)"><span innerhtml.bind="col.getLabel(record[col.dataId],record)"></span></ui-button></div>
+  </td>
+  <td class="ui-expander"><div>&nbsp;</div></td>
+</template>`)
+@customElement('ui-dg-row')
+export class UIDgRow {
+  bind(bindingContext: Object, overrideContext: Object) {
+    this.record = bindingContext['record'];
+    this.cols = overrideContext['parentOverrideContext'].bindingContext.cols;
+  }
+
+  cols;
+  record;
+}
+
 @autoinject()
 @inlineView(`<template class="ui-datagrid"><div class="ui-hidden"><slot></slot></div>
 <div show.bind="resizing" ref="ghost" class="ui-dg-ghost"></div>
@@ -19,16 +38,13 @@ import {UIUtils} from "../../utils/ui-utils";
     <col/>
   </colgroup>
   <tbody>
-    <tr repeat.for="record of paged" click.delegate="fireSelect($parent.selected=record)" class="\${$parent.selected==record?'ui-selected':''}">
-      <td repeat.for="col of cols" class="\${col.locked==0?'ui-locked':''} \${col.align}" css.bind="{left: col.left+'px'}">
-      <div if.bind="col.type=='normal'"><span class="\${col.class}" innerhtml.bind='col.getValue(record[col.dataId],record)'></span></div>
-      <div if.bind="col.type=='link'"><a class="ui-link \${col.class} \${col.isDisabled(record[col.dataId],record)?'ui-disabled':''}" click.trigger="col.fireClick($event,record[col.dataId],record)"><ui-glyph glyph.bind="col.getGlyph(record[col.dataId],record)" if.bind="col.glyph"></ui-glyph> <span innerhtml.bind="col.getLabel(record[col.dataId],record)"></span></a></div>
-      <div if.bind="col.type=='button'" class="btn-fix"><ui-button click.trigger="col.fireClick($event,record[col.dataId],record)" theme.bind="col.getTheme(record[col.dataId],record)" small square glyph.bind="col.getGlyph(record[col.dataId],record)" disabled.bind="col.isDisabled(record[col.dataId],record)" dropdown.bind="dropdown" menuopen.trigger="col.fireMenuOpen($event, record)"><span innerhtml.bind="col.getLabel(record[col.dataId],record)"></span></ui-button></div>
-      </td>
-      <td class="ui-expander"><div>&nbsp;</div></td>
-    </tr>
-    
-    <tr><td repeat.for="col of cols" class="\${col.locked==0?'ui-locked':''}" css.bind="{left: col.left+'px'}"><div>&nbsp;</div></td><td class="ui-expander"><div>&nbsp;</div></td></tr>
+    <tr if.bind="!virtual" class="\${$even?'even':'odd'}" as-element="ui-dg-row" repeat.for="record of paged" click.delegate="fireSelect($parent.selected=record)" 
+      class="\${$parent.selected==record?'ui-selected':''}"></tr>
+  
+    <tr if.bind="virtual" class="\${$even?'even':'odd'}" as-element="ui-dg-row" virtual-repeat.for="record of paged" click.delegate="fireSelect($parent.selected=record)" 
+      class="\${$parent.selected==record?'ui-selected':''}"></tr>
+
+    <tr class="filler"><td repeat.for="col of cols" class="\${col.locked==0?'ui-locked':''}" css.bind="{left: col.left+'px'}"><div>&nbsp;</div></td><td class="ui-expander"><div>&nbsp;</div></td></tr>
   </tbody>
   <thead ref="dgHead"><tr>
     <td repeat.for="col of cols" click.trigger="doSort(col)" class="\${col.sortable?'ui-sortable':''} \${col.locked==0?'ui-locked':''}" css.bind="{left: col.left+'px'}"><div>
@@ -43,17 +59,17 @@ import {UIUtils} from "../../utils/ui-utils";
     <td repeat.for="col of cols" class="\${col.locked==0?'ui-locked':''} \${col.align}" css.bind="{left: col.left+'px'}"><div innerhtml.bind='col.getSummary(summaryRow, filtered)'></div></td>
     <td class="ui-expander"><div>&nbsp;</div></td>
   </tr></tfoot>
-</table>
+</table></div>
 
 <div class="ui-dg-loader" show.bind="isBusy">
   <div class="ui-loader-div">
     <ui-glyph class="ui-anim-loader" glyph="ui-loader"></ui-glyph>
   </div>
-</div>
 </div></template>`)
 @customElement('ui-datagrid')
 export class UIDatagrid {
   constructor(public element: Element) {
+    this.virtual = element.hasAttribute('virtual');
     if (element.hasAttribute('auto-height')) this.element.classList.add('ui-auto-size');
   }
 
@@ -91,6 +107,7 @@ export class UIDatagrid {
   private filtered = [];
   private tableWidth;
 
+  private virtual = false;
   private isBusy = false;
   private obPageChange;
 
@@ -129,8 +146,8 @@ export class UIDatagrid {
         data = _.slice(data, this.pager.page * this.perPage, (this.pager.page * this.perPage) + this.perPage);
       }
       this.paged = data;
+      UIEvent.queueTask(() => this.isBusy = false);
     });
-    UIEvent.queueTask(() => this.isBusy = false);
   }
   private doSort(col) {
     if (!col.sortable) return;
@@ -192,8 +209,8 @@ export class UIDatagrid {
   <a class="pg-first \${page==0?'disabled':''}" click.trigger="fireChange(page=0)"><ui-glyph glyph="ui-\${style}-double-left"></ui-glyph></a>
   <a class="pg-prev \${page==0?'disabled':''}" click.trigger="fireChange(page=page-1)" click.trigger="fireChange(page=totalPages)"><ui-glyph glyph="ui-\${style}-left"></ui-glyph></a>
   <span class="pg-input">\${page+1} of \${totalPages}</span>
-  <a class="pg-next \${page+1==totalPages?'disabled':''}" click.trigger="fireChange(page=page+1)"><ui-glyph glyph="ui-\${style}-right"></ui-glyph></a>
-  <a class="pg-last \${page+1==totalPages?'disabled':''}" click.trigger="fireChange(page=totalPages-1)"><ui-glyph glyph="ui-\${style}-double-right"></ui-glyph></a>
+  <a class="pg-next \${page+1>=totalPages?'disabled':''}" click.trigger="fireChange(page=page+1)"><ui-glyph glyph="ui-\${style}-right"></ui-glyph></a>
+  <a class="pg-last \${page+1>=totalPages?'disabled':''}" click.trigger="fireChange(page=totalPages-1)"><ui-glyph glyph="ui-\${style}-double-right"></ui-glyph></a>
 </template>`)
 @customElement('ui-pager')
 export class UIPager {

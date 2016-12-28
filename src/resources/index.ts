@@ -32,6 +32,7 @@ export * from './utils/ui-format';
 export * from './utils/ui-http';
 export * from './utils/ui-model';
 export * from './utils/ui-tree-model';
+export * from './utils/ui-utils';
 
 import './elements/core/ui-grid';
 import './elements/core/ui-page';
