@@ -197,6 +197,51 @@
   }
 }
 
+.ui-file-input {
+  .ui-file-drop-zone {
+    border    : 3px dashed $base-border-color;
+    text-align: center;
+    font-size : 1.4em;
+    color     : $base-border-color;
+    padding   : 1em 0;
+  }
+
+  .ui-file-drop-zone.dragging {
+    border-color: $primary;
+    background  : rgba($primary, .075);
+  }
+
+  input {
+    display: none;
+  }
+
+  .ui-file-list {
+    p {
+      font-size  : 1em;
+      color      : $input-text;
+      margin     : 0;
+      line-height: 1.1;
+      padding    : .2em .5em;
+      font-family: $base-font-family-input;
+
+      i {
+        font-size: 1.5em;
+      }
+
+      span {
+        font-size  : .9em;
+        font-weight: 500;
+        padding    : 0 .5em;
+        @include ellipsis();
+      }
+
+      a {
+        font-size: .8em;
+      }
+    }
+  }
+}
+
 .rtl,
 [dir="rtl"] {
   .ui-input-control {

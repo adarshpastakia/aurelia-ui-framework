@@ -47,6 +47,15 @@
     }
   }
 
+  &.ui-disabled {
+    pointer-events: none;
+    &:after {
+      content   : '';
+      @include position(absolute, 0);
+      background: rgba($input-disabled-bg, 0.5);
+    }
+  }
+
 }
 
 .ui-list-container {

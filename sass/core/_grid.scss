@@ -104,7 +104,7 @@
 
 .ui-col-form {
   position: relative;
-  @include flex-fill(auto);
+  @include flex-fill(1em);
 }
 
 .ui-col-full {

@@ -68,12 +68,23 @@
       height: 3em;
     }
 
-    .ui-link {
-      color: $app-header-link-text;
+    // .ui-link {
+    //   color: $app-header-link-text;
+    // 
+    //   &:hover {
+    //     color: $secondary;
+    //   }
+    // }
 
-      &:hover {
-        color: $secondary;
+    .ui-divider {
+      display: block;
+      margin : .2rem;
+      border : {
+        left : 1px solid $dark;
+        right: 1px solid $light;
       }
+      @include transform(scaleX(.5));
+      @include align-self(stretch);
     }
 
     .ui-dropdown {
@@ -84,8 +95,8 @@
       background: rgba($white, .1);
     }
 
-     > .ui-input-wrapper .ui-input-control,
-    > .ui-input-group .ui-group-wrapper {
+     > .ui-input-group .ui-group-wrapper,
+    > .ui-input-wrapper .ui-input-control {
       background: rgba($white, .1);
       color     : $app-header-text;
     }
