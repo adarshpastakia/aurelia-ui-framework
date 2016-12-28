@@ -334,7 +334,7 @@ export class UICombo extends BaseListInput {
 
   @bindable() options;
   @bindable() iconClass = '';
-  @bindable() valueProperty = 'id';
+  @bindable() valueProperty = 'value';
   @bindable() displayProperty = 'text';
   @bindable() iconProperty = 'icon';
   @bindable() forceSelect = true;
@@ -409,7 +409,7 @@ export class UITags extends BaseListInput {
 
   @bindable() options;
   @bindable() iconClass = '';
-  @bindable() valueProperty = 'id';
+  @bindable() valueProperty = 'value';
   @bindable() displayProperty = 'text';
   @bindable() iconProperty = 'icon';
   @bindable() forceSelect = true;
@@ -513,7 +513,7 @@ export class UIList extends BaseListInput {
 
   @bindable() options;
   @bindable() iconClass = '';
-  @bindable() valueProperty = 'id';
+  @bindable() valueProperty = 'value';
   @bindable() displayProperty = 'text';
   @bindable() iconProperty = 'icon';
   @bindable() forceSelect = true;
