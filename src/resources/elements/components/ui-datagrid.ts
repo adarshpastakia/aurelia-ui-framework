@@ -30,7 +30,7 @@ export class UIDgRow {
 @autoinject()
 @inlineView(`<template class="ui-datagrid"><div class="ui-hidden"><slot></slot></div>
 <div show.bind="resizing" ref="ghost" class="ui-dg-ghost"></div>
-<div show.bind="!data || data.length==0" class="ui-dg-empty"><slot name="dg-empty"></slot></div>
+<div show.bind="loaded && (!data || data.length==0)" class="ui-dg-empty"><slot name="dg-empty"></slot></div>
 <div class="ui-dg-wrapper" ref="scroller">
 <table width.bind="calculateWidth(cols,resizing)" css.bind="{'table-layout': tableWidth?'fixed':'auto' }">
   <colgroup>
@@ -95,6 +95,7 @@ export class UIDatagrid {
   @children('ui-dg-column,ui-dg-button,ui-dg-link') columns;
 
   @bindable() data = [];
+  @bindable() loaded = true;
   @bindable() summaryRow = false;
   @bindable() sortColumn = '';
   @bindable() sortOrder = '';
@@ -146,6 +147,7 @@ export class UIDatagrid {
         data = _.slice(data, this.pager.page * this.perPage, (this.pager.page * this.perPage) + this.perPage);
       }
       this.paged = data;
+      this.loaded = true;
       UIEvent.queueTask(() => this.isBusy = false);
     });
   }
@@ -203,6 +205,11 @@ export class UIDatagrid {
     document.removeEventListener('mouseup', this.stop);
   }
 }
+
+@containerless()
+@customElement('ui-dg-empty')
+@inlineView(`<template><div slot="dg-empty"><slot></slot></div></template>`)
+export class UIDGEmpty { }
 
 @autoinject()
 @inlineView(`<template class="ui-pager">
