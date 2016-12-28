@@ -165,3 +165,76 @@ export class UIInput extends UIBaseInput {
 }
 
 
+@autoinject()
+@inlineView(`<template class="ui-input-wrapper ui-file-input">
+  <div class="ui-control-wrapper">
+    <div class="ui-file-drop-zone \${dragging?'dragging':''}" ref="dropZone" click.trigger="inputEl.click()" 
+      dragover.trigger="dragEnter($event)" dragleave.trigger="dragExit($event)" drop.trigger="drop($event)">
+    <span><i class="fi-ui-upload-white"></i> Drop files here<br/>or<br/>click to browse</span>
+    </div>
+    <input type="file" ref="inputEl" class="ui-file-input-el" change.trigger="fileChoose()" />
+    <div class="ui-file-list">
+      <p repeat.for="file of files" class="ui-row ui-row-middle">
+      <a click.trigger="remove($index)"><ui-glyph glyph="ui-dialog-close" class="ui-text-danger"></ui-glyph></a>
+      <span class="ui-col-fill">\${file.name}<br/>(<small innerhtml.bind="file.size | number:'0.00b'"></small>)</span></p>
+    </div>
+  </div>
+</template>`)
+@customElement('ui-file')
+export class UIFileInput {
+  static FILE_IMAGES = 'png,jpg,jpeg,tiff';
+  static FILE_DOCS = 'doc,docx,xls,xlsx,ppt,pptx,csv,rtf,txt,pdf';
+
+  @bindable()
+  fileTypes = '';
+
+  constructor(public element: Element) { }
+
+  // aurelia hooks
+  created(owningView: View, myView: View) { }
+  bind(bindingContext: Object, overrideContext: Object) { }
+  attached() {
+    this.inputEl.draggedFiles = this.files;
+  }
+  detached() { }
+  unbind() { }
+  // end aurelia hooks
+
+  inputEl;
+  files = [];
+  dragging = false;
+  dragEnter($event) {
+    this.dragging = true;
+    $event.preventDefault();
+    return false;
+  }
+
+  dragExit($event) {
+    this.dragging = false;
+  }
+
+  drop($event) {
+    this.dragging = false;
+    $event.preventDefault();
+
+    var dt = $event.dataTransfer;
+    var files = dt.files;
+    for (var i = 0; i < files.length; i++) {
+      var f = { file: files[i], name: files[i].name, size: files[i].size || 0, ext: window.FileTypes[files[i].type] || 'txt' }
+      this.files.push(f);
+    }
+  }
+
+  fileChoose() {
+    var files = this.inputEl.files;
+    for (var i = 0; i < files.length; i++) {
+      var f = { file: files[i], name: files[i].name, size: files[i].size || 0, ext: window.FileTypes[files[i].type] || 'txt' }
+      this.files.push(f);
+    }
+  }
+
+  remove(index) {
+    this.files.splice(index, 1);
+  }
+
+}
