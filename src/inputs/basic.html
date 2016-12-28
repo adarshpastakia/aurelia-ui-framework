@@ -53,12 +53,6 @@
                     </ui-input>
                   </ui-input-group>
                   <ui-input-group>
-                    <ui-input-label>File</ui-input-label>
-                    <ui-input file placeholder="Any file...">
-                      <ui-input-addon glyph="icon-moon-file-zip"></ui-input-addon>
-                    </ui-input>
-                  </ui-input-group>
-                  <ui-input-group>
                     <ui-input-label>Double Input</ui-input-label>
                     <ui-input-addon class="ui-text-warning" glyph="icon-moon-location"></ui-input-addon>
                     <ui-input decimal placeholder="Latitude..." info="Latitude"></ui-input>
@@ -116,16 +110,28 @@
                       <ui-input-addon glyph="icon-line-phone"></ui-input-addon>
                     </ui-phone>
                   </ui-input-group>
-
-                </ui-column>
-                <ui-column form padded>
                   <hr/>
                   <div class="ui-text-primary">Multiline Input</div>
                   <ui-input-group>
                     <ui-input-label>Textarea</ui-input-label>
                     <ui-input-addon class="ui-bg-info ui-text-white" glyph="icon-moon-pencil"></ui-input-addon>
-                    <ui-textarea clear counter value="With auto-complete..." auto-complete="Alpha,Bravo,Charlie,Delta,Echo,Foxtrot,Lima,Omega,Sigma,Theta,Zulu"></ui-textarea>
+                    <ui-textarea clear counter value="With auto-complete..." auto-complete="Alpha,Bravo,Alfa-Bravo,Charlie,Delta,Echo,Foxtrot,Lima,Omega,Sigma,Theta,Zulu"></ui-textarea>
                     <ui-button info>Go!</ui-button>
+                  </ui-input-group>
+
+                </ui-column>
+                <ui-column form padded>
+                  <hr/>
+                  <div class="ui-text-primary">File Inputs</div>
+                  <ui-input-group>
+                    <ui-input-label>File</ui-input-label>
+                    <ui-input file placeholder="Any file...">
+                      <ui-input-addon glyph="icon-moon-file-zip"></ui-input-addon>
+                    </ui-input>
+                  </ui-input-group>
+                  <ui-input-group>
+                    <ui-input-label>File</ui-input-label>
+                    <ui-file></ui-file>
                   </ui-input-group>
                 </ui-column>
               </ui-row>
