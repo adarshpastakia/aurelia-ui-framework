@@ -30,8 +30,25 @@ export class UIDgRow {
 @autoinject()
 @inlineView(`<template class="ui-datagrid"><div class="ui-hidden"><slot></slot></div>
 <div show.bind="resizing" ref="ghost" class="ui-dg-ghost"></div>
-<div show.bind="loaded && (!data || data.length==0)" class="ui-dg-empty"><slot name="dg-empty"></slot></div>
-<div class="ui-dg-wrapper" ref="scroller">
+<div if.bind="loaded && (!data || data.length==0)" class="ui-dg-empty"><slot name="dg-empty"></slot></div>
+<div>
+<table ref="dgHead" width.bind="tableWidth" css.bind="{'table-layout': tableWidth?'fixed':'auto' }">
+  <colgroup>
+    <col repeat.for="col of cols" data-index.bind="$index" width.bind="col.width"/>
+    <col/>
+  </colgroup>
+  <thead><tr>
+    <td repeat.for="col of cols" click.trigger="doSort(col)" class="\${col.sortable?'ui-sortable':''} \${col.locked==0?'ui-locked':''}" css.bind="{left: col.left+'px'}"><div>
+      <span class="ui-dg-header" innerhtml.bind='col.getTitle()'></span>
+      <span class="ui-filter" if.bind="col.filter"><ui-glyph glyph="ui-funnel"></ui-glyph></span>
+      <span class="ui-sort \${col.dataId==sortColumn ? sortOrder:''}" if.bind="col.sortable"></span>
+      <span class="ui-resizer" if.bind="col.resize" mousedown.trigger="resizeColumn($event,col,cols[$index+1])"></span>
+    </div></td>
+    <td class="ui-expander"><div><span class="ui-dg-header">&nbsp;</span></div></td>
+  </tr></thead>
+</table>
+</div>
+<div class="ui-dg-wrapper" ref="scroller" scroll.trigger="scrolling() & debounce:1">
 <table width.bind="calculateWidth(cols,resizing)" css.bind="{'table-layout': tableWidth?'fixed':'auto' }">
   <colgroup>
     <col repeat.for="col of cols" data-index.bind="$index" width.bind="col.width"/>
@@ -46,22 +63,21 @@ export class UIDgRow {
 
     <tr class="filler"><td repeat.for="col of cols" class="\${col.locked==0?'ui-locked':''}" css.bind="{left: col.left+'px'}"><div>&nbsp;</div></td><td class="ui-expander"><div>&nbsp;</div></td></tr>
   </tbody>
-  <thead ref="dgHead"><tr>
-    <td repeat.for="col of cols" click.trigger="doSort(col)" class="\${col.sortable?'ui-sortable':''} \${col.locked==0?'ui-locked':''}" css.bind="{left: col.left+'px'}"><div>
-      <span class="ui-dg-header" innerhtml.bind='col.getTitle()'></span>
-      <span class="ui-filter" if.bind="col.filter"><ui-glyph glyph="ui-funnel"></ui-glyph></span>
-      <span class="ui-sort \${col.dataId==sortColumn ? sortOrder:''}" if.bind="col.sortable"></span>
-      <span class="ui-resizer" if.bind="col.resize" mousedown.trigger="resizeColumn($event,col,cols[$index+1])"></span>
-    </div></td>
-    <td class="ui-expander"><div><span class="ui-dg-header">&nbsp;</span></div></td>
-  </tr></thead>
-  <tfoot if.bind="summaryRow && data && data.length!=0" ref="dgFoot"><tr>
+</table></div>
+<div>
+<table ref="dgFoot" width.bind="tableWidth" css.bind="{'table-layout': tableWidth?'fixed':'auto' }">
+  <colgroup>
+    <col repeat.for="col of cols" data-index.bind="$index" width.bind="col.width"/>
+    <col/>
+  </colgroup>
+  
+  <tfoot if.bind="summaryRow && data && data.length!=0"><tr>
     <td repeat.for="col of cols" class="\${col.locked==0?'ui-locked':''} \${col.align}" css.bind="{left: col.left+'px'}"><div innerhtml.bind='col.getSummary(summaryRow, filtered)'></div></td>
     <td class="ui-expander"><div>&nbsp;</div></td>
   </tr></tfoot>
-</table></div>
-
-<div class="ui-dg-loader" show.bind="isBusy">
+</table>
+</div>
+<div class="ui-dg-loader" if.bind="isBusy">
   <div class="ui-loader-div">
     <ui-glyph class="ui-anim-loader" glyph="ui-loader"></ui-glyph>
   </div>
@@ -131,9 +147,8 @@ export class UIDatagrid {
   dgFoot;
   scroller;
   private scrolling() {
-    // let x = this.scroller.scrollTop - (this.dgFoot.offsetTop + this.dgFoot.offsetHeight - this.scroller.offsetHeight);
-    // this.dgHead.style.transform = `translateY(${this.scroller.scrollTop}px)`;
-    // this.dgFoot.style.transform = `translateY(${x > 0 ? 0 : x}px)`;
+    this.dgHead.style.transform = `translateX(-${this.scroller.scrollLeft}px)`;
+    if (this.dgFoot) this.dgFoot.style.transform = this.dgHead.style.transform;
   }
   private filter() {
     this.filtered = this.data;
