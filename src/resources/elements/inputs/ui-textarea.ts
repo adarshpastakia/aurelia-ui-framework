@@ -90,7 +90,7 @@ export class UITextarea extends UIBaseInput {
     let code = (evt.keyCode || evt.which);
 
     let text = this.inputEl.value.substring(0, this.inputEl.selectionEnd);
-    let query = text.match(eval(`/\\b(\\w{1,})$/`));
+    let query = text.match(eval(`/\\b([\\d\\w\\-]{1,})$/`));
     if (query !== null) {
       var rx = new RegExp(getAscii(query[1]), 'i');
       this.acList = _.filter(this.autoComplete, v => {
@@ -155,10 +155,10 @@ export class UITextarea extends UIBaseInput {
   }
 
   replace(selected) {
-    if (!(isFunction(this.beforeReplace) && (selected = this.beforeReplace(selected)) === false)) {
+    if (!(isFunction(this.beforeReplace) && (selected = this.beforeReplace(selected)) !== false)) {
       var pre = this.inputEl.value.substring(0, this.inputEl.selectionEnd);
       var post = this.inputEl.value.substring(this.inputEl.selectionEnd);
-      pre = pre.replace(eval(`/\\b(\\w{1,})$/`), selected + ' ');
+      pre = pre.replace(eval(`/\\b([\\d\\w\\-]{1,})$/`), selected + ' ');
       this.value = (pre + post);//.replace(/\s{2,}/g, ' ');
       setTimeout(() => this.inputEl.setSelectionRange(pre.length, pre.length), 100);
     }
