@@ -53,10 +53,10 @@ export class UIHttpService {
                     try {
                       console.log(resp);
                       json = JSON.parse(resp);
-                      if (json.message) error = json.message;
-                      else if (json.error) error = json.error;
-                      else if (response.statusText) error = response.statusText;
                     } catch (e) { }
+                    if (json.message) error = json.message;
+                    else if (json.error) error = json.error;
+                    else if (response.statusText) error = response.statusText;
                     if (error) throw new Error(error);
                     return null;
                   });
@@ -144,39 +144,39 @@ export class UIHttpService {
       .then(resp => resp.json());
   }
 
-  // upload(slug: string, form: HTMLFormElement, basicAuth = true): Promise<any | string | void> {
-  //   this.logger.info(`upload [${slug}]`);
-  //   return this.__upload('post', slug, form);
-  // }
-  // 
-  // reupload(slug: string, form: HTMLFormElement, basicAuth = true): Promise<any | string | void> {
-  //   this.logger.info(`reupload [${slug}]`);
-  //   return this.__upload('put', slug, form);
-  // }
-  // 
-  // private __upload(method: string, slug: string, form: HTMLFormElement, basicAuth?) {
-  //   var data = new FormData();
-  //   for (var i = 0, q = (form.querySelectorAll('input') as NodeListOf<HTMLInputElement>); i < q.length; i++) {
-  //     if (q[i].type == 'file') {
-  //       let files = q[i]['draggedFiles'] || q[i].files;
-  //       for (var x = 0; x < files.length; x++) {
-  //         data.append(q[i].name || ('file' + (i + 1) + (x + 1)), (files[x].file || files[x]), files[x].name);
-  //       }
-  //     }
-  //     else {
-  //       data.append(q[i].name || ('input' + (i + 1)), q[i].value);
-  //     }
-  //   }
-  //   return this.httpClient
-  //     .fetch(slug,
-  //     {
-  //       method: method,
-  //       body: data,
-  //       mode: 'cors',
-  //       headers: this.__getHeaders(basicAuth)
-  //     })
-  //     .then(resp => resp.json());
-  // }
+  upload(slug: string, form: HTMLFormElement, basicAuth = true): Promise<any | string | void> {
+    this.logger.info(`upload [${slug}]`);
+    return this.__upload('post', slug, form);
+  }
+
+  reupload(slug: string, form: HTMLFormElement, basicAuth = true): Promise<any | string | void> {
+    this.logger.info(`reupload [${slug}]`);
+    return this.__upload('put', slug, form);
+  }
+
+  private __upload(method: string, slug: string, form: HTMLFormElement, basicAuth?) {
+    var data = new FormData();
+    for (var i = 0, q = (form.querySelectorAll('input') as NodeListOf<HTMLInputElement>); i < q.length; i++) {
+      if (q[i].type == 'file') {
+        let files = q[i]['draggedFiles'] || q[i].files;
+        for (var x = 0; x < files.length; x++) {
+          data.append(q[i].name || ('file' + (i + 1) + (x + 1)), (files[x].file || files[x]), files[x].name);
+        }
+      }
+      else {
+        data.append(q[i].name || ('input' + (i + 1)), q[i].value);
+      }
+    }
+    return this.httpClient
+      .fetch(slug,
+      {
+        method: method,
+        body: data,
+        mode: 'cors',
+        headers: this.__getHeaders(basicAuth)
+      })
+      .then(resp => resp.json());
+  }
 
   private __getHeaders(basic = true) {
     var headers = {
