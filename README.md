@@ -45,7 +45,7 @@ A bespoke UI Framework built on Aurelia for desktop business application
 |Menu|![Working](images/browsers/success.png)|![Working](images/browsers/success.png)|![Working](images/browsers/success.png)|![Working](images/browsers/success.png)|![Working](images/browsers/success.png)|
 |Menubar|![Working](images/browsers/success.png)|![Working](images/browsers/success.png)|![Working](images/browsers/success.png)|![Working](images/browsers/success.png)|![Working](images/browsers/success.png)|
 |Panel|![Working](images/browsers/success.png)|![Working](images/browsers/success.png)|![Working](images/browsers/success.png)|![Working](images/browsers/success.png)|![Working](images/browsers/success.png)|
-|Dialog|![Working](images/browsers/success.png)|![Working](images/browsers/success.png)|![Working](images/browsers/success.png)|![Working](images/browsers/success.png)|![Working](images/browsers/success.png)|
+|Dialog|![Working](images/browsers/success.png)|![Working](images/browsers/success.png)|![Working](images/browsers/success.png)|![Working](images/browsers/success.png)|![Working](images/browsers/error.png)|
 |Alerts|![Working](images/browsers/success.png)|![Working](images/browsers/success.png)|![Working](images/browsers/success.png)|![Working](images/browsers/success.png)|![Working](images/browsers/success.png)|
 |Drawer|![Working](images/browsers/success.png)|![Working](images/browsers/success.png)|![Working](images/browsers/success.png)|![Working](images/browsers/success.png)|![Working](images/browsers/success.png)|
 |Sidebar|![Working](images/browsers/success.png)|![Working](images/browsers/success.png)|![Working](images/browsers/success.png)|![Working](images/browsers/success.png)|![Working](images/browsers/success.png)|
