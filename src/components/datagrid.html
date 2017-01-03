@@ -22,7 +22,7 @@
           <ui-toolbar>
             <ui-pager view-model.ref="pager"></ui-pager>
           </ui-toolbar>
-          <ui-datagrid data.bind="data" summary-row="true" virtual>
+          <ui-datagrid data.bind="data" summary-row="true" virtual scroll>
             <ui-dg-empty><h5>No records available...</h5></ui-dg-empty>
             <ui-dg-column data-id="text" sortable resizeable summary="Totals" locked class="ui-titlecase">Text</ui-dg-column>
             <ui-dg-link glyph="icon-line-search" label="Preview" width="6em" click.trigger="clicked('Link Clicked', $event.detail.record)" locked>Link</ui-dg-link>

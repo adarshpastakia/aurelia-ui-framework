@@ -9,14 +9,8 @@
       <ui-container class="ui-markdown">
         <h5 class="section-title">Class: UIApplication</h5>
         <p>Singleton class with common application properties and methods</p>
-<pre><code class="lang-ts">import {autoinject} from "aurelia-framework";
-import {UIApplication} from "aurelia-ui-framework";
-
-@autoinject()
-export class PageView {
-  constructor(public app:UIApplication){}
-}
-</code></pre>
+        <div innerhtml.bind="usageExample | markdown"></div>
+        
         <p class="ui-strong">Properties</p>
         <ul>
           <li><code>Authenticated:bool</code></li>
@@ -32,11 +26,8 @@ export class PageView {
         <p class="ui-strong">Methods</p>
         <ul>
           <li><code>login(user:UserModel, route?:name)</code></li>
-<pre><code>UserModel {
-  username:string;
-  password:string;
-  token:string;
-}</code></pre>
+          <div innerhtml.bind="userModel | markdown"></div>
+
           <li><code>logout()</code><p></p></li>
           <div class="note">Both <em>login</em>, <em>logout</em> methods will broadcast the following events <code>auf:login</code>, <code>auf:logout</code></div>
           <br/>
@@ -44,25 +35,15 @@ export class PageView {
           <li><code>toastSuccess(message:string | ToastConfig, container?:HTMLElement)</code></li>
           <li><code>toastError(message:string | ToastConfig, container?:HTMLElement)</code></li>
           <div class="note">Pass a container element to create inline toast within the page</div>
-<pre><code>ToastConfig {
-  title:string;
-  message:string;
-  glyph:string;
-  theme:string;
-  timeout:number; // 0 disable auto-hide
-}</code></pre>
+          <div innerhtml.bind="toastConfig | markdown"></div>
+
 
           <br/>
           <li><code>alert(message:string | AlertConfig):Promise&lt;bool></code></li>
           <li><code>confirm(message:string | AlertConfig):Promise&lt;bool></code></li>
           <li><code>prompt(message:string | AlertConfig):Promise&lt;string></code></li>
-<pre><code>AlertConfig {
-  title:string;
-  message:string;
-  glyph:string;
-  okLabel:string;
-  cancelLabel:string;
-}</code></pre>
+          <div innerhtml.bind="alertConfig | markdown"></div>
+
 
           <br/>
           <li>Data Sharing
