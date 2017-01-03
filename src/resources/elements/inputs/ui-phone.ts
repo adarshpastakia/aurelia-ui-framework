@@ -25,7 +25,7 @@ export class UIPhone extends UIBaseInput {
     super();
     this.clear = element.hasAttribute('clear');
 
-    if (this.national = element.hasAttribute('country')) this.country = 'us';
+    if (this.national = element.hasAttribute('country') || element.hasAttribute('country.bind')) this.country = 'us';
   }
 
   // aurelia hooks
@@ -71,6 +71,7 @@ export class UIPhone extends UIBaseInput {
     this.ignore = true;
     this.inputEl.value = PhoneLib.formatInput(val, this.country);
     this.phone = PhoneLib.getNumberInfo(val, this.country);
+    this.value = PhoneLib.format(val, this.country, PhoneLib.FORMAT.FULL);
     if (!this.national) this.prefixEl.className = 'ui-flag ' + PhoneLib.getIso2Code(val);
     setTimeout(() => this.ignore = false, 100);
   }

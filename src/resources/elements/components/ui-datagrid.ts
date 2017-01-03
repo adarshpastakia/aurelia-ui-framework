@@ -86,7 +86,7 @@ export class UIDgRow {
 export class UIDatagrid {
   constructor(public element: Element) {
     this.virtual = element.hasAttribute('virtual');
-    if (element.hasAttribute('auto-height')) this.element.classList.add('ui-auto-size');
+    if (!element.hasAttribute('scroll')) this.element.classList.add('ui-auto-size');
   }
 
   // aurelia hooks

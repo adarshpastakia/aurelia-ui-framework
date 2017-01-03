@@ -382,6 +382,7 @@ export class UILanguage {
   }
 
   closeDropdown() {
+    if (!this.dropdown) return;
     this.dropdown.isOpen = false;
     this.dropdown.classList.remove('ui-open');
   }
