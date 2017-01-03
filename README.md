@@ -76,6 +76,7 @@ A bespoke UI Framework built on Aurelia for desktop business application
   * aurelia-router
   * aurelia-templating-resources
   * aurelia-validation
+  * aurelia-ui-virtualization
 
 * ##### Other JS Utilities
   * lodash (http://lodash.com)
