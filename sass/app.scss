@@ -7,6 +7,10 @@
 @import url( '//fonts.googleapis.com/css?family=Trirong:300italic,400italic,600italic,800italic,300,400,600,800');
 @import url( '//fonts.googleapis.com/css?family=Source+Code+Pro');
 @import url( '//fonts.googleapis.com/css?family=Lato:300,400');
+@import "variables";
+
+$menu-link-active-bg: $secondary;
+$menu-link-active-hilight: $primary;
 @import "framework";
 
 .indicator {
@@ -26,7 +30,7 @@
 .button-bar {
   padding   : 2em 0;
   text-align: center;
-  
+
   .ui-divider {
     display: block;
     margin : 0 .2rem;
