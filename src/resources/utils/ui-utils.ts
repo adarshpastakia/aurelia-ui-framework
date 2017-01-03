@@ -19,7 +19,7 @@ export module UIUtils {
     return Lazy.of(T).get(this.auContainer)();
   }
 
-  export function newInstance(T, container): any {
+  export function newInstance(T): any {
     if (!this.auContainer) {
       throw new Error('UIUtils.newInstance::Container not provided');
     }

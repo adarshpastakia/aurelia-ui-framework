@@ -13,9 +13,7 @@ export class JsonValueConverter {
 
 export class MarkdownValueConverter {
   toView(value: string) {
-    let ret = UIFormat.toHTML(value || '');
-    ret = ret.replace(/a href=/g, 'a class="external" href="#" data-url=');
-    return ret;
+    return UIFormat.toHTML(value || '');
   }
 }
 

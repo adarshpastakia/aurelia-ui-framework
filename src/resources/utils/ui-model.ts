@@ -13,18 +13,12 @@ import {UIUtils} from "./ui-utils";
 export class UIModel {
   public logger: Logger;
   public httpClient: UIHttpService;
-  public controller: ValidationController;
 
   private __original__: any;
   private __observers__ = [];
 
   constructor() {
     Object.defineProperties(this, {
-      'controller': {
-        value: UIUtils.lazy(ValidationControllerFactory).createForCurrentScope(),
-        writable: false,
-        enumerable: false
-      },
       'httpClient': {
         value: UIUtils.lazy(UIHttpService),
         writable: false,
