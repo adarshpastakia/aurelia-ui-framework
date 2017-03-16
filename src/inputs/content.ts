@@ -3,13 +3,13 @@
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
-import {autoinject} from "aurelia-framework";
+import {autoinject, inject, NewInstance} from "aurelia-framework";
 import {ValidationController, ValidationRules, ValidationControllerFactory} from "aurelia-validation";
 import {UIUtils} from "../resources/utils/ui-utils";
 
-@autoinject()
+@inject(NewInstance.of(ValidationController))
 export class InputContent {
-  constructor() {
+  constructor(public controller: ValidationController) {
     this.model = new DataModel();
     (this.model.languages['en'] = new LangModel()).description = `# English Content ${this.md}`;
   }
@@ -34,6 +34,10 @@ export class InputContent {
   }
   removeLanguage(model) {
     delete this.model.languages[model.id];
+  }
+
+  validate() {
+    this.controller.validate();
   }
 
   md = `
@@ -68,6 +72,10 @@ export class DataModel {
   languages = {};
 
   constructor() {
+    ValidationRules
+      .ensure((m: DataModel) => m.languages)
+      .satisfiesRule('language')
+      .on(this);
   }
 }
 
@@ -76,5 +84,11 @@ export class LangModel {
   description: string = '';
 
   constructor() {
+    ValidationRules
+      .ensure((m: LangModel) => m.summary)
+      .required()
+      .ensure(m => m.description)
+      .required()
+      .on(this);
   }
 }

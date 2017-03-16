@@ -178,10 +178,10 @@ export function configure(config: FrameworkConfiguration, configCallback) {
       let promises = [];
       map.__errored__ = [];
       _.forEach(map, (model, key) => {
-        if (model) {
+        if (model && key != '__errored__') {
           promises.push(validator.validateObject(model)
             .then(e => {
-              if (!e.valid) {
+              if (_.filter(e, ['valid', false]).length > 0) {
                 map.__errored__.push(key);
                 return true;
               }

@@ -35,7 +35,6 @@ export class UIValidationRenderer {
       if (!vm.errors) vm.errors = [];
       if (element.au.controller.viewModel && element.au.controller.viewModel instanceof UILanguage) {
         let ms = result.message.split('|');
-        console.log(result);
         vm.errors.push(result);
         vm.errored = result.object[result.propertyName].__errored__;
       }
