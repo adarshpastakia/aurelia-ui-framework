@@ -7,8 +7,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-define(["require", "exports", 'aurelia-framework'], function (require, exports, aurelia_framework_1) {
+define(["require", "exports", "aurelia-framework"], function (require, exports, aurelia_framework_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var UIPage = (function () {
         function UIPage(element) {
             this.element = element;
@@ -19,22 +20,22 @@ define(["require", "exports", 'aurelia-framework'], function (require, exports, 
         UIPage.prototype.attached = function () { };
         UIPage.prototype.detached = function () { };
         UIPage.prototype.unbind = function () { };
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIPage.prototype, "pageClass", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIPage.prototype, "pageTitle", void 0);
-        UIPage = __decorate([
-            aurelia_framework_1.autoinject(),
-            aurelia_framework_1.customElement('ui-page'),
-            aurelia_framework_1.inlineView("\n<template class=\"ui-page\">\n  <div class=\"ui-page-title\" if.bind=\"pageTitle\" innerhtml.bind=\"pageTitle\"></div>\n  <div class=\"ui-page-body ${pageClass}\"><slot></slot></div>\n</template>"), 
-            __metadata('design:paramtypes', [Element])
-        ], UIPage);
         return UIPage;
     }());
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIPage.prototype, "pageClass", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIPage.prototype, "pageTitle", void 0);
+    UIPage = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.customElement('ui-page'),
+        aurelia_framework_1.inlineView("\n<template class=\"ui-page\">\n  <div class=\"ui-page-title\" if.bind=\"pageTitle\" innerhtml.bind=\"pageTitle\"></div>\n  <div class=\"ui-page-body ${pageClass}\"><slot></slot></div>\n</template>"),
+        __metadata("design:paramtypes", [Element])
+    ], UIPage);
     exports.UIPage = UIPage;
     var UISection = (function () {
         function UISection(element) {
@@ -53,14 +54,14 @@ define(["require", "exports", 'aurelia-framework'], function (require, exports, 
         UISection.prototype.attached = function () { };
         UISection.prototype.detached = function () { };
         UISection.prototype.unbind = function () { };
-        UISection = __decorate([
-            aurelia_framework_1.autoinject(),
-            aurelia_framework_1.customElement('ui-section'),
-            aurelia_framework_1.inlineView("<template class=\"ui-section\"><slot></slot></template>"), 
-            __metadata('design:paramtypes', [Element])
-        ], UISection);
         return UISection;
     }());
+    UISection = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.customElement('ui-section'),
+        aurelia_framework_1.inlineView("<template class=\"ui-section\"><slot></slot></template>"),
+        __metadata("design:paramtypes", [Element])
+    ], UISection);
     exports.UISection = UISection;
     var UIContent = (function () {
         function UIContent(element) {
@@ -75,14 +76,14 @@ define(["require", "exports", 'aurelia-framework'], function (require, exports, 
         UIContent.prototype.attached = function () { };
         UIContent.prototype.detached = function () { };
         UIContent.prototype.unbind = function () { };
-        UIContent = __decorate([
-            aurelia_framework_1.autoinject(),
-            aurelia_framework_1.customElement('ui-content'),
-            aurelia_framework_1.inlineView("<template class=\"ui-content\"><slot></slot></template>"), 
-            __metadata('design:paramtypes', [Element])
-        ], UIContent);
         return UIContent;
     }());
+    UIContent = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.customElement('ui-content'),
+        aurelia_framework_1.inlineView("<template class=\"ui-content\"><slot></slot></template>"),
+        __metadata("design:paramtypes", [Element])
+    ], UIContent);
     exports.UIContent = UIContent;
     var UIGlyph = (function () {
         function UIGlyph(element) {
@@ -94,17 +95,17 @@ define(["require", "exports", 'aurelia-framework'], function (require, exports, 
         UIGlyph.prototype.attached = function () { };
         UIGlyph.prototype.detached = function () { };
         UIGlyph.prototype.unbind = function () { };
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIGlyph.prototype, "glyph", void 0);
-        UIGlyph = __decorate([
-            aurelia_framework_1.autoinject(),
-            aurelia_framework_1.customElement('ui-glyph'),
-            aurelia_framework_1.inlineView("<template class=\"ui-icon ${glyph}\"><svg><use tabindex=\"-1\" x=\"0\" y=\"0\" xlink:href=\"#${glyph}\"/></svg></template>"), 
-            __metadata('design:paramtypes', [Element])
-        ], UIGlyph);
         return UIGlyph;
     }());
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIGlyph.prototype, "glyph", void 0);
+    UIGlyph = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.customElement('ui-glyph'),
+        aurelia_framework_1.inlineView("<template class=\"ui-icon ${glyph}\"><svg><use tabindex=\"-1\" x=\"0\" y=\"0\" xlink:href=\"#${glyph}\"/></svg></template>"),
+        __metadata("design:paramtypes", [Element])
+    ], UIGlyph);
     exports.UIGlyph = UIGlyph;
 });

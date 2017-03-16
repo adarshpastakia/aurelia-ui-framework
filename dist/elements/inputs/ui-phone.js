@@ -1,8 +1,13 @@
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -12,26 +17,28 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-define(["require", "exports", 'aurelia-framework', "./ui-input", "../../utils/ui-event"], function (require, exports, aurelia_framework_1, ui_input_1, ui_event_1) {
+define(["require", "exports", "aurelia-framework", "./ui-input", "../../utils/ui-event"], function (require, exports, aurelia_framework_1, ui_input_1, ui_event_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var UIPhone = (function (_super) {
         __extends(UIPhone, _super);
         function UIPhone(element) {
-            _super.call(this);
-            this.element = element;
-            this.value = '';
-            this.errors = null;
-            this.country = '';
-            this.disabled = false;
-            this.readonly = false;
-            this.info = '';
-            this.clear = false;
-            this.national = false;
-            this.placeholder = '';
-            this.ignore = false;
-            this.clear = element.hasAttribute('clear');
-            if (this.national = element.hasAttribute('country') || element.hasAttribute('country.bind'))
-                this.country = 'us';
+            var _this = _super.call(this) || this;
+            _this.element = element;
+            _this.value = '';
+            _this.errors = null;
+            _this.country = '';
+            _this.disabled = false;
+            _this.readonly = false;
+            _this.info = '';
+            _this.clear = false;
+            _this.national = false;
+            _this.placeholder = '';
+            _this.ignore = false;
+            _this.clear = element.hasAttribute('clear');
+            if (_this.national = element.hasAttribute('country') || element.hasAttribute('country.bind'))
+                _this.country = 'us';
+            return _this;
         }
         UIPhone.prototype.created = function (owningView, myView) { };
         UIPhone.prototype.bind = function (bindingContext, overrideContext) {
@@ -91,41 +98,41 @@ define(["require", "exports", 'aurelia-framework', "./ui-input", "../../utils/ui
                 return ui_event_1.UIEvent.fireEvent('enterpressed', this.element);
             return /[0-9]/.test(String.fromCharCode(code));
         };
-        __decorate([
-            aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }), 
-            __metadata('design:type', Object)
-        ], UIPhone.prototype, "value", void 0);
-        __decorate([
-            aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }), 
-            __metadata('design:type', Object)
-        ], UIPhone.prototype, "phone", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIPhone.prototype, "errors", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIPhone.prototype, "country", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIPhone.prototype, "disabled", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIPhone.prototype, "readonly", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIPhone.prototype, "info", void 0);
-        UIPhone = __decorate([
-            aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper\"><div  role=\"input\" class=\"ui-input-control ui-phone\"><span ref=\"prefixEl\"></span>\n  <span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"ui-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <input ref=\"inputEl\" type=\"tel\" dir=\"ltr\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\"\n    input.trigger=\"fireEvent($event)\" change.trigger=\"fireEvent($event)\"\n    keypress.trigger=\"checkInput($event)\" placeholder.bind=\"placeholder\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"readonly\"/>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span></div>\n  <div class=\"ui-input-info\" if.bind=\"info\" innerhtml.bind=\"info\"></div>\n</template>"),
-            aurelia_framework_1.customElement('ui-phone'), 
-            __metadata('design:paramtypes', [Element])
-        ], UIPhone);
         return UIPhone;
     }(ui_input_1.UIBaseInput));
+    __decorate([
+        aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
+        __metadata("design:type", Object)
+    ], UIPhone.prototype, "value", void 0);
+    __decorate([
+        aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
+        __metadata("design:type", Object)
+    ], UIPhone.prototype, "phone", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIPhone.prototype, "errors", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIPhone.prototype, "country", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIPhone.prototype, "disabled", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIPhone.prototype, "readonly", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIPhone.prototype, "info", void 0);
+    UIPhone = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper\"><div  role=\"input\" class=\"ui-input-control ui-phone\"><span ref=\"prefixEl\"></span>\n  <span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"ui-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <input ref=\"inputEl\" type=\"tel\" dir=\"ltr\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\"\n    input.trigger=\"fireEvent($event)\" change.trigger=\"fireEvent($event)\"\n    keypress.trigger=\"checkInput($event)\" placeholder.bind=\"placeholder\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"readonly\"/>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span></div>\n  <div class=\"ui-input-info\" if.bind=\"info\" innerhtml.bind=\"info\"></div>\n</template>"),
+        aurelia_framework_1.customElement('ui-phone'),
+        __metadata("design:paramtypes", [Element])
+    ], UIPhone);
     exports.UIPhone = UIPhone;
 });

@@ -1,8 +1,13 @@
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -12,8 +17,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-define(["require", "exports", 'aurelia-framework', "../../utils/ui-format", "../../utils/ui-event"], function (require, exports, aurelia_framework_1, ui_format_1, ui_event_1) {
+define(["require", "exports", "aurelia-framework", "../../utils/ui-format", "../../utils/ui-event", "lodash"], function (require, exports, aurelia_framework_1, ui_format_1, ui_event_1, _) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var UIDataColumn = (function () {
         function UIDataColumn(element) {
             this.element = element;
@@ -151,70 +157,72 @@ define(["require", "exports", 'aurelia-framework', "../../utils/ui-format", "../
     var UIDGColumn = (function (_super) {
         __extends(UIDGColumn, _super);
         function UIDGColumn(element) {
-            _super.call(this, element);
-            this.element = element;
-            this.type = 'normal';
-            this.class = '';
-            this.summary = '';
+            var _this = _super.call(this, element) || this;
+            _this.element = element;
+            _this.type = 'normal';
+            _this.class = '';
+            _this.summary = '';
+            return _this;
         }
         UIDGColumn.prototype.created = function (owningView, myView) { };
         UIDGColumn.prototype.bind = function (bindingContext, overrideContext) { };
         UIDGColumn.prototype.attached = function () { };
         UIDGColumn.prototype.detached = function () { };
         UIDGColumn.prototype.unbind = function () { };
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIDGColumn.prototype, "dataId", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIDGColumn.prototype, "width", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIDGColumn.prototype, "minWidth", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIDGColumn.prototype, "value", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIDGColumn.prototype, "display", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIDGColumn.prototype, "class", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIDGColumn.prototype, "summary", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIDGColumn.prototype, "symbol", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIDGColumn.prototype, "format", void 0);
-        UIDGColumn = __decorate([
-            aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template><slot></slot></template>"),
-            aurelia_framework_1.customElement('ui-dg-column'), 
-            __metadata('design:paramtypes', [Element])
-        ], UIDGColumn);
         return UIDGColumn;
     }(UIDataColumn));
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDGColumn.prototype, "dataId", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDGColumn.prototype, "width", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDGColumn.prototype, "minWidth", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDGColumn.prototype, "value", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDGColumn.prototype, "display", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDGColumn.prototype, "class", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDGColumn.prototype, "summary", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDGColumn.prototype, "symbol", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDGColumn.prototype, "format", void 0);
+    UIDGColumn = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("<template><slot></slot></template>"),
+        aurelia_framework_1.customElement('ui-dg-column'),
+        __metadata("design:paramtypes", [Element])
+    ], UIDGColumn);
     exports.UIDGColumn = UIDGColumn;
     var UIDGLink = (function (_super) {
         __extends(UIDGLink, _super);
         function UIDGLink(element) {
-            _super.call(this, element);
-            this.element = element;
-            this.type = 'link';
-            this.class = '';
-            this.disabled = null;
+            var _this = _super.call(this, element) || this;
+            _this.element = element;
+            _this.type = 'link';
+            _this.class = '';
+            _this.disabled = null;
+            return _this;
         }
         UIDGLink.prototype.created = function (owningView, myView) { };
         UIDGLink.prototype.bind = function (bindingContext, overrideContext) { };
@@ -246,52 +254,53 @@ define(["require", "exports", 'aurelia-framework', "../../utils/ui-format", "../
             ui_event_1.UIEvent.fireEvent('click', this.element, ({ value: value, record: record }));
             return false;
         };
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIDGLink.prototype, "dataId", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIDGLink.prototype, "width", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIDGLink.prototype, "minWidth", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIDGLink.prototype, "glyph", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIDGLink.prototype, "label", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIDGLink.prototype, "class", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIDGLink.prototype, "disabled", void 0);
-        UIDGLink = __decorate([
-            aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template><slot></slot></template>"),
-            aurelia_framework_1.customElement('ui-dg-link'), 
-            __metadata('design:paramtypes', [Element])
-        ], UIDGLink);
         return UIDGLink;
     }(UIDataColumn));
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDGLink.prototype, "dataId", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDGLink.prototype, "width", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDGLink.prototype, "minWidth", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDGLink.prototype, "glyph", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDGLink.prototype, "label", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDGLink.prototype, "class", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDGLink.prototype, "disabled", void 0);
+    UIDGLink = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("<template><slot></slot></template>"),
+        aurelia_framework_1.customElement('ui-dg-link'),
+        __metadata("design:paramtypes", [Element])
+    ], UIDGLink);
     exports.UIDGLink = UIDGLink;
     var UIDGButton = (function (_super) {
         __extends(UIDGButton, _super);
         function UIDGButton(element) {
-            _super.call(this, element);
-            this.element = element;
-            this.type = 'button';
-            this.theme = 'default';
-            this.disabled = null;
-            this.align = 'ui-text-center';
+            var _this = _super.call(this, element) || this;
+            _this.element = element;
+            _this.type = 'button';
+            _this.theme = 'default';
+            _this.disabled = null;
+            _this.align = 'ui-text-center';
+            return _this;
         }
         UIDGButton.prototype.created = function (owningView, myView) { };
         UIDGButton.prototype.bind = function (bindingContext, overrideContext) { };
@@ -332,45 +341,45 @@ define(["require", "exports", 'aurelia-framework', "../../utils/ui-format", "../
             $event.stopPropagation();
             return ui_event_1.UIEvent.fireEvent('menuopen', this.element, ({ record: record }));
         };
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIDGButton.prototype, "dataId", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIDGButton.prototype, "width", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIDGButton.prototype, "minWidth", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIDGButton.prototype, "glyph", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIDGButton.prototype, "label", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIDGButton.prototype, "dropdown", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIDGButton.prototype, "theme", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIDGButton.prototype, "disabled", void 0);
-        UIDGButton = __decorate([
-            aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template><slot></slot></template>"),
-            aurelia_framework_1.customElement('ui-dg-button'), 
-            __metadata('design:paramtypes', [Element])
-        ], UIDGButton);
         return UIDGButton;
     }(UIDataColumn));
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDGButton.prototype, "dataId", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDGButton.prototype, "width", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDGButton.prototype, "minWidth", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDGButton.prototype, "glyph", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDGButton.prototype, "label", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDGButton.prototype, "dropdown", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDGButton.prototype, "theme", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDGButton.prototype, "disabled", void 0);
+    UIDGButton = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("<template><slot></slot></template>"),
+        aurelia_framework_1.customElement('ui-dg-button'),
+        __metadata("design:paramtypes", [Element])
+    ], UIDGButton);
     exports.UIDGButton = UIDGButton;
 });

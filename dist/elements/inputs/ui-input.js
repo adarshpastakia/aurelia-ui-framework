@@ -1,8 +1,13 @@
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -12,8 +17,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-define(["require", "exports", 'aurelia-framework', "../../utils/ui-event"], function (require, exports, aurelia_framework_1, ui_event_1) {
+define(["require", "exports", "aurelia-framework", "../../utils/ui-event"], function (require, exports, aurelia_framework_1, ui_event_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var UIBaseInput = (function () {
         function UIBaseInput() {
             this.value = '';
@@ -67,35 +73,36 @@ define(["require", "exports", 'aurelia-framework', "../../utils/ui-event"], func
     var UIInput = (function (_super) {
         __extends(UIInput, _super);
         function UIInput(element) {
-            _super.call(this);
-            this.element = element;
-            this.value = '';
-            this.dir = '';
-            this.width = 'auto';
-            this.errors = null;
-            this.maxlength = 99;
-            this.disabled = false;
-            this.readonly = false;
-            this.info = '';
-            this.placeholder = '';
-            this.type = 'text';
-            this.clear = false;
-            this.counter = false;
-            this.ignore = false;
-            this.clear = element.hasAttribute('clear');
-            this.counter = element.hasAttribute('counter');
+            var _this = _super.call(this) || this;
+            _this.element = element;
+            _this.value = '';
+            _this.dir = '';
+            _this.width = 'auto';
+            _this.errors = null;
+            _this.maxlength = 99;
+            _this.disabled = false;
+            _this.readonly = false;
+            _this.info = '';
+            _this.placeholder = '';
+            _this.type = 'text';
+            _this.clear = false;
+            _this.counter = false;
+            _this.ignore = false;
+            _this.clear = element.hasAttribute('clear');
+            _this.counter = element.hasAttribute('counter');
             if (element.hasAttribute('url'))
-                this.type = 'url';
+                _this.type = 'url';
             if (element.hasAttribute('file'))
-                this.type = 'file';
+                _this.type = 'file';
             if (element.hasAttribute('email'))
-                this.type = 'email';
+                _this.type = 'email';
             if (element.hasAttribute('number') || element.hasAttribute('number.bind'))
-                this.type = 'number';
+                _this.type = 'number';
             if (element.hasAttribute('decimal') || element.hasAttribute('decimal.bind'))
-                this.type = 'number';
+                _this.type = 'number';
             if (element.hasAttribute('password'))
-                this.type = 'password';
+                _this.type = 'password';
+            return _this;
         }
         UIInput.prototype.created = function (owningView, myView) { };
         UIInput.prototype.bind = function (bindingContext, overrideContext) {
@@ -162,58 +169,58 @@ define(["require", "exports", 'aurelia-framework', "../../utils/ui-event"], func
             }
             return true;
         };
-        __decorate([
-            aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }), 
-            __metadata('design:type', Object)
-        ], UIInput.prototype, "value", void 0);
-        __decorate([
-            aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }), 
-            __metadata('design:type', Object)
-        ], UIInput.prototype, "number", void 0);
-        __decorate([
-            aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }), 
-            __metadata('design:type', Object)
-        ], UIInput.prototype, "decimal", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIInput.prototype, "dir", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIInput.prototype, "width", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIInput.prototype, "errors", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIInput.prototype, "maxlength", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIInput.prototype, "disabled", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIInput.prototype, "readonly", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIInput.prototype, "info", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIInput.prototype, "placeholder", void 0);
-        UIInput = __decorate([
-            aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper\" css.bind=\"{width: width}\"><div role=\"input\" class=\"ui-input-control\"><slot></slot>\n  <span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"ui-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <input ref=\"inputEl\" type.bind=\"type\" value.bind=\"value\" maxlength.bind=\"maxlength\" dir.bind=\"dir\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\"\n    input.trigger=\"fireEvent($event)\" change.trigger=\"fireEvent($event)\"\n    keypress.trigger=\"checkInput($event)\" placeholder.bind=\"placeholder\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"readonly\"/>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span>\n  <span class=\"ui-counter\" if.bind=\"counter\" innerhtml.bind=\"maxlength - value.length\"></span></div>\n  <div class=\"ui-input-info\" if.bind=\"info\" innerhtml.bind=\"info\"></div>\n</template>"),
-            aurelia_framework_1.customElement('ui-input'), 
-            __metadata('design:paramtypes', [Element])
-        ], UIInput);
         return UIInput;
     }(UIBaseInput));
+    __decorate([
+        aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
+        __metadata("design:type", Object)
+    ], UIInput.prototype, "value", void 0);
+    __decorate([
+        aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
+        __metadata("design:type", Object)
+    ], UIInput.prototype, "number", void 0);
+    __decorate([
+        aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
+        __metadata("design:type", Object)
+    ], UIInput.prototype, "decimal", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIInput.prototype, "dir", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIInput.prototype, "width", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIInput.prototype, "errors", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIInput.prototype, "maxlength", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIInput.prototype, "disabled", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIInput.prototype, "readonly", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIInput.prototype, "info", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIInput.prototype, "placeholder", void 0);
+    UIInput = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper\" css.bind=\"{width: width}\"><div role=\"input\" class=\"ui-input-control\"><slot></slot>\n  <span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"ui-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <input ref=\"inputEl\" type.bind=\"type\" value.bind=\"value\" maxlength.bind=\"maxlength\" dir.bind=\"dir\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\"\n    input.trigger=\"fireEvent($event)\" change.trigger=\"fireEvent($event)\"\n    keypress.trigger=\"checkInput($event)\" placeholder.bind=\"placeholder\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"readonly\"/>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span>\n  <span class=\"ui-counter\" if.bind=\"counter\" innerhtml.bind=\"maxlength - value.length\"></span></div>\n  <div class=\"ui-input-info\" if.bind=\"info\" innerhtml.bind=\"info\"></div>\n</template>"),
+        aurelia_framework_1.customElement('ui-input'),
+        __metadata("design:paramtypes", [Element])
+    ], UIInput);
     exports.UIInput = UIInput;
     var UIFileInput = (function () {
         function UIFileInput(element) {
@@ -257,19 +264,19 @@ define(["require", "exports", 'aurelia-framework', "../../utils/ui-event"], func
         UIFileInput.prototype.remove = function (index) {
             this.files.splice(index, 1);
         };
-        UIFileInput.FILE_IMAGES = 'png,jpg,jpeg,tiff';
-        UIFileInput.FILE_DOCS = 'doc,docx,xls,xlsx,ppt,pptx,csv,rtf,txt,pdf';
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIFileInput.prototype, "fileTypes", void 0);
-        UIFileInput = __decorate([
-            aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper ui-file-input\">\n  <div class=\"ui-control-wrapper\">\n    <div class=\"ui-file-drop-zone ${dragging?'dragging':''}\" ref=\"dropZone\" click.trigger=\"inputEl.click()\" \n      dragover.trigger=\"dragEnter($event)\" dragleave.trigger=\"dragExit($event)\" drop.trigger=\"drop($event)\">\n    <span><i class=\"fi-ui-upload-white\"></i> Drop files here<br/>or<br/>click to browse</span>\n    </div>\n    <input type=\"file\" ref=\"inputEl\" class=\"ui-file-input-el\" change.trigger=\"fileChoose()\" />\n    <div class=\"ui-file-list\">\n      <p repeat.for=\"file of files\" class=\"ui-row ui-row-middle\">\n      <a click.trigger=\"remove($index)\"><ui-glyph glyph=\"ui-dialog-close\" class=\"ui-text-danger\"></ui-glyph></a>\n      <span class=\"ui-col-fill\">${file.name}<br/>(<small innerhtml.bind=\"file.size | number:'0.00b'\"></small>)</span></p>\n    </div>\n  </div>\n</template>"),
-            aurelia_framework_1.customElement('ui-file'), 
-            __metadata('design:paramtypes', [Element])
-        ], UIFileInput);
         return UIFileInput;
     }());
+    UIFileInput.FILE_IMAGES = 'png,jpg,jpeg,tiff';
+    UIFileInput.FILE_DOCS = 'doc,docx,xls,xlsx,ppt,pptx,csv,rtf,txt,pdf';
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIFileInput.prototype, "fileTypes", void 0);
+    UIFileInput = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper ui-file-input\">\n  <div class=\"ui-control-wrapper\">\n    <div class=\"ui-file-drop-zone ${dragging?'dragging':''}\" ref=\"dropZone\" click.trigger=\"inputEl.click()\" \n      dragover.trigger=\"dragEnter($event)\" dragleave.trigger=\"dragExit($event)\" drop.trigger=\"drop($event)\">\n    <span><i class=\"fi-ui-upload-white\"></i> Drop files here<br/>or<br/>click to browse</span>\n    </div>\n    <input type=\"file\" ref=\"inputEl\" class=\"ui-file-input-el\" change.trigger=\"fileChoose()\" />\n    <div class=\"ui-file-list\">\n      <p repeat.for=\"file of files\" class=\"ui-row ui-row-middle\">\n      <a click.trigger=\"remove($index)\"><ui-glyph glyph=\"ui-dialog-close\" class=\"ui-text-danger\"></ui-glyph></a>\n      <span class=\"ui-col-fill\">${file.name}<br/>(<small innerhtml.bind=\"file.size | number:'0.00b'\"></small>)</span></p>\n    </div>\n  </div>\n</template>"),
+        aurelia_framework_1.customElement('ui-file'),
+        __metadata("design:paramtypes", [Element])
+    ], UIFileInput);
     exports.UIFileInput = UIFileInput;
 });

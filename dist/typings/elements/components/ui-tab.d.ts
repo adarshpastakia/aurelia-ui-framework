@@ -1,4 +1,20 @@
 import { View } from 'aurelia-framework';
+export declare class UITabbarStart {
+}
+export declare class UITabbarEnd {
+}
+export declare class UITabbarToggle {
+    element: Element;
+    dropdown: any;
+    disabled: boolean;
+    private tether;
+    private obMouseup;
+    isDisabled: boolean;
+    constructor(element: Element);
+    attached(): void;
+    detached(): void;
+    toggleDropdown(evt: any): boolean;
+}
 export declare class UITabPanel {
     element: Element;
     constructor(element: Element);
@@ -7,15 +23,24 @@ export declare class UITabPanel {
     attached(): void;
     detached(): void;
     unbind(): void;
+    private tether;
+    private isOverflow;
+    private wrapper;
+    private overflow;
+    private overflowToggle;
+    private obClick;
+    private obResize;
     height: string;
     tabs: any[];
-    activeTab: number;
+    activeTab: any;
     private noTabs;
     private activeTabEl;
     private tabsChanged();
     private activeTabChanged(newValue);
     private closeTab(tab);
     private activateTab(tab);
+    private arrange();
+    private showOverflow(evt);
 }
 export declare class UITab {
     element: Element;

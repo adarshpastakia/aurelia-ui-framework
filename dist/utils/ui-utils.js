@@ -1,5 +1,6 @@
-define(["require", "exports", "aurelia-framework", "./ui-event"], function (require, exports, aurelia_framework_1, ui_event_1) {
+define(["require", "exports", "aurelia-framework", "aurelia-metadata", "./ui-event"], function (require, exports, aurelia_framework_1, aurelia_metadata_1, ui_event_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var UIUtils;
     (function (UIUtils) {
         function lazy(T) {
@@ -200,5 +201,62 @@ define(["require", "exports", "aurelia-framework", "./ui-event"], function (requ
             })(parent, child, opts);
         }
         UIUtils.tether = tether;
+        function loadView(url, parent, model) {
+            var __compositionEngine = this.lazy(aurelia_framework_1.CompositionEngine);
+            var instruction = {
+                viewModel: url,
+                container: this.auContainer,
+                childContainer: this.auContainer.createChild(),
+                model: model
+            };
+            return new Promise(function (resolve, reject) {
+                __getViewModel(instruction)
+                    .then(function (newInstruction) {
+                    var viewModel = newInstruction.viewModel;
+                    return __invokeLifecycle(viewModel, 'canActivate', instruction.model)
+                        .then(function (canActivate) {
+                        if (canActivate) {
+                            return __compositionEngine.createController(instruction)
+                                .then(function (controller) {
+                                controller.automate();
+                                var slot = new aurelia_framework_1.ViewSlot(parent, true);
+                                slot.add(controller.view);
+                                slot.attached();
+                                resolve(controller.viewModel);
+                                return true;
+                            });
+                        }
+                        else {
+                        }
+                    });
+                })
+                    .catch(function (e) {
+                });
+            });
+        }
+        UIUtils.loadView = loadView;
+        function __getViewModel(instruction) {
+            var __compositionEngine = UIUtils.lazy(aurelia_framework_1.CompositionEngine);
+            if (typeof instruction.viewModel === 'function') {
+                instruction.viewModel = aurelia_metadata_1.Origin.get(instruction.viewModel).moduleId;
+            }
+            if (typeof instruction.viewModel === 'string') {
+                return __compositionEngine.ensureViewModel(instruction);
+            }
+            return Promise.resolve(instruction);
+        }
+        function __invokeLifecycle(instance, name, model) {
+            if (instance && typeof instance[name] === 'function') {
+                var result = instance[name](model);
+                if (result instanceof Promise) {
+                    return result;
+                }
+                if (result !== null && result !== undefined) {
+                    return Promise.resolve(result);
+                }
+                return Promise.resolve(true);
+            }
+            return Promise.resolve(true);
+        }
     })(UIUtils = exports.UIUtils || (exports.UIUtils = {}));
 });

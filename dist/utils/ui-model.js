@@ -7,9 +7,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-define(["require", "exports", 'aurelia-framework', "aurelia-logging", "./ui-http", "./ui-utils"], function (require, exports, aurelia_framework_1, aurelia_logging_1, ui_http_1, ui_utils_1) {
+define(["require", "exports", "aurelia-framework", "aurelia-logging", "./ui-http", "./ui-utils", "lodash"], function (require, exports, aurelia_framework_1, aurelia_logging_1, ui_http_1, ui_utils_1, _) {
     "use strict";
-    var UIModel = (function () {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var UIModel = UIModel_1 = (function () {
         function UIModel() {
             this.__observers__ = [];
             Object.defineProperties(this, {
@@ -39,28 +40,28 @@ define(["require", "exports", 'aurelia-framework', "aurelia-logging", "./ui-http
         UIModel.prototype.get = function () {
             var rest = [];
             for (var _i = 0; _i < arguments.length; _i++) {
-                rest[_i - 0] = arguments[_i];
+                rest[_i] = arguments[_i];
             }
             throw new Error('Not implemented [get]');
         };
         UIModel.prototype.post = function () {
             var rest = [];
             for (var _i = 0; _i < arguments.length; _i++) {
-                rest[_i - 0] = arguments[_i];
+                rest[_i] = arguments[_i];
             }
             throw new Error('Not implemented [post]');
         };
         UIModel.prototype.put = function () {
             var rest = [];
             for (var _i = 0; _i < arguments.length; _i++) {
-                rest[_i - 0] = arguments[_i];
+                rest[_i] = arguments[_i];
             }
             throw new Error('Not implemented [put]');
         };
         UIModel.prototype.delete = function () {
             var rest = [];
             for (var _i = 0; _i < arguments.length; _i++) {
-                rest[_i - 0] = arguments[_i];
+                rest[_i] = arguments[_i];
             }
             throw new Error('Not implemented [delete]');
         };
@@ -83,7 +84,7 @@ define(["require", "exports", 'aurelia-framework', "aurelia-logging", "./ui-http
         };
         UIModel.prototype.serialize = function () {
             try {
-                return UIModel.serializeObject(this);
+                return UIModel_1.serializeObject(this);
             }
             catch (e) {
                 throw new Error("Error serializing object [" + this.constructor.name + "]");
@@ -94,7 +95,7 @@ define(["require", "exports", 'aurelia-framework', "aurelia-logging", "./ui-http
             var _pojo = {};
             if (o instanceof Map) {
                 o.forEach(function (obj, key) {
-                    if (obj instanceof UIModel) {
+                    if (obj instanceof UIModel_1) {
                         _pojo[key] = obj.serialize();
                     }
                     if (_.isObject(obj)) {
@@ -112,7 +113,7 @@ define(["require", "exports", 'aurelia-framework', "aurelia-logging", "./ui-http
                 Object.keys(o)
                     .forEach(function (key) {
                     if (key !== 'undefined' && !/^__/.test(key)) {
-                        if (o[key] instanceof UIModel) {
+                        if (o[key] instanceof UIModel_1) {
                             _pojo[key] = o[key].serialize();
                         }
                         if (_.isObject(o[key])) {
@@ -155,7 +156,7 @@ define(["require", "exports", 'aurelia-framework', "aurelia-logging", "./ui-http
             var _this = this;
             return !Object.keys(o)
                 .every(function (key) {
-                if (t[key] instanceof UIModel)
+                if (t[key] instanceof UIModel_1)
                     return !t[key].isDirty();
                 if (_.isArray(o[key]) && o[key].length != t[key].length)
                     return false;
@@ -164,11 +165,12 @@ define(["require", "exports", 'aurelia-framework', "aurelia-logging", "./ui-http
                 return t.hasOwnProperty(key) && (t[key] === o[key]);
             });
         };
-        UIModel = __decorate([
-            aurelia_framework_1.autoinject(), 
-            __metadata('design:paramtypes', [])
-        ], UIModel);
         return UIModel;
     }());
+    UIModel = UIModel_1 = __decorate([
+        aurelia_framework_1.autoinject(),
+        __metadata("design:paramtypes", [])
+    ], UIModel);
     exports.UIModel = UIModel;
+    var UIModel_1;
 });

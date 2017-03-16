@@ -1,5 +1,6 @@
 define(["require", "exports", "./ui-utils", "aurelia-framework", "aurelia-event-aggregator"], function (require, exports, ui_utils_1, aurelia_framework_1, aurelia_event_aggregator_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var UIEvent;
     (function (UIEvent) {
         function fireEvent(event, element, data) {

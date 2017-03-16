@@ -1,5 +1,6 @@
 define(["require", "exports", "kramed", "moment", "numeral"], function (require, exports, kramed, moment, numeral) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var UIFormat;
     (function (UIFormat) {
         function toHTML(md) {

@@ -1,8 +1,13 @@
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -12,8 +17,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-define(["require", "exports", 'aurelia-framework', "../../utils/ui-event", "../../utils/ui-utils"], function (require, exports, aurelia_framework_1, ui_event_1, ui_utils_1) {
+define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../../utils/ui-utils", "lodash"], function (require, exports, aurelia_framework_1, ui_event_1, ui_utils_1, _) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var BaseListInput = (function () {
         function BaseListInput() {
             this.value = '';
@@ -274,6 +280,7 @@ define(["require", "exports", 'aurelia-framework', "../../utils/ui-event", "../.
         BaseListInput.prototype.fireSelect = function (model) {
             this.filtered = this.original;
             this.unhilightItem(null);
+            this.inputEl.focus();
             var h = this.dropdown.querySelector('.ui-list-item.ui-selected');
             this.dropdown.scrollTop = (h !== null ? h.offsetTop - (this.dropdown.offsetHeight / 2) : 0);
         };
@@ -286,22 +293,23 @@ define(["require", "exports", 'aurelia-framework', "../../utils/ui-event", "../.
     var UICombo = (function (_super) {
         __extends(UICombo, _super);
         function UICombo(element) {
-            _super.call(this);
-            this.element = element;
-            this.value = '';
-            this.errors = null;
-            this.disabled = false;
-            this.readonly = false;
-            this.info = '';
-            this.placeholder = '';
-            this.emptyText = 'No Results';
-            this.iconClass = '';
-            this.valueProperty = 'value';
-            this.displayProperty = 'text';
-            this.iconProperty = 'icon';
-            this.forceSelect = true;
-            this.clear = false;
-            this.clear = element.hasAttribute('clear');
+            var _this = _super.call(this) || this;
+            _this.element = element;
+            _this.value = '';
+            _this.errors = null;
+            _this.disabled = false;
+            _this.readonly = false;
+            _this.info = '';
+            _this.placeholder = '';
+            _this.emptyText = 'No Results';
+            _this.iconClass = '';
+            _this.valueProperty = 'value';
+            _this.displayProperty = 'text';
+            _this.iconProperty = 'icon';
+            _this.forceSelect = true;
+            _this.clear = false;
+            _this.clear = element.hasAttribute('clear');
+            return _this;
         }
         UICombo.prototype.created = function (owningView, myView) { };
         UICombo.prototype.bind = function (bindingContext, overrideContext) {
@@ -325,87 +333,88 @@ define(["require", "exports", 'aurelia-framework', "../../utils/ui-event", "../.
         UICombo.prototype.fireChange = function () {
             ui_event_1.UIEvent.fireEvent('change', this.element, this.value = this.elValue);
         };
-        __decorate([
-            aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }), 
-            __metadata('design:type', Object)
-        ], UICombo.prototype, "value", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UICombo.prototype, "errors", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UICombo.prototype, "disabled", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UICombo.prototype, "readonly", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UICombo.prototype, "info", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UICombo.prototype, "placeholder", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UICombo.prototype, "emptyText", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UICombo.prototype, "options", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UICombo.prototype, "iconClass", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UICombo.prototype, "valueProperty", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UICombo.prototype, "displayProperty", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UICombo.prototype, "iconProperty", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UICombo.prototype, "forceSelect", void 0);
-        UICombo = __decorate([
-            aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper ui-input-list\"><div role=\"input\" class=\"ui-input-control\"><slot></slot>\n  <span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"ui-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <input ref=\"inputEl\" value.bind=\"elValue\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\" click.trigger=\"openDropdown($event)\"\n    input.trigger=\"search() & debounce:200\" change.trigger=\"fireEvent($event)\"\n    keydown.trigger=\"keyDown($event)\" placeholder.bind=\"placeholder\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"!allowSearch || readonly\"/>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span>\n  <span class=\"ui-input-addon ui-dropdown-handle\" click.trigger=\"openDropdown($event, inputEl.focus())\"><ui-glyph glyph=\"ui-chevron-down\"></ui-glyph></span></div>\n  <div class=\"ui-input-info\" if.bind=\"info\" innerhtml.bind=\"info\"></div>\n  \n  <div class=\"ui-list-container ui-floating\" ref=\"dropdown\">\n    <div if.bind=\"filtered.length==0\" class=\"ui-list-group\">${emptyText}</div>\n    <template repeat.for=\"group of filtered\"><div if.bind=\"group.label\" class=\"ui-list-group\">${group.label}</div>\n    <div class=\"ui-list-item ${item.value==value?'ui-selected':''} ${item.disabled?'ui-disabled':''}\" repeat.for=\"item of group.items\" \n      mouseover.trigger=\"hilightItem($event)\" click.trigger=\"fireSelect(item.model)\">\n      <span class=\"${iconClass} ${item.icon}\" if.bind=\"item.icon\"></span>&nbsp;<span innerhtml.bind=\"item.display\"></span></div>\n    </template>\n  </div>\n</template>"),
-            aurelia_framework_1.customElement('ui-combo'), 
-            __metadata('design:paramtypes', [Element])
-        ], UICombo);
         return UICombo;
     }(BaseListInput));
+    __decorate([
+        aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
+        __metadata("design:type", Object)
+    ], UICombo.prototype, "value", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UICombo.prototype, "errors", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UICombo.prototype, "disabled", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UICombo.prototype, "readonly", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UICombo.prototype, "info", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UICombo.prototype, "placeholder", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UICombo.prototype, "emptyText", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UICombo.prototype, "options", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UICombo.prototype, "iconClass", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UICombo.prototype, "valueProperty", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UICombo.prototype, "displayProperty", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UICombo.prototype, "iconProperty", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UICombo.prototype, "forceSelect", void 0);
+    UICombo = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper ui-input-list\"><div role=\"input\" class=\"ui-input-control\"><slot></slot>\n  <span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"ui-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <input ref=\"inputEl\" value.bind=\"elValue\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\" click.trigger=\"openDropdown($event)\"\n    input.trigger=\"search() & debounce:200\" change.trigger=\"fireEvent($event)\"\n    keydown.trigger=\"keyDown($event)\" placeholder.bind=\"placeholder\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"!allowSearch || readonly\"/>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span>\n  <span class=\"ui-input-addon ui-dropdown-handle\" click.trigger=\"openDropdown($event, inputEl.focus())\"><ui-glyph glyph=\"ui-chevron-down\"></ui-glyph></span></div>\n  <div class=\"ui-input-info\" if.bind=\"info\" innerhtml.bind=\"info\"></div>\n  \n  <div class=\"ui-list-container ui-floating\" ref=\"dropdown\">\n    <div if.bind=\"filtered.length==0\" class=\"ui-list-group\">${emptyText}</div>\n    <template repeat.for=\"group of filtered\"><div if.bind=\"group.label\" class=\"ui-list-group\">${group.label}</div>\n    <div class=\"ui-list-item ${item.value==value?'ui-selected':''} ${item.disabled?'ui-disabled':''}\" repeat.for=\"item of group.items\" \n      mouseover.trigger=\"hilightItem($event)\" click.trigger=\"fireSelect(item.model)\">\n      <span class=\"${iconClass} ${item.icon}\" if.bind=\"item.icon\"></span>&nbsp;<span innerhtml.bind=\"item.display\"></span></div>\n    </template>\n  </div>\n</template>"),
+        aurelia_framework_1.customElement('ui-combo'),
+        __metadata("design:paramtypes", [Element])
+    ], UICombo);
     exports.UICombo = UICombo;
     var UITags = (function (_super) {
         __extends(UITags, _super);
         function UITags(element) {
-            _super.call(this);
-            this.element = element;
-            this.value = '';
-            this.errors = null;
-            this.disabled = false;
-            this.readonly = false;
-            this.info = '';
-            this.placeholder = '';
-            this.emptyText = 'No Results';
-            this.iconClass = '';
-            this.valueProperty = 'value';
-            this.displayProperty = 'text';
-            this.iconProperty = 'icon';
-            this.forceSelect = true;
-            this.clear = false;
-            this.isTagInput = true;
-            this.clear = element.hasAttribute('clear');
+            var _this = _super.call(this) || this;
+            _this.element = element;
+            _this.value = '';
+            _this.errors = null;
+            _this.disabled = false;
+            _this.readonly = false;
+            _this.info = '';
+            _this.placeholder = '';
+            _this.emptyText = 'No Results';
+            _this.iconClass = '';
+            _this.valueProperty = 'value';
+            _this.displayProperty = 'text';
+            _this.iconProperty = 'icon';
+            _this.forceSelect = true;
+            _this.clear = false;
+            _this.isTagInput = true;
+            _this.clear = element.hasAttribute('clear');
+            return _this;
         }
         UITags.prototype.created = function (owningView, myView) { };
         UITags.prototype.bind = function (bindingContext, overrideContext) {
@@ -465,86 +474,87 @@ define(["require", "exports", 'aurelia-framework', "../../utils/ui-event", "../.
             this.addValue(this.elValue);
             ui_event_1.UIEvent.fireEvent('change', this.element, this.value);
         };
-        __decorate([
-            aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }), 
-            __metadata('design:type', Object)
-        ], UITags.prototype, "value", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UITags.prototype, "errors", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UITags.prototype, "disabled", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UITags.prototype, "readonly", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UITags.prototype, "info", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UITags.prototype, "placeholder", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UITags.prototype, "emptyText", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UITags.prototype, "options", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UITags.prototype, "iconClass", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UITags.prototype, "valueProperty", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UITags.prototype, "displayProperty", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UITags.prototype, "iconProperty", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UITags.prototype, "forceSelect", void 0);
-        UITags = __decorate([
-            aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper ui-input-list tags\"><div role=\"input\" class=\"ui-input-control\"><slot></slot>\n  <span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"ui-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <div class=\"ui-tag-item\" repeat.for=\"tag of value | split\" if.bind=\"tag!=''\"><span innerhtml.bind=\"getDisplay(tag)\"></span><i class=\"ui-clear\" click.trigger=\"removeValue(tag)\">&times;</i></div>\n  <input ref=\"inputEl\" value.bind=\"elValue\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\"\n    input.trigger=\"search() & debounce:200\" change.trigger=\"fireEvent($event)\"\n    keydown.trigger=\"keyDown($event)\" placeholder.bind=\"placeholder\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"!allowSearch || readonly\"/></div>\n  <div class=\"ui-input-info\" if.bind=\"info\" innerhtml.bind=\"info\"></div>\n  \n  <div class=\"ui-list-container ui-floating\" ref=\"dropdown\">\n    <div if.bind=\"filtered.length==0\" class=\"ui-list-group\">${emptyText}</div>\n    <template repeat.for=\"group of filtered\"><div if.bind=\"group.label\" class=\"ui-list-group\">${group.label}</div>\n    <div class=\"ui-list-item ${item.disabled?'ui-disabled':''}\" repeat.for=\"item of group.items\" \n      mouseover.trigger=\"hilightItem($event)\" click.trigger=\"fireSelect(item.model)\">\n      <span class=\"${iconClass} ${item.icon}\" if.bind=\"item.icon\"></span>&nbsp;<span innerhtml.bind=\"item.display\"></span></div>\n    </template>\n  </div>\n</template>"),
-            aurelia_framework_1.customElement('ui-tags'), 
-            __metadata('design:paramtypes', [Element])
-        ], UITags);
         return UITags;
     }(BaseListInput));
+    __decorate([
+        aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
+        __metadata("design:type", Object)
+    ], UITags.prototype, "value", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UITags.prototype, "errors", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UITags.prototype, "disabled", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UITags.prototype, "readonly", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UITags.prototype, "info", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UITags.prototype, "placeholder", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UITags.prototype, "emptyText", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UITags.prototype, "options", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UITags.prototype, "iconClass", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UITags.prototype, "valueProperty", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UITags.prototype, "displayProperty", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UITags.prototype, "iconProperty", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UITags.prototype, "forceSelect", void 0);
+    UITags = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper ui-input-list tags\"><div role=\"input\" class=\"ui-input-control\"><slot></slot>\n  <span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"ui-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <div class=\"ui-tag-item\" repeat.for=\"tag of value | split\" if.bind=\"tag!=''\"><span innerhtml.bind=\"getDisplay(tag)\"></span><i class=\"ui-clear\" click.trigger=\"removeValue(tag)\">&times;</i></div>\n  <input ref=\"inputEl\" value.bind=\"elValue\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\"\n    input.trigger=\"search() & debounce:200\" change.trigger=\"fireEvent($event)\"\n    keydown.trigger=\"keyDown($event)\" placeholder.bind=\"placeholder\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"!allowSearch || readonly\"/></div>\n  <div class=\"ui-input-info\" if.bind=\"info\" innerhtml.bind=\"info\"></div>\n  \n  <div class=\"ui-list-container ui-floating\" ref=\"dropdown\">\n    <div if.bind=\"filtered.length==0\" class=\"ui-list-group\">${emptyText}</div>\n    <template repeat.for=\"group of filtered\"><div if.bind=\"group.label\" class=\"ui-list-group\">${group.label}</div>\n    <div class=\"ui-list-item ${item.disabled?'ui-disabled':''}\" repeat.for=\"item of group.items\" \n      mouseover.trigger=\"hilightItem($event)\" click.trigger=\"fireSelect(item.model)\">\n      <span class=\"${iconClass} ${item.icon}\" if.bind=\"item.icon\"></span>&nbsp;<span innerhtml.bind=\"item.display\"></span></div>\n    </template>\n  </div>\n</template>"),
+        aurelia_framework_1.customElement('ui-tags'),
+        __metadata("design:paramtypes", [Element])
+    ], UITags);
     exports.UITags = UITags;
     var UIList = (function (_super) {
         __extends(UIList, _super);
         function UIList(element) {
-            _super.call(this);
-            this.element = element;
-            this.value = '';
-            this.errors = null;
-            this.disabled = false;
-            this.readonly = false;
-            this.info = '';
-            this.placeholder = '';
-            this.emptyText = 'No Results';
-            this.iconClass = '';
-            this.valueProperty = 'value';
-            this.displayProperty = 'text';
-            this.iconProperty = 'icon';
-            this.forceSelect = true;
-            this.clear = false;
-            this.clear = element.hasAttribute('clear');
+            var _this = _super.call(this) || this;
+            _this.element = element;
+            _this.value = '';
+            _this.errors = null;
+            _this.disabled = false;
+            _this.readonly = false;
+            _this.info = '';
+            _this.placeholder = '';
+            _this.emptyText = 'No Results';
+            _this.iconClass = '';
+            _this.valueProperty = 'value';
+            _this.displayProperty = 'text';
+            _this.iconProperty = 'icon';
+            _this.forceSelect = true;
+            _this.clear = false;
+            _this.clear = element.hasAttribute('clear');
+            return _this;
         }
         UIList.prototype.created = function (owningView, myView) { };
         UIList.prototype.bind = function (bindingContext, overrideContext) {
@@ -568,66 +578,66 @@ define(["require", "exports", 'aurelia-framework', "../../utils/ui-event", "../.
         UIList.prototype.fireChange = function () {
             ui_event_1.UIEvent.fireEvent('change', this.element, this.value = this.elValue);
         };
-        __decorate([
-            aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }), 
-            __metadata('design:type', Object)
-        ], UIList.prototype, "value", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIList.prototype, "errors", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIList.prototype, "disabled", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIList.prototype, "readonly", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIList.prototype, "info", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIList.prototype, "placeholder", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIList.prototype, "emptyText", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIList.prototype, "options", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIList.prototype, "iconClass", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIList.prototype, "valueProperty", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIList.prototype, "displayProperty", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIList.prototype, "iconProperty", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIList.prototype, "forceSelect", void 0);
-        UIList = __decorate([
-            aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper\"><div role=\"input\" class=\"ui-input-control ui-input-list listbox\">\n  <span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"ui-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <input ref=\"inputEl\" value.bind=\"elValue\" class=\"ui-input ui-remove\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\"\n    input.trigger=\"search() & debounce:200\" change.trigger=\"fireEvent($event)\"\n    keydown.trigger=\"keyDown($event)\" placeholder.bind=\"placeholder\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"true\"/>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span>\n  \n  <div class=\"ui-list-container\" ref=\"dropdown\" mouseout.trigger=\"unhilightItem()\">\n    <div if.bind=\"filtered.length==0\" class=\"ui-list-group\">${emptyText}</div>\n    <template repeat.for=\"group of filtered\"><div if.bind=\"group.label\" class=\"ui-list-group\">${group.label}</div>\n    <div class=\"ui-list-item ${item.value==value?'ui-selected':''} ${item.disabled?'ui-disabled':''}\" repeat.for=\"item of group.items\" \n      mouseover.trigger=\"hilightItem($event)\" click.trigger=\"fireSelect(item.model)\">\n      <span class=\"${iconClass} ${item.icon}\" if.bind=\"item.icon\"></span>&nbsp;<span innerhtml.bind=\"item.display\"></span></div>\n    </template>\n  </div></div>\n  <div class=\"ui-input-info\" if.bind=\"info\" innerhtml.bind=\"info\"></div>\n</template>"),
-            aurelia_framework_1.customElement('ui-list'), 
-            __metadata('design:paramtypes', [Element])
-        ], UIList);
         return UIList;
     }(BaseListInput));
+    __decorate([
+        aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
+        __metadata("design:type", Object)
+    ], UIList.prototype, "value", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIList.prototype, "errors", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIList.prototype, "disabled", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIList.prototype, "readonly", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIList.prototype, "info", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIList.prototype, "placeholder", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIList.prototype, "emptyText", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIList.prototype, "options", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIList.prototype, "iconClass", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIList.prototype, "valueProperty", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIList.prototype, "displayProperty", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIList.prototype, "iconProperty", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIList.prototype, "forceSelect", void 0);
+    UIList = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper\"><div role=\"input\" class=\"ui-input-control ui-input-list listbox\">\n  <span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"ui-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <input ref=\"inputEl\" value.bind=\"elValue\" class=\"ui-input ui-remove\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\"\n    input.trigger=\"search() & debounce:200\" change.trigger=\"fireEvent($event)\"\n    keydown.trigger=\"keyDown($event)\" placeholder.bind=\"placeholder\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"true\"/>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span>\n  \n  <div class=\"ui-list-container\" ref=\"dropdown\" mouseout.trigger=\"unhilightItem()\">\n    <div if.bind=\"filtered.length==0\" class=\"ui-list-group\">${emptyText}</div>\n    <template repeat.for=\"group of filtered\"><div if.bind=\"group.label\" class=\"ui-list-group\">${group.label}</div>\n    <div class=\"ui-list-item ${item.value==value?'ui-selected':''} ${item.disabled?'ui-disabled':''}\" repeat.for=\"item of group.items\" \n      mouseover.trigger=\"hilightItem($event)\" click.trigger=\"fireSelect(item.model)\">\n      <span class=\"${iconClass} ${item.icon}\" if.bind=\"item.icon\"></span>&nbsp;<span innerhtml.bind=\"item.display\"></span></div>\n    </template>\n  </div></div>\n  <div class=\"ui-input-info\" if.bind=\"info\" innerhtml.bind=\"info\"></div>\n</template>"),
+        aurelia_framework_1.customElement('ui-list'),
+        __metadata("design:paramtypes", [Element])
+    ], UIList);
     exports.UIList = UIList;
     var UIReorder = (function () {
         function UIReorder(element) {
@@ -688,21 +698,21 @@ define(["require", "exports", 'aurelia-framework', "../../utils/ui-event", "../.
             document.removeEventListener('mousemove', this.move);
             document.removeEventListener('mouseup', this.stop);
         };
-        __decorate([
-            aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }), 
-            __metadata('design:type', Array)
-        ], UIReorder.prototype, "options", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIReorder.prototype, "displayProperty", void 0);
-        UIReorder = __decorate([
-            aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper\"><div class=\"ui-input-control ui-input-list reorder\">\n    <div class=\"ui-list-container\" ref=\"dropdown\">\n        <div model.bind=\"opt\" repeat.for=\"opt of options & oneTime\" class=\"ui-list-item\" data-value=\"${$index}\" mousedown.trigger=\"startDrag(opt, $event)\">\n            <ui-glyph glyph=\"ui-handle-drag\"></ui-glyph>\n            <span class=\"ui-col-fill\" innerhtml.bind=\"opt[displayProperty] || opt\"></span>\n        </div>\n\n        <div class=\"ui-list-item ui-ghost\" if.bind=\"ghostModel\" ref=\"ghostEl\" css.bind=\"{top:top+'px'}\">\n            <ui-glyph glyph=\"ui-handle-drag\"></ui-glyph>\n            <span class=\"ui-col-fill\" innerhtml.bind=\"ghostModel[displayProperty] || ghostModel\"></span>\n        </div>\n    </div></div>\n</template>"),
-            aurelia_framework_1.customElement('ui-reorder'), 
-            __metadata('design:paramtypes', [Element])
-        ], UIReorder);
         return UIReorder;
     }());
+    __decorate([
+        aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
+        __metadata("design:type", Array)
+    ], UIReorder.prototype, "options", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIReorder.prototype, "displayProperty", void 0);
+    UIReorder = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper\"><div class=\"ui-input-control ui-input-list reorder\">\n    <div class=\"ui-list-container\" ref=\"dropdown\">\n        <div model.bind=\"opt\" repeat.for=\"opt of options & oneTime\" class=\"ui-list-item\" data-value=\"${$index}\" mousedown.trigger=\"startDrag(opt, $event)\">\n            <ui-glyph glyph=\"ui-handle-drag\"></ui-glyph>\n            <span class=\"ui-col-fill\" innerhtml.bind=\"opt[displayProperty] || opt\"></span>\n        </div>\n\n        <div class=\"ui-list-item ui-ghost\" if.bind=\"ghostModel\" ref=\"ghostEl\" css.bind=\"{top:top+'px'}\">\n            <ui-glyph glyph=\"ui-handle-drag\"></ui-glyph>\n            <span class=\"ui-col-fill\" innerhtml.bind=\"ghostModel[displayProperty] || ghostModel\"></span>\n        </div>\n    </div></div>\n</template>"),
+        aurelia_framework_1.customElement('ui-reorder'),
+        __metadata("design:paramtypes", [Element])
+    ], UIReorder);
     exports.UIReorder = UIReorder;
 });

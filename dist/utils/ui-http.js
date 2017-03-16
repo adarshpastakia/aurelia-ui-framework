@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 define(["require", "exports", "aurelia-framework", "aurelia-logging", "aurelia-fetch-client", "aurelia-event-aggregator", "./ui-application", "./ui-constants"], function (require, exports, aurelia_framework_1, aurelia_logging_1, aurelia_fetch_client_1, aurelia_event_aggregator_1, ui_application_1, ui_constants_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var UIHttpService = (function () {
         function UIHttpService(httpClient, app, eventAggregator) {
             this.httpClient = httpClient;
@@ -180,11 +181,13 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "aurelia-f
             }
             return headers;
         };
-        UIHttpService = __decorate([
-            aurelia_framework_1.autoinject(), 
-            __metadata('design:paramtypes', [aurelia_fetch_client_1.HttpClient, ui_application_1.UIApplication, aurelia_event_aggregator_1.EventAggregator])
-        ], UIHttpService);
         return UIHttpService;
     }());
+    UIHttpService = __decorate([
+        aurelia_framework_1.autoinject(),
+        __metadata("design:paramtypes", [aurelia_fetch_client_1.HttpClient,
+            ui_application_1.UIApplication,
+            aurelia_event_aggregator_1.EventAggregator])
+    ], UIHttpService);
     exports.UIHttpService = UIHttpService;
 });

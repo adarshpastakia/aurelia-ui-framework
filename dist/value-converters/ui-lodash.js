@@ -1,5 +1,6 @@
 define(["require", "exports", "lodash"], function (require, exports, _) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var SplitValueConverter = (function () {
         function SplitValueConverter() {
         }

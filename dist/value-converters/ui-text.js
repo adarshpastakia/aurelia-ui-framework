@@ -1,5 +1,6 @@
 define(["require", "exports", "../utils/ui-format"], function (require, exports, ui_format_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var JsonValueConverter = (function () {
         function JsonValueConverter() {
         }

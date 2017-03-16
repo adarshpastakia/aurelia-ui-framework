@@ -11,7 +11,7 @@ export declare class UIDialogService {
     constructor(compiler: ViewCompiler, container: Container, resources: ViewResources, compositionEngine: CompositionEngine, templatingEngine: TemplatingEngine);
     private initialize();
     makeActive(id: any): boolean;
-    show(vm: any, model?: any): Promise<void>;
+    show(vm: any, model?: any): Promise<any>;
     private createDialog(vm);
     private initializeDialog(dialog);
     private closeDialog(dialog);

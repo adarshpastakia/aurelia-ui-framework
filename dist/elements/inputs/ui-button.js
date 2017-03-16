@@ -7,8 +7,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-define(["require", "exports", 'aurelia-framework', "../../utils/ui-event", "../../utils/ui-utils"], function (require, exports, aurelia_framework_1, ui_event_1, ui_utils_1) {
+define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../../utils/ui-utils", "lodash"], function (require, exports, aurelia_framework_1, ui_event_1, ui_utils_1, _) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var UIButton = (function () {
         function UIButton(element) {
             this.element = element;
@@ -101,46 +102,46 @@ define(["require", "exports", 'aurelia-framework', "../../utils/ui-event", "../.
             }
             return true;
         };
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIButton.prototype, "glyph", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIButton.prototype, "label", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIButton.prototype, "value", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIButton.prototype, "theme", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIButton.prototype, "width", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIButton.prototype, "dropdown", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIButton.prototype, "busy", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIButton.prototype, "disabled", void 0);
-        UIButton = __decorate([
-            aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template role=\"button\" class=\"ui-button ${theme} ${busy?'ui-busy':''} ${disabled?'ui-disabled':''}\" click.trigger=\"toggleDropdown($event)\" data-value=\"${value}\" css.bind=\"{width: width}\">\n    <span class=\"ui-indicator\"><ui-glyph if.bind=\"busy\" class=\"ui-anim-busy\" glyph=\"ui-busy\"></ui-glyph></span>\n    <ui-glyph if.bind=\"glyph\" class=\"ui-btn-icon ${glyph}\" glyph.bind=\"glyph\"></ui-glyph><span class=\"ui-label\"><slot>${label}</slot></span>\n    <ui-glyph class=\"ui-caret\" glyph=\"ui-caret-down\" if.bind=\"dropdown\"></ui-glyph></template>"),
-            aurelia_framework_1.customElement('ui-button'), 
-            __metadata('design:paramtypes', [Element])
-        ], UIButton);
         return UIButton;
     }());
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIButton.prototype, "glyph", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIButton.prototype, "label", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIButton.prototype, "value", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIButton.prototype, "theme", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIButton.prototype, "width", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIButton.prototype, "dropdown", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIButton.prototype, "busy", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIButton.prototype, "disabled", void 0);
+    UIButton = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("<template role=\"button\" class=\"ui-button ${theme} ${busy?'ui-busy':''} ${disabled?'ui-disabled':''}\" click.trigger=\"toggleDropdown($event)\" data-value=\"${value}\" css.bind=\"{width: width}\">\n    <span class=\"ui-indicator\"><ui-glyph if.bind=\"busy\" class=\"ui-anim-busy\" glyph=\"ui-busy\"></ui-glyph></span>\n    <ui-glyph if.bind=\"glyph\" class=\"ui-btn-icon ${glyph}\" glyph.bind=\"glyph\"></ui-glyph><span class=\"ui-label\"><slot>${label}</slot></span>\n    <ui-glyph class=\"ui-caret\" glyph=\"ui-caret-down\" if.bind=\"dropdown\"></ui-glyph></template>"),
+        aurelia_framework_1.customElement('ui-button'),
+        __metadata("design:paramtypes", [Element])
+    ], UIButton);
     exports.UIButton = UIButton;
     var UIButtonGroup = (function () {
         function UIButtonGroup(element) {
@@ -179,25 +180,25 @@ define(["require", "exports", 'aurelia-framework', "../../utils/ui-event", "../.
             if (evt.target.dataset['value'])
                 this.value = evt.target.dataset['value'];
         };
-        __decorate([
-            aurelia_framework_1.children('ui-button'), 
-            __metadata('design:type', Object)
-        ], UIButtonGroup.prototype, "buttons", void 0);
-        __decorate([
-            aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }), 
-            __metadata('design:type', Object)
-        ], UIButtonGroup.prototype, "value", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIButtonGroup.prototype, "disabled", void 0);
-        UIButtonGroup = __decorate([
-            aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template class=\"ui-button-group ${disabled?'ui-disabled':''}\" click.trigger=\"clickEvent($event)\"><slot></slot></template>"),
-            aurelia_framework_1.customElement('ui-button-group'), 
-            __metadata('design:paramtypes', [Element])
-        ], UIButtonGroup);
         return UIButtonGroup;
     }());
+    __decorate([
+        aurelia_framework_1.children('ui-button'),
+        __metadata("design:type", Object)
+    ], UIButtonGroup.prototype, "buttons", void 0);
+    __decorate([
+        aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
+        __metadata("design:type", Object)
+    ], UIButtonGroup.prototype, "value", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIButtonGroup.prototype, "disabled", void 0);
+    UIButtonGroup = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("<template class=\"ui-button-group ${disabled?'ui-disabled':''}\" click.trigger=\"clickEvent($event)\"><slot></slot></template>"),
+        aurelia_framework_1.customElement('ui-button-group'),
+        __metadata("design:paramtypes", [Element])
+    ], UIButtonGroup);
     exports.UIButtonGroup = UIButtonGroup;
 });

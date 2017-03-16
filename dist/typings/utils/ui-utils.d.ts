@@ -11,4 +11,5 @@ export declare module UIUtils {
     function confirm(options: any): Promise<{}>;
     function prompt(options: any): Promise<{}>;
     function tether(parent: any, child: any, opts?: any): any;
+    function loadView(url: any, parent: any, model?: any): Promise<{}>;
 }

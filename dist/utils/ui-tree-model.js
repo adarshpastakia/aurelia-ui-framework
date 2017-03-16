@@ -7,8 +7,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-define(["require", "exports", 'aurelia-framework', "lodash"], function (require, exports, aurelia_framework_1, _) {
+define(["require", "exports", "aurelia-framework", "lodash"], function (require, exports, aurelia_framework_1, _) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var UITreeModel = (function () {
         function UITreeModel(level, maxLevels, checkLevel, model, parent) {
             var _this = this;
@@ -77,12 +78,13 @@ define(["require", "exports", 'aurelia-framework', "lodash"], function (require,
             enumerable: true,
             configurable: true
         });
-        __decorate([
-            aurelia_framework_1.computedFrom('leaf', 'icon'), 
-            __metadata('design:type', Object)
-        ], UITreeModel.prototype, "isLeaf", null);
         return UITreeModel;
     }());
+    __decorate([
+        aurelia_framework_1.computedFrom('leaf', 'icon'),
+        __metadata("design:type", Object),
+        __metadata("design:paramtypes", [])
+    ], UITreeModel.prototype, "isLeaf", null);
     exports.UITreeModel = UITreeModel;
     var UITreeOptions = (function () {
         function UITreeOptions(obj) {

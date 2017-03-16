@@ -45,7 +45,7 @@ export declare class UIPrompt {
     private multiline;
     private focusBlock;
     private value;
-    closeAlert(b: any): true;
+    closeAlert(b: any): boolean;
     cancelBlur($event: any): boolean;
     checkKey($event: any): boolean;
 }

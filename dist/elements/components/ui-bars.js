@@ -7,8 +7,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-define(["require", "exports", 'aurelia-framework'], function (require, exports, aurelia_framework_1) {
+define(["require", "exports", "aurelia-framework"], function (require, exports, aurelia_framework_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var UIToolbar = (function () {
         function UIToolbar(element) {
             this.element = element;
@@ -36,14 +37,14 @@ define(["require", "exports", 'aurelia-framework'], function (require, exports, 
         UIToolbar.prototype.attached = function () { };
         UIToolbar.prototype.detached = function () { };
         UIToolbar.prototype.unbind = function () { };
-        UIToolbar = __decorate([
-            aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template class=\"ui-toolbar\"><slot></slot></template>"),
-            aurelia_framework_1.customElement('ui-toolbar'), 
-            __metadata('design:paramtypes', [Element])
-        ], UIToolbar);
         return UIToolbar;
     }());
+    UIToolbar = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("<template class=\"ui-toolbar\"><slot></slot></template>"),
+        aurelia_framework_1.customElement('ui-toolbar'),
+        __metadata("design:paramtypes", [Element])
+    ], UIToolbar);
     exports.UIToolbar = UIToolbar;
     var UIDivider = (function () {
         function UIDivider(element) {
@@ -54,14 +55,14 @@ define(["require", "exports", 'aurelia-framework'], function (require, exports, 
         UIDivider.prototype.attached = function () { };
         UIDivider.prototype.detached = function () { };
         UIDivider.prototype.unbind = function () { };
-        UIDivider = __decorate([
-            aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template class=\"ui-divider\"></template>"),
-            aurelia_framework_1.customElement('ui-divider'), 
-            __metadata('design:paramtypes', [Element])
-        ], UIDivider);
         return UIDivider;
     }());
+    UIDivider = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("<template class=\"ui-divider\"></template>"),
+        aurelia_framework_1.customElement('ui-divider'),
+        __metadata("design:paramtypes", [Element])
+    ], UIDivider);
     exports.UIDivider = UIDivider;
     var UIStatsbar = (function () {
         function UIStatsbar(element) {
@@ -104,14 +105,14 @@ define(["require", "exports", 'aurelia-framework'], function (require, exports, 
         UIStatsbar.prototype.attached = function () { };
         UIStatsbar.prototype.detached = function () { };
         UIStatsbar.prototype.unbind = function () { };
-        UIStatsbar = __decorate([
-            aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template class=\"ui-statsbar\"><slot></slot></template>"),
-            aurelia_framework_1.customElement('ui-statsbar'), 
-            __metadata('design:paramtypes', [Element])
-        ], UIStatsbar);
         return UIStatsbar;
     }());
+    UIStatsbar = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("<template class=\"ui-statsbar\"><slot></slot></template>"),
+        aurelia_framework_1.customElement('ui-statsbar'),
+        __metadata("design:paramtypes", [Element])
+    ], UIStatsbar);
     exports.UIStatsbar = UIStatsbar;
     var UIStat = (function () {
         function UIStat(element) {
@@ -156,21 +157,21 @@ define(["require", "exports", 'aurelia-framework'], function (require, exports, 
         UIStat.prototype.attached = function () { };
         UIStat.prototype.detached = function () { };
         UIStat.prototype.unbind = function () { };
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIStat.prototype, "glyph", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIStat.prototype, "label", void 0);
-        UIStat = __decorate([
-            aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template class=\"ui-stat\"><ui-glyph glyph.bind=\"glyph\" if.bind=\"glyph\"></ui-glyph>\n  <div class=\"ui-stat-value\"><slot></slot><div class=\"ui-stat-label\" innerhtml.bind=\"label\" if.bind=\"label\"></div></div></template>"),
-            aurelia_framework_1.customElement('ui-stat'), 
-            __metadata('design:paramtypes', [Element])
-        ], UIStat);
         return UIStat;
     }());
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIStat.prototype, "glyph", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIStat.prototype, "label", void 0);
+    UIStat = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("<template class=\"ui-stat\"><ui-glyph glyph.bind=\"glyph\" if.bind=\"glyph\"></ui-glyph>\n  <div class=\"ui-stat-value\"><slot></slot><div class=\"ui-stat-label\" innerhtml.bind=\"label\" if.bind=\"label\"></div></div></template>"),
+        aurelia_framework_1.customElement('ui-stat'),
+        __metadata("design:paramtypes", [Element])
+    ], UIStat);
     exports.UIStat = UIStat;
 });

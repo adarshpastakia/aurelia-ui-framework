@@ -7,8 +7,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-define(["require", "exports", 'aurelia-framework', "./ui-event", "./ui-utils", "aurelia-metadata", "aurelia-framework"], function (require, exports, aurelia_framework_1, ui_event_1, ui_utils_1, aurelia_metadata_1, aurelia_framework_2) {
+define(["require", "exports", "aurelia-framework", "./ui-event", "./ui-utils", "lodash", "aurelia-metadata", "aurelia-framework"], function (require, exports, aurelia_framework_1, ui_event_1, ui_utils_1, _, aurelia_metadata_1, aurelia_framework_2) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var UIDialogService = (function () {
         function UIDialogService(compiler, container, resources, compositionEngine, templatingEngine) {
             this.compiler = compiler;
@@ -256,17 +257,21 @@ define(["require", "exports", 'aurelia-framework', "./ui-event", "./ui-utils", "
             this.__startX = x !== 0 ? ($event.x || $event.clientX) : this.__startX;
             this.__startY = y !== 0 ? ($event.y || $event.clientY) : this.__startY;
         };
-        UIDialogService = __decorate([
-            aurelia_framework_1.autoinject(),
-            aurelia_framework_2.singleton(), 
-            __metadata('design:paramtypes', [aurelia_framework_2.ViewCompiler, aurelia_framework_2.Container, aurelia_framework_2.ViewResources, aurelia_framework_2.CompositionEngine, aurelia_framework_2.TemplatingEngine])
-        ], UIDialogService);
         return UIDialogService;
     }());
+    UIDialogService = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_2.singleton(),
+        __metadata("design:paramtypes", [aurelia_framework_2.ViewCompiler,
+            aurelia_framework_2.Container,
+            aurelia_framework_2.ViewResources,
+            aurelia_framework_2.CompositionEngine,
+            aurelia_framework_2.TemplatingEngine])
+    ], UIDialogService);
     exports.UIDialogService = UIDialogService;
-    var UIDialog = (function () {
+    var UIDialog = UIDialog_1 = (function () {
         function UIDialog() {
-            this.uniqId = "ui-win-" + UIDialog.seed++;
+            this.uniqId = "ui-win-" + UIDialog_1.seed++;
             this.isActive = true;
             this.isMinimized = false;
             this.posCurrent = {
@@ -286,8 +291,8 @@ define(["require", "exports", 'aurelia-framework', "./ui-event", "./ui-utils", "
         }
         UIDialog.prototype.bind = function (bindingContext, overrideContext) {
             if (!this.modal) {
-                this.posCurrent.top = (UIDialog.posY = UIDialog.posY == 240 ? 10 : UIDialog.posY + 10) + 'px';
-                this.posCurrent.left = (UIDialog.posX = UIDialog.posY == 10 ? 60 : UIDialog.posX + 30) + 'px';
+                this.posCurrent.top = (UIDialog_1.posY = UIDialog_1.posY == 240 ? 10 : UIDialog_1.posY + 10) + 'px';
+                this.posCurrent.left = (UIDialog_1.posX = UIDialog_1.posY == 10 ? 60 : UIDialog_1.posX + 30) + 'px';
             }
             this.posCurrent.width = this.width || this.minWidth || this.posCurrent.width;
             this.posCurrent.height = this.height || this.minHeight || this.posCurrent.height;
@@ -343,14 +348,14 @@ define(["require", "exports", 'aurelia-framework', "./ui-event", "./ui-utils", "
             config.container = this.dialogEl.querySelector('ui-dialog-body');
             ui_utils_1.UIUtils.toast(config);
         };
-        UIDialog.seed = 0;
-        UIDialog.posX = 0;
-        UIDialog.posY = 30;
-        UIDialog = __decorate([
-            aurelia_framework_1.autoinject(), 
-            __metadata('design:paramtypes', [])
-        ], UIDialog);
         return UIDialog;
     }());
+    UIDialog.seed = 0;
+    UIDialog.posX = 0;
+    UIDialog.posY = 30;
+    UIDialog = UIDialog_1 = __decorate([
+        aurelia_framework_1.autoinject()
+    ], UIDialog);
     exports.UIDialog = UIDialog;
+    var UIDialog_1;
 });

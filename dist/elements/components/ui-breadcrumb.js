@@ -7,8 +7,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-define(["require", "exports", 'aurelia-framework', "../../utils/ui-event"], function (require, exports, aurelia_framework_1, ui_event_1) {
+define(["require", "exports", "aurelia-framework", "../../utils/ui-event"], function (require, exports, aurelia_framework_1, ui_event_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var UIBreadcrumb = (function () {
         function UIBreadcrumb(element) {
             this.element = element;
@@ -33,14 +34,14 @@ define(["require", "exports", 'aurelia-framework', "../../utils/ui-event"], func
                 ui_event_1.UIEvent.fireEvent('change', this.element, $event.detail);
             return false;
         };
-        UIBreadcrumb = __decorate([
-            aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template class=\"ui-breadcrumb\" crumbclicked.delegate=\"fireChange($event)\"><slot></slot></template>"),
-            aurelia_framework_1.customElement('ui-breadcrumb'), 
-            __metadata('design:paramtypes', [Element])
-        ], UIBreadcrumb);
         return UIBreadcrumb;
     }());
+    UIBreadcrumb = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("<template class=\"ui-breadcrumb\" crumbclicked.delegate=\"fireChange($event)\"><slot></slot></template>"),
+        aurelia_framework_1.customElement('ui-breadcrumb'),
+        __metadata("design:paramtypes", [Element])
+    ], UIBreadcrumb);
     exports.UIBreadcrumb = UIBreadcrumb;
     var UICrumb = (function () {
         function UICrumb(element) {
@@ -59,21 +60,21 @@ define(["require", "exports", 'aurelia-framework', "../../utils/ui-event"], func
             ui_event_1.UIEvent.fireEvent('crumbclicked', this.element, this.id);
             return false;
         };
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UICrumb.prototype, "id", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UICrumb.prototype, "href", void 0);
-        UICrumb = __decorate([
-            aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template class=\"ui-crumb\"><a href=\"crumb.href || 'javascript:;'\" click.trigger=\"fireClick($event)\"><slot></slot></a></template>"),
-            aurelia_framework_1.customElement('ui-crumb'), 
-            __metadata('design:paramtypes', [Element])
-        ], UICrumb);
         return UICrumb;
     }());
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UICrumb.prototype, "id", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UICrumb.prototype, "href", void 0);
+    UICrumb = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("<template class=\"ui-crumb\"><a href=\"crumb.href || 'javascript:;'\" click.trigger=\"fireClick($event)\"><slot></slot></a></template>"),
+        aurelia_framework_1.customElement('ui-crumb'),
+        __metadata("design:paramtypes", [Element])
+    ], UICrumb);
     exports.UICrumb = UICrumb;
 });

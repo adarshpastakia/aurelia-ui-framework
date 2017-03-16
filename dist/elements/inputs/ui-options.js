@@ -7,9 +7,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-define(["require", "exports", 'aurelia-framework', "../../utils/ui-event"], function (require, exports, aurelia_framework_1, ui_event_1) {
+define(["require", "exports", "aurelia-framework", "../../utils/ui-event"], function (require, exports, aurelia_framework_1, ui_event_1) {
     "use strict";
-    var UIOptionGroup = (function () {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var UIOptionGroup = UIOptionGroup_1 = (function () {
         function UIOptionGroup(element) {
             this.element = element;
             this.value = '';
@@ -17,7 +18,7 @@ define(["require", "exports", 'aurelia-framework', "../../utils/ui-event"], func
             this.cols = 'auto';
             if (element.hasAttribute('vertical'))
                 element.classList.add('ui-vertical');
-            this.name = "ui-optgroup-" + (UIOptionGroup.seed++);
+            this.name = "ui-optgroup-" + (UIOptionGroup_1.seed++);
         }
         UIOptionGroup.prototype.created = function (owningView, myView) { };
         UIOptionGroup.prototype.bind = function (bindingContext, overrideContext) {
@@ -41,36 +42,36 @@ define(["require", "exports", 'aurelia-framework', "../../utils/ui-event"], func
         UIOptionGroup.prototype.changed = function ($event) {
             this.value = $event.detail;
         };
-        UIOptionGroup.seed = 1;
-        __decorate([
-            aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }), 
-            __metadata('design:type', Object)
-        ], UIOptionGroup.prototype, "value", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIOptionGroup.prototype, "name", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIOptionGroup.prototype, "cols", void 0);
-        UIOptionGroup = __decorate([
-            aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView('<template class="ui-input-group ui-option-group cols-\${cols}"><slot name="inputLabel"></slot><div class="ui-group-wrapper" change.trigger="changed($event)"><slot></slot></div></template>'),
-            aurelia_framework_1.customElement('ui-option-group'), 
-            __metadata('design:paramtypes', [Element])
-        ], UIOptionGroup);
         return UIOptionGroup;
     }());
+    UIOptionGroup.seed = 1;
+    __decorate([
+        aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
+        __metadata("design:type", Object)
+    ], UIOptionGroup.prototype, "value", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIOptionGroup.prototype, "name", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIOptionGroup.prototype, "cols", void 0);
+    UIOptionGroup = UIOptionGroup_1 = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView('<template class="ui-input-group ui-option-group cols-\${cols}"><slot name="inputLabel"></slot><div class="ui-group-wrapper" change.trigger="changed($event)"><slot></slot></div></template>'),
+        aurelia_framework_1.customElement('ui-option-group'),
+        __metadata("design:paramtypes", [Element])
+    ], UIOptionGroup);
     exports.UIOptionGroup = UIOptionGroup;
-    var UICheckbox = (function () {
+    var UICheckbox = UICheckbox_1 = (function () {
         function UICheckbox(element) {
             this.element = element;
             this.checked = false;
             this.disabled = false;
             this.for = '';
             this.isDisabled = false;
-            this.for = 'ui-checkbox-' + (UICheckbox.seed++);
+            this.for = 'ui-checkbox-' + (UICheckbox_1.seed++);
         }
         UICheckbox.prototype.created = function (owningView, myView) { };
         UICheckbox.prototype.bind = function (bindingContext, overrideContext) {
@@ -86,25 +87,25 @@ define(["require", "exports", 'aurelia-framework', "../../utils/ui-event"], func
         UICheckbox.prototype.disable = function (b) {
             this.element.classList[(this.isDisabled = (b || this.disabled)) ? 'add' : 'remove']('ui-disabled');
         };
-        UICheckbox.seed = 1;
-        __decorate([
-            aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }), 
-            __metadata('design:type', Object)
-        ], UICheckbox.prototype, "checked", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UICheckbox.prototype, "disabled", void 0);
-        UICheckbox = __decorate([
-            aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template class=\"ui-option ui-checkbox\"><input type=\"checkbox\" id.bind=\"for\" disabled.bind=\"disabled\" checked.bind=\"checked\"/>\n  <ui-glyph glyph.bind=\"checked?'ui-check-on':'ui-check-off'\"></ui-glyph>\n  <label for.bind=\"for\" class=\"ui-option-label\"><slot></slot></label></template>"),
-            aurelia_framework_1.customElement('ui-checkbox'), 
-            __metadata('design:paramtypes', [Element])
-        ], UICheckbox);
         return UICheckbox;
     }());
+    UICheckbox.seed = 1;
+    __decorate([
+        aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
+        __metadata("design:type", Object)
+    ], UICheckbox.prototype, "checked", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UICheckbox.prototype, "disabled", void 0);
+    UICheckbox = UICheckbox_1 = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("<template class=\"ui-option ui-checkbox\"><input type=\"checkbox\" id.bind=\"for\" disabled.bind=\"disabled\" checked.bind=\"checked\"/>\n  <ui-glyph glyph.bind=\"checked?'ui-check-on':'ui-check-off'\"></ui-glyph>\n  <label for.bind=\"for\" class=\"ui-option-label\"><slot></slot></label></template>"),
+        aurelia_framework_1.customElement('ui-checkbox'),
+        __metadata("design:paramtypes", [Element])
+    ], UICheckbox);
     exports.UICheckbox = UICheckbox;
-    var UIRadio = (function () {
+    var UIRadio = UIRadio_1 = (function () {
         function UIRadio(element) {
             this.element = element;
             this.checked = false;
@@ -113,7 +114,7 @@ define(["require", "exports", 'aurelia-framework', "../../utils/ui-event"], func
             this.disabled = false;
             this.for = '';
             this.isDisabled = false;
-            this.for = 'ui-radio-' + (UIRadio.seed++);
+            this.for = 'ui-radio-' + (UIRadio_1.seed++);
         }
         UIRadio.prototype.created = function (owningView, myView) { };
         UIRadio.prototype.bind = function (bindingContext, overrideContext) {
@@ -133,33 +134,33 @@ define(["require", "exports", 'aurelia-framework', "../../utils/ui-event"], func
             $event.stopPropagation();
             return ui_event_1.UIEvent.fireEvent('change', this.element, this.value);
         };
-        UIRadio.seed = 1;
-        __decorate([
-            aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }), 
-            __metadata('design:type', Object)
-        ], UIRadio.prototype, "checked", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIRadio.prototype, "name", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIRadio.prototype, "value", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIRadio.prototype, "disabled", void 0);
-        UIRadio = __decorate([
-            aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template class=\"ui-option ui-radio\"><input type=\"radio\" name=\"${name}\" id.bind=\"for\" value.bind=\"value\" \n  disabled.bind=\"disabled\" checked.bind=\"checked\" change.trigger=\"changed($event)\"/>\n  <ui-glyph class=\"off\" glyph=\"ui-radio-off\"></ui-glyph><ui-glyph class=\"on\" glyph=\"ui-radio-on\"></ui-glyph>\n  <label for.bind=\"for\" class=\"ui-option-label\"><slot></slot></label></template>"),
-            aurelia_framework_1.customElement('ui-radio'), 
-            __metadata('design:paramtypes', [Element])
-        ], UIRadio);
         return UIRadio;
     }());
+    UIRadio.seed = 1;
+    __decorate([
+        aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
+        __metadata("design:type", Object)
+    ], UIRadio.prototype, "checked", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIRadio.prototype, "name", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIRadio.prototype, "value", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIRadio.prototype, "disabled", void 0);
+    UIRadio = UIRadio_1 = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("<template class=\"ui-option ui-radio\"><input type=\"radio\" name=\"${name}\" id.bind=\"for\" value.bind=\"value\" \n  disabled.bind=\"disabled\" checked.bind=\"checked\" change.trigger=\"changed($event)\"/>\n  <ui-glyph class=\"off\" glyph=\"ui-radio-off\"></ui-glyph><ui-glyph class=\"on\" glyph=\"ui-radio-on\"></ui-glyph>\n  <label for.bind=\"for\" class=\"ui-option-label\"><slot></slot></label></template>"),
+        aurelia_framework_1.customElement('ui-radio'),
+        __metadata("design:paramtypes", [Element])
+    ], UIRadio);
     exports.UIRadio = UIRadio;
-    var UISwitch = (function () {
+    var UISwitch = UISwitch_1 = (function () {
         function UISwitch(element) {
             this.element = element;
             this.checked = false;
@@ -174,7 +175,7 @@ define(["require", "exports", 'aurelia-framework', "../../utils/ui-event"], func
             this.theme = 'default';
             this.for = '';
             this.isDisabled = false;
-            this.for = 'ui-switch-' + (UISwitch.seed++);
+            this.for = 'ui-switch-' + (UISwitch_1.seed++);
             if (this.element.hasAttribute('primary'))
                 this.theme = 'primary';
             else if (this.element.hasAttribute('secondary'))
@@ -214,54 +215,55 @@ define(["require", "exports", 'aurelia-framework', "../../utils/ui-event"], func
             this.value = this.checked ? this.onValue : this.offValue;
             return ui_event_1.UIEvent.fireEvent('change', this.element, this.value);
         };
-        UISwitch.seed = 1;
-        __decorate([
-            aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }), 
-            __metadata('design:type', Boolean)
-        ], UISwitch.prototype, "checked", void 0);
-        __decorate([
-            aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }), 
-            __metadata('design:type', Object)
-        ], UISwitch.prototype, "value", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UISwitch.prototype, "size", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UISwitch.prototype, "class", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UISwitch.prototype, "onLabel", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UISwitch.prototype, "offLabel", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UISwitch.prototype, "onValue", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UISwitch.prototype, "offValue", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UISwitch.prototype, "disabled", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UISwitch.prototype, "theme", void 0);
-        UISwitch = __decorate([
-            aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template class=\"ui-option ui-switch-control\">\n<div class=\"ui-switch ${disabled?'ui-disabled':''} ${theme}\" css.bind=\"{width: size}\">\n  <input class=\"ui-switch-input\" type=\"checkbox\" id.bind=\"for\" disabled.bind=\"disabled\" checked.bind=\"checked\" change.trigger=\"fireChange($event)\"/>\n  <label class=\"ui-switch-inner\" for.bind=\"for\" data-on=\"${onLabel}\" data-off=\"${offLabel}\"></label>\n  <div class=\"ui-switch-handle\"></div>\n</div><label class=\"ui-switch-label\" for.bind=\"for\"><slot></slot></label>\n</template>"),
-            aurelia_framework_1.customElement('ui-switch'), 
-            __metadata('design:paramtypes', [Element])
-        ], UISwitch);
         return UISwitch;
     }());
+    UISwitch.seed = 1;
+    __decorate([
+        aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
+        __metadata("design:type", Boolean)
+    ], UISwitch.prototype, "checked", void 0);
+    __decorate([
+        aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
+        __metadata("design:type", Object)
+    ], UISwitch.prototype, "value", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UISwitch.prototype, "size", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UISwitch.prototype, "class", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UISwitch.prototype, "onLabel", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UISwitch.prototype, "offLabel", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UISwitch.prototype, "onValue", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UISwitch.prototype, "offValue", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UISwitch.prototype, "disabled", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UISwitch.prototype, "theme", void 0);
+    UISwitch = UISwitch_1 = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("<template class=\"ui-option ui-switch-control\">\n<div class=\"ui-switch ${disabled?'ui-disabled':''} ${theme}\" css.bind=\"{width: size}\">\n  <input class=\"ui-switch-input\" type=\"checkbox\" id.bind=\"for\" disabled.bind=\"disabled\" checked.bind=\"checked\" change.trigger=\"fireChange($event)\"/>\n  <label class=\"ui-switch-inner\" for.bind=\"for\" data-on=\"${onLabel}\" data-off=\"${offLabel}\"></label>\n  <div class=\"ui-switch-handle\"></div>\n</div><label class=\"ui-switch-label\" for.bind=\"for\"><slot></slot></label>\n</template>"),
+        aurelia_framework_1.customElement('ui-switch'),
+        __metadata("design:paramtypes", [Element])
+    ], UISwitch);
     exports.UISwitch = UISwitch;
+    var UIOptionGroup_1, UICheckbox_1, UIRadio_1, UISwitch_1;
 });

@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 define(["require", "exports", "aurelia-framework", "aurelia-router", "aurelia-logging", "./ui-utils", "./ui-event", "./ui-constants"], function (require, exports, aurelia_framework_1, aurelia_router_1, aurelia_logging_1, ui_utils_1, ui_event_1, ui_constants_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var UIApplication = (function () {
         function UIApplication(router) {
             this.router = router;
@@ -194,13 +195,13 @@ define(["require", "exports", "aurelia-framework", "aurelia-router", "aurelia-lo
                 config = { message: config };
             return ui_utils_1.UIUtils.prompt(config);
         };
-        UIApplication = __decorate([
-            aurelia_framework_1.singleton(),
-            aurelia_framework_1.autoinject(), 
-            __metadata('design:paramtypes', [aurelia_router_1.Router])
-        ], UIApplication);
         return UIApplication;
     }());
+    UIApplication = __decorate([
+        aurelia_framework_1.singleton(),
+        aurelia_framework_1.autoinject(),
+        __metadata("design:paramtypes", [aurelia_router_1.Router])
+    ], UIApplication);
     exports.UIApplication = UIApplication;
     var AuthInterceptor = (function () {
         function AuthInterceptor(appState) {
@@ -223,12 +224,12 @@ define(["require", "exports", "aurelia-framework", "aurelia-router", "aurelia-lo
             }
             return next();
         };
-        AuthInterceptor = __decorate([
-            aurelia_framework_1.singleton(),
-            aurelia_framework_1.autoinject(), 
-            __metadata('design:paramtypes', [UIApplication])
-        ], AuthInterceptor);
         return AuthInterceptor;
     }());
+    AuthInterceptor = __decorate([
+        aurelia_framework_1.singleton(),
+        aurelia_framework_1.autoinject(),
+        __metadata("design:paramtypes", [UIApplication])
+    ], AuthInterceptor);
     exports.AuthInterceptor = AuthInterceptor;
 });

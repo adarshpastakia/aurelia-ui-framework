@@ -7,8 +7,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-define(["require", "exports", 'aurelia-framework', "../../utils/ui-event", "../../utils/ui-utils"], function (require, exports, aurelia_framework_1, ui_event_1, ui_utils_1) {
+define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../../utils/ui-utils"], function (require, exports, aurelia_framework_1, ui_event_1, ui_utils_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var UIDropdown = (function () {
         function UIDropdown(element) {
             this.element = element;
@@ -63,34 +64,34 @@ define(["require", "exports", 'aurelia-framework', "../../utils/ui-event", "../.
             this.element.classList[this.element.classList.contains('ui-open') ? 'remove' : 'add']('ui-open');
             this.tether.position();
         };
-        __decorate([
-            aurelia_framework_1.children('.ui-list-item'), 
-            __metadata('design:type', Object)
-        ], UIDropdown.prototype, "items", void 0);
-        __decorate([
-            aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }), 
-            __metadata('design:type', Object)
-        ], UIDropdown.prototype, "value", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIDropdown.prototype, "width", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIDropdown.prototype, "model", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIDropdown.prototype, "disabled", void 0);
-        UIDropdown = __decorate([
-            aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template class=\"ui-dropdown\" select.trigger=\"select($event)\" click.trigger=\"toggleDropdown($event)\" css.bind=\"{'min-width':width}\">\n  <div class=\"ui-label\"><span><ui-glyph class.bind=\"glyph\" glyph.bind=\"glyph\" if.bind=\"glyph\"></ui-glyph>${display}</span>\n  <ui-glyph class=\"ui-caret\" glyph=\"ui-caret-down\"></ui-glyph></div>\n  <ul class=\"ui-list-container ui-floating\" ref=\"dropdown\"><slot></slot></ul></template>"),
-            aurelia_framework_1.customElement('ui-dropdown'), 
-            __metadata('design:paramtypes', [Element])
-        ], UIDropdown);
         return UIDropdown;
     }());
+    __decorate([
+        aurelia_framework_1.children('.ui-list-item'),
+        __metadata("design:type", Object)
+    ], UIDropdown.prototype, "items", void 0);
+    __decorate([
+        aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
+        __metadata("design:type", Object)
+    ], UIDropdown.prototype, "value", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDropdown.prototype, "width", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDropdown.prototype, "model", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDropdown.prototype, "disabled", void 0);
+    UIDropdown = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("<template class=\"ui-dropdown\" select.trigger=\"select($event)\" click.trigger=\"toggleDropdown($event)\" css.bind=\"{'min-width':width}\">\n  <div class=\"ui-label\"><span><ui-glyph class.bind=\"glyph\" glyph.bind=\"glyph\" if.bind=\"glyph\"></ui-glyph>${display}</span>\n  <ui-glyph class=\"ui-caret\" glyph=\"ui-caret-down\"></ui-glyph></div>\n  <ul class=\"ui-list-container ui-floating\" ref=\"dropdown\"><slot></slot></ul></template>"),
+        aurelia_framework_1.customElement('ui-dropdown'),
+        __metadata("design:paramtypes", [Element])
+    ], UIDropdown);
     exports.UIDropdown = UIDropdown;
     var UIListGroup = (function () {
         function UIListGroup(element) {
@@ -102,19 +103,19 @@ define(["require", "exports", 'aurelia-framework', "../../utils/ui-event", "../.
         UIListGroup.prototype.attached = function () { };
         UIListGroup.prototype.detached = function () { };
         UIListGroup.prototype.unbind = function () { };
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIListGroup.prototype, "label", void 0);
-        UIListGroup = __decorate([
-            aurelia_framework_1.autoinject(),
-            aurelia_framework_1.containerless(),
-            aurelia_framework_1.inlineView("<template><div class=\"ui-list-group\" innerhtml.bind=\"label\"></div><slot></slot></template>"),
-            aurelia_framework_1.customElement('ui-list-group'), 
-            __metadata('design:paramtypes', [Element])
-        ], UIListGroup);
         return UIListGroup;
     }());
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIListGroup.prototype, "label", void 0);
+    UIListGroup = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.containerless(),
+        aurelia_framework_1.inlineView("<template><div class=\"ui-list-group\" if.bind=\"label\" innerhtml.bind=\"label\"></div><slot></slot></template>"),
+        aurelia_framework_1.customElement('ui-list-group'),
+        __metadata("design:paramtypes", [Element])
+    ], UIListGroup);
     exports.UIListGroup = UIListGroup;
     var UIListItem = (function () {
         function UIListItem(element) {
@@ -136,25 +137,25 @@ define(["require", "exports", 'aurelia-framework', "../../utils/ui-event", "../.
         UIListItem.prototype.fireSelect = function (evt) {
             ui_event_1.UIEvent.fireEvent('select', this.element, { value: this.value, model: this.model });
         };
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIListItem.prototype, "model", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIListItem.prototype, "glyph", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], UIListItem.prototype, "value", void 0);
-        UIListItem = __decorate([
-            aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template class=\"ui-list-item\" click.trigger=\"fireSelect($event)\" mouseover.trigger=\"hilightItem($event)\">\n  <ui-glyph class.bind=\"glyph\" glyph.bind=\"glyph\" if.bind=\"glyph\"></ui-glyph>&nbsp;<slot></slot></template>"),
-            aurelia_framework_1.customElement('ui-list-item'), 
-            __metadata('design:paramtypes', [Element])
-        ], UIListItem);
         return UIListItem;
     }());
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIListItem.prototype, "model", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIListItem.prototype, "glyph", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIListItem.prototype, "value", void 0);
+    UIListItem = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("<template class=\"ui-list-item\" click.trigger=\"fireSelect($event)\" mouseover.trigger=\"hilightItem($event)\">\n  <ui-glyph class.bind=\"glyph\" glyph.bind=\"glyph\" if.bind=\"glyph\"></ui-glyph>&nbsp;<slot></slot></template>"),
+        aurelia_framework_1.customElement('ui-list-item'),
+        __metadata("design:paramtypes", [Element])
+    ], UIListItem);
     exports.UIListItem = UIListItem;
 });

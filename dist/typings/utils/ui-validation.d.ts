@@ -1,6 +1,6 @@
-import { RenderInstruction, ValidationError } from "aurelia-validation";
+import { RenderInstruction, ValidateResult } from "aurelia-validation";
 export declare class UIValidationRenderer {
     render(instruction: RenderInstruction): void;
-    add(element: Element, error: ValidationError): void;
-    remove(element: Element, error: ValidationError): void;
+    add(element: Element, result: ValidateResult): void;
+    remove(element: Element, result: ValidateResult): void;
 }
