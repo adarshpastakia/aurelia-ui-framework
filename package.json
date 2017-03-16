@@ -1,7 +1,7 @@
 {
   "name": "aurelia-ui-framework",
   "description": "An Aurelia UI/UX framework.",
-  "version": "3.0.0",
+  "version": "3.0.3",
   "keywords": [
     "ui-framework",
     "desktop-framework",
@@ -28,7 +28,7 @@
     "aurelia-bootstrapper": "^1.0.0",
     "aurelia-fetch-client": "^1.0.1",
     "aurelia-ui-virtualization": "^1.0.0-beta.3.0.2",
-    "aurelia-validation": "^0.14.0",
+    "aurelia-validation": "^1.0.0",
     "bluebird": "^3.4.1",
     "kramed": "^0.5.6",
     "lodash": "^4.17.2",
