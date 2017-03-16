@@ -181,7 +181,7 @@ export function configure(config: FrameworkConfiguration, configCallback) {
         if (model) {
           promises.push(validator.validateObject(model)
             .then(e => {
-              if (e.length > 0) {
+              if (!e.valid) {
                 map.__errored__.push(key);
                 return true;
               }
