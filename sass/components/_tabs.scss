@@ -9,12 +9,58 @@
   @include flex-column($align:stretch);
   overflow: hidden;
 
-  .ui-tab-bar {
+  .ui-tabbar {
     min-height: 2em;
     @include flex-auto();
     @include flex-row($align:stretch);
 
-    > .ui-tab-button {
+    .ui-tabbar-toggle {
+      cursor: pointer;
+      color : $menu-link-text;
+      @include align-self(stretch);
+
+      &:hover {
+        box-shadow: none;
+        background: $menu-link-hover-bg;
+        color     : $menu-link-hover-text;
+      }
+    }
+
+    > .ui-tabbar-overflow {
+      display: none;
+
+      &.ui-open {
+        display: block;
+      }
+
+      > .ui-tab-button {
+        border       : none;
+        border-radius: 0;
+        padding      : .25em .5em;
+        margin       : 0 !important;
+        border-bottom: 1px solid rgba($base-border-color,.25);
+
+        &.ui-active {
+          @include box-shadow(4px 0 0 0 $tab-active-text inset);
+        }
+
+        &:hover {
+          @include box-shadow(4px 0 0 0 rgba($tab-active-text, .5) inset);
+        }
+      }
+    }
+
+    > .ui-tabbar-links {
+      @include flex-auto();
+      @include flex-row($align:center, $wrap:false);
+    }
+
+    > .ui-tabbar-buttons {
+      @include flex-fill();
+      @include flex-row($align:stretch, $wrap:false);
+    }
+
+    .ui-tab-button {
       @include flex-row($align:center);
       @include flex-auto();
       z-index                : 2;
@@ -68,6 +114,11 @@
 
     &.ui-flexed {
       @include flex-column();
+
+      > compose {
+        @include flex-column();
+        @include flex-fill();
+      }
     }
 
     &:not(.ui-active) {
@@ -90,8 +141,8 @@
   &.bottom {
     @include flex-direction(column-reverse);
 
-    .ui-tab-bar {
-      > .ui-tab-button {
+    .ui-tabbar {
+      .ui-tab-button {
         margin                    : 0 2px 4px;
         border-top-width          : 0;
         border-bottom-width       : 1px;
