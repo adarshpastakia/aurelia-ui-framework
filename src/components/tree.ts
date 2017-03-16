@@ -7,6 +7,7 @@
 import {autoinject} from 'aurelia-framework';
 import {UIEvent} from "../resources/utils/ui-event";
 import {UITreeOptions} from "../resources/utils/ui-tree-model";
+import * as _ from "lodash";
 
 @autoinject()
 export class TreeComponent {

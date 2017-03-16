@@ -4,13 +4,15 @@
 // @copyright   : 2017
 // @license     : MIT
 import {autoinject} from 'aurelia-framework';
-import {ValidationRules, ValidationController, ValidationControllerFactory} from "aurelia-validation";
+import {ValidationRules, ValidationController, ValidationControllerFactory, validateTrigger} from "aurelia-validation";
 import {UIModel} from "../resources/utils/ui-model";
+import * as _ from "lodash";
 
 @autoinject()
 export class InputValidation {
   constructor(public element: Element, controllerFactory: ValidationControllerFactory) {
     this.controller = controllerFactory.createForCurrentScope();
+    this.controller.validateTrigger = validateTrigger.changeOrBlur;
     this.model = new DataModel();
   }
 

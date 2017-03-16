@@ -1,5 +1,5 @@
 import {FrameworkConfiguration} from 'aurelia-framework';
-import {ValidationRules, Validator} from 'aurelia-validation';
+import {ValidationRules, Validator, ValidationController, validateTrigger} from 'aurelia-validation';
 import {UIValidationRenderer} from "./utils/ui-validation";
 import {UIConstants} from "./utils/ui-constants";
 import {UIUtils} from "./utils/ui-utils";
@@ -61,6 +61,8 @@ import './elements/components/ui-sidebar';
 import './elements/components/ui-tab';
 import './elements/components/ui-tree';
 
+import './attributes/ui-badge';
+
 import './value-converters/ui-lodash';
 import './value-converters/ui-text';
 
@@ -81,6 +83,7 @@ export interface UIConfig {
 export function configure(config: FrameworkConfiguration, configCallback) {
   UIUtils.auContainer = config.container;
 
+  ValidationController.prototype.validateTrigger = validateTrigger.changeOrBlur;
   config.container.registerHandler('ui-validator', container => container.get(UIValidationRenderer));
   // Core Elements
   config.globalResources([
