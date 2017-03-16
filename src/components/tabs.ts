@@ -4,12 +4,12 @@
 // @copyright   : 2017
 // @license     : MIT
 
-import {autoinject} from 'aurelia-framework';
+import {autoinject, TemplatingEngine} from 'aurelia-framework';
 import {UITreeOptions, UIEvent} from "../resources/index";
 
 @autoinject()
 export class CompTabs {
-  constructor() {
+  constructor(private templatingEngine: TemplatingEngine) {
   }
 
   // aurelia hooks
@@ -22,4 +22,13 @@ export class CompTabs {
   deactivate() { }
   // end aurelia hooks
 
+  tabPanel;
+  tabActive;
+  tabs = []
+  seed = 0;
+  addTab() {
+    let id = 'tab' + (this.seed++);
+    this.tabs.push({ id: id, viewModel: '../inputs/basic', model: {}, label: 'Editor Tab', extras: 'padded scroll closeable' });
+    UIEvent.queueTask(() => this.tabActive = id);
+  }
 }
