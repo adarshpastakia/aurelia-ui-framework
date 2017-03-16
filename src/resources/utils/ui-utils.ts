@@ -3,7 +3,8 @@
 // @author      : Adarsh Pastakia
 // @copyright   : 2016
 // @license     : MIT
-import {Container, Lazy, NewInstance, DOM, TemplatingEngine, ViewCompiler} from "aurelia-framework";
+import {Container, Lazy, NewInstance, DOM, TemplatingEngine, ViewCompiler, CompositionEngine, View, ViewResources, ViewSlot} from "aurelia-framework";
+import {Origin} from "aurelia-metadata";
 import {UIEvent} from "./ui-event";
 
 export module UIUtils {
@@ -217,5 +218,73 @@ export module UIUtils {
 
       this.position();
     })(parent, child, opts);
+  }
+
+  // View realated hooks
+  export function loadView(url, parent, model?) {
+    let __compositionEngine = this.lazy(CompositionEngine);
+
+    let instruction: any = {
+      viewModel: url,
+      container: this.auContainer,
+      childContainer: this.auContainer.createChild(),
+      model: model
+    };
+    return new Promise((resolve, reject) => {
+      __getViewModel(instruction)
+        .then(newInstruction => {
+          let viewModel: any = <any>newInstruction.viewModel;
+          return __invokeLifecycle(viewModel, 'canActivate', instruction.model)
+            .then(canActivate => {
+              if (canActivate) {
+                return __compositionEngine.createController(instruction)
+                  .then(controller => {
+                    controller.automate();
+                    let slot = new ViewSlot(parent, true);
+                    slot.add(controller.view);
+                    slot.attached();
+                    resolve(controller.viewModel);
+                    return true;
+                  });
+              } else {
+              }
+            });
+        })
+        .catch(e => {
+        });
+    });
+  }
+
+
+  function __getViewModel(instruction) {
+    let __compositionEngine = UIUtils.lazy(CompositionEngine);
+
+    if (typeof instruction.viewModel === 'function') {
+      instruction.viewModel = Origin.get(instruction.viewModel).moduleId;
+    }
+
+    if (typeof instruction.viewModel === 'string') {
+      return __compositionEngine.ensureViewModel(instruction);
+    }
+
+    return Promise.resolve(instruction);
+  }
+
+  function __invokeLifecycle(instance, name, model) {
+    if (instance && typeof instance[name] === 'function') {
+      let result = instance[name](model);
+
+      if (result instanceof Promise) {
+        return result;
+      }
+
+      if (result !== null && result !== undefined) {
+        return Promise.resolve(result);
+      }
+
+      return Promise.resolve(true);
+    }
+
+    return Promise.resolve(true);
   }
 }

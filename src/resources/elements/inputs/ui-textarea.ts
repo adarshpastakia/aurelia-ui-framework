@@ -7,6 +7,7 @@ import {autoinject, customElement, bindable, bindingMode, children, inlineView, 
 import {UIBaseInput} from "./ui-input";
 import {UIEvent} from "../../utils/ui-event";
 import {UIUtils} from "../../utils/ui-utils";
+import * as _ from "lodash";
 
 @autoinject()
 @inlineView(`<template class="ui-input-wrapper"><div role="input" class="ui-input-control ui-textarea"><span class="ui-error" if.bind="errors"><ui-glyph glyph="ui-invalid"></ui-glyph><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>

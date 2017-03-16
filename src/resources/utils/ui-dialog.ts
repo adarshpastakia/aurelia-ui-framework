@@ -6,6 +6,7 @@
 import {autoinject, customElement, bindable, bindingMode, children, inlineView, useView, containerless, View, DOM} from 'aurelia-framework';
 import {UIEvent} from "./ui-event";
 import {UIUtils} from "./ui-utils";
+import * as _ from "lodash";
 
 import {Origin} from "aurelia-metadata";
 import {

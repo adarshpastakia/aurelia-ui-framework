@@ -8,6 +8,7 @@ import {UIBaseInput} from "./ui-input";
 import {UIEvent} from "../../utils/ui-event";
 import {UIUtils} from "../../utils/ui-utils";
 import {UIConstants} from "../../utils/ui-constants";
+import * as _ from "lodash";
 
 @autoinject()
 @customElement('ui-markdown')

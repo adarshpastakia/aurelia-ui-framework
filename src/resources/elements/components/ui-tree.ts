@@ -6,6 +6,7 @@
 import {autoinject, customElement, bindable, bindingMode, children, inlineView, useView, computedFrom, containerless, View, DOM} from 'aurelia-framework';
 import {UITreeOptions, UITreeModel} from "../../utils/ui-tree-model";
 import {UIEvent} from "../../utils/ui-event";
+import * as _ from "lodash";
 
 @autoinject()
 @inlineView(`<template class="ui-tree-panel"><ui-input-group class="ui-search" if.bind="searchable">

@@ -4,6 +4,7 @@
 // @copyright   : 2017
 // @license     : MIT
 import {autoinject} from 'aurelia-framework';
+import * as _ from "lodash";
 
 @autoinject()
 export class StyleFlags {

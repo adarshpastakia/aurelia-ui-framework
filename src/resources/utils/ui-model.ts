@@ -8,6 +8,7 @@ import {getLogger, Logger} from "aurelia-logging";
 import {ValidationController, ValidationControllerFactory} from "aurelia-validation";
 import {UIHttpService} from "./ui-http";
 import {UIUtils} from "./ui-utils";
+import * as _ from "lodash";
 
 @autoinject()
 export class UIModel {

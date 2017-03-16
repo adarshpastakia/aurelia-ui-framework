@@ -100,7 +100,7 @@ export class UIMenuSection {
 }
 
 @autoinject()
-@inlineView('<template class="ui-menu-section"><div class="ui-menu-section-title" innerhtml.bind="label"></div><slot></slot></template>')
+@inlineView('<template class="ui-menu-section"><div if.bind="label" class="ui-menu-section-title" innerhtml.bind="label"></div><slot></slot></template>')
 @customElement('ui-menu-group')
 export class UIMenuGroup {
   constructor(public element: Element) { }

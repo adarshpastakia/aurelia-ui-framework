@@ -6,6 +6,7 @@
 import {autoinject, customElement, bindable, bindingMode, children, inlineView, useView, containerless, View, DOM} from 'aurelia-framework';
 import {UIEvent} from "../../utils/ui-event";
 import {UIUtils} from "../../utils/ui-utils";
+import * as _ from "lodash";
 
 export class BaseListInput {
   value = '';
@@ -272,6 +273,7 @@ export class BaseListInput {
   fireSelect(model?) {
     this.filtered = this.original;
     this.unhilightItem(null);
+    this.inputEl.focus();
     let h = this.dropdown.querySelector('.ui-list-item.ui-selected');
     this.dropdown.scrollTop = (h !== null ? h.offsetTop - (this.dropdown.offsetHeight / 2) : 0);
   }

@@ -81,7 +81,7 @@ export class UIDropdown {
 
 @autoinject()
 @containerless()
-@inlineView(`<template><div class="ui-list-group" innerhtml.bind="label"></div><slot></slot></template>`)
+@inlineView(`<template><div class="ui-list-group" if.bind="label" innerhtml.bind="label"></div><slot></slot></template>`)
 @customElement('ui-list-group')
 export class UIListGroup {
   constructor(public element: Element) { }

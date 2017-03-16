@@ -7,6 +7,7 @@ import {autoinject, customElement, bindable, bindingMode, children, inlineView, 
 import {UIFormat} from "../../utils/ui-format";
 import {UIEvent} from "../../utils/ui-event";
 import {UIUtils} from "../../utils/ui-utils";
+import * as _ from "lodash";
 
 @inlineView(`<template>
   <td repeat.for="col of cols" class="\${col.locked==0?'ui-locked':''} \${col.align}" css.bind="{left: col.left+'px'}">
