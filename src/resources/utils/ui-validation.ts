@@ -4,26 +4,29 @@
 // @copyright   : 2017
 // @license     : MIT
 import {autoinject, DOM} from 'aurelia-framework';
-import {ValidationRules, RenderInstruction, ValidationError} from "aurelia-validation";
+import {ValidationRules, RenderInstruction, ValidateResult} from "aurelia-validation";
 import {UILanguage} from '../elements/inputs/ui-markdown';
 
 @autoinject()
 export class UIValidationRenderer {
   render(instruction: RenderInstruction) {
-    for (let { error, elements } of instruction.unrender) {
+    for (let { result, elements } of instruction.unrender) {
       for (let element of elements) {
-        this.remove(element, error);
+        this.remove(element, result);
       }
     }
 
-    for (let { error, elements } of instruction.render) {
+    for (let { result, elements } of instruction.render) {
       for (let element of elements) {
-        this.add(element, error);
+        this.add(element, result);
       }
     }
   }
 
-  add(element: Element, error: ValidationError) {
+  add(element: Element, result: ValidateResult) {
+    if (result.valid) {
+      return;
+    }
     element.classList.add('ui-invalid');
     element.classList.remove('ui-valid');
 
@@ -31,17 +34,17 @@ export class UIValidationRenderer {
       let vm = element.au.controller.viewModel;
       if (!vm.errors) vm.errors = [];
       if (element.au.controller.viewModel && element.au.controller.viewModel instanceof UILanguage) {
-        let ms = error.message.split('|');
-        console.log(error);
-        vm.errors.push(error);
-        vm.errored = error.object[error.propertyName].__errored__;
+        let ms = result.message.split('|');
+        console.log(result);
+        vm.errors.push(result);
+        vm.errored = result.object[result.propertyName].__errored__;
       }
       else
-        vm.errors.push(error);
+        vm.errors.push(result);
     } catch (E) { }
   }
 
-  remove(element: Element, error: ValidationError) {
+  remove(element: Element, result: ValidateResult) {
     element.classList.remove('ui-invalid');
     element.classList.add('ui-valid');
 
@@ -50,7 +53,7 @@ export class UIValidationRenderer {
       let i = vm.errors.length;
       while (i--) {
         let message: any = vm.errors[i];
-        if (message.id == error.id) {
+        if (message.id == result.id) {
           vm.errors.splice(i, 1);
           break;
         }
