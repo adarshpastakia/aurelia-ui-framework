@@ -135,7 +135,7 @@ export class UITabPanel {
 
   private tabsChanged() {
     if (this.tabs.length > 0 && _.find(this.tabs, ['active', true]) == null)
-      (this.activeTabEl = _.findLast(this.tabs, ['disabled', false])).active = true;
+      (this.activeTabEl = _.find(this.tabs, ['disabled', false])).active = true;
   }
 
   private activeTabChanged(newValue) {
@@ -148,6 +148,8 @@ export class UITabPanel {
   private closeTab(tab) {
     if (UIEvent.fireEvent('beforeclose', this.element, tab)) {
       _.remove(this.tabs, ['id', tab.id]);
+      if (this.tabs.length > 0 && _.find(this.tabs, ['active', true]) == null)
+        (this.activeTabEl = _.findLast(this.tabs, ['disabled', false])).active = true;
       tab.remove();
       UIEvent.fireEvent('close', this.element, tab);
     }
@@ -160,6 +162,16 @@ export class UITabPanel {
       this.activeTab = tab.id;
       UIEvent.fireEvent('change', this.element, tab);
     }
+  }
+
+  public canActivate(id) {
+    let tab = _.find(this.tabs, ['id', id]);
+    if (tab) {
+      if (this.activeTabEl) this.activeTabEl.active = false;
+      (this.activeTabEl = tab).active = true;
+      return true;
+    }
+    return false;
   }
 
   private arrange() {
