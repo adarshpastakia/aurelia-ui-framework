@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -136,6 +136,7 @@ export class UITabPanel {
   private tabsChanged() {
     if (this.tabs.length > 0 && _.find(this.tabs, ['active', true]) == null)
       (this.activeTabEl = _.find(this.tabs, ['disabled', false])).active = true;
+    UIEvent.queueTask(() => this.arrange());
   }
 
   private activeTabChanged(newValue) {
@@ -180,7 +181,7 @@ export class UITabPanel {
       this.wrapper.insertBefore(c[i], this.overflowToggle);
     }
     // this.wrapper.appendChild(this.overflowToggle);
-    if (this.tabs.length > 0 && (this.isOverflow = (this.wrapper.lastElementChild.previousElementSibling.offsetLeft + this.wrapper.lastElementChild.previousElementSibling.offsetWidth > this.wrapper.offsetWidth))) {
+    if (this.tabs.length > 0 && (this.isOverflow = (this.wrapper.lastElementChild.previousElementSibling.offsetLeft + this.wrapper.lastElementChild.previousElementSibling.offsetWidth - this.wrapper.offsetLeft > this.wrapper.offsetWidth))) {
       for (let c = this.wrapper['children'], i = c.length - 2; i >= 0; i--) {
         if (c[i].offsetLeft + c[i].offsetWidth > this.wrapper.offsetWidth) {
           if (this.overflow.hasChildNodes) this.overflow.insertBefore(c[i], this.overflow.childNodes[0]); else this.overflow.appendChild(c[i]);
