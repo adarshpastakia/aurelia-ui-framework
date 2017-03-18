@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -61,5 +61,11 @@ export class TreeComponent {
   clearSelection() {
     this.treeSelected = null;
     this.treeOpts.showCheckbox = !this.treeOpts.showCheckbox;
+  }
+
+  tree;
+  treeCheck = {};
+  getCheckTree() {
+    console.log((this.treeCheck = this.tree.getCheckedTree())['asia']);
   }
 }

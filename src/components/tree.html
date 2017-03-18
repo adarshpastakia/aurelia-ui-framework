@@ -17,14 +17,19 @@
         <div class="tree-container">
           <ui-section row-layout>
           <ui-sidebar scroll>
-            <ui-tree searchable options.bind="treeOpts" model.bind="treeModel" value.bind="treeSelected"></ui-tree>
+            <ui-tree searchable view-model.ref="tree" options.bind="treeOpts" model.bind="treeModel" value.bind="treeSelected"></ui-tree>
           </ui-sidebar>
           <ui-content padded scroll>
             <p repeat.for="v of treeSelected | split">
               <span class="ui-flag ${v}"></span> <span>${countries[v].name || v}</span>
             </p>
+            <hr/>
+            <div repeat.for="p of treeCheck | keys">
+              <p>${p} = ${treeCheck[p] | json}</p>
+            </div>
           </ui-content>
           <ui-sidebar scroll position="end" label="Options">
+            <ui-button click.trigger="getCheckTree()">Get Checked Tree</ui-button>
             <ui-option-group>
               <ui-checkbox change.trigger="clearSelection($event)" checked="true">Show Checkboxes</ui-checkbox>
             </ui-option-group>

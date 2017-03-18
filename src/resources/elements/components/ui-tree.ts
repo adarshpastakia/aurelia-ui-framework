@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -85,13 +85,25 @@ export class UITree {
     return this.options.showRoot ? [this.root] : this.root.children;
   }
 
-  public getChecked(nodes, retVal = { checked: [], partial: [], unchecked: [] }) {
+  public getChecked(nodes?, retVal = { checked: [], partial: [], unchecked: [] }) {
     var self = this;
-    _.forEach(nodes, (n: UITreeModel) => {
+    _.forEach(nodes || this.root.children, (n: UITreeModel) => {
       if (n.checked == 2) retVal.partial.push(n.id);
       if (n.checked == 1) retVal.checked.push(n.id);
       if (n.checked == 0) retVal.unchecked.push(n.id);
       if (_.isArray(n.children)) self.getChecked(n.children, retVal);
+    });
+    return retVal;
+  }
+
+  public getCheckedTree(nodes?, retVal: any = {}) {
+    var self = this;
+    _.forEach(nodes || this.root.children, (n: UITreeModel) => {
+      if (n.checked == 1 && n.leaf) {
+        if (!_.isArray(retVal)) retVal = [];
+        retVal.push(n.id);
+      }
+      if (n.checked != 0 && !n.leaf) retVal[n.id] = self.getCheckedTree(n.children);
     });
     return retVal;
   }

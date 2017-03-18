@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2016
 // @license     : MIT
@@ -70,7 +70,7 @@ export class UITreeModel {
       this.children, (c: UITreeModel) => {
         c.updateChild(v);
       });
-    if (this.parent && this.level > this.__checkLevel) {
+    if (this.parent && this.parent.updatePartial) {
       this.parent.updatePartial();
     }
   }
@@ -96,7 +96,7 @@ export class UITreeModel {
       this.checked = v;
     }
 
-    if (this.parent && this.level > this.__checkLevel) {
+    if (this.parent && this.parent.updatePartial) {
       this.parent.updatePartial();
     }
   }
