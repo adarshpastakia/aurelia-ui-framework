@@ -81,7 +81,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-tree-model", 
         UITree.prototype.getChecked = function (nodes, retVal) {
             if (retVal === void 0) { retVal = { checked: [], partial: [], unchecked: [] }; }
             var self = this;
-            _.forEach(nodes, function (n) {
+            _.forEach(nodes || this.root.children, function (n) {
                 if (n.checked == 2)
                     retVal.partial.push(n.id);
                 if (n.checked == 1)
@@ -90,6 +90,20 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-tree-model", 
                     retVal.unchecked.push(n.id);
                 if (_.isArray(n.children))
                     self.getChecked(n.children, retVal);
+            });
+            return retVal;
+        };
+        UITree.prototype.getCheckedTree = function (nodes, retVal) {
+            if (retVal === void 0) { retVal = {}; }
+            var self = this;
+            _.forEach(nodes || this.root.children, function (n) {
+                if (n.checked == 1 && n.leaf) {
+                    if (!_.isArray(retVal))
+                        retVal = [];
+                    retVal.push(n.id);
+                }
+                if (n.checked != 0 && !n.leaf)
+                    retVal[n.id] = self.getCheckedTree(n.children);
             });
             return retVal;
         };

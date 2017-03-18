@@ -38,7 +38,6 @@ define(["require", "exports", "aurelia-framework", "../elements/inputs/ui-markdo
                     vm.errors = [];
                 if (element.au.controller.viewModel && element.au.controller.viewModel instanceof ui_markdown_1.UILanguage) {
                     var ms = result.message.split('|');
-                    console.log(result);
                     vm.errors.push(result);
                     vm.errored = result.object[result.propertyName].__errored__;
                 }

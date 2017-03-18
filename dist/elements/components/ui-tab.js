@@ -133,8 +133,10 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-utils", "../.
         };
         UITabPanel.prototype.unbind = function () { };
         UITabPanel.prototype.tabsChanged = function () {
+            var _this = this;
             if (this.tabs.length > 0 && _.find(this.tabs, ['active', true]) == null)
-                (this.activeTabEl = _.findLast(this.tabs, ['disabled', false])).active = true;
+                (this.activeTabEl = _.find(this.tabs, ['disabled', false])).active = true;
+            ui_event_1.UIEvent.queueTask(function () { return _this.arrange(); });
         };
         UITabPanel.prototype.activeTabChanged = function (newValue) {
             if (this.tabs.length == 0)
@@ -147,6 +149,8 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-utils", "../.
         UITabPanel.prototype.closeTab = function (tab) {
             if (ui_event_1.UIEvent.fireEvent('beforeclose', this.element, tab)) {
                 _.remove(this.tabs, ['id', tab.id]);
+                if (this.tabs.length > 0 && _.find(this.tabs, ['active', true]) == null)
+                    (this.activeTabEl = _.findLast(this.tabs, ['disabled', false])).active = true;
                 tab.remove();
                 ui_event_1.UIEvent.fireEvent('close', this.element, tab);
             }
@@ -160,12 +164,22 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-utils", "../.
                 ui_event_1.UIEvent.fireEvent('change', this.element, tab);
             }
         };
+        UITabPanel.prototype.canActivate = function (id) {
+            var tab = _.find(this.tabs, ['id', id]);
+            if (tab) {
+                if (this.activeTabEl)
+                    this.activeTabEl.active = false;
+                (this.activeTabEl = tab).active = true;
+                return true;
+            }
+            return false;
+        };
         UITabPanel.prototype.arrange = function () {
             this.overflow.classList.remove('ui-open');
             for (var i = 0, c = this.overflow['children']; i < c.length; i++) {
                 this.wrapper.insertBefore(c[i], this.overflowToggle);
             }
-            if (this.tabs.length > 0 && (this.isOverflow = (this.wrapper.lastElementChild.previousElementSibling.offsetLeft + this.wrapper.lastElementChild.previousElementSibling.offsetWidth > this.wrapper.offsetWidth))) {
+            if (this.tabs.length > 0 && (this.isOverflow = (this.wrapper.lastElementChild.previousElementSibling.offsetLeft + this.wrapper.lastElementChild.previousElementSibling.offsetWidth - this.wrapper.offsetLeft > this.wrapper.offsetWidth))) {
                 for (var c = this.wrapper['children'], i = c.length - 2; i >= 0; i--) {
                     if (c[i].offsetLeft + c[i].offsetWidth > this.wrapper.offsetWidth) {
                         if (this.overflow.hasChildNodes)

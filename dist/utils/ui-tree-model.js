@@ -42,7 +42,7 @@ define(["require", "exports", "aurelia-framework", "lodash"], function (require,
                 _.forEach(this.children, function (c) {
                     c.updateChild(v);
                 });
-                if (this.parent && this.level > this.__checkLevel) {
+                if (this.parent && this.parent.updatePartial) {
                     this.parent.updatePartial();
                 }
             },
@@ -67,7 +67,7 @@ define(["require", "exports", "aurelia-framework", "lodash"], function (require,
                 }
                 this.checked = v;
             }
-            if (this.parent && this.level > this.__checkLevel) {
+            if (this.parent && this.parent.updatePartial) {
                 this.parent.updatePartial();
             }
         };

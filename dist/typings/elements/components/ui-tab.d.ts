@@ -39,6 +39,7 @@ export declare class UITabPanel {
     private activeTabChanged(newValue);
     private closeTab(tab);
     private activateTab(tab);
+    canActivate(id: any): boolean;
     private arrange();
     private showOverflow(evt);
 }

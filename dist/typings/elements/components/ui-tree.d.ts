@@ -20,7 +20,7 @@ export declare class UITree {
     optionsChanged(newValue: any): void;
     modelChanged(newValue: any): void;
     private readonly rootNodes;
-    getChecked(nodes: any, retVal?: {
+    getChecked(nodes?: any, retVal?: {
         checked: any[];
         partial: any[];
         unchecked: any[];
@@ -29,6 +29,7 @@ export declare class UITree {
         partial: any[];
         unchecked: any[];
     };
+    getCheckedTree(nodes?: any, retVal?: any): any;
     private findNode(obj, id, field?, value?, expand?);
     private itemSelect(node);
     private itemChecked(node);

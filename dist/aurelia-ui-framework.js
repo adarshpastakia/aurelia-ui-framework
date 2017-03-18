@@ -104,10 +104,10 @@ define(["require", "exports", "aurelia-validation", "./utils/ui-validation", "./
             var promises = [];
             map.__errored__ = [];
             exports._.forEach(map, function (model, key) {
-                if (model) {
+                if (model && key != '__errored__') {
                     promises.push(validator.validateObject(model)
                         .then(function (e) {
-                        if (e.length > 0) {
+                        if (exports._.filter(e, ['valid', false]).length > 0) {
                             map.__errored__.push(key);
                             return true;
                         }
