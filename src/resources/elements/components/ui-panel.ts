@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -73,7 +73,7 @@ export class UIPanelGroup {
   created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) { }
   attached() {
-    if (_.find(this.panels, ['collapsed', false]) == null) this.panels[0].collapsed = false;
+    //if (_.find(this.panels, ['collapsed', false]) == null) this.panels[0].collapsed = false;
   }
   detached() { }
   unbind() { }
