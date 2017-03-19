@@ -95,7 +95,6 @@
     .ui-list-container {
       background: none;
       position  : relative;
-      max-height: 8em;
       @include flex(1 1 100%);
     }
 

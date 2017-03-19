@@ -44,6 +44,9 @@
               <ui-input-group>
                 <ui-input-label>Reorder</ui-input-label>
                 <ui-reorder options.bind="reorder"></ui-reorder>
+                <ui-input-info class="ui-text-muted ui-text-end">
+                  <ui-button small dark click.trigger="openDialog()">Open in Dialog</ui-button>
+                </ui-input-info>
               </ui-input-group>
             </ui-column>
           </ui-row>

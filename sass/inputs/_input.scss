@@ -9,9 +9,17 @@
 
   &.ui-fill {
     @include flex(1 1 auto);
+    @include flex-column();
 
-    &.ui-list-container {
-      max-height: inherit;
+    > .ui-input-control {
+      @include flex(1 1 auto);
+      @include align-self(stretch);
+
+       > textarea,
+      > .ui-list-container {
+        max-height: inherit;
+        @include align-self(stretch);
+      }
     }
   }
 

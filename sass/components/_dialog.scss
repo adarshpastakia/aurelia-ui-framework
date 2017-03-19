@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -20,8 +20,8 @@
     > button {
       background: none;
       color     : $dark;
-      margin    : .05rem;
-      font-size : .8rem;
+      margin    : 0.05rem;
+      font-size : 0.8rem;
       max-width : 8rem;
       border    : 1px solid shade($base-bg, 10%);
       @include ellipsis();
@@ -81,7 +81,7 @@
         border-top-right-radius: $base-border-radius;
 
         .ui-header-button {
-          font-size: .8rem;
+          font-size: 0.8rem;
         }
       }
 
@@ -91,21 +91,22 @@
       }
 
       .ui-sidebar {
-        max-width: $sidebar-width * .75;
+        max-width: $sidebar-width * 0.75;
       }
 
       .ui-resizer {
-        position   : absolute;
-        cursor     : nwse-resize;
-        z-index    : 10;
-        right      : 0;
-        bottom     : 0;
-        line-height: 1;
-        opacity    : .3 !important;
+        position      : absolute;
+        cursor        : nwse-resize;
+        z-index       : 10;
+        right         : 0;
+        bottom        : 0;
+        line-height   : 1;
+        opacity       : 0.3 !important;
+        pointer-events: all !important;
 
         &:active,
         &:hover {
-          opacity: .6 !important;
+          opacity: 0.6 !important;
         }
       }
 
@@ -142,11 +143,11 @@
         z-index: 1;
 
         > .ui-header {
-          opacity: .75;
+          opacity: 0.75;
         }
 
         > :not(.ui-header) {
-          opacity: .85;
+          opacity: 0.85;
         }
       }
 
@@ -155,7 +156,7 @@
         background: rgba($base-bg,.95);
 
         > :not(.ui-header) {
-          opacity: .3;
+          opacity: 0.3;
         }
       }
     }
