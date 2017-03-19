@@ -10,8 +10,8 @@
   top       : -100%;
   left      : 0;
   right     : 0;
+  z-index   : 4;
   background: $drawer-bg;
-  z-index   : $z-index-floating;
   @include transition(top .5s);
 
   &.ui-animate {
@@ -31,7 +31,9 @@
   @include transition(max-width .5s);
 
   .ui-sidebar-head {
+    z-index      : 5;
     line-height  : 2em;
+    background   : $drawer-bg;
     border-bottom: 1px solid rgba($base-border-color, .25);
 
     .ui-sidebar-title {
@@ -47,6 +49,10 @@
 
     .ui-sidebar-close {
       padding: 0 0.5em;
+    }
+
+    ~ .ui-affix-content.ui-animate {
+      top: 2em !important;
     }
   }
 
@@ -124,9 +130,23 @@
         @include position(absolute, 0 auto);
       }
 
+      .ui-affix-content {
+        left   : 2em;
+        width  : $sidebar-width;
+        right  : auto;
+        top    : -100% !important;
+        z-index: $z-index-floating + 1;
+      }
+
       .ui-sidebar-title {
         @include transform(rotate(90deg) translate(2em,-100%));
         position: absolute;
+      }
+
+      &.ui-show-overlay {
+        .ui-affix-content.ui-animate {
+          top: 0 !important;
+        }
       }
     }
 

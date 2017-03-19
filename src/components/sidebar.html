@@ -19,6 +19,11 @@
           <ui-panel-body flex height="400px">
             <ui-section row-layout>
               <ui-sidebar label="Sidebar" collapsible padded scroll>
+                <ui-affix-content><ui-button>Click</ui-button></ui-affix-content>
+                <h4>Sidebar with affix content</h4>
+                <p>Scroll past this paragraph to see sticky content</p>
+                <hr/>
+                <ui-affix-point></ui-affix-point>
                 <compose view="../home/lipsum-small.html"></compose>
               </ui-sidebar>
               <ui-content padded scroll>
