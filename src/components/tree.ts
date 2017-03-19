@@ -29,7 +29,8 @@ export class TreeComponent {
   treeOpts = new UITreeOptions({
     showCheckbox: true,
     selectionLevel: 1,
-    checkboxLevel: 0
+    checkboxLevel: 0,
+    maxCount: 0
   });
   treeSelected = null;
   countries = _.mapKeys(window.Countries.list, 'iso3');
@@ -64,8 +65,8 @@ export class TreeComponent {
   }
 
   tree;
-  treeCheck = {};
+  treeCheck = [];
   getCheckTree() {
-    console.log((this.treeCheck = this.tree.getCheckedTree())['asia']);
+    console.log((this.treeCheck = this.tree.getCheckedTree()));
   }
 }

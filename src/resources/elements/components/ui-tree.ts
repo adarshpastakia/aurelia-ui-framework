@@ -96,14 +96,17 @@ export class UITree {
     return retVal;
   }
 
-  public getCheckedTree(nodes?, retVal: any = {}) {
-    var self = this;
+  public getCheckedTree(nodes?) {
+    var self = this, retVal = [];
     _.forEach(nodes || this.root.children, (n: UITreeModel) => {
       if (n.checked == 1 && n.leaf) {
-        if (!_.isArray(retVal)) retVal = [];
-        retVal.push(n.id);
+        retVal.push(n.data);
       }
-      if (n.checked != 0 && !n.leaf) retVal[n.id] = self.getCheckedTree(n.children);
+      if (n.checked != 0 && !n.leaf) {
+        let node = n.data;
+        node.children = self.getCheckedTree(n.children);
+        retVal.push(node);
+      }
     });
     return retVal;
   }
@@ -217,7 +220,7 @@ export class UITree {
 @autoinject()
 @inlineView(`<template class="ui-tree-item">
     <div class="ui-tree-item-link \${node.disabled?'ui-disabled':''}" if.bind="node.isVisible">
-        <a class="ui-expander \${node.expanded?'expanded':''}" if.bind="!node.leaf" click.trigger="node.expanded=!node.expanded">
+        <a class="ui-expander \${node.expanded?'expanded':''}" if.bind="!node.leaf" click.trigger="[node.expanded=!node.expanded, hideByCount=true]">
             <ui-glyph glyph.bind="node.expanded?'ui-tree-collapse':'ui-tree-expand'"></ui-glyph>
         </a>
         <a class="ui-node-checkbox" if.bind="options.showCheckbox && node.level>=options.checkboxLevel" click.trigger="fireClicked()">
@@ -229,9 +232,14 @@ export class UITree {
         </a>
     </div>
     <div class="ui-tree-level" if.bind="node.isVisible && !node.leaf && node.expanded">
-        <tree-node repeat.for="child of node.children | sort:'name'" node.bind="child" options.bind="options"></tree-node>
+        <tree-node repeat.for="child of node.children | sort:'name'" if.bind="!(canHideByCount && hideByCount && $index>options.maxCount)" node.bind="child" options.bind="options"></tree-node>
+        <div>
+        <a class="ui-font-small ui-strong" click.trigger="hideByCount=false" if.bind="canHideByCount && hideByCount">More...</a>
+        <a class="ui-font-small ui-strong" click.trigger="hideByCount=true" if.bind="canHideByCount && !hideByCount">Less...</a>
+        </div>
     </div>
-</template>`) export class TreeNode {
+</template>`)
+export class TreeNode {
   constructor(public element: Element) { }
 
   // aurelia hooks
@@ -244,6 +252,12 @@ export class UITree {
 
   @bindable() node: UITreeModel;
   @bindable() options: UITreeOptions;
+
+  hideByCount = true;
+
+  get canHideByCount() {
+    return this.options.maxCount > 0 && this.node.children.length > this.options.maxCount;
+  }
 
   private fireClicked() {
     UIEvent.fireEvent('nodeclick', this.element, this.node);

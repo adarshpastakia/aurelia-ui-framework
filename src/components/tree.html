@@ -24,8 +24,8 @@
               <span class="ui-flag ${v}"></span> <span>${countries[v].name || v}</span>
             </p>
             <hr/>
-            <div repeat.for="p of treeCheck | keys">
-              <p>${p} = ${treeCheck[p] | json}</p>
+            <div repeat.for="p of treeCheck">
+              <p>${p.text} = ${p.children | json}</p>
             </div>
           </ui-content>
           <ui-sidebar scroll position="end" label="Options">
@@ -45,6 +45,13 @@
               <ui-dropdown value.bind="treeOpts.selectionLevel">
                 <ui-list-item value="0">0</ui-list-item>
                 <ui-list-item value="1">1</ui-list-item>
+              </ui-dropdown>
+            </ui-input-group>
+            <ui-input-group class="ui-plain">
+              <ui-input-label>Max Leaf Count</ui-input-label>
+              <ui-dropdown value.bind="treeOpts.maxCount">
+                <ui-list-item value="0">0</ui-list-item>
+                <ui-list-item value="5">5</ui-list-item>
               </ui-dropdown>
             </ui-input-group>
           </ui-sidebar>

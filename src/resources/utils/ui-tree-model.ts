@@ -11,6 +11,7 @@ export class UITreeModel {
   id: any;
   text: string;
   level: number;
+  extra: any;
 
   icon: string;
   openIcon: string;
@@ -41,6 +42,7 @@ export class UITreeModel {
     this.id = model.id;
     this.text = model.name || model.text;
     this.level = level;
+    this.extra = model.extra;
 
     this.icon = model.icon;
     this.openIcon = model.openIcon;
@@ -72,6 +74,15 @@ export class UITreeModel {
       });
     if (this.parent && this.parent.updatePartial) {
       this.parent.updatePartial();
+    }
+  }
+
+  get data(): any {
+    return {
+      id: this.id,
+      text: this.text,
+      level: this.level,
+      extra: this.extra
     }
   }
 
@@ -110,6 +121,7 @@ export class UITreeModel {
 export class UITreeOptions {
   // show maximum of ? levels
   maxLevels: number = 99;
+  maxCount: number = 0;
 
   // show checkboxes
   showCheckbox: boolean = false;
