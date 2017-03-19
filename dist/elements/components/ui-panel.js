@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "lodash"], function (require, exports, aurelia_framework_1, ui_event_1, _) {
+define(["require", "exports", "aurelia-framework", "../../utils/ui-event"], function (require, exports, aurelia_framework_1, ui_event_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var UIPanel = (function () {
@@ -89,8 +89,6 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "loda
         UIPanelGroup.prototype.created = function (owningView, myView) { };
         UIPanelGroup.prototype.bind = function (bindingContext, overrideContext) { };
         UIPanelGroup.prototype.attached = function () {
-            if (_.find(this.panels, ['collapsed', false]) == null)
-                this.panels[0].collapsed = false;
         };
         UIPanelGroup.prototype.detached = function () { };
         UIPanelGroup.prototype.unbind = function () { };

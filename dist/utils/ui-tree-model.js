@@ -20,6 +20,7 @@ define(["require", "exports", "aurelia-framework", "lodash"], function (require,
             this.id = model.id;
             this.text = model.name || model.text;
             this.level = level;
+            this.extra = model.extra;
             this.icon = model.icon;
             this.openIcon = model.openIcon;
             this.root = level == -1;
@@ -45,6 +46,18 @@ define(["require", "exports", "aurelia-framework", "lodash"], function (require,
                 if (this.parent && this.parent.updatePartial) {
                     this.parent.updatePartial();
                 }
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(UITreeModel.prototype, "data", {
+            get: function () {
+                return {
+                    id: this.id,
+                    text: this.text,
+                    level: this.level,
+                    extra: this.extra
+                };
             },
             enumerable: true,
             configurable: true
@@ -90,6 +103,7 @@ define(["require", "exports", "aurelia-framework", "lodash"], function (require,
         function UITreeOptions(obj) {
             if (obj === void 0) { obj = {}; }
             this.maxLevels = 99;
+            this.maxCount = 0;
             this.showCheckbox = false;
             this.checkboxLevel = -1;
             this.showRoot = false;

@@ -93,17 +93,17 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-tree-model", 
             });
             return retVal;
         };
-        UITree.prototype.getCheckedTree = function (nodes, retVal) {
-            if (retVal === void 0) { retVal = {}; }
-            var self = this;
+        UITree.prototype.getCheckedTree = function (nodes) {
+            var self = this, retVal = [];
             _.forEach(nodes || this.root.children, function (n) {
                 if (n.checked == 1 && n.leaf) {
-                    if (!_.isArray(retVal))
-                        retVal = [];
-                    retVal.push(n.id);
+                    retVal.push(n.data);
                 }
-                if (n.checked != 0 && !n.leaf)
-                    retVal[n.id] = self.getCheckedTree(n.children);
+                if (n.checked != 0 && !n.leaf) {
+                    var node = n.data;
+                    node.children = self.getCheckedTree(n.children);
+                    retVal.push(node);
+                }
             });
             return retVal;
         };
@@ -241,12 +241,20 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-tree-model", 
     var TreeNode = (function () {
         function TreeNode(element) {
             this.element = element;
+            this.hideByCount = true;
         }
         TreeNode.prototype.created = function (owningView, myView) { };
         TreeNode.prototype.bind = function (bindingContext, overrideContext) { };
         TreeNode.prototype.attached = function () { };
         TreeNode.prototype.detached = function () { };
         TreeNode.prototype.unbind = function () { };
+        Object.defineProperty(TreeNode.prototype, "canHideByCount", {
+            get: function () {
+                return this.options.maxCount > 0 && this.node.children.length > this.options.maxCount;
+            },
+            enumerable: true,
+            configurable: true
+        });
         TreeNode.prototype.fireClicked = function () {
             ui_event_1.UIEvent.fireEvent('nodeclick', this.element, this.node);
         };
@@ -262,7 +270,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-tree-model", 
     ], TreeNode.prototype, "options", void 0);
     TreeNode = __decorate([
         aurelia_framework_1.autoinject(),
-        aurelia_framework_1.inlineView("<template class=\"ui-tree-item\">\n    <div class=\"ui-tree-item-link ${node.disabled?'ui-disabled':''}\" if.bind=\"node.isVisible\">\n        <a class=\"ui-expander ${node.expanded?'expanded':''}\" if.bind=\"!node.leaf\" click.trigger=\"node.expanded=!node.expanded\">\n            <ui-glyph glyph.bind=\"node.expanded?'ui-tree-collapse':'ui-tree-expand'\"></ui-glyph>\n        </a>\n        <a class=\"ui-node-checkbox\" if.bind=\"options.showCheckbox && node.level>=options.checkboxLevel\" click.trigger=\"fireClicked()\">\n          <ui-glyph glyph.bind=\"node.checked==1?'ui-tree-check-on':(node.checked==2?'ui-tree-check-partial':'ui-tree-check-off')\"></ui-glyph>\n        </a>\n        <a class=\"ui-node-link ${!options.showCheckbox && node.active?'ui-active':node.childActive?'ui-partial':''}\" data-id=\"${node.id}\" click.trigger=\"fireClicked()\">\n            <ui-glyph glyph.bind=\"(node.expanded?node.openIcon:'')||node.icon\" class.bind=\"(node.expanded?node.openIcon:'')||node.icon\" if.bind=\"node.icon\"></ui-glyph>\n            <span innerhtml.bind=\"node.text\"></span>\n        </a>\n    </div>\n    <div class=\"ui-tree-level\" if.bind=\"node.isVisible && !node.leaf && node.expanded\">\n        <tree-node repeat.for=\"child of node.children | sort:'name'\" node.bind=\"child\" options.bind=\"options\"></tree-node>\n    </div>\n</template>"),
+        aurelia_framework_1.inlineView("<template class=\"ui-tree-item\">\n    <div class=\"ui-tree-item-link ${node.disabled?'ui-disabled':''}\" if.bind=\"node.isVisible\">\n        <a class=\"ui-expander ${node.expanded?'expanded':''}\" if.bind=\"!node.leaf\" click.trigger=\"[node.expanded=!node.expanded, hideByCount=true]\">\n            <ui-glyph glyph.bind=\"node.expanded?'ui-tree-collapse':'ui-tree-expand'\"></ui-glyph>\n        </a>\n        <a class=\"ui-node-checkbox\" if.bind=\"options.showCheckbox && node.level>=options.checkboxLevel\" click.trigger=\"fireClicked()\">\n          <ui-glyph glyph.bind=\"node.checked==1?'ui-tree-check-on':(node.checked==2?'ui-tree-check-partial':'ui-tree-check-off')\"></ui-glyph>\n        </a>\n        <a class=\"ui-node-link ${!options.showCheckbox && node.active?'ui-active':node.childActive?'ui-partial':''}\" data-id=\"${node.id}\" click.trigger=\"fireClicked()\">\n            <ui-glyph glyph.bind=\"(node.expanded?node.openIcon:'')||node.icon\" class.bind=\"(node.expanded?node.openIcon:'')||node.icon\" if.bind=\"node.icon\"></ui-glyph>\n            <span innerhtml.bind=\"node.text\"></span>\n        </a>\n    </div>\n    <div class=\"ui-tree-level\" if.bind=\"node.isVisible && !node.leaf && node.expanded\">\n        <tree-node repeat.for=\"child of node.children | sort:'name'\" if.bind=\"!(canHideByCount && hideByCount && $index>options.maxCount)\" node.bind=\"child\" options.bind=\"options\"></tree-node>\n        <div>\n        <a class=\"ui-font-small ui-strong\" click.trigger=\"hideByCount=false\" if.bind=\"canHideByCount && hideByCount\">More...</a>\n        <a class=\"ui-font-small ui-strong\" click.trigger=\"hideByCount=true\" if.bind=\"canHideByCount && !hideByCount\">Less...</a>\n        </div>\n    </div>\n</template>"),
         __metadata("design:paramtypes", [Element])
     ], TreeNode);
     exports.TreeNode = TreeNode;

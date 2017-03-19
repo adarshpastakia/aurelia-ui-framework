@@ -13,6 +13,7 @@ export declare class UIButton {
     theme: string;
     width: string;
     dropdown: any;
+    form: any;
     busy: boolean;
     disabled: boolean;
     private tether;

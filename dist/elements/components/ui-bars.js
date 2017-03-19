@@ -67,6 +67,8 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
     var UIStatsbar = (function () {
         function UIStatsbar(element) {
             this.element = element;
+            if (element.hasAttribute('vertical'))
+                element.classList.add('ui-vertical');
             if (element.hasAttribute('dark'))
                 element.classList.add('dark');
             if (element.hasAttribute('light'))

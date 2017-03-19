@@ -59,6 +59,7 @@ define(["require", "exports", "aurelia-framework", "./ui-input", "../../utils/ui
             var ct;
             this.placeholder = PhoneLib.getExample(newValue || 'us', PhoneLib.TYPE.FIXED_LINE_OR_MOBILE, this.national);
             this.prefixEl.className = 'ui-flag ' + newValue;
+            this.formatPhone(this.inputEl.value);
         };
         UIPhone.prototype.formatPhone = function (val) {
             var _this = this;

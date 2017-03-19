@@ -29,7 +29,7 @@ export declare class UITree {
         partial: any[];
         unchecked: any[];
     };
-    getCheckedTree(nodes?: any, retVal?: any): any;
+    getCheckedTree(nodes?: any): any[];
     private findNode(obj, id, field?, value?, expand?);
     private itemSelect(node);
     private itemChecked(node);
@@ -48,5 +48,7 @@ export declare class TreeNode {
     unbind(): void;
     node: UITreeModel;
     options: UITreeOptions;
+    hideByCount: boolean;
+    readonly canHideByCount: boolean;
     private fireClicked();
 }

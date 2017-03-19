@@ -52,6 +52,8 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
         UIButton.prototype.bind = function (bindingContext, overrideContext) {
             this.busy = isTrue(this.busy);
             this.disabled = isTrue(this.disabled);
+            if (this.form)
+                this.dropdown = this.form;
         };
         UIButton.prototype.attached = function () {
             var _this = this;
@@ -59,6 +61,10 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
                 this.obMouseup = ui_event_1.UIEvent.subscribe('mouseclick', function (evt) {
                     if (getParentByClass(evt.target, 'ui-button') == _this.element)
                         return;
+                    if (_this.form && getParentByClass(evt.target, 'ui-floating') == _this.dropdown)
+                        return;
+                    if (_this.form)
+                        console.log('closing', getParentByClass(evt.target, 'ui-floating') == _this.dropdown);
                     _this.element.classList.remove('ui-open');
                     _this.dropdown.classList.remove('ui-open');
                 });
@@ -131,6 +137,10 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
     __decorate([
         aurelia_framework_1.bindable(),
         __metadata("design:type", Object)
+    ], UIButton.prototype, "form", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
     ], UIButton.prototype, "busy", void 0);
     __decorate([
         aurelia_framework_1.bindable(),
@@ -138,7 +148,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
     ], UIButton.prototype, "disabled", void 0);
     UIButton = __decorate([
         aurelia_framework_1.autoinject(),
-        aurelia_framework_1.inlineView("<template role=\"button\" class=\"ui-button ${theme} ${busy?'ui-busy':''} ${disabled?'ui-disabled':''}\" click.trigger=\"toggleDropdown($event)\" data-value=\"${value}\" css.bind=\"{width: width}\">\n    <span class=\"ui-indicator\"><ui-glyph if.bind=\"busy\" class=\"ui-anim-busy\" glyph=\"ui-busy\"></ui-glyph></span>\n    <ui-glyph if.bind=\"glyph\" class=\"ui-btn-icon ${glyph}\" glyph.bind=\"glyph\"></ui-glyph><span class=\"ui-label\"><slot>${label}</slot></span>\n    <ui-glyph class=\"ui-caret\" glyph=\"ui-caret-down\" if.bind=\"dropdown\"></ui-glyph></template>"),
+        aurelia_framework_1.inlineView("<template role=\"button\" class=\"ui-button ${theme} ${busy?'ui-busy':''} ${disabled?'ui-disabled':''}\" click.trigger=\"toggleDropdown($event)\" data-value=\"${value}\" css.bind=\"{width: width}\">\n    <span class=\"ui-indicator\"><ui-glyph if.bind=\"busy\" class=\"ui-anim-busy\" glyph=\"ui-busy\"></ui-glyph></span>\n    <ui-glyph if.bind=\"glyph\" class=\"ui-btn-icon ${glyph}\" glyph.bind=\"glyph\"></ui-glyph><span class=\"ui-label\"><slot>${label}</slot></span>\n    <ui-glyph class=\"ui-caret\" glyph=\"ui-caret-down\" if.bind=\"!form && dropdown\"></ui-glyph></template>"),
         aurelia_framework_1.customElement('ui-button'),
         __metadata("design:paramtypes", [Element])
     ], UIButton);
