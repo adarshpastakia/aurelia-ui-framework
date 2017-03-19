@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -65,6 +65,7 @@ export class UIPhone extends UIBaseInput {
     let ct;
     this.placeholder = PhoneLib.getExample(newValue || 'us', PhoneLib.TYPE.FIXED_LINE_OR_MOBILE, this.national);
     this.prefixEl.className = 'ui-flag ' + newValue;
+    this.formatPhone(this.inputEl.value);
   }
 
   formatPhone(val) {
@@ -100,5 +101,3 @@ export class UIPhone extends UIBaseInput {
     return /[0-9]/.test(String.fromCharCode(code));
   }
 }
-
-
