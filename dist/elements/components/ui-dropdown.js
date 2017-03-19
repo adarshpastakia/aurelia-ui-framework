@@ -57,8 +57,21 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
             this.element.classList[(this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');
         };
         UIDropdown.prototype.select = function (evt) {
-            this.value = evt.detail.value;
-            this.model = evt.detail.model;
+            var _this = this;
+            if (isFunction(this.beforeselect)) {
+                var ret = this.beforeselect(evt.detail.value, evt.detail.model);
+                if (ret instanceof Promise)
+                    ret.then(function (b) {
+                        if (b) {
+                            _this.value = evt.detail.value;
+                            _this.model = evt.detail.model;
+                        }
+                    });
+                if (ret !== false) {
+                    this.value = evt.detail.value;
+                    this.model = evt.detail.model;
+                }
+            }
         };
         UIDropdown.prototype.toggleDropdown = function (evt) {
             this.element.classList[this.element.classList.contains('ui-open') ? 'remove' : 'add']('ui-open');
@@ -86,6 +99,10 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
         aurelia_framework_1.bindable(),
         __metadata("design:type", Object)
     ], UIDropdown.prototype, "disabled", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDropdown.prototype, "beforeselect", void 0);
     UIDropdown = __decorate([
         aurelia_framework_1.autoinject(),
         aurelia_framework_1.inlineView("<template class=\"ui-dropdown\" select.trigger=\"select($event)\" click.trigger=\"toggleDropdown($event)\" css.bind=\"{'min-width':width}\">\n  <div class=\"ui-label\"><span><ui-glyph class.bind=\"glyph\" glyph.bind=\"glyph\" if.bind=\"glyph\"></ui-glyph>${display}</span>\n  <ui-glyph class=\"ui-caret\" glyph=\"ui-caret-down\"></ui-glyph></div>\n  <ul class=\"ui-list-container ui-floating\" ref=\"dropdown\"><slot></slot></ul></template>"),

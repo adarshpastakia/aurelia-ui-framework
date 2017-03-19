@@ -12,6 +12,7 @@ export declare class UIDropdown {
     width: string;
     model: any;
     disabled: boolean;
+    beforeselect: any;
     private tether;
     private dropdown;
     private obMouseup;

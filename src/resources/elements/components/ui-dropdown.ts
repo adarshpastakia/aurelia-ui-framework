@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -44,6 +44,8 @@ export class UIDropdown {
   @bindable() model = null;
   @bindable() disabled = false;
 
+  @bindable() beforeselect: any;
+
   private tether;
   private dropdown;
   private obMouseup;
@@ -69,8 +71,19 @@ export class UIDropdown {
   }
 
   select(evt) {
-    this.value = evt.detail.value;
-    this.model = evt.detail.model;
+    if (isFunction(this.beforeselect)) {
+      let ret = this.beforeselect({ value: evt.detail.value, model: evt.detail.model });
+      if (ret instanceof Promise) ret.then(b => {
+        if (b) {
+          this.value = evt.detail.value;
+          this.model = evt.detail.model;
+        }
+      });
+      else if (ret !== false) {
+        this.value = evt.detail.value;
+        this.model = evt.detail.model;
+      }
+    }
   }
 
   toggleDropdown(evt) {
