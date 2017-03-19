@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -7,16 +7,16 @@
 .ui-input-list {
   .ui-dropdown-handle {
     cursor     : pointer;
-    font-size  : .8em;
+    font-size  : 0.8em;
     line-height: 1.5rem;
-    opacity    : .5;
+    opacity    : 0.5;
 
     .ui-icon {
       margin: 0;
     }
 
     &:hover {
-      opacity: .8;
+      opacity: 0.8;
     }
   }
 
@@ -35,7 +35,7 @@
         @include flex-auto();
 
         &.ui-invalid {
-          margin       : 0 .2em;
+          margin       : 0 0.2em;
           border-radius: 1em;
           color        : $white;
           background   : $warning;
@@ -50,8 +50,8 @@
     border       : 1px solid rgba($base-border-color, .5);
     position     : relative;
     max-width    : 10em;
-    font-size    : .8em;
-    margin       : .15rem .2em;
+    font-size    : 0.8em;
+    margin       : 0.15rem 0.2em;
     @include flex-row($wrap:false);
     @include flex-auto();
 
@@ -59,20 +59,21 @@
       @include flex(1 1 auto);
       @include ellipsis();
       line-height: 1.5;
-      padding    : 0 .25em;
+      padding    : 0 0.25em;
     }
 
     .ui-clear {
       line-height: 1em;
-      padding    : 0 .25em;
+      padding    : 0 0.25em;
       @include flex-auto();
     }
   }
 
   &.tags {
-    &, & > .ui-input-control {
-    @include flex-wrap(wrap);
-  }
+    &,
+    & > .ui-input-control {
+      @include flex-wrap(wrap);
+    }
   }
 
   &.listbox {
@@ -94,7 +95,7 @@
     .ui-list-container {
       background: none;
       position  : relative;
-      max-height: inherit;
+      max-height: 8em;
       @include flex(1 1 100%);
     }
 
@@ -105,7 +106,7 @@
 
       > .ui-icon {
         fill  : $muted;
-        margin: 0 .5em;
+        margin: 0 0.5em;
       }
 
       &:hover {
@@ -125,7 +126,6 @@
       color     : $list-hover-text;
       background: $list-hover-bg;
       border    : 1px dotted $secondary;
-
       position  : absolute;
       left      : 0;
       right     : 0;

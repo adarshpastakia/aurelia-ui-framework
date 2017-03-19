@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -294,11 +294,11 @@ export class BaseListInput {
   <span class="ui-clear" if.bind="clear && value" click.trigger="clearInput()">&times;</span>
   <span class="ui-input-addon ui-dropdown-handle" click.trigger="openDropdown($event, inputEl.focus())"><ui-glyph glyph="ui-chevron-down"></ui-glyph></span></div>
   <div class="ui-input-info" if.bind="info" innerhtml.bind="info"></div>
-  
+
   <div class="ui-list-container ui-floating" ref="dropdown">
     <div if.bind="filtered.length==0" class="ui-list-group">\${emptyText}</div>
     <template repeat.for="group of filtered"><div if.bind="group.label" class="ui-list-group">\${group.label}</div>
-    <div class="ui-list-item \${item.value==value?'ui-selected':''} \${item.disabled?'ui-disabled':''}" repeat.for="item of group.items" 
+    <div class="ui-list-item \${item.value==value?'ui-selected':''} \${item.disabled?'ui-disabled':''}" repeat.for="item of group.items"
       mouseover.trigger="hilightItem($event)" click.trigger="fireSelect(item.model)">
       <span class="\${iconClass} \${item.icon}" if.bind="item.icon"></span>&nbsp;<span innerhtml.bind="item.display"></span></div>
     </template>
@@ -368,11 +368,11 @@ export class UICombo extends BaseListInput {
     keydown.trigger="keyDown($event)" placeholder.bind="placeholder"
     disabled.bind="isDisabled" readonly.bind="!allowSearch || readonly"/></div>
   <div class="ui-input-info" if.bind="info" innerhtml.bind="info"></div>
-  
+
   <div class="ui-list-container ui-floating" ref="dropdown">
     <div if.bind="filtered.length==0" class="ui-list-group">\${emptyText}</div>
     <template repeat.for="group of filtered"><div if.bind="group.label" class="ui-list-group">\${group.label}</div>
-    <div class="ui-list-item \${item.disabled?'ui-disabled':''}" repeat.for="item of group.items" 
+    <div class="ui-list-item \${item.disabled?'ui-disabled':''}" repeat.for="item of group.items"
       mouseover.trigger="hilightItem($event)" click.trigger="fireSelect(item.model)">
       <span class="\${iconClass} \${item.icon}" if.bind="item.icon"></span>&nbsp;<span innerhtml.bind="item.display"></span></div>
     </template>
@@ -472,11 +472,11 @@ export class UITags extends BaseListInput {
     keydown.trigger="keyDown($event)" placeholder.bind="placeholder"
     disabled.bind="isDisabled" readonly.bind="true"/>
   <span class="ui-clear" if.bind="clear && value" click.trigger="clearInput()">&times;</span>
-  
+
   <div class="ui-list-container" ref="dropdown" mouseout.trigger="unhilightItem()">
     <div if.bind="filtered.length==0" class="ui-list-group">\${emptyText}</div>
     <template repeat.for="group of filtered"><div if.bind="group.label" class="ui-list-group">\${group.label}</div>
-    <div class="ui-list-item \${item.value==value?'ui-selected':''} \${item.disabled?'ui-disabled':''}" repeat.for="item of group.items" 
+    <div class="ui-list-item \${item.value==value?'ui-selected':''} \${item.disabled?'ui-disabled':''}" repeat.for="item of group.items"
       mouseover.trigger="hilightItem($event)" click.trigger="fireSelect(item.model)">
       <span class="\${iconClass} \${item.icon}" if.bind="item.icon"></span>&nbsp;<span innerhtml.bind="item.display"></span></div>
     </template>
@@ -552,7 +552,9 @@ export class UIList extends BaseListInput {
 </template>`)
 @customElement('ui-reorder')
 export class UIReorder {
-  constructor(public element: Element) { }
+  constructor(public element: Element) {
+    if (this.element.hasAttribute('fill')) this.element.classList.add('ui-fill');
+  }
 
   // aurelia hooks
   created(owningView: View, myView: View) { }
