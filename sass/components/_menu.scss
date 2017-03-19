@@ -1,16 +1,16 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
 
 a.ui-menu-item {
   line-height: 2.5em;
-  margin     : .2em 0;
+  margin     : 0.2em 0;
   position   : relative;
   color      : $menu-link-text;
   max-width  : 20em;
-  padding    : 0 .5em;
+  padding    : 0 0.5em;
   text-align : left;
   text-align : start;
   @include ellipsis();
@@ -22,7 +22,7 @@ a.ui-menu-item {
 
   .ui-menu-icon {
     line-height        : 1.2;
-    margin             : 0 .5em;
+    margin             : 0 0.5em;
     background-position: left center;
     background-repeat  : no-repeat;
     background-size    : 1em 1em;
@@ -55,9 +55,9 @@ a.ui-menu-item {
 .ui-menu-section-title {
   color      : $menu-section-title;
   display    : block;
-  font-size  : .8em;
+  font-size  : 0.8em;
   line-height: 2em;
-  padding    : 0 .5em;
+  padding    : 0 0.5em;
   @include ellipsis();
 }
 
@@ -65,7 +65,6 @@ a.ui-menu-item {
   z-index         : 5;
   @include flex(0 0 auto);
   @include flex-row($align: center, $wrap:false);
-
   background-color: $menubar-bg;
   border-bottom   : 1px solid rgba($base-border-color,.25);
 
@@ -91,13 +90,13 @@ a.ui-menu-item {
   .ui-menu-section {
     display      : block;
     overflow     : hidden;
-    margin       : .1em .2em;
+    margin       : 0.1em 0.2em;
     flex         : 0 0 auto;
     border       : 1px solid rgba($base-border-color, .5);
     border-radius: $base-border-radius;
 
     .ui-menu-section-title {
-      font-size  : .7em;
+      font-size  : 0.7em;
       line-height: 1em;
     }
   }
@@ -118,9 +117,9 @@ a.ui-menu-item {
 
   a.ui-menu-item {
     margin     : 0;
-    font-size  : .9em;
+    font-size  : 0.9em;
     line-height: 1.5em;
-    padding    : .2em .3em;
+    padding    : 0.2em 0.3em;
     white-space: nowrap;
 
     &:hover {
@@ -153,6 +152,14 @@ a.ui-menu-item {
     display: block;
   }
 
+  > .ui-row > .ui-column {
+    min-width: 12em;
+  }
+
+  > .ui-row > .ui-column:not(:first-child) {
+    border-left: 1px solid rgba($base-border-color,.5);
+  }
+
   &.ui-floating {
     max-height      : 20rem;
     background-color: $menu-dropdown-bg;
@@ -176,7 +183,7 @@ a.ui-menu-item {
 
     .ui-menu-item {
       line-height: 2em;
-      font-size  : .9em;
+      font-size  : 0.9em;
     }
 
     .ui-menu-section-title {}
@@ -219,6 +226,7 @@ a.ui-menu-item {
       top   : 1px solid $dark;
       bottom: 1px solid $light;
     }
+    opacity: 0.5;
     @include transform(scaleY(.5));
   }
 
