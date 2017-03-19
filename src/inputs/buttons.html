@@ -53,6 +53,10 @@
             <ui-button glyph="ui-md-image" dropdown.bind="btnMenu" secondary>Click Me</ui-button>
             <div class="ui-font-small ui-text-center ui-text-muted">Dropdown</div>
           </ui-column>
+          <ui-column padded auto>
+            <ui-button glyph="ui-md-image" form.bind="btnForm" light>Click Me</ui-button>
+            <div class="ui-font-small ui-text-center ui-text-muted">Form Dropdown</div>
+          </ui-column>
         </ui-row>
         <ui-menu ref="btnMenu">
           <ui-menu-section>Actions</ui-menu-section>
@@ -63,7 +67,21 @@
           <ui-menu-item glyph="icon-moon-bubbles4">Notifications</ui-menu-item>
           <ui-menu-item glyph="icon-moon-cog">Settings</ui-menu-item>
         </ui-menu>
-        
+
+        <ui-fieldset ref="btnForm">
+          <ui-input-group>
+            <ui-input-label>Username</ui-input-label>
+            <ui-input width="12em"></ui-input>
+          </ui-input-group>
+          <ui-input-group>
+            <ui-input-label>Password</ui-input-label>
+            <ui-input password></ui-input>
+          </ui-input-group>
+          <div class="ui-text-end">
+            <ui-button dark>Login</ui-button>
+          </div>
+        </ui-fieldset>
+
         <h5 class="section-title">Styles</h5>
         <ui-row bottom>
           <ui-column padded auto>
@@ -103,7 +121,7 @@
             <div class="ui-font-small ui-text-center ui-text-muted">Big<br/>icon-line-Top</div>
           </ui-column>
         </ui-row>
-        
+
         <h5 class="section-title">Rounded Styles</h5>
         <ui-row bottom>
           <ui-column padded auto>
@@ -143,7 +161,7 @@
             <div class="ui-font-small ui-text-center ui-text-muted">Big<br/>icon-line-Top</div>
           </ui-column>
         </ui-row>
-        
+
         <h5 class="section-title">Busy States</h5>
         <div>Click button to toggle busy state</div>
         <ui-row>

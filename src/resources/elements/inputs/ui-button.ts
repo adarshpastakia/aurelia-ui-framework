@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -12,7 +12,7 @@ import * as _ from "lodash";
 @inlineView(`<template role="button" class="ui-button \${theme} \${busy?'ui-busy':''} \${disabled?'ui-disabled':''}" click.trigger="toggleDropdown($event)" data-value="\${value}" css.bind="{width: width}">
     <span class="ui-indicator"><ui-glyph if.bind="busy" class="ui-anim-busy" glyph="ui-busy"></ui-glyph></span>
     <ui-glyph if.bind="glyph" class="ui-btn-icon \${glyph}" glyph.bind="glyph"></ui-glyph><span class="ui-label"><slot>\${label}</slot></span>
-    <ui-glyph class="ui-caret" glyph="ui-caret-down" if.bind="dropdown"></ui-glyph></template>`)
+    <ui-glyph class="ui-caret" glyph="ui-caret-down" if.bind="!form && dropdown"></ui-glyph></template>`)
 @customElement('ui-button')
 export class UIButton {
   constructor(public element: Element) {
@@ -37,11 +37,15 @@ export class UIButton {
   bind(bindingContext: Object, overrideContext: Object) {
     this.busy = isTrue(this.busy);
     this.disabled = isTrue(this.disabled);
+
+    if (this.form) this.dropdown = this.form;
   }
   attached() {
     if (this.dropdown) {
       this.obMouseup = UIEvent.subscribe('mouseclick', (evt) => {
         if (getParentByClass(evt.target, 'ui-button') == this.element) return;
+        if (this.form && getParentByClass(evt.target, 'ui-floating') == this.dropdown) return;
+        if (this.form) console.log('closing', getParentByClass(evt.target, 'ui-floating') == this.dropdown);
         this.element.classList.remove('ui-open');
         this.dropdown.classList.remove('ui-open');
       });
@@ -64,6 +68,7 @@ export class UIButton {
   @bindable() theme = 'default';
   @bindable() width = 'auto';
   @bindable() dropdown;
+  @bindable() form;
   @bindable() busy = false;
   @bindable() disabled = false;
 
