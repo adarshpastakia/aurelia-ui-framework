@@ -28,6 +28,7 @@ export class UIAffixContent { }
 export class UISidebar {
   constructor(public element: Element) {
     if (element.hasAttribute('scroll')) this.contentCls += ' ui-scroll';
+    if (element.hasAttribute('flex')) this.contentCls += ' ui-row-vertical';
     if (element.hasAttribute('padded')) this.contentCls += ' ui-pad-all';
     if (element.hasAttribute('small')) element.classList.add('ui-small');
     if (this.miniDisplay = element.hasAttribute('mini-display')) element.classList.add('ui-mini-display');
