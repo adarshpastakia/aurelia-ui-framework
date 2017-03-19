@@ -1,17 +1,28 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
-import {autoinject, customElement, bindable, bindingMode, children, inlineView, useView, containerless, View, DOM} from 'aurelia-framework';
+import {autoinject, customElement, bindable, bindingMode, children, noView, inlineView, useView, containerless, View, DOM} from 'aurelia-framework';
 import {UIEvent} from "../../utils/ui-event";
+
+
+@inlineView('<template class="ui-affix-point"></template>')
+@customElement('ui-affix-point')
+export class UIAffixPoint { }
+
+@containerless()
+@inlineView('<template><div class="ui-affix-content" slot="affix-content"><slot></slot></div></template>')
+@customElement('ui-affix-content')
+export class UIAffixContent { }
 
 @autoinject()
 @inlineView(`<template class="ui-sidebar ui-row-vertical ui-row-stretch \${collapsed?'ui-collapse':''} \${position}" click.trigger="showOverlay($event)">
   <div class="ui-col-auto ui-row ui-row-end ui-row-middle ui-sidebar-head \${position=='start'?'':'ui-reverse'}" if.bind="collapsible || label">
   <div class="ui-col-fill ui-sidebar-title">\${label}</div>
   <a click.trigger="toggleCollapse($event)" class="ui-col-auto ui-sidebar-close" if.bind="collapsible"><ui-glyph glyph.bind="glyph"></ui-glyph></a></div>
-  <div class="ui-col-fill ui-sidebar-content \${contentCls}"><slot></slot></div>
+  <slot name="affix-content"></slot>
+  <div class="ui-col-fill ui-sidebar-content \${contentCls}" ref="contentEl" scroll.trigger="watchScroll($event) & debounce"><slot></slot></div>
 </template>`)
 @customElement('ui-sidebar')
 export class UISidebar {
@@ -33,8 +44,13 @@ export class UISidebar {
     this.collapsed = isTrue(this.collapsed);
     if (this.position == 'end') this.glyph = "ui-arrow-right";
   }
-  attached() { }
-  detached() { }
+  attached() {
+    this.affixPoint = this.element.querySelector('.ui-affix-point');
+    this.affixEl = this.element.querySelector('.ui-affix-content');
+  }
+  detached() {
+    if (this.obClick) this.obClick.dispose();
+  }
   unbind() { }
   // end aurelia hooks
 
@@ -44,6 +60,9 @@ export class UISidebar {
 
   glyph = 'ui-arrow-left';
   contentCls = '';
+  private affixEl;
+  private affixPoint;
+  private contentEl;
   private obClick;
   private miniDisplay = false;
   private collapsible = false;
@@ -65,5 +84,14 @@ export class UISidebar {
       this.element.classList.add('ui-show-overlay');
     else
       this.element.classList.remove('ui-show-overlay');
+  }
+
+  watchScroll(e) {
+    if (this.affixEl) {
+      let point = 0;
+      if (this.affixPoint) point = this.affixPoint.offsetTop;
+      if (this.contentEl.scrollTop > point) this.affixEl.classList.add('ui-animate');
+      else this.affixEl.classList.remove('ui-animate');
+    }
   }
 }

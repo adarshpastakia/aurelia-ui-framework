@@ -1,8 +1,25 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
+
+.ui-affix-content {
+  position  : absolute;
+  padding   : 0.25em 0.5em;
+  top       : -100%;
+  left      : 0;
+  right     : 0;
+  background: $drawer-bg;
+  z-index   : $z-index-floating;
+  @include transition(top .5s);
+
+  &.ui-animate {
+    top       : 0;
+    box-shadow: 0 2px 2px 0 rgba($base-shadow-color, .5);
+  }
+}
+
 .ui-sidebar {
   z-index   : 5;
   overflow  : hidden;
@@ -20,7 +37,7 @@
     .ui-sidebar-title {
       color         : rgba($base-text, .75);
       pointer-events: none;
-      padding       : 0 .5em;
+      padding       : 0 0.5em;
       left          : 0;
       top           : 0;
       @include ellipsis();
@@ -29,7 +46,7 @@
     }
 
     .ui-sidebar-close {
-      padding: 0 .5em;
+      padding: 0 0.5em;
     }
   }
 
@@ -117,7 +134,7 @@
       max-width: 4em !important;
 
       &.ui-small {
-        font-size: .6em;
+        font-size: 0.6em;
       }
 
       .ui-sidebar-title {
@@ -126,18 +143,18 @@
 
       .ui-menu-item {
         line-height  : 1.2;
-        padding      : .5em 0;
+        padding      : 0.5em 0;
         text-align   : center;
         text-overflow: clip;
 
         .ui-menu-icon {
           font-size: 2em;
-          margin   : .25em 0;
+          margin   : 0.25em 0;
         }
 
         .ui-menu-label {
           display      : block;
-          font-size    : .8em;
+          font-size    : 0.8em;
           margin       : 0;
           text-align   : center;
           text-overflow: ellipsis;
