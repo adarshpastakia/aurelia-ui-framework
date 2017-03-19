@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -51,6 +51,8 @@ export class UIDivider {
 @customElement('ui-statsbar')
 export class UIStatsbar {
   constructor(public element: Element) {
+    if (element.hasAttribute('vertical')) element.classList.add('ui-vertical');
+
     if (element.hasAttribute('dark')) element.classList.add('dark');
     if (element.hasAttribute('light')) element.classList.add('light');
     if (element.hasAttribute('primary')) element.classList.add('primary');

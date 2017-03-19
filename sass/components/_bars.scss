@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -9,7 +9,7 @@
   background-color: shade($base-bg, 1%);
   border          : 1px solid rgba($base-border-color, .5);
   border-width    : 1px 0;
-  padding         : .2em .5em;
+  padding         : 0.2em 0.5em;
   @include flex-auto();
   // @include box-shadow(0 0 1px 0 $base-border-color);
   @include flex-row($align:center, $justify:flex-end, $wrap:false);
@@ -28,7 +28,7 @@
 
   .ui-divider {
     display: block;
-    margin : .2rem;
+    margin : 0.2rem;
     border : {
       left : 1px solid $dark;
       right: 1px solid $light;
@@ -37,14 +37,14 @@
     @include align-self(stretch);
   }
 
-   > .ui-input-wrapper,
-  > .ui-input-group {
-    margin: 0 .25em;
+   > .ui-input-group,
+  > .ui-input-wrapper {
+    margin: 0 0.25em;
   }
 
-   > .ui-button,
-  > .ui-button-group {
-    margin: 0 .2rem;
+   > .ui-button-group,
+  > .ui-button {
+    margin: 0 0.2rem;
   }
 }
 @include toolbar-theme(light, $light, $dark);
@@ -62,7 +62,7 @@
   border          : 1px solid rgba($base-border-color, .5);
   border-width    : 1px 0;
   @include flex-auto();
-  @include flex-row($align:center, $justify:center, $wrap:false);
+  @include flex-row($align:stretch, $justify:flex-start, $wrap:false);
 
   &:first-child {
     border-top: none;
@@ -74,8 +74,8 @@
 
   .ui-stat {
     color  : $dark;
-    padding: .25em .5em;
-    @include flex-fill();
+    padding: 0.25em 0.5em;
+    @include flex(1 0 auto);
     @include flex-row($justify:center, $align:center, $wrap:false);
 
     &:not(:first-child) {
@@ -83,7 +83,7 @@
     }
 
     .ui-icon {
-      margin    : 0 .5rem;
+      margin    : 0 0.5rem;
       font-size : 2em;
       text-align: center;
     }
@@ -97,9 +97,45 @@
 
     .ui-stat-label {
       color      : $muted;
-      font-size  : .5em;
+      font-size  : 0.5em;
       text-align : center;
-      font-weight: 400;
+      font-weight: 600;
+    }
+  }
+
+  &.ui-vertical {
+    overflow: auto;
+    @include flex-direction(column);
+
+    &:first-child {
+      @include border(end, 1px solid rgba($base-border-color, .5));
+    }
+
+    &:last-child {
+      @include border(start, 1px solid rgba($base-border-color, .5));
+    }
+
+    .ui-stat {
+      max-width: 5em;
+      border   : none;
+      @include flex-direction(column);
+
+      &:not(:first-child) {
+        border-top: 1px solid rgba($base-border-color, .5);
+      }
+
+      .ui-icon {
+        margin   : 0.25em 0;
+        font-size: 1.2em;
+      }
+
+      .ui-stat-value {
+        font-size: 1em;
+      }
+
+      .ui-stat-label {
+        font-size: 0.8em;
+      }
     }
   }
 }
@@ -111,8 +147,8 @@
 @include statsbar-theme(danger-bg, $light, lighten($danger,5%));
 @include statsbar-theme(success-bg, $light, lighten($success,5%));
 @include statsbar-theme(warning-bg, $light, lighten($warning,5%));
-@include statsbar-theme(light, $dark, $light);
-@include statsbar-theme(dark, $light, $dark);
+@include statsbar-theme(light, $light, inherit);
+@include statsbar-theme(dark, $dark, inherit);
 @include statsbar-theme(primary, lighten($primary,5%), inherit);
 @include statsbar-theme(secondary, lighten($secondary,5%), inherit);
 @include statsbar-theme(info, lighten($info,5%), inherit);
