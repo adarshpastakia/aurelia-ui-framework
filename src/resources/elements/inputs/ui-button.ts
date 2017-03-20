@@ -45,7 +45,6 @@ export class UIButton {
       this.obMouseup = UIEvent.subscribe('mouseclick', (evt) => {
         if (getParentByClass(evt.target, 'ui-button') == this.element) return;
         if (this.form && getParentByClass(evt.target, 'ui-floating') == this.dropdown) return;
-        if (this.form) console.log('closing', getParentByClass(evt.target, 'ui-floating') == this.dropdown);
         this.element.classList.remove('ui-open');
         this.dropdown.classList.remove('ui-open');
       });

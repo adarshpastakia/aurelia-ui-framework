@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -13,22 +13,22 @@
 }
 
 .ui-icon {
-  font-size   : 1em;
-  display     : inline-block;
-  width       : 1em;
-  height      : 1em;
-  stroke-width: 0;
-  line-height : 1;
-  color       : inherit;
-  stroke      : currentColor;
-  fill        : currentColor;
+  font-size     : 1em;
+  display       : inline-block;
+  width         : 1em;
+  height        : 1em;
+  stroke-width  : 0;
+  line-height   : 1;
+  color         : inherit;
+  stroke        : currentColor;
+  fill          : currentColor;
   pointer-events: none;
 
   svg {
     font-size     : 1em;
     display       : inline-block;
-    width         : 1em;
-    height        : 1em;
+    width         : 100%;
+    height        : 100%;
     stroke-width  : 0;
     line-height   : 1;
     color         : inherit;
@@ -48,14 +48,14 @@
     overflow: hidden;
 
     .ui-app-footer {
-      font-size: .7em;
+      font-size: 0.7em;
     }
   }
 
   .ui-app-header {
     background: $app-header-bg;
     color     : $app-header-text;
-    padding   : 0 .5em;
+    padding   : 0 0.5em;
     @include flex-row($align:center, $wrap:false);
 
     .ui-app-title {
@@ -71,7 +71,7 @@
 
     // .ui-link {
     //   color: $app-header-link-text;
-    // 
+    //
     //   &:hover {
     //     color: $secondary;
     //   }
@@ -79,7 +79,7 @@
 
     .ui-divider {
       display: block;
-      margin : .2rem;
+      margin : 0.2rem;
       border : {
         left : 1px solid $dark;
         right: 1px solid $light;
@@ -96,8 +96,8 @@
       background: rgba($white, .1);
     }
 
-     > .ui-input-group .ui-group-wrapper,
-    > .ui-input-wrapper .ui-input-control {
+     > .ui-input-wrapper .ui-input-control,
+    > .ui-input-group .ui-group-wrapper {
       background: rgba($white, .1);
       color     : $app-header-text;
     }
@@ -118,7 +118,7 @@
     @include flex-row($justify:space-between, $wrap:false);
     background : $app-footer-bg;
     color      : $app-footer-text;
-    padding    : 0 .5em;
+    padding    : 0 0.5em;
     line-height: 1.5;
   }
 
@@ -144,7 +144,7 @@
 
       background   : $base-bg;
       overflow     : hidden;
-      padding      : .5em;
+      padding      : 0.5em;
       font-size    : 2.5em;
       line-height  : 1;
       z-index      : $z-index-splash;
@@ -172,7 +172,7 @@
 
     .ui-toast {
       max-width : 18rem;
-      box-shadow: 0 0 .5em 0 rgba(0,0,0,0.25);
+      box-shadow: 0 0 0.5em 0 rgba(0,0,0,0.25);
     }
   }
 }

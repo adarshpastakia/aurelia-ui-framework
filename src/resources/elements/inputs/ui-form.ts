@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -41,7 +41,7 @@ export class UIForm {
   }
 
   fireSubmit() {
-    UIEvent.fireEvent('submit', this.element);
+    if (!this.busy) UIEvent.fireEvent('submit', this.element);
   }
 }
 
