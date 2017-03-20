@@ -41,6 +41,26 @@ export declare class UIDGColumn extends UIDataColumn {
     symbol: any;
     format: any;
 }
+export declare class UIDGGlyph extends UIDataColumn {
+    element: Element;
+    type: string;
+    constructor(element: Element);
+    created(owningView: View, myView: View): void;
+    bind(bindingContext: Object, overrideContext: Object): void;
+    attached(): void;
+    detached(): void;
+    unbind(): void;
+    dataId: any;
+    width: string;
+    minWidth: any;
+    class: string;
+    glyph: any;
+    tooltip: any;
+    glyphMap: any;
+    tooltipMap: any;
+    getGlyph(value: any, record: any): any;
+    getTooltip(value: any, record: any): any;
+}
 export declare class UIDGLink extends UIDataColumn {
     element: Element;
     type: string;

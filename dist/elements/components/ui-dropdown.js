@@ -59,7 +59,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
         UIDropdown.prototype.select = function (evt) {
             var _this = this;
             if (isFunction(this.beforeselect)) {
-                var ret = this.beforeselect(evt.detail.value, evt.detail.model);
+                var ret = this.beforeselect({ value: evt.detail.value, model: evt.detail.model });
                 if (ret instanceof Promise)
                     ret.then(function (b) {
                         if (b) {
@@ -67,10 +67,14 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
                             _this.model = evt.detail.model;
                         }
                     });
-                if (ret !== false) {
+                else if (ret !== false) {
                     this.value = evt.detail.value;
                     this.model = evt.detail.model;
                 }
+            }
+            else {
+                this.value = evt.detail.value;
+                this.model = evt.detail.model;
             }
         };
         UIDropdown.prototype.toggleDropdown = function (evt) {

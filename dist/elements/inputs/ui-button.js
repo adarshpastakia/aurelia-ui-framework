@@ -63,8 +63,6 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
                         return;
                     if (_this.form && getParentByClass(evt.target, 'ui-floating') == _this.dropdown)
                         return;
-                    if (_this.form)
-                        console.log('closing', getParentByClass(evt.target, 'ui-floating') == _this.dropdown);
                     _this.element.classList.remove('ui-open');
                     _this.dropdown.classList.remove('ui-open');
                 });

@@ -214,6 +214,76 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-format", "../
         __metadata("design:paramtypes", [Element])
     ], UIDGColumn);
     exports.UIDGColumn = UIDGColumn;
+    var UIDGGlyph = (function (_super) {
+        __extends(UIDGGlyph, _super);
+        function UIDGGlyph(element) {
+            var _this = _super.call(this, element) || this;
+            _this.element = element;
+            _this.type = 'glyph';
+            _this.width = '2em';
+            _this.class = '';
+            return _this;
+        }
+        UIDGGlyph.prototype.created = function (owningView, myView) { };
+        UIDGGlyph.prototype.bind = function (bindingContext, overrideContext) { };
+        UIDGGlyph.prototype.attached = function () { };
+        UIDGGlyph.prototype.detached = function () { };
+        UIDGGlyph.prototype.unbind = function () { };
+        UIDGGlyph.prototype.getGlyph = function (value, record) {
+            if (isFunction(this.glyph))
+                return this.glyph({ value: value, record: record });
+            if (this.glyphMap && this.glyphMap[value])
+                return this.glyphMap[value];
+            return this.glyph || value;
+        };
+        UIDGGlyph.prototype.getTooltip = function (value, record) {
+            if (isFunction(this.tooltip))
+                return this.tooltip({ value: value, record: record });
+            if (this.tooltipMap && this.tooltipMap[value])
+                return this.tooltipMap[value];
+            return this.tooltip || value;
+        };
+        return UIDGGlyph;
+    }(UIDataColumn));
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDGGlyph.prototype, "dataId", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDGGlyph.prototype, "width", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDGGlyph.prototype, "minWidth", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDGGlyph.prototype, "class", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDGGlyph.prototype, "glyph", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDGGlyph.prototype, "tooltip", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDGGlyph.prototype, "glyphMap", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDGGlyph.prototype, "tooltipMap", void 0);
+    UIDGGlyph = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("<template><slot></slot></template>"),
+        aurelia_framework_1.customElement('ui-dg-glyph'),
+        __metadata("design:paramtypes", [Element])
+    ], UIDGGlyph);
+    exports.UIDGGlyph = UIDGGlyph;
     var UIDGLink = (function (_super) {
         __extends(UIDGLink, _super);
         function UIDGLink(element) {

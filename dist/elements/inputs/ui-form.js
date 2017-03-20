@@ -39,7 +39,8 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "loda
             });
         };
         UIForm.prototype.fireSubmit = function () {
-            ui_event_1.UIEvent.fireEvent('submit', this.element);
+            if (!this.busy)
+                ui_event_1.UIEvent.fireEvent('submit', this.element);
         };
         return UIForm;
     }());
