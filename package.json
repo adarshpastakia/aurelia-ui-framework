@@ -25,8 +25,9 @@
     "production": "au build --env prod && gulp production"
   },
   "dependencies": {
-    "aurelia-bootstrapper": "^1.0.0",
-    "aurelia-fetch-client": "^1.0.1",
+    "aurelia-bootstrapper": "^1.0.1",
+    "aurelia-router": "^1.2.1",
+    "aurelia-fetch-client": "^1.1.1",
     "aurelia-ui-virtualization": "^1.0.0-beta.3.0.2",
     "aurelia-validation": "^1.0.0",
     "bluebird": "^3.4.1",
