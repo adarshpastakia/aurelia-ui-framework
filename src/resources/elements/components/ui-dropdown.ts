@@ -84,6 +84,10 @@ export class UIDropdown {
         this.model = evt.detail.model;
       }
     }
+    else {
+      this.value = evt.detail.value;
+      this.model = evt.detail.model;
+    }
   }
 
   toggleDropdown(evt) {
