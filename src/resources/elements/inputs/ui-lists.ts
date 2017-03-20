@@ -326,6 +326,7 @@ export class UICombo extends BaseListInput {
   // end aurelia hooks
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value = '';
+  @bindable({ defaultBindingMode: bindingMode.twoWay }) model;
 
   @bindable() errors = null;
   @bindable() disabled = false;
@@ -345,6 +346,7 @@ export class UICombo extends BaseListInput {
 
   fireSelect(model?) {
     if (model) {
+      this.model = model;
       this.value = model[this.valueProperty] || model;
       UIEvent.fireEvent('select', this.element, model);
     }
@@ -505,6 +507,7 @@ export class UIList extends BaseListInput {
   // end aurelia hooks
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value = '';
+  @bindable({ defaultBindingMode: bindingMode.twoWay }) model;
 
   @bindable() errors = null;
   @bindable() disabled = false;
@@ -525,6 +528,7 @@ export class UIList extends BaseListInput {
   fireSelect(model?) {
     super.fireSelect(model);
     if (model) {
+      this.model = model;
       this.value = model[this.valueProperty] || model;
       UIEvent.fireEvent('select', this.element, model);
     }
