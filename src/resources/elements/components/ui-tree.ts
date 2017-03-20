@@ -111,6 +111,13 @@ export class UITree {
     return retVal;
   }
 
+  public expandAll() {
+    this.root.expandToggle(true);
+  }
+  public collapseAll() {
+    this.root.expandToggle(false);
+  }
+
   private findNode(obj, id, field?, value = true, expand = false) {
     var self = this;
     return _.find(obj, (n: UITreeModel) => {
@@ -232,7 +239,7 @@ export class UITree {
         </a>
     </div>
     <div class="ui-tree-level" if.bind="node.isVisible && !node.leaf && node.expanded">
-        <tree-node repeat.for="child of node.children | sort:'name'" if.bind="!(canHideByCount && hideByCount && $index>options.maxCount)" node.bind="child" options.bind="options"></tree-node>
+        <tree-node repeat.for="child of node.children | sort:'name'" if.bind="!(canHideByCount && hideByCount && $index>=options.maxCount)" node.bind="child" options.bind="options"></tree-node>
         <div>
         <a class="ui-font-small ui-strong" click.trigger="hideByCount=false" if.bind="canHideByCount && hideByCount">More...</a>
         <a class="ui-font-small ui-strong" click.trigger="hideByCount=true" if.bind="canHideByCount && !hideByCount">Less...</a>

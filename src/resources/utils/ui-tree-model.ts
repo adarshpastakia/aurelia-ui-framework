@@ -70,7 +70,7 @@ export class UITreeModel {
     this.checked = v = v ? 1 : 0;
     _.forEach(
       this.children, (c: UITreeModel) => {
-        c.updateChild(v);
+        c.updateChild('checked', v);
       });
     if (this.parent && this.parent.updatePartial) {
       this.parent.updatePartial();
@@ -86,11 +86,19 @@ export class UITreeModel {
     }
   }
 
-  updateChild(v) {
-    this.checked = v;
+  expandToggle(v) {
     _.forEach(
       this.children, (c: UITreeModel) => {
-        c.updateChild(v);
+        c.expanded = v;
+        if (v === false) c.updateChild('expanded', false);
+      });
+  }
+
+  updateChild(prop, v) {
+    this[prop] = v;
+    _.forEach(
+      this.children, (c: UITreeModel) => {
+        c.updateChild(prop, v);
       });
   }
 
