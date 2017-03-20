@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -18,6 +18,7 @@ export class CompDatagrid {
     for (let i = 0; i < 500; i++)
       this.data.push({
         id: i + 1,
+        icon: Math.floor(Math.random() * 5),
         text: this.getString(),
         date: moment().add(Math.random() * -7200, 'day'),
         time: moment().add(Math.random() * -(60 * 20), 'minute'),
@@ -30,6 +31,9 @@ export class CompDatagrid {
   unbind() { }
   deactivate() { }
   // end aurelia hooks
+
+  icons = ['icon-moon-appleinc', 'icon-moon-android', 'icon-moon-amazon', 'icon-moon-windows8', 'icon-moon-mobile'];
+  titles = ['Apple', 'Android', 'Amazon', 'Windows', 'Unknown']
 
   getString() {
     let ret = '', ar = 'a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z'.split(',');

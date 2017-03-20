@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -60,7 +60,7 @@
 
       background   : $base-bg;
       overflow     : hidden;
-      padding      : .5em;
+      padding      : 0.5em;
       font-size    : 1.5em;
       line-height  : 1;
       z-index      : $z-index-splash;
@@ -76,6 +76,7 @@
     td {
       &.ui-locked {
         @include sticky();
+        z-index: 1;
       }
 
       &.ui-expander {
@@ -90,7 +91,7 @@
 
         &.btn-fix {
           line-height: 1;
-          padding    : .25em 0;
+          padding    : 0.25em 0;
         }
       }
 
@@ -101,7 +102,7 @@
 
      > thead > tr > td,
     > tfoot > tr > td {
-      font-size  : .9em;
+      font-size  : 0.9em;
       font-weight: 600;
     }
 
@@ -114,23 +115,22 @@
           @include flex-row($wrap:false, $align: stretch);
 
           .ui-dg-header {
-            padding: 0 .5em;
+            padding: 0 0.5em;
             @include ellipsis();
             @include flex-fill();
           }
 
           .ui-sort {
-            padding: 0 .2em;
+            padding: 0 0.2em;
             @include align-self(center);
             @include flex-auto();
 
             &:after,
             &:before {
-              font-size  : .5em;
+              font-size  : 0.5em;
               display    : block;
               position   : relative;
               line-height: 1;
-              z-index    : -1;
               color      : rgba($datagrid-header-text,.25);
             }
 
@@ -168,11 +168,11 @@
       > tr {
         > td {
           > div {
-            padding  : 0 .5em;
-            font-size: .9em;
+            padding  : 0 0.5em;
+            font-size: 0.9em;
 
             a.ui-link {
-              font-size  : .9em;
+              font-size  : 0.9em;
               font-weight: 600;
             }
           }
@@ -215,7 +215,7 @@
         color     : $datagrid-footer-text;
 
         > div {
-          padding: 0 .5em;
+          padding: 0 0.5em;
         }
       }
     }
@@ -228,8 +228,8 @@
   @include flex-row($display: inline-flex, $wrap:false, $align:stretch);
 
   a {
-    padding  : .25em .4em;
-    font-size: .8em;
+    padding  : 0.25em 0.4em;
+    font-size: 0.8em;
     color    : $secondary;
 
     &:hover {
@@ -243,13 +243,13 @@
 
     &.pg-first,
     &.pg-last {
-      font-size  : .9em;
+      font-size  : 0.9em;
       line-height: 1.2em;
     }
   }
 
   span {
-    font-size  : .9em;
+    font-size  : 0.9em;
     line-height: 1rem;
     @include align-self(center);
 

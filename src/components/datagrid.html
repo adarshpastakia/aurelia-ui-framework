@@ -13,6 +13,21 @@
       justify-items: stretch;
       border: 1px solid rgba(0,0,0,.1);
     }
+    .dg-glyph.icon-moon-appleinc {
+      color: DarkSlateGray;
+    }
+    .dg-glyph.icon-moon-android {
+      color: MediumSeaGreen;
+    }
+    .dg-glyph.icon-moon-amazon {
+      color: DarkOrange;
+    }
+    .dg-glyph.icon-moon-windows8 {
+      color: RoyalBlue;
+    }
+    .dg-glyph.icon-moon-mobile {
+      color: Silver;
+    }
 
   </style>
   <ui-page page-title="Datagrid">
@@ -23,7 +38,10 @@
             <ui-pager view-model.ref="pager"></ui-pager>
           </ui-toolbar>
           <ui-datagrid data.bind="data" summary-row="true" virtual scroll>
-            <ui-dg-empty><h5>No records available...</h5></ui-dg-empty>
+            <ui-dg-empty>
+              <h5>No records available...</h5>
+            </ui-dg-empty>
+            <ui-dg-glyph glyph-map.bind="icons" tooltip-map.bind="titles" class="dg-glyph" data-id="icon" sortable locked></ui-dg-glyph>
             <ui-dg-column data-id="text" sortable resizeable summary="Totals" locked class="ui-titlecase">Text</ui-dg-column>
             <ui-dg-link glyph="icon-line-search" label="Preview" width="6em" click.trigger="clicked('Link Clicked', $event.detail.record)" locked>Link</ui-dg-link>
             <ui-dg-button glyph="icon-line-trash-can" theme="danger" label="Delete" width="5em" click.trigger="clicked('Button clicked', $event.detail.record)" locked>Button</ui-dg-button>

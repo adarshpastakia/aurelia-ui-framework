@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -145,6 +145,44 @@ export class UIDGColumn extends UIDataColumn {
 
   @bindable() symbol;
   @bindable() format;
+}
+
+@autoinject()
+@inlineView(`<template><slot></slot></template>`)
+@customElement('ui-dg-glyph')
+export class UIDGGlyph extends UIDataColumn {
+  type = 'glyph';
+  constructor(public element: Element) { super(element); }
+
+  // aurelia hooks
+  created(owningView: View, myView: View) { }
+  bind(bindingContext: Object, overrideContext: Object) { }
+  attached() { }
+  detached() { }
+  unbind() { }
+  // end aurelia hooks
+
+  @bindable() dataId;
+  @bindable() width = '2em';
+  @bindable() minWidth;
+
+  @bindable() class = '';
+  @bindable() glyph;
+  @bindable() tooltip;
+
+  @bindable() glyphMap;
+  @bindable() tooltipMap;
+
+  getGlyph(value, record) {
+    if (isFunction(this.glyph)) return this.glyph({ value, record });
+    if (this.glyphMap && this.glyphMap[value]) return this.glyphMap[value];
+    return this.glyph || value;
+  }
+  getTooltip(value, record) {
+    if (isFunction(this.tooltip)) return this.tooltip({ value, record });
+    if (this.tooltipMap && this.tooltipMap[value]) return this.tooltipMap[value];
+    return this.tooltip || value;
+  }
 }
 
 @autoinject()

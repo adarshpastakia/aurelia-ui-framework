@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -12,6 +12,7 @@ import * as _ from "lodash";
 @inlineView(`<template>
   <td repeat.for="col of cols" class="\${col.locked==0?'ui-locked':''} \${col.align}" css.bind="{left: col.left+'px'}">
   <div if.bind="col.type=='normal'"><span class="\${col.class}" innerhtml.bind='col.getValue(record[col.dataId],record)'></span></div>
+  <div if.bind="col.type=='glyph'" title.bind="col.getTooltip(record[col.dataId],record)"><ui-glyph class="\${col.class} \${col.getGlyph(record[col.dataId],record)}" glyph.bind="col.getGlyph(record[col.dataId],record)"></ui-glyph></div>
   <div if.bind="col.type=='link'"><a class="ui-link \${col.class} \${col.isDisabled(record[col.dataId],record)?'ui-disabled':''}" click.trigger="col.fireClick($event,record[col.dataId],record)"><ui-glyph glyph.bind="col.getGlyph(record[col.dataId],record)" if.bind="col.glyph"></ui-glyph> <span innerhtml.bind="col.getLabel(record[col.dataId],record)"></span></a></div>
   <div if.bind="col.type=='button'" class="btn-fix"><ui-button click.trigger="col.fireClick($event,record[col.dataId],record)" theme.bind="col.getTheme(record[col.dataId],record)" small square glyph.bind="col.getGlyph(record[col.dataId],record)" disabled.bind="col.isDisabled(record[col.dataId],record)" dropdown.bind="dropdown" menuopen.trigger="col.fireMenuOpen($event, record)"><span innerhtml.bind="col.getLabel(record[col.dataId],record)"></span></ui-button></div>
   </td>
@@ -20,12 +21,11 @@ import * as _ from "lodash";
 @customElement('ui-dg-row')
 export class UIDgRow {
   bind(bindingContext: Object, overrideContext: Object) {
-    this.record = bindingContext['record'];
     this.cols = overrideContext['parentOverrideContext'].bindingContext.cols;
   }
 
   cols;
-  record;
+  @bindable() record;
 }
 
 @autoinject()
@@ -56,10 +56,10 @@ export class UIDgRow {
     <col/>
   </colgroup>
   <tbody>
-    <tr if.bind="!virtual" class="\${$even?'even':'odd'}" as-element="ui-dg-row" repeat.for="record of paged" click.delegate="fireSelect($parent.selected=record)" 
+    <tr if.bind="!virtual" class="\${$even?'even':'odd'}" as-element="ui-dg-row" record.bind="record" repeat.for="record of paged" click.delegate="fireSelect($parent.selected=record)"
       class="\${$parent.selected==record?'ui-selected':''}"></tr>
-  
-    <tr if.bind="virtual" class="\${$even?'even':'odd'}" as-element="ui-dg-row" virtual-repeat.for="record of paged" click.delegate="fireSelect($parent.selected=record)" 
+
+    <tr if.bind="virtual" class="\${$even?'even':'odd'}" as-element="ui-dg-row" record.bind="record" virtual-repeat.for="record of paged" click.delegate="fireSelect($parent.selected=record)"
       class="\${$parent.selected==record?'ui-selected':''}"></tr>
 
     <tr class="filler"><td repeat.for="col of cols" class="\${col.locked==0?'ui-locked':''}" css.bind="{left: col.left+'px'}"><div>&nbsp;</div></td><td class="ui-expander"><div>&nbsp;</div></td></tr>
@@ -71,7 +71,7 @@ export class UIDgRow {
     <col repeat.for="col of cols" data-index.bind="$index" width.bind="col.width"/>
     <col/>
   </colgroup>
-  
+
   <tfoot if.bind="summaryRow && data && data.length!=0"><tr>
     <td repeat.for="col of cols" class="\${col.locked==0?'ui-locked':''} \${col.align}" css.bind="{left: col.left+'px'}"><div innerhtml.bind='col.getSummary(summaryRow, filtered)'></div></td>
     <td class="ui-expander"><div>&nbsp;</div></td>
@@ -109,7 +109,7 @@ export class UIDatagrid {
   unbind() { }
   // end aurelia hooks
 
-  @children('ui-dg-column,ui-dg-button,ui-dg-link') columns;
+  @children('ui-dg-column,ui-dg-button,ui-dg-link,ui-dg-glyph') columns;
 
   @bindable() data = [];
   @bindable() loaded = true;
@@ -157,6 +157,7 @@ export class UIDatagrid {
   }
   private makePage() {
     this.isBusy = true;
+    this.paged = [];
     UIEvent.queueTask(() => {
       let data = _.orderBy(this.filtered, [this.sortColumn, 'ID', 'id'], [this.sortOrder, this.sortOrder, this.sortOrder]);
       if (this.pager) {
