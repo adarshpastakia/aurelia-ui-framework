@@ -22,7 +22,6 @@
 
 .ui-sidebar {
   z-index   : 5;
-  overflow  : hidden;
   position  : relative;
   background: $drawer-bg;
   max-width : $sidebar-width;
@@ -117,8 +116,6 @@
   }
 
   &.ui-collapse {
-    overflow: visible;
-
     &:not(.ui-mini-display) {
       z-index  : 10;
       max-width: 2em;
