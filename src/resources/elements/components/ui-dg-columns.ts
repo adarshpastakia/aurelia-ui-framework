@@ -175,12 +175,12 @@ export class UIDGGlyph extends UIDataColumn {
 
   getGlyph(value, record) {
     if (isFunction(this.glyph)) return this.glyph({ value, record });
-    if (this.glyphMap && this.glyphMap[value]) return this.glyphMap[value];
+    if (this.glyphMap && this.glyphMap[(value + '').toLowerCase()]) return this.glyphMap[(value + '').toLowerCase()];
     return this.glyph || value;
   }
   getTooltip(value, record) {
     if (isFunction(this.tooltip)) return this.tooltip({ value, record });
-    if (this.tooltipMap && this.tooltipMap[value]) return this.tooltipMap[value];
+    if (this.tooltipMap && this.tooltipMap[(value + '').toLowerCase()]) return this.tooltipMap[(value + '').toLowerCase()];
     return this.tooltip || value;
   }
 }
