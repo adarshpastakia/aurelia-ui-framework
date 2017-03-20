@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -19,6 +19,7 @@ export class App {
 
   configureRouter(config: RouterConfiguration, router: Router) {
     this.router = router;
+
     config.title = UIConstants.App.Title;
     config.mapUnknownRoutes({
       route: '404', moduleId: './home/view', activationStrategy: 'replace', settings: { data: '404' }

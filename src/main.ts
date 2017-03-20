@@ -1,4 +1,5 @@
 import {Aurelia} from 'aurelia-framework';
+import {EventAggregator} from 'aurelia-event-aggregator';
 import {AppRouter} from 'aurelia-router';
 import {I18N} from 'aurelia-i18n';
 import * as Backend from 'i18next-xhr-backend';
@@ -36,7 +37,12 @@ export function configure(aurelia: Aurelia) {
         fallbackLng: 'en',
         debug: false
       }).then(() => {
-        aurelia.container.get(AppRouter).transformTitle = title => instance.tr(title);
+        const router = aurelia.container.get(AppRouter);
+        const eventAggregator = aurelia.container.get(EventAggregator);
+        router.transformTitle = title => instance.tr(title);
+        eventAggregator.subscribe('i18n:locale:changed', () => {
+          router.updateTitle();
+        });
       });
     })
     .feature('resources');
