@@ -90,7 +90,7 @@
         border-bottom-right-radius: $base-border-radius;
       }
 
-      .ui-sidebar {
+      .ui-sidebar:not(.ui-collapse) {
         max-width: $sidebar-width * 0.75;
       }
 
