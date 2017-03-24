@@ -71,23 +71,26 @@ export class UIDropdown {
   }
 
   select(evt) {
+    let params = { value: evt.detail.value, model: evt.detail.model };
     if (isFunction(this.beforeselect)) {
-      let ret = this.beforeselect({ value: evt.detail.value, model: evt.detail.model });
+      let ret = this.beforeselect(params);
       if (ret instanceof Promise) ret.then(b => {
         if (b) {
-          this.value = evt.detail.value;
-          this.model = evt.detail.model;
+          this.doChange(params);
         }
       });
       else if (ret !== false) {
-        this.value = evt.detail.value;
-        this.model = evt.detail.model;
+        this.doChange(params);
       }
     }
-    else {
-      this.value = evt.detail.value;
-      this.model = evt.detail.model;
+    else if (UIEvent.fireEvent('beforeselect', this.element, params) !== false) {
+      this.doChange(params);
     }
+  }
+
+  private doChange(params) {
+    this.value = params.value;
+    this.model = params.model;
   }
 
   toggleDropdown(evt) {
