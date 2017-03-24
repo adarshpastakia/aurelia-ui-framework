@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -29,9 +29,9 @@ export class HomeView {
     ],
 
     core: [
-      { link: "#/core/viewport", title: "home:core.titleViewport", desc: "home:core.descViewport" },
-      { link: "#/core/pages", title: "home:core.titlePages", desc: "home:core.descPages" },
-      { link: "#/core/grid", title: "home:core.titleGrid", desc: "home:core.descGrid" }
+      { link: "#/viewport", title: "home:core.titleViewport", desc: "home:core.descViewport" },
+      { link: "#/pages", title: "home:core.titlePages", desc: "home:core.descPages" },
+      { link: "#/grid", title: "home:core.titleGrid", desc: "home:core.descGrid" }
     ],
 
     inputs: [
