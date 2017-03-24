@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -61,7 +61,7 @@
   position     : relative;
   cursor       : pointer;
   display      : inline-block;
-  padding      : .2em 1em;
+  padding      : 0.2em 1em;
   @include transition(padding .5s);
 
   span,
@@ -110,19 +110,18 @@
   }
 
   .ui-btn-icon {
-    margin: 0 .25em;
     pointer-events: none;
   }
 
   .ui-icon.ui-caret {
-    opacity    : .5;
+    opacity    : 0.5;
     line-height: 1.5em;
-    font-size  : .5em;
-    margin     : 0 .2rem;
+    font-size  : 0.5em;
+    margin     : 0 0.2rem;
   }
 
   &.ui-square {
-    padding: .2em;
+    padding: 0.2em;
   }
 
   &.ui-round {
@@ -134,7 +133,7 @@
   }
 
   &.ui-small {
-    font-size  : .7em;
+    font-size  : 0.7em;
     font-weight: 600;
     text-shadow: none;
 
