@@ -62,6 +62,7 @@ import './elements/components/ui-tab';
 import './elements/components/ui-tree';
 
 import './attributes/ui-badge';
+import './attributes/md-view';
 
 import './value-converters/ui-lodash';
 import './value-converters/ui-text';
@@ -120,7 +121,8 @@ export function configure(config: FrameworkConfiguration, configCallback) {
   ]);
   // Attributes
   config.globalResources([
-    './attributes/ui-badge'
+    './attributes/ui-badge',
+    './attributes/md-view'
   ]);
   // Value Converters
   config.globalResources([
