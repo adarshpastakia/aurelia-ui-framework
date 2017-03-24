@@ -15,6 +15,7 @@ export class UITreeModel {
 
   icon: string;
   openIcon: string;
+  closedIcon: string;
 
   root: boolean;
   leaf: boolean;

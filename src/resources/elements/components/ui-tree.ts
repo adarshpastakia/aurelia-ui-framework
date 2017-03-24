@@ -234,7 +234,7 @@ export class UITree {
           <ui-glyph glyph.bind="node.checked==1?'ui-tree-check-on':(node.checked==2?'ui-tree-check-partial':'ui-tree-check-off')"></ui-glyph>
         </a>
         <a class="ui-node-link \${!options.showCheckbox && node.active?'ui-active':node.childActive?'ui-partial':''}" data-id="\${node.id}" click.trigger="fireClicked()">
-            <ui-glyph glyph.bind="(node.expanded?node.openIcon:'')||node.icon" class.bind="(node.expanded?node.openIcon:'')||node.icon" if.bind="node.icon"></ui-glyph>
+            <ui-glyph glyph.bind="(node.expanded?node.openIcon:node.closedIcon)||node.icon" class.bind="(node.expanded?node.openIcon:node.closedIcon)||node.icon" if.bind="node.icon"></ui-glyph>
             <span innerhtml.bind="node.text"></span>
         </a>
     </div>
