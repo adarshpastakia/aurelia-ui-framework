@@ -22,8 +22,8 @@
         <h6 class="section-title">Setup Aurelia Project</h6>
         <p>
           <ul>
-            <li>Install the aurelia CLI using npm.
-              <code>npm install aurelia-cli -g</code><br/>
+            <li>Install the gulp and aurelia CLI using npm.
+              <code>npm install gulp-cli aurelia-cli -g</code><br/>
               <div class="note">You may need to use
                 <code>sudo</code>
                 to global install aureli-cli</div>
@@ -31,12 +31,14 @@
             <li>Create a new aurelia project
               <code>au new --here</code>
               <p>Install the framework dependencies</p>
-              <pre><code>
-npm i aurelia-ui-framework -S
-npm i gulp-compass gulp-plumber del -SD
-typings i dt~moment dt~numeraljs -S -G
-typing i lodash -S
-              </code></pre>
+              <pre mdview="shell">
+                npm i aurelia-ui-framework -S
+                npm i gulp-compass gulp-plumber del -SD
+
+                npm i typings -g
+                typings i dt~moment dt~numeraljs -S -G
+                typing i lodash -S
+              </pre>
               <div class="note">
                 You can start with the default blank project or update it with the AUF starter project.
                 <br/>
@@ -44,46 +46,63 @@ typing i lodash -S
                 <a href="https://www.dropbox.com/s/43akj7ec8sq3mff/aui-skelton.zip?dl=0" target="_blank">download it here</a>.
               </div>
             </li>
-            <li>When using the default aurelia project, update the aurelia project config with the following dependency
-              <pre><code>{
-  "name": "vendor-bundle.js",
-  "prepend": [
-    ...,
-    "node_modules/whatwg-fetch/fetch.js"
-  ],
-  "dependencies": [
-    ...,
-    "aurelia-fetch-client",
-    "lodash",
-    "numeral",
-    {
-      "name": "aurelia-validation",
-      "path": "../node_modules/aurelia-validation/dist/amd",
-      "main": "aurelia-validation"
-    },
-    {
-      "name": "aurelia-ui-virtualization",
-      "path": "../node_modules/aurelia-ui-virtualization/dist/amd",
-      "main": "aurelia-ui-virtualization"
-    },
-    {
-      "name": "aurelia-ui-framework",
-      "path": "../aurelia-ui-framework/dist",
-      "main": "aurelia-ui-framework"
-    },
-    {
-      "name": "kramed",
-      "path": "../node_modules/kramed/lib",
-      "main": "kramed"
-    },
-    {
-      "name": "moment",
-      "path": "../node_modules/moment",
-      "main": "moment"
-    }
-  ]
-}
-            </code></pre>
+            <li>Update the aurelia project config with the following
+              <div>
+                <code>transpiler.dtsSource</code>
+              </div>
+              <pre mdview="json">
+                  [
+                    "./typings/**/*.d.ts",
+                    "./custom_typings/**/*.d.ts",
+                    "./node_modules/aurelia-ui-framework/dist/typings/**/*.d.ts"
+                  ]
+              </pre>
+              <div>
+                <code>dependencies</code>
+              </div>
+              <pre mdview="json">
+                {
+                  "name": "vendor-bundle.js",
+                  "prepend": [
+                    ...,
+                    "node_modules/whatwg-fetch/fetch.js"
+                  ],
+                  "dependencies": [
+                    ...,
+                    "aurelia-fetch-client",
+                    "lodash",
+                    "numeral",
+                    {
+                      "name": "aurelia-validation",
+                      "path": "../node_modules/aurelia-validation/dist/amd",
+                      "main": "aurelia-validation"
+                    },
+                    {
+                      "name": "aurelia-ui-virtualization",
+                      "path": "../node_modules/aurelia-ui-virtualization/dist/amd",
+                      "main": "aurelia-ui-virtualization"
+                    },
+                    {
+                      "name": "aurelia-ui-framework",
+                      "path": "../aurelia-ui-framework/dist",
+                      "main": "aurelia-ui-framework",
+                      "resources": [
+                        "ui-glyphs.html"
+                      ]
+                    },
+                    {
+                      "name": "kramed",
+                      "path": "../node_modules/kramed/lib",
+                      "main": "kramed"
+                    },
+                    {
+                      "name": "moment",
+                      "path": "../node_modules/moment",
+                      "main": "moment"
+                    }
+                  ]
+                }
+            </pre>
             </li>
           </ul>
         </p>

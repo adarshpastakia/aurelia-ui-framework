@@ -10,17 +10,25 @@
 
         <h6 class="section-title">Installing Aurelia UI Framework</h6>
 
-        <pre><code>npm install aurelia-ui-framework --save</code></pre>
+        <pre mdview="shell">npm install aurelia-ui-framework --save</pre>
 
         <h6 class="section-title">Including it in your Application</h6>
 
         <p>To use aurelia-ui-framework in your application, add the plugin in
           <em>main.ts</em>.
-          <pre><code>aurelia.use
-  .plugin('aurelia-validation')
-  .plugin('aurelia-ui-virtualization')
-  .plugin('aurelia-ui-framework');
-</code></pre>
+          <pre mdview="ts">
+            import {Aurelia} from 'aurelia-framework';
+            import {UIConfig} from 'aurelia-ui-framework';
+
+            export function configure(aurelia: Aurelia) {
+              aurelia.use
+                .plugin('aurelia-validation', (config:UIConfig) => {
+
+                })
+                .plugin('aurelia-ui-virtualization')
+                .plugin('aurelia-ui-framework');
+              }
+          </pre>
           <div class="note">aurelia-validation needs to be loaded as well in order to use the validation renderer</div>
         </p>
 
@@ -28,25 +36,27 @@
         <p>The framework requires the main view
           <em>app.html</em>
           to contain the viewport
-          <pre><code><xmp><ui-viewport>
-  <ui-app-header>
-    <ui-drawer-toggle drawer.bind="menuDrawer"></ui-drawer-toggle>
-    <ui-app-title src="images/logo.png">
-      <h6>App Title</h6>
-    </ui-app-title>
-  </ui-app-header>
+          <pre mdview="html">
+            <xmp><ui-viewport>
+              <ui-app-header>
+                <ui-drawer-toggle drawer.bind="menuDrawer"></ui-drawer-toggle>
+                <ui-app-title src="images/logo.png">
+                  <h6>App Title</h6>
+                </ui-app-title>
+              </ui-app-header>
 
-  <ui-drawer ref="menuDrawer" scroll close-on-click>
-    App Menu
-  </ui-drawer>
+              <ui-drawer ref="menuDrawer" scroll close-on-click>
+                App Menu
+              </ui-drawer>
 
-  <ui-router-view></ui-router-view>
-  
-  <ui-app-footer>
-    <span>Version x.x</span>
-    <span>© 2017</span>
-  </ui-app-footer>
-</ui-viewport></xmp></code></pre>
+              <ui-router-view></ui-router-view>
+
+              <ui-app-footer>
+                <span>Version x.x</span>
+                <span>© 2017</span>
+              </ui-app-footer>
+            </ui-viewport></xmp>
+          </pre>
 
         </ui-container>
       </ui-content>
