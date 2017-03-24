@@ -11,7 +11,6 @@ declare module 'kramed' {
   export = kramed;
 }
 
-declare var hljs: any;
 
 declare interface Window {
   hljs: any;
