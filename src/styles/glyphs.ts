@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -59,6 +59,31 @@ export class StyleGlyphs {
       "ui-chevron-right",
       "ui-chevron-up",
       "ui-refresh"
+    ],
+    "Icons": [
+      "ui-icon-close-all",
+      "ui-icon-cog",
+      "ui-icon-collapse-all",
+      "ui-icon-download",
+      "ui-icon-edit-page",
+      "ui-icon-edit",
+      "ui-icon-expand-all",
+      "ui-icon-file",
+      "ui-icon-folder-closed",
+      "ui-icon-folder-open",
+      "ui-icon-key",
+      "ui-icon-lock",
+      "ui-icon-minus",
+      "ui-icon-no",
+      "ui-icon-page",
+      "ui-icon-picture",
+      "ui-icon-placeholder",
+      "ui-icon-plus",
+      "ui-icon-preview",
+      "ui-icon-print",
+      "ui-icon-trash",
+      "ui-icon-upload",
+      "ui-icon-yes"
     ]
   };
   icomoon = [

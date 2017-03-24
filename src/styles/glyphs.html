@@ -23,11 +23,19 @@
       line-height: 1.5;
     }
 
+    .sticky-top {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: #fff;
+    }
+
   </style>
   <ui-page page-title="Glyphs">
     <ui-content padded scroll>
       <ui-container dir="ltr">
-        <ui-row bottom>
+        <ui-row bottom class="sticky-top">
           <h5 class="ui-col-fill">Icon Glyphs</h5>
           <ui-column width="220px" class="ui-sticky">
             <ui-input value.bind="filterText" input.trigger="filter() & debounce" clear placeholder="Search...">
