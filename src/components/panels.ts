@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -21,5 +21,12 @@ export class CompPanels {
   unbind() { }
   deactivate() { }
   // end aurelia hooks
+
+  refreshing = false;
+
+  refresh() {
+    this.refreshing = true;
+    setTimeout(() => this.refreshing = false, 2000);
+  }
 
 }

@@ -63,13 +63,14 @@
             <ui-panel>
               <ui-header primary>
                 <ui-header-title>Primary Header</ui-header-title>
+                <ui-header-tool refresh click.trigger="refresh()"></ui-header-tool>
                 <ui-header-tool collapse></ui-header-tool>
                 <ui-header-tool close></ui-header-tool>
               </ui-header>
               <ui-panel-body padded>
                 <h4>Header Panel</h4>
               </ui-panel-body>
-              <ui-loader busy="true"></ui-loader>
+              <ui-loader small busy.bind="refreshing"></ui-loader>
             </ui-panel>
           </ui-column>
           <ui-column size="md-6 lg-4" padded>
