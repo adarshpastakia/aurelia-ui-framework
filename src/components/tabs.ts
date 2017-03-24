@@ -1,11 +1,11 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
 
 import {autoinject, TemplatingEngine} from 'aurelia-framework';
-import {UITreeOptions, UIEvent} from "../resources/index";
+import {UITreeOptions, UIEvent, UIUtils} from "../resources/index";
 
 @autoinject()
 export class CompTabs {
@@ -30,5 +30,9 @@ export class CompTabs {
     let id = 'tab' + (this.seed++);
     this.tabs.push({ id: id, viewModel: '../inputs/basic', model: {}, label: 'Editor Tab', extras: 'padded scroll closeable' });
     UIEvent.queueTask(() => this.tabActive = id);
+  }
+
+  beforeClose() {
+    return UIUtils.confirm("Are you sure?");
   }
 }

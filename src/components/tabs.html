@@ -16,12 +16,14 @@
         <div class="tab-container">
           <ui-tab-panel active-tab.bind="tabActive" ref="tabPanel">
             <ui-tabbar-start>
-              <ui-tabbar-toggle dropdown.bind="btnMenu"><ui-glyph glyph="ui-icon-plus"></ui-glyph></ui-tabbar-toggle>
+              <ui-tabbar-toggle dropdown.bind="btnMenu">
+                <ui-glyph glyph="ui-icon-plus"></ui-glyph>
+              </ui-tabbar-toggle>
             </ui-tabbar-start>
             <ui-tab label="Active Tab" padded scroll>
               <compose view="../home/lipsum-big.html"></compose>
             </ui-tab>
-            <ui-tab label.bind="tab.label" closeable flex repeat.for="tab of tabs" id.bind="tab.id">
+            <ui-tab label.bind="tab.label" closeable flex repeat.for="tab of tabs" id.bind="tab.id" beforeclose.call="beforeClose($event)">
               <compose view-model.bind="tab.viewModel"></compose>
             </ui-tab>
           </ui-tab-panel>

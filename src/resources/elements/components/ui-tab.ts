@@ -130,11 +130,12 @@ export class UITabPanel {
   @children('ui-tab') tabs = [];
   @bindable({ defaultBindingMode: bindingMode.twoWay }) activeTab: any = 0;
 
+
   private noTabs = false;
   private activeTabEl;
 
   private tabsChanged() {
-    if (this.tabs.length > 0 && _.find(this.tabs, ['active', true]) == null)
+    if (!this.activeTabEl && this.tabs.length > 0 && _.find(this.tabs, ['active', true]) == null)
       (this.activeTabEl = _.find(this.tabs, ['disabled', false])).active = true;
     UIEvent.queueTask(() => this.arrange());
   }
@@ -147,22 +148,34 @@ export class UITabPanel {
   }
 
   private closeTab(tab) {
-    if (UIEvent.fireEvent('beforeclose', this.element, tab)) {
-      _.remove(this.tabs, ['id', tab.id]);
-      if (this.tabs.length > 0 && _.find(this.tabs, ['active', true]) == null)
-        (this.activeTabEl = _.findLast(this.tabs, ['disabled', false])).active = true;
-      tab.remove();
-      UIEvent.fireEvent('close', this.element, tab);
+    if (isFunction(tab.beforeclose)) {
+      let ret = tab.beforeclose();
+      if (ret instanceof Promise) ret.then(b => {
+        if (b) {
+          this.doClose(tab);
+        }
+      });
+      else if (ret !== false) {
+        this.doClose(tab);
+      }
+    }
+    else if (UIEvent.fireEvent('beforeclose', tab.element, tab) !== false) {
+      this.doClose(tab);
     }
   }
+  private doClose(tab) {
+    _.remove(this.tabs, ['id', tab.id]);
+    if (this.tabs.length > 0 && _.find(this.tabs, ['active', true]) == null)
+      (this.activeTabEl = _.findLast(this.tabs, ['disabled', false])).active = true;
+    tab.remove();
+    UIEvent.fireEvent('closed', this.element, tab);
+  }
 
-  private activateTab(tab) {
-    if (UIEvent.fireEvent('beforechange', this.element, tab)) {
-      if (this.activeTabEl) this.activeTabEl.active = false;
-      (this.activeTabEl = tab).active = true;
-      this.activeTab = tab.id;
-      UIEvent.fireEvent('change', this.element, tab);
-    }
+  private activateTab(newTab) {
+    if (this.activeTabEl) this.activeTabEl.active = false;
+    (this.activeTabEl = newTab).active = true;
+    this.activeTab = newTab.id;
+    UIEvent.fireEvent('activate', newTab.element, newTab);
   }
 
   public canActivate(id) {
@@ -176,12 +189,13 @@ export class UITabPanel {
   }
 
   private arrange() {
+    if (!this.wrapper) return;
     this.overflow.classList.remove('ui-open');
     for (let i = 0, c = this.overflow['children']; i < c.length; i++) {
       this.wrapper.insertBefore(c[i], this.overflowToggle);
     }
     // this.wrapper.appendChild(this.overflowToggle);
-    if (this.tabs.length > 0 && (this.isOverflow = (this.wrapper.lastElementChild.previousElementSibling.offsetLeft + this.wrapper.lastElementChild.previousElementSibling.offsetWidth - this.wrapper.offsetLeft > this.wrapper.offsetWidth))) {
+    if (this.tabs.length > 0 && (this.isOverflow = (this.wrapper.lastElementChild.previousElementSibling.offsetLeft + this.wrapper.lastElementChild.previousElementSibling.offsetWidth > this.wrapper.offsetWidth))) {
       for (let c = this.wrapper['children'], i = c.length - 2; i >= 0; i--) {
         if (c[i].offsetLeft + c[i].offsetWidth > this.wrapper.offsetWidth) {
           if (this.overflow.hasChildNodes) this.overflow.insertBefore(c[i], this.overflow.childNodes[0]); else this.overflow.appendChild(c[i]);
@@ -229,6 +243,8 @@ export class UITab {
   @bindable() glyph = '';
   @bindable() label = '';
   @bindable() disabled = false;
+
+  @bindable() beforeclose: any;
 
   public active = false;
   public closeable = false;
