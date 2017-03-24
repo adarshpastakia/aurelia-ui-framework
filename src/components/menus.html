@@ -91,7 +91,7 @@
                   </ui-column>
                   <ui-column size="md-4" padded>
                     <h6 class="ui-text-primary">Simple Dropdown</h6>
-                    <ui-dropdown class="ui-pad-all" width="10em">
+                    <ui-dropdown class="ui-pad-all" width="10em" beforeselect.call="beforeSelect($event)">
                       <ui-list-group label="Actions">
                         <ui-list-item value="1">
                           <ui-glyph glyph="icon-moon-pencil2"></ui-glyph>

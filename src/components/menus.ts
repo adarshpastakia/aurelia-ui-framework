@@ -1,9 +1,10 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
 import {autoinject} from 'aurelia-framework';
+import {UIUtils} from "../resources/index";
 
 @autoinject()
 export class CompMenu {
@@ -18,4 +19,8 @@ export class CompMenu {
   unbind() { }
   deactivate() { }
   // end aurelia hooks
+
+  beforeSelect($event) {
+    return UIUtils.confirm("Are you sure?");
+  }
 }
