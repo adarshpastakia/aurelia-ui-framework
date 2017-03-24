@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -30,13 +30,10 @@ export class UIHttpService {
           .withInterceptor({
             request(request) {
               self.logger.info(`Requesting ${request.method} ${request.url}`);
-              app.isBusy = true;
-              //request.url = encodeURI(request.url);
               return request;
             },
             response(response) {
               self.logger.info(`Response ${response.status} ${response.url}`);
-              app.isBusy = false;
 
               if (response instanceof TypeError) {
                 throw Error(response['message']);
@@ -51,7 +48,6 @@ export class UIHttpService {
                     let json: any = {};
                     let error = 'Network Error!!';
                     try {
-                      console.log(resp);
                       json = JSON.parse(resp);
                     } catch (e) { }
                     if (json.message) error = json.message;
@@ -64,12 +60,10 @@ export class UIHttpService {
               return response;
             },
             requestError(error) {
-              app.isBusy = false;
               if (error !== null) throw Error(error.message);
               return error;
             },
             responseError(error) {
-              app.isBusy = false;
               if (error !== null) throw Error(error.message);
               return error;
             }

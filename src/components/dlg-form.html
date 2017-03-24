@@ -4,8 +4,9 @@
 // @license     : MIT
 -->
 <template>
-    <compose class="ui-section row" view-model="../inputs/basic"></compose>
-    <ui-toolbar>
-      <ui-button small click.trigger="close()">Close</ui-button>
-    </ui-toolbar>
+  <compose class="ui-section row" view-model="../inputs/basic"></compose>
+  <ui-toolbar>
+    <ui-button small busy.bind="closing" click.trigger="close()">Close</ui-button>
+  </ui-toolbar>
+  <ui-loader busy.bind="closing"></ui-loader>
 </template>

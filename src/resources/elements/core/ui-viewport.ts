@@ -19,12 +19,6 @@ import {UIEvent} from "../../utils/ui-event";
 
   <div class="ui-dialog-container" ref="dialogContainer"></div>
   <div class="ui-overlay-container" ref="overlayContainer"></div>
-
-  <div class="ui-app-loader" show.bind="router.isNavigating || httpClient.isRequesting || app.isBusy">
-    <div class="ui-loader-div">
-      <ui-glyph class="ui-anim-loader" glyph="ui-loader"></ui-glyph>
-    </div>
-  </div>
 </template>`)
 @customElement('ui-viewport')
 export class UIViewport {

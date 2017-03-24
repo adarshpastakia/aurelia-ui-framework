@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -33,4 +33,10 @@ export class DlgForm extends UIDialog {
   glyph = "icon-fill-document-table";
 
   printConsole;
+
+  closing = false;
+  close() {
+    this.closing = true;
+    setTimeout(() => super.close(), 2000);
+  }
 }

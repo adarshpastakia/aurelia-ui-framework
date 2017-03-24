@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -83,4 +83,20 @@ export class UIGlyph {
   // end aurelia hooks
 
   @bindable() glyph = '';
+}
+
+@autoinject()
+@customElement('ui-loader')
+@inlineView(`<template class="ui-app-loader" show.bind="busy">
+  <div class="ui-loader-div">
+    <ui-glyph class="ui-anim-loader" glyph="ui-loader"></ui-glyph>
+  </div>
+</template>`)
+export class UILoader {
+  constructor(element: Element) {
+    if (element.hasAttribute('big')) element.classList.add('ui-big');
+    if (element.hasAttribute('small')) element.classList.add('ui-small');
+  }
+
+  @bindable() busy: boolean = false;
 }

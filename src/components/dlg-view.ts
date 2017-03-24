@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -36,4 +36,10 @@ export class DlgView extends UIDialog {
   height = "300px";
 
   printConsole;
+
+  closing = false;
+  close() {
+    this.closing = true;
+    setTimeout(() => super.close(), 2000);
+  }
 }
