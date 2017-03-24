@@ -30,20 +30,29 @@
             </li>
             <li>Create a new aurelia project
               <code>au new --here</code>
+              <p>Install the framework dependencies</p>
+              <pre><code>
+npm i aurelia-ui-framework -S
+npm i gulp-compass gulp-plumber del -SD
+typings i dt~moment dt~numeraljs -S -G
+typing i lodash -S
+              </code></pre>
               <div class="note">
                 You can start with the default blank project or update it with the AUF starter project.
                 <br/>
                 You can
-                <a href="tostarter" target="_blank">download it here</a>.
+                <a href="https://www.dropbox.com/s/43akj7ec8sq3mff/aui-skelton.zip?dl=0" target="_blank">download it here</a>.
               </div>
             </li>
             <li>When using the default aurelia project, update the aurelia project config with the following dependency
               <pre><code>{
-  "name": "framework-bundle.js",
+  "name": "vendor-bundle.js",
   "prepend": [
+    ...,
     "node_modules/whatwg-fetch/fetch.js"
   ],
   "dependencies": [
+    ...,
     "aurelia-fetch-client",
     "lodash",
     "numeral",
