@@ -12,7 +12,7 @@ var appRoot = 'src/resources/';
 var paths = {
   root: appRoot,
   source: appRoot + '**/*.ts',
-  glyphs: appRoot + 'elements/core/framework.html',
+  glyphs: appRoot + 'ui-glyphs.html',
   libs: appRoot + 'libs/**/*',
   typings: appRoot + 'typings/**/*',
   output: 'dist/'

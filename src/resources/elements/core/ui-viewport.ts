@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -11,12 +11,12 @@ import {UIEvent} from "../../utils/ui-event";
 
 @autoinject()
 @inlineView(`<template class="ui-viewport ui-fullscreen">
-  <compose view="./framework.html"></compose>
+  <compose view="../../ui-glyphs.html"></compose>
   <slot name="ui-app-header"></slot>
   <slot></slot>
   <div class="ui-app-taskbar"><slot name="ui-app-taskbar"></slot><div class="ui-taskbutton-wrapper" ref="taskbarContainer"></div></div>
   <slot name="ui-app-footer"></slot>
-  
+
   <div class="ui-dialog-container" ref="dialogContainer"></div>
   <div class="ui-overlay-container" ref="overlayContainer"></div>
 
