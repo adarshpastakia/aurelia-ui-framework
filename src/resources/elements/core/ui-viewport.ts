@@ -4,6 +4,7 @@
 // @copyright   : 2017
 // @license     : MIT
 import {autoinject, customElement, bindable, bindingMode, children, useView, inlineView, containerless, Container, View, DOM} from 'aurelia-framework';
+import {AppRouter} from 'aurelia-router';
 import {HttpClient} from 'aurelia-fetch-client';
 import {UIApplication} from "../../utils/ui-application";
 import {UIUtils} from "../../utils/ui-utils";
@@ -19,9 +20,13 @@ import {UIEvent} from "../../utils/ui-event";
 
   <div class="ui-dialog-container" ref="dialogContainer"></div>
   <div class="ui-overlay-container" ref="overlayContainer"></div>
+
+  <ui-loader busy.bind="router.isNavigating"></ui-loader>
 </template>`)
 @customElement('ui-viewport')
 export class UIViewport {
+  router;
+
   constructor(public element: Element, public httpClient: HttpClient, public app: UIApplication) {
     //if (element.hasAttribute('fullscreen')) element.classList.add('fullscreen');
     var __resizeTimer;
@@ -33,6 +38,8 @@ export class UIViewport {
       window.clearTimeout(__resizeTimer);
       window.setTimeout(() => UIEvent.broadcast('windowresize'), 500);
     }
+
+    this.router = UIUtils.auContainer.get(AppRouter);
   }
 
   // aurelia hooks
