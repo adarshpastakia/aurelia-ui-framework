@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -8,6 +8,7 @@
 @import url( '//fonts.googleapis.com/css?family=Source+Code+Pro');
 @import url( '//fonts.googleapis.com/css?family=Lato:300,400');
 @import "variables";
+@import "hljs";
 
 $menu-link-active-bg: $secondary;
 $menu-link-active-hilight: $primary;
@@ -21,8 +22,8 @@ $menu-link-active-hilight: $primary;
 }
 
 .section-title {
-  padding   : .1em .5em !important;
-  margin    : 1em -.25em .5em !important;
+  padding   : 0.1em 0.5em !important;
+  margin    : 1em -.25em 0.5em !important;
   background: $light;
   color     : $primary;
 }
@@ -33,7 +34,7 @@ $menu-link-active-hilight: $primary;
 
   .ui-divider {
     display: block;
-    margin : 0 .2rem;
+    margin : 0 0.2rem;
     border : {
       left : 1px solid $dark;
       right: 1px solid $light;
@@ -46,7 +47,7 @@ $menu-link-active-hilight: $primary;
     border       : 1px solid rgba(#f0f0f0, .3);
     border-radius: 5px;
     padding      : 1em 2em;
-    margin       : 0 .5em;
+    margin       : 0 0.5em;
     color        : white;
     display      : inline-block;
 

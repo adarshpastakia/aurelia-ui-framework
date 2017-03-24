@@ -118,6 +118,11 @@
           "name": "moment",
           "path": "../node_modules/moment",
           "main": "moment"
+        },
+        {
+          "name": "highlightjs",
+          "path": "../node_modules/highlightjs",
+          "main": "highlight.pack"
         }
       ]
     },
