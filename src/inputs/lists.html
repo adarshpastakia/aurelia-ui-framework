@@ -24,7 +24,7 @@
             <ui-column fill padded>
               <ui-input-group>
                 <ui-input-label>Tags</ui-input-label>
-                <ui-tags value='UAE,IND' force-select="false" options.bind="countries" display-property="name" value-property="iso3" icon-property="iso3" icon-class="ui-flag"></ui-tags>
+                <ui-tags value='UAE,IND' force-select="true" options.bind="countries" display-property="name" value-property="iso3" icon-property="iso3" icon-class="ui-flag"></ui-tags>
               </ui-input-group>
             </ui-column>
           </ui-row>
@@ -37,6 +37,11 @@
                     <span class="ui-flag ${ctr}"></span>
                   </ui-input-addon>
                 </ui-combo>
+              </ui-input-group>
+
+              <ui-input-group>
+                <ui-input-label>Emails</ui-input-label>
+                <ui-tags force-select="false" options.bind="['user@email.com', 'user@hotmail.com']"></ui-tags>
               </ui-input-group>
             </ui-column>
 

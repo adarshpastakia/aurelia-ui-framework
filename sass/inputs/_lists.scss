@@ -49,7 +49,7 @@
     border-radius: $base-border-radius;
     border       : 1px solid rgba($base-border-color, .5);
     position     : relative;
-    max-width    : 10em;
+    // max-width    : 10em;
     font-size    : 0.8em;
     margin       : 0.15rem 0.2em;
     @include flex-row($wrap:false);
