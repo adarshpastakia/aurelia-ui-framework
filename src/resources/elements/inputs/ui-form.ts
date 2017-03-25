@@ -143,7 +143,7 @@ export class UIInputAddon {
 
   focusEl() {
     let el = this.element.nextElementSibling;
-    if (el && el['focus']) el['focus']();
+    if (el && el['focus']) UIEvent.queueTask(() => el['focus']());
     return true;
   }
 }
