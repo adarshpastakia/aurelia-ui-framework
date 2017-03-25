@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -19,6 +19,8 @@ export class InputDates {
   unbind() { }
   deactivate() { }
   // end aurelia hooks
+
+  minDate = moment().toISOString();
 
   date1 = moment().toISOString();
   date2 = moment().add(1, 'month').toISOString();

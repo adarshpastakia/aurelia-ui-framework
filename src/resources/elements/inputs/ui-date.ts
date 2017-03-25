@@ -124,7 +124,10 @@ export class UIDateView {
 
   dateChanged(newValue) {
     if (newValue && moment(newValue).isValid()) {
-      this.date = moment(newValue).second(0).millisecond(0).toISOString();
+      let time = moment(newValue).second(0).millisecond(0);
+      this.date = time.toISOString();
+      this.hour = time.hour();
+      this.minute = time.minute();
       this.refresh();
     }
   }
@@ -229,6 +232,19 @@ export class UIDateView {
       this.disableNext = (this.maxDate && this.decade + 20 >= moment(this.maxDate).year());
     }
 
+    if (this.type != 'd' && this.timePage == 0) {
+      let time = moment(this.current).hour(this.hour).minute(this.minute).second(0).millisecond(0);
+      if (this.minDate) this.disableHrDn = time.isSameOrBefore(this.minDate, 'hour');
+      if (this.maxDate) this.disableHrUp = time.isSameOrAfter(this.maxDate, 'hour');
+      if (this.minDate) this.disableMnDn = time.isSameOrBefore(this.minDate, 'minute');
+      if (this.maxDate) this.disableMnUp = time.isSameOrAfter(this.maxDate, 'minute');
+
+      if (this.minDate && time.isSameOrBefore(this.minDate, 'hour')) this.hour = moment(this.minDate).hour();
+      if (this.maxDate && time.isSameOrAfter(this.maxDate, 'hour')) this.hour = moment(this.maxDate).hour();
+      if (this.minDate && time.isSameOrBefore(this.minDate, 'minute')) this.minute = moment(this.minDate).minute();
+      if (this.maxDate && time.isSameOrAfter(this.maxDate, 'minute')) this.minute = moment(this.maxDate).minute();
+    }
+
   }
 
   private clicked(evt) {
@@ -319,7 +335,7 @@ export class UIDateView {
     }
     this.buildDatePage();
     if (changed) {
-      this.date = moment(this.current).hour(this.hour).minute(this.minute).second(0).millisecond(0).utc().toISOString();
+      this.date = moment(this.current).hour(this.type == 'd' ? 0 : this.hour).minute(this.type == 'd' ? 0 : this.minute).second(0).millisecond(0).utc().toISOString();
       UIEvent.fireEvent('change', this.element, moment(this.date));
     }
   }
@@ -333,7 +349,7 @@ export class UIDateView {
     change.trigger="fireEvent($event)" keydown.trigger="keyDown($event)" click.trigger="openDropdown($event, show=true)"
     placeholder.bind="placeholder" disabled.bind="isDisabled" readonly.bind="!allowSearch || readonly"/>
   <span class="ui-clear" if.bind="clear && value" click.trigger="clearInput()">&times;</span>
-  <span class="ui-input-addon" click.trigger="openDropdown($event, show=true, inputEl.focus())"><ui-glyph glyph="ui-calendar"></ui-glyph></span></div>
+  <span class="ui-input-addon" click.trigger="toggleDropdown($event)"><ui-glyph glyph="ui-calendar"></ui-glyph></span></div>
   <div class="ui-input-info" if.bind="info" innerhtml.bind="info"></div>
   <ui-date-view ref="dropdown" type.bind="type" class="ui-hidden floating" date.bind="date" min-date.bind="minDate" max-date.bind="maxDate"></ui-date-view>
 </template>`)
@@ -404,7 +420,7 @@ export class UIDateInput extends UIBaseInput {
     if (newValue && moment(newValue).isValid()) this.elValue = moment(newValue).format(this.format);
     else this.elValue = '';
     this.inputEl.focus();
-    this.closeDropdown();
+    if (this.type == 'd') this.closeDropdown();
     UIEvent.fireEvent('change', this.element, newValue || null);
   }
 
@@ -414,6 +430,7 @@ export class UIDateInput extends UIBaseInput {
     this.dropdown.classList.remove('ui-hidden');
     this.dropdown.au.controller.viewModel.refresh();
     this.tether.position();
+    this.inputEl.focus()
   }
 
   closeDropdown() {
@@ -425,7 +442,8 @@ export class UIDateInput extends UIBaseInput {
   toggleDropdown(evt, forceClose = false) {
     evt.stopPropagation();
     evt.cancelBubble = true;
-    this.dropdown.isOpen ? this.closeDropdown() : this.openDropdown();
+    this.show || this.dropdown.isOpen ? this.closeDropdown() : this.openDropdown();
+    this.show = !this.show;
   }
 
   fireEvent(evt) {

@@ -25,15 +25,15 @@
                 <small>Local Time</small>
               </ui-input-addon>
               <ui-date time date.bind="time"></ui-date>
-              <ui-input-info>${time | utc | time} GMT</ui-input-info>
+              <ui-input-info if.bind="time">${time | utc | time} GMT</ui-input-info>
             </ui-input-group>
             <ui-input-group>
               <ui-input-label>Date/Time</ui-input-label>
               <ui-input-addon>
                 <small>Local Time</small>
               </ui-input-addon>
-              <ui-date datetime date.bind="dttime"></ui-date>
-              <ui-input-info>${dttime | utc | datetime} GMT</ui-input-info>
+              <ui-date datetime date.bind="dttime" min-date.bind="minDate"></ui-date>
+              <ui-input-info if.bind="dttime">${dttime | utc | datetime} GMT</ui-input-info>
             </ui-input-group>
             <ui-input-group>
               <ui-input-label>Date Range</ui-input-label>
