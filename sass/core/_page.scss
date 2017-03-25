@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -10,7 +10,7 @@
 
   .ui-page-title {
     z-index      : 5;
-    font-size    : .8em;
+    font-size    : 0.8em;
     line-height  : 1.2em;
     background   : $page-title-bg;
     color        : $page-title-text;
@@ -21,6 +21,7 @@
 
   .ui-page-body {
     overflow: hidden;
+    position: relative;
     @include flex-fill();
     @include flex-column($align:stretch);
   }
