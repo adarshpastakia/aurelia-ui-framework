@@ -11,7 +11,9 @@ import * as _ from "lodash";
 @autoinject()
 @inlineView(`<template role="button" class="ui-button \${theme} \${busy?'ui-busy':''} \${disabled?'ui-disabled':''}" click.trigger="toggleDropdown($event)" data-value="\${value}" css.bind="{width: width}">
     <span class="ui-indicator"><ui-glyph if.bind="busy" class="ui-anim-busy" glyph="ui-busy"></ui-glyph></span>
-    <span if.bind="glyph"><ui-glyph class="ui-btn-icon \${glyph}" glyph.bind="glyph"></ui-glyph>&nbsp;</span><span class="ui-label"><slot>\${label}</slot></span>
+    <ui-glyph if.bind="glyph" class="ui-btn-icon \${glyph}" glyph.bind="glyph"></ui-glyph>
+    <span if.bind="glyph && label">&nbsp;</span>
+    <span class="ui-label"><slot>\${label}</slot></span>
     <ui-glyph class="ui-caret" glyph="ui-caret-down" if.bind="!form && dropdown"></ui-glyph></template>`)
 @customElement('ui-button')
 export class UIButton {
