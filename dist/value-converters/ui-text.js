@@ -65,6 +65,15 @@ define(["require", "exports", "../utils/ui-format"], function (require, exports,
         return FromNowValueConverter;
     }());
     exports.FromNowValueConverter = FromNowValueConverter;
+    var UtcValueConverter = (function () {
+        function UtcValueConverter() {
+        }
+        UtcValueConverter.prototype.toView = function (value) {
+            return ui_format_1.UIFormat.utcDate(value);
+        };
+        return UtcValueConverter;
+    }());
+    exports.UtcValueConverter = UtcValueConverter;
     var NumberValueConverter = (function () {
         function NumberValueConverter() {
         }

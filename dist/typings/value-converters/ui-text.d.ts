@@ -19,6 +19,9 @@ export declare class DatetimeValueConverter {
 export declare class FromNowValueConverter {
     toView(value: string): string;
 }
+export declare class UtcValueConverter {
+    toView(value: string): any;
+}
 export declare class NumberValueConverter {
     toView(value: string, format?: string): string;
 }

@@ -232,15 +232,15 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-format", "../
         UIDGGlyph.prototype.getGlyph = function (value, record) {
             if (isFunction(this.glyph))
                 return this.glyph({ value: value, record: record });
-            if (this.glyphMap && this.glyphMap[value])
-                return this.glyphMap[value];
+            if (this.glyphMap && this.glyphMap[(value + '').toLowerCase()])
+                return this.glyphMap[(value + '').toLowerCase()];
             return this.glyph || value;
         };
         UIDGGlyph.prototype.getTooltip = function (value, record) {
             if (isFunction(this.tooltip))
                 return this.tooltip({ value: value, record: record });
-            if (this.tooltipMap && this.tooltipMap[value])
-                return this.tooltipMap[value];
+            if (this.tooltipMap && this.tooltipMap[(value + '').toLowerCase()])
+                return this.tooltipMap[(value + '').toLowerCase()];
             return this.tooltip || value;
         };
         return UIDGGlyph;

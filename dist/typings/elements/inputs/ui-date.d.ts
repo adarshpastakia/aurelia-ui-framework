@@ -11,10 +11,11 @@ export declare class UIDateView {
     date: string;
     minDate: any;
     maxDate: any;
-    private type;
+    type: string;
     private obLocale;
     private title;
     private datePage;
+    private timePage;
     private hour;
     private minute;
     private current;
@@ -24,6 +25,10 @@ export declare class UIDateView {
     private weekdays;
     private disablePrev;
     private disableNext;
+    private disableHrUp;
+    private disableHrDn;
+    private disableMnUp;
+    private disableMnDn;
     dateChanged(newValue: any): void;
     minDateChanged(newValue: any): void;
     maxDateChanged(newValue: any): void;
@@ -31,6 +36,8 @@ export declare class UIDateView {
     private dateClass(dt);
     private monthClass(mn);
     private yearClass(yr);
+    private hourClass(hr);
+    private minuteClass(mn);
     private buildDatePage(newLocale?);
     private clicked(evt);
 }

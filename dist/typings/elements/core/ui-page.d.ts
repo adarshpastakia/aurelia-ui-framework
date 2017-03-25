@@ -38,3 +38,7 @@ export declare class UIGlyph {
     unbind(): void;
     glyph: string;
 }
+export declare class UILoader {
+    constructor(element: Element);
+    busy: boolean;
+}

@@ -108,4 +108,25 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
         __metadata("design:paramtypes", [Element])
     ], UIGlyph);
     exports.UIGlyph = UIGlyph;
+    var UILoader = (function () {
+        function UILoader(element) {
+            this.busy = false;
+            if (element.hasAttribute('big'))
+                element.classList.add('ui-big');
+            if (element.hasAttribute('small'))
+                element.classList.add('ui-small');
+        }
+        return UILoader;
+    }());
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Boolean)
+    ], UILoader.prototype, "busy", void 0);
+    UILoader = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.customElement('ui-loader'),
+        aurelia_framework_1.inlineView("<template class=\"ui-app-loader\" show.bind=\"busy\">\n  <div class=\"ui-loader-div\">\n    <ui-glyph class=\"ui-anim-loader\" glyph=\"ui-loader\"></ui-glyph>\n  </div>\n</template>"),
+        __metadata("design:paramtypes", [Element])
+    ], UILoader);
+    exports.UILoader = UILoader;
 });

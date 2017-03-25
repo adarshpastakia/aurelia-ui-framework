@@ -166,7 +166,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "loda
         UIInputAddon.prototype.focusEl = function () {
             var el = this.element.nextElementSibling;
             if (el && el['focus'])
-                el['focus']();
+                ui_event_1.UIEvent.queueTask(function () { return el['focus'](); });
             return true;
         };
         return UIInputAddon;

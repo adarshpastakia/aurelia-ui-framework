@@ -5,6 +5,7 @@ export declare class UIViewport {
     element: Element;
     httpClient: HttpClient;
     app: UIApplication;
+    router: any;
     constructor(element: Element, httpClient: HttpClient, app: UIApplication);
     created(owningView: View, myView: View): void;
     bind(bindingContext: Object, overrideContext: Object): void;

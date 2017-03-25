@@ -4,6 +4,7 @@ export declare module UIFormat {
     function time(dt: any, ft?: string): any;
     function datetime(dt: any, ft?: string): any;
     function dateToISO(dt: any): any;
+    function utcDate(dt: any): any;
     function age(dt: any): string;
     function fromNow(dt: any): string;
     function number(nm: any, fm?: string): string;

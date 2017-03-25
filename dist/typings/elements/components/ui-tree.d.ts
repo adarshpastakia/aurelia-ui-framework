@@ -30,6 +30,8 @@ export declare class UITree {
         unchecked: any[];
     };
     getCheckedTree(nodes?: any): any[];
+    expandAll(): void;
+    collapseAll(): void;
     private findNode(obj, id, field?, value?, expand?);
     private itemSelect(node);
     private itemChecked(node);

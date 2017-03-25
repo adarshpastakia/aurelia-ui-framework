@@ -5,6 +5,7 @@ export declare class UITreeModel {
     extra: any;
     icon: string;
     openIcon: string;
+    closedIcon: string;
     root: boolean;
     leaf: boolean;
     active: boolean;
@@ -18,7 +19,8 @@ export declare class UITreeModel {
     constructor(level: number, maxLevels: number, checkLevel: number, model: any, parent?: UITreeModel);
     isChecked: any;
     readonly data: any;
-    updateChild(v: any): void;
+    expandToggle(v: any): void;
+    updateChild(prop: any, v: any): void;
     updatePartial(): void;
     readonly isLeaf: boolean;
 }

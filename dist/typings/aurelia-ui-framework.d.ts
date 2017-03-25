@@ -46,6 +46,7 @@ import './elements/components/ui-sidebar';
 import './elements/components/ui-tab';
 import './elements/components/ui-tree';
 import './attributes/ui-badge';
+import './attributes/md-view';
 import './value-converters/ui-lodash';
 import './value-converters/ui-text';
 import 'text!./elements/core/framework.html';

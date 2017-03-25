@@ -24,12 +24,10 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "aurelia-f
                     .withInterceptor({
                     request: function (request) {
                         self.logger.info("Requesting " + request.method + " " + request.url);
-                        app.isBusy = true;
                         return request;
                     },
                     response: function (response) {
                         self.logger.info("Response " + response.status + " " + response.url);
-                        app.isBusy = false;
                         if (response instanceof TypeError) {
                             throw Error(response['message']);
                         }
@@ -42,7 +40,6 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "aurelia-f
                                 var json = {};
                                 var error = 'Network Error!!';
                                 try {
-                                    console.log(resp);
                                     json = JSON.parse(resp);
                                 }
                                 catch (e) { }
@@ -60,13 +57,11 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "aurelia-f
                         return response;
                     },
                     requestError: function (error) {
-                        app.isBusy = false;
                         if (error !== null)
                             throw Error(error.message);
                         return error;
                     },
                     responseError: function (error) {
-                        app.isBusy = false;
                         if (error !== null)
                             throw Error(error.message);
                         return error;

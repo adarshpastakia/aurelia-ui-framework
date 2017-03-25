@@ -30,6 +30,11 @@ define(["require", "exports", "kramed", "moment", "numeral"], function (require,
             return !dt || !(x = moment(dt)).isValid() ? null : x.toISOString();
         }
         UIFormat.dateToISO = dateToISO;
+        function utcDate(dt) {
+            var x;
+            return !dt || !(x = moment(dt)).isValid() ? null : x.utc();
+        }
+        UIFormat.utcDate = utcDate;
         function age(dt) {
             var x;
             return !dt || !(x = moment(dt)).isValid() ? '' : x.fromNow(true);

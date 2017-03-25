@@ -58,24 +58,26 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
         };
         UIDropdown.prototype.select = function (evt) {
             var _this = this;
+            var params = { value: evt.detail.value, model: evt.detail.model };
             if (isFunction(this.beforeselect)) {
-                var ret = this.beforeselect({ value: evt.detail.value, model: evt.detail.model });
+                var ret = this.beforeselect(params);
                 if (ret instanceof Promise)
                     ret.then(function (b) {
                         if (b) {
-                            _this.value = evt.detail.value;
-                            _this.model = evt.detail.model;
+                            _this.doChange(params);
                         }
                     });
                 else if (ret !== false) {
-                    this.value = evt.detail.value;
-                    this.model = evt.detail.model;
+                    this.doChange(params);
                 }
             }
-            else {
-                this.value = evt.detail.value;
-                this.model = evt.detail.model;
+            else if (ui_event_1.UIEvent.fireEvent('beforeselect', this.element, params) !== false) {
+                this.doChange(params);
             }
+        };
+        UIDropdown.prototype.doChange = function (params) {
+            this.value = params.value;
+            this.model = params.model;
         };
         UIDropdown.prototype.toggleDropdown = function (evt) {
             this.element.classList[this.element.classList.contains('ui-open') ? 'remove' : 'add']('ui-open');

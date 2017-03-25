@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-define(["require", "exports", "aurelia-framework", "aurelia-fetch-client", "../../utils/ui-application", "../../utils/ui-utils", "../../utils/ui-event"], function (require, exports, aurelia_framework_1, aurelia_fetch_client_1, ui_application_1, ui_utils_1, ui_event_1) {
+define(["require", "exports", "aurelia-framework", "aurelia-router", "aurelia-fetch-client", "../../utils/ui-application", "../../utils/ui-utils", "../../utils/ui-event"], function (require, exports, aurelia_framework_1, aurelia_router_1, aurelia_fetch_client_1, ui_application_1, ui_utils_1, ui_event_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var UIViewport = (function () {
@@ -23,6 +23,7 @@ define(["require", "exports", "aurelia-framework", "aurelia-fetch-client", "../.
                 window.clearTimeout(__resizeTimer);
                 window.setTimeout(function () { return ui_event_1.UIEvent.broadcast('windowresize'); }, 500);
             };
+            this.router = ui_utils_1.UIUtils.auContainer.get(aurelia_router_1.AppRouter);
         }
         UIViewport.prototype.created = function (owningView, myView) { };
         UIViewport.prototype.bind = function (bindingContext, overrideContext) { };
@@ -40,7 +41,7 @@ define(["require", "exports", "aurelia-framework", "aurelia-fetch-client", "../.
     }());
     UIViewport = __decorate([
         aurelia_framework_1.autoinject(),
-        aurelia_framework_1.inlineView("<template class=\"ui-viewport ui-fullscreen\">\n  <compose view=\"./framework.html\"></compose>\n  <slot name=\"ui-app-header\"></slot>\n  <slot></slot>\n  <div class=\"ui-app-taskbar\"><slot name=\"ui-app-taskbar\"></slot><div class=\"ui-taskbutton-wrapper\" ref=\"taskbarContainer\"></div></div>\n  <slot name=\"ui-app-footer\"></slot>\n  \n  <div class=\"ui-dialog-container\" ref=\"dialogContainer\"></div>\n  <div class=\"ui-overlay-container\" ref=\"overlayContainer\"></div>\n\n  <div class=\"ui-app-loader\" show.bind=\"router.isNavigating || httpClient.isRequesting || app.isBusy\">\n    <div class=\"ui-loader-div\">\n      <ui-glyph class=\"ui-anim-loader\" glyph=\"ui-loader\"></ui-glyph>\n    </div>\n  </div>\n</template>"),
+        aurelia_framework_1.inlineView("<template class=\"ui-viewport ui-fullscreen\">\n  <compose view=\"../../ui-glyphs.html\"></compose>\n  <slot name=\"ui-app-header\"></slot>\n  <slot></slot>\n  <div class=\"ui-app-taskbar\"><slot name=\"ui-app-taskbar\"></slot><div class=\"ui-taskbutton-wrapper\" ref=\"taskbarContainer\"></div></div>\n  <slot name=\"ui-app-footer\"></slot>\n\n  <div class=\"ui-dialog-container\" ref=\"dialogContainer\"></div>\n  <div class=\"ui-overlay-container\" ref=\"overlayContainer\"></div>\n\n  <ui-loader busy.bind=\"router.isNavigating\"></ui-loader>\n</template>"),
         aurelia_framework_1.customElement('ui-viewport'),
         __metadata("design:paramtypes", [Element, aurelia_fetch_client_1.HttpClient, ui_application_1.UIApplication])
     ], UIViewport);

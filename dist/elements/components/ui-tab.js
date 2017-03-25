@@ -134,7 +134,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-utils", "../.
         UITabPanel.prototype.unbind = function () { };
         UITabPanel.prototype.tabsChanged = function () {
             var _this = this;
-            if (this.tabs.length > 0 && _.find(this.tabs, ['active', true]) == null)
+            if (!this.activeTabEl && this.tabs.length > 0 && _.find(this.tabs, ['active', true]) == null)
                 (this.activeTabEl = _.find(this.tabs, ['disabled', false])).active = true;
             ui_event_1.UIEvent.queueTask(function () { return _this.arrange(); });
         };
@@ -147,22 +147,36 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-utils", "../.
             (this.activeTabEl = tab).active = true;
         };
         UITabPanel.prototype.closeTab = function (tab) {
-            if (ui_event_1.UIEvent.fireEvent('beforeclose', this.element, tab)) {
-                _.remove(this.tabs, ['id', tab.id]);
-                if (this.tabs.length > 0 && _.find(this.tabs, ['active', true]) == null)
-                    (this.activeTabEl = _.findLast(this.tabs, ['disabled', false])).active = true;
-                tab.remove();
-                ui_event_1.UIEvent.fireEvent('close', this.element, tab);
+            var _this = this;
+            if (isFunction(tab.beforeclose)) {
+                var ret = tab.beforeclose();
+                if (ret instanceof Promise)
+                    ret.then(function (b) {
+                        if (b) {
+                            _this.doClose(tab);
+                        }
+                    });
+                else if (ret !== false) {
+                    this.doClose(tab);
+                }
+            }
+            else if (ui_event_1.UIEvent.fireEvent('beforeclose', tab.element, tab) !== false) {
+                this.doClose(tab);
             }
         };
-        UITabPanel.prototype.activateTab = function (tab) {
-            if (ui_event_1.UIEvent.fireEvent('beforechange', this.element, tab)) {
-                if (this.activeTabEl)
-                    this.activeTabEl.active = false;
-                (this.activeTabEl = tab).active = true;
-                this.activeTab = tab.id;
-                ui_event_1.UIEvent.fireEvent('change', this.element, tab);
-            }
+        UITabPanel.prototype.doClose = function (tab) {
+            _.remove(this.tabs, ['id', tab.id]);
+            if (this.tabs.length > 0 && _.find(this.tabs, ['active', true]) == null)
+                (this.activeTabEl = _.findLast(this.tabs, ['disabled', false])).active = true;
+            tab.remove();
+            ui_event_1.UIEvent.fireEvent('closed', this.element, tab);
+        };
+        UITabPanel.prototype.activateTab = function (newTab) {
+            if (this.activeTabEl)
+                this.activeTabEl.active = false;
+            (this.activeTabEl = newTab).active = true;
+            this.activeTab = newTab.id;
+            ui_event_1.UIEvent.fireEvent('activate', newTab.element, newTab);
         };
         UITabPanel.prototype.canActivate = function (id) {
             var tab = _.find(this.tabs, ['id', id]);
@@ -175,11 +189,13 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-utils", "../.
             return false;
         };
         UITabPanel.prototype.arrange = function () {
+            if (!this.wrapper)
+                return;
             this.overflow.classList.remove('ui-open');
             for (var i = 0, c = this.overflow['children']; i < c.length; i++) {
                 this.wrapper.insertBefore(c[i], this.overflowToggle);
             }
-            if (this.tabs.length > 0 && (this.isOverflow = (this.wrapper.lastElementChild.previousElementSibling.offsetLeft + this.wrapper.lastElementChild.previousElementSibling.offsetWidth - this.wrapper.offsetLeft > this.wrapper.offsetWidth))) {
+            if (this.tabs.length > 0 && (this.isOverflow = (this.wrapper.lastElementChild.previousElementSibling.offsetLeft + this.wrapper.lastElementChild.previousElementSibling.offsetWidth > this.wrapper.offsetWidth))) {
                 for (var c = this.wrapper['children'], i = c.length - 2; i >= 0; i--) {
                     if (c[i].offsetLeft + c[i].offsetWidth > this.wrapper.offsetWidth) {
                         if (this.overflow.hasChildNodes)
@@ -268,6 +284,10 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-utils", "../.
         aurelia_framework_1.bindable(),
         __metadata("design:type", Object)
     ], UITab.prototype, "disabled", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UITab.prototype, "beforeclose", void 0);
     UITab = UITab_1 = __decorate([
         aurelia_framework_1.autoinject(),
         aurelia_framework_1.inlineView("<template class=\"ui-tab ${active?'ui-active':''}\"><slot></slot></template>"),

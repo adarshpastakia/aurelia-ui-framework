@@ -55,6 +55,7 @@ export declare class UICombo extends BaseListInput {
     detached(): void;
     unbind(): void;
     value: string;
+    model: any;
     errors: any;
     disabled: boolean;
     readonly: boolean;
@@ -108,6 +109,7 @@ export declare class UIList extends BaseListInput {
     detached(): void;
     unbind(): void;
     value: string;
+    model: any;
     errors: any;
     disabled: boolean;
     readonly: boolean;

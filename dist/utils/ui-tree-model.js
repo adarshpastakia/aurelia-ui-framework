@@ -41,7 +41,7 @@ define(["require", "exports", "aurelia-framework", "lodash"], function (require,
             set: function (v) {
                 this.checked = v = v ? 1 : 0;
                 _.forEach(this.children, function (c) {
-                    c.updateChild(v);
+                    c.updateChild('checked', v);
                 });
                 if (this.parent && this.parent.updatePartial) {
                     this.parent.updatePartial();
@@ -62,10 +62,17 @@ define(["require", "exports", "aurelia-framework", "lodash"], function (require,
             enumerable: true,
             configurable: true
         });
-        UITreeModel.prototype.updateChild = function (v) {
-            this.checked = v;
+        UITreeModel.prototype.expandToggle = function (v) {
             _.forEach(this.children, function (c) {
-                c.updateChild(v);
+                c.expanded = v;
+                if (v === false)
+                    c.updateChild('expanded', false);
+            });
+        };
+        UITreeModel.prototype.updateChild = function (prop, v) {
+            this[prop] = v;
+            _.forEach(this.children, function (c) {
+                c.updateChild(prop, v);
             });
         };
         UITreeModel.prototype.updatePartial = function () {

@@ -164,7 +164,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event"], func
             if (element.hasAttribute('close'))
                 this.glyph = "ui-dialog-close";
             if (element.hasAttribute('refresh'))
-                this.glyph = "ui-icon-refresh";
+                this.glyph = "ui-refresh";
             if (element.hasAttribute('collapse'))
                 this.glyph = "ui-chevron-up";
             if (element.hasAttribute('expand'))

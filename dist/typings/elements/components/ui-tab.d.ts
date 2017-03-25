@@ -38,7 +38,8 @@ export declare class UITabPanel {
     private tabsChanged();
     private activeTabChanged(newValue);
     private closeTab(tab);
-    private activateTab(tab);
+    private doClose(tab);
+    private activateTab(newTab);
     canActivate(id: any): boolean;
     private arrange();
     private showOverflow(evt);
@@ -56,6 +57,7 @@ export declare class UITab {
     glyph: string;
     label: string;
     disabled: boolean;
+    beforeclose: any;
     active: boolean;
     closeable: boolean;
     remove(): void;

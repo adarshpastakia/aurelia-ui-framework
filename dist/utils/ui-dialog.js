@@ -88,11 +88,11 @@ define(["require", "exports", "aurelia-framework", "./ui-event", "./ui-utils", "
                 this.windows.push(dialog);
                 dialog.taskButtonEl = document.createElement('button');
                 dialog.taskButtonEl.classList.add('ui-active');
-                dialog.taskButtonEl.innerHTML = "<ui-glyph class=\"" + dialog.glyph + "\" glyph=\"" + dialog.glyph + "\"></ui-glyph>&nbsp;<span class=\"ui-label\">" + dialog.title + "</span>";
+                dialog.taskButtonEl.innerHTML = '<ui-glyph class="${glyph}" glyph="${glyph}"></ui-glyph>&nbsp;<span class="ui-label">${title}</span>';
                 dialog.taskButtonEl.window = dialog;
                 if (ui_utils_1.UIUtils.taskbarContainer) {
                     ui_utils_1.UIUtils.taskbarContainer.appendChild(dialog.taskButtonEl);
-                    this.templatingEngine.enhance(dialog.taskButtonEl);
+                    this.templatingEngine.enhance({ element: dialog.taskButtonEl, bindingContext: dialog });
                 }
                 this.changeActive(dialog);
             }

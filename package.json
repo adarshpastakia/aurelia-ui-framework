@@ -1,50 +1,54 @@
 {
   "name": "aurelia-ui-framework",
   "description": "An Aurelia UI/UX framework.",
-  "version": "3.0.7",
+  "version": "3.0.8",
   "keywords": [
     "ui-framework",
     "desktop-framework",
     "aurelia-ui-framework"
   ],
   "homepage": "",
-  "bugs": {
+  "bugs":
+  {
     "url": ""
   },
   "license": "MIT",
   "author": "Adarsh Pastakia <adarshpastakia@outlook.com> (http://adarshpastakia.github.io/)",
   "main": "dist/aurelia-ui-framework.js",
   "typings": "dist/typings/aurelia-ui-framework.d.ts",
-  "repository": {
+  "repository":
+  {
     "type": "git",
     "url": ""
   },
-  "scripts": {
+  "scripts":
+  {
     "start": "au run --watch",
     "staging": "au build --env stage && gulp production",
     "production": "au build --env prod && gulp production"
   },
-  "dependencies": {
+  "dependencies":
+  {
     "aurelia-bootstrapper": "^1.0.1",
+    "aurelia-fetch-client": "^1.1.2",
     "aurelia-router": "^1.2.1",
-    "aurelia-fetch-client": "^1.1.1",
     "aurelia-ui-virtualization": "^1.0.0-beta.3.0.2",
     "aurelia-validation": "^1.0.0",
-    "bluebird": "^3.4.1",
     "kramed": "^0.5.6",
     "lodash": "^4.17.2",
-    "moment": "^2.17.0",
+    "moment": "^2.18.1",
     "numeral": "^1.5.6",
-    "requirejs": "^2.3.2",
-    "text": "github:requirejs/text#latest",
     "whatwg-fetch": "^2.0.1"
   },
-  "peerDependencies": {},
-  "devDependencies": {
-    "aurelia-cli": "^0.22.0",
+  "peerDependencies":
+  {},
+  "devDependencies":
+  {
+    "aurelia-cli": "^0.27.0",
     "aurelia-i18n": "^1.2.3",
     "aurelia-testing": "^1.0.0-beta.2.0.0",
     "aurelia-tools": "^0.2.2",
+    "bluebird": "^3.4.1",
     "browser-sync": "^2.13.0",
     "connect-history-api-fallback": "^1.2.0",
     "del": "^2.2.2",
@@ -60,6 +64,7 @@
     "gulp-sourcemaps": "^2.0.0-alpha",
     "gulp-tslint": "^5.0.0",
     "gulp-typescript": "^2.13.6",
+    "highlightjs": "^9.10.0",
     "i18next-xhr-backend": "^1.2.1",
     "jasmine-core": "^2.4.1",
     "karma": "^0.13.22",
@@ -68,6 +73,8 @@
     "karma-typescript-preprocessor": "^0.2.1",
     "minimatch": "^3.0.2",
     "require-dir": "^0.3.1",
+    "requirejs": "^2.3.2",
+    "text": "github:requirejs/text#latest",
     "through2": "^2.0.1",
     "tslint": "^3.11.0",
     "typescript": ">=1.9.0-dev || ^2.0.0",
