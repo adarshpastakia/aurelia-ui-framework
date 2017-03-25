@@ -35,6 +35,8 @@
                 npm i aurelia-ui-framework -S
                 npm i gulp-compass gulp-plumber del -SD
 
+                npm i lodash
+
                 npm i typings -g
                 typings i dt~moment dt~numeraljs -S -G
                 typing i lodash -S
@@ -58,20 +60,24 @@
                   ]
               </pre>
               <div>
-                <code>dependencies</code>
+                <code>bundles</code>
               </div>
               <pre mdview="json">
                 {
-                  "name": "vendor-bundle.js",
+                  "name": "framework-bundle.js",
                   "prepend": [
-                    ...,
                     "node_modules/whatwg-fetch/fetch.js"
                   ],
                   "dependencies": [
-                    ...,
-                    "aurelia-fetch-client",
                     "lodash",
+                    "moment",
                     "numeral",
+                    "aurelia-fetch-client",
+                    {
+                      "name": "kramed",
+                      "path": "../node_modules/kramed/lib",
+                      "main": "kramed"
+                    },
                     {
                       "name": "aurelia-validation",
                       "path": "../node_modules/aurelia-validation/dist/amd",
@@ -84,21 +90,11 @@
                     },
                     {
                       "name": "aurelia-ui-framework",
-                      "path": "../aurelia-ui-framework/dist",
+                      "path": "../node_modules/aurelia-ui-framework/dist",
                       "main": "aurelia-ui-framework",
                       "resources": [
                         "ui-glyphs.html"
                       ]
-                    },
-                    {
-                      "name": "kramed",
-                      "path": "../node_modules/kramed/lib",
-                      "main": "kramed"
-                    },
-                    {
-                      "name": "moment",
-                      "path": "../node_modules/moment",
-                      "main": "moment"
                     }
                   ]
                 }
