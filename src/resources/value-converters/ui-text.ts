@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2016
 // @license     : MIT
@@ -42,6 +42,11 @@ export class DatetimeValueConverter {
 export class FromNowValueConverter {
   toView(value: string) {
     return UIFormat.fromNow(value);
+  }
+}
+export class UtcValueConverter {
+  toView(value: string) {
+    return UIFormat.utcDate(value);
   }
 }
 

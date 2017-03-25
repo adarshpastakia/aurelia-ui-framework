@@ -1,4 +1,4 @@
-// 
+//
 // @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2016
@@ -32,6 +32,11 @@ export module UIFormat {
   export function dateToISO(dt) {
     let x;
     return !dt || !(x = moment(dt)).isValid() ? null : x.toISOString();
+  }
+
+  export function utcDate(dt) {
+    let x;
+    return !dt || !(x = moment(dt)).isValid() ? null : x.utc();
   }
 
   export function age(dt: any): string {

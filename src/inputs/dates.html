@@ -9,7 +9,7 @@
       <ui-container>
         <ui-row>
           <ui-column fill padded>
-            <ui-date-view date.bind="date"></ui-date-view>
+            <ui-date-view datetime date.bind="date"></ui-date-view>
             <p>${date}</p>
             <p>${date | date & t}</p>
             <p>${date | date & t} ${date | time}</p>
@@ -20,9 +20,27 @@
               <ui-date date.bind="date"></ui-date>
             </ui-input-group>
             <ui-input-group>
+              <ui-input-label>Time</ui-input-label>
+              <ui-input-addon>
+                <small>Local Time</small>
+              </ui-input-addon>
+              <ui-date time date.bind="time"></ui-date>
+              <ui-input-info>${time | utc | time} GMT</ui-input-info>
+            </ui-input-group>
+            <ui-input-group>
+              <ui-input-label>Date/Time</ui-input-label>
+              <ui-input-addon>
+                <small>Local Time</small>
+              </ui-input-addon>
+              <ui-date datetime date.bind="dttime"></ui-date>
+              <ui-input-info>${dttime | utc | datetime} GMT</ui-input-info>
+            </ui-input-group>
+            <ui-input-group>
               <ui-input-label>Date Range</ui-input-label>
               <ui-date date.bind="date1"></ui-date>
-              <ui-input-addon><small>TO</small></ui-input-addon>
+              <ui-input-addon>
+                <small>TO</small>
+              </ui-input-addon>
               <ui-date date.bind="date2" min-date.bind="date1"></ui-date>
             </ui-input-group>
           </ui-column>
