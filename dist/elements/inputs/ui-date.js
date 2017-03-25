@@ -68,7 +68,10 @@ define(["require", "exports", "aurelia-framework", "./ui-input", "../../utils/ui
         UIDateView.prototype.unbind = function () { };
         UIDateView.prototype.dateChanged = function (newValue) {
             if (newValue && moment(newValue).isValid()) {
-                this.date = moment(newValue).second(0).millisecond(0).toISOString();
+                var time = moment(newValue).second(0).millisecond(0);
+                this.date = time.toISOString();
+                this.hour = time.hour();
+                this.minute = time.minute();
                 this.refresh();
             }
         };
@@ -187,6 +190,25 @@ define(["require", "exports", "aurelia-framework", "./ui-input", "../../utils/ui
                 this.disablePrev = (this.minDate && this.decade <= moment(this.minDate).year());
                 this.disableNext = (this.maxDate && this.decade + 20 >= moment(this.maxDate).year());
             }
+            if (this.type != 'd' && this.timePage == 0) {
+                var time = moment(this.current).hour(this.hour).minute(this.minute).second(0).millisecond(0);
+                if (this.minDate)
+                    this.disableHrDn = time.isSameOrBefore(this.minDate, 'hour');
+                if (this.maxDate)
+                    this.disableHrUp = time.isSameOrAfter(this.maxDate, 'hour');
+                if (this.minDate)
+                    this.disableMnDn = time.isSameOrBefore(this.minDate, 'minute');
+                if (this.maxDate)
+                    this.disableMnUp = time.isSameOrAfter(this.maxDate, 'minute');
+                if (this.minDate && time.isSameOrBefore(this.minDate, 'hour'))
+                    this.hour = moment(this.minDate).hour();
+                if (this.maxDate && time.isSameOrAfter(this.maxDate, 'hour'))
+                    this.hour = moment(this.maxDate).hour();
+                if (this.minDate && time.isSameOrBefore(this.minDate, 'minute'))
+                    this.minute = moment(this.minDate).minute();
+                if (this.maxDate && time.isSameOrAfter(this.maxDate, 'minute'))
+                    this.minute = moment(this.maxDate).minute();
+            }
         };
         UIDateView.prototype.clicked = function (evt) {
             var changed = false;
@@ -277,7 +299,7 @@ define(["require", "exports", "aurelia-framework", "./ui-input", "../../utils/ui
             }
             this.buildDatePage();
             if (changed) {
-                this.date = moment(this.current).hour(this.hour).minute(this.minute).second(0).millisecond(0).utc().toISOString();
+                this.date = moment(this.current).hour(this.type == 'd' ? 0 : this.hour).minute(this.type == 'd' ? 0 : this.minute).second(0).millisecond(0).utc().toISOString();
                 ui_event_1.UIEvent.fireEvent('change', this.element, moment(this.date));
             }
         };
@@ -363,7 +385,8 @@ define(["require", "exports", "aurelia-framework", "./ui-input", "../../utils/ui
             else
                 this.elValue = '';
             this.inputEl.focus();
-            this.closeDropdown();
+            if (this.type == 'd')
+                this.closeDropdown();
             ui_event_1.UIEvent.fireEvent('change', this.element, newValue || null);
         };
         UIDateInput.prototype.openDropdown = function () {
@@ -373,6 +396,7 @@ define(["require", "exports", "aurelia-framework", "./ui-input", "../../utils/ui
             this.dropdown.classList.remove('ui-hidden');
             this.dropdown.au.controller.viewModel.refresh();
             this.tether.position();
+            this.inputEl.focus();
         };
         UIDateInput.prototype.closeDropdown = function () {
             this.dropdown.isOpen = false;
@@ -383,7 +407,8 @@ define(["require", "exports", "aurelia-framework", "./ui-input", "../../utils/ui
             if (forceClose === void 0) { forceClose = false; }
             evt.stopPropagation();
             evt.cancelBubble = true;
-            this.dropdown.isOpen ? this.closeDropdown() : this.openDropdown();
+            this.show || this.dropdown.isOpen ? this.closeDropdown() : this.openDropdown();
+            this.show = !this.show;
         };
         UIDateInput.prototype.fireEvent = function (evt) {
             evt.stopPropagation();
@@ -483,7 +508,7 @@ define(["require", "exports", "aurelia-framework", "./ui-input", "../../utils/ui
     ], UIDateInput.prototype, "placeholder", void 0);
     UIDateInput = __decorate([
         aurelia_framework_1.autoinject(),
-        aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper ui-input-date\"><div role=\"input\" class=\"ui-input-control\"><slot></slot>\n  <span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"ui-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <input ref=\"inputEl\" value.bind=\"elValue\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\"\n    change.trigger=\"fireEvent($event)\" keydown.trigger=\"keyDown($event)\" click.trigger=\"openDropdown($event, show=true)\"\n    placeholder.bind=\"placeholder\" disabled.bind=\"isDisabled\" readonly.bind=\"!allowSearch || readonly\"/>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span>\n  <span class=\"ui-input-addon\" click.trigger=\"openDropdown($event, show=true, inputEl.focus())\"><ui-glyph glyph=\"ui-calendar\"></ui-glyph></span></div>\n  <div class=\"ui-input-info\" if.bind=\"info\" innerhtml.bind=\"info\"></div>\n  <ui-date-view ref=\"dropdown\" type.bind=\"type\" class=\"ui-hidden floating\" date.bind=\"date\" min-date.bind=\"minDate\" max-date.bind=\"maxDate\"></ui-date-view>\n</template>"),
+        aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper ui-input-date\"><div role=\"input\" class=\"ui-input-control\"><slot></slot>\n  <span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"ui-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <input ref=\"inputEl\" value.bind=\"elValue\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\"\n    change.trigger=\"fireEvent($event)\" keydown.trigger=\"keyDown($event)\" click.trigger=\"openDropdown($event, show=true)\"\n    placeholder.bind=\"placeholder\" disabled.bind=\"isDisabled\" readonly.bind=\"!allowSearch || readonly\"/>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span>\n  <span class=\"ui-input-addon\" click.trigger=\"toggleDropdown($event)\"><ui-glyph glyph=\"ui-calendar\"></ui-glyph></span></div>\n  <div class=\"ui-input-info\" if.bind=\"info\" innerhtml.bind=\"info\"></div>\n  <ui-date-view ref=\"dropdown\" type.bind=\"type\" class=\"ui-hidden floating\" date.bind=\"date\" min-date.bind=\"minDate\" max-date.bind=\"maxDate\"></ui-date-view>\n</template>"),
         aurelia_framework_1.customElement('ui-date'),
         __metadata("design:paramtypes", [Element])
     ], UIDateInput);

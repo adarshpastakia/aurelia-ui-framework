@@ -146,7 +146,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
     ], UIButton.prototype, "disabled", void 0);
     UIButton = __decorate([
         aurelia_framework_1.autoinject(),
-        aurelia_framework_1.inlineView("<template role=\"button\" class=\"ui-button ${theme} ${busy?'ui-busy':''} ${disabled?'ui-disabled':''}\" click.trigger=\"toggleDropdown($event)\" data-value=\"${value}\" css.bind=\"{width: width}\">\n    <span class=\"ui-indicator\"><ui-glyph if.bind=\"busy\" class=\"ui-anim-busy\" glyph=\"ui-busy\"></ui-glyph></span>\n    <span if.bind=\"glyph\"><ui-glyph class=\"ui-btn-icon ${glyph}\" glyph.bind=\"glyph\"></ui-glyph>&nbsp;</span><span class=\"ui-label\"><slot>${label}</slot></span>\n    <ui-glyph class=\"ui-caret\" glyph=\"ui-caret-down\" if.bind=\"!form && dropdown\"></ui-glyph></template>"),
+        aurelia_framework_1.inlineView("<template role=\"button\" class=\"ui-button ${theme} ${busy?'ui-busy':''} ${disabled?'ui-disabled':''}\" click.trigger=\"toggleDropdown($event)\" data-value=\"${value}\" css.bind=\"{width: width}\">\n    <span class=\"ui-indicator\"><ui-glyph if.bind=\"busy\" class=\"ui-anim-busy\" glyph=\"ui-busy\"></ui-glyph></span>\n    <ui-glyph if.bind=\"glyph\" class=\"ui-btn-icon ${glyph}\" glyph.bind=\"glyph\"></ui-glyph>\n    <span if.bind=\"glyph && label\">&nbsp;</span>\n    <span class=\"ui-label\"><slot>${label}</slot></span>\n    <ui-glyph class=\"ui-caret\" glyph=\"ui-caret-down\" if.bind=\"!form && dropdown\"></ui-glyph></template>"),
         aurelia_framework_1.customElement('ui-button'),
         __metadata("design:paramtypes", [Element])
     ], UIButton);
