@@ -5,6 +5,7 @@
 // @license     : MIT
 import {autoinject, customElement, bindable, bindingMode, children, inlineView, useView, containerless, View, DOM} from 'aurelia-framework';
 import {UIEvent} from "../../utils/ui-event";
+import {UIUtils} from "../../utils/ui-utils";
 import * as _ from "lodash";
 
 @autoinject()
@@ -114,7 +115,7 @@ export class UIHeader {
 }
 
 @autoinject()
-@inlineView(`<template class="ui-header-tool"><button tabindex="-1" class="ui-header-button ui-\${type}" click.trigger="fireEvent($event)">
+@inlineView(`<template class="ui-header-tool"><button disabled.bind="disabled" tabindex="-1" class="ui-header-button ui-\${type}" click.trigger="fireEvent($event)">
   <slot><ui-glyph glyph.bind="glyph"></ui-glyph></slot></button></template>`)
 @customElement('ui-header-tool')
 export class UIHeaderTool {
@@ -134,17 +135,58 @@ export class UIHeaderTool {
 
   // aurelia hooks
   created(owningView: View, myView: View) { }
-  bind(bindingContext: Object, overrideContext: Object) { }
-  attached() { }
-  detached() { }
+  bind(bindingContext: Object, overrideContext: Object) {
+    this.disabled = isTrue(this.disabled);
+  }
+  attached() {
+    if (this.dropdown) {
+      this.obMouseup = UIEvent.subscribe('mouseclick', (evt) => {
+        if (getParentByClass(evt.target, 'ui-button') == this.element) return;
+        this.element.classList.remove('ui-open');
+        this.dropdown.classList.remove('ui-open');
+      });
+      this.dropdown.classList.add('ui-floating');
+      this.tether = UIUtils.tether(this.element, this.dropdown, { position: 'br' });
+    }
+  }
+  detached() {
+    if (this.tether) this.tether.dispose();
+    if (this.obMouseup) this.obMouseup.dispose();
+    if (this.dropdown) DOM.removeNode(this.dropdown);
+  }
   unbind() { }
   // end aurelia hooks
+
+  @bindable() dropdown;
+  @bindable() disabled = false;
+
+  private tether;
+  private obMouseup;
 
   private type = '';
   private glyph = '';
 
   private fireEvent(evt) {
     if (evt.button != 0) return true;
+
+    if (this.dropdown) {
+      evt.preventDefault();
+      evt.stopPropagation();
+      evt.cancelBubble = true;
+      if (this.element.classList.contains('ui-open')) {
+        UIEvent.fireEvent('menuhide', this.element);
+        this.element.classList.remove('ui-open');
+        this.dropdown.classList.remove('ui-open');
+      }
+      else {
+        if (UIEvent.fireEvent('menuopen', this.element) !== false) {
+          this.element.classList.add('ui-open');
+          this.dropdown.classList.add('ui-open');
+          this.tether.position();
+        }
+      }
+      return false;
+    }
     return UIEvent.fireEvent(this.type, this.element);
   }
 }
