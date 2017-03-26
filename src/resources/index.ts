@@ -1,4 +1,5 @@
-import {FrameworkConfiguration} from 'aurelia-framework';
+import {FrameworkConfiguration, Container} from 'aurelia-framework';
+import {PLATFORM} from 'aurelia-pal';
 import {ValidationRules, Validator, ValidationController, validateTrigger} from 'aurelia-validation';
 import {UIValidationRenderer} from "./utils/ui-validation";
 import {UIConstants} from "./utils/ui-constants";
@@ -81,54 +82,54 @@ export interface UIConfig {
   languages(l: Array<any>): UIConfig;
 }
 
-export function configure(config: FrameworkConfiguration, configCallback) {
+export function configure(config: { container: Container, globalResources?: (...resources: string[]) => any }, configCallback) {
   UIUtils.auContainer = config.container;
 
   ValidationController.prototype.validateTrigger = validateTrigger.changeOrBlur;
   config.container.registerHandler('ui-validator', container => container.get(UIValidationRenderer));
   // Core Elements
-  config.globalResources([
-    './elements/core/ui-grid',
-    './elements/core/ui-page',
-    './elements/core/ui-viewport'
-  ]);
+  config.globalResources(
+    PLATFORM.moduleName('./elements/core/ui-grid'),
+    PLATFORM.moduleName('./elements/core/ui-page'),
+    PLATFORM.moduleName('./elements/core/ui-viewport')
+  );
   // Input Elements
-  config.globalResources([
-    './elements/inputs/ui-button',
-    './elements/inputs/ui-date',
-    './elements/inputs/ui-form',
-    './elements/inputs/ui-input',
-    './elements/inputs/ui-lists',
-    './elements/inputs/ui-options',
-    './elements/inputs/ui-phone',
-    './elements/inputs/ui-textarea',
-    './elements/inputs/ui-markdown'
-  ]);
+  config.globalResources(
+    PLATFORM.moduleName('./elements/inputs/ui-button'),
+    PLATFORM.moduleName('./elements/inputs/ui-date'),
+    PLATFORM.moduleName('./elements/inputs/ui-form'),
+    PLATFORM.moduleName('./elements/inputs/ui-input'),
+    PLATFORM.moduleName('./elements/inputs/ui-lists'),
+    PLATFORM.moduleName('./elements/inputs/ui-options'),
+    PLATFORM.moduleName('./elements/inputs/ui-phone'),
+    PLATFORM.moduleName('./elements/inputs/ui-textarea'),
+    PLATFORM.moduleName('./elements/inputs/ui-markdown')
+  );
   // Components
-  config.globalResources([
-    './elements/components/ui-alerts',
-    './elements/components/ui-bars',
-    './elements/components/ui-breadcrumb',
-    './elements/components/ui-datagrid',
-    './elements/components/ui-dg-columns',
-    './elements/components/ui-drawer',
-    './elements/components/ui-dropdown',
-    './elements/components/ui-menu',
-    './elements/components/ui-panel',
-    './elements/components/ui-sidebar',
-    './elements/components/ui-tab',
-    './elements/components/ui-tree'
-  ]);
+  config.globalResources(
+    PLATFORM.moduleName('./elements/components/ui-alerts'),
+    PLATFORM.moduleName('./elements/components/ui-bars'),
+    PLATFORM.moduleName('./elements/components/ui-breadcrumb'),
+    PLATFORM.moduleName('./elements/components/ui-datagrid'),
+    PLATFORM.moduleName('./elements/components/ui-dg-columns'),
+    PLATFORM.moduleName('./elements/components/ui-drawer'),
+    PLATFORM.moduleName('./elements/components/ui-dropdown'),
+    PLATFORM.moduleName('./elements/components/ui-menu'),
+    PLATFORM.moduleName('./elements/components/ui-panel'),
+    PLATFORM.moduleName('./elements/components/ui-sidebar'),
+    PLATFORM.moduleName('./elements/components/ui-tab'),
+    PLATFORM.moduleName('./elements/components/ui-tree')
+  );
   // Attributes
-  config.globalResources([
-    './attributes/ui-badge',
-    './attributes/md-view'
-  ]);
+  config.globalResources(
+    PLATFORM.moduleName('./attributes/ui-badge'),
+    PLATFORM.moduleName('./attributes/md-view')
+  );
   // Value Converters
-  config.globalResources([
-    './value-converters/ui-lodash',
-    './value-converters/ui-text'
-  ]);
+  config.globalResources(
+    PLATFORM.moduleName('./value-converters/ui-lodash'),
+    PLATFORM.moduleName('./value-converters/ui-text')
+  );
 
   var Configure = {
     title: (t) => {
