@@ -1,7 +1,7 @@
 {
   "name": "aurelia-ui-framework",
   "description": "An Aurelia UI/UX framework.",
-  "version": "3.0.10",
+  "version": "3.1.0",
   "keywords": [
     "ui-framework",
     "desktop-framework",
@@ -14,12 +14,12 @@
   },
   "license": "MIT",
   "author": "Adarsh Pastakia <adarshpastakia@outlook.com> (http://adarshpastakia.github.io/)",
-  "main": "dist/aurelia-ui-framework.js",
+  "main": "dist/amd/aurelia-ui-framework.js",
   "typings": "dist/typings/aurelia-ui-framework.d.ts",
   "repository":
   {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/adarshpastakia/aurelia-ui-framework"
   },
   "scripts":
   {
@@ -31,7 +31,6 @@
   {
     "aurelia-bootstrapper": "^1.0.1",
     "aurelia-fetch-client": "^1.1.2",
-    "aurelia-router": "^1.2.1",
     "aurelia-ui-virtualization": "^1.0.0-beta.3.0.2",
     "aurelia-validation": "^1.0.0",
     "kramed": "^0.5.6",
