@@ -55,6 +55,7 @@ export class UITree {
       this.selectedNode = this.findNode(this.root.children, newValue, 'active', true, true);
     }
     else {
+      if (isEmpty(newValue)) return;
       _.forEach(this.root.children, n => n.isChecked = false);
       if (newValue) _.forEach((newValue || '').split(','), v => this.findNode(this.root.children, v, 'checked', true, true));
     }
@@ -78,6 +79,13 @@ export class UITree {
       name: this.options.rootLabel,
       children: newValue
     }, null);
+    if (this.options.showCheckbox) {
+      let nodes = this.getChecked(this.root.children);
+      this.value = nodes.checked.join(',');
+    }
+    else {
+      if (this.selectedNode) this.value = this.selectedNode.value;
+    }
   }
 
   @computedFrom('root')
