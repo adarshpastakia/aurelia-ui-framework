@@ -11,9 +11,7 @@
   .ui-col-form .ui-input-group {
     min-width: 18em;
   }
-}
 
-.ui-fieldset {
   &.ui-floating {
     max-height      : 20rem;
     background-color: $menu-dropdown-bg;
@@ -34,13 +32,10 @@
     &.ui-open {
       display: block;
     }
-
-    > fieldset {
-      margin: 0;
-      border: none;
-    }
   }
+}
 
+.ui-fieldset {
   fieldset {
     margin       : 0.25em 0.5em;
     padding      : 0.25em 0.5em;
