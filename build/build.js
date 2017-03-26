@@ -19,7 +19,7 @@ var paths = {
 };
 
 gulp.task('clean', function() {
-  return gulp.src([paths.output])
+  return gulp.src([paths.output + '*'])
     .pipe(vinylPaths(del));
 });
 
@@ -31,7 +31,8 @@ function compilerTsOptions(override) {
 }
 
 compileToModules.forEach(function(moduleType) {
-  gulp.task('build-ts-' + moduleType, function() {
+  gulp.task('build-ts-' + moduleType, function(done) {
+    console.log('Compiling Typescript - ' + moduleType);
     var tsProject = ts.createProject(
       compilerTsOptions({
         module: moduleType,
@@ -40,11 +41,12 @@ compileToModules.forEach(function(moduleType) {
     var tsResult = gulp.src(tsconfig.filesGlob, {
       base: appRoot
     }).pipe(ts(tsProject));
-    return tsResult.js
-      .pipe(gulp.dest(paths.output));
+
+    return tsResult.js.pipe(gulp.dest(paths.output + moduleType))
   });
 });
-gulp.task('build-dts', function() {
+gulp.task('build-dts', function(done) {
+  console.log('Building Typescript Definitions');
   var tsProject = ts.createProject(
     compilerTsOptions({
       removeComments: false,
@@ -58,21 +60,37 @@ gulp.task('build-dts', function() {
   return tsResult.dts.pipe(gulp.dest(paths.output + '/typings'));
 });
 
-gulp.task('copy-extras', function() {
-  return gulp.src([paths.typings, paths.libs, paths.glyphs], {
+gulp.task('rename-index', function(done) {
+  compileToModules.forEach(function(moduleType) {
+    gulp.src(paths.output + moduleType + '/index.js')
+      .pipe(rename("aurelia-ui-framework.js"))
+      .pipe(gulp.dest(paths.output + moduleType));
+    del([paths.output + moduleType + '/index.js']);
+  });
+  gulp.src(paths.output + 'typings/index.d.ts')
+    .pipe(rename("typings/aurelia-ui-framework.d.ts"))
+    .pipe(gulp.dest(paths.output));
+  del([paths.output + 'typings/index.d.ts']);
+  done();
+});
+
+gulp.task('copy-extras', function(done) {
+  compileToModules.forEach(function(moduleType) {
+    gulp.src([paths.libs, paths.glyphs], {
+      base: appRoot
+    }).pipe(gulp.dest(paths.output + moduleType));
+  });
+  gulp.src([paths.typings], {
     base: appRoot
   }).pipe(gulp.dest(paths.output));
+  done();
 });
 
 
-gulp.task('build-ts', gulp.series('clean', 'build-ts-amd', 'build-dts', 'copy-extras',
+gulp.task('build-source', gulp.series('clean',
+  compileToModules.map(function(moduleType) {
+    return 'build-ts-' + moduleType
+  }), 'build-dts', 'rename-index', 'copy-extras',
   function(done) {
-    gulp.src(paths.output + 'index.js')
-      .pipe(rename("aurelia-ui-framework.js"))
-      .pipe(gulp.dest("./dist"));
-    gulp.src(paths.output + 'typings/index.d.ts')
-      .pipe(rename("typings/aurelia-ui-framework.d.ts"))
-      .pipe(gulp.dest("./dist"));
-    del([paths.output + 'index.js', paths.output + 'typings/index.d.ts']);
     done();
   }));

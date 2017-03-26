@@ -1,0 +1,132 @@
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+import { autoinject, customElement, bindable, inlineView } from 'aurelia-framework';
+let UIPage = class UIPage {
+    constructor(element) {
+        this.element = element;
+        this.pageClass = '';
+    }
+    created(owningView, myView) { }
+    bind(bindingContext, overrideContext) { }
+    attached() { }
+    detached() { }
+    unbind() { }
+};
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIPage.prototype, "pageClass", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIPage.prototype, "pageTitle", void 0);
+UIPage = __decorate([
+    autoinject(),
+    customElement('ui-page'),
+    inlineView(`
+<template class="ui-page">
+  <div class="ui-page-title" if.bind="pageTitle" innerhtml.bind="pageTitle"></div>
+  <div class="ui-page-body \${pageClass}"><slot></slot></div>
+</template>`),
+    __metadata("design:paramtypes", [Element])
+], UIPage);
+export { UIPage };
+let UISection = class UISection {
+    constructor(element) {
+        this.element = element;
+        if (element.hasAttribute('row-layout'))
+            element.classList.add('row');
+        else
+            element.classList.add('column');
+        if (element.hasAttribute('center'))
+            element.classList.add('ui-align-center');
+        if (element.hasAttribute('middle'))
+            element.classList.add('ui-align-middle');
+    }
+    created(owningView, myView) { }
+    bind(bindingContext, overrideContext) { }
+    attached() { }
+    detached() { }
+    unbind() { }
+};
+UISection = __decorate([
+    autoinject(),
+    customElement('ui-section'),
+    inlineView(`<template class="ui-section"><slot></slot></template>`),
+    __metadata("design:paramtypes", [Element])
+], UISection);
+export { UISection };
+let UIContent = class UIContent {
+    constructor(element) {
+        this.element = element;
+        if (element.hasAttribute('padded'))
+            element.classList.add('ui-pad-all');
+        if (element.hasAttribute('scroll'))
+            element.classList.add('ui-scroll');
+    }
+    created(owningView, myView) { }
+    bind(bindingContext, overrideContext) { }
+    attached() { }
+    detached() { }
+    unbind() { }
+};
+UIContent = __decorate([
+    autoinject(),
+    customElement('ui-content'),
+    inlineView(`<template class="ui-content"><slot></slot></template>`),
+    __metadata("design:paramtypes", [Element])
+], UIContent);
+export { UIContent };
+let UIGlyph = class UIGlyph {
+    constructor(element) {
+        this.element = element;
+        this.glyph = '';
+    }
+    created(owningView, myView) { }
+    bind(bindingContext, overrideContext) { }
+    attached() { }
+    detached() { }
+    unbind() { }
+};
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIGlyph.prototype, "glyph", void 0);
+UIGlyph = __decorate([
+    autoinject(),
+    customElement('ui-glyph'),
+    inlineView(`<template class="ui-icon \${glyph}"><svg><use tabindex="-1" x="0" y="0" xlink:href="#\${glyph}"/></svg></template>`),
+    __metadata("design:paramtypes", [Element])
+], UIGlyph);
+export { UIGlyph };
+let UILoader = class UILoader {
+    constructor(element) {
+        this.busy = false;
+        if (element.hasAttribute('big'))
+            element.classList.add('ui-big');
+        if (element.hasAttribute('small'))
+            element.classList.add('ui-small');
+    }
+};
+__decorate([
+    bindable(),
+    __metadata("design:type", Boolean)
+], UILoader.prototype, "busy", void 0);
+UILoader = __decorate([
+    autoinject(),
+    customElement('ui-loader'),
+    inlineView(`<template class="ui-app-loader" show.bind="busy">
+  <div class="ui-loader-div">
+    <ui-glyph class="ui-anim-loader" glyph="ui-loader"></ui-glyph>
+  </div>
+</template>`),
+    __metadata("design:paramtypes", [Element])
+], UILoader);
+export { UILoader };

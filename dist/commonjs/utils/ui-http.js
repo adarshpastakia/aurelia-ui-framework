@@ -1,0 +1,192 @@
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var aurelia_framework_1 = require("aurelia-framework");
+var aurelia_logging_1 = require("aurelia-logging");
+var aurelia_fetch_client_1 = require("aurelia-fetch-client");
+var aurelia_event_aggregator_1 = require("aurelia-event-aggregator");
+var ui_application_1 = require("./ui-application");
+var ui_constants_1 = require("./ui-constants");
+var UIHttpService = (function () {
+    function UIHttpService(httpClient, app, eventAggregator) {
+        this.httpClient = httpClient;
+        this.app = app;
+        this.eventAggregator = eventAggregator;
+        this.logger = aurelia_logging_1.getLogger('UIHttpService');
+        this.logger.info('Initialized');
+        var self = this;
+        httpClient.configure(function (config) {
+            config
+                .withBaseUrl(ui_constants_1.UIConstants.Http.BaseUrl)
+                .withInterceptor({
+                request: function (request) {
+                    self.logger.info("Requesting " + request.method + " " + request.url);
+                    return request;
+                },
+                response: function (response) {
+                    self.logger.info("Response " + response.status + " " + response.url);
+                    if (response instanceof TypeError) {
+                        throw Error(response['message']);
+                    }
+                    if (response.status == 401) {
+                        eventAggregator.publish('auf:unauthorized', null);
+                    }
+                    else if (response.status >= 400) {
+                        return response.text()
+                            .then(function (resp) {
+                            var json = {};
+                            var error = 'Network Error!!';
+                            try {
+                                json = JSON.parse(resp);
+                            }
+                            catch (e) { }
+                            if (json.message)
+                                error = json.message;
+                            else if (json.error)
+                                error = json.error;
+                            else if (response.statusText)
+                                error = response.statusText;
+                            if (error)
+                                throw new Error(error);
+                            return null;
+                        });
+                    }
+                    return response;
+                },
+                requestError: function (error) {
+                    if (error !== null)
+                        throw Error(error.message);
+                    return error;
+                },
+                responseError: function (error) {
+                    if (error !== null)
+                        throw Error(error.message);
+                    return error;
+                }
+            });
+        });
+    }
+    UIHttpService.prototype.setBaseUrl = function (url) {
+        this.httpClient.baseUrl = url;
+    };
+    UIHttpService.prototype.get = function (slug, basicAuth) {
+        if (basicAuth === void 0) { basicAuth = true; }
+        this.logger.info("get [" + slug + "]");
+        return this.httpClient
+            .fetch(slug, {
+            method: 'get',
+            mode: 'cors',
+            headers: this.__getHeaders(basicAuth)
+        })
+            .then(function (resp) { return resp.json(); });
+    };
+    UIHttpService.prototype.text = function (slug, basicAuth) {
+        if (basicAuth === void 0) { basicAuth = true; }
+        this.logger.info("text [" + slug + "]");
+        return this.httpClient
+            .fetch(slug, {
+            method: 'get',
+            mode: 'cors',
+            headers: this.__getHeaders(basicAuth)
+        })
+            .then(function (resp) { return resp.text(); });
+    };
+    UIHttpService.prototype.put = function (slug, obj, basicAuth) {
+        if (basicAuth === void 0) { basicAuth = true; }
+        this.logger.info("put [" + slug + "]");
+        return this.httpClient
+            .fetch(slug, {
+            method: 'put',
+            body: aurelia_fetch_client_1.json(obj),
+            mode: 'cors',
+            headers: this.__getHeaders(basicAuth)
+        })
+            .then(function (resp) { return resp.json(); });
+    };
+    UIHttpService.prototype.post = function (slug, obj, basicAuth) {
+        if (basicAuth === void 0) { basicAuth = true; }
+        this.logger.info("post [" + slug + "]");
+        return this.httpClient
+            .fetch(slug, {
+            method: 'post',
+            body: aurelia_fetch_client_1.json(obj),
+            mode: 'cors',
+            headers: this.__getHeaders(basicAuth)
+        })
+            .then(function (resp) { return resp.json(); });
+    };
+    UIHttpService.prototype.delete = function (slug, basicAuth) {
+        if (basicAuth === void 0) { basicAuth = true; }
+        this.logger.info("delete [" + slug + "]");
+        return this.httpClient
+            .fetch(slug, {
+            method: 'delete',
+            mode: 'cors',
+            headers: this.__getHeaders(basicAuth)
+        })
+            .then(function (resp) { return resp.json(); });
+    };
+    UIHttpService.prototype.upload = function (slug, form, basicAuth) {
+        if (basicAuth === void 0) { basicAuth = true; }
+        this.logger.info("upload [" + slug + "]");
+        return this.__upload('post', slug, form);
+    };
+    UIHttpService.prototype.reupload = function (slug, form, basicAuth) {
+        if (basicAuth === void 0) { basicAuth = true; }
+        this.logger.info("reupload [" + slug + "]");
+        return this.__upload('put', slug, form);
+    };
+    UIHttpService.prototype.__upload = function (method, slug, form, basicAuth) {
+        var data = new FormData();
+        for (var i = 0, q = form.querySelectorAll('input'); i < q.length; i++) {
+            if (q[i].type == 'file') {
+                var files = q[i]['draggedFiles'] || q[i].files;
+                for (var x = 0; x < files.length; x++) {
+                    data.append(q[i].name || ('file' + (i + 1) + (x + 1)), (files[x].file || files[x]), files[x].name);
+                }
+            }
+            else {
+                data.append(q[i].name || ('input' + (i + 1)), q[i].value);
+            }
+        }
+        return this.httpClient
+            .fetch(slug, {
+            method: method,
+            body: data,
+            mode: 'cors',
+            headers: this.__getHeaders(basicAuth)
+        })
+            .then(function (resp) { return resp.json(); });
+    };
+    UIHttpService.prototype.__getHeaders = function (basic) {
+        if (basic === void 0) { basic = true; }
+        var headers = {
+            'X-Requested-With': 'Fetch',
+            'Accept': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        };
+        Object.assign(headers, ui_constants_1.UIConstants.Http.Headers || {});
+        if (basic && ui_constants_1.UIConstants.Http.AuthorizationHeader && !isEmpty(this.app.AuthUser)) {
+            var token = this.app.AuthUser + ":" + this.app.AuthToken;
+            var hash = btoa(token);
+            headers['Authorization'] = "Basic " + hash;
+        }
+        return headers;
+    };
+    return UIHttpService;
+}());
+UIHttpService = __decorate([
+    aurelia_framework_1.autoinject(),
+    __metadata("design:paramtypes", [aurelia_fetch_client_1.HttpClient,
+        ui_application_1.UIApplication,
+        aurelia_event_aggregator_1.EventAggregator])
+], UIHttpService);
+exports.UIHttpService = UIHttpService;

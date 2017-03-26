@@ -41,6 +41,6 @@ gulp.task('bump-version', function(done) {
   }
 });
 
-gulp.task('release', gulp.series('sass', 'build-ts', 'bump-version', 'changelog', function(done) {
+gulp.task('release', gulp.series('sass', 'build-source', 'bump-version', 'changelog', function(done) {
   done();
 }));

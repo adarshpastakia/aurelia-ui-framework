@@ -1,4 +1,4 @@
-import { FrameworkConfiguration } from 'aurelia-framework';
+import { Container } from 'aurelia-framework';
 import 'lodash';
 import 'moment';
 import 'numeral';
@@ -59,4 +59,7 @@ export interface UIConfig {
     sendAuthHeader(t: boolean): UIConfig;
     languages(l: Array<any>): UIConfig;
 }
-export declare function configure(config: FrameworkConfiguration, configCallback: any): void;
+export declare function configure(config: {
+    container: Container;
+    globalResources?: (...resources: string[]) => any;
+}, configCallback: any): void;
