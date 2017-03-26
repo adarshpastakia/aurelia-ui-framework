@@ -9,6 +9,5 @@ install:
   - npm install
   - typings install
 script:
-  - gulp build-ts
+  - gulp build-source
   - gulp sass
-  
