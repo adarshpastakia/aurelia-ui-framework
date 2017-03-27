@@ -224,7 +224,7 @@ export class UIFileInput {
       if (this.files.length == this.maxFiles) this.files.splice(0, 1);
       this.files.push(f);
     }
-    UIEvent.fireEvent('change', this.element);
+    UIEvent.fireEvent('change', this.element, this.files.length);
   }
 
   fileChoose() {
@@ -234,12 +234,12 @@ export class UIFileInput {
       if (this.files.length == this.maxFiles) this.files.splice(0, 1);
       this.files.push(f);
     }
-    UIEvent.fireEvent('change', this.element);
+    UIEvent.fireEvent('change', this.element, this.files.length);
   }
 
   remove(index) {
     this.files.splice(index, 1);
-    UIEvent.fireEvent('change', this.element);
+    UIEvent.fireEvent('change', this.element, this.files.length);
   }
 
 }
