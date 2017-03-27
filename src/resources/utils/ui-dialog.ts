@@ -313,6 +313,8 @@ export class UIDialog {
     this.posCurrent.height = this.height || this.minHeight || this.posCurrent.height;
     this.posCurrent['min-width'] = this.minWidth || this.posCurrent['min-width'];
     this.posCurrent['min-height'] = this.minHeight || this.posCurrent['min-height'];
+    this.posCurrent['max-width'] = this.maxWidth || this.posCurrent['max-width'];
+    this.posCurrent['max-height'] = this.maxHeight || this.posCurrent['max-height'];
 
     if (!this.id) this.id = this.uniqId;
   }
@@ -334,6 +336,7 @@ export class UIDialog {
   private posCurrent: any = {
     top: 0, left: 0,
     'min-height': '100px', 'min-width': '300px',
+    'max-height': 'none', 'max-width': 'none',
     height: '400px', width: '600px'
   };
 
@@ -344,6 +347,8 @@ export class UIDialog {
   public height = '400px';
   public minWidth = '300px';
   public minHeight = '100px';
+  public maxWidth = 'none';
+  public maxHeight = 'none';
   public modal: boolean = false;
   public drag: boolean = true;
   public resize: boolean = true;
