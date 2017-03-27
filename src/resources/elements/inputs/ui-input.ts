@@ -194,6 +194,8 @@ export class UIFileInput {
   created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) { }
   attached() {
+    this.files = [];
+    this.inputEl.value = '';
     this.inputEl.draggedFiles = this.files;
   }
   detached() { }
