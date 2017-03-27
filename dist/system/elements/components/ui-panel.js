@@ -1,4 +1,4 @@
-System.register(["aurelia-framework", "../../utils/ui-event"], function (exports_1, context_1) {
+System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-utils"], function (exports_1, context_1) {
     "use strict";
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -10,7 +10,7 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var __moduleName = context_1 && context_1.id;
-    var aurelia_framework_1, ui_event_1, UIPanel, UIPanelBody, UIPanelGroup, UIHeader, UIHeaderTool, UIHeaderTitle;
+    var aurelia_framework_1, ui_event_1, ui_utils_1, UIPanel, UIPanelBody, UIPanelGroup, UIHeader, UIHeaderTool, UIHeaderTitle;
     return {
         setters: [
             function (aurelia_framework_1_1) {
@@ -18,6 +18,9 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
             },
             function (ui_event_1_1) {
                 ui_event_1 = ui_event_1_1;
+            },
+            function (ui_utils_1_1) {
+                ui_utils_1 = ui_utils_1_1;
             }
         ],
         execute: function () {
@@ -160,6 +163,7 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
             UIHeaderTool = (function () {
                 function UIHeaderTool(element) {
                     this.element = element;
+                    this.disabled = false;
                     this.type = '';
                     this.glyph = '';
                     if (element.hasAttribute('close'))
@@ -184,20 +188,67 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                         this.glyph = "ui-dialog-minimize";
                 }
                 UIHeaderTool.prototype.created = function (owningView, myView) { };
-                UIHeaderTool.prototype.bind = function (bindingContext, overrideContext) { };
-                UIHeaderTool.prototype.attached = function () { };
-                UIHeaderTool.prototype.detached = function () { };
+                UIHeaderTool.prototype.bind = function (bindingContext, overrideContext) {
+                    this.disabled = isTrue(this.disabled);
+                };
+                UIHeaderTool.prototype.attached = function () {
+                    var _this = this;
+                    if (this.dropdown) {
+                        this.obMouseup = ui_event_1.UIEvent.subscribe('mouseclick', function (evt) {
+                            if (getParentByClass(evt.target, 'ui-button') == _this.element)
+                                return;
+                            _this.element.classList.remove('ui-open');
+                            _this.dropdown.classList.remove('ui-open');
+                        });
+                        this.dropdown.classList.add('ui-floating');
+                        this.tether = ui_utils_1.UIUtils.tether(this.element, this.dropdown, { position: 'br' });
+                    }
+                };
+                UIHeaderTool.prototype.detached = function () {
+                    if (this.tether)
+                        this.tether.dispose();
+                    if (this.obMouseup)
+                        this.obMouseup.dispose();
+                    if (this.dropdown)
+                        aurelia_framework_1.DOM.removeNode(this.dropdown);
+                };
                 UIHeaderTool.prototype.unbind = function () { };
                 UIHeaderTool.prototype.fireEvent = function (evt) {
                     if (evt.button != 0)
                         return true;
+                    if (this.dropdown) {
+                        evt.preventDefault();
+                        evt.stopPropagation();
+                        evt.cancelBubble = true;
+                        if (this.element.classList.contains('ui-open')) {
+                            ui_event_1.UIEvent.fireEvent('menuhide', this.element);
+                            this.element.classList.remove('ui-open');
+                            this.dropdown.classList.remove('ui-open');
+                        }
+                        else {
+                            if (ui_event_1.UIEvent.fireEvent('menuopen', this.element) !== false) {
+                                this.element.classList.add('ui-open');
+                                this.dropdown.classList.add('ui-open');
+                                this.tether.position();
+                            }
+                        }
+                        return false;
+                    }
                     return ui_event_1.UIEvent.fireEvent(this.type, this.element);
                 };
                 return UIHeaderTool;
             }());
+            __decorate([
+                aurelia_framework_1.bindable(),
+                __metadata("design:type", Object)
+            ], UIHeaderTool.prototype, "dropdown", void 0);
+            __decorate([
+                aurelia_framework_1.bindable(),
+                __metadata("design:type", Object)
+            ], UIHeaderTool.prototype, "disabled", void 0);
             UIHeaderTool = __decorate([
                 aurelia_framework_1.autoinject(),
-                aurelia_framework_1.inlineView("<template class=\"ui-header-tool\"><button tabindex=\"-1\" class=\"ui-header-button ui-${type}\" click.trigger=\"fireEvent($event)\">\n  <slot><ui-glyph glyph.bind=\"glyph\"></ui-glyph></slot></button></template>"),
+                aurelia_framework_1.inlineView("<template class=\"ui-header-tool\"><button disabled.bind=\"disabled\" tabindex=\"-1\" class=\"ui-header-button ui-${type}\" click.trigger=\"fireEvent($event)\">\n  <slot><ui-glyph glyph.bind=\"glyph\"></ui-glyph></slot></button></template>"),
                 aurelia_framework_1.customElement('ui-header-tool'),
                 __metadata("design:paramtypes", [Element])
             ], UIHeaderTool);

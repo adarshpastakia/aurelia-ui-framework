@@ -190,7 +190,7 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
             ], UIListItem.prototype, "value", void 0);
             UIListItem = __decorate([
                 aurelia_framework_1.autoinject(),
-                aurelia_framework_1.inlineView("<template class=\"ui-list-item\" click.trigger=\"fireSelect($event)\" mouseover.trigger=\"hilightItem($event)\">\n  <ui-glyph class.bind=\"glyph\" glyph.bind=\"glyph\" if.bind=\"glyph\"></ui-glyph>&nbsp;<slot></slot></template>"),
+                aurelia_framework_1.inlineView("<template class=\"ui-list-item\" click.trigger=\"fireSelect($event)\" mouseover.trigger=\"hilightItem($event)\">\n  <ui-glyph class.bind=\"glyph\" glyph.bind=\"glyph\" if.bind=\"glyph\"></ui-glyph><span if.bind=\"glyph\">&nbsp;</span><slot></slot></template>"),
                 aurelia_framework_1.customElement('ui-list-item'),
                 __metadata("design:paramtypes", [Element])
             ], UIListItem);

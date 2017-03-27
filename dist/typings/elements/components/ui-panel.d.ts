@@ -54,6 +54,10 @@ export declare class UIHeaderTool {
     attached(): void;
     detached(): void;
     unbind(): void;
+    dropdown: any;
+    disabled: boolean;
+    private tether;
+    private obMouseup;
     private type;
     private glyph;
     private fireEvent(evt);

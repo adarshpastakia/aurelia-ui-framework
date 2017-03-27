@@ -46,6 +46,8 @@ let UITree = class UITree {
             this.selectedNode = this.findNode(this.root.children, newValue, 'active', true, true);
         }
         else {
+            if (isEmpty(newValue))
+                return;
             _.forEach(this.root.children, n => n.isChecked = false);
             if (newValue)
                 _.forEach((newValue || '').split(','), v => this.findNode(this.root.children, v, 'checked', true, true));
@@ -69,6 +71,14 @@ let UITree = class UITree {
             name: this.options.rootLabel,
             children: newValue
         }, null);
+        if (this.options.showCheckbox) {
+            let nodes = this.getChecked(this.root.children);
+            this.value = nodes.checked.join(',');
+        }
+        else {
+            if (this.selectedNode)
+                this.value = this.selectedNode.value;
+        }
     }
     get rootNodes() {
         return this.options.showRoot ? [this.root] : this.root.children;
@@ -162,6 +172,9 @@ let UITree = class UITree {
         if (this.options.showCheckbox) {
             if (node.level >= this.options.checkboxLevel) {
                 this.itemChecked(node);
+            }
+            else {
+                node.expanded = !node.expanded;
             }
         }
         else if (node.level < this.options.selectionLevel) {
@@ -272,7 +285,7 @@ TreeNode = __decorate([
         </a>
         <a class="ui-node-link \${!options.showCheckbox && node.active?'ui-active':node.childActive?'ui-partial':''}" data-id="\${node.id}" click.trigger="fireClicked()">
             <ui-glyph glyph.bind="(node.expanded?node.openIcon:node.closedIcon)||node.icon" class.bind="(node.expanded?node.openIcon:node.closedIcon)||node.icon" if.bind="node.icon"></ui-glyph>
-            <span innerhtml.bind="node.text"></span>
+            <span innerhtml.bind="node.text" class="\${node.level<options.checkboxLevel && node.checked!=0?'ui-strong':''}"></span>
         </a>
     </div>
     <div class="ui-tree-level" if.bind="node.isVisible && !node.leaf && node.expanded">

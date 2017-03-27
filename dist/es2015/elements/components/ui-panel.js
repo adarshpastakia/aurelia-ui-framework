@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { autoinject, customElement, bindable, children, inlineView, DOM } from 'aurelia-framework';
 import { UIEvent } from "../../utils/ui-event";
+import { UIUtils } from "../../utils/ui-utils";
 let UIPanel = class UIPanel {
     constructor(element) {
         this.element = element;
@@ -143,6 +144,7 @@ export { UIHeader };
 let UIHeaderTool = class UIHeaderTool {
     constructor(element) {
         this.element = element;
+        this.disabled = false;
         this.type = '';
         this.glyph = '';
         if (element.hasAttribute('close'))
@@ -167,19 +169,65 @@ let UIHeaderTool = class UIHeaderTool {
             this.glyph = "ui-dialog-minimize";
     }
     created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() { }
-    detached() { }
+    bind(bindingContext, overrideContext) {
+        this.disabled = isTrue(this.disabled);
+    }
+    attached() {
+        if (this.dropdown) {
+            this.obMouseup = UIEvent.subscribe('mouseclick', (evt) => {
+                if (getParentByClass(evt.target, 'ui-button') == this.element)
+                    return;
+                this.element.classList.remove('ui-open');
+                this.dropdown.classList.remove('ui-open');
+            });
+            this.dropdown.classList.add('ui-floating');
+            this.tether = UIUtils.tether(this.element, this.dropdown, { position: 'br' });
+        }
+    }
+    detached() {
+        if (this.tether)
+            this.tether.dispose();
+        if (this.obMouseup)
+            this.obMouseup.dispose();
+        if (this.dropdown)
+            DOM.removeNode(this.dropdown);
+    }
     unbind() { }
     fireEvent(evt) {
         if (evt.button != 0)
             return true;
+        if (this.dropdown) {
+            evt.preventDefault();
+            evt.stopPropagation();
+            evt.cancelBubble = true;
+            if (this.element.classList.contains('ui-open')) {
+                UIEvent.fireEvent('menuhide', this.element);
+                this.element.classList.remove('ui-open');
+                this.dropdown.classList.remove('ui-open');
+            }
+            else {
+                if (UIEvent.fireEvent('menuopen', this.element) !== false) {
+                    this.element.classList.add('ui-open');
+                    this.dropdown.classList.add('ui-open');
+                    this.tether.position();
+                }
+            }
+            return false;
+        }
         return UIEvent.fireEvent(this.type, this.element);
     }
 };
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIHeaderTool.prototype, "dropdown", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIHeaderTool.prototype, "disabled", void 0);
 UIHeaderTool = __decorate([
     autoinject(),
-    inlineView(`<template class="ui-header-tool"><button tabindex="-1" class="ui-header-button ui-\${type}" click.trigger="fireEvent($event)">
+    inlineView(`<template class="ui-header-tool"><button disabled.bind="disabled" tabindex="-1" class="ui-header-button ui-\${type}" click.trigger="fireEvent($event)">
   <slot><ui-glyph glyph.bind="glyph"></ui-glyph></slot></button></template>`),
     customElement('ui-header-tool'),
     __metadata("design:paramtypes", [Element])
