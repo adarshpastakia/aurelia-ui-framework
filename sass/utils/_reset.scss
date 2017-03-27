@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -62,11 +62,11 @@ img {
 }
 
 hr {
-  background         : none;
-  border             : 1px solid transparent;
-  border-width       : 1px 0;
-  border-top-color   : rgba(#373737, .3);
-  border-bottom-color: #F7F9F0;
+  background  : none;
+  margin      : 0.25em;
+  border      : 1px solid transparent;
+  border-width: 1px 0;
+  border-color: rgba(#373737, .3) rgba(#373737, .3) #F7F9F0 #F7F9F0;
   @include transform(scaleY(.5));
 }
 
@@ -88,11 +88,11 @@ a {
 
   &[target="_blank"]:after {
     content       : '\2B08';
-    font-size     : .85em;
+    font-size     : 0.85em;
     display       : inline-block;
     width         : 1em;
     height        : 1em;
-    margin        : 0 .1em;
+    margin        : 0 0.1em;
     vertical-align: super;
   }
 }
@@ -126,6 +126,6 @@ th {
   caption,
   td,
   th {
-    padding: 0 .25em;
+    padding: 0 0.25em;
   }
 }
