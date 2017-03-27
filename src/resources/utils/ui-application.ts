@@ -135,19 +135,19 @@ export class UIApplication {
 
   /** Logger **/
   info(tag, msg, ...rest) {
-    this.logger.info(`${tag}::${msg}`, rest);
+    this.logger.info.apply(this.logger, [`${tag}::${msg}`].concat(rest));
   }
 
   warn(tag, msg, ...rest) {
-    this.logger.warn(`${tag}::${msg}`, rest);
+    this.logger.warn.apply(this.logger, [`${tag}::${msg}`].concat(rest));
   }
 
   debug(tag, msg, ...rest) {
-    this.logger.debug(`${tag}::${msg}`, rest);
+    this.logger.debug.apply(this.logger, [`${tag}::${msg}`].concat(rest));
   }
 
   error(tag, msg, ...rest) {
-    this.logger.error(`${tag}::${msg}`, rest);
+    this.logger.error.apply(this.logger, [`${tag}::${msg}`].concat(rest));
   }
 
   /** Toasts / Alerts **/
