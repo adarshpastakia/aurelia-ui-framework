@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -38,10 +38,10 @@ h6 {
   line-height: 1.5;
 
   small {
-    font-size  : .7em;
+    font-size  : 0.7em;
     line-height: 1;
     display    : block;
-    opacity    : .8;
+    opacity    : 0.8;
   }
 }
 
@@ -98,7 +98,7 @@ big {
 
 .ui-font-small,
 small {
-  font-size: .8em;
+  font-size: 0.8em;
 }
 
 .ui-font-default {
@@ -155,6 +155,11 @@ strong {
   font-variant: small-caps;
 }
 
+.ui-ellipsis {
+  display: block;
+  @include ellipsis();
+}
+
 // ALIGNMENTS
 .ui-text-center {
   text-align: center;
@@ -174,15 +179,15 @@ strong {
   text-align: justify;
 }
 
-//BADGES 
+//BADGES
 .ui-badge {
   position     : absolute;
   top          : -.5em;
   right        : -.5em;
-  font-size    : .9em;
+  font-size    : 0.9em;
   line-height  : 1.2;
   border-radius: 1em;
-  padding      : 0 .5em;
+  padding      : 0 0.5em;
   color        : $white;
   box-shadow   : 1px 1px 2px 0 rgba($base-shadow-color, .75);
 
