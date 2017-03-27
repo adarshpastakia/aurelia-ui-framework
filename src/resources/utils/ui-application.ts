@@ -12,6 +12,7 @@ export class UIApplication {
   private logger;
 
   public isBusy: boolean = false;
+  public constants = UIConstants;
 
   constructor(public router: Router) {
     this.logger = getLogger('UIApplication');
@@ -100,13 +101,13 @@ export class UIApplication {
   session(key, value: any = '§') {
     if (window.sessionStorage) {
       if (value === '§') {
-        return JSON.parse(window.sessionStorage.getItem(UIConstants.App.Key + ':' + key));
+        return JSON.parse(window.sessionStorage.getItem(UIConstants.AppKey + ':' + key));
       }
       else if (value === null) {
-        window.sessionStorage.removeItem(UIConstants.App.Key + ':' + key);
+        window.sessionStorage.removeItem(UIConstants.AppKey + ':' + key);
       }
       else {
-        window.sessionStorage.setItem(UIConstants.App.Key + ':' + key, JSON.stringify(value));
+        window.sessionStorage.setItem(UIConstants.AppKey + ':' + key, JSON.stringify(value));
       }
     }
     return null;
@@ -120,13 +121,13 @@ export class UIApplication {
   persist(key, value: any = '§') {
     if (window.localStorage) {
       if (value === '§') {
-        return JSON.parse(window.localStorage.getItem(UIConstants.App.Key + ':' + key));
+        return JSON.parse(window.localStorage.getItem(UIConstants.AppKey + ':' + key));
       }
       else if (value === null) {
-        window.localStorage.removeItem(UIConstants.App.Key + ':' + key);
+        window.localStorage.removeItem(UIConstants.AppKey + ':' + key);
       }
       else {
-        window.localStorage.setItem(UIConstants.App.Key + ':' + key, JSON.stringify(value));
+        window.localStorage.setItem(UIConstants.AppKey + ':' + key, JSON.stringify(value));
       }
     }
     return null;
