@@ -119,7 +119,7 @@ export class UIListGroup {
 
 @autoinject()
 @inlineView(`<template class="ui-list-item" click.trigger="fireSelect($event)" mouseover.trigger="hilightItem($event)">
-  <ui-glyph class.bind="glyph" glyph.bind="glyph" if.bind="glyph"></ui-glyph>&nbsp;<slot></slot></template>`)
+  <ui-glyph class.bind="glyph" glyph.bind="glyph" if.bind="glyph"></ui-glyph><span if.bind="glyph">&nbsp;</span><slot></slot></template>`)
 @customElement('ui-list-item')
 export class UIListItem {
   constructor(public element: Element) { }
