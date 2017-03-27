@@ -215,6 +215,7 @@ export { UIInput };
 let UIFileInput = class UIFileInput {
     constructor(element) {
         this.element = element;
+        this.maxFiles = 1;
         this.fileTypes = '';
         this.files = [];
         this.dragging = false;
@@ -241,22 +242,33 @@ let UIFileInput = class UIFileInput {
         var files = dt.files;
         for (var i = 0; i < files.length; i++) {
             var f = { file: files[i], name: files[i].name, size: files[i].size || 0, ext: window.FileTypes[files[i].type] || 'txt' };
+            if (this.files.length == this.maxFiles)
+                this.files.splice(0, 1);
             this.files.push(f);
         }
+        UIEvent.fireEvent('change', this.element, this.files.length);
     }
     fileChoose() {
         var files = this.inputEl.files;
         for (var i = 0; i < files.length; i++) {
             var f = { file: files[i], name: files[i].name, size: files[i].size || 0, ext: window.FileTypes[files[i].type] || 'txt' };
+            if (this.files.length == this.maxFiles)
+                this.files.splice(0, 1);
             this.files.push(f);
         }
+        UIEvent.fireEvent('change', this.element, this.files.length);
     }
     remove(index) {
         this.files.splice(index, 1);
+        UIEvent.fireEvent('change', this.element, this.files.length);
     }
 };
 UIFileInput.FILE_IMAGES = 'png,jpg,jpeg,tiff';
 UIFileInput.FILE_DOCS = 'doc,docx,xls,xlsx,ppt,pptx,csv,rtf,txt,pdf';
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIFileInput.prototype, "maxFiles", void 0);
 __decorate([
     bindable(),
     __metadata("design:type", Object)
@@ -265,7 +277,7 @@ UIFileInput = __decorate([
     autoinject(),
     inlineView(`<template class="ui-input-wrapper ui-file-input">
   <div class="ui-control-wrapper">
-    <div class="ui-file-drop-zone \${dragging?'dragging':''}" ref="dropZone" click.trigger="inputEl.click()" 
+    <div class="ui-file-drop-zone \${dragging?'dragging':''}" ref="dropZone" click.trigger="inputEl.click()"
       dragover.trigger="dragEnter($event)" dragleave.trigger="dragExit($event)" drop.trigger="drop($event)">
     <span><i class="fi-ui-upload-white"></i> Drop files here<br/>or<br/>click to browse</span>
     </div>

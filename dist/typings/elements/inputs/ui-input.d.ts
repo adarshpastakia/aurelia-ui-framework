@@ -47,6 +47,7 @@ export declare class UIFileInput {
     element: Element;
     static FILE_IMAGES: string;
     static FILE_DOCS: string;
+    maxFiles: number;
     fileTypes: string;
     constructor(element: Element);
     created(owningView: View, myView: View): void;

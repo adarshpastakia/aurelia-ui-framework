@@ -7,6 +7,7 @@ export declare class UIForm {
     attached(): void;
     detached(): void;
     unbind(): void;
+    formEl: any;
     busy: boolean;
     busyChanged(newValue: any): void;
     fireSubmit(): void;

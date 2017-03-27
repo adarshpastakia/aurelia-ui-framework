@@ -576,6 +576,8 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                     _this.forceSelect = true;
                     _this.clear = false;
                     _this.clear = element.hasAttribute('clear');
+                    if (_this.element.hasAttribute('fill'))
+                        _this.element.classList.add('ui-fill');
                     return _this;
                 }
                 UIList.prototype.created = function (owningView, myView) { };

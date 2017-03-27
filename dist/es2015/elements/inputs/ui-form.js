@@ -17,6 +17,7 @@ let UIForm = class UIForm {
     created(owningView, myView) { }
     bind(bindingContext, overrideContext) { }
     attached() {
+        this.element.au['form'] = this.formEl;
         UIEvent.queueTask(() => {
             let el = this.element.querySelector('input,textarea');
             if (el !== null)
@@ -49,7 +50,7 @@ __decorate([
 UIForm = __decorate([
     autoinject(),
     customElement('ui-form'),
-    inlineView(`<template class="ui-form"><form validation-renderer="ui-validator" enterpressed.trigger="fireSubmit()" submit.trigger="return false"><slot></slot></form></template>`),
+    inlineView(`<template class="ui-form"><form ref="formEl" validation-renderer="ui-validator" enterpressed.trigger="fireSubmit()" submit.trigger="return false"><slot></slot></form></template>`),
     __metadata("design:paramtypes", [Element])
 ], UIForm);
 export { UIForm };

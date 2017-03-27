@@ -48,10 +48,11 @@ var UIToast = (function () {
     UIToast.prototype.attached = function () { };
     UIToast.prototype.detached = function () { };
     UIToast.prototype.unbind = function () { };
-    UIToast.prototype.startClose = function () {
+    UIToast.prototype.startClose = function (force) {
         var _this = this;
         this.element.classList.remove('open');
         setTimeout(function () { return aurelia_framework_1.DOM.removeNode(_this.element); }, 1000);
+        return true;
     };
     return UIToast;
 }());

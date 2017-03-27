@@ -192,10 +192,13 @@ System.register(["aurelia-framework", "aurelia-logging", "aurelia-fetch-client",
                         'Access-Control-Allow-Origin': '*'
                     };
                     Object.assign(headers, ui_constants_1.UIConstants.Http.Headers || {});
-                    if (basic && ui_constants_1.UIConstants.Http.AuthorizationHeader && !isEmpty(this.app.AuthUser)) {
+                    if (basic === true && ui_constants_1.UIConstants.Http.AuthorizationHeader && !isEmpty(this.app.AuthUser)) {
                         var token = this.app.AuthUser + ":" + this.app.AuthToken;
                         var hash = btoa(token);
                         headers['Authorization'] = "Basic " + hash;
+                    }
+                    else if (basic !== false) {
+                        Object.assign(headers, basic || {});
                     }
                     return headers;
                 };

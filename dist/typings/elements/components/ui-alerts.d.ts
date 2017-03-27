@@ -9,7 +9,7 @@ export declare class UIToast {
     unbind(): void;
     glyph: string;
     timeout: number;
-    private startClose();
+    private startClose(force?);
 }
 export declare class UIAlert {
     element: Element;

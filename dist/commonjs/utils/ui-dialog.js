@@ -282,6 +282,7 @@ var UIDialog = UIDialog_1 = (function () {
         this.posCurrent = {
             top: 0, left: 0,
             'min-height': '100px', 'min-width': '300px',
+            'max-height': 'none', 'max-width': 'none',
             height: '400px', width: '600px'
         };
         this.title = 'Dialog';
@@ -289,6 +290,8 @@ var UIDialog = UIDialog_1 = (function () {
         this.height = '400px';
         this.minWidth = '300px';
         this.minHeight = '100px';
+        this.maxWidth = 'none';
+        this.maxHeight = 'none';
         this.modal = false;
         this.drag = true;
         this.resize = true;
@@ -303,6 +306,8 @@ var UIDialog = UIDialog_1 = (function () {
         this.posCurrent.height = this.height || this.minHeight || this.posCurrent.height;
         this.posCurrent['min-width'] = this.minWidth || this.posCurrent['min-width'];
         this.posCurrent['min-height'] = this.minHeight || this.posCurrent['min-height'];
+        this.posCurrent['max-width'] = this.maxWidth || this.posCurrent['max-width'];
+        this.posCurrent['max-height'] = this.maxHeight || this.posCurrent['max-height'];
         if (!this.id)
             this.id = this.uniqId;
     };

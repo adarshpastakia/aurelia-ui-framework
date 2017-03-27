@@ -225,6 +225,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event"], func
     var UIFileInput = (function () {
         function UIFileInput(element) {
             this.element = element;
+            this.maxFiles = 1;
             this.fileTypes = '';
             this.files = [];
             this.dragging = false;
@@ -251,18 +252,25 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event"], func
             var files = dt.files;
             for (var i = 0; i < files.length; i++) {
                 var f = { file: files[i], name: files[i].name, size: files[i].size || 0, ext: window.FileTypes[files[i].type] || 'txt' };
+                if (this.files.length == this.maxFiles)
+                    this.files.splice(0, 1);
                 this.files.push(f);
             }
+            ui_event_1.UIEvent.fireEvent('change', this.element, this.files.length);
         };
         UIFileInput.prototype.fileChoose = function () {
             var files = this.inputEl.files;
             for (var i = 0; i < files.length; i++) {
                 var f = { file: files[i], name: files[i].name, size: files[i].size || 0, ext: window.FileTypes[files[i].type] || 'txt' };
+                if (this.files.length == this.maxFiles)
+                    this.files.splice(0, 1);
                 this.files.push(f);
             }
+            ui_event_1.UIEvent.fireEvent('change', this.element, this.files.length);
         };
         UIFileInput.prototype.remove = function (index) {
             this.files.splice(index, 1);
+            ui_event_1.UIEvent.fireEvent('change', this.element, this.files.length);
         };
         return UIFileInput;
     }());
@@ -271,10 +279,14 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event"], func
     __decorate([
         aurelia_framework_1.bindable(),
         __metadata("design:type", Object)
+    ], UIFileInput.prototype, "maxFiles", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
     ], UIFileInput.prototype, "fileTypes", void 0);
     UIFileInput = __decorate([
         aurelia_framework_1.autoinject(),
-        aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper ui-file-input\">\n  <div class=\"ui-control-wrapper\">\n    <div class=\"ui-file-drop-zone ${dragging?'dragging':''}\" ref=\"dropZone\" click.trigger=\"inputEl.click()\" \n      dragover.trigger=\"dragEnter($event)\" dragleave.trigger=\"dragExit($event)\" drop.trigger=\"drop($event)\">\n    <span><i class=\"fi-ui-upload-white\"></i> Drop files here<br/>or<br/>click to browse</span>\n    </div>\n    <input type=\"file\" ref=\"inputEl\" class=\"ui-file-input-el\" change.trigger=\"fileChoose()\" />\n    <div class=\"ui-file-list\">\n      <p repeat.for=\"file of files\" class=\"ui-row ui-row-middle\">\n      <a click.trigger=\"remove($index)\"><ui-glyph glyph=\"ui-dialog-close\" class=\"ui-text-danger\"></ui-glyph></a>\n      <span class=\"ui-col-fill\">${file.name}<br/>(<small innerhtml.bind=\"file.size | number:'0.00b'\"></small>)</span></p>\n    </div>\n  </div>\n</template>"),
+        aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper ui-file-input\">\n  <div class=\"ui-control-wrapper\">\n    <div class=\"ui-file-drop-zone ${dragging?'dragging':''}\" ref=\"dropZone\" click.trigger=\"inputEl.click()\"\n      dragover.trigger=\"dragEnter($event)\" dragleave.trigger=\"dragExit($event)\" drop.trigger=\"drop($event)\">\n    <span><i class=\"fi-ui-upload-white\"></i> Drop files here<br/>or<br/>click to browse</span>\n    </div>\n    <input type=\"file\" ref=\"inputEl\" class=\"ui-file-input-el\" change.trigger=\"fileChoose()\" />\n    <div class=\"ui-file-list\">\n      <p repeat.for=\"file of files\" class=\"ui-row ui-row-middle\">\n      <a click.trigger=\"remove($index)\"><ui-glyph glyph=\"ui-dialog-close\" class=\"ui-text-danger\"></ui-glyph></a>\n      <span class=\"ui-col-fill\">${file.name}<br/>(<small innerhtml.bind=\"file.size | number:'0.00b'\"></small>)</span></p>\n    </div>\n  </div>\n</template>"),
         aurelia_framework_1.customElement('ui-file'),
         __metadata("design:paramtypes", [Element])
     ], UIFileInput);

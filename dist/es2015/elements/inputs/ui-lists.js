@@ -570,6 +570,8 @@ let UIList = class UIList extends BaseListInput {
         this.forceSelect = true;
         this.clear = false;
         this.clear = element.hasAttribute('clear');
+        if (this.element.hasAttribute('fill'))
+            this.element.classList.add('ui-fill');
     }
     created(owningView, myView) { }
     bind(bindingContext, overrideContext) {

@@ -51,6 +51,8 @@ export declare class UIDialog {
     height: string;
     minWidth: string;
     minHeight: string;
+    maxWidth: string;
+    maxHeight: string;
     modal: boolean;
     drag: boolean;
     resize: boolean;

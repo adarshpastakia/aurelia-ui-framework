@@ -45,9 +45,10 @@ let UIToast = class UIToast {
     attached() { }
     detached() { }
     unbind() { }
-    startClose() {
+    startClose(force) {
         this.element.classList.remove('open');
         setTimeout(() => DOM.removeNode(this.element), 1000);
+        return true;
     }
 };
 __decorate([

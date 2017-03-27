@@ -32,6 +32,7 @@ System.register(["aurelia-framework", "../../utils/ui-event", "lodash"], functio
                 UIForm.prototype.bind = function (bindingContext, overrideContext) { };
                 UIForm.prototype.attached = function () {
                     var _this = this;
+                    this.element.au['form'] = this.formEl;
                     ui_event_1.UIEvent.queueTask(function () {
                         var el = _this.element.querySelector('input,textarea');
                         if (el !== null)
@@ -65,7 +66,7 @@ System.register(["aurelia-framework", "../../utils/ui-event", "lodash"], functio
             UIForm = __decorate([
                 aurelia_framework_1.autoinject(),
                 aurelia_framework_1.customElement('ui-form'),
-                aurelia_framework_1.inlineView("<template class=\"ui-form\"><form validation-renderer=\"ui-validator\" enterpressed.trigger=\"fireSubmit()\" submit.trigger=\"return false\"><slot></slot></form></template>"),
+                aurelia_framework_1.inlineView("<template class=\"ui-form\"><form ref=\"formEl\" validation-renderer=\"ui-validator\" enterpressed.trigger=\"fireSubmit()\" submit.trigger=\"return false\"><slot></slot></form></template>"),
                 __metadata("design:paramtypes", [Element])
             ], UIForm);
             exports_1("UIForm", UIForm);
