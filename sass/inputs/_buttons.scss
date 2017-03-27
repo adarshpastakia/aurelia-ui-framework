@@ -124,6 +124,10 @@
 
   &.ui-square {
     padding: 0.2em;
+
+    &.ui-busy .ui-indicator {
+      margin: 0;
+    }
   }
 
   &.ui-round {
