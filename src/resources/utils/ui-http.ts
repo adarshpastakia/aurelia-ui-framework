@@ -140,12 +140,12 @@ export class UIHttpService {
 
   upload(slug: string, form: HTMLFormElement, basicAuth = true): Promise<any | string | void> {
     this.logger.info(`upload [${slug}]`);
-    return this.__upload('post', slug, form);
+    return this.__upload('post', slug, form, basicAuth);
   }
 
   reupload(slug: string, form: HTMLFormElement, basicAuth = true): Promise<any | string | void> {
     this.logger.info(`reupload [${slug}]`);
-    return this.__upload('put', slug, form);
+    return this.__upload('put', slug, form, basicAuth);
   }
 
   private __upload(method: string, slug: string, form: HTMLFormElement, basicAuth?) {
