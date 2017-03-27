@@ -76,31 +76,31 @@ export class UIHttpService {
   }
 
   //**** SHARED METHODS ****//
-  get(slug: string, basicAuth = true): Promise<any | string | void> {
+  get(slug: string, headers: any = true): Promise<any | string | void> {
     this.logger.info(`get [${slug}]`);
     return this.httpClient
       .fetch(slug,
       {
         method: 'get',
         mode: 'cors',
-        headers: this.__getHeaders(basicAuth)
+        headers: this.__getHeaders(headers)
       })
       .then(resp => resp.json());
   }
 
-  text(slug: string, basicAuth = true): Promise<any | string | void> {
+  text(slug: string, headers: any = true): Promise<any | string | void> {
     this.logger.info(`text [${slug}]`);
     return this.httpClient
       .fetch(slug,
       {
         method: 'get',
         mode: 'cors',
-        headers: this.__getHeaders(basicAuth)
+        headers: this.__getHeaders(headers)
       })
       .then(resp => resp.text());
   }
 
-  put(slug: string, obj, basicAuth = true): Promise<any | string | void> {
+  put(slug: string, obj, headers: any = true): Promise<any | string | void> {
     this.logger.info(`put [${slug}]`);
     return this.httpClient
       .fetch(slug,
@@ -108,12 +108,12 @@ export class UIHttpService {
         method: 'put',
         body: json(obj),
         mode: 'cors',
-        headers: this.__getHeaders(basicAuth)
+        headers: this.__getHeaders(headers)
       })
       .then(resp => resp.json());
   }
 
-  post(slug: string, obj, basicAuth = true): Promise<any | string | void> {
+  post(slug: string, obj, headers: any = true): Promise<any | string | void> {
     this.logger.info(`post [${slug}]`);
     return this.httpClient
       .fetch(slug,
@@ -121,34 +121,34 @@ export class UIHttpService {
         method: 'post',
         body: json(obj),
         mode: 'cors',
-        headers: this.__getHeaders(basicAuth)
+        headers: this.__getHeaders(headers)
       })
       .then(resp => resp.json());
   }
 
-  delete(slug: string, basicAuth = true): Promise<any | string | void> {
+  delete(slug: string, headers: any = true): Promise<any | string | void> {
     this.logger.info(`delete [${slug}]`);
     return this.httpClient
       .fetch(slug,
       {
         method: 'delete',
         mode: 'cors',
-        headers: this.__getHeaders(basicAuth)
+        headers: this.__getHeaders(headers)
       })
       .then(resp => resp.json());
   }
 
-  upload(slug: string, form: HTMLFormElement, basicAuth = true): Promise<any | string | void> {
+  upload(slug: string, form: HTMLFormElement, headers: any = true): Promise<any | string | void> {
     this.logger.info(`upload [${slug}]`);
-    return this.__upload('post', slug, form, basicAuth);
+    return this.__upload('post', slug, form, headers);
   }
 
-  reupload(slug: string, form: HTMLFormElement, basicAuth = true): Promise<any | string | void> {
+  reupload(slug: string, form: HTMLFormElement, headers: any = true): Promise<any | string | void> {
     this.logger.info(`reupload [${slug}]`);
-    return this.__upload('put', slug, form, basicAuth);
+    return this.__upload('put', slug, form, headers);
   }
 
-  private __upload(method: string, slug: string, form: HTMLFormElement, basicAuth?) {
+  private __upload(method: string, slug: string, form: HTMLFormElement, headers?) {
     var data = new FormData();
     for (var i = 0, q = (form.querySelectorAll('input') as NodeListOf<HTMLInputElement>); i < q.length; i++) {
       if (q[i].type == 'file') {
@@ -167,12 +167,12 @@ export class UIHttpService {
         method: method,
         body: data,
         mode: 'cors',
-        headers: this.__getHeaders(basicAuth)
+        headers: this.__getHeaders(headers)
       })
       .then(resp => resp.json());
   }
 
-  private __getHeaders(basic = true) {
+  private __getHeaders(override = true) {
     var headers = {
       'X-Requested-With': 'Fetch',
       'Accept': 'application/json',
@@ -180,13 +180,13 @@ export class UIHttpService {
     };
     Object.assign(headers, UIConstants.Http.Headers || {});
 
-    if (basic === true && UIConstants.Http.AuthorizationHeader && !isEmpty(this.app.AuthUser)) {
+    if (override === true && UIConstants.Http.AuthorizationHeader && !isEmpty(this.app.AuthUser)) {
       var token = this.app.AuthUser + ":" + this.app.AuthToken;
       var hash = btoa(token);
       headers['Authorization'] = "Basic " + hash;
     }
-    else if (basic !== false) {
-      Object.assign(headers, basic || {});
+    else if (override !== false) {
+      Object.assign(headers, override || {});
     }
     return headers;
   }
