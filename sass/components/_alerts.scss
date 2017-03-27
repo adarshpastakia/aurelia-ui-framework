@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -7,7 +7,7 @@
 .ui-toast {
   display       : block;
   max-height    : 0;
-  margin        : .25rem .5em;
+  margin        : 0.25rem 0.5em;
   cursor        : pointer;
   pointer-events: all;
   overflow      : hidden;
@@ -26,7 +26,7 @@
   }
 
   .ui-wrapper {
-    padding: .5em 1em;
+    padding: 0.5em 1em;
     @include flex-row($wrap:false,$align: flex-start);
 
     .ui-icon {
@@ -40,8 +40,8 @@
   }
 
   .ui-message {
-    font-size: .9em;
-    padding  : 0 .5em;
+    font-size: 0.9em;
+    padding  : 0 0.5em;
     @include flex(1 1 auto);
     @include align-self(center);
 
@@ -103,8 +103,8 @@
     }
 
     .ui-message {
-      font-size: .9em;
-      padding  : 0 .5em;
+      font-size: 0.9em;
+      padding  : 0 0.5em;
       @include flex(1 1 auto);
       @include align-self(center);
 
@@ -135,9 +135,9 @@
         min-width    : 7rem;
         border       : 1px solid rgba($secondary, .5);
         border-radius: $base-border-radius;
-        padding      : .3rem 1rem;
-        font-size    : .9rem;
-        margin       : 0 .5rem;
+        padding      : 0.3rem 1rem;
+        font-size    : 0.9rem;
+        margin       : 0 0.5rem;
         color        : rgba($secondary, .7);
 
         &:first-child {

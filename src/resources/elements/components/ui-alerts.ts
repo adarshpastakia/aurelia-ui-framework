@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -43,9 +43,10 @@ export class UIToast {
   @bindable() glyph = '';
   @bindable() timeout = 5000;
 
-  private startClose() {
+  private startClose(force?) {
     this.element.classList.remove('open');
     setTimeout(() => DOM.removeNode(this.element), 1000);
+    return true;
   }
 }
 
