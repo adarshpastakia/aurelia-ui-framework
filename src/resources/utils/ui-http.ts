@@ -85,7 +85,7 @@ export class UIHttpService {
         mode: 'cors',
         headers: this.__getHeaders(headers)
       })
-      .then(resp => resp.json());
+      .then(resp => this.__getResponse(resp));
   }
 
   text(slug: string, headers: any = true): Promise<any | string | void> {
@@ -110,7 +110,7 @@ export class UIHttpService {
         mode: 'cors',
         headers: this.__getHeaders(headers)
       })
-      .then(resp => resp.json());
+      .then(resp => this.__getResponse(resp));
   }
 
   post(slug: string, obj, headers: any = true): Promise<any | string | void> {
@@ -123,7 +123,7 @@ export class UIHttpService {
         mode: 'cors',
         headers: this.__getHeaders(headers)
       })
-      .then(resp => resp.json());
+      .then(resp => this.__getResponse(resp));
   }
 
   delete(slug: string, headers: any = true): Promise<any | string | void> {
@@ -135,7 +135,7 @@ export class UIHttpService {
         mode: 'cors',
         headers: this.__getHeaders(headers)
       })
-      .then(resp => resp.json());
+      .then(resp => this.__getResponse(resp));
   }
 
   upload(slug: string, form: HTMLFormElement, headers: any = true): Promise<any | string | void> {
@@ -169,7 +169,19 @@ export class UIHttpService {
         mode: 'cors',
         headers: this.__getHeaders(headers)
       })
-      .then(resp => resp.json());
+      .then(resp => this.__getResponse(resp));
+  }
+
+  private __getResponse(response) {
+    if (response.status === 204) return null;
+    return response.text().then(function(text) {
+      try {
+        return JSON.parse(text);
+      }
+      catch (e) {
+        return {};
+      }
+    });
   }
 
   private __getHeaders(override = true) {
