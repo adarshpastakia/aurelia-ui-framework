@@ -185,8 +185,8 @@ export class UIFileInput {
   static FILE_IMAGES = 'png,jpg,jpeg,tiff';
   static FILE_DOCS = 'doc,docx,xls,xlsx,ppt,pptx,csv,rtf,txt,pdf';
 
-  @bindable()
-  fileTypes = '';
+  @bindable() maxFiles = 1;
+  @bindable() fileTypes = '';
 
   constructor(public element: Element) { }
 
@@ -221,6 +221,7 @@ export class UIFileInput {
     var files = dt.files;
     for (var i = 0; i < files.length; i++) {
       var f = { file: files[i], name: files[i].name, size: files[i].size || 0, ext: window.FileTypes[files[i].type] || 'txt' }
+      if (this.files.length == this.maxFiles) this.files.splice(0, 1);
       this.files.push(f);
     }
     UIEvent.fireEvent('change', this.element);
@@ -230,6 +231,7 @@ export class UIFileInput {
     var files = this.inputEl.files;
     for (var i = 0; i < files.length; i++) {
       var f = { file: files[i], name: files[i].name, size: files[i].size || 0, ext: window.FileTypes[files[i].type] || 'txt' }
+      if (this.files.length == this.maxFiles) this.files.splice(0, 1);
       this.files.push(f);
     }
     UIEvent.fireEvent('change', this.element);
