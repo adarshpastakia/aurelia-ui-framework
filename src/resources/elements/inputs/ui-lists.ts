@@ -490,6 +490,7 @@ export class UIList extends BaseListInput {
   constructor(public element: Element) {
     super();
     this.clear = element.hasAttribute('clear');
+    if (this.element.hasAttribute('fill')) this.element.classList.add('ui-fill');
   }
 
   // aurelia hooks

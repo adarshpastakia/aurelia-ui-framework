@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -168,7 +168,7 @@ export class UIInput extends UIBaseInput {
 @autoinject()
 @inlineView(`<template class="ui-input-wrapper ui-file-input">
   <div class="ui-control-wrapper">
-    <div class="ui-file-drop-zone \${dragging?'dragging':''}" ref="dropZone" click.trigger="inputEl.click()" 
+    <div class="ui-file-drop-zone \${dragging?'dragging':''}" ref="dropZone" click.trigger="inputEl.click()"
       dragover.trigger="dragEnter($event)" dragleave.trigger="dragExit($event)" drop.trigger="drop($event)">
     <span><i class="fi-ui-upload-white"></i> Drop files here<br/>or<br/>click to browse</span>
     </div>
@@ -223,6 +223,7 @@ export class UIFileInput {
       var f = { file: files[i], name: files[i].name, size: files[i].size || 0, ext: window.FileTypes[files[i].type] || 'txt' }
       this.files.push(f);
     }
+    UIEvent.fireEvent('change', this.element);
   }
 
   fileChoose() {
@@ -231,10 +232,12 @@ export class UIFileInput {
       var f = { file: files[i], name: files[i].name, size: files[i].size || 0, ext: window.FileTypes[files[i].type] || 'txt' }
       this.files.push(f);
     }
+    UIEvent.fireEvent('change', this.element);
   }
 
   remove(index) {
     this.files.splice(index, 1);
+    UIEvent.fireEvent('change', this.element);
   }
 
 }
