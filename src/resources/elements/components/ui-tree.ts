@@ -180,6 +180,9 @@ export class UITree {
       if (node.level >= this.options.checkboxLevel) {
         this.itemChecked(node);
       }
+      else {
+        node.expanded = !node.expanded;
+      }
     }
     else if (node.level < this.options.selectionLevel) {
       node.expanded = !node.expanded;
@@ -243,7 +246,7 @@ export class UITree {
         </a>
         <a class="ui-node-link \${!options.showCheckbox && node.active?'ui-active':node.childActive?'ui-partial':''}" data-id="\${node.id}" click.trigger="fireClicked()">
             <ui-glyph glyph.bind="(node.expanded?node.openIcon:node.closedIcon)||node.icon" class.bind="(node.expanded?node.openIcon:node.closedIcon)||node.icon" if.bind="node.icon"></ui-glyph>
-            <span innerhtml.bind="node.text"></span>
+            <span innerhtml.bind="node.text" class="\${node.level<options.checkboxLevel && node.checked!=0?'ui-strong':''}"></span>
         </a>
     </div>
     <div class="ui-tree-level" if.bind="node.isVisible && !node.leaf && node.expanded">
