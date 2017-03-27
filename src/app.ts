@@ -20,7 +20,7 @@ export class App {
   configureRouter(config: RouterConfiguration, router: Router) {
     this.router = router;
 
-    config.title = UIConstants.App.Title;
+    config.title = UIConstants.Title;
     config.mapUnknownRoutes({
       route: '404', moduleId: './home/view', activationStrategy: 'replace', settings: { data: '404' }
     });

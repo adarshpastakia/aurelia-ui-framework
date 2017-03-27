@@ -133,15 +133,19 @@ export function configure(config: { container: Container, globalResources?: (...
 
   var Configure = {
     title: (t) => {
-      UIConstants.App.Title = t;
+      UIConstants.Title = t;
+      return Configure;
+    },
+    subtitle: (t) => {
+      UIConstants.Subtitle = t;
       return Configure;
     },
     version: (t) => {
-      UIConstants.App.Version = t;
+      UIConstants.Version = t;
       return Configure;
     },
     appKey: (t) => {
-      UIConstants.App.Key = t;
+      UIConstants.AppKey = t;
       return Configure;
     },
     apiUrl: (t) => {

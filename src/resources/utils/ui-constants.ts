@@ -1,15 +1,14 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
 export module UIConstants {
 
-  export var App = {
-    Key: 'AUF',
-    Title: 'Aurelia UI Framework',
-    Version: '3.0.0'
-  }
+  export var AppKey = 'AUF';
+  export var Title = 'Aurelia UI Framework';
+  export var Subtitle = '';
+  export var Version = '3.0.0';
 
   export var Http = {
     BaseUrl: './',
