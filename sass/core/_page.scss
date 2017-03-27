@@ -29,6 +29,7 @@
 
 .ui-section {
   overflow: hidden;
+  position: relative;
   @include flex-fill();
 
   &.column {
