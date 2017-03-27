@@ -71,8 +71,8 @@ export function configure(config, configCallback) {
             UIConstants.Title = t;
             return Configure;
         },
-        subtitle: (t) => {
-            UIConstants.Subtitle = t;
+        subTitle: (t) => {
+            UIConstants.SubTitle = t;
             return Configure;
         },
         version: (t) => {

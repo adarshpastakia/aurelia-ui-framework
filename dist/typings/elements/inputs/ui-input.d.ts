@@ -61,6 +61,6 @@ export declare class UIFileInput {
     dragEnter($event: any): boolean;
     dragExit($event: any): void;
     drop($event: any): void;
-    fileChoose(): void;
+    fileChoose(evt: any): void;
     remove(index: any): void;
 }

@@ -34,7 +34,7 @@ let UIHttpService = class UIHttpService {
                     if (response instanceof TypeError) {
                         throw Error(response['message']);
                     }
-                    if (response.status == 401) {
+                    if (response.status == 401 && ~response.url.indexOf(self.httpClient.baseUrl)) {
                         eventAggregator.publish('auf:unauthorized', null);
                     }
                     else if (response.status >= 400) {
@@ -75,67 +75,67 @@ let UIHttpService = class UIHttpService {
     setBaseUrl(url) {
         this.httpClient.baseUrl = url;
     }
-    get(slug, basicAuth = true) {
+    get(slug, headers = true) {
         this.logger.info(`get [${slug}]`);
         return this.httpClient
             .fetch(slug, {
             method: 'get',
             mode: 'cors',
-            headers: this.__getHeaders(basicAuth)
+            headers: this.__getHeaders(headers)
         })
-            .then(resp => resp.json());
+            .then(resp => this.__getResponse(resp));
     }
-    text(slug, basicAuth = true) {
+    text(slug, headers = true) {
         this.logger.info(`text [${slug}]`);
         return this.httpClient
             .fetch(slug, {
             method: 'get',
             mode: 'cors',
-            headers: this.__getHeaders(basicAuth)
+            headers: this.__getHeaders(headers)
         })
             .then(resp => resp.text());
     }
-    put(slug, obj, basicAuth = true) {
+    put(slug, obj, headers = true) {
         this.logger.info(`put [${slug}]`);
         return this.httpClient
             .fetch(slug, {
             method: 'put',
             body: json(obj),
             mode: 'cors',
-            headers: this.__getHeaders(basicAuth)
+            headers: this.__getHeaders(headers)
         })
-            .then(resp => resp.json());
+            .then(resp => this.__getResponse(resp));
     }
-    post(slug, obj, basicAuth = true) {
+    post(slug, obj, headers = true) {
         this.logger.info(`post [${slug}]`);
         return this.httpClient
             .fetch(slug, {
             method: 'post',
             body: json(obj),
             mode: 'cors',
-            headers: this.__getHeaders(basicAuth)
+            headers: this.__getHeaders(headers)
         })
-            .then(resp => resp.json());
+            .then(resp => this.__getResponse(resp));
     }
-    delete(slug, basicAuth = true) {
+    delete(slug, headers = true) {
         this.logger.info(`delete [${slug}]`);
         return this.httpClient
             .fetch(slug, {
             method: 'delete',
             mode: 'cors',
-            headers: this.__getHeaders(basicAuth)
+            headers: this.__getHeaders(headers)
         })
-            .then(resp => resp.json());
+            .then(resp => this.__getResponse(resp));
     }
-    upload(slug, form, basicAuth = true) {
+    upload(slug, form, headers = true) {
         this.logger.info(`upload [${slug}]`);
-        return this.__upload('post', slug, form, basicAuth);
+        return this.__upload('post', slug, form, headers);
     }
-    reupload(slug, form, basicAuth = true) {
+    reupload(slug, form, headers = true) {
         this.logger.info(`reupload [${slug}]`);
-        return this.__upload('put', slug, form, basicAuth);
+        return this.__upload('put', slug, form, headers);
     }
-    __upload(method, slug, form, basicAuth) {
+    __upload(method, slug, form, headers) {
         var data = new FormData();
         for (var i = 0, q = form.querySelectorAll('input'); i < q.length; i++) {
             if (q[i].type == 'file') {
@@ -153,24 +153,36 @@ let UIHttpService = class UIHttpService {
             method: method,
             body: data,
             mode: 'cors',
-            headers: this.__getHeaders(basicAuth)
+            headers: this.__getHeaders(headers)
         })
-            .then(resp => resp.json());
+            .then(resp => this.__getResponse(resp));
     }
-    __getHeaders(basic = true) {
+    __getResponse(response) {
+        if (response.status === 204)
+            return null;
+        return response.text().then(function (text) {
+            try {
+                return JSON.parse(text);
+            }
+            catch (e) {
+                return {};
+            }
+        });
+    }
+    __getHeaders(override = true) {
         var headers = {
             'X-Requested-With': 'Fetch',
             'Accept': 'application/json',
             'Access-Control-Allow-Origin': '*'
         };
         Object.assign(headers, UIConstants.Http.Headers || {});
-        if (basic === true && UIConstants.Http.AuthorizationHeader && !isEmpty(this.app.AuthUser)) {
+        if (override === true && UIConstants.Http.AuthorizationHeader && !isEmpty(this.app.AuthUser)) {
             var token = this.app.AuthUser + ":" + this.app.AuthToken;
             var hash = btoa(token);
             headers['Authorization'] = "Basic " + hash;
         }
-        else if (basic !== false) {
-            Object.assign(headers, basic || {});
+        else if (override !== false) {
+            Object.assign(headers, override || {});
         }
         return headers;
     }

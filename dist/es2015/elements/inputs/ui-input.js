@@ -223,6 +223,8 @@ let UIFileInput = class UIFileInput {
     created(owningView, myView) { }
     bind(bindingContext, overrideContext) { }
     attached() {
+        this.files = [];
+        this.inputEl.value = '';
         this.inputEl.draggedFiles = this.files;
     }
     detached() { }
@@ -248,7 +250,8 @@ let UIFileInput = class UIFileInput {
         }
         UIEvent.fireEvent('change', this.element, this.files.length);
     }
-    fileChoose() {
+    fileChoose(evt) {
+        evt.stopPropagation();
         var files = this.inputEl.files;
         for (var i = 0; i < files.length; i++) {
             var f = { file: files[i], name: files[i].name, size: files[i].size || 0, ext: window.FileTypes[files[i].type] || 'txt' };
@@ -281,7 +284,7 @@ UIFileInput = __decorate([
       dragover.trigger="dragEnter($event)" dragleave.trigger="dragExit($event)" drop.trigger="drop($event)">
     <span><i class="fi-ui-upload-white"></i> Drop files here<br/>or<br/>click to browse</span>
     </div>
-    <input type="file" ref="inputEl" class="ui-file-input-el" change.trigger="fileChoose()" />
+    <input type="file" ref="inputEl" class="ui-file-input-el" change.trigger="fileChoose($event)" />
     <div class="ui-file-list">
       <p repeat.for="file of files" class="ui-row ui-row-middle">
       <a click.trigger="remove($index)"><ui-glyph glyph="ui-dialog-close" class="ui-text-danger"></ui-glyph></a>

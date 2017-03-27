@@ -52,6 +52,7 @@ import './value-converters/ui-text';
 import 'text!./ui-glyphs.html';
 export interface UIConfig {
     title(t: string): UIConfig;
+    subTitle(t: string): UIConfig;
     version(t: string): UIConfig;
     appKey(t: string): UIConfig;
     apiUrl(t: string): UIConfig;

@@ -1,7 +1,7 @@
 export declare module UIConstants {
     var AppKey: string;
     var Title: string;
-    var Subtitle: string;
+    var SubTitle: string;
     var Version: string;
     var Http: {
         BaseUrl: string;

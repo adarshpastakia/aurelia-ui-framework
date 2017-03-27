@@ -76,8 +76,8 @@ function configure(config, configCallback) {
             ui_constants_1.UIConstants.Title = t;
             return Configure;
         },
-        subtitle: function (t) {
-            ui_constants_1.UIConstants.Subtitle = t;
+        subTitle: function (t) {
+            ui_constants_1.UIConstants.SubTitle = t;
             return Configure;
         },
         version: function (t) {

@@ -234,6 +234,8 @@ var UIFileInput = (function () {
     UIFileInput.prototype.created = function (owningView, myView) { };
     UIFileInput.prototype.bind = function (bindingContext, overrideContext) { };
     UIFileInput.prototype.attached = function () {
+        this.files = [];
+        this.inputEl.value = '';
         this.inputEl.draggedFiles = this.files;
     };
     UIFileInput.prototype.detached = function () { };
@@ -259,7 +261,8 @@ var UIFileInput = (function () {
         }
         ui_event_1.UIEvent.fireEvent('change', this.element, this.files.length);
     };
-    UIFileInput.prototype.fileChoose = function () {
+    UIFileInput.prototype.fileChoose = function (evt) {
+        evt.stopPropagation();
         var files = this.inputEl.files;
         for (var i = 0; i < files.length; i++) {
             var f = { file: files[i], name: files[i].name, size: files[i].size || 0, ext: window.FileTypes[files[i].type] || 'txt' };
@@ -287,7 +290,7 @@ __decorate([
 ], UIFileInput.prototype, "fileTypes", void 0);
 UIFileInput = __decorate([
     aurelia_framework_1.autoinject(),
-    aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper ui-file-input\">\n  <div class=\"ui-control-wrapper\">\n    <div class=\"ui-file-drop-zone ${dragging?'dragging':''}\" ref=\"dropZone\" click.trigger=\"inputEl.click()\"\n      dragover.trigger=\"dragEnter($event)\" dragleave.trigger=\"dragExit($event)\" drop.trigger=\"drop($event)\">\n    <span><i class=\"fi-ui-upload-white\"></i> Drop files here<br/>or<br/>click to browse</span>\n    </div>\n    <input type=\"file\" ref=\"inputEl\" class=\"ui-file-input-el\" change.trigger=\"fileChoose()\" />\n    <div class=\"ui-file-list\">\n      <p repeat.for=\"file of files\" class=\"ui-row ui-row-middle\">\n      <a click.trigger=\"remove($index)\"><ui-glyph glyph=\"ui-dialog-close\" class=\"ui-text-danger\"></ui-glyph></a>\n      <span class=\"ui-col-fill\">${file.name}<br/>(<small innerhtml.bind=\"file.size | number:'0.00b'\"></small>)</span></p>\n    </div>\n  </div>\n</template>"),
+    aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper ui-file-input\">\n  <div class=\"ui-control-wrapper\">\n    <div class=\"ui-file-drop-zone ${dragging?'dragging':''}\" ref=\"dropZone\" click.trigger=\"inputEl.click()\"\n      dragover.trigger=\"dragEnter($event)\" dragleave.trigger=\"dragExit($event)\" drop.trigger=\"drop($event)\">\n    <span><i class=\"fi-ui-upload-white\"></i> Drop files here<br/>or<br/>click to browse</span>\n    </div>\n    <input type=\"file\" ref=\"inputEl\" class=\"ui-file-input-el\" change.trigger=\"fileChoose($event)\" />\n    <div class=\"ui-file-list\">\n      <p repeat.for=\"file of files\" class=\"ui-row ui-row-middle\">\n      <a click.trigger=\"remove($index)\"><ui-glyph glyph=\"ui-dialog-close\" class=\"ui-text-danger\"></ui-glyph></a>\n      <span class=\"ui-col-fill\">${file.name}<br/>(<small innerhtml.bind=\"file.size | number:'0.00b'\"></small>)</span></p>\n    </div>\n  </div>\n</template>"),
     aurelia_framework_1.customElement('ui-file'),
     __metadata("design:paramtypes", [Element])
 ], UIFileInput);
