@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2016
 // @license     : MIT
@@ -34,11 +34,20 @@
 .ui-row {
   position: relative;
   @include flex-row(flex-start);
+
+  > hr {
+    @include flex(1 1 100%);
+  }
 }
 
 .ui-row-vertical {
   position: relative;
   @include flex-column();
+
+  > hr {
+    border-width: 0 1px;
+    @include flex(1 1 100%);
+  }
 }
 
 .ui-row-reverse {
