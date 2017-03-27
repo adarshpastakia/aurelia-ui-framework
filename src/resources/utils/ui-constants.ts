@@ -7,7 +7,7 @@ export module UIConstants {
 
   export var AppKey = 'AUF';
   export var Title = 'Aurelia UI Framework';
-  export var Subtitle = '';
+  export var SubTitle = '';
   export var Version = '3.0.0';
 
   export var Http = {

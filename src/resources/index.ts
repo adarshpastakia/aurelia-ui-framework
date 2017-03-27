@@ -72,6 +72,7 @@ import 'text!./ui-glyphs.html';
 
 export interface UIConfig {
   title(t: string): UIConfig;
+  subTitle(t: string): UIConfig;
   version(t: string): UIConfig;
   appKey(t: string): UIConfig;
 
@@ -136,8 +137,8 @@ export function configure(config: { container: Container, globalResources?: (...
       UIConstants.Title = t;
       return Configure;
     },
-    subtitle: (t) => {
-      UIConstants.Subtitle = t;
+    subTitle: (t) => {
+      UIConstants.SubTitle = t;
       return Configure;
     },
     version: (t) => {
