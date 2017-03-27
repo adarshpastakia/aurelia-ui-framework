@@ -129,11 +129,11 @@ let UIHttpService = class UIHttpService {
     }
     upload(slug, form, basicAuth = true) {
         this.logger.info(`upload [${slug}]`);
-        return this.__upload('post', slug, form);
+        return this.__upload('post', slug, form, basicAuth);
     }
     reupload(slug, form, basicAuth = true) {
         this.logger.info(`reupload [${slug}]`);
-        return this.__upload('put', slug, form);
+        return this.__upload('put', slug, form, basicAuth);
     }
     __upload(method, slug, form, basicAuth) {
         var data = new FormData();

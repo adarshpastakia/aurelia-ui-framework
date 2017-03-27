@@ -137,12 +137,12 @@ var UIHttpService = (function () {
     UIHttpService.prototype.upload = function (slug, form, basicAuth) {
         if (basicAuth === void 0) { basicAuth = true; }
         this.logger.info("upload [" + slug + "]");
-        return this.__upload('post', slug, form);
+        return this.__upload('post', slug, form, basicAuth);
     };
     UIHttpService.prototype.reupload = function (slug, form, basicAuth) {
         if (basicAuth === void 0) { basicAuth = true; }
         this.logger.info("reupload [" + slug + "]");
-        return this.__upload('put', slug, form);
+        return this.__upload('put', slug, form, basicAuth);
     };
     UIHttpService.prototype.__upload = function (method, slug, form, basicAuth) {
         var data = new FormData();

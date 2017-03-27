@@ -1,8 +1,10 @@
 import { Router } from "aurelia-router";
+import { UIConstants } from "./ui-constants";
 export declare class UIApplication {
     router: Router;
     private logger;
     isBusy: boolean;
+    constants: typeof UIConstants;
     constructor(router: Router);
     navigate(hash: any, options?: any): void;
     navigateTo(route: any, params?: {}, options?: any): void;

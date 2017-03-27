@@ -73,15 +73,19 @@ function configure(config, configCallback) {
     config.globalResources(aurelia_pal_1.PLATFORM.moduleName('./value-converters/ui-lodash'), aurelia_pal_1.PLATFORM.moduleName('./value-converters/ui-text'));
     var Configure = {
         title: function (t) {
-            ui_constants_1.UIConstants.App.Title = t;
+            ui_constants_1.UIConstants.Title = t;
+            return Configure;
+        },
+        subtitle: function (t) {
+            ui_constants_1.UIConstants.Subtitle = t;
             return Configure;
         },
         version: function (t) {
-            ui_constants_1.UIConstants.App.Version = t;
+            ui_constants_1.UIConstants.Version = t;
             return Configure;
         },
         appKey: function (t) {
-            ui_constants_1.UIConstants.App.Key = t;
+            ui_constants_1.UIConstants.AppKey = t;
             return Configure;
         },
         apiUrl: function (t) {

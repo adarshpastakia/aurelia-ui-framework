@@ -17,6 +17,7 @@ let UIApplication = class UIApplication {
     constructor(router) {
         this.router = router;
         this.isBusy = false;
+        this.constants = UIConstants;
         this.sharedState = {};
         this.logger = getLogger('UIApplication');
         this.logger.info('Initialized');
@@ -83,13 +84,13 @@ let UIApplication = class UIApplication {
     session(key, value = '§') {
         if (window.sessionStorage) {
             if (value === '§') {
-                return JSON.parse(window.sessionStorage.getItem(UIConstants.App.Key + ':' + key));
+                return JSON.parse(window.sessionStorage.getItem(UIConstants.AppKey + ':' + key));
             }
             else if (value === null) {
-                window.sessionStorage.removeItem(UIConstants.App.Key + ':' + key);
+                window.sessionStorage.removeItem(UIConstants.AppKey + ':' + key);
             }
             else {
-                window.sessionStorage.setItem(UIConstants.App.Key + ':' + key, JSON.stringify(value));
+                window.sessionStorage.setItem(UIConstants.AppKey + ':' + key, JSON.stringify(value));
             }
         }
         return null;
@@ -101,13 +102,13 @@ let UIApplication = class UIApplication {
     persist(key, value = '§') {
         if (window.localStorage) {
             if (value === '§') {
-                return JSON.parse(window.localStorage.getItem(UIConstants.App.Key + ':' + key));
+                return JSON.parse(window.localStorage.getItem(UIConstants.AppKey + ':' + key));
             }
             else if (value === null) {
-                window.localStorage.removeItem(UIConstants.App.Key + ':' + key);
+                window.localStorage.removeItem(UIConstants.AppKey + ':' + key);
             }
             else {
-                window.localStorage.setItem(UIConstants.App.Key + ':' + key, JSON.stringify(value));
+                window.localStorage.setItem(UIConstants.AppKey + ':' + key, JSON.stringify(value));
             }
         }
         return null;

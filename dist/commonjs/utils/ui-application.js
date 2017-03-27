@@ -19,6 +19,7 @@ var UIApplication = (function () {
     function UIApplication(router) {
         this.router = router;
         this.isBusy = false;
+        this.constants = ui_constants_1.UIConstants;
         this.sharedState = {};
         this.logger = aurelia_logging_1.getLogger('UIApplication');
         this.logger.info('Initialized');
@@ -100,13 +101,13 @@ var UIApplication = (function () {
         if (value === void 0) { value = '§'; }
         if (window.sessionStorage) {
             if (value === '§') {
-                return JSON.parse(window.sessionStorage.getItem(ui_constants_1.UIConstants.App.Key + ':' + key));
+                return JSON.parse(window.sessionStorage.getItem(ui_constants_1.UIConstants.AppKey + ':' + key));
             }
             else if (value === null) {
-                window.sessionStorage.removeItem(ui_constants_1.UIConstants.App.Key + ':' + key);
+                window.sessionStorage.removeItem(ui_constants_1.UIConstants.AppKey + ':' + key);
             }
             else {
-                window.sessionStorage.setItem(ui_constants_1.UIConstants.App.Key + ':' + key, JSON.stringify(value));
+                window.sessionStorage.setItem(ui_constants_1.UIConstants.AppKey + ':' + key, JSON.stringify(value));
             }
         }
         return null;
@@ -119,13 +120,13 @@ var UIApplication = (function () {
         if (value === void 0) { value = '§'; }
         if (window.localStorage) {
             if (value === '§') {
-                return JSON.parse(window.localStorage.getItem(ui_constants_1.UIConstants.App.Key + ':' + key));
+                return JSON.parse(window.localStorage.getItem(ui_constants_1.UIConstants.AppKey + ':' + key));
             }
             else if (value === null) {
-                window.localStorage.removeItem(ui_constants_1.UIConstants.App.Key + ':' + key);
+                window.localStorage.removeItem(ui_constants_1.UIConstants.AppKey + ':' + key);
             }
             else {
-                window.localStorage.setItem(ui_constants_1.UIConstants.App.Key + ':' + key, JSON.stringify(value));
+                window.localStorage.setItem(ui_constants_1.UIConstants.AppKey + ':' + key, JSON.stringify(value));
             }
         }
         return null;

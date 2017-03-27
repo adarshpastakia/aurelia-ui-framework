@@ -3,11 +3,10 @@ define(["require", "exports"], function (require, exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var UIConstants;
     (function (UIConstants) {
-        UIConstants.App = {
-            Key: 'AUF',
-            Title: 'Aurelia UI Framework',
-            Version: '3.0.0'
-        };
+        UIConstants.AppKey = 'AUF';
+        UIConstants.Title = 'Aurelia UI Framework';
+        UIConstants.Subtitle = '';
+        UIConstants.Version = '3.0.0';
         UIConstants.Http = {
             BaseUrl: './',
             Headers: {},

@@ -1,9 +1,8 @@
 export declare module UIConstants {
-    var App: {
-        Key: string;
-        Title: string;
-        Version: string;
-    };
+    var AppKey: string;
+    var Title: string;
+    var Subtitle: string;
+    var Version: string;
     var Http: {
         BaseUrl: string;
         Headers: {};
