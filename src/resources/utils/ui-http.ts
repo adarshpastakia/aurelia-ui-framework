@@ -39,7 +39,7 @@ export class UIHttpService {
                 throw Error(response['message']);
               }
 
-              if (response.status == 401) {
+              if (response.status == 401 && ~response.url.indexOf(self.httpClient.baseUrl)) {
                 eventAggregator.publish('auf:unauthorized', null);
               }
               else if (response.status >= 400) {
