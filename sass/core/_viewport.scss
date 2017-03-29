@@ -29,6 +29,7 @@
     display       : inline-block;
     width         : 100%;
     height        : 100%;
+    padding       : 0.5px;
     stroke-width  : 0;
     line-height   : 1;
     color         : inherit;
@@ -96,8 +97,8 @@
       background: rgba($white, .1);
     }
 
-     > .ui-input-group .ui-group-wrapper,
-    > .ui-input-wrapper .ui-input-control {
+     > .ui-input-wrapper .ui-input-control,
+    > .ui-input-group .ui-group-wrapper {
       background: rgba($white, .1);
       color     : $app-header-text;
     }

@@ -99,7 +99,7 @@ export class UIDialogService {
         <ui-header-tool expand click.trigger="expand($event)" if.bind="maximize"></ui-header-tool>
         <ui-header-tool close click.trigger="close($event)" ></ui-header-tool>
       </ui-header>
-      <ui-glyph class="ui-resizer" glyph="ui-dialog-resize" if.bind="resize"></ui-glyph>
+      <ui-glyph class="ui-resizer" glyph="glyph-dialog-resize" if.bind="resize"></ui-glyph>
       </div></div></template>`, this.resources);
     let view = viewFactory.create(this.container);
     view.bind(vm);

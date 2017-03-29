@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -49,7 +49,7 @@ export class UIOptionGroup {
 
 @autoinject()
 @inlineView(`<template class="ui-option ui-checkbox"><input type="checkbox" id.bind="for" disabled.bind="disabled" checked.bind="checked"/>
-  <ui-glyph glyph.bind="checked?'ui-check-on':'ui-check-off'"></ui-glyph>
+  <ui-glyph glyph.bind="checked?'glyph-check-on':'glyph-check-off'"></ui-glyph>
   <label for.bind="for" class="ui-option-label"><slot></slot></label></template>`)
 @customElement('ui-checkbox')
 export class UICheckbox {
@@ -84,9 +84,9 @@ export class UICheckbox {
 }
 
 @autoinject()
-@inlineView(`<template class="ui-option ui-radio"><input type="radio" name="\${name}" id.bind="for" value.bind="value" 
+@inlineView(`<template class="ui-option ui-radio"><input type="radio" name="\${name}" id.bind="for" value.bind="value"
   disabled.bind="disabled" checked.bind="checked" change.trigger="changed($event)"/>
-  <ui-glyph class="off" glyph="ui-radio-off"></ui-glyph><ui-glyph class="on" glyph="ui-radio-on"></ui-glyph>
+  <ui-glyph class="off" glyph="glyph-radio-off"></ui-glyph><ui-glyph class="on" glyph="glyph-radio-on"></ui-glyph>
   <label for.bind="for" class="ui-option-label"><slot></slot></label></template>`)
 @customElement('ui-radio')
 export class UIRadio {

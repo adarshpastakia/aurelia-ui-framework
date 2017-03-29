@@ -13,9 +13,9 @@ import * as moment from "moment";
 @inlineView(`<template class="ui-date-view" click.trigger="clicked($event)">
   <div class="ui-dv-date-wrapper" if.bind="type!='t'">
     <div class="ui-dv-header">
-      <a class="prev \${disablePrev?'disabled':''}"><ui-glyph glyph="ui-chevron-left"></ui-glyph></a>
-      <a class="title">\${title}<ui-glyph glyph="ui-caret-up"></ui-glyph></a>
-      <a class="next \${disableNext?'disabled':''}"><ui-glyph glyph="ui-chevron-right"></ui-glyph></a>
+      <a class="prev \${disablePrev?'disabled':''}"><ui-glyph glyph="glyph-chevron-left"></ui-glyph></a>
+      <a class="title">\${title}<ui-glyph glyph="glyph-caret-up"></ui-glyph></a>
+      <a class="next \${disableNext?'disabled':''}"><ui-glyph glyph="glyph-chevron-right"></ui-glyph></a>
     </div>
     <div class="ui-dv-container">
       <div class="weekdays" if.bind="datePage==0">
@@ -40,17 +40,17 @@ import * as moment from "moment";
   </div>
   <div class="ui-dv-time-wrapper" if.bind="type!='d'">
     <div class="time" if.bind="timePage==0">
-      <div><ui-glyph glyph="ui-time"></ui-glyph></div>
+      <div><ui-glyph glyph="glyph-time"></ui-glyph></div>
       <div>
-        <a class="hour-up \${disableHrUp?'disabled':''}"><ui-glyph glyph="ui-chevron-up"></ui-glyph></a>
+        <a class="hour-up \${disableHrUp?'disabled':''}"><ui-glyph glyph="glyph-chevron-up"></ui-glyph></a>
         <a class="hour">\${(hour>11?hour-12:hour)==0?'12':(hour>11?hour-12:hour) | number:'{00}'}</a>
-        <a class="hour-dn \${disableHrDn?'disabled':''}"><ui-glyph glyph="ui-chevron-down"></ui-glyph></a>
+        <a class="hour-dn \${disableHrDn?'disabled':''}"><ui-glyph glyph="glyph-chevron-down"></ui-glyph></a>
       </div>
       <div>:</div>
       <div>
-        <a class="minute-up \${disableMnUp?'disabled':''}"><ui-glyph glyph="ui-chevron-up"></ui-glyph></a>
+        <a class="minute-up \${disableMnUp?'disabled':''}"><ui-glyph glyph="glyph-chevron-up"></ui-glyph></a>
         <a class="minute">\${minute | number:'{00}'}</a>
-        <a class="minute-dn \${disableMnDn?'disabled':''}"><ui-glyph glyph="ui-chevron-down"></ui-glyph></a>
+        <a class="minute-dn \${disableMnDn?'disabled':''}"><ui-glyph glyph="glyph-chevron-down"></ui-glyph></a>
       </div>
       <div><a class="tt">\${hour>11?'PM':'AM'}</a></div>
     </div>
@@ -343,13 +343,13 @@ export class UIDateView {
 
 @autoinject()
 @inlineView(`<template class="ui-input-wrapper ui-input-date"><div role="input" class="ui-input-control"><slot></slot>
-  <span class="ui-error" if.bind="errors"><ui-glyph glyph="ui-invalid"></ui-glyph><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
+  <span class="ui-error" if.bind="errors"><ui-glyph glyph="glyph-invalid"></ui-glyph><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
   <input ref="inputEl" value.bind="elValue"
     focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)"
     change.trigger="fireEvent($event)" keydown.trigger="keyDown($event)" click.trigger="openDropdown($event, show=true)"
     placeholder.bind="placeholder" disabled.bind="isDisabled" readonly.bind="!allowSearch || readonly"/>
   <span class="ui-clear" if.bind="clear && value" click.trigger="clearInput()">&times;</span>
-  <span class="ui-input-addon" click.trigger="toggleDropdown($event)"><ui-glyph glyph="ui-calendar"></ui-glyph></span></div>
+  <span class="ui-input-addon" click.trigger="toggleDropdown($event)"><ui-glyph glyph="glyph-calendar"></ui-glyph></span></div>
   <div class="ui-input-info" if.bind="info" innerhtml.bind="info"></div>
   <ui-date-view ref="dropdown" type.bind="type" class="ui-hidden floating" date.bind="date" min-date.bind="minDate" max-date.bind="maxDate"></ui-date-view>
 </template>`)

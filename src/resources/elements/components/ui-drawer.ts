@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -25,7 +25,7 @@ export class UIDrawer {
     if (this.element.hasAttribute('scroll')) this.bodyCls += ' ui-scroll';
     if (this.element.hasAttribute('padded')) this.bodyCls += ' ui-pad-all';
 
-    if (this.position == 'end') this.glyph = 'ui-arrow-right';
+    if (this.position == 'end') this.glyph = 'glyph-arrow-right';
   }
   attached() { }
   detached() { }
@@ -34,7 +34,7 @@ export class UIDrawer {
 
   @bindable() position = "start";
 
-  private glyph = 'ui-arrow-left';
+  private glyph = 'glyph-arrow-left';
   private bodyCls = '';
 
   closeDrawer() {
@@ -57,7 +57,7 @@ export class UIDrawerToggle {
   // end aurelia hooks
 
   @bindable() drawer;
-  @bindable() glyph = 'ui-handle-menu';
+  @bindable() glyph = 'glyph-handle-menu';
 
   openDrawer(evt) {
     if (evt.button != 0) return true;

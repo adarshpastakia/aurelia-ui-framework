@@ -9,8 +9,8 @@ import {UIEvent} from "../../utils/ui-event";
 import * as _ from "lodash";
 
 @autoinject()
-@inlineView(`<template class="ui-tree-panel"><ui-input-group class="ui-search" if.bind="searchable">
-  <ui-input type="search" t="[placeholder]Search" placeholder="Search..." clear value.bind="searchText" input.trigger="searchTextChanged(searchText) & debounce:200"><ui-input-addon class="ui-text-muted" glyph="ui-search"></ui-input-addon></ui-input></ui-input-group>
+@inlineView(`<template class="ui-tree-panel"><ui-input-group class="ui-tree-search" if.bind="searchable">
+  <ui-input type="search" t="[placeholder]Search" placeholder="Search..." clear value.bind="searchText" input.trigger="searchTextChanged(searchText) & debounce:200"><ui-input-addon class="ui-text-muted" glyph="glyph-search"></ui-input-addon></ui-input></ui-input-group>
   <div class="ui-tree-level">
     <tree-node repeat.for="child of root.children | sort:'name'" node.bind="child" options.bind="options" nodeclick.delegate="itemClicked($event.detail)"></tree-node>
   </div></template>`)
@@ -239,13 +239,13 @@ export class UITree {
 @inlineView(`<template class="ui-tree-item">
     <div class="ui-tree-item-link \${node.disabled?'ui-disabled':''}" if.bind="node.isVisible">
         <a class="ui-expander \${node.expanded?'expanded':''}" if.bind="!node.leaf" click.trigger="[node.expanded=!node.expanded, hideByCount=true]">
-            <ui-glyph glyph.bind="node.expanded?'ui-tree-collapse':'ui-tree-expand'"></ui-glyph>
+            <ui-glyph glyph.bind="node.expanded?'glyph-tree-collapse':'glyph-tree-expand'"></ui-glyph>
         </a>
         <a class="ui-node-checkbox" if.bind="options.showCheckbox && node.level>=options.checkboxLevel" click.trigger="fireClicked()">
-          <ui-glyph glyph.bind="node.checked==1?'ui-tree-check-on':(node.checked==2?'ui-tree-check-partial':'ui-tree-check-off')"></ui-glyph>
+          <ui-glyph glyph.bind="node.checked==1?'glyph-tree-check-on':(node.checked==2?'glyph-tree-check-partial':'glyph-tree-check-off')"></ui-glyph>
         </a>
         <a class="ui-node-link \${!options.showCheckbox && node.active?'ui-active':node.childActive?'ui-partial':''}" data-id="\${node.id}" click.trigger="fireClicked()">
-            <ui-glyph glyph.bind="(node.expanded?node.openIcon:node.closedIcon)||node.icon" class.bind="(node.expanded?node.openIcon:node.closedIcon)||node.icon" if.bind="node.icon"></ui-glyph>
+            <ui-glyph glyph.bind="(node.expanded?node.openIcon:node.closedIcon)||node.icon" class.bind="(node.expanded?node.openIcon:node.closedIcon)||node.icon" if.bind="node.icon||node.openIcon"></ui-glyph>
             <span innerhtml.bind="node.text" class="\${node.level<options.checkboxLevel && node.checked!=0?'ui-strong':''}"></span>
         </a>
     </div>

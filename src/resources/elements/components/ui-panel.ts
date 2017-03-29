@@ -126,11 +126,11 @@ export class UIHeaderTool {
     if (element.hasAttribute('expand')) this.type = "expand";
     if (element.hasAttribute('minimize')) this.type = "minimize";
 
-    if (element.hasAttribute('close')) this.glyph = "ui-dialog-close";
-    if (element.hasAttribute('refresh')) this.glyph = "ui-refresh";
-    if (element.hasAttribute('collapse')) this.glyph = "ui-chevron-up";
-    if (element.hasAttribute('expand')) this.glyph = "ui-dialog-expand";
-    if (element.hasAttribute('minimize')) this.glyph = "ui-dialog-minimize";
+    if (element.hasAttribute('close')) this.glyph = "glyph-dialog-close";
+    if (element.hasAttribute('refresh')) this.glyph = "glyph-refresh";
+    if (element.hasAttribute('collapse')) this.glyph = "glyph-chevron-up";
+    if (element.hasAttribute('expand')) this.glyph = "glyph-dialog-expand";
+    if (element.hasAttribute('minimize')) this.glyph = "glyph-dialog-minimize";
   }
 
   // aurelia hooks

@@ -64,7 +64,7 @@ export class UIBaseInput {
 
 @autoinject()
 @inlineView(`<template class="ui-input-wrapper" css.bind="{width: width}"><div role="input" class="ui-input-control"><slot></slot>
-  <span class="ui-error" if.bind="errors"><ui-glyph glyph="ui-invalid"></ui-glyph><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
+  <span class="ui-error" if.bind="errors"><ui-glyph glyph="glyph-invalid"></ui-glyph><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
   <input ref="inputEl" type.bind="type" value.bind="value" maxlength.bind="maxlength" dir.bind="dir"
     focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)"
     input.trigger="fireEvent($event)" change.trigger="fireEvent($event)"
@@ -175,7 +175,7 @@ export class UIInput extends UIBaseInput {
     <input type="file" ref="inputEl" class="ui-file-input-el" change.trigger="fileChoose($event)" />
     <div class="ui-file-list">
       <p repeat.for="file of files" class="ui-row ui-row-middle">
-      <a click.trigger="remove($index)"><ui-glyph glyph="ui-dialog-close" class="ui-text-danger"></ui-glyph></a>
+      <a click.trigger="remove($index)"><ui-glyph glyph="glyph-dialog-close" class="ui-text-danger"></ui-glyph></a>
       <span class="ui-col-fill">\${file.name}<br/>(<small innerhtml.bind="file.size | number:'0.00b'"></small>)</span></p>
     </div>
   </div>

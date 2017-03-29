@@ -89,7 +89,7 @@ export class UIGlyph {
 @customElement('ui-loader')
 @inlineView(`<template class="ui-app-loader" show.bind="busy">
   <div class="ui-loader-div">
-    <ui-glyph class="ui-anim-loader" glyph="ui-loader"></ui-glyph>
+    <ui-glyph class="ui-anim-loader" glyph="glyph-loader"></ui-glyph>
   </div>
 </template>`)
 export class UILoader {

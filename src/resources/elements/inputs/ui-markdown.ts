@@ -22,24 +22,24 @@ import * as _ from "lodash";
   <ui-button data-id="h6" disabled.bind="disableTools||disabled||readonly" square small light>H6</ui-button>
   </div>
   <div class="ui-button-group ui-horizontal">
-  <ui-button glyph="ui-md-bold" data-id="b" disabled.bind="disableTools||disabled||readonly" square small light></ui-button>
-  <ui-button glyph="ui-md-italic" data-id="i" disabled.bind="disableTools||disabled||readonly" square small light></ui-button>
-  <ui-button glyph="ui-md-strike" data-id="s" disabled.bind="disableTools||disabled||readonly" square small light></ui-button>
+  <ui-button glyph="glyph-md-bold" data-id="b" disabled.bind="disableTools||disabled||readonly" square small light></ui-button>
+  <ui-button glyph="glyph-md-italic" data-id="i" disabled.bind="disableTools||disabled||readonly" square small light></ui-button>
+  <ui-button glyph="glyph-md-strike" data-id="s" disabled.bind="disableTools||disabled||readonly" square small light></ui-button>
   </div>
   <div class="ui-button-group ui-horizontal">
-  <ui-button glyph="ui-md-link" data-id="a" disabled.bind="disableTools||disabled||readonly" square small light></ui-button>
-  <ui-button glyph="ui-md-image" data-id="img" disabled.bind="disableTools||disabled||readonly" square small light></ui-button>
+  <ui-button glyph="glyph-md-link" data-id="a" disabled.bind="disableTools||disabled||readonly" square small light></ui-button>
+  <ui-button glyph="glyph-md-image" data-id="img" disabled.bind="disableTools||disabled||readonly" square small light></ui-button>
   </div>
   <div class="ui-button-group ui-horizontal">
-  <ui-button glyph="ui-md-list" data-id="ul" disabled.bind="disableTools||disabled||readonly" square small light></ui-button>
-  <ui-button glyph="ui-md-number" data-id="ol" disabled.bind="disableTools||disabled||readonly" square small light></ui-button>
+  <ui-button glyph="glyph-md-list" data-id="ul" disabled.bind="disableTools||disabled||readonly" square small light></ui-button>
+  <ui-button glyph="glyph-md-number" data-id="ol" disabled.bind="disableTools||disabled||readonly" square small light></ui-button>
   </div>
   <div class="ui-button-group ui-horizontal">
-  <ui-button glyph="ui-md-help" data-id="help" disabled.bind="disabled||readonly" square small light></ui-button>
-  <ui-button glyph="ui-md-preview" data-id="preview" disabled.bind="disabled||readonly" square small light></ui-button>
+  <ui-button glyph="glyph-md-help" data-id="help" disabled.bind="disabled||readonly" square small light></ui-button>
+  <ui-button glyph="glyph-md-preview" data-id="preview" disabled.bind="disabled||readonly" square small light></ui-button>
   </div></ui-toolbar>
   <div class="ui-watermark \${preview?'preview':''} \${help?'help':''}">
-  <div role="input" class="ui-input-control ui-textarea"><span class="ui-error" if.bind="errors"><ui-glyph glyph="ui-invalid"></ui-glyph><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
+  <div role="input" class="ui-input-control ui-textarea"><span class="ui-error" if.bind="errors"><ui-glyph glyph="glyph-invalid"></ui-glyph><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
   <textarea ref="inputEl" value.bind="value" rows.bind="rows" maxlength.bind="maxlength" dir.bind="dir"
     focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)"
     input.trigger="fireEvent($event)" change.trigger="fireEvent($event)"
@@ -250,27 +250,27 @@ export class UIMarkdown extends UIBaseInput {
 
 @autoinject()
 @inlineView(`<template class="ui-input-wrapper ui-input-list"><div role="input" class="ui-input-control">
-  <span class="ui-input-addon" click.trigger="openDropdown($event, show=true, inputEl.focus())"><ui-glyph glyph="ui-language"></ui-glyph></span>
-  <span class="ui-error" if.bind="errors"><ui-glyph glyph="ui-invalid"></ui-glyph><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
+  <span class="ui-input-addon" click.trigger="openDropdown($event, show=true, inputEl.focus())"><ui-glyph glyph="glyph-language"></ui-glyph></span>
+  <span class="ui-error" if.bind="errors"><ui-glyph glyph="glyph-invalid"></ui-glyph><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
   <input ref="inputEl" type.bind="type" value.bind="elValue" size="10"
     focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)"
     change.trigger="fireEvent($event)" placeholder.bind="placeholder"
     disabled.bind="isDisabled" readonly.bind="true" click.trigger="openDropdown($event, show=true)"/>
-  <span class="ui-input-addon ui-dropdown-handle" click.trigger="openDropdown($event, show=true, inputEl.focus())"><ui-glyph glyph="ui-chevron-down"></ui-glyph></span></div>
+  <span class="ui-input-addon ui-dropdown-handle" click.trigger="openDropdown($event, show=true, inputEl.focus())"><ui-glyph glyph="glyph-chevron-down"></ui-glyph></span></div>
   <div class="ui-input-info" if.bind="info" innerhtml.bind="info"></div>
   
   <div class="ui-list-container ui-floating" ref="dropdown">
     <div class="ui-list-group" t="Selected">Selected</div>
     <div class="ui-lang-item" repeat.for="item of selectedList">
       <div class="ui-list-item \${item.id==value?'ui-selected':''} \${item.disabled?'ui-disabled':''}" 
-      mouseover.delegate="hilightItem($event)" click.trigger="fireSelect(item)"><ui-glyph glyph="ui-invalid" if.bind="errored.indexOf(item.id)>-1"></ui-glyph> \${item.name}</div>
-      <ui-glyph class="ui-text-danger ui-font-big" glyph="ui-tree-collapse" click.trigger="removeLanguage(item)"></ui-glyph>
+      mouseover.delegate="hilightItem($event)" click.trigger="fireSelect(item)"><ui-glyph glyph="glyph-invalid" if.bind="errored.indexOf(item.id)>-1"></ui-glyph> \${item.name}</div>
+      <ui-glyph class="ui-text-danger ui-font-big" glyph="glyph-tree-collapse" click.trigger="removeLanguage(item)"></ui-glyph>
     </div>
     <div class="ui-list-group" t="Available">Available</div>
     <div class="ui-lang-item" repeat.for="item of availableList" click.trigger="addLanguage(item)">
       <div class="ui-list-item \${item.disabled?'ui-disabled':''}" innerhtml.bind="item.name" 
       mouseover.delegate="hilightItem($event)"></div>
-      <ui-glyph class="ui-text-info ui-font-big" glyph="ui-tree-expand"></ui-glyph>
+      <ui-glyph class="ui-text-info ui-font-big" glyph="glyph-tree-expand"></ui-glyph>
     </div>
     </template>
   </div>

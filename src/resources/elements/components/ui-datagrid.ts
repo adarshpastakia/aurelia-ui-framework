@@ -41,7 +41,7 @@ export class UIDgRow {
   <thead><tr>
     <td repeat.for="col of cols" click.trigger="doSort(col)" class="\${col.sortable?'ui-sortable':''} \${col.locked==0?'ui-locked':''}" css.bind="{left: col.left+'px'}"><div>
       <span class="ui-dg-header" innerhtml.bind='col.getTitle()'></span>
-      <span class="ui-filter" if.bind="col.filter"><ui-glyph glyph="ui-funnel"></ui-glyph></span>
+      <span class="ui-filter" if.bind="col.filter"><ui-glyph glyph="glyph-funnel"></ui-glyph></span>
       <span class="ui-sort \${col.dataId==sortColumn ? sortOrder:''}" if.bind="col.sortable"></span>
       <span class="ui-resizer" if.bind="col.resize" mousedown.trigger="resizeColumn($event,col,cols[$index+1])"></span>
     </div></td>
@@ -80,7 +80,7 @@ export class UIDgRow {
 </div>
 <div class="ui-dg-loader" if.bind="isBusy">
   <div class="ui-loader-div">
-    <ui-glyph class="ui-anim-loader" glyph="ui-loader"></ui-glyph>
+    <ui-glyph class="ui-anim-loader" glyph="glyph-loader"></ui-glyph>
   </div>
 </div></template>`)
 @customElement('ui-datagrid')
@@ -230,11 +230,11 @@ export class UIDGEmpty { }
 
 @autoinject()
 @inlineView(`<template class="ui-pager">
-  <a class="pg-first \${page==0?'disabled':''}" click.trigger="fireChange(page=0)"><ui-glyph glyph="ui-\${style}-double-left"></ui-glyph></a>
-  <a class="pg-prev \${page==0?'disabled':''}" click.trigger="fireChange(page=page-1)" click.trigger="fireChange(page=totalPages)"><ui-glyph glyph="ui-\${style}-left"></ui-glyph></a>
+  <a class="pg-first \${page==0?'disabled':''}" click.trigger="fireChange(page=0)"><ui-glyph glyph="glyph-\${style}-double-left"></ui-glyph></a>
+  <a class="pg-prev \${page==0?'disabled':''}" click.trigger="fireChange(page=page-1)" click.trigger="fireChange(page=totalPages)"><ui-glyph glyph="glyph-\${style}-left"></ui-glyph></a>
   <span class="pg-input">\${page+1} of \${totalPages}</span>
-  <a class="pg-next \${page+1>=totalPages?'disabled':''}" click.trigger="fireChange(page=page+1)"><ui-glyph glyph="ui-\${style}-right"></ui-glyph></a>
-  <a class="pg-last \${page+1>=totalPages?'disabled':''}" click.trigger="fireChange(page=totalPages-1)"><ui-glyph glyph="ui-\${style}-double-right"></ui-glyph></a>
+  <a class="pg-next \${page+1>=totalPages?'disabled':''}" click.trigger="fireChange(page=page+1)"><ui-glyph glyph="glyph-\${style}-right"></ui-glyph></a>
+  <a class="pg-last \${page+1>=totalPages?'disabled':''}" click.trigger="fireChange(page=totalPages-1)"><ui-glyph glyph="glyph-\${style}-double-right"></ui-glyph></a>
 </template>`)
 @customElement('ui-pager')
 export class UIPager {

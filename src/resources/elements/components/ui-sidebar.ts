@@ -43,7 +43,7 @@ export class UISidebar {
   created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     this.collapsed = isTrue(this.collapsed);
-    if (this.position == 'end') this.glyph = "ui-arrow-right";
+    if (this.position == 'end') this.glyph = "glyph-arrow-right";
   }
   attached() {
     this.affixPoint = this.element.querySelector('.ui-affix-point');
@@ -59,7 +59,7 @@ export class UISidebar {
   @bindable() collapsed = false;
   @bindable() position = "start";
 
-  glyph = 'ui-arrow-left';
+  glyph = 'glyph-arrow-left';
   contentCls = '';
   private affixEl;
   private affixPoint;
@@ -69,7 +69,7 @@ export class UISidebar {
   private collapsible = false;
 
   collapsedChanged(newValue) {
-    this.glyph = (this.position == 'end' && !isTrue(newValue)) || (this.position == 'start' && isTrue(newValue)) ? "ui-arrow-right" : "ui-arrow-left";
+    this.glyph = (this.position == 'end' && !isTrue(newValue)) || (this.position == 'start' && isTrue(newValue)) ? "glyph-arrow-right" : "glyph-arrow-left";
   }
 
   toggleCollapse($event) {
