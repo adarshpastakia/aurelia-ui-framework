@@ -41,8 +41,8 @@ export class TreeComponent {
       let c = {
         id: _.camelCase(k),
         text: k,
-        icon: 'fi-ui-line-folder-closed',
-        openIcon: 'fi-ui-line-folder-open',
+        openIcon: 'glyph-icon-folder-open',
+        closedIcon: 'glyph-icon-folder-closed',
         expanded: k == 'Asia',
         children: []
       }
