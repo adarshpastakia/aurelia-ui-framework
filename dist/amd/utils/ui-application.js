@@ -131,28 +131,28 @@ define(["require", "exports", "aurelia-framework", "aurelia-router", "aurelia-lo
             for (var _i = 2; _i < arguments.length; _i++) {
                 rest[_i - 2] = arguments[_i];
             }
-            this.logger.info(tag + "::" + msg, rest);
+            this.logger.info.apply(this.logger, [tag + "::" + msg].concat(rest));
         };
         UIApplication.prototype.warn = function (tag, msg) {
             var rest = [];
             for (var _i = 2; _i < arguments.length; _i++) {
                 rest[_i - 2] = arguments[_i];
             }
-            this.logger.warn(tag + "::" + msg, rest);
+            this.logger.warn.apply(this.logger, [tag + "::" + msg].concat(rest));
         };
         UIApplication.prototype.debug = function (tag, msg) {
             var rest = [];
             for (var _i = 2; _i < arguments.length; _i++) {
                 rest[_i - 2] = arguments[_i];
             }
-            this.logger.debug(tag + "::" + msg, rest);
+            this.logger.debug.apply(this.logger, [tag + "::" + msg].concat(rest));
         };
         UIApplication.prototype.error = function (tag, msg) {
             var rest = [];
             for (var _i = 2; _i < arguments.length; _i++) {
                 rest[_i - 2] = arguments[_i];
             }
-            this.logger.error(tag + "::" + msg, rest);
+            this.logger.error.apply(this.logger, [tag + "::" + msg].concat(rest));
         };
         UIApplication.prototype.toast = function (config, container) {
             if (typeof config === 'string')

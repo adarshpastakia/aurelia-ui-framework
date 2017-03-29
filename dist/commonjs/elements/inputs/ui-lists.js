@@ -45,6 +45,7 @@ var BaseListInput = (function () {
         this.disabledChanged(this.disabled);
         this.forceSelect = isTrue(this.forceSelect);
         this.optionsChanged(this.options);
+        this.valueChanged(this.value);
     };
     BaseListInput.prototype.attached = function () {
         var _this = this;
