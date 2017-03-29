@@ -43,6 +43,7 @@ export class BaseListInput {
     this.disabledChanged(this.disabled);
     this.forceSelect = isTrue(this.forceSelect);
     this.optionsChanged(this.options);
+    this.valueChanged(this.value);
   }
   attached() {
     this.floating = this.dropdown.classList.contains('ui-floating');
