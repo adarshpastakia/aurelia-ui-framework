@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -44,3 +44,38 @@
 // Helper Overrides
 @import "utils/helpers";
 @import "utils/typography";
+
+
+$colors: (
+  ('red', #ff3b30, $light),
+  ('pink', #e91e63, $light),
+  ('violet',#9c27b0, $light),
+  ('purple',#673ab7, $light),
+  ('indigo',#3f51b5, $light),
+  ('blue', #2196f3, $light),
+  ('cyan', #00bcd4, $light),
+  ('teal', #009688, $light),
+  ('green', #4caf50, $light),
+  ('lime', #cddc39, $dark),
+  ('yellow',#ffeb3b, $dark),
+  ('amber', #ffc107, $dark),
+  ('orange',#ff5722, $light),
+  ('brown', #795548, $light),
+  ('gray', #607d8b, $light)
+);
+@each $key, $color, $text in $colors {
+
+  @include color-property(bg, $key, background-color, $color);
+  @include color-property(text, $key, color, $color);
+  @include color-property(border, $key, border-color, $color);
+
+  @include switch-theme($key, $onBg: $color, $onText: $text);
+  @include toolbar-theme($key, $color, $text);
+  @include statsbar-theme(#{$key}-bg, $text, $color);
+  @include statsbar-theme($key, $color);
+  @include toast-theme($key, $color, $text);
+  @include header-theme($key, $color, $text);
+  @include breadcrumb-theme($key, $color);
+
+  @include button-theme($key, $color, $text, tint($color, 10%), $text, shade($color, 10%), $text);
+}
