@@ -91,12 +91,12 @@ export class UIDialogService {
   private createDialog(vm) {
     if (!(vm instanceof UIDialog)) throw new Error("ViewModel must extend from UIDialog");
 
-    var viewFactory = this.compiler.compile(`<template><div class="\${modal?'ui-modal':''} ui-dialog-wrapper" ref="dialogWrapperEl">
+    var viewFactory = this.compiler.compile(`<template><div class="\${modal?'ui-modal':''} au-animate ui-dialog-wrapper" ref="dialogWrapperEl">
       <div class="ui-dialog \${isActive?'ui-active':'ui-inactive'}" ref="dialogEl" css.bind="posCurrent">
       <ui-header primary>
         <ui-header-title glyph="\${glyph}">\${title}</ui-header-title>
         <ui-header-tool minimize click.trigger="collapse($event)" if.bind="!modal"></ui-header-tool>
-        <ui-header-tool expand click.trigger="expand($event)" if.bind="maximize"></ui-header-tool>
+        <ui-header-tool glyph="\${isMaximized?'glyph-dialog-restore':'glyph-dialog-expand'}" click.trigger="expand($event)" if.bind="maximize"></ui-header-tool>
         <ui-header-tool close click.trigger="close($event)" ></ui-header-tool>
       </ui-header>
       <ui-glyph class="ui-resizer" glyph="glyph-dialog-resize" if.bind="resize"></ui-glyph>
@@ -331,6 +331,7 @@ export class UIDialog {
   private dialogWrapperEl;
 
   private isActive = true;
+  private isMaximized = false;
   private isMinimized = false;
 
   private posCurrent: any = {
@@ -380,6 +381,7 @@ export class UIDialog {
   }
 
   expand($event) {
+    console.log(this.isMaximized = !this.isMaximized);
     if ($event) $event.cancelBubble = true;
     this.dialogEl.classList.toggle('ui-maximize');
   }

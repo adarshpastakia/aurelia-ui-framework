@@ -124,12 +124,14 @@ export class UIHeaderTool {
     if (element.hasAttribute('refresh')) this.type = "refresh";
     if (element.hasAttribute('collapse')) this.type = "collapse";
     if (element.hasAttribute('expand')) this.type = "expand";
+    if (element.hasAttribute('restore')) this.type = "restore";
     if (element.hasAttribute('minimize')) this.type = "minimize";
 
     if (element.hasAttribute('close')) this.glyph = "glyph-dialog-close";
     if (element.hasAttribute('refresh')) this.glyph = "glyph-refresh";
     if (element.hasAttribute('collapse')) this.glyph = "glyph-chevron-up";
     if (element.hasAttribute('expand')) this.glyph = "glyph-dialog-expand";
+    if (element.hasAttribute('restore')) this.glyph = "glyph-dialog-restore";
     if (element.hasAttribute('minimize')) this.glyph = "glyph-dialog-minimize";
   }
 
@@ -157,14 +159,14 @@ export class UIHeaderTool {
   unbind() { }
   // end aurelia hooks
 
+  @bindable() glyph = '';
   @bindable() dropdown;
   @bindable() disabled = false;
 
   private tether;
   private obMouseup;
 
-  private type = '';
-  private glyph = '';
+  private type = 'tool';
 
   private fireEvent(evt) {
     if (evt.button != 0) return true;
