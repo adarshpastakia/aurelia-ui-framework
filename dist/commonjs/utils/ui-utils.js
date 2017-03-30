@@ -20,7 +20,7 @@ var UIUtils;
     }
     UIUtils.newInstance = newInstance;
     function toast(options) {
-        var opts = { container: this.overlayContainer, theme: 'dark', timeout: 5000, glyph: 'ui-alert-info', message: '', title: '' };
+        var opts = { container: this.overlayContainer, theme: 'dark', timeout: 5000, glyph: 'glyph-alert-info', message: '', title: '' };
         if (isString(options))
             opts.message = options;
         else
@@ -43,7 +43,7 @@ var UIUtils;
     }
     UIUtils.toast = toast;
     function alert(options) {
-        var opts = { glyph: 'ui-alert-info', message: '', title: '', okLabel: 'OK' };
+        var opts = { glyph: 'glyph-alert-info', message: '', title: '', okLabel: 'OK' };
         if (isString(options))
             opts.message = options;
         else
@@ -67,7 +67,7 @@ var UIUtils;
     }
     UIUtils.alert = alert;
     function confirm(options) {
-        var opts = { glyph: 'ui-alert-question', message: '', title: '', okLabel: 'OK', cancelLabel: 'Cancel' };
+        var opts = { glyph: 'glyph-alert-question', message: '', title: '', okLabel: 'OK', cancelLabel: 'Cancel' };
         if (isString(options))
             opts.message = options;
         else
@@ -93,7 +93,7 @@ var UIUtils;
     }
     UIUtils.confirm = confirm;
     function prompt(options) {
-        var opts = { glyph: 'ui-alert-question', message: '', title: '', okLabel: 'OK', cancelLabel: 'Cancel', type: 'single', };
+        var opts = { glyph: 'glyph-alert-question', message: '', title: '', okLabel: 'OK', cancelLabel: 'Cancel', type: 'single', };
         if (isString(options))
             opts.message = options;
         else

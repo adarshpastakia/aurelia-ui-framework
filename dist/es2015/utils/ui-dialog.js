@@ -79,15 +79,15 @@ let UIDialogService = class UIDialogService {
     createDialog(vm) {
         if (!(vm instanceof UIDialog))
             throw new Error("ViewModel must extend from UIDialog");
-        var viewFactory = this.compiler.compile(`<template><div class="\${modal?'ui-modal':''} ui-dialog-wrapper" ref="dialogWrapperEl">
+        var viewFactory = this.compiler.compile(`<template><div class="\${modal?'ui-modal':''} au-animate ui-dialog-wrapper" ref="dialogWrapperEl">
       <div class="ui-dialog \${isActive?'ui-active':'ui-inactive'}" ref="dialogEl" css.bind="posCurrent">
       <ui-header primary>
         <ui-header-title glyph="\${glyph}">\${title}</ui-header-title>
         <ui-header-tool minimize click.trigger="collapse($event)" if.bind="!modal"></ui-header-tool>
-        <ui-header-tool expand click.trigger="expand($event)" if.bind="maximize"></ui-header-tool>
+        <ui-header-tool glyph="\${isMaximized?'glyph-dialog-restore':'glyph-dialog-expand'}" click.trigger="expand($event)" if.bind="maximize"></ui-header-tool>
         <ui-header-tool close click.trigger="close($event)" ></ui-header-tool>
       </ui-header>
-      <ui-glyph class="ui-resizer" glyph="ui-dialog-resize" if.bind="resize"></ui-glyph>
+      <ui-glyph class="ui-resizer" glyph="glyph-dialog-resize" if.bind="resize"></ui-glyph>
       </div></div></template>`, this.resources);
         let view = viewFactory.create(this.container);
         view.bind(vm);
@@ -277,6 +277,7 @@ let UIDialog = UIDialog_1 = class UIDialog {
     constructor() {
         this.uniqId = `ui-win-${UIDialog_1.seed++}`;
         this.isActive = true;
+        this.isMaximized = false;
         this.isMinimized = false;
         this.posCurrent = {
             top: 0, left: 0,
@@ -336,6 +337,7 @@ let UIDialog = UIDialog_1 = class UIDialog {
             this.taskButtonEl.classList.remove('ui-active');
     }
     expand($event) {
+        console.log(this.isMaximized = !this.isMaximized);
         if ($event)
             $event.cancelBubble = true;
         this.dialogEl.classList.toggle('ui-maximize');

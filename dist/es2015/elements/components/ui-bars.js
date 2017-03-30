@@ -63,12 +63,16 @@ export { UIDivider };
 let UIStatsbar = class UIStatsbar {
     constructor(element) {
         this.element = element;
+        if (element.hasAttribute('small'))
+            element.classList.add('ui-small');
         if (element.hasAttribute('vertical'))
             element.classList.add('ui-vertical');
         if (element.hasAttribute('dark'))
             element.classList.add('dark');
         if (element.hasAttribute('light'))
             element.classList.add('light');
+        if (element.hasAttribute('muted'))
+            element.classList.add('muted');
         if (element.hasAttribute('primary'))
             element.classList.add('primary');
         if (element.hasAttribute('secondary'))
@@ -120,6 +124,8 @@ let UIStat = class UIStat {
             element.classList.add('dark');
         if (element.hasAttribute('light'))
             element.classList.add('light');
+        if (element.hasAttribute('muted'))
+            element.classList.add('muted');
         if (element.hasAttribute('primary'))
             element.classList.add('primary');
         if (element.hasAttribute('secondary'))

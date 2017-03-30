@@ -54,6 +54,8 @@ exports.UIViewport = UIViewport;
 var UIRouterView = (function () {
     function UIRouterView(element) {
         this.element = element;
+        this.name = 'default';
+        this.class = '';
     }
     UIRouterView.prototype.created = function (owningView, myView) { };
     UIRouterView.prototype.bind = function (bindingContext, overrideContext) { };
@@ -62,10 +64,18 @@ var UIRouterView = (function () {
     UIRouterView.prototype.unbind = function () { };
     return UIRouterView;
 }());
+__decorate([
+    aurelia_framework_1.bindable(),
+    __metadata("design:type", Object)
+], UIRouterView.prototype, "name", void 0);
+__decorate([
+    aurelia_framework_1.bindable(),
+    __metadata("design:type", Object)
+], UIRouterView.prototype, "class", void 0);
 UIRouterView = __decorate([
     aurelia_framework_1.autoinject(),
     aurelia_framework_1.containerless(),
-    aurelia_framework_1.inlineView('<template><router-view class="ui-router-view"></router-view></template>'),
+    aurelia_framework_1.inlineView('<template><router-view class="ui-router-view ${class}" name="\${name}"></router-view></template>'),
     aurelia_framework_1.customElement('ui-router-view'),
     __metadata("design:paramtypes", [Element])
 ], UIRouterView);

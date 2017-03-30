@@ -23,6 +23,7 @@ define(["require", "exports", "aurelia-framework", "lodash"], function (require,
             this.extra = model.extra;
             this.icon = model.icon;
             this.openIcon = model.openIcon;
+            this.closedIcon = model.closedIcon;
             this.root = level == -1;
             this.leaf = (model.children || []).length == 0 || level == maxLevels;
             this.active = model.active || false;

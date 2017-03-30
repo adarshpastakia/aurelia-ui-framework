@@ -109,7 +109,7 @@ UIDropdown = __decorate([
     autoinject(),
     inlineView(`<template class="ui-dropdown" select.trigger="select($event)" click.trigger="toggleDropdown($event)" css.bind="{'min-width':width}">
   <div class="ui-label"><span><ui-glyph class.bind="glyph" glyph.bind="glyph" if.bind="glyph"></ui-glyph>\${display}</span>
-  <ui-glyph class="ui-caret" glyph="ui-caret-down"></ui-glyph></div>
+  <ui-glyph class="ui-caret" glyph="glyph-caret-down"></ui-glyph></div>
   <ul class="ui-list-container ui-floating" ref="dropdown"><slot></slot></ul></template>`),
     customElement('ui-dropdown'),
     __metadata("design:paramtypes", [Element])

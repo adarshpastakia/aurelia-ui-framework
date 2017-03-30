@@ -22,6 +22,8 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
                 function UIPage(element) {
                     this.element = element;
                     this.pageClass = '';
+                    if (element.hasAttribute('animate'))
+                        element.classList.add('au-animate');
                 }
                 UIPage.prototype.created = function (owningView, myView) { };
                 UIPage.prototype.bind = function (bindingContext, overrideContext) { };
@@ -48,6 +50,8 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
             UISection = (function () {
                 function UISection(element) {
                     this.element = element;
+                    if (element.hasAttribute('animate'))
+                        element.classList.add('au-animate');
                     if (element.hasAttribute('row-layout'))
                         element.classList.add('row');
                     else
@@ -74,6 +78,8 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
             UIContent = (function () {
                 function UIContent(element) {
                     this.element = element;
+                    if (element.hasAttribute('animate'))
+                        element.classList.add('au-animate');
                     if (element.hasAttribute('padded'))
                         element.classList.add('ui-pad-all');
                     if (element.hasAttribute('scroll'))
@@ -133,7 +139,7 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
             UILoader = __decorate([
                 aurelia_framework_1.autoinject(),
                 aurelia_framework_1.customElement('ui-loader'),
-                aurelia_framework_1.inlineView("<template class=\"ui-app-loader\" show.bind=\"busy\">\n  <div class=\"ui-loader-div\">\n    <ui-glyph class=\"ui-anim-loader\" glyph=\"ui-loader\"></ui-glyph>\n  </div>\n</template>"),
+                aurelia_framework_1.inlineView("<template class=\"ui-app-loader\" show.bind=\"busy\">\n  <div class=\"ui-loader-div\">\n    <ui-glyph class=\"ui-anim-loader\" glyph=\"glyph-loader\"></ui-glyph>\n  </div>\n</template>"),
                 __metadata("design:paramtypes", [Element])
             ], UILoader);
             exports_1("UILoader", UILoader);

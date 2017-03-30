@@ -229,7 +229,7 @@ UITabPanel = __decorate([
       <span class="ui-label" if.bind="tab.label">\${tab.label}</span>
       <span if.bind="tab.closeable" class="ui-close" click.trigger="closeTab(tab)">&nbsp;&times;</span>
     </a>
-    <div class="ui-tabbar-toggle ui-tab-button" ref="overflowToggle" show.bind="isOverflow" click.trigger="showOverflow($event)"><ui-glyph glyph="ui-handle-overflow"></ui-glyph></div>
+    <div class="ui-tabbar-toggle ui-tab-button" ref="overflowToggle" show.bind="isOverflow" click.trigger="showOverflow($event)"><ui-glyph glyph="glyph-handle-overflow"></ui-glyph></div>
   </div>
   <slot name="ui-tabbar-end"></slot>
   <div class="ui-menu ui-tabbar-overflow ui-floating" ref="overflow"></div>

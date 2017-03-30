@@ -1,3 +1,12 @@
+<a name="3.1.6"></a>
+## 3.1.6 (2017-03-30)
+
+* Updated glyph prefix from `ui-` to `glyph-` to prevent issue with conflicting style classes
+* Added animate attribute for page, section and content
+* Fixed dialog expand/restore glyph
+* Added style small for `ui-statsbar`
+
+
 <a name="3.1.5"></a>
 ## 3.1.5 (2017-03-29)
 

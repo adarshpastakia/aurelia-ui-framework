@@ -37,7 +37,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event"], func
             this.label = "";
             this.collapsed = false;
             this.position = "start";
-            this.glyph = 'ui-arrow-left';
+            this.glyph = 'glyph-arrow-left';
             this.contentCls = '';
             this.miniDisplay = false;
             this.collapsible = false;
@@ -60,7 +60,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event"], func
         UISidebar.prototype.bind = function (bindingContext, overrideContext) {
             this.collapsed = isTrue(this.collapsed);
             if (this.position == 'end')
-                this.glyph = "ui-arrow-right";
+                this.glyph = "glyph-arrow-right";
         };
         UISidebar.prototype.attached = function () {
             this.affixPoint = this.element.querySelector('.ui-affix-point');
@@ -72,7 +72,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event"], func
         };
         UISidebar.prototype.unbind = function () { };
         UISidebar.prototype.collapsedChanged = function (newValue) {
-            this.glyph = (this.position == 'end' && !isTrue(newValue)) || (this.position == 'start' && isTrue(newValue)) ? "ui-arrow-right" : "ui-arrow-left";
+            this.glyph = (this.position == 'end' && !isTrue(newValue)) || (this.position == 'start' && isTrue(newValue)) ? "glyph-arrow-right" : "glyph-arrow-left";
         };
         UISidebar.prototype.toggleCollapse = function ($event) {
             this.collapsed = !this.collapsed;

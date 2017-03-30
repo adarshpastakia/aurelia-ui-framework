@@ -12,6 +12,8 @@ let UIPage = class UIPage {
     constructor(element) {
         this.element = element;
         this.pageClass = '';
+        if (element.hasAttribute('animate'))
+            element.classList.add('au-animate');
     }
     created(owningView, myView) { }
     bind(bindingContext, overrideContext) { }
@@ -41,6 +43,8 @@ export { UIPage };
 let UISection = class UISection {
     constructor(element) {
         this.element = element;
+        if (element.hasAttribute('animate'))
+            element.classList.add('au-animate');
         if (element.hasAttribute('row-layout'))
             element.classList.add('row');
         else
@@ -66,6 +70,8 @@ export { UISection };
 let UIContent = class UIContent {
     constructor(element) {
         this.element = element;
+        if (element.hasAttribute('animate'))
+            element.classList.add('au-animate');
         if (element.hasAttribute('padded'))
             element.classList.add('ui-pad-all');
         if (element.hasAttribute('scroll'))
@@ -124,7 +130,7 @@ UILoader = __decorate([
     customElement('ui-loader'),
     inlineView(`<template class="ui-app-loader" show.bind="busy">
   <div class="ui-loader-div">
-    <ui-glyph class="ui-anim-loader" glyph="ui-loader"></ui-glyph>
+    <ui-glyph class="ui-anim-loader" glyph="glyph-loader"></ui-glyph>
   </div>
 </template>`),
     __metadata("design:paramtypes", [Element])

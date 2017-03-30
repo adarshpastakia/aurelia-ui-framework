@@ -12,7 +12,7 @@ let UIDrawer = class UIDrawer {
     constructor(element) {
         this.element = element;
         this.position = "start";
-        this.glyph = 'ui-arrow-left';
+        this.glyph = 'glyph-arrow-left';
         this.bodyCls = '';
         if (element.hasAttribute('close-on-click'))
             element.addEventListener('mouseup', (e) => { if (e.button == 0)
@@ -25,7 +25,7 @@ let UIDrawer = class UIDrawer {
         if (this.element.hasAttribute('padded'))
             this.bodyCls += ' ui-pad-all';
         if (this.position == 'end')
-            this.glyph = 'ui-arrow-right';
+            this.glyph = 'glyph-arrow-right';
     }
     attached() { }
     detached() { }
@@ -54,7 +54,7 @@ export { UIDrawer };
 let UIDrawerToggle = class UIDrawerToggle {
     constructor(element) {
         this.element = element;
-        this.glyph = 'ui-handle-menu';
+        this.glyph = 'glyph-handle-menu';
     }
     created(owningView, myView) { }
     bind(bindingContext, overrideContext) { }

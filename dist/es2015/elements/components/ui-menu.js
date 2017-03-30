@@ -61,7 +61,7 @@ UIMenubar = __decorate([
     inlineView(`
 <template class="ui-menubar">
   <div class="ui-menubar-wrapper" ref="wrapper"><slot></slot></div>
-  <div class="ui-menubar-toggle" ref="overflowToggle" show.bind="isOverflow" click.trigger="showOverflow($event)"><ui-glyph glyph="ui-handle-overflow"></ui-glyph></div>
+  <div class="ui-menubar-toggle" ref="overflowToggle" show.bind="isOverflow" click.trigger="showOverflow($event)"><ui-glyph glyph="glyph-handle-overflow"></ui-glyph></div>
   <div class="ui-menu ui-menubar-overflow ui-floating" ref="overflow"></div>
 </template>`),
     customElement('ui-menubar'),

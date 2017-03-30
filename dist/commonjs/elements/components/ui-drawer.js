@@ -15,7 +15,7 @@ var UIDrawer = (function () {
         var _this = this;
         this.element = element;
         this.position = "start";
-        this.glyph = 'ui-arrow-left';
+        this.glyph = 'glyph-arrow-left';
         this.bodyCls = '';
         if (element.hasAttribute('close-on-click'))
             element.addEventListener('mouseup', function (e) { if (e.button == 0)
@@ -28,7 +28,7 @@ var UIDrawer = (function () {
         if (this.element.hasAttribute('padded'))
             this.bodyCls += ' ui-pad-all';
         if (this.position == 'end')
-            this.glyph = 'ui-arrow-right';
+            this.glyph = 'glyph-arrow-right';
     };
     UIDrawer.prototype.attached = function () { };
     UIDrawer.prototype.detached = function () { };
@@ -52,7 +52,7 @@ exports.UIDrawer = UIDrawer;
 var UIDrawerToggle = (function () {
     function UIDrawerToggle(element) {
         this.element = element;
-        this.glyph = 'ui-handle-menu';
+        this.glyph = 'glyph-handle-menu';
     }
     UIDrawerToggle.prototype.created = function (owningView, myView) { };
     UIDrawerToggle.prototype.bind = function (bindingContext, overrideContext) { };

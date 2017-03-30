@@ -62,6 +62,8 @@ export { UIViewport };
 let UIRouterView = class UIRouterView {
     constructor(element) {
         this.element = element;
+        this.name = 'default';
+        this.class = '';
     }
     created(owningView, myView) { }
     bind(bindingContext, overrideContext) { }
@@ -69,10 +71,18 @@ let UIRouterView = class UIRouterView {
     detached() { }
     unbind() { }
 };
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIRouterView.prototype, "name", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIRouterView.prototype, "class", void 0);
 UIRouterView = __decorate([
     autoinject(),
     containerless(),
-    inlineView('<template><router-view class="ui-router-view"></router-view></template>'),
+    inlineView('<template><router-view class="ui-router-view ${class}" name="\${name}"></router-view></template>'),
     customElement('ui-router-view'),
     __metadata("design:paramtypes", [Element])
 ], UIRouterView);

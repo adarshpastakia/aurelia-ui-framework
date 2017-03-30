@@ -24,6 +24,8 @@ export declare class UIRouterView {
     attached(): void;
     detached(): void;
     unbind(): void;
+    name: string;
+    class: string;
 }
 export declare class UIAppHeader {
     element: Element;

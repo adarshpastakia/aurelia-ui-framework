@@ -30,7 +30,7 @@ let UISidebar = class UISidebar {
         this.label = "";
         this.collapsed = false;
         this.position = "start";
-        this.glyph = 'ui-arrow-left';
+        this.glyph = 'glyph-arrow-left';
         this.contentCls = '';
         this.miniDisplay = false;
         this.collapsible = false;
@@ -53,7 +53,7 @@ let UISidebar = class UISidebar {
     bind(bindingContext, overrideContext) {
         this.collapsed = isTrue(this.collapsed);
         if (this.position == 'end')
-            this.glyph = "ui-arrow-right";
+            this.glyph = "glyph-arrow-right";
     }
     attached() {
         this.affixPoint = this.element.querySelector('.ui-affix-point');
@@ -65,7 +65,7 @@ let UISidebar = class UISidebar {
     }
     unbind() { }
     collapsedChanged(newValue) {
-        this.glyph = (this.position == 'end' && !isTrue(newValue)) || (this.position == 'start' && isTrue(newValue)) ? "ui-arrow-right" : "ui-arrow-left";
+        this.glyph = (this.position == 'end' && !isTrue(newValue)) || (this.position == 'start' && isTrue(newValue)) ? "glyph-arrow-right" : "glyph-arrow-left";
     }
     toggleCollapse($event) {
         this.collapsed = !this.collapsed;

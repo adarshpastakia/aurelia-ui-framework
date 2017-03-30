@@ -42,6 +42,7 @@ export declare class UIDialog {
     private taskButtonEl;
     private dialogWrapperEl;
     private isActive;
+    private isMaximized;
     private isMinimized;
     private posCurrent;
     id: any;

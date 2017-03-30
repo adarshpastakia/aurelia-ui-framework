@@ -17,7 +17,6 @@ let UIForm = class UIForm {
     created(owningView, myView) { }
     bind(bindingContext, overrideContext) { }
     attached() {
-        this.element.au['form'] = this.formEl;
         UIEvent.queueTask(() => {
             let el = this.element.querySelector('input,textarea');
             if (el !== null)

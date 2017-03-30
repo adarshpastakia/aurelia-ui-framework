@@ -20,7 +20,6 @@ var UIForm = (function () {
     UIForm.prototype.bind = function (bindingContext, overrideContext) { };
     UIForm.prototype.attached = function () {
         var _this = this;
-        this.element.au['form'] = this.formEl;
         ui_event_1.UIEvent.queueTask(function () {
             var el = _this.element.querySelector('input,textarea');
             if (el !== null)

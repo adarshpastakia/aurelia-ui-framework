@@ -144,9 +144,9 @@ export { UIHeader };
 let UIHeaderTool = class UIHeaderTool {
     constructor(element) {
         this.element = element;
-        this.disabled = false;
-        this.type = '';
         this.glyph = '';
+        this.disabled = false;
+        this.type = 'tool';
         if (element.hasAttribute('close'))
             this.type = "close";
         if (element.hasAttribute('refresh'))
@@ -155,18 +155,22 @@ let UIHeaderTool = class UIHeaderTool {
             this.type = "collapse";
         if (element.hasAttribute('expand'))
             this.type = "expand";
+        if (element.hasAttribute('restore'))
+            this.type = "restore";
         if (element.hasAttribute('minimize'))
             this.type = "minimize";
         if (element.hasAttribute('close'))
-            this.glyph = "ui-dialog-close";
+            this.glyph = "glyph-dialog-close";
         if (element.hasAttribute('refresh'))
-            this.glyph = "ui-refresh";
+            this.glyph = "glyph-refresh";
         if (element.hasAttribute('collapse'))
-            this.glyph = "ui-chevron-up";
+            this.glyph = "glyph-chevron-up";
         if (element.hasAttribute('expand'))
-            this.glyph = "ui-dialog-expand";
+            this.glyph = "glyph-dialog-expand";
+        if (element.hasAttribute('restore'))
+            this.glyph = "glyph-dialog-restore";
         if (element.hasAttribute('minimize'))
-            this.glyph = "ui-dialog-minimize";
+            this.glyph = "glyph-dialog-minimize";
     }
     created(owningView, myView) { }
     bind(bindingContext, overrideContext) {
@@ -217,6 +221,10 @@ let UIHeaderTool = class UIHeaderTool {
         return UIEvent.fireEvent(this.type, this.element);
     }
 };
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIHeaderTool.prototype, "glyph", void 0);
 __decorate([
     bindable(),
     __metadata("design:type", Object)

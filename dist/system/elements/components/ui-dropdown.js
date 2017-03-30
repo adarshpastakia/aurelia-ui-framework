@@ -125,7 +125,7 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
             ], UIDropdown.prototype, "beforeselect", void 0);
             UIDropdown = __decorate([
                 aurelia_framework_1.autoinject(),
-                aurelia_framework_1.inlineView("<template class=\"ui-dropdown\" select.trigger=\"select($event)\" click.trigger=\"toggleDropdown($event)\" css.bind=\"{'min-width':width}\">\n  <div class=\"ui-label\"><span><ui-glyph class.bind=\"glyph\" glyph.bind=\"glyph\" if.bind=\"glyph\"></ui-glyph>${display}</span>\n  <ui-glyph class=\"ui-caret\" glyph=\"ui-caret-down\"></ui-glyph></div>\n  <ul class=\"ui-list-container ui-floating\" ref=\"dropdown\"><slot></slot></ul></template>"),
+                aurelia_framework_1.inlineView("<template class=\"ui-dropdown\" select.trigger=\"select($event)\" click.trigger=\"toggleDropdown($event)\" css.bind=\"{'min-width':width}\">\n  <div class=\"ui-label\"><span><ui-glyph class.bind=\"glyph\" glyph.bind=\"glyph\" if.bind=\"glyph\"></ui-glyph>${display}</span>\n  <ui-glyph class=\"ui-caret\" glyph=\"glyph-caret-down\"></ui-glyph></div>\n  <ul class=\"ui-list-container ui-floating\" ref=\"dropdown\"><slot></slot></ul></template>"),
                 aurelia_framework_1.customElement('ui-dropdown'),
                 __metadata("design:paramtypes", [Element])
             ], UIDropdown);

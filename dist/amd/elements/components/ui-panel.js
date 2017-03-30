@@ -149,9 +149,9 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
     var UIHeaderTool = (function () {
         function UIHeaderTool(element) {
             this.element = element;
-            this.disabled = false;
-            this.type = '';
             this.glyph = '';
+            this.disabled = false;
+            this.type = 'tool';
             if (element.hasAttribute('close'))
                 this.type = "close";
             if (element.hasAttribute('refresh'))
@@ -160,18 +160,22 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
                 this.type = "collapse";
             if (element.hasAttribute('expand'))
                 this.type = "expand";
+            if (element.hasAttribute('restore'))
+                this.type = "restore";
             if (element.hasAttribute('minimize'))
                 this.type = "minimize";
             if (element.hasAttribute('close'))
-                this.glyph = "ui-dialog-close";
+                this.glyph = "glyph-dialog-close";
             if (element.hasAttribute('refresh'))
-                this.glyph = "ui-refresh";
+                this.glyph = "glyph-refresh";
             if (element.hasAttribute('collapse'))
-                this.glyph = "ui-chevron-up";
+                this.glyph = "glyph-chevron-up";
             if (element.hasAttribute('expand'))
-                this.glyph = "ui-dialog-expand";
+                this.glyph = "glyph-dialog-expand";
+            if (element.hasAttribute('restore'))
+                this.glyph = "glyph-dialog-restore";
             if (element.hasAttribute('minimize'))
-                this.glyph = "ui-dialog-minimize";
+                this.glyph = "glyph-dialog-minimize";
         }
         UIHeaderTool.prototype.created = function (owningView, myView) { };
         UIHeaderTool.prototype.bind = function (bindingContext, overrideContext) {
@@ -224,6 +228,10 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
         };
         return UIHeaderTool;
     }());
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIHeaderTool.prototype, "glyph", void 0);
     __decorate([
         aurelia_framework_1.bindable(),
         __metadata("design:type", Object)

@@ -54,12 +54,12 @@ export declare class UIHeaderTool {
     attached(): void;
     detached(): void;
     unbind(): void;
+    glyph: string;
     dropdown: any;
     disabled: boolean;
     private tether;
     private obMouseup;
     private type;
-    private glyph;
     private fireEvent(evt);
 }
 export declare class UIHeaderTitle {

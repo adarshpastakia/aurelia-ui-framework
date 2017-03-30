@@ -99,7 +99,7 @@ System.register(["aurelia-framework", "./ui-event", "./ui-utils", "lodash", "aur
                 UIDialogService.prototype.createDialog = function (vm) {
                     if (!(vm instanceof UIDialog))
                         throw new Error("ViewModel must extend from UIDialog");
-                    var viewFactory = this.compiler.compile("<template><div class=\"${modal?'ui-modal':''} ui-dialog-wrapper\" ref=\"dialogWrapperEl\">\n      <div class=\"ui-dialog ${isActive?'ui-active':'ui-inactive'}\" ref=\"dialogEl\" css.bind=\"posCurrent\">\n      <ui-header primary>\n        <ui-header-title glyph=\"${glyph}\">${title}</ui-header-title>\n        <ui-header-tool minimize click.trigger=\"collapse($event)\" if.bind=\"!modal\"></ui-header-tool>\n        <ui-header-tool expand click.trigger=\"expand($event)\" if.bind=\"maximize\"></ui-header-tool>\n        <ui-header-tool close click.trigger=\"close($event)\" ></ui-header-tool>\n      </ui-header>\n      <ui-glyph class=\"ui-resizer\" glyph=\"ui-dialog-resize\" if.bind=\"resize\"></ui-glyph>\n      </div></div></template>", this.resources);
+                    var viewFactory = this.compiler.compile("<template><div class=\"${modal?'ui-modal':''} au-animate ui-dialog-wrapper\" ref=\"dialogWrapperEl\">\n      <div class=\"ui-dialog ${isActive?'ui-active':'ui-inactive'}\" ref=\"dialogEl\" css.bind=\"posCurrent\">\n      <ui-header primary>\n        <ui-header-title glyph=\"${glyph}\">${title}</ui-header-title>\n        <ui-header-tool minimize click.trigger=\"collapse($event)\" if.bind=\"!modal\"></ui-header-tool>\n        <ui-header-tool glyph=\"${isMaximized?'glyph-dialog-restore':'glyph-dialog-expand'}\" click.trigger=\"expand($event)\" if.bind=\"maximize\"></ui-header-tool>\n        <ui-header-tool close click.trigger=\"close($event)\" ></ui-header-tool>\n      </ui-header>\n      <ui-glyph class=\"ui-resizer\" glyph=\"glyph-dialog-resize\" if.bind=\"resize\"></ui-glyph>\n      </div></div></template>", this.resources);
                     var view = viewFactory.create(this.container);
                     view.bind(vm);
                     return view;
@@ -294,6 +294,7 @@ System.register(["aurelia-framework", "./ui-event", "./ui-utils", "lodash", "aur
                 function UIDialog() {
                     this.uniqId = "ui-win-" + UIDialog_1.seed++;
                     this.isActive = true;
+                    this.isMaximized = false;
                     this.isMinimized = false;
                     this.posCurrent = {
                         top: 0, left: 0,
@@ -354,6 +355,7 @@ System.register(["aurelia-framework", "./ui-event", "./ui-utils", "lodash", "aur
                         this.taskButtonEl.classList.remove('ui-active');
                 };
                 UIDialog.prototype.expand = function ($event) {
+                    console.log(this.isMaximized = !this.isMaximized);
                     if ($event)
                         $event.cancelBubble = true;
                     this.dialogEl.classList.toggle('ui-maximize');

@@ -376,14 +376,14 @@ __decorate([
 UICombo = __decorate([
     autoinject(),
     inlineView(`<template class="ui-input-wrapper ui-input-list"><div role="input" class="ui-input-control"><slot></slot>
-  <span class="ui-error" if.bind="errors"><ui-glyph glyph="ui-invalid"></ui-glyph><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
+  <span class="ui-error" if.bind="errors"><ui-glyph glyph="glyph-invalid"></ui-glyph><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
   <input ref="inputEl" value.bind="elValue" autocomplete="off"
     focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)" click.trigger="openDropdown($event)"
     input.trigger="search() & debounce:200" change.trigger="fireEvent($event)"
     keydown.trigger="keyDown($event)" placeholder.bind="placeholder"
     disabled.bind="isDisabled" readonly.bind="!allowSearch || readonly"/>
   <span class="ui-clear" if.bind="clear && value" click.trigger="clearInput()">&times;</span>
-  <span class="ui-input-addon ui-dropdown-handle" click.trigger="openDropdown($event, inputEl.focus())"><ui-glyph glyph="ui-chevron-down"></ui-glyph></span></div>
+  <span class="ui-input-addon ui-dropdown-handle" click.trigger="openDropdown($event, inputEl.focus())"><ui-glyph glyph="glyph-chevron-down"></ui-glyph></span></div>
   <div class="ui-input-info" if.bind="info" innerhtml.bind="info"></div>
 
   <div class="ui-list-container ui-floating" ref="dropdown">
@@ -531,7 +531,7 @@ __decorate([
 UITags = __decorate([
     autoinject(),
     inlineView(`<template class="ui-input-wrapper ui-input-list tags"><div role="input" class="ui-input-control"><slot></slot>
-  <span class="ui-error" if.bind="errors"><ui-glyph glyph="ui-invalid"></ui-glyph><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
+  <span class="ui-error" if.bind="errors"><ui-glyph glyph="glyph-invalid"></ui-glyph><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
   <div class="ui-tag-item" repeat.for="tag of value | split" if.bind="tag!=''"><span innerhtml.bind="getDisplay(tag)"></span><i class="ui-clear" click.trigger="removeValue(tag)">&times;</i></div>
   <input ref="inputEl" value.bind="elValue" autocomplete="off"
     focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)"
@@ -657,7 +657,7 @@ __decorate([
 UIList = __decorate([
     autoinject(),
     inlineView(`<template class="ui-input-wrapper"><div role="input" class="ui-input-control ui-input-list listbox">
-  <span class="ui-error" if.bind="errors"><ui-glyph glyph="ui-invalid"></ui-glyph><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
+  <span class="ui-error" if.bind="errors"><ui-glyph glyph="glyph-invalid"></ui-glyph><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
   <input ref="inputEl" value.bind="elValue" class="ui-input ui-remove" autocomplete="off"
     focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)"
     input.trigger="search() & debounce:200" change.trigger="fireEvent($event)"
@@ -753,12 +753,12 @@ UIReorder = __decorate([
     inlineView(`<template class="ui-input-wrapper"><div class="ui-input-control ui-input-list reorder">
     <div class="ui-list-container" ref="dropdown">
         <div model.bind="opt" repeat.for="opt of options & oneTime" class="ui-list-item" data-value="\${$index}" mousedown.trigger="startDrag(opt, $event)">
-            <ui-glyph glyph="ui-handle-drag"></ui-glyph>
+            <ui-glyph glyph="glyph-handle-drag"></ui-glyph>
             <span class="ui-col-fill" innerhtml.bind="opt[displayProperty] || opt"></span>
         </div>
 
         <div class="ui-list-item ui-ghost" if.bind="ghostModel" ref="ghostEl" css.bind="{top:top+'px'}">
-            <ui-glyph glyph="ui-handle-drag"></ui-glyph>
+            <ui-glyph glyph="glyph-handle-drag"></ui-glyph>
             <span class="ui-col-fill" innerhtml.bind="ghostModel[displayProperty] || ghostModel"></span>
         </div>
     </div></div>

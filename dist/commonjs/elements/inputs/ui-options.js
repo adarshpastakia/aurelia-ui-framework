@@ -101,7 +101,7 @@ __decorate([
 ], UICheckbox.prototype, "disabled", void 0);
 UICheckbox = UICheckbox_1 = __decorate([
     aurelia_framework_1.autoinject(),
-    aurelia_framework_1.inlineView("<template class=\"ui-option ui-checkbox\"><input type=\"checkbox\" id.bind=\"for\" disabled.bind=\"disabled\" checked.bind=\"checked\"/>\n  <ui-glyph glyph.bind=\"checked?'ui-check-on':'ui-check-off'\"></ui-glyph>\n  <label for.bind=\"for\" class=\"ui-option-label\"><slot></slot></label></template>"),
+    aurelia_framework_1.inlineView("<template class=\"ui-option ui-checkbox\"><input type=\"checkbox\" id.bind=\"for\" disabled.bind=\"disabled\" checked.bind=\"checked\"/>\n  <ui-glyph glyph.bind=\"checked?'glyph-check-on':'glyph-check-off'\"></ui-glyph>\n  <label for.bind=\"for\" class=\"ui-option-label\"><slot></slot></label></template>"),
     aurelia_framework_1.customElement('ui-checkbox'),
     __metadata("design:paramtypes", [Element])
 ], UICheckbox);
@@ -156,7 +156,7 @@ __decorate([
 ], UIRadio.prototype, "disabled", void 0);
 UIRadio = UIRadio_1 = __decorate([
     aurelia_framework_1.autoinject(),
-    aurelia_framework_1.inlineView("<template class=\"ui-option ui-radio\"><input type=\"radio\" name=\"${name}\" id.bind=\"for\" value.bind=\"value\" \n  disabled.bind=\"disabled\" checked.bind=\"checked\" change.trigger=\"changed($event)\"/>\n  <ui-glyph class=\"off\" glyph=\"ui-radio-off\"></ui-glyph><ui-glyph class=\"on\" glyph=\"ui-radio-on\"></ui-glyph>\n  <label for.bind=\"for\" class=\"ui-option-label\"><slot></slot></label></template>"),
+    aurelia_framework_1.inlineView("<template class=\"ui-option ui-radio\"><input type=\"radio\" name=\"${name}\" id.bind=\"for\" value.bind=\"value\"\n  disabled.bind=\"disabled\" checked.bind=\"checked\" change.trigger=\"changed($event)\"/>\n  <ui-glyph class=\"off\" glyph=\"glyph-radio-off\"></ui-glyph><ui-glyph class=\"on\" glyph=\"glyph-radio-on\"></ui-glyph>\n  <label for.bind=\"for\" class=\"ui-option-label\"><slot></slot></label></template>"),
     aurelia_framework_1.customElement('ui-radio'),
     __metadata("design:paramtypes", [Element])
 ], UIRadio);
