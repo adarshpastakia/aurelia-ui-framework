@@ -4,6 +4,7 @@
 // @license     : MIT
 -->
 <template>
+  <ui-page page-title="Dialogs" animate>
   <style>
     .event-console {
       border: 1px solid #f0f0f0;
@@ -26,7 +27,6 @@
       padding: 0 10px;
     }
   </style>
-  <ui-page page-title="Dialogs">
     <ui-content padded scroll>
       <ui-container>
         <ui-row>
@@ -43,7 +43,7 @@
             <ui-button light click.trigger="openLayout(true)">Show Modal</ui-button>&nbsp;
             <ui-button light click.trigger="openLayout(false)">Open Dialog</ui-button>&nbsp;
           </ui-column>
-          
+
           <ui-column fill padded>
             <div class="ui-text-primary">Console</div>
             <div class="event-console" ref="evtConsole"></div>

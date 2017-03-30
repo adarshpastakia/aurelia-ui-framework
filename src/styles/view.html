@@ -4,7 +4,7 @@
 // @license     : MIT
 -->
 <template>
-  <ui-section row-layout>
+  <ui-section row-layout animate>
     <ui-sidebar label="Theming" collapsible scroll class="ui-hidden-lg-down">
       <ui-menu>
         <ui-menu-item repeat.for="route of router.navigation" href.bind="route.href" active.bind="route.isActive" icon.bind="route.settings.icon" disabled.bind="route.settings.disabled">${route.settings.title || route.title}</ui-menu-item>

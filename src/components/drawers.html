@@ -4,6 +4,7 @@
 // @license     : MIT
 -->
 <template>
+  <ui-page page-title="Sidebar" animate>
   <style>
     .example-container {
       position: relative;
@@ -12,7 +13,6 @@
     }
 
   </style>
-  <ui-page page-title="Sidebar">
     <ui-content padded scroll>
       <ui-container>
         <ui-panel>
@@ -21,14 +21,14 @@
             <ui-header-title>&nbsp;</ui-header-title>
             <ui-drawer-toggle drawer.bind="drawerRight" glyph="glyph-handle-overflow"></ui-drawer-toggle>
           </ui-header>
-          
+
           <ui-drawer ref="drawerLeft" position="start" scroll padded>
             <compose view="../home/lipsum-small.html"></compose>
           </ui-drawer>
           <ui-drawer ref="drawerRight" position="end" scroll padded>
             <compose view="../home/lipsum-small.html"></compose>
           </ui-drawer>
-          
+
           <ui-panel-body max-height="400px" padded scroll>
             <compose view="../home/lipsum-big.html"></compose>
           </ui-panel-body>

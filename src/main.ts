@@ -18,6 +18,7 @@ import 'moment/min/locales.min';
 export function configure(aurelia: Aurelia) {
   aurelia.use
     .standardConfiguration()
+    .plugin('aurelia-animator-css')
     .plugin('aurelia-validation')
     .plugin('aurelia-ui-virtualization')
     .plugin('aurelia-i18n', (instance) => {

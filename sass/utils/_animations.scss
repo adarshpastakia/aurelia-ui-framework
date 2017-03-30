@@ -1,4 +1,4 @@
-// 
+//
 // @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2016
@@ -107,7 +107,6 @@
   width      : 1em;
   height     : 1em;
   line-height: 1;
-
   @include transform-origin(50% 50% 0);
 
   &.ui-anim-spin {
@@ -136,5 +135,58 @@
 
   &.ui-anim-loader {
     @include animation(spin 2s infinite linear, color 8s linear infinite);
+  }
+}
+
+// Page animations
+/* animate page transitions */
+.au-enter-active:not(.ui-dialog-wrapper) {
+  @include animation(viewEnter .5s ease-out both);
+}
+.au-leave-active:not(.ui-dialog-wrapper) {
+  @include animation(viewLeave .5s ease-in both);
+}
+
+.au-enter-active.ui-dialog-wrapper {
+  @include animation(dialogEnter .5s ease-out both);
+}
+.au-leave-active.ui-dialog-wrapper {
+  @include animation(dialogLeave .5s ease-in both);
+}
+
+.au-stagger {
+  /* 50ms will be applied between each successive enter operation */
+  -webkit-animation-delay: 50ms;
+  animation-delay        : 50ms;
+}
+
+/* animation definitions */
+@include keyframes(viewEnter) {
+  from {
+    opacity: 0;
+    // @include transform(scale(.7));
+    @include transform(translate3d(50%, 0, 0));
+  }
+}
+@include keyframes(viewLeave) {
+  to {
+    opacity: 0;
+    // @include transform(scale(.7));
+    @include transform(translate3d(-50%, 0, 0));
+  }
+}
+/* animation definitions */
+@include keyframes(dialogEnter) {
+  from {
+    opacity: 0;
+    @include transform(scale(.7));
+    // @include transform(translate3d(50%, 0, 0));
+  }
+}
+@include keyframes(dialogLeave) {
+  to {
+    opacity: 0;
+    @include transform(scale(.7));
+    // @include transform(dialogLeave(-50%, 0, 0));
   }
 }

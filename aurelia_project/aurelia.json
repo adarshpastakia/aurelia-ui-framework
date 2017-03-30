@@ -134,6 +134,7 @@
         "node_modules/requirejs/require.js"
       ],
       "dependencies": [
+        "aurelia-animator-css",
         "aurelia-binding",
         "aurelia-bootstrapper",
         "aurelia-dependency-injection",

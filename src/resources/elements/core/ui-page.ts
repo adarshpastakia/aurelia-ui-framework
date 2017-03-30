@@ -13,7 +13,9 @@ import {autoinject, customElement, bindable, bindingMode, children, inlineView, 
   <div class="ui-page-body \${pageClass}"><slot></slot></div>
 </template>`)
 export class UIPage {
-  constructor(public element: Element) { }
+  constructor(public element: Element) {
+    if (element.hasAttribute('animate')) element.classList.add('au-animate');
+  }
 
   // aurelia hooks
   created(owningView: View, myView: View) { }
@@ -32,6 +34,7 @@ export class UIPage {
 @inlineView(`<template class="ui-section"><slot></slot></template>`)
 export class UISection {
   constructor(public element: Element) {
+    if (element.hasAttribute('animate')) element.classList.add('au-animate');
     // LAYOUT
     if (element.hasAttribute('row-layout')) element.classList.add('row');
     else element.classList.add('column');
@@ -55,6 +58,7 @@ export class UISection {
 @inlineView(`<template class="ui-content"><slot></slot></template>`)
 export class UIContent {
   constructor(public element: Element) {
+    if (element.hasAttribute('animate')) element.classList.add('au-animate');
     if (element.hasAttribute('padded')) element.classList.add('ui-pad-all');
     if (element.hasAttribute('scroll')) element.classList.add('ui-scroll');
   }

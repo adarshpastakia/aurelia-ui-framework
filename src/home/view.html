@@ -4,13 +4,13 @@
 // @license     : MIT
 -->
 <template>
-  <style>
-    .ui-column > p {
-      margin: 0 0 1em;
-    }
+  <ui-content scroll animate>
+    <style>
+      .ui-column > p {
+        margin: 0 0 1em;
+      }
 
-  </style>
-  <ui-content scroll>
+    </style>
     <ui-container>
 
       <div class="ui-row ui-row-middle ui-row-center ui-bg-primary">
@@ -44,79 +44,78 @@
         <a href="#/example" class="big-button">
           <span t="home:examples.title"></span>
         </a>
-      </a>
-      <a href="https://github.com/adarshpastakia/aurelia-ui-framework/wiki" target="_blank" class="big-button">
-        <span>Help Wiki</span>
-      </a>
-    </div>
+        <a href="https://github.com/adarshpastakia/aurelia-ui-framework/wiki" target="_blank" class="big-button">
+          <span>Help Wiki</span>
+        </a>
+      </div>
 
-    <ui-row center>
-      <ui-column fill padded width="320px">
+      <ui-row center>
+        <ui-column fill padded width="320px">
 
-        <h5 class="section-title" t="home:theming.title"></h5>
-        <p class="ui-para" t="home:theming.description"></p>
-        <ui-row>
-          <ui-column padded size="sm-6 md-4 lg-6 xl-3" repeat.for="s of sections.theming">
-            <a href.bind="s.link">
-              <span t.bind="s.title"></span>
-              <ui-glyph glyph="glyph-arrow-right"></ui-glyph>
-            </a>
-            <p class="ui-thin" t.bind="s.desc"></p>
-          </ui-column>
-        </ui-row>
+          <h5 class="section-title" t="home:theming.title"></h5>
+          <p class="ui-para" t="home:theming.description"></p>
+          <ui-row>
+            <ui-column padded size="sm-6 md-4 lg-6 xl-3" repeat.for="s of sections.theming">
+              <a href.bind="s.link">
+                <span t.bind="s.title"></span>
+                <ui-glyph glyph="glyph-arrow-right"></ui-glyph>
+              </a>
+              <p class="ui-thin" t.bind="s.desc"></p>
+            </ui-column>
+          </ui-row>
 
-        <h5 class="section-title" t="home:core.title"></h5>
-        <p class="ui-para" t="home:core.description"></p>
-        <ui-row>
-          <ui-column padded size="sm-6 md-4 lg-6 xl-3" repeat.for="s of sections.core">
-            <a href.bind="s.link">
-              <span t.bind="s.title"></span>
-              <ui-glyph glyph="glyph-arrow-right"></ui-glyph>
-            </a>
-            <p class="ui-thin" t.bind="s.desc"></p>
-          </ui-column>
-        </ui-row>
+          <h5 class="section-title" t="home:core.title"></h5>
+          <p class="ui-para" t="home:core.description"></p>
+          <ui-row>
+            <ui-column padded size="sm-6 md-4 lg-6 xl-3" repeat.for="s of sections.core">
+              <a href.bind="s.link">
+                <span t.bind="s.title"></span>
+                <ui-glyph glyph="glyph-arrow-right"></ui-glyph>
+              </a>
+              <p class="ui-thin" t.bind="s.desc"></p>
+            </ui-column>
+          </ui-row>
 
-        <h5 class="section-title" t="home:inputs.title"></h5>
-        <p class="ui-para" t="home:inputs.description"></p>
-        <ui-row>
-          <ui-column padded size="sm-6 md-4 lg-6 xl-3" repeat.for="s of sections.inputs">
-            <a href.bind="s.link">
-              <span t.bind="s.title"></span>
-              <ui-glyph glyph="glyph-arrow-right"></ui-glyph>
-            </a>
-            <p class="ui-thin" t.bind="s.desc"></p>
-          </ui-column>
-        </ui-row>
+          <h5 class="section-title" t="home:inputs.title"></h5>
+          <p class="ui-para" t="home:inputs.description"></p>
+          <ui-row>
+            <ui-column padded size="sm-6 md-4 lg-6 xl-3" repeat.for="s of sections.inputs">
+              <a href.bind="s.link">
+                <span t.bind="s.title"></span>
+                <ui-glyph glyph="glyph-arrow-right"></ui-glyph>
+              </a>
+              <p class="ui-thin" t.bind="s.desc"></p>
+            </ui-column>
+          </ui-row>
 
-        <h5 class="section-title" t="home:comps.title"></h5>
-        <ui-row>
-          <ui-column padded size="sm-6 md-4 lg-6 xl-3" repeat.for="s of sections.comps">
-            <a href.bind="s.link">
-              <span t.bind="s.title"></span>
-              <ui-glyph glyph="glyph-arrow-right"></ui-glyph>
-            </a>
-            <p class="ui-thin" t.bind="s.desc"></p>
-          </ui-column>
-        </ui-row>
+          <h5 class="section-title" t="home:comps.title"></h5>
+          <ui-row>
+            <ui-column padded size="sm-6 md-4 lg-6 xl-3" repeat.for="s of sections.comps">
+              <a href.bind="s.link">
+                <span t.bind="s.title"></span>
+                <ui-glyph glyph="glyph-arrow-right"></ui-glyph>
+              </a>
+              <p class="ui-thin" t.bind="s.desc"></p>
+            </ui-column>
+          </ui-row>
 
-        <h5 class="section-title" t="home:apis.title"></h5>
-        <ui-row>
-          <ui-column padded size="sm-6 md-4 lg-6 xl-3" repeat.for="s of sections.apis">
-            <a href.bind="s.link">
-              <span t.bind="s.title"></span>
-              <ui-glyph glyph="glyph-arrow-right"></ui-glyph>
-            </a>
-            <p class="ui-thin" t.bind="s.desc"></p>
-          </ui-column>
-        </ui-row>
-      </ui-column>
+          <h5 class="section-title" t="home:apis.title"></h5>
+          <ui-row>
+            <ui-column padded size="sm-6 md-4 lg-6 xl-3" repeat.for="s of sections.apis">
+              <a href.bind="s.link">
+                <span t.bind="s.title"></span>
+                <ui-glyph glyph="glyph-arrow-right"></ui-glyph>
+              </a>
+              <p class="ui-thin" t.bind="s.desc"></p>
+            </ui-column>
+          </ui-row>
+        </ui-column>
 
-      <ui-column auto padded>
-        <compose view="./browser.html"></compose>
-      </ui-column>
-    </ui-row>
+        <ui-column auto padded>
+          <compose view="./browser.html"></compose>
+        </ui-column>
+      </ui-row>
 
-  </ui-container>
-</ui-content>
+    </ui-container>
+  </ui-content>
 </template>

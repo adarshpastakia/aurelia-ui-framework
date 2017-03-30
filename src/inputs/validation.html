@@ -4,7 +4,7 @@
 // @license     : MIT
 -->
 <template>
-  <ui-page page-title="Validation">
+  <ui-page page-title="Validation" animate>
     <ui-content scroll padded>
       <ui-container>
         <ui-form>
@@ -57,7 +57,7 @@
                   <ui-input-label>State</ui-input-label>
                   <ui-input value.bind="model.state & validate" placeholder="State/Province..." maxlength="99" counter clear></ui-input>
                 </ui-input-group>
-                
+
                 <ui-input-group>
                   <ui-input-label required>Country</ui-input-label>
                   <ui-combo value.bind="model.country & validate" options.bind="countries" display-property="name" value-property="iso2" icon-property="iso2" icon-class="ui-flag">
