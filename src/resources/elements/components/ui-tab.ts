@@ -149,7 +149,7 @@ export class UITabPanel {
 
   private closeTab(tab) {
     if (isFunction(tab.beforeclose)) {
-      let ret = tab.beforeclose();
+      let ret = tab.beforeclose(tab);
       if (ret instanceof Promise) ret.then(b => {
         if (b) {
           this.doClose(tab);
@@ -234,7 +234,9 @@ export class UITab {
   bind(bindingContext: Object, overrideContext: Object) {
     this.disabled = isTrue(this.disabled);
   }
-  // attached() { }
+  attached() {
+    if (this.element.firstElementChild.tagName == 'compose') this.vm = this.element.firstElementChild.au.compose.viewModel.currentViewModel;
+  }
   // detached() { }
   // unbind() { }
   // end aurelia hooks
@@ -246,6 +248,7 @@ export class UITab {
 
   @bindable() beforeclose: any;
 
+  public vm;
   public active = false;
   public closeable = false;
 
