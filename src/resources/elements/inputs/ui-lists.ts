@@ -313,7 +313,7 @@ export class UICombo extends BaseListInput {
   }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
+  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     super.bind(bindingContext, overrideContext);
   }
@@ -323,7 +323,7 @@ export class UICombo extends BaseListInput {
   detached() {
     super.detached();
   }
-  unbind() { }
+  // unbind() { }
   // end aurelia hooks
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value = '';
@@ -390,7 +390,7 @@ export class UITags extends BaseListInput {
   }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
+  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     super.bind(bindingContext, overrideContext);
   }
@@ -400,7 +400,7 @@ export class UITags extends BaseListInput {
   detached() {
     super.detached();
   }
-  unbind() { }
+  // unbind() { }
   // end aurelia hooks
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value = '';
@@ -495,7 +495,7 @@ export class UIList extends BaseListInput {
   }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
+  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     super.bind(bindingContext, overrideContext);
   }
@@ -505,7 +505,7 @@ export class UIList extends BaseListInput {
   detached() {
     super.detached();
   }
-  unbind() { }
+  // unbind() { }
   // end aurelia hooks
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value = '';
@@ -563,11 +563,11 @@ export class UIReorder {
   }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
-  bind(bindingContext: Object, overrideContext: Object) { }
-  attached() { }
-  detached() { }
-  unbind() { }
+  // created(owningView: View, myView: View) { }
+  // bind(bindingContext: Object, overrideContext: Object) { }
+  // attached() { }
+  // detached() { }
+  // unbind() { }
   // end aurelia hooks
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) options: Array<any> = [];

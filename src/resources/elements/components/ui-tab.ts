@@ -96,8 +96,8 @@ export class UITabPanel {
   }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
-  bind(bindingContext: Object, overrideContext: Object) { }
+  // created(owningView: View, myView: View) { }
+  // bind(bindingContext: Object, overrideContext: Object) { }
   attached() {
     if (!this.noTabs) {
       this.obResize = UIEvent.subscribe('windowresize', () => this.arrange());
@@ -113,7 +113,7 @@ export class UITabPanel {
       this.obResize.dispose();
     }
   }
-  unbind() { }
+  // unbind() { }
   // end aurelia hooks
 
   private tether;
@@ -230,13 +230,13 @@ export class UITab {
   }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
+  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     this.disabled = isTrue(this.disabled);
   }
-  attached() { }
-  detached() { }
-  unbind() { }
+  // attached() { }
+  // detached() { }
+  // unbind() { }
   // end aurelia hooks
 
   @bindable() id = '';

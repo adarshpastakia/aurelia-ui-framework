@@ -17,7 +17,7 @@ export class UIDropdown {
   constructor(public element: Element) { }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
+  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     this.disabledChanged(this.disabled);
   }
@@ -33,7 +33,7 @@ export class UIDropdown {
     this.tether.dispose();
     this.obMouseup.dispose();
   }
-  unbind() { }
+  // unbind() { }
   // end aurelia hooks
 
   @children('.ui-list-item') items = [];
@@ -107,11 +107,11 @@ export class UIListGroup {
   constructor(public element: Element) { }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
-  bind(bindingContext: Object, overrideContext: Object) { }
-  attached() { }
-  detached() { }
-  unbind() { }
+  // created(owningView: View, myView: View) { }
+  // bind(bindingContext: Object, overrideContext: Object) { }
+  // attached() { }
+  // detached() { }
+  // unbind() { }
   // end aurelia hooks
 
   @bindable() label = '';
@@ -125,11 +125,11 @@ export class UIListItem {
   constructor(public element: Element) { }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
-  bind(bindingContext: Object, overrideContext: Object) { }
-  attached() { }
-  detached() { }
-  unbind() { }
+  // created(owningView: View, myView: View) { }
+  // bind(bindingContext: Object, overrideContext: Object) { }
+  // attached() { }
+  // detached() { }
+  // unbind() { }
   // end aurelia hooks
 
   @bindable() model;

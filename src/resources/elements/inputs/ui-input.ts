@@ -90,15 +90,15 @@ export class UIInput extends UIBaseInput {
   }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
+  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     super.bind.apply(this, arguments);
     if (this.number) this.numberChanged(this.number);
     if (this.decimal) this.decimalChanged(this.decimal);
   }
-  attached() { }
-  detached() { }
-  unbind() { }
+  // attached() { }
+  // detached() { }
+  // unbind() { }
   // end aurelia hooks
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value = '';
@@ -191,15 +191,15 @@ export class UIFileInput {
   constructor(public element: Element) { }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
-  bind(bindingContext: Object, overrideContext: Object) { }
+  // created(owningView: View, myView: View) { }
+  // bind(bindingContext: Object, overrideContext: Object) { }
   attached() {
     this.files = [];
     this.inputEl.value = '';
     this.inputEl.draggedFiles = this.files;
   }
-  detached() { }
-  unbind() { }
+  // detached() { }
+  // unbind() { }
   // end aurelia hooks
 
   inputEl;

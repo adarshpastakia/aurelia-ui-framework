@@ -25,7 +25,7 @@ export class UIToast {
   }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
+  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     if (bindingContext) Object.assign(this, bindingContext);
     UIEvent.queueTask(() => {
@@ -35,9 +35,9 @@ export class UIToast {
       }
     });
   }
-  attached() { }
-  detached() { }
-  unbind() { }
+  // attached() { }
+  // detached() { }
+  // unbind() { }
   // end aurelia hooks
 
   @bindable() glyph = '';
@@ -65,7 +65,7 @@ export class UIAlert {
   }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
+  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     if (bindingContext) Object.assign(this, bindingContext);
     UIEvent.queueTask(() => {
@@ -73,9 +73,9 @@ export class UIAlert {
       if (this.focusBlock) this.focusBlock.focus();
     });
   }
-  attached() { }
-  detached() { }
-  unbind() { }
+  // attached() { }
+  // detached() { }
+  // unbind() { }
   // end aurelia hooks
 
   @bindable() glyph = '';
@@ -123,7 +123,7 @@ export class UIPrompt {
   }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
+  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     if (bindingContext) Object.assign(this, bindingContext);
     UIEvent.queueTask(() => {
@@ -131,9 +131,9 @@ export class UIPrompt {
       if (this.focusBlock) this.focusBlock.focus();
     });
   }
-  attached() { }
-  detached() { }
-  unbind() { }
+  // attached() { }
+  // detached() { }
+  // unbind() { }
   // end aurelia hooks
 
   @bindable() glyph = '';

@@ -40,7 +40,7 @@ export class UISidebar {
   }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
+  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     this.collapsed = isTrue(this.collapsed);
     if (this.position == 'end') this.glyph = "glyph-arrow-right";
@@ -52,7 +52,7 @@ export class UISidebar {
   detached() {
     if (this.obClick) this.obClick.dispose();
   }
-  unbind() { }
+  // unbind() { }
   // end aurelia hooks
 
   @bindable() label = "";

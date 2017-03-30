@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -18,11 +18,11 @@ class UIBadgeBase {
   }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
+  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) { this.valueChanged(this.value); }
-  attached() { }
-  detached() { }
-  unbind() { }
+  // attached() { }
+  // detached() { }
+  // unbind() { }
   // end aurelia hooks
 
   badgeEl;

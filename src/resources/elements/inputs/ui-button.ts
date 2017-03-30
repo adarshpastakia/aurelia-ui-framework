@@ -35,7 +35,7 @@ export class UIButton {
   }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
+  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     this.busy = isTrue(this.busy);
     this.disabled = isTrue(this.disabled);
@@ -60,7 +60,7 @@ export class UIButton {
     if (this.obMouseup) this.obMouseup.dispose();
     if (this.dropdown) DOM.removeNode(this.dropdown);
   }
-  unbind() { }
+  // unbind() { }
   // end aurelia hooks
 
   @bindable() glyph = '';
@@ -117,13 +117,13 @@ export class UIButtonGroup {
   }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
+  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     this.disabled = isTrue(this.disabled);
   }
-  attached() { }
-  detached() { }
-  unbind() { }
+  // attached() { }
+  // detached() { }
+  // unbind() { }
   // end aurelia hooks
 
   @children('ui-button') buttons = [];

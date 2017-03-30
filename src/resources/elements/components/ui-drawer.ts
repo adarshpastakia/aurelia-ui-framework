@@ -20,16 +20,16 @@ export class UIDrawer {
   }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
+  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     if (this.element.hasAttribute('scroll')) this.bodyCls += ' ui-scroll';
     if (this.element.hasAttribute('padded')) this.bodyCls += ' ui-pad-all';
 
     if (this.position == 'end') this.glyph = 'glyph-arrow-right';
   }
-  attached() { }
-  detached() { }
-  unbind() { }
+  // attached() { }
+  // detached() { }
+  // unbind() { }
   // end aurelia hooks
 
   @bindable() position = "start";
@@ -49,11 +49,11 @@ export class UIDrawerToggle {
   constructor(public element: Element) { }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
-  bind(bindingContext: Object, overrideContext: Object) { }
-  attached() { }
-  detached() { }
-  unbind() { }
+  // created(owningView: View, myView: View) { }
+  // bind(bindingContext: Object, overrideContext: Object) { }
+  // attached() { }
+  // detached() { }
+  // unbind() { }
   // end aurelia hooks
 
   @bindable() drawer;

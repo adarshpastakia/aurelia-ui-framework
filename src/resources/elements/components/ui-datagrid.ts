@@ -91,7 +91,7 @@ export class UIDatagrid {
   }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
+  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     this.columnsChanged(this.columns);
     this.dataChanged(this.data);
@@ -106,7 +106,7 @@ export class UIDatagrid {
   detached() {
     if (this.obPageChange) this.obPageChange.dispose();
   }
-  unbind() { }
+  // unbind() { }
   // end aurelia hooks
 
   @children('ui-dg-column,ui-dg-button,ui-dg-link,ui-dg-glyph') columns;
@@ -241,11 +241,11 @@ export class UIPager {
   constructor(public element: Element) { }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
-  bind(bindingContext: Object, overrideContext: Object) { }
-  attached() { }
-  detached() { }
-  unbind() { }
+  // created(owningView: View, myView: View) { }
+  // bind(bindingContext: Object, overrideContext: Object) { }
+  // attached() { }
+  // detached() { }
+  // unbind() { }
   // end aurelia hooks
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) page = 0;
@@ -265,10 +265,10 @@ export class UIDGFilter {
   constructor(public element: Element) { }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
-  bind(bindingContext: Object, overrideContext: Object) { }
-  attached() { }
-  detached() { }
-  unbind() { }
+  // created(owningView: View, myView: View) { }
+  // bind(bindingContext: Object, overrideContext: Object) { }
+  // attached() { }
+  // detached() { }
+  // unbind() { }
   // end aurelia hooks
 }

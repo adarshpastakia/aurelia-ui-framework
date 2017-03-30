@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -18,11 +18,11 @@ export class UIBreadcrumb {
   }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
-  bind(bindingContext: Object, overrideContext: Object) { }
-  attached() { }
-  detached() { }
-  unbind() { }
+  // created(owningView: View, myView: View) { }
+  // bind(bindingContext: Object, overrideContext: Object) { }
+  // attached() { }
+  // detached() { }
+  // unbind() { }
   // end aurelia hooks
 
   private fireChange($event) {
@@ -39,11 +39,11 @@ export class UICrumb {
   constructor(public element: Element) { }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
-  bind(bindingContext: Object, overrideContext: Object) { }
-  attached() { }
-  detached() { }
-  unbind() { }
+  // created(owningView: View, myView: View) { }
+  // bind(bindingContext: Object, overrideContext: Object) { }
+  // attached() { }
+  // detached() { }
+  // unbind() { }
   // end aurelia hooks
 
   @bindable() id = '';

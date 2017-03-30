@@ -15,8 +15,8 @@ export class UIForm {
   constructor(public element: Element) { }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
-  bind(bindingContext: Object, overrideContext: Object) { }
+  // created(owningView: View, myView: View) { }
+  // bind(bindingContext: Object, overrideContext: Object) { }
   attached() {
     UIEvent.queueTask(() => {
       let el: any = this.element.querySelector('input,textarea');
@@ -24,8 +24,8 @@ export class UIForm {
       if (this.busy) this.busyChanged(true);
     });
   }
-  detached() { }
-  unbind() { }
+  // detached() { }
+  // unbind() { }
   // end aurelia hooks
 
   formEl;
@@ -55,15 +55,15 @@ export class UIFieldset {
   }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
+  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     this.enabled = isTrue(this.enabled);
   }
   attached() {
     this.enabledChanged(this.enabled);
   }
-  detached() { }
-  unbind() { }
+  // detached() { }
+  // unbind() { }
   // end aurelia hooks
 
   @bindable() legend = '';
@@ -94,11 +94,11 @@ export class UIInputGroup {
   }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
-  bind(bindingContext: Object, overrideContext: Object) { }
-  attached() { }
-  detached() { }
-  unbind() { }
+  // created(owningView: View, myView: View) { }
+  // bind(bindingContext: Object, overrideContext: Object) { }
+  // attached() { }
+  // detached() { }
+  // unbind() { }
   // end aurelia hooks
 
   @bindable() width = 'auto';
@@ -112,11 +112,11 @@ export class UIInputInfo {
   constructor(public element: Element) { }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
-  bind(bindingContext: Object, overrideContext: Object) { }
-  attached() { }
-  detached() { }
-  unbind() { }
+  // created(owningView: View, myView: View) { }
+  // bind(bindingContext: Object, overrideContext: Object) { }
+  // attached() { }
+  // detached() { }
+  // unbind() { }
   // end aurelia hooks
 
   @bindable() class = '';
@@ -133,11 +133,11 @@ export class UIInputAddon {
   }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
-  bind(bindingContext: Object, overrideContext: Object) { }
-  attached() { }
-  detached() { }
-  unbind() { }
+  // created(owningView: View, myView: View) { }
+  // bind(bindingContext: Object, overrideContext: Object) { }
+  // attached() { }
+  // detached() { }
+  // unbind() { }
   // end aurelia hooks
 
   @bindable() glyph = '';
@@ -160,8 +160,8 @@ export class UIInputLabel {
   }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
-  bind(bindingContext: Object, overrideContext: Object) { }
+  // created(owningView: View, myView: View) { }
+  // bind(bindingContext: Object, overrideContext: Object) { }
   attached() {
     if (isEmpty(this.for)) {
       let el = this.label.parentElement.querySelector('input:not([type="checkbox"]):not([type="radio"]),textarea');
@@ -171,8 +171,8 @@ export class UIInputLabel {
       }
     }
   }
-  detached() { }
-  unbind() { }
+  // detached() { }
+  // unbind() { }
   // end aurelia hooks
 
   static seed = 1;

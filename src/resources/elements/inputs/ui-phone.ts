@@ -29,15 +29,15 @@ export class UIPhone extends UIBaseInput {
   }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
+  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     super.bind.apply(this, arguments);
     this.countryChanged(this.country);
     UIEvent.queueTask(() => this.valueChanged(this.value));
   }
-  attached() { }
-  detached() { }
-  unbind() { }
+  // attached() { }
+  // detached() { }
+  // unbind() { }
   // end aurelia hooks
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value = '';

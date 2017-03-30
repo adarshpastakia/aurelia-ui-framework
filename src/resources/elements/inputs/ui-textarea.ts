@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -30,7 +30,7 @@ export class UITextarea extends UIBaseInput {
   }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
+  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     super.bind.apply(this, arguments);
     this.autoCompleteChanged(this.autoComplete);
@@ -43,7 +43,7 @@ export class UITextarea extends UIBaseInput {
     this.tether.dispose();
     this.obMouseup.dispose();
   }
-  unbind() { }
+  // unbind() { }
   // end aurelia hooks
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value = '';

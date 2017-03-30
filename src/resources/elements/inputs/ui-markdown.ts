@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -47,7 +47,7 @@ import * as _ from "lodash";
   <span class="ui-clear" if.bind="clear && value" click.trigger="clearInput()">&times;</span>
   <span class="ui-counter" if.bind="counter" innerhtml.bind="value.length + ' of ' + maxlength"></span>
   </div>
-  
+
   <div class='ui-md-preview ui-pad-all ui-markdown' show.bind="help" dir="ltr">
   <h2 class="ui-small-caps ui-text-primary ui-strong">Markdown Syntax</h2>
   <hr/>
@@ -151,9 +151,9 @@ import * as _ from "lodash";
   </p>
   <br/>
   <br/></div>
-  
+
   <div class="ui-md-preview ui-pad-all ui-markdown" dir.bind="dir" show.bind="preview" innerhtml.bind="value | markdown" dir.bind="dir"></div>
-  
+
   </div>
   <div class="ui-input-info" if.bind="info" innerhtml.bind="info"></div>
 </template>`)
@@ -165,13 +165,13 @@ export class UIMarkdown extends UIBaseInput {
   }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
+  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     super.bind.apply(this, arguments);
   }
-  attached() { }
-  detached() { }
-  unbind() { }
+  // attached() { }
+  // detached() { }
+  // unbind() { }
   // end aurelia hooks
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value = '';
@@ -258,17 +258,17 @@ export class UIMarkdown extends UIBaseInput {
     disabled.bind="isDisabled" readonly.bind="true" click.trigger="openDropdown($event, show=true)"/>
   <span class="ui-input-addon ui-dropdown-handle" click.trigger="openDropdown($event, show=true, inputEl.focus())"><ui-glyph glyph="glyph-chevron-down"></ui-glyph></span></div>
   <div class="ui-input-info" if.bind="info" innerhtml.bind="info"></div>
-  
+
   <div class="ui-list-container ui-floating" ref="dropdown">
     <div class="ui-list-group" t="Selected">Selected</div>
     <div class="ui-lang-item" repeat.for="item of selectedList">
-      <div class="ui-list-item \${item.id==value?'ui-selected':''} \${item.disabled?'ui-disabled':''}" 
+      <div class="ui-list-item \${item.id==value?'ui-selected':''} \${item.disabled?'ui-disabled':''}"
       mouseover.delegate="hilightItem($event)" click.trigger="fireSelect(item)"><ui-glyph glyph="glyph-invalid" if.bind="errored.indexOf(item.id)>-1"></ui-glyph> \${item.name}</div>
       <ui-glyph class="ui-text-danger ui-font-big" glyph="glyph-tree-collapse" click.trigger="removeLanguage(item)"></ui-glyph>
     </div>
     <div class="ui-list-group" t="Available">Available</div>
     <div class="ui-lang-item" repeat.for="item of availableList" click.trigger="addLanguage(item)">
-      <div class="ui-list-item \${item.disabled?'ui-disabled':''}" innerhtml.bind="item.name" 
+      <div class="ui-list-item \${item.disabled?'ui-disabled':''}" innerhtml.bind="item.name"
       mouseover.delegate="hilightItem($event)"></div>
       <ui-glyph class="ui-text-info ui-font-big" glyph="glyph-tree-expand"></ui-glyph>
     </div>
@@ -280,7 +280,7 @@ export class UILanguage {
   constructor(public element: Element) { }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
+  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     this.languagesChanged(this.languages);
   }
@@ -298,7 +298,7 @@ export class UILanguage {
     this.tether.dispose();
     this.obMouseup.dispose();
   }
-  unbind() { }
+  // unbind() { }
   // end aurelia hooks
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value = '';

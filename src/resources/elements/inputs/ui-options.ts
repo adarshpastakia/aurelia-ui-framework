@@ -16,7 +16,7 @@ export class UIOptionGroup {
   }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
+  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     this.valueChanged(this.value);
   }
@@ -24,8 +24,8 @@ export class UIOptionGroup {
     let els = this.element.querySelectorAll('input[type="radio"]');
     for (let i = 0; i < els.length; i++)els[i]['name'] = this.name;
   }
-  detached() { }
-  unbind() { }
+  // detached() { }
+  // unbind() { }
   // end aurelia hooks
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value: any = '';
@@ -56,14 +56,14 @@ export class UICheckbox {
   constructor(public element: Element) { this.for = 'ui-checkbox-' + (UICheckbox.seed++); }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
+  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     this.checked = isTrue(this.checked);
     this.disabledChanged(this.disabled);
   }
-  attached() { }
-  detached() { }
-  unbind() { }
+  // attached() { }
+  // detached() { }
+  // unbind() { }
   // end aurelia hooks
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) checked = false;
@@ -93,13 +93,13 @@ export class UIRadio {
   constructor(public element: Element) { this.for = 'ui-radio-' + (UIRadio.seed++); }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
+  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     this.disabledChanged(this.disabled);
   }
-  attached() { }
-  detached() { }
-  unbind() { }
+  // attached() { }
+  // detached() { }
+  // unbind() { }
   // end aurelia hooks
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) checked = false;
@@ -149,15 +149,15 @@ export class UISwitch {
   }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
+  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     this.checked = isTrue(this.checked) || (this.value == this.onValue);
     this.value = isTrue(this.checked) ? this.onValue : this.offValue;
     this.disabled = isTrue(this.disabled);
   }
-  attached() { }
-  detached() { }
-  unbind() { }
+  // attached() { }
+  // detached() { }
+  // unbind() { }
   // end aurelia hooks
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) checked: boolean = false;

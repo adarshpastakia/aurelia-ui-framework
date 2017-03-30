@@ -17,11 +17,11 @@ export class UIPanel {
   }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
-  bind(bindingContext: Object, overrideContext: Object) { }
-  attached() { }
-  detached() { }
-  unbind() { }
+  // created(owningView: View, myView: View) { }
+  // bind(bindingContext: Object, overrideContext: Object) { }
+  // attached() { }
+  // detached() { }
+  // unbind() { }
   // end aurelia hooks
 
   @bindable() height = 'auto';
@@ -53,11 +53,11 @@ export class UIPanelBody {
   }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
-  bind(bindingContext: Object, overrideContext: Object) { }
-  attached() { }
-  detached() { }
-  unbind() { }
+  // created(owningView: View, myView: View) { }
+  // bind(bindingContext: Object, overrideContext: Object) { }
+  // attached() { }
+  // detached() { }
+  // unbind() { }
   // end aurelia hooks
 
   @bindable() height = 'auto';
@@ -71,13 +71,13 @@ export class UIPanelGroup {
   constructor(public element: Element) { }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
-  bind(bindingContext: Object, overrideContext: Object) { }
-  attached() {
-    //if (_.find(this.panels, ['collapsed', false]) == null) this.panels[0].collapsed = false;
-  }
-  detached() { }
-  unbind() { }
+  // created(owningView: View, myView: View) { }
+  // bind(bindingContext: Object, overrideContext: Object) { }
+  // attached() {
+  //   //if (_.find(this.panels, ['collapsed', false]) == null) this.panels[0].collapsed = false;
+  // }
+  // detached() { }
+  // unbind() { }
   // end aurelia hooks
 
   @children('ui-panel') panels;
@@ -104,11 +104,11 @@ export class UIHeader {
   }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
-  bind(bindingContext: Object, overrideContext: Object) { }
-  attached() { }
-  detached() { }
-  unbind() { }
+  // created(owningView: View, myView: View) { }
+  // bind(bindingContext: Object, overrideContext: Object) { }
+  // attached() { }
+  // detached() { }
+  // unbind() { }
   // end aurelia hooks
 
   @bindable() theme = 'default';
@@ -136,7 +136,7 @@ export class UIHeaderTool {
   }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
+  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     this.disabled = isTrue(this.disabled);
   }
@@ -156,7 +156,7 @@ export class UIHeaderTool {
     if (this.obMouseup) this.obMouseup.dispose();
     if (this.dropdown) DOM.removeNode(this.dropdown);
   }
-  unbind() { }
+  // unbind() { }
   // end aurelia hooks
 
   @bindable() glyph = '';
@@ -200,11 +200,11 @@ export class UIHeaderTitle {
   constructor(public element: Element) { }
 
   // aurelia hooks
-  created(owningView: View, myView: View) { }
-  bind(bindingContext: Object, overrideContext: Object) { }
-  attached() { }
-  detached() { }
-  unbind() { }
+  // created(owningView: View, myView: View) { }
+  // bind(bindingContext: Object, overrideContext: Object) { }
+  // attached() { }
+  // detached() { }
+  // unbind() { }
   // end aurelia hooks
 
   @bindable() glyph = '';
