@@ -30,8 +30,6 @@ var UIViewport = (function () {
         };
         this.router = ui_utils_1.UIUtils.auContainer.get(aurelia_router_1.AppRouter);
     }
-    UIViewport.prototype.created = function (owningView, myView) { };
-    UIViewport.prototype.bind = function (bindingContext, overrideContext) { };
     UIViewport.prototype.attached = function () {
         ui_utils_1.UIUtils.dialogContainer = this.dialogContainer;
         ui_utils_1.UIUtils.overlayContainer = this.overlayContainer;
@@ -40,8 +38,6 @@ var UIViewport = (function () {
         if (document.querySelector('.ui-splash'))
             aurelia_framework_1.DOM.removeNode(document.querySelector('.ui-splash'));
     };
-    UIViewport.prototype.detached = function () { };
-    UIViewport.prototype.unbind = function () { };
     return UIViewport;
 }());
 UIViewport = __decorate([
@@ -57,11 +53,6 @@ var UIRouterView = (function () {
         this.name = 'default';
         this.class = '';
     }
-    UIRouterView.prototype.created = function (owningView, myView) { };
-    UIRouterView.prototype.bind = function (bindingContext, overrideContext) { };
-    UIRouterView.prototype.attached = function () { };
-    UIRouterView.prototype.detached = function () { };
-    UIRouterView.prototype.unbind = function () { };
     return UIRouterView;
 }());
 __decorate([
@@ -85,11 +76,6 @@ var UIAppHeader = (function () {
         this.element = element;
         this.class = '';
     }
-    UIAppHeader.prototype.created = function (owningView, myView) { };
-    UIAppHeader.prototype.bind = function (bindingContext, overrideContext) { };
-    UIAppHeader.prototype.attached = function () { };
-    UIAppHeader.prototype.detached = function () { };
-    UIAppHeader.prototype.unbind = function () { };
     return UIAppHeader;
 }());
 __decorate([
@@ -109,11 +95,6 @@ var UIAppFooter = (function () {
         this.element = element;
         this.class = '';
     }
-    UIAppFooter.prototype.created = function (owningView, myView) { };
-    UIAppFooter.prototype.bind = function (bindingContext, overrideContext) { };
-    UIAppFooter.prototype.attached = function () { };
-    UIAppFooter.prototype.detached = function () { };
-    UIAppFooter.prototype.unbind = function () { };
     return UIAppFooter;
 }());
 __decorate([
@@ -133,11 +114,6 @@ var UIAppQuickLinks = (function () {
         this.element = element;
         this.class = '';
     }
-    UIAppQuickLinks.prototype.created = function (owningView, myView) { };
-    UIAppQuickLinks.prototype.bind = function (bindingContext, overrideContext) { };
-    UIAppQuickLinks.prototype.attached = function () { };
-    UIAppQuickLinks.prototype.detached = function () { };
-    UIAppQuickLinks.prototype.unbind = function () { };
     return UIAppQuickLinks;
 }());
 __decorate([
@@ -157,11 +133,6 @@ var UIAppTitle = (function () {
         this.element = element;
         this.class = '';
     }
-    UIAppTitle.prototype.created = function (owningView, myView) { };
-    UIAppTitle.prototype.bind = function (bindingContext, overrideContext) { };
-    UIAppTitle.prototype.attached = function () { };
-    UIAppTitle.prototype.detached = function () { };
-    UIAppTitle.prototype.unbind = function () { };
     return UIAppTitle;
 }());
 __decorate([

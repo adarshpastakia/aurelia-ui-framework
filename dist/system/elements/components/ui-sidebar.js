@@ -67,7 +67,6 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                         element.classList.remove('ui-show-overlay');
                     });
                 }
-                UISidebar.prototype.created = function (owningView, myView) { };
                 UISidebar.prototype.bind = function (bindingContext, overrideContext) {
                     this.collapsed = isTrue(this.collapsed);
                     if (this.position == 'end')
@@ -81,7 +80,6 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                     if (this.obClick)
                         this.obClick.dispose();
                 };
-                UISidebar.prototype.unbind = function () { };
                 UISidebar.prototype.collapsedChanged = function (newValue) {
                     this.glyph = (this.position == 'end' && !isTrue(newValue)) || (this.position == 'start' && isTrue(newValue)) ? "glyph-arrow-right" : "glyph-arrow-left";
                 };

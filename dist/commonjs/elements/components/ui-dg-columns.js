@@ -167,11 +167,6 @@ var UIDGColumn = (function (_super) {
         _this.summary = '';
         return _this;
     }
-    UIDGColumn.prototype.created = function (owningView, myView) { };
-    UIDGColumn.prototype.bind = function (bindingContext, overrideContext) { };
-    UIDGColumn.prototype.attached = function () { };
-    UIDGColumn.prototype.detached = function () { };
-    UIDGColumn.prototype.unbind = function () { };
     return UIDGColumn;
 }(UIDataColumn));
 __decorate([
@@ -227,11 +222,6 @@ var UIDGGlyph = (function (_super) {
         _this.class = '';
         return _this;
     }
-    UIDGGlyph.prototype.created = function (owningView, myView) { };
-    UIDGGlyph.prototype.bind = function (bindingContext, overrideContext) { };
-    UIDGGlyph.prototype.attached = function () { };
-    UIDGGlyph.prototype.detached = function () { };
-    UIDGGlyph.prototype.unbind = function () { };
     UIDGGlyph.prototype.getGlyph = function (value, record) {
         if (isFunction(this.glyph))
             return this.glyph({ value: value, record: record });
@@ -297,11 +287,6 @@ var UIDGLink = (function (_super) {
         _this.disabled = null;
         return _this;
     }
-    UIDGLink.prototype.created = function (owningView, myView) { };
-    UIDGLink.prototype.bind = function (bindingContext, overrideContext) { };
-    UIDGLink.prototype.attached = function () { };
-    UIDGLink.prototype.detached = function () { };
-    UIDGLink.prototype.unbind = function () { };
     UIDGLink.prototype.isDisabled = function (value, record) {
         if (isFunction(this.disabled))
             return this.disabled(({ value: value, record: record }));
@@ -375,11 +360,6 @@ var UIDGButton = (function (_super) {
         _this.align = 'ui-text-center';
         return _this;
     }
-    UIDGButton.prototype.created = function (owningView, myView) { };
-    UIDGButton.prototype.bind = function (bindingContext, overrideContext) { };
-    UIDGButton.prototype.attached = function () { };
-    UIDGButton.prototype.detached = function () { };
-    UIDGButton.prototype.unbind = function () { };
     UIDGButton.prototype.isDisabled = function (value, record) {
         if (isFunction(this.disabled))
             return this.disabled(({ value: value, record: record }));

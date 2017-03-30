@@ -19,7 +19,6 @@ let UIOptionGroup = UIOptionGroup_1 = class UIOptionGroup {
             element.classList.add('ui-vertical');
         this.name = "ui-optgroup-" + (UIOptionGroup_1.seed++);
     }
-    created(owningView, myView) { }
     bind(bindingContext, overrideContext) {
         this.valueChanged(this.value);
     }
@@ -28,8 +27,6 @@ let UIOptionGroup = UIOptionGroup_1 = class UIOptionGroup {
         for (let i = 0; i < els.length; i++)
             els[i]['name'] = this.name;
     }
-    detached() { }
-    unbind() { }
     valueChanged(newValue) {
         UIEvent.queueTask(() => {
             let opt = this.element.querySelector(`input[value="${newValue}"]`);
@@ -70,14 +67,10 @@ let UICheckbox = UICheckbox_1 = class UICheckbox {
         this.isDisabled = false;
         this.for = 'ui-checkbox-' + (UICheckbox_1.seed++);
     }
-    created(owningView, myView) { }
     bind(bindingContext, overrideContext) {
         this.checked = isTrue(this.checked);
         this.disabledChanged(this.disabled);
     }
-    attached() { }
-    detached() { }
-    unbind() { }
     disabledChanged(newValue) {
         this.element.classList[(this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');
     }
@@ -114,13 +107,9 @@ let UIRadio = UIRadio_1 = class UIRadio {
         this.isDisabled = false;
         this.for = 'ui-radio-' + (UIRadio_1.seed++);
     }
-    created(owningView, myView) { }
     bind(bindingContext, overrideContext) {
         this.disabledChanged(this.disabled);
     }
-    attached() { }
-    detached() { }
-    unbind() { }
     disabledChanged(newValue) {
         this.element.classList[(this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');
     }
@@ -191,15 +180,11 @@ let UISwitch = UISwitch_1 = class UISwitch {
         else if (this.element.hasAttribute('warning'))
             this.theme = 'warning';
     }
-    created(owningView, myView) { }
     bind(bindingContext, overrideContext) {
         this.checked = isTrue(this.checked) || (this.value == this.onValue);
         this.value = isTrue(this.checked) ? this.onValue : this.offValue;
         this.disabled = isTrue(this.disabled);
     }
-    attached() { }
-    detached() { }
-    unbind() { }
     checkedChanged(newValue) {
         this.value = newValue ? this.onValue : this.offValue;
     }

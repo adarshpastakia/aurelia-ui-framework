@@ -17,8 +17,6 @@ var UIMenubar = (function () {
         this.element = element;
         this.isOverflow = false;
     }
-    UIMenubar.prototype.created = function (owningView, myView) { };
-    UIMenubar.prototype.bind = function (bindingContext, overrideContext) { };
     UIMenubar.prototype.attached = function () {
         var _this = this;
         this.obResize = ui_event_1.UIEvent.subscribe('windowresize', function () { return _this.arrange(); });
@@ -31,7 +29,6 @@ var UIMenubar = (function () {
         this.obClick.dispose();
         this.obResize.dispose();
     };
-    UIMenubar.prototype.unbind = function () { };
     UIMenubar.prototype.arrange = function () {
         this.overflow.classList.remove('ui-open');
         for (var i = 0, c = this.overflow['children']; i < c.length; i++) {
@@ -71,11 +68,6 @@ var UIMenu = (function () {
     function UIMenu(element) {
         this.element = element;
     }
-    UIMenu.prototype.created = function (owningView, myView) { };
-    UIMenu.prototype.bind = function (bindingContext, overrideContext) { };
-    UIMenu.prototype.attached = function () { };
-    UIMenu.prototype.detached = function () { };
-    UIMenu.prototype.unbind = function () { };
     return UIMenu;
 }());
 UIMenu = __decorate([
@@ -89,11 +81,6 @@ var UIMenuSection = (function () {
     function UIMenuSection(element) {
         this.element = element;
     }
-    UIMenuSection.prototype.created = function (owningView, myView) { };
-    UIMenuSection.prototype.bind = function (bindingContext, overrideContext) { };
-    UIMenuSection.prototype.attached = function () { };
-    UIMenuSection.prototype.detached = function () { };
-    UIMenuSection.prototype.unbind = function () { };
     return UIMenuSection;
 }());
 UIMenuSection = __decorate([
@@ -108,11 +95,6 @@ var UIMenuGroup = (function () {
         this.element = element;
         this.label = '';
     }
-    UIMenuGroup.prototype.created = function (owningView, myView) { };
-    UIMenuGroup.prototype.bind = function (bindingContext, overrideContext) { };
-    UIMenuGroup.prototype.attached = function () { };
-    UIMenuGroup.prototype.detached = function () { };
-    UIMenuGroup.prototype.unbind = function () { };
     return UIMenuGroup;
 }());
 __decorate([
@@ -129,28 +111,31 @@ exports.UIMenuGroup = UIMenuGroup;
 var UIMenuItem = (function () {
     function UIMenuItem(element) {
         this.element = element;
+        this.id = '';
         this.glyph = '';
         this.class = '';
         this.active = false;
         this.disabled = false;
         this.href = 'javascript:void(0)';
     }
-    UIMenuItem.prototype.created = function (owningView, myView) { };
     UIMenuItem.prototype.bind = function (bindingContext, overrideContext) {
         this.active = isTrue(this.active);
     };
-    UIMenuItem.prototype.attached = function () { };
-    UIMenuItem.prototype.detached = function () { };
-    UIMenuItem.prototype.unbind = function () { };
     UIMenuItem.prototype.click = function (evt) {
         if (evt.button != 0)
             return true;
         evt.cancelBubble = true;
         evt.stopPropagation();
-        return ui_event_1.UIEvent.fireEvent('click', this.element);
+        if (this.href == 'javascript:void(0)')
+            return true;
+        return ui_event_1.UIEvent.fireEvent('click', this.element, this.id);
     };
     return UIMenuItem;
 }());
+__decorate([
+    aurelia_framework_1.bindable(),
+    __metadata("design:type", Object)
+], UIMenuItem.prototype, "id", void 0);
 __decorate([
     aurelia_framework_1.bindable(),
     __metadata("design:type", Object)

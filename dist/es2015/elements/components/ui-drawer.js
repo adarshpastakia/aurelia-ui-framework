@@ -18,7 +18,6 @@ let UIDrawer = class UIDrawer {
             element.addEventListener('mouseup', (e) => { if (e.button == 0)
                 this.closeDrawer(); });
     }
-    created(owningView, myView) { }
     bind(bindingContext, overrideContext) {
         if (this.element.hasAttribute('scroll'))
             this.bodyCls += ' ui-scroll';
@@ -27,9 +26,6 @@ let UIDrawer = class UIDrawer {
         if (this.position == 'end')
             this.glyph = 'glyph-arrow-right';
     }
-    attached() { }
-    detached() { }
-    unbind() { }
     closeDrawer() {
         this.element.classList.remove('show');
     }
@@ -56,11 +52,6 @@ let UIDrawerToggle = class UIDrawerToggle {
         this.element = element;
         this.glyph = 'glyph-handle-menu';
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() { }
-    detached() { }
-    unbind() { }
     openDrawer(evt) {
         if (evt.button != 0)
             return true;

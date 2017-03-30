@@ -35,7 +35,6 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                     this.glyph = '';
                     this.display = '';
                 }
-                UIDropdown.prototype.created = function (owningView, myView) { };
                 UIDropdown.prototype.bind = function (bindingContext, overrideContext) {
                     this.disabledChanged(this.disabled);
                 };
@@ -53,7 +52,6 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                     this.tether.dispose();
                     this.obMouseup.dispose();
                 };
-                UIDropdown.prototype.unbind = function () { };
                 UIDropdown.prototype.valueChanged = function (newValue) {
                     var _this = this;
                     if (this.selected)
@@ -135,11 +133,6 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                     this.element = element;
                     this.label = '';
                 }
-                UIListGroup.prototype.created = function (owningView, myView) { };
-                UIListGroup.prototype.bind = function (bindingContext, overrideContext) { };
-                UIListGroup.prototype.attached = function () { };
-                UIListGroup.prototype.detached = function () { };
-                UIListGroup.prototype.unbind = function () { };
                 return UIListGroup;
             }());
             __decorate([
@@ -160,11 +153,6 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                     this.glyph = '';
                     this.value = '';
                 }
-                UIListItem.prototype.created = function (owningView, myView) { };
-                UIListItem.prototype.bind = function (bindingContext, overrideContext) { };
-                UIListItem.prototype.attached = function () { };
-                UIListItem.prototype.detached = function () { };
-                UIListItem.prototype.unbind = function () { };
                 UIListItem.prototype.hilightItem = function (evt) {
                     var h = this.element.parentElement.querySelector('.ui-list-item.ui-hilight');
                     if (h !== null)

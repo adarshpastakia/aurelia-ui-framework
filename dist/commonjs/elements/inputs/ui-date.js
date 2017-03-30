@@ -50,7 +50,6 @@ var UIDateView = (function () {
             this.type = 'dt';
         this.obLocale = ui_event_1.UIEvent.subscribe('i18n:locale:changed', function (payload) { return _this.buildDatePage(payload.newValue); });
     }
-    UIDateView.prototype.created = function (owningView, myView) { };
     UIDateView.prototype.bind = function (bindingContext, overrideContext) {
         if (this.date && moment(this.date).isValid())
             this.date = moment(this.date).toISOString();
@@ -69,7 +68,6 @@ var UIDateView = (function () {
     UIDateView.prototype.detached = function () {
         this.obLocale.dispose();
     };
-    UIDateView.prototype.unbind = function () { };
     UIDateView.prototype.dateChanged = function (newValue) {
         if (newValue && moment(newValue).isValid()) {
             var time = moment(newValue).second(0).millisecond(0);
@@ -361,7 +359,6 @@ var UIDateInput = (function (_super) {
         }
         return _this;
     }
-    UIDateInput.prototype.created = function (owningView, myView) { };
     UIDateInput.prototype.bind = function (bindingContext, overrideContext) {
         _super.prototype.bind.apply(this, arguments);
         if (!isEmpty(this.date) && moment(this.date).isValid()) {
@@ -382,7 +379,6 @@ var UIDateInput = (function (_super) {
         this.tether.dispose();
         this.obMouseup.dispose();
     };
-    UIDateInput.prototype.unbind = function () { };
     UIDateInput.prototype.dateChanged = function (newValue) {
         if (newValue && moment(newValue).isValid())
             this.elValue = moment(newValue).format(this.format);

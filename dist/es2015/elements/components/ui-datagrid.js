@@ -51,7 +51,6 @@ let UIDatagrid = class UIDatagrid {
         if (!element.hasAttribute('scroll'))
             this.element.classList.add('ui-auto-size');
     }
-    created(owningView, myView) { }
     bind(bindingContext, overrideContext) {
         this.columnsChanged(this.columns);
         this.dataChanged(this.data);
@@ -68,7 +67,6 @@ let UIDatagrid = class UIDatagrid {
         if (this.obPageChange)
             this.obPageChange.dispose();
     }
-    unbind() { }
     columnsChanged(newValue) {
         this.cols = _.sortBy(this.columns, 'locked');
     }
@@ -260,11 +258,6 @@ let UIPager = class UIPager {
         this.style = "chevron";
         this.totalPages = 1;
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() { }
-    detached() { }
-    unbind() { }
     fireChange() {
         UIEvent.fireEvent('change', this.element, this.page);
     }
@@ -298,11 +291,6 @@ let UIDGFilter = class UIDGFilter {
     constructor(element) {
         this.element = element;
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() { }
-    detached() { }
-    unbind() { }
 };
 UIDGFilter = __decorate([
     autoinject(),

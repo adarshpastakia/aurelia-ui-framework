@@ -1,12 +1,8 @@
-import { View } from 'aurelia-framework';
 export declare class UIOptionGroup {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
     bind(bindingContext: Object, overrideContext: Object): void;
     attached(): void;
-    detached(): void;
-    unbind(): void;
     value: any;
     name: string;
     cols: string;
@@ -17,11 +13,7 @@ export declare class UIOptionGroup {
 export declare class UICheckbox {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
     bind(bindingContext: Object, overrideContext: Object): void;
-    attached(): void;
-    detached(): void;
-    unbind(): void;
     checked: boolean;
     disabled: boolean;
     static seed: number;
@@ -33,11 +25,7 @@ export declare class UICheckbox {
 export declare class UIRadio {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
     bind(bindingContext: Object, overrideContext: Object): void;
-    attached(): void;
-    detached(): void;
-    unbind(): void;
     checked: boolean;
     name: string;
     value: string;
@@ -52,11 +40,7 @@ export declare class UIRadio {
 export declare class UISwitch {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
     bind(bindingContext: Object, overrideContext: Object): void;
-    attached(): void;
-    detached(): void;
-    unbind(): void;
     checked: boolean;
     value: any;
     size: string;

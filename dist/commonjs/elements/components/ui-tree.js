@@ -26,14 +26,10 @@ var UITree = (function () {
         if ((this.searchable = element.hasAttribute('searchable')))
             element.classList.add('has-search');
     }
-    UITree.prototype.created = function (owningView, myView) { };
     UITree.prototype.bind = function (bindingContext, overrideContext) {
         this.modelChanged(this.model || []);
         this.valueChanged(this.value);
     };
-    UITree.prototype.attached = function () { };
-    UITree.prototype.detached = function () { };
-    UITree.prototype.unbind = function () { };
     UITree.prototype.valueChanged = function (newValue) {
         var _this = this;
         if (this.ignoreChange)
@@ -265,11 +261,6 @@ var TreeNode = (function () {
         this.element = element;
         this.hideByCount = true;
     }
-    TreeNode.prototype.created = function (owningView, myView) { };
-    TreeNode.prototype.bind = function (bindingContext, overrideContext) { };
-    TreeNode.prototype.attached = function () { };
-    TreeNode.prototype.detached = function () { };
-    TreeNode.prototype.unbind = function () { };
     Object.defineProperty(TreeNode.prototype, "canHideByCount", {
         get: function () {
             return this.options.maxCount > 0 && this.node.children.length > this.options.maxCount;

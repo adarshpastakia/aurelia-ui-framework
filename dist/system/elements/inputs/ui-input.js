@@ -115,7 +115,6 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                         _this.type = 'password';
                     return _this;
                 }
-                UIInput.prototype.created = function (owningView, myView) { };
                 UIInput.prototype.bind = function (bindingContext, overrideContext) {
                     _super.prototype.bind.apply(this, arguments);
                     if (this.number)
@@ -123,9 +122,6 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                     if (this.decimal)
                         this.decimalChanged(this.decimal);
                 };
-                UIInput.prototype.attached = function () { };
-                UIInput.prototype.detached = function () { };
-                UIInput.prototype.unbind = function () { };
                 UIInput.prototype.valueChanged = function (newValue) {
                     var _this = this;
                     if (this.ignore)
@@ -241,15 +237,11 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                     this.files = [];
                     this.dragging = false;
                 }
-                UIFileInput.prototype.created = function (owningView, myView) { };
-                UIFileInput.prototype.bind = function (bindingContext, overrideContext) { };
                 UIFileInput.prototype.attached = function () {
                     this.files = [];
                     this.inputEl.value = '';
                     this.inputEl.draggedFiles = this.files;
                 };
-                UIFileInput.prototype.detached = function () { };
-                UIFileInput.prototype.unbind = function () { };
                 UIFileInput.prototype.dragEnter = function ($event) {
                     this.dragging = true;
                     $event.preventDefault();

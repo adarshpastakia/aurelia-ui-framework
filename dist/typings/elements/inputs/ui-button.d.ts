@@ -1,12 +1,9 @@
-import { View } from 'aurelia-framework';
 export declare class UIButton {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
     bind(bindingContext: Object, overrideContext: Object): void;
     attached(): void;
     detached(): void;
-    unbind(): void;
     glyph: string;
     label: string;
     value: string;
@@ -25,11 +22,7 @@ export declare class UIButton {
 export declare class UIButtonGroup {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
     bind(bindingContext: Object, overrideContext: Object): void;
-    attached(): void;
-    detached(): void;
-    unbind(): void;
     buttons: any[];
     value: string;
     disabled: boolean;

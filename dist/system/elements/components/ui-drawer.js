@@ -29,7 +29,6 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
                         element.addEventListener('mouseup', function (e) { if (e.button == 0)
                             _this.closeDrawer(); });
                 }
-                UIDrawer.prototype.created = function (owningView, myView) { };
                 UIDrawer.prototype.bind = function (bindingContext, overrideContext) {
                     if (this.element.hasAttribute('scroll'))
                         this.bodyCls += ' ui-scroll';
@@ -38,9 +37,6 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
                     if (this.position == 'end')
                         this.glyph = 'glyph-arrow-right';
                 };
-                UIDrawer.prototype.attached = function () { };
-                UIDrawer.prototype.detached = function () { };
-                UIDrawer.prototype.unbind = function () { };
                 UIDrawer.prototype.closeDrawer = function () {
                     this.element.classList.remove('show');
                 };
@@ -62,11 +58,6 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
                     this.element = element;
                     this.glyph = 'glyph-handle-menu';
                 }
-                UIDrawerToggle.prototype.created = function (owningView, myView) { };
-                UIDrawerToggle.prototype.bind = function (bindingContext, overrideContext) { };
-                UIDrawerToggle.prototype.attached = function () { };
-                UIDrawerToggle.prototype.detached = function () { };
-                UIDrawerToggle.prototype.unbind = function () { };
                 UIDrawerToggle.prototype.openDrawer = function (evt) {
                     if (evt.button != 0)
                         return true;

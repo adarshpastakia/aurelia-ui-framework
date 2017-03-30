@@ -1,13 +1,10 @@
-import { View } from 'aurelia-framework';
 import { UIBaseInput } from "./ui-input";
 export declare class UIDateView {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
     bind(bindingContext: Object, overrideContext: Object): void;
     attached(): void;
     detached(): void;
-    unbind(): void;
     date: string;
     minDate: any;
     maxDate: any;
@@ -44,11 +41,9 @@ export declare class UIDateView {
 export declare class UIDateInput extends UIBaseInput {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
     bind(bindingContext: Object, overrideContext: Object): void;
     attached(): void;
     detached(): void;
-    unbind(): void;
     date: string;
     minDate: any;
     maxDate: any;

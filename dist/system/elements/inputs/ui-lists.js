@@ -329,7 +329,6 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                     _this.clear = element.hasAttribute('clear');
                     return _this;
                 }
-                UICombo.prototype.created = function (owningView, myView) { };
                 UICombo.prototype.bind = function (bindingContext, overrideContext) {
                     _super.prototype.bind.call(this, bindingContext, overrideContext);
                 };
@@ -339,7 +338,6 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                 UICombo.prototype.detached = function () {
                     _super.prototype.detached.call(this);
                 };
-                UICombo.prototype.unbind = function () { };
                 UICombo.prototype.fireSelect = function (model) {
                     if (model) {
                         this.model = model;
@@ -439,7 +437,6 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                     _this.clear = element.hasAttribute('clear');
                     return _this;
                 }
-                UITags.prototype.created = function (owningView, myView) { };
                 UITags.prototype.bind = function (bindingContext, overrideContext) {
                     _super.prototype.bind.call(this, bindingContext, overrideContext);
                 };
@@ -449,7 +446,6 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                 UITags.prototype.detached = function () {
                     _super.prototype.detached.call(this);
                 };
-                UITags.prototype.unbind = function () { };
                 UITags.prototype.getDisplay = function (tag) {
                     return _['findChildren'](this.original, 'items', 'value', tag).text || tag;
                 };
@@ -581,7 +577,6 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                         _this.element.classList.add('ui-fill');
                     return _this;
                 }
-                UIList.prototype.created = function (owningView, myView) { };
                 UIList.prototype.bind = function (bindingContext, overrideContext) {
                     _super.prototype.bind.call(this, bindingContext, overrideContext);
                 };
@@ -591,7 +586,6 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                 UIList.prototype.detached = function () {
                     _super.prototype.detached.call(this);
                 };
-                UIList.prototype.unbind = function () { };
                 UIList.prototype.fireSelect = function (model) {
                     _super.prototype.fireSelect.call(this, model);
                     if (model) {
@@ -680,11 +674,6 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                     if (this.element.hasAttribute('fill'))
                         this.element.classList.add('ui-fill');
                 }
-                UIReorder.prototype.created = function (owningView, myView) { };
-                UIReorder.prototype.bind = function (bindingContext, overrideContext) { };
-                UIReorder.prototype.attached = function () { };
-                UIReorder.prototype.detached = function () { };
-                UIReorder.prototype.unbind = function () { };
                 UIReorder.prototype.startDrag = function (opt, $event) {
                     var _this = this;
                     if ($event.button != 0)

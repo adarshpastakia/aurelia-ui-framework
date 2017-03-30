@@ -170,7 +170,7 @@ var UIApplication = (function () {
         if (typeof config === 'string')
             config = { message: config };
         config.theme = 'success';
-        config.glyph = config.glyph || 'ui-alert-exclaim';
+        config.glyph = config.glyph || 'glyph-alert-exclaim';
         if (container)
             config.container = container;
         ui_utils_1.UIUtils.toast(config);
@@ -179,7 +179,7 @@ var UIApplication = (function () {
         if (typeof config === 'string')
             config = { message: config };
         config.theme = 'danger';
-        config.glyph = config.glyph || 'ui-alert-error';
+        config.glyph = config.glyph || 'glyph-alert-error';
         if (container)
             config.container = container;
         ui_utils_1.UIUtils.toast(config);
@@ -187,13 +187,13 @@ var UIApplication = (function () {
     UIApplication.prototype.alert = function (config) {
         if (typeof config === 'string')
             config = { message: config };
-        config.glyph = config.glyph || 'ui-alert-info';
+        config.glyph = config.glyph || 'glyph-alert-info';
         return ui_utils_1.UIUtils.alert(config);
     };
     UIApplication.prototype.confirm = function (config) {
         if (typeof config === 'string')
             config = { message: config };
-        config.glyph = config.glyph || 'ui-alert-question';
+        config.glyph = config.glyph || 'glyph-alert-question';
         return ui_utils_1.UIUtils.confirm(config);
     };
     UIApplication.prototype.prompt = function (config) {

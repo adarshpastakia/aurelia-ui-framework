@@ -69,7 +69,6 @@ let UITextarea = class UITextarea extends UIBaseInput {
         this.clear = element.hasAttribute('clear');
         this.counter = element.hasAttribute('counter');
     }
-    created(owningView, myView) { }
     bind(bindingContext, overrideContext) {
         super.bind.apply(this, arguments);
         this.autoCompleteChanged(this.autoComplete);
@@ -82,7 +81,6 @@ let UITextarea = class UITextarea extends UIBaseInput {
         this.tether.dispose();
         this.obMouseup.dispose();
     }
-    unbind() { }
     valueChanged(newValue) { }
     autoCompleteChanged(newValue) {
         if (_.isString(newValue))

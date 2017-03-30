@@ -130,8 +130,6 @@ System.register(["aurelia-framework", "../../utils/ui-utils", "../../utils/ui-ev
                         element.classList.add('noborder');
                     this.noTabs = element.hasAttribute('notabs');
                 }
-                UITabPanel.prototype.created = function (owningView, myView) { };
-                UITabPanel.prototype.bind = function (bindingContext, overrideContext) { };
                 UITabPanel.prototype.attached = function () {
                     var _this = this;
                     if (!this.noTabs) {
@@ -148,7 +146,6 @@ System.register(["aurelia-framework", "../../utils/ui-utils", "../../utils/ui-ev
                         this.obResize.dispose();
                     }
                 };
-                UITabPanel.prototype.unbind = function () { };
                 UITabPanel.prototype.tabsChanged = function () {
                     var _this = this;
                     if (!this.activeTabEl && this.tabs.length > 0 && _.find(this.tabs, ['active', true]) == null)
@@ -272,13 +269,9 @@ System.register(["aurelia-framework", "../../utils/ui-utils", "../../utils/ui-ev
                     this.id = 'tab-' + (UITab_1.seed++);
                     this.closeable = element.hasAttribute('closeable');
                 }
-                UITab.prototype.created = function (owningView, myView) { };
                 UITab.prototype.bind = function (bindingContext, overrideContext) {
                     this.disabled = isTrue(this.disabled);
                 };
-                UITab.prototype.attached = function () { };
-                UITab.prototype.detached = function () { };
-                UITab.prototype.unbind = function () { };
                 UITab.prototype.remove = function () {
                     aurelia_framework_1.DOM.removeNode(this.element);
                 };

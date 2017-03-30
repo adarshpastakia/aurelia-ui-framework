@@ -43,7 +43,6 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                     else
                         element.classList.add('light');
                 }
-                UIToast.prototype.created = function (owningView, myView) { };
                 UIToast.prototype.bind = function (bindingContext, overrideContext) {
                     var _this = this;
                     if (bindingContext)
@@ -55,9 +54,6 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                         }
                     });
                 };
-                UIToast.prototype.attached = function () { };
-                UIToast.prototype.detached = function () { };
-                UIToast.prototype.unbind = function () { };
                 UIToast.prototype.startClose = function (force) {
                     var _this = this;
                     this.element.classList.remove('open');
@@ -90,7 +86,6 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                     this.confirm = false;
                     this.confirm = element.hasAttribute('confirm');
                 }
-                UIAlert.prototype.created = function (owningView, myView) { };
                 UIAlert.prototype.bind = function (bindingContext, overrideContext) {
                     var _this = this;
                     if (bindingContext)
@@ -101,9 +96,6 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                             _this.focusBlock.focus();
                     });
                 };
-                UIAlert.prototype.attached = function () { };
-                UIAlert.prototype.detached = function () { };
-                UIAlert.prototype.unbind = function () { };
                 UIAlert.prototype.closeAlert = function (b) {
                     var _this = this;
                     this.element.classList.remove('open');
@@ -161,7 +153,6 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                     this.value = '';
                     this.multiline = element.hasAttribute('multiline');
                 }
-                UIPrompt.prototype.created = function (owningView, myView) { };
                 UIPrompt.prototype.bind = function (bindingContext, overrideContext) {
                     var _this = this;
                     if (bindingContext)
@@ -172,9 +163,6 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                             _this.focusBlock.focus();
                     });
                 };
-                UIPrompt.prototype.attached = function () { };
-                UIPrompt.prototype.detached = function () { };
-                UIPrompt.prototype.unbind = function () { };
                 UIPrompt.prototype.closeAlert = function (b) {
                     var _this = this;
                     if (b && isEmpty(this.value))

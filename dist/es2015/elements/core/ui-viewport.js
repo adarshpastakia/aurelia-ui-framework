@@ -28,8 +28,6 @@ let UIViewport = class UIViewport {
         };
         this.router = UIUtils.auContainer.get(AppRouter);
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
     attached() {
         UIUtils.dialogContainer = this.dialogContainer;
         UIUtils.overlayContainer = this.overlayContainer;
@@ -38,8 +36,6 @@ let UIViewport = class UIViewport {
         if (document.querySelector('.ui-splash'))
             DOM.removeNode(document.querySelector('.ui-splash'));
     }
-    detached() { }
-    unbind() { }
 };
 UIViewport = __decorate([
     autoinject(),
@@ -65,11 +61,6 @@ let UIRouterView = class UIRouterView {
         this.name = 'default';
         this.class = '';
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() { }
-    detached() { }
-    unbind() { }
 };
 __decorate([
     bindable(),
@@ -92,11 +83,6 @@ let UIAppHeader = class UIAppHeader {
         this.element = element;
         this.class = '';
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() { }
-    detached() { }
-    unbind() { }
 };
 __decorate([
     bindable(),
@@ -115,11 +101,6 @@ let UIAppFooter = class UIAppFooter {
         this.element = element;
         this.class = '';
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() { }
-    detached() { }
-    unbind() { }
 };
 __decorate([
     bindable(),
@@ -138,11 +119,6 @@ let UIAppQuickLinks = class UIAppQuickLinks {
         this.element = element;
         this.class = '';
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() { }
-    detached() { }
-    unbind() { }
 };
 __decorate([
     bindable(),
@@ -161,11 +137,6 @@ let UIAppTitle = class UIAppTitle {
         this.element = element;
         this.class = '';
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() { }
-    detached() { }
-    unbind() { }
 };
 __decorate([
     bindable(),

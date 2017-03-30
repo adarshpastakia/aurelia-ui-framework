@@ -1,4 +1,3 @@
-import { View } from 'aurelia-framework';
 export declare class BaseListInput {
     value: string;
     options: any[];
@@ -49,11 +48,9 @@ export declare class BaseListInput {
 export declare class UICombo extends BaseListInput {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
     bind(bindingContext: Object, overrideContext: Object): void;
     attached(): void;
     detached(): void;
-    unbind(): void;
     value: string;
     model: any;
     errors: any;
@@ -75,11 +72,9 @@ export declare class UICombo extends BaseListInput {
 export declare class UITags extends BaseListInput {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
     bind(bindingContext: Object, overrideContext: Object): void;
     attached(): void;
     detached(): void;
-    unbind(): void;
     value: string;
     errors: any;
     disabled: boolean;
@@ -103,11 +98,9 @@ export declare class UITags extends BaseListInput {
 export declare class UIList extends BaseListInput {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
     bind(bindingContext: Object, overrideContext: Object): void;
     attached(): void;
     detached(): void;
-    unbind(): void;
     value: string;
     model: any;
     errors: any;
@@ -129,11 +122,6 @@ export declare class UIList extends BaseListInput {
 export declare class UIReorder {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
-    bind(bindingContext: Object, overrideContext: Object): void;
-    attached(): void;
-    detached(): void;
-    unbind(): void;
     options: Array<any>;
     displayProperty: any;
     private startY;

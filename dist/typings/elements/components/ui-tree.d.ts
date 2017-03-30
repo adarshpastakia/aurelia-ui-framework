@@ -1,13 +1,8 @@
-import { View } from 'aurelia-framework';
 import { UITreeOptions, UITreeModel } from "../../utils/ui-tree-model";
 export declare class UITree {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
     bind(bindingContext: Object, overrideContext: Object): void;
-    attached(): void;
-    detached(): void;
-    unbind(): void;
     value: string;
     model: any[];
     options: UITreeOptions;
@@ -43,11 +38,6 @@ export declare class UITree {
 export declare class TreeNode {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
-    bind(bindingContext: Object, overrideContext: Object): void;
-    attached(): void;
-    detached(): void;
-    unbind(): void;
     node: UITreeModel;
     options: UITreeOptions;
     hideByCount: boolean;

@@ -1,4 +1,3 @@
-import { View } from 'aurelia-framework';
 export declare class UIBaseInput {
     value: string;
     inputEl: any;
@@ -17,11 +16,7 @@ export declare class UIBaseInput {
 export declare class UIInput extends UIBaseInput {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
     bind(bindingContext: Object, overrideContext: Object): void;
-    attached(): void;
-    detached(): void;
-    unbind(): void;
     value: string;
     number: any;
     decimal: any;
@@ -50,11 +45,7 @@ export declare class UIFileInput {
     maxFiles: number;
     fileTypes: string;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
-    bind(bindingContext: Object, overrideContext: Object): void;
     attached(): void;
-    detached(): void;
-    unbind(): void;
     inputEl: any;
     files: any[];
     dragging: boolean;

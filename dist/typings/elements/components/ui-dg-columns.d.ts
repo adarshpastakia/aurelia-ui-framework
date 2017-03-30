@@ -1,4 +1,3 @@
-import { View } from 'aurelia-framework';
 export declare class UIDataColumn {
     element: Element;
     constructor(element: Element);
@@ -26,11 +25,6 @@ export declare class UIDGColumn extends UIDataColumn {
     element: Element;
     type: string;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
-    bind(bindingContext: Object, overrideContext: Object): void;
-    attached(): void;
-    detached(): void;
-    unbind(): void;
     dataId: any;
     width: any;
     minWidth: any;
@@ -45,11 +39,6 @@ export declare class UIDGGlyph extends UIDataColumn {
     element: Element;
     type: string;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
-    bind(bindingContext: Object, overrideContext: Object): void;
-    attached(): void;
-    detached(): void;
-    unbind(): void;
     dataId: any;
     width: string;
     minWidth: any;
@@ -65,11 +54,6 @@ export declare class UIDGLink extends UIDataColumn {
     element: Element;
     type: string;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
-    bind(bindingContext: Object, overrideContext: Object): void;
-    attached(): void;
-    detached(): void;
-    unbind(): void;
     dataId: any;
     width: any;
     minWidth: any;
@@ -86,11 +70,6 @@ export declare class UIDGButton extends UIDataColumn {
     element: Element;
     type: string;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
-    bind(bindingContext: Object, overrideContext: Object): void;
-    attached(): void;
-    detached(): void;
-    unbind(): void;
     dataId: any;
     width: any;
     minWidth: any;

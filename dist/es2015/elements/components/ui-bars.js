@@ -30,11 +30,6 @@ let UIToolbar = class UIToolbar {
         if (element.hasAttribute('start'))
             element.classList.add('ui-start');
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() { }
-    detached() { }
-    unbind() { }
 };
 UIToolbar = __decorate([
     autoinject(),
@@ -47,11 +42,6 @@ let UIDivider = class UIDivider {
     constructor(element) {
         this.element = element;
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() { }
-    detached() { }
-    unbind() { }
 };
 UIDivider = __decorate([
     autoinject(),
@@ -102,11 +92,6 @@ let UIStatsbar = class UIStatsbar {
         if (element.hasAttribute('warning-bg'))
             element.classList.add('warning-bg');
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() { }
-    detached() { }
-    unbind() { }
 };
 UIStatsbar = __decorate([
     autoinject(),
@@ -155,11 +140,6 @@ let UIStat = class UIStat {
         if (element.hasAttribute('warning-bg'))
             element.classList.add('warning-bg');
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() { }
-    detached() { }
-    unbind() { }
 };
 __decorate([
     bindable(),

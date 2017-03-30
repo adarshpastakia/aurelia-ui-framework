@@ -37,7 +37,6 @@ let UIDateView = class UIDateView {
             this.type = 'dt';
         this.obLocale = UIEvent.subscribe('i18n:locale:changed', payload => this.buildDatePage(payload.newValue));
     }
-    created(owningView, myView) { }
     bind(bindingContext, overrideContext) {
         if (this.date && moment(this.date).isValid())
             this.date = moment(this.date).toISOString();
@@ -56,7 +55,6 @@ let UIDateView = class UIDateView {
     detached() {
         this.obLocale.dispose();
     }
-    unbind() { }
     dateChanged(newValue) {
         if (newValue && moment(newValue).isValid()) {
             let time = moment(newValue).second(0).millisecond(0);
@@ -399,7 +397,6 @@ let UIDateInput = class UIDateInput extends UIBaseInput {
             this.format = 'DD MMM YYYY hh:mm A';
         }
     }
-    created(owningView, myView) { }
     bind(bindingContext, overrideContext) {
         super.bind.apply(this, arguments);
         if (!isEmpty(this.date) && moment(this.date).isValid()) {
@@ -419,7 +416,6 @@ let UIDateInput = class UIDateInput extends UIBaseInput {
         this.tether.dispose();
         this.obMouseup.dispose();
     }
-    unbind() { }
     dateChanged(newValue) {
         if (newValue && moment(newValue).isValid())
             this.elValue = moment(newValue).format(this.format);

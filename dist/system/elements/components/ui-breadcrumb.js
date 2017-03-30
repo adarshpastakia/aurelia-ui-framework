@@ -33,11 +33,6 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                     if (element.hasAttribute('secondary'))
                         element.classList.add('secondary');
                 }
-                UIBreadcrumb.prototype.created = function (owningView, myView) { };
-                UIBreadcrumb.prototype.bind = function (bindingContext, overrideContext) { };
-                UIBreadcrumb.prototype.attached = function () { };
-                UIBreadcrumb.prototype.detached = function () { };
-                UIBreadcrumb.prototype.unbind = function () { };
                 UIBreadcrumb.prototype.fireChange = function ($event) {
                     $event.cancelBubble = true;
                     $event.stopPropagation();
@@ -60,11 +55,6 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                     this.id = '';
                     this.href = 'javascript:;';
                 }
-                UICrumb.prototype.created = function (owningView, myView) { };
-                UICrumb.prototype.bind = function (bindingContext, overrideContext) { };
-                UICrumb.prototype.attached = function () { };
-                UICrumb.prototype.detached = function () { };
-                UICrumb.prototype.unbind = function () { };
                 UICrumb.prototype.fireClick = function ($event) {
                     $event.cancelBubble = true;
                     $event.stopPropagation();

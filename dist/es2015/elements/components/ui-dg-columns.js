@@ -151,11 +151,6 @@ let UIDGColumn = class UIDGColumn extends UIDataColumn {
         this.class = '';
         this.summary = '';
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() { }
-    detached() { }
-    unbind() { }
 };
 __decorate([
     bindable(),
@@ -208,11 +203,6 @@ let UIDGGlyph = class UIDGGlyph extends UIDataColumn {
         this.width = '2em';
         this.class = '';
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() { }
-    detached() { }
-    unbind() { }
     getGlyph(value, record) {
         if (isFunction(this.glyph))
             return this.glyph({ value, record });
@@ -275,11 +265,6 @@ let UIDGLink = class UIDGLink extends UIDataColumn {
         this.class = '';
         this.disabled = null;
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() { }
-    detached() { }
-    unbind() { }
     isDisabled(value, record) {
         if (isFunction(this.disabled))
             return this.disabled(({ value, record }));
@@ -350,11 +335,6 @@ let UIDGButton = class UIDGButton extends UIDataColumn {
         this.disabled = null;
         this.align = 'ui-text-center';
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() { }
-    detached() { }
-    unbind() { }
     isDisabled(value, record) {
         if (isFunction(this.disabled))
             return this.disabled(({ value, record }));

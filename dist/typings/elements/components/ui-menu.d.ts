@@ -1,12 +1,8 @@
-import { View } from 'aurelia-framework';
 export declare class UIMenubar {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
-    bind(bindingContext: Object, overrideContext: Object): void;
     attached(): void;
     detached(): void;
-    unbind(): void;
     private tether;
     private isOverflow;
     private wrapper;
@@ -20,39 +16,21 @@ export declare class UIMenubar {
 export declare class UIMenu {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
-    bind(bindingContext: Object, overrideContext: Object): void;
-    attached(): void;
-    detached(): void;
-    unbind(): void;
 }
 export declare class UIMenuSection {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
-    bind(bindingContext: Object, overrideContext: Object): void;
-    attached(): void;
-    detached(): void;
-    unbind(): void;
 }
 export declare class UIMenuGroup {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
-    bind(bindingContext: Object, overrideContext: Object): void;
-    attached(): void;
-    detached(): void;
-    unbind(): void;
     label: string;
 }
 export declare class UIMenuItem {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
     bind(bindingContext: Object, overrideContext: Object): void;
-    attached(): void;
-    detached(): void;
-    unbind(): void;
+    id: string;
     glyph: string;
     class: string;
     active: boolean;

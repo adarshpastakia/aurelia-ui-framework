@@ -28,15 +28,11 @@ let UIPhone = class UIPhone extends UIBaseInput {
         if (this.national = element.hasAttribute('country') || element.hasAttribute('country.bind'))
             this.country = 'us';
     }
-    created(owningView, myView) { }
     bind(bindingContext, overrideContext) {
         super.bind.apply(this, arguments);
         this.countryChanged(this.country);
         UIEvent.queueTask(() => this.valueChanged(this.value));
     }
-    attached() { }
-    detached() { }
-    unbind() { }
     valueChanged(newValue) {
         if (this.ignore)
             return;

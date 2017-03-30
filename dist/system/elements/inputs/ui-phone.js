@@ -54,16 +54,12 @@ System.register(["aurelia-framework", "./ui-input", "../../utils/ui-event"], fun
                         _this.country = 'us';
                     return _this;
                 }
-                UIPhone.prototype.created = function (owningView, myView) { };
                 UIPhone.prototype.bind = function (bindingContext, overrideContext) {
                     var _this = this;
                     _super.prototype.bind.apply(this, arguments);
                     this.countryChanged(this.country);
                     ui_event_1.UIEvent.queueTask(function () { return _this.valueChanged(_this.value); });
                 };
-                UIPhone.prototype.attached = function () { };
-                UIPhone.prototype.detached = function () { };
-                UIPhone.prototype.unbind = function () { };
                 UIPhone.prototype.valueChanged = function (newValue) {
                     if (this.ignore)
                         return;

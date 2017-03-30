@@ -31,7 +31,6 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                         element.classList.add('ui-vertical');
                     this.name = "ui-optgroup-" + (UIOptionGroup_1.seed++);
                 }
-                UIOptionGroup.prototype.created = function (owningView, myView) { };
                 UIOptionGroup.prototype.bind = function (bindingContext, overrideContext) {
                     this.valueChanged(this.value);
                 };
@@ -40,8 +39,6 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                     for (var i = 0; i < els.length; i++)
                         els[i]['name'] = this.name;
                 };
-                UIOptionGroup.prototype.detached = function () { };
-                UIOptionGroup.prototype.unbind = function () { };
                 UIOptionGroup.prototype.valueChanged = function (newValue) {
                     var _this = this;
                     ui_event_1.UIEvent.queueTask(function () {
@@ -84,14 +81,10 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                     this.isDisabled = false;
                     this.for = 'ui-checkbox-' + (UICheckbox_1.seed++);
                 }
-                UICheckbox.prototype.created = function (owningView, myView) { };
                 UICheckbox.prototype.bind = function (bindingContext, overrideContext) {
                     this.checked = isTrue(this.checked);
                     this.disabledChanged(this.disabled);
                 };
-                UICheckbox.prototype.attached = function () { };
-                UICheckbox.prototype.detached = function () { };
-                UICheckbox.prototype.unbind = function () { };
                 UICheckbox.prototype.disabledChanged = function (newValue) {
                     this.element.classList[(this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');
                 };
@@ -127,13 +120,9 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                     this.isDisabled = false;
                     this.for = 'ui-radio-' + (UIRadio_1.seed++);
                 }
-                UIRadio.prototype.created = function (owningView, myView) { };
                 UIRadio.prototype.bind = function (bindingContext, overrideContext) {
                     this.disabledChanged(this.disabled);
                 };
-                UIRadio.prototype.attached = function () { };
-                UIRadio.prototype.detached = function () { };
-                UIRadio.prototype.unbind = function () { };
                 UIRadio.prototype.disabledChanged = function (newValue) {
                     this.element.classList[(this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');
                 };
@@ -202,15 +191,11 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                     else if (this.element.hasAttribute('warning'))
                         this.theme = 'warning';
                 }
-                UISwitch.prototype.created = function (owningView, myView) { };
                 UISwitch.prototype.bind = function (bindingContext, overrideContext) {
                     this.checked = isTrue(this.checked) || (this.value == this.onValue);
                     this.value = isTrue(this.checked) ? this.onValue : this.offValue;
                     this.disabled = isTrue(this.disabled);
                 };
-                UISwitch.prototype.attached = function () { };
-                UISwitch.prototype.detached = function () { };
-                UISwitch.prototype.unbind = function () { };
                 UISwitch.prototype.checkedChanged = function (newValue) {
                     this.value = newValue ? this.onValue : this.offValue;
                 };

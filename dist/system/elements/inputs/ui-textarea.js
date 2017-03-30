@@ -99,7 +99,6 @@ System.register(["aurelia-framework", "./ui-input", "../../utils/ui-event", "../
                     _this.counter = element.hasAttribute('counter');
                     return _this;
                 }
-                UITextarea.prototype.created = function (owningView, myView) { };
                 UITextarea.prototype.bind = function (bindingContext, overrideContext) {
                     _super.prototype.bind.apply(this, arguments);
                     this.autoCompleteChanged(this.autoComplete);
@@ -113,7 +112,6 @@ System.register(["aurelia-framework", "./ui-input", "../../utils/ui-event", "../
                     this.tether.dispose();
                     this.obMouseup.dispose();
                 };
-                UITextarea.prototype.unbind = function () { };
                 UITextarea.prototype.valueChanged = function (newValue) { };
                 UITextarea.prototype.autoCompleteChanged = function (newValue) {
                     if (_.isString(newValue))

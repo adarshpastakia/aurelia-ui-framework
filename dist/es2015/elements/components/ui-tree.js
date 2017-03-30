@@ -24,14 +24,10 @@ let UITree = class UITree {
         if ((this.searchable = element.hasAttribute('searchable')))
             element.classList.add('has-search');
     }
-    created(owningView, myView) { }
     bind(bindingContext, overrideContext) {
         this.modelChanged(this.model || []);
         this.valueChanged(this.value);
     }
-    attached() { }
-    detached() { }
-    unbind() { }
     valueChanged(newValue) {
         if (this.ignoreChange)
             return;
@@ -253,11 +249,6 @@ let TreeNode = class TreeNode {
         this.element = element;
         this.hideByCount = true;
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() { }
-    detached() { }
-    unbind() { }
     get canHideByCount() {
         return this.options.maxCount > 0 && this.node.children.length > this.options.maxCount;
     }

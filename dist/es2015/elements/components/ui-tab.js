@@ -106,8 +106,6 @@ let UITabPanel = class UITabPanel {
             element.classList.add('noborder');
         this.noTabs = element.hasAttribute('notabs');
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
     attached() {
         if (!this.noTabs) {
             this.obResize = UIEvent.subscribe('windowresize', () => this.arrange());
@@ -123,7 +121,6 @@ let UITabPanel = class UITabPanel {
             this.obResize.dispose();
         }
     }
-    unbind() { }
     tabsChanged() {
         if (!this.activeTabEl && this.tabs.length > 0 && _.find(this.tabs, ['active', true]) == null)
             (this.activeTabEl = _.find(this.tabs, ['disabled', false])).active = true;
@@ -256,13 +253,9 @@ let UITab = UITab_1 = class UITab {
         this.id = 'tab-' + (UITab_1.seed++);
         this.closeable = element.hasAttribute('closeable');
     }
-    created(owningView, myView) { }
     bind(bindingContext, overrideContext) {
         this.disabled = isTrue(this.disabled);
     }
-    attached() { }
-    detached() { }
-    unbind() { }
     remove() {
         DOM.removeNode(this.element);
     }

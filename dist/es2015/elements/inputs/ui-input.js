@@ -88,7 +88,6 @@ let UIInput = class UIInput extends UIBaseInput {
         if (element.hasAttribute('password'))
             this.type = 'password';
     }
-    created(owningView, myView) { }
     bind(bindingContext, overrideContext) {
         super.bind.apply(this, arguments);
         if (this.number)
@@ -96,9 +95,6 @@ let UIInput = class UIInput extends UIBaseInput {
         if (this.decimal)
             this.decimalChanged(this.decimal);
     }
-    attached() { }
-    detached() { }
-    unbind() { }
     valueChanged(newValue) {
         if (this.ignore)
             return;
@@ -220,15 +216,11 @@ let UIFileInput = class UIFileInput {
         this.files = [];
         this.dragging = false;
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
     attached() {
         this.files = [];
         this.inputEl.value = '';
         this.inputEl.draggedFiles = this.files;
     }
-    detached() { }
-    unbind() { }
     dragEnter($event) {
         this.dragging = true;
         $event.preventDefault();

@@ -15,11 +15,6 @@ let UIPage = class UIPage {
         if (element.hasAttribute('animate'))
             element.classList.add('au-animate');
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() { }
-    detached() { }
-    unbind() { }
 };
 __decorate([
     bindable(),
@@ -54,11 +49,6 @@ let UISection = class UISection {
         if (element.hasAttribute('middle'))
             element.classList.add('ui-align-middle');
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() { }
-    detached() { }
-    unbind() { }
 };
 UISection = __decorate([
     autoinject(),
@@ -77,11 +67,6 @@ let UIContent = class UIContent {
         if (element.hasAttribute('scroll'))
             element.classList.add('ui-scroll');
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() { }
-    detached() { }
-    unbind() { }
 };
 UIContent = __decorate([
     autoinject(),
@@ -95,11 +80,6 @@ let UIGlyph = class UIGlyph {
         this.element = element;
         this.glyph = '';
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() { }
-    detached() { }
-    unbind() { }
 };
 __decorate([
     bindable(),

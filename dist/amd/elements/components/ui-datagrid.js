@@ -46,7 +46,6 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "loda
             if (!element.hasAttribute('scroll'))
                 this.element.classList.add('ui-auto-size');
         }
-        UIDatagrid.prototype.created = function (owningView, myView) { };
         UIDatagrid.prototype.bind = function (bindingContext, overrideContext) {
             var _this = this;
             this.columnsChanged(this.columns);
@@ -64,7 +63,6 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "loda
             if (this.obPageChange)
                 this.obPageChange.dispose();
         };
-        UIDatagrid.prototype.unbind = function () { };
         UIDatagrid.prototype.columnsChanged = function (newValue) {
             this.cols = _.sortBy(this.columns, 'locked');
         };
@@ -211,11 +209,6 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "loda
             this.style = "chevron";
             this.totalPages = 1;
         }
-        UIPager.prototype.created = function (owningView, myView) { };
-        UIPager.prototype.bind = function (bindingContext, overrideContext) { };
-        UIPager.prototype.attached = function () { };
-        UIPager.prototype.detached = function () { };
-        UIPager.prototype.unbind = function () { };
         UIPager.prototype.fireChange = function () {
             ui_event_1.UIEvent.fireEvent('change', this.element, this.page);
         };
@@ -244,11 +237,6 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "loda
         function UIDGFilter(element) {
             this.element = element;
         }
-        UIDGFilter.prototype.created = function (owningView, myView) { };
-        UIDGFilter.prototype.bind = function (bindingContext, overrideContext) { };
-        UIDGFilter.prototype.attached = function () { };
-        UIDGFilter.prototype.detached = function () { };
-        UIDGFilter.prototype.unbind = function () { };
         return UIDGFilter;
     }());
     UIDGFilter = __decorate([

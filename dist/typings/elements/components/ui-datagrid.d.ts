@@ -1,4 +1,3 @@
-import { View } from 'aurelia-framework';
 export declare class UIDgRow {
     bind(bindingContext: Object, overrideContext: Object): void;
     cols: any;
@@ -7,11 +6,9 @@ export declare class UIDgRow {
 export declare class UIDatagrid {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
     bind(bindingContext: Object, overrideContext: Object): void;
     attached(): void;
     detached(): void;
-    unbind(): void;
     columns: any;
     data: any[];
     loaded: boolean;
@@ -55,11 +52,6 @@ export declare class UIDGEmpty {
 export declare class UIPager {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
-    bind(bindingContext: Object, overrideContext: Object): void;
-    attached(): void;
-    detached(): void;
-    unbind(): void;
     page: number;
     style: string;
     totalPages: number;
@@ -68,9 +60,4 @@ export declare class UIPager {
 export declare class UIDGFilter {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
-    bind(bindingContext: Object, overrideContext: Object): void;
-    attached(): void;
-    detached(): void;
-    unbind(): void;
 }

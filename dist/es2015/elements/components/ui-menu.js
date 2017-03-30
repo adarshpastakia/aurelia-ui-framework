@@ -15,8 +15,6 @@ let UIMenubar = class UIMenubar {
         this.element = element;
         this.isOverflow = false;
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
     attached() {
         this.obResize = UIEvent.subscribe('windowresize', () => this.arrange());
         this.obClick = UIEvent.subscribe('mouseclick', () => this.overflow.classList.remove('ui-open'));
@@ -28,7 +26,6 @@ let UIMenubar = class UIMenubar {
         this.obClick.dispose();
         this.obResize.dispose();
     }
-    unbind() { }
     arrange() {
         this.overflow.classList.remove('ui-open');
         for (let i = 0, c = this.overflow['children']; i < c.length; i++) {
@@ -72,11 +69,6 @@ let UIMenu = class UIMenu {
     constructor(element) {
         this.element = element;
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() { }
-    detached() { }
-    unbind() { }
 };
 UIMenu = __decorate([
     autoinject(),
@@ -89,11 +81,6 @@ let UIMenuSection = class UIMenuSection {
     constructor(element) {
         this.element = element;
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() { }
-    detached() { }
-    unbind() { }
 };
 UIMenuSection = __decorate([
     autoinject(),
@@ -107,11 +94,6 @@ let UIMenuGroup = class UIMenuGroup {
         this.element = element;
         this.label = '';
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() { }
-    detached() { }
-    unbind() { }
 };
 __decorate([
     bindable(),
@@ -127,27 +109,30 @@ export { UIMenuGroup };
 let UIMenuItem = class UIMenuItem {
     constructor(element) {
         this.element = element;
+        this.id = '';
         this.glyph = '';
         this.class = '';
         this.active = false;
         this.disabled = false;
         this.href = 'javascript:void(0)';
     }
-    created(owningView, myView) { }
     bind(bindingContext, overrideContext) {
         this.active = isTrue(this.active);
     }
-    attached() { }
-    detached() { }
-    unbind() { }
     click(evt) {
         if (evt.button != 0)
             return true;
         evt.cancelBubble = true;
         evt.stopPropagation();
-        return UIEvent.fireEvent('click', this.element);
+        if (this.href == 'javascript:void(0)')
+            return true;
+        return UIEvent.fireEvent('click', this.element, this.id);
     }
 };
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIMenuItem.prototype, "id", void 0);
 __decorate([
     bindable(),
     __metadata("design:type", Object)

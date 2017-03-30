@@ -32,7 +32,6 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event"], func
             else
                 element.classList.add('light');
         }
-        UIToast.prototype.created = function (owningView, myView) { };
         UIToast.prototype.bind = function (bindingContext, overrideContext) {
             var _this = this;
             if (bindingContext)
@@ -44,9 +43,6 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event"], func
                 }
             });
         };
-        UIToast.prototype.attached = function () { };
-        UIToast.prototype.detached = function () { };
-        UIToast.prototype.unbind = function () { };
         UIToast.prototype.startClose = function (force) {
             var _this = this;
             this.element.classList.remove('open');
@@ -79,7 +75,6 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event"], func
             this.confirm = false;
             this.confirm = element.hasAttribute('confirm');
         }
-        UIAlert.prototype.created = function (owningView, myView) { };
         UIAlert.prototype.bind = function (bindingContext, overrideContext) {
             var _this = this;
             if (bindingContext)
@@ -90,9 +85,6 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event"], func
                     _this.focusBlock.focus();
             });
         };
-        UIAlert.prototype.attached = function () { };
-        UIAlert.prototype.detached = function () { };
-        UIAlert.prototype.unbind = function () { };
         UIAlert.prototype.closeAlert = function (b) {
             var _this = this;
             this.element.classList.remove('open');
@@ -150,7 +142,6 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event"], func
             this.value = '';
             this.multiline = element.hasAttribute('multiline');
         }
-        UIPrompt.prototype.created = function (owningView, myView) { };
         UIPrompt.prototype.bind = function (bindingContext, overrideContext) {
             var _this = this;
             if (bindingContext)
@@ -161,9 +152,6 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event"], func
                     _this.focusBlock.focus();
             });
         };
-        UIPrompt.prototype.attached = function () { };
-        UIPrompt.prototype.detached = function () { };
-        UIPrompt.prototype.unbind = function () { };
         UIPrompt.prototype.closeAlert = function (b) {
             var _this = this;
             if (b && isEmpty(this.value))

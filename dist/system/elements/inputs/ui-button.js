@@ -65,7 +65,6 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                     if (this.element.hasAttribute('round'))
                         this.element.classList.add('ui-round');
                 }
-                UIButton.prototype.created = function (owningView, myView) { };
                 UIButton.prototype.bind = function (bindingContext, overrideContext) {
                     this.busy = isTrue(this.busy);
                     this.disabled = isTrue(this.disabled);
@@ -96,7 +95,6 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                     if (this.dropdown)
                         aurelia_framework_1.DOM.removeNode(this.dropdown);
                 };
-                UIButton.prototype.unbind = function () { };
                 UIButton.prototype.disable = function (b) {
                     this.element.classList[(this.isDisabled = (b || this.disabled)) ? 'add' : 'remove']('ui-disabled');
                 };
@@ -181,13 +179,9 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                     if (this.element.hasAttribute('toggle'))
                         this.element.classList.add('ui-toggle');
                 }
-                UIButtonGroup.prototype.created = function (owningView, myView) { };
                 UIButtonGroup.prototype.bind = function (bindingContext, overrideContext) {
                     this.disabled = isTrue(this.disabled);
                 };
-                UIButtonGroup.prototype.attached = function () { };
-                UIButtonGroup.prototype.detached = function () { };
-                UIButtonGroup.prototype.unbind = function () { };
                 UIButtonGroup.prototype.disabledChanged = function (newValue) {
                     this.disabled = isTrue(newValue);
                 };

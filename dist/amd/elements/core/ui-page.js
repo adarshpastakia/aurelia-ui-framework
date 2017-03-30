@@ -17,11 +17,6 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
             if (element.hasAttribute('animate'))
                 element.classList.add('au-animate');
         }
-        UIPage.prototype.created = function (owningView, myView) { };
-        UIPage.prototype.bind = function (bindingContext, overrideContext) { };
-        UIPage.prototype.attached = function () { };
-        UIPage.prototype.detached = function () { };
-        UIPage.prototype.unbind = function () { };
         return UIPage;
     }());
     __decorate([
@@ -53,11 +48,6 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
             if (element.hasAttribute('middle'))
                 element.classList.add('ui-align-middle');
         }
-        UISection.prototype.created = function (owningView, myView) { };
-        UISection.prototype.bind = function (bindingContext, overrideContext) { };
-        UISection.prototype.attached = function () { };
-        UISection.prototype.detached = function () { };
-        UISection.prototype.unbind = function () { };
         return UISection;
     }());
     UISection = __decorate([
@@ -77,11 +67,6 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
             if (element.hasAttribute('scroll'))
                 element.classList.add('ui-scroll');
         }
-        UIContent.prototype.created = function (owningView, myView) { };
-        UIContent.prototype.bind = function (bindingContext, overrideContext) { };
-        UIContent.prototype.attached = function () { };
-        UIContent.prototype.detached = function () { };
-        UIContent.prototype.unbind = function () { };
         return UIContent;
     }());
     UIContent = __decorate([
@@ -96,11 +81,6 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
             this.element = element;
             this.glyph = '';
         }
-        UIGlyph.prototype.created = function (owningView, myView) { };
-        UIGlyph.prototype.bind = function (bindingContext, overrideContext) { };
-        UIGlyph.prototype.attached = function () { };
-        UIGlyph.prototype.detached = function () { };
-        UIGlyph.prototype.unbind = function () { };
         return UIGlyph;
     }());
     __decorate([

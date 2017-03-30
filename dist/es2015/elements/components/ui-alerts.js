@@ -31,7 +31,6 @@ let UIToast = class UIToast {
         else
             element.classList.add('light');
     }
-    created(owningView, myView) { }
     bind(bindingContext, overrideContext) {
         if (bindingContext)
             Object.assign(this, bindingContext);
@@ -42,9 +41,6 @@ let UIToast = class UIToast {
             }
         });
     }
-    attached() { }
-    detached() { }
-    unbind() { }
     startClose(force) {
         this.element.classList.remove('open');
         setTimeout(() => DOM.removeNode(this.element), 1000);
@@ -78,7 +74,6 @@ let UIAlert = class UIAlert {
         this.confirm = false;
         this.confirm = element.hasAttribute('confirm');
     }
-    created(owningView, myView) { }
     bind(bindingContext, overrideContext) {
         if (bindingContext)
             Object.assign(this, bindingContext);
@@ -88,9 +83,6 @@ let UIAlert = class UIAlert {
                 this.focusBlock.focus();
         });
     }
-    attached() { }
-    detached() { }
-    unbind() { }
     closeAlert(b) {
         this.element.classList.remove('open');
         setTimeout(() => {
@@ -152,7 +144,6 @@ let UIPrompt = class UIPrompt {
         this.value = '';
         this.multiline = element.hasAttribute('multiline');
     }
-    created(owningView, myView) { }
     bind(bindingContext, overrideContext) {
         if (bindingContext)
             Object.assign(this, bindingContext);
@@ -162,9 +153,6 @@ let UIPrompt = class UIPrompt {
                 this.focusBlock.focus();
         });
     }
-    attached() { }
-    detached() { }
-    unbind() { }
     closeAlert(b) {
         if (b && isEmpty(this.value))
             return this.changed = true;

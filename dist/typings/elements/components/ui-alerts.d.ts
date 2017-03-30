@@ -1,12 +1,7 @@
-import { View } from 'aurelia-framework';
 export declare class UIToast {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
     bind(bindingContext: Object, overrideContext: Object): void;
-    attached(): void;
-    detached(): void;
-    unbind(): void;
     glyph: string;
     timeout: number;
     private startClose(force?);
@@ -14,11 +9,7 @@ export declare class UIToast {
 export declare class UIAlert {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
     bind(bindingContext: Object, overrideContext: Object): void;
-    attached(): void;
-    detached(): void;
-    unbind(): void;
     glyph: string;
     okLabel: string;
     cancelLabel: string;
@@ -32,11 +23,7 @@ export declare class UIAlert {
 export declare class UIPrompt {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
     bind(bindingContext: Object, overrideContext: Object): void;
-    attached(): void;
-    detached(): void;
-    unbind(): void;
     glyph: string;
     okLabel: string;
     cancelLabel: string;

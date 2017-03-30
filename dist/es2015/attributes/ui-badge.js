@@ -19,11 +19,7 @@ class UIBadgeBase {
         if (element.nodeType == Node.COMMENT_NODE)
             element.previousSibling.appendChild(this.badgeEl);
     }
-    created(owningView, myView) { }
     bind(bindingContext, overrideContext) { this.valueChanged(this.value); }
-    attached() { }
-    detached() { }
-    unbind() { }
     valueChanged(newValue) {
         this.badgeEl.classList[newValue ? 'remove' : 'add']('ui-hidden');
         this.badgeEl.innerHTML = newValue;

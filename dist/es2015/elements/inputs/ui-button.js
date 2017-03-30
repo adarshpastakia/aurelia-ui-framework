@@ -49,7 +49,6 @@ let UIButton = class UIButton {
         if (this.element.hasAttribute('round'))
             this.element.classList.add('ui-round');
     }
-    created(owningView, myView) { }
     bind(bindingContext, overrideContext) {
         this.busy = isTrue(this.busy);
         this.disabled = isTrue(this.disabled);
@@ -79,7 +78,6 @@ let UIButton = class UIButton {
         if (this.dropdown)
             DOM.removeNode(this.dropdown);
     }
-    unbind() { }
     disable(b) {
         this.element.classList[(this.isDisabled = (b || this.disabled)) ? 'add' : 'remove']('ui-disabled');
     }
@@ -168,13 +166,9 @@ let UIButtonGroup = class UIButtonGroup {
         if (this.element.hasAttribute('toggle'))
             this.element.classList.add('ui-toggle');
     }
-    created(owningView, myView) { }
     bind(bindingContext, overrideContext) {
         this.disabled = isTrue(this.disabled);
     }
-    attached() { }
-    detached() { }
-    unbind() { }
     disabledChanged(newValue) {
         this.disabled = isTrue(newValue);
     }

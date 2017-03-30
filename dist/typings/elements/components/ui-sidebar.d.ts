@@ -1,4 +1,3 @@
-import { View } from 'aurelia-framework';
 export declare class UIAffixPoint {
 }
 export declare class UIAffixContent {
@@ -6,11 +5,9 @@ export declare class UIAffixContent {
 export declare class UISidebar {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
     bind(bindingContext: Object, overrideContext: Object): void;
     attached(): void;
     detached(): void;
-    unbind(): void;
     label: string;
     collapsed: boolean;
     position: string;

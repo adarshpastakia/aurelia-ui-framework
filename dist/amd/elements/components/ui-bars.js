@@ -32,11 +32,6 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
             if (element.hasAttribute('start'))
                 element.classList.add('ui-start');
         }
-        UIToolbar.prototype.created = function (owningView, myView) { };
-        UIToolbar.prototype.bind = function (bindingContext, overrideContext) { };
-        UIToolbar.prototype.attached = function () { };
-        UIToolbar.prototype.detached = function () { };
-        UIToolbar.prototype.unbind = function () { };
         return UIToolbar;
     }());
     UIToolbar = __decorate([
@@ -50,11 +45,6 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
         function UIDivider(element) {
             this.element = element;
         }
-        UIDivider.prototype.created = function (owningView, myView) { };
-        UIDivider.prototype.bind = function (bindingContext, overrideContext) { };
-        UIDivider.prototype.attached = function () { };
-        UIDivider.prototype.detached = function () { };
-        UIDivider.prototype.unbind = function () { };
         return UIDivider;
     }());
     UIDivider = __decorate([
@@ -106,11 +96,6 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
             if (element.hasAttribute('warning-bg'))
                 element.classList.add('warning-bg');
         }
-        UIStatsbar.prototype.created = function (owningView, myView) { };
-        UIStatsbar.prototype.bind = function (bindingContext, overrideContext) { };
-        UIStatsbar.prototype.attached = function () { };
-        UIStatsbar.prototype.detached = function () { };
-        UIStatsbar.prototype.unbind = function () { };
         return UIStatsbar;
     }());
     UIStatsbar = __decorate([
@@ -160,11 +145,6 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
             if (element.hasAttribute('warning-bg'))
                 element.classList.add('warning-bg');
         }
-        UIStat.prototype.created = function (owningView, myView) { };
-        UIStat.prototype.bind = function (bindingContext, overrideContext) { };
-        UIStat.prototype.attached = function () { };
-        UIStat.prototype.detached = function () { };
-        UIStat.prototype.unbind = function () { };
         return UIStat;
     }());
     __decorate([

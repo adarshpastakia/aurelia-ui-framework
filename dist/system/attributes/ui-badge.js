@@ -39,11 +39,7 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
                     if (element.nodeType == Node.COMMENT_NODE)
                         element.previousSibling.appendChild(this.badgeEl);
                 }
-                UIBadgeBase.prototype.created = function (owningView, myView) { };
                 UIBadgeBase.prototype.bind = function (bindingContext, overrideContext) { this.valueChanged(this.value); };
-                UIBadgeBase.prototype.attached = function () { };
-                UIBadgeBase.prototype.detached = function () { };
-                UIBadgeBase.prototype.unbind = function () { };
                 UIBadgeBase.prototype.valueChanged = function (newValue) {
                     this.badgeEl.classList[newValue ? 'remove' : 'add']('ui-hidden');
                     this.badgeEl.innerHTML = newValue;

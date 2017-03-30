@@ -19,11 +19,6 @@ var UIPanel = (function () {
         this.collapsed = false;
         this.collapsed = element.hasAttribute('collapsed');
     }
-    UIPanel.prototype.created = function (owningView, myView) { };
-    UIPanel.prototype.bind = function (bindingContext, overrideContext) { };
-    UIPanel.prototype.attached = function () { };
-    UIPanel.prototype.detached = function () { };
-    UIPanel.prototype.unbind = function () { };
     UIPanel.prototype.close = function () {
         aurelia_framework_1.DOM.removeNode(this.element);
     };
@@ -62,11 +57,6 @@ var UIPanelBody = (function () {
         if (element.hasAttribute('padded'))
             element.classList.add('ui-pad-all');
     }
-    UIPanelBody.prototype.created = function (owningView, myView) { };
-    UIPanelBody.prototype.bind = function (bindingContext, overrideContext) { };
-    UIPanelBody.prototype.attached = function () { };
-    UIPanelBody.prototype.detached = function () { };
-    UIPanelBody.prototype.unbind = function () { };
     return UIPanelBody;
 }());
 __decorate([
@@ -88,12 +78,6 @@ var UIPanelGroup = (function () {
     function UIPanelGroup(element) {
         this.element = element;
     }
-    UIPanelGroup.prototype.created = function (owningView, myView) { };
-    UIPanelGroup.prototype.bind = function (bindingContext, overrideContext) { };
-    UIPanelGroup.prototype.attached = function () {
-    };
-    UIPanelGroup.prototype.detached = function () { };
-    UIPanelGroup.prototype.unbind = function () { };
     UIPanelGroup.prototype.uncollapse = function () {
     };
     return UIPanelGroup;
@@ -130,11 +114,6 @@ var UIHeader = (function () {
         else if (element.hasAttribute('warning'))
             this.theme = 'warning';
     }
-    UIHeader.prototype.created = function (owningView, myView) { };
-    UIHeader.prototype.bind = function (bindingContext, overrideContext) { };
-    UIHeader.prototype.attached = function () { };
-    UIHeader.prototype.detached = function () { };
-    UIHeader.prototype.unbind = function () { };
     return UIHeader;
 }());
 __decorate([
@@ -179,7 +158,6 @@ var UIHeaderTool = (function () {
         if (element.hasAttribute('minimize'))
             this.glyph = "glyph-dialog-minimize";
     }
-    UIHeaderTool.prototype.created = function (owningView, myView) { };
     UIHeaderTool.prototype.bind = function (bindingContext, overrideContext) {
         this.disabled = isTrue(this.disabled);
     };
@@ -204,7 +182,6 @@ var UIHeaderTool = (function () {
         if (this.dropdown)
             aurelia_framework_1.DOM.removeNode(this.dropdown);
     };
-    UIHeaderTool.prototype.unbind = function () { };
     UIHeaderTool.prototype.fireEvent = function (evt) {
         if (evt.button != 0)
             return true;
@@ -254,11 +231,6 @@ var UIHeaderTitle = (function () {
         this.element = element;
         this.glyph = '';
     }
-    UIHeaderTitle.prototype.created = function (owningView, myView) { };
-    UIHeaderTitle.prototype.bind = function (bindingContext, overrideContext) { };
-    UIHeaderTitle.prototype.attached = function () { };
-    UIHeaderTitle.prototype.detached = function () { };
-    UIHeaderTitle.prototype.unbind = function () { };
     return UIHeaderTitle;
 }());
 __decorate([

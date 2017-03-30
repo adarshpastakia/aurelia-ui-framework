@@ -14,8 +14,6 @@ let UIForm = class UIForm {
     constructor(element) {
         this.element = element;
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
     attached() {
         UIEvent.queueTask(() => {
             let el = this.element.querySelector('input,textarea');
@@ -25,8 +23,6 @@ let UIForm = class UIForm {
                 this.busyChanged(true);
         });
     }
-    detached() { }
-    unbind() { }
     busyChanged(newValue) {
         let els = this.element.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list');
         _.forEach(els, el => {
@@ -61,15 +57,12 @@ let UIFieldset = class UIFieldset {
         this.collapsable = false;
         this.collapsable = element.hasAttribute('enabled') || element.hasAttribute('enabled.bind');
     }
-    created(owningView, myView) { }
     bind(bindingContext, overrideContext) {
         this.enabled = isTrue(this.enabled);
     }
     attached() {
         this.enabledChanged(this.enabled);
     }
-    detached() { }
-    unbind() { }
     enabledChanged(newValue) {
         this.element.classList[isTrue(newValue) ? 'remove' : 'add']('ui-collapse');
         let els = this.container.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list');
@@ -104,11 +97,6 @@ let UIInputGroup = class UIInputGroup {
         if (element.hasAttribute('plain'))
             element.classList.add('ui-plain');
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() { }
-    detached() { }
-    unbind() { }
 };
 __decorate([
     bindable(),
@@ -127,11 +115,6 @@ let UIInputInfo = class UIInputInfo {
         this.element = element;
         this.class = '';
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() { }
-    detached() { }
-    unbind() { }
 };
 __decorate([
     bindable(),
@@ -154,11 +137,6 @@ let UIInputAddon = class UIInputAddon {
         else
             element.classList.add('ui-start');
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() { }
-    detached() { }
-    unbind() { }
     focusEl() {
         let el = this.element.nextElementSibling;
         if (el && el['focus'])
@@ -187,8 +165,6 @@ let UIInputLabel = UIInputLabel_1 = class UIInputLabel {
         if (element.hasAttribute('required'))
             this.class += ' ui-required';
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
     attached() {
         if (isEmpty(this.for)) {
             let el = this.label.parentElement.querySelector('input:not([type="checkbox"]):not([type="radio"]),textarea');
@@ -199,8 +175,6 @@ let UIInputLabel = UIInputLabel_1 = class UIInputLabel {
             }
         }
     }
-    detached() { }
-    unbind() { }
 };
 UIInputLabel.seed = 1;
 __decorate([

@@ -17,11 +17,6 @@ let UIPanel = class UIPanel {
         this.collapsed = false;
         this.collapsed = element.hasAttribute('collapsed');
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() { }
-    detached() { }
-    unbind() { }
     close() {
         DOM.removeNode(this.element);
     }
@@ -58,11 +53,6 @@ let UIPanelBody = class UIPanelBody {
         if (element.hasAttribute('padded'))
             element.classList.add('ui-pad-all');
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() { }
-    detached() { }
-    unbind() { }
 };
 __decorate([
     bindable(),
@@ -83,12 +73,6 @@ let UIPanelGroup = class UIPanelGroup {
     constructor(element) {
         this.element = element;
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() {
-    }
-    detached() { }
-    unbind() { }
     uncollapse() {
     }
 };
@@ -124,11 +108,6 @@ let UIHeader = class UIHeader {
         else if (element.hasAttribute('warning'))
             this.theme = 'warning';
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() { }
-    detached() { }
-    unbind() { }
 };
 __decorate([
     bindable(),
@@ -172,7 +151,6 @@ let UIHeaderTool = class UIHeaderTool {
         if (element.hasAttribute('minimize'))
             this.glyph = "glyph-dialog-minimize";
     }
-    created(owningView, myView) { }
     bind(bindingContext, overrideContext) {
         this.disabled = isTrue(this.disabled);
     }
@@ -196,7 +174,6 @@ let UIHeaderTool = class UIHeaderTool {
         if (this.dropdown)
             DOM.removeNode(this.dropdown);
     }
-    unbind() { }
     fireEvent(evt) {
         if (evt.button != 0)
             return true;
@@ -246,11 +223,6 @@ let UIHeaderTitle = class UIHeaderTitle {
         this.element = element;
         this.glyph = '';
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() { }
-    detached() { }
-    unbind() { }
 };
 __decorate([
     bindable(),

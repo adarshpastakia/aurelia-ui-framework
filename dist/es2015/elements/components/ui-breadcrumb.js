@@ -21,11 +21,6 @@ let UIBreadcrumb = class UIBreadcrumb {
         if (element.hasAttribute('secondary'))
             element.classList.add('secondary');
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() { }
-    detached() { }
-    unbind() { }
     fireChange($event) {
         $event.cancelBubble = true;
         $event.stopPropagation();
@@ -47,11 +42,6 @@ let UICrumb = class UICrumb {
         this.id = '';
         this.href = 'javascript:;';
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() { }
-    detached() { }
-    unbind() { }
     fireClick($event) {
         $event.cancelBubble = true;
         $event.stopPropagation();

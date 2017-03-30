@@ -1,12 +1,6 @@
-import { View } from 'aurelia-framework';
 export declare class UIPanel {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
-    bind(bindingContext: Object, overrideContext: Object): void;
-    attached(): void;
-    detached(): void;
-    unbind(): void;
     height: string;
     close(): void;
     collapse(): void;
@@ -17,43 +11,26 @@ export declare class UIPanel {
 export declare class UIPanelBody {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
-    bind(bindingContext: Object, overrideContext: Object): void;
-    attached(): void;
-    detached(): void;
-    unbind(): void;
     height: string;
     maxHeight: string;
 }
 export declare class UIPanelGroup {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
-    bind(bindingContext: Object, overrideContext: Object): void;
-    attached(): void;
-    detached(): void;
-    unbind(): void;
     panels: any;
     private uncollapse();
 }
 export declare class UIHeader {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
-    bind(bindingContext: Object, overrideContext: Object): void;
-    attached(): void;
-    detached(): void;
-    unbind(): void;
     theme: string;
 }
 export declare class UIHeaderTool {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
     bind(bindingContext: Object, overrideContext: Object): void;
     attached(): void;
     detached(): void;
-    unbind(): void;
     glyph: string;
     dropdown: any;
     disabled: boolean;
@@ -65,10 +42,5 @@ export declare class UIHeaderTool {
 export declare class UIHeaderTitle {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
-    bind(bindingContext: Object, overrideContext: Object): void;
-    attached(): void;
-    detached(): void;
-    unbind(): void;
     glyph: string;
 }

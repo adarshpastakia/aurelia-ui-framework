@@ -1,12 +1,7 @@
-import { View } from 'aurelia-framework';
 export declare class UIForm {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
-    bind(bindingContext: Object, overrideContext: Object): void;
     attached(): void;
-    detached(): void;
-    unbind(): void;
     formEl: any;
     busy: boolean;
     busyChanged(newValue: any): void;
@@ -15,11 +10,8 @@ export declare class UIForm {
 export declare class UIFieldset {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
     bind(bindingContext: Object, overrideContext: Object): void;
     attached(): void;
-    detached(): void;
-    unbind(): void;
     legend: string;
     enabled: boolean;
     private container;
@@ -29,42 +21,23 @@ export declare class UIFieldset {
 export declare class UIInputGroup {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
-    bind(bindingContext: Object, overrideContext: Object): void;
-    attached(): void;
-    detached(): void;
-    unbind(): void;
     width: string;
 }
 export declare class UIInputInfo {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
-    bind(bindingContext: Object, overrideContext: Object): void;
-    attached(): void;
-    detached(): void;
-    unbind(): void;
     class: string;
 }
 export declare class UIInputAddon {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
-    bind(bindingContext: Object, overrideContext: Object): void;
-    attached(): void;
-    detached(): void;
-    unbind(): void;
     glyph: string;
     focusEl(): boolean;
 }
 export declare class UIInputLabel {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
-    bind(bindingContext: Object, overrideContext: Object): void;
     attached(): void;
-    detached(): void;
-    unbind(): void;
     static seed: number;
     private label;
     for: string;

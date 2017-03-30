@@ -49,7 +49,6 @@ let UISidebar = class UISidebar {
             element.classList.remove('ui-show-overlay');
         });
     }
-    created(owningView, myView) { }
     bind(bindingContext, overrideContext) {
         this.collapsed = isTrue(this.collapsed);
         if (this.position == 'end')
@@ -63,7 +62,6 @@ let UISidebar = class UISidebar {
         if (this.obClick)
             this.obClick.dispose();
     }
-    unbind() { }
     collapsedChanged(newValue) {
         this.glyph = (this.position == 'end' && !isTrue(newValue)) || (this.position == 'start' && isTrue(newValue)) ? "glyph-arrow-right" : "glyph-arrow-left";
     }

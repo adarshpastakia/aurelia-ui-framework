@@ -1,4 +1,3 @@
-import { View } from 'aurelia-framework';
 export declare class UITabbarStart {
 }
 export declare class UITabbarEnd {
@@ -18,11 +17,8 @@ export declare class UITabbarToggle {
 export declare class UITabPanel {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
-    bind(bindingContext: Object, overrideContext: Object): void;
     attached(): void;
     detached(): void;
-    unbind(): void;
     private tether;
     private isOverflow;
     private wrapper;
@@ -48,11 +44,7 @@ export declare class UITab {
     element: Element;
     static seed: number;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
     bind(bindingContext: Object, overrideContext: Object): void;
-    attached(): void;
-    detached(): void;
-    unbind(): void;
     id: string;
     glyph: string;
     label: string;

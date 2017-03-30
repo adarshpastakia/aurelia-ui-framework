@@ -28,8 +28,6 @@ System.register(["aurelia-framework", "../../utils/ui-event", "lodash"], functio
                 function UIForm(element) {
                     this.element = element;
                 }
-                UIForm.prototype.created = function (owningView, myView) { };
-                UIForm.prototype.bind = function (bindingContext, overrideContext) { };
                 UIForm.prototype.attached = function () {
                     var _this = this;
                     ui_event_1.UIEvent.queueTask(function () {
@@ -40,8 +38,6 @@ System.register(["aurelia-framework", "../../utils/ui-event", "lodash"], functio
                             _this.busyChanged(true);
                     });
                 };
-                UIForm.prototype.detached = function () { };
-                UIForm.prototype.unbind = function () { };
                 UIForm.prototype.busyChanged = function (newValue) {
                     var els = this.element.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list');
                     _.forEach(els, function (el) {
@@ -77,15 +73,12 @@ System.register(["aurelia-framework", "../../utils/ui-event", "lodash"], functio
                     this.collapsable = false;
                     this.collapsable = element.hasAttribute('enabled') || element.hasAttribute('enabled.bind');
                 }
-                UIFieldset.prototype.created = function (owningView, myView) { };
                 UIFieldset.prototype.bind = function (bindingContext, overrideContext) {
                     this.enabled = isTrue(this.enabled);
                 };
                 UIFieldset.prototype.attached = function () {
                     this.enabledChanged(this.enabled);
                 };
-                UIFieldset.prototype.detached = function () { };
-                UIFieldset.prototype.unbind = function () { };
                 UIFieldset.prototype.enabledChanged = function (newValue) {
                     this.element.classList[isTrue(newValue) ? 'remove' : 'add']('ui-collapse');
                     var els = this.container.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list');
@@ -121,11 +114,6 @@ System.register(["aurelia-framework", "../../utils/ui-event", "lodash"], functio
                     if (element.hasAttribute('plain'))
                         element.classList.add('ui-plain');
                 }
-                UIInputGroup.prototype.created = function (owningView, myView) { };
-                UIInputGroup.prototype.bind = function (bindingContext, overrideContext) { };
-                UIInputGroup.prototype.attached = function () { };
-                UIInputGroup.prototype.detached = function () { };
-                UIInputGroup.prototype.unbind = function () { };
                 return UIInputGroup;
             }());
             __decorate([
@@ -144,11 +132,6 @@ System.register(["aurelia-framework", "../../utils/ui-event", "lodash"], functio
                     this.element = element;
                     this.class = '';
                 }
-                UIInputInfo.prototype.created = function (owningView, myView) { };
-                UIInputInfo.prototype.bind = function (bindingContext, overrideContext) { };
-                UIInputInfo.prototype.attached = function () { };
-                UIInputInfo.prototype.detached = function () { };
-                UIInputInfo.prototype.unbind = function () { };
                 return UIInputInfo;
             }());
             __decorate([
@@ -172,11 +155,6 @@ System.register(["aurelia-framework", "../../utils/ui-event", "lodash"], functio
                     else
                         element.classList.add('ui-start');
                 }
-                UIInputAddon.prototype.created = function (owningView, myView) { };
-                UIInputAddon.prototype.bind = function (bindingContext, overrideContext) { };
-                UIInputAddon.prototype.attached = function () { };
-                UIInputAddon.prototype.detached = function () { };
-                UIInputAddon.prototype.unbind = function () { };
                 UIInputAddon.prototype.focusEl = function () {
                     var el = this.element.nextElementSibling;
                     if (el && el['focus'])
@@ -206,8 +184,6 @@ System.register(["aurelia-framework", "../../utils/ui-event", "lodash"], functio
                     if (element.hasAttribute('required'))
                         this.class += ' ui-required';
                 }
-                UIInputLabel.prototype.created = function (owningView, myView) { };
-                UIInputLabel.prototype.bind = function (bindingContext, overrideContext) { };
                 UIInputLabel.prototype.attached = function () {
                     if (isEmpty(this.for)) {
                         var el = this.label.parentElement.querySelector('input:not([type="checkbox"]):not([type="radio"]),textarea');
@@ -218,8 +194,6 @@ System.register(["aurelia-framework", "../../utils/ui-event", "lodash"], functio
                         }
                     }
                 };
-                UIInputLabel.prototype.detached = function () { };
-                UIInputLabel.prototype.unbind = function () { };
                 return UIInputLabel;
             }());
             UIInputLabel.seed = 1;

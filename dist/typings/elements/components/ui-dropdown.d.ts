@@ -1,12 +1,9 @@
-import { View } from 'aurelia-framework';
 export declare class UIDropdown {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
     bind(bindingContext: Object, overrideContext: Object): void;
     attached(): void;
     detached(): void;
-    unbind(): void;
     items: any[];
     value: string;
     width: string;
@@ -28,21 +25,11 @@ export declare class UIDropdown {
 export declare class UIListGroup {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
-    bind(bindingContext: Object, overrideContext: Object): void;
-    attached(): void;
-    detached(): void;
-    unbind(): void;
     label: string;
 }
 export declare class UIListItem {
     element: Element;
     constructor(element: Element);
-    created(owningView: View, myView: View): void;
-    bind(bindingContext: Object, overrideContext: Object): void;
-    attached(): void;
-    detached(): void;
-    unbind(): void;
     model: any;
     glyph: string;
     value: string;

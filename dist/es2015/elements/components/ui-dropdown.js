@@ -21,7 +21,6 @@ let UIDropdown = class UIDropdown {
         this.glyph = '';
         this.display = '';
     }
-    created(owningView, myView) { }
     bind(bindingContext, overrideContext) {
         this.disabledChanged(this.disabled);
     }
@@ -38,7 +37,6 @@ let UIDropdown = class UIDropdown {
         this.tether.dispose();
         this.obMouseup.dispose();
     }
-    unbind() { }
     valueChanged(newValue) {
         if (this.selected)
             this.selected.element.classList.remove('ui-selected');
@@ -120,11 +118,6 @@ let UIListGroup = class UIListGroup {
         this.element = element;
         this.label = '';
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() { }
-    detached() { }
-    unbind() { }
 };
 __decorate([
     bindable(),
@@ -144,11 +137,6 @@ let UIListItem = class UIListItem {
         this.glyph = '';
         this.value = '';
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() { }
-    detached() { }
-    unbind() { }
     hilightItem(evt) {
         let h = this.element.parentElement.querySelector('.ui-list-item.ui-hilight');
         if (h !== null)

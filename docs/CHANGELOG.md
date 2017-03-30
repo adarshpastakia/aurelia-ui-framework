@@ -1,3 +1,10 @@
+<a name="3.1.7"></a>
+## 3.1.7 (2017-03-30)
+
+* Removed empty aurelia callback hooks
+* Added extra color themes
+
+
 <a name="3.1.6"></a>
 ## 3.1.6 (2017-03-30)
 

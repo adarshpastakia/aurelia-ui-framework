@@ -293,7 +293,6 @@ let UICombo = class UICombo extends BaseListInput {
         this.clear = false;
         this.clear = element.hasAttribute('clear');
     }
-    created(owningView, myView) { }
     bind(bindingContext, overrideContext) {
         super.bind(bindingContext, overrideContext);
     }
@@ -303,7 +302,6 @@ let UICombo = class UICombo extends BaseListInput {
     detached() {
         super.detached();
     }
-    unbind() { }
     fireSelect(model) {
         if (model) {
             this.model = model;
@@ -419,7 +417,6 @@ let UITags = class UITags extends BaseListInput {
         this.isTagInput = true;
         this.clear = element.hasAttribute('clear');
     }
-    created(owningView, myView) { }
     bind(bindingContext, overrideContext) {
         super.bind(bindingContext, overrideContext);
     }
@@ -429,7 +426,6 @@ let UITags = class UITags extends BaseListInput {
     detached() {
         super.detached();
     }
-    unbind() { }
     getDisplay(tag) {
         return _['findChildren'](this.original, 'items', 'value', tag).text || tag;
     }
@@ -574,7 +570,6 @@ let UIList = class UIList extends BaseListInput {
         if (this.element.hasAttribute('fill'))
             this.element.classList.add('ui-fill');
     }
-    created(owningView, myView) { }
     bind(bindingContext, overrideContext) {
         super.bind(bindingContext, overrideContext);
     }
@@ -584,7 +579,6 @@ let UIList = class UIList extends BaseListInput {
     detached() {
         super.detached();
     }
-    unbind() { }
     fireSelect(model) {
         super.fireSelect(model);
         if (model) {
@@ -690,11 +684,6 @@ let UIReorder = class UIReorder {
         if (this.element.hasAttribute('fill'))
             this.element.classList.add('ui-fill');
     }
-    created(owningView, myView) { }
-    bind(bindingContext, overrideContext) { }
-    attached() { }
-    detached() { }
-    unbind() { }
     startDrag(opt, $event) {
         if ($event.button != 0)
             return;
