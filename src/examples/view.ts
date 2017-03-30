@@ -31,6 +31,13 @@ export class ExamplesView {
         nav: true,
         auth: false,
         name: 'dashboard'
+      }, {
+        route: 'tabbed',
+        moduleId: './tabbed',
+        title: 'Tabbed Application',
+        nav: true,
+        auth: false,
+        name: 'tabbed'
       }
     ]);
   }

@@ -1,0 +1,45 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+
+<template>
+  <ui-tab-panel active-tab.bind="tabActive" view-model.ref="tabPanel">
+    <ui-tabbar-start>
+      <small>&nbsp;&nbsp;</small>
+      <ui-dropdown>
+        <ui-list-item value="asia">Asia</ui-list-item>
+        <ui-list-item value="asia">Europe</ui-list-item>
+        <ui-list-item value="asia">Americas</ui-list-item>
+      </ui-dropdown>
+      <ui-tabbar-toggle dropdown.bind="btnHomeMenu">
+        <ui-glyph glyph="glyph-icon-plus"></ui-glyph>
+      </ui-tabbar-toggle>
+    </ui-tabbar-start>
+    <ui-menu ref="btnHomeMenu" click.trigger="openTab($event.detail)">
+      <ui-row>
+        <ui-column>
+          <ui-menu-item click.trigger="openTab('search')" glyph="icon-moon-search">Search</ui-menu-item>
+          <ui-menu-item glyph="icon-moon-folder-open" disabled="true">Open Search...</ui-menu-item>
+          <ui-divider></ui-divider>
+          <ui-menu-item click.trigger="openTab('members')" glyph="icon-moon-users" disabled="true">Members</ui-menu-item>
+          <ui-menu-item click.trigger="openTab('salesform')" glyph="icon-moon-insert-template">Sales Form</ui-menu-item>
+        </ui-column>
+        <ui-column>
+          <ui-menu-item glyph="icon-moon-stats-bars" disabled="true">Sales History</ui-menu-item>
+          <ui-menu-item glyph="icon-moon-stats-bars" disabled="true">Order History</ui-menu-item>
+          <ui-divider></ui-divider>
+          <ui-menu-item glyph="icon-moon-mobile" disabled="true">Email Campaigns</ui-menu-item>
+          <ui-menu-item glyph="blank" disabled="true">SMS Campaigns</ui-menu-item>
+        </ui-column>
+      </ui-row>
+    </ui-menu>
+    <ui-tab id="home" glyph="icon-moon-home" flex>
+      <compose view="./tab.home.html"></compose>
+    </ui-tab>
+    <ui-tab repeat.for="tab of tabs" id.bind="tab.id" label.bind="tab.label" glyph.bind="tab.glyph" flex closeable beforeclose.call="beforeClose(tab.id, $event)">
+      <compose view-model.bind="tab.viewModel" close.trigger="closeTab(tab.id)"></compose>
+    </ui-tab>
+  </ui-tab-panel>
+</template>
