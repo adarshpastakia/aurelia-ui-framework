@@ -141,10 +141,10 @@
 // Page animations
 /* animate page transitions */
 .au-enter-active:not(.ui-dialog-wrapper) {
-  @include animation(viewEnter .5s ease-out both);
+  @include animation(viewEnter .3s ease-out both);
 }
 .au-leave-active:not(.ui-dialog-wrapper) {
-  @include animation(viewLeave .5s ease-in both);
+  @include animation(viewLeave .3s ease-in both);
 }
 
 .au-enter-active.ui-dialog-wrapper {
