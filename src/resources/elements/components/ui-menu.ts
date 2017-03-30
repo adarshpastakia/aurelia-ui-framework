@@ -134,6 +134,7 @@ export class UIMenuItem {
   unbind() { }
   // end aurelia hooks
 
+  @bindable() id = '';
   @bindable() glyph = '';
   @bindable() class = '';
   @bindable() active = false;
@@ -144,6 +145,7 @@ export class UIMenuItem {
     if (evt.button != 0) return true;
     evt.cancelBubble = true;
     evt.stopPropagation();
-    return UIEvent.fireEvent('click', this.element);
+    if (this.href == 'javascript:void(0)') return true;
+    return UIEvent.fireEvent('click', this.element, this.id);
   }
 }
