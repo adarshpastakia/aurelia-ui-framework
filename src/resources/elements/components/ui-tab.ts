@@ -147,6 +147,11 @@ export class UITabPanel {
     (this.activeTabEl = tab).active = true;
   }
 
+  public close(id, force = false) {
+    let tab = _.find(this.tabs, ['id', id]);
+    if (tab) force ? this.doClose(tab) : this.closeTab(tab);
+  }
+
   private closeTab(tab) {
     if (isFunction(tab.beforeclose)) {
       let ret = tab.beforeclose(tab);
