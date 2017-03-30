@@ -66,7 +66,7 @@ export class UIViewport {
 
 @autoinject()
 @containerless()
-@inlineView('<template><router-view class="ui-router-view"></router-view></template>')
+@inlineView('<template><router-view class="ui-router-view" name="\${name}"></router-view></template>')
 @customElement('ui-router-view')
 export class UIRouterView {
   constructor(public element: Element) { }
@@ -78,6 +78,8 @@ export class UIRouterView {
   detached() { }
   unbind() { }
   // end aurelia hooks
+
+  @bindable() name = 'default';
 }
 
 @autoinject()
