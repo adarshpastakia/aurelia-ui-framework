@@ -128,6 +128,7 @@ export class UIMenuItem {
   // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     this.active = isTrue(this.active);
+    this.disabled = isTrue(this.disabled);
   }
   // attached() { }
   // detached() { }
