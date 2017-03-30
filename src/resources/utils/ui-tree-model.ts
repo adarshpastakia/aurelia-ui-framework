@@ -8,6 +8,8 @@ import {autoinject, bindable, bindingMode, computedFrom} from 'aurelia-framework
 import * as _ from "lodash";
 
 export class UITreeModel {
+  static seed = 0;
+
   id: any;
   text: string;
   level: number;
@@ -40,7 +42,7 @@ export class UITreeModel {
     model: any,
     parent?: UITreeModel) {
 
-    this.id = model.id;
+    this.id = model.id || ('node-' + (UITreeModel.seed++));
     this.text = model.name || model.text;
     this.level = level;
     this.extra = model.extra;
@@ -58,7 +60,6 @@ export class UITreeModel {
     this.parent = parent;
 
     this.__checkLevel = checkLevel;
-
     if (level < maxLevels && (model.children || []).length > 0) {
       _.each(
         model.children, (m: any) => {
