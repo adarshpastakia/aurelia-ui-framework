@@ -124,7 +124,7 @@ let UIMenuItem = class UIMenuItem {
             return true;
         evt.cancelBubble = true;
         evt.stopPropagation();
-        if (this.href == 'javascript:void(0)')
+        if (this.href !== 'javascript:void(0)')
             return true;
         return UIEvent.fireEvent('click', this.element, this.id);
     }

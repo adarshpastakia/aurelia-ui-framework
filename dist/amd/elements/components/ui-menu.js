@@ -124,7 +124,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
                 return true;
             evt.cancelBubble = true;
             evt.stopPropagation();
-            if (this.href == 'javascript:void(0)')
+            if (this.href !== 'javascript:void(0)')
                 return true;
             return ui_event_1.UIEvent.fireEvent('click', this.element, this.id);
         };

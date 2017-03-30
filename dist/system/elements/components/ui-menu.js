@@ -138,7 +138,7 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                         return true;
                     evt.cancelBubble = true;
                     evt.stopPropagation();
-                    if (this.href == 'javascript:void(0)')
+                    if (this.href !== 'javascript:void(0)')
                         return true;
                     return ui_event_1.UIEvent.fireEvent('click', this.element, this.id);
                 };
