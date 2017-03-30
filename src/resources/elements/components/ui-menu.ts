@@ -145,7 +145,7 @@ export class UIMenuItem {
     if (evt.button != 0) return true;
     evt.cancelBubble = true;
     evt.stopPropagation();
-    if (this.href == 'javascript:void(0)') return true;
+    if (this.href !== 'javascript:void(0)') return true;
     return UIEvent.fireEvent('click', this.element, this.id);
   }
 }
