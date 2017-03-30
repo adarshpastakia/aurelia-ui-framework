@@ -72,6 +72,10 @@
     border-bottom: none;
   }
 
+  &.ui-small {
+    font-size: .7em;
+  }
+
   .ui-stat {
     color  : $dark;
     padding: 0.25em 0.5em;
@@ -149,6 +153,7 @@
 @include statsbar-theme(warning-bg, $light, lighten($warning,5%));
 @include statsbar-theme(light, $light, inherit);
 @include statsbar-theme(dark, $dark, inherit);
+@include statsbar-theme(muted, $muted, inherit);
 @include statsbar-theme(primary, lighten($primary,5%), inherit);
 @include statsbar-theme(secondary, lighten($secondary,5%), inherit);
 @include statsbar-theme(info, lighten($info,5%), inherit);
