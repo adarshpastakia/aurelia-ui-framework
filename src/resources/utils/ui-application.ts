@@ -160,7 +160,7 @@ export class UIApplication {
   toastSuccess(config, container?) {
     if (typeof config === 'string') config = { message: config };
     config.theme = 'success';
-    config.glyph = config.glyph || 'ui-alert-exclaim';
+    config.glyph = config.glyph || 'glyph-alert-exclaim';
     if (container) config.container = container;
     UIUtils.toast(config);
   }
@@ -168,7 +168,7 @@ export class UIApplication {
   toastError(config, container?) {
     if (typeof config === 'string') config = { message: config };
     config.theme = 'danger';
-    config.glyph = config.glyph || 'ui-alert-error';
+    config.glyph = config.glyph || 'glyph-alert-error';
     if (container) config.container = container;
     UIUtils.toast(config);
   }
@@ -176,12 +176,12 @@ export class UIApplication {
 
   alert(config) {
     if (typeof config === 'string') config = { message: config };
-    config.glyph = config.glyph || 'ui-alert-info';
+    config.glyph = config.glyph || 'glyph-alert-info';
     return UIUtils.alert(config);
   }
   confirm(config) {
     if (typeof config === 'string') config = { message: config };
-    config.glyph = config.glyph || 'ui-alert-question';
+    config.glyph = config.glyph || 'glyph-alert-question';
     return UIUtils.confirm(config);
   }
   prompt(config) {
