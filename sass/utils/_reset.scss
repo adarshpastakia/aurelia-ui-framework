@@ -128,4 +128,27 @@ th {
   th {
     padding: 0 0.25em;
   }
+
+  &.bordered {
+    th {
+      font-weight: $font-weight-strong;
+      border     : 1px solid rgba($base-border-color, .5);
+    }
+
+    td {
+      border: 1px solid rgba($base-border-color, .5);
+    }
+  }
+
+  tr {
+    &:nth-child(odd) > td {
+      background: $datagrid-row-odd-bg;
+      color     : $datagrid-row-odd-text;
+    }
+
+    &:nth-child(even) > td {
+      background: $datagrid-row-even-bg;
+      color     : $datagrid-row-even-text;
+    }
+  }
 }
