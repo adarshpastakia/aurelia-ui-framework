@@ -51,10 +51,12 @@ export class UIDivider {
 @customElement('ui-statsbar')
 export class UIStatsbar {
   constructor(public element: Element) {
+    if (element.hasAttribute('small')) element.classList.add('ui-small');
     if (element.hasAttribute('vertical')) element.classList.add('ui-vertical');
 
     if (element.hasAttribute('dark')) element.classList.add('dark');
     if (element.hasAttribute('light')) element.classList.add('light');
+    if (element.hasAttribute('muted')) element.classList.add('muted');
     if (element.hasAttribute('primary')) element.classList.add('primary');
     if (element.hasAttribute('secondary')) element.classList.add('secondary');
     if (element.hasAttribute('info')) element.classList.add('info');
@@ -89,6 +91,7 @@ export class UIStat {
   constructor(public element: Element) {
     if (element.hasAttribute('dark')) element.classList.add('dark');
     if (element.hasAttribute('light')) element.classList.add('light');
+    if (element.hasAttribute('muted')) element.classList.add('muted');
     if (element.hasAttribute('primary')) element.classList.add('primary');
     if (element.hasAttribute('secondary')) element.classList.add('secondary');
     if (element.hasAttribute('info')) element.classList.add('info');
