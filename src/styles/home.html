@@ -70,6 +70,11 @@
           <div class="color-card ui-text-light ui-bg-warning">Warning</div>
         </div>
 
+        <h6 class="section-title">Extra Colors</h6>
+        <div>
+          <div class="color-card ui-titlecase ui-text-light ui-bg-${color}" repeat.for="color of colors | split">${color}</div>
+        </div>
+
         <hr/>
         <h5 class="section-title">Fonts</h5>
 

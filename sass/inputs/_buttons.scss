@@ -146,6 +146,10 @@
     .ui-caret {
       margin: 0;
     }
+
+    &.ui-busy .ui-indicator {
+      margin: 0;
+    }
   }
 
   &.ui-icon-top {

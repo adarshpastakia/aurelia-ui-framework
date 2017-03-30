@@ -95,7 +95,7 @@
   }
 }
 @include header-theme(dark, $dark);
-@include header-theme(light, $light);
+@include header-theme(light, $light, $secondary);
 @include header-theme(primary, $primary);
 @include header-theme(secondary, $secondary);
 @include header-theme(info, $info);
