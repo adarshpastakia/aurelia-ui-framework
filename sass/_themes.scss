@@ -13,7 +13,7 @@
 
 // Switch
 @mixin switch-theme($theme, $offBg: $light, $offText: $muted, $onBg: $dark, $onText: $white) {
-  .ui-switch.#{$theme} {
+  .ui-switch-control.#{$theme} .ui-switch {
     > .ui-switch-input ~ .ui-switch-inner {
       background-color: $offBg;
 
