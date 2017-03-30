@@ -30,7 +30,7 @@ export class App {
       }, {
         route: 'start', moduleId: './start/view', title: 'nav.titleStart', nav: true, auth: false, settings: { section: 'nav.sectionFramework' }, name: 'start'
       }, {
-        route: 'example', moduleId: './home/example', title: 'nav.titleExamples', nav: true, auth: false, settings: { section: 'nav.sectionFramework' }, name: 'example'
+        route: 'example', moduleId: './examples/view', title: 'nav.titleExamples', nav: true, auth: false, settings: { section: 'nav.sectionFramework' }, name: 'example'
       }, {
         route: 'theme/*path', moduleId: './styles/view', title: 'nav.sectionTheming', nav: false, auth: false, name: 'theme'
       }, {

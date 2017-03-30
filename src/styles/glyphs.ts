@@ -35,7 +35,8 @@ export class StyleGlyphs {
       "glyph-alert-info",
       "glyph-alert-question",
       "glyph-alert-exclaim",
-      "glyph-alert-error"
+      "glyph-alert-error",
+      "glyph-alert-notif"
     ],
     "Arrows": [
       "glyph-arrow-down",
