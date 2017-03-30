@@ -11,13 +11,13 @@ export class HomeView {
   constructor() { }
 
   // aurelia hooks
-  canActivate(model) { return true; }
-  activate(model, route) { return true; }
-  bind(bindingContext) { }
-  attached() { }
-  detached() { }
-  unbind() { }
-  deactivate() { }
+  // canActivate(model) { return true; }
+  // activate(model, route) { return true; }
+  // bind(bindingContext) { }
+  // attached() { }
+  // detached() { }
+  // unbind() { }
+  // deactivate() { }
   // end aurelia hooks
 
   sections = {

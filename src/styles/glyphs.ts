@@ -11,13 +11,13 @@ export class StyleGlyphs {
   constructor() { }
 
   // aurelia hooks
-  canActivate(model) { return true; }
-  activate(model) { return true; }
-  bind(bindingContext) { }
+  // canActivate(model) { return true; }
+  // activate(model) { return true; }
+  // bind(bindingContext) { }
   attached() { this.filter(); }
-  detached() { }
-  unbind() { }
-  deactivate() { }
+  // detached() { }
+  // unbind() { }
+  // deactivate() { }
   // end aurelia hooks
 
   fIcomoon = [];

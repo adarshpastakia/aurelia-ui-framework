@@ -12,8 +12,8 @@ export class CompDatagrid {
   constructor(public element: Element) { }
 
   // aurelia hooks
-  canActivate(model) { return true; }
-  activate(model) { return true; }
+  // canActivate(model) { return true; }
+  // activate(model) { return true; }
   bind(bindingContext) {
     for (let i = 0; i < 500; i++)
       this.data.push({
@@ -26,10 +26,10 @@ export class CompDatagrid {
         currency: Math.random() * 10800
       });
   }
-  attached() { }
-  detached() { }
-  unbind() { }
-  deactivate() { }
+  // attached() { }
+  // detached() { }
+  // unbind() { }
+  // deactivate() { }
   // end aurelia hooks
 
   icons = ['icon-moon-appleinc', 'icon-moon-android', 'icon-moon-amazon', 'icon-moon-windows8', 'icon-moon-mobile'];

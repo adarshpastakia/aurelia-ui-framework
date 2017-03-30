@@ -13,13 +13,13 @@ export class InputLists {
   constructor(public dlgService: UIDialogService) { }
 
   // aurelia hooks
-  canActivate(model) { return true; }
-  activate(model) { return true; }
-  bind(bindingContext) { }
-  attached() { }
-  detached() { }
-  unbind() { }
-  deactivate() { }
+  // canActivate(model) { return true; }
+  // activate(model) { return true; }
+  // bind(bindingContext) { }
+  // attached() { }
+  // detached() { }
+  // unbind() { }
+  // deactivate() { }
   // end aurelia hooks
 
   ctr = 'UAE';

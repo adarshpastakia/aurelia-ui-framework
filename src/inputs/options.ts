@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -10,12 +10,12 @@ export class InputOptions {
   constructor() { }
 
   // aurelia hooks
-  canActivate(model) { return true; }
-  activate(model) { return true; }
-  bind(bindingContext) { }
-  attached() { }
-  detached() { }
-  unbind() { }
-  deactivate() { }
+  // canActivate(model) { return true; }
+  // activate(model) { return true; }
+  // bind(bindingContext) { }
+  // attached() { }
+  // detached() { }
+  // unbind() { }
+  // deactivate() { }
   // end aurelia hooks
 }

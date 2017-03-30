@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -17,15 +17,15 @@ export class InputValidation {
   }
 
   // aurelia hooks
-  canActivate(model) { return true; }
-  activate(model) { return true; }
-  bind(bindingContext) { }
-  attached() { }
+  // canActivate(model) { return true; }
+  // activate(model) { return true; }
+  // bind(bindingContext) { }
+  // attached() { }
   detached() {
     this.model.dispose();
   }
-  unbind() { }
-  deactivate() { }
+  // unbind() { }
+  // deactivate() { }
   // end aurelia hooks
 
   model: DataModel;

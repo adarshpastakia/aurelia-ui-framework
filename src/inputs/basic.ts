@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -10,13 +10,13 @@ export class BasicInputs {
   constructor() { }
 
   // aurelia hooks
-  canActivate(model) { return true; }
-  activate(model) { return true; }
-  bind(bindingContext) { }
-  attached() { }
-  detached() { }
-  unbind() { }
-  deactivate() { }
+  // canActivate(model) { return true; }
+  // activate(model) { return true; }
+  // bind(bindingContext) { }
+  // attached() { }
+  // detached() { }
+  // unbind() { }
+  // deactivate() { }
   // end aurelia hooks
 
   dis1 = true;
