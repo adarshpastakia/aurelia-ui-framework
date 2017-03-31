@@ -59,7 +59,8 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                     var it = this.items.find(function (it) { return it.value == newValue; });
                     if (!it)
                         it = this.items[0];
-                    this.value = it.value;
+                    if (it.value != newValue)
+                        this.value = it.value;
                     this.display = it.element.innerText;
                     this.glyph = it.element.au.controller.viewModel.glyph;
                     (this.selected = it).element.classList.add('ui-selected');

@@ -118,6 +118,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
         }
         UIMenuItem.prototype.bind = function (bindingContext, overrideContext) {
             this.active = isTrue(this.active);
+            this.disabled = isTrue(this.disabled);
         };
         UIMenuItem.prototype.click = function (evt) {
             if (evt.button != 0)

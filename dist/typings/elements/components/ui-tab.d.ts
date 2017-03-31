@@ -33,6 +33,7 @@ export declare class UITabPanel {
     private activeTabEl;
     private tabsChanged();
     private activeTabChanged(newValue);
+    close(id: any, force?: boolean): void;
     private closeTab(tab);
     private doClose(tab);
     private activateTab(newTab);
@@ -45,11 +46,13 @@ export declare class UITab {
     static seed: number;
     constructor(element: Element);
     bind(bindingContext: Object, overrideContext: Object): void;
+    attached(): void;
     id: string;
     glyph: string;
     label: string;
     disabled: boolean;
     beforeclose: any;
+    vm: any;
     active: boolean;
     closeable: boolean;
     remove(): void;

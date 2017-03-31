@@ -1,4 +1,5 @@
 export declare class UITreeModel {
+    static seed: number;
     id: any;
     text: string;
     level: number;

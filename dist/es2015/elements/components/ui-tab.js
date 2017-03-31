@@ -134,9 +134,14 @@ let UITabPanel = class UITabPanel {
             this.activeTabEl.active = false;
         (this.activeTabEl = tab).active = true;
     }
+    close(id, force = false) {
+        let tab = _.find(this.tabs, ['id', id]);
+        if (tab)
+            force ? this.doClose(tab) : this.closeTab(tab);
+    }
     closeTab(tab) {
         if (isFunction(tab.beforeclose)) {
-            let ret = tab.beforeclose();
+            let ret = tab.beforeclose(tab);
             if (ret instanceof Promise)
                 ret.then(b => {
                     if (b) {
@@ -255,6 +260,10 @@ let UITab = UITab_1 = class UITab {
     }
     bind(bindingContext, overrideContext) {
         this.disabled = isTrue(this.disabled);
+    }
+    attached() {
+        if (this.element.firstElementChild.tagName == 'compose')
+            this.vm = this.element.firstElementChild.au.compose.viewModel.currentViewModel;
     }
     remove() {
         DOM.removeNode(this.element);

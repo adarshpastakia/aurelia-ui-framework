@@ -28,7 +28,7 @@ System.register(["aurelia-framework", "lodash"], function (exports_1, context_1)
                     this.parent = null;
                     this.isVisible = true;
                     this.__checkLevel = 0;
-                    this.id = model.id;
+                    this.id = model.id || ('node-' + (UITreeModel.seed++));
                     this.text = model.name || model.text;
                     this.level = level;
                     this.extra = model.extra;
@@ -112,6 +112,7 @@ System.register(["aurelia-framework", "lodash"], function (exports_1, context_1)
                 });
                 return UITreeModel;
             }());
+            UITreeModel.seed = 0;
             __decorate([
                 aurelia_framework_1.computedFrom('leaf', 'icon'),
                 __metadata("design:type", Object),

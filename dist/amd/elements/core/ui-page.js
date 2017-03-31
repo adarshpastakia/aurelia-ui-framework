@@ -90,7 +90,7 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
     UIGlyph = __decorate([
         aurelia_framework_1.autoinject(),
         aurelia_framework_1.customElement('ui-glyph'),
-        aurelia_framework_1.inlineView("<template class=\"ui-icon ${glyph}\"><svg><use tabindex=\"-1\" x=\"0\" y=\"0\" xlink:href=\"#${glyph}\"/></svg></template>"),
+        aurelia_framework_1.inlineView("<template class=\"ui-icon\"><svg if.bind=\"glyph\"><use tabindex=\"-1\" x=\"0\" y=\"0\" xlink:href=\"#${glyph}\"/></svg></template>"),
         __metadata("design:paramtypes", [Element])
     ], UIGlyph);
     exports.UIGlyph = UIGlyph;

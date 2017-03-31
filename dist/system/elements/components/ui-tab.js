@@ -160,10 +160,16 @@ System.register(["aurelia-framework", "../../utils/ui-utils", "../../utils/ui-ev
                         this.activeTabEl.active = false;
                     (this.activeTabEl = tab).active = true;
                 };
+                UITabPanel.prototype.close = function (id, force) {
+                    if (force === void 0) { force = false; }
+                    var tab = _.find(this.tabs, ['id', id]);
+                    if (tab)
+                        force ? this.doClose(tab) : this.closeTab(tab);
+                };
                 UITabPanel.prototype.closeTab = function (tab) {
                     var _this = this;
                     if (isFunction(tab.beforeclose)) {
-                        var ret = tab.beforeclose();
+                        var ret = tab.beforeclose(tab);
                         if (ret instanceof Promise)
                             ret.then(function (b) {
                                 if (b) {
@@ -271,6 +277,10 @@ System.register(["aurelia-framework", "../../utils/ui-utils", "../../utils/ui-ev
                 }
                 UITab.prototype.bind = function (bindingContext, overrideContext) {
                     this.disabled = isTrue(this.disabled);
+                };
+                UITab.prototype.attached = function () {
+                    if (this.element.firstElementChild.tagName == 'compose')
+                        this.vm = this.element.firstElementChild.au.compose.viewModel.currentViewModel;
                 };
                 UITab.prototype.remove = function () {
                     aurelia_framework_1.DOM.removeNode(this.element);

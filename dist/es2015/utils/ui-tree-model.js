@@ -15,7 +15,7 @@ export class UITreeModel {
         this.parent = null;
         this.isVisible = true;
         this.__checkLevel = 0;
-        this.id = model.id;
+        this.id = model.id || ('node-' + (UITreeModel.seed++));
         this.text = model.name || model.text;
         this.level = level;
         this.extra = model.extra;
@@ -86,6 +86,7 @@ export class UITreeModel {
         return this.leaf && !this.icon;
     }
 }
+UITreeModel.seed = 0;
 __decorate([
     computedFrom('leaf', 'icon'),
     __metadata("design:type", Object),

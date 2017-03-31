@@ -45,7 +45,7 @@ export class BaseListInput {
                 this.closeDropdown();
             });
         }
-        UIEvent.queueTask(() => this.valueChanged(this.value));
+        UIEvent.queueTask(() => this.valueChanged(this.value, true));
     }
     detached() {
         if (this.floating) {
@@ -107,13 +107,16 @@ export class BaseListInput {
         }
         this.original = this.filtered = groups;
     }
-    valueChanged(newValue) {
+    valueChanged(newValue, onBind = false) {
         if (!this.isTagInput) {
-            this.elValue = _['findChildren'](this.filtered = this.original, 'items', 'value', newValue || '').text;
+            let item = _['findChildren'](this.filtered = this.original, 'items', 'value', newValue || '');
+            this.elValue = item.text;
             if (!this.forceSelect && !this.elValue)
                 this.elValue = newValue || '';
             else if (!this.elValue)
                 this.value = '';
+            if (onBind && item.model)
+                UIEvent.fireEvent('select', this.element, this.model = item.model);
         }
         else {
             let v = (newValue || '').split(',');
@@ -304,7 +307,6 @@ let UICombo = class UICombo extends BaseListInput {
     }
     fireSelect(model) {
         if (model) {
-            this.model = model;
             this.value = model[this.valueProperty] || model;
             UIEvent.fireEvent('select', this.element, model);
         }
@@ -582,7 +584,6 @@ let UIList = class UIList extends BaseListInput {
     fireSelect(model) {
         super.fireSelect(model);
         if (model) {
-            this.model = model;
             this.value = model[this.valueProperty] || model;
             UIEvent.fireEvent('select', this.element, model);
         }

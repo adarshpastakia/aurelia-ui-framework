@@ -1,4 +1,5 @@
 export declare class BaseListInput {
+    model: any;
     value: string;
     options: any[];
     readonly: boolean;
@@ -31,7 +32,7 @@ export declare class BaseListInput {
     focus(): void;
     fireEvent(evt: any): void;
     optionsChanged(newValue: any): void;
-    valueChanged(newValue: any): void;
+    valueChanged(newValue: any, onBind?: boolean): void;
     hilightItem(evt: any): void;
     unhilightItem(evt: any): void;
     scrollIntoView(): void;

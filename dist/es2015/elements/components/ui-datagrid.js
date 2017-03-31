@@ -187,7 +187,7 @@ UIDatagrid = __decorate([
     autoinject(),
     inlineView(`<template class="ui-datagrid"><div class="ui-hidden"><slot></slot></div>
 <div show.bind="resizing" ref="ghost" class="ui-dg-ghost"></div>
-<div if.bind="loaded && (!data || data.length==0)" class="ui-dg-empty"><slot name="dg-empty"></slot></div>
+<div show.bind="loaded && (!data || data.length==0)" class="ui-dg-empty"><slot name="dg-empty"></slot></div>
 <div>
 <table ref="dgHead" width.bind="tableWidth" css.bind="{'table-layout': tableWidth?'fixed':'auto' }">
   <colgroup>

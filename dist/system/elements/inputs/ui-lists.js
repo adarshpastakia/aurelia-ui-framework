@@ -72,7 +72,7 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                             _this.closeDropdown();
                         });
                     }
-                    ui_event_1.UIEvent.queueTask(function () { return _this.valueChanged(_this.value); });
+                    ui_event_1.UIEvent.queueTask(function () { return _this.valueChanged(_this.value, true); });
                 };
                 BaseListInput.prototype.detached = function () {
                     if (this.floating) {
@@ -135,14 +135,18 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                     }
                     this.original = this.filtered = groups;
                 };
-                BaseListInput.prototype.valueChanged = function (newValue) {
+                BaseListInput.prototype.valueChanged = function (newValue, onBind) {
                     var _this = this;
+                    if (onBind === void 0) { onBind = false; }
                     if (!this.isTagInput) {
-                        this.elValue = _['findChildren'](this.filtered = this.original, 'items', 'value', newValue || '').text;
+                        var item = _['findChildren'](this.filtered = this.original, 'items', 'value', newValue || '');
+                        this.elValue = item.text;
                         if (!this.forceSelect && !this.elValue)
                             this.elValue = newValue || '';
                         else if (!this.elValue)
                             this.value = '';
+                        if (onBind && item.model)
+                            ui_event_1.UIEvent.fireEvent('select', this.element, this.model = item.model);
                     }
                     else {
                         var v = (newValue || '').split(',');
@@ -340,7 +344,6 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                 };
                 UICombo.prototype.fireSelect = function (model) {
                     if (model) {
-                        this.model = model;
                         this.value = model[this.valueProperty] || model;
                         ui_event_1.UIEvent.fireEvent('select', this.element, model);
                     }
@@ -589,7 +592,6 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                 UIList.prototype.fireSelect = function (model) {
                     _super.prototype.fireSelect.call(this, model);
                     if (model) {
-                        this.model = model;
                         this.value = model[this.valueProperty] || model;
                         ui_event_1.UIEvent.fireEvent('select', this.element, model);
                     }

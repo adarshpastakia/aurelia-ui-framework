@@ -1,3 +1,14 @@
+<a name="3.1.9"></a>
+## 3.1.9 (2017-03-31)
+
+* Fixed extra color theme issues
+* ListInputs: Fixed initial select
+* UIDropdown: Fixed issue when changing value through binding
+* UIMenuItem: Added isTrue check for disabled
+* UITreeModel: Creating seeded id when node does not contain id property
+* UIDatagird: Fixed issue with dg-empty slot, caused by having slot inside an element with if.bind
+
+
 <a name="3.1.8"></a>
 ## 3.1.8 (2017-03-30)
 

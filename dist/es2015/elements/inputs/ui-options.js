@@ -244,8 +244,8 @@ __decorate([
 ], UISwitch.prototype, "theme", void 0);
 UISwitch = UISwitch_1 = __decorate([
     autoinject(),
-    inlineView(`<template class="ui-option ui-switch-control">
-<div class="ui-switch \${disabled?'ui-disabled':''} \${theme}" css.bind="{width: size}">
+    inlineView(`<template class="ui-option ui-switch-control \${theme}">
+<div class="ui-switch \${disabled?'ui-disabled':''}" css.bind="{width: size}">
   <input class="ui-switch-input" type="checkbox" id.bind="for" disabled.bind="disabled" checked.bind="checked" change.trigger="fireChange($event)"/>
   <label class="ui-switch-inner" for.bind="for" data-on="\${onLabel}" data-off="\${offLabel}"></label>
   <div class="ui-switch-handle"></div>

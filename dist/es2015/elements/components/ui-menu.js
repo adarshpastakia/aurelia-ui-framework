@@ -118,6 +118,7 @@ let UIMenuItem = class UIMenuItem {
     }
     bind(bindingContext, overrideContext) {
         this.active = isTrue(this.active);
+        this.disabled = isTrue(this.disabled);
     }
     click(evt) {
         if (evt.button != 0)
