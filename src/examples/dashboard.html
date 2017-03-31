@@ -5,6 +5,36 @@
 -->
 <template>
   <ui-page page-title="Dashboard" animate>
+    <style>
+      .ret-table {
+        border-spacing: 1px;
+        border-collapse: separate;
+        font-size: 0.7em;
+      }
+      .ret-table th {
+        text-align: right;
+      }
+      .ret-table td {
+        text-align: center;
+        position: relative;
+      }
+      .ret-table .count {
+        padding: 0.75em 0;
+        width: 5em;
+        border: 1px solid white;
+        -webkit-transition: transform 200ms;
+        transition: transform 200ms;
+        position: relative;
+      }
+      .ret-table .count:hover {
+        -webkit-transition-delay: 500ms;
+        transition-delay: 500ms;
+        -webkit-transform: scale(1.5);
+        transform: scale(1.5);
+        z-index: 10;
+      }
+
+    </style>
     <ui-section row-layout>
       <ui-statsbar light-bg vertical>
         <ui-stat class="gray" label="Users" glyph="icon-moon-user">7.11K</ui-stat>
@@ -60,39 +90,18 @@
           <ui-column fill padded>
             <div class="ui-margin-v">
               <ui-panel>
-                <ui-header class="cyan">Tabular Panel</ui-header>
+                <ui-header class="cyan">App Retention Sample</ui-header>
                 <ui-panel-body>
-                  <table class="ui-table bordered" width="100%">
-                    <colgroup><col width="80px"/><col/><col width="120px"/></colgroup>
+                  <table class="ret-table">
                     <tr>
-                      <th>&nbsp;</th>
-                      <th>&nbsp;</th>
-                      <th>&nbsp;</th>
+                      <td></td>
+                      <td repeat.for="i of 6">Wk ${i+1}</td>
                     </tr>
-                    <tr>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                    <tr repeat.for="day of retentions | keys">
+                      <th class="ui-pad-h">${day}</th>
+                      <td repeat.for="i of retentions[day]">
+                        <div class="count" tooltip="message.bind: getRetentionTip(i,day,$index+1)" css.bind="{background: getRetentionStyle(i)}">${(i/100) | number:'0%'}</div>
+                      </td>
                     </tr>
                   </table>
                 </ui-panel-body>
