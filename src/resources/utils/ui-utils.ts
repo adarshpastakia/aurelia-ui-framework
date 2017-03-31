@@ -156,14 +156,23 @@ export module UIUtils {
         let align = options.position.split('');
 
         if (align[0] == 't') {
-          dd.classList.add('ui-tether-top');
-          el.classList.add('ui-tether-bottom');
+          if (pos.top - dd.offsetHeight < 0) {
+            dd.classList.add('ui-tether-top');
+            el.classList.add('ui-tether-bottom');
 
-          dd.style.top = pos.top + 'px';
-          dd.style.transform = 'translateY(0)';
+            dd.style.top = pos.bottom + 'px';
+            dd.style.transform = 'translateY(0)';
+          }
+          else {
+            el.classList.add('ui-tether-top');
+            dd.classList.add('ui-tether-bottom');
+
+            dd.style.top = pos.top + 'px';
+            dd.style.transform = 'translateY(-100%)';
+          }
         }
         else {
-          if (pos.bottom + dd.offsetHeight > window.innerHeight) {
+          if (pos.bottom + dd.offsetHeight > window.innerHeight && pos.top >= dd.offsetHeight) {
             el.classList.add('ui-tether-top');
             dd.classList.add('ui-tether-bottom');
 
@@ -179,12 +188,28 @@ export module UIUtils {
           }
         }
 
-        if (align[1] == 'r') {
-          dd.classList.add('ui-tether-right');
-          el.classList.add('ui-tether-right');
+        if (align[1] == 'c') {
+          // dd.classList.add('ui-tether-right');
+          // el.classList.add('ui-tether-right');
 
-          dd.style.left = pos.right + 'px';
-          dd.style.transform += ' translateX(-100%)';
+          dd.style.left = pos.left + (pos.width / 2) + 'px';
+          dd.style.transform += ' translateX(-50%)';
+        }
+        else if (align[1] == 'r') {
+          if (pos.top - dd.offsetHeight < 0) {
+            dd.classList.add('ui-tether-left');
+            el.classList.add('ui-tether-left');
+
+            dd.style.left = pos.left + 'px';
+            dd.style.transform += ' translateX(0)';
+          }
+          else {
+            dd.classList.add('ui-tether-right');
+            el.classList.add('ui-tether-right');
+
+            dd.style.left = pos.right + 'px';
+            dd.style.transform += ' translateX(-100%)';
+          }
         }
         else {
           if (pos.left + dd.offsetWidth > window.innerWidth) {
