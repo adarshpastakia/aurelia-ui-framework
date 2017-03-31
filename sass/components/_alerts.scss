@@ -38,9 +38,8 @@
   }
 
   &.show {
-    visibility: visible;
     opacity   : 1;
-    @include transition-delay(500ms);
+    visibility: visible;
   }
 }
 

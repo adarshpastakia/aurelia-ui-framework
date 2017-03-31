@@ -42,10 +42,11 @@ export class UITooltip {
     el.className = 'ui-tooltip ' + this.theme;
     el.innerHTML = this.message;
     this.tether = UIUtils.tether(this.element, el, { resize: false, position: 'tc' });
-    UIEvent.queueTask(() => el.classList.add('show'));
+    setTimeout(() => el.classList.add('show'), 700);
   }
   hide() {
-    this.tether.dispose();
     UITooltip.tooltipEl.className = 'ui-tooltip';
+    if (this.tether) this.tether.dispose();
+    this.tether = null;
   }
 }

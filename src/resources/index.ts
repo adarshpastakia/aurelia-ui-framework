@@ -63,6 +63,7 @@ import './elements/components/ui-tab';
 import './elements/components/ui-tree';
 
 import './attributes/ui-badge';
+import './attributes/ui-tooltip';
 import './attributes/md-view';
 
 import './value-converters/ui-lodash';
@@ -124,6 +125,7 @@ export function configure(config: { container: Container, globalResources?: (...
   // Attributes
   config.globalResources(
     PLATFORM.moduleName('./attributes/ui-badge'),
+    PLATFORM.moduleName('./attributes/ui-tooltip'),
     PLATFORM.moduleName('./attributes/md-view')
   );
   // Value Converters
