@@ -4,6 +4,46 @@
 // @copyright   : 2017
 // @license     : MIT
 
+.ui-tooltip {
+  font-size    : 0.7em;
+  min-width    : 32px;
+  position     : fixed;
+  padding      : 0.5em 1.2em;
+  border-radius: $base-border-radius;
+  opacity      : 0;
+  z-index      : $z-index-floating;
+  visibility   : hidden;
+  white-space  : nowrap;
+  background   : $light;
+  box-shadow   : 0 0 8px 2px rgba(0,0,0,.5);
+  @include transition(opacity 500ms);
+
+  &:after {
+    border      : 0 solid transparent;
+    border-color: $light transparent;
+    position    : absolute;
+    content     : '';
+    left        : 50%;
+    margin-left : -6px;
+  }
+
+  &.ui-tether-bottom:after {
+    border-width: 6px 6px 0 6px;
+    bottom      : -6px;
+  }
+
+  &.ui-tether-top:after {
+    border-width: 0 6px 6px 6px;
+    top         : -6px;
+  }
+
+  &.show {
+    visibility: visible;
+    opacity   : 1;
+    @include transition-delay(500ms);
+  }
+}
+
 .ui-toast {
   display       : block;
   max-height    : 0;
