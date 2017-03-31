@@ -1,3 +1,10 @@
+<a name="3.1.10"></a>
+## 3.1.10 (2017-03-31)
+
+* Added tooltip attribute
+* Updated tether implementation
+
+
 <a name="3.1.9"></a>
 ## 3.1.9 (2017-03-31)
 
@@ -6,7 +13,7 @@
 * UIDropdown: Fixed issue when changing value through binding
 * UIMenuItem: Added isTrue check for disabled
 * UITreeModel: Creating seeded id when node does not contain id property
-* UIDatagird: Fixed issue with dg-empty slot, caused by having slot inside an element with if.bind
+* UIDatagrid: Fixed issue with dg-empty slot, caused by having slot inside an element with if.bind
 
 
 <a name="3.1.8"></a>
