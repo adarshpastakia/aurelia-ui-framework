@@ -14,7 +14,7 @@
               <h6 class="ui-bg-light ui-text-pink ui-pad-h">Membership Details</h6>
               <ui-input-group>
                 <ui-input-label required>Account</ui-input-label>
-                <ui-dropdown value="0" change.trigger="changeType($event.detail)" width="8em">
+                <ui-dropdown value.bind="type" change.trigger="changeType($event.detail)" width="8em">
                   <ui-list-item value="0">Free</ui-list-item>
                   <ui-list-item value="1">Basic</ui-list-item>
                   <ui-list-item value="2">Premium</ui-list-item>
@@ -25,6 +25,25 @@
                 </ui-input-addon>
                 <ui-input placeholder="Account..." number="12345"></ui-input>
               </ui-input-group>
+              <ui-row middle>
+                <ui-column fill></ui-column>
+                <ui-column width="6em">
+                  <div><small>Price</small></div>
+                  <div><small>Shipping</small></div>
+                  <hr/>
+                  <div><small>Discount</small></div>
+                  <hr/>
+                  <div><small><strong>Total</strong></small></div>
+                </ui-column>
+                <ui-column width="5em" class="ui-text-end">
+                  <div>${amount | currency}</div>
+                  <div>${ship | currency}</div>
+                  <hr/>
+                  <div>${discount | currency}</div>
+                  <hr/>
+                  <div><strong>${amount+ship+discount | currency}</strong></div>
+                </ui-column>
+              </ui-row>
               <br/>
               <h6 class="ui-bg-light ui-text-pink ui-pad-h">Personal Details</h6>
               <ui-input-group>
@@ -64,7 +83,14 @@
               </ui-input-group>
               <hr/>
               <ui-input-group>
+                <ui-input-label>Email</ui-input-label>
+                <ui-input email placeholder="user@domain.com">
+                  <ui-input-addon class="ui-text-gray" glyph="icon-moon-envelop"></ui-input-addon>
+                </ui-input>
+              </ui-input-group>
+              <ui-input-group>
                 <ui-input-label required>Phone</ui-input-label>
+                <ui-input-addon class="ui-text-gray" glyph="icon-moon-phone"></ui-input-addon>
                 <ui-dropdown value="2" disabled.bind="!ctr" width="8em">
                   <ui-list-item value="0">Home</ui-list-item>
                   <ui-list-item value="1">Work</ui-list-item>
