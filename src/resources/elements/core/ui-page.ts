@@ -74,7 +74,7 @@ export class UIContent {
 
 @autoinject()
 @customElement('ui-glyph')
-@inlineView(`<template class="ui-icon \${glyph}"><svg><use tabindex="-1" x="0" y="0" xlink:href="#\${glyph}"/></svg></template>`)
+@inlineView(`<template class="ui-icon"><svg if.bind="glyph"><use tabindex="-1" x="0" y="0" xlink:href="#\${glyph}"/></svg></template>`)
 export class UIGlyph {
   constructor(public element: Element) { }
 
