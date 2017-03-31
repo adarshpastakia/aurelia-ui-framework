@@ -36,17 +36,19 @@ export class UITooltip {
   @bindable({ primaryProperty: true }) message = '';
 
   private tether;
+  private timer;
 
   show() {
     let el = UITooltip.tooltipEl;
     el.className = 'ui-tooltip ' + this.theme;
     el.innerHTML = this.message;
     this.tether = UIUtils.tether(this.element, el, { resize: false, position: 'tc' });
-    setTimeout(() => el.classList.add('show'), 700);
+    this.timer = setTimeout(() => el.classList.add('show'), 700);
   }
   hide() {
-    UITooltip.tooltipEl.className = 'ui-tooltip';
+    clearTimeout(this.timer);
     if (this.tether) this.tether.dispose();
+    UITooltip.tooltipEl.className = 'ui-tooltip';
     this.tether = null;
   }
 }
