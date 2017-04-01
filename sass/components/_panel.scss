@@ -33,6 +33,7 @@
 
   .ui-panel-body {
     max-height: 50em;
+    position  : relative;
     @include flex(1 1 auto);
 
     &.ui-flexed {

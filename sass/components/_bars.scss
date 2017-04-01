@@ -37,13 +37,13 @@
     @include align-self(stretch);
   }
 
-   > .ui-input-group,
-  > .ui-input-wrapper {
+   > .ui-input-wrapper,
+  > .ui-input-group {
     margin: 0 0.25em;
   }
 
-   > .ui-button-group,
-  > .ui-button {
+   > .ui-button,
+  > .ui-button-group {
     margin: 0 0.2rem;
   }
 }
@@ -58,6 +58,7 @@
 
 .ui-statsbar {
   z-index         : 5;
+  position        : relative;
   background-color: $base-bg;
   border          : 1px solid rgba($base-border-color, .5);
   border-width    : 1px 0;
@@ -73,7 +74,7 @@
   }
 
   &.ui-small {
-    font-size: .7em;
+    font-size: 0.7em;
   }
 
   .ui-stat {
