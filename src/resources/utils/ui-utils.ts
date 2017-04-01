@@ -196,7 +196,7 @@ export module UIUtils {
           dd.style.transform += ' translateX(-50%)';
         }
         else if (align[1] == 'r') {
-          if (pos.top - dd.offsetHeight < 0) {
+          if (pos.left - dd.offsetWidth < 0) {
             dd.classList.add('ui-tether-left');
             el.classList.add('ui-tether-left');
 
