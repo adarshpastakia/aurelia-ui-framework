@@ -144,6 +144,9 @@ let UIListItem = class UIListItem {
             h.classList.remove('ui-hilight');
         evt.target.classList.add('ui-hilight');
     }
+    unhilightItem(evt) {
+        evt.target.classList.remove('ui-hilight');
+    }
     fireSelect(evt) {
         UIEvent.fireEvent('select', this.element, { value: this.value, model: this.model });
     }
@@ -162,7 +165,7 @@ __decorate([
 ], UIListItem.prototype, "value", void 0);
 UIListItem = __decorate([
     autoinject(),
-    inlineView(`<template class="ui-list-item" click.trigger="fireSelect($event)" mouseover.trigger="hilightItem($event)">
+    inlineView(`<template class="ui-list-item" click.trigger="fireSelect($event)" mouseover.trigger="hilightItem($event)" mouseout.trigger="unhilightItem($event)">
   <ui-glyph class.bind="glyph" glyph.bind="glyph" if.bind="glyph"></ui-glyph><span if.bind="glyph">&nbsp;</span><slot></slot></template>`),
     customElement('ui-list-item'),
     __metadata("design:paramtypes", [Element])

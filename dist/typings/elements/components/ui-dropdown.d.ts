@@ -34,5 +34,6 @@ export declare class UIListItem {
     glyph: string;
     value: string;
     hilightItem(evt: any): void;
+    unhilightItem(evt: any): void;
     fireSelect(evt: any): void;
 }

@@ -10,7 +10,7 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var __moduleName = context_1 && context_1.id;
-    var aurelia_framework_1, ui_event_1, UIBreadcrumb, UICrumb;
+    var aurelia_framework_1, ui_event_1, UIChip, UIBreadcrumb, UICrumb;
     return {
         setters: [
             function (aurelia_framework_1_1) {
@@ -21,6 +21,43 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
             }
         ],
         execute: function () {
+            UIChip = (function () {
+                function UIChip(element) {
+                    this.element = element;
+                    this.id = '';
+                    this.label = '';
+                    this.color = '';
+                    this.canClose = false;
+                    if (element.hasAttribute('big'))
+                        element.classList.add('big');
+                    if (element.hasAttribute('small'))
+                        element.classList.add('small');
+                    this.canClose = element.hasAttribute('removable');
+                }
+                UIChip.prototype.remove = function () {
+                    ui_event_1.UIEvent.fireEvent('remove', this.element, this.id);
+                };
+                return UIChip;
+            }());
+            __decorate([
+                aurelia_framework_1.bindable(),
+                __metadata("design:type", Object)
+            ], UIChip.prototype, "id", void 0);
+            __decorate([
+                aurelia_framework_1.bindable(),
+                __metadata("design:type", Object)
+            ], UIChip.prototype, "label", void 0);
+            __decorate([
+                aurelia_framework_1.bindable(),
+                __metadata("design:type", Object)
+            ], UIChip.prototype, "color", void 0);
+            UIChip = __decorate([
+                aurelia_framework_1.autoinject(),
+                aurelia_framework_1.inlineView("<template class=\"ui-chip\"><span class=\"ui-chip-label\" css.bind=\"{'background-color':color}\">${label}</span><span class=\"ui-chip-value\"><slot></slot></span><a click.trigger=\"remove()\" class=\"ui-chip-close\" if.bind=\"canClose\">&times</a></template>"),
+                aurelia_framework_1.customElement('ui-chip'),
+                __metadata("design:paramtypes", [Element])
+            ], UIChip);
+            exports_1("UIChip", UIChip);
             UIBreadcrumb = (function () {
                 function UIBreadcrumb(element) {
                     this.element = element;

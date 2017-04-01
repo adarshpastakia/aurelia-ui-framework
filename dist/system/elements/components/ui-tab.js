@@ -279,7 +279,7 @@ System.register(["aurelia-framework", "../../utils/ui-utils", "../../utils/ui-ev
                     this.disabled = isTrue(this.disabled);
                 };
                 UITab.prototype.attached = function () {
-                    if (this.element.firstElementChild.tagName == 'compose')
+                    if (this.element.firstElementChild && this.element.firstElementChild.tagName.toLowerCase() == 'compose')
                         this.vm = this.element.firstElementChild.au.compose.viewModel.currentViewModel;
                 };
                 UITab.prototype.remove = function () {

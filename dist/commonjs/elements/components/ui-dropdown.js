@@ -148,6 +148,9 @@ var UIListItem = (function () {
             h.classList.remove('ui-hilight');
         evt.target.classList.add('ui-hilight');
     };
+    UIListItem.prototype.unhilightItem = function (evt) {
+        evt.target.classList.remove('ui-hilight');
+    };
     UIListItem.prototype.fireSelect = function (evt) {
         ui_event_1.UIEvent.fireEvent('select', this.element, { value: this.value, model: this.model });
     };
@@ -167,7 +170,7 @@ __decorate([
 ], UIListItem.prototype, "value", void 0);
 UIListItem = __decorate([
     aurelia_framework_1.autoinject(),
-    aurelia_framework_1.inlineView("<template class=\"ui-list-item\" click.trigger=\"fireSelect($event)\" mouseover.trigger=\"hilightItem($event)\">\n  <ui-glyph class.bind=\"glyph\" glyph.bind=\"glyph\" if.bind=\"glyph\"></ui-glyph><span if.bind=\"glyph\">&nbsp;</span><slot></slot></template>"),
+    aurelia_framework_1.inlineView("<template class=\"ui-list-item\" click.trigger=\"fireSelect($event)\" mouseover.trigger=\"hilightItem($event)\" mouseout.trigger=\"unhilightItem($event)\">\n  <ui-glyph class.bind=\"glyph\" glyph.bind=\"glyph\" if.bind=\"glyph\"></ui-glyph><span if.bind=\"glyph\">&nbsp;</span><slot></slot></template>"),
     aurelia_framework_1.customElement('ui-list-item'),
     __metadata("design:paramtypes", [Element])
 ], UIListItem);

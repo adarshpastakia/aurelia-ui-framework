@@ -9,6 +9,42 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { autoinject, customElement, bindable, inlineView } from 'aurelia-framework';
 import { UIEvent } from "../../utils/ui-event";
+let UIChip = class UIChip {
+    constructor(element) {
+        this.element = element;
+        this.id = '';
+        this.label = '';
+        this.color = '';
+        this.canClose = false;
+        if (element.hasAttribute('big'))
+            element.classList.add('big');
+        if (element.hasAttribute('small'))
+            element.classList.add('small');
+        this.canClose = element.hasAttribute('removable');
+    }
+    remove() {
+        UIEvent.fireEvent('remove', this.element, this.id);
+    }
+};
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIChip.prototype, "id", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIChip.prototype, "label", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIChip.prototype, "color", void 0);
+UIChip = __decorate([
+    autoinject(),
+    inlineView(`<template class="ui-chip"><span class="ui-chip-label" css.bind="{'background-color':color}">\${label}</span><span class="ui-chip-value"><slot></slot></span><a click.trigger="remove()" class="ui-chip-close" if.bind="canClose">&times</a></template>`),
+    customElement('ui-chip'),
+    __metadata("design:paramtypes", [Element])
+], UIChip);
+export { UIChip };
 let UIBreadcrumb = class UIBreadcrumb {
     constructor(element) {
         this.element = element;

@@ -1,3 +1,15 @@
+<a name="3.1.11"></a>
+## 3.1.11 (2017-04-01)
+
+* Added new element
+  ```
+  <ui-chip removable remove.trigger="fn()" label="Field" class="muted">Value</ui-chip>
+  ```
+* Fixed issues caused by empty tag body
+* Fixed mistake in tether
+* Updated styles
+
+
 <a name="3.1.10"></a>
 ## 3.1.10 (2017-03-31)
 
