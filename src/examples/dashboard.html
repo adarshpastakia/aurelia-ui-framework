@@ -48,10 +48,11 @@
         <ui-row>
           <ui-column fill padded>
             <ui-panel>
+              <ui-loader busy.bind="isLoading"></ui-loader>
               <ui-header class="teal">
                 <ui-header-title>Chart Panel</ui-header-title>
-                <ui-header-tool refresh></ui-header-tool>
-                <ui-dropdown value="2">
+                <ui-header-tool refresh click.trigger="doRefresh()"></ui-header-tool>
+                <ui-dropdown value="2" change.trigger="doRefresh()">
                   <ui-list-item value="0">Last 30 Days</ui-list-item>
                   <ui-list-item value="1">Last 60 Days</ui-list-item>
                   <ui-list-item value="2">Last 90 Days</ui-list-item>
@@ -66,6 +67,7 @@
             <ui-panel>
               <ui-header class="teal">Chart Panel</ui-header>
               <ui-panel-body padded>
+                <ui-loader small busy.bind="isLoading"></ui-loader>
                 <img src="images/wireframes/chart-pie.png" height="120px"/>
               </ui-panel-body>
             </ui-panel>
@@ -73,6 +75,7 @@
             <ui-panel>
               <ui-header class="teal">Chart Panel</ui-header>
               <ui-panel-body padded>
+                <ui-loader small busy.bind="isLoading"></ui-loader>
                 <img src="images/wireframes/chart-pie.png" height="120px"/>
               </ui-panel-body>
             </ui-panel>
@@ -90,7 +93,11 @@
           <ui-column fill padded>
             <div class="ui-margin-v">
               <ui-panel>
-                <ui-header class="cyan">App Retention Sample</ui-header>
+                <ui-loader busy.bind="isReloading"></ui-loader>
+                <ui-header class="cyan">
+                  <ui-header-title>App Retention Sample</ui-header-title>
+                  <ui-header-tool refresh click.trigger="reloadRetentions()"></ui-header-tool>
+                </ui-header>
                 <ui-panel-body>
                   <table class="ret-table">
                     <tr>

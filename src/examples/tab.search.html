@@ -54,6 +54,12 @@
           </ui-column>
         </ui-row>
 
+        <ui-row middle>
+          <template repeat.for="section of chips">
+            <ui-chip small removable repeat.for="chip of section.values" label.bind="section.label">${chip}</ui-chip>
+          </template>
+        </ui-row>
+
         <ui-form ref="btnSearchSave" busy.bind="isSaving" submit.trigger="saveQuery()" class="ui-pad-all">
           <ui-loader busy.bind="isSaving"></ui-loader>
           <ui-input-group>

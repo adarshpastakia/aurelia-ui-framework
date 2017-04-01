@@ -38,10 +38,10 @@ export class TabSearch {
       children: [
         { text: '-3 Months (9)' },
         { text: '-2 Months (11)' },
-        { text: '-1 Months (4)' },
+        { text: '-1 Month (4)' },
         { text: '0 Months (4)' },
-        { text: '+1 Months (2)' },
-        { text: '+2 Months (27)' },
+        { text: '+1 Month (2)', checked: true },
+        { text: '+2 Months (27)', checked: true },
         { text: '+3 Months (42)' },
       ]
     }, {
@@ -60,6 +60,11 @@ export class TabSearch {
     checkboxLevel: 1,
     maxCount: 5
   });
+
+  chips = [
+    { label: 'Type', theme: 'pink', values: ['Free', 'Basic'] },
+    { label: 'Expiry', theme: 'lime', values: ['+1 Month', '+2 Months'] }
+  ];
 
   searchTree;
   treeToggle(v) {
