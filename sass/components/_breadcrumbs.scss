@@ -1,8 +1,51 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
+
+.ui-chip {
+  display      : inline-block;
+  margin       : 0.2em 0.25em;
+  border-radius: 1em;
+  font-size    : 0.9rem;
+  overflow     : hidden;
+  @include box-shadow(0 0 1px 0 $base-border-color inset);
+
+  &.big {
+    font-size: 1.2rem;
+  }
+
+  &.small {
+    font-size: 0.6rem;
+  }
+
+  .ui-chip-label {
+    background : $light;
+    padding    : 0.1em 0.5em;
+    font-weight: $font-weight-strong;
+  }
+
+  .ui-chip-value {
+    padding   : 0.1em 0.5em;
+  }
+
+  .ui-chip-close {
+    color  : $primary;
+    opacity: 0.6;
+    margin: 0 .3em;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}
+@include chip-theme(primary, $primary, $button-primary-text);
+@include chip-theme(secondary, $secondary, $button-secondary-text);
+@include chip-theme(info, $info, $button-info-text);
+@include chip-theme(danger, $danger, $button-danger-text);
+@include chip-theme(success, $success, $button-success-text);
+@include chip-theme(warning, $warning, $button-warning-text);
 
 .ui-breadcrumb {
   display      : flex;
@@ -15,9 +58,9 @@
   @include flex-auto();
 
   .ui-crumb {
-    margin       : .25em 0;
+    margin       : 0.25em 0;
     overflow     : hidden;
-    padding-right: .75em;
+    padding-right: 0.75em;
 
     &:not(:first-child) {
       margin-left: -.75em;
@@ -28,7 +71,7 @@
       color          : $link-text;
       background     : $base-bg;
       position       : relative;
-      padding        : .25em .25em .25em 1em;
+      padding        : 0.25em 0.25em 0.25em 1em;
     }
 
     a:hover {
@@ -40,7 +83,7 @@
     }
 
     &:first-child a {
-      padding: .25em .25em .25em .75em;
+      padding: 0.25em 0.25em 0.25em 0.75em;
     }
 
     &:last-child {
@@ -62,10 +105,10 @@
       display      : block;
       width        : 0;
       height       : 0;
-      border-top   : .5em solid transparent;
+      border-top   : 0.5em solid transparent;
       /* Go big on the size, and let overflow hide */
-      border-bottom: .5em solid transparent;
-      border-left  : .5em solid $base-bg;
+      border-bottom: 0.5em solid transparent;
+      border-left  : 0.5em solid $base-bg;
       position     : absolute;
       top          : 50%;
       transform    : translateY(-50%);
@@ -78,9 +121,9 @@
       display      : block;
       width        : 0;
       height       : 0;
-      border-top   : .5em solid transparent;
-      border-bottom: .5em solid transparent;
-      border-left  : .5em solid $link-text;
+      border-top   : 0.5em solid transparent;
+      border-bottom: 0.5em solid transparent;
+      border-left  : 0.5em solid $link-text;
       position     : absolute;
       top          : 50%;
       margin-left  : 2px;
@@ -101,12 +144,12 @@
       a {
         background: $primary;
         color     : contrast-color($primary, $black, $white);
-        padding   : .25em 2px .25em 2em;
+        padding   : 0.25em 2px 0.25em 2em;
       }
 
       &:first-child a {
-        padding      : .25em 2px .25em 1em;
-        border-radius: .25em 0 0 .25em;
+        padding      : 0.25em 2px 0.25em 1em;
+        border-radius: 0.25em 0 0 0.25em;
       }
 
       &:last-child a {
@@ -139,7 +182,7 @@
   .ui-breadcrumb {
     .ui-crumb {
       padding-right: 0;
-      padding-left : .75em;
+      padding-left : 0.75em;
 
       &:not(:first-child) {
         margin-left : 0;
@@ -147,7 +190,7 @@
       }
 
       a {
-        padding: .25em 1em .25em .25em;
+        padding: 0.25em 1em 0.25em 0.25em;
       }
 
       a:hover {
@@ -157,19 +200,19 @@
       }
 
       &:first-child a {
-        padding: .25em .75em .25em .25em;
+        padding: 0.25em 0.75em 0.25em 0.25em;
       }
 
       a:after {
         border-left : none;
-        border-right: .5em solid $base-bg;
+        border-right: 0.5em solid $base-bg;
         right       : 100%;
         left        : auto;
       }
 
       a:before {
         border-left : none;
-        border-right: .5em solid $link-text;
+        border-right: 0.5em solid $link-text;
         margin-right: 2px;
         right       : 100%;
         left        : auto;
@@ -187,12 +230,12 @@
         }
 
         a {
-          padding: .25em 2em .25em 0;
+          padding: 0.25em 2em 0.25em 0;
         }
 
         &:first-child a {
-          padding      : .25em 1em .25em 0;
-          border-radius: 0 .25em .25em 0;
+          padding      : 0.25em 1em 0.25em 0;
+          border-radius: 0 0.25em 0.25em 0;
         }
 
         a:after {

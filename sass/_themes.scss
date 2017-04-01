@@ -44,6 +44,19 @@
         color: $color;
       }
       background: rgba($white, .1);
+
+      .ui-list-item {
+        &.ui-hilight {
+          color     : $color;
+          background: rgba($bg, .5);
+        }
+
+        &.ui-selected,
+        &:active {
+          color     : $color;
+          background: $bg;
+        }
+      }
     }
 
      > .ui-input-group .ui-group-wrapper,
@@ -82,6 +95,7 @@
       color: rgba($color, .75);
     }
   }
+
   .ui-statsbar .ui-stat.#{$theme} {
     color     : $color;
     background: $bg;
@@ -117,6 +131,19 @@
         color: $color;
       }
       background: rgba($white, .1);
+
+      .ui-list-item {
+        &.ui-hilight {
+          color     : $color;
+          background: rgba($bg, .5);
+        }
+
+        &.ui-selected,
+        &:active {
+          color     : $color;
+          background: $bg;
+        }
+      }
     }
 
     .ui-header-button {
@@ -179,6 +206,17 @@
           }
         }
       }
+    }
+  }
+}
+//
+
+// Chips
+@mixin chip-theme($style, $bg, $text) {
+  .ui-chip.#{$style} {
+    .ui-chip-label {
+      color     : $text;
+      background: $bg;
     }
   }
 }
