@@ -240,7 +240,8 @@ export class UITab {
     this.disabled = isTrue(this.disabled);
   }
   attached() {
-    if (this.element.firstElementChild.tagName == 'compose') this.vm = this.element.firstElementChild.au.compose.viewModel.currentViewModel;
+    if (this.element.firstElementChild && this.element.firstElementChild.tagName.toLowerCase() == 'compose')
+      this.vm = this.element.firstElementChild.au.compose.viewModel.currentViewModel;
   }
   // detached() { }
   // unbind() { }
