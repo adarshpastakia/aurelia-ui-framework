@@ -118,7 +118,7 @@ export class UIListGroup {
 }
 
 @autoinject()
-@inlineView(`<template class="ui-list-item" click.trigger="fireSelect($event)" mouseover.trigger="hilightItem($event)">
+@inlineView(`<template class="ui-list-item" click.trigger="fireSelect($event)" mouseover.trigger="hilightItem($event)" mouseout.trigger="unhilightItem($event)">
   <ui-glyph class.bind="glyph" glyph.bind="glyph" if.bind="glyph"></ui-glyph><span if.bind="glyph">&nbsp;</span><slot></slot></template>`)
 @customElement('ui-list-item')
 export class UIListItem {
@@ -140,6 +140,9 @@ export class UIListItem {
     let h = this.element.parentElement.querySelector('.ui-list-item.ui-hilight');
     if (h !== null) h.classList.remove('ui-hilight');
     evt.target.classList.add('ui-hilight');
+  }
+  unhilightItem(evt) {
+    evt.target.classList.remove('ui-hilight');
   }
 
   fireSelect(evt) {
