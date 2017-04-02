@@ -220,6 +220,8 @@ export class UIDatagrid {
     this.colResize.width = (parseInt(this.colResize.width) + this.diff);
     document.removeEventListener('mousemove', this.move);
     document.removeEventListener('mouseup', this.stop);
+    evt.stopPropagation();
+    return false;
   }
 }
 
