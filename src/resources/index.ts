@@ -176,6 +176,8 @@ export function configure(config: { container: Container, globalResources?: (...
   // Validation Rules
   let validator = UIUtils.lazy(Validator);
   ValidationRules
+    .customRule('url', (value, obj) => value === null || value === undefined || value === '' || (/^((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?$/).test(value), '\${$displayName } is not a valid url.');
+  ValidationRules
     .customRule('phone', (value, obj) => value === null || value === undefined || value === '' || PhoneLib.isValid(value), '\${$displayName } is not a valid phone number.');
   ValidationRules
     .customRule('number', (value, obj, min, max) => value === null || value === undefined || value === '' || (Number.isInteger(value) && value >= (isEmpty(min) ? Number.MIN_VALUE : min) && value <= (isEmpty(max) ? Number.MAX_VALUE : max)),
