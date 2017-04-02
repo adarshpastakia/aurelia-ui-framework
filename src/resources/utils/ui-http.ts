@@ -75,6 +75,12 @@ export class UIHttpService {
     this.httpClient.baseUrl = url;
   }
 
+  static buildQueryString(json) {
+    return Object.keys(json)
+      .map(k => escape(k) + "=" + escape(json[k]))
+      .join('&');
+  }
+
   //**** SHARED METHODS ****//
   get(slug: string, headers: any = true): Promise<any | string | void> {
     this.logger.info(`get [${slug}]`);
