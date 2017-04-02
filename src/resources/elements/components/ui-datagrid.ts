@@ -39,7 +39,7 @@ export class UIDgRow {
     <col/>
   </colgroup>
   <thead><tr>
-    <td repeat.for="col of cols" click.trigger="doSort(col)" class="\${col.sortable?'ui-sortable':''} \${col.locked==0?'ui-locked':''}" css.bind="{left: col.left+'px'}"><div>
+    <td repeat.for="col of cols" mouseup.trigger="doSort(col)" class="\${col.sortable?'ui-sortable':''} \${col.locked==0?'ui-locked':''}" css.bind="{left: col.left+'px'}"><div>
       <span class="ui-dg-header" innerhtml.bind='col.getTitle()'></span>
       <span class="ui-filter" if.bind="col.filter"><ui-glyph glyph="glyph-funnel"></ui-glyph></span>
       <span class="ui-sort \${col.dataId==sortColumn ? sortOrder:''}" if.bind="col.sortable"></span>
@@ -169,7 +169,7 @@ export class UIDatagrid {
     });
   }
   private doSort(col) {
-    if (!col.sortable) return;
+    if (!col.sortable || this.resizing) return;
     if (this.sortColumn != col.dataId) this.sortOrder = 'asc';
     if (this.sortColumn == col.dataId) this.sortOrder = this.sortOrder == 'asc' ? 'desc' : 'asc';
     this.sortColumn = col.dataId;
