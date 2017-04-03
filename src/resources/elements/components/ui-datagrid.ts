@@ -9,23 +9,43 @@ import {UIEvent} from "../../utils/ui-event";
 import {UIUtils} from "../../utils/ui-utils";
 import * as _ from "lodash";
 
-@inlineView(`<template>
-  <td repeat.for="col of cols" class="\${col.locked==0?'ui-locked':''} \${col.align}" css.bind="{left: col.left+'px'}">
+@inlineView(`<template><tr class="level-\${level} \${record.isOpen?'ui-expanded':''} \${parent.selected==record?'ui-selected':''}" click.delegate="parent.fireSelect(parent.selected=record)">
+  <td class="ui-expander" if.bind="parent.handleSize>0">
+    <div><a if.bind="record.subdata" click.trigger="expand($event)"><ui-glyph glyph.bind="record.isOpen?'glyph-icon-minus':'glyph-icon-plus'"></ui-glyph></a></div>
+  </td>
+  <td repeat.for="col of parent.cols" class="\${col.locked==0?'ui-locked':''} \${col.align}" css.bind="{left: col.left+'px'}">
   <div if.bind="col.type=='normal'"><span class="\${col.class}" innerhtml.bind='col.getValue(record[col.dataId],record)'></span></div>
   <div if.bind="col.type=='glyph'" title.bind="col.getTooltip(record[col.dataId],record)"><ui-glyph class="\${col.class} \${col.getGlyph(record[col.dataId],record)}" glyph.bind="col.getGlyph(record[col.dataId],record)"></ui-glyph></div>
   <div if.bind="col.type=='link'"><a class="ui-link \${col.class} \${col.isDisabled(record[col.dataId],record)?'ui-disabled':''}" click.trigger="col.fireClick($event,record[col.dataId],record)"><ui-glyph glyph.bind="col.getGlyph(record[col.dataId],record)" if.bind="col.glyph"></ui-glyph> <span innerhtml.bind="col.getLabel(record[col.dataId],record)"></span></a></div>
   <div if.bind="col.type=='button'" class="btn-fix"><ui-button click.trigger="col.fireClick($event,record[col.dataId],record)" theme.bind="col.getTheme(record[col.dataId],record)" small square glyph.bind="col.getGlyph(record[col.dataId],record)" disabled.bind="col.isDisabled(record[col.dataId],record)" dropdown.bind="dropdown" menuopen.trigger="col.fireMenuOpen($event, record)"><span innerhtml.bind="col.getLabel(record[col.dataId],record)"></span></ui-button></div>
   </td>
-  <td class="ui-expander"><div>&nbsp;</div></td>
+  <td class="filler"><div>&nbsp;</div></td></tr>
+
+  <ui-dg-row containerless if.bind="record.isOpen" level.bind="level+1" parent.bind="parent"
+    record.bind="rec" repeat.for="rec of getSubdata()" class="\${$last?'ui-last-inner':''}">
+  </ui-dg-row>
 </template>`)
 @customElement('ui-dg-row')
 export class UIDgRow {
   bind(bindingContext: Object, overrideContext: Object) {
-    this.cols = overrideContext['parentOverrideContext'].bindingContext.cols;
+    // this.cols = overrideContext['parentOverrideContext'].bindingContext.cols;
+    // this.handleSize = overrideContext['parentOverrideContext'].bindingContext.handleSize;
   }
 
-  cols;
+  @bindable() level = 0;
   @bindable() record;
+  @bindable() parent;
+
+  expand(evt) {
+    this.record.isOpen = !this.record.isOpen;
+    evt.stopPropagation();
+    evt.preventDefault();
+    return false;
+  }
+  getSubdata() {
+    if (isFunction(this.record.subdata)) return this.record.subdata(this.record);
+    return this.record.subdata;
+  }
 }
 
 @autoinject()
@@ -35,46 +55,48 @@ export class UIDgRow {
 <div>
 <table ref="dgHead" width.bind="tableWidth" css.bind="{'table-layout': tableWidth?'fixed':'auto' }">
   <colgroup>
+    <col width="\${handleSize}" if.bind="handleSize>0"/>
     <col repeat.for="col of cols" data-index.bind="$index" width.bind="col.width"/>
     <col/>
   </colgroup>
   <thead><tr>
+    <td class="ui-expander" if.bind="handleSize>0"><div>&nbsp;</div></td>
     <td repeat.for="col of cols" mouseup.trigger="doSort(col)" class="\${col.sortable?'ui-sortable':''} \${col.locked==0?'ui-locked':''}" css.bind="{left: col.left+'px'}"><div>
       <span class="ui-dg-header" innerhtml.bind='col.getTitle()'></span>
       <span class="ui-filter" if.bind="col.filter"><ui-glyph glyph="glyph-funnel"></ui-glyph></span>
       <span class="ui-sort \${col.dataId==sortColumn ? sortOrder:''}" if.bind="col.sortable"></span>
       <span class="ui-resizer" if.bind="col.resize" mousedown.trigger="resizeColumn($event,col,cols[$index+1])"></span>
     </div></td>
-    <td class="ui-expander"><div><span class="ui-dg-header">&nbsp;</span></div></td>
+    <td class="filler"><div><span class="ui-dg-header">&nbsp;</span></div></td>
   </tr></thead>
 </table>
 </div>
 <div class="ui-dg-wrapper" ref="scroller" scroll.trigger="scrolling() & debounce:1">
 <table width.bind="calculateWidth(cols,resizing)" css.bind="{'table-layout': tableWidth?'fixed':'auto' }">
   <colgroup>
+    <col width="\${handleSize}" if.bind="handleSize>0"/>
     <col repeat.for="col of cols" data-index.bind="$index" width.bind="col.width"/>
     <col/>
   </colgroup>
-  <tbody>
-    <tr if.bind="!virtual" class="\${$even?'even':'odd'}" as-element="ui-dg-row" record.bind="record" repeat.for="record of paged" click.delegate="fireSelect($parent.selected=record)"
-      class="\${$parent.selected==record?'ui-selected':''}"></tr>
-
-    <tr if.bind="virtual" class="\${$even?'even':'odd'}" as-element="ui-dg-row" record.bind="record" virtual-repeat.for="record of paged" click.delegate="fireSelect($parent.selected=record)"
-      class="\${$parent.selected==record?'ui-selected':''}"></tr>
-
-    <tr class="filler"><td repeat.for="col of cols" class="\${col.locked==0?'ui-locked':''}" css.bind="{left: col.left+'px'}"><div>&nbsp;</div></td><td class="ui-expander"><div>&nbsp;</div></td></tr>
+  <tbody if.bind="!virtual" class="\${$even?'even':'odd'}" parent.bind="$parent"
+    as-element="ui-dg-row" record.bind="record" repeat.for="record of paged">
+  </tbody>
+  <tbody if.bind="virtual" class="\${$even?'even':'odd'}" parent.bind="$parent"
+    as-element="ui-dg-row" record.bind="record" virtual-repeat.for="record of paged">
   </tbody>
 </table></div>
 <div>
 <table ref="dgFoot" width.bind="tableWidth" css.bind="{'table-layout': tableWidth?'fixed':'auto' }">
   <colgroup>
+    <col width="\${handleSize}" if.bind="handleSize>0"/>
     <col repeat.for="col of cols" data-index.bind="$index" width.bind="col.width"/>
     <col/>
   </colgroup>
 
   <tfoot if.bind="summaryRow && data && data.length!=0"><tr>
+    <td class="ui-expander" if.bind="handleSize>0"><div>&nbsp;</div></td>
     <td repeat.for="col of cols" class="\${col.locked==0?'ui-locked':''} \${col.align}" css.bind="{left: col.left+'px'}"><div innerhtml.bind='col.getSummary(summaryRow, filtered)'></div></td>
-    <td class="ui-expander"><div>&nbsp;</div></td>
+    <td class="filler"><div>&nbsp;</div></td>
   </tr></tfoot>
 </table>
 </div>
@@ -88,6 +110,7 @@ export class UIDatagrid {
   constructor(public element: Element) {
     this.virtual = element.hasAttribute('virtual');
     if (!element.hasAttribute('scroll')) this.element.classList.add('ui-auto-size');
+    if (!element.hasAttribute('row-expander')) this.handleSize = 0;
   }
 
   // aurelia hooks
@@ -128,6 +151,8 @@ export class UIDatagrid {
   private virtual = false;
   private isBusy = false;
   private obPageChange;
+
+  private handleSize = 30;
 
   columnsChanged(newValue) {
     this.cols = _.sortBy(this.columns, 'locked');
@@ -177,7 +202,7 @@ export class UIDatagrid {
   }
 
   private calculateWidth(cols) {
-    let w = 0;
+    let w = this.handleSize;
     _.forEach(cols, c => { c.left = w; w += c.getWidth(); });
     return (this.tableWidth = (w + 20) + 'px');
   }

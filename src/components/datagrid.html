@@ -37,12 +37,12 @@
           <ui-toolbar>
             <ui-pager view-model.ref="pager"></ui-pager>
           </ui-toolbar>
-          <ui-datagrid data.bind="data" summary-row="true" scroll pager.bind="pager" per-page="20">
+          <ui-datagrid data.bind="data" summary-row="true" scroll pager.bind="pager" per-page="20" row-expander rowselect.trigger="selected($event.detail.record)">
             <ui-dg-empty>
               <h5>No records available...</h5>
             </ui-dg-empty>
             <ui-dg-glyph glyph-map.bind="icons" tooltip-map.bind="titles" class="dg-glyph" data-id="icon" sortable locked></ui-dg-glyph>
-            <ui-dg-column data-id="text" sortable resizeable summary="Totals" locked class="ui-titlecase">Text</ui-dg-column>
+            <ui-dg-column data-id="text" sortable resizeable summary="Totals" locked class="ui-level-pad ui-titlecase">Text</ui-dg-column>
             <ui-dg-link glyph="icon-line-search" label="Preview" width="6em" click.trigger="clicked('Link Clicked', $event.detail.record)" locked>Link</ui-dg-link>
             <ui-dg-button glyph="icon-line-trash-can" theme="danger" label="Delete" width="5em" click.trigger="clicked('Button clicked', $event.detail.record)" locked>Button</ui-dg-button>
             <ui-dg-column data-id="date" sortable resizeable date center width="7em">Date</ui-dg-column>

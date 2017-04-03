@@ -15,6 +15,18 @@ export class CompDatagrid {
   // canActivate(model) { return true; }
   // activate(model) { return true; }
   bind(bindingContext) {
+    let subdata1 = []
+    for (let i = 0; i < 5; i++)
+      subdata1.push({
+        id: i + 1,
+        icon: Math.floor(Math.random() * 5),
+        text: this.getString(),
+        date: moment().add(Math.random() * -7200, 'day'),
+        time: moment().add(Math.random() * -(60 * 20), 'minute'),
+        number: Math.random() * 10800,
+        currency: Math.random() * 10800
+      });
+
     for (let i = 0; i < 500; i++)
       this.data.push({
         id: i + 1,
@@ -23,7 +35,22 @@ export class CompDatagrid {
         date: moment().add(Math.random() * -7200, 'day'),
         time: moment().add(Math.random() * -(60 * 20), 'minute'),
         number: Math.random() * 10800,
-        currency: Math.random() * 10800
+        currency: Math.random() * 10800,
+        subdata: (record) => {
+          let subdata = []
+          for (let i = 0; i < 5; i++)
+            subdata.push({
+              id: i + 1,
+              icon: Math.floor(Math.random() * 5),
+              text: this.getString(),
+              date: moment().add(Math.random() * -7200, 'day'),
+              time: moment().add(Math.random() * -(60 * 20), 'minute'),
+              number: Math.random() * 10800,
+              currency: Math.random() * 10800,
+              subdata: subdata1
+            });
+          return subdata;
+        }
       });
   }
   // attached() { }
@@ -35,6 +62,9 @@ export class CompDatagrid {
   icons = ['icon-moon-appleinc', 'icon-moon-android', 'icon-moon-amazon', 'icon-moon-windows8', 'icon-moon-mobile'];
   titles = ['Apple', 'Android', 'Amazon', 'Windows', 'Unknown']
 
+  selected(rec) {
+    UIUtils.toast({ title: 'Row Click', message: `${rec.id} - ${rec.text}`, theme: 'info' });
+  }
   getString() {
     let ret = '', ar = 'a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z'.split(',');
     for (let i = 0; i < (Math.random() * 8) + 3; i++) ret += ar[Math.floor(Math.random() * 26)];
