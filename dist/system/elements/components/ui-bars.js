@@ -165,7 +165,7 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
             ], UIStat.prototype, "label", void 0);
             UIStat = __decorate([
                 aurelia_framework_1.autoinject(),
-                aurelia_framework_1.inlineView("<template class=\"ui-stat\"><ui-glyph glyph.bind=\"glyph\" if.bind=\"glyph\"></ui-glyph>\n  <div class=\"ui-stat-value\"><slot></slot><div class=\"ui-stat-label\" innerhtml.bind=\"label\" if.bind=\"label\"></div></div></template>"),
+                aurelia_framework_1.inlineView("<template class=\"ui-stat\"><ui-glyph glyph.bind=\"glyph\" if.bind=\"glyph\"></ui-glyph>\n  <div><div class=\"ui-stat-value\"><slot></slot></div><div class=\"ui-stat-label\" innerhtml.bind=\"label\" if.bind=\"label\"></div></div></template>"),
                 aurelia_framework_1.customElement('ui-stat'),
                 __metadata("design:paramtypes", [Element])
             ], UIStat);

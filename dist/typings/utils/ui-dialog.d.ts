@@ -48,6 +48,7 @@ export declare class UIDialog {
     id: any;
     glyph: any;
     title: string;
+    theme: string;
     width: string;
     height: string;
     minWidth: string;

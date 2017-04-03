@@ -81,7 +81,7 @@ let UIDialogService = class UIDialogService {
             throw new Error("ViewModel must extend from UIDialog");
         var viewFactory = this.compiler.compile(`<template><div class="\${modal?'ui-modal':''} au-animate ui-dialog-wrapper" ref="dialogWrapperEl">
       <div class="ui-dialog \${isActive?'ui-active':'ui-inactive'}" ref="dialogEl" css.bind="posCurrent">
-      <ui-header primary>
+      <ui-header theme.bind="theme">
         <ui-header-title glyph="\${glyph}">\${title}</ui-header-title>
         <ui-header-tool minimize click.trigger="collapse($event)" if.bind="minimizable && !modal"></ui-header-tool>
         <ui-header-tool glyph="\${isMaximized?'glyph-dialog-restore':'glyph-dialog-expand'}" click.trigger="expand($event)" if.bind="maximizable"></ui-header-tool>
@@ -283,6 +283,7 @@ let UIDialog = UIDialog_1 = class UIDialog {
             height: '400px', width: '600px'
         };
         this.title = 'Dialog';
+        this.theme = 'primary';
         this.width = '600px';
         this.height = '400px';
         this.minWidth = '300px';
