@@ -85,7 +85,7 @@ export class UIStatsbar {
 
 @autoinject()
 @inlineView(`<template class="ui-stat"><ui-glyph glyph.bind="glyph" if.bind="glyph"></ui-glyph>
-  <div class="ui-stat-value"><slot></slot><div class="ui-stat-label" innerhtml.bind="label" if.bind="label"></div></div></template>`)
+  <div><div class="ui-stat-value"><slot></slot></div><div class="ui-stat-label" innerhtml.bind="label" if.bind="label"></div></div></template>`)
 @customElement('ui-stat')
 export class UIStat {
   constructor(public element: Element) {
