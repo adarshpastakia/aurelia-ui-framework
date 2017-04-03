@@ -8,6 +8,7 @@ export declare class UIHttpService {
     private logger;
     constructor(httpClient: HttpClient, app: UIApplication, eventAggregator: EventAggregator);
     setBaseUrl(url: any): void;
+    static buildQueryString(json: any): string;
     get(slug: string, headers?: any): Promise<any | string | void>;
     text(slug: string, headers?: any): Promise<any | string | void>;
     put(slug: string, obj: any, headers?: any): Promise<any | string | void>;

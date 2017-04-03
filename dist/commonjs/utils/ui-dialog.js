@@ -83,7 +83,7 @@ var UIDialogService = (function () {
     UIDialogService.prototype.createDialog = function (vm) {
         if (!(vm instanceof UIDialog))
             throw new Error("ViewModel must extend from UIDialog");
-        var viewFactory = this.compiler.compile("<template><div class=\"${modal?'ui-modal':''} au-animate ui-dialog-wrapper\" ref=\"dialogWrapperEl\">\n      <div class=\"ui-dialog ${isActive?'ui-active':'ui-inactive'}\" ref=\"dialogEl\" css.bind=\"posCurrent\">\n      <ui-header primary>\n        <ui-header-title glyph=\"${glyph}\">${title}</ui-header-title>\n        <ui-header-tool minimize click.trigger=\"collapse($event)\" if.bind=\"!modal\"></ui-header-tool>\n        <ui-header-tool glyph=\"${isMaximized?'glyph-dialog-restore':'glyph-dialog-expand'}\" click.trigger=\"expand($event)\" if.bind=\"maximize\"></ui-header-tool>\n        <ui-header-tool close click.trigger=\"close($event)\" ></ui-header-tool>\n      </ui-header>\n      <ui-glyph class=\"ui-resizer\" glyph=\"glyph-dialog-resize\" if.bind=\"resize\"></ui-glyph>\n      </div></div></template>", this.resources);
+        var viewFactory = this.compiler.compile("<template><div class=\"${modal?'ui-modal':''} au-animate ui-dialog-wrapper\" ref=\"dialogWrapperEl\">\n      <div class=\"ui-dialog ${isActive?'ui-active':'ui-inactive'}\" ref=\"dialogEl\" css.bind=\"posCurrent\">\n      <ui-header primary>\n        <ui-header-title glyph=\"${glyph}\">${title}</ui-header-title>\n        <ui-header-tool minimize click.trigger=\"collapse($event)\" if.bind=\"minimizable && !modal\"></ui-header-tool>\n        <ui-header-tool glyph=\"${isMaximized?'glyph-dialog-restore':'glyph-dialog-expand'}\" click.trigger=\"expand($event)\" if.bind=\"maximizable\"></ui-header-tool>\n        <ui-header-tool close click.trigger=\"close($event)\" if.bind=\"closable\"></ui-header-tool>\n      </ui-header>\n      <ui-glyph class=\"ui-resizer\" glyph=\"glyph-dialog-resize\" if.bind=\"resizeable\"></ui-glyph>\n      </div></div></template>", this.resources);
         var view = viewFactory.create(this.container);
         view.bind(vm);
         return view;
@@ -174,10 +174,7 @@ var UIDialogService = (function () {
         if (this.__dialog === null || !this.__dialog.viewSlot)
             return;
         var dialog = this.__dialog.viewSlot.viewModel;
-        if (getParentByClass($event.target, 'ui-header-button') !== null) {
-            return;
-        }
-        if ($event.button != 0) {
+        if ($event.button != 0 || getParentByClass($event.target, 'ui-header-button') !== null) {
             return;
         }
         if (!dialog.modal)
@@ -195,7 +192,7 @@ var UIDialogService = (function () {
             this.__isResizing = false;
             return;
         }
-        else if (!this.__isResizing && (!dialog.drag || dialog.modal)) {
+        else if (!this.__isResizing && (!dialog.draggable || dialog.modal)) {
             this.__isDragging = false;
             this.__isResizing = false;
             return;
@@ -294,9 +291,11 @@ var UIDialog = UIDialog_1 = (function () {
         this.maxWidth = 'none';
         this.maxHeight = 'none';
         this.modal = false;
-        this.drag = true;
-        this.resize = true;
-        this.maximize = true;
+        this.draggable = true;
+        this.resizable = true;
+        this.minimizable = true;
+        this.maximizable = true;
+        this.closable = true;
     }
     UIDialog.prototype.bind = function (bindingContext, overrideContext) {
         if (!this.modal) {
@@ -339,7 +338,7 @@ var UIDialog = UIDialog_1 = (function () {
             this.taskButtonEl.classList.remove('ui-active');
     };
     UIDialog.prototype.expand = function ($event) {
-        console.log(this.isMaximized = !this.isMaximized);
+        this.isMaximized = !this.isMaximized;
         if ($event)
             $event.cancelBubble = true;
         this.dialogEl.classList.toggle('ui-maximize');

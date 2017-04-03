@@ -95,6 +95,11 @@ System.register(["aurelia-framework", "aurelia-logging", "aurelia-fetch-client",
                 UIHttpService.prototype.setBaseUrl = function (url) {
                     this.httpClient.baseUrl = url;
                 };
+                UIHttpService.buildQueryString = function (json) {
+                    return Object.keys(json)
+                        .map(function (k) { return escape(k) + "=" + escape(json[k]); })
+                        .join('&');
+                };
                 UIHttpService.prototype.get = function (slug, headers) {
                     var _this = this;
                     if (headers === void 0) { headers = true; }
