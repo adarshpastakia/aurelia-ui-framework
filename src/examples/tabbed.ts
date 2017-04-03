@@ -29,7 +29,8 @@ export class TabbedLayout {
   tabItems = {
     search: { id: 'search', label: 'Search', glyph: 'icon-moon-search', viewModel: './tab.search' },
     members: { id: 'members', label: 'Members', glyph: 'icon-moon-users', view: './tab.members.html' },
-    salesform: { label: 'Sales Form', glyph: 'icon-moon-insert-template', viewModel: './tab.salesform' }
+    salesform: { label: 'Sales Form', glyph: 'icon-moon-insert-template', viewModel: './tab.salesform' },
+    sales: { label: 'Sales History', glyph: 'icon-moon-stats-bars', viewModel: './tab.sales' }
   }
 
   openTab(id) {
