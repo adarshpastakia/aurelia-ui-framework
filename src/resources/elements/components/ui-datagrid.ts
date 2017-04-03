@@ -84,6 +84,9 @@ export class UIDgRow {
   <tbody if.bind="virtual" class="\${$even?'even':'odd'}" parent.bind="$parent"
     as-element="ui-dg-row" record.bind="record" virtual-repeat.for="record of paged">
   </tbody>
+  <tbody>
+    <tr class="filler"><td class="ui-expander" if.bind="handleSize>0"><div>&nbsp;</div></td><td repeat.for="col of cols" class="\${col.locked==0?'ui-locked':''}" css.bind="{left: col.left+'px'}"><div>&nbsp;</div></td><td class="ui-expander"><div>&nbsp;</div></td></tr>
+  </tbody>
 </table></div>
 <div>
 <table ref="dgFoot" width.bind="tableWidth" css.bind="{'table-layout': tableWidth?'fixed':'auto' }">
