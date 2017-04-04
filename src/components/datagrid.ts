@@ -4,6 +4,7 @@
 // @copyright   : 2017
 // @license     : MIT
 import {autoinject} from 'aurelia-framework';
+import {UILocalDS} from "../resources/data/ui-data-source";
 import {UIUtils} from "../resources/utils/ui-utils";
 import * as moment from 'moment';
 
@@ -15,9 +16,9 @@ export class CompDatagrid {
   // canActivate(model) { return true; }
   // activate(model) { return true; }
   bind(bindingContext) {
-    let subdata1 = []
-    for (let i = 0; i < 5; i++)
-      subdata1.push({
+    let subdata = [];
+    for (let i = 0; i < 10; i++)
+      subdata.push({
         id: i + 1,
         icon: Math.floor(Math.random() * 5),
         text: this.getString(),
@@ -36,22 +37,9 @@ export class CompDatagrid {
         time: moment().add(Math.random() * -(60 * 20), 'minute'),
         number: Math.random() * 10800,
         currency: Math.random() * 10800,
-        subdata: (record) => {
-          let subdata = []
-          for (let i = 0; i < 5; i++)
-            subdata.push({
-              id: i + 1,
-              icon: Math.floor(Math.random() * 5),
-              text: this.getString(),
-              date: moment().add(Math.random() * -7200, 'day'),
-              time: moment().add(Math.random() * -(60 * 20), 'minute'),
-              number: Math.random() * 10800,
-              currency: Math.random() * 10800,
-              subdata: subdata1
-            });
-          return subdata;
-        }
+        subdata: subdata
       });
+    this.store = new UILocalDS(this.data, { recordsPerPage: 10 });
   }
   // attached() { }
   // detached() { }
@@ -73,6 +61,7 @@ export class CompDatagrid {
     return ret;
   }
 
+  store;
   data = []
 
   clicked(msg, rec) {

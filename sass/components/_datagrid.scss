@@ -75,7 +75,7 @@
 
     td {
       &.ui-locked {
-        @include sticky();
+        // @include sticky();
         z-index: 1;
       }
 
@@ -85,7 +85,7 @@
       }
 
       &.ui-expander {
-        @include sticky();
+        // @include sticky();
         left      : 0;
         text-align: center;
         font-size : 0.8em;
