@@ -166,6 +166,9 @@ export class UIDatagrid {
   storeChanged(newValue) {
     if (!(newValue instanceof BaseDataSource))
       this.store = new UILocalDS(newValue);
+    else
+      this.store = newValue;
+    if (!this.store.isLoaded) UIEvent.queueTask(() => (this.pager ? this.store.loadPage(this.pager.page = 0) : this.store.fetchData()));
   }
 
   dgHead;
