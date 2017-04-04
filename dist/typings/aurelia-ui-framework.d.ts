@@ -21,7 +21,6 @@ export * from './utils/ui-http';
 export * from './utils/ui-model';
 export * from './utils/ui-tree-model';
 export * from './utils/ui-utils';
-export * from './data/ui-data-source';
 import './elements/core/ui-grid';
 import './elements/core/ui-page';
 import './elements/core/ui-viewport';

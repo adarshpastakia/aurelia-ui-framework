@@ -9,7 +9,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { autoinject, customElement, bindable, bindingMode, children, inlineView, containerless } from 'aurelia-framework';
 import { UIEvent } from "../../utils/ui-event";
-import { BaseDataSource, UILocalDS } from "../../data/ui-data-source";
 import * as _ from "lodash";
 let UIDgRow = class UIDgRow {
     constructor() {
@@ -62,8 +61,14 @@ export { UIDgRow };
 let UIDatagrid = class UIDatagrid {
     constructor(element) {
         this.element = element;
+        this.loaded = true;
         this.summaryRow = false;
+        this.sortColumn = '';
+        this.sortOrder = '';
+        this.perPage = 50;
         this.cols = [];
+        this.paged = [];
+        this.filtered = [];
         this.virtual = false;
         this.isBusy = false;
         this.handleSize = 30;
@@ -76,17 +81,15 @@ let UIDatagrid = class UIDatagrid {
     }
     bind(bindingContext, overrideContext) {
         this.columnsChanged(this.columns);
+        this.dataChanged(this.data);
         if (this.pager) {
             if (!(this.pager instanceof UIPager))
                 throw new Error('Pager must be instance of UIPager');
-            this.obPageChange = UIEvent.observe(this.pager, 'page').subscribe(pg => this.store.loadPage(pg));
+            this.obPageChange = UIEvent.observe(this.pager, 'page').subscribe(() => this.makePage());
         }
-        if (!(this.store instanceof BaseDataSource))
-            this.store = new UILocalDS(this.store);
     }
     attached() {
         this.scrolling();
-        UIEvent.queueTask(() => (!this.store.isLoaded ? this.store.fetchData() : null));
     }
     detached() {
         if (this.obPageChange)
@@ -95,22 +98,47 @@ let UIDatagrid = class UIDatagrid {
     columnsChanged(newValue) {
         this.cols = _.sortBy(this.columns, 'locked');
     }
-    storeChanged(newValue) {
-        if (!(newValue instanceof BaseDataSource))
-            this.store = new UILocalDS(newValue);
-        else
-            this.store = newValue;
-        if (!this.store.isLoaded)
-            UIEvent.queueTask(() => (this.pager ? this.store.loadPage(this.pager.page = 0) : this.store.fetchData()));
+    dataChanged(newValue) {
+        UIEvent.queueTask(() => {
+            if (this.pager) {
+                this.pager.page = 0;
+                this.pager.totalPages = Math.ceil(this.data.length / this.perPage);
+            }
+            this.filter();
+            this.scrolling();
+        });
     }
     scrolling() {
         this.dgHead.style.transform = `translateX(-${this.scroller.scrollLeft}px)`;
         if (this.dgFoot)
             this.dgFoot.style.transform = this.dgHead.style.transform;
     }
+    filter() {
+        this.filtered = this.data;
+        this.makePage();
+    }
+    makePage() {
+        this.isBusy = true;
+        UIEvent.queueTask(() => {
+            let data = _.orderBy(this.filtered, [this.sortColumn, 'ID', 'id'], [this.sortOrder, this.sortOrder, this.sortOrder]);
+            if (this.pager) {
+                let pp = parseInt(this.perPage + '');
+                data = _.slice(data, this.pager.page * pp, (this.pager.page * pp) + pp);
+            }
+            this.paged = data;
+            this.loaded = true;
+            UIEvent.queueTask(() => this.isBusy = false);
+        });
+    }
     doSort(col) {
-        if (!col.sortable)
+        if (!col.sortable || this.resizing)
             return;
+        if (this.sortColumn != col.dataId)
+            this.sortOrder = 'asc';
+        if (this.sortColumn == col.dataId)
+            this.sortOrder = this.sortOrder == 'asc' ? 'desc' : 'asc';
+        this.sortColumn = col.dataId;
+        UIEvent.queueTask(() => this.makePage());
     }
     calculateWidth(cols) {
         let w = this.handleSize;
@@ -161,7 +189,23 @@ __decorate([
 __decorate([
     bindable(),
     __metadata("design:type", Object)
-], UIDatagrid.prototype, "store", void 0);
+], UIDatagrid.prototype, "data", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIDatagrid.prototype, "loaded", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIDatagrid.prototype, "summaryRow", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIDatagrid.prototype, "sortColumn", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIDatagrid.prototype, "sortOrder", void 0);
 __decorate([
     bindable(),
     __metadata("design:type", Object)
@@ -169,12 +213,12 @@ __decorate([
 __decorate([
     bindable(),
     __metadata("design:type", Object)
-], UIDatagrid.prototype, "summaryRow", void 0);
+], UIDatagrid.prototype, "perPage", void 0);
 UIDatagrid = __decorate([
     autoinject(),
     inlineView(`<template class="ui-datagrid"><div class="ui-hidden"><slot></slot></div>
 <div show.bind="resizing" ref="ghost" class="ui-dg-ghost"></div>
-<div show.bind="store.isEmpty" class="ui-dg-empty"><slot name="dg-empty"></slot></div>
+<div show.bind="data.length==0" class="ui-dg-empty"><slot name="dg-empty"></slot></div>
 <div>
 <table ref="dgHead" width.bind="tableWidth" css.bind="{'table-layout': tableWidth?'fixed':'auto' }">
   <colgroup>
@@ -202,10 +246,10 @@ UIDatagrid = __decorate([
     <col/>
   </colgroup>
   <tbody if.bind="!virtual" class="\${$even?'even':'odd'}" parent.bind="$parent"
-    as-element="ui-dg-row" record.bind="record" repeat.for="record of store.data">
+    as-element="ui-dg-row" record.bind="record" repeat.for="record of paged">
   </tbody>
   <tbody if.bind="virtual" class="\${$even?'even':'odd'}" parent.bind="$parent"
-    as-element="ui-dg-row" record.bind="record" virtual-repeat.for="record of store.data">
+    as-element="ui-dg-row" record.bind="record" virtual-repeat.for="record of paged">
   </tbody>
 </table>
 <table width.bind="tableWidth" class="filler" css.bind="{'table-layout': tableWidth?'fixed':'auto', height:((scroller.offsetHeight<mainTable.offsetHeight?0:scroller.offsetHeight-mainTable.offsetHeight)+'px') }">
@@ -229,12 +273,12 @@ UIDatagrid = __decorate([
   </colgroup>
   <tfoot if.bind="summaryRow"><tr>
     <td class="ui-expander" if.bind="handleSize>0"><div>&nbsp;</div></td>
-    <td repeat.for="col of cols" class="\${col.locked==0?'ui-locked':''} \${col.align}" css.bind="{left: col.left+'px'}"><div innerhtml.bind='col.getSummary(summaryRow, store.data)'></div></td>
+    <td repeat.for="col of cols" class="\${col.locked==0?'ui-locked':''} \${col.align}" css.bind="{left: col.left+'px'}"><div innerhtml.bind='col.getSummary(summaryRow, data)'></div></td>
     <td class="filler"><div>&nbsp;</div></td>
   </tr></tfoot>
 </table>
 </div>
-<div class="ui-dg-loader" if.bind="store.isLoading">
+<div class="ui-dg-loader" if.bind="isBusy">
   <div class="ui-loader-div">
     <ui-glyph class="ui-anim-loader" glyph="glyph-loader"></ui-glyph>
   </div>
