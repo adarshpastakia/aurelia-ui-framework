@@ -1,5 +1,4 @@
 export declare class UIDgRow {
-    bind(bindingContext: Object, overrideContext: Object): void;
     level: number;
     record: any;
     parent: any;
@@ -13,29 +12,23 @@ export declare class UIDatagrid {
     attached(): void;
     detached(): void;
     columns: any;
-    data: any[];
-    loaded: boolean;
-    summaryRow: boolean;
-    sortColumn: string;
-    sortOrder: string;
+    store: any;
     pager: any;
-    perPage: number;
+    summaryRow: boolean;
     private cols;
-    private paged;
-    private filtered;
     private tableWidth;
     private virtual;
     private isBusy;
+    private obDataChange;
     private obPageChange;
     private handleSize;
     columnsChanged(newValue: any): void;
-    dataChanged(newValue: any): void;
+    storeChanged(newValue: any): void;
     dgHead: any;
     dgFoot: any;
     scroller: any;
+    selected: any;
     private scrolling();
-    private filter();
-    private makePage();
     private doSort(col);
     private calculateWidth(cols);
     private fireSelect(record);
@@ -56,8 +49,11 @@ export declare class UIDGEmpty {
 export declare class UIPager {
     element: Element;
     constructor(element: Element);
+    bind(bindingContext: Object, overrideContext: Object): void;
+    attached(): void;
     page: number;
     style: string;
+    store: any;
     totalPages: number;
     fireChange(): void;
 }

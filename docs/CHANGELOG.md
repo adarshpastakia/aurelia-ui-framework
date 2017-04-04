@@ -1,3 +1,11 @@
+<a name="3.1.14"></a>
+## 3.1.14 (2017-04-04)
+
+* Removed `position: sticky` for locked columns
+* Added `UILocalDS` data-source class, currently used by `UIDatagrid` only
+* Solved issue of stretching columns in empty space
+
+
 <a name="3.1.13"></a>
 ## 3.1.13 (2017-04-03)
 

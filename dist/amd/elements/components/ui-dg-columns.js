@@ -117,7 +117,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-format", "../
                 symbol = summaryRow[this.symbol];
             }
             else if (isFunction(this.summary))
-                retVal = this.summary({ data: data });
+                retVal = this.summary(data);
             else {
                 switch (this.summary) {
                     case 'sum':

@@ -108,7 +108,7 @@ export class UIDataColumn {
             symbol = summaryRow[this.symbol];
         }
         else if (isFunction(this.summary))
-            retVal = this.summary({ data });
+            retVal = this.summary(data);
         else {
             switch (this.summary) {
                 case 'sum':
