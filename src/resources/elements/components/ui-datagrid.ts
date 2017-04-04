@@ -7,7 +7,6 @@ import {autoinject, customElement, bindable, bindingMode, children, inlineView, 
 import {UIFormat} from "../../utils/ui-format";
 import {UIEvent} from "../../utils/ui-event";
 import {UIUtils} from "../../utils/ui-utils";
-import {BaseDataSource, UILocalDS} from "../../data/ui-data-source";
 import * as _ from "lodash";
 
 @inlineView(`<template><tr class="level-\${level} \${record.isOpen?'ui-expanded':''} \${parent.selected==record?'ui-selected':''}" click.delegate="parent.fireSelect(parent.selected=record)">
@@ -47,7 +46,7 @@ export class UIDgRow {
 @autoinject()
 @inlineView(`<template class="ui-datagrid"><div class="ui-hidden"><slot></slot></div>
 <div show.bind="resizing" ref="ghost" class="ui-dg-ghost"></div>
-<div show.bind="store.isEmpty" class="ui-dg-empty"><slot name="dg-empty"></slot></div>
+<div show.bind="data.length==0" class="ui-dg-empty"><slot name="dg-empty"></slot></div>
 <div>
 <table ref="dgHead" width.bind="tableWidth" css.bind="{'table-layout': tableWidth?'fixed':'auto' }">
   <colgroup>
@@ -75,10 +74,10 @@ export class UIDgRow {
     <col/>
   </colgroup>
   <tbody if.bind="!virtual" class="\${$even?'even':'odd'}" parent.bind="$parent"
-    as-element="ui-dg-row" record.bind="record" repeat.for="record of store.data">
+    as-element="ui-dg-row" record.bind="record" repeat.for="record of paged">
   </tbody>
   <tbody if.bind="virtual" class="\${$even?'even':'odd'}" parent.bind="$parent"
-    as-element="ui-dg-row" record.bind="record" virtual-repeat.for="record of store.data">
+    as-element="ui-dg-row" record.bind="record" virtual-repeat.for="record of paged">
   </tbody>
 </table>
 <table width.bind="tableWidth" class="filler" css.bind="{'table-layout': tableWidth?'fixed':'auto', height:((scroller.offsetHeight<mainTable.offsetHeight?0:scroller.offsetHeight-mainTable.offsetHeight)+'px') }">
@@ -102,12 +101,12 @@ export class UIDgRow {
   </colgroup>
   <tfoot if.bind="summaryRow"><tr>
     <td class="ui-expander" if.bind="handleSize>0"><div>&nbsp;</div></td>
-    <td repeat.for="col of cols" class="\${col.locked==0?'ui-locked':''} \${col.align}" css.bind="{left: col.left+'px'}"><div innerhtml.bind='col.getSummary(summaryRow, store.data)'></div></td>
+    <td repeat.for="col of cols" class="\${col.locked==0?'ui-locked':''} \${col.align}" css.bind="{left: col.left+'px'}"><div innerhtml.bind='col.getSummary(summaryRow, data)'></div></td>
     <td class="filler"><div>&nbsp;</div></td>
   </tr></tfoot>
 </table>
 </div>
-<div class="ui-dg-loader" if.bind="store.isLoading">
+<div class="ui-dg-loader" if.bind="isBusy">
   <div class="ui-loader-div">
     <ui-glyph class="ui-anim-loader" glyph="glyph-loader"></ui-glyph>
   </div>
@@ -124,18 +123,14 @@ export class UIDatagrid {
   // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     this.columnsChanged(this.columns);
+    this.dataChanged(this.data);
     if (this.pager) {
       if (!(this.pager instanceof UIPager)) throw new Error('Pager must be instance of UIPager');
-      this.obPageChange = UIEvent.observe(this.pager, 'page').subscribe(pg => this.store.loadPage(pg));
+      this.obPageChange = UIEvent.observe(this.pager, 'page').subscribe(() => this.makePage());
     }
-    if (!(this.store instanceof BaseDataSource))
-      this.store = new UILocalDS(this.store);
-
-    // this.obDataChange = UIEvent.observe(this.store, 'data').subscribe(data => this.store.loadPage(pg));
   }
   attached() {
     this.scrolling();
-    UIEvent.queueTask(() => (!this.store.isLoaded ? this.store.fetchData() : null));
   }
   detached() {
     if (this.obPageChange) this.obPageChange.dispose();
@@ -145,11 +140,18 @@ export class UIDatagrid {
 
   @children('ui-dg-column,ui-dg-button,ui-dg-link,ui-dg-glyph') columns;
 
-  @bindable() store;
-  @bindable() pager;
+  @bindable() data;
+  @bindable() loaded = true;
   @bindable() summaryRow = false;
+  @bindable() sortColumn = '';
+  @bindable() sortOrder = '';
+
+  @bindable() pager;
+  @bindable() perPage = 50;
 
   private cols = [];
+  private paged = [];
+  private filtered = [];
   private tableWidth;
 
   private virtual = false;
@@ -163,12 +165,15 @@ export class UIDatagrid {
     this.cols = _.sortBy(this.columns, 'locked');
   }
 
-  storeChanged(newValue) {
-    if (!(newValue instanceof BaseDataSource))
-      this.store = new UILocalDS(newValue);
-    else
-      this.store = newValue;
-    if (!this.store.isLoaded) UIEvent.queueTask(() => (this.pager ? this.store.loadPage(this.pager.page = 0) : this.store.fetchData()));
+  dataChanged(newValue) {
+    UIEvent.queueTask(() => {
+      if (this.pager) {
+        this.pager.page = 0;
+        this.pager.totalPages = Math.ceil(this.data.length / this.perPage);
+      }
+      this.filter();
+      this.scrolling();
+    });
   }
 
   dgHead;
@@ -179,8 +184,30 @@ export class UIDatagrid {
     this.dgHead.style.transform = `translateX(-${this.scroller.scrollLeft}px)`;
     if (this.dgFoot) this.dgFoot.style.transform = this.dgHead.style.transform;
   }
+  private filter() {
+    this.filtered = this.data;
+    this.makePage();
+  }
+  private makePage() {
+    this.isBusy = true;
+    // this.paged = [];
+    UIEvent.queueTask(() => {
+      let data = _.orderBy(this.filtered, [this.sortColumn, 'ID', 'id'], [this.sortOrder, this.sortOrder, this.sortOrder]);
+      if (this.pager) {
+        let pp = parseInt(this.perPage + '');
+        data = _.slice(data, this.pager.page * pp, (this.pager.page * pp) + pp);
+      }
+      this.paged = data;
+      this.loaded = true;
+      UIEvent.queueTask(() => this.isBusy = false);
+    });
+  }
   private doSort(col) {
-    if (!col.sortable) return;
+    if (!col.sortable || this.resizing) return;
+    if (this.sortColumn != col.dataId) this.sortOrder = 'asc';
+    if (this.sortColumn == col.dataId) this.sortOrder = this.sortOrder == 'asc' ? 'desc' : 'asc';
+    this.sortColumn = col.dataId;
+    UIEvent.queueTask(() => this.makePage());
   }
 
   private calculateWidth(cols) {
