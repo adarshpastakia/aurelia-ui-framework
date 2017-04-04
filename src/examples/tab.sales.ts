@@ -5,7 +5,7 @@
 // @license     : MIT
 
 import {autoinject} from 'aurelia-framework';
-import {UIApplication, UIHttpService, UIUtils} from '../resources/index';
+import {UIApplication, UIHttpService, UIUtils, UILocalDS} from '../resources/index';
 import * as _ from "lodash";
 
 @autoinject()
@@ -22,7 +22,7 @@ export class TabSalesHistory {
   // deactivate() { }
   // end aurelia hooks
 
-  data = [];
+  store;
   summary = { new: 0, renew: 0, rev: 0 };
 
   attached() {
@@ -81,7 +81,7 @@ export class TabSalesHistory {
     sub.push({ label: 'Ecuador', new: this.rnd(), renew: this.rnd(), rev: this.rnd(81900) })
     data.push({ label: 'South America', new: _.sumBy(sub, 'new'), renew: _.sumBy(sub, 'renew'), rev: _.sumBy(sub, 'rev'), subdata: sub, isOpen: true })
 
-    this.data = data;
+    this.store = new UILocalDS(data);
 
     this.summary.new = _.sumBy(data, 'new');
     this.summary.renew = _.sumBy(data, 'renew');
@@ -102,7 +102,7 @@ export class TabSalesHistory {
   }
 
   recToggle(b) {
-    _.forEach(this.data, d => { d.isOpen = b; });
+    _.forEach(this.store.data, d => { d.isOpen = b; });
   }
 
   isExporting = false;

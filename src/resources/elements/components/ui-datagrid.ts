@@ -47,7 +47,7 @@ export class UIDgRow {
 @autoinject()
 @inlineView(`<template class="ui-datagrid"><div class="ui-hidden"><slot></slot></div>
 <div show.bind="resizing" ref="ghost" class="ui-dg-ghost"></div>
-<div show.bind="loaded && (!data || data.length==0)" class="ui-dg-empty"><slot name="dg-empty"></slot></div>
+<div show.bind="store.isEmpty" class="ui-dg-empty"><slot name="dg-empty"></slot></div>
 <div>
 <table ref="dgHead" width.bind="tableWidth" css.bind="{'table-layout': tableWidth?'fixed':'auto' }">
   <colgroup>
@@ -68,7 +68,7 @@ export class UIDgRow {
 </table>
 </div>
 <div class="ui-dg-wrapper" ref="scroller" scroll.trigger="scrolling() & debounce:1">
-<table width.bind="calculateWidth(cols,resizing)" css.bind="{'table-layout': tableWidth?'fixed':'auto' }">
+<table width.bind="calculateWidth(cols,resizing)" css.bind="{'table-layout': tableWidth?'fixed':'auto' }" ref="mainTable">
   <colgroup>
     <col width="\${handleSize}" if.bind="handleSize>0"/>
     <col repeat.for="col of cols" data-index.bind="$index" width.bind="col.width"/>
@@ -80,6 +80,18 @@ export class UIDgRow {
   <tbody if.bind="virtual" class="\${$even?'even':'odd'}" parent.bind="$parent"
     as-element="ui-dg-row" record.bind="record" virtual-repeat.for="record of store.data">
   </tbody>
+</table>
+<table width.bind="tableWidth" class="filler" css.bind="{'table-layout': tableWidth?'fixed':'auto', height:((scroller.offsetHeight<mainTable.offsetHeight?0:scroller.offsetHeight-mainTable.offsetHeight)+'px') }">
+  <colgroup>
+    <col width="\${handleSize}" if.bind="handleSize>0"/>
+    <col repeat.for="col of cols" data-index.bind="$index" width.bind="col.width"/>
+    <col/>
+  </colgroup>
+  <tbody class="odd"><tr class="filler">
+    <td class="ui-expander" if.bind="handleSize>0"><div>&nbsp;</div></td>
+    <td repeat.for="col of cols" class="\${col.locked==0?'ui-locked':''}" css.bind="{left: col.left+'px'}"><div>&nbsp;</div></td>
+    <td class="filler"><div>&nbsp;</div></td>
+  </tr></tbody>
 </table></div>
 <div>
 <table ref="dgFoot" width.bind="tableWidth" css.bind="{'table-layout': tableWidth?'fixed':'auto' }">
@@ -88,14 +100,14 @@ export class UIDgRow {
     <col repeat.for="col of cols" data-index.bind="$index" width.bind="col.width"/>
     <col/>
   </colgroup>
-  <tfoot if.bind="summaryRow && data && data.length!=0"><tr>
+  <tfoot if.bind="summaryRow"><tr>
     <td class="ui-expander" if.bind="handleSize>0"><div>&nbsp;</div></td>
-    <td repeat.for="col of cols" class="\${col.locked==0?'ui-locked':''} \${col.align}" css.bind="{left: col.left+'px'}"><div innerhtml.bind='col.getSummary(summaryRow, filtered)'></div></td>
+    <td repeat.for="col of cols" class="\${col.locked==0?'ui-locked':''} \${col.align}" css.bind="{left: col.left+'px'}"><div innerhtml.bind='col.getSummary(summaryRow, store.data)'></div></td>
     <td class="filler"><div>&nbsp;</div></td>
   </tr></tfoot>
 </table>
 </div>
-<div class="ui-dg-loader" if.bind="isBusy">
+<div class="ui-dg-loader" if.bind="store.isLoading">
   <div class="ui-loader-div">
     <ui-glyph class="ui-anim-loader" glyph="glyph-loader"></ui-glyph>
   </div>
@@ -149,6 +161,11 @@ export class UIDatagrid {
 
   columnsChanged(newValue) {
     this.cols = _.sortBy(this.columns, 'locked');
+  }
+
+  storeChanged(newValue) {
+    if (!(newValue instanceof BaseDataSource))
+      this.store = new UILocalDS(newValue);
   }
 
   dgHead;
