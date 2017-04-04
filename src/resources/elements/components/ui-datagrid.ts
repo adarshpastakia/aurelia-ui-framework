@@ -51,6 +51,7 @@ export class UIDgRow {
 <div>
 <table ref="dgHead" width.bind="tableWidth" css.bind="{'table-layout': tableWidth?'fixed':'auto' }">
   <colgroup>
+    <col width="\${handleSize}" if.bind="handleSize>0"/>
     <col repeat.for="col of cols" data-index.bind="$index" width.bind="col.width"/>
     <col/>
   </colgroup>
@@ -69,6 +70,7 @@ export class UIDgRow {
 <div class="ui-dg-wrapper" ref="scroller" scroll.trigger="scrolling() & debounce:1">
 <table width.bind="calculateWidth(cols,resizing)" css.bind="{'table-layout': tableWidth?'fixed':'auto' }">
   <colgroup>
+    <col width="\${handleSize}" if.bind="handleSize>0"/>
     <col repeat.for="col of cols" data-index.bind="$index" width.bind="col.width"/>
     <col/>
   </colgroup>
@@ -82,6 +84,7 @@ export class UIDgRow {
 <div>
 <table ref="dgFoot" width.bind="tableWidth" css.bind="{'table-layout': tableWidth?'fixed':'auto' }">
   <colgroup>
+    <col width="\${handleSize}" if.bind="handleSize>0"/>
     <col repeat.for="col of cols" data-index.bind="$index" width.bind="col.width"/>
     <col/>
   </colgroup>
@@ -102,6 +105,7 @@ export class UIDatagrid {
   constructor(public element: Element) {
     this.virtual = element.hasAttribute('virtual');
     if (!element.hasAttribute('scroll')) this.element.classList.add('ui-auto-size');
+    if (!element.hasAttribute('row-expander')) this.handleSize = 0;
   }
 
   // aurelia hooks
@@ -141,6 +145,8 @@ export class UIDatagrid {
   private obDataChange;
   private obPageChange;
 
+  private handleSize = 30;
+
   columnsChanged(newValue) {
     this.cols = _.sortBy(this.columns, 'locked');
   }
@@ -158,7 +164,7 @@ export class UIDatagrid {
   }
 
   private calculateWidth(cols) {
-    let w = 0;
+    let w = this.handleSize;
     _.forEach(cols, c => { c.left = w; w += c.getWidth(); });
     return (this.tableWidth = (w + 20) + 'px');
   }
@@ -202,6 +208,7 @@ export class UIDatagrid {
     this.colResize.width = (parseInt(this.colResize.width) + this.diff);
     document.removeEventListener('mousemove', this.move);
     document.removeEventListener('mouseup', this.stop);
+    evt.stopPropagation();
     return false;
   }
 }

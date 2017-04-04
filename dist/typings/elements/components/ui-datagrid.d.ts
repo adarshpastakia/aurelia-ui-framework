@@ -1,7 +1,10 @@
 export declare class UIDgRow {
     bind(bindingContext: Object, overrideContext: Object): void;
-    cols: any;
+    level: number;
     record: any;
+    parent: any;
+    expand(evt: any): boolean;
+    getSubdata(): any;
 }
 export declare class UIDatagrid {
     element: Element;
@@ -24,6 +27,7 @@ export declare class UIDatagrid {
     private virtual;
     private isBusy;
     private obPageChange;
+    private handleSize;
     columnsChanged(newValue: any): void;
     dataChanged(newValue: any): void;
     dgHead: any;
@@ -45,7 +49,7 @@ export declare class UIDatagrid {
     resizing: boolean;
     resizeColumn(evt: any, col: any, next: any): boolean;
     resize(evt: any): void;
-    resizeEnd(evt: any): void;
+    resizeEnd(evt: any): boolean;
 }
 export declare class UIDGEmpty {
 }

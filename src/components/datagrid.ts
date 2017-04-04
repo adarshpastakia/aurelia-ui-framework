@@ -27,6 +27,7 @@ export class CompDatagrid {
         number: Math.random() * 10800,
         currency: Math.random() * 10800
       });
+
     for (let i = 0; i < 500; i++)
       this.data.push({
         id: i + 1,
@@ -49,6 +50,9 @@ export class CompDatagrid {
   icons = ['icon-moon-appleinc', 'icon-moon-android', 'icon-moon-amazon', 'icon-moon-windows8', 'icon-moon-mobile'];
   titles = ['Apple', 'Android', 'Amazon', 'Windows', 'Unknown']
 
+  selected(rec) {
+    UIUtils.toast({ title: 'Row Click', message: `${rec.id} - ${rec.text}`, theme: 'info' });
+  }
   getString() {
     let ret = '', ar = 'a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z'.split(',');
     for (let i = 0; i < (Math.random() * 8) + 3; i++) ret += ar[Math.floor(Math.random() * 26)];

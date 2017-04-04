@@ -1,3 +1,16 @@
+<a name="3.1.13"></a>
+## 3.1.13 (2017-04-03)
+
+
+
+<a name="3.1.12"></a>
+## 3.1.12 (2017-04-03)
+
+* Added `row-expander` feature for datagrid to display drilldown data
+* Updated dialog control properties 'closable, draggable, minimizable, maximizable'
+* Added url validator, fixed decimal validator
+
+
 <a name="3.1.11"></a>
 ## 3.1.11 (2017-04-01)
 

@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -35,10 +35,10 @@ window.isString = function(a) {
   return (typeof a === 'string');
 }
 window.isNumber = function(a) {
-  return (typeof a === 'number');
+  return (typeof a === 'number' && Number.isInteger(a));
 }
 window.isDecimal = function(a) {
-  return (typeof a === 'number' && a % 1 > 0);
+  return (typeof a === 'number');
 }
 window.isFunction = function(a) {
   return (typeof a === 'function');

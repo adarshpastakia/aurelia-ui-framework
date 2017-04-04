@@ -1,0 +1,37 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <ui-page page-title="&nbsp;">
+    <ui-loader busy.bind="isSaving"></ui-loader>
+    <ui-section row-layout>
+      <ui-statsbar vertical>
+        <ui-stat class="gray" label="Total Sales" glyph="icon-moon-book">${summary.new+summary.renew | number:'0[.]00a'}</ui-stat>
+        <ui-stat class="teal" label="New Sales" glyph="icon-moon-svg">${summary.new | number:'0[.]00a'}</ui-stat>
+        <ui-stat class="green" label="Renewals" glyph="icon-moon-loop">${summary.renew | number:'0[.]00a'}</ui-stat>
+        <ui-stat class="blue" label="Total Revenue" glyph="icon-moon-coin-dollar">${summary.rev | number:'$0[.]00a'}</ui-stat>
+      </ui-statsbar>
+      <ui-section column-layout>
+        <ui-toolbar light>
+          <ui-button-group>
+            <ui-button small square light click.trigger="recToggle(true)" glyph="glyph-icon-expand-all"></ui-button>
+            <ui-button small square light click.trigger="recToggle(false)" glyph="glyph-icon-collapse-all"></ui-button>
+          </ui-button-group>
+          <ui-filler></ui-filler>
+          <ui-button light square glyph="glyph-refresh"></ui-button>
+          <ui-button dark square glyph="icon-moon-download3" busy.bind="isExporting" click.trigger="doExport()"></ui-button>
+        </ui-toolbar>
+        <ui-datagrid row-expander data.bind="data" scroll summary-row="summary">
+          <ui-dg-column data-id="label" sortable resizeable class="ui-level-pad" width="20em">&nbsp;</ui-dg-column>
+          <ui-dg-column data-id="new" group="Sales" number summary="sum" end width="8em">New Sales</ui-dg-column>
+          <ui-dg-column data-id="renew" group="Sales" number summary="sum" end width="8em">Renewals</ui-dg-column>
+          <ui-dg-column data-id="net" group="Sales" number summary="sum" end width="8em"
+            value.call="total(record)" summary.call="totalSum(data)">Net Sales</ui-dg-column>
+          <ui-dg-column data-id="rev" currency summary="sum" end width="8em">Net Revenue</ui-dg-column>
+        </ui-datagrid>
+      </ui-section>
+    </ui-section>
+  </ui-page>
+</template>

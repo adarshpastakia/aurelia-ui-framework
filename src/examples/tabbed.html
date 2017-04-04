@@ -5,7 +5,16 @@
 -->
 
 <template>
-  <ui-tab-panel active-tab.bind="tabActive" view-model.ref="tabPanel">
+  <ui-tab-panel active-tab.bind="tabActive" view-model.ref="tabPanel" class="ex-tabs">
+    <style>
+    .ex-tabs .ui-tabbar .ui-tab-button.ui-active {
+      background: #8F1C56;
+      color: #fff;
+    }
+    .ex-tabs .ui-page-title {
+      line-height: .5em;
+    }
+    </style>
     <ui-tabbar-start>
       <small>&nbsp;&nbsp;</small>
       <ui-dropdown>
@@ -27,7 +36,7 @@
           <ui-menu-item click.trigger="openTab('salesform')" glyph="icon-moon-insert-template">Sales Form</ui-menu-item>
         </ui-column>
         <ui-column>
-          <ui-menu-item glyph="icon-moon-stats-bars" disabled="true">Sales History</ui-menu-item>
+          <ui-menu-item click.trigger="openTab('sales')" glyph="icon-moon-stats-bars">Sales History</ui-menu-item>
           <ui-menu-item glyph="icon-moon-stats-bars" disabled="true">Order History</ui-menu-item>
           <ui-divider></ui-divider>
           <ui-menu-item glyph="icon-moon-mobile" disabled="true">Email Campaigns</ui-menu-item>

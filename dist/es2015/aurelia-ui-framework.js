@@ -106,11 +106,13 @@ export function configure(config, configCallback) {
     }
     let validator = UIUtils.lazy(Validator);
     ValidationRules
+        .customRule('url', (value, obj) => value === null || value === undefined || value === '' || (/^((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?$/).test(value), '\${$displayName } is not a valid url.');
+    ValidationRules
         .customRule('phone', (value, obj) => value === null || value === undefined || value === '' || PhoneLib.isValid(value), '\${$displayName } is not a valid phone number.');
     ValidationRules
-        .customRule('number', (value, obj, min, max) => value === null || value === undefined || value === '' || (Number.isInteger(value) && value >= (isEmpty(min) ? Number.MIN_VALUE : min) && value <= (isEmpty(max) ? Number.MAX_VALUE : max)), '\${$displayName} must be an number value between \${$config.min} and \${$config.max}.', (min, max) => ({ min, max }));
+        .customRule('number', (value, obj, min, max) => value === null || value === undefined || value === '' || (isNumber(value) && value >= (isEmpty(min) ? Number.MIN_VALUE : min) && value <= (isEmpty(max) ? Number.MAX_VALUE : max)), '\${$displayName} must be an number value between \${$config.min} and \${$config.max}.', (min, max) => ({ min, max }));
     ValidationRules
-        .customRule('decimal', (value, obj, min, max) => value === null || value === undefined || value === '' || (isNumber(value) && Math.floor(value % 1) === 0 && value >= (isEmpty(min) ? Number.MIN_VALUE : min) && value <= (isEmpty(max) ? Number.MAX_VALUE : max)), '\${$displayName} must be a decimal value between \${$config.min} and \${$config.max}.', (min, max) => ({ min, max }));
+        .customRule('decimal', (value, obj, min, max) => value === null || value === undefined || value === '' || (isDecimal(value) && value >= (isEmpty(min) ? Number.MIN_VALUE : min) && value <= (isEmpty(max) ? Number.MAX_VALUE : max)), '\${$displayName} must be a decimal value between \${$config.min} and \${$config.max}.', (min, max) => ({ min, max }));
     ValidationRules
         .customRule('language', (map, obj, langs = '') => {
         let promises = [];

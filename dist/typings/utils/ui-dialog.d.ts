@@ -48,6 +48,7 @@ export declare class UIDialog {
     id: any;
     glyph: any;
     title: string;
+    theme: string;
     width: string;
     height: string;
     minWidth: string;
@@ -55,9 +56,11 @@ export declare class UIDialog {
     maxWidth: string;
     maxHeight: string;
     modal: boolean;
-    drag: boolean;
-    resize: boolean;
-    maximize: boolean;
+    draggable: boolean;
+    resizable: boolean;
+    minimizable: boolean;
+    maximizable: boolean;
+    closable: boolean;
     focus(): void;
     makeActive(): void;
     makeInactive(): void;

@@ -75,6 +75,11 @@ let UIHttpService = class UIHttpService {
     setBaseUrl(url) {
         this.httpClient.baseUrl = url;
     }
+    static buildQueryString(json) {
+        return Object.keys(json)
+            .map(k => escape(k) + "=" + escape(json[k]))
+            .join('&');
+    }
     get(slug, headers = true) {
         this.logger.info(`get [${slug}]`);
         return this.httpClient
