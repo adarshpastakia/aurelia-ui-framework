@@ -7,25 +7,41 @@ import {autoinject, customElement, bindable, bindingMode, children, inlineView, 
 import {UIFormat} from "../../utils/ui-format";
 import {UIEvent} from "../../utils/ui-event";
 import {UIUtils} from "../../utils/ui-utils";
+import {BaseDataSource, UILocalDS} from "../../data/ui-data-source";
 import * as _ from "lodash";
 
-@inlineView(`<template>
-  <td repeat.for="col of cols" class="\${col.locked==0?'ui-locked':''} \${col.align}" css.bind="{left: col.left+'px'}">
+@inlineView(`<template><tr class="level-\${level} \${record.isOpen?'ui-expanded':''} \${parent.selected==record?'ui-selected':''}" click.delegate="parent.fireSelect(parent.selected=record)">
+  <td class="ui-expander" if.bind="parent.handleSize>0">
+    <div><a if.bind="record.subdata" click.trigger="expand($event)"><ui-glyph glyph.bind="record.isOpen?'glyph-icon-minus':'glyph-icon-plus'"></ui-glyph></a></div>
+  </td>
+  <td repeat.for="col of parent.cols" class="\${col.locked==0?'ui-locked':''} \${col.align}" css.bind="{left: col.left+'px'}">
   <div if.bind="col.type=='normal'"><span class="\${col.class}" innerhtml.bind='col.getValue(record[col.dataId],record)'></span></div>
   <div if.bind="col.type=='glyph'" title.bind="col.getTooltip(record[col.dataId],record)"><ui-glyph class="\${col.class} \${col.getGlyph(record[col.dataId],record)}" glyph.bind="col.getGlyph(record[col.dataId],record)"></ui-glyph></div>
   <div if.bind="col.type=='link'"><a class="ui-link \${col.class} \${col.isDisabled(record[col.dataId],record)?'ui-disabled':''}" click.trigger="col.fireClick($event,record[col.dataId],record)"><ui-glyph glyph.bind="col.getGlyph(record[col.dataId],record)" if.bind="col.glyph"></ui-glyph> <span innerhtml.bind="col.getLabel(record[col.dataId],record)"></span></a></div>
   <div if.bind="col.type=='button'" class="btn-fix"><ui-button click.trigger="col.fireClick($event,record[col.dataId],record)" theme.bind="col.getTheme(record[col.dataId],record)" small square glyph.bind="col.getGlyph(record[col.dataId],record)" disabled.bind="col.isDisabled(record[col.dataId],record)" dropdown.bind="dropdown" menuopen.trigger="col.fireMenuOpen($event, record)"><span innerhtml.bind="col.getLabel(record[col.dataId],record)"></span></ui-button></div>
   </td>
-  <td class="ui-expander"><div>&nbsp;</div></td>
+  <td class="filler"><div>&nbsp;</div></td></tr>
+
+  <ui-dg-row containerless if.bind="record.isOpen" level.bind="level+1" parent.bind="parent"
+    record.bind="rec" repeat.for="rec of getSubdata()" class="\${$last?'ui-last-inner':''}">
+  </ui-dg-row>
 </template>`)
 @customElement('ui-dg-row')
 export class UIDgRow {
-  bind(bindingContext: Object, overrideContext: Object) {
-    this.cols = overrideContext['parentOverrideContext'].bindingContext.cols;
-  }
-
-  cols;
+  @bindable() level = 0;
   @bindable() record;
+  @bindable() parent;
+
+  expand(evt) {
+    this.record.isOpen = !this.record.isOpen;
+    evt.stopPropagation();
+    evt.preventDefault();
+    return false;
+  }
+  getSubdata() {
+    if (isFunction(this.record.subdata)) return this.record.subdata(this.record);
+    return this.record.subdata;
+  }
 }
 
 @autoinject()
@@ -39,13 +55,14 @@ export class UIDgRow {
     <col/>
   </colgroup>
   <thead><tr>
-    <td repeat.for="col of cols" click.trigger="doSort(col)" class="\${col.sortable?'ui-sortable':''} \${col.locked==0?'ui-locked':''}" css.bind="{left: col.left+'px'}"><div>
+    <td class="ui-expander" if.bind="handleSize>0"><div>&nbsp;</div></td>
+    <td repeat.for="col of cols" mouseup.trigger="store.sort(col.dataId, (col.dataId==store.sortBy&&store.orderBy=='asc')?'desc':'asc')" class="\${col.sortable?'ui-sortable':''} \${col.locked==0?'ui-locked':''}" css.bind="{left: col.left+'px'}"><div>
       <span class="ui-dg-header" innerhtml.bind='col.getTitle()'></span>
       <span class="ui-filter" if.bind="col.filter"><ui-glyph glyph="glyph-funnel"></ui-glyph></span>
       <span class="ui-sort \${col.dataId==sortColumn ? sortOrder:''}" if.bind="col.sortable"></span>
       <span class="ui-resizer" if.bind="col.resize" mousedown.trigger="resizeColumn($event,col,cols[$index+1])"></span>
     </div></td>
-    <td class="ui-expander"><div><span class="ui-dg-header">&nbsp;</span></div></td>
+    <td class="filler"><div><span class="ui-dg-header">&nbsp;</span></div></td>
   </tr></thead>
 </table>
 </div>
@@ -55,14 +72,11 @@ export class UIDgRow {
     <col repeat.for="col of cols" data-index.bind="$index" width.bind="col.width"/>
     <col/>
   </colgroup>
-  <tbody>
-    <tr if.bind="!virtual" class="\${$even?'even':'odd'}" as-element="ui-dg-row" record.bind="record" repeat.for="record of paged" click.delegate="fireSelect($parent.selected=record)"
-      class="\${$parent.selected==record?'ui-selected':''}"></tr>
-
-    <tr if.bind="virtual" class="\${$even?'even':'odd'}" as-element="ui-dg-row" record.bind="record" virtual-repeat.for="record of paged" click.delegate="fireSelect($parent.selected=record)"
-      class="\${$parent.selected==record?'ui-selected':''}"></tr>
-
-    <tr class="filler"><td repeat.for="col of cols" class="\${col.locked==0?'ui-locked':''}" css.bind="{left: col.left+'px'}"><div>&nbsp;</div></td><td class="ui-expander"><div>&nbsp;</div></td></tr>
+  <tbody if.bind="!virtual" class="\${$even?'even':'odd'}" parent.bind="$parent"
+    as-element="ui-dg-row" record.bind="record" repeat.for="record of store.data">
+  </tbody>
+  <tbody if.bind="virtual" class="\${$even?'even':'odd'}" parent.bind="$parent"
+    as-element="ui-dg-row" record.bind="record" virtual-repeat.for="record of store.data">
   </tbody>
 </table></div>
 <div>
@@ -71,10 +85,10 @@ export class UIDgRow {
     <col repeat.for="col of cols" data-index.bind="$index" width.bind="col.width"/>
     <col/>
   </colgroup>
-
   <tfoot if.bind="summaryRow && data && data.length!=0"><tr>
+    <td class="ui-expander" if.bind="handleSize>0"><div>&nbsp;</div></td>
     <td repeat.for="col of cols" class="\${col.locked==0?'ui-locked':''} \${col.align}" css.bind="{left: col.left+'px'}"><div innerhtml.bind='col.getSummary(summaryRow, filtered)'></div></td>
-    <td class="ui-expander"><div>&nbsp;</div></td>
+    <td class="filler"><div>&nbsp;</div></td>
   </tr></tfoot>
 </table>
 </div>
@@ -94,14 +108,18 @@ export class UIDatagrid {
   // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     this.columnsChanged(this.columns);
-    this.dataChanged(this.data);
     if (this.pager) {
       if (!(this.pager instanceof UIPager)) throw new Error('Pager must be instance of UIPager');
-      this.obPageChange = UIEvent.observe(this.pager, 'page').subscribe(() => this.makePage());
+      this.obPageChange = UIEvent.observe(this.pager, 'page').subscribe(pg => this.store.loadPage(pg));
     }
+    if (!(this.store instanceof BaseDataSource))
+      this.store = new UILocalDS(this.store);
+
+    // this.obDataChange = UIEvent.observe(this.store, 'data').subscribe(data => this.store.loadPage(pg));
   }
   attached() {
     this.scrolling();
+    UIEvent.queueTask(() => (!this.store.isLoaded ? this.store.fetchData() : null));
   }
   detached() {
     if (this.obPageChange) this.obPageChange.dispose();
@@ -111,69 +129,32 @@ export class UIDatagrid {
 
   @children('ui-dg-column,ui-dg-button,ui-dg-link,ui-dg-glyph') columns;
 
-  @bindable() data = [];
-  @bindable() loaded = true;
-  @bindable() summaryRow = false;
-  @bindable() sortColumn = '';
-  @bindable() sortOrder = '';
-
+  @bindable() store;
   @bindable() pager;
-  @bindable() perPage = 50;
+  @bindable() summaryRow = false;
 
   private cols = [];
-  private paged = [];
-  private filtered = [];
   private tableWidth;
 
   private virtual = false;
   private isBusy = false;
+  private obDataChange;
   private obPageChange;
 
   columnsChanged(newValue) {
     this.cols = _.sortBy(this.columns, 'locked');
   }
 
-  dataChanged(newValue) {
-    UIEvent.queueTask(() => {
-      if (this.pager) {
-        this.pager.page = 0;
-        this.pager.totalPages = Math.ceil(this.data.length / this.perPage);
-      }
-      this.filter();
-      this.scrolling();
-    });
-  }
-
   dgHead;
   dgFoot;
   scroller;
+  selected;
   private scrolling() {
     this.dgHead.style.transform = `translateX(-${this.scroller.scrollLeft}px)`;
     if (this.dgFoot) this.dgFoot.style.transform = this.dgHead.style.transform;
   }
-  private filter() {
-    this.filtered = this.data;
-    this.makePage();
-  }
-  private makePage() {
-    this.isBusy = true;
-    this.paged = [];
-    UIEvent.queueTask(() => {
-      let data = _.orderBy(this.filtered, [this.sortColumn, 'ID', 'id'], [this.sortOrder, this.sortOrder, this.sortOrder]);
-      if (this.pager) {
-        data = _.slice(data, this.pager.page * this.perPage, (this.pager.page * this.perPage) + this.perPage);
-      }
-      this.paged = data;
-      this.loaded = true;
-      UIEvent.queueTask(() => this.isBusy = false);
-    });
-  }
   private doSort(col) {
     if (!col.sortable) return;
-    if (this.sortColumn != col.dataId) this.sortOrder = 'asc';
-    if (this.sortColumn == col.dataId) this.sortOrder = this.sortOrder == 'asc' ? 'desc' : 'asc';
-    this.sortColumn = col.dataId;
-    UIEvent.queueTask(() => this.makePage());
   }
 
   private calculateWidth(cols) {
@@ -183,6 +164,7 @@ export class UIDatagrid {
   }
 
   private fireSelect(record) {
+    this.selected = record;
     UIEvent.fireEvent('rowselect', this.element, ({ record }));
   }
 
@@ -220,6 +202,7 @@ export class UIDatagrid {
     this.colResize.width = (parseInt(this.colResize.width) + this.diff);
     document.removeEventListener('mousemove', this.move);
     document.removeEventListener('mouseup', this.stop);
+    return false;
   }
 }
 
@@ -242,8 +225,13 @@ export class UIPager {
 
   // aurelia hooks
   // created(owningView: View, myView: View) { }
-  // bind(bindingContext: Object, overrideContext: Object) { }
-  // attached() { }
+  bind(bindingContext: Object, overrideContext: Object) {
+    if (this.store)
+      this.totalPages = this.store.totalPages;
+  }
+  attached() {
+    if (this.store && !this.store.isLoaded) UIEvent.queueTask(() => this.store.loadPage(this.page));
+  }
   // detached() { }
   // unbind() { }
   // end aurelia hooks
@@ -251,9 +239,11 @@ export class UIPager {
   @bindable({ defaultBindingMode: bindingMode.twoWay }) page = 0;
 
   @bindable() style = "chevron";
+  @bindable() store;
   @bindable() totalPages = 1;
 
   fireChange() {
+    if (this.store) this.store.loadPage(this.page);
     UIEvent.fireEvent('change', this.element, this.page);
   }
 }

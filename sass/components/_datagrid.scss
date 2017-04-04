@@ -70,7 +70,7 @@
 
   table {
     min-width  : 100%;
-    min-height : 100%;
+    // min-height : 100%;
     line-height: 1;
 
     td {
@@ -79,9 +79,16 @@
         z-index: 1;
       }
 
-      &.ui-expander {
+      &.filler {
         min-width   : 20px;
         border-right: none;
+      }
+
+      &.ui-expander {
+        @include sticky();
+        left      : 0;
+        text-align: center;
+        font-size : 0.8em;
       }
 
       > div {
@@ -165,6 +172,16 @@
     }
 
     tbody {
+      &.odd > tr > td {
+        background: $datagrid-row-odd-bg;
+        color     : $datagrid-row-odd-text;
+      }
+
+      &.even > tr > td {
+        background: $datagrid-row-even-bg;
+        color     : $datagrid-row-even-text;
+      }
+
       > tr {
         > td {
           > div {
@@ -176,16 +193,26 @@
               font-weight: 600;
             }
           }
+
+          &.ui-expander {
+            background: #e5e5e5 !important;
+          }
         }
 
-        &.odd > td {
-          background: $datagrid-row-odd-bg;
-          color     : $datagrid-row-odd-text;
+        &.ui-expanded {
+          > td > div {
+            font-weight: $font-weight-strong;
+          }
         }
 
-        &.even > td {
-          background: $datagrid-row-even-bg;
-          color     : $datagrid-row-even-text;
+        &.level-1 .ui-level-pad {
+          padding-left: 1em;
+        }
+        &.level-2 .ui-level-pad {
+          padding-left: 2em;
+        }
+        &.level-3 .ui-level-pad {
+          padding-left: 3em;
         }
 
         &.filler {

@@ -5,39 +5,39 @@
 -->
 <template>
   <ui-page page-title="Datagrid" animate>
-  <style>
-    .tab-container {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      justify-items: stretch;
-      border: 1px solid rgba(0,0,0,.1);
-    }
-    .dg-glyph.icon-moon-appleinc {
-      color: DarkSlateGray;
-    }
-    .dg-glyph.icon-moon-android {
-      color: MediumSeaGreen;
-    }
-    .dg-glyph.icon-moon-amazon {
-      color: DarkOrange;
-    }
-    .dg-glyph.icon-moon-windows8 {
-      color: RoyalBlue;
-    }
-    .dg-glyph.icon-moon-mobile {
-      color: Silver;
-    }
+    <style>
+      .tab-container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-items: stretch;
+        border: 1px solid rgba(0,0,0,.1);
+      }
+      .dg-glyph.icon-moon-appleinc {
+        color: DarkSlateGray;
+      }
+      .dg-glyph.icon-moon-android {
+        color: MediumSeaGreen;
+      }
+      .dg-glyph.icon-moon-amazon {
+        color: DarkOrange;
+      }
+      .dg-glyph.icon-moon-windows8 {
+        color: RoyalBlue;
+      }
+      .dg-glyph.icon-moon-mobile {
+        color: Silver;
+      }
 
-  </style>
+    </style>
     <ui-content padded scroll>
       <ui-container>
         <div class="tab-container" style="height:500px">
           <ui-toolbar>
-            <ui-pager view-model.ref="pager"></ui-pager>
+            <ui-pager view-model.ref="pager" store.bind="store"></ui-pager>
           </ui-toolbar>
-          <ui-datagrid data.bind="data" summary-row="true" scroll pager.bind="pager" per-page="20">
+          <ui-datagrid store.bind="store" summary-row="true" scroll>
             <ui-dg-empty>
               <h5>No records available...</h5>
             </ui-dg-empty>
@@ -54,24 +54,24 @@
           </ui-datagrid>
         </div>
         <br/>
-          <div class="tab-container" style="height:500px">
-            <ui-datagrid data.bind="data" summary-row="true" virtual scroll>
-              <ui-dg-empty>
-                <h5>No records available...</h5>
-              </ui-dg-empty>
-              <ui-dg-glyph glyph-map.bind="icons" tooltip-map.bind="titles" class="dg-glyph" data-id="icon" sortable locked></ui-dg-glyph>
-              <ui-dg-column data-id="text" sortable resizeable summary="Totals" locked class="ui-titlecase">Text</ui-dg-column>
-              <ui-dg-link glyph="icon-line-search" label="Preview" width="6em" click.trigger="clicked('Link Clicked', $event.detail.record)" locked>Link</ui-dg-link>
-              <ui-dg-button glyph="icon-line-trash-can" theme="danger" label="Delete" width="5em" click.trigger="clicked('Button clicked', $event.detail.record)" locked>Button</ui-dg-button>
-              <ui-dg-column data-id="date" sortable resizeable date center width="7em">Date</ui-dg-column>
-              <ui-dg-column data-id="date" sortable resizeable age center width="7em">Date</ui-dg-column>
-              <ui-dg-column data-id="time" sortable resizeable time center width="7em">Time</ui-dg-column>
-              <ui-dg-column data-id="time" sortable resizeable fromnow center width="7em">Time</ui-dg-column>
-              <ui-dg-column data-id="number" sortable resizeable number summary="sum" end width="8em">Number</ui-dg-column>
-              <ui-dg-column data-id="currency" sortable resizeable currency summary="avg" end width="8em">Currency</ui-dg-column>
-            </ui-datagrid>
-          </div>
-
+        <div class="tab-container" style="height:500px">
+          <ui-datagrid store.bind="data" summary-row="true" virtual scroll>
+            <ui-dg-empty>
+              <h5>No records available...</h5>
+            </ui-dg-empty>
+            <ui-dg-glyph glyph-map.bind="icons" tooltip-map.bind="titles" class="dg-glyph" data-id="icon" sortable locked></ui-dg-glyph>
+            <ui-dg-column data-id="text" sortable resizeable summary="Totals" locked class="ui-titlecase">Text</ui-dg-column>
+            <ui-dg-link glyph="icon-line-search" label="Preview" width="6em" click.trigger="clicked('Link Clicked', $event.detail.record)" locked>Link</ui-dg-link>
+            <ui-dg-button glyph="icon-line-trash-can" theme="danger" label="Delete" width="5em" click.trigger="clicked('Button clicked', $event.detail.record)" locked>Button</ui-dg-button>
+            <ui-dg-column data-id="date" sortable resizeable date center width="7em">Date</ui-dg-column>
+            <ui-dg-column data-id="date" sortable resizeable age center width="7em">Date</ui-dg-column>
+            <ui-dg-column data-id="time" sortable resizeable time center width="7em">Time</ui-dg-column>
+            <ui-dg-column data-id="time" sortable resizeable fromnow center width="7em">Time</ui-dg-column>
+            <ui-dg-column data-id="number" sortable resizeable number summary="sum" end width="8em">Number</ui-dg-column>
+            <ui-dg-column data-id="currency" sortable resizeable currency summary="avg" end width="8em">Currency</ui-dg-column>
+          </ui-datagrid>
+        </div>
+        <br/>
       </ui-container>
     </ui-content>
   </ui-page>
