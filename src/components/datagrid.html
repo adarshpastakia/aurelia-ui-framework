@@ -35,9 +35,9 @@
       <ui-container>
         <div class="tab-container" style="height:500px">
           <ui-toolbar>
-            <ui-pager view-model.ref="pager" store.bind="store"></ui-pager>
+            <ui-pager view-model.ref="pager"></ui-pager>
           </ui-toolbar>
-          <ui-datagrid store.bind="store" summary-row="true" scroll row-expander rowselect.trigger="selected($event.detail.record)">
+          <ui-datagrid data.bind="data" pager.bind="pager" per-page="10" summary-row="true" scroll row-expander rowselect.trigger="selected($event.detail.record)">
             <ui-dg-empty>
               <h5>No records available...</h5>
             </ui-dg-empty>
@@ -55,7 +55,7 @@
         </div>
         <br/>
         <div class="tab-container" style="height:500px">
-          <ui-datagrid store.bind="data" summary-row="true" virtual scroll>
+          <ui-datagrid data.bind="data" summary-row="true" virtual scroll>
             <ui-dg-empty>
               <h5>No records available...</h5>
             </ui-dg-empty>

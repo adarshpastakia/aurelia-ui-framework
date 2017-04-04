@@ -4,7 +4,6 @@
 // @copyright   : 2017
 // @license     : MIT
 import {autoinject} from 'aurelia-framework';
-import {UILocalDS} from "../resources/data/ui-data-source";
 import {UIUtils} from "../resources/utils/ui-utils";
 import * as moment from 'moment';
 
@@ -39,7 +38,6 @@ export class CompDatagrid {
         currency: Math.random() * 10800,
         subdata: subdata
       });
-    this.store = new UILocalDS(this.data, { recordsPerPage: 10 });
   }
   // attached() { }
   // detached() { }
@@ -61,7 +59,6 @@ export class CompDatagrid {
     return ret;
   }
 
-  store;
   data = []
 
   clicked(msg, rec) {
