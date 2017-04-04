@@ -100,8 +100,13 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../data/ui-dat
                     this.cols = _.sortBy(this.columns, 'locked');
                 };
                 UIDatagrid.prototype.storeChanged = function (newValue) {
+                    var _this = this;
                     if (!(newValue instanceof ui_data_source_1.BaseDataSource))
                         this.store = new ui_data_source_1.UILocalDS(newValue);
+                    else
+                        this.store = newValue;
+                    if (!this.store.isLoaded)
+                        ui_event_1.UIEvent.queueTask(function () { return (_this.pager ? _this.store.loadPage(_this.pager.page = 0) : _this.store.fetchData()); });
                 };
                 UIDatagrid.prototype.scrolling = function () {
                     this.dgHead.style.transform = "translateX(-" + this.scroller.scrollLeft + "px)";
