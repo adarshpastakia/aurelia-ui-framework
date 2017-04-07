@@ -18,30 +18,30 @@ import * as _ from "lodash";
   <div if.bind="col.type=='normal'">
     <span if.bind="!record.isEditing || !col.editable" class="\${col.class}" innerhtml.bind='col.getValue(record[col.dataId],record)'></span>
     <span if.bind="record.isEditing && col.dataType == 'text' && col.editable">
-        <ui-input value.bind="record[col.dataId]" change.delegate="handleValueChange(record,col)"></ui-input>
+        <ui-input value.bind="record[col.dataId]" change.delegate="parent.recordValueChange($event,record,$this)"></ui-input>
     </span>
     <span if.bind="record.isEditing && col.editable && (col.dataType == 'number' || col.dataType == 'currency'  || col.dataType == 'percent' || col.dataType == 'exrate')">
-        <ui-input decimal value.bind="record[col.dataId]" change.delegate="handleValueChange(record,col)"></ui-input>
+        <ui-input decimal value.bind="record[col.dataId]" change.delegate="parent.recordValueChange($event,record,$this)"></ui-input>
     </span>
     <span if.bind="record.isEditing &&  col.editable && col.dataType == 'email'">
-        <ui-input email value.bind="record[col.dataId]" change.delegate="handleValueChange(record,col)"></ui-input>
+        <ui-input email value.bind="record[col.dataId]" change.delegate="parent.recordValueChange($event,record,$this)"></ui-input>
     </span>
     <span if.bind="record.isEditing &&  col.editable && col.dataType == 'url'">
-        <ui-input url value.bind="record[col.dataId]" change.delegate="handleValueChange(record,col)"></ui-input>
+        <ui-input url value.bind="record[col.dataId]" change.delegate="parent.recordValueChange($event,record,$this)"></ui-input>
     </span>
     <span if.bind="record.isEditing &&  col.editable && (col.dataType == 'date' || col.dataType == 'fromnow' || col.dataType == 'age')">
-        <ui-date date date.bind="record[col.dataId]" change.delegate="handleValueChange(record,col)"></ui-date>
+        <ui-date date date.bind="record[col.dataId]" change.delegate="parent.recordValueChange($event,record,$this)"></ui-date>
     </span>
     <span if.bind="record.isEditing &&  col.editable && col.dataType == 'time'">
-        <ui-date time date.bind="record[col.dataId]" change.delegate="handleValueChange(record,col)"></ui-date>
+        <ui-date time date.bind="record[col.dataId]" change.delegate="parent.recordValueChange($event,record,$this)"></ui-date>
     </span>
     <span if.bind="record.isEditing && col.editable && col.dataType == 'datetime'">
-        <ui-date datetime date.bind="record[col.dataId]" change.delegate="handleValueChange(record,col)"></ui-date>
+        <ui-date datetime date.bind="record[col.dataId]" change.delegate="parent.recordValueChange($event,record,$this)"></ui-date>
     </span>
   </div>
   <div if.bind="col.type=='glyph'" title.bind="col.getTooltip(record[col.dataId],record)"><ui-glyph class="\${col.class} \${col.getGlyph(record[col.dataId],record)}" glyph.bind="col.getGlyph(record[col.dataId],record)"></ui-glyph></div>
   <div if.bind="col.type=='link'"><a class="ui-link \${col.class} \${col.isDisabled(record[col.dataId],record)?'ui-disabled':''}" click.trigger="col.fireClick($event,record[col.dataId],record)"><ui-glyph glyph.bind="col.getGlyph(record[col.dataId],record)" if.bind="col.glyph"></ui-glyph> <span innerhtml.bind="col.getLabel(record[col.dataId],record)"></span></a></div>
-  <div if.bind="col.type=='button'" class="btn-fix"><ui-button click.trigger="col.fireClick($event,record[col.dataId],record)" theme.bind="col.getTheme(record[col.dataId],record)" small square glyph.bind="col.getGlyph(record[col.dataId],record)" disabled.bind="col.isDisabled(record[col.dataId],record)" dropdown.bind="dropdown" menuopen.trigger="col.fireMenuOpen($event, record)"><span innerhtml.bind="col.getLabel(record[col.dataId],record)"></span></ui-button></div>
+  <div if.bind="col.type=='button'" class="btn-fix"><ui-button click.trigger="col.fireClick($event,record[col.dataId],record)"  theme.bind="col.getTheme(record[col.dataId],record)" small square glyph.bind="col.getGlyph(record[col.dataId],record)" disabled.bind="col.isDisabled(record[col.dataId],record)" dropdown.bind="dropdown" menuopen.trigger="col.fireMenuOpen($event, record)"><span innerhtml.bind="col.getLabel(record[col.dataId],record)"></span></ui-button></div>
   </td>
   <td class="filler"><div>&nbsp;</div></td></tr>
 
@@ -74,10 +74,7 @@ export class UIDgRow {
     if (isFunction(this.record.subdata)) return this.record.subdata(this.record);
     return this.record.subdata;
   }
-  handleValueChange(record,col){
-    record.valueChanged = true;
-    col.valueChanged = true;
-  }
+  
   constructor(public element:Element){
    
   }
@@ -195,19 +192,10 @@ export class UIDatagrid {
   private virtual = false;
   private isBusy = false;
   private obDataChange;
-  private obPageChange;
-  private changes = [];
-
-  @bindable() editingRecord;
-  @bindable() isEditing = false;
+  private obPageChange;  
   private handleSize = 30;
 
-  setEditMode(record,col){
-    if(col.editable){
-      this.editingRecord = record;
-      record.isEditing = true;
-    }
-  }
+  
 
   columnsChanged(newValue) {
     this.cols = _.sortBy(this.columns, 'locked');
@@ -217,6 +205,69 @@ export class UIDatagrid {
     if (!(newValue instanceof BaseDataSource))
       this.store = new UILocalDS(newValue);
   }
+
+ /********inline edit implementations***********/
+ @bindable() recid = "id"; //sets the primary key name of the record. If not set, it assumes "id"
+
+  editingRecord; //stores a reference to the current editing record
+  isEditing = false; //stores the row state
+
+  private changes = {}; // object - stores the grid changes and original values
+
+  setEditMode(record){
+      this.editingRecord = record;
+      record.isEditing = true;
+      if(!this.changes[record[this.recid]]){
+        let orig = Object.assign({},record);
+        this.changes[record[this.recid]] = {};
+        this.changes[record[this.recid]].original = orig;
+        this.changes[record[this.recid]].original.isEditing = false;
+      }
+  }
+
+  recordValueChange(event,record,prop){
+    // get record reference
+    let ref = record[this.recid]; 
+    event.target.offsetParent.classList.add('ui-value-changed');
+    //detect if this record has changed before
+    if(this.changes[ref]){
+      //we have it in changes object
+      this.changes[ref].modified = record; 
+    }  
+  }
+
+  commit(){
+    this.changes={};
+    let elements = this.element.querySelectorAll('.ui-value-changed');
+    for (var i = 0; i < elements.length; i++) {
+        elements[i].classList.remove('ui-value-changed');
+    }
+  }
+
+  revert(){
+    for(const index in this.changes){
+      var row = _.find(this.store.data,(obj:any)=>obj[this.recid]===Number(index));
+      for(const prop in row){
+        row[prop] = this.changes[index].original[prop];
+      }
+    }
+    
+    let elements = this.element.querySelectorAll('.ui-value-changed');
+    for (var i = 0; i < elements.length; i++) {
+        elements[i].classList.remove('ui-value-changed');
+    }
+    this.changes={};
+  }
+
+  getChanges(id){
+    if(id){
+      return this.changes[id];
+    }else{
+      return this.changes;
+    }
+  }
+
+/********end inline edit implementations***********/
 
   dgHead;
   dgFoot;
@@ -238,8 +289,8 @@ export class UIDatagrid {
 
   private fireSelect(record) {
     this.selected = record;
+    //convenience method to exit the edit mode when another row is selected...
     if(this.editingRecord && record != this.editingRecord){
-      console.log(record);
       this.editingRecord.isEditing = false;
     }
     UIEvent.fireEvent('rowselect', this.element, ({ record }));

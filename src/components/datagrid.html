@@ -34,10 +34,23 @@
     <ui-content padded scroll>
       <ui-container>
         <div class="tab-container" style="height:500px">
-          <ui-toolbar>
-            <ui-pager view-model.ref="pager" store.bind="store"></ui-pager>
-          </ui-toolbar>
-          <ui-datagrid store.bind="store" summary-row="true" scroll row-expander rowselect.trigger="selected($event.detail.record)">
+          <ui-toolbar primary>
+          <ui-input-group>
+            <ui-input width="12em">
+              <ui-input-addon glyph="icon-fill-search"></ui-input-addon>
+            </ui-input>
+          </ui-input-group>
+          <ui-filler></ui-filler>
+          <ui-button-group>
+            <ui-button small primary square glyph="icon-moon-undo2" click.delegate="undo()"></ui-button>
+            <ui-button small primary square glyph="icon-moon-redo2"></ui-button>
+          </ui-button-group>
+          <ui-divider></ui-divider>
+          <ui-button primary click.delegate="save()">Save</ui-button>
+          <ui-button primary click.delegate="edit()">Edit</ui-button>
+           <ui-pager view-model.ref="pager" store.bind="store"></ui-pager>
+        </ui-toolbar>
+          <ui-datagrid ref="datagrid" store.bind="store" summary-row="true" scroll row-expander rowselect.trigger="selected($event.detail.record)">
             <ui-dg-empty>
               <h5>No records available...</h5>
             </ui-dg-empty>

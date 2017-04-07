@@ -10,12 +10,17 @@ import * as moment from 'moment';
 
 @autoinject()
 export class CompDatagrid {
-  constructor(public element: Element) { }
+  datagrid;
+  grid;
+  constructor(public element: Element) { 
+    
+  }
 
   // aurelia hooks
   // canActivate(model) { return true; }
   // activate(model) { return true; }
   bind(bindingContext) {
+    this.grid = this.datagrid.au.controller.viewModel;
     let subdata = [];
     for (let i = 0; i < 10; i++)
       subdata.push({
@@ -67,5 +72,18 @@ export class CompDatagrid {
   clicked(msg, rec) {
     UIUtils.toast({ title: msg, message: `${rec.id} - ${rec.text}`, theme: 'info' });
     return true;
+  }
+
+  edit(){
+    this.grid.setEditMode(this.grid.selected);
+  }
+  save(){
+    console.log(this.grid.getChanges());
+     UIUtils.toast({ title: 'Changes', message: 'See console for changes', theme: 'info' });
+    this.grid.commit();
+  }
+  undo(){
+    UIUtils.toast({ title: 'Undo', message: 'Changes have been reverted!', theme: 'info' });
+    this.grid.revert()
   }
 }

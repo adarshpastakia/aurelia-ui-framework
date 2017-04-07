@@ -48,8 +48,12 @@ export class UIDataColumn {
   locked = 1;
   resize = false;
   sortable = false;
+
+  /********inline edit implementations***********/
+
   editable = false;
-  valueChanged = false;
+
+  /********end inline edit implementations***********/
 
   getWidth(tw) {
     this.width = convertToPx(this.width || this.minWidth || 250);
