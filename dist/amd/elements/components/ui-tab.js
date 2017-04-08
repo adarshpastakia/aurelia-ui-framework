@@ -132,7 +132,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-utils", "../.
         UITabPanel.prototype.tabsChanged = function () {
             var _this = this;
             if (!this.activeTabEl && this.tabs.length > 0 && _.find(this.tabs, ['active', true]) == null)
-                (this.activeTabEl = _.find(this.tabs, ['disabled', false])).active = true;
+                this.activateTab(_.find(this.tabs, ['disabled', false]));
             ui_event_1.UIEvent.queueTask(function () { return _this.arrange(); });
         };
         UITabPanel.prototype.activeTabChanged = function (newValue) {
@@ -170,7 +170,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-utils", "../.
         UITabPanel.prototype.doClose = function (tab) {
             _.remove(this.tabs, ['id', tab.id]);
             if (this.tabs.length > 0 && _.find(this.tabs, ['active', true]) == null)
-                (this.activeTabEl = _.findLast(this.tabs, ['disabled', false])).active = true;
+                this.activateTab(_.findLast(this.tabs, ['disabled', false]));
             tab.remove();
             ui_event_1.UIEvent.fireEvent('closed', this.element, tab);
         };

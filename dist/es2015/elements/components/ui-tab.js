@@ -123,7 +123,7 @@ let UITabPanel = class UITabPanel {
     }
     tabsChanged() {
         if (!this.activeTabEl && this.tabs.length > 0 && _.find(this.tabs, ['active', true]) == null)
-            (this.activeTabEl = _.find(this.tabs, ['disabled', false])).active = true;
+            this.activateTab(_.find(this.tabs, ['disabled', false]));
         UIEvent.queueTask(() => this.arrange());
     }
     activeTabChanged(newValue) {
@@ -159,7 +159,7 @@ let UITabPanel = class UITabPanel {
     doClose(tab) {
         _.remove(this.tabs, ['id', tab.id]);
         if (this.tabs.length > 0 && _.find(this.tabs, ['active', true]) == null)
-            (this.activeTabEl = _.findLast(this.tabs, ['disabled', false])).active = true;
+            this.activateTab(_.findLast(this.tabs, ['disabled', false]));
         tab.remove();
         UIEvent.fireEvent('closed', this.element, tab);
     }
