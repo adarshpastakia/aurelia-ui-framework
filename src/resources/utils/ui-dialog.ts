@@ -99,7 +99,7 @@ export class UIDialogService {
         <ui-header-tool glyph="\${isMaximized?'glyph-dialog-restore':'glyph-dialog-expand'}" click.trigger="expand($event)" if.bind="maximizable"></ui-header-tool>
         <ui-header-tool close click.trigger="close($event)" if.bind="closable"></ui-header-tool>
       </ui-header>
-      <ui-glyph class="ui-resizer" glyph="glyph-dialog-resize" if.bind="resizeable"></ui-glyph>
+      <ui-glyph class="ui-resizer" glyph="glyph-dialog-resize" if.bind="resizable"></ui-glyph>
       </div></div></template>`, this.resources);
     let view = viewFactory.create(this.container);
     view.bind(vm);
@@ -218,7 +218,7 @@ export class UIDialogService {
     this.__isDragging = true;
     this.__isResizing = $event.target.classList.contains('ui-resizer');
 
-    if (this.__isResizing && !dialog.resize) {
+    if (this.__isResizing && !dialog.resizable) {
       this.__isDragging = false;
       this.__isResizing = false;
       return;

@@ -141,7 +141,7 @@ export class UIAppQuickLinks {
 @autoinject()
 @containerless()
 @customElement('ui-app-title')
-@inlineView('<template><a href="#/" class="ui-row ui-row-middle ui-app-title ${class}"><img class="ui-col-auto ui-app-logo" src.bind="src" if.bind="src"/>&nbsp;&nbsp;<span class="ui-col-auto"><slot></slot></span></a><div class="ui-col-fill"></div></template>')
+@inlineView('<template><a href="#/" class="ui-row ui-row-middle ui-app-title ${class}"><img class="ui-col-auto ui-app-logo" src.bind="src" if.bind="src"/><span class="ui-col-auto"><slot></slot></span></a><div class="ui-col-fill"></div></template>')
 export class UIAppTitle {
   constructor(public element: Element) { }
 

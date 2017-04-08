@@ -134,7 +134,7 @@ System.register(["aurelia-framework", "../../utils/ui-format", "../../utils/ui-e
                         symbol = summaryRow[this.symbol];
                     }
                     else if (isFunction(this.summary))
-                        retVal = this.summary(data);
+                        retVal = this.summary({ data: data });
                     else {
                         switch (this.summary) {
                             case 'sum':

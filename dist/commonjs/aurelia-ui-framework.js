@@ -33,7 +33,6 @@ __export(require("./utils/ui-http"));
 __export(require("./utils/ui-model"));
 __export(require("./utils/ui-tree-model"));
 __export(require("./utils/ui-utils"));
-__export(require("./data/ui-data-source"));
 require("./elements/core/ui-grid");
 require("./elements/core/ui-page");
 require("./elements/core/ui-viewport");
