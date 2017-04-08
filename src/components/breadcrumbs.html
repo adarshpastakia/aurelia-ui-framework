@@ -18,16 +18,16 @@
               <ui-crumb repeat.for="c of activeTab+1" id.bind="c">${crumbs[c]}</ui-crumb>
             </ui-breadcrumb>
             <ui-tab-panel active-tab.bind="activeTab" notabs height="10em" noborder>
-              <ui-tab padded scroll>
+              <ui-tab padded scroll id.bind="0">
                 <h1>Personal Information...</h1>
               </ui-tab>
-              <ui-tab padded scroll>
+              <ui-tab padded scroll id.bind="1">
                 <h1>Shipping Information...</h1>
               </ui-tab>
-              <ui-tab padded scroll>
+              <ui-tab padded scroll id.bind="2">
                 <h1>Payment Information...</h1>
               </ui-tab>
-              <ui-tab padded scroll>
+              <ui-tab padded scroll id.bind="3">
                 <h1>Agreement...</h1>
                 <ui-checkbox checked.bind="agree">Agree to terms</ui-checkbox>
               </ui-tab>

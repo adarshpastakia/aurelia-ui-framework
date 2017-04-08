@@ -98,7 +98,6 @@ export class TabSalesHistory {
   }
 
   totalSum(record) {
-    console.log(record);
     return _.sumBy(record, 'new') + _.sumBy(record, 'renew');
   }
 

@@ -67,6 +67,6 @@ export class TreeComponent {
   tree;
   treeCheck = [];
   getCheckTree() {
-    console.log((this.treeCheck = this.tree.getCheckedTree()));
+    this.treeCheck = this.tree.getCheckedTree();
   }
 }

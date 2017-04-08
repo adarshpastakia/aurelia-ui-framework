@@ -15,8 +15,8 @@ export class DlgReorder extends UIDialog {
   }
   reorder;
   modal = true;
-  resize = false;
-  maximize = false;
+  resizable = false;
+  maximizable = false;
   id = "dlgView";
   title = "Reorder in Dialog";
 
