@@ -68,6 +68,7 @@
 
     .ui-app-logo {
       height: 3em;
+      margin: 0 0.25em;
     }
 
     // .ui-link {
@@ -97,8 +98,8 @@
       background: rgba($white, .1);
     }
 
-     > .ui-input-wrapper .ui-input-control,
-    > .ui-input-group .ui-group-wrapper {
+     > .ui-input-group .ui-group-wrapper,
+    > .ui-input-wrapper .ui-input-control {
       background: rgba($white, .1);
       color     : $app-header-text;
     }
