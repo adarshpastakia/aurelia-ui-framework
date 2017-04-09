@@ -56,6 +56,7 @@ import './elements/components/ui-bars';
 import './elements/components/ui-breadcrumb';
 import './elements/components/ui-datagrid';
 import './elements/components/ui-dg-columns';
+import './elements/components/ui-dg-cell';
 import './elements/components/ui-drawer';
 import './elements/components/ui-dropdown';
 import './elements/components/ui-menu';
@@ -116,6 +117,7 @@ export function configure(config: { container: Container, globalResources?: (...
     PLATFORM.moduleName('./elements/components/ui-breadcrumb'),
     PLATFORM.moduleName('./elements/components/ui-datagrid'),
     PLATFORM.moduleName('./elements/components/ui-dg-columns'),
+    PLATFORM.moduleName('./elements/components/ui-dg-cell'),
     PLATFORM.moduleName('./elements/components/ui-drawer'),
     PLATFORM.moduleName('./elements/components/ui-dropdown'),
     PLATFORM.moduleName('./elements/components/ui-menu'),

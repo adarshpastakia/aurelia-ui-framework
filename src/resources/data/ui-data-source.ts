@@ -1,5 +1,5 @@
-import {autoinject} from 'aurelia-framework';
-import {UIEvent} from "../utils/ui-event";
+import { autoinject } from 'aurelia-framework';
+import { UIEvent } from "../utils/ui-event";
 import * as _ from "lodash";
 
 export class BaseDataSource {
@@ -24,10 +24,59 @@ export class BaseDataSource {
 
   data = [];
   __original__ = [];
+  changes = [];
 
 
   fetchData() { }
   loadPage(pg) { }
+
+  pushChanges(record) {
+    if (this.changes.indexOf(record) < 0) {
+      this.changes.push(record);
+    } else {
+      _.extend(this.changes[this.changes.indexOf(record)], record);
+    }
+  }
+
+  undoChanges(record) {
+    if (record) {
+      if (this.changes.indexOf(record) != -1) {
+        for (const prop in record._original_) {
+          record[prop] = record._original_[prop];
+          record.isDirty = false;
+        }
+      }
+    } else {
+      for (var index = 0; index < this.changes.length; index++) {
+        var element = this.changes[index];
+        for (const prop in element._original_) {
+          element[prop] = element._original_[prop];
+          element.isDirty = false;
+        }
+      }
+    }
+  }
+
+  getChanges() {
+    return this.changes;
+  }
+
+  commit() {
+    var p = new Promise((resolve, reject) => {
+      for (var index = 0; index < this.changes.length; index++) {
+        var element = this.changes[index];
+        delete element.isDirty;
+        delete element._original_;
+      }
+      this.changes = [];
+      resolve();
+    });
+    return p;
+  }
+
+  getById(id, pk) {
+    return _.find(this.__original__, (rec) => rec[pk] === id);
+  }
 
   sort(property, order) { }
   filter(props) {

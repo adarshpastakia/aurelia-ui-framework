@@ -88,9 +88,6 @@ export class UIDataColumn {
     }
     return retVal;
   }
-  getTemplate(){
-    return `<ui-input value.bind="value"><ui-/input>`;
-  }
 
   getSummary(summaryRow, data) {
     if (!this.summary) return '&nbsp;';
@@ -134,6 +131,7 @@ export class UIDataColumn {
 @customElement('ui-dg-column')
 export class UIDGColumn extends UIDataColumn {
   type = 'normal';
+  cell;
   constructor(public element: Element) { super(element); }
 
   // aurelia hooks
@@ -155,7 +153,6 @@ export class UIDGColumn extends UIDataColumn {
 
   @bindable() symbol;
   @bindable() format;
-
   
 }
 
