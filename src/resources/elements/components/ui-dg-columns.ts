@@ -12,7 +12,8 @@ import * as _ from "lodash";
 export class UIDataColumn {
   constructor(public element: Element) {
     this.resize = element.hasAttribute('resizeable');
-    this.sortable = element.hasAttribute('sortable');
+    this.sortable = element.hasAttribute('sortable');    
+    this.editable = element.hasAttribute('editable');    
     this.locked = element.hasAttribute('locked') ? 0 : 1;
 
     //alignment
@@ -47,6 +48,8 @@ export class UIDataColumn {
   locked = 1;
   resize = false;
   sortable = false;
+  editable = false;
+  valueChanged = false;
 
   getWidth(tw) {
     this.width = convertToPx(this.width || this.minWidth || 250);
@@ -81,6 +84,9 @@ export class UIDataColumn {
     }
     return retVal;
   }
+  getTemplate(){
+    return `<ui-input value.bind="value"><ui-/input>`;
+  }
 
   getSummary(summaryRow, data) {
     if (!this.summary) return '&nbsp;';
@@ -91,7 +97,7 @@ export class UIDataColumn {
       symbol = summaryRow[this.symbol];
     }
     else if (isFunction(this.summary))
-      retVal = this.summary({ data });
+      retVal = this.summary(data);
     else {
       switch (this.summary) {
         case 'sum': retVal = _.sumBy(data, this.dataId); break;
@@ -145,6 +151,8 @@ export class UIDGColumn extends UIDataColumn {
 
   @bindable() symbol;
   @bindable() format;
+
+  
 }
 
 @autoinject()

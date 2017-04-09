@@ -16,7 +16,6 @@
       @include flex-fill(1em);
     }
   }
-
   &.ui-auto-size {
     table > tbody > tr:last-child {
       display: none;
@@ -78,7 +77,9 @@
         // @include sticky();
         z-index: 1;
       }
-
+      &.ui-value-changed{
+        background: url(data:image/gif;base64,R0lGODlhCgAKAJEAALAABf///wAAAAAAACH5BAEAAAIALAAAAAAKAAoAAAIPlI8Hy8mbxIsSUnup3rQAADs=) top right no-repeat !important;
+      }
       &.filler {
         min-width   : 20px;
         border-right: none;
