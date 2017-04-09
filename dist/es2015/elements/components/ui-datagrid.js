@@ -218,7 +218,7 @@ UIDatagrid = __decorate([
     autoinject(),
     inlineView(`<template class="ui-datagrid"><div class="ui-hidden"><slot></slot></div>
 <div show.bind="resizing" ref="ghost" class="ui-dg-ghost"></div>
-<div show.bind="data.length==0" class="ui-dg-empty"><slot name="dg-empty"></slot></div>
+<div show.bind="loaded && (!data || data.length==0)" class="ui-dg-empty"><slot name="dg-empty"></slot></div>
 <div>
 <table ref="dgHead" width.bind="tableWidth" css.bind="{'table-layout': tableWidth?'fixed':'auto' }">
   <colgroup>
@@ -228,7 +228,7 @@ UIDatagrid = __decorate([
   </colgroup>
   <thead><tr>
     <td class="ui-expander" if.bind="handleSize>0"><div>&nbsp;</div></td>
-    <td repeat.for="col of cols" mouseup.trigger="store.sort(col.dataId, (col.dataId==store.sortBy&&store.orderBy=='asc')?'desc':'asc')" class="\${col.sortable?'ui-sortable':''} \${col.locked==0?'ui-locked':''}" css.bind="{left: col.left+'px'}"><div>
+    <td repeat.for="col of cols" mouseup.trigger="doSort(col)" class="\${col.sortable?'ui-sortable':''} \${col.locked==0?'ui-locked':''}" css.bind="{left: col.left+'px'}"><div>
       <span class="ui-dg-header" innerhtml.bind='col.getTitle()'></span>
       <span class="ui-filter" if.bind="col.filter"><ui-glyph glyph="glyph-funnel"></ui-glyph></span>
       <span class="ui-sort \${col.dataId==sortColumn ? sortOrder:''}" if.bind="col.sortable"></span>
