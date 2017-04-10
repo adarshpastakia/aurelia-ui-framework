@@ -15,8 +15,8 @@
       @include flex(1 1 auto);
       @include align-self(stretch);
 
-       > textarea,
-      > .ui-list-container {
+       > .ui-list-container,
+      > textarea {
         max-height: inherit;
         @include align-self(stretch);
       }
@@ -96,6 +96,7 @@
       margin     : 0;
       color      : inherit;
       min-height : 1em;
+      max-width  : 100%;
       width      : 1em;
       font-size  : 0.9em;
       line-height: 1rem;
