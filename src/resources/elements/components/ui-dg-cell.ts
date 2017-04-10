@@ -5,6 +5,15 @@ import { UIUtils } from "../../utils/ui-utils";
 import * as _ from "lodash";
 import * as moment from 'moment';
 
+// export class ToMomentValueConverter{
+//     fromView(value:any){
+//         return moment(value);
+//     }
+//     toView(value){
+//         return value;
+//     }
+// }
+
 @autoinject()
 @inlineView(
     `<template>
@@ -45,6 +54,7 @@ export class UIDgCell {
     @bindable() parent;
     @bindable() col;
 
+    private ismoment = false;
     private dateType = ['date', 'time', 'age', 'datetime', 'fromnow'];
 
     private observerDisposer;
@@ -68,9 +78,12 @@ export class UIDgCell {
     handleValueChange(n, o) {
         let name = this.col.dataId;
         let ov = this.record._original_ && this.record._original_[name] ? this.record._original_[name] :o;// this.col.getValue(o, this.record);
-        let nv = n;//this.col.getValue(n, this.record);
+        let nv = n;
         let isChanged = false;
         if (this.dateType.indexOf(this.col.dataType) != -1) {
+            if(moment.isMoment(ov)){
+                this.ismoment = true;
+            }
             isChanged = !moment(ov).isSame(nv);
         }
         else {

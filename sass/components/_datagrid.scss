@@ -77,9 +77,6 @@
         // @include sticky();
         z-index: 1;
       }
-      &.ui-value-changed{
-        background: url(data:image/gif;base64,R0lGODlhCgAKAJEAALAABf///wAAAAAAACH5BAEAAAIALAAAAAAKAAoAAAIPlI8Hy8mbxIsSUnup3rQAADs=) top right no-repeat !important;
-      }
       &.filler {
         min-width   : 20px;
         border-right: none;
@@ -174,12 +171,12 @@
 
     tbody {
       &.odd > tr > td {
-        background: $datagrid-row-odd-bg;
+        background-color: $datagrid-row-odd-bg;
         color     : $datagrid-row-odd-text;
       }
 
       &.even > tr > td {
-        background: $datagrid-row-even-bg;
+        background-color: $datagrid-row-even-bg;
         color     : $datagrid-row-even-text;
       }
 
@@ -194,7 +191,11 @@
               font-weight: 600;
             }
           }
-
+          &.ui-value-changed,&.ui-value-changed:hover{
+            background-image: url('data:image/gif;base64,R0lGODlhCgAKAJEAALAABf///wAAAAAAACH5BAEAAAIALAAAAAAKAAoAAAIPlI8Hy8mbxIsSUnup3rQAADs=');
+            background-position:  top right;
+            background-repeat:  no-repeat;
+          }
           &.ui-expander {
             background: #e5e5e5 !important;
           }
@@ -231,7 +232,7 @@
         }
 
         &:not(.filler):hover > td {
-          background: $datagrid-row-hover-bg;
+          background-color: $datagrid-row-hover-bg;
           color     : $datagrid-row-hover-text;
         }
       }
