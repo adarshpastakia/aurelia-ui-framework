@@ -9,7 +9,8 @@ import {UIUtils} from "../../utils/ui-utils";
 
 @autoinject()
 @inlineView(`<template class="ui-dropdown" select.trigger="select($event)" click.trigger="toggleDropdown($event)" css.bind="{'min-width':width}">
-  <div class="ui-label"><span><ui-glyph class.bind="glyph" glyph.bind="glyph" if.bind="glyph"></ui-glyph>\${display}</span>
+  <div class="ui-label"><span><ui-glyph class="ui-invalid-icon" glyph="glyph-invalid"></ui-glyph>
+  <ui-glyph class.bind="glyph" glyph.bind="glyph" if.bind="glyph"></ui-glyph>\${display}</span>
   <ui-glyph class="ui-caret" glyph="glyph-caret-down"></ui-glyph></div>
   <ul class="ui-list-container ui-floating" ref="dropdown"><slot></slot></ul></template>`)
 @customElement('ui-dropdown')
@@ -24,7 +25,7 @@ export class UIDropdown {
   attached() {
     this.tether = UIUtils.tether(this.element, this.dropdown);
     this.obMouseup = UIEvent.subscribe('mouseclick', (evt) => {
-      if (getParentByClass(evt.target, 'ui-list-container') == this.dropdown) return;
+      if (getParentByClass(evt.target, 'ui-dropdown') == this.element) return true;
       this.element.classList.remove('ui-open');
     });
     UIEvent.queueTask(() => this.valueChanged(this.value));
@@ -43,6 +44,7 @@ export class UIDropdown {
   @bindable() width = '5em';
   @bindable() model = null;
   @bindable() disabled = false;
+  @bindable() defaultText = 'Select';
 
   @bindable() beforeselect: any;
 
@@ -58,12 +60,18 @@ export class UIDropdown {
       this.selected.element.classList.remove('ui-selected');
 
     let it = this.items.find(it => it.value == newValue);
-    if (!it) it = this.items[0];
-    if (it.value != newValue) this.value = it.value;
-    this.display = it.element.innerText;
-    this.glyph = it.element.au.controller.viewModel.glyph;
-    (this.selected = it).element.classList.add('ui-selected');
-    UIEvent.queueTask(() => UIEvent.fireEvent('change', this.element, this.value));
+    // if (!it) it = this.items[0];
+    if (it) {
+      if (it.value != newValue) this.value = it.value;
+      this.display = it.element.innerText;
+      this.glyph = it.element.au.controller.viewModel.glyph;
+      (this.selected = it).element.classList.add('ui-selected');
+      UIEvent.queueTask(() => UIEvent.fireEvent('change', this.element, this.value));
+    }
+    else {
+      this.display = this.defaultText;
+      this.glyph = '';
+    }
   }
 
   disabledChanged(newValue) {
