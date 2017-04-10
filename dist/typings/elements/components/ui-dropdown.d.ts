@@ -9,6 +9,7 @@ export declare class UIDropdown {
     width: string;
     model: any;
     disabled: boolean;
+    defaultText: string;
     beforeselect: any;
     private tether;
     private dropdown;

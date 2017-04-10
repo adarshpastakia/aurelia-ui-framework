@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -9,9 +9,17 @@
   cursor     : pointer;
   position   : relative;
   display    : inline-block;
-  font-size  : .9em;
+  font-size  : 0.9em;
   line-height: 1.8em;
-  padding    : 0 .5em;
+  padding    : 0 0.5em;
+
+  &:not(.ui-invalid) .ui-invalid-icon {
+    display: none;
+  }
+
+  .ui-invalid-icon {
+    color: $input-error-text;
+  }
 
   .ui-label {
     @include flex-row($wrap:false, $justify: space-between);
@@ -22,10 +30,10 @@
   }
 
   .ui-caret {
-    font-size: .5rem;
+    font-size: 0.5rem;
     position : relative;
-    top      : .2em;
-    margin   : 0 .2rem;
+    top      : 0.2em;
+    margin   : 0 0.2rem;
     color    : rgba($input-text, .5);
   }
 
@@ -49,6 +57,7 @@
 
   &.ui-disabled {
     pointer-events: none;
+
     &:after {
       content   : '';
       @include position(absolute, 0);
@@ -84,15 +93,15 @@
   .ui-list-group {
     color      : $muted;
     display    : list-item;
-    font-size  : .8em;
+    font-size  : 0.8em;
     line-height: 1.5em;
-    padding    : 0 .5em;
+    padding    : 0 0.5em;
   }
 
   .ui-list-item {
-    font-size  : .9em;
+    font-size  : 0.9em;
     line-height: 1.8rem;
-    padding    : 0 .5em;
+    padding    : 0 0.5em;
     color      : $dark;
     cursor     : pointer;
     display    : list-item;

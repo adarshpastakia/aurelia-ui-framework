@@ -20,6 +20,7 @@ var UIDropdown = (function () {
         this.width = '5em';
         this.model = null;
         this.disabled = false;
+        this.defaultText = 'Select';
         this.glyph = '';
         this.display = '';
     }
@@ -30,8 +31,8 @@ var UIDropdown = (function () {
         var _this = this;
         this.tether = ui_utils_1.UIUtils.tether(this.element, this.dropdown);
         this.obMouseup = ui_event_1.UIEvent.subscribe('mouseclick', function (evt) {
-            if (getParentByClass(evt.target, 'ui-list-container') == _this.dropdown)
-                return;
+            if (getParentByClass(evt.target, 'ui-dropdown') == _this.element)
+                return true;
             _this.element.classList.remove('ui-open');
         });
         ui_event_1.UIEvent.queueTask(function () { return _this.valueChanged(_this.value); });
@@ -45,14 +46,18 @@ var UIDropdown = (function () {
         if (this.selected)
             this.selected.element.classList.remove('ui-selected');
         var it = this.items.find(function (it) { return it.value == newValue; });
-        if (!it)
-            it = this.items[0];
-        if (it.value != newValue)
-            this.value = it.value;
-        this.display = it.element.innerText;
-        this.glyph = it.element.au.controller.viewModel.glyph;
-        (this.selected = it).element.classList.add('ui-selected');
-        ui_event_1.UIEvent.queueTask(function () { return ui_event_1.UIEvent.fireEvent('change', _this.element, _this.value); });
+        if (it) {
+            if (it.value != newValue)
+                this.value = it.value;
+            this.display = it.element.innerText;
+            this.glyph = it.element.au.controller.viewModel.glyph;
+            (this.selected = it).element.classList.add('ui-selected');
+            ui_event_1.UIEvent.queueTask(function () { return ui_event_1.UIEvent.fireEvent('change', _this.element, _this.value); });
+        }
+        else {
+            this.display = this.defaultText;
+            this.glyph = '';
+        }
     };
     UIDropdown.prototype.disabledChanged = function (newValue) {
         this.element.classList[(this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');
@@ -109,10 +114,14 @@ __decorate([
 __decorate([
     aurelia_framework_1.bindable(),
     __metadata("design:type", Object)
+], UIDropdown.prototype, "defaultText", void 0);
+__decorate([
+    aurelia_framework_1.bindable(),
+    __metadata("design:type", Object)
 ], UIDropdown.prototype, "beforeselect", void 0);
 UIDropdown = __decorate([
     aurelia_framework_1.autoinject(),
-    aurelia_framework_1.inlineView("<template class=\"ui-dropdown\" select.trigger=\"select($event)\" click.trigger=\"toggleDropdown($event)\" css.bind=\"{'min-width':width}\">\n  <div class=\"ui-label\"><span><ui-glyph class.bind=\"glyph\" glyph.bind=\"glyph\" if.bind=\"glyph\"></ui-glyph>${display}</span>\n  <ui-glyph class=\"ui-caret\" glyph=\"glyph-caret-down\"></ui-glyph></div>\n  <ul class=\"ui-list-container ui-floating\" ref=\"dropdown\"><slot></slot></ul></template>"),
+    aurelia_framework_1.inlineView("<template class=\"ui-dropdown\" select.trigger=\"select($event)\" click.trigger=\"toggleDropdown($event)\" css.bind=\"{'min-width':width}\">\n  <div class=\"ui-label\"><span><ui-glyph class=\"ui-invalid-icon\" glyph=\"glyph-invalid\"></ui-glyph>\n  <ui-glyph class.bind=\"glyph\" glyph.bind=\"glyph\" if.bind=\"glyph\"></ui-glyph>${display}</span>\n  <ui-glyph class=\"ui-caret\" glyph=\"glyph-caret-down\"></ui-glyph></div>\n  <ul class=\"ui-list-container ui-floating\" ref=\"dropdown\"><slot></slot></ul></template>"),
     aurelia_framework_1.customElement('ui-dropdown'),
     __metadata("design:paramtypes", [Element])
 ], UIDropdown);

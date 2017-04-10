@@ -67,7 +67,7 @@ export class UIFieldset {
   // end aurelia hooks
 
   @bindable() legend = '';
-  @bindable() enabled = true;
+  @bindable({ defaultBindingMode: bindingMode.twoWay }) enabled = true;
 
   private container;
   private collapsable = false;

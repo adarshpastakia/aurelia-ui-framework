@@ -196,7 +196,7 @@ UIInput = __decorate([
     inlineView(`<template class="ui-input-wrapper" css.bind="{width: width}"><div role="input" class="ui-input-control"><slot></slot>
   <span class="ui-error" if.bind="errors"><ui-glyph glyph="glyph-invalid"></ui-glyph><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
   <input ref="inputEl" type.bind="type" value.bind="value" maxlength.bind="maxlength" dir.bind="dir"
-    focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)"
+    focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)" step="any"
     input.trigger="fireEvent($event)" change.trigger="fireEvent($event)"
     keypress.trigger="checkInput($event)" placeholder.bind="placeholder"
     disabled.bind="isDisabled" readonly.bind="readonly"/>
