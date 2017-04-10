@@ -66,7 +66,7 @@ export class UIBaseInput {
 @inlineView(`<template class="ui-input-wrapper" css.bind="{width: width}"><div role="input" class="ui-input-control"><slot></slot>
   <span class="ui-error" if.bind="errors"><ui-glyph glyph="glyph-invalid"></ui-glyph><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
   <input ref="inputEl" type.bind="type" value.bind="value" maxlength.bind="maxlength" dir.bind="dir"
-    focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)" step.bind="step || 'any'"
+    focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)" step="any"
     input.trigger="fireEvent($event)" change.trigger="fireEvent($event)"
     keypress.trigger="checkInput($event)" placeholder.bind="placeholder"
     disabled.bind="isDisabled" readonly.bind="readonly"/>
@@ -84,7 +84,7 @@ export class UIInput extends UIBaseInput {
     if (element.hasAttribute('url')) this.type = 'url';
     if (element.hasAttribute('file')) this.type = 'file';
     if (element.hasAttribute('email')) this.type = 'email';
-    if (element.hasAttribute('number') || element.hasAttribute('number.bind')) (this.step = 1, this.type = 'number');
+    if (element.hasAttribute('number') || element.hasAttribute('number.bind')) this.type = 'number';
     if (element.hasAttribute('decimal') || element.hasAttribute('decimal.bind')) this.type = 'number';
     if (element.hasAttribute('password')) this.type = 'password';
   }
@@ -119,8 +119,6 @@ export class UIInput extends UIBaseInput {
   private counter = false;
 
   private ignore = false;
-
-  private step = 0;
 
   valueChanged(newValue) {
     if (this.ignore) return;
