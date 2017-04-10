@@ -51,7 +51,7 @@ export class DataModel extends UIModel {
   city = '';
   state = '';
   country = '';
-  phoneType = 'mobile';
+  phoneType = '';
   phone = '';
   email = '';
   hasSecondContact = false;
@@ -80,6 +80,10 @@ export class DataModel extends UIModel {
       .ensure(m => m.email)
       .required()
       .email()
+      .ensure(m => m.salutation)
+      .required()
+      .ensure(m => m.phoneType)
+      .required()
       .ensure(m => m.phone)
       .required()
       .satisfiesRule('phone')

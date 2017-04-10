@@ -14,7 +14,7 @@
 
                 <ui-input-group>
                   <ui-input-label required>First Name</ui-input-label>
-                  <ui-dropdown value.bind="model.salutation">
+                  <ui-dropdown value.bind="model.salutation & validate">
                     <ui-list-item repeat.for="s of salutations" value.bind="s">${s}</ui-list-item>
                   </ui-dropdown>
                   <ui-input value.bind="model.firstName & validate" maxlength="99" counter clear></ui-input>
@@ -79,7 +79,7 @@
 
                 <ui-input-group>
                   <ui-input-label required>Phone</ui-input-label>
-                  <ui-dropdown value.bind="model.phoneType">
+                  <ui-dropdown value.bind="model.phoneType & validate" default-text="--Choose--">
                     <ui-list-item value="home">Home</ui-list-item>
                     <ui-list-item value="work">Work</ui-list-item>
                     <ui-list-item value="mobile">Mobile</ui-list-item>
