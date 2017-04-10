@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { autoinject, customElement, bindable, inlineView, containerless } from 'aurelia-framework';
+import { autoinject, customElement, bindable, bindingMode, inlineView, containerless } from 'aurelia-framework';
 import { UIEvent } from "../../utils/ui-event";
 import * as _ from "lodash";
 let UIForm = class UIForm {
@@ -80,7 +80,7 @@ __decorate([
     __metadata("design:type", Object)
 ], UIFieldset.prototype, "legend", void 0);
 __decorate([
-    bindable(),
+    bindable({ defaultBindingMode: bindingMode.twoWay }),
     __metadata("design:type", Object)
 ], UIFieldset.prototype, "enabled", void 0);
 UIFieldset = __decorate([

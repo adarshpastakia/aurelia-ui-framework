@@ -1,3 +1,13 @@
+<a name="3.2.3"></a>
+## 3.2.3 (2017-04-10)
+
+
+
+* Fixed decimal input bug in firefox, requires step="any"
+* Updated UIFieldset `enabled` property for two-way binding
+* Updated UIDropdown to non select first item by default
+
+
 <a name="3.2.2"></a>
 ## 3.2.2 (2017-04-09)
 

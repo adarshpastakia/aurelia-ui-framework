@@ -85,7 +85,7 @@ __decorate([
     __metadata("design:type", Object)
 ], UIFieldset.prototype, "legend", void 0);
 __decorate([
-    aurelia_framework_1.bindable(),
+    aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
     __metadata("design:type", Object)
 ], UIFieldset.prototype, "enabled", void 0);
 UIFieldset = __decorate([
