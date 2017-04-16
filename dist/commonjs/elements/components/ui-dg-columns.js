@@ -309,7 +309,7 @@ var UIDGLink = (function (_super) {
         $event.preventDefault();
         if (this.isDisabled(value, record))
             return;
-        ui_event_1.UIEvent.fireEvent('click', this.element, ({ value: value, record: record }));
+        ui_event_1.UIEvent.fireEvent('click', this.element, ({ target: $event.target, value: value, record: record }));
         return false;
     };
     return UIDGLink;
@@ -387,7 +387,7 @@ var UIDGButton = (function (_super) {
         $event.preventDefault();
         if (this.isDisabled(value, record))
             return;
-        ui_event_1.UIEvent.fireEvent('click', this.element, ({ value: value, record: record }));
+        ui_event_1.UIEvent.fireEvent('click', this.element, ({ target: $event.target, value: value, record: record }));
         return false;
     };
     UIDGButton.prototype.fireMenuOpen = function ($event, record) {

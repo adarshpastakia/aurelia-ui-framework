@@ -287,7 +287,7 @@ let UIDGLink = class UIDGLink extends UIDataColumn {
         $event.preventDefault();
         if (this.isDisabled(value, record))
             return;
-        UIEvent.fireEvent('click', this.element, ({ value, record }));
+        UIEvent.fireEvent('click', this.element, ({ target: $event.target, value: value, record: record }));
         return false;
     }
 };
@@ -362,7 +362,7 @@ let UIDGButton = class UIDGButton extends UIDataColumn {
         $event.preventDefault();
         if (this.isDisabled(value, record))
             return;
-        UIEvent.fireEvent('click', this.element, ({ value, record }));
+        UIEvent.fireEvent('click', this.element, ({ target: $event.target, value: value, record: record }));
         return false;
     }
     fireMenuOpen($event, record) {

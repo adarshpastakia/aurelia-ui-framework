@@ -69,7 +69,7 @@ define(["require", "exports", "kramed", "moment", "numeral"], function (require,
         function percent(nm) {
             return nm === null || isNaN(nm) ? '' :
                 numeral(nm > 1 ? nm / 100 : nm)
-                    .format('0.00 %');
+                    .format('0.00%');
         }
         UIFormat.percent = percent;
         function exRate(nm) {

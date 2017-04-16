@@ -82,7 +82,7 @@ System.register(["kramed", "moment", "numeral"], function (exports_1, context_1)
                 function percent(nm) {
                     return nm === null || isNaN(nm) ? '' :
                         numeral(nm > 1 ? nm / 100 : nm)
-                            .format('0.00 %');
+                            .format('0.00%');
                 }
                 UIFormat.percent = percent;
                 function exRate(nm) {
