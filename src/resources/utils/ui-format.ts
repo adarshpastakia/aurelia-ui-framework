@@ -71,7 +71,7 @@ export module UIFormat {
   export function percent(nm: any): string {
     return nm === null || isNaN(nm) ? '' :
       numeral(nm > 1 ? nm / 100 : nm)
-        .format('0.00 %');
+        .format('0.00%');
   }
 
   export function exRate(nm: any): string {
