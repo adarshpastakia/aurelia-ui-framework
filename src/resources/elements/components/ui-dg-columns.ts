@@ -229,7 +229,7 @@ export class UIDGLink extends UIDataColumn {
     $event.stopPropagation();
     $event.preventDefault();
     if (this.isDisabled(value, record)) return;
-    UIEvent.fireEvent('click', this.element, ({ value, record }));
+    UIEvent.fireEvent('click', this.element, ({ target: $event.target, value: value, record: record }));
     return false;
   }
 }
@@ -287,7 +287,7 @@ export class UIDGButton extends UIDataColumn {
     $event.stopPropagation();
     $event.preventDefault();
     if (this.isDisabled(value, record)) return;
-    UIEvent.fireEvent('click', this.element, ({ value, record }));
+    UIEvent.fireEvent('click', this.element, ({ target: $event.target, value: value, record: record }));
     return false;
   }
 
