@@ -194,7 +194,7 @@ export class UIHeaderTool {
 }
 
 @autoinject()
-@inlineView(`<template class="ui-header-title ui-inline-block ui-col-fill"><ui-glyph glyph.bind="glyph" if.bind="glyph"></ui-glyph>&nbsp;<slot></slot></template>`)
+@inlineView(`<template class="ui-header-title ui-inline-block ui-col-fill"><ui-glyph glyph.bind="glyph" if.bind="glyph"></ui-glyph><slot></slot></template>`)
 @customElement('ui-header-title')
 export class UIHeaderTitle {
   constructor(public element: Element) { }
