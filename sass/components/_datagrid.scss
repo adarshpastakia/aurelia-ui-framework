@@ -13,6 +13,9 @@
     @include flex-column();
 
     .ui-dg-wrapper {
+      height  : 100%;
+      width   : 100%;
+      overflow: auto;
       @include flex-fill(1em);
     }
   }
@@ -21,12 +24,6 @@
     table > tbody > tr:last-child {
       display: none;
     }
-  }
-
-  .ui-dg-wrapper {
-    height  : 100%;
-    width   : 100%;
-    overflow: auto;
   }
 
   .ui-dg-ghost {
@@ -107,8 +104,8 @@
       }
     }
 
-     > thead > tr > td,
-    > tfoot > tr > td {
+     > tfoot > tr > td,
+    > thead > tr > td {
       font-size  : 0.9em;
       font-weight: 600;
     }
@@ -208,9 +205,11 @@
         &.level-1 .ui-level-pad {
           padding-left: 1em;
         }
+
         &.level-2 .ui-level-pad {
           padding-left: 2em;
         }
+
         &.level-3 .ui-level-pad {
           padding-left: 3em;
         }
