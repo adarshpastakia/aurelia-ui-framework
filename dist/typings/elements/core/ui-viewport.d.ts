@@ -36,5 +36,6 @@ export declare class UIAppTitle {
     element: Element;
     constructor(element: Element);
     src: any;
+    href: string;
     class: string;
 }

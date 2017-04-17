@@ -76,6 +76,9 @@ let UIDialogService = class UIDialogService {
             });
         });
     }
+    closeAll() {
+        _.forEach(this.windows, win => this.closeDialog(win, true));
+    }
     createDialog(vm) {
         if (!(vm instanceof UIDialog))
             throw new Error("ViewModel must extend from UIDialog");
@@ -107,12 +110,12 @@ let UIDialogService = class UIDialogService {
             this.changeActive(dialog);
         }
     }
-    closeDialog(dialog) {
+    closeDialog(dialog, force = false) {
         if (!dialog)
             return;
-        this.invokeLifecycle(dialog, 'canDeactivate', null)
+        this.invokeLifecycle(dialog, 'canDeactivate', force)
             .then(canDeactivate => {
-            if (canDeactivate) {
+            if (force || canDeactivate) {
                 this.invokeLifecycle(dialog, 'detached', null);
                 dialog.dialogWrapperEl.remove();
                 _.remove(this.windows, ['uniqId', dialog.uniqId]);

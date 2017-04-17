@@ -149,6 +149,7 @@ System.register(["aurelia-framework", "aurelia-router", "aurelia-fetch-client", 
             UIAppTitle = (function () {
                 function UIAppTitle(element) {
                     this.element = element;
+                    this.href = '#/';
                     this.class = '';
                 }
                 return UIAppTitle;
@@ -160,12 +161,16 @@ System.register(["aurelia-framework", "aurelia-router", "aurelia-fetch-client", 
             __decorate([
                 aurelia_framework_1.bindable(),
                 __metadata("design:type", Object)
+            ], UIAppTitle.prototype, "href", void 0);
+            __decorate([
+                aurelia_framework_1.bindable(),
+                __metadata("design:type", Object)
             ], UIAppTitle.prototype, "class", void 0);
             UIAppTitle = __decorate([
                 aurelia_framework_1.autoinject(),
                 aurelia_framework_1.containerless(),
                 aurelia_framework_1.customElement('ui-app-title'),
-                aurelia_framework_1.inlineView('<template><a href="#/" class="ui-row ui-row-middle ui-app-title ${class}"><img class="ui-col-auto ui-app-logo" src.bind="src" if.bind="src"/><span class="ui-col-auto"><slot></slot></span></a><div class="ui-col-fill"></div></template>'),
+                aurelia_framework_1.inlineView('<template><a href.bind="href" class="ui-row ui-row-middle ui-app-title ${class}"><img class="ui-col-auto ui-app-logo" src.bind="src" if.bind="src"/><span class="ui-col-auto"><slot></slot></span></a><div class="ui-col-fill"></div></template>'),
                 __metadata("design:paramtypes", [Element])
             ], UIAppTitle);
             exports_1("UIAppTitle", UIAppTitle);

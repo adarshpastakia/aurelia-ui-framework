@@ -237,7 +237,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
     ], UIHeaderTitle.prototype, "glyph", void 0);
     UIHeaderTitle = __decorate([
         aurelia_framework_1.autoinject(),
-        aurelia_framework_1.inlineView("<template class=\"ui-header-title ui-inline-block ui-col-fill\"><ui-glyph glyph.bind=\"glyph\" if.bind=\"glyph\"></ui-glyph>&nbsp;<slot></slot></template>"),
+        aurelia_framework_1.inlineView("<template class=\"ui-header-title ui-inline-block ui-col-fill\"><ui-glyph glyph.bind=\"glyph\" if.bind=\"glyph\"></ui-glyph><slot></slot></template>"),
         aurelia_framework_1.customElement('ui-header-title'),
         __metadata("design:paramtypes", [Element])
     ], UIHeaderTitle);

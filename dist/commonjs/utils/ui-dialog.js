@@ -80,6 +80,10 @@ var UIDialogService = (function () {
             });
         });
     };
+    UIDialogService.prototype.closeAll = function () {
+        var _this = this;
+        _.forEach(this.windows, function (win) { return _this.closeDialog(win, true); });
+    };
     UIDialogService.prototype.createDialog = function (vm) {
         if (!(vm instanceof UIDialog))
             throw new Error("ViewModel must extend from UIDialog");
@@ -102,13 +106,14 @@ var UIDialogService = (function () {
             this.changeActive(dialog);
         }
     };
-    UIDialogService.prototype.closeDialog = function (dialog) {
+    UIDialogService.prototype.closeDialog = function (dialog, force) {
         var _this = this;
+        if (force === void 0) { force = false; }
         if (!dialog)
             return;
-        this.invokeLifecycle(dialog, 'canDeactivate', null)
+        this.invokeLifecycle(dialog, 'canDeactivate', force)
             .then(function (canDeactivate) {
-            if (canDeactivate) {
+            if (force || canDeactivate) {
                 _this.invokeLifecycle(dialog, 'detached', null);
                 dialog.dialogWrapperEl.remove();
                 _.remove(_this.windows, ['uniqId', dialog.uniqId]);
