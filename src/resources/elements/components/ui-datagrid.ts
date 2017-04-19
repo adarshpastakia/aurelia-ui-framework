@@ -152,7 +152,7 @@ export class UIDatagrid {
   private cols = [];
   private paged = [];
   private filtered = [];
-  private tableWidth = 'auto';
+  private tableWidth = '20px';
 
   private virtual = false;
   private isBusy = false;
