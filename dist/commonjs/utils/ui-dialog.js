@@ -97,7 +97,7 @@ var UIDialogService = (function () {
             this.windows.push(dialog);
             dialog.taskButtonEl = document.createElement('button');
             dialog.taskButtonEl.classList.add('ui-active');
-            dialog.taskButtonEl.innerHTML = '<ui-glyph class="${glyph}" glyph="${glyph}"></ui-glyph>&nbsp;<span class="ui-label">${title}</span>';
+            dialog.taskButtonEl.innerHTML = '<ui-glyph class="${glyph}" glyph="${glyph}" if.bind="glyph"></ui-glyph><span class="ui-label">${title}</span>';
             dialog.taskButtonEl.window = dialog;
             if (ui_utils_1.UIUtils.taskbarContainer) {
                 ui_utils_1.UIUtils.taskbarContainer.appendChild(dialog.taskButtonEl);

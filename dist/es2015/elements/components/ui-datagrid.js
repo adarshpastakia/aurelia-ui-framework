@@ -69,6 +69,7 @@ let UIDatagrid = class UIDatagrid {
         this.cols = [];
         this.paged = [];
         this.filtered = [];
+        this.tableWidth = 'auto';
         this.virtual = false;
         this.isBusy = false;
         this.handleSize = 30;

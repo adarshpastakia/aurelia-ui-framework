@@ -55,6 +55,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "loda
             this.cols = [];
             this.paged = [];
             this.filtered = [];
+            this.tableWidth = 'auto';
             this.virtual = false;
             this.isBusy = false;
             this.handleSize = 30;
