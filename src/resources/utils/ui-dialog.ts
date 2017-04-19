@@ -42,7 +42,7 @@ export class UIDialogService {
         UIUtils.dialogContainer.addEventListener('collapse', (e: any) => this.taskClick(e.detail, true));
         UIUtils.dialogContainer.addEventListener('mousedown', (e) => this.moveStart(e));
       }
-      if (UIUtils.taskbarContainer) UIUtils.taskbarContainer.addEventListener('click', (e) => this.taskClick(e.target['window']));
+      if (UIUtils.taskbarContainer) UIUtils.taskbarContainer.addEventListener('click', (e) => this.taskClick((getParentByTag(e.target as Element, 'button') || e.target)['window']));
     }
   }
 
