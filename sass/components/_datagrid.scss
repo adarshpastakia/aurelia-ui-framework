@@ -13,17 +13,20 @@
     @include flex-column();
 
     .ui-dg-wrapper {
-      height  : 100%;
-      width   : 100%;
-      overflow: auto;
       @include flex-fill(1em);
     }
   }
 
   &.ui-auto-size {
-    table > tbody > tr:last-child {
+    table.filler {
       display: none;
     }
+  }
+
+  .ui-dg-wrapper {
+    height  : 100%;
+    width   : 100%;
+    overflow: auto;
   }
 
   .ui-dg-ghost {
