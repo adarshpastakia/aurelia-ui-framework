@@ -30,6 +30,10 @@
         pointer-events: none;
       }
 
+      .ui-icon {
+        margin: 0 0.25em;
+      }
+
       &:hover {
         background: rgba($secondary, .2);
       }
