@@ -55,15 +55,21 @@ export class UIDgRow {
     <col/>
   </colgroup>
   <thead><tr>
-    <td class="ui-expander" if.bind="handleSize>0"><div>&nbsp;</div></td>
-    <td repeat.for="col of cols" mouseup.trigger="doSort(col)" class="\${col.sortable?'ui-sortable':''} \${col.locked==0?'ui-locked':''}" css.bind="{left: col.left+'px'}"><div>
+    <td class="ui-expander" if.bind="handleSize>0" rowspan.bind="headCols2.length?2:''"><div>&nbsp;</div></td>
+    <td repeat.for="col of headCols" mouseup.trigger="doSort(col)" class="\${col.sortable?'ui-sortable':''} \${col.locked==0?'ui-locked':''}" css.bind="{left: col.left+'px'}" rowspan.bind="headCols2.length?(col.isGroup?1:2):''" colspan.bind="col.isGroup?col.columns.length:1">
+    <div if.bind="!col.isGroup">
       <span class="ui-dg-header" innerhtml.bind='col.getTitle()'></span>
       <span class="ui-filter" if.bind="col.filter"><ui-glyph glyph="glyph-funnel"></ui-glyph></span>
       <span class="ui-sort \${col.dataId==sortColumn ? sortOrder:''}" if.bind="col.sortable"></span>
       <span class="ui-resizer" if.bind="col.resize" mousedown.trigger="resizeColumn($event,col,cols[$index+1])"></span>
-    </div></td>
-    <td class="filler"><div><span class="ui-dg-header">&nbsp;</span></div></td>
-  </tr></thead>
+    </div><div if.bind="col.isGroup" class="ui-dg-group"><span class="ui-dg-header" innerhtml.bind='col.getTitle()'></span></div></td>
+    <td class="filler" rowspan.bind="headCols2.length?2:''"><div><span class="ui-dg-header">&nbsp;</span></div></td>
+  </tr><tr show.bind="headCols2.length"><td repeat.for="col of headCols2" mouseup.trigger="doSort(col)" class="\${col.sortable?'ui-sortable':''} \${col.locked==0?'ui-locked':''}" css.bind="{left: col.left+'px'}" if.bind="col"><div>
+    <span class="ui-dg-header" innerhtml.bind='col.getTitle()'></span>
+    <span class="ui-filter" if.bind="col.filter"><ui-glyph glyph="glyph-funnel"></ui-glyph></span>
+    <span class="ui-sort \${col.dataId==sortColumn ? sortOrder:''}" if.bind="col.sortable"></span>
+    <span class="ui-resizer" if.bind="col.resize" mousedown.trigger="resizeColumn($event,col,cols[$index+1])"></span>
+  </div></td></tr></thead>
 </table>
 </div>
 <div class="ui-dg-wrapper" ref="scroller" scroll.trigger="scrolling() & debounce:1">
@@ -122,15 +128,17 @@ export class UIDatagrid {
   // aurelia hooks
   // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
-    this.columnsChanged(this.columns);
-    this.dataChanged(this.data);
     if (this.pager) {
       if (!(this.pager instanceof UIPager)) throw new Error('Pager must be instance of UIPager');
       this.obPageChange = UIEvent.observe(this.pager, 'page').subscribe(() => this.makePage());
     }
   }
   attached() {
-    this.scrolling();
+    UIEvent.queueTask(() => {
+      this.columnsChanged(this.columns);
+      this.dataChanged(this.data);
+      this.scrolling();
+    });
   }
   detached() {
     if (this.obPageChange) this.obPageChange.dispose();
@@ -138,7 +146,9 @@ export class UIDatagrid {
   // unbind() { }
   // end aurelia hooks
 
-  @children('ui-dg-column,ui-dg-button,ui-dg-link,ui-dg-glyph') columns;
+  @children('ui-dg-column-group,ui-dg-column,ui-dg-button,ui-dg-link,ui-dg-glyph') columns;
+  // @children('ui-dg-column,ui-dg-button,ui-dg-link,ui-dg-glyph,' +
+  //   'ui-dg-column-group>ui-dg-column,ui-dg-column-group ui-dg-button,ui-dg-column-group ui-dg-link,ui-dg-column-group>ui-dg-glyph') columns;
 
   @bindable() data;
   @bindable() loaded = true;
@@ -150,6 +160,8 @@ export class UIDatagrid {
   @bindable() perPage = 50;
 
   private cols = [];
+  private headCols = [];
+  private headCols2 = [];
   private paged = [];
   private filtered = [];
   private tableWidth = '20px';
@@ -162,7 +174,9 @@ export class UIDatagrid {
   private handleSize = 30;
 
   columnsChanged(newValue) {
-    this.cols = _.sortBy(this.columns, 'locked');
+    this.headCols = _.sortBy(this.columns, 'locked');
+    this.headCols2 = _.flatMap(this.headCols, c => c.columns || []);
+    this.cols = _.sortBy(_.flatMap(this.columns, c => c.columns || [c]), 'locked');
   }
 
   dataChanged(newValue) {

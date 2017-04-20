@@ -114,14 +114,28 @@
     }
 
     thead {
+      tr:last-child td:last-child > div {
+        border-right: 1px solid rgba($base-border-color, 0.5);
+      }
+
       > tr > td {
         color     : $datagrid-header-text;
         background: $datagrid-header-bg;
+
+        > div.ui-dg-group {
+          text-align   : center;
+          border-bottom: 1px solid rgba($base-border-color, 0.5);
+        }
+
+        &[rowspan="2"] > div {
+          line-height: 3.5rem;
+        }
 
         > div {
           @include flex-row($wrap:false, $align: stretch);
 
           .ui-dg-header {
+            content: ' ';
             padding: 0 0.5em;
             @include ellipsis();
             @include flex-fill();
