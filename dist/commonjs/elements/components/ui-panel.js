@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var aurelia_framework_1 = require("aurelia-framework");
 var ui_event_1 = require("../../utils/ui-event");
 var ui_utils_1 = require("../../utils/ui-utils");
+var _ = require("lodash");
 var UIPanel = (function () {
     function UIPanel(element) {
         this.element = element;
@@ -77,8 +78,17 @@ exports.UIPanelBody = UIPanelBody;
 var UIPanelGroup = (function () {
     function UIPanelGroup(element) {
         this.element = element;
+        this.allowtoggle = false;
+        this.allowtoggle = element.hasAttribute('toggle');
     }
+    UIPanelGroup.prototype.attached = function () {
+        if (_.find(this.panels, ['collapsed', false]) == null)
+            this.panels[0].collapsed = false;
+    };
     UIPanelGroup.prototype.uncollapse = function () {
+        var panel = _.find(this.panels, ['collapsed', false]);
+        if (this.allowtoggle && panel)
+            panel.collapsed = true;
     };
     return UIPanelGroup;
 }());

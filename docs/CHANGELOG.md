@@ -1,3 +1,18 @@
+<a name="3.2.7"></a>
+## 3.2.7 (2017-04-20)
+
+* Added accordion style panel group
+  ```
+  <ui-panel-group toggle>...</ui-panel-group>
+  ```
+* Added datagrid column groups
+  ```
+  <ui-dg-column-group label=''>[columns..]</ui-dg-column>
+  ```
+* Added `viewModel` property for `ui-tab` element, if tab content is a compose element
+* Fixed UIDialog task button issue in Edge
+* Fixed UIDatagrid bug in Edge
+
 <a name="3.2.6"></a>
 ## 3.2.6 (2017-04-19)
 

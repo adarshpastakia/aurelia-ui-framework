@@ -36,7 +36,7 @@ let UIDialogService = class UIDialogService {
                 UIUtils.dialogContainer.addEventListener('mousedown', (e) => this.moveStart(e));
             }
             if (UIUtils.taskbarContainer)
-                UIUtils.taskbarContainer.addEventListener('click', (e) => this.taskClick(e.target['window']));
+                UIUtils.taskbarContainer.addEventListener('click', (e) => this.taskClick((getParentByTag(e.target, 'button') || e.target)['window']));
         }
     }
     makeActive(id) {

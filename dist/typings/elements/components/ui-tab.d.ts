@@ -46,7 +46,6 @@ export declare class UITab {
     static seed: number;
     constructor(element: Element);
     bind(bindingContext: Object, overrideContext: Object): void;
-    attached(): void;
     id: string;
     glyph: string;
     label: string;
@@ -56,4 +55,5 @@ export declare class UITab {
     active: boolean;
     closeable: boolean;
     remove(): void;
+    readonly viewModel: any;
 }

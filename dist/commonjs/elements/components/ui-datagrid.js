@@ -55,9 +55,11 @@ var UIDatagrid = (function () {
         this.sortOrder = '';
         this.perPage = 50;
         this.cols = [];
+        this.headCols = [];
+        this.headCols2 = [];
         this.paged = [];
         this.filtered = [];
-        this.tableWidth = 'auto';
+        this.tableWidth = '20px';
         this.virtual = false;
         this.isBusy = false;
         this.handleSize = 30;
@@ -70,8 +72,6 @@ var UIDatagrid = (function () {
     }
     UIDatagrid.prototype.bind = function (bindingContext, overrideContext) {
         var _this = this;
-        this.columnsChanged(this.columns);
-        this.dataChanged(this.data);
         if (this.pager) {
             if (!(this.pager instanceof UIPager))
                 throw new Error('Pager must be instance of UIPager');
@@ -79,14 +79,21 @@ var UIDatagrid = (function () {
         }
     };
     UIDatagrid.prototype.attached = function () {
-        this.scrolling();
+        var _this = this;
+        ui_event_1.UIEvent.queueTask(function () {
+            _this.columnsChanged(_this.columns);
+            _this.dataChanged(_this.data);
+            _this.scrolling();
+        });
     };
     UIDatagrid.prototype.detached = function () {
         if (this.obPageChange)
             this.obPageChange.dispose();
     };
     UIDatagrid.prototype.columnsChanged = function (newValue) {
-        this.cols = _.sortBy(this.columns, 'locked');
+        this.headCols = _.sortBy(this.columns, 'locked');
+        this.headCols2 = _.flatMap(this.headCols, function (c) { return c.columns || []; });
+        this.cols = _.sortBy(_.flatMap(this.columns, function (c) { return c.columns || [c]; }), 'locked');
     };
     UIDatagrid.prototype.dataChanged = function (newValue) {
         var _this = this;
@@ -178,7 +185,7 @@ var UIDatagrid = (function () {
     return UIDatagrid;
 }());
 __decorate([
-    aurelia_framework_1.children('ui-dg-column,ui-dg-button,ui-dg-link,ui-dg-glyph'),
+    aurelia_framework_1.children('ui-dg-column-group,ui-dg-column,ui-dg-button,ui-dg-link,ui-dg-glyph'),
     __metadata("design:type", Object)
 ], UIDatagrid.prototype, "columns", void 0);
 __decorate([
@@ -211,7 +218,7 @@ __decorate([
 ], UIDatagrid.prototype, "perPage", void 0);
 UIDatagrid = __decorate([
     aurelia_framework_1.autoinject(),
-    aurelia_framework_1.inlineView("<template class=\"ui-datagrid\"><div class=\"ui-hidden\"><slot></slot></div>\n<div show.bind=\"resizing\" ref=\"ghost\" class=\"ui-dg-ghost\"></div>\n<div show.bind=\"loaded && (!data || data.length==0)\" class=\"ui-dg-empty\"><slot name=\"dg-empty\"></slot></div>\n<div>\n<table ref=\"dgHead\" width.bind=\"tableWidth\" css.bind=\"{'table-layout': tableWidth?'fixed':'auto' }\">\n  <colgroup>\n    <col width=\"${handleSize}\" if.bind=\"handleSize>0\"/>\n    <col repeat.for=\"col of cols\" data-index.bind=\"$index\" width.bind=\"col.width\"/>\n    <col/>\n  </colgroup>\n  <thead><tr>\n    <td class=\"ui-expander\" if.bind=\"handleSize>0\"><div>&nbsp;</div></td>\n    <td repeat.for=\"col of cols\" mouseup.trigger=\"doSort(col)\" class=\"${col.sortable?'ui-sortable':''} ${col.locked==0?'ui-locked':''}\" css.bind=\"{left: col.left+'px'}\"><div>\n      <span class=\"ui-dg-header\" innerhtml.bind='col.getTitle()'></span>\n      <span class=\"ui-filter\" if.bind=\"col.filter\"><ui-glyph glyph=\"glyph-funnel\"></ui-glyph></span>\n      <span class=\"ui-sort ${col.dataId==sortColumn ? sortOrder:''}\" if.bind=\"col.sortable\"></span>\n      <span class=\"ui-resizer\" if.bind=\"col.resize\" mousedown.trigger=\"resizeColumn($event,col,cols[$index+1])\"></span>\n    </div></td>\n    <td class=\"filler\"><div><span class=\"ui-dg-header\">&nbsp;</span></div></td>\n  </tr></thead>\n</table>\n</div>\n<div class=\"ui-dg-wrapper\" ref=\"scroller\" scroll.trigger=\"scrolling() & debounce:1\">\n<table width.bind=\"calculateWidth(cols,resizing)\" css.bind=\"{'table-layout': tableWidth?'fixed':'auto' }\" ref=\"mainTable\">\n  <colgroup>\n    <col width=\"${handleSize}\" if.bind=\"handleSize>0\"/>\n    <col repeat.for=\"col of cols\" data-index.bind=\"$index\" width.bind=\"col.width\"/>\n    <col/>\n  </colgroup>\n  <tbody if.bind=\"!virtual\" class=\"${$even?'even':'odd'}\" parent.bind=\"$parent\"\n    as-element=\"ui-dg-row\" record.bind=\"record\" repeat.for=\"record of paged\">\n  </tbody>\n  <tbody if.bind=\"virtual\" class=\"${$even?'even':'odd'}\" parent.bind=\"$parent\"\n    as-element=\"ui-dg-row\" record.bind=\"record\" virtual-repeat.for=\"record of paged\">\n  </tbody>\n</table>\n<table width.bind=\"tableWidth\" class=\"filler\" css.bind=\"{'table-layout': tableWidth?'fixed':'auto', height:((scroller.offsetHeight<mainTable.offsetHeight?0:scroller.offsetHeight-mainTable.offsetHeight)+'px') }\">\n  <colgroup>\n    <col width=\"${handleSize}\" if.bind=\"handleSize>0\"/>\n    <col repeat.for=\"col of cols\" data-index.bind=\"$index\" width.bind=\"col.width\"/>\n    <col/>\n  </colgroup>\n  <tbody class=\"odd\"><tr class=\"filler\">\n    <td class=\"ui-expander\" if.bind=\"handleSize>0\"><div>&nbsp;</div></td>\n    <td repeat.for=\"col of cols\" class=\"${col.locked==0?'ui-locked':''}\" css.bind=\"{left: col.left+'px'}\"><div>&nbsp;</div></td>\n    <td class=\"filler\"><div>&nbsp;</div></td>\n  </tr></tbody>\n</table></div>\n<div>\n<table ref=\"dgFoot\" width.bind=\"tableWidth\" css.bind=\"{'table-layout': tableWidth?'fixed':'auto' }\">\n  <colgroup>\n    <col width=\"${handleSize}\" if.bind=\"handleSize>0\"/>\n    <col repeat.for=\"col of cols\" data-index.bind=\"$index\" width.bind=\"col.width\"/>\n    <col/>\n  </colgroup>\n  <tfoot if.bind=\"summaryRow\"><tr>\n    <td class=\"ui-expander\" if.bind=\"handleSize>0\"><div>&nbsp;</div></td>\n    <td repeat.for=\"col of cols\" class=\"${col.locked==0?'ui-locked':''} ${col.align}\" css.bind=\"{left: col.left+'px'}\"><div innerhtml.bind='col.getSummary(summaryRow, data)'></div></td>\n    <td class=\"filler\"><div>&nbsp;</div></td>\n  </tr></tfoot>\n</table>\n</div>\n<div class=\"ui-dg-loader\" if.bind=\"isBusy\">\n  <div class=\"ui-loader-div\">\n    <ui-glyph class=\"ui-anim-loader\" glyph=\"glyph-loader\"></ui-glyph>\n  </div>\n</div></template>"),
+    aurelia_framework_1.inlineView("<template class=\"ui-datagrid\"><div class=\"ui-hidden\"><slot></slot></div>\n<div show.bind=\"resizing\" ref=\"ghost\" class=\"ui-dg-ghost\"></div>\n<div show.bind=\"loaded && (!data || data.length==0)\" class=\"ui-dg-empty\"><slot name=\"dg-empty\"></slot></div>\n<div>\n<table ref=\"dgHead\" width.bind=\"tableWidth\" css.bind=\"{'table-layout': tableWidth?'fixed':'auto' }\">\n  <colgroup>\n    <col width=\"${handleSize}\" if.bind=\"handleSize>0\"/>\n    <col repeat.for=\"col of cols\" data-index.bind=\"$index\" width.bind=\"col.width\"/>\n    <col/>\n  </colgroup>\n  <thead><tr>\n    <td class=\"ui-expander\" if.bind=\"handleSize>0\" rowspan.bind=\"headCols2.length?2:''\"><div>&nbsp;</div></td>\n    <td repeat.for=\"col of headCols\" mouseup.trigger=\"doSort(col)\" class=\"${col.sortable?'ui-sortable':''} ${col.locked==0?'ui-locked':''}\" css.bind=\"{left: col.left+'px'}\" rowspan.bind=\"headCols2.length?(col.isGroup?1:2):''\" colspan.bind=\"col.isGroup?col.columns.length:1\">\n    <div if.bind=\"!col.isGroup\">\n      <span class=\"ui-dg-header\" innerhtml.bind='col.getTitle()'></span>\n      <span class=\"ui-filter\" if.bind=\"col.filter\"><ui-glyph glyph=\"glyph-funnel\"></ui-glyph></span>\n      <span class=\"ui-sort ${col.dataId==sortColumn ? sortOrder:''}\" if.bind=\"col.sortable\"></span>\n      <span class=\"ui-resizer\" if.bind=\"col.resize\" mousedown.trigger=\"resizeColumn($event,col,cols[$index+1])\"></span>\n    </div><div if.bind=\"col.isGroup\" class=\"ui-dg-group\"><span class=\"ui-dg-header\" innerhtml.bind='col.getTitle()'></span></div></td>\n    <td class=\"filler\" rowspan.bind=\"headCols2.length?2:''\"><div><span class=\"ui-dg-header\">&nbsp;</span></div></td>\n  </tr><tr show.bind=\"headCols2.length\"><td repeat.for=\"col of headCols2\" mouseup.trigger=\"doSort(col)\" class=\"${col.sortable?'ui-sortable':''} ${col.locked==0?'ui-locked':''}\" css.bind=\"{left: col.left+'px'}\" if.bind=\"col\"><div>\n    <span class=\"ui-dg-header\" innerhtml.bind='col.getTitle()'></span>\n    <span class=\"ui-filter\" if.bind=\"col.filter\"><ui-glyph glyph=\"glyph-funnel\"></ui-glyph></span>\n    <span class=\"ui-sort ${col.dataId==sortColumn ? sortOrder:''}\" if.bind=\"col.sortable\"></span>\n    <span class=\"ui-resizer\" if.bind=\"col.resize\" mousedown.trigger=\"resizeColumn($event,col,cols[$index+1])\"></span>\n  </div></td></tr></thead>\n</table>\n</div>\n<div class=\"ui-dg-wrapper\" ref=\"scroller\" scroll.trigger=\"scrolling() & debounce:1\">\n<table width.bind=\"calculateWidth(cols,resizing)\" css.bind=\"{'table-layout': tableWidth?'fixed':'auto' }\" ref=\"mainTable\">\n  <colgroup>\n    <col width=\"${handleSize}\" if.bind=\"handleSize>0\"/>\n    <col repeat.for=\"col of cols\" data-index.bind=\"$index\" width.bind=\"col.width\"/>\n    <col/>\n  </colgroup>\n  <tbody if.bind=\"!virtual\" class=\"${$even?'even':'odd'}\" parent.bind=\"$parent\"\n    as-element=\"ui-dg-row\" record.bind=\"record\" repeat.for=\"record of paged\">\n  </tbody>\n  <tbody if.bind=\"virtual\" class=\"${$even?'even':'odd'}\" parent.bind=\"$parent\"\n    as-element=\"ui-dg-row\" record.bind=\"record\" virtual-repeat.for=\"record of paged\">\n  </tbody>\n</table>\n<table width.bind=\"tableWidth\" class=\"filler\" css.bind=\"{'table-layout': tableWidth?'fixed':'auto', height:((scroller.offsetHeight<mainTable.offsetHeight?0:scroller.offsetHeight-mainTable.offsetHeight)+'px') }\">\n  <colgroup>\n    <col width=\"${handleSize}\" if.bind=\"handleSize>0\"/>\n    <col repeat.for=\"col of cols\" data-index.bind=\"$index\" width.bind=\"col.width\"/>\n    <col/>\n  </colgroup>\n  <tbody class=\"odd\"><tr class=\"filler\">\n    <td class=\"ui-expander\" if.bind=\"handleSize>0\"><div>&nbsp;</div></td>\n    <td repeat.for=\"col of cols\" class=\"${col.locked==0?'ui-locked':''}\" css.bind=\"{left: col.left+'px'}\"><div>&nbsp;</div></td>\n    <td class=\"filler\"><div>&nbsp;</div></td>\n  </tr></tbody>\n</table></div>\n<div>\n<table ref=\"dgFoot\" width.bind=\"tableWidth\" css.bind=\"{'table-layout': tableWidth?'fixed':'auto' }\">\n  <colgroup>\n    <col width=\"${handleSize}\" if.bind=\"handleSize>0\"/>\n    <col repeat.for=\"col of cols\" data-index.bind=\"$index\" width.bind=\"col.width\"/>\n    <col/>\n  </colgroup>\n  <tfoot if.bind=\"summaryRow\"><tr>\n    <td class=\"ui-expander\" if.bind=\"handleSize>0\"><div>&nbsp;</div></td>\n    <td repeat.for=\"col of cols\" class=\"${col.locked==0?'ui-locked':''} ${col.align}\" css.bind=\"{left: col.left+'px'}\"><div innerhtml.bind='col.getSummary(summaryRow, data)'></div></td>\n    <td class=\"filler\"><div>&nbsp;</div></td>\n  </tr></tfoot>\n</table>\n</div>\n<div class=\"ui-dg-loader\" if.bind=\"isBusy\">\n  <div class=\"ui-loader-div\">\n    <ui-glyph class=\"ui-anim-loader\" glyph=\"glyph-loader\"></ui-glyph>\n  </div>\n</div></template>"),
     aurelia_framework_1.customElement('ui-datagrid'),
     __metadata("design:paramtypes", [Element])
 ], UIDatagrid);

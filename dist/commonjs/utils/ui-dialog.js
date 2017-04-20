@@ -39,7 +39,7 @@ var UIDialogService = (function () {
                 ui_utils_1.UIUtils.dialogContainer.addEventListener('mousedown', function (e) { return _this.moveStart(e); });
             }
             if (ui_utils_1.UIUtils.taskbarContainer)
-                ui_utils_1.UIUtils.taskbarContainer.addEventListener('click', function (e) { return _this.taskClick(e.target['window']); });
+                ui_utils_1.UIUtils.taskbarContainer.addEventListener('click', function (e) { return _this.taskClick((getParentByTag(e.target, 'button') || e.target)['window']); });
         }
     };
     UIDialogService.prototype.makeActive = function (id) {

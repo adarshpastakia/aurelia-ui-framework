@@ -67,9 +67,11 @@ let UIDatagrid = class UIDatagrid {
         this.sortOrder = '';
         this.perPage = 50;
         this.cols = [];
+        this.headCols = [];
+        this.headCols2 = [];
         this.paged = [];
         this.filtered = [];
-        this.tableWidth = 'auto';
+        this.tableWidth = '20px';
         this.virtual = false;
         this.isBusy = false;
         this.handleSize = 30;
@@ -81,8 +83,6 @@ let UIDatagrid = class UIDatagrid {
             this.handleSize = 0;
     }
     bind(bindingContext, overrideContext) {
-        this.columnsChanged(this.columns);
-        this.dataChanged(this.data);
         if (this.pager) {
             if (!(this.pager instanceof UIPager))
                 throw new Error('Pager must be instance of UIPager');
@@ -90,14 +90,20 @@ let UIDatagrid = class UIDatagrid {
         }
     }
     attached() {
-        this.scrolling();
+        UIEvent.queueTask(() => {
+            this.columnsChanged(this.columns);
+            this.dataChanged(this.data);
+            this.scrolling();
+        });
     }
     detached() {
         if (this.obPageChange)
             this.obPageChange.dispose();
     }
     columnsChanged(newValue) {
-        this.cols = _.sortBy(this.columns, 'locked');
+        this.headCols = _.sortBy(this.columns, 'locked');
+        this.headCols2 = _.flatMap(this.headCols, c => c.columns || []);
+        this.cols = _.sortBy(_.flatMap(this.columns, c => c.columns || [c]), 'locked');
     }
     dataChanged(newValue) {
         UIEvent.queueTask(() => {
@@ -184,7 +190,7 @@ let UIDatagrid = class UIDatagrid {
     }
 };
 __decorate([
-    children('ui-dg-column,ui-dg-button,ui-dg-link,ui-dg-glyph'),
+    children('ui-dg-column-group,ui-dg-column,ui-dg-button,ui-dg-link,ui-dg-glyph'),
     __metadata("design:type", Object)
 ], UIDatagrid.prototype, "columns", void 0);
 __decorate([
@@ -228,15 +234,21 @@ UIDatagrid = __decorate([
     <col/>
   </colgroup>
   <thead><tr>
-    <td class="ui-expander" if.bind="handleSize>0"><div>&nbsp;</div></td>
-    <td repeat.for="col of cols" mouseup.trigger="doSort(col)" class="\${col.sortable?'ui-sortable':''} \${col.locked==0?'ui-locked':''}" css.bind="{left: col.left+'px'}"><div>
+    <td class="ui-expander" if.bind="handleSize>0" rowspan.bind="headCols2.length?2:''"><div>&nbsp;</div></td>
+    <td repeat.for="col of headCols" mouseup.trigger="doSort(col)" class="\${col.sortable?'ui-sortable':''} \${col.locked==0?'ui-locked':''}" css.bind="{left: col.left+'px'}" rowspan.bind="headCols2.length?(col.isGroup?1:2):''" colspan.bind="col.isGroup?col.columns.length:1">
+    <div if.bind="!col.isGroup">
       <span class="ui-dg-header" innerhtml.bind='col.getTitle()'></span>
       <span class="ui-filter" if.bind="col.filter"><ui-glyph glyph="glyph-funnel"></ui-glyph></span>
       <span class="ui-sort \${col.dataId==sortColumn ? sortOrder:''}" if.bind="col.sortable"></span>
       <span class="ui-resizer" if.bind="col.resize" mousedown.trigger="resizeColumn($event,col,cols[$index+1])"></span>
-    </div></td>
-    <td class="filler"><div><span class="ui-dg-header">&nbsp;</span></div></td>
-  </tr></thead>
+    </div><div if.bind="col.isGroup" class="ui-dg-group"><span class="ui-dg-header" innerhtml.bind='col.getTitle()'></span></div></td>
+    <td class="filler" rowspan.bind="headCols2.length?2:''"><div><span class="ui-dg-header">&nbsp;</span></div></td>
+  </tr><tr show.bind="headCols2.length"><td repeat.for="col of headCols2" mouseup.trigger="doSort(col)" class="\${col.sortable?'ui-sortable':''} \${col.locked==0?'ui-locked':''}" css.bind="{left: col.left+'px'}" if.bind="col"><div>
+    <span class="ui-dg-header" innerhtml.bind='col.getTitle()'></span>
+    <span class="ui-filter" if.bind="col.filter"><ui-glyph glyph="glyph-funnel"></ui-glyph></span>
+    <span class="ui-sort \${col.dataId==sortColumn ? sortOrder:''}" if.bind="col.sortable"></span>
+    <span class="ui-resizer" if.bind="col.resize" mousedown.trigger="resizeColumn($event,col,cols[$index+1])"></span>
+  </div></td></tr></thead>
 </table>
 </div>
 <div class="ui-dg-wrapper" ref="scroller" scroll.trigger="scrolling() & debounce:1">

@@ -1,4 +1,4 @@
-System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-utils"], function (exports_1, context_1) {
+System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-utils", "lodash"], function (exports_1, context_1) {
     "use strict";
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -10,7 +10,7 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var __moduleName = context_1 && context_1.id;
-    var aurelia_framework_1, ui_event_1, ui_utils_1, UIPanel, UIPanelBody, UIPanelGroup, UIHeader, UIHeaderTool, UIHeaderTitle;
+    var aurelia_framework_1, ui_event_1, ui_utils_1, _, UIPanel, UIPanelBody, UIPanelGroup, UIHeader, UIHeaderTool, UIHeaderTitle;
     return {
         setters: [
             function (aurelia_framework_1_1) {
@@ -21,6 +21,9 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
             },
             function (ui_utils_1_1) {
                 ui_utils_1 = ui_utils_1_1;
+            },
+            function (_1) {
+                _ = _1;
             }
         ],
         execute: function () {
@@ -89,8 +92,17 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
             UIPanelGroup = (function () {
                 function UIPanelGroup(element) {
                     this.element = element;
+                    this.allowtoggle = false;
+                    this.allowtoggle = element.hasAttribute('toggle');
                 }
+                UIPanelGroup.prototype.attached = function () {
+                    if (_.find(this.panels, ['collapsed', false]) == null)
+                        this.panels[0].collapsed = false;
+                };
                 UIPanelGroup.prototype.uncollapse = function () {
+                    var panel = _.find(this.panels, ['collapsed', false]);
+                    if (this.allowtoggle && panel)
+                        panel.collapsed = true;
                 };
                 return UIPanelGroup;
             }());

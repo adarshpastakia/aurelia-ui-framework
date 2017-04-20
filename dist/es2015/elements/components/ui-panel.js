@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { autoinject, customElement, bindable, children, inlineView, DOM } from 'aurelia-framework';
 import { UIEvent } from "../../utils/ui-event";
 import { UIUtils } from "../../utils/ui-utils";
+import * as _ from "lodash";
 let UIPanel = class UIPanel {
     constructor(element) {
         this.element = element;
@@ -72,8 +73,17 @@ export { UIPanelBody };
 let UIPanelGroup = class UIPanelGroup {
     constructor(element) {
         this.element = element;
+        this.allowtoggle = false;
+        this.allowtoggle = element.hasAttribute('toggle');
+    }
+    attached() {
+        if (_.find(this.panels, ['collapsed', false]) == null)
+            this.panels[0].collapsed = false;
     }
     uncollapse() {
+        let panel = _.find(this.panels, ['collapsed', false]);
+        if (this.allowtoggle && panel)
+            panel.collapsed = true;
     }
 };
 __decorate([

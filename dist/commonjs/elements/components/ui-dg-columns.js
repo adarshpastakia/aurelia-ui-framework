@@ -64,7 +64,7 @@ var UIDataColumn = (function () {
         return this.width;
     };
     UIDataColumn.prototype.getTitle = function () {
-        return this.element.innerHTML || '&nbsp;';
+        return this.element.innerHTML + '&nbsp;';
     };
     UIDataColumn.prototype.getValue = function (value, record) {
         return this.processValue(value, record) || '&nbsp;';
@@ -157,6 +157,36 @@ var UIDataColumn = (function () {
     return UIDataColumn;
 }());
 exports.UIDataColumn = UIDataColumn;
+var UIDGColumnGroup = (function () {
+    function UIDGColumnGroup(element) {
+        this.element = element;
+        this.locked = 1;
+        this.isGroup = true;
+        this.locked = element.hasAttribute('locked') ? 0 : 1;
+    }
+    UIDGColumnGroup.prototype.getTitle = function () {
+        return this.label || '&nbsp;';
+    };
+    UIDGColumnGroup.prototype.getWidth = function () {
+        return 0;
+    };
+    return UIDGColumnGroup;
+}());
+__decorate([
+    aurelia_framework_1.bindable(),
+    __metadata("design:type", Object)
+], UIDGColumnGroup.prototype, "label", void 0);
+__decorate([
+    aurelia_framework_1.children('ui-dg-column,ui-dg-button,ui-dg-link,ui-dg-glyph'),
+    __metadata("design:type", Object)
+], UIDGColumnGroup.prototype, "columns", void 0);
+UIDGColumnGroup = __decorate([
+    aurelia_framework_1.autoinject(),
+    aurelia_framework_1.inlineView("<template><slot></slot></template>"),
+    aurelia_framework_1.customElement('ui-dg-column-group'),
+    __metadata("design:paramtypes", [Element])
+], UIDGColumnGroup);
+exports.UIDGColumnGroup = UIDGColumnGroup;
 var UIDGColumn = (function (_super) {
     __extends(UIDGColumn, _super);
     function UIDGColumn(element) {
