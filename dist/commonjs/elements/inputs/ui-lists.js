@@ -105,7 +105,12 @@ var BaseListInput = (function () {
         var groups = [];
         if (_.isArray(newValue)) {
             var list_1 = [];
-            _.forEach(newValue, function (v) { return list_1.push({ value: v[_this.valueProperty] || v, text: v[_this.displayProperty] || v, display: v[_this.displayProperty] || v, icon: v[_this.iconProperty], model: v }); });
+            _.forEach(newValue, function (v) { return list_1.push({
+                value: v[_this.valueProperty] == null ? v : v[_this.valueProperty],
+                text: v[_this.displayProperty] == null ? v : v[_this.displayProperty],
+                display: v[_this.displayProperty] == null ? v : v[_this.displayProperty],
+                icon: v[_this.iconProperty], model: v
+            }); });
             groups.push({ items: list_1 });
             this.allowSearch = !this.forceSelect || list_1.length > 10;
         }
@@ -113,7 +118,12 @@ var BaseListInput = (function () {
             var count_1 = 0;
             _.forEach(newValue, function (g, k) {
                 var list = [];
-                _.forEach(g, function (v) { return list.push({ value: v[_this.valueProperty] || v, text: v[_this.displayProperty] || v, display: v[_this.displayProperty] || v, icon: v[_this.iconProperty], model: v }); });
+                _.forEach(g, function (v) { return list.push({
+                    value: v[_this.valueProperty] == null ? v : v[_this.valueProperty],
+                    text: v[_this.displayProperty] == null ? v : v[_this.displayProperty],
+                    display: v[_this.displayProperty] == null ? v : v[_this.displayProperty],
+                    icon: v[_this.iconProperty], model: v
+                }); });
                 groups.push({ label: k, items: list });
                 count_1 += list.length;
             });
@@ -330,7 +340,7 @@ var UICombo = (function (_super) {
     };
     UICombo.prototype.fireSelect = function (model) {
         if (model) {
-            this.value = model[this.valueProperty] || model;
+            this.value = model[this.valueProperty] == null ? model : model[this.valueProperty];
             ui_event_1.UIEvent.fireEvent('select', this.element, model);
         }
         _super.prototype.fireSelect.call(this, model);
@@ -474,7 +484,7 @@ var UITags = (function (_super) {
     };
     UITags.prototype.fireSelect = function (model) {
         _super.prototype.fireSelect.call(this, model);
-        var val = model ? (model[this.valueProperty] || model) : '';
+        var val = model ? (model[this.valueProperty] == null ? model : model[this.valueProperty]) : '';
         this.addValue(this.forceSelect ? val : (val || this.elValue));
         ui_event_1.UIEvent.fireEvent('change', this.element, this.value);
     };
@@ -578,7 +588,7 @@ var UIList = (function (_super) {
     UIList.prototype.fireSelect = function (model) {
         _super.prototype.fireSelect.call(this, model);
         if (model) {
-            this.value = model[this.valueProperty] || model;
+            this.value = model[this.valueProperty] == null ? model : model[this.valueProperty];
             ui_event_1.UIEvent.fireEvent('select', this.element, model);
         }
         this.closeDropdown();
