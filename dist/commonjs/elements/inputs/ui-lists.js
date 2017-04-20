@@ -125,10 +125,10 @@ var BaseListInput = (function () {
         var _this = this;
         if (onBind === void 0) { onBind = false; }
         if (!this.isTagInput) {
-            var item = _['findChildren'](this.filtered = this.original, 'items', 'value', newValue || '');
+            var item = _['findChildren'](this.filtered = this.original, 'items', 'value', newValue === null ? '' : newValue);
             this.elValue = item.text;
             if (!this.forceSelect && !this.elValue)
-                this.elValue = newValue || '';
+                this.elValue = newValue === null ? '' : newValue;
             else if (!this.elValue)
                 this.value = '';
             if (onBind && item.model)

@@ -179,11 +179,13 @@ System.register(["aurelia-framework", "../../utils/ui-event", "lodash"], functio
                     this.element = element;
                     this.for = '';
                     this.class = '';
-                    if (element.hasAttribute('align-top'))
-                        this.class += ' ui-align-top';
-                    if (element.hasAttribute('required'))
-                        this.class += ' ui-required';
                 }
+                UIInputLabel.prototype.bind = function (bindingContext, overrideContext) {
+                    if (this.element.hasAttribute('align-top'))
+                        this.class += ' ui-align-top';
+                    if (this.element.hasAttribute('required'))
+                        this.class += ' ui-required';
+                };
                 UIInputLabel.prototype.attached = function () {
                     if (isEmpty(this.for)) {
                         var el = this.label.parentElement.querySelector('input:not([type="checkbox"]):not([type="radio"]),textarea');
