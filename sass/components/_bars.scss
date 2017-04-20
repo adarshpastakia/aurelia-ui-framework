@@ -80,7 +80,7 @@
   .ui-stat {
     color  : $dark;
     padding: 0.25em 0.5em;
-    @include flex(1 0 auto);
+    @include flex(1 0 1em);
     @include flex-row($justify:center, $align:center, $wrap:false);
 
     &:not(:first-child) {
@@ -105,6 +105,14 @@
       font-size  : 0.5em;
       text-align : center;
       font-weight: 600;
+    }
+  }
+
+  &.ui-icon-top {
+    @include flex-wrap(wrap);
+
+    .ui-stat > div {
+      @include flex(1 1 100%);
     }
   }
 

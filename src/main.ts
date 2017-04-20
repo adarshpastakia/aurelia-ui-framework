@@ -7,13 +7,13 @@ import environment from './environment';
 
 import 'moment/min/locales.min';
 
-//Configure Bluebird Promises.
-(<any>Promise).config({
-  longStackTraces: environment.debug,
-  warnings: {
-    wForgottenReturn: false
-  }
-});
+// //Configure Bluebird Promises.
+// (<any>Promise).config({
+//   longStackTraces: environment.debug,
+//   warnings: {
+//     wForgottenReturn: false
+//   }
+// });
 
 export function configure(aurelia: Aurelia) {
   aurelia.use
