@@ -154,14 +154,14 @@ export class UIInputAddon {
 @inlineView('<template><label ref="label" slot="inputLabel" class="ui-input-label \${class}" for.bind="for"><slot></slot></label></template>')
 @customElement('ui-input-label')
 export class UIInputLabel {
-  constructor(public element: Element) {
-    if (element.hasAttribute('align-top')) this.class += ' ui-align-top';
-    if (element.hasAttribute('required')) this.class += ' ui-required';
-  }
+  constructor(public element: Element) { }
 
   // aurelia hooks
   // created(owningView: View, myView: View) { }
-  // bind(bindingContext: Object, overrideContext: Object) { }
+  bind(bindingContext: Object, overrideContext: Object) {
+    if (this.element.hasAttribute('align-top')) this.class += ' ui-align-top';
+    if (this.element.hasAttribute('required')) this.class += ' ui-required';
+  }
   attached() {
     if (isEmpty(this.for)) {
       let el = this.label.parentElement.querySelector('input:not([type="checkbox"]):not([type="radio"]),textarea');
