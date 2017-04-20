@@ -33,6 +33,44 @@
     </style>
     <ui-content padded scroll>
       <ui-container>
+
+        <ui-row style="height:500px;white-space:nowrap;" stretch>
+          <ui-row-column class="ui-border-all ui-col-auto">
+            <ui-row class="ui-bg-primary ui-text-white ui-row-nowrap">
+              <ui-column style="min-width:5em" repeat.for="i of 5" class="ui-border-e">Col ${i}</ui-column>
+            </ui-row>
+            <ui-row-column class="ui-scroll ui-col-fill ui-row-nowrap">
+              <ui-row repeat.for="r of 10" class="${$even?'':'ui-bg-light'} ui-row-nowrap">
+                <ui-column style="min-width:5em" repeat.for="i of 5" class="ui-border-e">Col ${i}</ui-column>
+              </ui-row>
+              <ui-row class="ui-col-fill ui-row-nowrap" stretch>
+                <ui-column style="min-width:5em" repeat.for="i of 5" class="ui-border-e">&nbsp;</ui-column>
+              </ui-row>
+            </ui-row-column>
+            <ui-row class="ui-bg-primary ui-text-white ui-row-nowrap">
+              <ui-column style="min-width:5em" repeat.for="i of 5" class="ui-border-e">Col ${i}</ui-column>
+            </ui-row>
+          </ui-row-column>
+
+          <ui-row-column class="ui-border-all ui-col-fill" style="overflow:hidden">
+            <ui-row class="ui-bg-primary ui-text-white ui-row-nowrap">
+              <ui-column style="min-width:5em" repeat.for="i of 25" class="ui-border-e">Col ${i}</ui-column>
+            </ui-row>
+            <ui-row-column class="ui-scroll ui-col-fill">
+              <ui-row repeat.for="r of 10" class="${$even?'':'ui-bg-light'} ui-row-nowrap">
+                <ui-column style="min-width:5em" repeat.for="i of 25" class="ui-border-e">Col ${i}</ui-column>
+              </ui-row>
+              <ui-row class="ui-col-fill ui-row-nowrap" stretch>
+                <ui-column style="min-width:5em" repeat.for="i of 25" class="ui-border-e">&nbsp;</ui-column>
+              </ui-row>
+            </ui-row-column>
+            <ui-row class="ui-bg-primary ui-text-white ui-row-nowrap">
+              <ui-column style="min-width:5em" repeat.for="i of 25" class="ui-border-e">Col ${i}</ui-column>
+            </ui-row>
+          </ui-row-column>
+        </ui-row>
+        <br/>
+
         <div class="tab-container" style="height:500px">
           <ui-toolbar>
             <ui-pager view-model.ref="pager" store.bind="store"></ui-pager>
