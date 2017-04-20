@@ -93,8 +93,8 @@ export class UIInput extends UIBaseInput {
   // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     super.bind.apply(this, arguments);
-    if (this.number) this.numberChanged(this.number);
-    if (this.decimal) this.decimalChanged(this.decimal);
+    if (!isNaN(this.number)) this.numberChanged(this.number);
+    if (!isNaN(this.decimal)) this.decimalChanged(this.decimal);
   }
   // attached() { }
   // detached() { }
@@ -118,27 +118,19 @@ export class UIInput extends UIBaseInput {
   private clear = false;
   private counter = false;
 
-  private ignore = false;
-
   valueChanged(newValue) {
-    if (this.ignore) return;
-    this.ignore = true;
-    this.number = isNaN(newValue) ? null : parseFloat(newValue);
-    this.decimal = isNaN(newValue) ? null : parseFloat(newValue);
+    let num = parseFloat(newValue);
+    this.number = isNaN(num) ? null : num;
+    this.decimal = isNaN(num) ? null : num;
     if (this.type === 'number' && this.number === null && this.decimal === null) this.inputEl.value = this.value = '';
-    setTimeout(() => this.ignore = false, 100);
   }
+
   numberChanged(newValue) {
-    if (this.ignore) return;
-    this.ignore = true;
     this.inputEl.value = this.value = newValue === null ? '' : newValue;
-    setTimeout(() => this.ignore = false, 100);
   }
+
   decimalChanged(newValue) {
-    if (this.ignore) return;
-    this.ignore = true;
     this.inputEl.value = this.value = newValue === null ? '' : newValue;
-    setTimeout(() => this.ignore = false, 100);
   }
 
   fireEvent(evt) {
