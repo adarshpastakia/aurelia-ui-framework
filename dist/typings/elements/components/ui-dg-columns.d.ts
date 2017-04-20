@@ -21,6 +21,16 @@ export declare class UIDataColumn {
     processValue(value: any, record: any): string;
     getSummary(summaryRow: any, data: any): any;
 }
+export declare class UIDGColumnGroup {
+    element: Element;
+    constructor(element: Element);
+    label: any;
+    columns: any;
+    locked: number;
+    isGroup: boolean;
+    getTitle(): any;
+    getWidth(): number;
+}
 export declare class UIDGColumn extends UIDataColumn {
     element: Element;
     type: string;

@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2016
 // @license     : MIT
@@ -10,6 +10,10 @@ declare const UA_CHROME;
 declare const UA_SAFARI;
 declare const UA_FIREFOX;
 declare const UA_UNKNOWN
+
+declare var Countries: ICountry;
+declare var Currencies: any;
+declare var FileTypes: any;
 
 declare function browserAgent(): string;
 declare function browserVersion(): string;
@@ -95,4 +99,3 @@ declare interface Window {
   escape(v: string): string;
   unescape(v: string): string;
 }
-

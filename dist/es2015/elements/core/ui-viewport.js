@@ -135,6 +135,7 @@ export { UIAppQuickLinks };
 let UIAppTitle = class UIAppTitle {
     constructor(element) {
         this.element = element;
+        this.href = '#/';
         this.class = '';
     }
 };
@@ -145,12 +146,16 @@ __decorate([
 __decorate([
     bindable(),
     __metadata("design:type", Object)
+], UIAppTitle.prototype, "href", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
 ], UIAppTitle.prototype, "class", void 0);
 UIAppTitle = __decorate([
     autoinject(),
     containerless(),
     customElement('ui-app-title'),
-    inlineView('<template><a href="#/" class="ui-row ui-row-middle ui-app-title ${class}"><img class="ui-col-auto ui-app-logo" src.bind="src" if.bind="src"/><span class="ui-col-auto"><slot></slot></span></a><div class="ui-col-fill"></div></template>'),
+    inlineView('<template><a href.bind="href" class="ui-row ui-row-middle ui-app-title ${class}"><img class="ui-col-auto ui-app-logo" src.bind="src" if.bind="src"/><span class="ui-col-auto"><slot></slot></span></a><div class="ui-col-fill"></div></template>'),
     __metadata("design:paramtypes", [Element])
 ], UIAppTitle);
 export { UIAppTitle };

@@ -18,7 +18,7 @@ import * as _ from "lodash";
   <div if.bind="col.type=='normal'"><span class="\${col.class}" innerhtml.bind='col.getValue(record[col.dataId],record)'></span></div>
   <div if.bind="col.type=='glyph'" title.bind="col.getTooltip(record[col.dataId],record)"><ui-glyph class="\${col.class} \${col.getGlyph(record[col.dataId],record)}" glyph.bind="col.getGlyph(record[col.dataId],record)"></ui-glyph></div>
   <div if.bind="col.type=='link'"><a class="ui-link \${col.class} \${col.isDisabled(record[col.dataId],record)?'ui-disabled':''}" click.trigger="col.fireClick($event,record[col.dataId],record)"><ui-glyph glyph.bind="col.getGlyph(record[col.dataId],record)" if.bind="col.glyph"></ui-glyph> <span innerhtml.bind="col.getLabel(record[col.dataId],record)"></span></a></div>
-  <div if.bind="col.type=='button'" class="btn-fix"><ui-button click.trigger="col.fireClick($event,record[col.dataId],record)" theme.bind="col.getTheme(record[col.dataId],record)" small square glyph.bind="col.getGlyph(record[col.dataId],record)" disabled.bind="col.isDisabled(record[col.dataId],record)" dropdown.bind="dropdown" menuopen.trigger="col.fireMenuOpen($event, record)"><span innerhtml.bind="col.getLabel(record[col.dataId],record)"></span></ui-button></div>
+  <div if.bind="col.type=='button'" class="btn-fix"><ui-button click.trigger="col.fireClick($event,record[col.dataId],record)" theme.bind="col.getTheme(record[col.dataId],record)" small square glyph.bind="col.getGlyph(record[col.dataId],record)" disabled.bind="col.isDisabled(record[col.dataId],record)" dropdown.bind="col.dropdown" menuopen.trigger="col.fireMenuOpen($event, record)"><span innerhtml.bind="col.getLabel(record[col.dataId],record)"></span></ui-button></div>
   </td>
   <td class="filler"><div>&nbsp;</div></td></tr>
 
@@ -56,15 +56,21 @@ export class UIDgRow {
     <col/>
   </colgroup>
   <thead><tr>
-    <td class="ui-expander" if.bind="handleSize>0"><div>&nbsp;</div></td>
-    <td repeat.for="col of cols" mouseup.trigger="store.sort(col.dataId, (col.dataId==store.sortBy&&store.orderBy=='asc')?'desc':'asc')" class="\${col.sortable?'ui-sortable':''} \${col.locked==0?'ui-locked':''}" css.bind="{left: col.left+'px'}"><div>
+    <td class="ui-expander" if.bind="handleSize>0" rowspan.bind="headCols2.length?2:''"><div>&nbsp;</div></td>
+    <td repeat.for="col of headCols" mouseup.trigger="doSort(col)" class="\${col.sortable?'ui-sortable':''} \${col.locked==0?'ui-locked':''}" css.bind="{left: col.left+'px'}" rowspan.bind="headCols2.length?(col.isGroup?1:2):''" colspan.bind="col.isGroup?col.columns.length:1">
+    <div if.bind="!col.isGroup">
       <span class="ui-dg-header" innerhtml.bind='col.getTitle()'></span>
       <span class="ui-filter" if.bind="col.filter"><ui-glyph glyph="glyph-funnel"></ui-glyph></span>
       <span class="ui-sort \${col.dataId==sortColumn ? sortOrder:''}" if.bind="col.sortable"></span>
       <span class="ui-resizer" if.bind="col.resize" mousedown.trigger="resizeColumn($event,col,cols[$index+1])"></span>
-    </div></td>
-    <td class="filler"><div><span class="ui-dg-header">&nbsp;</span></div></td>
-  </tr></thead>
+    </div><div if.bind="col.isGroup" class="ui-dg-group"><span class="ui-dg-header" innerhtml.bind='col.getTitle()'></span></div></td>
+    <td class="filler" rowspan.bind="headCols2.length?2:''"><div><span class="ui-dg-header">&nbsp;</span></div></td>
+  </tr><tr show.bind="headCols2.length"><td repeat.for="col of headCols2" mouseup.trigger="doSort(col)" class="\${col.sortable?'ui-sortable':''} \${col.locked==0?'ui-locked':''}" css.bind="{left: col.left+'px'}" if.bind="col"><div>
+    <span class="ui-dg-header" innerhtml.bind='col.getTitle()'></span>
+    <span class="ui-filter" if.bind="col.filter"><ui-glyph glyph="glyph-funnel"></ui-glyph></span>
+    <span class="ui-sort \${col.dataId==sortColumn ? sortOrder:''}" if.bind="col.sortable"></span>
+    <span class="ui-resizer" if.bind="col.resize" mousedown.trigger="resizeColumn($event,col,cols[$index+1])"></span>
+  </div></td></tr></thead>
 </table>
 </div>
 <div class="ui-dg-wrapper" ref="scroller" scroll.trigger="scrolling() & debounce:1">
@@ -123,7 +129,6 @@ export class UIDatagrid {
   // aurelia hooks
   // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
-    this.columnsChanged(this.columns);
     if (this.pager) {
       if (!(this.pager instanceof UIPager)) throw new Error('Pager must be instance of UIPager');
       this.obPageChange = UIEvent.observe(this.pager, 'page').subscribe(pg => this.store.loadPage(pg));
@@ -134,7 +139,10 @@ export class UIDatagrid {
     // this.obDataChange = UIEvent.observe(this.store, 'data').subscribe(data => this.store.loadPage(pg));
   }
   attached() {
-    this.scrolling();
+    UIEvent.queueTask(() => {
+      this.columnsChanged(this.columns);
+      this.scrolling();
+    });
     UIEvent.queueTask(() => (!this.store.isLoaded ? this.store.fetchData() : null));
   }
   detached() {
@@ -143,14 +151,18 @@ export class UIDatagrid {
   // unbind() { }
   // end aurelia hooks
 
-  @children('ui-dg-column,ui-dg-button,ui-dg-link,ui-dg-glyph') columns;
+  @children('ui-dg-column-group,ui-dg-column,ui-dg-button,ui-dg-link,ui-dg-glyph') columns;
+  // @children('ui-dg-column,ui-dg-button,ui-dg-link,ui-dg-glyph,' +
+  //   'ui-dg-column-group>ui-dg-column,ui-dg-column-group ui-dg-button,ui-dg-column-group ui-dg-link,ui-dg-column-group>ui-dg-glyph') columns;
 
   @bindable() store;
   @bindable() pager;
   @bindable() summaryRow = false;
 
   private cols = [];
-  private tableWidth;
+  private headCols = [];
+  private headCols2 = [];
+  private tableWidth = '20px';
 
   private virtual = false;
   private isBusy = false;
@@ -160,7 +172,9 @@ export class UIDatagrid {
   private handleSize = 30;
 
   columnsChanged(newValue) {
-    this.cols = _.sortBy(this.columns, 'locked');
+    this.headCols = _.sortBy(this.columns, 'locked');
+    this.headCols2 = _.flatMap(this.headCols, c => c.columns || []);
+    this.cols = _.sortBy(_.flatMap(this.columns, c => c.columns || [c]), 'locked');
   }
 
   storeChanged(newValue) {

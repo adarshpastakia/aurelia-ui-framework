@@ -25,10 +25,11 @@
         </ui-toolbar>
         <ui-datagrid row-expander store.bind="store" scroll summary-row="summary">
           <ui-dg-column data-id="label" sortable resizeable class="ui-level-pad" width="20em">&nbsp;</ui-dg-column>
-          <ui-dg-column data-id="new" group="Sales" number summary="sum" end width="8em">New Sales</ui-dg-column>
-          <ui-dg-column data-id="renew" group="Sales" number summary="sum" end width="8em">Renewals</ui-dg-column>
-          <ui-dg-column data-id="net" group="Sales" number summary="sum" end width="8em"
-            value.call="total(record)" summary.call="totalSum(data)">Net Sales</ui-dg-column>
+          <ui-dg-column-group label="Sales">
+            <ui-dg-column data-id="new" number summary="sum" end width="5em">New</ui-dg-column>
+            <ui-dg-column data-id="renew" number summary="sum" end width="5em">Renew</ui-dg-column>
+            <ui-dg-column data-id="net" number summary="sum" end width="5em" value.call="total(record)" summary.call="totalSum(data)">Net</ui-dg-column>
+          </ui-dg-column-group>
           <ui-dg-column data-id="rev" currency summary="sum" end width="8em">Net Revenue</ui-dg-column>
         </ui-datagrid>
       </ui-section>

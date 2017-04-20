@@ -68,23 +68,27 @@ export class UIPanelBody {
 @inlineView(`<template class="ui-panel-group" collapse.delegate="uncollapse()"><slot></slot></template>`)
 @customElement('ui-panel-group')
 export class UIPanelGroup {
-  constructor(public element: Element) { }
+  constructor(public element: Element) {
+    this.allowtoggle = element.hasAttribute('toggle');
+  }
 
   // aurelia hooks
   // created(owningView: View, myView: View) { }
   // bind(bindingContext: Object, overrideContext: Object) { }
-  // attached() {
-  //   //if (_.find(this.panels, ['collapsed', false]) == null) this.panels[0].collapsed = false;
-  // }
+  attached() {
+    if (_.find(this.panels, ['collapsed', false]) == null) this.panels[0].collapsed = false;
+  }
   // detached() { }
   // unbind() { }
   // end aurelia hooks
 
   @children('ui-panel') panels;
 
+  private allowtoggle = false;
+
   private uncollapse() {
-    // let panel: any = _.find(this.panels, ['collapsed', false])
-    // if (panel) panel.collapsed = true;
+    let panel: any = _.find(this.panels, ['collapsed', false])
+    if (this.allowtoggle && panel) panel.collapsed = true;
   }
 }
 
@@ -194,7 +198,7 @@ export class UIHeaderTool {
 }
 
 @autoinject()
-@inlineView(`<template class="ui-header-title ui-inline-block ui-col-fill"><ui-glyph glyph.bind="glyph" if.bind="glyph"></ui-glyph>&nbsp;<slot></slot></template>`)
+@inlineView(`<template class="ui-header-title ui-inline-block ui-col-fill"><ui-glyph glyph.bind="glyph" if.bind="glyph"></ui-glyph><slot></slot></template>`)
 @customElement('ui-header-title')
 export class UIHeaderTitle {
   constructor(public element: Element) { }

@@ -36,7 +36,7 @@ let UIDialogService = class UIDialogService {
                 UIUtils.dialogContainer.addEventListener('mousedown', (e) => this.moveStart(e));
             }
             if (UIUtils.taskbarContainer)
-                UIUtils.taskbarContainer.addEventListener('click', (e) => this.taskClick(e.target['window']));
+                UIUtils.taskbarContainer.addEventListener('click', (e) => this.taskClick((getParentByTag(e.target, 'button') || e.target)['window']));
         }
     }
     makeActive(id) {
@@ -76,6 +76,9 @@ let UIDialogService = class UIDialogService {
             });
         });
     }
+    closeAll() {
+        _.forEach(this.windows, win => this.closeDialog(win, true));
+    }
     createDialog(vm) {
         if (!(vm instanceof UIDialog))
             throw new Error("ViewModel must extend from UIDialog");
@@ -98,7 +101,7 @@ let UIDialogService = class UIDialogService {
             this.windows.push(dialog);
             dialog.taskButtonEl = document.createElement('button');
             dialog.taskButtonEl.classList.add('ui-active');
-            dialog.taskButtonEl.innerHTML = '<ui-glyph class="${glyph}" glyph="${glyph}"></ui-glyph>&nbsp;<span class="ui-label">${title}</span>';
+            dialog.taskButtonEl.innerHTML = '<ui-glyph class="${glyph}" glyph="${glyph}" if.bind="glyph"></ui-glyph><span class="ui-label">${title}</span>';
             dialog.taskButtonEl.window = dialog;
             if (UIUtils.taskbarContainer) {
                 UIUtils.taskbarContainer.appendChild(dialog.taskButtonEl);
@@ -107,12 +110,12 @@ let UIDialogService = class UIDialogService {
             this.changeActive(dialog);
         }
     }
-    closeDialog(dialog) {
+    closeDialog(dialog, force = false) {
         if (!dialog)
             return;
-        this.invokeLifecycle(dialog, 'canDeactivate', null)
+        this.invokeLifecycle(dialog, 'canDeactivate', force)
             .then(canDeactivate => {
-            if (canDeactivate) {
+            if (force || canDeactivate) {
                 this.invokeLifecycle(dialog, 'detached', null);
                 dialog.dialogWrapperEl.remove();
                 _.remove(this.windows, ['uniqId', dialog.uniqId]);

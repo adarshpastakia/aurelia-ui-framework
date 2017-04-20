@@ -54,7 +54,7 @@ export class UIDataColumn {
     return this.width;
   }
   getTitle() {
-    return this.element.innerHTML || '&nbsp;';
+    return this.element.innerHTML + '&nbsp;';
   }
   getValue(value, record) {
     return this.processValue(value, record) || '&nbsp;';
@@ -118,6 +118,37 @@ export class UIDataColumn {
     return retVal;
   }
 }
+
+@autoinject()
+@inlineView(`<template><slot></slot></template>`)
+@customElement('ui-dg-column-group')
+export class UIDGColumnGroup {
+  constructor(public element: Element) {
+    this.locked = element.hasAttribute('locked') ? 0 : 1;
+  }
+
+  // aurelia hooks
+  // created(owningView: View, myView: View) { }
+  // bind(bindingContext: Object, overrideContext: Object) { }
+  // attached() { }
+  // detached() { }
+  // unbind() { }
+  // end aurelia hooks
+
+  @bindable() label;
+  @children('ui-dg-column,ui-dg-button,ui-dg-link,ui-dg-glyph') columns;
+
+  locked = 1;
+  isGroup = true;
+
+  getTitle() {
+    return this.label || '&nbsp;';
+  }
+  getWidth() {
+    return 0;
+  }
+}
+
 
 @autoinject()
 @inlineView(`<template><slot></slot></template>`)
@@ -229,7 +260,7 @@ export class UIDGLink extends UIDataColumn {
     $event.stopPropagation();
     $event.preventDefault();
     if (this.isDisabled(value, record)) return;
-    UIEvent.fireEvent('click', this.element, ({ value, record }));
+    UIEvent.fireEvent('click', this.element, ({ target: $event.target, value: value, record: record }));
     return false;
   }
 }
@@ -287,7 +318,7 @@ export class UIDGButton extends UIDataColumn {
     $event.stopPropagation();
     $event.preventDefault();
     if (this.isDisabled(value, record)) return;
-    UIEvent.fireEvent('click', this.element, ({ value, record }));
+    UIEvent.fireEvent('click', this.element, ({ target: $event.target, value: value, record: record }));
     return false;
   }
 

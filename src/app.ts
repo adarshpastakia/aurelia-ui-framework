@@ -21,12 +21,12 @@ export class App {
     this.router = router;
 
     config.title = UIConstants.Title;
-    config.mapUnknownRoutes({
-      route: '404', moduleId: './home/view', activationStrategy: 'replace', settings: { data: '404' }
-    });
+    config.mapUnknownRoutes('404');
     config.map([
       {
         route: ['', 'home'], moduleId: './home/view', nav: false, auth: false, name: 'home'
+      }, {
+        route: '404', moduleId: './home/404', nav: false, auth: false, name: '404'
       }, {
         route: 'start', moduleId: './start/view', title: 'nav.titleStart', nav: true, auth: false, settings: { section: 'nav.sectionFramework' }, name: 'start'
       }, {
@@ -103,6 +103,7 @@ export class App {
 
   constructor(public element: Element, public i18n: I18N, public app: UIApplication) {
     UIEvent.subscribe('i18n:locale:changed', payload => this.i18n.updateTranslations(this.element));
+    UIEvent.subscribe('router:navigation:error', i => this.app.navigateTo('404'));
     this.i18n.setLocale(this.currentLocale = app.persist('locale') || 'en');
   }
 

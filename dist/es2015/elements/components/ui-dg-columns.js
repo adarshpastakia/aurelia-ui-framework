@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { autoinject, customElement, bindable, inlineView } from 'aurelia-framework';
+import { autoinject, customElement, bindable, children, inlineView } from 'aurelia-framework';
 import { UIFormat } from "../../utils/ui-format";
 import { UIEvent } from "../../utils/ui-event";
 import * as _ from "lodash";
@@ -52,7 +52,7 @@ export class UIDataColumn {
         return this.width;
     }
     getTitle() {
-        return this.element.innerHTML || '&nbsp;';
+        return this.element.innerHTML + '&nbsp;';
     }
     getValue(value, record) {
         return this.processValue(value, record) || '&nbsp;';
@@ -143,6 +143,35 @@ export class UIDataColumn {
         return retVal;
     }
 }
+let UIDGColumnGroup = class UIDGColumnGroup {
+    constructor(element) {
+        this.element = element;
+        this.locked = 1;
+        this.isGroup = true;
+        this.locked = element.hasAttribute('locked') ? 0 : 1;
+    }
+    getTitle() {
+        return this.label || '&nbsp;';
+    }
+    getWidth() {
+        return 0;
+    }
+};
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIDGColumnGroup.prototype, "label", void 0);
+__decorate([
+    children('ui-dg-column,ui-dg-button,ui-dg-link,ui-dg-glyph'),
+    __metadata("design:type", Object)
+], UIDGColumnGroup.prototype, "columns", void 0);
+UIDGColumnGroup = __decorate([
+    autoinject(),
+    inlineView(`<template><slot></slot></template>`),
+    customElement('ui-dg-column-group'),
+    __metadata("design:paramtypes", [Element])
+], UIDGColumnGroup);
+export { UIDGColumnGroup };
 let UIDGColumn = class UIDGColumn extends UIDataColumn {
     constructor(element) {
         super(element);
@@ -287,7 +316,7 @@ let UIDGLink = class UIDGLink extends UIDataColumn {
         $event.preventDefault();
         if (this.isDisabled(value, record))
             return;
-        UIEvent.fireEvent('click', this.element, ({ value, record }));
+        UIEvent.fireEvent('click', this.element, ({ target: $event.target, value: value, record: record }));
         return false;
     }
 };
@@ -362,7 +391,7 @@ let UIDGButton = class UIDGButton extends UIDataColumn {
         $event.preventDefault();
         if (this.isDisabled(value, record))
             return;
-        UIEvent.fireEvent('click', this.element, ({ value, record }));
+        UIEvent.fireEvent('click', this.element, ({ target: $event.target, value: value, record: record }));
         return false;
     }
     fireMenuOpen($event, record) {

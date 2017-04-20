@@ -261,12 +261,13 @@ let UITab = UITab_1 = class UITab {
     bind(bindingContext, overrideContext) {
         this.disabled = isTrue(this.disabled);
     }
-    attached() {
-        if (this.element.firstElementChild && this.element.firstElementChild.tagName.toLowerCase() == 'compose')
-            this.vm = this.element.firstElementChild.au.compose.viewModel.currentViewModel;
-    }
     remove() {
         DOM.removeNode(this.element);
+    }
+    get viewModel() {
+        if (this.element.firstElementChild && this.element.firstElementChild.tagName.toLowerCase() == 'compose')
+            return this.element.firstElementChild.au.compose.viewModel.currentViewModel;
+        return null;
     }
 };
 UITab.seed = 0;

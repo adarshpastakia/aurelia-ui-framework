@@ -39,7 +39,7 @@ var UIDialogService = (function () {
                 ui_utils_1.UIUtils.dialogContainer.addEventListener('mousedown', function (e) { return _this.moveStart(e); });
             }
             if (ui_utils_1.UIUtils.taskbarContainer)
-                ui_utils_1.UIUtils.taskbarContainer.addEventListener('click', function (e) { return _this.taskClick(e.target['window']); });
+                ui_utils_1.UIUtils.taskbarContainer.addEventListener('click', function (e) { return _this.taskClick((getParentByTag(e.target, 'button') || e.target)['window']); });
         }
     };
     UIDialogService.prototype.makeActive = function (id) {
@@ -80,6 +80,10 @@ var UIDialogService = (function () {
             });
         });
     };
+    UIDialogService.prototype.closeAll = function () {
+        var _this = this;
+        _.forEach(this.windows, function (win) { return _this.closeDialog(win, true); });
+    };
     UIDialogService.prototype.createDialog = function (vm) {
         if (!(vm instanceof UIDialog))
             throw new Error("ViewModel must extend from UIDialog");
@@ -93,7 +97,7 @@ var UIDialogService = (function () {
             this.windows.push(dialog);
             dialog.taskButtonEl = document.createElement('button');
             dialog.taskButtonEl.classList.add('ui-active');
-            dialog.taskButtonEl.innerHTML = '<ui-glyph class="${glyph}" glyph="${glyph}"></ui-glyph>&nbsp;<span class="ui-label">${title}</span>';
+            dialog.taskButtonEl.innerHTML = '<ui-glyph class="${glyph}" glyph="${glyph}" if.bind="glyph"></ui-glyph><span class="ui-label">${title}</span>';
             dialog.taskButtonEl.window = dialog;
             if (ui_utils_1.UIUtils.taskbarContainer) {
                 ui_utils_1.UIUtils.taskbarContainer.appendChild(dialog.taskButtonEl);
@@ -102,13 +106,14 @@ var UIDialogService = (function () {
             this.changeActive(dialog);
         }
     };
-    UIDialogService.prototype.closeDialog = function (dialog) {
+    UIDialogService.prototype.closeDialog = function (dialog, force) {
         var _this = this;
+        if (force === void 0) { force = false; }
         if (!dialog)
             return;
-        this.invokeLifecycle(dialog, 'canDeactivate', null)
+        this.invokeLifecycle(dialog, 'canDeactivate', force)
             .then(function (canDeactivate) {
-            if (canDeactivate) {
+            if (force || canDeactivate) {
                 _this.invokeLifecycle(dialog, 'detached', null);
                 dialog.dialogWrapperEl.remove();
                 _.remove(_this.windows, ['uniqId', dialog.uniqId]);

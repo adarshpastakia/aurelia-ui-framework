@@ -60,6 +60,10 @@
 
   .ui-header-title {
     @include ellipsis();
+
+    .ui-icon {
+      margin: 0 0.25em;
+    }
   }
 
   .ui-header-tool {

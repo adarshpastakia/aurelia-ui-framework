@@ -42,7 +42,7 @@ export class UIDialogService {
         UIUtils.dialogContainer.addEventListener('collapse', (e: any) => this.taskClick(e.detail, true));
         UIUtils.dialogContainer.addEventListener('mousedown', (e) => this.moveStart(e));
       }
-      if (UIUtils.taskbarContainer) UIUtils.taskbarContainer.addEventListener('click', (e) => this.taskClick(e.target['window']));
+      if (UIUtils.taskbarContainer) UIUtils.taskbarContainer.addEventListener('click', (e) => this.taskClick((getParentByTag(e.target as Element, 'button') || e.target)['window']));
     }
   }
 
@@ -88,6 +88,10 @@ export class UIDialogService {
       });
   }
 
+  closeAll() {
+    _.forEach(this.windows, win => this.closeDialog(win, true));
+  }
+
   private createDialog(vm) {
     if (!(vm instanceof UIDialog)) throw new Error("ViewModel must extend from UIDialog");
 
@@ -112,7 +116,7 @@ export class UIDialogService {
 
       dialog.taskButtonEl = document.createElement('button');
       dialog.taskButtonEl.classList.add('ui-active');
-      dialog.taskButtonEl.innerHTML = '<ui-glyph class="${glyph}" glyph="${glyph}"></ui-glyph>&nbsp;<span class="ui-label">${title}</span>';
+      dialog.taskButtonEl.innerHTML = '<ui-glyph class="${glyph}" glyph="${glyph}" if.bind="glyph"></ui-glyph><span class="ui-label">${title}</span>';
       dialog.taskButtonEl.window = dialog;
       if (UIUtils.taskbarContainer) {
         UIUtils.taskbarContainer.appendChild(dialog.taskButtonEl);
@@ -123,11 +127,11 @@ export class UIDialogService {
     }
   }
 
-  private closeDialog(dialog) {
+  private closeDialog(dialog, force = false) {
     if (!dialog) return;
-    this.invokeLifecycle(dialog, 'canDeactivate', null)
+    this.invokeLifecycle(dialog, 'canDeactivate', force)
       .then(canDeactivate => {
-        if (canDeactivate) {
+        if (force || canDeactivate) {
           this.invokeLifecycle(dialog, 'detached', null);
           dialog.dialogWrapperEl.remove();
 

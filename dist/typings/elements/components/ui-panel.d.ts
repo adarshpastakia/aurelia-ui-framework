@@ -17,7 +17,9 @@ export declare class UIPanelBody {
 export declare class UIPanelGroup {
     element: Element;
     constructor(element: Element);
+    attached(): void;
     panels: any;
+    private allowtoggle;
     private uncollapse();
 }
 export declare class UIHeader {

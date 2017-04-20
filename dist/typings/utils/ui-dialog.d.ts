@@ -12,9 +12,10 @@ export declare class UIDialogService {
     private initialize();
     makeActive(id: any): boolean;
     show(vm: any, model?: any): Promise<any>;
+    closeAll(): void;
     private createDialog(vm);
     private initializeDialog(dialog);
-    private closeDialog(dialog);
+    private closeDialog(dialog, force?);
     private getViewModel(instruction);
     private invokeLifecycle(instance, name, model);
     private changeActive(dialog);

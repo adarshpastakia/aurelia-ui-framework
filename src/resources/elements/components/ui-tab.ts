@@ -239,10 +239,7 @@ export class UITab {
   bind(bindingContext: Object, overrideContext: Object) {
     this.disabled = isTrue(this.disabled);
   }
-  attached() {
-    if (this.element.firstElementChild && this.element.firstElementChild.tagName.toLowerCase() == 'compose')
-      this.vm = this.element.firstElementChild.au.compose.viewModel.currentViewModel;
-  }
+  // attached() { }
   // detached() { }
   // unbind() { }
   // end aurelia hooks
@@ -260,5 +257,11 @@ export class UITab {
 
   remove() {
     DOM.removeNode(this.element);
+  }
+
+  get viewModel() {
+    if (this.element.firstElementChild && this.element.firstElementChild.tagName.toLowerCase() == 'compose')
+      return this.element.firstElementChild.au.compose.viewModel.currentViewModel;
+    return null;
   }
 }

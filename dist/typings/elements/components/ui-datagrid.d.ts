@@ -20,6 +20,8 @@ export declare class UIDatagrid {
     pager: any;
     perPage: number;
     private cols;
+    private headCols;
+    private headCols2;
     private paged;
     private filtered;
     private tableWidth;
