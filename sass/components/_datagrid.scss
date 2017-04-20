@@ -38,9 +38,7 @@
   }
 
   .ui-dg-empty {
-    position  : absolute;
     z-index   : 5;
-    top       : 1.75em;
     background: $datagrid-base-bg;
     width     : 100%;
     padding   : 1em;
