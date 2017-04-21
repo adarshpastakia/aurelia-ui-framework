@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2016
 // @license     : MIT
@@ -29,12 +29,12 @@
 
 // Styling
 @mixin padding($dir, $size) {
-   @if($dir=='start'){
-    padding-left: $size;
-  }
-  @if($dir=='end') {
-    padding-right: $size;
-  }
+  //  @if($dir=='start'){
+  //   padding-left: $size;
+  // }
+  // @if($dir=='end') {
+  //   padding-right: $size;
+  // }
 
   -webkit-padding-#{$dir}: $size;
   -moz-padding-#{$dir}   : $size;
@@ -42,12 +42,12 @@
   padding-#{$dir}        : $size;
 }
 @mixin margin($dir, $size) {
-   @if($dir=='start'){
-    margin-left: $size;
-  }
-  @if($dir=='end') {
-    margin-right: $size;
-  }
+  //  @if($dir=='start'){
+  //   margin-left: $size;
+  // }
+  // @if($dir=='end') {
+  //   margin-right: $size;
+  // }
 
   -webkit-margin-#{$dir}: $size;
   -moz-margin-#{$dir}   : $size;
@@ -55,12 +55,12 @@
   margin-#{$dir}        : $size;
 }
 @mixin border($dir, $val...) {
-   @if($dir=='start'){
-    border-left: $val;
-  }
-  @if($dir=='end') {
-    border-right: $val;
-  }
+  //  @if($dir=='start'){
+  //   border-left: $val;
+  // }
+  // @if($dir=='end') {
+  //   border-right: $val;
+  // }
 
   -webkit-border-#{$dir}: $val;
   -moz-border-#{$dir}   : $val;
@@ -68,12 +68,12 @@
   border-#{$dir}        : $val;
 }
 @mixin borderEx($dir, $prop, $val) {
-   @if($dir=='start'){
-    border-left-#{$prop}: $val;
-  }
-  @if($dir=='end') {
-    border-right-#{$prop}: $val;
-  }
+  //  @if($dir=='start'){
+  //   border-left-#{$prop}: $val;
+  // }
+  // @if($dir=='end') {
+  //   border-right-#{$prop}: $val;
+  // }
 
   -webkit-border-#{$dir}-#{$prop}: $val;
   -moz-border-#{$dir}-#{$prop}   : $val;
