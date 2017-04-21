@@ -105,8 +105,8 @@
       }
     }
 
-     > tfoot > tr > td,
-    > thead > tr > td {
+     > thead > tr > td,
+    > tfoot > tr > td {
       font-size  : 0.9em;
       font-weight: 600;
     }
@@ -299,5 +299,12 @@
       border    : none;
       text-align: center;
     }
+  }
+}
+
+.rtl,
+[dir="rtl"] {
+  .ui-pager a > .ui-icon {
+    @include transform(scaleX(-1));
   }
 }

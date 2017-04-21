@@ -235,6 +235,7 @@ export class UIDatagrid {
     UIEvent.fireEvent('rowselect', this.element, ({ record }));
   }
 
+  isRtl = false;
   move;
   stop;
   diff;
@@ -245,23 +246,25 @@ export class UIDatagrid {
   resizing = false;
   resizeColumn(evt, col, next) {
     if (evt.button != 0) return true;
+    this.isRtl = window.isRtl(this.element);
     this.diff = 0;
     this.colResize = col;
     this.colNext = next;
     this.resizing = true;
     this.startX = (evt.x || evt.clientX);
-    this.ghost.style.left = (col.left + parseInt(col.width) - (col.locked == 0 ? 0 : this.scroller.scrollLeft)) + 'px';
+    this.ghost.style[this.isRtl ? 'right' : 'left'] = (col.left + parseInt(col.width) - (col.locked == 0 ? 0 : this.scroller.scrollLeft)) + 'px';
     document.addEventListener('mouseup', this.stop = evt => this.resizeEnd(evt));
     document.addEventListener('mousemove', this.move = evt => this.resize(evt));
   }
   resize(evt) {
     var x = (evt.x || evt.clientX) - this.startX;
+    x = (this.isRtl ? -1 : 1) * x;
     if (x < 0 && (parseInt(this.colResize.width) + this.diff) <= (this.colResize.minWidth || 80)) return;
     if (x > 0 && (parseInt(this.colResize.width) + this.diff) >= (500)) return;
 
     this.startX = (evt.x || evt.clientX);
     this.diff += x;
-    this.ghost.style.left = (parseInt(this.ghost.style.left) + x) + 'px';
+    this.ghost.style[this.isRtl ? 'right' : 'left'] = (parseInt(this.ghost.style[this.isRtl ? 'right' : 'left']) + x) + 'px';
   }
   resizeEnd(evt) {
     this.resizing = false;
