@@ -229,3 +229,10 @@
     .date {}
   }
 }
+
+.rtl,
+[dir="rtl"] {
+  .ui-date-view .ui-dv-header a > .ui-icon {
+    @include transform(scaleX(-1));
+  }
+}
