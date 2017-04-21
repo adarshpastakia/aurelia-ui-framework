@@ -45,6 +45,8 @@
 @import "utils/helpers";
 @import "utils/typography";
 
+@import "iefix";
+
 
 $colors: (
   ('red', #ff3b30, $light),

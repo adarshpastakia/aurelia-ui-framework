@@ -1,113 +1,115 @@
-.ltr,
-[dir="ltr"] {
-  .ui-border-s {
-    @include border(left, 1px solid $base-border-color);
-  }
-
-  .ui-border-e {
-    @include border(right, 1px solid $base-border-color);
-  }
-
-  .ui-statsbar.ui-vertical {
-    &:first-child {
-      @include border(right, 1px solid rgba($base-border-color, .5));
+.ua-edge {
+  .ltr,
+  [dir="ltr"] {
+    .ui-border-s {
+      @include border(left, 1px solid $base-border-color);
     }
 
-    &:last-child {
-      @include border(left, 1px solid rgba($base-border-color, .5));
-    }
-  }
-
-  .ui-datagrid thead .ui-resizer {
-    @include border(left, 1px solid rgba($datagrid-header-text, .5));
-  }
-
-  .ui-button.ui-busy .ui-indicator {
-    @include margin(left, -.5em);
-  }
-
-  .ui-markdown ul li > ul {
-    @include margin(left, 2em);
-  }
-
-  .ui-input-group .ui-input-label {
-    @include padding(right, .5em);
-  }
-
-  .ui-switch-control .ui-switch .ui-switch-inner {
-    &:before {
-      @include padding(left, 1.5em);
+    .ui-border-e {
+      @include border(right, 1px solid $base-border-color);
     }
 
-    &:after {
-      @include padding(right, 1.5em);
-    }
-  }
+    .ui-statsbar.ui-vertical {
+      &:first-child {
+        @include border(right, 1px solid rgba($base-border-color, .5));
+      }
 
-  .ui-tree-panel {
-    .ui-tree-level {
-      @include padding(left, .5em);
-    }
-
-    .ui-tree-level .ui-tree-level {
-      @include padding(left, .9em);
-    }
-  }
-}
-
-.rtl,
-[dir="rtl"] {
-  .ui-border-s {
-    @include border(right, 1px solid $base-border-color);
-  }
-
-  .ui-border-e {
-    @include border(left, 1px solid $base-border-color);
-  }
-
-  .ui-statsbar.ui-vertical {
-    &:first-child {
-      @include border(left, 1px solid rgba($base-border-color, .5));
+      &:last-child {
+        @include border(left, 1px solid rgba($base-border-color, .5));
+      }
     }
 
-    &:last-child {
-      @include border(right, 1px solid rgba($base-border-color, .5));
-    }
-  }
-
-  .ui-datagrid thead .ui-resizer {
-    @include border(right, 1px solid rgba($datagrid-header-text, .5));
-  }
-
-  .ui-button.ui-busy .ui-indicator {
-    @include margin(right, -.5em);
-  }
-
-  .ui-markdown ul li > ul {
-    @include margin(right, 2em);
-  }
-
-  .ui-input-group .ui-input-label {
-    @include padding(left, .5em);
-  }
-
-  .ui-switch-control .ui-switch .ui-switch-inner {
-    &:before {
-      @include padding(right, 1.5em);
+    .ui-datagrid thead .ui-resizer {
+      @include border(left, 1px solid rgba($datagrid-header-text, .5));
     }
 
-    &:after {
-      @include padding(left, 1.5em);
+    .ui-button.ui-busy .ui-indicator {
+      @include margin(left, -.5em);
     }
-  }
 
-  .ui-tree-panel {
-    .ui-tree-level {
+    .ui-markdown ul li > ul {
+      @include margin(left, 2em);
+    }
+
+    .ui-input-group .ui-input-label {
       @include padding(right, .5em);
     }
 
-    .ui-tree-level .ui-tree-level {
-      @include padding(right, .9em);
+    .ui-switch-control .ui-switch .ui-switch-inner {
+      &:before {
+        @include padding(left, 1.5em);
+      }
+
+      &:after {
+        @include padding(right, 1.5em);
+      }
+    }
+
+    .ui-tree-panel {
+      .ui-tree-level {
+        @include padding(left, .5em);
+      }
+
+      .ui-tree-level .ui-tree-level {
+        @include padding(left, .9em);
+      }
+    }
+  }
+
+  .rtl,
+  [dir="rtl"] {
+    .ui-border-s {
+      @include border(right, 1px solid $base-border-color);
+    }
+
+    .ui-border-e {
+      @include border(left, 1px solid $base-border-color);
+    }
+
+    .ui-statsbar.ui-vertical {
+      &:first-child {
+        @include border(left, 1px solid rgba($base-border-color, .5));
+      }
+
+      &:last-child {
+        @include border(right, 1px solid rgba($base-border-color, .5));
+      }
+    }
+
+    .ui-datagrid thead .ui-resizer {
+      @include border(right, 1px solid rgba($datagrid-header-text, .5));
+    }
+
+    .ui-button.ui-busy .ui-indicator {
+      @include margin(right, -.5em);
+    }
+
+    .ui-markdown ul li > ul {
+      @include margin(right, 2em);
+    }
+
+    .ui-input-group .ui-input-label {
+      @include padding(left, .5em);
+    }
+
+    .ui-switch-control .ui-switch .ui-switch-inner {
+      &:before {
+        @include padding(right, 1.5em);
+      }
+
+      &:after {
+        @include padding(left, 1.5em);
+      }
+    }
+
+    .ui-tree-panel {
+      .ui-tree-level {
+        @include padding(right, .5em);
+      }
+
+      .ui-tree-level .ui-tree-level {
+        @include padding(right, .9em);
+      }
     }
   }
 }
