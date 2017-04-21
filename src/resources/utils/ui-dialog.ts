@@ -202,6 +202,7 @@ export class UIDialogService {
   private __startX = 0;
   private __startY = 0;
   private __dialog;
+  private __isRtl;
 
   private moveStart($event) {
     this.__dialog = getParentByClass($event.target, 'ui-dialog');
@@ -217,6 +218,15 @@ export class UIDialogService {
       return;
     }
 
+    this.__isRtl = window.isRtl(UIUtils.dialogContainer);
+    if (this.__isRtl && !this.__dialog.style.right) {
+      this.__dialog.style.right = this.__dialog.style.left;
+      this.__dialog.style.left = null;
+    }
+    if (!this.__isRtl && !this.__dialog.style.left) {
+      this.__dialog.style.left = this.__dialog.style.right;
+      this.__dialog.style.right = null;
+    }
     this.__startX = ($event.x || $event.clientX);
     this.__startY = ($event.y || $event.clientY);
     this.__isDragging = true;
@@ -263,8 +273,10 @@ export class UIDialogService {
     let x = ($event.x || $event.clientX) - this.__startX;
     let y = ($event.y || $event.clientY) - this.__startY;
 
+    x = (this.__isRtl ? -1 : 1) * x;
+
     let t = convertToPx(this.__dialog.style.top, this.__dialog);
-    let l = convertToPx(this.__dialog.style.left, this.__dialog);
+    let l = convertToPx(this.__dialog.style[this.__isRtl ? 'right' : 'left'], this.__dialog);
     let w = convertToPx(this.__dialog.style.width, this.__dialog);
     let h = convertToPx(this.__dialog.style.height, this.__dialog);
     let pw = UIUtils.dialogContainer.offsetWidth;
@@ -287,7 +299,7 @@ export class UIDialogService {
         t = ph - h - 42;
       }
       this.__dialog.style.top = (t + y) + 'px';
-      this.__dialog.style.left = (l + x) + 'px';
+      this.__dialog.style[this.__isRtl ? 'right' : 'left'] = (l + x) + 'px';
     }
     else {
       if (l + x + w + 16 > pw) x = 0;
@@ -306,9 +318,10 @@ export class UIDialogService {
 export class UIDialog {
   // aurelia hooks
   bind(bindingContext?: Object, overrideContext?: Object) {
+    let isRtl = window.isRtl(UIUtils.dialogContainer);
     if (!this.modal) {
-      this.posCurrent.top = (UIDialog.posY = UIDialog.posY == 240 ? 10 : UIDialog.posY + 10) + 'px';
-      this.posCurrent.left = (UIDialog.posX = UIDialog.posY == 10 ? 60 : UIDialog.posX + 30) + 'px';
+      this.posCurrent.top = (UIDialog.posY = UIDialog.posY == 240 ? 10 : UIDialog.posY + 30) + 'px';
+      this.posCurrent[isRtl ? 'right' : 'left'] = (UIDialog.posX = UIDialog.posY == 10 ? 60 : UIDialog.posX + 30) + 'px';
     }
     this.posCurrent.width = this.width || this.minWidth || this.posCurrent.width;
     this.posCurrent.height = this.height || this.minHeight || this.posCurrent.height;
@@ -323,7 +336,7 @@ export class UIDialog {
 
   static seed = 0;
   static posX = 0;
-  static posY = 30;
+  static posY = 0;
 
   private uniqId = `ui-win-${UIDialog.seed++}`;
 
@@ -336,7 +349,7 @@ export class UIDialog {
   private isMinimized = false;
 
   private posCurrent: any = {
-    top: 0, left: 0,
+    top: 0,
     'min-height': '100px', 'min-width': '300px',
     'max-height': 'none', 'max-width': 'none',
     height: '400px', width: '600px'
