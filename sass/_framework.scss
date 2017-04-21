@@ -78,6 +78,8 @@ $colors: (
   @include breadcrumb-theme($key, $color);
 
   @include chip-theme($key, $color, $text);
+  @include ribbon-theme($key, $color, $text);
+  @include tooltip-theme($key, $color, $text);
 
   @include button-theme($key, $color, $text, tint($color, 10%), $text, shade($color, 10%), $text);
 }

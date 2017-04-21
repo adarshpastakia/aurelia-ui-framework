@@ -42,6 +42,33 @@
     visibility: visible;
   }
 }
+@include tooltip-theme(primary, $primary, $button-primary-text);
+@include tooltip-theme(secondary, $secondary, $button-secondary-text);
+@include tooltip-theme(dark, $dark, $button-dark-text);
+@include tooltip-theme(light, $light, $button-light-text);
+@include tooltip-theme(info, $info, $button-info-text);
+@include tooltip-theme(danger, $danger, $button-danger-text);
+@include tooltip-theme(success, $success, $button-success-text);
+@include tooltip-theme(warning, $warning, $button-warning-text);
+
+.ui-ribbon {
+  position  : absolute;
+  top       : 0;
+  right     : 0;
+  font-size : 0.6rem;
+  padding   : 0.2em 3em;
+  background: $light;
+  box-shadow: 0 0 4px 1px rgba(0,0,0,.5);
+  @include transform(rotate(45deg) translate(30%, -50%));
+}
+@include ribbon-theme(primary, $primary, $button-primary-text);
+@include ribbon-theme(secondary, $secondary, $button-secondary-text);
+@include ribbon-theme(dark, $dark, $button-dark-text);
+@include ribbon-theme(light, $light, $button-light-text);
+@include ribbon-theme(info, $info, $button-info-text);
+@include ribbon-theme(danger, $danger, $button-danger-text);
+@include ribbon-theme(success, $success, $button-success-text);
+@include ribbon-theme(warning, $warning, $button-warning-text);
 
 .ui-toast {
   display       : block;
@@ -99,12 +126,12 @@
 }
 @include toast-theme(light, $light, $dark);
 @include toast-theme(dark, tint($dark,15%));
-@include toast-theme(primary, tint($primary,85%), shade($primary,10%));
-@include toast-theme(secondary, tint($secondary,85%), shade($secondary,10%));
-@include toast-theme(info, tint($info,85%), shade($info,10%));
-@include toast-theme(danger, tint($danger,85%), shade($danger,10%));
-@include toast-theme(success, tint($success,85%), shade($success,10%));
-@include toast-theme(warning, tint($warning,85%), shade($warning,10%));
+@include toast-theme(primary, tint($primary,85%), shade($primary,20%));
+@include toast-theme(secondary, tint($secondary,85%), shade($secondary,20%));
+@include toast-theme(info, tint($info,85%), shade($info,20%));
+@include toast-theme(danger, tint($danger,85%), shade($danger,20%));
+@include toast-theme(success, tint($success,85%), shade($success,20%));
+@include toast-theme(warning, tint($warning,85%), shade($warning,20%));
 
 .ui-alert-shim {
   pointer-events: all;
