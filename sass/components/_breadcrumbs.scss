@@ -10,7 +10,7 @@
   border-radius: 1em;
   font-size    : 0.9rem;
   overflow     : hidden;
-  @include box-shadow(0 0 1px 0 $base-border-color inset);
+  @include box-shadow(0 0 0 1px rgba($base-border-color, .5));
 
   &.big {
     font-size: 1.2rem;
