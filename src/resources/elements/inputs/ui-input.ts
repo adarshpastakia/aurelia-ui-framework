@@ -131,13 +131,13 @@ export class UIInput extends UIBaseInput {
   numberChanged(newValue) {
     if (this.ignore) return;
     this.ignore = true;
-    this.value = newValue || '';
+    this.value = newValue == null ? '' : newValue;
     setTimeout(() => this.ignore = false, 100);
   }
   decimalChanged(newValue) {
     if (this.ignore) return;
     this.ignore = true;
-    this.value = newValue || '';
+    this.value = newValue == null ? '' : newValue;
     setTimeout(() => this.ignore = false, 100);
   }
 
