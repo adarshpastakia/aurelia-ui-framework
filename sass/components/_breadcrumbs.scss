@@ -42,6 +42,8 @@
 }
 @include chip-theme(primary, $primary, $button-primary-text);
 @include chip-theme(secondary, $secondary, $button-secondary-text);
+@include chip-theme(dark, $dark, $button-dark-text);
+@include chip-theme(light, $light, $button-light-text);
 @include chip-theme(info, $info, $button-info-text);
 @include chip-theme(danger, $danger, $button-danger-text);
 @include chip-theme(success, $success, $button-success-text);
