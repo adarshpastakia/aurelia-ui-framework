@@ -176,7 +176,7 @@ export class UIInput extends UIBaseInput {
     <div class="ui-file-list">
       <p repeat.for="file of files" class="ui-row ui-row-middle">
       <a click.trigger="remove($index)"><ui-glyph glyph="glyph-dialog-close" class="ui-text-danger"></ui-glyph></a>
-      <span class="ui-col-fill">\${file.name}<br/>(<small innerhtml.bind="file.size | number:'0.00b'"></small>)</span></p>
+      <span class="ui-col-fill ui-row ui-row-middle"><ui-glyph glyph="glyph-icon-file" class="ui-text-muted"></ui-glyph><span>\${file.name}<br/>(<small innerhtml.bind="file.size | number:'0.00b'"></small>)</span></span></p>
     </div>
   </div>
 </template>`)
@@ -185,7 +185,7 @@ export class UIFileInput {
   static FILE_IMAGES = 'png,jpg,jpeg,tiff';
   static FILE_DOCS = 'doc,docx,xls,xlsx,ppt,pptx,csv,rtf,txt,pdf';
 
-  @bindable() maxFiles = 1;
+  @bindable() maxFiles = 10;
   @bindable() fileTypes = '';
 
   constructor(public element: Element) { }
