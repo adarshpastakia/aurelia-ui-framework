@@ -98,7 +98,7 @@ export class HomeView {
     { label: 'home:support.titleMenu', s: 1, c: 1, o: 1, f: 1, e: 1 },
     { label: 'home:support.titleMenubar', s: 1, c: 1, o: 1, f: 1, e: 1 },
     { label: 'home:support.titlePanel', s: 1, c: 1, o: 1, f: 1, e: 1 },
-    { label: 'home:support.titleDialog', s: 1, c: 1, o: 1, f: 1, e: 2 },
+    { label: 'home:support.titleDialog', s: 1, c: 1, o: 1, f: 1, e: 1 },
     { label: 'home:support.titleAlerts', s: 1, c: 1, o: 1, f: 1, e: 1 },
     { label: 'home:support.titleDrawer', s: 1, c: 1, o: 1, f: 1, e: 1 },
     { label: 'home:support.titleToolbar', s: 1, c: 1, o: 1, f: 1, e: 1 },
