@@ -3,6 +3,10 @@
   "subtitle": "A complete UI Framework for desktop business applications",
   "version": "Version",
 
+  "Search": "Search...",
+  "More": "More...",
+  "Less": "Less...",
+
   "nav":
   {
     "sectionFramework": "Framework",
