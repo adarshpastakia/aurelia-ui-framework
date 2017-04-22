@@ -53,6 +53,7 @@ import './elements/components/ui-sidebar';
 import './elements/components/ui-tab';
 import './elements/components/ui-tree';
 import './attributes/ui-badge';
+import './attributes/ui-ribbon';
 import './attributes/ui-tooltip';
 import './attributes/md-view';
 import './value-converters/ui-lodash';
@@ -60,12 +61,13 @@ import './value-converters/ui-text';
 import 'text!./ui-glyphs.html';
 export function configure(config, configCallback) {
     UIUtils.auContainer = config.container;
+    document.documentElement.classList.add(window.browserAgent());
     ValidationController.prototype.validateTrigger = validateTrigger.changeOrBlur;
     config.container.registerHandler('ui-validator', container => container.get(UIValidationRenderer));
     config.globalResources(PLATFORM.moduleName('./elements/core/ui-grid'), PLATFORM.moduleName('./elements/core/ui-page'), PLATFORM.moduleName('./elements/core/ui-viewport'));
     config.globalResources(PLATFORM.moduleName('./elements/inputs/ui-button'), PLATFORM.moduleName('./elements/inputs/ui-date'), PLATFORM.moduleName('./elements/inputs/ui-form'), PLATFORM.moduleName('./elements/inputs/ui-input'), PLATFORM.moduleName('./elements/inputs/ui-lists'), PLATFORM.moduleName('./elements/inputs/ui-options'), PLATFORM.moduleName('./elements/inputs/ui-phone'), PLATFORM.moduleName('./elements/inputs/ui-textarea'), PLATFORM.moduleName('./elements/inputs/ui-markdown'));
     config.globalResources(PLATFORM.moduleName('./elements/components/ui-alerts'), PLATFORM.moduleName('./elements/components/ui-bars'), PLATFORM.moduleName('./elements/components/ui-breadcrumb'), PLATFORM.moduleName('./elements/components/ui-datagrid'), PLATFORM.moduleName('./elements/components/ui-dg-columns'), PLATFORM.moduleName('./elements/components/ui-drawer'), PLATFORM.moduleName('./elements/components/ui-dropdown'), PLATFORM.moduleName('./elements/components/ui-menu'), PLATFORM.moduleName('./elements/components/ui-panel'), PLATFORM.moduleName('./elements/components/ui-sidebar'), PLATFORM.moduleName('./elements/components/ui-tab'), PLATFORM.moduleName('./elements/components/ui-tree'));
-    config.globalResources(PLATFORM.moduleName('./attributes/ui-badge'), PLATFORM.moduleName('./attributes/ui-tooltip'), PLATFORM.moduleName('./attributes/md-view'));
+    config.globalResources(PLATFORM.moduleName('./attributes/ui-badge'), PLATFORM.moduleName('./attributes/ui-ribbon'), PLATFORM.moduleName('./attributes/ui-tooltip'), PLATFORM.moduleName('./attributes/md-view'));
     config.globalResources(PLATFORM.moduleName('./value-converters/ui-lodash'), PLATFORM.moduleName('./value-converters/ui-text'));
     var Configure = {
         title: (t) => {

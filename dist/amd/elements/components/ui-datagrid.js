@@ -61,6 +61,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "loda
             this.virtual = false;
             this.isBusy = false;
             this.handleSize = 30;
+            this.isRtl = false;
             this.resizing = false;
             this.virtual = element.hasAttribute('virtual');
             if (!element.hasAttribute('scroll'))
@@ -151,24 +152,26 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "loda
             var _this = this;
             if (evt.button != 0)
                 return true;
+            this.isRtl = window.isRtl(this.element);
             this.diff = 0;
             this.colResize = col;
             this.colNext = next;
             this.resizing = true;
             this.startX = (evt.x || evt.clientX);
-            this.ghost.style.left = (col.left + parseInt(col.width) - (col.locked == 0 ? 0 : this.scroller.scrollLeft)) + 'px';
+            this.ghost.style[this.isRtl ? 'right' : 'left'] = (col.left + parseInt(col.width) - (col.locked == 0 ? 0 : this.scroller.scrollLeft)) + 'px';
             document.addEventListener('mouseup', this.stop = function (evt) { return _this.resizeEnd(evt); });
             document.addEventListener('mousemove', this.move = function (evt) { return _this.resize(evt); });
         };
         UIDatagrid.prototype.resize = function (evt) {
             var x = (evt.x || evt.clientX) - this.startX;
+            x = (this.isRtl ? -1 : 1) * x;
             if (x < 0 && (parseInt(this.colResize.width) + this.diff) <= (this.colResize.minWidth || 80))
                 return;
             if (x > 0 && (parseInt(this.colResize.width) + this.diff) >= (500))
                 return;
             this.startX = (evt.x || evt.clientX);
             this.diff += x;
-            this.ghost.style.left = (parseInt(this.ghost.style.left) + x) + 'px';
+            this.ghost.style[this.isRtl ? 'right' : 'left'] = (parseInt(this.ghost.style[this.isRtl ? 'right' : 'left']) + x) + 'px';
         };
         UIDatagrid.prototype.resizeEnd = function (evt) {
             this.resizing = false;

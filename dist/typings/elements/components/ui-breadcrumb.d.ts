@@ -4,6 +4,7 @@ export declare class UIChip {
     id: string;
     label: string;
     color: string;
+    theme: string;
     private canClose;
     remove(): void;
 }

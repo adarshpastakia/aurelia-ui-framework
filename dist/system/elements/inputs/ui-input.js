@@ -138,7 +138,7 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                     if (this.ignore)
                         return;
                     this.ignore = true;
-                    this.value = newValue || '';
+                    this.value = newValue == null ? '' : newValue;
                     setTimeout(function () { return _this.ignore = false; }, 100);
                 };
                 UIInput.prototype.decimalChanged = function (newValue) {
@@ -146,7 +146,7 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                     if (this.ignore)
                         return;
                     this.ignore = true;
-                    this.value = newValue || '';
+                    this.value = newValue == null ? '' : newValue;
                     setTimeout(function () { return _this.ignore = false; }, 100);
                 };
                 UIInput.prototype.fireEvent = function (evt) {

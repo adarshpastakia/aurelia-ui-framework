@@ -61,8 +61,10 @@ export declare class UIDateInput extends UIBaseInput {
     private ignore;
     private dropdown;
     protected tether: any;
+    protected obLocale: any;
     protected obMouseup: any;
     dateChanged(newValue: any): void;
+    updateInputValue(newLocale?: any): void;
     openDropdown(): boolean;
     closeDropdown(): void;
     toggleDropdown(evt: any, forceClose?: boolean): void;

@@ -15,11 +15,28 @@ let UIChip = class UIChip {
         this.id = '';
         this.label = '';
         this.color = '';
+        this.theme = '';
         this.canClose = false;
         if (element.hasAttribute('big'))
             element.classList.add('big');
         if (element.hasAttribute('small'))
             element.classList.add('small');
+        if (this.element.hasAttribute('primary'))
+            this.theme = 'primary';
+        else if (this.element.hasAttribute('secondary'))
+            this.theme = 'secondary';
+        else if (this.element.hasAttribute('light'))
+            this.theme = 'light';
+        else if (this.element.hasAttribute('dark'))
+            this.theme = 'dark';
+        else if (this.element.hasAttribute('info'))
+            this.theme = 'info';
+        else if (this.element.hasAttribute('danger'))
+            this.theme = 'danger';
+        else if (this.element.hasAttribute('success'))
+            this.theme = 'success';
+        else if (this.element.hasAttribute('warning'))
+            this.theme = 'warning';
         this.canClose = element.hasAttribute('removable');
     }
     remove() {
@@ -38,9 +55,13 @@ __decorate([
     bindable(),
     __metadata("design:type", Object)
 ], UIChip.prototype, "color", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIChip.prototype, "theme", void 0);
 UIChip = __decorate([
     autoinject(),
-    inlineView(`<template class="ui-chip"><span class="ui-chip-label" css.bind="{'background-color':color}">\${label}</span><span class="ui-chip-value"><slot></slot></span><a click.trigger="remove()" class="ui-chip-close" if.bind="canClose">&times</a></template>`),
+    inlineView(`<template class="ui-chip \${theme}"><span class="ui-chip-label" css.bind="{'background-color':color}">\${label}</span><span class="ui-chip-value"><slot></slot></span><a click.trigger="remove()" class="ui-chip-close" if.bind="canClose">&times</a></template>`),
     customElement('ui-chip'),
     __metadata("design:paramtypes", [Element])
 ], UIChip);

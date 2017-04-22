@@ -1,3 +1,8 @@
+<a name="3.3.0"></a>
+# 3.3.0 (2017-04-22)
+
+
+
 * Fixed issues with some input elements when value is 0
 * Fixed `rtl` support issues
   - Datagrid column resizing
