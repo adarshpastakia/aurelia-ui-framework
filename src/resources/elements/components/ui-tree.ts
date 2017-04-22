@@ -252,9 +252,9 @@ export class UITree {
     <div class="ui-tree-level" if.bind="node.isVisible && !node.leaf && node.expanded">
         <tree-node repeat.for="child of node.children | sort:'name'" if.bind="!(canHideByCount && hideByCount && $index>=options.maxCount)" node.bind="child" options.bind="options"></tree-node>
         <div>
-        <div if.bind="node.children && node.children.length==0" class="ui-font-small ui-text-muted">\${options.noChildLabel || 'No items'}</div>
-        <a class="ui-font-small ui-strong" click.trigger="hideByCount=false" if.bind="canHideByCount && hideByCount">More...</a>
-        <a class="ui-font-small ui-strong" click.trigger="hideByCount=true" if.bind="canHideByCount && !hideByCount">Less...</a>
+        <div if.bind="node.children && node.children.length==0" class="ui-font-small ui-text-muted" t="No Items">No Items</div>
+        <a class="ui-font-small ui-strong" click.trigger="hideByCount=false" if.bind="canHideByCount && hideByCount" t="More">More...</a>
+        <a class="ui-font-small ui-strong" click.trigger="hideByCount=true" if.bind="canHideByCount && !hideByCount" t="Less">Less...</a>
         </div>
     </div>
 </template>`)
