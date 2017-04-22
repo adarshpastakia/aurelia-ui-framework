@@ -36,7 +36,11 @@ export class TreeComponent {
   countries = _.mapKeys(window.Countries.list, 'iso3');
 
   makeTeeModel() {
-    var ct = [];
+    var ct = [{
+      id: 'noleafs', text: 'Node with no childs',
+      openIcon: 'glyph-icon-folder-open',
+      closedIcon: 'glyph-icon-folder-closed', children: []
+    }];
     _.forEach(_.chain(window.Countries.list).sortBy('continent').groupBy('continent').value(), (v: any, k: string) => {
       let c = {
         id: _.camelCase(k),
