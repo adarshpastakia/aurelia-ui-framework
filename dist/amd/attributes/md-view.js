@@ -23,7 +23,7 @@ define(["require", "exports", "aurelia-framework", "kramed"], function (require,
                 html = html.replace(new RegExp("^[ \\t]{" + pre[0].length + "," + pre[0].length + "}", 'gm'), '');
             var rend = new kramed.Renderer();
             rend.code = function (code, lang) {
-                code = code.replace('&gt;', '>').replace('&lt;', '<').replace('&amp;', '&');
+                code = code.replace(/&gt;/g, '>').replace(/&lt;/g, '<').replace(/&amp;/g, '&');
                 if (window.hljs) {
                     window.hljs.configure({
                         useBR: true,

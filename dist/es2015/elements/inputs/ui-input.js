@@ -211,7 +211,7 @@ export { UIInput };
 let UIFileInput = class UIFileInput {
     constructor(element) {
         this.element = element;
-        this.maxFiles = 1;
+        this.maxFiles = 10;
         this.fileTypes = '';
         this.files = [];
         this.dragging = false;
@@ -280,7 +280,7 @@ UIFileInput = __decorate([
     <div class="ui-file-list">
       <p repeat.for="file of files" class="ui-row ui-row-middle">
       <a click.trigger="remove($index)"><ui-glyph glyph="glyph-dialog-close" class="ui-text-danger"></ui-glyph></a>
-      <span class="ui-col-fill">\${file.name}<br/>(<small innerhtml.bind="file.size | number:'0.00b'"></small>)</span></p>
+      <span class="ui-col-fill ui-row ui-row-middle"><ui-glyph glyph="glyph-icon-file" class="ui-text-muted"></ui-glyph><span>\${file.name}<br/>(<small innerhtml.bind="file.size | number:'0.00b'"></small>)</span></span></p>
     </div>
   </div>
 </template>`),
