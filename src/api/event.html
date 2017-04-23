@@ -22,8 +22,7 @@
 
               subscriber = UIEvent.subscribe('eventKey', e => this.handleEvent(e));
 
-              observer = UIEvent.observe(myObject, 'property')
-                .subscribe(e => this.handleEvent(e));
+              observer = UIEvent.observe(myObject, 'property', e => this.handleEvent(e));
             }
             detached() {
               subscriber.dispose();
@@ -47,7 +46,7 @@
           </li>
           <p>Shortcut helper for aurelia's <code>EventAggregator.subscribe</code></p>
           <li>
-            <code>observe(object:Object, property:String):PropertyObserver</code>
+            <code>observe(object:Object, property:String, fn?:Function):Subscription</code>
           </li>
           <p>Shortcut helper for aurelia's <code>BindingEngine.propertyObserver</code></p>
         </ul>
