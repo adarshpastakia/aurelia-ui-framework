@@ -22,12 +22,12 @@
               return this.httpClient.get('/api/user/1')
                 .then(resp => {
                   this.logger.debug('Get', resp);
-                  this.serialize(resp.result);
+                  this.deserialize(resp.result);
                 });
             }
 
             post() {
-              return this.httpClient.post('/api/user', this.deserialize())
+              return this.httpClient.post('/api/user', this.serialize())
                 .then(resp => {
                   this.logger.debug('Post', resp);
                 });
