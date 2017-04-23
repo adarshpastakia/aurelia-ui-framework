@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -7,6 +7,7 @@ import {autoinject} from 'aurelia-framework';
 import {getLogger, Logger} from "aurelia-logging";
 import {ValidationController, ValidationControllerFactory} from "aurelia-validation";
 import {UIHttpService} from "./ui-http";
+import {UIEvent} from "./ui-event";
 import {UIUtils} from "./ui-utils";
 import * as _ from "lodash";
 
@@ -62,6 +63,10 @@ export class UIModel {
 
   addObserver(ob) {
     this.__observers__.push(ob);
+  }
+
+  observe(property, callback) {
+    this.__observers__.push(UIEvent.observe(this, property, callback));
   }
 
   dispose() {
