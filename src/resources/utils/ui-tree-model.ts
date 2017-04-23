@@ -144,6 +144,13 @@ export class UITreeOptions {
 
   selectionLevel: number = -1;
 
+  labels = {
+    search: 'Search...',
+    more: 'More...',
+    less: 'Less...',
+    noitems: 'No Items'
+  }
+
   constructor(obj = {}) {
     Object.assign(this, obj)
   }
