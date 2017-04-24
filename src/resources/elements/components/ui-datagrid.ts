@@ -3,28 +3,85 @@
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
-import {autoinject, customElement, bindable, bindingMode, children, inlineView, useView, containerless, View, DOM} from 'aurelia-framework';
+import {autoinject, customElement, bindable, bindingMode, children, inlineView, useView, containerless, View, DOM, Container, ViewCompiler, ViewSlot} from 'aurelia-framework';
 import {UIFormat} from "../../utils/ui-format";
 import {UIEvent} from "../../utils/ui-event";
 import {UIUtils} from "../../utils/ui-utils";
 import {BaseDataSource, UILocalDS} from "../../data/ui-data-source";
 import * as _ from "lodash";
 
-@inlineView(`<template><tr class="level-\${level} \${record.isOpen?'ui-expanded':''} \${parent.selected==record?'ui-selected':''}" click.delegate="parent.fireSelect(parent.selected=record)">
-  <td class="ui-expander" if.bind="parent.handleSize>0">
-    <div><a if.bind="record.subdata" click.trigger="expand($event)"><ui-glyph glyph.bind="record.isOpen?'glyph-icon-minus':'glyph-icon-plus'"></ui-glyph></a></div>
-  </td>
-  <td repeat.for="col of parent.cols" class="\${col.locked==0?'ui-locked':''} \${col.align}" css.bind="{left: col.left+'px'}">
-  <div if.bind="col.type=='normal'"><span class="\${col.class}" innerhtml.bind='col.getValue(record[col.dataId],record)'></span></div>
+@autoinject()
+@inlineView(`<template></template>`)
+@customElement('ui-dg-cell')
+export class UIDgCell {
+  constructor(public element: Element, private container: Container, private compiler: ViewCompiler) { }
+
+  @bindable() col;
+  @bindable() type;
+  @bindable() record;
+  @bindable() parent;
+
+  attached() {
+    if (this.element.innerHTML) return;
+    let template = '';
+    if (this.type == 'subview') {
+      if (isFunction(this.parent.subview)) template = this.parent.subview({ record: this.record });
+      else template = this.parent.subview;
+    }
+    else if (this.col.type == 'normal')
+      template = `<div><span class="\${col.class}" innerhtml.bind='col.getValue(record[col.dataId],record)'></span></div>`
+    else if (this.col.type == 'glyph')
+      template = `<div title.bind="col.getTooltip(record[col.dataId],record)">
+        <ui-glyph class="\${col.class} \${col.getGlyph(record[col.dataId],record)}" glyph.bind="col.getGlyph(record[col.dataId],record)"></ui-glyph>
+        </div>`
+    else if (this.col.type == 'link')
+      template = `<div>
+        <a class="ui-link \${col.class} \${col.isDisabled(record[col.dataId],record)?'ui-disabled':''}" click.trigger="col.fireClick($event,record[col.dataId],record)">
+          <ui-glyph glyph.bind="col.getGlyph(record[col.dataId],record)" if.bind="col.glyph"></ui-glyph>
+          <span innerhtml.bind="col.getLabel(record[col.dataId],record)"></span>
+        </a>
+        </div>`
+    else if (this.col.type == 'button')
+      template = `<div class="btn-fix">
+        <ui-button click.trigger="col.fireClick($event,record[col.dataId],record)" theme.bind="col.getTheme(record[col.dataId],record)" small square glyph.bind="col.getGlyph(record[col.dataId],record)" disabled.bind="col.isDisabled(record[col.dataId],record)" dropdown.bind="col.dropdown" menuopen.trigger="col.fireMenuOpen($event, record)">
+          <span innerhtml.bind="col.getLabel(record[col.dataId],record)"></span>
+        </ui-button>
+        </div>`
+
+    let viewFactory = this.compiler.compile(`<template>${template}</template>`);
+    let view = viewFactory.create(this.container);
+    view.bind(this);
+    // DOM.appendNode(div, this.element);
+    let slot = new ViewSlot(this.element, true);
+    slot.add(view);
+    slot.attached();
+  }
+
+  /*
   <div if.bind="col.type=='glyph'" title.bind="col.getTooltip(record[col.dataId],record)"><ui-glyph class="\${col.class} \${col.getGlyph(record[col.dataId],record)}" glyph.bind="col.getGlyph(record[col.dataId],record)"></ui-glyph></div>
   <div if.bind="col.type=='link'"><a class="ui-link \${col.class} \${col.isDisabled(record[col.dataId],record)?'ui-disabled':''}" click.trigger="col.fireClick($event,record[col.dataId],record)"><ui-glyph glyph.bind="col.getGlyph(record[col.dataId],record)" if.bind="col.glyph"></ui-glyph> <span innerhtml.bind="col.getLabel(record[col.dataId],record)"></span></a></div>
   <div if.bind="col.type=='button'" class="btn-fix"><ui-button click.trigger="col.fireClick($event,record[col.dataId],record)" theme.bind="col.getTheme(record[col.dataId],record)" small square glyph.bind="col.getGlyph(record[col.dataId],record)" disabled.bind="col.isDisabled(record[col.dataId],record)" dropdown.bind="col.dropdown" menuopen.trigger="col.fireMenuOpen($event, record)"><span innerhtml.bind="col.getLabel(record[col.dataId],record)"></span></ui-button></div>
+  */
+}
+
+@inlineView(`<template><tr class="level-\${level} \${record.isOpen?'ui-expanded':''} \${parent.selected==record?'ui-selected':''}" click.delegate="parent.fireSelect(parent.selected=record)">
+  <td class="ui-expander" if.bind="parent.handleSize>0">
+    <div><a if.bind="record.subdata || parent.subview" click.trigger="expand($event)"><ui-glyph glyph.bind="record.isOpen?'glyph-icon-minus':'glyph-icon-plus'"></ui-glyph></a></div>
+  </td>
+  <td repeat.for="col of parent.cols" class="\${col.locked==0?'ui-locked':''} \${col.align}" css.bind="{left: col.left+'px'}"
+    col.bind="col" parent.bind="parent" record.bind="record" as-element="ui-dg-cell">
   </td>
   <td class="filler"><div>&nbsp;</div></td></tr>
 
-  <ui-dg-row containerless if.bind="record.isOpen" level.bind="level+1" parent.bind="parent"
+  <ui-dg-row containerless if.bind="!parent.subview && record.subdata && record.isOpen" level.bind="level+1" parent.bind="parent"
     record.bind="rec" repeat.for="rec of getSubdata()" class="\${$last?'ui-last-inner':''}">
   </ui-dg-row>
+
+  <tr if.bind="parent.subview && record.isOpen" class="filler">
+  <td class="ui-expander" if.bind="parent.handleSize>0"><div></div></td>
+  <td colspan="\${parent.cols.length}"><div parent.bind="parent"
+    record.bind="record" type="subview" as-element="ui-dg-cell"></div></td>
+  <td class="filler"><div>&nbsp;</div></td></tr>
 </template>`)
 @customElement('ui-dg-row')
 export class UIDgRow {
@@ -47,8 +104,8 @@ export class UIDgRow {
 @autoinject()
 @inlineView(`<template class="ui-datagrid"><div class="ui-hidden"><slot></slot></div>
 <div show.bind="resizing" ref="ghost" class="ui-dg-ghost"></div>
-<div>
-<table ref="dgHead" width.bind="tableWidth" css.bind="{'table-layout': tableWidth?'fixed':'auto' }">
+<div ref="dgHead">
+<table width.bind="tableWidth" css.bind="{'table-layout': tableWidth?'fixed':'auto' }">
   <colgroup>
     <col width="\${handleSize}" if.bind="handleSize>0"/>
     <col repeat.for="col of cols" data-index.bind="$index" width.bind="col.width"/>
@@ -60,14 +117,14 @@ export class UIDgRow {
     <div if.bind="!col.isGroup">
       <span class="ui-dg-header" innerhtml.bind='col.getTitle()'></span>
       <span class="ui-filter" if.bind="col.filter"><ui-glyph glyph="glyph-funnel"></ui-glyph></span>
-      <span class="ui-sort \${col.dataId==sortColumn ? sortOrder:''}" if.bind="col.sortable"></span>
+      <span class="ui-sort \${col.dataId==store.sortBy ? store.orderBy:''}" if.bind="col.sortable"></span>
       <span class="ui-resizer" if.bind="col.resize" mousedown.trigger="resizeColumn($event,col,cols[$index+1])"></span>
     </div><div if.bind="col.isGroup" class="ui-dg-group"><span class="ui-dg-header" innerhtml.bind='col.getTitle()'></span></div></td>
     <td class="filler" rowspan.bind="headCols2.length?2:''"><div><span class="ui-dg-header">&nbsp;</span></div></td>
   </tr><tr show.bind="headCols2.length"><td repeat.for="col of headCols2" mouseup.trigger="doSort(col)" class="\${col.sortable?'ui-sortable':''} \${col.locked==0?'ui-locked':''}" css.bind="{left: col.left+'px'}" if.bind="col"><div>
     <span class="ui-dg-header" innerhtml.bind='col.getTitle()'></span>
     <span class="ui-filter" if.bind="col.filter"><ui-glyph glyph="glyph-funnel"></ui-glyph></span>
-    <span class="ui-sort \${col.dataId==sortColumn ? sortOrder:''}" if.bind="col.sortable"></span>
+    <span class="ui-sort \${col.dataId==store.sortBy ? store.orderBy:''}" if.bind="col.sortable"></span>
     <span class="ui-resizer" if.bind="col.resize" mousedown.trigger="resizeColumn($event,col,cols[$index+1])"></span>
   </div></td></tr></thead>
 </table>
@@ -131,10 +188,12 @@ export class UIDatagrid {
   bind(bindingContext: Object, overrideContext: Object) {
     if (this.pager) {
       if (!(this.pager instanceof UIPager)) throw new Error('Pager must be instance of UIPager');
-      this.obPageChange = UIEvent.observe(this.pager, 'page').subscribe(pg => this.store.loadPage(pg));
+      this.obPageChange = UIEvent.observe(this.pager, 'page', pg => this.store.loadPage(pg));
     }
     if (!(this.store instanceof BaseDataSource))
       this.store = new UILocalDS(this.store);
+
+    if (this.subview) this.handleSize = 30;
 
     // this.obDataChange = UIEvent.observe(this.store, 'data').subscribe(data => this.store.loadPage(pg));
   }
@@ -143,7 +202,7 @@ export class UIDatagrid {
       this.columnsChanged(this.columns);
       this.scrolling();
     });
-    UIEvent.queueTask(() => (!this.store.isLoaded ? this.store.fetchData() : null));
+    // UIEvent.queueTask(() => (!this.store.isLoaded ? this.store.fetchData() : null));
   }
   detached() {
     if (this.obPageChange) this.obPageChange.dispose();
@@ -157,6 +216,7 @@ export class UIDatagrid {
 
   @bindable() store;
   @bindable() pager;
+  @bindable() subview;
   @bindable() summaryRow = false;
 
   private cols = [];
@@ -195,6 +255,9 @@ export class UIDatagrid {
   }
   private doSort(col) {
     if (!col.sortable) return;
+    let sortOrder = 'asc';
+    if (this.store.sortBy == col.dataId) sortOrder = this.store.orderBy == 'asc' ? 'desc' : 'asc';
+    this.store.sort(col.dataId, sortOrder);
   }
 
   private calculateWidth(cols) {

@@ -47,19 +47,17 @@ export class UILocalDS extends BaseDataSource {
   }
 
   fetchData() {
-    this.isLoaded = true;
     this.isLoading = true;
     Promise.resolve(this.data = _.cloneDeep(this.__original__));
     this.isEmpty = this.data.length == 0;
-    UIEvent.queueTask(() => this.isLoading = false);
+    UIEvent.queueTask(() => this.isLoaded = !(this.isLoading = false));
   }
   loadPage(pg = 0) {
-    this.isLoaded = true;
     this.isLoading = true;
     let offset = (this.currentPage = pg) * this.recordsPerPage;
     Promise.resolve(this.data = _.slice(this.__original__, offset, offset + this.recordsPerPage));
     this.isEmpty = this.data.length == 0;
-    UIEvent.queueTask(() => this.isLoading = false);
+    UIEvent.queueTask(() => this.isLoaded = !(this.isLoading = false));
   }
 
   sort(property = this.sortBy, order = this.orderBy) {

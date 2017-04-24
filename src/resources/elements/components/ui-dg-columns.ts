@@ -96,7 +96,7 @@ export class UIDataColumn {
       switch (this.summary) {
         case 'sum': retVal = _.sumBy(data, this.dataId); break;
         case 'avg': retVal = _['meanBy'](data, this.dataId); break;
-        default: return this.summary;
+        default: return this.summary || '&nbsp;';
       }
     }
     if (isFunction(this.display))
