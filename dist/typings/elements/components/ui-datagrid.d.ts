@@ -1,3 +1,15 @@
+import { Container, ViewCompiler } from 'aurelia-framework';
+export declare class UIDgCell {
+    element: Element;
+    private container;
+    private compiler;
+    constructor(element: Element, container: Container, compiler: ViewCompiler);
+    col: any;
+    type: any;
+    record: any;
+    parent: any;
+    attached(): void;
+}
 export declare class UIDgRow {
     level: number;
     record: any;
@@ -12,18 +24,13 @@ export declare class UIDatagrid {
     attached(): void;
     detached(): void;
     columns: any;
-    data: any;
-    loaded: boolean;
-    summaryRow: boolean;
-    sortColumn: string;
-    sortOrder: string;
+    store: any;
     pager: any;
-    perPage: number;
+    subview: any;
+    summaryRow: boolean;
     private cols;
     private headCols;
     private headCols2;
-    private paged;
-    private filtered;
     private tableWidth;
     private virtual;
     private isBusy;
@@ -31,14 +38,12 @@ export declare class UIDatagrid {
     private obPageChange;
     private handleSize;
     columnsChanged(newValue: any): void;
-    dataChanged(newValue: any): void;
+    storeChanged(newValue: any): void;
     dgHead: any;
     dgFoot: any;
     scroller: any;
     selected: any;
     private scrolling();
-    private filter();
-    private makePage();
     private doSort(col);
     private calculateWidth(cols);
     private fireSelect(record);

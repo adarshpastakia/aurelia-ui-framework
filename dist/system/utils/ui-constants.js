@@ -9,7 +9,7 @@ System.register([], function (exports_1, context_1) {
                 UIConstants.AppKey = 'AUF';
                 UIConstants.Title = 'Aurelia UI Framework';
                 UIConstants.SubTitle = '';
-                UIConstants.Version = '3.3.0';
+                UIConstants.Version = '4.0.0';
                 UIConstants.Http = {
                     BaseUrl: './',
                     Headers: {},

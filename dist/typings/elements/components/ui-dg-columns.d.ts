@@ -28,7 +28,7 @@ export declare class UIDGColumnGroup {
     columns: any;
     locked: number;
     isGroup: boolean;
-    getTitle(): any;
+    getTitle(): string;
     getWidth(): number;
 }
 export declare class UIDGColumn extends UIDataColumn {

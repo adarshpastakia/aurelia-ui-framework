@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-define(["require", "exports", "aurelia-framework", "aurelia-logging", "./ui-http", "./ui-utils", "lodash"], function (require, exports, aurelia_framework_1, aurelia_logging_1, ui_http_1, ui_utils_1, _) {
+define(["require", "exports", "aurelia-framework", "aurelia-logging", "./ui-http", "./ui-event", "./ui-utils", "lodash"], function (require, exports, aurelia_framework_1, aurelia_logging_1, ui_http_1, ui_event_1, ui_utils_1, _) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var UIModel = UIModel_1 = (function () {
@@ -67,6 +67,9 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "./ui-http
         };
         UIModel.prototype.addObserver = function (ob) {
             this.__observers__.push(ob);
+        };
+        UIModel.prototype.observe = function (property, callback) {
+            this.__observers__.push(ui_event_1.UIEvent.observe(this, property, callback));
         };
         UIModel.prototype.dispose = function () {
             this.logger.debug("Model Disposing");

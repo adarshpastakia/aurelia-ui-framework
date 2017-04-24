@@ -33,6 +33,12 @@ export declare class UITreeOptions {
     showRoot: boolean;
     rootLabel: string;
     selectionLevel: number;
+    labels: {
+        search: string;
+        more: string;
+        less: string;
+        noitems: string;
+    };
     constructor(obj?: {});
 }
 export interface UITreePanel {

@@ -120,7 +120,7 @@ var UIDataColumn = (function () {
             symbol = summaryRow[this.symbol];
         }
         else if (isFunction(this.summary))
-            retVal = this.summary({ data: data });
+            retVal = this.summary(data);
         else {
             switch (this.summary) {
                 case 'sum':
@@ -129,7 +129,7 @@ var UIDataColumn = (function () {
                 case 'avg':
                     retVal = _['meanBy'](data, this.dataId);
                     break;
-                default: return this.summary;
+                default: return this.summary || '&nbsp;';
             }
         }
         if (isFunction(this.display))
@@ -165,7 +165,7 @@ var UIDGColumnGroup = (function () {
         this.locked = element.hasAttribute('locked') ? 0 : 1;
     }
     UIDGColumnGroup.prototype.getTitle = function () {
-        return this.label || '&nbsp;';
+        return this.label + '&nbsp;';
     };
     UIDGColumnGroup.prototype.getWidth = function () {
         return 0;

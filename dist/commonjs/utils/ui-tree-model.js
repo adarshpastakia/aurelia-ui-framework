@@ -119,6 +119,12 @@ var UITreeOptions = (function () {
         this.showRoot = false;
         this.rootLabel = 'Root';
         this.selectionLevel = -1;
+        this.labels = {
+            search: 'Search...',
+            more: 'More...',
+            less: 'Less...',
+            noitems: 'No Items'
+        };
         Object.assign(this, obj);
     }
     return UITreeOptions;

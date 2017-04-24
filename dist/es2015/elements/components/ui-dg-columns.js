@@ -108,7 +108,7 @@ export class UIDataColumn {
             symbol = summaryRow[this.symbol];
         }
         else if (isFunction(this.summary))
-            retVal = this.summary({ data });
+            retVal = this.summary(data);
         else {
             switch (this.summary) {
                 case 'sum':
@@ -117,7 +117,7 @@ export class UIDataColumn {
                 case 'avg':
                     retVal = _['meanBy'](data, this.dataId);
                     break;
-                default: return this.summary;
+                default: return this.summary || '&nbsp;';
             }
         }
         if (isFunction(this.display))
@@ -151,7 +151,7 @@ let UIDGColumnGroup = class UIDGColumnGroup {
         this.locked = element.hasAttribute('locked') ? 0 : 1;
     }
     getTitle() {
-        return this.label || '&nbsp;';
+        return this.label + '&nbsp;';
     }
     getWidth() {
         return 0;

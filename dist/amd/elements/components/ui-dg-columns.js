@@ -117,7 +117,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-format", "../
                 symbol = summaryRow[this.symbol];
             }
             else if (isFunction(this.summary))
-                retVal = this.summary({ data: data });
+                retVal = this.summary(data);
             else {
                 switch (this.summary) {
                     case 'sum':
@@ -126,7 +126,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-format", "../
                     case 'avg':
                         retVal = _['meanBy'](data, this.dataId);
                         break;
-                    default: return this.summary;
+                    default: return this.summary || '&nbsp;';
                 }
             }
             if (isFunction(this.display))
@@ -162,7 +162,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-format", "../
             this.locked = element.hasAttribute('locked') ? 0 : 1;
         }
         UIDGColumnGroup.prototype.getTitle = function () {
-            return this.label || '&nbsp;';
+            return this.label + '&nbsp;';
         };
         UIDGColumnGroup.prototype.getWidth = function () {
             return 0;
