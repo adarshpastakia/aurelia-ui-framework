@@ -24,7 +24,7 @@ export class MdView {
     // this.element.innerHTML = UIFormat.toHTML('```' + this.value + '\n' + html + '\n```');
     let rend = new kramed.Renderer();
     rend.code = (code, lang) => {
-      code = code.replace('&gt;', '>').replace('&lt;', '<').replace('&amp;', '&');
+      code = code.replace(/&gt;/g, '>').replace(/&lt;/g, '<').replace(/&amp;/g, '&');
       if (window.hljs) {
         window.hljs.configure({
           useBR: true,

@@ -43,7 +43,7 @@ export class UIPanel {
 }
 
 @autoinject()
-@inlineView(`<template class="ui-panel-body" css.bind="{'max-height': maxHeight,'flex-basis':height}"><slot></slot></template>`)
+@inlineView(`<template class="ui-panel-body" css.bind="{'max-height': maxheight,'flex-basis':height}"><slot></slot></template>`)
 @customElement('ui-panel-body')
 export class UIPanelBody {
   constructor(public element: Element) {
@@ -61,7 +61,7 @@ export class UIPanelBody {
   // end aurelia hooks
 
   @bindable() height = 'auto';
-  @bindable() maxHeight = 'auto';
+  @bindable() maxheight = 'auto';
 }
 
 @autoinject()

@@ -37,13 +37,13 @@
     @include align-self(stretch);
   }
 
-   > .ui-input-wrapper,
-  > .ui-input-group {
+   > .ui-input-group,
+  > .ui-input-wrapper {
     margin: 0 0.25em;
   }
 
-   > .ui-button,
-  > .ui-button-group {
+   > .ui-button-group,
+  > .ui-button {
     margin: 0 0.2rem;
   }
 }
@@ -102,14 +102,16 @@
 
     .ui-stat-label {
       color      : $muted;
-      font-size  : 0.5em;
+      font-size  : 0.8em;
       text-align : center;
       font-weight: 600;
     }
   }
 
-  &.ui-icon-top {
-    @include flex-wrap(wrap);
+  &:not(.ui-vertical).ui-icon-top {
+    .ui-stat {
+      @include flex-wrap(wrap);
+    }
 
     .ui-stat > div {
       @include flex(1 1 100%);

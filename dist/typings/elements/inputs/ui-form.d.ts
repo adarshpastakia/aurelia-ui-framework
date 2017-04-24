@@ -37,6 +37,7 @@ export declare class UIInputAddon {
 export declare class UIInputLabel {
     element: Element;
     constructor(element: Element);
+    bind(bindingContext: Object, overrideContext: Object): void;
     attached(): void;
     static seed: number;
     private label;

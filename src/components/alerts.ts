@@ -20,6 +20,7 @@ export class CompAlerts {
   // deactivate() { }
   // end aurelia hooks
 
+  themeTip = "dark";
   toast = {
     title: 'Toast!!',
     message: 'Sample toast message...',

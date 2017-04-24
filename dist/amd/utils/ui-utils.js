@@ -132,6 +132,7 @@ define(["require", "exports", "aurelia-framework", "aurelia-metadata", "./ui-eve
                 this.position = function (sizeWidth, topLeft) {
                     if (sizeWidth === void 0) { sizeWidth = false; }
                     if (topLeft === void 0) { topLeft = false; }
+                    var isRtl = window.isRtl(el);
                     var pos = el.getBoundingClientRect();
                     if (options.resize)
                         dd.style.minWidth = pos.width + 'px';
@@ -176,7 +177,7 @@ define(["require", "exports", "aurelia-framework", "aurelia-metadata", "./ui-eve
                         dd.style.left = pos.left + (pos.width / 2) + 'px';
                         dd.style.transform += ' translateX(-50%)';
                     }
-                    else if (align[1] == 'r') {
+                    else if (align[1] == (isRtl ? 'l' : 'r')) {
                         if (pos.left - dd.offsetWidth < 0) {
                             dd.classList.add('ui-tether-left');
                             el.classList.add('ui-tether-left');

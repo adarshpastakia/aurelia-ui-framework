@@ -222,6 +222,28 @@
 }
 //
 
+// Tooltip
+@mixin tooltip-theme($style, $bg, $text) {
+  .ui-tooltip.#{$style} {
+    color     : $text;
+    background: $bg;
+
+    &:after {
+      border-color: $bg transparent;
+    }
+  }
+}
+//
+
+// Ribbon
+@mixin ribbon-theme($style, $bg, $text) {
+  .ui-ribbon.#{$style} {
+    color     : $text;
+    background: $bg;
+  }
+}
+//
+
 // Buttons
 @mixin button-theme($style, $bg, $text, $hoverBg, $hoverText, $activeBg, $activeText) {
   .ui-button-group.ui-toggle .ui-button.#{$style}.ui-active {

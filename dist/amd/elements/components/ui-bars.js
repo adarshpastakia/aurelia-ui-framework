@@ -59,6 +59,8 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
             this.element = element;
             if (element.hasAttribute('small'))
                 element.classList.add('ui-small');
+            if (element.hasAttribute('icon-top'))
+                element.classList.add('ui-icon-top');
             if (element.hasAttribute('vertical'))
                 element.classList.add('ui-vertical');
             if (element.hasAttribute('dark'))

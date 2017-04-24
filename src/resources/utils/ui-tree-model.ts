@@ -52,7 +52,7 @@ export class UITreeModel {
     this.closedIcon = model.closedIcon;
 
     this.root = level == -1;
-    this.leaf = (model.children || []).length == 0 || level == maxLevels;
+    this.leaf = !model.children || level == maxLevels;
     this.active = model.active || false;
     this.expanded = model.expanded || false;
 
@@ -143,6 +143,13 @@ export class UITreeOptions {
   rootLabel: string = 'Root';
 
   selectionLevel: number = -1;
+
+  labels = {
+    search: 'Search...',
+    more: 'More...',
+    less: 'Less...',
+    noitems: 'No Items'
+  }
 
   constructor(obj = {}) {
     Object.assign(this, obj)

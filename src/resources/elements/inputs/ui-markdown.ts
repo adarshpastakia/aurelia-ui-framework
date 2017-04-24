@@ -263,8 +263,8 @@ export class UIMarkdown extends UIBaseInput {
     <div class="ui-list-group" t="Selected">Selected</div>
     <div class="ui-lang-item" repeat.for="item of selectedList">
       <div class="ui-list-item \${item.id==value?'ui-selected':''} \${item.disabled?'ui-disabled':''}"
-      mouseover.delegate="hilightItem($event)" click.trigger="fireSelect(item)"><ui-glyph glyph="glyph-invalid" if.bind="errored.indexOf(item.id)>-1"></ui-glyph> \${item.name}</div>
-      <ui-glyph class="ui-text-danger ui-font-big" glyph="glyph-tree-collapse" click.trigger="removeLanguage(item)"></ui-glyph>
+      mouseover.delegate="hilightItem($event)" click.trigger="fireSelect(item)"><ui-glyph glyph="glyph-invalid" class="ui-text-warning" if.bind="errored.indexOf(item.id)>-1"></ui-glyph> \${item.name}</div>
+      <a click.trigger="removeLanguage(item)"><ui-glyph class="ui-text-danger ui-font-big" glyph="glyph-tree-collapse"></ui-glyph></a>
     </div>
     <div class="ui-list-group" t="Available">Available</div>
     <div class="ui-lang-item" repeat.for="item of availableList" click.trigger="addLanguage(item)">

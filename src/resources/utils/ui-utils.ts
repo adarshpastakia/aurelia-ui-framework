@@ -140,6 +140,7 @@ export module UIUtils {
         window.removeEventListener('resize', this.position);
       }
       this.position = (sizeWidth = false, topLeft = false) => {
+        let isRtl = window.isRtl(el);
         let pos = el.getBoundingClientRect();
         if (options.resize) dd.style.minWidth = pos.width + 'px';
 
@@ -195,7 +196,7 @@ export module UIUtils {
           dd.style.left = pos.left + (pos.width / 2) + 'px';
           dd.style.transform += ' translateX(-50%)';
         }
-        else if (align[1] == 'r') {
+        else if (align[1] == (isRtl ? 'l' : 'r')) {
           if (pos.left - dd.offsetWidth < 0) {
             dd.classList.add('ui-tether-left');
             el.classList.add('ui-tether-left');

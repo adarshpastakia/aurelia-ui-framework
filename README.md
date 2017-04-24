@@ -233,7 +233,7 @@
 <td style="text-align:center"><img src="http://i63.tinypic.com/5v5c7c.png" alt="Working"></td>
 <td style="text-align:center"><img src="http://i63.tinypic.com/5v5c7c.png" alt="Working"></td>
 <td style="text-align:center"><img src="http://i63.tinypic.com/5v5c7c.png" alt="Working"></td>
-<td style="text-align:center"><img src="http://i67.tinypic.com/wo6c7.png" alt="Error"></td>
+<td style="text-align:center"><img src="http://i67.tinypic.com/5v5c7c.png" alt="Working"></td>
 </tr>
 <tr>
 <td>Alerts</td>

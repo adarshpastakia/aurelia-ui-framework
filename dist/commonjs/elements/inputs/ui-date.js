@@ -357,6 +357,7 @@ var UIDateInput = (function (_super) {
             _this.type = 'dt';
             _this.format = 'DD MMM YYYY hh:mm A';
         }
+        _this.obLocale = ui_event_1.UIEvent.subscribe('i18n:locale:changed', function (payload) { return _this.updateInputValue(payload.newValue); });
         return _this;
     }
     UIDateInput.prototype.bind = function (bindingContext, overrideContext) {
@@ -377,6 +378,7 @@ var UIDateInput = (function (_super) {
     };
     UIDateInput.prototype.detached = function () {
         this.tether.dispose();
+        this.obLocale.dispose();
         this.obMouseup.dispose();
     };
     UIDateInput.prototype.dateChanged = function (newValue) {
@@ -388,6 +390,14 @@ var UIDateInput = (function (_super) {
         if (this.type == 'd')
             this.closeDropdown();
         ui_event_1.UIEvent.fireEvent('change', this.element, newValue || null);
+    };
+    UIDateInput.prototype.updateInputValue = function (newLocale) {
+        if (newLocale)
+            moment.locale(newLocale);
+        if (this.date && moment(this.date).isValid())
+            this.elValue = moment(this.date).format(this.format);
+        else
+            this.elValue = '';
     };
     UIDateInput.prototype.openDropdown = function () {
         if (this.readonly || this.disabled)

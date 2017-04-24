@@ -10,7 +10,7 @@ import * as _ from "lodash";
 
 @autoinject()
 @inlineView(`<template class="ui-tree-panel"><ui-input-group class="ui-tree-search" if.bind="searchable">
-  <ui-input type="search" t="[placeholder]Search" placeholder="Search..." clear value.bind="searchText" input.trigger="searchTextChanged(searchText) & debounce:200"><ui-input-addon class="ui-text-muted" glyph="glyph-search"></ui-input-addon></ui-input></ui-input-group>
+  <ui-input type="search" t="[placeholder]Search" placeholder="\${options.labels.search}" clear value.bind="searchText" input.trigger="searchTextChanged(searchText) & debounce:200"><ui-input-addon class="ui-text-muted" glyph="glyph-search"></ui-input-addon></ui-input></ui-input-group>
   <div class="ui-tree-level">
     <tree-node repeat.for="child of root.children | sort:'name'" node.bind="child" options.bind="options" nodeclick.delegate="itemClicked($event.detail)"></tree-node>
   </div></template>`)
@@ -252,8 +252,9 @@ export class UITree {
     <div class="ui-tree-level" if.bind="node.isVisible && !node.leaf && node.expanded">
         <tree-node repeat.for="child of node.children | sort:'name'" if.bind="!(canHideByCount && hideByCount && $index>=options.maxCount)" node.bind="child" options.bind="options"></tree-node>
         <div>
-        <a class="ui-font-small ui-strong" click.trigger="hideByCount=false" if.bind="canHideByCount && hideByCount">More...</a>
-        <a class="ui-font-small ui-strong" click.trigger="hideByCount=true" if.bind="canHideByCount && !hideByCount">Less...</a>
+        <div if.bind="node.children && node.children.length==0" class="ui-font-small ui-text-muted" t="No Items">\${options.labels.noitems}</div>
+        <a class="ui-font-small ui-strong" click.trigger="hideByCount=false" if.bind="canHideByCount && hideByCount" t="More">\${options.labels.more}</a>
+        <a class="ui-font-small ui-strong" click.trigger="hideByCount=true" if.bind="canHideByCount && !hideByCount" t="Less">\${options.labels.less}</a>
         </div>
     </div>
 </template>`)

@@ -366,6 +366,7 @@ export class UIDateInput extends UIBaseInput {
       this.type = 'dt';
       this.format = 'DD MMM YYYY hh:mm A';
     }
+    this.obLocale = UIEvent.subscribe('i18n:locale:changed', payload => this.updateInputValue(payload.newValue));
   }
 
   // aurelia hooks
@@ -386,6 +387,7 @@ export class UIDateInput extends UIBaseInput {
   }
   detached() {
     this.tether.dispose();
+    this.obLocale.dispose();
     this.obMouseup.dispose();
   }
   // unbind() { }
@@ -414,6 +416,7 @@ export class UIDateInput extends UIBaseInput {
   private dropdown;
 
   protected tether;
+  protected obLocale;
   protected obMouseup;
 
   dateChanged(newValue) {
@@ -422,6 +425,12 @@ export class UIDateInput extends UIBaseInput {
     this.inputEl.focus();
     if (this.type == 'd') this.closeDropdown();
     UIEvent.fireEvent('change', this.element, newValue || null);
+  }
+
+  updateInputValue(newLocale?) {
+    if (newLocale) moment.locale(newLocale);
+    if (this.date && moment(this.date).isValid()) this.elValue = moment(this.date).format(this.format);
+    else this.elValue = '';
   }
 
   openDropdown() {

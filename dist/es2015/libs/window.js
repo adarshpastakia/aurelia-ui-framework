@@ -44,6 +44,16 @@ window.isFunction = function(a) {
   return (typeof a === 'function');
 }
 
+window.isRtl = function(el) {
+  rtl = false;
+  do {
+    if ((el.dir || el.style.direction) == "rtl") return true;
+    if ((el.dir || el.style.direction) == "ltr") return false;
+    el = el.parentElement;
+  } while (el != null);
+  return false;
+}
+
 window.getParentByTag = function(el, selector, last) {
   do {
     if (last && last instanceof Element && el === last) return null;

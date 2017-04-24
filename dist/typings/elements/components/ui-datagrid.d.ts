@@ -42,6 +42,7 @@ export declare class UIDatagrid {
     private doSort(col);
     private calculateWidth(cols);
     private fireSelect(record);
+    isRtl: boolean;
     move: any;
     stop: any;
     diff: any;

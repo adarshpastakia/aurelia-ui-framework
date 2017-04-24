@@ -29,6 +29,7 @@ export declare class UIDialogService {
     private __startX;
     private __startY;
     private __dialog;
+    private __isRtl;
     private moveStart($event);
     private moveEnd();
     private move($event);

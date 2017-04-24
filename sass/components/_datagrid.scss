@@ -38,9 +38,7 @@
   }
 
   .ui-dg-empty {
-    position  : absolute;
     z-index   : 5;
-    top       : 1.75em;
     background: $datagrid-base-bg;
     width     : 100%;
     padding   : 1em;
@@ -107,8 +105,8 @@
       }
     }
 
-     > tfoot > tr > td,
-    > thead > tr > td {
+     > thead > tr > td,
+    > tfoot > tr > td {
       font-size  : 0.9em;
       font-weight: 600;
     }
@@ -301,5 +299,12 @@
       border    : none;
       text-align: center;
     }
+  }
+}
+
+.rtl,
+[dir="rtl"] {
+  .ui-pager a > .ui-icon {
+    @include transform(scaleX(-1));
   }
 }

@@ -396,6 +396,7 @@ let UIDateInput = class UIDateInput extends UIBaseInput {
             this.type = 'dt';
             this.format = 'DD MMM YYYY hh:mm A';
         }
+        this.obLocale = UIEvent.subscribe('i18n:locale:changed', payload => this.updateInputValue(payload.newValue));
     }
     bind(bindingContext, overrideContext) {
         super.bind.apply(this, arguments);
@@ -414,6 +415,7 @@ let UIDateInput = class UIDateInput extends UIBaseInput {
     }
     detached() {
         this.tether.dispose();
+        this.obLocale.dispose();
         this.obMouseup.dispose();
     }
     dateChanged(newValue) {
@@ -425,6 +427,14 @@ let UIDateInput = class UIDateInput extends UIBaseInput {
         if (this.type == 'd')
             this.closeDropdown();
         UIEvent.fireEvent('change', this.element, newValue || null);
+    }
+    updateInputValue(newLocale) {
+        if (newLocale)
+            moment.locale(newLocale);
+        if (this.date && moment(this.date).isValid())
+            this.elValue = moment(this.date).format(this.format);
+        else
+            this.elValue = '';
     }
     openDropdown() {
         if (this.readonly || this.disabled)

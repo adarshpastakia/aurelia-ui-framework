@@ -63,6 +63,7 @@ import './elements/components/ui-tab';
 import './elements/components/ui-tree';
 
 import './attributes/ui-badge';
+import './attributes/ui-ribbon';
 import './attributes/ui-tooltip';
 import './attributes/md-view';
 
@@ -86,6 +87,7 @@ export interface UIConfig {
 
 export function configure(config: { container: Container, globalResources?: (...resources: string[]) => any }, configCallback) {
   UIUtils.auContainer = config.container;
+  document.documentElement.classList.add(window.browserAgent());
 
   ValidationController.prototype.validateTrigger = validateTrigger.changeOrBlur;
   config.container.registerHandler('ui-validator', container => container.get(UIValidationRenderer));
@@ -125,6 +127,7 @@ export function configure(config: { container: Container, globalResources?: (...
   // Attributes
   config.globalResources(
     PLATFORM.moduleName('./attributes/ui-badge'),
+    PLATFORM.moduleName('./attributes/ui-ribbon'),
     PLATFORM.moduleName('./attributes/ui-tooltip'),
     PLATFORM.moduleName('./attributes/md-view')
   );

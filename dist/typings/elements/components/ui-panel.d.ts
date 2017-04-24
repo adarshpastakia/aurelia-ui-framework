@@ -12,7 +12,7 @@ export declare class UIPanelBody {
     element: Element;
     constructor(element: Element);
     height: string;
-    maxHeight: string;
+    maxheight: string;
 }
 export declare class UIPanelGroup {
     element: Element;

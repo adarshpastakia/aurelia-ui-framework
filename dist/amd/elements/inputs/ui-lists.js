@@ -102,7 +102,12 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
             var groups = [];
             if (_.isArray(newValue)) {
                 var list_1 = [];
-                _.forEach(newValue, function (v) { return list_1.push({ value: v[_this.valueProperty] || v, text: v[_this.displayProperty] || v, display: v[_this.displayProperty] || v, icon: v[_this.iconProperty], model: v }); });
+                _.forEach(newValue, function (v) { return list_1.push({
+                    value: v[_this.valueProperty] == null ? v : v[_this.valueProperty],
+                    text: v[_this.displayProperty] == null ? v : v[_this.displayProperty],
+                    display: v[_this.displayProperty] == null ? v : v[_this.displayProperty],
+                    icon: v[_this.iconProperty], model: v
+                }); });
                 groups.push({ items: list_1 });
                 this.allowSearch = !this.forceSelect || list_1.length > 10;
             }
@@ -110,7 +115,12 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
                 var count_1 = 0;
                 _.forEach(newValue, function (g, k) {
                     var list = [];
-                    _.forEach(g, function (v) { return list.push({ value: v[_this.valueProperty] || v, text: v[_this.displayProperty] || v, display: v[_this.displayProperty] || v, icon: v[_this.iconProperty], model: v }); });
+                    _.forEach(g, function (v) { return list.push({
+                        value: v[_this.valueProperty] == null ? v : v[_this.valueProperty],
+                        text: v[_this.displayProperty] == null ? v : v[_this.displayProperty],
+                        display: v[_this.displayProperty] == null ? v : v[_this.displayProperty],
+                        icon: v[_this.iconProperty], model: v
+                    }); });
                     groups.push({ label: k, items: list });
                     count_1 += list.length;
                 });
@@ -122,10 +132,10 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
             var _this = this;
             if (onBind === void 0) { onBind = false; }
             if (!this.isTagInput) {
-                var item = _['findChildren'](this.filtered = this.original, 'items', 'value', newValue || '');
+                var item = _['findChildren'](this.filtered = this.original, 'items', 'value', newValue === null ? '' : newValue);
                 this.elValue = item.text;
                 if (!this.forceSelect && !this.elValue)
-                    this.elValue = newValue || '';
+                    this.elValue = newValue === null ? '' : newValue;
                 else if (!this.elValue)
                     this.value = '';
                 if (onBind && item.model)
@@ -327,7 +337,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
         };
         UICombo.prototype.fireSelect = function (model) {
             if (model) {
-                this.value = model[this.valueProperty] || model;
+                this.value = model[this.valueProperty] == null ? model : model[this.valueProperty];
                 ui_event_1.UIEvent.fireEvent('select', this.element, model);
             }
             _super.prototype.fireSelect.call(this, model);
@@ -471,7 +481,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
         };
         UITags.prototype.fireSelect = function (model) {
             _super.prototype.fireSelect.call(this, model);
-            var val = model ? (model[this.valueProperty] || model) : '';
+            var val = model ? (model[this.valueProperty] == null ? model : model[this.valueProperty]) : '';
             this.addValue(this.forceSelect ? val : (val || this.elValue));
             ui_event_1.UIEvent.fireEvent('change', this.element, this.value);
         };
@@ -575,7 +585,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
         UIList.prototype.fireSelect = function (model) {
             _super.prototype.fireSelect.call(this, model);
             if (model) {
-                this.value = model[this.valueProperty] || model;
+                this.value = model[this.valueProperty] == null ? model : model[this.valueProperty];
                 ui_event_1.UIEvent.fireEvent('select', this.element, model);
             }
             this.closeDropdown();

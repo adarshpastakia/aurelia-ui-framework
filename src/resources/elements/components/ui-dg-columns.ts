@@ -142,7 +142,7 @@ export class UIDGColumnGroup {
   isGroup = true;
 
   getTitle() {
-    return this.label || '&nbsp;';
+    return this.label + '&nbsp;';
   }
   getWidth() {
     return 0;

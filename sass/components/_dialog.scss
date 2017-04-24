@@ -52,7 +52,6 @@
   }
 
   .ui-dialog-wrapper {
-    padding: 1em 1em 3em;
     @include position(absolute,0);
 
     &.ui-modal {
@@ -100,9 +99,7 @@
 
       .ui-resizer {
         position      : absolute;
-        cursor        : nwse-resize;
         z-index       : 10;
-        right         : 0;
         bottom        : 0;
         line-height   : 1;
         opacity       : 0.3 !important;
@@ -164,5 +161,22 @@
         }
       }
     }
+  }
+}
+
+.ltr,
+[dir="ltr"] {
+  .ui-dialog .ui-resizer {
+    right : 0;
+    cursor: nwse-resize;
+  }
+}
+
+.rtl,
+[dir="rtl"] {
+  .ui-dialog .ui-resizer {
+    left  : 0;
+    cursor: nesw-resize;
+    @include transform(scaleX(-1));
   }
 }

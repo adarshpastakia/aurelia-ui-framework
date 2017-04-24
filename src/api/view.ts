@@ -25,7 +25,7 @@ export class ApiView {
     this.router = router;
     config.map([
       {
-        route: ['', 'app'],
+        route: 'app',
         moduleId: './app',
         title: 'Application',
         nav: true,

@@ -50,7 +50,7 @@ var UIPanelBody = (function () {
     function UIPanelBody(element) {
         this.element = element;
         this.height = 'auto';
-        this.maxHeight = 'auto';
+        this.maxheight = 'auto';
         if (element.hasAttribute('flex'))
             element.classList.add('ui-flexed');
         if (element.hasAttribute('scroll'))
@@ -67,10 +67,10 @@ __decorate([
 __decorate([
     aurelia_framework_1.bindable(),
     __metadata("design:type", Object)
-], UIPanelBody.prototype, "maxHeight", void 0);
+], UIPanelBody.prototype, "maxheight", void 0);
 UIPanelBody = __decorate([
     aurelia_framework_1.autoinject(),
-    aurelia_framework_1.inlineView("<template class=\"ui-panel-body\" css.bind=\"{'max-height': maxHeight,'flex-basis':height}\"><slot></slot></template>"),
+    aurelia_framework_1.inlineView("<template class=\"ui-panel-body\" css.bind=\"{'max-height': maxheight,'flex-basis':height}\"><slot></slot></template>"),
     aurelia_framework_1.customElement('ui-panel-body'),
     __metadata("design:paramtypes", [Element])
 ], UIPanelBody);

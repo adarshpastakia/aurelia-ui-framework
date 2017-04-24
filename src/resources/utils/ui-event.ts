@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2016
 // @license     : MIT
@@ -37,11 +37,11 @@ export module UIEvent {
     return __ea.subscribe(event, callback);
   }
 
-  export function observe(object: any, property: string): PropertyObserver {
+  export function observe(object: any, property: string, callback): Subscription {
     if (!__ob) {
       __ob = UIUtils.lazy(BindingEngine);
     }
-    return __ob.propertyObserver(object, property);
+    return __ob.propertyObserver(object, property).subscribe(callback);
   }
 
   export function queueTask(fn) {

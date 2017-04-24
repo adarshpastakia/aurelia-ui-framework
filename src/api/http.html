@@ -1,0 +1,55 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <ui-page page-title="Http Client" animate>
+    <ui-content scroll padded>
+      <ui-container class="ui-markdown">
+        <h5 class="section-title">Class: UIHttpService</h5>
+        <p>Singleton class with common http methods</p>
+        <pre mdview="ts">
+          import {autoinject} from "aurelia-framework";
+          import {UIApplication, UIHttpService} from "aurelia-ui-framework";
+
+          @autoinject()
+          export class PageView {
+            constructor(public app:UIApplication, public httpClient:UIHttpService) { }
+
+            refresh() {
+              this.httpClient.get('/api/users')
+                .then(resp => this.data = resp.results)
+                .catch(e => this.app.toastError(e.message));
+            }
+          }
+        </pre>
+
+        <p class="ui-strong">Methods</p>
+        <ul>
+          <li>
+            <code>setBaseUrl(url)</code>
+          </li>
+          <li>
+            <code>get(api:string, headers?:any): Promise&lt;any></code>
+          </li>
+          <li>
+            <code>post(api:string, data:POJO, headers?:any): Promise&lt;any></code>
+          </li>
+          <li>
+            <code>put(api:string, data:POJO, headers?:any): Promise&lt;any></code>
+          </li>
+          <li>
+            <code>delete(api:string, headers?:any): Promise&lt;any></code>
+          </li>
+          <li>
+            <code>upload(api:string, form:FormElement, headers?:any): Promise&lt;any></code>
+          </li>
+          <li>
+            <code>reupload(api:string, form:FormElement, headers?:any): Promise&lt;any></code>
+          </li>
+        </ul>
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>

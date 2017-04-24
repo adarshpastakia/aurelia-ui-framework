@@ -4,9 +4,30 @@
 // @license     : MIT
 -->
 <template>
-  <ui-page page-title="Alerts" animate>
+  <ui-page page-title="Alerts" animate ribbon="message:Ribbon; theme:pink">
     <ui-content scroll padded>
       <ui-container>
+        <h5 class="section-title">Tooltips</h5>
+        <ui-fieldset legend="Tooltips">
+          <ui-row middle>
+            <ui-column fill padded>
+              <ui-option-group name="themeTip" value.bind="themeTip" cols="4">
+                <ui-input-label>Theme</ui-input-label>
+                <ui-radio value="light">Light</ui-radio>
+                <ui-radio value="dark">Dark</ui-radio>
+                <ui-radio value="primary">Primary</ui-radio>
+                <ui-radio value="secondary">Secondary</ui-radio>
+                <ui-radio value="info">Info</ui-radio>
+                <ui-radio value="danger">Danger</ui-radio>
+                <ui-radio value="success">Success</ui-radio>
+                <ui-radio value="warning">Warning</ui-radio>
+              </ui-option-group>
+            </ui-column>
+            <ui-column fill>
+              <ui-button tooltip="message:Hello World;theme.bind:themeTip">Hover on me</ui-button>
+            </ui-column>
+          </ui-row>
+        </ui-fieldset>
         <h5 class="section-title">Toast Messages</h5>
         <div ref="alertHolder"></div>
         <ui-fieldset legend="Toasts">
@@ -61,9 +82,8 @@
             <ui-button light small click.trigger="inlineToast()">Inline Toast</ui-button>
           </ui-toolbar>
         </ui-fieldset>
-        <hr/>
         <h5 class="section-title">Alert Dialogs</h5>
-        <ui-fieldset legend="Toasts">
+        <ui-fieldset legend="Alerts">
           <ui-row>
             <ui-column fill padded>
               <ui-input-group>

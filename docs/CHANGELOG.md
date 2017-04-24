@@ -1,3 +1,31 @@
+<a name="3.3.1"></a>
+## 3.3.1 (2017-04-22)
+
+
+
+<a name="3.3.0"></a>
+# 3.3.0 (2017-04-22)
+
+
+
+* Fixed issues with some input elements when value is 0
+* Fixed `rtl` support issues
+  - Datagrid column resizing
+  - Dialog drag and resize
+  - Fixed tether positioning
+* Added `ribbon` attribute
+* Updated theming for `tooltip`, `ribbon`, `ui-chip`
+* Added `iefix` for layout issues in MS Edge
+
+
+<a name="3.2.9"></a>
+## 3.2.9 (2017-04-20)
+
+
+<a name="3.2.8"></a>
+## 3.2.8 (2017-04-20)
+
+
 <a name="3.2.7"></a>
 ## 3.2.7 (2017-04-20)
 

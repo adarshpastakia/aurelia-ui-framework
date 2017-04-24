@@ -105,7 +105,12 @@ export class BaseListInput {
     let groups = [];
     if (_.isArray(newValue)) {
       let list = [];
-      _.forEach(newValue, v => list.push({ value: v[this.valueProperty] || v, text: v[this.displayProperty] || v, display: v[this.displayProperty] || v, icon: v[this.iconProperty], model: v }));
+      _.forEach(newValue, v => list.push({
+        value: v[this.valueProperty] == null ? v : v[this.valueProperty],
+        text: v[this.displayProperty] == null ? v : v[this.displayProperty],
+        display: v[this.displayProperty] == null ? v : v[this.displayProperty],
+        icon: v[this.iconProperty], model: v
+      }));
       groups.push({ items: list });
       this.allowSearch = !this.forceSelect || list.length > 10;
     }
@@ -113,7 +118,12 @@ export class BaseListInput {
       let count = 0;
       _.forEach(newValue, (g, k) => {
         let list = [];
-        _.forEach(g, v => list.push({ value: v[this.valueProperty] || v, text: v[this.displayProperty] || v, display: v[this.displayProperty] || v, icon: v[this.iconProperty], model: v }));
+        _.forEach(g, v => list.push({
+          value: v[this.valueProperty] == null ? v : v[this.valueProperty],
+          text: v[this.displayProperty] == null ? v : v[this.displayProperty],
+          display: v[this.displayProperty] == null ? v : v[this.displayProperty],
+          icon: v[this.iconProperty], model: v
+        }));
         groups.push({ label: k, items: list });
         count += list.length;
       });
@@ -124,9 +134,9 @@ export class BaseListInput {
 
   valueChanged(newValue, onBind = false) {
     if (!this.isTagInput) {
-      let item = _['findChildren'](this.filtered = this.original, 'items', 'value', newValue || '');
+      let item = _['findChildren'](this.filtered = this.original, 'items', 'value', newValue === null ? '' : newValue);
       this.elValue = item.text;
-      if (!this.forceSelect && !this.elValue) this.elValue = newValue || '';
+      if (!this.forceSelect && !this.elValue) this.elValue = newValue === null ? '' : newValue;
       else if (!this.elValue) this.value = '';
 
       if (onBind && item.model) UIEvent.fireEvent('select', this.element, this.model = item.model);
@@ -351,7 +361,7 @@ export class UICombo extends BaseListInput {
 
   fireSelect(model?) {
     if (model) {
-      this.value = model[this.valueProperty] || model;
+      this.value = model[this.valueProperty] == null ? model : model[this.valueProperty];
       UIEvent.fireEvent('select', this.element, model);
     }
     super.fireSelect(model);
@@ -458,7 +468,7 @@ export class UITags extends BaseListInput {
 
   fireSelect(model?) {
     super.fireSelect(model);
-    let val = model ? (model[this.valueProperty] || model) : '';
+    let val = model ? (model[this.valueProperty] == null ? model : model[this.valueProperty]) : '';
     this.addValue(this.forceSelect ? val : (val || this.elValue));
     UIEvent.fireEvent('change', this.element, this.value);
   }
@@ -533,7 +543,7 @@ export class UIList extends BaseListInput {
   fireSelect(model?) {
     super.fireSelect(model);
     if (model) {
-      this.value = model[this.valueProperty] || model;
+      this.value = model[this.valueProperty] == null ? model : model[this.valueProperty];
       UIEvent.fireEvent('select', this.element, model);
     }
     this.closeDropdown();

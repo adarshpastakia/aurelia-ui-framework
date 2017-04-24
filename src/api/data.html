@@ -1,0 +1,76 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <ui-page page-title="Data Model" animate>
+    <ui-content scroll padded>
+      <ui-container class="ui-markdown">
+        <h5 class="section-title">Class: UIModel</h5>
+        <p>Generic data model</p>
+        <pre mdview="ts">
+          import {autoinject} from "aurelia-framework";
+          import {UIModel} from "aurelia-ui-framework";
+
+          @autoinject()
+          export class MyModel extends UIModel {
+            username:string = '';
+            password:string = '';
+
+            get() {
+              return this.httpClient.get('/api/user/1')
+                .then(resp => {
+                  this.logger.debug('Get', resp);
+                  this.deserialize(resp.result);
+                });
+            }
+
+            post() {
+              return this.httpClient.post('/api/user', this.serialize())
+                .then(resp => {
+                  this.logger.debug('Post', resp);
+                });
+            }
+
+            put() { }
+
+            delete() { }
+          }
+        </pre>
+
+        <p class="ui-strong">Properties</p>
+        <ul>
+          <li>
+            <code>httpClient</code>
+          </li>
+          <li>
+            <code>logger</code>
+          </li>
+        </ul>
+        <br/>
+        <p class="ui-strong">Methods</p>
+        <ul>
+          <li>
+            <code>serialize():POJO</code>
+          </li>
+          <li>
+            <code>deserialize(POJO)</code>
+          </li>
+          <li>
+            <code>isDirty():boolean</code>
+          </li>
+          <p>Check if the model has changed by comparing current data with original data</p>
+          <li>
+            <code>saveChanges()</code>
+          </li>
+          <p>Update original data with current data</p>
+          <li>
+            <code>discardChanges()</code>
+          </li>
+          <p>Update current data with original data</p>
+        </ul>
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>

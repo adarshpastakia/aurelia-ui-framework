@@ -8,7 +8,15 @@
   </style>
     <ui-content padded scroll>
       <ui-container>
-        <h5 class="section-title">With Tabs</h5>
+        <h5 class="section-title">Chips</h5>
+        <div>
+          <ui-chip primary label="Date">01 Jan 2017</ui-chip>
+          <ui-chip info label="Count">99</ui-chip>
+          <ui-chip theme="pink" label="Count">99</ui-chip>
+          <ui-chip label="Count" removable>99</ui-chip>
+          <ui-chip label="Count" removable>99</ui-chip>
+        </div>
+        <h5 class="section-title">Breadcrumbs With Tabs</h5>
         <div class="tab-container">
           <ui-panel>
             <ui-breadcrumb change.trigger="changeTab($event)">

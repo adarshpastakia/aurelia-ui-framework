@@ -14,6 +14,7 @@ declare const UA_UNKNOWN
 declare var Countries: ICountry;
 declare var Currencies: any;
 declare var FileTypes: any;
+declare var FileData: any;
 
 declare function browserAgent(): string;
 declare function browserVersion(): string;
@@ -25,6 +26,8 @@ declare function isString(a: any): boolean;
 declare function isNumber(a: any): boolean;
 declare function isDecimal(a: any): boolean;
 declare function isFunction(a: any): boolean;
+
+declare function isRtl(el: Element | HTMLElement): boolean;
 
 declare function getParentByTag(element: Element, selector: string, lastElement?: any): Element;
 declare function getParentByClass(element: Element, selector: string, lastElement?: any): Element;
@@ -88,6 +91,8 @@ declare interface Window {
   isNumber(a: any): boolean;
   isDecimal(a: any): boolean;
   isFunction(a: any): boolean;
+
+  isRtl(el: Element | HTMLElement): boolean;
 
   getParentByTag(element: Element, selector: string, lastElement?: any): Element;
   getParentByClass(element: Element, selector: string, lastElement?: any): Element;
