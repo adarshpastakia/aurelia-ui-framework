@@ -130,7 +130,7 @@ export class UIDatagrid {
   bind(bindingContext: Object, overrideContext: Object) {
     if (this.pager) {
       if (!(this.pager instanceof UIPager)) throw new Error('Pager must be instance of UIPager');
-      this.obPageChange = UIEvent.observe(this.pager, 'page').subscribe(() => this.makePage());
+      this.obPageChange = UIEvent.observe(this.pager, 'page', () => this.makePage());
     }
   }
   attached() {
