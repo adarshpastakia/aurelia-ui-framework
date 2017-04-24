@@ -16,6 +16,18 @@ export class CompDatagrid {
   // canActivate(model) { return true; }
   // activate(model) { return true; }
   bind(bindingContext) {
+    let subdata1 = [];
+    for (let i = 0; i < 10; i++)
+      subdata1.push({
+        id: i + 1,
+        icon: Math.floor(Math.random() * 5),
+        text: this.getString(),
+        date: moment().add(Math.random() * -7200, 'day'),
+        time: moment().add(Math.random() * -(60 * 20), 'minute'),
+        number: Math.random() * 10800,
+        currency: Math.random() * 10800
+      });
+
     let subdata = [];
     for (let i = 0; i < 10; i++)
       subdata.push({
@@ -25,7 +37,8 @@ export class CompDatagrid {
         date: moment().add(Math.random() * -7200, 'day'),
         time: moment().add(Math.random() * -(60 * 20), 'minute'),
         number: Math.random() * 10800,
-        currency: Math.random() * 10800
+        currency: Math.random() * 10800,
+        subdata: subdata1
       });
 
     for (let i = 0; i < 500; i++)
@@ -59,6 +72,13 @@ export class CompDatagrid {
     ret += ' ';
     for (let i = 0; i < (Math.random() * 8) + 3; i++) ret += ar[Math.floor(Math.random() * 26)];
     return ret;
+  }
+
+  getSubview(record) {
+    return `<div class="ui-pad-all">
+      <h5><ui-glyph class="dg-glyph ${this.icons[record.icon]}" glyph="${this.icons[record.icon]}"></ui-glyph>&nbsp;Data view</h5><hr/>
+      <p>Record of \${record.text}
+    </div>`
   }
 
   store;
