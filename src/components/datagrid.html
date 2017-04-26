@@ -33,11 +33,13 @@
     </style>
     <ui-content padded scroll>
       <ui-container>
+
+        <h5 class="section-title">Subview</h5>
         <div class="tab-container" style="height:500px">
           <ui-toolbar>
-            <ui-pager view-model.ref="pager"></ui-pager>
+            <ui-pager view-model.ref="pager1"></ui-pager>
           </ui-toolbar>
-          <ui-datagrid data.bind="data" pager.bind="pager" per-page="10" summary-row="true" scroll row-expander rowselect.trigger="selected($event.detail.record)">
+          <ui-datagrid data.bind="data1" pager.bind="pager1" per-page="10" summary-row="true" scroll row-expander subview.call="getSubview(record)" rowselect.trigger="selected($event.detail.record)">
             <ui-dg-empty>
               <h5>No records available...</h5>
             </ui-dg-empty>
@@ -45,7 +47,7 @@
             <ui-dg-column data-id="text" sortable resizeable summary="Totals" locked class="ui-level-pad ui-titlecase">Text</ui-dg-column>
             <ui-dg-column-group label="Actions" locked>
               <ui-dg-link glyph="icon-line-search" label="Preview" width="6em" click.trigger="clicked('Link Clicked', $event.detail.record)" locked>Link</ui-dg-link>
-              <ui-dg-button glyph="icon-line-trash-can" theme="danger" label="Delete" width="5em" click.trigger="clicked('Button clicked', $event.detail.record)" locked>Button</ui-dg-button>
+              <ui-dg-button glyph="glyph-icon-trash" theme="danger" label="Delete" width="5em" click.trigger="clicked('Button clicked', $event.detail.record)" locked>Button</ui-dg-button>
             </ui-dg-column-group>
             <ui-dg-column-group label="Dates">
               <ui-dg-column data-id="date" sortable resizeable date center width="7em">Date</ui-dg-column>
@@ -58,15 +60,42 @@
           </ui-datagrid>
         </div>
         <br/>
+        <h5 class="section-title">Subdata</h5>
         <div class="tab-container" style="height:500px">
-          <ui-datagrid data.bind="data" summary-row="true" virtual scroll>
+          <ui-toolbar>
+            <ui-pager view-model.ref="pager2"></ui-pager>
+          </ui-toolbar>
+          <ui-datagrid data.bind="data2" pager.bind="pager2" per-page="10" summary-row="true" row-expander rowselect.trigger="selected($event.detail.record)" scroll>
+            <ui-dg-empty>
+              <h5>No records available...</h5>
+            </ui-dg-empty>
+            <ui-dg-glyph glyph-map.bind="icons" tooltip-map.bind="titles" class="dg-glyph" data-id="icon" sortable locked></ui-dg-glyph>
+            <ui-dg-column data-id="text" sortable resizeable summary="Totals" locked class="ui-level-pad ui-titlecase">Text</ui-dg-column>
+            <ui-dg-column-group label="Actions" locked>
+              <ui-dg-link glyph="icon-line-search" label="Preview" width="6em" click.trigger="clicked('Link Clicked', $event.detail.record)" locked>Link</ui-dg-link>
+              <ui-dg-button glyph="glyph-icon-trash" theme="danger" label="Delete" width="5em" click.trigger="clicked('Button clicked', $event.detail.record)" locked>Button</ui-dg-button>
+            </ui-dg-column-group>
+            <ui-dg-column-group label="Dates">
+              <ui-dg-column data-id="date" sortable resizeable date center width="7em">Date</ui-dg-column>
+              <ui-dg-column data-id="date" sortable resizeable age center width="7em">Relative</ui-dg-column>
+            </ui-dg-column-group>
+            <ui-dg-column data-id="time" sortable resizeable time center width="7em">Time</ui-dg-column>
+            <ui-dg-column data-id="time" sortable resizeable fromnow center width="7em">Time</ui-dg-column>
+            <ui-dg-column data-id="number" sortable resizeable number summary="sum" end width="8em">Number</ui-dg-column>
+            <ui-dg-column data-id="currency" sortable resizeable currency summary="avg" end width="8em">Currency</ui-dg-column>
+          </ui-datagrid>
+        </div>
+        <br/>
+        <h5 class="section-title">Virtual Scroll</h5>
+        <div class="tab-container" style="height:500px">
+          <ui-datagrid data.bind="data3" summary-row="true" virtual scroll row-counter row-expander rowselect.trigger="selected($event.detail.record)">
             <ui-dg-empty>
               <h5>No records available...</h5>
             </ui-dg-empty>
             <ui-dg-glyph glyph-map.bind="icons" tooltip-map.bind="titles" class="dg-glyph" data-id="icon" sortable locked></ui-dg-glyph>
             <ui-dg-column data-id="text" sortable resizeable summary="Totals" locked class="ui-level-pad ui-titlecase">Text</ui-dg-column>
             <ui-dg-link glyph="icon-line-search" label="Preview" width="6em" click.trigger="clicked('Link Clicked', $event.detail.record)" locked>Link</ui-dg-link>
-            <ui-dg-button glyph="icon-line-trash-can" theme="danger" label="Delete" width="5em" click.trigger="clicked('Button clicked', $event.detail.record)" locked>Button</ui-dg-button>
+            <ui-dg-button glyph="glyph-icon-trash" theme="danger" label="Delete" width="5em" click.trigger="clicked('Button clicked', $event.detail.record)" locked>Button</ui-dg-button>
             <ui-dg-column data-id="date" sortable resizeable date center width="7em">Date</ui-dg-column>
             <ui-dg-column data-id="date" sortable resizeable age center width="7em">Date</ui-dg-column>
             <ui-dg-column data-id="time" sortable resizeable time center width="7em">Time</ui-dg-column>

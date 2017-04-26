@@ -31,8 +31,8 @@ export class UIDataColumn {
   }
 
   dataId;
-  width;
-  minWidth;
+  width = 0;
+  minWidth = 0;
 
   value;
   display;
@@ -50,7 +50,7 @@ export class UIDataColumn {
 
   getWidth(tw) {
     this.width = convertToPx(this.width || this.minWidth || 250);
-    tw += this.width;
+    // tw += this.width;
     return this.width;
   }
   getTitle() {
@@ -91,12 +91,12 @@ export class UIDataColumn {
       symbol = summaryRow[this.symbol];
     }
     else if (isFunction(this.summary))
-      retVal = this.summary({ data });
+      retVal = this.summary(data);
     else {
       switch (this.summary) {
         case 'sum': retVal = _.sumBy(data, this.dataId); break;
         case 'avg': retVal = _['meanBy'](data, this.dataId); break;
-        default: return this.summary;
+        default: return this.summary || '&nbsp;';
       }
     }
     if (isFunction(this.display))
@@ -142,10 +142,10 @@ export class UIDGColumnGroup {
   isGroup = true;
 
   getTitle() {
-    return this.label || '&nbsp;';
+    return this.label + '&nbsp;';
   }
   getWidth() {
-    return 0;
+    return 'auto';
   }
 }
 
@@ -194,7 +194,7 @@ export class UIDGGlyph extends UIDataColumn {
   // end aurelia hooks
 
   @bindable() dataId;
-  @bindable() width = '2em';
+  @bindable() width = 32;
   @bindable() minWidth;
 
   @bindable() class = '';

@@ -3,126 +3,188 @@
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
-import {autoinject, customElement, bindable, bindingMode, children, inlineView, useView, containerless, View, DOM} from 'aurelia-framework';
+import {autoinject, customElement, bindable, bindingMode, children, inlineView, useView, containerless, View, DOM, Container, ViewCompiler, ViewSlot} from 'aurelia-framework';
 import {UIFormat} from "../../utils/ui-format";
 import {UIEvent} from "../../utils/ui-event";
 import {UIUtils} from "../../utils/ui-utils";
 import * as _ from "lodash";
 
-@inlineView(`<template><tr class="level-\${level} \${record.isOpen?'ui-expanded':''} \${parent.selected==record?'ui-selected':''}" click.delegate="parent.fireSelect(parent.selected=record)">
-  <td class="ui-expander" if.bind="parent.handleSize>0">
-    <div><a if.bind="record.subdata" click.trigger="expand($event)"><ui-glyph glyph.bind="record.isOpen?'glyph-icon-minus':'glyph-icon-plus'"></ui-glyph></a></div>
-  </td>
-  <td repeat.for="col of parent.cols" class="\${col.locked==0?'ui-locked':''} \${col.align}" css.bind="{left: col.left+'px'}">
-  <div if.bind="col.type=='normal'"><span class="\${col.class}" innerhtml.bind='col.getValue(record[col.dataId],record)'></span></div>
-  <div if.bind="col.type=='glyph'" title.bind="col.getTooltip(record[col.dataId],record)"><ui-glyph class="\${col.class} \${col.getGlyph(record[col.dataId],record)}" glyph.bind="col.getGlyph(record[col.dataId],record)"></ui-glyph></div>
-  <div if.bind="col.type=='link'"><a class="ui-link \${col.class} \${col.isDisabled(record[col.dataId],record)?'ui-disabled':''}" click.trigger="col.fireClick($event,record[col.dataId],record)"><ui-glyph glyph.bind="col.getGlyph(record[col.dataId],record)" if.bind="col.glyph"></ui-glyph> <span innerhtml.bind="col.getLabel(record[col.dataId],record)"></span></a></div>
-  <div if.bind="col.type=='button'" class="btn-fix"><ui-button click.trigger="col.fireClick($event,record[col.dataId],record)" theme.bind="col.getTheme(record[col.dataId],record)" small square glyph.bind="col.getGlyph(record[col.dataId],record)" disabled.bind="col.isDisabled(record[col.dataId],record)" dropdown.bind="col.dropdown" menuopen.trigger="col.fireMenuOpen($event, record)"><span innerhtml.bind="col.getLabel(record[col.dataId],record)"></span></ui-button></div>
-  </td>
-  <td class="filler"><div>&nbsp;</div></td></tr>
+@autoinject()
+@inlineView(`<template></template>`)
+@customElement('ui-dg-cell')
+export class UIDgCell {
+  constructor(public element: Element, private container: Container, private compiler: ViewCompiler) { }
 
-  <ui-dg-row containerless if.bind="record.isOpen" level.bind="level+1" parent.bind="parent"
-    record.bind="rec" repeat.for="rec of getSubdata()" class="\${$last?'ui-last-inner':''}">
-  </ui-dg-row>
-</template>`)
-@customElement('ui-dg-row')
-export class UIDgRow {
-  @bindable() level = 0;
+  @bindable() col;
+  @bindable() type;
   @bindable() record;
   @bindable() parent;
 
-  expand(evt) {
-    this.record.isOpen = !this.record.isOpen;
-    evt.stopPropagation();
-    evt.preventDefault();
-    return false;
+  attached() {
+    if (this.element.innerHTML) return;
+    let template = '';
+    if (this.type == 'subview') {
+      if (isFunction(this.parent.subview)) template = this.parent.subview({ record: this.record });
+      else template = this.parent.subview;
+    }
+    else if (this.col.type == 'normal')
+      template = `<span class="\${col.class}" innerhtml.bind='col.getValue(record[col.dataId],record)'></span>`;
+    else if (this.col.type == 'glyph')
+      template = `<div title.bind="col.getTooltip(record[col.dataId],record)">
+        <ui-glyph class="\${col.class} \${col.getGlyph(record[col.dataId],record)}" glyph.bind="col.getGlyph(record[col.dataId],record)"></ui-glyph>
+        </div>`;
+    else if (this.col.type == 'link')
+      template = `<a class="ui-link \${col.class} \${col.isDisabled(record[col.dataId],record)?'ui-disabled':''}" click.trigger="col.fireClick($event,record[col.dataId],record)">
+          <ui-glyph glyph.bind="col.getGlyph(record[col.dataId],record)" if.bind="col.glyph"></ui-glyph>
+          <span innerhtml.bind="col.getLabel(record[col.dataId],record)"></span>
+        </a>`;
+    else if (this.col.type == 'button') {
+      template = `<ui-button click.trigger="col.fireClick($event,record[col.dataId],record)" theme.bind="col.getTheme(record[col.dataId],record)" small square glyph.bind="col.getGlyph(record[col.dataId],record)" disabled.bind="col.isDisabled(record[col.dataId],record)" dropdown.bind="col.dropdown" menuopen.trigger="col.fireMenuOpen($event, record)">
+          <span innerhtml.bind="col.getLabel(record[col.dataId],record)"></span>
+        </ui-button>`;
+      this.element.classList.add('btn-fix');
+    }
+
+    let viewFactory = this.compiler.compile(`<template>${template}</template>`);
+    let view = viewFactory.create(this.container);
+    view.bind(this);
+    // DOM.appendNode(div, this.element);
+    let slot = new ViewSlot(this.element, true);
+    slot.add(view);
+    slot.attached();
   }
-  getSubdata() {
-    if (isFunction(this.record.subdata)) return this.record.subdata(this.record);
-    return this.record.subdata;
+}
+
+@autoinject()
+@inlineView(`<template><div class="ui-dg-row level-\${level} \${record.isOpen?'ui-expanded':''} \${parent.selected==record?'ui-selected':''}" click.trigger="parent.fireSelect(parent.selected=record)">
+    <div class="ui-dg-lock-holder" css.bind="{transform: 'translateX('+parent.scrollLeft+'px)'}">
+      <div class="ui-dg-expander" if.bind="parent.rowExpander" ref="rowExpand" click.trigger="$event.stopPropagation()" css.bind="{'min-width': parent.expandWidth+'px'}">
+        <ui-glyph glyph="glyph" repeat.for="i of level"></ui-glyph>
+        <a click.trigger="record.isOpen=!record.isOpen" if.bind="record.subdata||parent.subview"><ui-glyph glyph="\${record.isOpen?'glyph-icon-minus':'glyph-icon-plus'}"></ui-glyph></a>
+      </div>
+      <div class="ui-dg-expander ui-text-center" if.bind="parent.rowCounter" click.trigger="$event.stopPropagation()" ref="rowCounter" css.bind="{'min-width': parent.counterWidth+'px'}">\${index}</div>
+      <ui-dg-cell class="ui-dg-cell \${col.align}" repeat.for="col of parent.colLocked" css.bind="{width:col.getWidth(col.width)+'px'}"
+        <div col.bind="col" parent.bind="parent" record.bind="record">
+      </ui-dg-cell>
+    </div>
+    <ui-dg-cell class="ui-dg-cell \${col.align}" repeat.for="col of parent.cols" css.bind="{width:col.getWidth(col.width)+'px'}" col.bind="col" parent.bind="parent" record.bind="record">
+    </ui-dg-cell>
+    <div class="ui-dg-filler"></div>
+  </div>
+  <ui-dg-row containerless if.bind="!parent.subview&&record.subdata&&record.isOpen" level.bind="level+1" parent.bind="parent" record.bind="rec" index.bind="$index" repeat.for="rec of record.subdata"></ui-dg-row>
+
+  <div class="ui-dg-row" if.bind="parent.subview && record.isOpen" css.bind="{transform: 'translateX('+parent.scrollLeft+'px)'}">
+    <div class="ui-dg-expander" if.bind="parent.rowExpander" click.trigger="$event.stopPropagation()" css.bind="{'min-width': parent.expandWidth+'px'}"></div>
+    <div class="ui-dg-expander ui-text-center" if.bind="parent.rowCounter" click.trigger="$event.stopPropagation()" css.bind="{'min-width': parent.counterWidth+'px'}"></div>
+    <ui-dg-cell parent.bind="parent" record.bind="record" type="subview"></ui-dg-cell>
+    <div class="ui-dg-filler"></div>
+  </div>
+</template>`)
+@customElement('ui-dg-row')
+export class UIDgRow {
+  constructor(public element: Element) { }
+
+  @bindable() level = 0;
+  @bindable() index;
+  @bindable() record;
+  @bindable() parent;
+
+  rowExpand;
+  rowCounter;
+  indexChanged() {
+    UIEvent.queueTask(() => {
+      if (this.rowExpand && this.parent.expandWidth < this.rowExpand.offsetWidth) this.parent.expandWidth = this.rowExpand.offsetWidth;
+      if (this.rowCounter && this.parent.counterWidth < this.rowCounter.offsetWidth) this.parent.counterWidth = this.rowCounter.offsetWidth;
+    });
+  }
+  attached() {
+    if (this.rowExpand && this.parent.expandWidth < this.rowExpand.offsetWidth) this.parent.expandWidth = this.rowExpand.offsetWidth;
+    if (this.rowCounter && this.parent.counterWidth < this.rowCounter.offsetWidth) this.parent.counterWidth = this.rowCounter.offsetWidth;
   }
 }
 
 @autoinject()
 @inlineView(`<template class="ui-datagrid"><div class="ui-hidden"><slot></slot></div>
 <div show.bind="resizing" ref="ghost" class="ui-dg-ghost"></div>
-<div>
-<table ref="dgHead" width.bind="tableWidth" css.bind="{'table-layout': tableWidth?'fixed':'auto' }">
-  <colgroup>
-    <col width="\${handleSize}" if.bind="handleSize>0"/>
-    <col repeat.for="col of cols" data-index.bind="$index" width.bind="col.width"/>
-    <col/>
-  </colgroup>
-  <thead><tr>
-    <td class="ui-expander" if.bind="handleSize>0" rowspan.bind="headCols2.length?2:''"><div>&nbsp;</div></td>
-    <td repeat.for="col of headCols" mouseup.trigger="doSort(col)" class="\${col.sortable?'ui-sortable':''} \${col.locked==0?'ui-locked':''}" css.bind="{left: col.left+'px'}" rowspan.bind="headCols2.length?(col.isGroup?1:2):''" colspan.bind="col.isGroup?col.columns.length:1">
-    <div if.bind="!col.isGroup">
-      <span class="ui-dg-header" innerhtml.bind='col.getTitle()'></span>
-      <span class="ui-filter" if.bind="col.filter"><ui-glyph glyph="glyph-funnel"></ui-glyph></span>
-      <span class="ui-sort \${col.dataId==sortColumn ? sortOrder:''}" if.bind="col.sortable"></span>
-      <span class="ui-resizer" if.bind="col.resize" mousedown.trigger="resizeColumn($event,col,cols[$index+1])"></span>
-    </div><div if.bind="col.isGroup" class="ui-dg-group"><span class="ui-dg-header" innerhtml.bind='col.getTitle()'></span></div></td>
-    <td class="filler" rowspan.bind="headCols2.length?2:''"><div><span class="ui-dg-header">&nbsp;</span></div></td>
-  </tr><tr show.bind="headCols2.length"><td repeat.for="col of headCols2" mouseup.trigger="doSort(col)" class="\${col.sortable?'ui-sortable':''} \${col.locked==0?'ui-locked':''}" css.bind="{left: col.left+'px'}" if.bind="col"><div>
-    <span class="ui-dg-header" innerhtml.bind='col.getTitle()'></span>
+<div ref="dgHead" class="ui-dg-header">
+  <div class="ui-dg-row" css.bind="{transform: 'translateX('+(scrollLeft*-1)+'px)'}">
+    <div class="ui-dg-expander" if.bind="rowExpander" css.bind="{width: expandWidth+'px',transform: 'translateX('+(scrollLeft)+'px)'}"></div>
+    <div class="ui-dg-expander" if.bind="rowCounter" css.bind="{width: counterWidth+'px',transform: 'translateX('+(scrollLeft)+'px)'}"></div>
+    <template repeat.for="col of colHead">
+    <div if.bind="!col.columns" css.bind="{width:col.getWidth(col.width)+'px', transform: 'translateX('+(col.locked==0?scrollLeft:0)+'px)'}"
+      mouseup.trigger="doSort(col)" class="ui-dg-cell \${col.sortable?'ui-sortable':''} \${col.locked==0?'ui-locked':''}">
+    <span class="ui-title" innerhtml.bind='col.getTitle()'></span>
     <span class="ui-filter" if.bind="col.filter"><ui-glyph glyph="glyph-funnel"></ui-glyph></span>
     <span class="ui-sort \${col.dataId==sortColumn ? sortOrder:''}" if.bind="col.sortable"></span>
-    <span class="ui-resizer" if.bind="col.resize" mousedown.trigger="resizeColumn($event,col,cols[$index+1])"></span>
-  </div></td></tr></thead>
-</table>
+    <span class="ui-resizer" if.bind="col.resize" mousedown.trigger="resizeColumn($event,col)"></span>
+    </div>
+    <div if.bind="col.columns" class="ui-dg-group \${col.locked==0?'ui-locked':''}" css.bind="{transform: 'translateX('+(col.locked==0?scrollLeft:0)+'px)'}">
+    <div class="ui-title" innerhtml.bind='col.getTitle()'></div>
+    <div class="ui-dg-cols">
+    <div repeat.for="colin of col.columns" class="ui-dg-cell" css.bind="{width:colin.getWidth(colin.width)+'px'}"
+      mouseup.trigger="doSort(colin)" class="\${colin.sortable?'ui-sortable':''}">
+    <span class="ui-title" innerhtml.bind='colin.getTitle()'></span>
+    <span class="ui-filter" if.bind="colin.filter"><ui-glyph glyph="glyph-funnel"></ui-glyph></span>
+    <span class="ui-sort \${colin.dataId==sortColumn ? sortOrder:''}" if.bind="colin.sortable"></span>
+    <span class="ui-resizer" if.bind="colin.resize" mousedown.trigger="resizeColumn($event,colin)"></span>
+    </div>
+    </div>
+    </div>
+    </template>
+  </div>
 </div>
-<div show.bind="loaded && (!data || data.length==0)" class="ui-dg-empty"><slot name="dg-empty"></slot></div>
-<div class="ui-dg-wrapper" ref="scroller" scroll.trigger="scrolling() & debounce:1">
-<table width.bind="calculateWidth(cols,resizing)" css.bind="{'table-layout': tableWidth?'fixed':'auto' }" ref="mainTable">
-  <colgroup>
-    <col width="\${handleSize}" if.bind="handleSize>0"/>
-    <col repeat.for="col of cols" data-index.bind="$index" width.bind="col.width"/>
-    <col/>
-  </colgroup>
-  <tbody if.bind="!virtual" class="\${$even?'even':'odd'}" parent.bind="$parent"
-    as-element="ui-dg-row" record.bind="record" repeat.for="record of paged">
-  </tbody>
-  <tbody if.bind="virtual" class="\${$even?'even':'odd'}" parent.bind="$parent"
-    as-element="ui-dg-row" record.bind="record" virtual-repeat.for="record of paged">
-  </tbody>
-</table>
-<table width.bind="tableWidth" class="filler" css.bind="{'table-layout': tableWidth?'fixed':'auto', height:((scroller.offsetHeight<mainTable.offsetHeight?0:scroller.offsetHeight-mainTable.offsetHeight)+'px') }">
-  <colgroup>
-    <col width="\${handleSize}" if.bind="handleSize>0"/>
-    <col repeat.for="col of cols" data-index.bind="$index" width.bind="col.width"/>
-    <col/>
-  </colgroup>
-  <tbody class="odd"><tr class="filler">
-    <td class="ui-expander" if.bind="handleSize>0"><div>&nbsp;</div></td>
-    <td repeat.for="col of cols" class="\${col.locked==0?'ui-locked':''}" css.bind="{left: col.left+'px'}"><div>&nbsp;</div></td>
-    <td class="filler"><div>&nbsp;</div></td>
-  </tr></tbody>
-</table></div>
-<div>
-<table ref="dgFoot" width.bind="tableWidth" css.bind="{'table-layout': tableWidth?'fixed':'auto' }">
-  <colgroup>
-    <col width="\${handleSize}" if.bind="handleSize>0"/>
-    <col repeat.for="col of cols" data-index.bind="$index" width.bind="col.width"/>
-    <col/>
-  </colgroup>
-  <tfoot if.bind="summaryRow"><tr>
-    <td class="ui-expander" if.bind="handleSize>0"><div>&nbsp;</div></td>
-    <td repeat.for="col of cols" class="\${col.locked==0?'ui-locked':''} \${col.align}" css.bind="{left: col.left+'px'}"><div innerhtml.bind='col.getSummary(summaryRow, data)'></div></td>
-    <td class="filler"><div>&nbsp;</div></td>
-  </tr></tfoot>
-</table>
+<div show.bind="store.isEmpty" class="ui-dg-empty"><slot name="dg-empty"></slot></div>
+<div ref="dgBody" class="ui-dg-body" scroll.trigger="(scrollLeft = dgBody.scrollLeft)" if.bind="!virtual">
+  <ui-dg-row containerless parent.bind="$parent" record.bind="record" index.bind="$index" repeat.for="record of paged"></ui-dg-row>
+  <div class="ui-dg-row ui-dg-filler">
+    <div class="ui-dg-lock-holder" css.bind="{transform: 'translateX('+scrollLeft+'px)'}">
+      <div class="ui-dg-expander" if.bind="rowExpander" css.bind="{width: expandWidth+'px'}"></div>
+      <div class="ui-dg-expander" if.bind="rowCounter" css.bind="{width: counterWidth+'px'}"></div>
+      <div class="ui-dg-cell \${col.align}" repeat.for="col of colLocked" css.bind="{width:col.getWidth(col.width)+'px'}"></div>
+    </div>
+    <div class="ui-dg-cell \${col.align}" repeat.for="col of cols" css.bind="{width:col.getWidth(col.width)+'px'}"></div>
+    <div class="ui-dg-filler"></div>
+  </div>
+</div>
+<div ref="dgBody" class="ui-dg-body" scroll.trigger="(scrollLeft = dgBody.scrollLeft)" if.bind="virtual">
+  <ui-dg-row parent.bind="$parent" record.bind="record" index.bind="$index" virtual-repeat.for="record of paged"></ui-dg-row>
+  <div class="ui-dg-row ui-dg-filler">
+    <div class="ui-dg-lock-holder" css.bind="{transform: 'translateX('+scrollLeft+'px)'}">
+      <div class="ui-dg-expander" if.bind="rowExpander" css.bind="{width: expandWidth+'px'}"></div>
+      <div class="ui-dg-expander" if.bind="rowCounter" css.bind="{width: counterWidth+'px'}"></div>
+      <div class="ui-dg-cell \${col.align}" repeat.for="col of colLocked" css.bind="{width:col.getWidth(col.width)+'px'}"></div>
+    </div>
+    <div class="ui-dg-cell \${col.align}" repeat.for="col of cols" css.bind="{width:col.getWidth(col.width)+'px'}"></div>
+    <div class="ui-dg-filler"></div>
+  </div>
+</div>
+<div ref="dgFoot" class="ui-dg-footer">
+  <div class="ui-dg-row" css.bind="{transform: 'translateX('+(scrollLeft*-1)+'px)'}">
+    <div class="ui-dg-lock-holder" css.bind="{transform: 'translateX('+scrollLeft+'px)'}">
+      <div class="ui-dg-expander" if.bind="rowExpander" css.bind="{width: expandWidth+'px'}"></div>
+      <div class="ui-dg-expander" if.bind="rowCounter" css.bind="{width: counterWidth+'px'}"></div>
+      <div class="ui-dg-cell \${col.align}" repeat.for="col of colLocked" css.bind="{width:col.getWidth(col.width)+'px'}">
+        <div innerhtml.bind='col.getSummary(summaryRow, store.data)'></div>
+      </div>
+    </div>
+    <div class="ui-dg-cell \${col.align}" repeat.for="col of cols" css.bind="{width:col.getWidth(col.width)+'px'}">
+      <div innerhtml.bind='col.getSummary(summaryRow, store.data)'></div>
+    </div>
+    <div class="ui-dg-filler"></div>
+  </div>
 </div>
 <div class="ui-dg-loader" if.bind="isBusy">
   <div class="ui-loader-div">
     <ui-glyph class="ui-anim-loader" glyph="glyph-loader"></ui-glyph>
   </div>
-</div></template>`)
+</div><template>`)
 @customElement('ui-datagrid')
-export class UIDatagrid {
+export class UIDatagrid2 {
   constructor(public element: Element) {
     this.virtual = element.hasAttribute('virtual');
+    this.rowCounter = element.hasAttribute('row-counter');
+    this.rowExpander = element.hasAttribute('row-expander');
     if (!element.hasAttribute('scroll')) this.element.classList.add('ui-auto-size');
-    if (!element.hasAttribute('row-expander')) this.handleSize = 0;
   }
 
   // aurelia hooks
@@ -137,7 +199,6 @@ export class UIDatagrid {
     UIEvent.queueTask(() => {
       this.columnsChanged(this.columns);
       this.dataChanged(this.data);
-      this.scrolling();
     });
   }
   detached() {
@@ -147,11 +208,9 @@ export class UIDatagrid {
   // end aurelia hooks
 
   @children('ui-dg-column-group,ui-dg-column,ui-dg-button,ui-dg-link,ui-dg-glyph') columns;
-  // @children('ui-dg-column,ui-dg-button,ui-dg-link,ui-dg-glyph,' +
-  //   'ui-dg-column-group>ui-dg-column,ui-dg-column-group ui-dg-button,ui-dg-column-group ui-dg-link,ui-dg-column-group>ui-dg-glyph') columns;
 
-  @bindable() data;
-  @bindable() loaded = true;
+  @bindable() data = [];
+  @bindable() subview;
   @bindable() summaryRow = false;
   @bindable() sortColumn = '';
   @bindable() sortOrder = '';
@@ -159,24 +218,29 @@ export class UIDatagrid {
   @bindable() pager;
   @bindable() perPage = 50;
 
-  private cols = [];
-  private headCols = [];
-  private headCols2 = [];
+
+  cols = [];
+  colHead = [];
+  colLocked = [];
+  virtual = false;
+  rowCounter = false;
+  rowExpander = false;
+  expandWidth = 0;
+  counterWidth = 0;
+
+  private loaded = false;
+  private isBusy = false;
   private paged = [];
   private filtered = [];
-  private tableWidth = '20px';
 
-  private virtual = false;
-  private isBusy = false;
-  private obDataChange;
-  private obPageChange;
+  selected;
+  obPageChange;
 
-  private handleSize = 30;
-
-  columnsChanged(newValue) {
-    this.headCols = _.sortBy(this.columns, 'locked');
-    this.headCols2 = _.flatMap(this.headCols, c => c.columns || []);
-    this.cols = _.sortBy(_.flatMap(this.columns, c => c.columns || [c]), 'locked');
+  columnsChanged(c?) {
+    this.colHead = _.sortBy(this.columns, 'locked');
+    let cols = _.sortBy(_.flatMap(this.columns, c => c.columns || [c]), 'locked');
+    this.colLocked = _.filter(cols, (c: any) => c.locked == 0);
+    this.cols = _.filter(cols, (c: any) => c.locked == 1);
   }
 
   dataChanged(newValue) {
@@ -186,18 +250,9 @@ export class UIDatagrid {
         this.pager.totalPages = Math.ceil(this.data.length / this.perPage);
       }
       this.filter();
-      this.scrolling();
     });
   }
 
-  dgHead;
-  dgFoot;
-  scroller;
-  selected;
-  private scrolling() {
-    this.dgHead.style.transform = `translateX(-${this.scroller.scrollLeft}px)`;
-    if (this.dgFoot) this.dgFoot.style.transform = this.dgHead.style.transform;
-  }
   private filter() {
     this.filtered = this.data;
     this.makePage();
@@ -224,14 +279,7 @@ export class UIDatagrid {
     UIEvent.queueTask(() => this.makePage());
   }
 
-  private calculateWidth(cols) {
-    let w = this.handleSize;
-    _.forEach(cols, c => { c.left = w; w += c.getWidth(); });
-    return (this.tableWidth = (w + 20) + 'px');
-  }
-
   private fireSelect(record) {
-    this.selected = record;
     UIEvent.fireEvent('rowselect', this.element, ({ record }));
   }
 
@@ -239,37 +287,36 @@ export class UIDatagrid {
   move;
   stop;
   diff;
+  dgBody;
   startX;
   ghost;
-  colNext;
   colResize;
   resizing = false;
-  resizeColumn(evt, col, next) {
+  resizeColumn(evt, col) {
     if (evt.button != 0) return true;
     this.isRtl = window.isRtl(this.element);
     this.diff = 0;
     this.colResize = col;
-    this.colNext = next;
     this.resizing = true;
     this.startX = (evt.x || evt.clientX);
-    this.ghost.style[this.isRtl ? 'right' : 'left'] = (col.left + parseInt(col.width) - (col.locked == 0 ? 0 : this.scroller.scrollLeft)) + 'px';
+    this.ghost.style[this.isRtl ? 'left' : 'right'] = "none";
+    this.ghost.style[this.isRtl ? 'right' : 'left'] = (getParentByClass(evt.target, 'ui-dg-cell').offsetLeft + parseInt(col.width)) + 'px';
     document.addEventListener('mouseup', this.stop = evt => this.resizeEnd(evt));
     document.addEventListener('mousemove', this.move = evt => this.resize(evt));
   }
   resize(evt) {
     var x = (evt.x || evt.clientX) - this.startX;
     x = (this.isRtl ? -1 : 1) * x;
-    if (x < 0 && (parseInt(this.colResize.width) + this.diff) <= (this.colResize.minWidth || 80)) return;
-    if (x > 0 && (parseInt(this.colResize.width) + this.diff) >= (500)) return;
+    if (x < 0 && (parseInt(this.colResize.width) + x) <= (this.colResize.minWidth || 80)) return;
+    if (x > 0 && (parseInt(this.colResize.width) + x) >= (500)) return;
 
     this.startX = (evt.x || evt.clientX);
     this.diff += x;
+    this.colResize.width = (parseInt(this.colResize.width) + x);
     this.ghost.style[this.isRtl ? 'right' : 'left'] = (parseInt(this.ghost.style[this.isRtl ? 'right' : 'left']) + x) + 'px';
   }
   resizeEnd(evt) {
     this.resizing = false;
-    if (this.colNext) this.colNext.left += this.diff;
-    this.colResize.width = (parseInt(this.colResize.width) + this.diff);
     document.removeEventListener('mousemove', this.move);
     document.removeEventListener('mouseup', this.stop);
     evt.stopPropagation();
