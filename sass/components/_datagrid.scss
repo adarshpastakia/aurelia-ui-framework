@@ -161,6 +161,7 @@
 
     .ui-dg-expander {
       @include flex-auto();
+      min-width : 1.5rem;
       font-size : 0.7em;
       padding   : 0.5em 6px;
       background: rgba($muted, .2);
