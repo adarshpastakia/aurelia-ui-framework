@@ -1,57 +1,71 @@
-export declare class UIDgRow {
-    level: number;
+import { Container, ViewCompiler } from 'aurelia-framework';
+export declare class UIDgCell {
+    element: Element;
+    private container;
+    private compiler;
+    constructor(element: Element, container: Container, compiler: ViewCompiler);
+    col: any;
+    type: any;
     record: any;
     parent: any;
-    expand(evt: any): boolean;
-    getSubdata(): any;
+    attached(): void;
 }
-export declare class UIDatagrid {
+export declare class UIDgRow {
+    element: Element;
+    constructor(element: Element);
+    level: number;
+    index: any;
+    record: any;
+    parent: any;
+    rowExpand: any;
+    rowCounter: any;
+    indexChanged(): void;
+    attached(): void;
+}
+export declare class UIDatagrid2 {
     element: Element;
     constructor(element: Element);
     bind(bindingContext: Object, overrideContext: Object): void;
     attached(): void;
     detached(): void;
     columns: any;
-    data: any;
-    loaded: boolean;
+    data: any[];
+    subview: any;
     summaryRow: boolean;
     sortColumn: string;
     sortOrder: string;
     pager: any;
     perPage: number;
-    private cols;
-    private headCols;
-    private headCols2;
+    cols: any[];
+    colHead: any[];
+    colLocked: any[];
+    virtual: boolean;
+    rowCounter: boolean;
+    rowExpander: boolean;
+    expandWidth: number;
+    counterWidth: number;
+    private loaded;
+    private isBusy;
     private paged;
     private filtered;
-    private tableWidth;
-    private virtual;
-    private isBusy;
-    private obDataChange;
-    private obPageChange;
-    private handleSize;
-    columnsChanged(newValue: any): void;
-    dataChanged(newValue: any): void;
-    dgHead: any;
-    dgFoot: any;
-    scroller: any;
     selected: any;
-    private scrolling();
+    obPageChange: any;
+    columnsChanged(c?: any): void;
+    dataChanged(newValue: any): void;
     private filter();
     private makePage();
     private doSort(col);
-    private calculateWidth(cols);
     private fireSelect(record);
     isRtl: boolean;
     move: any;
     stop: any;
     diff: any;
+    dgBody: any;
     startX: any;
     ghost: any;
-    colNext: any;
     colResize: any;
     resizing: boolean;
-    resizeColumn(evt: any, col: any, next: any): boolean;
+    resizeColumn(evt: any, col: any): boolean;
     resize(evt: any): void;
     resizeEnd(evt: any): boolean;
 }

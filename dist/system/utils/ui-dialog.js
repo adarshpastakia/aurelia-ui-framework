@@ -96,6 +96,12 @@ System.register(["aurelia-framework", "./ui-event", "./ui-utils", "lodash", "aur
                         });
                     });
                 };
+                UIDialogService.prototype.close = function (id, force) {
+                    var win = _.find(this.windows, ['id', id]);
+                    if (win)
+                        this.closeDialog(win, force);
+                    return !!win;
+                };
                 UIDialogService.prototype.closeAll = function () {
                     var _this = this;
                     _.forEach(this.windows, function (win) { return _this.closeDialog(win, true); });

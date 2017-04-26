@@ -11,6 +11,7 @@ export declare class UIModel {
     put(...rest: any[]): void;
     delete(...rest: any[]): void;
     addObserver(ob: any): void;
+    observe(property: any, callback: any): void;
     dispose(): void;
     deserialize(json: any): void;
     serialize(): {};

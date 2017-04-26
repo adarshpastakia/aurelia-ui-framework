@@ -26,6 +26,8 @@ var _ = require("lodash");
 var UIDataColumn = (function () {
     function UIDataColumn(element) {
         this.element = element;
+        this.width = 0;
+        this.minWidth = 0;
         this.dataType = 'text';
         this.align = 'ui-text-start';
         this.left = 0;
@@ -60,7 +62,6 @@ var UIDataColumn = (function () {
     }
     UIDataColumn.prototype.getWidth = function (tw) {
         this.width = convertToPx(this.width || this.minWidth || 250);
-        tw += this.width;
         return this.width;
     };
     UIDataColumn.prototype.getTitle = function () {
@@ -120,7 +121,7 @@ var UIDataColumn = (function () {
             symbol = summaryRow[this.symbol];
         }
         else if (isFunction(this.summary))
-            retVal = this.summary({ data: data });
+            retVal = this.summary(data);
         else {
             switch (this.summary) {
                 case 'sum':
@@ -129,7 +130,7 @@ var UIDataColumn = (function () {
                 case 'avg':
                     retVal = _['meanBy'](data, this.dataId);
                     break;
-                default: return this.summary;
+                default: return this.summary || '&nbsp;';
             }
         }
         if (isFunction(this.display))
@@ -165,10 +166,10 @@ var UIDGColumnGroup = (function () {
         this.locked = element.hasAttribute('locked') ? 0 : 1;
     }
     UIDGColumnGroup.prototype.getTitle = function () {
-        return this.label || '&nbsp;';
+        return this.label + '&nbsp;';
     };
     UIDGColumnGroup.prototype.getWidth = function () {
-        return 0;
+        return 'auto';
     };
     return UIDGColumnGroup;
 }());
@@ -248,7 +249,7 @@ var UIDGGlyph = (function (_super) {
         var _this = _super.call(this, element) || this;
         _this.element = element;
         _this.type = 'glyph';
-        _this.width = '2em';
+        _this.width = 32;
         _this.class = '';
         return _this;
     }

@@ -1,3 +1,11 @@
+<a name="3.3.2"></a>
+## 3.3.2 (2017-04-26)
+
+* UIDatagrid Update
+  - Changed layout from tables to flexbox divs
+  - Locking columns using css3 transform
+  
+
 <a name="3.3.1"></a>
 ## 3.3.1 (2017-04-22)
 

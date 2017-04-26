@@ -129,6 +129,12 @@ System.register(["aurelia-framework", "lodash"], function (exports_1, context_1)
                     this.showRoot = false;
                     this.rootLabel = 'Root';
                     this.selectionLevel = -1;
+                    this.labels = {
+                        search: 'Search...',
+                        more: 'More...',
+                        less: 'Less...',
+                        noitems: 'No Items'
+                    };
                     Object.assign(this, obj);
                 }
                 return UITreeOptions;

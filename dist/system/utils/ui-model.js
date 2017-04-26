@@ -1,4 +1,4 @@
-System.register(["aurelia-framework", "aurelia-logging", "./ui-http", "./ui-utils", "lodash"], function (exports_1, context_1) {
+System.register(["aurelia-framework", "aurelia-logging", "./ui-http", "./ui-event", "./ui-utils", "lodash"], function (exports_1, context_1) {
     "use strict";
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -10,7 +10,7 @@ System.register(["aurelia-framework", "aurelia-logging", "./ui-http", "./ui-util
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var __moduleName = context_1 && context_1.id;
-    var aurelia_framework_1, aurelia_logging_1, ui_http_1, ui_utils_1, _, UIModel, UIModel_1;
+    var aurelia_framework_1, aurelia_logging_1, ui_http_1, ui_event_1, ui_utils_1, _, UIModel, UIModel_1;
     return {
         setters: [
             function (aurelia_framework_1_1) {
@@ -21,6 +21,9 @@ System.register(["aurelia-framework", "aurelia-logging", "./ui-http", "./ui-util
             },
             function (ui_http_1_1) {
                 ui_http_1 = ui_http_1_1;
+            },
+            function (ui_event_1_1) {
+                ui_event_1 = ui_event_1_1;
             },
             function (ui_utils_1_1) {
                 ui_utils_1 = ui_utils_1_1;
@@ -87,6 +90,9 @@ System.register(["aurelia-framework", "aurelia-logging", "./ui-http", "./ui-util
                 };
                 UIModel.prototype.addObserver = function (ob) {
                     this.__observers__.push(ob);
+                };
+                UIModel.prototype.observe = function (property, callback) {
+                    this.__observers__.push(ui_event_1.UIEvent.observe(this, property, callback));
                 };
                 UIModel.prototype.dispose = function () {
                     this.logger.debug("Model Disposing");

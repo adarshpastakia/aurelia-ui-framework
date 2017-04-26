@@ -27,11 +27,11 @@ var UIEvent;
         return __ea.subscribe(event, callback);
     }
     UIEvent.subscribe = subscribe;
-    function observe(object, property) {
+    function observe(object, property, callback) {
         if (!__ob) {
             __ob = ui_utils_1.UIUtils.lazy(aurelia_framework_1.BindingEngine);
         }
-        return __ob.propertyObserver(object, property);
+        return __ob.propertyObserver(object, property).subscribe(callback);
     }
     UIEvent.observe = observe;
     function queueTask(fn) {

@@ -14,6 +14,8 @@ import * as _ from "lodash";
 export class UIDataColumn {
     constructor(element) {
         this.element = element;
+        this.width = 0;
+        this.minWidth = 0;
         this.dataType = 'text';
         this.align = 'ui-text-start';
         this.left = 0;
@@ -48,7 +50,6 @@ export class UIDataColumn {
     }
     getWidth(tw) {
         this.width = convertToPx(this.width || this.minWidth || 250);
-        tw += this.width;
         return this.width;
     }
     getTitle() {
@@ -108,7 +109,7 @@ export class UIDataColumn {
             symbol = summaryRow[this.symbol];
         }
         else if (isFunction(this.summary))
-            retVal = this.summary({ data });
+            retVal = this.summary(data);
         else {
             switch (this.summary) {
                 case 'sum':
@@ -117,7 +118,7 @@ export class UIDataColumn {
                 case 'avg':
                     retVal = _['meanBy'](data, this.dataId);
                     break;
-                default: return this.summary;
+                default: return this.summary || '&nbsp;';
             }
         }
         if (isFunction(this.display))
@@ -151,10 +152,10 @@ let UIDGColumnGroup = class UIDGColumnGroup {
         this.locked = element.hasAttribute('locked') ? 0 : 1;
     }
     getTitle() {
-        return this.label || '&nbsp;';
+        return this.label + '&nbsp;';
     }
     getWidth() {
-        return 0;
+        return 'auto';
     }
 };
 __decorate([
@@ -229,7 +230,7 @@ let UIDGGlyph = class UIDGGlyph extends UIDataColumn {
         super(element);
         this.element = element;
         this.type = 'glyph';
-        this.width = '2em';
+        this.width = 32;
         this.class = '';
     }
     getGlyph(value, record) {

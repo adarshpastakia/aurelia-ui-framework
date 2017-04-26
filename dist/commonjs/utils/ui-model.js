@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var aurelia_framework_1 = require("aurelia-framework");
 var aurelia_logging_1 = require("aurelia-logging");
 var ui_http_1 = require("./ui-http");
+var ui_event_1 = require("./ui-event");
 var ui_utils_1 = require("./ui-utils");
 var _ = require("lodash");
 var UIModel = UIModel_1 = (function () {
@@ -71,6 +72,9 @@ var UIModel = UIModel_1 = (function () {
     };
     UIModel.prototype.addObserver = function (ob) {
         this.__observers__.push(ob);
+    };
+    UIModel.prototype.observe = function (property, callback) {
+        this.__observers__.push(ui_event_1.UIEvent.observe(this, property, callback));
     };
     UIModel.prototype.dispose = function () {
         this.logger.debug("Model Disposing");

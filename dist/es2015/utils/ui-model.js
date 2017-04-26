@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { autoinject } from 'aurelia-framework';
 import { getLogger } from "aurelia-logging";
 import { UIHttpService } from "./ui-http";
+import { UIEvent } from "./ui-event";
 import { UIUtils } from "./ui-utils";
 import * as _ from "lodash";
 let UIModel = UIModel_1 = class UIModel {
@@ -53,6 +54,9 @@ let UIModel = UIModel_1 = class UIModel {
     }
     addObserver(ob) {
         this.__observers__.push(ob);
+    }
+    observe(property, callback) {
+        this.__observers__.push(UIEvent.observe(this, property, callback));
     }
     dispose() {
         this.logger.debug("Model Disposing");
