@@ -158,17 +158,17 @@ export class UIDgRow {
     <div class="ui-dg-filler"></div>
   </div>
 </div>
-<div ref="dgFoot" class="ui-dg-footer">
+<div ref="dgFoot" class="ui-dg-footer" if.bind="summaryRow">
   <div class="ui-dg-row" css.bind="{transform: 'translateX('+(scrollLeft*-1)+'px)'}">
     <div class="ui-dg-lock-holder" css.bind="{transform: 'translateX('+scrollLeft+'px)'}">
       <div class="ui-dg-expander" if.bind="rowExpander" css.bind="{width: expandWidth+'px'}"></div>
       <div class="ui-dg-expander" if.bind="rowCounter" css.bind="{width: counterWidth+'px'}"></div>
       <div class="ui-dg-cell \${col.align}" repeat.for="col of colLocked" css.bind="{width:col.getWidth(col.width)+'px'}">
-        <div innerhtml.bind='col.getSummary(summaryRow, store.data)'></div>
+        <div innerhtml.bind='col.getSummary(summaryRow, data)'></div>
       </div>
     </div>
     <div class="ui-dg-cell \${col.align}" repeat.for="col of cols" css.bind="{width:col.getWidth(col.width)+'px'}">
-      <div innerhtml.bind='col.getSummary(summaryRow, store.data)'></div>
+      <div innerhtml.bind='col.getSummary(summaryRow, data)'></div>
     </div>
     <div class="ui-dg-filler"></div>
   </div>

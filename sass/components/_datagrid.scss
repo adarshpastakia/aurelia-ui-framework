@@ -74,12 +74,13 @@
     }
 
     .ui-dg-row {
+      &.ui-dg-filler .ui-dg-cell,
       &:nth-child(odd) .ui-dg-cell {
         background: $datagrid-row-odd-bg;
         color     : $datagrid-row-odd-text;
       }
 
-      &:nth-child(even) .ui-dg-cell {
+      &:not(.ui-dg-filler):nth-child(even) .ui-dg-cell {
         background: $datagrid-row-even-bg;
         color     : $datagrid-row-even-text;
       }
