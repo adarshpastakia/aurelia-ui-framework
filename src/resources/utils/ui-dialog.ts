@@ -88,6 +88,12 @@ export class UIDialogService {
       });
   }
 
+  close(id, force?) {
+    let win = _.find(this.windows, ['id', id]);
+    if (win) this.closeDialog(win, force);
+    return !!win;
+  }
+
   closeAll() {
     _.forEach(this.windows, win => this.closeDialog(win, true));
   }
