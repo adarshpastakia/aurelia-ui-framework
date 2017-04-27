@@ -6,6 +6,7 @@
 import {autoinject} from 'aurelia-framework';
 import {UILocalDS} from "../resources/data/ui-data-source";
 import {UIUtils} from "../resources/utils/ui-utils";
+import * as _ from 'lodash';
 import * as moment from 'moment';
 
 @autoinject()
@@ -52,7 +53,9 @@ export class CompDatagrid {
         currency: Math.random() * 10800,
         subdata: subdata
       });
-    this.store = new UILocalDS(this.data, { recordsPerPage: 10 });
+    this.store1 = new UILocalDS(_.cloneDeep(this.data), { recordsPerPage: 10 });
+    this.store2 = new UILocalDS(_.cloneDeep(this.data), { recordsPerPage: 10 });
+    this.store3 = new UILocalDS(_.cloneDeep(this.data));
   }
   // attached() { }
   // detached() { }
@@ -81,7 +84,9 @@ export class CompDatagrid {
     </div>`
   }
 
-  store;
+  store1;
+  store2;
+  store3;
   data = []
 
   clicked(msg, rec) {

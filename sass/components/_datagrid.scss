@@ -12,27 +12,20 @@
     @include flex-fill();
     @include flex-column();
 
-    .ui-dg-wrapper {
+    .ui-dg-body {
       @include flex-fill(1em);
     }
-  }
 
-  &.ui-auto-size {
-    table.filler {
-      display: none;
+    .ui-dg-footer,
+    .ui-dg-header {
+      @include flex-auto();
     }
-  }
-
-  .ui-dg-wrapper {
-    height  : 100%;
-    width   : 100%;
-    overflow: auto;
   }
 
   .ui-dg-ghost {
     top        : 0;
     bottom     : 0;
-    z-index    : 5;
+    z-index    : 10;
     position   : absolute;
     border-left: 2px dotted $base-border-color;
   }
@@ -66,199 +59,248 @@
     }
   }
 
-  table {
-    min-width  : 100%;
-    // min-height : 100%;
-    line-height: 1;
+  .ui-dg-body {
+    height: 100%;
+    width : 100%;
+    @include scroll();
+    @include flex-column($align: stretch);
 
-    td {
-      &.ui-locked {
-        // @include sticky();
-        z-index: 1;
-      }
-
-      &.filler {
-        min-width   : 20px;
-        border-right: none;
-      }
-
-      &.ui-expander {
-        // @include sticky();
-        left      : 0;
-        text-align: center;
-        font-size : 0.8em;
-      }
-
-      > div {
-        border-right: 1px solid rgba($base-border-color, 0.5);
-        line-height : 1.75rem;
-        @include ellipsis();
-
-        &.btn-fix {
-          line-height: 1;
-          padding    : 0.25em 0;
-        }
-      }
-
-      &:last-child > div {
-        border-right: none;
-      }
+    > .ui-dg-filler {
+      @include flex-fill();
     }
 
-     > thead > tr > td,
-    > tfoot > tr > td {
-      font-size  : 0.9em;
-      font-weight: 600;
+    > div {
+      @include flex-auto();
     }
 
-    thead {
-      tr:last-child td:last-child > div {
-        border-right: 1px solid rgba($base-border-color, 0.5);
-      }
-
-      > tr > td {
-        color     : $datagrid-header-text;
-        background: $datagrid-header-bg;
-
-        > div.ui-dg-group {
-          text-align   : center;
-          border-bottom: 1px solid rgba($base-border-color, 0.5);
-        }
-
-        &[rowspan="2"] > div {
-          line-height: 3.5rem;
-        }
-
-        > div {
-          @include flex-row($wrap:false, $align: stretch);
-
-          .ui-dg-header {
-            content: ' ';
-            padding: 0 0.5em;
-            @include ellipsis();
-            @include flex-fill();
-          }
-
-          .ui-sort {
-            padding: 0 0.2em;
-            @include align-self(center);
-            @include flex-auto();
-
-            &:after,
-            &:before {
-              font-size  : 0.5em;
-              display    : block;
-              position   : relative;
-              line-height: 1;
-              color      : rgba($datagrid-header-text,.25);
-            }
-
-            &:before {
-              content: '\25B2';
-            }
-
-            &:after {
-              content: '\25BC';
-            }
-
-            &.asc:before {
-              color: rgba($datagrid-header-text,.75);
-            }
-
-            &.desc:after {
-              color: rgba($datagrid-header-text,.75);
-            }
-          }
-
-          .ui-resizer {
-            cursor: ew-resize;
-            @include flex(0 0 2px);
-            @include border(start, 1px solid rgba($datagrid-header-text, .5));
-          }
-        }
-
-        &:last-child > div {
-          border-right: none;
-        }
-      }
-    }
-
-    tbody {
-      &.odd > tr > td {
+    .ui-dg-row {
+      &:nth-child(odd) .ui-dg-cell {
         background: $datagrid-row-odd-bg;
         color     : $datagrid-row-odd-text;
       }
 
-      &.even > tr > td {
+      &:nth-child(even) .ui-dg-cell {
         background: $datagrid-row-even-bg;
         color     : $datagrid-row-even-text;
       }
 
-      > tr {
-        > td {
-          > div {
-            padding  : 0 0.5em;
-            font-size: 0.9em;
+      &:not(.ui-dg-filler):hover .ui-dg-cell {
+        background: $datagrid-row-hover-bg;
+        color     : $datagrid-row-hover-text;
+      }
 
-            a.ui-link {
-              font-size  : 0.9em;
-              font-weight: 600;
-            }
-          }
+      &.ui-expanded > .ui-dg-cell,
+      &.ui-expanded > .ui-dg-lock-holder > .ui-dg-cell {
+        font-weight: $font-weight-strong;
+      }
 
-          &.ui-expander {
-            background: #e5e5e5 !important;
-          }
-        }
+      &.level-1 .ui-level-pad {
+        padding-left: 1em;
+      }
 
-        &.ui-expanded {
-          > td > div {
-            font-weight: $font-weight-strong;
-          }
-        }
+      &.level-2 .ui-level-pad {
+        padding-left: 2em;
+      }
 
-        &.level-1 .ui-level-pad {
-          padding-left: 1em;
-        }
+      &.level-3 .ui-level-pad {
+        padding-left: 3em;
+      }
 
-        &.level-2 .ui-level-pad {
-          padding-left: 2em;
-        }
+      &.level-4 .ui-level-pad {
+        padding-left: 4em;
+      }
 
-        &.level-3 .ui-level-pad {
-          padding-left: 3em;
-        }
+      &.level-5 .ui-level-pad {
+        padding-left: 5em;
+      }
+    }
+  }
 
-        &.filler {
-          min-height: 0;
-          height    : 100%;
+  .ui-dg-edit-shim {
+    position  : absolute;
+    top       : 0;
+    left      : 0;
+    bottom    : 0;
+    right     : 0;
+    z-index   : 10;
+    background: rgba(0,0,0,.5);
+  }
 
-          > td {
-            vertical-align: top;
-          }
+  .ui-dg-edit-row {
+    position : absolute;
+    top      : 0;
+    left     : 0;
+    bottom   : 0;
+    z-index  : 15;
+    min-width: 100%;
 
-          > td > div {
-            line-height: 0;
-            height     : 100%;
-          }
-        }
+    .ui-dg-input-row {
+      background: $datagrid-row-hover-bg;
+      @include flex-row($wrap:false, $align:stretch);
 
-        &:not(.filler):hover > td {
-          background: $datagrid-row-hover-bg;
-          color     : $datagrid-row-hover-text;
-        }
+      .ui-dg-lock-holder {
+        @include flex-auto();
+        @include flex-row($wrap:false, $align:stretch);
+        z-index   : 5;
+        background: $datagrid-row-hover-bg;
+        @include border(end, 1px solid $base-border-color);
+      }
+
+      .ui-dg-input-cell {
+        padding: 0.2em;
+        @include flex-auto();
       }
     }
 
-    tfoot {
-      tr > td {
-        background: $datagrid-footer-bg;
-        color     : $datagrid-footer-text;
+    .ui-dg-input-buttons {
+      background   : $datagrid-row-hover-bg;
+      margin       : 0 auto;
+      width        : 10em;
+      text-align   : center;
+      padding      : 0 0.5em 0.2em;
+      border-radius: 0 0 0.5em 0.5em;
+    }
+  }
 
-        > div {
-          padding: 0 0.5em;
+  .ui-dg-row {
+    position: relative;
+    @include flex-row($wrap:false, $align:stretch);
+
+    .ui-dg-lock-holder {
+      @include flex-auto();
+      @include flex-row($wrap:false, $align:stretch);
+      z-index: 5;
+      @include border(end, 1px solid $base-border-color);
+    }
+
+    .ui-dg-cell {
+      @include flex-auto();
+      @include ellipsis();
+      line-height: 1.75rem;
+      font-size  : 0.9em;
+      @include border(end, 1px solid rgba($base-border-color, .25));
+
+      .ui-link {
+        font-weight: 600;
+      }
+
+      &:last-child {
+        border-right: none;
+      }
+
+      &:not(.btn-fix) {
+        padding: 0 0.5em;
+      }
+
+      &.btn-fix {
+        line-height: 1.5rem;
+      }
+    }
+
+    > .ui-dg-filler {
+      @include flex-fill();
+    }
+
+    .ui-locked {
+      z-index: 5;
+    }
+
+    .ui-dg-expander {
+      @include flex-auto();
+      font-size : 0.7em;
+      padding   : 0.5em 6px;
+      background: rgba($muted, .2);
+      @include border(end, 1px solid rgba($base-border-color, .25));
+    }
+  }
+
+  .ui-dg-header .ui-dg-row {
+    background: $datagrid-header-bg;
+
+    .ui-dg-group {
+      @include flex-auto();
+      color     : $datagrid-header-text;
+      background: $datagrid-header-bg;
+      @include border(end, 1px solid rgba($base-border-color, .25));
+
+      > .ui-title {
+        display      : block;
+        text-align   : center;
+        border-bottom: 1px solid rgba($base-border-color, 0.25);
+        font-weight  : 600;
+        font-size    : 0.9em;
+      }
+
+      .ui-dg-cols {
+        @include flex-row($wrap:false, $align:stretch);
+      }
+    }
+
+    .ui-dg-cell {
+      @include flex-row($wrap:false, $align:stretch);
+      font-weight: 600;
+      padding    : 0;
+      color      : $datagrid-header-text;
+      background : $datagrid-header-bg;
+
+      &:last-child {
+        border-right: none;
+      }
+
+      .ui-title {
+        content: ' ';
+        padding: 0 0.5em;
+        @include ellipsis();
+        @include flex-fill();
+        @include align-self(center);
+      }
+
+      .ui-sort {
+        padding: 0 0.2em;
+        @include align-self(center);
+        @include flex-auto();
+
+        &:after,
+        &:before {
+          font-size  : 0.5em;
+          display    : block;
+          position   : relative;
+          line-height: 1;
+          color      : rgba($datagrid-header-text,.25);
+        }
+
+        &:before {
+          content: '\25B2';
+        }
+
+        &:after {
+          content: '\25BC';
+        }
+
+        &.asc:before {
+          color: rgba($datagrid-header-text,.75);
+        }
+
+        &.desc:after {
+          color: rgba($datagrid-header-text,.75);
         }
       }
+
+      .ui-resizer {
+        cursor: ew-resize;
+        @include flex(0 0 2px);
+        @include border(start, 1px solid rgba($datagrid-header-text, .5));
+      }
+    }
+  }
+
+  .ui-dg-footer .ui-dg-row {
+    background: $datagrid-footer-bg;
+
+    .ui-dg-cell {
+      font-weight: 600;
+      background : $datagrid-footer-bg;
+      color      : $datagrid-footer-text;
     }
   }
 }

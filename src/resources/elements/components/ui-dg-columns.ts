@@ -31,8 +31,8 @@ export class UIDataColumn {
   }
 
   dataId;
-  width;
-  minWidth;
+  width = 0;
+  minWidth = 0;
 
   value;
   display;
@@ -40,6 +40,7 @@ export class UIDataColumn {
 
   format;
   symbol;
+  editor;
   dataType = 'text';
   align = 'ui-text-start';
 
@@ -50,7 +51,7 @@ export class UIDataColumn {
 
   getWidth(tw) {
     this.width = convertToPx(this.width || this.minWidth || 250);
-    tw += this.width;
+    // tw += this.width;
     return this.width;
   }
   getTitle() {
@@ -145,7 +146,7 @@ export class UIDGColumnGroup {
     return this.label + '&nbsp;';
   }
   getWidth() {
-    return 0;
+    return 'auto';
   }
 }
 
@@ -176,6 +177,7 @@ export class UIDGColumn extends UIDataColumn {
 
   @bindable() symbol;
   @bindable() format;
+  @bindable() editor;
 }
 
 @autoinject()
@@ -194,7 +196,7 @@ export class UIDGGlyph extends UIDataColumn {
   // end aurelia hooks
 
   @bindable() dataId;
-  @bindable() width = '2em';
+  @bindable() width = 32;
   @bindable() minWidth;
 
   @bindable() class = '';

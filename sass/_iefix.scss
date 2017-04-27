@@ -19,8 +19,22 @@
       }
     }
 
-    .ui-datagrid thead .ui-resizer {
-      @include border(left, 1px solid rgba($datagrid-header-text, .5));
+    .ui-datagrid {
+      .ui-dg-header .ui-resizer {
+        @include border(left, 1px solid rgba($datagrid-header-text, .5));
+      }
+
+      .ui-dg-row {
+        .ui-dg-lock-holder {
+          @include border(right, 1px solid $base-border-color);
+        }
+
+        .ui-dg-cell,
+        .ui-dg-expander,
+        .ui-dg-group {
+          @include border(right, 1px solid rgba($base-border-color, .25));
+        }
+      }
     }
 
     .ui-button.ui-busy .ui-indicator {
@@ -76,8 +90,22 @@
       }
     }
 
-    .ui-datagrid thead .ui-resizer {
-      @include border(right, 1px solid rgba($datagrid-header-text, .5));
+    .ui-datagrid {
+      .ui-dg-header .ui-resizer {
+        @include border(right, 1px solid rgba($datagrid-header-text, .5));
+      }
+
+      .ui-dg-row {
+        .ui-dg-lock-holder {
+          @include border(left, 1px solid $base-border-color);
+        }
+
+        .ui-dg-cell,
+        .ui-dg-expander,
+        .ui-dg-group {
+          @include border(left, 1px solid rgba($base-border-color, .25));
+        }
+      }
     }
 
     .ui-button.ui-busy .ui-indicator {

@@ -137,10 +137,14 @@ export class UIModel {
     this.__original__ = _.cloneDeep(this.serialize());
   }
 
+  /**
+  Clone the original dataset to make sure any change does not affect the original
+  **/
   discardChanges() {
-    Object.keys(_.cloneDeep(this.__original__))
+    let json = _.cloneDeep(this.__original__);
+    Object.keys(this.__original__)
       .forEach((key) => {
-        this[key] = this.__original__[key];
+        this[key] = json[key];
       });
   }
 
@@ -152,8 +156,13 @@ export class UIModel {
             this.__original__[key] = this[key]
           }
         });
+      return false;
     }
     return this.checkDirty(this.__original__, this);
+  }
+
+  isPropDirty(property) {
+    return !(this.hasOwnProperty(property) && (this[property] === this.__original__[property]));
   }
 
   private checkDirty(o, t) {

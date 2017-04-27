@@ -1,5 +1,6 @@
 import {autoinject} from 'aurelia-framework';
 import {UIEvent} from "../utils/ui-event";
+import {UIModel} from "../utils/ui-model";
 import * as _ from "lodash";
 
 export class BaseDataSource {
@@ -7,6 +8,7 @@ export class BaseDataSource {
   isLoading = false;
   isLoaded = false;
 
+  idProperty = '__autoId__';
   dataProperty = 'data';
   totalProperty = 'totalRecords';
 
@@ -17,7 +19,9 @@ export class BaseDataSource {
 
   totalPages = 0;
   currentPage = -1;
-  recordsPerPage = 25;
+  recordsPerPage = -1;
+
+  paged = false;
 
   sortBy = '';
   orderBy = 'asc';
@@ -25,6 +29,7 @@ export class BaseDataSource {
   data = [];
   __original__ = [];
 
+  model;
 
   fetchData() { }
   loadPage(pg) { }
@@ -33,14 +38,20 @@ export class BaseDataSource {
   filter(props) {
     // array of [{prop: value}]
   }
+
+  protected makeDataset(resp) {
+    return _.forEach(resp, o => {
+      let model = new (this.model || UIModel)();
+      model.deserialize(o);
+    });
+  }
 }
 
 export class UILocalDS extends BaseDataSource {
 
   constructor(data, opts = {}) {
     super();
-    this.__original__ = (data || []);
-
+    this.__original__ = this.makeDataset(data || []);
     Object.assign(this, opts);
 
     this.totalPages = Math.ceil(this.__original__.length / this.recordsPerPage);
@@ -48,7 +59,7 @@ export class UILocalDS extends BaseDataSource {
 
   fetchData() {
     this.isLoading = true;
-    Promise.resolve(this.data = _.cloneDeep(this.__original__));
+    Promise.resolve(this.data = this.__original__);
     this.isEmpty = this.data.length == 0;
     UIEvent.queueTask(() => this.isLoaded = !(this.isLoading = false));
   }
