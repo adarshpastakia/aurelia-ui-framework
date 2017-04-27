@@ -555,7 +555,7 @@ UIDateInput = __decorate([
     autoinject(),
     inlineView(`<template class="ui-input-wrapper ui-input-date"><div role="input" class="ui-input-control"><slot></slot>
   <span class="ui-error" if.bind="errors"><ui-glyph glyph="glyph-invalid"></ui-glyph><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
-  <input ref="inputEl" value.bind="elValue"
+  <input ref="inputEl" value.bind="elValue" size="1"
     focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)"
     change.trigger="fireEvent($event)" keydown.trigger="keyDown($event)" click.trigger="openDropdown($event, show=true)"
     placeholder.bind="placeholder" disabled.bind="isDisabled" readonly.bind="!allowSearch || readonly"/>

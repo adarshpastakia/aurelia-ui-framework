@@ -119,8 +119,7 @@ UIDgRow = __decorate([
         <a click.trigger="record.isOpen=!record.isOpen" if.bind="record.subdata||parent.subview"><ui-glyph glyph="\${record.isOpen?'glyph-icon-minus':'glyph-icon-plus'}"></ui-glyph></a>
       </div>
       <div class="ui-dg-expander ui-text-center" if.bind="parent.rowCounter" click.trigger="$event.stopPropagation()" ref="rowCounter" css.bind="{'min-width': parent.counterWidth+'px'}">\${index}</div>
-      <ui-dg-cell class="ui-dg-cell \${col.align}" repeat.for="col of parent.colLocked" css.bind="{width:col.getWidth(col.width)+'px'}"
-        <div col.bind="col" parent.bind="parent" record.bind="record">
+      <ui-dg-cell class="ui-dg-cell \${col.align}" repeat.for="col of parent.colLocked" css.bind="{width:col.getWidth(col.width)+'px'}" col.bind="col" parent.bind="parent" record.bind="record">
       </ui-dg-cell>
     </div>
     <ui-dg-cell class="ui-dg-cell \${col.align}" repeat.for="col of parent.cols" css.bind="{width:col.getWidth(col.width)+'px'}" col.bind="col" parent.bind="parent" record.bind="record">
