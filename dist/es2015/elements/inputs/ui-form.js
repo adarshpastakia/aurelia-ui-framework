@@ -20,11 +20,23 @@ let UIForm = class UIForm {
             if (el !== null)
                 el.focus();
             if (this.busy)
-                this.busyChanged(true);
+                this.busyChanged(this.busy);
+            if (this.disabled)
+                this.disabledChanged(this.disabled);
         });
     }
     busyChanged(newValue) {
-        let els = this.element.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list');
+        let els = this.element.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list,ui-dropdown');
+        _.forEach(els, el => {
+            try {
+                el.au.controller.viewModel.disable(isTrue(newValue));
+            }
+            catch (e) {
+            }
+        });
+    }
+    disabledChanged(newValue) {
+        let els = this.element.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list,ui-dropdown');
         _.forEach(els, el => {
             try {
                 el.au.controller.viewModel.disable(isTrue(newValue));
@@ -42,6 +54,10 @@ __decorate([
     bindable(),
     __metadata("design:type", Boolean)
 ], UIForm.prototype, "busy", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Boolean)
+], UIForm.prototype, "disabled", void 0);
 UIForm = __decorate([
     autoinject(),
     customElement('ui-form'),

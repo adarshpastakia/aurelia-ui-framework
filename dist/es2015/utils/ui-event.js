@@ -32,6 +32,13 @@ export var UIEvent;
         return __ob.propertyObserver(object, property).subscribe(callback);
     }
     UIEvent.observe = observe;
+    function collection(object, callback) {
+        if (!__ob) {
+            __ob = UIUtils.lazy(BindingEngine);
+        }
+        return __ob.collectionObserver(object).subscribe(callback);
+    }
+    UIEvent.collection = collection;
     function queueTask(fn) {
         if (!__tq) {
             __tq = UIUtils.lazy(TaskQueue);

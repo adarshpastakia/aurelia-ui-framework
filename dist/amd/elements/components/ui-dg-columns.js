@@ -23,6 +23,8 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-format", "../
     var UIDataColumn = (function () {
         function UIDataColumn(element) {
             this.element = element;
+            this.width = 0;
+            this.minWidth = 0;
             this.dataType = 'text';
             this.align = 'ui-text-start';
             this.left = 0;
@@ -57,7 +59,6 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-format", "../
         }
         UIDataColumn.prototype.getWidth = function (tw) {
             this.width = convertToPx(this.width || this.minWidth || 250);
-            tw += this.width;
             return this.width;
         };
         UIDataColumn.prototype.getTitle = function () {
@@ -165,7 +166,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-format", "../
             return this.label + '&nbsp;';
         };
         UIDGColumnGroup.prototype.getWidth = function () {
-            return 0;
+            return 'auto';
         };
         return UIDGColumnGroup;
     }());
@@ -232,6 +233,10 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-format", "../
         aurelia_framework_1.bindable(),
         __metadata("design:type", Object)
     ], UIDGColumn.prototype, "format", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDGColumn.prototype, "editor", void 0);
     UIDGColumn = __decorate([
         aurelia_framework_1.autoinject(),
         aurelia_framework_1.inlineView("<template><slot></slot></template>"),
@@ -245,7 +250,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-format", "../
             var _this = _super.call(this, element) || this;
             _this.element = element;
             _this.type = 'glyph';
-            _this.width = '2em';
+            _this.width = 32;
             _this.class = '';
             return _this;
         }

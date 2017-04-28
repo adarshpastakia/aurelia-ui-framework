@@ -4,5 +4,6 @@ export declare module UIEvent {
     function broadcast(event: string, data?: any): void;
     function subscribe(event: string, callback: any): Subscription;
     function observe(object: any, property: string, callback: any): Subscription;
+    function collection(object: any, callback: any): Subscription;
     function queueTask(fn: any): void;
 }

@@ -17,7 +17,11 @@ export declare class UIModel {
     serialize(): {};
     static serializeObject(o: any): {};
     saveChanges(): void;
+    /**
+    Clone the original dataset to make sure any change does not affect the original
+    **/
     discardChanges(): void;
     isDirty(): any;
+    isPropDirty(property: any): boolean;
     private checkDirty(o, t);
 }

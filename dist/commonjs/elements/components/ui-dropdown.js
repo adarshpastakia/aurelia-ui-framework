@@ -23,6 +23,7 @@ var UIDropdown = (function () {
         this.defaultText = 'Select';
         this.glyph = '';
         this.display = '';
+        this.isDisabled = false;
     }
     UIDropdown.prototype.bind = function (bindingContext, overrideContext) {
         this.disabledChanged(this.disabled);
@@ -60,7 +61,10 @@ var UIDropdown = (function () {
         }
     };
     UIDropdown.prototype.disabledChanged = function (newValue) {
-        this.element.classList[(this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');
+        this.element.classList[(this.isDisabled = this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');
+    };
+    UIDropdown.prototype.disable = function (b) {
+        this.element.classList[(this.isDisabled = (b || this.disabled)) ? 'add' : 'remove']('ui-disabled');
     };
     UIDropdown.prototype.select = function (evt) {
         var _this = this;

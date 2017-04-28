@@ -114,7 +114,7 @@ UIPhone = __decorate([
     autoinject(),
     inlineView(`<template class="ui-input-wrapper"><div  role="input" class="ui-input-control ui-phone"><span ref="prefixEl"></span>
   <span class="ui-error" if.bind="errors"><ui-glyph glyph="glyph-invalid"></ui-glyph><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
-  <input ref="inputEl" type="tel" dir="ltr"
+  <input ref="inputEl" type="tel" dir="ltr" size="1"
     focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)"
     input.trigger="fireEvent($event)" change.trigger="fireEvent($event)"
     keypress.trigger="checkInput($event)" placeholder.bind="placeholder"

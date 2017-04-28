@@ -8,7 +8,13 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-define(["require", "exports", "../utils/ui-event", "lodash"], function (require, exports, ui_event_1, _) {
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+define(["require", "exports", "aurelia-framework", "../utils/ui-event", "../utils/ui-model", "lodash"], function (require, exports, aurelia_framework_1, ui_event_1, ui_model_1, _) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var BaseDataSource = (function () {
@@ -16,6 +22,7 @@ define(["require", "exports", "../utils/ui-event", "lodash"], function (require,
             this.isEmpty = false;
             this.isLoading = false;
             this.isLoaded = false;
+            this.idProperty = '__autoId__';
             this.dataProperty = 'data';
             this.totalProperty = 'totalRecords';
             this.pageProperty = 'page';
@@ -24,7 +31,8 @@ define(["require", "exports", "../utils/ui-event", "lodash"], function (require,
             this.orderProperty = 'order';
             this.totalPages = 0;
             this.currentPage = -1;
-            this.recordsPerPage = 25;
+            this.recordsPerPage = -1;
+            this.paged = false;
             this.sortBy = '';
             this.orderBy = 'asc';
             this.data = [];
@@ -35,15 +43,31 @@ define(["require", "exports", "../utils/ui-event", "lodash"], function (require,
         BaseDataSource.prototype.sort = function (property, order) { };
         BaseDataSource.prototype.filter = function (props) {
         };
+        BaseDataSource.prototype.dispose = function () {
+            _.forEach(this.__original__, function (o) { return o.dispose(); });
+        };
+        BaseDataSource.prototype.makeDataset = function (resp) {
+            var _this = this;
+            var ret = [];
+            _.forEach(resp, function (o) {
+                var model = new (_this.model || ui_model_1.UIModel)();
+                model.deserialize(o);
+                ret.push(model);
+            });
+            this.__original__ = ret;
+        };
         return BaseDataSource;
     }());
+    BaseDataSource = __decorate([
+        aurelia_framework_1.observable('__original__')
+    ], BaseDataSource);
     exports.BaseDataSource = BaseDataSource;
     var UILocalDS = (function (_super) {
         __extends(UILocalDS, _super);
         function UILocalDS(data, opts) {
             if (opts === void 0) { opts = {}; }
             var _this = _super.call(this) || this;
-            _this.__original__ = (data || []);
+            _this.makeDataset(data || []);
             Object.assign(_this, opts);
             _this.totalPages = Math.ceil(_this.__original__.length / _this.recordsPerPage);
             return _this;
@@ -51,7 +75,7 @@ define(["require", "exports", "../utils/ui-event", "lodash"], function (require,
         UILocalDS.prototype.fetchData = function () {
             var _this = this;
             this.isLoading = true;
-            Promise.resolve(this.data = _.cloneDeep(this.__original__));
+            Promise.resolve(this.data = this.__original__);
             this.isEmpty = this.data.length == 0;
             ui_event_1.UIEvent.queueTask(function () { return _this.isLoaded = !(_this.isLoading = false); });
         };

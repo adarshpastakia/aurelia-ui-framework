@@ -2,20 +2,21 @@ export declare class UIDataColumn {
     element: Element;
     constructor(element: Element);
     dataId: any;
-    width: any;
-    minWidth: any;
+    width: number;
+    minWidth: number;
     value: any;
     display: any;
     summary: any;
     format: any;
     symbol: any;
+    editor: any;
     dataType: string;
     align: string;
     left: number;
     locked: number;
     resize: boolean;
     sortable: boolean;
-    getWidth(tw: any): any;
+    getWidth(tw: any): number;
     getTitle(): string;
     getValue(value: any, record: any): string;
     processValue(value: any, record: any): string;
@@ -29,7 +30,7 @@ export declare class UIDGColumnGroup {
     locked: number;
     isGroup: boolean;
     getTitle(): string;
-    getWidth(): number;
+    getWidth(): string;
 }
 export declare class UIDGColumn extends UIDataColumn {
     element: Element;
@@ -44,13 +45,14 @@ export declare class UIDGColumn extends UIDataColumn {
     summary: string;
     symbol: any;
     format: any;
+    editor: any;
 }
 export declare class UIDGGlyph extends UIDataColumn {
     element: Element;
     type: string;
     constructor(element: Element);
     dataId: any;
-    width: string;
+    width: number;
     minWidth: any;
     class: string;
     glyph: any;

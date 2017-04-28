@@ -11,11 +11,17 @@ export declare class UIDgCell {
     attached(): void;
 }
 export declare class UIDgRow {
+    element: Element;
+    constructor(element: Element);
     level: number;
+    index: any;
     record: any;
     parent: any;
-    expand(evt: any): boolean;
-    getSubdata(): any;
+    extraClass: string;
+    rowExpand: any;
+    rowCounter: any;
+    bind(bindingContext: any, overrideContext: any): void;
+    attached(): void;
 }
 export declare class UIDatagrid {
     element: Element;
@@ -24,39 +30,36 @@ export declare class UIDatagrid {
     attached(): void;
     detached(): void;
     columns: any;
+    data: any;
     store: any;
-    pager: any;
     subview: any;
-    summaryRow: boolean;
-    private cols;
-    private headCols;
-    private headCols2;
-    private tableWidth;
-    private virtual;
-    private isBusy;
-    private obDataChange;
-    private obPageChange;
-    private handleSize;
-    columnsChanged(newValue: any): void;
-    storeChanged(newValue: any): void;
-    dgHead: any;
-    dgFoot: any;
-    scroller: any;
     selected: any;
-    private scrolling();
+    summaryRow: boolean;
+    cols: any[];
+    colHead: any[];
+    colLocked: any[];
+    virtual: boolean;
+    editable: boolean;
+    rowCounter: boolean;
+    rowExpander: boolean;
+    expandWidth: number;
+    counterWidth: number;
+    obPageChange: any;
+    columnsChanged(c?: any): void;
+    dataChanged(newValue: any): void;
     private doSort(col);
-    private calculateWidth(cols);
-    private fireSelect(record);
+    private fireSelect(record, evt);
+    private makeEditable($event, record);
     isRtl: boolean;
     move: any;
     stop: any;
     diff: any;
+    dgBody: any;
     startX: any;
     ghost: any;
-    colNext: any;
     colResize: any;
     resizing: boolean;
-    resizeColumn(evt: any, col: any, next: any): boolean;
+    resizeColumn(evt: any, col: any): boolean;
     resize(evt: any): void;
     resizeEnd(evt: any): boolean;
 }
@@ -68,8 +71,8 @@ export declare class UIPager {
     bind(bindingContext: Object, overrideContext: Object): void;
     attached(): void;
     page: number;
-    style: string;
     store: any;
+    style: string;
     totalPages: number;
     fireChange(): void;
 }

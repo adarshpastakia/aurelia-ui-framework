@@ -4,7 +4,9 @@ export declare class UIForm {
     attached(): void;
     formEl: any;
     busy: boolean;
+    disabled: boolean;
     busyChanged(newValue: any): void;
+    disabledChanged(newValue: any): void;
     fireSubmit(): void;
 }
 export declare class UIFieldset {

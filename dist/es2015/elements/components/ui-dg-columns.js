@@ -14,6 +14,8 @@ import * as _ from "lodash";
 export class UIDataColumn {
     constructor(element) {
         this.element = element;
+        this.width = 0;
+        this.minWidth = 0;
         this.dataType = 'text';
         this.align = 'ui-text-start';
         this.left = 0;
@@ -48,7 +50,6 @@ export class UIDataColumn {
     }
     getWidth(tw) {
         this.width = convertToPx(this.width || this.minWidth || 250);
-        tw += this.width;
         return this.width;
     }
     getTitle() {
@@ -154,7 +155,7 @@ let UIDGColumnGroup = class UIDGColumnGroup {
         return this.label + '&nbsp;';
     }
     getWidth() {
-        return 0;
+        return 'auto';
     }
 };
 __decorate([
@@ -217,6 +218,10 @@ __decorate([
     bindable(),
     __metadata("design:type", Object)
 ], UIDGColumn.prototype, "format", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIDGColumn.prototype, "editor", void 0);
 UIDGColumn = __decorate([
     autoinject(),
     inlineView(`<template><slot></slot></template>`),
@@ -229,7 +234,7 @@ let UIDGGlyph = class UIDGGlyph extends UIDataColumn {
         super(element);
         this.element = element;
         this.type = 'glyph';
-        this.width = '2em';
+        this.width = 32;
         this.class = '';
     }
     getGlyph(value, record) {

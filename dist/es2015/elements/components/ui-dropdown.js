@@ -21,6 +21,7 @@ let UIDropdown = class UIDropdown {
         this.defaultText = 'Select';
         this.glyph = '';
         this.display = '';
+        this.isDisabled = false;
     }
     bind(bindingContext, overrideContext) {
         this.disabledChanged(this.disabled);
@@ -56,7 +57,10 @@ let UIDropdown = class UIDropdown {
         }
     }
     disabledChanged(newValue) {
-        this.element.classList[(this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');
+        this.element.classList[(this.isDisabled = this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');
+    }
+    disable(b) {
+        this.element.classList[(this.isDisabled = (b || this.disabled)) ? 'add' : 'remove']('ui-disabled');
     }
     select(evt) {
         let params = { value: evt.detail.value, model: evt.detail.model };

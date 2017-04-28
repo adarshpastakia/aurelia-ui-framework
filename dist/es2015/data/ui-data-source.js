@@ -1,10 +1,19 @@
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+import { observable } from 'aurelia-framework';
 import { UIEvent } from "../utils/ui-event";
+import { UIModel } from "../utils/ui-model";
 import * as _ from "lodash";
-export class BaseDataSource {
+let BaseDataSource = class BaseDataSource {
     constructor() {
         this.isEmpty = false;
         this.isLoading = false;
         this.isLoaded = false;
+        this.idProperty = '__autoId__';
         this.dataProperty = 'data';
         this.totalProperty = 'totalRecords';
         this.pageProperty = 'page';
@@ -13,7 +22,8 @@ export class BaseDataSource {
         this.orderProperty = 'order';
         this.totalPages = 0;
         this.currentPage = -1;
-        this.recordsPerPage = 25;
+        this.recordsPerPage = -1;
+        this.paged = false;
         this.sortBy = '';
         this.orderBy = 'asc';
         this.data = [];
@@ -24,17 +34,33 @@ export class BaseDataSource {
     sort(property, order) { }
     filter(props) {
     }
-}
+    dispose() {
+        _.forEach(this.__original__, (o) => o.dispose());
+    }
+    makeDataset(resp) {
+        let ret = [];
+        _.forEach(resp, o => {
+            let model = new (this.model || UIModel)();
+            model.deserialize(o);
+            ret.push(model);
+        });
+        this.__original__ = ret;
+    }
+};
+BaseDataSource = __decorate([
+    observable('__original__')
+], BaseDataSource);
+export { BaseDataSource };
 export class UILocalDS extends BaseDataSource {
     constructor(data, opts = {}) {
         super();
-        this.__original__ = (data || []);
+        this.makeDataset(data || []);
         Object.assign(this, opts);
         this.totalPages = Math.ceil(this.__original__.length / this.recordsPerPage);
     }
     fetchData() {
         this.isLoading = true;
-        Promise.resolve(this.data = _.cloneDeep(this.__original__));
+        Promise.resolve(this.data = this.__original__);
         this.isEmpty = this.data.length == 0;
         UIEvent.queueTask(() => this.isLoaded = !(this.isLoading = false));
     }

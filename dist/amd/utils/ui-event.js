@@ -32,6 +32,13 @@ define(["require", "exports", "./ui-utils", "aurelia-framework", "aurelia-event-
             return __ob.propertyObserver(object, property).subscribe(callback);
         }
         UIEvent.observe = observe;
+        function collection(object, callback) {
+            if (!__ob) {
+                __ob = ui_utils_1.UIUtils.lazy(aurelia_framework_1.BindingEngine);
+            }
+            return __ob.collectionObserver(object).subscribe(callback);
+        }
+        UIEvent.collection = collection;
         function queueTask(fn) {
             if (!__tq) {
                 __tq = ui_utils_1.UIUtils.lazy(aurelia_framework_1.TaskQueue);

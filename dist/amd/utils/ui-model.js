@@ -138,9 +138,10 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "./ui-http
         };
         UIModel.prototype.discardChanges = function () {
             var _this = this;
-            Object.keys(_.cloneDeep(this.__original__))
+            var json = _.cloneDeep(this.__original__);
+            Object.keys(this.__original__)
                 .forEach(function (key) {
-                _this[key] = _this.__original__[key];
+                _this[key] = json[key];
             });
         };
         UIModel.prototype.isDirty = function () {
@@ -152,8 +153,12 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "./ui-http
                         _this.__original__[key] = _this[key];
                     }
                 });
+                return false;
             }
             return this.checkDirty(this.__original__, this);
+        };
+        UIModel.prototype.isPropDirty = function (property) {
+            return !(this.hasOwnProperty(property) && (this[property] === this.__original__[property]));
         };
         UIModel.prototype.checkDirty = function (o, t) {
             var _this = this;
@@ -171,6 +176,7 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "./ui-http
         return UIModel;
     }());
     UIModel = UIModel_1 = __decorate([
+        aurelia_framework_1.observable('__original__'),
         aurelia_framework_1.autoinject(),
         __metadata("design:paramtypes", [])
     ], UIModel);

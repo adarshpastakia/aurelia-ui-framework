@@ -23,11 +23,23 @@ var UIForm = (function () {
             if (el !== null)
                 el.focus();
             if (_this.busy)
-                _this.busyChanged(true);
+                _this.busyChanged(_this.busy);
+            if (_this.disabled)
+                _this.disabledChanged(_this.disabled);
         });
     };
     UIForm.prototype.busyChanged = function (newValue) {
-        var els = this.element.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list');
+        var els = this.element.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list,ui-dropdown');
+        _.forEach(els, function (el) {
+            try {
+                el.au.controller.viewModel.disable(isTrue(newValue));
+            }
+            catch (e) {
+            }
+        });
+    };
+    UIForm.prototype.disabledChanged = function (newValue) {
+        var els = this.element.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list,ui-dropdown');
         _.forEach(els, function (el) {
             try {
                 el.au.controller.viewModel.disable(isTrue(newValue));
@@ -46,6 +58,10 @@ __decorate([
     aurelia_framework_1.bindable(),
     __metadata("design:type", Boolean)
 ], UIForm.prototype, "busy", void 0);
+__decorate([
+    aurelia_framework_1.bindable(),
+    __metadata("design:type", Boolean)
+], UIForm.prototype, "disabled", void 0);
 UIForm = __decorate([
     aurelia_framework_1.autoinject(),
     aurelia_framework_1.customElement('ui-form'),

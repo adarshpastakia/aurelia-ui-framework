@@ -1,4 +1,4 @@
-System.register(["../utils/ui-event", "lodash"], function (exports_1, context_1) {
+System.register(["aurelia-framework", "../utils/ui-event", "../utils/ui-model", "lodash"], function (exports_1, context_1) {
     "use strict";
     var __extends = (this && this.__extends) || (function () {
         var extendStatics = Object.setPrototypeOf ||
@@ -10,12 +10,24 @@ System.register(["../utils/ui-event", "lodash"], function (exports_1, context_1)
             d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
         };
     })();
+    var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
     var __moduleName = context_1 && context_1.id;
-    var ui_event_1, _, BaseDataSource, UILocalDS, UIRemoteDS;
+    var aurelia_framework_1, ui_event_1, ui_model_1, _, BaseDataSource, UILocalDS, UIRemoteDS;
     return {
         setters: [
+            function (aurelia_framework_1_1) {
+                aurelia_framework_1 = aurelia_framework_1_1;
+            },
             function (ui_event_1_1) {
                 ui_event_1 = ui_event_1_1;
+            },
+            function (ui_model_1_1) {
+                ui_model_1 = ui_model_1_1;
             },
             function (_1) {
                 _ = _1;
@@ -27,6 +39,7 @@ System.register(["../utils/ui-event", "lodash"], function (exports_1, context_1)
                     this.isEmpty = false;
                     this.isLoading = false;
                     this.isLoaded = false;
+                    this.idProperty = '__autoId__';
                     this.dataProperty = 'data';
                     this.totalProperty = 'totalRecords';
                     this.pageProperty = 'page';
@@ -35,7 +48,8 @@ System.register(["../utils/ui-event", "lodash"], function (exports_1, context_1)
                     this.orderProperty = 'order';
                     this.totalPages = 0;
                     this.currentPage = -1;
-                    this.recordsPerPage = 25;
+                    this.recordsPerPage = -1;
+                    this.paged = false;
                     this.sortBy = '';
                     this.orderBy = 'asc';
                     this.data = [];
@@ -46,15 +60,31 @@ System.register(["../utils/ui-event", "lodash"], function (exports_1, context_1)
                 BaseDataSource.prototype.sort = function (property, order) { };
                 BaseDataSource.prototype.filter = function (props) {
                 };
+                BaseDataSource.prototype.dispose = function () {
+                    _.forEach(this.__original__, function (o) { return o.dispose(); });
+                };
+                BaseDataSource.prototype.makeDataset = function (resp) {
+                    var _this = this;
+                    var ret = [];
+                    _.forEach(resp, function (o) {
+                        var model = new (_this.model || ui_model_1.UIModel)();
+                        model.deserialize(o);
+                        ret.push(model);
+                    });
+                    this.__original__ = ret;
+                };
                 return BaseDataSource;
             }());
+            BaseDataSource = __decorate([
+                aurelia_framework_1.observable('__original__')
+            ], BaseDataSource);
             exports_1("BaseDataSource", BaseDataSource);
             UILocalDS = (function (_super) {
                 __extends(UILocalDS, _super);
                 function UILocalDS(data, opts) {
                     if (opts === void 0) { opts = {}; }
                     var _this = _super.call(this) || this;
-                    _this.__original__ = (data || []);
+                    _this.makeDataset(data || []);
                     Object.assign(_this, opts);
                     _this.totalPages = Math.ceil(_this.__original__.length / _this.recordsPerPage);
                     return _this;
@@ -62,7 +92,7 @@ System.register(["../utils/ui-event", "lodash"], function (exports_1, context_1)
                 UILocalDS.prototype.fetchData = function () {
                     var _this = this;
                     this.isLoading = true;
-                    Promise.resolve(this.data = _.cloneDeep(this.__original__));
+                    Promise.resolve(this.data = this.__original__);
                     this.isEmpty = this.data.length == 0;
                     ui_event_1.UIEvent.queueTask(function () { return _this.isLoaded = !(_this.isLoading = false); });
                 };
