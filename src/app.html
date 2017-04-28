@@ -20,13 +20,20 @@
         <div class="indicator ui-bg-success"></div>
         <div class="indicator ui-bg-warning"></div>
 
-        <div>
+        <ui-row middle end>
+          <a href="https://github.com/adarshpastakia/aurelia-ui-framework" target="_blank" class="noarrow" style="line-height:0">
+            <img src="https://img.shields.io/badge/GitHub-Repo-842855.svg?style=flat-square&colorA=522B56"/>
+          </a>&nbsp;
+          <a href="https://github.com/adarshpastakia/aurelia-ui-framework/issues" target="_blank" class="noarrow" style="line-height:0">
+            <img src="https://img.shields.io/github/issues/adarshpastakia/aurelia-ui-framework.svg?style=flat-square&colorA=522B56&colorB=842855&label=Issues"/>
+          </a>
+          <ui-divider></ui-divider>
           <ui-dropdown class="ui-text-start" value.bind="currentLocale" change.trigger="updateLocale()">
             <ui-list-item glyph="ui-flag GB" value="en">English</ui-list-item>
             <ui-list-item glyph="ui-flag ES" value="es">Spanish</ui-list-item>
             <ui-list-item glyph="ui-flag AE" value="ar">Arabic</ui-list-item>
           </ui-dropdown>
-        </div>
+        </ui-row>
       </div>
     </ui-app-header>
 
@@ -54,7 +61,8 @@
 
     <ui-router-view></ui-router-view>
     <ui-app-footer>
-      <span t="[prepend]version"> ${constants.Version}</span>
+      <span t="[prepend]version">
+        ${constants.Version}</span>
       <span>&copy; 2017, Adarsh Pastakia</span>
     </ui-app-footer>
   </ui-viewport>
