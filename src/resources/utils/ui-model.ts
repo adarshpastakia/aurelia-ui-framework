@@ -11,7 +11,6 @@ import {UIEvent} from "./ui-event";
 import {UIUtils} from "./ui-utils";
 import * as _ from "lodash";
 
-@observable('__original__')
 @autoinject()
 export class UIModel {
   public logger: Logger;

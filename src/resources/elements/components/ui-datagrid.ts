@@ -4,7 +4,8 @@
 // @copyright   : 2017
 // @license     : MIT
 
-import {autoinject, customElement, bindable, bindingMode, children, inlineView, useView, containerless, View, DOM, Container, ViewCompiler, ViewSlot} from 'aurelia-framework';
+import {autoinject, customElement, observable, bindable, bindingMode, children, inlineView, useView, containerless, View, DOM, Container, ViewCompiler, ViewSlot} from 'aurelia-framework';
+import {ValidationController, ValidationControllerFactory, validateTrigger} from "aurelia-validation";
 import {UIFormat} from "../../utils/ui-format";
 import {UIEvent} from "../../utils/ui-event";
 import {UIUtils} from "../../utils/ui-utils";
@@ -32,15 +33,15 @@ export class UIDgCell {
     else if (this.type == 'editor') {
       template = '<span>&nbsp;</span>';
       if (this.col.editor == 'text')
-        template = '<ui-input value.bind="record[col.dataId]"></ui-input>';
-      if (this.col.editor == 'decimal')
-        template = '<ui-input decimal.bind="record[col.dataId]"></ui-input>';
-      if (this.col.editor == 'date')
-        template = '<ui-date date.bind="record[col.dataId]"></ui-date>';
-      if (this.col.editor == 'datetime')
-        template = '<ui-date datetime date.bind="record[col.dataId]"></ui-date>';
-      if (this.col.editor == 'time')
-        template = '<ui-date time date.bind="record[col.dataId]"></ui-date>';
+        template = '<ui-input clear value.bind="record[col.dataId] & validate"></ui-input>';
+      else if (this.col.editor == 'decimal')
+        template = '<ui-input decimal.bind="record[col.dataId] & validate"></ui-input>';
+      else if (this.col.editor == 'date')
+        template = '<ui-date date.bind="record[col.dataId] & validate"></ui-date>';
+      else if (this.col.editor == 'datetime')
+        template = '<ui-date datetime date.bind="record[col.dataId] & validate"></ui-date>';
+      else if (this.col.editor == 'time')
+        template = '<ui-date time date.bind="record[col.dataId] & validate"></ui-date>';
     }
     else if (this.col.type == 'normal')
       template = `<span class="\${col.class}" innerhtml.bind='col.getValue(record[col.dataId],record)'></span>`;
@@ -87,7 +88,7 @@ export class UIDgCell {
     <div class="ui-dg-filler"></div>
 
     <div class="ui-dg-edit-row" if.bind="record.__editing__" click.trigger="$event.stopPropagation()">
-      <div class="ui-dg-input-row">
+      <div class="ui-dg-input-row" validation-renderer="ui-validator">
         <div class="ui-dg-lock-holder" css.bind="{transform: 'translateX('+parent.scrollLeft+'px)'}">
         <div class="ui-dg-expander" if.bind="parent.rowExpander" css.bind="{'min-width': parent.expandWidth+'px'}"></div>
         <div class="ui-dg-expander ui-text-center" if.bind="parent.rowCounter" css.bind="{'min-width': parent.counterWidth+'px'}"></div>
@@ -96,7 +97,7 @@ export class UIDgCell {
         <ui-dg-cell class="ui-dg-input-cell" css.bind="{width:col.getWidth(col.width)+'px'}" parent.bind="parent" record.bind="record" type="editor" col.bind="col" repeat.for="col of parent.cols"></ui-dg-cell>
       </div>
       <div class="ui-dg-input-buttons" css.bind="{transform: 'translateX('+parent.scrollLeft+'px)'}">
-        <ui-button small click.trigger="[record.saveChanges(), record.__editing__=false, $event.stopPropagation()]">Update</ui-button>
+        <ui-button small click.trigger="[saveChanges(record), $event.stopPropagation()]">Update</ui-button>
         <ui-button small click.trigger="[record.discardChanges(), record.__editing__=false, $event.stopPropagation()]">Cancel</ui-button>
       </div>
     </div>
@@ -134,6 +135,16 @@ export class UIDgRow {
   attached() {
     if (this.rowExpand && this.parent.expandWidth < this.rowExpand.offsetWidth) this.parent.expandWidth = this.rowExpand.offsetWidth;
     if (this.rowCounter && this.parent.counterWidth < this.rowCounter.offsetWidth) this.parent.counterWidth = this.rowCounter.offsetWidth;
+  }
+
+  saveChanges(record) {
+    this.parent.controller.validate()
+      .then(e => {
+        if (e.valid) {
+          record.saveChanges();
+          record.__editing__ = false;
+        }
+      });
   }
 }
 
@@ -198,11 +209,11 @@ export class UIDgRow {
       <div class="ui-dg-expander" if.bind="rowExpander" css.bind="{width: expandWidth+'px'}"></div>
       <div class="ui-dg-expander" if.bind="rowCounter" css.bind="{width: counterWidth+'px'}"></div>
       <div class="ui-dg-cell \${col.align}" repeat.for="col of colLocked" css.bind="{width:col.getWidth(col.width)+'px'}">
-        <div innerhtml.bind='col.getSummary(summaryRow, store.data)'></div>
+        <div innerhtml.bind='col.getSummary(summaryRow, store.getSummary(col.dataId, col.summary), store.data)'></div>
       </div>
     </div>
     <div class="ui-dg-cell \${col.align}" repeat.for="col of cols" css.bind="{width:col.getWidth(col.width)+'px'}">
-      <div innerhtml.bind='col.getSummary(summaryRow, store.data)'></div>\${recalc}
+      <div innerhtml.bind='col.getSummary(summaryRow, store.getSummary(col.dataId, col.summary), store.data)'></div>\${recalc}
     </div>
     <div class="ui-dg-filler"></div>
   </div>
@@ -214,13 +225,18 @@ export class UIDgRow {
 </div><template>`)
 @customElement('ui-datagrid')
 export class UIDatagrid {
-  constructor(public element: Element) {
+  constructor(public element: Element, factory: ValidationControllerFactory) {
     this.virtual = element.hasAttribute('virtual');
     this.editable = element.hasAttribute('editable');
     this.rowCounter = element.hasAttribute('row-counter');
     this.rowExpander = element.hasAttribute('row-expander');
     if (!element.hasAttribute('scroll')) this.element.classList.add('ui-auto-size');
     if (element.hasAttribute('hilight')) this.element.classList.add('ui-hilight');
+
+    if (this.editable) {
+      this.controller = factory.createForCurrentScope();
+      this.controller.validateTrigger = validateTrigger.changeOrBlur;
+    }
   }
 
   // aurelia hooks
@@ -259,6 +275,7 @@ export class UIDatagrid {
   counterWidth = 0;
 
   // selected;
+  controller;
   obPageChange;
 
   columnsChanged(c?) {
@@ -271,6 +288,10 @@ export class UIDatagrid {
   dataChanged(newValue) {
     this.store = new UILocalDS(newValue);
     if (!this.store.isLoaded) UIEvent.queueTask(() => this.store.fetchData());
+  }
+
+  selectedChanged(newValue) {
+    if (newValue == null) UIEvent.queueTask(() => this.selected = null);
   }
 
   private doSort(col) {

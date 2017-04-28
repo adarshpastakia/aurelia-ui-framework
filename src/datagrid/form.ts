@@ -15,10 +15,10 @@ import * as moment from 'moment';
 @autoinject()
 export class DgForm {
   constructor(public element: Element, controllerFactory: ValidationControllerFactory) {
-    // this.controller = controllerFactory.createForCurrentScope();
-    // this.controller.validateTrigger = validateTrigger.changeOrBlur;
+    this.controller = controllerFactory.createForCurrentScope();
+    this.controller.validateTrigger = validateTrigger.changeOrBlur;
   }
-  // controller;
+  controller;
   // aurelia hooks
   // canActivate(model) { return true; }
   // activate(model) { return true; }
@@ -62,6 +62,16 @@ export class DgForm {
   clicked(msg, rec) {
     UIUtils.toast({ title: msg, message: `${rec.id} - ${rec.text}`, theme: 'info' });
     return true;
+  }
+
+  saveChanges() {
+    this.controller.validate()
+      .then(e => {
+        if (e.valid) {
+          this.record.saveChanges();
+          this.record = null;
+        }
+      });
   }
 }
 

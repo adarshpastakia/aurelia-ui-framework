@@ -1,9 +1,8 @@
-import {autoinject, observable} from 'aurelia-framework';
+import {autoinject, observable, computedFrom} from 'aurelia-framework';
 import {UIEvent} from "../utils/ui-event";
 import {UIModel} from "../utils/ui-model";
 import * as _ from "lodash";
 
-@observable('__original__')
 export class BaseDataSource {
   isEmpty = false;
   isLoading = false;
@@ -54,14 +53,25 @@ export class BaseDataSource {
     });
     this.__original__ = ret;
   }
+
+  // @computedFrom('data')
+  getSummary(dataId, summary) {
+    let retVal: any = '';
+    switch (summary) {
+      case 'sum': retVal = _.sumBy(this.data, dataId); break;
+      case 'avg': retVal = _['meanBy'](this.data, dataId); break;
+      default: return summary || '&nbsp;';
+    }
+    return retVal;
+  }
 }
 
 export class UILocalDS extends BaseDataSource {
 
   constructor(data, opts = {}) {
     super();
-    this.makeDataset(data || []);
     Object.assign(this, opts);
+    this.makeDataset(data || []);
 
     this.totalPages = Math.ceil(this.__original__.length / this.recordsPerPage);
   }
