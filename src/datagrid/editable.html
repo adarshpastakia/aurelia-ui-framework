@@ -1,0 +1,47 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <ui-page page-title="Basic Datagrid" animate>
+    <style>
+      .dg-glyph.icon-moon-appleinc {
+        color: DarkSlateGray;
+      }
+      .dg-glyph.icon-moon-android {
+        color: MediumSeaGreen;
+      }
+      .dg-glyph.icon-moon-amazon {
+        color: DarkOrange;
+      }
+      .dg-glyph.icon-moon-windows8 {
+        color: RoyalBlue;
+      }
+      .dg-glyph.icon-moon-mobile {
+        color: Silver;
+      }
+
+    </style>
+    <ui-section row-layout>
+      <ui-section column-layout>
+        <ui-toolbar>
+          <div class="ui-bg-light ui-text-primary">Form Editor</div>
+          <ui-filler></ui-filler>
+          <ui-pager view-model.ref="pager" store.bind="store"></ui-pager>
+        </ui-toolbar>
+        <ui-datagrid store.bind="store" summary-row="true" editable scroll>
+          <ui-dg-empty>
+            <h5>No records available...</h5>
+          </ui-dg-empty>
+          <ui-dg-glyph glyph-map.bind="icons" tooltip-map.bind="titles" class="dg-glyph" data-id="icon" sortable locked></ui-dg-glyph>
+          <ui-dg-column data-id="text" editor="text" sortable resizeable summary="Totals" locked class="ui-level-pad ui-titlecase">Text</ui-dg-column>
+          <ui-dg-column data-id="date" editor="datetime" sortable resizeable datetime center width="12em">Date</ui-dg-column>
+          <!-- <ui-dg-column data-id="date" sortable resizeable time center width="7em">Time</ui-dg-column> -->
+          <ui-dg-column data-id="number" editor="decimal" sortable resizeable number summary="sum" end width="8em">Number</ui-dg-column>
+          <ui-dg-column data-id="currency" editor="decimal" sortable resizeable currency summary="avg" end width="8em">Currency</ui-dg-column>
+        </ui-datagrid>
+      </ui-section>
+    </ui-section>
+  </ui-page>
+</template>

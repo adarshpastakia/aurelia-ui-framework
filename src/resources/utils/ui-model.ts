@@ -3,7 +3,7 @@
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
-import {autoinject} from 'aurelia-framework';
+import {autoinject, observable} from 'aurelia-framework';
 import {getLogger, Logger} from "aurelia-logging";
 import {ValidationController, ValidationControllerFactory} from "aurelia-validation";
 import {UIHttpService} from "./ui-http";
@@ -11,6 +11,7 @@ import {UIEvent} from "./ui-event";
 import {UIUtils} from "./ui-utils";
 import * as _ from "lodash";
 
+@observable('__original__')
 @autoinject()
 export class UIModel {
   public logger: Logger;

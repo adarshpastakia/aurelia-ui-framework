@@ -16,48 +16,53 @@ export class CompDatagrid {
   // aurelia hooks
   // canActivate(model) { return true; }
   // activate(model) { return true; }
-  bind(bindingContext) {
-    let subdata1 = [];
-    for (let i = 0; i < 10; i++)
-      subdata1.push({
-        id: i + 1,
-        icon: Math.floor(Math.random() * 5),
-        text: this.getString(),
-        date: moment().add(Math.random() * -7200, 'day'),
-        time: moment().add(Math.random() * -(60 * 20), 'minute'),
-        number: Math.random() * 10800,
-        currency: Math.random() * 10800
-      });
+  // bind(bindingContext) { }
+  attached() {
+    setTimeout(() => {
 
-    let subdata = [];
-    for (let i = 0; i < 10; i++)
-      subdata.push({
-        id: i + 1,
-        icon: Math.floor(Math.random() * 5),
-        text: this.getString(),
-        date: moment().add(Math.random() * -7200, 'day'),
-        time: moment().add(Math.random() * -(60 * 20), 'minute'),
-        number: Math.random() * 10800,
-        currency: Math.random() * 10800,
-        subdata: subdata1
-      });
+      let subdata1 = [];
+      for (let i = 0; i < 10; i++)
+        subdata1.push({
+          id: i + 1,
+          icon: Math.floor(Math.random() * 5),
+          text: this.getString(),
+          date: moment().add(Math.random() * -7200, 'day'),
+          time: moment().add(Math.random() * -(60 * 20), 'minute'),
+          number: Math.random() * 10800,
+          currency: Math.random() * 10800
+        });
 
-    for (let i = 0; i < 500; i++)
-      this.data.push({
-        id: i + 1,
-        icon: Math.floor(Math.random() * 5),
-        text: this.getString(),
-        date: moment().add(Math.random() * -7200, 'day'),
-        time: moment().add(Math.random() * -(60 * 20), 'minute'),
-        number: Math.random() * 10800,
-        currency: Math.random() * 10800,
-        subdata: subdata
-      });
-    this.store1 = new UILocalDS(_.cloneDeep(this.data), { recordsPerPage: 10 });
-    this.store2 = new UILocalDS(_.cloneDeep(this.data), { recordsPerPage: 10 });
-    this.store3 = new UILocalDS(_.cloneDeep(this.data));
+      let subdata = [];
+      for (let i = 0; i < 10; i++)
+        subdata.push({
+          id: i + 1,
+          icon: Math.floor(Math.random() * 5),
+          text: this.getString(),
+          date: moment().add(Math.random() * -7200, 'day'),
+          time: moment().add(Math.random() * -(60 * 20), 'minute'),
+          number: Math.random() * 10800,
+          currency: Math.random() * 10800,
+          subdata: subdata1
+        });
+
+      for (let i = 0; i < 20; i++)
+        this.data.push({
+          id: i + 1,
+          icon: Math.floor(Math.random() * 5),
+          text: this.getString(),
+          date: moment().add(Math.random() * -7200, 'day'),
+          time: moment().add(Math.random() * -(60 * 20), 'minute'),
+          number: Math.random() * 10800,
+          currency: Math.random() * 10800,
+          subdata: subdata
+        });
+      this.store1 = new UILocalDS(_.cloneDeep(this.data));
+      this.store2 = new UILocalDS(_.cloneDeep(this.data));
+
+      this.store1.fetchData();
+      this.store2.fetchData();
+    }, 500);
   }
-  // attached() { }
   // detached() { }
   // unbind() { }
   // deactivate() { }

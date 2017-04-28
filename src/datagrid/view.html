@@ -1,0 +1,15 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <ui-section row-layout animate>
+    <ui-sidebar label="Datagrid Examples" collapsible scroll class="ui-hidden-lg-down">
+      <ui-menu>
+        <ui-menu-item repeat.for="route of router.navigation" href.bind="route.href" active.bind="route.isActive" icon.bind="route.settings.icon" disabled.bind="route.settings.disabled">${route.settings.title || route.title}</ui-menu-item>
+      </ui-menu>
+    </ui-sidebar>
+    <ui-router-view></ui-router-view>
+  </ui-section>
+</template>

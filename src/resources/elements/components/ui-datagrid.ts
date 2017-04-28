@@ -37,6 +37,10 @@ export class UIDgCell {
         template = '<ui-input decimal.bind="record[col.dataId]"></ui-input>';
       if (this.col.editor == 'date')
         template = '<ui-date date.bind="record[col.dataId]"></ui-date>';
+      if (this.col.editor == 'datetime')
+        template = '<ui-date datetime date.bind="record[col.dataId]"></ui-date>';
+      if (this.col.editor == 'time')
+        template = '<ui-date time date.bind="record[col.dataId]"></ui-date>';
     }
     else if (this.col.type == 'normal')
       template = `<span class="\${col.class}" innerhtml.bind='col.getValue(record[col.dataId],record)'></span>`;
@@ -50,7 +54,7 @@ export class UIDgCell {
           <span innerhtml.bind="col.getLabel(record[col.dataId],record)"></span>
         </a>`;
     else if (this.col.type == 'button') {
-      template = `<ui-button click.trigger="col.fireClick($event,record[col.dataId],record)" theme.bind="col.getTheme(record[col.dataId],record)" small square glyph.bind="col.getGlyph(record[col.dataId],record)" disabled.bind="col.isDisabled(record[col.dataId],record)" dropdown.bind="col.dropdown" menuopen.trigger="col.fireMenuOpen($event, record)">
+      template = `<ui-button small square dropdown.bind="col.dropdown" click.trigger="col.fireClick($event,record[col.dataId],record)" theme.bind="col.getTheme(record[col.dataId],record)" glyph.bind="col.getGlyph(record[col.dataId],record)" disabled.bind="col.isDisabled(record[col.dataId],record)" menuopen.trigger="col.fireMenuOpen($event, record)">
           <span innerhtml.bind="col.getLabel(record[col.dataId],record)"></span>
         </ui-button>`;
       this.element.classList.add('btn-fix');
@@ -67,7 +71,7 @@ export class UIDgCell {
 }
 
 @autoinject()
-@inlineView(`<template><div class="ui-dg-row level-\${level} \${record.isOpen?'ui-expanded':''} \${parent.selected==record?'ui-selected':''}" click.trigger="parent.fireSelect(parent.selected=record)" dblclick.trigger="parent.makeEditable($event,record)">
+@inlineView(`<template><div class="ui-dg-row level-\${level} \${record.isOpen?'ui-expanded':''} \${parent.selected==record?'ui-selected':''} \${extraClass}" click.trigger="parent.fireSelect(record, $event)" dblclick.trigger="parent.editable?parent.makeEditable($event,record):null">
     <div class="ui-dg-lock-holder" css.bind="{transform: 'translateX('+parent.scrollLeft+'px)'}">
       <div class="ui-dg-expander" if.bind="parent.rowExpander" ref="rowExpand" click.trigger="$event.stopPropagation()" css.bind="{'min-width': parent.expandWidth+'px'}">
         <ui-glyph glyph="glyph" repeat.for="i of level"></ui-glyph>
@@ -100,13 +104,12 @@ export class UIDgCell {
   <div class="ui-dg-edit-shim" if.bind="record.__editing__"></div>
 
 
-  <ui-dg-row containerless if.bind="!parent.subview&&record.subdata&&record.isOpen" level.bind="level+1" parent.bind="parent" record.bind="rec" index.bind="$index" repeat.for="rec of record.subdata"></ui-dg-row>
+  <ui-dg-row containerless if.bind="!parent.subview&&record.subdata&&record.isOpen" index.bind="$index" level.bind="level+1" parent.bind="parent" record.bind="rec" repeat.for="rec of record.subdata"></ui-dg-row>
 
   <div class="ui-dg-row" if.bind="parent.subview && record.isOpen" css.bind="{transform: 'translateX('+parent.scrollLeft+'px)'}">
     <div class="ui-dg-expander" if.bind="parent.rowExpander" click.trigger="$event.stopPropagation()" css.bind="{'min-width': parent.expandWidth+'px'}"></div>
     <div class="ui-dg-expander ui-text-center" if.bind="parent.rowCounter" click.trigger="$event.stopPropagation()" css.bind="{'min-width': parent.counterWidth+'px'}"></div>
-    <ui-dg-cell parent.bind="parent" record.bind="record" type="subview"></ui-dg-cell>
-    <div class="ui-dg-filler"></div>
+    <ui-dg-cell class="ui-dg-subview" parent.bind="parent" record.bind="record" type="subview"></ui-dg-cell>
   </div>
 </template>`)
 @customElement('ui-dg-row')
@@ -118,8 +121,16 @@ export class UIDgRow {
   @bindable() record;
   @bindable() parent;
 
+  extraClass = '';
+
   rowExpand;
   rowCounter;
+  bind(bindingContext: any, overrideContext: any) {
+    this.extraClass = overrideContext.$odd ? 'odd' : 'even';
+    if (this.level > 0 && !overrideContext.$first && overrideContext.$last) this.extraClass += ' last';
+    if (this.rowExpand && this.parent.expandWidth < this.rowExpand.offsetWidth) this.parent.expandWidth = this.rowExpand.offsetWidth;
+    if (this.rowCounter && this.parent.counterWidth < this.rowCounter.offsetWidth) this.parent.counterWidth = this.rowCounter.offsetWidth;
+  }
   attached() {
     if (this.rowExpand && this.parent.expandWidth < this.rowExpand.offsetWidth) this.parent.expandWidth = this.rowExpand.offsetWidth;
     if (this.rowCounter && this.parent.counterWidth < this.rowCounter.offsetWidth) this.parent.counterWidth = this.rowCounter.offsetWidth;
@@ -170,7 +181,7 @@ export class UIDgRow {
   </div>
 </div>
 <div ref="dgBody" class="ui-dg-body" scroll.trigger="(scrollLeft = dgBody.scrollLeft)" if.bind="virtual">
-  <ui-dg-row parent.bind="$parent" record.bind="record" index.bind="$index" virtual-repeat.for="record of store.data"></ui-dg-row>
+  <ui-dg-row if.bind="store" parent.bind="$parent" record.bind="record" index.bind="$index" virtual-repeat.for="record of store.data"></ui-dg-row>
   <div class="ui-dg-row ui-dg-filler">
     <div class="ui-dg-lock-holder" css.bind="{transform: 'translateX('+scrollLeft+'px)'}">
       <div class="ui-dg-expander" if.bind="rowExpander" css.bind="{width: expandWidth+'px'}"></div>
@@ -191,7 +202,7 @@ export class UIDgRow {
       </div>
     </div>
     <div class="ui-dg-cell \${col.align}" repeat.for="col of cols" css.bind="{width:col.getWidth(col.width)+'px'}">
-      <div innerhtml.bind='col.getSummary(summaryRow, store.data)'></div>
+      <div innerhtml.bind='col.getSummary(summaryRow, store.data)'></div>\${recalc}
     </div>
     <div class="ui-dg-filler"></div>
   </div>
@@ -205,9 +216,11 @@ export class UIDgRow {
 export class UIDatagrid {
   constructor(public element: Element) {
     this.virtual = element.hasAttribute('virtual');
+    this.editable = element.hasAttribute('editable');
     this.rowCounter = element.hasAttribute('row-counter');
     this.rowExpander = element.hasAttribute('row-expander');
     if (!element.hasAttribute('scroll')) this.element.classList.add('ui-auto-size');
+    if (element.hasAttribute('hilight')) this.element.classList.add('ui-hilight');
   }
 
   // aurelia hooks
@@ -218,10 +231,11 @@ export class UIDatagrid {
   }
   attached() {
     UIEvent.queueTask(() => this.columnsChanged(this.columns));
-    UIEvent.queueTask(() => (this.store.paged) ? this.store.loadPage() : this.store.fetchData());
+    if (this.store) UIEvent.queueTask(() => (this.store.paged) ? this.store.loadPage() : this.store.fetchData());
   }
   detached() {
     if (this.obPageChange) this.obPageChange.dispose();
+    if (this.store) this.store.dispose();
   }
   // unbind() { }
   // end aurelia hooks
@@ -231,18 +245,20 @@ export class UIDatagrid {
   @bindable() data;
   @bindable() store;
   @bindable() subview;
+  @bindable({ defaultBindingMode: bindingMode.twoWay }) selected;
   @bindable() summaryRow = false;
 
   cols = [];
   colHead = [];
   colLocked = [];
   virtual = false;
+  editable = false;
   rowCounter = false;
   rowExpander = false;
   expandWidth = 0;
   counterWidth = 0;
 
-  selected;
+  // selected;
   obPageChange;
 
   columnsChanged(c?) {
@@ -264,8 +280,9 @@ export class UIDatagrid {
     this.store.sort(col.dataId, sortOrder);
   }
 
-  private fireSelect(record) {
-    UIEvent.fireEvent('rowselect', this.element, ({ record }));
+  private fireSelect(record, evt) {
+    if (UIEvent.fireEvent('beforeselect', this.element, ({ record })) !== false)
+      UIEvent.fireEvent('rowselect', this.element, ({ record: this.selected = record }));
   }
 
   private makeEditable($event, record) {

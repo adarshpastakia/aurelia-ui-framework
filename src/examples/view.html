@@ -5,12 +5,12 @@
 -->
 <template>
   <ui-section row-layout animate>
-  <style>
-    .bordered {
-      border: 1px solid #e5e5e5;
-    }
+    <style>
+      .bordered {
+        border: 1px solid #e5e5e5;
+      }
 
-  </style>
+    </style>
     <ui-sidebar label="Examples" collapsible scroll class="ui-hidden-lg-down">
       <ui-menu>
         <ui-menu-item repeat.for="route of router.navigation" href.bind="route.href" active.bind="route.isActive" icon.bind="route.settings.icon" disabled.bind="route.settings.disabled">${route.settings.title || route.title}</ui-menu-item>
@@ -21,7 +21,9 @@
       <ui-row-column class="bordered ui-col-fill">
         <div class="ui-app-header"><img align="left" src="images/feature-theme.svg" width="16"/>&nbsp;App Examples</div>
         <ui-router-view></ui-router-view>
-        <div class="ui-app-footer"><small>Copyright ©</small></div>
+        <div class="ui-app-footer">
+          <small>Copyright ©</small>
+        </div>
       </ui-row-column>
     </ui-section>
   </ui-section>

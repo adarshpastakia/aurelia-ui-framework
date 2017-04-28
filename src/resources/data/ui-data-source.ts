@@ -1,8 +1,9 @@
-import {autoinject} from 'aurelia-framework';
+import {autoinject, observable} from 'aurelia-framework';
 import {UIEvent} from "../utils/ui-event";
 import {UIModel} from "../utils/ui-model";
 import * as _ from "lodash";
 
+@observable('__original__')
 export class BaseDataSource {
   isEmpty = false;
   isLoading = false;
@@ -39,11 +40,19 @@ export class BaseDataSource {
     // array of [{prop: value}]
   }
 
+
+  dispose() {
+    _.forEach(this.__original__, (o: any) => o.dispose());
+  }
+
   protected makeDataset(resp) {
-    return _.forEach(resp, o => {
+    let ret = [];
+    _.forEach(resp, o => {
       let model = new (this.model || UIModel)();
       model.deserialize(o);
+      ret.push(model);
     });
+    this.__original__ = ret;
   }
 }
 
@@ -51,7 +60,7 @@ export class UILocalDS extends BaseDataSource {
 
   constructor(data, opts = {}) {
     super();
-    this.__original__ = this.makeDataset(data || []);
+    this.makeDataset(data || []);
     Object.assign(this, opts);
 
     this.totalPages = Math.ceil(this.__original__.length / this.recordsPerPage);

@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2016
 // @license     : MIT
@@ -41,14 +41,14 @@ export class UIRow {
 @inlineView('<template class="ui-row-vertical"><slot></slot></template>')
 export class UIColumnRow {
   constructor(public element: Element) {
-    if (element.hasAttribute('top')) element.classList.add('ui-row-top');
-    if (element.hasAttribute('middle')) element.classList.add('ui-row-middle');
-    if (element.hasAttribute('bottom')) element.classList.add('ui-row-bottom');
+    if (element.hasAttribute('top')) element.classList.add('ui-row-start');
+    if (element.hasAttribute('middle')) element.classList.add('ui-row-center');
+    if (element.hasAttribute('bottom')) element.classList.add('ui-row-end');
     if (element.hasAttribute('stretch')) element.classList.add('ui-row-stretch');
 
-    if (element.hasAttribute('start')) element.classList.add('ui-row-start');
-    if (element.hasAttribute('center')) element.classList.add('ui-row-center');
-    if (element.hasAttribute('end')) element.classList.add('ui-row-end');
+    if (element.hasAttribute('start')) element.classList.add('ui-row-top');
+    if (element.hasAttribute('center')) element.classList.add('ui-row-middle');
+    if (element.hasAttribute('end')) element.classList.add('ui-row-bottom');
     if (element.hasAttribute('spaced')) element.classList.add('ui-row-spaced');
 
     if (element.hasAttribute('reverse')) element.classList.add('ui-row-reverse');

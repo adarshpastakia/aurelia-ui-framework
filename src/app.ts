@@ -82,7 +82,7 @@ export class App {
       }, {
         route: 'alerts', moduleId: './components/alerts', title: 'nav.titleAlerts', nav: true, auth: false, settings: { section: 'nav.sectionComponents' }, name: 'alerts'
       }, {
-        route: 'datagrid', moduleId: './components/datagrid', title: 'nav.titleDatagrid', nav: true, auth: false, settings: { section: 'nav.sectionComponents' }, name: 'datagrid'
+        route: 'datagrid', moduleId: './datagrid/view', title: 'nav.titleDatagrid', nav: true, auth: false, settings: { section: 'nav.sectionComponents' }, name: 'datagrid'
       }, {
         route: 'breadcrumbs', moduleId: './components/breadcrumbs', title: 'nav.titleCrumbs', nav: true, auth: false, settings: { section: 'nav.sectionComponents' }, name: 'breadcrumbs'
       }, {
