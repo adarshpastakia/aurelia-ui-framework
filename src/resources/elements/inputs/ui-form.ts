@@ -21,7 +21,8 @@ export class UIForm {
     UIEvent.queueTask(() => {
       let el: any = this.element.querySelector('input,textarea');
       if (el !== null) el.focus();
-      if (this.busy) this.busyChanged(true);
+      if (this.busy) this.busyChanged(this.busy);
+      if (this.disabled) this.disabledChanged(this.disabled);
     });
   }
   // detached() { }
@@ -30,9 +31,18 @@ export class UIForm {
 
   formEl;
   @bindable() busy: boolean;
+  @bindable() disabled: boolean;
 
   busyChanged(newValue: any) {
-    let els = this.element.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list');
+    this.disableInputs(isTrue(newValue) || this.disabled);
+  }
+
+  disabledChanged(newValue: any) {
+    this.disableInputs(newValue);
+  }
+
+  disableInputs(newValue: any) {
+    let els = this.element.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list,ui-dropdown');
     _.forEach(els, el => {
       try {
         el.au.controller.viewModel.disable(isTrue(newValue));

@@ -125,7 +125,7 @@ export class UIDateView {
   dateChanged(newValue) {
     if (newValue && moment(newValue).isValid()) {
       let time = moment(newValue).second(0).millisecond(0);
-      this.date = time.toISOString();
+      // this.date = time.toISOString();
       this.hour = time.hour();
       this.minute = time.minute();
       this.refresh();
