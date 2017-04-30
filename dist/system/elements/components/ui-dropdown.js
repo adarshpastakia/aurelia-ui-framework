@@ -35,6 +35,7 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                     this.defaultText = 'Select';
                     this.glyph = '';
                     this.display = '';
+                    this.isDisabled = false;
                 }
                 UIDropdown.prototype.bind = function (bindingContext, overrideContext) {
                     this.disabledChanged(this.disabled);
@@ -72,7 +73,10 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                     }
                 };
                 UIDropdown.prototype.disabledChanged = function (newValue) {
-                    this.element.classList[(this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');
+                    this.element.classList[(this.isDisabled = this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');
+                };
+                UIDropdown.prototype.disable = function (b) {
+                    this.element.classList[(this.isDisabled = (b || this.disabled)) ? 'add' : 'remove']('ui-disabled');
                 };
                 UIDropdown.prototype.select = function (evt) {
                     var _this = this;

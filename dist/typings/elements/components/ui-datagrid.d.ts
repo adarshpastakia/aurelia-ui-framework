@@ -17,12 +17,15 @@ export declare class UIDgRow {
     index: any;
     record: any;
     parent: any;
+    odd: any;
+    last: boolean;
     rowExpand: any;
     rowCounter: any;
+    bind(bindingContext: any, overrideContext: any): void;
     indexChanged(): void;
     attached(): void;
 }
-export declare class UIDatagrid2 {
+export declare class UIDatagrid {
     element: Element;
     constructor(element: Element);
     bind(bindingContext: Object, overrideContext: Object): void;

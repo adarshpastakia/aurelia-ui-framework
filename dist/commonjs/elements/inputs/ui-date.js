@@ -71,7 +71,6 @@ var UIDateView = (function () {
     UIDateView.prototype.dateChanged = function (newValue) {
         if (newValue && moment(newValue).isValid()) {
             var time = moment(newValue).second(0).millisecond(0);
-            this.date = time.toISOString();
             this.hour = time.hour();
             this.minute = time.minute();
             this.refresh();

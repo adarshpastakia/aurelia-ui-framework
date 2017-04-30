@@ -78,6 +78,11 @@ let UIDgRow = class UIDgRow {
     constructor(element) {
         this.element = element;
         this.level = 0;
+        this.last = false;
+    }
+    bind(bindingContext, overrideContext) {
+        if (this.level > 0 && !overrideContext.$first && overrideContext.$last)
+            this.last = true;
     }
     indexChanged() {
         UIEvent.queueTask(() => {
@@ -110,9 +115,13 @@ __decorate([
     bindable(),
     __metadata("design:type", Object)
 ], UIDgRow.prototype, "parent", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIDgRow.prototype, "odd", void 0);
 UIDgRow = __decorate([
     autoinject(),
-    inlineView(`<template><div class="ui-dg-row level-\${level} \${record.isOpen?'ui-expanded':''} \${parent.selected==record?'ui-selected':''}" click.trigger="parent.fireSelect(parent.selected=record)">
+    inlineView(`<template><div class="ui-dg-row level-\${level} \${record.isOpen?'ui-expanded':''} \${parent.selected==record?'ui-selected':''} \${odd?'even':'odd'} \${last?'last':''}" click.trigger="parent.fireSelect(parent.selected=record)">
     <div class="ui-dg-lock-holder" css.bind="{transform: 'translateX('+parent.scrollLeft+'px)'}">
       <div class="ui-dg-expander" if.bind="parent.rowExpander" ref="rowExpand" click.trigger="$event.stopPropagation()" css.bind="{'min-width': parent.expandWidth+'px'}">
         <ui-glyph glyph="glyph" repeat.for="i of level"></ui-glyph>
@@ -124,22 +133,20 @@ UIDgRow = __decorate([
     </div>
     <ui-dg-cell class="ui-dg-cell \${col.align}" repeat.for="col of parent.cols" css.bind="{width:col.getWidth(col.width)+'px'}" col.bind="col" parent.bind="parent" record.bind="record">
     </ui-dg-cell>
-    <div class="ui-dg-filler"></div>
   </div>
-  <ui-dg-row containerless if.bind="!parent.subview&&record.subdata&&record.isOpen" level.bind="level+1" parent.bind="parent" record.bind="rec" index.bind="$index" repeat.for="rec of record.subdata"></ui-dg-row>
+  <ui-dg-row containerless if.bind="!parent.subview&&record.subdata&&record.isOpen" level.bind="level+1" parent.bind="parent" record.bind="rec" index.bind="$index" odd.bind="$odd" repeat.for="rec of record.subdata"></ui-dg-row>
 
   <div class="ui-dg-row" if.bind="parent.subview && record.isOpen" css.bind="{transform: 'translateX('+parent.scrollLeft+'px)'}">
     <div class="ui-dg-expander" if.bind="parent.rowExpander" click.trigger="$event.stopPropagation()" css.bind="{'min-width': parent.expandWidth+'px'}"></div>
     <div class="ui-dg-expander ui-text-center" if.bind="parent.rowCounter" click.trigger="$event.stopPropagation()" css.bind="{'min-width': parent.counterWidth+'px'}"></div>
-    <ui-dg-cell parent.bind="parent" record.bind="record" type="subview"></ui-dg-cell>
-    <div class="ui-dg-filler"></div>
+    <ui-dg-cell class="ui-dg-subview" parent.bind="parent" record.bind="record" type="subview"></ui-dg-cell>
   </div>
 </template>`),
     customElement('ui-dg-row'),
     __metadata("design:paramtypes", [Element])
 ], UIDgRow);
 export { UIDgRow };
-let UIDatagrid2 = class UIDatagrid2 {
+let UIDatagrid = class UIDatagrid {
     constructor(element) {
         this.element = element;
         this.data = [];
@@ -265,36 +272,36 @@ let UIDatagrid2 = class UIDatagrid2 {
 __decorate([
     children('ui-dg-column-group,ui-dg-column,ui-dg-button,ui-dg-link,ui-dg-glyph'),
     __metadata("design:type", Object)
-], UIDatagrid2.prototype, "columns", void 0);
+], UIDatagrid.prototype, "columns", void 0);
 __decorate([
     bindable(),
     __metadata("design:type", Object)
-], UIDatagrid2.prototype, "data", void 0);
+], UIDatagrid.prototype, "data", void 0);
 __decorate([
     bindable(),
     __metadata("design:type", Object)
-], UIDatagrid2.prototype, "subview", void 0);
+], UIDatagrid.prototype, "subview", void 0);
 __decorate([
     bindable(),
     __metadata("design:type", Object)
-], UIDatagrid2.prototype, "summaryRow", void 0);
+], UIDatagrid.prototype, "summaryRow", void 0);
 __decorate([
     bindable(),
     __metadata("design:type", Object)
-], UIDatagrid2.prototype, "sortColumn", void 0);
+], UIDatagrid.prototype, "sortColumn", void 0);
 __decorate([
     bindable(),
     __metadata("design:type", Object)
-], UIDatagrid2.prototype, "sortOrder", void 0);
+], UIDatagrid.prototype, "sortOrder", void 0);
 __decorate([
     bindable(),
     __metadata("design:type", Object)
-], UIDatagrid2.prototype, "pager", void 0);
+], UIDatagrid.prototype, "pager", void 0);
 __decorate([
     bindable(),
     __metadata("design:type", Object)
-], UIDatagrid2.prototype, "perPage", void 0);
-UIDatagrid2 = __decorate([
+], UIDatagrid.prototype, "perPage", void 0);
+UIDatagrid = __decorate([
     autoinject(),
     inlineView(`<template class="ui-datagrid"><div class="ui-hidden"><slot></slot></div>
 <div show.bind="resizing" ref="ghost" class="ui-dg-ghost"></div>
@@ -327,7 +334,7 @@ UIDatagrid2 = __decorate([
 </div>
 <div show.bind="store.isEmpty" class="ui-dg-empty"><slot name="dg-empty"></slot></div>
 <div ref="dgBody" class="ui-dg-body" scroll.trigger="(scrollLeft = dgBody.scrollLeft)" if.bind="!virtual">
-  <ui-dg-row containerless parent.bind="$parent" record.bind="record" index.bind="$index" repeat.for="record of paged"></ui-dg-row>
+  <ui-dg-row containerless parent.bind="$parent" record.bind="record" index.bind="$index" odd.bind="$odd" repeat.for="record of paged"></ui-dg-row>
   <div class="ui-dg-row ui-dg-filler">
     <div class="ui-dg-lock-holder" css.bind="{transform: 'translateX('+scrollLeft+'px)'}">
       <div class="ui-dg-expander" if.bind="rowExpander" css.bind="{width: expandWidth+'px'}"></div>
@@ -335,11 +342,10 @@ UIDatagrid2 = __decorate([
       <div class="ui-dg-cell \${col.align}" repeat.for="col of colLocked" css.bind="{width:col.getWidth(col.width)+'px'}"></div>
     </div>
     <div class="ui-dg-cell \${col.align}" repeat.for="col of cols" css.bind="{width:col.getWidth(col.width)+'px'}"></div>
-    <div class="ui-dg-filler"></div>
   </div>
 </div>
 <div ref="dgBody" class="ui-dg-body" scroll.trigger="(scrollLeft = dgBody.scrollLeft)" if.bind="virtual">
-  <ui-dg-row parent.bind="$parent" record.bind="record" index.bind="$index" virtual-repeat.for="record of paged"></ui-dg-row>
+  <ui-dg-row parent.bind="$parent" record.bind="record" index.bind="$index" odd.bind="$odd" virtual-repeat.for="record of paged"></ui-dg-row>
   <div class="ui-dg-row ui-dg-filler">
     <div class="ui-dg-lock-holder" css.bind="{transform: 'translateX('+scrollLeft+'px)'}">
       <div class="ui-dg-expander" if.bind="rowExpander" css.bind="{width: expandWidth+'px'}"></div>
@@ -347,7 +353,6 @@ UIDatagrid2 = __decorate([
       <div class="ui-dg-cell \${col.align}" repeat.for="col of colLocked" css.bind="{width:col.getWidth(col.width)+'px'}"></div>
     </div>
     <div class="ui-dg-cell \${col.align}" repeat.for="col of cols" css.bind="{width:col.getWidth(col.width)+'px'}"></div>
-    <div class="ui-dg-filler"></div>
   </div>
 </div>
 <div ref="dgFoot" class="ui-dg-footer" if.bind="summaryRow">
@@ -362,7 +367,6 @@ UIDatagrid2 = __decorate([
     <div class="ui-dg-cell \${col.align}" repeat.for="col of cols" css.bind="{width:col.getWidth(col.width)+'px'}">
       <div innerhtml.bind='col.getSummary(summaryRow, data)'></div>
     </div>
-    <div class="ui-dg-filler"></div>
   </div>
 </div>
 <div class="ui-dg-loader" if.bind="isBusy">
@@ -372,8 +376,8 @@ UIDatagrid2 = __decorate([
 </div><template>`),
     customElement('ui-datagrid'),
     __metadata("design:paramtypes", [Element])
-], UIDatagrid2);
-export { UIDatagrid2 };
+], UIDatagrid);
+export { UIDatagrid };
 let UIDGEmpty = class UIDGEmpty {
 };
 UIDGEmpty = __decorate([

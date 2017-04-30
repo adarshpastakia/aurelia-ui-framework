@@ -17,8 +17,10 @@ export declare class UIDropdown {
     private selected;
     private glyph;
     private display;
+    private isDisabled;
     valueChanged(newValue: any): void;
     disabledChanged(newValue: any): void;
+    disable(b: any): void;
     select(evt: any): void;
     private doChange(params);
     toggleDropdown(evt: any): void;

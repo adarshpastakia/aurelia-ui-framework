@@ -23,11 +23,19 @@ var UIForm = (function () {
             if (el !== null)
                 el.focus();
             if (_this.busy)
-                _this.busyChanged(true);
+                _this.busyChanged(_this.busy);
+            if (_this.disabled)
+                _this.disabledChanged(_this.disabled);
         });
     };
     UIForm.prototype.busyChanged = function (newValue) {
-        var els = this.element.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list');
+        this.disableInputs(isTrue(newValue) || this.disabled);
+    };
+    UIForm.prototype.disabledChanged = function (newValue) {
+        this.disableInputs(newValue);
+    };
+    UIForm.prototype.disableInputs = function (newValue) {
+        var els = this.element.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list,ui-dropdown');
         _.forEach(els, function (el) {
             try {
                 el.au.controller.viewModel.disable(isTrue(newValue));
@@ -46,6 +54,10 @@ __decorate([
     aurelia_framework_1.bindable(),
     __metadata("design:type", Boolean)
 ], UIForm.prototype, "busy", void 0);
+__decorate([
+    aurelia_framework_1.bindable(),
+    __metadata("design:type", Boolean)
+], UIForm.prototype, "disabled", void 0);
 UIForm = __decorate([
     aurelia_framework_1.autoinject(),
     aurelia_framework_1.customElement('ui-form'),
@@ -98,7 +110,7 @@ exports.UIFieldset = UIFieldset;
 var UIInputGroup = (function () {
     function UIInputGroup(element) {
         this.element = element;
-        this.width = 'auto';
+        this.width = '15em';
         if (element.hasAttribute('plain'))
             element.classList.add('ui-plain');
     }
@@ -110,7 +122,7 @@ __decorate([
 ], UIInputGroup.prototype, "width", void 0);
 UIInputGroup = __decorate([
     aurelia_framework_1.autoinject(),
-    aurelia_framework_1.inlineView("<template class=\"ui-input-group\"><slot name=\"inputLabel\"></slot>\n  <div><div class=\"ui-group-wrapper\" css.bind=\"{'width':width}\"><slot></slot></div><slot name=\"inputInfo\"></slot></div></template>"),
+    aurelia_framework_1.inlineView("<template class=\"ui-input-group\"><slot name=\"inputLabel\"></slot>\n  <div css.bind=\"{'flex-basis':width}\"><div class=\"ui-group-wrapper\"><slot></slot></div><slot name=\"inputInfo\"></slot></div></template>"),
     aurelia_framework_1.customElement('ui-input-group'),
     __metadata("design:paramtypes", [Element])
 ], UIInputGroup);
@@ -167,6 +179,7 @@ var UIInputLabel = UIInputLabel_1 = (function () {
         this.element = element;
         this.for = '';
         this.class = '';
+        this.width = '8em';
     }
     UIInputLabel.prototype.bind = function (bindingContext, overrideContext) {
         if (this.element.hasAttribute('align-top'))
@@ -195,10 +208,14 @@ __decorate([
     aurelia_framework_1.bindable(),
     __metadata("design:type", Object)
 ], UIInputLabel.prototype, "class", void 0);
+__decorate([
+    aurelia_framework_1.bindable(),
+    __metadata("design:type", Object)
+], UIInputLabel.prototype, "width", void 0);
 UIInputLabel = UIInputLabel_1 = __decorate([
     aurelia_framework_1.autoinject(),
     aurelia_framework_1.containerless(),
-    aurelia_framework_1.inlineView('<template><label ref="label" slot="inputLabel" class="ui-input-label \${class}" for.bind="for"><slot></slot></label></template>'),
+    aurelia_framework_1.inlineView("<template><label ref=\"label\" slot=\"inputLabel\" class=\"ui-input-label ${class}\" for.bind=\"for\" css.bind=\"{'flex-basis':width}\"><slot></slot></label></template>"),
     aurelia_framework_1.customElement('ui-input-label'),
     __metadata("design:paramtypes", [Element])
 ], UIInputLabel);
