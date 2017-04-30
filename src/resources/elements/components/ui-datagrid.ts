@@ -85,7 +85,6 @@ export class UIDgCell {
     </div>
     <ui-dg-cell class="ui-dg-cell \${col.align}" repeat.for="col of parent.cols" css.bind="{width:col.getWidth(col.width)+'px'}" col.bind="col" parent.bind="parent" record.bind="record">
     </ui-dg-cell>
-    <div class="ui-dg-filler"></div>
 
     <div class="ui-dg-edit-row" if.bind="record.__editing__" click.trigger="$event.stopPropagation()">
       <div class="ui-dg-input-row" validation-renderer="ui-validator">
@@ -195,7 +194,6 @@ export class UIDgRow {
       <div class="ui-dg-cell \${col.align}" repeat.for="col of colLocked" css.bind="{width:col.getWidth(col.width)+'px'}"></div>
     </div>
     <div class="ui-dg-cell \${col.align}" repeat.for="col of cols" css.bind="{width:col.getWidth(col.width)+'px'}"></div>
-    <div class="ui-dg-filler"></div>
   </div>
 </div>
 <div ref="dgBody" class="ui-dg-body" scroll.trigger="(scrollLeft = dgBody.scrollLeft)" if.bind="virtual">
@@ -207,7 +205,6 @@ export class UIDgRow {
       <div class="ui-dg-cell \${col.align}" repeat.for="col of colLocked" css.bind="{width:col.getWidth(col.width)+'px'}"></div>
     </div>
     <div class="ui-dg-cell \${col.align}" repeat.for="col of cols" css.bind="{width:col.getWidth(col.width)+'px'}"></div>
-    <div class="ui-dg-filler"></div>
   </div>
 </div>
 <div ref="dgFoot" class="ui-dg-footer">
@@ -222,7 +219,6 @@ export class UIDgRow {
     <div class="ui-dg-cell \${col.align}" repeat.for="col of cols" css.bind="{width:col.getWidth(col.width)+'px'}">
       <div innerhtml.bind='col.getSummary(summaryRow, store.getSummary(col.dataId, col.summary), store.data)'></div>\${recalc}
     </div>
-    <div class="ui-dg-filler"></div>
   </div>
 </div>
 <div class="ui-dg-loader" if.bind="store.isLoading">
