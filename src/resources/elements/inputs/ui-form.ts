@@ -96,7 +96,7 @@ export class UIFieldset {
 
 @autoinject()
 @inlineView(`<template class="ui-input-group"><slot name="inputLabel"></slot>
-  <div><div class="ui-group-wrapper" css.bind="{'width':width}"><slot></slot></div><slot name="inputInfo"></slot></div></template>`)
+  <div css.bind="{'flex-basis':width}"><div class="ui-group-wrapper"><slot></slot></div><slot name="inputInfo"></slot></div></template>`)
 @customElement('ui-input-group')
 export class UIInputGroup {
   constructor(public element: Element) {
@@ -111,7 +111,7 @@ export class UIInputGroup {
   // unbind() { }
   // end aurelia hooks
 
-  @bindable() width = 'auto';
+  @bindable() width = '15em';
 }
 
 @autoinject()
@@ -161,7 +161,7 @@ export class UIInputAddon {
 
 @autoinject()
 @containerless()
-@inlineView('<template><label ref="label" slot="inputLabel" class="ui-input-label \${class}" for.bind="for"><slot></slot></label></template>')
+@inlineView(`<template><label ref="label" slot="inputLabel" class="ui-input-label \${class}" for.bind="for" css.bind="{'flex-basis':width}"><slot></slot></label></template>`)
 @customElement('ui-input-label')
 export class UIInputLabel {
   constructor(public element: Element) { }
@@ -191,4 +191,5 @@ export class UIInputLabel {
 
   @bindable() for = '';
   @bindable() class = '';
+  @bindable() width = '8em';
 }

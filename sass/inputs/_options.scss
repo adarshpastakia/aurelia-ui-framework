@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -43,6 +43,7 @@
 
 .ui-option {
   line-height: 1;
+  min-width  : 5em;
   white-space: nowrap;
   position   : relative;
   display    : inline-block;
@@ -67,7 +68,7 @@
 
   .ui-option-label {
     color      : $input-label-text;
-    font-size  : .8em;
+    font-size  : 0.8em;
     line-height: 1em;
     @include ellipsis();
   }
