@@ -28,12 +28,22 @@
               <ui-row middle>
                 <ui-column fill></ui-column>
                 <ui-column width="6em">
-                  <div><small>Price</small></div>
-                  <div><small>Shipping</small></div>
+                  <div>
+                    <small>Price</small>
+                  </div>
+                  <div>
+                    <small>Shipping</small>
+                  </div>
                   <hr/>
-                  <div><small>Discount</small></div>
+                  <div>
+                    <small>Discount</small>
+                  </div>
                   <hr/>
-                  <div><small><strong>Total</strong></small></div>
+                  <div>
+                    <small>
+                      <strong>Total</strong>
+                    </small>
+                  </div>
                 </ui-column>
                 <ui-column width="5em" class="ui-text-end">
                   <div>${amount | currency}</div>
@@ -41,7 +51,9 @@
                   <hr/>
                   <div>${discount | currency}</div>
                   <hr/>
-                  <div><strong>${amount+ship+discount | currency}</strong></div>
+                  <div>
+                    <strong>${amount+ship+discount | currency}</strong>
+                  </div>
                 </ui-column>
               </ui-row>
               <br/>
@@ -114,21 +126,27 @@
                 <ui-input-label required>Card Holder</ui-input-label>
                 <ui-input placeholder="Name..." value=""></ui-input>
               </ui-input-group>
-              <ui-input-group width="12em">
-                <ui-input-label required>Expiry</ui-input-label>
-                <ui-input-addon class="ui-text-gray ui-bg-light">
-                  <small class="ui-strong">MM</small>
-                </ui-input-addon>
-                <ui-combo options.bind="'Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec' | split"></ui-combo>
-                <ui-input-addon class="ui-text-gray ui-bg-light">
-                  <small class="ui-strong">YY</small>
-                </ui-input-addon>
-                <ui-combo options.bind="'2017,2018,2019,2020,2021,2022' | split"></ui-combo>
-              </ui-input-group>
-              <ui-input-group width="4em">
-                <ui-input-label required>CCV</ui-input-label>
-                <ui-input placeholder="123" number=""></ui-input>
-              </ui-input-group>
+              <ui-row spaced>
+                <ui-column width="20em">
+                  <ui-input-group width="10em">
+                    <ui-input-label required>Expiry</ui-input-label>
+                    <ui-input-addon class="ui-text-gray ui-bg-light">
+                      <small class="ui-strong">MM</small>
+                    </ui-input-addon>
+                    <ui-combo options.bind="'Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec' | split"></ui-combo>
+                    <ui-input-addon class="ui-text-gray ui-bg-light">
+                      <small class="ui-strong">YY</small>
+                    </ui-input-addon>
+                    <ui-combo options.bind="'2017,2018,2019,2020,2021,2022' | split"></ui-combo>
+                  </ui-input-group>
+                </ui-column>
+                <ui-column width="8em">
+                  <ui-input-group width="4em">
+                    <ui-input-label required width="2em">CCV</ui-input-label>
+                    <ui-input placeholder="123" number=""></ui-input>
+                  </ui-input-group>
+                </ui-column>
+              </ui-row>
             </ui-column>
           </ui-row>
         </ui-form>
