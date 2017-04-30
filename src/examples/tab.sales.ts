@@ -5,7 +5,7 @@
 // @license     : MIT
 
 import {autoinject} from 'aurelia-framework';
-import {UIApplication, UIHttpService, UIUtils} from '../resources/index';
+import {UIApplication, UIHttpService, UIUtils, UIEvent} from '../resources/index';
 import * as _ from "lodash";
 
 @autoinject()
@@ -81,7 +81,7 @@ export class TabSalesHistory {
     sub.push({ label: 'Ecuador', new: this.rnd(), renew: this.rnd(), rev: this.rnd(81900) })
     data.push({ label: 'South America', new: _.sumBy(sub, 'new'), renew: _.sumBy(sub, 'renew'), rev: _.sumBy(sub, 'rev'), subdata: sub, isOpen: true })
 
-    this.store = data;
+    UIEvent.queueTask(() => this.store = data);
 
     this.summary.new = _.sumBy(data, 'new');
     this.summary.renew = _.sumBy(data, 'renew');

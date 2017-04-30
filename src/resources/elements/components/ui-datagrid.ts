@@ -56,7 +56,7 @@ export class UIDgCell {
 }
 
 @autoinject()
-@inlineView(`<template><div class="ui-dg-row level-\${level} \${record.isOpen?'ui-expanded':''} \${parent.selected==record?'ui-selected':''}" click.trigger="parent.fireSelect(parent.selected=record)">
+@inlineView(`<template><div class="ui-dg-row level-\${level} \${record.isOpen?'ui-expanded':''} \${parent.selected==record?'ui-selected':''} \${odd?'even':'odd'} \${last?'last':''}" click.trigger="parent.fireSelect(parent.selected=record)">
     <div class="ui-dg-lock-holder" css.bind="{transform: 'translateX('+parent.scrollLeft+'px)'}">
       <div class="ui-dg-expander" if.bind="parent.rowExpander" ref="rowExpand" click.trigger="$event.stopPropagation()" css.bind="{'min-width': parent.expandWidth+'px'}">
         <ui-glyph glyph="glyph" repeat.for="i of level"></ui-glyph>
@@ -68,15 +68,13 @@ export class UIDgCell {
     </div>
     <ui-dg-cell class="ui-dg-cell \${col.align}" repeat.for="col of parent.cols" css.bind="{width:col.getWidth(col.width)+'px'}" col.bind="col" parent.bind="parent" record.bind="record">
     </ui-dg-cell>
-    <div class="ui-dg-filler"></div>
   </div>
-  <ui-dg-row containerless if.bind="!parent.subview&&record.subdata&&record.isOpen" level.bind="level+1" parent.bind="parent" record.bind="rec" index.bind="$index" repeat.for="rec of record.subdata"></ui-dg-row>
+  <ui-dg-row containerless if.bind="!parent.subview&&record.subdata&&record.isOpen" level.bind="level+1" parent.bind="parent" record.bind="rec" index.bind="$index" odd.bind="$odd" repeat.for="rec of record.subdata"></ui-dg-row>
 
   <div class="ui-dg-row" if.bind="parent.subview && record.isOpen" css.bind="{transform: 'translateX('+parent.scrollLeft+'px)'}">
     <div class="ui-dg-expander" if.bind="parent.rowExpander" click.trigger="$event.stopPropagation()" css.bind="{'min-width': parent.expandWidth+'px'}"></div>
     <div class="ui-dg-expander ui-text-center" if.bind="parent.rowCounter" click.trigger="$event.stopPropagation()" css.bind="{'min-width': parent.counterWidth+'px'}"></div>
-    <ui-dg-cell parent.bind="parent" record.bind="record" type="subview"></ui-dg-cell>
-    <div class="ui-dg-filler"></div>
+    <ui-dg-cell class="ui-dg-subview" parent.bind="parent" record.bind="record" type="subview"></ui-dg-cell>
   </div>
 </template>`)
 @customElement('ui-dg-row')
@@ -87,9 +85,15 @@ export class UIDgRow {
   @bindable() index;
   @bindable() record;
   @bindable() parent;
+  @bindable() odd;
 
+  last = false;
   rowExpand;
   rowCounter;
+  bind(bindingContext: any, overrideContext: any) {
+    if (this.level > 0 && !overrideContext.$first && overrideContext.$last) this.last = true;
+  }
+
   indexChanged() {
     UIEvent.queueTask(() => {
       if (this.rowExpand && this.parent.expandWidth < this.rowExpand.offsetWidth) this.parent.expandWidth = this.rowExpand.offsetWidth;
@@ -134,7 +138,7 @@ export class UIDgRow {
 </div>
 <div show.bind="store.isEmpty" class="ui-dg-empty"><slot name="dg-empty"></slot></div>
 <div ref="dgBody" class="ui-dg-body" scroll.trigger="(scrollLeft = dgBody.scrollLeft)" if.bind="!virtual">
-  <ui-dg-row containerless parent.bind="$parent" record.bind="record" index.bind="$index" repeat.for="record of paged"></ui-dg-row>
+  <ui-dg-row containerless parent.bind="$parent" record.bind="record" index.bind="$index" odd.bind="$odd" repeat.for="record of paged"></ui-dg-row>
   <div class="ui-dg-row ui-dg-filler">
     <div class="ui-dg-lock-holder" css.bind="{transform: 'translateX('+scrollLeft+'px)'}">
       <div class="ui-dg-expander" if.bind="rowExpander" css.bind="{width: expandWidth+'px'}"></div>
@@ -142,11 +146,10 @@ export class UIDgRow {
       <div class="ui-dg-cell \${col.align}" repeat.for="col of colLocked" css.bind="{width:col.getWidth(col.width)+'px'}"></div>
     </div>
     <div class="ui-dg-cell \${col.align}" repeat.for="col of cols" css.bind="{width:col.getWidth(col.width)+'px'}"></div>
-    <div class="ui-dg-filler"></div>
   </div>
 </div>
 <div ref="dgBody" class="ui-dg-body" scroll.trigger="(scrollLeft = dgBody.scrollLeft)" if.bind="virtual">
-  <ui-dg-row parent.bind="$parent" record.bind="record" index.bind="$index" virtual-repeat.for="record of paged"></ui-dg-row>
+  <ui-dg-row parent.bind="$parent" record.bind="record" index.bind="$index" odd.bind="$odd" virtual-repeat.for="record of paged"></ui-dg-row>
   <div class="ui-dg-row ui-dg-filler">
     <div class="ui-dg-lock-holder" css.bind="{transform: 'translateX('+scrollLeft+'px)'}">
       <div class="ui-dg-expander" if.bind="rowExpander" css.bind="{width: expandWidth+'px'}"></div>
@@ -154,7 +157,6 @@ export class UIDgRow {
       <div class="ui-dg-cell \${col.align}" repeat.for="col of colLocked" css.bind="{width:col.getWidth(col.width)+'px'}"></div>
     </div>
     <div class="ui-dg-cell \${col.align}" repeat.for="col of cols" css.bind="{width:col.getWidth(col.width)+'px'}"></div>
-    <div class="ui-dg-filler"></div>
   </div>
 </div>
 <div ref="dgFoot" class="ui-dg-footer" if.bind="summaryRow">
@@ -169,7 +171,6 @@ export class UIDgRow {
     <div class="ui-dg-cell \${col.align}" repeat.for="col of cols" css.bind="{width:col.getWidth(col.width)+'px'}">
       <div innerhtml.bind='col.getSummary(summaryRow, data)'></div>
     </div>
-    <div class="ui-dg-filler"></div>
   </div>
 </div>
 <div class="ui-dg-loader" if.bind="isBusy">
@@ -178,7 +179,7 @@ export class UIDgRow {
   </div>
 </div><template>`)
 @customElement('ui-datagrid')
-export class UIDatagrid2 {
+export class UIDatagrid {
   constructor(public element: Element) {
     this.virtual = element.hasAttribute('virtual');
     this.rowCounter = element.hasAttribute('row-counter');

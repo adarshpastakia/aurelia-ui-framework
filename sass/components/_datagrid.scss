@@ -67,6 +67,10 @@
 
     > .ui-dg-filler {
       @include flex-fill();
+
+      .ui-dg-expander {
+        padding: 0;
+      }
     }
 
     > div {
@@ -74,15 +78,24 @@
     }
 
     .ui-dg-row {
-      &.ui-dg-filler .ui-dg-cell,
-      &:nth-child(odd) .ui-dg-cell {
+      &.odd .ui-dg-cell {
         background: $datagrid-row-odd-bg;
         color     : $datagrid-row-odd-text;
       }
 
-      &:not(.ui-dg-filler):nth-child(even) .ui-dg-cell {
+      &.even .ui-dg-cell {
         background: $datagrid-row-even-bg;
         color     : $datagrid-row-even-text;
+      }
+
+      &.last .ui-dg-cell,
+      &.ui-expanded .ui-dg-cell {
+        border-bottom: 1px dotted $base-border-color;
+      }
+
+      .ui-dg-subview {
+        @include flex-fill();
+        border-bottom: 1px dotted $base-border-color;
       }
 
       &:not(.ui-dg-filler):hover .ui-dg-cell {
@@ -136,10 +149,6 @@
 
       .ui-link {
         font-weight: 600;
-      }
-
-      &:last-child {
-        border-right: none;
       }
 
       &:not(.btn-fix) {
@@ -197,10 +206,6 @@
       padding    : 0;
       color      : $datagrid-header-text;
       background : $datagrid-header-bg;
-
-      &:last-child {
-        border-right: none;
-      }
 
       .ui-title {
         content: ' ';
