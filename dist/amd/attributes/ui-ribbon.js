@@ -29,6 +29,9 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
             this.ribbon.className = 'ui-ribbon ' + newValue;
         };
         UIRibbon.prototype.messageChanged = function (newValue) {
+            if (isEmpty(newValue))
+                return this.ribbon.classList.add('ui-hidden');
+            this.ribbon.classList.remove('ui-hidden');
             this.ribbon.innerHTML = newValue;
         };
         return UIRibbon;

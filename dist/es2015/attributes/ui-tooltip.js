@@ -26,6 +26,8 @@ let UITooltip = UITooltip_1 = class UITooltip {
     }
     detached() { this.hide(); }
     show() {
+        if (isEmpty(this.message))
+            return;
         let el = UITooltip_1.tooltipEl;
         el.className = 'ui-tooltip ' + this.theme;
         el.innerHTML = this.message;

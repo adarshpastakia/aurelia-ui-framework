@@ -198,6 +198,8 @@ System.register(["aurelia-framework", "../../utils/ui-event", "lodash"], functio
                         this.class += ' ui-align-top';
                     if (this.element.hasAttribute('required'))
                         this.class += ' ui-required';
+                    if (this.element.hasAttribute('align-top'))
+                        this.width = '100%';
                 };
                 UIInputLabel.prototype.attached = function () {
                     if (isEmpty(this.for)) {

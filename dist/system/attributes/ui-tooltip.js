@@ -39,6 +39,8 @@ System.register(["aurelia-framework", "../utils/ui-utils"], function (exports_1,
                 };
                 UITooltip.prototype.detached = function () { this.hide(); };
                 UITooltip.prototype.show = function () {
+                    if (isEmpty(this.message))
+                        return;
                     var el = UITooltip_1.tooltipEl;
                     el.className = 'ui-tooltip ' + this.theme;
                     el.innerHTML = this.message;

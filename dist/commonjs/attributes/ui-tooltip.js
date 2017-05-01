@@ -29,6 +29,8 @@ var UITooltip = UITooltip_1 = (function () {
     };
     UITooltip.prototype.detached = function () { this.hide(); };
     UITooltip.prototype.show = function () {
+        if (isEmpty(this.message))
+            return;
         var el = UITooltip_1.tooltipEl;
         el.className = 'ui-tooltip ' + this.theme;
         el.innerHTML = this.message;

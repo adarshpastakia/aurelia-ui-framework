@@ -37,6 +37,9 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
                     this.ribbon.className = 'ui-ribbon ' + newValue;
                 };
                 UIRibbon.prototype.messageChanged = function (newValue) {
+                    if (isEmpty(newValue))
+                        return this.ribbon.classList.add('ui-hidden');
+                    this.ribbon.classList.remove('ui-hidden');
                     this.ribbon.innerHTML = newValue;
                 };
                 return UIRibbon;

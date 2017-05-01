@@ -186,6 +186,8 @@ var UIInputLabel = UIInputLabel_1 = (function () {
             this.class += ' ui-align-top';
         if (this.element.hasAttribute('required'))
             this.class += ' ui-required';
+        if (this.element.hasAttribute('align-top'))
+            this.width = '100%';
     };
     UIInputLabel.prototype.attached = function () {
         if (isEmpty(this.for)) {
