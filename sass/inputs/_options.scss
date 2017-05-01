@@ -11,7 +11,9 @@
     @include flex(1 1 1em);
     @include flex-wrap(wrap);
 
-    .ui-option {}
+    .ui-option {
+      min-width: 5em;
+    }
   }
 
   &:not(.ui-vertical) {
@@ -43,7 +45,6 @@
 
 .ui-option {
   line-height: 1;
-  min-width  : 5em;
   white-space: nowrap;
   position   : relative;
   display    : inline-block;

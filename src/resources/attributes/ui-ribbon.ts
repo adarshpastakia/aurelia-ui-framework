@@ -40,6 +40,8 @@ export class UIRibbon {
     this.ribbon.className = 'ui-ribbon ' + newValue;
   }
   messageChanged(newValue) {
+    if (isEmpty(newValue)) return this.ribbon.classList.add('ui-hidden');
+    this.ribbon.classList.remove('ui-hidden');
     this.ribbon.innerHTML = newValue;
   }
 }

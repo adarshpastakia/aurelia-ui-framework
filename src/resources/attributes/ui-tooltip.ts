@@ -39,6 +39,7 @@ export class UITooltip {
   private timer;
 
   show() {
+    if (isEmpty(this.message)) return;
     let el = UITooltip.tooltipEl;
     el.className = 'ui-tooltip ' + this.theme;
     el.innerHTML = this.message;

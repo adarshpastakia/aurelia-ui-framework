@@ -140,6 +140,7 @@ th {
     }
   }
 
+   > tbody > tr,
   > tr {
     &:nth-child(odd) > td {
       background: $datagrid-row-odd-bg;
