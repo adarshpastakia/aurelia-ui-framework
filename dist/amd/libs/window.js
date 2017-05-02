@@ -29,6 +29,7 @@ window.isFalse = function(b) {
 }
 window.isEmpty = function(a) {
   if (typeof a === 'number') return false;
+  if (typeof a === 'boolean') return false;
   return a === undefined || a === null || a === '' || a.length === 0 || Object.keys(a).length == 0;
 }
 window.isString = function(a) {

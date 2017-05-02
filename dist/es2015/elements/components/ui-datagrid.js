@@ -46,9 +46,17 @@ let UIDgCell = class UIDgCell {
         let viewFactory = this.compiler.compile(`<template>${template}</template>`);
         let view = viewFactory.create(this.container);
         view.bind(this);
-        let slot = new ViewSlot(this.element, true);
-        slot.add(view);
-        slot.attached();
+        this.slot = new ViewSlot(this.element, true);
+        this.slot.add(view);
+        this.slot.attached();
+    }
+    bind() {
+        if (this.slot)
+            this.slot.attached();
+    }
+    detached() {
+        if (this.slot)
+            this.slot.detached();
     }
 };
 __decorate([

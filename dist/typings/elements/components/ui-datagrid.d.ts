@@ -8,7 +8,10 @@ export declare class UIDgCell {
     type: any;
     record: any;
     parent: any;
+    slot: any;
     attached(): void;
+    bind(): void;
+    detached(): void;
 }
 export declare class UIDgRow {
     element: Element;

@@ -53,9 +53,17 @@ System.register(["aurelia-framework", "../../utils/ui-event", "lodash"], functio
                     var viewFactory = this.compiler.compile("<template>" + template + "</template>");
                     var view = viewFactory.create(this.container);
                     view.bind(this);
-                    var slot = new aurelia_framework_1.ViewSlot(this.element, true);
-                    slot.add(view);
-                    slot.attached();
+                    this.slot = new aurelia_framework_1.ViewSlot(this.element, true);
+                    this.slot.add(view);
+                    this.slot.attached();
+                };
+                UIDgCell.prototype.bind = function () {
+                    if (this.slot)
+                        this.slot.attached();
+                };
+                UIDgCell.prototype.detached = function () {
+                    if (this.slot)
+                        this.slot.detached();
                 };
                 return UIDgCell;
             }());
