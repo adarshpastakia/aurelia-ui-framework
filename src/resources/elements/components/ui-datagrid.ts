@@ -20,6 +20,8 @@ export class UIDgCell {
   @bindable() record;
   @bindable() parent;
 
+  slot;
+
   attached() {
     if (this.element.innerHTML) return;
     let template = '';
@@ -49,9 +51,15 @@ export class UIDgCell {
     let view = viewFactory.create(this.container);
     view.bind(this);
     // DOM.appendNode(div, this.element);
-    let slot = new ViewSlot(this.element, true);
-    slot.add(view);
-    slot.attached();
+    this.slot = new ViewSlot(this.element, true);
+    this.slot.add(view);
+    this.slot.attached();
+  }
+  bind() {
+    if (this.slot) this.slot.attached();
+  }
+  detached() {
+    if (this.slot) this.slot.detached();
   }
 }
 
