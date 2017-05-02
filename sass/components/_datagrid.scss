@@ -4,9 +4,8 @@
 // @copyright   : 2017
 // @license     : MIT
 .ui-datagrid {
-  position : relative;
-  overflow : hidden;
-  min-width: 100%;
+  position: relative;
+  overflow: hidden;
 
   &:not(.ui-auto-size) {
     @include flex-fill();
@@ -78,6 +77,14 @@
     }
 
     .ui-dg-row {
+      &.odd {
+        background: $datagrid-row-odd-bg;
+      }
+
+      &.even {
+        background: $datagrid-row-even-bg;
+      }
+
       &.odd .ui-dg-cell {
         background: $datagrid-row-odd-bg;
         color     : $datagrid-row-odd-text;
