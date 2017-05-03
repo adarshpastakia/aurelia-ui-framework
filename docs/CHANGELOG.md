@@ -1,3 +1,14 @@
+<a name="3.3.8"></a>
+## 3.3.8 (2017-05-03)
+
+
+
+* Fixed styling issues on `rtl`
+* Updated `UIFieldset`
+  - Changed `enabled` property to `checked`
+  - Added `disabled` property
+
+
 <a name="3.3.7"></a>
 ## 3.3.7 (2017-05-02)
 
@@ -29,7 +40,7 @@
 * UIDatagrid Update
   - Changed layout from tables to flexbox divs
   - Locking columns using css3 transform
-  
+
 
 <a name="3.3.1"></a>
 ## 3.3.1 (2017-04-22)

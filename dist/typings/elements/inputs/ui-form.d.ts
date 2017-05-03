@@ -16,10 +16,13 @@ export declare class UIFieldset {
     bind(bindingContext: Object, overrideContext: Object): void;
     attached(): void;
     legend: string;
-    enabled: boolean;
+    disabled: boolean;
+    checked: boolean;
     private container;
-    private collapsable;
-    enabledChanged(newValue: any): void;
+    private collapsible;
+    checkedChanged(newValue: any): void;
+    disabledChanged(newValue: any): void;
+    disableInputs(newValue: any): void;
 }
 export declare class UIInputGroup {
     element: Element;

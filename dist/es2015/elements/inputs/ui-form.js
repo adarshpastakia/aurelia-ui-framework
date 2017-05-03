@@ -65,22 +65,30 @@ let UIFieldset = class UIFieldset {
     constructor(element) {
         this.element = element;
         this.legend = '';
-        this.enabled = true;
-        this.collapsable = false;
-        this.collapsable = element.hasAttribute('enabled') || element.hasAttribute('enabled.bind');
+        this.checked = true;
+        this.collapsible = false;
+        this.collapsible = element.hasAttribute('checked') || element.hasAttribute('checked.bind');
     }
     bind(bindingContext, overrideContext) {
-        this.enabled = isTrue(this.enabled);
+        this.checked = isTrue(this.checked);
     }
     attached() {
-        this.enabledChanged(this.enabled);
+        this.checkedChanged(this.checked);
+        if (this.disabled)
+            this.disabledChanged(this.disabled);
     }
-    enabledChanged(newValue) {
+    checkedChanged(newValue) {
         this.element.classList[isTrue(newValue) ? 'remove' : 'add']('ui-collapse');
-        let els = this.container.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list');
+        this.disableInputs(isFalse(newValue));
+    }
+    disabledChanged(newValue) {
+        this.disableInputs(newValue);
+    }
+    disableInputs(newValue) {
+        let els = this.container.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list,ui-dropdown');
         _.forEach(els, el => {
             try {
-                el.au.controller.viewModel.disable(isFalse(newValue));
+                el.au.controller.viewModel.disable(isTrue(newValue));
             }
             catch (e) {
             }
@@ -92,12 +100,16 @@ __decorate([
     __metadata("design:type", Object)
 ], UIFieldset.prototype, "legend", void 0);
 __decorate([
+    bindable(),
+    __metadata("design:type", Boolean)
+], UIFieldset.prototype, "disabled", void 0);
+__decorate([
     bindable({ defaultBindingMode: bindingMode.twoWay }),
     __metadata("design:type", Object)
-], UIFieldset.prototype, "enabled", void 0);
+], UIFieldset.prototype, "checked", void 0);
 UIFieldset = __decorate([
     autoinject(),
-    inlineView('<template class="ui-fieldset"><fieldset><legend if.bind="legend"><span if.bind="!collapsable">\${legend}</span><ui-checkbox if.bind="collapsable" checked.bind="enabled">\${legend}</ui-checkbox></legend><div ref="container"><slot></slot></div></fieldset></template>'),
+    inlineView('<template class="ui-fieldset"><fieldset><legend if.bind="legend"><span if.bind="!collapsible">\${legend}</span><ui-checkbox if.bind="collapsible" checked.bind="checked">\${legend}</ui-checkbox></legend><div ref="container"><slot></slot></div></fieldset></template>'),
     customElement('ui-fieldset'),
     __metadata("design:paramtypes", [Element])
 ], UIFieldset);

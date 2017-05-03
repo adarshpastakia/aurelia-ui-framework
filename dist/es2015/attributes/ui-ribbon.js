@@ -21,7 +21,7 @@ let UIRibbon = class UIRibbon {
     }
     bind(bindingContext, overrideContext) {
         if (isEmpty(this.message))
-            return this.ribbon.classList.add('ui-hidden');
+            this.ribbon.classList.add('ui-hidden');
         this.ribbon.innerHTML = this.message;
         this.ribbon.className = 'ui-ribbon ' + this.theme;
     }

@@ -23,7 +23,7 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
         }
         UIRibbon.prototype.bind = function (bindingContext, overrideContext) {
             if (isEmpty(this.message))
-                return this.ribbon.classList.add('ui-hidden');
+                this.ribbon.classList.add('ui-hidden');
             this.ribbon.innerHTML = this.message;
             this.ribbon.className = 'ui-ribbon ' + this.theme;
         };
