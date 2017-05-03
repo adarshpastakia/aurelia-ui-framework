@@ -25,7 +25,7 @@ export class UIRibbon {
   // aurelia hooks
   // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
-    if (isEmpty(this.message)) return this.ribbon.classList.add('ui-hidden');
+    if (isEmpty(this.message)) this.ribbon.classList.add('ui-hidden');
     this.ribbon.innerHTML = this.message;
     this.ribbon.className = 'ui-ribbon ' + this.theme;
   }
