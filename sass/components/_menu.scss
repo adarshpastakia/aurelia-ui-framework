@@ -164,7 +164,7 @@ a.ui-menu-item {
   }
 
   > .ui-row > .ui-column:not(:first-child) {
-    border-left: 1px solid rgba($base-border-color,.5);
+    @include border(start, 1px solid rgba($base-border-color,.5));
   }
 
   &.ui-floating {

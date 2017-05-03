@@ -34,16 +34,14 @@ export class UIForm {
   @bindable() disabled: boolean;
 
   busyChanged(newValue: any) {
-    let els = this.element.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list,ui-dropdown');
-    _.forEach(els, el => {
-      try {
-        el.au.controller.viewModel.disable(isTrue(newValue));
-      } catch (e) {
-      }
-    });
+    this.disableInputs(isTrue(newValue) || this.disabled);
   }
 
   disabledChanged(newValue: any) {
+    this.disableInputs(newValue);
+  }
+
+  disableInputs(newValue: any) {
     let els = this.element.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list,ui-dropdown');
     _.forEach(els, el => {
       try {
@@ -59,37 +57,47 @@ export class UIForm {
 }
 
 @autoinject()
-@inlineView('<template class="ui-fieldset"><fieldset><legend if.bind="legend"><span if.bind="!collapsable">\${legend}</span><ui-checkbox if.bind="collapsable" checked.bind="enabled">\${legend}</ui-checkbox></legend><div ref="container"><slot></slot></div></fieldset></template>')
+@inlineView('<template class="ui-fieldset"><fieldset><legend if.bind="legend"><span if.bind="!collapsible">\${legend}</span><ui-checkbox if.bind="collapsible" checked.bind="checked">\${legend}</ui-checkbox></legend><div ref="container"><slot></slot></div></fieldset></template>')
 @customElement('ui-fieldset')
 export class UIFieldset {
   constructor(public element: Element) {
-    this.collapsable = element.hasAttribute('enabled') || element.hasAttribute('enabled.bind');
+    this.collapsible = element.hasAttribute('checked') || element.hasAttribute('checked.bind');
   }
 
   // aurelia hooks
   // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
-    this.enabled = isTrue(this.enabled);
+    this.checked = isTrue(this.checked);
   }
   attached() {
-    this.enabledChanged(this.enabled);
+    this.checkedChanged(this.checked);
+    if (this.disabled) this.disabledChanged(this.disabled);
   }
   // detached() { }
   // unbind() { }
   // end aurelia hooks
 
   @bindable() legend = '';
-  @bindable({ defaultBindingMode: bindingMode.twoWay }) enabled = true;
+  @bindable() disabled: boolean;
+  @bindable({ defaultBindingMode: bindingMode.twoWay }) checked = true;
 
   private container;
-  private collapsable = false;
+  private collapsible = false;
 
-  enabledChanged(newValue: any) {
+  checkedChanged(newValue: any) {
     this.element.classList[isTrue(newValue) ? 'remove' : 'add']('ui-collapse');
-    let els = this.container.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list');
+    this.disableInputs(isFalse(newValue));
+  }
+
+  disabledChanged(newValue: any) {
+    this.disableInputs(newValue);
+  }
+
+  disableInputs(newValue: any) {
+    let els = this.container.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list,ui-dropdown');
     _.forEach(els, el => {
       try {
-        el.au.controller.viewModel.disable(isFalse(newValue));
+        el.au.controller.viewModel.disable(isTrue(newValue));
       } catch (e) {
       }
     });

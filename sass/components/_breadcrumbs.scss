@@ -5,11 +5,11 @@
 // @license     : MIT
 
 .ui-chip {
-  display      : inline-block;
   margin       : 0.2em 0.25em;
   border-radius: 1em;
   font-size    : 0.9rem;
   overflow     : hidden;
+  @include flex-row($display:inline-flex, $align:center, $wrap:false);
   @include box-shadow(0 0 0 1px rgba($base-border-color, .5));
 
   &.big {
@@ -27,13 +27,14 @@
   }
 
   .ui-chip-value {
-    padding   : 0.1em 0.5em;
+    padding: 0.1em 0.5em;
   }
 
   .ui-chip-close {
-    color  : $primary;
-    opacity: 0.6;
-    margin: 0 .3em;
+    color      : $primary;
+    opacity    : 0.6;
+    line-height: 1;
+    margin     : 0 0.3em;
 
     &:hover {
       opacity: 0.9;
