@@ -23,6 +23,8 @@ export class UIDgCell {
   @bindable() record;
   @bindable() parent;
 
+  private slot;
+
   attached() {
     if (this.element.innerHTML) return;
     let template = '';
@@ -31,17 +33,31 @@ export class UIDgCell {
       else template = this.parent.subview;
     }
     else if (this.type == 'editor') {
+      let editor = { type: 'none' };
+      if (typeof this.col.editor === 'string') editor.type = this.col.editor;
+      else if (typeof this.col.editor === 'object') editor = this.col.editor;
+
       template = '<span>&nbsp;</span>';
-      if (this.col.editor == 'text')
+      if (editor.type == 'text')
         template = '<ui-input clear value.bind="record[col.dataId] & validate"></ui-input>';
-      else if (this.col.editor == 'decimal')
+      else if (editor.type == 'decimal')
         template = '<ui-input decimal.bind="record[col.dataId] & validate"></ui-input>';
-      else if (this.col.editor == 'date')
+      else if (editor.type == 'date')
         template = '<ui-date date.bind="record[col.dataId] & validate"></ui-date>';
-      else if (this.col.editor == 'datetime')
+      else if (editor.type == 'datetime')
         template = '<ui-date datetime date.bind="record[col.dataId] & validate"></ui-date>';
-      else if (this.col.editor == 'time')
+      else if (editor.type == 'time')
         template = '<ui-date time date.bind="record[col.dataId] & validate"></ui-date>';
+      else if (this.col.type == 'normal') {
+        template = `<span class="\${col.class}" innerhtml.bind='col.getValue(record[col.dataId],record)'></span>`;
+        this.element.classList.add('display');
+      }
+      else if (this.col.type == 'glyph') {
+        template = `<div title.bind="col.getTooltip(record[col.dataId],record)">
+          <ui-glyph class="\${col.class} \${col.getGlyph(record[col.dataId],record)}" glyph.bind="col.getGlyph(record[col.dataId],record)"></ui-glyph>
+          </div>`;
+        this.element.classList.add('display');
+      }
     }
     else if (this.col.type == 'normal')
       template = `<span class="\${col.class}" innerhtml.bind='col.getValue(record[col.dataId],record)'></span>`;
@@ -65,9 +81,15 @@ export class UIDgCell {
     let view = viewFactory.create(this.container);
     view.bind(this);
     // DOM.appendNode(div, this.element);
-    let slot = new ViewSlot(this.element, true);
-    slot.add(view);
-    slot.attached();
+    this.slot = new ViewSlot(this.element, true);
+    this.slot.add(view);
+    this.slot.attached();
+  }
+  bind() {
+    if (this.slot) this.slot.attached();
+  }
+  detached() {
+    if (this.slot) this.slot.detached();
   }
 }
 

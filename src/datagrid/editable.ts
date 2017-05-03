@@ -31,6 +31,7 @@ export class DgForm {
           id: i + 1,
           icon: Math.floor(Math.random() * 5),
           text: this.getString(),
+          info: 'Non edit info',
           date: moment().add(Math.random() * -7200, 'day').toISOString(),
           number: Math.floor((Math.random() * 9999)),
           currency: parseFloat((Math.random() * 10800).toFixed(2))
