@@ -77,10 +77,9 @@ export class UIModel {
   }
 
   deserialize(json) {
-    this.__original__ = _.cloneDeep(json);
-    Object.keys(this.__original__)
+    Object.keys(this.__original__ = json)
       .forEach((key) => {
-        this[key] = json[key];
+        this[key] = _.cloneDeep(json[key]);
       });
   }
 
@@ -141,10 +140,9 @@ export class UIModel {
   Clone the original dataset to make sure any change does not affect the original
   **/
   discardChanges() {
-    let json = _.cloneDeep(this.__original__);
     Object.keys(this.__original__)
       .forEach((key) => {
-        this[key] = json[key];
+        this[key] = _.cloneDeep(this.__original__[key]);
       });
   }
 
