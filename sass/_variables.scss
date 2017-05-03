@@ -1,4 +1,4 @@
-// 
+//
 // @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
@@ -88,6 +88,7 @@ $menu-link-active-hilight    : $secondary !default;
 
 // DRAWER
 $sidebar-width               : 15em !default;
+$sidebar-collapse-width      : 18em !default;
 $drawer-width                : 18em !default;
 $drawer-bg                   : shade($base-bg, .5%) !default;
 $drawer-shim                 : rgba($white, 0) !default;

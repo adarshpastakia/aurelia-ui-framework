@@ -1,11 +1,11 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
 .ui-drawer-toggle {
   cursor     : pointer;
-  margin     : 0 .5em;
+  margin     : 0 0.5em;
   display    : inline-block;
   line-height: 1;
 
@@ -28,7 +28,7 @@
     > .ui-drawer-close {
       width      : 100%;
       line-height: 2em;
-      padding    : 0 .5em;
+      padding    : 0 0.5em;
       margin-top : -.25em;
       color      : $secondary;
     }
@@ -85,25 +85,31 @@
 
 .rtl,
 [dir="rtl"] {
-  .ui-drawer.start {
-    > .ui-drawer-content {
-      right: -1 * $drawer-width;
-      left : auto;
+  .ui-drawer {
+    .ui-drawer-close .ui-icon {
+      @include transform(scaleX(-1));
     }
 
-    &.show > .ui-drawer-content {
-      right: 0;
-    }
-  }
+    &.start {
+      > .ui-drawer-content {
+        right: -1 * $drawer-width;
+        left : auto;
+      }
 
-  .ui-drawer.end {
-    > .ui-drawer-content {
-      left : -1 * $drawer-width;
-      right: auto;
+      &.show > .ui-drawer-content {
+        right: 0;
+      }
     }
 
-    &.show > .ui-drawer-content {
-      left: 0;
+    &.end {
+      > .ui-drawer-content {
+        left : -1 * $drawer-width;
+        right: auto;
+      }
+
+      &.show > .ui-drawer-content {
+        left: 0;
+      }
     }
   }
 }

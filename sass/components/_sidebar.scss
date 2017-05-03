@@ -70,7 +70,7 @@
 
       &:not(.ui-mini-display) {
         .ui-sidebar-content {
-          left        : -1 * $sidebar-width;
+          left        : -1 * $sidebar-collapse-width;
           border-width: 0 1px 0 0;
           @include transition(left .5s);
         }
@@ -100,7 +100,7 @@
 
       &:not(.ui-mini-display) {
         .ui-sidebar-content {
-          right       : -1 * $sidebar-width;
+          right       : -1 * $sidebar-collapse-width;
           border-width: 0 0 0 1px;
           @include transition(right .5s);
         }
@@ -121,7 +121,7 @@
       max-width: 2em;
 
       .ui-sidebar-content {
-        width           : $sidebar-width;
+        width           : $sidebar-collapse-width;
         z-index         : $z-index-floating;
         background-color: $drawer-bg;
         @include position(absolute, 0 auto);
@@ -129,7 +129,7 @@
 
       .ui-affix-content {
         left   : 2em;
-        width  : $sidebar-width;
+        width  : $sidebar-collapse-width;
         right  : auto;
         top    : -100% !important;
         z-index: $z-index-floating + 1;
@@ -185,6 +185,10 @@
 .rtl,
 [dir="rtl"] {
   .ui-sidebar {
+    .ui-sidebar-close .ui-icon {
+      @include transform(scaleX(-1));
+    }
+
     &.start {
       border-width: 0 0 0 1px;
 
@@ -197,7 +201,7 @@
           .ui-sidebar-content {
             left        : auto;
             border-width: 0 0 0 1px;
-            right       : -1 * $sidebar-width;
+            right       : -1 * $sidebar-collapse-width;
             @include transition(right .5s);
           }
 
@@ -223,7 +227,7 @@
           .ui-sidebar-content {
             right       : auto;
             border-width: 0 1px 0 0;
-            left        : -1 * $sidebar-width;
+            left        : -1 * $sidebar-collapse-width;
             @include transition(left .5s);
           }
 
