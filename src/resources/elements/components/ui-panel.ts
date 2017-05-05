@@ -12,13 +12,13 @@ import * as _ from "lodash";
 @inlineView(`<template class="ui-panel \${collapsed?'ui-collapse':''} \${expanded?'ui-expand':''}" css.bind="{'height':height}" collapse.trigger="toggleCollapse()" expand.trigger="expand()" restore.trigger="expand()" close.trigger="close()"><slot></slot></template>`)
 @customElement('ui-panel')
 export class UIPanel {
-  constructor(public element: Element) {
-    this.collapsed = element.hasAttribute('collapsed');
-  }
+  constructor(public element: Element) { }
 
   // aurelia hooks
   // created(owningView: View, myView: View) { }
-  // bind(bindingContext: Object, overrideContext: Object) { }
+  bind(bindingContext: Object, overrideContext: Object) {
+    this.collapsed = this.element.hasAttribute('collapsed');
+  }
   // attached() { }
   // detached() { }
   // unbind() { }
