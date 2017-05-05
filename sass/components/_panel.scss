@@ -61,7 +61,7 @@
   line-height  : 2em;
   padding      : 0 0.5em;
   background   : $base-bg;
-  text-shadow  : -1px -1px 0 rgba(0, 0, 0, .1);
+  text-shadow  : -1px -1px 0 rgba(128,128,128, .1);
   border-bottom: 1px solid rgba($base-border-color, .3);
   @include flex-auto();
   @include flex-row($align:center, $wrap:false);
