@@ -24,6 +24,7 @@ export declare class BaseDataSource {
     filter(props: any): void;
     dispose(): void;
     protected makeDataset(resp: any): void;
+    getSummary(dataId: any, summary: any): any;
 }
 export declare class UILocalDS extends BaseDataSource {
     constructor(data: any, opts?: {});

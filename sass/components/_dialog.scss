@@ -56,6 +56,7 @@
 
     &.ui-modal {
       pointer-events: all;
+      padding       : 0.5em;
       z-index       : $z-index-dialog+10;
       background    : rgba(0,0,0,.05);
       @include flex-column(center, center);
@@ -64,6 +65,10 @@
         top : 0 !important;
         left: 0 !important;
       }
+    }
+
+    &:not(.ui-modal) {
+      padding: 0.5em 0.5em 3em;
     }
 
     .ui-dialog {

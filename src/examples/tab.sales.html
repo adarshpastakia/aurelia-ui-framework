@@ -23,7 +23,7 @@
           <ui-button light square glyph="glyph-refresh"></ui-button>
           <ui-button dark square glyph="icon-moon-download3" busy.bind="isExporting" click.trigger="doExport()"></ui-button>
         </ui-toolbar>
-        <ui-datagrid row-expander store.bind="store" scroll summary-row="summary">
+        <ui-datagrid row-expander data.bind="store" scroll summary-row="summary">
           <ui-dg-column data-id="label" sortable resizeable class="ui-level-pad" width="20em">&nbsp;</ui-dg-column>
           <ui-dg-column-group label="Sales">
             <ui-dg-column data-id="new" number summary="sum" end width="5em">New</ui-dg-column>

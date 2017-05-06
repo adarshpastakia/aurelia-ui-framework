@@ -9,14 +9,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var aurelia_framework_1 = require("aurelia-framework");
 var ui_event_1 = require("../utils/ui-event");
 var ui_model_1 = require("../utils/ui-model");
 var _ = require("lodash");
@@ -59,19 +52,29 @@ var BaseDataSource = (function () {
         });
         this.__original__ = ret;
     };
+    BaseDataSource.prototype.getSummary = function (dataId, summary) {
+        var retVal = '';
+        switch (summary) {
+            case 'sum':
+                retVal = _.sumBy(this.data, dataId);
+                break;
+            case 'avg':
+                retVal = _['meanBy'](this.data, dataId);
+                break;
+            default: return summary || '&nbsp;';
+        }
+        return retVal;
+    };
     return BaseDataSource;
 }());
-BaseDataSource = __decorate([
-    aurelia_framework_1.observable('__original__')
-], BaseDataSource);
 exports.BaseDataSource = BaseDataSource;
 var UILocalDS = (function (_super) {
     __extends(UILocalDS, _super);
     function UILocalDS(data, opts) {
         if (opts === void 0) { opts = {}; }
         var _this = _super.call(this) || this;
-        _this.makeDataset(data || []);
         Object.assign(_this, opts);
+        _this.makeDataset(data || []);
         _this.totalPages = Math.ceil(_this.__original__.length / _this.recordsPerPage);
         return _this;
     }

@@ -1,4 +1,5 @@
 import { Container, ViewCompiler } from 'aurelia-framework';
+import { ValidationControllerFactory } from "aurelia-validation";
 export declare class UIDgCell {
     element: Element;
     private container;
@@ -8,7 +9,10 @@ export declare class UIDgCell {
     type: any;
     record: any;
     parent: any;
+    private slot;
     attached(): void;
+    bind(): void;
+    detached(): void;
 }
 export declare class UIDgRow {
     element: Element;
@@ -17,15 +21,18 @@ export declare class UIDgRow {
     index: any;
     record: any;
     parent: any;
+    odd: any;
     extraClass: string;
     rowExpand: any;
     rowCounter: any;
     bind(bindingContext: any, overrideContext: any): void;
     attached(): void;
+    indexChanged(): void;
+    saveChanges(record: any): void;
 }
 export declare class UIDatagrid {
     element: Element;
-    constructor(element: Element);
+    constructor(element: Element, factory: ValidationControllerFactory);
     bind(bindingContext: Object, overrideContext: Object): void;
     attached(): void;
     detached(): void;
@@ -44,9 +51,11 @@ export declare class UIDatagrid {
     rowExpander: boolean;
     expandWidth: number;
     counterWidth: number;
+    controller: any;
     obPageChange: any;
     columnsChanged(c?: any): void;
     dataChanged(newValue: any): void;
+    selectedChanged(newValue: any): void;
     private doSort(col);
     private fireSelect(record, evt);
     private makeEditable($event, record);

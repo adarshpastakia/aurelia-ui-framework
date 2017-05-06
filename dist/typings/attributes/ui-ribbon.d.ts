@@ -6,5 +6,5 @@ export declare class UIRibbon {
     message: string;
     theme: string;
     themeChanged(newValue: any): void;
-    messageChanged(newValue: any): void;
+    messageChanged(newValue: any): any;
 }

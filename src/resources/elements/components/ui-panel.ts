@@ -9,22 +9,24 @@ import {UIUtils} from "../../utils/ui-utils";
 import * as _ from "lodash";
 
 @autoinject()
-@inlineView(`<template class="ui-panel \${collapsed?'ui-collapse':''}" css.bind="{'height':height}" collapse.trigger="toggleCollapse()" close.trigger="close()"><slot></slot></template>`)
+@inlineView(`<template class="ui-panel \${collapsed?'ui-collapse':''} \${expanded?'ui-expand':''}" css.bind="{'height':height}" collapse.trigger="toggleCollapse()" expand.trigger="expand()" restore.trigger="expand()" close.trigger="close()"><slot></slot></template>`)
 @customElement('ui-panel')
 export class UIPanel {
-  constructor(public element: Element) {
-    this.collapsed = element.hasAttribute('collapsed');
-  }
+  constructor(public element: Element) { }
 
   // aurelia hooks
   // created(owningView: View, myView: View) { }
-  // bind(bindingContext: Object, overrideContext: Object) { }
+  bind(bindingContext: Object, overrideContext: Object) {
+    this.collapsed = this.element.hasAttribute('collapsed');
+  }
   // attached() { }
   // detached() { }
   // unbind() { }
   // end aurelia hooks
 
   @bindable() height = 'auto';
+  @bindable({ defaultBindingMode: bindingMode.twoWay }) expanded = false;
+  @bindable({ defaultBindingMode: bindingMode.twoWay }) collapsed = false;
 
   close() {
     DOM.removeNode(this.element);
@@ -33,17 +35,19 @@ export class UIPanel {
     this.collapsed = true;
   }
   expand() {
-    this.collapsed = false;
+    this.expanded = !this.expanded;
+  }
+  restore() {
+    this.expanded = !this.expanded;
   }
 
-  private collapsed = false;
   private toggleCollapse() {
     setTimeout(() => this.collapsed = !this.collapsed, 200);
   }
 }
 
 @autoinject()
-@inlineView(`<template class="ui-panel-body" css.bind="{'max-height': maxheight,'flex-basis':height}"><slot></slot></template>`)
+@inlineView(`<template class="ui-panel-body" css.bind="{'max-height': maxheight,'min-height': minheight,'flex-basis':height}"><slot></slot></template>`)
 @customElement('ui-panel-body')
 export class UIPanelBody {
   constructor(public element: Element) {
@@ -61,6 +65,7 @@ export class UIPanelBody {
   // end aurelia hooks
 
   @bindable() height = 'auto';
+  @bindable() minheight = 'auto';
   @bindable() maxheight = 'auto';
 }
 

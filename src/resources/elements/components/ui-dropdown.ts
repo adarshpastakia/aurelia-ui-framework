@@ -55,7 +55,7 @@ export class UIDropdown {
   private glyph = '';
   private display = '';
 
-  isDisabled = false;
+  private isDisabled = false;
 
   valueChanged(newValue) {
     if (this.selected)

@@ -109,27 +109,16 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-format", "../
             }
             return retVal;
         };
-        UIDataColumn.prototype.getSummary = function (summaryRow, data) {
+        UIDataColumn.prototype.getSummary = function (summaryRow, summaryValue, data) {
             if (!this.summary)
                 return '&nbsp;';
-            var retVal = '', symbol = '';
+            var retVal = summaryValue || '', symbol = '';
             if (_.isObject(summaryRow)) {
                 retVal = summaryRow[this.dataId];
                 symbol = summaryRow[this.symbol];
             }
             else if (isFunction(this.summary))
                 retVal = this.summary(data);
-            else {
-                switch (this.summary) {
-                    case 'sum':
-                        retVal = _.sumBy(data, this.dataId);
-                        break;
-                    case 'avg':
-                        retVal = _['meanBy'](data, this.dataId);
-                        break;
-                    default: return this.summary || '&nbsp;';
-                }
-            }
             if (isFunction(this.display))
                 retVal = this.display(({ value: retVal, record: summaryRow, forSummary: true })) || '&nbsp;';
             else {

@@ -1,4 +1,4 @@
-System.register(["aurelia-framework", "../../utils/ui-event", "../../data/ui-data-source", "lodash"], function (exports_1, context_1) {
+System.register(["aurelia-framework", "aurelia-validation", "../../utils/ui-event", "../../data/ui-data-source", "lodash"], function (exports_1, context_1) {
     "use strict";
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -10,11 +10,14 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../data/ui-dat
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var __moduleName = context_1 && context_1.id;
-    var aurelia_framework_1, ui_event_1, ui_data_source_1, _, UIDgCell, UIDgRow, UIDatagrid, UIDGEmpty, UIPager, UIDGFilter;
+    var aurelia_framework_1, aurelia_validation_1, ui_event_1, ui_data_source_1, _, UIDgCell, UIDgRow, UIDatagrid, UIDGEmpty, UIPager, UIDGFilter;
     return {
         setters: [
             function (aurelia_framework_1_1) {
                 aurelia_framework_1 = aurelia_framework_1_1;
+            },
+            function (aurelia_validation_1_1) {
+                aurelia_validation_1 = aurelia_validation_1_1;
             },
             function (ui_event_1_1) {
                 ui_event_1 = ui_event_1_1;
@@ -44,17 +47,30 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../data/ui-dat
                             template = this.parent.subview;
                     }
                     else if (this.type == 'editor') {
+                        var editor = { type: 'none' };
+                        if (typeof this.col.editor === 'string')
+                            editor.type = this.col.editor;
+                        else if (typeof this.col.editor === 'object')
+                            editor = this.col.editor;
                         template = '<span>&nbsp;</span>';
-                        if (this.col.editor == 'text')
-                            template = '<ui-input value.bind="record[col.dataId]"></ui-input>';
-                        if (this.col.editor == 'decimal')
-                            template = '<ui-input decimal.bind="record[col.dataId]"></ui-input>';
-                        if (this.col.editor == 'date')
-                            template = '<ui-date date.bind="record[col.dataId]"></ui-date>';
-                        if (this.col.editor == 'datetime')
-                            template = '<ui-date datetime date.bind="record[col.dataId]"></ui-date>';
-                        if (this.col.editor == 'time')
-                            template = '<ui-date time date.bind="record[col.dataId]"></ui-date>';
+                        if (editor.type == 'text')
+                            template = '<ui-input clear value.bind="record[col.dataId] & validate"></ui-input>';
+                        else if (editor.type == 'decimal')
+                            template = '<ui-input decimal.bind="record[col.dataId] & validate"></ui-input>';
+                        else if (editor.type == 'date')
+                            template = '<ui-date date.bind="record[col.dataId] & validate"></ui-date>';
+                        else if (editor.type == 'datetime')
+                            template = '<ui-date datetime date.bind="record[col.dataId] & validate"></ui-date>';
+                        else if (editor.type == 'time')
+                            template = '<ui-date time date.bind="record[col.dataId] & validate"></ui-date>';
+                        else if (this.col.type == 'normal') {
+                            template = "<span class=\"${col.class}\" innerhtml.bind='col.getValue(record[col.dataId],record)'></span>";
+                            this.element.classList.add('display');
+                        }
+                        else if (this.col.type == 'glyph') {
+                            template = "<div title.bind=\"col.getTooltip(record[col.dataId],record)\">\n          <ui-glyph class=\"${col.class} ${col.getGlyph(record[col.dataId],record)}\" glyph.bind=\"col.getGlyph(record[col.dataId],record)\"></ui-glyph>\n          </div>";
+                            this.element.classList.add('display');
+                        }
                     }
                     else if (this.col.type == 'normal')
                         template = "<span class=\"${col.class}\" innerhtml.bind='col.getValue(record[col.dataId],record)'></span>";
@@ -69,9 +85,17 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../data/ui-dat
                     var viewFactory = this.compiler.compile("<template>" + template + "</template>");
                     var view = viewFactory.create(this.container);
                     view.bind(this);
-                    var slot = new aurelia_framework_1.ViewSlot(this.element, true);
-                    slot.add(view);
-                    slot.attached();
+                    this.slot = new aurelia_framework_1.ViewSlot(this.element, true);
+                    this.slot.add(view);
+                    this.slot.attached();
+                };
+                UIDgCell.prototype.bind = function () {
+                    if (this.slot)
+                        this.slot.attached();
+                };
+                UIDgCell.prototype.detached = function () {
+                    if (this.slot)
+                        this.slot.detached();
                 };
                 return UIDgCell;
             }());
@@ -105,19 +129,35 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../data/ui-dat
                     this.extraClass = '';
                 }
                 UIDgRow.prototype.bind = function (bindingContext, overrideContext) {
-                    this.extraClass = overrideContext.$odd ? 'odd' : 'even';
                     if (this.level > 0 && !overrideContext.$first && overrideContext.$last)
                         this.extraClass += ' last';
-                    if (this.rowExpand && this.parent.expandWidth < this.rowExpand.offsetWidth)
-                        this.parent.expandWidth = this.rowExpand.offsetWidth;
-                    if (this.rowCounter && this.parent.counterWidth < this.rowCounter.offsetWidth)
-                        this.parent.counterWidth = this.rowCounter.offsetWidth;
                 };
                 UIDgRow.prototype.attached = function () {
-                    if (this.rowExpand && this.parent.expandWidth < this.rowExpand.offsetWidth)
-                        this.parent.expandWidth = this.rowExpand.offsetWidth;
-                    if (this.rowCounter && this.parent.counterWidth < this.rowCounter.offsetWidth)
-                        this.parent.counterWidth = this.rowCounter.offsetWidth;
+                    var _this = this;
+                    ui_event_1.UIEvent.queueTask(function () {
+                        if (_this.rowExpand && _this.parent.expandWidth < _this.rowExpand.offsetWidth)
+                            _this.parent.expandWidth = _this.rowExpand.offsetWidth;
+                        if (_this.rowCounter && _this.parent.counterWidth < _this.rowCounter.offsetWidth)
+                            _this.parent.counterWidth = _this.rowCounter.offsetWidth;
+                    });
+                };
+                UIDgRow.prototype.indexChanged = function () {
+                    var _this = this;
+                    ui_event_1.UIEvent.queueTask(function () {
+                        if (_this.rowExpand && _this.parent.expandWidth < _this.rowExpand.offsetWidth)
+                            _this.parent.expandWidth = _this.rowExpand.offsetWidth;
+                        if (_this.rowCounter && _this.parent.counterWidth < _this.rowCounter.offsetWidth)
+                            _this.parent.counterWidth = _this.rowCounter.offsetWidth;
+                    });
+                };
+                UIDgRow.prototype.saveChanges = function (record) {
+                    this.parent.controller.validate()
+                        .then(function (e) {
+                        if (e.valid) {
+                            record.saveChanges();
+                            record.__editing__ = false;
+                        }
+                    });
                 };
                 return UIDgRow;
             }());
@@ -137,15 +177,19 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../data/ui-dat
                 aurelia_framework_1.bindable(),
                 __metadata("design:type", Object)
             ], UIDgRow.prototype, "parent", void 0);
+            __decorate([
+                aurelia_framework_1.bindable(),
+                __metadata("design:type", Object)
+            ], UIDgRow.prototype, "odd", void 0);
             UIDgRow = __decorate([
                 aurelia_framework_1.autoinject(),
-                aurelia_framework_1.inlineView("<template><div class=\"ui-dg-row level-${level} ${record.isOpen?'ui-expanded':''} ${parent.selected==record?'ui-selected':''} ${extraClass}\" click.trigger=\"parent.fireSelect(record, $event)\" dblclick.trigger=\"parent.editable?parent.makeEditable($event,record):null\">\n    <div class=\"ui-dg-lock-holder\" css.bind=\"{transform: 'translateX('+parent.scrollLeft+'px)'}\">\n      <div class=\"ui-dg-expander\" if.bind=\"parent.rowExpander\" ref=\"rowExpand\" click.trigger=\"$event.stopPropagation()\" css.bind=\"{'min-width': parent.expandWidth+'px'}\">\n        <ui-glyph glyph=\"glyph\" repeat.for=\"i of level\"></ui-glyph>\n        <a click.trigger=\"record.isOpen=!record.isOpen\" if.bind=\"record.subdata||parent.subview\"><ui-glyph glyph=\"${record.isOpen?'glyph-icon-minus':'glyph-icon-plus'}\"></ui-glyph></a>\n      </div>\n      <div class=\"ui-dg-expander ui-text-center\" if.bind=\"parent.rowCounter\" click.trigger=\"$event.stopPropagation()\" ref=\"rowCounter\" css.bind=\"{'min-width': parent.counterWidth+'px'}\">${index}</div>\n      <ui-dg-cell class=\"ui-dg-cell ${col.align}\" repeat.for=\"col of parent.colLocked\" css.bind=\"{width:col.getWidth(col.width)+'px'}\"\n      col.bind=\"col\" parent.bind=\"parent\" record.bind=\"record\">\n      </ui-dg-cell>\n    </div>\n    <ui-dg-cell class=\"ui-dg-cell ${col.align}\" repeat.for=\"col of parent.cols\" css.bind=\"{width:col.getWidth(col.width)+'px'}\" col.bind=\"col\" parent.bind=\"parent\" record.bind=\"record\">\n    </ui-dg-cell>\n    <div class=\"ui-dg-filler\"></div>\n\n    <div class=\"ui-dg-edit-row\" if.bind=\"record.__editing__\" click.trigger=\"$event.stopPropagation()\">\n      <div class=\"ui-dg-input-row\">\n        <div class=\"ui-dg-lock-holder\" css.bind=\"{transform: 'translateX('+parent.scrollLeft+'px)'}\">\n        <div class=\"ui-dg-expander\" if.bind=\"parent.rowExpander\" css.bind=\"{'min-width': parent.expandWidth+'px'}\"></div>\n        <div class=\"ui-dg-expander ui-text-center\" if.bind=\"parent.rowCounter\" css.bind=\"{'min-width': parent.counterWidth+'px'}\"></div>\n        <ui-dg-cell class=\"ui-dg-input-cell\" css.bind=\"{width:col.getWidth(col.width)+'px'}\" parent.bind=\"parent\" record.bind=\"record\" type=\"editor\" col.bind=\"col\" repeat.for=\"col of parent.colLocked\"></ui-dg-cell>\n        </div>\n        <ui-dg-cell class=\"ui-dg-input-cell\" css.bind=\"{width:col.getWidth(col.width)+'px'}\" parent.bind=\"parent\" record.bind=\"record\" type=\"editor\" col.bind=\"col\" repeat.for=\"col of parent.cols\"></ui-dg-cell>\n      </div>\n      <div class=\"ui-dg-input-buttons\" css.bind=\"{transform: 'translateX('+parent.scrollLeft+'px)'}\">\n        <ui-button small click.trigger=\"[record.saveChanges(), record.__editing__=false, $event.stopPropagation()]\">Update</ui-button>\n        <ui-button small click.trigger=\"[record.discardChanges(), record.__editing__=false, $event.stopPropagation()]\">Cancel</ui-button>\n      </div>\n    </div>\n  </div>\n  <div class=\"ui-dg-edit-shim\" if.bind=\"record.__editing__\"></div>\n\n\n  <ui-dg-row containerless if.bind=\"!parent.subview&&record.subdata&&record.isOpen\" index.bind=\"$index\" level.bind=\"level+1\" parent.bind=\"parent\" record.bind=\"rec\" repeat.for=\"rec of record.subdata\"></ui-dg-row>\n\n  <div class=\"ui-dg-row\" if.bind=\"parent.subview && record.isOpen\" css.bind=\"{transform: 'translateX('+parent.scrollLeft+'px)'}\">\n    <div class=\"ui-dg-expander\" if.bind=\"parent.rowExpander\" click.trigger=\"$event.stopPropagation()\" css.bind=\"{'min-width': parent.expandWidth+'px'}\"></div>\n    <div class=\"ui-dg-expander ui-text-center\" if.bind=\"parent.rowCounter\" click.trigger=\"$event.stopPropagation()\" css.bind=\"{'min-width': parent.counterWidth+'px'}\"></div>\n    <ui-dg-cell class=\"ui-dg-subview\" parent.bind=\"parent\" record.bind=\"record\" type=\"subview\"></ui-dg-cell>\n  </div>\n</template>"),
+                aurelia_framework_1.inlineView("<template><div class=\"ui-dg-row level-${level} ${record.isOpen?'ui-expanded':''} ${parent.selected==record?'ui-selected':''} ${extraClass} ${odd?'even':'odd'}\" click.trigger=\"parent.fireSelect(record, $event)\" dblclick.trigger=\"parent.editable?parent.makeEditable($event,record):null\">\n    <div class=\"ui-dg-lock-holder\" css.bind=\"{transform: 'translateX('+parent.scrollLeft+'px)'}\">\n      <div class=\"ui-dg-expander\" if.bind=\"parent.rowExpander\" ref=\"rowExpand\" click.trigger=\"$event.stopPropagation()\" css.bind=\"{'min-width': parent.expandWidth+'px'}\">\n        <ui-glyph glyph=\"glyph\" repeat.for=\"i of level\"></ui-glyph>\n        <a click.trigger=\"record.isOpen=!record.isOpen\" if.bind=\"record.subdata||parent.subview\"><ui-glyph glyph=\"${record.isOpen?'glyph-icon-minus':'glyph-icon-plus'}\"></ui-glyph></a>\n      </div>\n      <div class=\"ui-dg-expander ui-text-center\" if.bind=\"parent.rowCounter\" click.trigger=\"$event.stopPropagation()\" ref=\"rowCounter\" css.bind=\"{'min-width': parent.counterWidth+'px'}\">${index}</div>\n      <ui-dg-cell class=\"ui-dg-cell ${col.align}\" repeat.for=\"col of parent.colLocked\" css.bind=\"{width:col.getWidth(col.width)+'px'}\"\n      col.bind=\"col\" parent.bind=\"parent\" record.bind=\"record\">\n      </ui-dg-cell>\n    </div>\n    <ui-dg-cell class=\"ui-dg-cell ${col.align}\" repeat.for=\"col of parent.cols\" css.bind=\"{width:col.getWidth(col.width)+'px'}\" col.bind=\"col\" parent.bind=\"parent\" record.bind=\"record\">\n    </ui-dg-cell>\n\n    <div class=\"ui-dg-edit-row\" if.bind=\"record.__editing__\" click.trigger=\"$event.stopPropagation()\">\n      <div class=\"ui-dg-input-row\" validation-renderer=\"ui-validator\">\n        <div class=\"ui-dg-lock-holder\" css.bind=\"{transform: 'translateX('+parent.scrollLeft+'px)'}\">\n        <div class=\"ui-dg-expander\" if.bind=\"parent.rowExpander\" css.bind=\"{'min-width': parent.expandWidth+'px'}\"></div>\n        <div class=\"ui-dg-expander ui-text-center\" if.bind=\"parent.rowCounter\" css.bind=\"{'min-width': parent.counterWidth+'px'}\"></div>\n        <ui-dg-cell class=\"ui-dg-input-cell\" css.bind=\"{width:col.getWidth(col.width)+'px'}\" parent.bind=\"parent\" record.bind=\"record\" type=\"editor\" col.bind=\"col\" repeat.for=\"col of parent.colLocked\"></ui-dg-cell>\n        </div>\n        <ui-dg-cell class=\"ui-dg-input-cell\" css.bind=\"{width:col.getWidth(col.width)+'px'}\" parent.bind=\"parent\" record.bind=\"record\" type=\"editor\" col.bind=\"col\" repeat.for=\"col of parent.cols\"></ui-dg-cell>\n      </div>\n      <div class=\"ui-dg-input-buttons\" css.bind=\"{transform: 'translateX('+parent.scrollLeft+'px)'}\">\n        <ui-button small click.trigger=\"[saveChanges(record), $event.stopPropagation()]\">Update</ui-button>\n        <ui-button small click.trigger=\"[record.discardChanges(), record.__editing__=false, $event.stopPropagation()]\">Cancel</ui-button>\n      </div>\n    </div>\n  </div>\n  <div class=\"ui-dg-edit-shim\" if.bind=\"record.__editing__\"></div>\n\n\n  <ui-dg-row containerless if.bind=\"!parent.subview&&record.subdata&&record.isOpen\" index.bind=\"$index\" odd.bind=\"$odd\" level.bind=\"level+1\" parent.bind=\"parent\" record.bind=\"rec\" repeat.for=\"rec of record.subdata\"></ui-dg-row>\n\n  <div class=\"ui-dg-row\" if.bind=\"parent.subview && record.isOpen\" css.bind=\"{transform: 'translateX('+parent.scrollLeft+'px)'}\">\n    <div class=\"ui-dg-expander\" if.bind=\"parent.rowExpander\" click.trigger=\"$event.stopPropagation()\" css.bind=\"{'min-width': parent.expandWidth+'px'}\"></div>\n    <div class=\"ui-dg-expander ui-text-center\" if.bind=\"parent.rowCounter\" click.trigger=\"$event.stopPropagation()\" css.bind=\"{'min-width': parent.counterWidth+'px'}\"></div>\n    <ui-dg-cell class=\"ui-dg-subview\" parent.bind=\"parent\" record.bind=\"record\" type=\"subview\"></ui-dg-cell>\n  </div>\n</template>"),
                 aurelia_framework_1.customElement('ui-dg-row'),
                 __metadata("design:paramtypes", [Element])
             ], UIDgRow);
             exports_1("UIDgRow", UIDgRow);
             UIDatagrid = (function () {
-                function UIDatagrid(element) {
+                function UIDatagrid(element, factory) {
                     this.element = element;
                     this.summaryRow = false;
                     this.cols = [];
@@ -167,6 +211,10 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../data/ui-dat
                         this.element.classList.add('ui-auto-size');
                     if (element.hasAttribute('hilight'))
                         this.element.classList.add('ui-hilight');
+                    if (this.editable) {
+                        this.controller = factory.createForCurrentScope();
+                        this.controller.validateTrigger = aurelia_validation_1.validateTrigger.changeOrBlur;
+                    }
                 }
                 UIDatagrid.prototype.bind = function (bindingContext, overrideContext) {
                     if (this.store && !(this.store instanceof ui_data_source_1.BaseDataSource))
@@ -197,6 +245,11 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../data/ui-dat
                     this.store = new ui_data_source_1.UILocalDS(newValue);
                     if (!this.store.isLoaded)
                         ui_event_1.UIEvent.queueTask(function () { return _this.store.fetchData(); });
+                };
+                UIDatagrid.prototype.selectedChanged = function (newValue) {
+                    var _this = this;
+                    if (newValue == null)
+                        ui_event_1.UIEvent.queueTask(function () { return _this.selected = null; });
                 };
                 UIDatagrid.prototype.doSort = function (col) {
                     if (!col.sortable || this.resizing)
@@ -279,9 +332,9 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../data/ui-dat
             ], UIDatagrid.prototype, "summaryRow", void 0);
             UIDatagrid = __decorate([
                 aurelia_framework_1.autoinject(),
-                aurelia_framework_1.inlineView("<template class=\"ui-datagrid\"><div class=\"ui-hidden\"><slot></slot></div>\n<div show.bind=\"resizing\" ref=\"ghost\" class=\"ui-dg-ghost\"></div>\n<div ref=\"dgHead\" class=\"ui-dg-header\">\n  <div class=\"ui-dg-row\" css.bind=\"{transform: 'translateX('+(scrollLeft*-1)+'px)'}\">\n    <div class=\"ui-dg-expander\" if.bind=\"rowExpander\" css.bind=\"{width: expandWidth+'px',transform: 'translateX('+(scrollLeft)+'px)'}\"></div>\n    <div class=\"ui-dg-expander\" if.bind=\"rowCounter\" css.bind=\"{width: counterWidth+'px',transform: 'translateX('+(scrollLeft)+'px)'}\"></div>\n    <template repeat.for=\"col of colHead\">\n    <div if.bind=\"!col.columns\" css.bind=\"{width:col.getWidth(col.width)+'px', transform: 'translateX('+(col.locked==0?scrollLeft:0)+'px)'}\"\n      mouseup.trigger=\"doSort(col)\" class=\"ui-dg-cell ${col.sortable?'ui-sortable':''} ${col.locked==0?'ui-locked':''}\">\n    <span class=\"ui-title\" innerhtml.bind='col.getTitle()'></span>\n    <span class=\"ui-filter\" if.bind=\"col.filter\"><ui-glyph glyph=\"glyph-funnel\"></ui-glyph></span>\n    <span class=\"ui-sort ${col.dataId==store.sortBy ? store.orderBy:''}\" if.bind=\"col.sortable\"></span>\n    <span class=\"ui-resizer\" if.bind=\"col.resize\" mousedown.trigger=\"resizeColumn($event,col)\"></span>\n    </div>\n    <div if.bind=\"col.columns\" class=\"ui-dg-group ${col.locked==0?'ui-locked':''}\" css.bind=\"{transform: 'translateX('+(col.locked==0?scrollLeft:0)+'px)'}\">\n    <div class=\"ui-title\" innerhtml.bind='col.getTitle()'></div>\n    <div class=\"ui-dg-cols\">\n    <div repeat.for=\"colin of col.columns\" class=\"ui-dg-cell\" css.bind=\"{width:colin.getWidth(colin.width)+'px'}\"\n      mouseup.trigger=\"doSort(colin)\" class=\"${colin.sortable?'ui-sortable':''}\">\n    <span class=\"ui-title\" innerhtml.bind='colin.getTitle()'></span>\n    <span class=\"ui-filter\" if.bind=\"colin.filter\"><ui-glyph glyph=\"glyph-funnel\"></ui-glyph></span>\n    <span class=\"ui-sort ${colin.dataId==store.sortBy ? store.orderBy:''}\" if.bind=\"colin.sortable\"></span>\n    <span class=\"ui-resizer\" if.bind=\"colin.resize\" mousedown.trigger=\"resizeColumn($event,colin)\"></span>\n    </div>\n    </div>\n    </div>\n    </template>\n  </div>\n</div>\n<div show.bind=\"store.isEmpty\" class=\"ui-dg-empty\"><slot name=\"dg-empty\"></slot></div>\n<div ref=\"dgBody\" class=\"ui-dg-body\" scroll.trigger=\"(scrollLeft = dgBody.scrollLeft)\" if.bind=\"!virtual\">\n  <ui-dg-row containerless parent.bind=\"$parent\" record.bind=\"record\" index.bind=\"$index\" repeat.for=\"record of store.data\"></ui-dg-row>\n  <div class=\"ui-dg-row ui-dg-filler\">\n    <div class=\"ui-dg-lock-holder\" css.bind=\"{transform: 'translateX('+scrollLeft+'px)'}\">\n      <div class=\"ui-dg-expander\" if.bind=\"rowExpander\" css.bind=\"{width: expandWidth+'px'}\"></div>\n      <div class=\"ui-dg-expander\" if.bind=\"rowCounter\" css.bind=\"{width: counterWidth+'px'}\"></div>\n      <div class=\"ui-dg-cell ${col.align}\" repeat.for=\"col of colLocked\" css.bind=\"{width:col.getWidth(col.width)+'px'}\"></div>\n    </div>\n    <div class=\"ui-dg-cell ${col.align}\" repeat.for=\"col of cols\" css.bind=\"{width:col.getWidth(col.width)+'px'}\"></div>\n    <div class=\"ui-dg-filler\"></div>\n  </div>\n</div>\n<div ref=\"dgBody\" class=\"ui-dg-body\" scroll.trigger=\"(scrollLeft = dgBody.scrollLeft)\" if.bind=\"virtual\">\n  <ui-dg-row if.bind=\"store\" parent.bind=\"$parent\" record.bind=\"record\" index.bind=\"$index\" virtual-repeat.for=\"record of store.data\"></ui-dg-row>\n  <div class=\"ui-dg-row ui-dg-filler\">\n    <div class=\"ui-dg-lock-holder\" css.bind=\"{transform: 'translateX('+scrollLeft+'px)'}\">\n      <div class=\"ui-dg-expander\" if.bind=\"rowExpander\" css.bind=\"{width: expandWidth+'px'}\"></div>\n      <div class=\"ui-dg-expander\" if.bind=\"rowCounter\" css.bind=\"{width: counterWidth+'px'}\"></div>\n      <div class=\"ui-dg-cell ${col.align}\" repeat.for=\"col of colLocked\" css.bind=\"{width:col.getWidth(col.width)+'px'}\"></div>\n    </div>\n    <div class=\"ui-dg-cell ${col.align}\" repeat.for=\"col of cols\" css.bind=\"{width:col.getWidth(col.width)+'px'}\"></div>\n    <div class=\"ui-dg-filler\"></div>\n  </div>\n</div>\n<div ref=\"dgFoot\" class=\"ui-dg-footer\">\n  <div class=\"ui-dg-row\" css.bind=\"{transform: 'translateX('+(scrollLeft*-1)+'px)'}\">\n    <div class=\"ui-dg-lock-holder\" css.bind=\"{transform: 'translateX('+scrollLeft+'px)'}\">\n      <div class=\"ui-dg-expander\" if.bind=\"rowExpander\" css.bind=\"{width: expandWidth+'px'}\"></div>\n      <div class=\"ui-dg-expander\" if.bind=\"rowCounter\" css.bind=\"{width: counterWidth+'px'}\"></div>\n      <div class=\"ui-dg-cell ${col.align}\" repeat.for=\"col of colLocked\" css.bind=\"{width:col.getWidth(col.width)+'px'}\">\n        <div innerhtml.bind='col.getSummary(summaryRow, store.data)'></div>\n      </div>\n    </div>\n    <div class=\"ui-dg-cell ${col.align}\" repeat.for=\"col of cols\" css.bind=\"{width:col.getWidth(col.width)+'px'}\">\n      <div innerhtml.bind='col.getSummary(summaryRow, store.data)'></div>${recalc}\n    </div>\n    <div class=\"ui-dg-filler\"></div>\n  </div>\n</div>\n<div class=\"ui-dg-loader\" if.bind=\"store.isLoading\">\n  <div class=\"ui-loader-div\">\n    <ui-glyph class=\"ui-anim-loader\" glyph=\"glyph-loader\"></ui-glyph>\n  </div>\n</div><template>"),
+                aurelia_framework_1.inlineView("<template class=\"ui-datagrid\"><div class=\"ui-hidden\"><slot></slot></div>\n<div show.bind=\"resizing\" ref=\"ghost\" class=\"ui-dg-ghost\"></div>\n<div ref=\"dgHead\" class=\"ui-dg-header\">\n  <div class=\"ui-dg-row\" css.bind=\"{transform: 'translateX('+(scrollLeft*-1)+'px)'}\">\n    <div class=\"ui-dg-expander\" if.bind=\"rowExpander\" css.bind=\"{width: expandWidth+'px',transform: 'translateX('+(scrollLeft)+'px)'}\"></div>\n    <div class=\"ui-dg-expander\" if.bind=\"rowCounter\" css.bind=\"{width: counterWidth+'px',transform: 'translateX('+(scrollLeft)+'px)'}\"></div>\n    <template repeat.for=\"col of colHead\">\n    <div if.bind=\"!col.columns\" css.bind=\"{width:col.getWidth(col.width)+'px', transform: 'translateX('+(col.locked==0?scrollLeft:0)+'px)'}\"\n      mouseup.trigger=\"doSort(col)\" class=\"ui-dg-cell ${col.sortable?'ui-sortable':''} ${col.locked==0?'ui-locked':''}\">\n    <span class=\"ui-title\" innerhtml.bind='col.getTitle()'></span>\n    <span class=\"ui-filter\" if.bind=\"col.filter\"><ui-glyph glyph=\"glyph-funnel\"></ui-glyph></span>\n    <span class=\"ui-sort ${col.dataId==store.sortBy ? store.orderBy:''}\" if.bind=\"col.sortable\"></span>\n    <span class=\"ui-resizer\" if.bind=\"col.resize\" mousedown.trigger=\"resizeColumn($event,col)\"></span>\n    </div>\n    <div if.bind=\"col.columns\" class=\"ui-dg-group ${col.locked==0?'ui-locked':''}\" css.bind=\"{transform: 'translateX('+(col.locked==0?scrollLeft:0)+'px)'}\">\n    <div class=\"ui-title\" innerhtml.bind='col.getTitle()'></div>\n    <div class=\"ui-dg-cols\">\n    <div repeat.for=\"colin of col.columns\" class=\"ui-dg-cell\" css.bind=\"{width:colin.getWidth(colin.width)+'px'}\"\n      mouseup.trigger=\"doSort(colin)\" class=\"${colin.sortable?'ui-sortable':''}\">\n    <span class=\"ui-title\" innerhtml.bind='colin.getTitle()'></span>\n    <span class=\"ui-filter\" if.bind=\"colin.filter\"><ui-glyph glyph=\"glyph-funnel\"></ui-glyph></span>\n    <span class=\"ui-sort ${colin.dataId==store.sortBy ? store.orderBy:''}\" if.bind=\"colin.sortable\"></span>\n    <span class=\"ui-resizer\" if.bind=\"colin.resize\" mousedown.trigger=\"resizeColumn($event,colin)\"></span>\n    </div>\n    </div>\n    </div>\n    </template>\n  </div>\n</div>\n<div show.bind=\"store.isEmpty\" class=\"ui-dg-empty\"><slot name=\"dg-empty\"></slot></div>\n<div ref=\"dgBody\" class=\"ui-dg-body\" scroll.trigger=\"(scrollLeft = dgBody.scrollLeft)\" if.bind=\"!virtual\">\n  <ui-dg-row containerless parent.bind=\"$parent\" record.bind=\"record\" index.bind=\"$index\" odd.bind=\"$odd\" repeat.for=\"record of store.data\"></ui-dg-row>\n  <div class=\"ui-dg-row ui-dg-filler\">\n    <div class=\"ui-dg-lock-holder\" css.bind=\"{transform: 'translateX('+scrollLeft+'px)'}\">\n      <div class=\"ui-dg-expander\" if.bind=\"rowExpander\" css.bind=\"{width: expandWidth+'px'}\"></div>\n      <div class=\"ui-dg-expander\" if.bind=\"rowCounter\" css.bind=\"{width: counterWidth+'px'}\"></div>\n      <div class=\"ui-dg-cell ${col.align}\" repeat.for=\"col of colLocked\" css.bind=\"{width:col.getWidth(col.width)+'px'}\"></div>\n    </div>\n    <div class=\"ui-dg-cell ${col.align}\" repeat.for=\"col of cols\" css.bind=\"{width:col.getWidth(col.width)+'px'}\"></div>\n  </div>\n</div>\n<div ref=\"dgBody\" class=\"ui-dg-body\" scroll.trigger=\"(scrollLeft = dgBody.scrollLeft)\" if.bind=\"virtual\">\n  <ui-dg-row if.bind=\"store\" parent.bind=\"$parent\" record.bind=\"record\" index.bind=\"$index\" odd.bind=\"$odd\" virtual-repeat.for=\"record of store.data\"></ui-dg-row>\n  <div class=\"ui-dg-row ui-dg-filler\">\n    <div class=\"ui-dg-lock-holder\" css.bind=\"{transform: 'translateX('+scrollLeft+'px)'}\">\n      <div class=\"ui-dg-expander\" if.bind=\"rowExpander\" css.bind=\"{width: expandWidth+'px'}\"></div>\n      <div class=\"ui-dg-expander\" if.bind=\"rowCounter\" css.bind=\"{width: counterWidth+'px'}\"></div>\n      <div class=\"ui-dg-cell ${col.align}\" repeat.for=\"col of colLocked\" css.bind=\"{width:col.getWidth(col.width)+'px'}\"></div>\n    </div>\n    <div class=\"ui-dg-cell ${col.align}\" repeat.for=\"col of cols\" css.bind=\"{width:col.getWidth(col.width)+'px'}\"></div>\n  </div>\n</div>\n<div ref=\"dgFoot\" class=\"ui-dg-footer\">\n  <div class=\"ui-dg-row\" css.bind=\"{transform: 'translateX('+(scrollLeft*-1)+'px)'}\">\n    <div class=\"ui-dg-lock-holder\" css.bind=\"{transform: 'translateX('+scrollLeft+'px)'}\">\n      <div class=\"ui-dg-expander\" if.bind=\"rowExpander\" css.bind=\"{width: expandWidth+'px'}\"></div>\n      <div class=\"ui-dg-expander\" if.bind=\"rowCounter\" css.bind=\"{width: counterWidth+'px'}\"></div>\n      <div class=\"ui-dg-cell ${col.align}\" repeat.for=\"col of colLocked\" css.bind=\"{width:col.getWidth(col.width)+'px'}\">\n        <div innerhtml.bind='col.getSummary(summaryRow, store.getSummary(col.dataId, col.summary), store.data)'></div>\n      </div>\n    </div>\n    <div class=\"ui-dg-cell ${col.align}\" repeat.for=\"col of cols\" css.bind=\"{width:col.getWidth(col.width)+'px'}\">\n      <div innerhtml.bind='col.getSummary(summaryRow, store.getSummary(col.dataId, col.summary), store.data)'></div>${recalc}\n    </div>\n  </div>\n</div>\n<div class=\"ui-dg-loader\" if.bind=\"store.isLoading\">\n  <div class=\"ui-loader-div\">\n    <ui-glyph class=\"ui-anim-loader\" glyph=\"glyph-loader\"></ui-glyph>\n  </div>\n</div><template>"),
                 aurelia_framework_1.customElement('ui-datagrid'),
-                __metadata("design:paramtypes", [Element])
+                __metadata("design:paramtypes", [Element, aurelia_validation_1.ValidationControllerFactory])
             ], UIDatagrid);
             exports_1("UIDatagrid", UIDatagrid);
             UIDGEmpty = (function () {

@@ -14,9 +14,12 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
         function UIPanel(element) {
             this.element = element;
             this.height = 'auto';
+            this.expanded = false;
             this.collapsed = false;
-            this.collapsed = element.hasAttribute('collapsed');
         }
+        UIPanel.prototype.bind = function (bindingContext, overrideContext) {
+            this.collapsed = this.element.hasAttribute('collapsed');
+        };
         UIPanel.prototype.close = function () {
             aurelia_framework_1.DOM.removeNode(this.element);
         };
@@ -24,7 +27,10 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
             this.collapsed = true;
         };
         UIPanel.prototype.expand = function () {
-            this.collapsed = false;
+            this.expanded = !this.expanded;
+        };
+        UIPanel.prototype.restore = function () {
+            this.expanded = !this.expanded;
         };
         UIPanel.prototype.toggleCollapse = function () {
             var _this = this;
@@ -36,9 +42,17 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
         aurelia_framework_1.bindable(),
         __metadata("design:type", Object)
     ], UIPanel.prototype, "height", void 0);
+    __decorate([
+        aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
+        __metadata("design:type", Object)
+    ], UIPanel.prototype, "expanded", void 0);
+    __decorate([
+        aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
+        __metadata("design:type", Object)
+    ], UIPanel.prototype, "collapsed", void 0);
     UIPanel = __decorate([
         aurelia_framework_1.autoinject(),
-        aurelia_framework_1.inlineView("<template class=\"ui-panel ${collapsed?'ui-collapse':''}\" css.bind=\"{'height':height}\" collapse.trigger=\"toggleCollapse()\" close.trigger=\"close()\"><slot></slot></template>"),
+        aurelia_framework_1.inlineView("<template class=\"ui-panel ${collapsed?'ui-collapse':''} ${expanded?'ui-expand':''}\" css.bind=\"{'height':height}\" collapse.trigger=\"toggleCollapse()\" expand.trigger=\"expand()\" restore.trigger=\"expand()\" close.trigger=\"close()\"><slot></slot></template>"),
         aurelia_framework_1.customElement('ui-panel'),
         __metadata("design:paramtypes", [Element])
     ], UIPanel);
@@ -47,6 +61,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
         function UIPanelBody(element) {
             this.element = element;
             this.height = 'auto';
+            this.minheight = 'auto';
             this.maxheight = 'auto';
             if (element.hasAttribute('flex'))
                 element.classList.add('ui-flexed');
@@ -64,10 +79,14 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
     __decorate([
         aurelia_framework_1.bindable(),
         __metadata("design:type", Object)
+    ], UIPanelBody.prototype, "minheight", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
     ], UIPanelBody.prototype, "maxheight", void 0);
     UIPanelBody = __decorate([
         aurelia_framework_1.autoinject(),
-        aurelia_framework_1.inlineView("<template class=\"ui-panel-body\" css.bind=\"{'max-height': maxheight,'flex-basis':height}\"><slot></slot></template>"),
+        aurelia_framework_1.inlineView("<template class=\"ui-panel-body\" css.bind=\"{'max-height': maxheight,'min-height': minheight,'flex-basis':height}\"><slot></slot></template>"),
         aurelia_framework_1.customElement('ui-panel-body'),
         __metadata("design:paramtypes", [Element])
     ], UIPanelBody);

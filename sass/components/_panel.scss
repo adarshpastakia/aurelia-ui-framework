@@ -34,11 +34,18 @@
   .ui-panel-body {
     max-height: 50em;
     position  : relative;
+    background: $base-bg;
     @include flex(1 1 auto);
 
     &.ui-flexed {
       @include flex-column();
     }
+  }
+
+  &.ui-expand {
+    height : auto !important;
+    z-index: $z-index-dialog;
+    @include position(absolute, .5em);
   }
 
   &.ui-collapse {
@@ -53,7 +60,8 @@
 .ui-header {
   line-height  : 2em;
   padding      : 0 0.5em;
-  text-shadow  : -1px -1px 0 rgba(0, 0, 0, .1);
+  background   : $base-bg;
+  text-shadow  : -1px -1px 0 rgba(128,128,128, .1);
   border-bottom: 1px solid rgba($base-border-color, .3);
   @include flex-auto();
   @include flex-row($align:center, $wrap:false);

@@ -100,27 +100,16 @@ export class UIDataColumn {
         }
         return retVal;
     }
-    getSummary(summaryRow, data) {
+    getSummary(summaryRow, summaryValue, data) {
         if (!this.summary)
             return '&nbsp;';
-        let retVal = '', symbol = '';
+        let retVal = summaryValue || '', symbol = '';
         if (_.isObject(summaryRow)) {
             retVal = summaryRow[this.dataId];
             symbol = summaryRow[this.symbol];
         }
         else if (isFunction(this.summary))
             retVal = this.summary(data);
-        else {
-            switch (this.summary) {
-                case 'sum':
-                    retVal = _.sumBy(data, this.dataId);
-                    break;
-                case 'avg':
-                    retVal = _['meanBy'](data, this.dataId);
-                    break;
-                default: return this.summary || '&nbsp;';
-            }
-        }
         if (isFunction(this.display))
             retVal = this.display(({ value: retVal, record: summaryRow, forSummary: true })) || '&nbsp;';
         else {

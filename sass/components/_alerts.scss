@@ -198,27 +198,31 @@
       @include flex-row($wrap:false,$align: center, $justify:center);
 
       button {
-        background   : none;
         min-width    : 7rem;
-        border       : 1px solid rgba($secondary, .5);
         border-radius: $base-border-radius;
         padding      : 0.3rem 1rem;
         font-size    : 0.9rem;
         margin       : 0 0.5rem;
-        color        : rgba($secondary, .7);
+        color        : $alert-button-text;
+        background   : $alert-button-bg;
+        border       : 1px solid $alert-button-border;
 
         &:first-child {
           font-weight: 600;
         }
 
         &:hover {
-          color     : rgba($secondary, .7);
-          box-shadow: 0 0 2px 0 rgba($secondary,.5) inset;
+          color       : $alert-button-hover-text;
+          background  : $alert-button-hover-bg;
+          border-color: $alert-button-hover-border;
+          box-shadow  : 0 0 2px 0 rgba($alert-button-hover-border,.5) inset;
         }
 
         &:active {
-          background: rgba($secondary, .3);
-          color     : $white;
+          color       : $alert-button-active-text;
+          background  : $alert-button-active-bg;
+          border-color: $alert-button-active-border;
+          box-shadow  : 0 0 5px 0 rgba($alert-button-active-border,.5) inset;
         }
       }
     }

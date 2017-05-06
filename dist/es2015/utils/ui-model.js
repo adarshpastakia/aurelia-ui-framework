@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { autoinject, observable } from 'aurelia-framework';
+import { autoinject } from 'aurelia-framework';
 import { getLogger } from "aurelia-logging";
 import { UIHttpService } from "./ui-http";
 import { UIEvent } from "./ui-event";
@@ -65,10 +65,9 @@ let UIModel = UIModel_1 = class UIModel {
         }
     }
     deserialize(json) {
-        this.__original__ = _.cloneDeep(json);
-        Object.keys(this.__original__)
+        Object.keys(this.__original__ = json)
             .forEach((key) => {
-            this[key] = json[key];
+            this[key] = _.cloneDeep(json[key]);
         });
     }
     serialize() {
@@ -122,10 +121,9 @@ let UIModel = UIModel_1 = class UIModel {
         this.__original__ = _.cloneDeep(this.serialize());
     }
     discardChanges() {
-        let json = _.cloneDeep(this.__original__);
         Object.keys(this.__original__)
             .forEach((key) => {
-            this[key] = json[key];
+            this[key] = _.cloneDeep(this.__original__[key]);
         });
     }
     isDirty() {
@@ -157,7 +155,6 @@ let UIModel = UIModel_1 = class UIModel {
     }
 };
 UIModel = UIModel_1 = __decorate([
-    observable('__original__'),
     autoinject(),
     __metadata("design:paramtypes", [])
 ], UIModel);

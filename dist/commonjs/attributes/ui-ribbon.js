@@ -22,6 +22,8 @@ var UIRibbon = (function () {
         element['style'].position = 'relative';
     }
     UIRibbon.prototype.bind = function (bindingContext, overrideContext) {
+        if (isEmpty(this.message))
+            this.ribbon.classList.add('ui-hidden');
         this.ribbon.innerHTML = this.message;
         this.ribbon.className = 'ui-ribbon ' + this.theme;
     };
@@ -29,6 +31,9 @@ var UIRibbon = (function () {
         this.ribbon.className = 'ui-ribbon ' + newValue;
     };
     UIRibbon.prototype.messageChanged = function (newValue) {
+        if (isEmpty(newValue))
+            return this.ribbon.classList.add('ui-hidden');
+        this.ribbon.classList.remove('ui-hidden');
         this.ribbon.innerHTML = newValue;
     };
     return UIRibbon;

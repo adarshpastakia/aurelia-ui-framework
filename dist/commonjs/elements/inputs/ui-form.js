@@ -29,16 +29,12 @@ var UIForm = (function () {
         });
     };
     UIForm.prototype.busyChanged = function (newValue) {
-        var els = this.element.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list,ui-dropdown');
-        _.forEach(els, function (el) {
-            try {
-                el.au.controller.viewModel.disable(isTrue(newValue));
-            }
-            catch (e) {
-            }
-        });
+        this.disableInputs(isTrue(newValue) || this.disabled);
     };
     UIForm.prototype.disabledChanged = function (newValue) {
+        this.disableInputs(newValue);
+    };
+    UIForm.prototype.disableInputs = function (newValue) {
         var els = this.element.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list,ui-dropdown');
         _.forEach(els, function (el) {
             try {
@@ -73,22 +69,30 @@ var UIFieldset = (function () {
     function UIFieldset(element) {
         this.element = element;
         this.legend = '';
-        this.enabled = true;
-        this.collapsable = false;
-        this.collapsable = element.hasAttribute('enabled') || element.hasAttribute('enabled.bind');
+        this.checked = true;
+        this.collapsible = false;
+        this.collapsible = element.hasAttribute('checked') || element.hasAttribute('checked.bind');
     }
     UIFieldset.prototype.bind = function (bindingContext, overrideContext) {
-        this.enabled = isTrue(this.enabled);
+        this.checked = isTrue(this.checked);
     };
     UIFieldset.prototype.attached = function () {
-        this.enabledChanged(this.enabled);
+        this.checkedChanged(this.checked);
+        if (this.disabled)
+            this.disabledChanged(this.disabled);
     };
-    UIFieldset.prototype.enabledChanged = function (newValue) {
+    UIFieldset.prototype.checkedChanged = function (newValue) {
         this.element.classList[isTrue(newValue) ? 'remove' : 'add']('ui-collapse');
-        var els = this.container.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list');
+        this.disableInputs(isFalse(newValue));
+    };
+    UIFieldset.prototype.disabledChanged = function (newValue) {
+        this.disableInputs(newValue);
+    };
+    UIFieldset.prototype.disableInputs = function (newValue) {
+        var els = this.container.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list,ui-dropdown');
         _.forEach(els, function (el) {
             try {
-                el.au.controller.viewModel.disable(isFalse(newValue));
+                el.au.controller.viewModel.disable(isTrue(newValue));
             }
             catch (e) {
             }
@@ -101,12 +105,16 @@ __decorate([
     __metadata("design:type", Object)
 ], UIFieldset.prototype, "legend", void 0);
 __decorate([
+    aurelia_framework_1.bindable(),
+    __metadata("design:type", Boolean)
+], UIFieldset.prototype, "disabled", void 0);
+__decorate([
     aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
     __metadata("design:type", Object)
-], UIFieldset.prototype, "enabled", void 0);
+], UIFieldset.prototype, "checked", void 0);
 UIFieldset = __decorate([
     aurelia_framework_1.autoinject(),
-    aurelia_framework_1.inlineView('<template class="ui-fieldset"><fieldset><legend if.bind="legend"><span if.bind="!collapsable">\${legend}</span><ui-checkbox if.bind="collapsable" checked.bind="enabled">\${legend}</ui-checkbox></legend><div ref="container"><slot></slot></div></fieldset></template>'),
+    aurelia_framework_1.inlineView('<template class="ui-fieldset"><fieldset><legend if.bind="legend"><span if.bind="!collapsible">\${legend}</span><ui-checkbox if.bind="collapsible" checked.bind="checked">\${legend}</ui-checkbox></legend><div ref="container"><slot></slot></div></fieldset></template>'),
     aurelia_framework_1.customElement('ui-fieldset'),
     __metadata("design:paramtypes", [Element])
 ], UIFieldset);
@@ -114,7 +122,7 @@ exports.UIFieldset = UIFieldset;
 var UIInputGroup = (function () {
     function UIInputGroup(element) {
         this.element = element;
-        this.width = 'auto';
+        this.width = '15em';
         if (element.hasAttribute('plain'))
             element.classList.add('ui-plain');
     }
@@ -126,7 +134,7 @@ __decorate([
 ], UIInputGroup.prototype, "width", void 0);
 UIInputGroup = __decorate([
     aurelia_framework_1.autoinject(),
-    aurelia_framework_1.inlineView("<template class=\"ui-input-group\"><slot name=\"inputLabel\"></slot>\n  <div><div class=\"ui-group-wrapper\" css.bind=\"{'width':width}\"><slot></slot></div><slot name=\"inputInfo\"></slot></div></template>"),
+    aurelia_framework_1.inlineView("<template class=\"ui-input-group\"><slot name=\"inputLabel\"></slot>\n  <div css.bind=\"{'flex-basis':width}\"><div class=\"ui-group-wrapper\"><slot></slot></div><slot name=\"inputInfo\"></slot></div></template>"),
     aurelia_framework_1.customElement('ui-input-group'),
     __metadata("design:paramtypes", [Element])
 ], UIInputGroup);
@@ -183,12 +191,15 @@ var UIInputLabel = UIInputLabel_1 = (function () {
         this.element = element;
         this.for = '';
         this.class = '';
+        this.width = '8em';
     }
     UIInputLabel.prototype.bind = function (bindingContext, overrideContext) {
         if (this.element.hasAttribute('align-top'))
             this.class += ' ui-align-top';
         if (this.element.hasAttribute('required'))
             this.class += ' ui-required';
+        if (this.element.hasAttribute('align-top'))
+            this.width = '100%';
     };
     UIInputLabel.prototype.attached = function () {
         if (isEmpty(this.for)) {
@@ -211,10 +222,14 @@ __decorate([
     aurelia_framework_1.bindable(),
     __metadata("design:type", Object)
 ], UIInputLabel.prototype, "class", void 0);
+__decorate([
+    aurelia_framework_1.bindable(),
+    __metadata("design:type", Object)
+], UIInputLabel.prototype, "width", void 0);
 UIInputLabel = UIInputLabel_1 = __decorate([
     aurelia_framework_1.autoinject(),
     aurelia_framework_1.containerless(),
-    aurelia_framework_1.inlineView('<template><label ref="label" slot="inputLabel" class="ui-input-label \${class}" for.bind="for"><slot></slot></label></template>'),
+    aurelia_framework_1.inlineView("<template><label ref=\"label\" slot=\"inputLabel\" class=\"ui-input-label ${class}\" for.bind=\"for\" css.bind=\"{'flex-basis':width}\"><slot></slot></label></template>"),
     aurelia_framework_1.customElement('ui-input-label'),
     __metadata("design:paramtypes", [Element])
 ], UIInputLabel);

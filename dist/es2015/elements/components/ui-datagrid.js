@@ -8,6 +8,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { autoinject, customElement, bindable, bindingMode, children, inlineView, containerless, Container, ViewCompiler, ViewSlot } from 'aurelia-framework';
+import { ValidationControllerFactory, validateTrigger } from "aurelia-validation";
 import { UIEvent } from "../../utils/ui-event";
 import { BaseDataSource, UILocalDS } from "../../data/ui-data-source";
 import * as _ from "lodash";
@@ -28,17 +29,32 @@ let UIDgCell = class UIDgCell {
                 template = this.parent.subview;
         }
         else if (this.type == 'editor') {
+            let editor = { type: 'none' };
+            if (typeof this.col.editor === 'string')
+                editor.type = this.col.editor;
+            else if (typeof this.col.editor === 'object')
+                editor = this.col.editor;
             template = '<span>&nbsp;</span>';
-            if (this.col.editor == 'text')
-                template = '<ui-input value.bind="record[col.dataId]"></ui-input>';
-            if (this.col.editor == 'decimal')
-                template = '<ui-input decimal.bind="record[col.dataId]"></ui-input>';
-            if (this.col.editor == 'date')
-                template = '<ui-date date.bind="record[col.dataId]"></ui-date>';
-            if (this.col.editor == 'datetime')
-                template = '<ui-date datetime date.bind="record[col.dataId]"></ui-date>';
-            if (this.col.editor == 'time')
-                template = '<ui-date time date.bind="record[col.dataId]"></ui-date>';
+            if (editor.type == 'text')
+                template = '<ui-input clear value.bind="record[col.dataId] & validate"></ui-input>';
+            else if (editor.type == 'decimal')
+                template = '<ui-input decimal.bind="record[col.dataId] & validate"></ui-input>';
+            else if (editor.type == 'date')
+                template = '<ui-date date.bind="record[col.dataId] & validate"></ui-date>';
+            else if (editor.type == 'datetime')
+                template = '<ui-date datetime date.bind="record[col.dataId] & validate"></ui-date>';
+            else if (editor.type == 'time')
+                template = '<ui-date time date.bind="record[col.dataId] & validate"></ui-date>';
+            else if (this.col.type == 'normal') {
+                template = `<span class="\${col.class}" innerhtml.bind='col.getValue(record[col.dataId],record)'></span>`;
+                this.element.classList.add('display');
+            }
+            else if (this.col.type == 'glyph') {
+                template = `<div title.bind="col.getTooltip(record[col.dataId],record)">
+          <ui-glyph class="\${col.class} \${col.getGlyph(record[col.dataId],record)}" glyph.bind="col.getGlyph(record[col.dataId],record)"></ui-glyph>
+          </div>`;
+                this.element.classList.add('display');
+            }
         }
         else if (this.col.type == 'normal')
             template = `<span class="\${col.class}" innerhtml.bind='col.getValue(record[col.dataId],record)'></span>`;
@@ -60,9 +76,17 @@ let UIDgCell = class UIDgCell {
         let viewFactory = this.compiler.compile(`<template>${template}</template>`);
         let view = viewFactory.create(this.container);
         view.bind(this);
-        let slot = new ViewSlot(this.element, true);
-        slot.add(view);
-        slot.attached();
+        this.slot = new ViewSlot(this.element, true);
+        this.slot.add(view);
+        this.slot.attached();
+    }
+    bind() {
+        if (this.slot)
+            this.slot.attached();
+    }
+    detached() {
+        if (this.slot)
+            this.slot.detached();
     }
 };
 __decorate([
@@ -95,19 +119,33 @@ let UIDgRow = class UIDgRow {
         this.extraClass = '';
     }
     bind(bindingContext, overrideContext) {
-        this.extraClass = overrideContext.$odd ? 'odd' : 'even';
         if (this.level > 0 && !overrideContext.$first && overrideContext.$last)
             this.extraClass += ' last';
-        if (this.rowExpand && this.parent.expandWidth < this.rowExpand.offsetWidth)
-            this.parent.expandWidth = this.rowExpand.offsetWidth;
-        if (this.rowCounter && this.parent.counterWidth < this.rowCounter.offsetWidth)
-            this.parent.counterWidth = this.rowCounter.offsetWidth;
     }
     attached() {
-        if (this.rowExpand && this.parent.expandWidth < this.rowExpand.offsetWidth)
-            this.parent.expandWidth = this.rowExpand.offsetWidth;
-        if (this.rowCounter && this.parent.counterWidth < this.rowCounter.offsetWidth)
-            this.parent.counterWidth = this.rowCounter.offsetWidth;
+        UIEvent.queueTask(() => {
+            if (this.rowExpand && this.parent.expandWidth < this.rowExpand.offsetWidth)
+                this.parent.expandWidth = this.rowExpand.offsetWidth;
+            if (this.rowCounter && this.parent.counterWidth < this.rowCounter.offsetWidth)
+                this.parent.counterWidth = this.rowCounter.offsetWidth;
+        });
+    }
+    indexChanged() {
+        UIEvent.queueTask(() => {
+            if (this.rowExpand && this.parent.expandWidth < this.rowExpand.offsetWidth)
+                this.parent.expandWidth = this.rowExpand.offsetWidth;
+            if (this.rowCounter && this.parent.counterWidth < this.rowCounter.offsetWidth)
+                this.parent.counterWidth = this.rowCounter.offsetWidth;
+        });
+    }
+    saveChanges(record) {
+        this.parent.controller.validate()
+            .then(e => {
+            if (e.valid) {
+                record.saveChanges();
+                record.__editing__ = false;
+            }
+        });
     }
 };
 __decorate([
@@ -126,9 +164,13 @@ __decorate([
     bindable(),
     __metadata("design:type", Object)
 ], UIDgRow.prototype, "parent", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIDgRow.prototype, "odd", void 0);
 UIDgRow = __decorate([
     autoinject(),
-    inlineView(`<template><div class="ui-dg-row level-\${level} \${record.isOpen?'ui-expanded':''} \${parent.selected==record?'ui-selected':''} \${extraClass}" click.trigger="parent.fireSelect(record, $event)" dblclick.trigger="parent.editable?parent.makeEditable($event,record):null">
+    inlineView(`<template><div class="ui-dg-row level-\${level} \${record.isOpen?'ui-expanded':''} \${parent.selected==record?'ui-selected':''} \${extraClass} \${odd?'even':'odd'}" click.trigger="parent.fireSelect(record, $event)" dblclick.trigger="parent.editable?parent.makeEditable($event,record):null">
     <div class="ui-dg-lock-holder" css.bind="{transform: 'translateX('+parent.scrollLeft+'px)'}">
       <div class="ui-dg-expander" if.bind="parent.rowExpander" ref="rowExpand" click.trigger="$event.stopPropagation()" css.bind="{'min-width': parent.expandWidth+'px'}">
         <ui-glyph glyph="glyph" repeat.for="i of level"></ui-glyph>
@@ -141,10 +183,9 @@ UIDgRow = __decorate([
     </div>
     <ui-dg-cell class="ui-dg-cell \${col.align}" repeat.for="col of parent.cols" css.bind="{width:col.getWidth(col.width)+'px'}" col.bind="col" parent.bind="parent" record.bind="record">
     </ui-dg-cell>
-    <div class="ui-dg-filler"></div>
 
     <div class="ui-dg-edit-row" if.bind="record.__editing__" click.trigger="$event.stopPropagation()">
-      <div class="ui-dg-input-row">
+      <div class="ui-dg-input-row" validation-renderer="ui-validator">
         <div class="ui-dg-lock-holder" css.bind="{transform: 'translateX('+parent.scrollLeft+'px)'}">
         <div class="ui-dg-expander" if.bind="parent.rowExpander" css.bind="{'min-width': parent.expandWidth+'px'}"></div>
         <div class="ui-dg-expander ui-text-center" if.bind="parent.rowCounter" css.bind="{'min-width': parent.counterWidth+'px'}"></div>
@@ -153,7 +194,7 @@ UIDgRow = __decorate([
         <ui-dg-cell class="ui-dg-input-cell" css.bind="{width:col.getWidth(col.width)+'px'}" parent.bind="parent" record.bind="record" type="editor" col.bind="col" repeat.for="col of parent.cols"></ui-dg-cell>
       </div>
       <div class="ui-dg-input-buttons" css.bind="{transform: 'translateX('+parent.scrollLeft+'px)'}">
-        <ui-button small click.trigger="[record.saveChanges(), record.__editing__=false, $event.stopPropagation()]">Update</ui-button>
+        <ui-button small click.trigger="[saveChanges(record), $event.stopPropagation()]">Update</ui-button>
         <ui-button small click.trigger="[record.discardChanges(), record.__editing__=false, $event.stopPropagation()]">Cancel</ui-button>
       </div>
     </div>
@@ -161,7 +202,7 @@ UIDgRow = __decorate([
   <div class="ui-dg-edit-shim" if.bind="record.__editing__"></div>
 
 
-  <ui-dg-row containerless if.bind="!parent.subview&&record.subdata&&record.isOpen" index.bind="$index" level.bind="level+1" parent.bind="parent" record.bind="rec" repeat.for="rec of record.subdata"></ui-dg-row>
+  <ui-dg-row containerless if.bind="!parent.subview&&record.subdata&&record.isOpen" index.bind="$index" odd.bind="$odd" level.bind="level+1" parent.bind="parent" record.bind="rec" repeat.for="rec of record.subdata"></ui-dg-row>
 
   <div class="ui-dg-row" if.bind="parent.subview && record.isOpen" css.bind="{transform: 'translateX('+parent.scrollLeft+'px)'}">
     <div class="ui-dg-expander" if.bind="parent.rowExpander" click.trigger="$event.stopPropagation()" css.bind="{'min-width': parent.expandWidth+'px'}"></div>
@@ -174,7 +215,7 @@ UIDgRow = __decorate([
 ], UIDgRow);
 export { UIDgRow };
 let UIDatagrid = class UIDatagrid {
-    constructor(element) {
+    constructor(element, factory) {
         this.element = element;
         this.summaryRow = false;
         this.cols = [];
@@ -196,6 +237,10 @@ let UIDatagrid = class UIDatagrid {
             this.element.classList.add('ui-auto-size');
         if (element.hasAttribute('hilight'))
             this.element.classList.add('ui-hilight');
+        if (this.editable) {
+            this.controller = factory.createForCurrentScope();
+            this.controller.validateTrigger = validateTrigger.changeOrBlur;
+        }
     }
     bind(bindingContext, overrideContext) {
         if (this.store && !(this.store instanceof BaseDataSource))
@@ -224,6 +269,10 @@ let UIDatagrid = class UIDatagrid {
         this.store = new UILocalDS(newValue);
         if (!this.store.isLoaded)
             UIEvent.queueTask(() => this.store.fetchData());
+    }
+    selectedChanged(newValue) {
+        if (newValue == null)
+            UIEvent.queueTask(() => this.selected = null);
     }
     doSort(col) {
         if (!col.sortable || this.resizing)
@@ -335,7 +384,7 @@ UIDatagrid = __decorate([
 </div>
 <div show.bind="store.isEmpty" class="ui-dg-empty"><slot name="dg-empty"></slot></div>
 <div ref="dgBody" class="ui-dg-body" scroll.trigger="(scrollLeft = dgBody.scrollLeft)" if.bind="!virtual">
-  <ui-dg-row containerless parent.bind="$parent" record.bind="record" index.bind="$index" repeat.for="record of store.data"></ui-dg-row>
+  <ui-dg-row containerless parent.bind="$parent" record.bind="record" index.bind="$index" odd.bind="$odd" repeat.for="record of store.data"></ui-dg-row>
   <div class="ui-dg-row ui-dg-filler">
     <div class="ui-dg-lock-holder" css.bind="{transform: 'translateX('+scrollLeft+'px)'}">
       <div class="ui-dg-expander" if.bind="rowExpander" css.bind="{width: expandWidth+'px'}"></div>
@@ -343,11 +392,10 @@ UIDatagrid = __decorate([
       <div class="ui-dg-cell \${col.align}" repeat.for="col of colLocked" css.bind="{width:col.getWidth(col.width)+'px'}"></div>
     </div>
     <div class="ui-dg-cell \${col.align}" repeat.for="col of cols" css.bind="{width:col.getWidth(col.width)+'px'}"></div>
-    <div class="ui-dg-filler"></div>
   </div>
 </div>
 <div ref="dgBody" class="ui-dg-body" scroll.trigger="(scrollLeft = dgBody.scrollLeft)" if.bind="virtual">
-  <ui-dg-row if.bind="store" parent.bind="$parent" record.bind="record" index.bind="$index" virtual-repeat.for="record of store.data"></ui-dg-row>
+  <ui-dg-row if.bind="store" parent.bind="$parent" record.bind="record" index.bind="$index" odd.bind="$odd" virtual-repeat.for="record of store.data"></ui-dg-row>
   <div class="ui-dg-row ui-dg-filler">
     <div class="ui-dg-lock-holder" css.bind="{transform: 'translateX('+scrollLeft+'px)'}">
       <div class="ui-dg-expander" if.bind="rowExpander" css.bind="{width: expandWidth+'px'}"></div>
@@ -355,7 +403,6 @@ UIDatagrid = __decorate([
       <div class="ui-dg-cell \${col.align}" repeat.for="col of colLocked" css.bind="{width:col.getWidth(col.width)+'px'}"></div>
     </div>
     <div class="ui-dg-cell \${col.align}" repeat.for="col of cols" css.bind="{width:col.getWidth(col.width)+'px'}"></div>
-    <div class="ui-dg-filler"></div>
   </div>
 </div>
 <div ref="dgFoot" class="ui-dg-footer">
@@ -364,13 +411,12 @@ UIDatagrid = __decorate([
       <div class="ui-dg-expander" if.bind="rowExpander" css.bind="{width: expandWidth+'px'}"></div>
       <div class="ui-dg-expander" if.bind="rowCounter" css.bind="{width: counterWidth+'px'}"></div>
       <div class="ui-dg-cell \${col.align}" repeat.for="col of colLocked" css.bind="{width:col.getWidth(col.width)+'px'}">
-        <div innerhtml.bind='col.getSummary(summaryRow, store.data)'></div>
+        <div innerhtml.bind='col.getSummary(summaryRow, store.getSummary(col.dataId, col.summary), store.data)'></div>
       </div>
     </div>
     <div class="ui-dg-cell \${col.align}" repeat.for="col of cols" css.bind="{width:col.getWidth(col.width)+'px'}">
-      <div innerhtml.bind='col.getSummary(summaryRow, store.data)'></div>\${recalc}
+      <div innerhtml.bind='col.getSummary(summaryRow, store.getSummary(col.dataId, col.summary), store.data)'></div>\${recalc}
     </div>
-    <div class="ui-dg-filler"></div>
   </div>
 </div>
 <div class="ui-dg-loader" if.bind="store.isLoading">
@@ -379,7 +425,7 @@ UIDatagrid = __decorate([
   </div>
 </div><template>`),
     customElement('ui-datagrid'),
-    __metadata("design:paramtypes", [Element])
+    __metadata("design:paramtypes", [Element, ValidationControllerFactory])
 ], UIDatagrid);
 export { UIDatagrid };
 let UIDGEmpty = class UIDGEmpty {

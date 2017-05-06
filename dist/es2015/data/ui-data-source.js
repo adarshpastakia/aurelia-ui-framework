@@ -1,14 +1,7 @@
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-import { observable } from 'aurelia-framework';
 import { UIEvent } from "../utils/ui-event";
 import { UIModel } from "../utils/ui-model";
 import * as _ from "lodash";
-let BaseDataSource = class BaseDataSource {
+export class BaseDataSource {
     constructor() {
         this.isEmpty = false;
         this.isLoading = false;
@@ -46,16 +39,25 @@ let BaseDataSource = class BaseDataSource {
         });
         this.__original__ = ret;
     }
-};
-BaseDataSource = __decorate([
-    observable('__original__')
-], BaseDataSource);
-export { BaseDataSource };
+    getSummary(dataId, summary) {
+        let retVal = '';
+        switch (summary) {
+            case 'sum':
+                retVal = _.sumBy(this.data, dataId);
+                break;
+            case 'avg':
+                retVal = _['meanBy'](this.data, dataId);
+                break;
+            default: return summary || '&nbsp;';
+        }
+        return retVal;
+    }
+}
 export class UILocalDS extends BaseDataSource {
     constructor(data, opts = {}) {
         super();
-        this.makeDataset(data || []);
         Object.assign(this, opts);
+        this.makeDataset(data || []);
         this.totalPages = Math.ceil(this.__original__.length / this.recordsPerPage);
     }
     fetchData() {

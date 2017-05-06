@@ -102,10 +102,9 @@ System.register(["aurelia-framework", "aurelia-logging", "./ui-http", "./ui-even
                 };
                 UIModel.prototype.deserialize = function (json) {
                     var _this = this;
-                    this.__original__ = _.cloneDeep(json);
-                    Object.keys(this.__original__)
+                    Object.keys(this.__original__ = json)
                         .forEach(function (key) {
-                        _this[key] = json[key];
+                        _this[key] = _.cloneDeep(json[key]);
                     });
                 };
                 UIModel.prototype.serialize = function () {
@@ -161,10 +160,9 @@ System.register(["aurelia-framework", "aurelia-logging", "./ui-http", "./ui-even
                 };
                 UIModel.prototype.discardChanges = function () {
                     var _this = this;
-                    var json = _.cloneDeep(this.__original__);
                     Object.keys(this.__original__)
                         .forEach(function (key) {
-                        _this[key] = json[key];
+                        _this[key] = _.cloneDeep(_this.__original__[key]);
                     });
                 };
                 UIModel.prototype.isDirty = function () {
@@ -199,7 +197,6 @@ System.register(["aurelia-framework", "aurelia-logging", "./ui-http", "./ui-even
                 return UIModel;
             }());
             UIModel = UIModel_1 = __decorate([
-                aurelia_framework_1.observable('__original__'),
                 aurelia_framework_1.autoinject(),
                 __metadata("design:paramtypes", [])
             ], UIModel);

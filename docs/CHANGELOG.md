@@ -1,8 +1,65 @@
+<<<<<<< HEAD
 <a name="4.0.0-Beta.1"></a>
 # 4.0.0-Beta.1 (2017-04-28)
 
 
 
+=======
+<a name="3.3.10"></a>
+## 3.3.10 (2017-05-06)
+
+
+
+<a name="3.3.9"></a>
+## 3.3.9 (2017-05-04)
+
+
+
+<a name="3.3.8"></a>
+## 3.3.8 (2017-05-03)
+
+
+
+* Fixed styling issues on `rtl`
+* Updated `UIFieldset`
+  - Changed `enabled` property to `checked`
+  - Added `disabled` property
+
+
+<a name="3.3.7"></a>
+## 3.3.7 (2017-05-02)
+
+
+
+<a name="3.3.6"></a>
+## 3.3.6 (2017-05-02)
+
+
+
+<a name="3.3.5"></a>
+## 3.3.5 (2017-05-01)
+
+
+
+<a name="3.3.4"></a>
+## 3.3.4 (2017-04-30)
+
+
+
+<a name="3.3.3"></a>
+## 3.3.3 (2017-04-27)
+
+
+
+<a name="3.3.2"></a>
+## 3.3.2 (2017-04-26)
+
+* UIDatagrid Update
+  - Changed layout from tables to flexbox divs
+  - Locking columns using css3 transform
+
+
+>>>>>>> master
 <a name="3.3.1"></a>
 ## 3.3.1 (2017-04-22)
 

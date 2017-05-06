@@ -387,7 +387,7 @@ UICombo = __decorate([
     autoinject(),
     inlineView(`<template class="ui-input-wrapper ui-input-list"><div role="input" class="ui-input-control"><slot></slot>
   <span class="ui-error" if.bind="errors"><ui-glyph glyph="glyph-invalid"></ui-glyph><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
-  <input ref="inputEl" value.bind="elValue" autocomplete="off"
+  <input ref="inputEl" value.bind="elValue" autocomplete="off" size="1"
     focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)" click.trigger="openDropdown($event)"
     input.trigger="search() & debounce:200" change.trigger="fireEvent($event)"
     keydown.trigger="keyDown($event)" placeholder.bind="placeholder" size="1"

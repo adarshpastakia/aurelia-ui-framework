@@ -28,7 +28,7 @@
                 <ui-header-tool collapse></ui-header-tool>
                 <ui-header-tool close></ui-header-tool>
               </ui-header>
-              <ui-panel-body padded height="5em">
+              <ui-panel-body padded minheight="5em">
                 <h4>Header Panel</h4>
               </ui-panel-body>
             </ui-panel>
@@ -40,18 +40,20 @@
                 <ui-header-tool collapse></ui-header-tool>
                 <ui-header-tool close></ui-header-tool>
               </ui-header>
-              <ui-panel-body padded height="5em">
+              <ui-panel-body padded minheight="5em">
                 <h4>Header Panel</h4>
               </ui-panel-body>
               <ui-loader small busy.bind="refreshing"></ui-loader>
             </ui-panel>
           </ui-column>
           <ui-column size="md-6 lg-4" padded>
-            <ui-panel>
+            <ui-panel expanded.bind="ex">
               <ui-header light>
                 <ui-header-title>Light Header</ui-header-title>
+                <ui-header-tool expand if.bind="!ex"></ui-header-tool>
+                <ui-header-tool restore if.bind="ex"></ui-header-tool>
               </ui-header>
-              <ui-panel-body padded height="5em">
+              <ui-panel-body padded minheight="5em">
                 <h4>Header Panel</h4>
               </ui-panel-body>
             </ui-panel>
@@ -65,7 +67,7 @@
                   <ui-list-item value="2">Last 90 Days</ui-list-item>
                 </ui-dropdown>
               </ui-header>
-              <ui-panel-body padded height="5em">
+              <ui-panel-body padded minheight="5em">
                 <h4>Header Panel</h4>
               </ui-panel-body>
             </ui-panel>
@@ -76,7 +78,7 @@
                 <ui-header-tool collapse></ui-header-tool>
                 <ui-header-tool close></ui-header-tool>
               </ui-header>
-              <ui-panel-body padded height="5em">
+              <ui-panel-body padded minheight="5em">
                 <h4>Header Panel</h4>
               </ui-panel-body>
             </ui-panel>

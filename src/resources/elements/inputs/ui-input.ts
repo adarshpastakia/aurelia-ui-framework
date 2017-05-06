@@ -69,7 +69,7 @@ export class UIBaseInput {
     focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)" step="any"
     input.trigger="fireEvent($event)" change.trigger="fireEvent($event)" size="1"
     keypress.trigger="checkInput($event)" placeholder.bind="placeholder"
-    disabled.bind="isDisabled" readonly.bind="readonly"/>
+    disabled.bind="isDisabled" readonly.bind="readonly" size="1"/>
   <span class="ui-clear" if.bind="clear && value" click.trigger="clearInput()">&times;</span>
   <span class="ui-counter" if.bind="counter" innerhtml.bind="maxlength - value.length"></span></div>
   <div class="ui-input-info" if.bind="info" innerhtml.bind="info"></div>

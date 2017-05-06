@@ -1,4 +1,4 @@
-System.register(["aurelia-framework", "../utils/ui-event", "../utils/ui-model", "lodash"], function (exports_1, context_1) {
+System.register(["../utils/ui-event", "../utils/ui-model", "lodash"], function (exports_1, context_1) {
     "use strict";
     var __extends = (this && this.__extends) || (function () {
         var extendStatics = Object.setPrototypeOf ||
@@ -10,19 +10,10 @@ System.register(["aurelia-framework", "../utils/ui-event", "../utils/ui-model", 
             d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
         };
     })();
-    var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-        return c > 3 && r && Object.defineProperty(target, key, r), r;
-    };
     var __moduleName = context_1 && context_1.id;
-    var aurelia_framework_1, ui_event_1, ui_model_1, _, BaseDataSource, UILocalDS, UIRemoteDS;
+    var ui_event_1, ui_model_1, _, BaseDataSource, UILocalDS, UIRemoteDS;
     return {
         setters: [
-            function (aurelia_framework_1_1) {
-                aurelia_framework_1 = aurelia_framework_1_1;
-            },
             function (ui_event_1_1) {
                 ui_event_1 = ui_event_1_1;
             },
@@ -73,19 +64,29 @@ System.register(["aurelia-framework", "../utils/ui-event", "../utils/ui-model", 
                     });
                     this.__original__ = ret;
                 };
+                BaseDataSource.prototype.getSummary = function (dataId, summary) {
+                    var retVal = '';
+                    switch (summary) {
+                        case 'sum':
+                            retVal = _.sumBy(this.data, dataId);
+                            break;
+                        case 'avg':
+                            retVal = _['meanBy'](this.data, dataId);
+                            break;
+                        default: return summary || '&nbsp;';
+                    }
+                    return retVal;
+                };
                 return BaseDataSource;
             }());
-            BaseDataSource = __decorate([
-                aurelia_framework_1.observable('__original__')
-            ], BaseDataSource);
             exports_1("BaseDataSource", BaseDataSource);
             UILocalDS = (function (_super) {
                 __extends(UILocalDS, _super);
                 function UILocalDS(data, opts) {
                     if (opts === void 0) { opts = {}; }
                     var _this = _super.call(this) || this;
-                    _this.makeDataset(data || []);
                     Object.assign(_this, opts);
+                    _this.makeDataset(data || []);
                     _this.totalPages = Math.ceil(_this.__original__.length / _this.recordsPerPage);
                     return _this;
                 }

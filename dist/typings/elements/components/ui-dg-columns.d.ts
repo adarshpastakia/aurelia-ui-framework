@@ -20,7 +20,7 @@ export declare class UIDataColumn {
     getTitle(): string;
     getValue(value: any, record: any): string;
     processValue(value: any, record: any): string;
-    getSummary(summaryRow: any, data: any): any;
+    getSummary(summaryRow: any, summaryValue: any, data: any): any;
 }
 export declare class UIDGColumnGroup {
     element: Element;

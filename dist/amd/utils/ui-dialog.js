@@ -245,21 +245,21 @@ define(["require", "exports", "aurelia-framework", "./ui-event", "./ui-utils", "
             var pw = ui_utils_1.UIUtils.dialogContainer.offsetWidth;
             var ph = ui_utils_1.UIUtils.dialogContainer.offsetHeight;
             if (!this.__isResizing) {
-                if (l + x < 16) {
+                if (l + x < 0) {
                     x = 0;
-                    l = 16;
+                    l = 0;
                 }
-                if (t + y < 16) {
+                if (t + y < 0) {
                     y = 0;
-                    t = 16;
+                    t = 0;
                 }
                 if (l + x + w + 16 > pw) {
                     x = 0;
                     l = pw - w - 16;
                 }
-                if (t + y + h + 42 > ph) {
+                if (t + y + h + 54 > ph) {
                     y = 0;
-                    t = ph - h - 42;
+                    t = ph - h - 54;
                 }
                 this.__dialog.style.top = (t + y) + 'px';
                 this.__dialog.style[this.__isRtl ? 'right' : 'left'] = (l + x) + 'px';
@@ -267,7 +267,7 @@ define(["require", "exports", "aurelia-framework", "./ui-event", "./ui-utils", "
             else {
                 if (l + x + w + 16 > pw)
                     x = 0;
-                if (t + y + h + 42 > ph)
+                if (t + y + h + 54 > ph)
                     y = 0;
                 this.__dialog.style.width = (w + x) + 'px';
                 this.__dialog.style.height = (h + y) + 'px';

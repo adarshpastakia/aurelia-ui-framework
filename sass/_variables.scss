@@ -3,26 +3,12 @@
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
+@import "colors";
 
-// COLORS
-$primary                     : #582758 !default;
-$secondary                   : #8F1C56 !default;
-
-$white                       : #FFFEFC !default;
-$black                       : #150E06 !default;
-$light                       : #F7F9F0 !default;
-$dark                        : #373737 !default;
-$muted                       : #808387 !default;
-
-$info                        : #1993C0 !default;
-$danger                      : #CE3333 !default;
-$success                     : #3EA746 !default;
-$warning                     : #FAAD34 !default;
+$splash-image                : 'splash-ring.svg' !default;
 
 $link-text                   : $secondary !default;
 $link-hover-text             : $primary !default;
-
-$splash-image                : 'splash-ring.svg' !default;
 
 // Z-INDEX
 $z-index-dialog              : 50 !default;
@@ -71,6 +57,17 @@ $app-footer-text             : $white !default;
 
 $page-title-bg               : $secondary !default;
 $page-title-text             : $white !default;
+
+// ALERTS
+$alert-button-bg             : none !default;
+$alert-button-text           : $primary !default;
+$alert-button-border         : $primary !default;
+$alert-button-hover-bg       : none !default;
+$alert-button-hover-text     : $primary !default;
+$alert-button-hover-border   : $primary !default;
+$alert-button-active-bg      : rgba($primary, .2) !default;
+$alert-button-active-text    : $white !default;
+$alert-button-active-border  : $primary !default;
 
 // MENU
 $menubar-bg                  : shade($base-bg, 1%) !default;

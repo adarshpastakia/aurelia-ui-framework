@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { autoinject, customElement, bindable, children, inlineView, DOM } from 'aurelia-framework';
+import { autoinject, customElement, bindable, bindingMode, children, inlineView, DOM } from 'aurelia-framework';
 import { UIEvent } from "../../utils/ui-event";
 import { UIUtils } from "../../utils/ui-utils";
 import * as _ from "lodash";
@@ -15,8 +15,11 @@ let UIPanel = class UIPanel {
     constructor(element) {
         this.element = element;
         this.height = 'auto';
+        this.expanded = false;
         this.collapsed = false;
-        this.collapsed = element.hasAttribute('collapsed');
+    }
+    bind(bindingContext, overrideContext) {
+        this.collapsed = this.element.hasAttribute('collapsed');
     }
     close() {
         DOM.removeNode(this.element);
@@ -25,7 +28,10 @@ let UIPanel = class UIPanel {
         this.collapsed = true;
     }
     expand() {
-        this.collapsed = false;
+        this.expanded = !this.expanded;
+    }
+    restore() {
+        this.expanded = !this.expanded;
     }
     toggleCollapse() {
         setTimeout(() => this.collapsed = !this.collapsed, 200);
@@ -35,9 +41,17 @@ __decorate([
     bindable(),
     __metadata("design:type", Object)
 ], UIPanel.prototype, "height", void 0);
+__decorate([
+    bindable({ defaultBindingMode: bindingMode.twoWay }),
+    __metadata("design:type", Object)
+], UIPanel.prototype, "expanded", void 0);
+__decorate([
+    bindable({ defaultBindingMode: bindingMode.twoWay }),
+    __metadata("design:type", Object)
+], UIPanel.prototype, "collapsed", void 0);
 UIPanel = __decorate([
     autoinject(),
-    inlineView(`<template class="ui-panel \${collapsed?'ui-collapse':''}" css.bind="{'height':height}" collapse.trigger="toggleCollapse()" close.trigger="close()"><slot></slot></template>`),
+    inlineView(`<template class="ui-panel \${collapsed?'ui-collapse':''} \${expanded?'ui-expand':''}" css.bind="{'height':height}" collapse.trigger="toggleCollapse()" expand.trigger="expand()" restore.trigger="expand()" close.trigger="close()"><slot></slot></template>`),
     customElement('ui-panel'),
     __metadata("design:paramtypes", [Element])
 ], UIPanel);
@@ -46,6 +60,7 @@ let UIPanelBody = class UIPanelBody {
     constructor(element) {
         this.element = element;
         this.height = 'auto';
+        this.minheight = 'auto';
         this.maxheight = 'auto';
         if (element.hasAttribute('flex'))
             element.classList.add('ui-flexed');
@@ -62,10 +77,14 @@ __decorate([
 __decorate([
     bindable(),
     __metadata("design:type", Object)
+], UIPanelBody.prototype, "minheight", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
 ], UIPanelBody.prototype, "maxheight", void 0);
 UIPanelBody = __decorate([
     autoinject(),
-    inlineView(`<template class="ui-panel-body" css.bind="{'max-height': maxheight,'flex-basis':height}"><slot></slot></template>`),
+    inlineView(`<template class="ui-panel-body" css.bind="{'max-height': maxheight,'min-height': minheight,'flex-basis':height}"><slot></slot></template>`),
     customElement('ui-panel-body'),
     __metadata("design:paramtypes", [Element])
 ], UIPanelBody);

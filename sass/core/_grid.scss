@@ -8,7 +8,7 @@
     @if($size > $grid-sm-min) {
       .ui-container {
         display  : block;
-        position : relative;
+        // position : relative;
         margin   : 0 auto;
         max-width: $size - 16px;
       }
@@ -32,7 +32,7 @@
 
 // Resposive Row Horizontal
 .ui-row {
-  position: relative;
+  // position: relative;
   @include flex-row(flex-start);
 
   > hr {
@@ -41,7 +41,7 @@
 }
 
 .ui-row-vertical {
-  position: relative;
+  // position: relative;
   @include flex-column();
 
   > hr {
@@ -93,31 +93,26 @@
 [class*=" ui-col-"],
 [class^="ui-col-"] {
   @include flex-basis(100%);
-  position: relative;
+  // position: relative;
 }
 
 .ui-col {
-  position: relative;
   @include flex-auto();
 }
 
 .ui-col-auto {
-  position: relative;
   @include flex-auto();
 }
 
 .ui-col-fill {
-  position: relative;
   @include flex-fill();
 }
 
 .ui-col-form {
-  position: relative;
   @include flex-fill(1em);
 }
 
 .ui-col-full {
-  position: relative;
   @include flex(1 1 100%);
 }
 
