@@ -9,6 +9,7 @@
 @import 'compass/css3/selection';
 @import "compass/typography";
 // Vars
+@import "colors";
 @import "variables";
 @import "themes";
 // Utils
@@ -49,21 +50,21 @@
 
 
 $colors: (
-  ('red', #ff3b30, $light),
-  ('pink', #e91e63, $light),
-  ('violet',#9c27b0, $light),
-  ('purple',#673ab7, $light),
-  ('indigo',#3f51b5, $light),
-  ('blue', #2196f3, $light),
-  ('cyan', #00bcd4, $light),
-  ('teal', #009688, $light),
-  ('green', #4caf50, $light),
-  ('lime', #cddc39, $dark),
-  ('yellow',#ffeb3b, $dark),
-  ('amber', #ffc107, $dark),
-  ('orange',#ff5722, $light),
-  ('brown', #795548, $light),
-  ('gray', #607d8b, $light)
+  ('red',   $red,     $light),
+  ('pink',  $pink,    $light),
+  ('violet',$violet,  $light),
+  ('purple',$purple,  $light),
+  ('indigo',$indigo,  $light),
+  ('blue',  $blue,    $light),
+  ('cyan',  $cyan,    $light),
+  ('teal',  $teal,    $light),
+  ('green', $green,   $light),
+  ('lime',  $lime,    $dark),
+  ('yellow',$yellow,  $dark),
+  ('amber', $amber,   $dark),
+  ('orange',$orange,  $light),
+  ('brown', $brown,   $light),
+  ('gray',  $gray,    $light)
 );
 @each $key, $color, $text in $colors {
 
