@@ -58,6 +58,17 @@ $app-footer-text             : $white !default;
 $page-title-bg               : $secondary !default;
 $page-title-text             : $white !default;
 
+// ALERTS
+$alert-button-bg             : none !default;
+$alert-button-text           : $primary !default;
+$alert-button-border         : $primary !default;
+$alert-button-hover-bg       : none !default;
+$alert-button-hover-text     : $primary !default;
+$alert-button-hover-border   : $primary !default;
+$alert-button-active-bg      : rgba($primary, .2) !default;
+$alert-button-active-text    : $white !default;
+$alert-button-active-border  : $primary !default;
+
 // MENU
 $menubar-bg                  : shade($base-bg, 1%) !default;
 $menu-dropdown-bg            : $base-bg !default;
