@@ -27,6 +27,7 @@
     "staging": "au build --env stage && gulp production",
     "production": "au build --env prod && gulp production"
   },
+  "registry": "npm",
   "dependencies":
   {
     "aurelia-bootstrapper": "^1.0.1",
