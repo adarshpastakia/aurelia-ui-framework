@@ -28,8 +28,23 @@ export class UIPanel {
   @bindable({ defaultBindingMode: bindingMode.twoWay }) expanded = false;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) collapsed = false;
 
+  @bindable() beforeclose: any;
+
   close() {
-    DOM.removeNode(this.element);
+    if (isFunction(this.beforeclose)) {
+      let ret = this.beforeclose();
+      if (ret instanceof Promise) ret.then(b => {
+        if (b) {
+          DOM.removeNode(this.element);
+        }
+      });
+      else if (ret !== false) {
+        DOM.removeNode(this.element);
+      }
+    }
+    else if (UIEvent.fireEvent('beforeclose', this.element) !== false) {
+      DOM.removeNode(this.element);
+    }
   }
   collapse() {
     this.collapsed = true;
