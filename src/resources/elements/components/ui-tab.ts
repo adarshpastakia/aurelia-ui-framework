@@ -251,7 +251,6 @@ export class UITab {
 
   @bindable() beforeclose: any;
 
-  public vm;
   public active = false;
   public closeable = false;
 
