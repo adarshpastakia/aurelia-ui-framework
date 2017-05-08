@@ -255,7 +255,13 @@ export class UITab {
   public closeable = false;
 
   remove() {
+    try {
+      if (this.viewModel) this.viewModel.detached();
+    } catch (e) { }
     DOM.removeNode(this.element);
+    try {
+      if (this.viewModel) this.viewModel.unbind();
+    } catch (e) { }
   }
 
   get viewModel() {
