@@ -262,7 +262,17 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-utils", "../.
             this.disabled = isTrue(this.disabled);
         };
         UITab.prototype.remove = function () {
+            try {
+                if (this.viewModel)
+                    this.viewModel.detached();
+            }
+            catch (e) { }
             aurelia_framework_1.DOM.removeNode(this.element);
+            try {
+                if (this.viewModel)
+                    this.viewModel.unbind();
+            }
+            catch (e) { }
         };
         Object.defineProperty(UITab.prototype, "viewModel", {
             get: function () {

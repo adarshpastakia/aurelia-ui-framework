@@ -51,7 +51,6 @@ export declare class UITab {
     label: string;
     disabled: boolean;
     beforeclose: any;
-    vm: any;
     active: boolean;
     closeable: boolean;
     remove(): void;

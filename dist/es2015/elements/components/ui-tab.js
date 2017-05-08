@@ -262,7 +262,17 @@ let UITab = UITab_1 = class UITab {
         this.disabled = isTrue(this.disabled);
     }
     remove() {
+        try {
+            if (this.viewModel)
+                this.viewModel.detached();
+        }
+        catch (e) { }
         DOM.removeNode(this.element);
+        try {
+            if (this.viewModel)
+                this.viewModel.unbind();
+        }
+        catch (e) { }
     }
     get viewModel() {
         if (this.element.firstElementChild && this.element.firstElementChild.tagName.toLowerCase() == 'compose')

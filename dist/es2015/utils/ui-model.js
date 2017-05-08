@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { autoinject } from 'aurelia-framework';
+import { autoinject, transient } from 'aurelia-framework';
 import { getLogger } from "aurelia-logging";
 import { UIHttpService } from "./ui-http";
 import { UIEvent } from "./ui-event";
@@ -127,7 +127,7 @@ let UIModel = UIModel_1 = class UIModel {
             this[key] = this.__original__[key];
         });
     }
-    isDirty() {
+    get isDirty() {
         if (_.isEmpty(this.__original__)) {
             Object.keys(this)
                 .forEach((key) => {
@@ -136,7 +136,18 @@ let UIModel = UIModel_1 = class UIModel {
                 }
             });
         }
+        console.log('dirty check');
         return this.checkDirty(this.__original__, this);
+    }
+    dirtyProperty(key) {
+        let t = this, o = this.__original__;
+        if (t[key] instanceof UIModel_1)
+            return t[key].isDirty();
+        if (_.isArray(o[key]) && o[key].length != t[key].length)
+            return true;
+        if (_.isArray(o[key]) || _.isObject(o[key]))
+            return this.checkDirty(o[key], t[key]);
+        return t.hasOwnProperty(key) && (t[key] !== o[key]);
     }
     checkDirty(o, t) {
         return !Object.keys(o)
@@ -153,6 +164,7 @@ let UIModel = UIModel_1 = class UIModel {
 };
 UIModel = UIModel_1 = __decorate([
     autoinject(),
+    transient(),
     __metadata("design:paramtypes", [])
 ], UIModel);
 export { UIModel };

@@ -5,6 +5,7 @@ export declare class UIPanel {
     height: string;
     expanded: boolean;
     collapsed: boolean;
+    beforeclose: any;
     close(): void;
     collapse(): void;
     expand(): void;

@@ -22,7 +22,21 @@ let UIPanel = class UIPanel {
         this.collapsed = this.element.hasAttribute('collapsed');
     }
     close() {
-        DOM.removeNode(this.element);
+        if (isFunction(this.beforeclose)) {
+            let ret = this.beforeclose();
+            if (ret instanceof Promise)
+                ret.then(b => {
+                    if (b) {
+                        DOM.removeNode(this.element);
+                    }
+                });
+            else if (ret !== false) {
+                DOM.removeNode(this.element);
+            }
+        }
+        else if (UIEvent.fireEvent('beforeclose', this.element) !== false) {
+            DOM.removeNode(this.element);
+        }
     }
     collapse() {
         this.collapsed = true;
@@ -49,6 +63,10 @@ __decorate([
     bindable({ defaultBindingMode: bindingMode.twoWay }),
     __metadata("design:type", Object)
 ], UIPanel.prototype, "collapsed", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIPanel.prototype, "beforeclose", void 0);
 UIPanel = __decorate([
     autoinject(),
     inlineView(`<template class="ui-panel \${collapsed?'ui-collapse':''} \${expanded?'ui-expand':''}" css.bind="{'height':height}" collapse.trigger="toggleCollapse()" expand.trigger="expand()" restore.trigger="expand()" close.trigger="close()"><slot></slot></template>`),
