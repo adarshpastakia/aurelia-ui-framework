@@ -32,10 +32,10 @@
     "registry": "npm",
     "jspmPackage": true,
     "main": "aurelia-ui-framework",
-    "format": "commonjs",
+    "format": "system",
     "directories":
     {
-      "dist": "dist/commonjs"
+      "dist": "dist/system"
     },
     "peerDependencies":
     {
