@@ -153,20 +153,25 @@ export class UITabPanel {
   }
 
   private closeTab(tab) {
-    if (isFunction(tab.beforeclose)) {
-      let ret = tab.beforeclose(tab);
-      if (ret instanceof Promise) ret.then(b => {
-        if (b) {
-          this.doClose(tab);
+    tab.canDeactivate()
+      .then(b => {
+        if (b === true) {
+          if (isFunction(tab.beforeclose)) {
+            let ret = tab.beforeclose(tab);
+            if (ret instanceof Promise) ret.then(b => {
+              if (b) {
+                this.doClose(tab);
+              }
+            });
+            else if (ret !== false) {
+              this.doClose(tab);
+            }
+          }
+          else if (UIEvent.fireEvent('beforeclose', tab.element, tab) !== false) {
+            this.doClose(tab);
+          }
         }
       });
-      else if (ret !== false) {
-        this.doClose(tab);
-      }
-    }
-    else if (UIEvent.fireEvent('beforeclose', tab.element, tab) !== false) {
-      this.doClose(tab);
-    }
   }
   private doClose(tab) {
     _.remove(this.tabs, ['id', tab.id]);
@@ -262,6 +267,21 @@ export class UITab {
     try {
       if (this.viewModel) this.viewModel.unbind();
     } catch (e) { }
+  }
+
+  canDeactivate() {
+    let instance = this.viewModel;
+    if (instance && typeof instance.canDeactivate === 'function') {
+      let result = instance.canDeactivate();
+      if (result instanceof Promise) {
+        return result;
+      }
+      if (result !== null && result !== undefined) {
+        return Promise.resolve(result);
+      }
+      return Promise.resolve(true);
+    }
+    return Promise.resolve(true);
   }
 
   get viewModel() {
