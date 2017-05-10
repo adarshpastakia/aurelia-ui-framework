@@ -148,23 +148,18 @@ var UIModel = UIModel_1 = (function () {
             _this[key] = _this.__original__[key];
         });
     };
-    Object.defineProperty(UIModel.prototype, "isDirty", {
-        get: function () {
-            var _this = this;
-            if (_.isEmpty(this.__original__)) {
-                Object.keys(this)
-                    .forEach(function (key) {
-                    if (key !== 'undefined' && !/^__/.test(key)) {
-                        _this.__original__[key] = _this[key];
-                    }
-                });
-            }
-            console.log('dirty check');
-            return this.checkDirty(this.__original__, this);
-        },
-        enumerable: true,
-        configurable: true
-    });
+    UIModel.prototype.isDirty = function () {
+        var _this = this;
+        if (_.isEmpty(this.__original__)) {
+            Object.keys(this)
+                .forEach(function (key) {
+                if (key !== 'undefined' && !/^__/.test(key)) {
+                    _this.__original__[key] = _this[key];
+                }
+            });
+        }
+        return this.checkDirty(this.__original__, this);
+    };
     UIModel.prototype.dirtyProperty = function (key) {
         var t = this, o = this.__original__;
         if (t[key] instanceof UIModel_1)

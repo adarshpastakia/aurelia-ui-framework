@@ -18,7 +18,7 @@ export declare class UIModel {
     static serializeObject(o: any): {};
     saveChanges(): void;
     discardChanges(): void;
-    readonly isDirty: any;
+    isDirty(): any;
     dirtyProperty(key: any): any;
     private checkDirty(o, t);
 }

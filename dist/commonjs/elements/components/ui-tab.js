@@ -154,21 +154,26 @@ var UITabPanel = (function () {
     };
     UITabPanel.prototype.closeTab = function (tab) {
         var _this = this;
-        if (isFunction(tab.beforeclose)) {
-            var ret = tab.beforeclose(tab);
-            if (ret instanceof Promise)
-                ret.then(function (b) {
-                    if (b) {
+        tab.canDeactivate()
+            .then(function (b) {
+            if (b === true) {
+                if (isFunction(tab.beforeclose)) {
+                    var ret = tab.beforeclose(tab);
+                    if (ret instanceof Promise)
+                        ret.then(function (b) {
+                            if (b) {
+                                _this.doClose(tab);
+                            }
+                        });
+                    else if (ret !== false) {
                         _this.doClose(tab);
                     }
-                });
-            else if (ret !== false) {
-                this.doClose(tab);
+                }
+                else if (ui_event_1.UIEvent.fireEvent('beforeclose', tab.element, tab) !== false) {
+                    _this.doClose(tab);
+                }
             }
-        }
-        else if (ui_event_1.UIEvent.fireEvent('beforeclose', tab.element, tab) !== false) {
-            this.doClose(tab);
-        }
+        });
     };
     UITabPanel.prototype.doClose = function (tab) {
         _.remove(this.tabs, ['id', tab.id]);
@@ -276,6 +281,20 @@ var UITab = UITab_1 = (function () {
                 this.viewModel.unbind();
         }
         catch (e) { }
+    };
+    UITab.prototype.canDeactivate = function () {
+        var instance = this.viewModel;
+        if (instance && typeof instance.canDeactivate === 'function') {
+            var result = instance.canDeactivate();
+            if (result instanceof Promise) {
+                return result;
+            }
+            if (result !== null && result !== undefined) {
+                return Promise.resolve(result);
+            }
+            return Promise.resolve(true);
+        }
+        return Promise.resolve(true);
     };
     Object.defineProperty(UITab.prototype, "viewModel", {
         get: function () {

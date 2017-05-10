@@ -54,5 +54,6 @@ export declare class UITab {
     active: boolean;
     closeable: boolean;
     remove(): void;
+    canDeactivate(): Promise<boolean>;
     readonly viewModel: any;
 }

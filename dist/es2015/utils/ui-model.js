@@ -127,7 +127,7 @@ let UIModel = UIModel_1 = class UIModel {
             this[key] = this.__original__[key];
         });
     }
-    get isDirty() {
+    isDirty() {
         if (_.isEmpty(this.__original__)) {
             Object.keys(this)
                 .forEach((key) => {
@@ -136,7 +136,6 @@ let UIModel = UIModel_1 = class UIModel {
                 }
             });
         }
-        console.log('dirty check');
         return this.checkDirty(this.__original__, this);
     }
     dirtyProperty(key) {
