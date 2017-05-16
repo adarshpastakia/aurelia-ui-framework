@@ -117,7 +117,7 @@ export class BaseListInput {
         }
         this.original = this.filtered = groups;
     }
-    valueChanged(newValue, onBind = false) {
+    valueChanged(newValue, oldValue) {
         if (!this.isTagInput) {
             let item = _['findChildren'](this.filtered = this.original, 'items', 'value', newValue === null ? '' : newValue);
             this.elValue = item.text;
@@ -125,7 +125,7 @@ export class BaseListInput {
                 this.elValue = newValue === null ? '' : newValue;
             else if (!this.elValue)
                 this.value = '';
-            if (onBind && item.model)
+            if (!oldValue && item.model)
                 UIEvent.fireEvent('select', this.element, this.model = item.model);
         }
         else {
@@ -389,7 +389,7 @@ UICombo = __decorate([
   <span class="ui-error" if.bind="errors"><ui-glyph glyph="glyph-invalid"></ui-glyph><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
   <input ref="inputEl" value.bind="elValue" autocomplete="off" size="1"
     focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)" click.trigger="openDropdown($event)"
-    input.trigger="search() & debounce:200" change.trigger="fireEvent($event)"
+    input.trigger="search() & debounce:200" change.trigger="fireEvent($event)" select.trigger="$event.stopPropagation()"
     keydown.trigger="keyDown($event)" placeholder.bind="placeholder"
     disabled.bind="isDisabled" readonly.bind="!allowSearch || readonly"/>
   <span class="ui-clear" if.bind="clear && value" click.trigger="clearInput()">&times;</span>
@@ -542,7 +542,7 @@ UITags = __decorate([
   <span class="ui-error" if.bind="errors"><ui-glyph glyph="glyph-invalid"></ui-glyph><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
   <div class="ui-tag-item" repeat.for="tag of value | split" if.bind="tag!=''"><span innerhtml.bind="getDisplay(tag)"></span><i class="ui-clear" click.trigger="removeValue(tag)">&times;</i></div>
   <input ref="inputEl" value.bind="elValue" autocomplete="off" size="1"
-    focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)"
+    focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)" select.trigger="$event.stopPropagation()"
     input.trigger="search() & debounce:200" change.trigger="fireEvent($event)"
     keydown.trigger="keyDown($event)" placeholder.bind="placeholder"
     disabled.bind="isDisabled" readonly.bind="!allowSearch || readonly"/></div>
@@ -666,7 +666,7 @@ UIList = __decorate([
   <input ref="inputEl" value.bind="elValue" class="ui-input ui-remove" autocomplete="off"
     focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)" size="1"
     input.trigger="search() & debounce:200" change.trigger="fireEvent($event)"
-    keydown.trigger="keyDown($event)" placeholder.bind="placeholder"
+    keydown.trigger="keyDown($event)" placeholder.bind="placeholder" select.trigger="$event.stopPropagation()"
     disabled.bind="isDisabled" readonly.bind="true"/>
   <span class="ui-clear" if.bind="clear && value" click.trigger="clearInput()">&times;</span>
 

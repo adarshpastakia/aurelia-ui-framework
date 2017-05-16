@@ -32,7 +32,7 @@ export declare class BaseListInput {
     focus(): void;
     fireEvent(evt: any): void;
     optionsChanged(newValue: any): void;
-    valueChanged(newValue: any, onBind?: boolean): void;
+    valueChanged(newValue: any, oldValue?: any): void;
     hilightItem(evt: any): void;
     unhilightItem(evt: any): void;
     scrollIntoView(): void;
