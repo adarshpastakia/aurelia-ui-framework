@@ -24,6 +24,10 @@ export class TabSalesForm {
   // deactivate() { }
   // end aurelia hooks
 
+  canClose() {
+    return UIUtils.confirm('Discard changes?');
+  }
+
   isSaving = false;
   doSave() {
     this.isSaving = true;

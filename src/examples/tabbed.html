@@ -47,7 +47,7 @@
     <ui-tab id="home" glyph="icon-moon-home" flex>
       <compose view="./tab.home.html"></compose>
     </ui-tab>
-    <ui-tab repeat.for="tab of tabs" id.bind="tab.id" label.bind="tab.label" glyph.bind="tab.glyph" flex closeable beforeclose.call="beforeClose(tab.id, $event)">
+    <ui-tab repeat.for="tab of tabs" id.bind="tab.id" label.bind="tab.label" glyph.bind="tab.glyph" flex closeable>
       <compose view-model.bind="tab.viewModel" close.trigger="closeTab(tab.id)"></compose>
     </ui-tab>
   </ui-tab-panel>
