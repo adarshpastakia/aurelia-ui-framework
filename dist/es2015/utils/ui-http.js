@@ -181,12 +181,12 @@ let UIHttpService = class UIHttpService {
             'Access-Control-Allow-Origin': '*'
         };
         Object.assign(headers, UIConstants.Http.Headers || {});
-        if (override === true && UIConstants.Http.AuthorizationHeader && !isEmpty(this.app.AuthUser)) {
+        if (override !== false && UIConstants.Http.AuthorizationHeader && !isEmpty(this.app.AuthUser)) {
             var token = this.app.AuthUser + ":" + this.app.AuthToken;
             var hash = btoa(token);
             headers['Authorization'] = "Basic " + hash;
         }
-        else if (override !== false) {
+        if (typeof override == 'object') {
             Object.assign(headers, override || {});
         }
         return headers;
