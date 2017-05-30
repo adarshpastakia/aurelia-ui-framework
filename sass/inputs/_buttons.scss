@@ -11,6 +11,12 @@
     border-radius: 0;
   }
 
+  &.ui-fill > .ui-button {
+    @include flex(1 1 auto);
+    text-align: center;
+    max-width : none;
+  }
+
   &.ui-toggle > .ui-button {
     color       : $button-default-text;
     background  : $button-default-bg;
