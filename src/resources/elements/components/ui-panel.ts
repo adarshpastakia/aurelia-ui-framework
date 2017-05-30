@@ -17,7 +17,7 @@ export class UIPanel {
   // aurelia hooks
   // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
-    this.collapsed = this.element.hasAttribute('collapsed');
+    this.collapsed = isTrue(this.collapsed) || this.element.hasAttribute('collapsed');
   }
   // attached() { }
   // detached() { }
