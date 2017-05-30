@@ -119,7 +119,7 @@ var UIInput = (function (_super) {
         this.ignore = true;
         this.number = isNaN(parseFloat(newValue)) ? null : parseFloat(newValue);
         this.decimal = isNaN(parseFloat(newValue)) ? null : parseFloat(newValue);
-        if (this.type === 'number' && this.number === null)
+        if (this.type === 'number' && this.number === null && this.decimal === null)
             this.inputEl.value = this.value = '';
         setTimeout(function () { return _this.ignore = false; }, 100);
     };
@@ -128,7 +128,7 @@ var UIInput = (function (_super) {
         if (this.ignore)
             return;
         this.ignore = true;
-        this.value = newValue == null ? '' : newValue;
+        this.value = newValue === null ? '' : newValue;
         setTimeout(function () { return _this.ignore = false; }, 100);
     };
     UIInput.prototype.decimalChanged = function (newValue) {
@@ -136,7 +136,7 @@ var UIInput = (function (_super) {
         if (this.ignore)
             return;
         this.ignore = true;
-        this.value = newValue == null ? '' : newValue;
+        this.value = newValue === null ? '' : newValue;
         setTimeout(function () { return _this.ignore = false; }, 100);
     };
     UIInput.prototype.fireEvent = function (evt) {

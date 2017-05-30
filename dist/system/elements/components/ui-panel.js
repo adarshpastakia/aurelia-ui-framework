@@ -35,7 +35,7 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                     this.collapsed = false;
                 }
                 UIPanel.prototype.bind = function (bindingContext, overrideContext) {
-                    this.collapsed = this.element.hasAttribute('collapsed');
+                    this.collapsed = isTrue(this.collapsed) || this.element.hasAttribute('collapsed');
                 };
                 UIPanel.prototype.close = function () {
                     var _this = this;

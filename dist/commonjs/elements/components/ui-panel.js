@@ -21,7 +21,7 @@ var UIPanel = (function () {
         this.collapsed = false;
     }
     UIPanel.prototype.bind = function (bindingContext, overrideContext) {
-        this.collapsed = this.element.hasAttribute('collapsed');
+        this.collapsed = isTrue(this.collapsed) || this.element.hasAttribute('collapsed');
     };
     UIPanel.prototype.close = function () {
         var _this = this;

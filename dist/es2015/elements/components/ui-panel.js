@@ -19,7 +19,7 @@ let UIPanel = class UIPanel {
         this.collapsed = false;
     }
     bind(bindingContext, overrideContext) {
-        this.collapsed = this.element.hasAttribute('collapsed');
+        this.collapsed = isTrue(this.collapsed) || this.element.hasAttribute('collapsed');
     }
     close() {
         if (isFunction(this.beforeclose)) {
