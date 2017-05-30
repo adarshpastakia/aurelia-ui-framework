@@ -308,7 +308,6 @@ export class BaseListInput {
     disabled.bind="isDisabled" readonly.bind="!allowSearch || readonly"/>
   <span class="ui-clear" if.bind="clear && value" click.trigger="clearInput()">&times;</span>
   <span class="ui-input-addon ui-dropdown-handle" click.trigger="openDropdown($event, inputEl.focus())"><ui-glyph glyph="glyph-chevron-down"></ui-glyph></span></div>
-  <div class="ui-input-info" if.bind="info" innerhtml.bind="info"></div>
 
   <div class="ui-list-container ui-floating" ref="dropdown">
     <div if.bind="filtered.length==0" class="ui-list-group">\${emptyText}</div>
@@ -318,6 +317,7 @@ export class BaseListInput {
       <span class="\${iconClass} \${item.icon}" if.bind="item.icon"></span>&nbsp;<span innerhtml.bind="item.display"></span></div>
     </template>
   </div>
+  <div class="ui-input-info" if.bind="info" innerhtml.bind="info"></div>
 </template>`)
 @customElement('ui-combo')
 export class UICombo extends BaseListInput {
