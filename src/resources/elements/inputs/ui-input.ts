@@ -125,19 +125,19 @@ export class UIInput extends UIBaseInput {
     this.ignore = true;
     this.number = isNaN(parseFloat(newValue)) ? null : parseFloat(newValue);
     this.decimal = isNaN(parseFloat(newValue)) ? null : parseFloat(newValue);
-    if (this.type === 'number' && this.number === null) this.inputEl.value = this.value = '';
+    if (this.type === 'number' && this.number === null && this.decimal === null) this.inputEl.value = this.value = '';
     setTimeout(() => this.ignore = false, 100);
   }
   numberChanged(newValue) {
     if (this.ignore) return;
     this.ignore = true;
-    this.value = newValue == null ? '' : newValue;
+    this.value = newValue === null ? '' : newValue;
     setTimeout(() => this.ignore = false, 100);
   }
   decimalChanged(newValue) {
     if (this.ignore) return;
     this.ignore = true;
-    this.value = newValue == null ? '' : newValue;
+    this.value = newValue === null ? '' : newValue;
     setTimeout(() => this.ignore = false, 100);
   }
 
