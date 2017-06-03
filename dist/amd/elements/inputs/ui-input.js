@@ -79,7 +79,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event"], func
             _this.dir = '';
             _this.width = 'auto';
             _this.errors = null;
-            _this.maxlength = 99;
+            _this.maxlength = 1000;
             _this.disabled = false;
             _this.readonly = false;
             _this.info = '';

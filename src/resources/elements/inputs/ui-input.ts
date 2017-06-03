@@ -108,7 +108,7 @@ export class UIInput extends UIBaseInput {
   @bindable() dir = '';
   @bindable() width = 'auto';
   @bindable() errors = null;
-  @bindable() maxlength = 99;
+  @bindable() maxlength = 1000;
   @bindable() disabled = false;
   @bindable() readonly = false;
   @bindable() info = '';
