@@ -141,7 +141,7 @@ var UIInput = (function (_super) {
     };
     UIInput.prototype.fireEvent = function (evt) {
         if (evt.type === 'input') {
-            if (this.type === 'email' || this.type === 'url')
+            if (this.type === 'email')
                 this.value = this.value.toLowerCase();
         }
         _super.prototype.fireEvent.call(this, evt);

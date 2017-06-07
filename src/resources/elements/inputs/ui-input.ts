@@ -143,7 +143,7 @@ export class UIInput extends UIBaseInput {
 
   fireEvent(evt) {
     if (evt.type === 'input') {
-      if (this.type === 'email' || this.type === 'url') this.value = this.value.toLowerCase();
+      if (this.type === 'email') this.value = this.value.toLowerCase();
     }
     super.fireEvent(evt);
   }

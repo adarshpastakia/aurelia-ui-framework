@@ -121,7 +121,7 @@ let UIInput = class UIInput extends UIBaseInput {
     }
     fireEvent(evt) {
         if (evt.type === 'input') {
-            if (this.type === 'email' || this.type === 'url')
+            if (this.type === 'email')
                 this.value = this.value.toLowerCase();
         }
         super.fireEvent(evt);
