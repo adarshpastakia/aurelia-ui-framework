@@ -36,11 +36,13 @@ var UIDropdown = (function () {
                 return true;
             _this.element.classList.remove('ui-open');
         });
+        this.obLocale = ui_event_1.UIEvent.subscribe('i18n:locale:changed', function (e) { return _this.localeChanged(); });
         ui_event_1.UIEvent.queueTask(function () { return _this.valueChanged(_this.value); });
     };
     UIDropdown.prototype.detached = function () {
         this.tether.dispose();
         this.obMouseup.dispose();
+        this.obLocale.dispose();
     };
     UIDropdown.prototype.valueChanged = function (newValue) {
         var _this = this;
@@ -59,6 +61,14 @@ var UIDropdown = (function () {
             this.display = this.defaultText;
             this.glyph = '';
         }
+    };
+    UIDropdown.prototype.localeChanged = function () {
+        var _this = this;
+        ui_event_1.UIEvent.queueTask(function () {
+            var it = _this.items.find(function (it) { return it.value == _this.value; });
+            if (it)
+                _this.display = it.element.innerText;
+        });
     };
     UIDropdown.prototype.disabledChanged = function (newValue) {
         this.element.classList[(this.isDisabled = this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');

@@ -14,11 +14,13 @@ export declare class UIDropdown {
     private tether;
     private dropdown;
     private obMouseup;
+    private obLocale;
     private selected;
     private glyph;
     private display;
     private isDisabled;
     valueChanged(newValue: any): void;
+    localeChanged(): void;
     disabledChanged(newValue: any): void;
     disable(b: any): void;
     select(evt: any): void;

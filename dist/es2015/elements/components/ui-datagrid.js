@@ -33,12 +33,12 @@ let UIDgCell = class UIDgCell {
         <ui-glyph class="\${col.class} \${col.getGlyph(record[col.dataId],record)}" glyph.bind="col.getGlyph(record[col.dataId],record)"></ui-glyph>
         </div>`;
         else if (this.col.type == 'link')
-            template = `<a class="ui-link \${col.class} \${col.isDisabled(record[col.dataId],record)?'ui-disabled':''}" click.trigger="col.fireClick($event,record[col.dataId],record)">
+            template = `<a class="ui-link \${col.class} \${col.isDisabled(record[col.dataId],record)?'ui-disabled':''}" click.trigger="col.fireClick($event,record[col.dataId],record)" show.bind="col.isVisible(record[col.dataId],record)">
           <ui-glyph glyph.bind="col.getGlyph(record[col.dataId],record)" if.bind="col.glyph"></ui-glyph>
           <span innerhtml.bind="col.getLabel(record[col.dataId],record)"></span>
         </a>`;
         else if (this.col.type == 'button') {
-            template = `<ui-button click.trigger="col.fireClick($event,record[col.dataId],record)" theme.bind="col.getTheme(record[col.dataId],record)" small square glyph.bind="col.getGlyph(record[col.dataId],record)" disabled.bind="col.isDisabled(record[col.dataId],record)" dropdown.bind="col.dropdown" menuopen.trigger="col.fireMenuOpen($event, record)">
+            template = `<ui-button click.trigger="col.fireClick($event,record[col.dataId],record)" show.bind="col.isVisible(record[col.dataId],record)" theme.bind="col.getTheme(record[col.dataId],record)" small square glyph.bind="col.getGlyph(record[col.dataId],record)" disabled.bind="col.isDisabled(record[col.dataId],record)" dropdown.bind="col.dropdown" menuopen.trigger="col.fireMenuOpen($event, record)">
           <span innerhtml.bind="col.getLabel(record[col.dataId],record)"></span>
         </ui-button>`;
             this.element.classList.add('btn-fix');

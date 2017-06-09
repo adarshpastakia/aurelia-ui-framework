@@ -70,8 +70,10 @@ export declare class UIDGLink extends UIDataColumn {
     glyph: any;
     label: any;
     class: string;
+    show: any;
     disabled: any;
     isDisabled(value: any, record: any): any;
+    isVisible(value: any, record: any): any;
     getGlyph(value: any, record: any): any;
     getLabel(value: any, record: any): any;
     fireClick($event: any, value: any, record: any): boolean;
@@ -87,8 +89,10 @@ export declare class UIDGButton extends UIDataColumn {
     label: any;
     dropdown: any;
     theme: any;
+    show: any;
     disabled: any;
     isDisabled(value: any, record: any): any;
+    isVisible(value: any, record: any): any;
     getGlyph(value: any, record: any): any;
     getLabel(value: any, record: any): any;
     getTheme(value: any, record: any): any;

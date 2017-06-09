@@ -82,14 +82,14 @@ System.register(["aurelia-framework", "../../utils/ui-format", "../../utils/ui-e
                     return this.element.innerHTML + '&nbsp;';
                 };
                 UIDataColumn.prototype.getValue = function (value, record) {
-                    return this.processValue(value, record) || '&nbsp;';
+                    return this.processValue(value, record);
                 };
                 UIDataColumn.prototype.processValue = function (value, record) {
                     var retVal = '';
                     if (isFunction(this.value))
                         value = this.value(({ value: value, record: record }));
                     if (isFunction(this.display))
-                        retVal = this.display(({ value: value, record: record })) || '';
+                        retVal = this.display(({ value: value, record: record }));
                     else {
                         switch (this.dataType) {
                             case 'age':
@@ -124,7 +124,7 @@ System.register(["aurelia-framework", "../../utils/ui-format", "../../utils/ui-e
                                 break;
                         }
                     }
-                    return retVal;
+                    return isEmpty(retVal) ? '&nbsp;' : retVal;
                 };
                 UIDataColumn.prototype.getSummary = function (summaryRow, data) {
                     if (!this.summary)
@@ -329,6 +329,7 @@ System.register(["aurelia-framework", "../../utils/ui-format", "../../utils/ui-e
                     _this.element = element;
                     _this.type = 'link';
                     _this.class = '';
+                    _this.show = null;
                     _this.disabled = null;
                     return _this;
                 }
@@ -338,6 +339,13 @@ System.register(["aurelia-framework", "../../utils/ui-format", "../../utils/ui-e
                     if (this.disabled != null)
                         return record[this.disabled];
                     return false;
+                };
+                UIDGLink.prototype.isVisible = function (value, record) {
+                    if (isFunction(this.show))
+                        return this.show(({ value: value, record: record }));
+                    if (this.show != null)
+                        return record[this.show];
+                    return true;
                 };
                 UIDGLink.prototype.getGlyph = function (value, record) {
                     if (isFunction(this.glyph))
@@ -386,6 +394,10 @@ System.register(["aurelia-framework", "../../utils/ui-format", "../../utils/ui-e
             __decorate([
                 aurelia_framework_1.bindable(),
                 __metadata("design:type", Object)
+            ], UIDGLink.prototype, "show", void 0);
+            __decorate([
+                aurelia_framework_1.bindable(),
+                __metadata("design:type", Object)
             ], UIDGLink.prototype, "disabled", void 0);
             UIDGLink = __decorate([
                 aurelia_framework_1.autoinject(),
@@ -401,6 +413,7 @@ System.register(["aurelia-framework", "../../utils/ui-format", "../../utils/ui-e
                     _this.element = element;
                     _this.type = 'button';
                     _this.theme = 'default';
+                    _this.show = null;
                     _this.disabled = null;
                     _this.align = 'ui-text-center';
                     return _this;
@@ -411,6 +424,13 @@ System.register(["aurelia-framework", "../../utils/ui-format", "../../utils/ui-e
                     if (this.disabled != null)
                         return record[this.disabled];
                     return false;
+                };
+                UIDGButton.prototype.isVisible = function (value, record) {
+                    if (isFunction(this.show))
+                        return this.show(({ value: value, record: record }));
+                    if (this.show != null)
+                        return record[this.show];
+                    return true;
                 };
                 UIDGButton.prototype.getGlyph = function (value, record) {
                     if (isFunction(this.glyph))
@@ -469,6 +489,10 @@ System.register(["aurelia-framework", "../../utils/ui-format", "../../utils/ui-e
                 aurelia_framework_1.bindable(),
                 __metadata("design:type", Object)
             ], UIDGButton.prototype, "theme", void 0);
+            __decorate([
+                aurelia_framework_1.bindable(),
+                __metadata("design:type", Object)
+            ], UIDGButton.prototype, "show", void 0);
             __decorate([
                 aurelia_framework_1.bindable(),
                 __metadata("design:type", Object)

@@ -1,3 +1,17 @@
+<a name="3.4.0"></a>
+# 3.4.0 (2017-06-09)
+
+
+
+
+* UIInput: Fixed issue when bound value is 0
+* UIDgColumn: Fixed issue when display value is 0
+* UIValidationRenderer: Fixed repeated error message issue
+* UITab: Fixed tab-button-bar layout, added `glyphClass` property
+* UIDropdown: Fixed issue to update selected label on i18n locale change
+* UIDgButton, UIDgLink: Added `show` bound property for conditional display for links and buttons
+
+
 <a name="3.3.18"></a>
 ## 3.3.18 (2017-06-03)
 

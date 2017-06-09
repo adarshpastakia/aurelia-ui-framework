@@ -56,14 +56,14 @@ export class UIDataColumn {
         return this.element.innerHTML + '&nbsp;';
     }
     getValue(value, record) {
-        return this.processValue(value, record) || '&nbsp;';
+        return this.processValue(value, record);
     }
     processValue(value, record) {
         let retVal = '';
         if (isFunction(this.value))
             value = this.value(({ value, record }));
         if (isFunction(this.display))
-            retVal = this.display(({ value, record })) || '';
+            retVal = this.display(({ value, record }));
         else {
             switch (this.dataType) {
                 case 'age':
@@ -98,7 +98,7 @@ export class UIDataColumn {
                     break;
             }
         }
-        return retVal;
+        return isEmpty(retVal) ? '&nbsp;' : retVal;
     }
     getSummary(summaryRow, data) {
         if (!this.summary)
@@ -293,6 +293,7 @@ let UIDGLink = class UIDGLink extends UIDataColumn {
         this.element = element;
         this.type = 'link';
         this.class = '';
+        this.show = null;
         this.disabled = null;
     }
     isDisabled(value, record) {
@@ -301,6 +302,13 @@ let UIDGLink = class UIDGLink extends UIDataColumn {
         if (this.disabled != null)
             return record[this.disabled];
         return false;
+    }
+    isVisible(value, record) {
+        if (isFunction(this.show))
+            return this.show(({ value, record }));
+        if (this.show != null)
+            return record[this.show];
+        return true;
     }
     getGlyph(value, record) {
         if (isFunction(this.glyph))
@@ -348,6 +356,10 @@ __decorate([
 __decorate([
     bindable(),
     __metadata("design:type", Object)
+], UIDGLink.prototype, "show", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
 ], UIDGLink.prototype, "disabled", void 0);
 UIDGLink = __decorate([
     autoinject(),
@@ -362,6 +374,7 @@ let UIDGButton = class UIDGButton extends UIDataColumn {
         this.element = element;
         this.type = 'button';
         this.theme = 'default';
+        this.show = null;
         this.disabled = null;
         this.align = 'ui-text-center';
     }
@@ -371,6 +384,13 @@ let UIDGButton = class UIDGButton extends UIDataColumn {
         if (this.disabled != null)
             return record[this.disabled];
         return false;
+    }
+    isVisible(value, record) {
+        if (isFunction(this.show))
+            return this.show(({ value, record }));
+        if (this.show != null)
+            return record[this.show];
+        return true;
     }
     getGlyph(value, record) {
         if (isFunction(this.glyph))
@@ -428,6 +448,10 @@ __decorate([
     bindable(),
     __metadata("design:type", Object)
 ], UIDGButton.prototype, "theme", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIDGButton.prototype, "show", void 0);
 __decorate([
     bindable(),
     __metadata("design:type", Object)

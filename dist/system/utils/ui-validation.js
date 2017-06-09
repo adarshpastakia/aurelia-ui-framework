@@ -47,6 +47,8 @@ System.register(["aurelia-framework", "../elements/inputs/ui-markdown"], functio
                         var vm = element.au.controller.viewModel;
                         if (!vm.errors)
                             vm.errors = [];
+                        if (~vm.errors.indexOf(result))
+                            return;
                         if (element.au.controller.viewModel && element.au.controller.viewModel instanceof ui_markdown_1.UILanguage) {
                             var ms = result.message.split('|');
                             vm.errors.push(result);

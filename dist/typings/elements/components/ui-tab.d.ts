@@ -49,6 +49,7 @@ export declare class UITab {
     id: string;
     glyph: string;
     label: string;
+    glyphClass: string;
     disabled: boolean;
     beforeclose: any;
     active: boolean;

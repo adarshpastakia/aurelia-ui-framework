@@ -33,11 +33,13 @@ let UIDropdown = class UIDropdown {
                 return true;
             this.element.classList.remove('ui-open');
         });
+        this.obLocale = UIEvent.subscribe('i18n:locale:changed', e => this.localeChanged());
         UIEvent.queueTask(() => this.valueChanged(this.value));
     }
     detached() {
         this.tether.dispose();
         this.obMouseup.dispose();
+        this.obLocale.dispose();
     }
     valueChanged(newValue) {
         if (this.selected)
@@ -55,6 +57,13 @@ let UIDropdown = class UIDropdown {
             this.display = this.defaultText;
             this.glyph = '';
         }
+    }
+    localeChanged() {
+        UIEvent.queueTask(() => {
+            let it = this.items.find(it => it.value == this.value);
+            if (it)
+                this.display = it.element.innerText;
+        });
     }
     disabledChanged(newValue) {
         this.element.classList[(this.isDisabled = this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');
