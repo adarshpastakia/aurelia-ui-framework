@@ -238,12 +238,19 @@ export class UIDGLink extends UIDataColumn {
   @bindable() glyph;
   @bindable() label;
   @bindable() class = '';
+  @bindable() show = null;
   @bindable() disabled = null;
 
   isDisabled(value, record) {
     if (isFunction(this.disabled)) return this.disabled(({ value, record }));
     if (this.disabled != null) return record[this.disabled];
     return false;
+  }
+
+  isVisible(value, record) {
+    if (isFunction(this.show)) return this.show(({ value, record }));
+    if (this.show != null) return record[this.show];
+    return true;
   }
 
   getGlyph(value, record) {
@@ -291,12 +298,19 @@ export class UIDGButton extends UIDataColumn {
   @bindable() label;
   @bindable() dropdown;
   @bindable() theme: any = 'default';
+  @bindable() show = null;
   @bindable() disabled = null;
 
   isDisabled(value, record) {
     if (isFunction(this.disabled)) return this.disabled(({ value, record }));
     if (this.disabled != null) return record[this.disabled];
     return false;
+  }
+
+  isVisible(value, record) {
+    if (isFunction(this.show)) return this.show(({ value, record }));
+    if (this.show != null) return record[this.show];
+    return true;
   }
 
   getGlyph(value, record) {
