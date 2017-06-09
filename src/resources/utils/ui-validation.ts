@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
@@ -33,6 +33,9 @@ export class UIValidationRenderer {
     try {
       let vm = element.au.controller.viewModel;
       if (!vm.errors) vm.errors = [];
+
+      if (~vm.errors.indexOf(result)) return;
+
       if (element.au.controller.viewModel && element.au.controller.viewModel instanceof UILanguage) {
         let ms = result.message.split('|');
         vm.errors.push(result);
