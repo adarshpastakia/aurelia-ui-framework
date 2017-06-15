@@ -155,8 +155,15 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "./ui-http
             }
             return this.checkDirty(this.__original__, this);
         };
-        UIModel.prototype.isPropDirty = function (property) {
-            return !(this.hasOwnProperty(property) && (this[property] === this.__original__[property]));
+        UIModel.prototype.dirtyProperty = function (key) {
+            var t = this, o = this.__original__;
+            if (t[key] instanceof UIModel_1)
+                return t[key].isDirty();
+            if (_.isArray(o[key]) && o[key].length != t[key].length)
+                return true;
+            if (_.isArray(o[key]) || _.isObject(o[key]))
+                return this.checkDirty(o[key], t[key]);
+            return t.hasOwnProperty(key) && (t[key] !== o[key]);
         };
         UIModel.prototype.checkDirty = function (o, t) {
             var _this = this;
@@ -175,6 +182,7 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "./ui-http
     }());
     UIModel = UIModel_1 = __decorate([
         aurelia_framework_1.autoinject(),
+        aurelia_framework_1.transient(),
         __metadata("design:paramtypes", [])
     ], UIModel);
     exports.UIModel = UIModel;

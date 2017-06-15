@@ -66,12 +66,12 @@ export class UIDgCell {
         <ui-glyph class="\${col.class} \${col.getGlyph(record[col.dataId],record)}" glyph.bind="col.getGlyph(record[col.dataId],record)"></ui-glyph>
         </div>`;
     else if (this.col.type == 'link')
-      template = `<a class="ui-link \${col.class} \${col.isDisabled(record[col.dataId],record)?'ui-disabled':''}" click.trigger="col.fireClick($event,record[col.dataId],record)">
+      template = `<a class="ui-link \${col.class} \${col.isDisabled(record[col.dataId],record)?'ui-disabled':''}" click.trigger="col.fireClick($event,record[col.dataId],record)" show.bind="col.isVisible(record[col.dataId],record)">
           <ui-glyph glyph.bind="col.getGlyph(record[col.dataId],record)" if.bind="col.glyph"></ui-glyph>
           <span innerhtml.bind="col.getLabel(record[col.dataId],record)"></span>
         </a>`;
     else if (this.col.type == 'button') {
-      template = `<ui-button small square dropdown.bind="col.dropdown" click.trigger="col.fireClick($event,record[col.dataId],record)" theme.bind="col.getTheme(record[col.dataId],record)" glyph.bind="col.getGlyph(record[col.dataId],record)" disabled.bind="col.isDisabled(record[col.dataId],record)" menuopen.trigger="col.fireMenuOpen($event, record)">
+      template = `<ui-button click.trigger="col.fireClick($event,record[col.dataId],record)" show.bind="col.isVisible(record[col.dataId],record)" theme.bind="col.getTheme(record[col.dataId],record)" small square glyph.bind="col.getGlyph(record[col.dataId],record)" disabled.bind="col.isDisabled(record[col.dataId],record)" dropdown.bind="col.dropdown" menuopen.trigger="col.fireMenuOpen($event, record)">
           <span innerhtml.bind="col.getLabel(record[col.dataId],record)"></span>
         </ui-button>`;
       this.element.classList.add('btn-fix');
@@ -206,7 +206,7 @@ export class UIDgRow {
     </template>
   </div>
 </div>
-<div show.bind="store.isEmpty" class="ui-dg-empty"><slot name="dg-empty"></slot></div>
+<div show.bind="data.length==0" class="ui-dg-empty"><slot name="dg-empty"></slot></div>
 <div ref="dgBody" class="ui-dg-body" scroll.trigger="(scrollLeft = dgBody.scrollLeft)" if.bind="!virtual">
   <ui-dg-row containerless parent.bind="$parent" record.bind="record" index.bind="$index" odd.bind="$odd" repeat.for="record of store.data"></ui-dg-row>
   <div class="ui-dg-row ui-dg-filler">

@@ -49,11 +49,12 @@ export declare class UITab {
     id: string;
     glyph: string;
     label: string;
+    glyphClass: string;
     disabled: boolean;
     beforeclose: any;
-    vm: any;
     active: boolean;
     closeable: boolean;
     remove(): void;
+    canDeactivate(): Promise<boolean>;
     readonly viewModel: any;
 }

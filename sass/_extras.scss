@@ -1,0 +1,51 @@
+//
+// @description :
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+
+// Compass
+@import "compass/css3";
+@import 'compass/css3/selection';
+@import "compass/typography";
+// Vars
+@import "colors";
+@import "variables";
+@import "themes";
+$colors: (
+  ('red',   $red,     $light),
+  ('pink',  $pink,    $light),
+  ('violet',$violet,  $light),
+  ('purple',$purple,  $light),
+  ('indigo',$indigo,  $light),
+  ('blue',  $blue,    $light),
+  ('cyan',  $cyan,    $light),
+  ('teal',  $teal,    $light),
+  ('green', $green,   $light),
+  ('lime',  $lime,    $dark),
+  ('yellow',$yellow,  $dark),
+  ('amber', $amber,   $dark),
+  ('orange',$orange,  $light),
+  ('brown', $brown,   $light),
+  ('gray',  $gray,    $light)
+);
+@each $key, $color, $text in $colors {
+
+  @include color-property(bg, $key, background-color, $color);
+  @include color-property(text, $key, color, $color);
+  @include color-property(border, $key, border-color, $color);
+
+  @include switch-theme($key, $onBg: $color, $onText: $text);
+  @include toolbar-theme($key, $color, $text);
+  @include statsbar-theme(#{$key}-bg, $text, $color);
+  @include statsbar-theme($key, $color);
+  @include toast-theme($key, $color, $text);
+  @include header-theme($key, $color, $text);
+  @include breadcrumb-theme($key, $color);
+
+  @include chip-theme($key, $color, $text);
+  @include ribbon-theme($key, $color, $text);
+  @include tooltip-theme($key, $color, $text);
+
+  @include button-theme($key, $color, $text, tint($color, 10%), $text, shade($color, 10%), $text);
+}

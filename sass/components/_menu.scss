@@ -63,6 +63,7 @@ a.ui-menu-item {
 
 .ui-menubar {
   z-index         : 5;
+  position        : relative;
   @include flex(0 0 auto);
   @include flex-row($align: center, $wrap:false);
   background-color: $menubar-bg;

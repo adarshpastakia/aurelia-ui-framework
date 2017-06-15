@@ -29,6 +29,8 @@ let UIValidationRenderer = class UIValidationRenderer {
             let vm = element.au.controller.viewModel;
             if (!vm.errors)
                 vm.errors = [];
+            if (~vm.errors.indexOf(result))
+                return;
             if (element.au.controller.viewModel && element.au.controller.viewModel instanceof UILanguage) {
                 let ms = result.message.split('|');
                 vm.errors.push(result);

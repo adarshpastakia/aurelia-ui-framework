@@ -18,10 +18,25 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
             this.collapsed = false;
         }
         UIPanel.prototype.bind = function (bindingContext, overrideContext) {
-            this.collapsed = this.element.hasAttribute('collapsed');
+            this.collapsed = isTrue(this.collapsed) || this.element.hasAttribute('collapsed');
         };
         UIPanel.prototype.close = function () {
-            aurelia_framework_1.DOM.removeNode(this.element);
+            var _this = this;
+            if (isFunction(this.beforeclose)) {
+                var ret = this.beforeclose();
+                if (ret instanceof Promise)
+                    ret.then(function (b) {
+                        if (b) {
+                            aurelia_framework_1.DOM.removeNode(_this.element);
+                        }
+                    });
+                else if (ret !== false) {
+                    aurelia_framework_1.DOM.removeNode(this.element);
+                }
+            }
+            else if (ui_event_1.UIEvent.fireEvent('beforeclose', this.element) !== false) {
+                aurelia_framework_1.DOM.removeNode(this.element);
+            }
         };
         UIPanel.prototype.collapse = function () {
             this.collapsed = true;
@@ -50,6 +65,10 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
         aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
         __metadata("design:type", Object)
     ], UIPanel.prototype, "collapsed", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIPanel.prototype, "beforeclose", void 0);
     UIPanel = __decorate([
         aurelia_framework_1.autoinject(),
         aurelia_framework_1.inlineView("<template class=\"ui-panel ${collapsed?'ui-collapse':''} ${expanded?'ui-expand':''}\" css.bind=\"{'height':height}\" collapse.trigger=\"toggleCollapse()\" expand.trigger=\"expand()\" restore.trigger=\"expand()\" close.trigger=\"close()\"><slot></slot></template>"),

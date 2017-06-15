@@ -78,8 +78,8 @@ export class UITabbarToggle {
   <slot name="ui-tabbar-start"></slot>
   <div class="ui-tabbar-buttons" ref="wrapper" if.bind="!noTabs">
     <a click.trigger="activateTab(tab)" repeat.for="tab of tabs" class="ui-tab-button \${tab.active?'ui-active':''} \${tab.disabled?'ui-disabled':''}">
-      <ui-glyph if.bind="tab.glyph" class="ui-tab-icon \${tab.glyph}" glyph.bind="tab.glyph"></ui-glyph>
-      <span class="ui-label" if.bind="tab.label">\${tab.label}</span>
+      <ui-glyph if.bind="tab.glyph" class="ui-tab-icon \${tab.glyphClass}" glyph.bind="tab.glyph"></ui-glyph>
+      <span class="ui-label" if.bind="tab.label" innerhtml.bind="tab.label"></span>
       <span if.bind="tab.closeable" class="ui-close" click.trigger="closeTab(tab)">&nbsp;&times;</span>
     </a>
     <div class="ui-tabbar-toggle ui-tab-button" ref="overflowToggle" show.bind="isOverflow" click.trigger="showOverflow($event)"><ui-glyph glyph="glyph-handle-overflow"></ui-glyph></div>
@@ -153,20 +153,25 @@ export class UITabPanel {
   }
 
   private closeTab(tab) {
-    if (isFunction(tab.beforeclose)) {
-      let ret = tab.beforeclose(tab);
-      if (ret instanceof Promise) ret.then(b => {
-        if (b) {
-          this.doClose(tab);
+    tab.canDeactivate()
+      .then(b => {
+        if (b === true) {
+          if (isFunction(tab.beforeclose)) {
+            let ret = tab.beforeclose(tab);
+            if (ret instanceof Promise) ret.then(b => {
+              if (b) {
+                this.doClose(tab);
+              }
+            });
+            else if (ret !== false) {
+              this.doClose(tab);
+            }
+          }
+          else if (UIEvent.fireEvent('beforeclose', tab.element, tab) !== false) {
+            this.doClose(tab);
+          }
         }
       });
-      else if (ret !== false) {
-        this.doClose(tab);
-      }
-    }
-    else if (UIEvent.fireEvent('beforeclose', tab.element, tab) !== false) {
-      this.doClose(tab);
-    }
   }
   private doClose(tab) {
     _.remove(this.tabs, ['id', tab.id]);
@@ -247,16 +252,37 @@ export class UITab {
   @bindable() id = '';
   @bindable() glyph = '';
   @bindable() label = '';
+  @bindable() glyphClass = '';
   @bindable() disabled = false;
 
   @bindable() beforeclose: any;
 
-  public vm;
   public active = false;
   public closeable = false;
 
   remove() {
+    try {
+      if (this.viewModel) this.viewModel.detached();
+    } catch (e) { }
     DOM.removeNode(this.element);
+    try {
+      if (this.viewModel) this.viewModel.unbind();
+    } catch (e) { }
+  }
+
+  canDeactivate() {
+    let instance = this.viewModel;
+    if (instance && typeof instance.canDeactivate === 'function') {
+      let result = instance.canDeactivate();
+      if (result instanceof Promise) {
+        return result;
+      }
+      if (result !== null && result !== undefined) {
+        return Promise.resolve(result);
+      }
+      return Promise.resolve(true);
+    }
+    return Promise.resolve(true);
   }
 
   get viewModel() {

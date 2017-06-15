@@ -44,9 +44,4 @@ export class TabbedLayout {
   closeTab(id) {
     this.tabPanel.close(id, true);
   }
-
-  beforeClose(id, tab) {
-    if (!(~id.indexOf('salesform'))) return true;
-    return UIUtils.confirm("Discard changes?");
-  }
 }

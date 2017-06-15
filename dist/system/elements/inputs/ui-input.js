@@ -90,7 +90,7 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                     _this.dir = '';
                     _this.width = 'auto';
                     _this.errors = null;
-                    _this.maxlength = 99;
+                    _this.maxlength = 1000;
                     _this.disabled = false;
                     _this.readonly = false;
                     _this.info = '';
@@ -127,9 +127,9 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                     if (this.ignore)
                         return;
                     this.ignore = true;
-                    this.number = isNaN(parseFloat(newValue)) ? null : parseFloat(newValue);
-                    this.decimal = isNaN(parseFloat(newValue)) ? null : parseFloat(newValue);
-                    if (this.type === 'number' && this.number === null)
+                    this.number = isNaN(newValue) ? null : parseFloat(newValue);
+                    this.decimal = isNaN(newValue) ? null : parseFloat(newValue);
+                    if (this.type === 'number' && this.number === null && this.decimal === null)
                         this.inputEl.value = this.value = '';
                     setTimeout(function () { return _this.ignore = false; }, 100);
                 };
@@ -138,7 +138,7 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                     if (this.ignore)
                         return;
                     this.ignore = true;
-                    this.value = newValue == null ? '' : newValue;
+                    this.inputEl.value = this.value = newValue === null ? '' : newValue;
                     setTimeout(function () { return _this.ignore = false; }, 100);
                 };
                 UIInput.prototype.decimalChanged = function (newValue) {
@@ -146,12 +146,12 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                     if (this.ignore)
                         return;
                     this.ignore = true;
-                    this.value = newValue == null ? '' : newValue;
+                    this.inputEl.value = this.value = newValue === null ? '' : newValue;
                     setTimeout(function () { return _this.ignore = false; }, 100);
                 };
                 UIInput.prototype.fireEvent = function (evt) {
                     if (evt.type === 'input') {
-                        if (this.type === 'email' || this.type === 'url')
+                        if (this.type === 'email')
                             this.value = this.value.toLowerCase();
                     }
                     _super.prototype.fireEvent.call(this, evt);

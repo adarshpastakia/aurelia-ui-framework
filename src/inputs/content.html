@@ -10,11 +10,13 @@
         <ui-form>
         <ui-row>
           <ui-column full>
-            <ui-input-group width="18em">
+            <div style="width: 24em">
+            <ui-input-group>
               <ui-input-label>Language</ui-input-label>
               <ui-language value.bind="language" dir.bind="dir" languages.bind="model.languages | keys & validateOnChangeOrBlur"
                add.trigger="addLanguage($event.detail)" remove.trigger="addLanguage($event.detail)"></ui-language>
             </ui-input-group>
+          </div>
             <ui-input-group>
               <ui-input-label align-top>Summary</ui-input-label>
               <ui-input counter clear value.bind="model.languages[language].summary & validateOnChangeOrBlur" dir.bind="dir" disabled.bind="!language"></ui-input>

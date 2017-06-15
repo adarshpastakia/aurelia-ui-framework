@@ -1,11 +1,7 @@
-//
-// @description :
-// @author      : Adarsh Pastakia
-// @copyright   : 2017
-// @license     : MIT
 import {autoinject} from 'aurelia-framework';
 import {ValidationRules, ValidationController, ValidationControllerFactory, validateTrigger} from "aurelia-validation";
 import {UIModel} from "../resources/utils/ui-model";
+import {UIValidationRenderer} from "../resources/utils/ui-validation";
 import * as _ from "lodash";
 
 @autoinject()
@@ -13,6 +9,7 @@ export class InputValidation {
   constructor(public element: Element, controllerFactory: ValidationControllerFactory) {
     this.controller = controllerFactory.createForCurrentScope();
     this.controller.validateTrigger = validateTrigger.changeOrBlur;
+    this.controller.addRenderer(new UIValidationRenderer());
     this.model = new DataModel();
   }
 
@@ -72,6 +69,7 @@ export class DataModel extends UIModel {
       .ensure(m => m.longitude)
       .satisfiesRule('decimal', -180, 180)
       .ensure(m => m.address1)
+      .displayName('Address')
       .required()
       .ensure(m => m.city)
       .required()

@@ -64,7 +64,7 @@ let UIInput = class UIInput extends UIBaseInput {
         this.dir = '';
         this.width = 'auto';
         this.errors = null;
-        this.maxlength = 99;
+        this.maxlength = 1000;
         this.disabled = false;
         this.readonly = false;
         this.info = '';
@@ -99,9 +99,9 @@ let UIInput = class UIInput extends UIBaseInput {
         if (this.ignore)
             return;
         this.ignore = true;
-        this.number = isNaN(parseFloat(newValue)) ? null : parseFloat(newValue);
-        this.decimal = isNaN(parseFloat(newValue)) ? null : parseFloat(newValue);
-        if (this.type === 'number' && this.number === null)
+        this.number = isNaN(newValue) ? null : parseFloat(newValue);
+        this.decimal = isNaN(newValue) ? null : parseFloat(newValue);
+        if (this.type === 'number' && this.number === null && this.decimal === null)
             this.inputEl.value = this.value = '';
         setTimeout(() => this.ignore = false, 100);
     }
@@ -109,19 +109,19 @@ let UIInput = class UIInput extends UIBaseInput {
         if (this.ignore)
             return;
         this.ignore = true;
-        this.value = newValue == null ? '' : newValue;
+        this.inputEl.value = this.value = newValue === null ? '' : newValue;
         setTimeout(() => this.ignore = false, 100);
     }
     decimalChanged(newValue) {
         if (this.ignore)
             return;
         this.ignore = true;
-        this.value = newValue == null ? '' : newValue;
+        this.inputEl.value = this.value = newValue === null ? '' : newValue;
         setTimeout(() => this.ignore = false, 100);
     }
     fireEvent(evt) {
         if (evt.type === 'input') {
-            if (this.type === 'email' || this.type === 'url')
+            if (this.type === 'email')
                 this.value = this.value.toLowerCase();
         }
         super.fireEvent(evt);

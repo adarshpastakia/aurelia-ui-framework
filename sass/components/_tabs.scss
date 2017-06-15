@@ -56,6 +56,7 @@
     }
 
     > .ui-tabbar-buttons {
+      position: relative;
       @include flex-fill();
       @include flex-row($align:stretch, $wrap:false);
     }

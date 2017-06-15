@@ -214,12 +214,12 @@ System.register(["aurelia-framework", "aurelia-logging", "aurelia-fetch-client",
                         'Access-Control-Allow-Origin': '*'
                     };
                     Object.assign(headers, ui_constants_1.UIConstants.Http.Headers || {});
-                    if (override === true && ui_constants_1.UIConstants.Http.AuthorizationHeader && !isEmpty(this.app.AuthUser)) {
+                    if (override !== false && ui_constants_1.UIConstants.Http.AuthorizationHeader && !isEmpty(this.app.AuthUser)) {
                         var token = this.app.AuthUser + ":" + this.app.AuthToken;
                         var hash = btoa(token);
                         headers['Authorization'] = "Basic " + hash;
                     }
-                    else if (override !== false) {
+                    if (typeof override == 'object') {
                         Object.assign(headers, override || {});
                     }
                     return headers;

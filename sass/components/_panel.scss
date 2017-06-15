@@ -42,18 +42,19 @@
     }
   }
 
-  &.ui-expand {
-    height : auto !important;
-    z-index: $z-index-dialog;
-    @include position(absolute, .5em);
-  }
-
   &.ui-collapse {
     .ui-header-button.ui-collapse .ui-icon {
       @include transform(rotate(-180deg));
     }
 
     max-height: 2.1em !important;
+  }
+
+  &.ui-expand {
+    height    : auto !important;
+    max-height: none !important;
+    z-index   : $z-index-dialog;
+    @include position(absolute, .5em);
   }
 }
 

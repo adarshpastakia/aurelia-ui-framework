@@ -3,7 +3,7 @@
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
-import {autoinject, observable} from 'aurelia-framework';
+import {autoinject, transient} from 'aurelia-framework';
 import {getLogger, Logger} from "aurelia-logging";
 import {ValidationController, ValidationControllerFactory} from "aurelia-validation";
 import {UIHttpService} from "./ui-http";
@@ -12,6 +12,7 @@ import {UIUtils} from "./ui-utils";
 import * as _ from "lodash";
 
 @autoinject()
+@transient()
 export class UIModel {
   public logger: Logger;
   public httpClient: UIHttpService;
@@ -159,8 +160,13 @@ export class UIModel {
     return this.checkDirty(this.__original__, this);
   }
 
-  isPropDirty(property) {
-    return !(this.hasOwnProperty(property) && (this[property] === this.__original__[property]));
+  dirtyProperty(key) {
+    let t = this, o = this.__original__;
+    if (t[key] instanceof UIModel) return t[key].isDirty();
+    if (_.isArray(o[key]) && o[key].length != t[key].length) return true;
+    if (_.isArray(o[key]) || _.isObject(o[key])) return this.checkDirty(o[key], t[key]);
+
+    return t.hasOwnProperty(key) && (t[key] !== o[key]);
   }
 
   private checkDirty(o, t) {

@@ -140,21 +140,26 @@ let UITabPanel = class UITabPanel {
             force ? this.doClose(tab) : this.closeTab(tab);
     }
     closeTab(tab) {
-        if (isFunction(tab.beforeclose)) {
-            let ret = tab.beforeclose(tab);
-            if (ret instanceof Promise)
-                ret.then(b => {
-                    if (b) {
+        tab.canDeactivate()
+            .then(b => {
+            if (b === true) {
+                if (isFunction(tab.beforeclose)) {
+                    let ret = tab.beforeclose(tab);
+                    if (ret instanceof Promise)
+                        ret.then(b => {
+                            if (b) {
+                                this.doClose(tab);
+                            }
+                        });
+                    else if (ret !== false) {
                         this.doClose(tab);
                     }
-                });
-            else if (ret !== false) {
-                this.doClose(tab);
+                }
+                else if (UIEvent.fireEvent('beforeclose', tab.element, tab) !== false) {
+                    this.doClose(tab);
+                }
             }
-        }
-        else if (UIEvent.fireEvent('beforeclose', tab.element, tab) !== false) {
-            this.doClose(tab);
-        }
+        });
     }
     doClose(tab) {
         _.remove(this.tabs, ['id', tab.id]);
@@ -227,8 +232,8 @@ UITabPanel = __decorate([
   <slot name="ui-tabbar-start"></slot>
   <div class="ui-tabbar-buttons" ref="wrapper" if.bind="!noTabs">
     <a click.trigger="activateTab(tab)" repeat.for="tab of tabs" class="ui-tab-button \${tab.active?'ui-active':''} \${tab.disabled?'ui-disabled':''}">
-      <ui-glyph if.bind="tab.glyph" class="ui-tab-icon \${tab.glyph}" glyph.bind="tab.glyph"></ui-glyph>
-      <span class="ui-label" if.bind="tab.label">\${tab.label}</span>
+      <ui-glyph if.bind="tab.glyph" class="ui-tab-icon \${tab.glyphClass}" glyph.bind="tab.glyph"></ui-glyph>
+      <span class="ui-label" if.bind="tab.label" innerhtml.bind="tab.label"></span>
       <span if.bind="tab.closeable" class="ui-close" click.trigger="closeTab(tab)">&nbsp;&times;</span>
     </a>
     <div class="ui-tabbar-toggle ui-tab-button" ref="overflowToggle" show.bind="isOverflow" click.trigger="showOverflow($event)"><ui-glyph glyph="glyph-handle-overflow"></ui-glyph></div>
@@ -246,6 +251,7 @@ let UITab = UITab_1 = class UITab {
         this.id = '';
         this.glyph = '';
         this.label = '';
+        this.glyphClass = '';
         this.disabled = false;
         this.active = false;
         this.closeable = false;
@@ -262,7 +268,31 @@ let UITab = UITab_1 = class UITab {
         this.disabled = isTrue(this.disabled);
     }
     remove() {
+        try {
+            if (this.viewModel)
+                this.viewModel.detached();
+        }
+        catch (e) { }
         DOM.removeNode(this.element);
+        try {
+            if (this.viewModel)
+                this.viewModel.unbind();
+        }
+        catch (e) { }
+    }
+    canDeactivate() {
+        let instance = this.viewModel;
+        if (instance && typeof instance.canDeactivate === 'function') {
+            let result = instance.canDeactivate();
+            if (result instanceof Promise) {
+                return result;
+            }
+            if (result !== null && result !== undefined) {
+                return Promise.resolve(result);
+            }
+            return Promise.resolve(true);
+        }
+        return Promise.resolve(true);
     }
     get viewModel() {
         if (this.element.firstElementChild && this.element.firstElementChild.tagName.toLowerCase() == 'compose')
@@ -283,6 +313,10 @@ __decorate([
     bindable(),
     __metadata("design:type", Object)
 ], UITab.prototype, "label", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UITab.prototype, "glyphClass", void 0);
 __decorate([
     bindable(),
     __metadata("design:type", Object)

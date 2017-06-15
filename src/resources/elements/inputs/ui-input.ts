@@ -108,7 +108,7 @@ export class UIInput extends UIBaseInput {
   @bindable() dir = '';
   @bindable() width = 'auto';
   @bindable() errors = null;
-  @bindable() maxlength = 99;
+  @bindable() maxlength = 1000;
   @bindable() disabled = false;
   @bindable() readonly = false;
   @bindable() info = '';
@@ -123,27 +123,27 @@ export class UIInput extends UIBaseInput {
   valueChanged(newValue) {
     if (this.ignore) return;
     this.ignore = true;
-    this.number = isNaN(parseFloat(newValue)) ? null : parseFloat(newValue);
-    this.decimal = isNaN(parseFloat(newValue)) ? null : parseFloat(newValue);
-    if (this.type === 'number' && this.number === null) this.inputEl.value = this.value = '';
+    this.number = isNaN(newValue) ? null : parseFloat(newValue);
+    this.decimal = isNaN(newValue) ? null : parseFloat(newValue);
+    if (this.type === 'number' && this.number === null && this.decimal === null) this.inputEl.value = this.value = '';
     setTimeout(() => this.ignore = false, 100);
   }
   numberChanged(newValue) {
     if (this.ignore) return;
     this.ignore = true;
-    this.value = newValue == null ? '' : newValue;
+    this.inputEl.value = this.value = newValue === null ? '' : newValue;
     setTimeout(() => this.ignore = false, 100);
   }
   decimalChanged(newValue) {
     if (this.ignore) return;
     this.ignore = true;
-    this.value = newValue == null ? '' : newValue;
+    this.inputEl.value = this.value = newValue === null ? '' : newValue;
     setTimeout(() => this.ignore = false, 100);
   }
 
   fireEvent(evt) {
     if (evt.type === 'input') {
-      if (this.type === 'email' || this.type === 'url') this.value = this.value.toLowerCase();
+      if (this.type === 'email') this.value = this.value.toLowerCase();
     }
     super.fireEvent(evt);
   }

@@ -1,10 +1,60 @@
-<<<<<<< HEAD
 <a name="4.0.0-Beta.1"></a>
 # 4.0.0-Beta.1 (2017-04-28)
 
 
 
-=======
+<a name="3.4.0"></a>
+# 3.4.0 (2017-06-09)
+
+* UIInput: Fixed issue when bound value is 0
+* UIDgColumn: Fixed issue when display value is 0
+* UIValidationRenderer: Fixed repeated error message issue
+* UITab: Fixed tab-button-bar layout, added `glyphClass` property
+* UIDropdown: Fixed issue to update selected label on i18n locale change
+* UIDgButton, UIDgLink: Added `show` bound property for conditional display for links and buttons
+
+
+<a name="3.3.18"></a>
+## 3.3.18 (2017-06-03)
+
+
+
+<a name="3.3.17"></a>
+## 3.3.17 (2017-06-03)
+
+
+
+<a name="3.3.16"></a>
+## 3.3.16 (2017-05-30)
+
+
+
+<a name="3.3.15"></a>
+## 3.3.15 (2017-05-19)
+
+
+
+<a name="3.3.14"></a>
+## 3.3.14 (2017-05-16)
+
+
+
+<a name="3.3.13"></a>
+## 3.3.13 (2017-05-16)
+
+
+
+<a name="3.3.12"></a>
+## 3.3.12 (2017-05-10)
+
+
+
+<a name="3.3.11"></a>
+## 3.3.11 (2017-05-08)
+
+
+
+>>>>>>> master
 <a name="3.3.10"></a>
 ## 3.3.10 (2017-05-06)
 

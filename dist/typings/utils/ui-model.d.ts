@@ -22,6 +22,6 @@ export declare class UIModel {
     **/
     discardChanges(): void;
     isDirty(): any;
-    isPropDirty(property: any): boolean;
+    dirtyProperty(key: any): any;
     private checkDirty(o, t);
 }
