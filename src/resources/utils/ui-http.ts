@@ -105,6 +105,18 @@ export class UIHttpService {
       })
       .then(resp => resp.text());
   }
+  
+  blob(slug: string, headers: any = true): Promise<any | string | void> {
+    this.logger.info(`text [${slug}]`);
+    return this.httpClient
+      .fetch(slug,
+      {
+        method: 'get',
+        mode: 'cors',
+        headers: this.__getHeaders(headers)
+      })
+      .then(resp => resp.blob());
+  }
 
   put(slug: string, obj, headers: any = true): Promise<any | string | void> {
     this.logger.info(`put [${slug}]`);
