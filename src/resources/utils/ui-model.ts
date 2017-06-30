@@ -17,6 +17,8 @@ export class UIModel {
   public logger: Logger;
   public httpClient: UIHttpService;
 
+  public isDirtyProp: boolean;
+
   private __original__: any;
   private __observers__ = [];
 
@@ -80,9 +82,7 @@ export class UIModel {
   deserialize(json) {
     this.__original__ = _.cloneDeep(json);
     Object.keys(this.__original__)
-      .forEach((key) => {
-        this[key] = json[key];
-      });
+      .forEach((key) => this[key] = json[key]);
   }
 
   serialize() {
@@ -97,79 +97,67 @@ export class UIModel {
   static serializeObject(o) {
     let _pojo = {};
     if (o instanceof Map) {
-      o.forEach((obj, key) => {
-        if (obj instanceof UIModel) {
-          _pojo[key] = obj.serialize();
-        }
-        if (_.isObject(obj)) {
-          _pojo[key] = this.serializeObject(obj)
-        }
-        else if (_.isArray(obj)) {
-          _pojo[key] = obj.join(',');
-        }
-        else {
-          _pojo[key] = isEmpty(obj) ? null : obj;
-        }
-      })
+      o.forEach((obj, key) => _pojo[key] = UIModel.serializeProperty(obj))
     }
     else {
       Object.keys(o)
-        .forEach((key) => {
-          if (key !== 'undefined' && !/^__/.test(key)) {
-            if (o[key] instanceof UIModel) {
-              _pojo[key] = o[key].serialize();
-            }
-            if (_.isObject(o[key])) {
-              _pojo[key] = this.serializeObject(o[key])
-            }
-            else if (_.isArray(o[key])) {
-              _pojo[key] = o[key].join(',');
-            }
-            else {
-              _pojo[key] = isEmpty(o[key]) ? null : o[key];
-            }
-          }
-        });
+        .filter(UIModel.isPropertyForSerialization)
+        .forEach((key) => _pojo[key] = UIModel.serializeProperty(o[key]));
     }
     return _pojo;
   }
 
+  static serializeProperty(p) {
+    if (p instanceof UIModel) {
+      return p.serialize();
+    }
+    else if (_.isObject(p)) {
+      return this.serializeObject(p)
+    }
+    else if (_.isArray(p)) {
+      return p.join(',');
+    }
+    else {
+      return isEmpty(p) ? null : p;
+    }
+  }
+
+  static isPropertyForSerialization(propName){
+    return propName !== 'undefined' && propName !== "isDirtyProp" && !/^__/.test(propName)
+  }
+  
+  init()
+  {
+    this.saveChanges();
+    Object.keys(this)
+        .filter(UIModel.isPropertyForSerialization)
+        .forEach((key) => this.observe(key, () => this.isDirtyProp = this.isDirty()));
+  }
+
   saveChanges() {
     this.__original__ = _.cloneDeep(this.serialize());
+    this.isDirtyProp = false;
   }
 
   discardChanges() {
     Object.keys(_.cloneDeep(this.__original__))
-      .forEach((key) => {
-        this[key] = this.__original__[key];
-      });
+      .forEach((key) => this[key] = this.__original__[key]);
   }
 
   isDirty() {
+    this.logger.info("Checking derty");
     if (_.isEmpty(this.__original__)) {
       Object.keys(this)
-        .forEach((key) => {
-          if (key !== 'undefined' && !/^__/.test(key)) {
-            this.__original__[key] = this[key]
-          }
-        });
+        .filter(UIModel.isPropertyForSerialization)
+        .forEach((key) => this.__original__[key] = this[key]);
     }
     return this.checkDirty(this.__original__, this);
-  }
-
-  dirtyProperty(key) {
-    let t = this, o = this.__original__;
-    if (t[key] instanceof UIModel) return t[key].isDirty();
-    if (_.isArray(o[key]) && o[key].length != t[key].length) return true;
-    if (_.isArray(o[key]) || _.isObject(o[key])) return this.checkDirty(o[key], t[key]);
-
-    return t.hasOwnProperty(key) && (t[key] !== o[key]);
   }
 
   private checkDirty(o, t) {
     return !Object.keys(o)
       .every((key) => {
-        if (t[key] instanceof UIModel) return !t[key].isDirty();
+        if (t[key] instanceof UIModel) return !t[key].isDirtyObject();
         if (_.isArray(o[key]) && o[key].length != t[key].length) return false;
         if (_.isArray(o[key]) || _.isObject(o[key])) return !this.checkDirty(o[key], t[key]);
 
