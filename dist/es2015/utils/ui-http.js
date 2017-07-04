@@ -100,6 +100,16 @@ let UIHttpService = class UIHttpService {
         })
             .then(resp => resp.text());
     }
+    blob(slug, headers = true) {
+        this.logger.info(`text [${slug}]`);
+        return this.httpClient
+            .fetch(slug, {
+            method: 'get',
+            mode: 'cors',
+            headers: this.__getHeaders(headers)
+        })
+            .then(resp => resp.blob());
+    }
     put(slug, obj, headers = true) {
         this.logger.info(`put [${slug}]`);
         return this.httpClient

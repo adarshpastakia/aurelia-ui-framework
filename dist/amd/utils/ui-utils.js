@@ -116,6 +116,19 @@ define(["require", "exports", "aurelia-framework", "aurelia-metadata", "./ui-eve
             });
         }
         UIUtils.prompt = prompt;
+        function eventCallback(fn, self) {
+            var rest = [];
+            for (var _i = 2; _i < arguments.length; _i++) {
+                rest[_i - 2] = arguments[_i];
+            }
+            var ret = fn.apply(self, rest);
+            if (ret instanceof Promise)
+                return ret;
+            return new Promise(function (resolve, reject) {
+                ret !== false ? resolve(true) : reject();
+            });
+        }
+        UIUtils.eventCallback = eventCallback;
         function tether(parent, child, opts) {
             opts = Object.assign({ resize: true, position: 'bl' }, opts);
             child.style.position = 'fixed';

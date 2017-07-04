@@ -10,6 +10,7 @@ export declare module UIUtils {
     function alert(options: any): Promise<{}>;
     function confirm(options: any): Promise<{}>;
     function prompt(options: any): Promise<{}>;
+    function eventCallback(fn: any, self: any, ...rest: any[]): Promise<any>;
     function tether(parent: any, child: any, opts?: any): any;
     function loadView(url: any, parent: any, model?: any): Promise<{}>;
 }
