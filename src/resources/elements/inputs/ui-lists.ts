@@ -263,6 +263,8 @@ export class BaseListInput {
     this.hilight = null;
     this.dropdown.scrollTop = 0;
 
+    //TODO: Add event/callback attribute to enable remote option filter
+
     let groups = [];
     let rx = new RegExp(getAscii(this.elValue), 'i');
     _.forEach(_.cloneDeep(this.original), (v, k) => {
