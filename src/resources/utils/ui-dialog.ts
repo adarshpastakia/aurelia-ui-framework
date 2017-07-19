@@ -117,9 +117,8 @@ export class UIDialogService {
   }
 
   private initializeDialog(dialog) {
+    this.windows.push(dialog);
     if (!dialog.modal) {
-      this.windows.push(dialog);
-
       dialog.taskButtonEl = document.createElement('button');
       dialog.taskButtonEl.classList.add('ui-active');
       dialog.taskButtonEl.innerHTML = '<ui-glyph class="${glyph}" glyph="${glyph}" if.bind="glyph"></ui-glyph><span class="ui-label">${title}</span>';
