@@ -34,6 +34,12 @@
             <code>get(api:string, headers?:any): Promise&lt;any></code>
           </li>
           <li>
+            <code>text(api:string, headers?:any): Promise&lt;any></code>
+          </li>
+          <li>
+            <code>blob(api:string, headers?:any): Promise&lt;any></code>
+          </li>
+          <li>
             <code>post(api:string, data:POJO, headers?:any): Promise&lt;any></code>
           </li>
           <li>
@@ -49,6 +55,7 @@
             <code>reupload(api:string, form:FormElement, headers?:any): Promise&lt;any></code>
           </li>
         </ul>
+        <blockquote>Text and Blob do not convert into JSON object</blockquote>
       </ui-container>
     </ui-content>
   </ui-page>

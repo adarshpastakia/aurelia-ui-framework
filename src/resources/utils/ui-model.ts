@@ -34,6 +34,11 @@ export class UIModel {
         writable: false,
         enumerable: false
       },
+      'isDirtyProp': {
+        value: false,
+        writable: true,
+        enumerable: false
+      },
       '__observers__': {
         value: [],
         writable: true,
@@ -46,6 +51,15 @@ export class UIModel {
       }
     });
     this.logger.info("Model Initialized");
+  }
+
+  init() {
+    this.saveChanges();
+    Object.keys(this)
+      .filter(UIModel.isPropertyForSerialization)
+      .forEach((key) => this.observe(key, () => this.isDirtyProp = this.isDirty()));
+
+    return this;
   }
 
   get(...rest) {
@@ -122,16 +136,8 @@ export class UIModel {
     }
   }
 
-  static isPropertyForSerialization(propName){
+  static isPropertyForSerialization(propName) {
     return propName !== 'undefined' && propName !== "isDirtyProp" && !/^__/.test(propName)
-  }
-  
-  init()
-  {
-    this.saveChanges();
-    Object.keys(this)
-        .filter(UIModel.isPropertyForSerialization)
-        .forEach((key) => this.observe(key, () => this.isDirtyProp = this.isDirty()));
   }
 
   saveChanges() {
@@ -145,7 +151,7 @@ export class UIModel {
   }
 
   isDirty() {
-    this.logger.info("Checking derty");
+    this.logger.info("Checking dirty");
     if (_.isEmpty(this.__original__)) {
       Object.keys(this)
         .filter(UIModel.isPropertyForSerialization)
