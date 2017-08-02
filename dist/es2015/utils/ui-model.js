@@ -27,6 +27,11 @@ let UIModel = UIModel_1 = class UIModel {
                 writable: false,
                 enumerable: false
             },
+            'isDirtyProp': {
+                value: false,
+                writable: true,
+                enumerable: false
+            },
             '__observers__': {
                 value: [],
                 writable: true,
@@ -39,6 +44,13 @@ let UIModel = UIModel_1 = class UIModel {
             }
         });
         this.logger.info("Model Initialized");
+    }
+    init() {
+        this.saveChanges();
+        Object.keys(this)
+            .filter(UIModel_1.isPropertyForSerialization)
+            .forEach((key) => this.observe(key, () => this.isDirtyProp = this.isDirty()));
+        return this;
     }
     get(...rest) {
         throw new Error('Not implemented [get]');
@@ -106,12 +118,6 @@ let UIModel = UIModel_1 = class UIModel {
     static isPropertyForSerialization(propName) {
         return propName !== 'undefined' && propName !== "isDirtyProp" && !/^__/.test(propName);
     }
-    init() {
-        this.saveChanges();
-        Object.keys(this)
-            .filter(UIModel_1.isPropertyForSerialization)
-            .forEach((key) => this.observe(key, () => this.isDirtyProp = this.isDirty()));
-    }
     saveChanges() {
         this.__original__ = _.cloneDeep(this.serialize());
         this.isDirtyProp = false;
@@ -121,7 +127,7 @@ let UIModel = UIModel_1 = class UIModel {
             .forEach((key) => this[key] = this.__original__[key]);
     }
     isDirty() {
-        this.logger.info("Checking derty");
+        this.logger.info("Checking dirty");
         if (_.isEmpty(this.__original__)) {
             Object.keys(this)
                 .filter(UIModel_1.isPropertyForSerialization)

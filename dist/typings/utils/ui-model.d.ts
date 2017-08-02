@@ -7,6 +7,7 @@ export declare class UIModel {
     private __original__;
     private __observers__;
     constructor();
+    init(): this;
     get(...rest: any[]): void;
     post(...rest: any[]): void;
     put(...rest: any[]): void;
@@ -19,7 +20,6 @@ export declare class UIModel {
     static serializeObject(o: any): {};
     static serializeProperty(p: any): any;
     static isPropertyForSerialization(propName: any): boolean;
-    init(): void;
     saveChanges(): void;
     discardChanges(): void;
     isDirty(): any;

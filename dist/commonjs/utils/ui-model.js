@@ -29,6 +29,11 @@ var UIModel = UIModel_1 = (function () {
                 writable: false,
                 enumerable: false
             },
+            'isDirtyProp': {
+                value: false,
+                writable: true,
+                enumerable: false
+            },
             '__observers__': {
                 value: [],
                 writable: true,
@@ -42,6 +47,14 @@ var UIModel = UIModel_1 = (function () {
         });
         this.logger.info("Model Initialized");
     }
+    UIModel.prototype.init = function () {
+        var _this = this;
+        this.saveChanges();
+        Object.keys(this)
+            .filter(UIModel_1.isPropertyForSerialization)
+            .forEach(function (key) { return _this.observe(key, function () { return _this.isDirtyProp = _this.isDirty(); }); });
+        return this;
+    };
     UIModel.prototype.get = function () {
         var rest = [];
         for (var _i = 0; _i < arguments.length; _i++) {
@@ -125,13 +138,6 @@ var UIModel = UIModel_1 = (function () {
     UIModel.isPropertyForSerialization = function (propName) {
         return propName !== 'undefined' && propName !== "isDirtyProp" && !/^__/.test(propName);
     };
-    UIModel.prototype.init = function () {
-        var _this = this;
-        this.saveChanges();
-        Object.keys(this)
-            .filter(UIModel_1.isPropertyForSerialization)
-            .forEach(function (key) { return _this.observe(key, function () { return _this.isDirtyProp = _this.isDirty(); }); });
-    };
     UIModel.prototype.saveChanges = function () {
         this.__original__ = _.cloneDeep(this.serialize());
         this.isDirtyProp = false;
@@ -143,7 +149,7 @@ var UIModel = UIModel_1 = (function () {
     };
     UIModel.prototype.isDirty = function () {
         var _this = this;
-        this.logger.info("Checking derty");
+        this.logger.info("Checking dirty");
         if (_.isEmpty(this.__original__)) {
             Object.keys(this)
                 .filter(UIModel_1.isPropertyForSerialization)
