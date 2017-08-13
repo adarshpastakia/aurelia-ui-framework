@@ -56,7 +56,7 @@
 ### Build & Run the project
   * download or clone the repo
   * run `npm install`
-  * if you dont have typings installed globaly, run `npm typings -g jspm`
+  * if you dont have typings installed globaly, run `npm -i typings -g`
   * run `typings install`
   * run `au run --watch`
   * browse to `localhost:9000`
