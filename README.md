@@ -51,3 +51,12 @@
   * moment (http://momentjs.com)
   * numeral (http://numeraljs.com)
   * kramed (https://www.npmjs.com/package/kramed)
+
+
+### Build & Run the project
+  * download or clone the repo
+  * run `npm install`
+  * if you dont have typings installed globaly, run `npm install typings -g`
+  * run `typings install`
+  * run `au run --watch`
+  * browse to `localhost:9000`

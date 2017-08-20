@@ -11,6 +11,7 @@ export declare class UIHttpService {
     static buildQueryString(json: any): string;
     get(slug: string, headers?: any): Promise<any | string | void>;
     text(slug: string, headers?: any): Promise<any | string | void>;
+    blob(slug: string, headers?: any): Promise<any | string | void>;
     put(slug: string, obj: any, headers?: any): Promise<any | string | void>;
     post(slug: string, obj: any, headers?: any): Promise<any | string | void>;
     delete(slug: string, headers?: any): Promise<any | string | void>;

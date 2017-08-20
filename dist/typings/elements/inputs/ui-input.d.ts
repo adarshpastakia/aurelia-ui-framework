@@ -31,7 +31,6 @@ export declare class UIInput extends UIBaseInput {
     private type;
     private clear;
     private counter;
-    private ignore;
     valueChanged(newValue: any): void;
     numberChanged(newValue: any): void;
     decimalChanged(newValue: any): void;

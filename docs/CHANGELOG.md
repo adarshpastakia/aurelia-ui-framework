@@ -2,6 +2,23 @@
 # 4.0.0-Beta.1 (2017-04-28)
 
 
+<a name="3.4.2"></a>
+## 3.4.2 (2017-08-02)
+
+
+
+<a name="3.4.1"></a>
+## 3.4.1 (2017-07-04)
+
+* PR #47. Added `blob` fetch method to http service
+* PR #48. Corrected spelling mistake in pre-requisite html
+* PR #51. UIModel updated for dirty property checks
+* PR #53. UIInput fixes
+
+<a name="3.4.0"></a>
+# 3.4.0 (2017-06-09)
+
+
 
 <a name="3.4.0"></a>
 # 3.4.0 (2017-06-09)

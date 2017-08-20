@@ -52,6 +52,7 @@
     },
     "dependencies":
     {
+      "aurelia-animator-css": "^1.0.2",
       "aurelia-bootstrapper": "^1.0.1",
       "aurelia-fetch-client": "^1.1.2",
       "aurelia-pal": "^1.3.0",

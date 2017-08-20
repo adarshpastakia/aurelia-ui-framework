@@ -3,9 +3,11 @@ import { UIHttpService } from "./ui-http";
 export declare class UIModel {
     logger: Logger;
     httpClient: UIHttpService;
+    isDirtyProp: boolean;
     private __original__;
     private __observers__;
     constructor();
+    init(): this;
     get(...rest: any[]): void;
     post(...rest: any[]): void;
     put(...rest: any[]): void;
@@ -16,12 +18,13 @@ export declare class UIModel {
     deserialize(json: any): void;
     serialize(): {};
     static serializeObject(o: any): {};
+    static serializeProperty(p: any): any;
+    static isPropertyForSerialization(propName: any): boolean;
     saveChanges(): void;
     /**
     Clone the original dataset to make sure any change does not affect the original
     **/
     discardChanges(): void;
     isDirty(): any;
-    dirtyProperty(key: any): any;
     private checkDirty(o, t);
 }

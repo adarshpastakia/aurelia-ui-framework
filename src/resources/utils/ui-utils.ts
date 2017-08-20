@@ -125,6 +125,16 @@ export module UIUtils {
     });
   }
 
+  // Event callback
+  export function eventCallback(fn, self, ...rest) {
+    let ret = fn.apply(self, rest);
+    if (ret instanceof Promise) return ret;
+
+    return new Promise((resolve, reject) => {
+      ret !== false ? resolve(true) : reject();
+    });
+  }
+
   // Floating Tether
   export function tether(parent, child, opts?) {
     opts = Object.assign({ resize: true, position: 'bl' }, opts);

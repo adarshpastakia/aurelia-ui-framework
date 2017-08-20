@@ -100,6 +100,17 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "aurelia-f
             })
                 .then(function (resp) { return resp.text(); });
         };
+        UIHttpService.prototype.blob = function (slug, headers) {
+            if (headers === void 0) { headers = true; }
+            this.logger.info("text [" + slug + "]");
+            return this.httpClient
+                .fetch(slug, {
+                method: 'get',
+                mode: 'cors',
+                headers: this.__getHeaders(headers)
+            })
+                .then(function (resp) { return resp.blob(); });
+        };
         UIHttpService.prototype.put = function (slug, obj, headers) {
             var _this = this;
             if (headers === void 0) { headers = true; }

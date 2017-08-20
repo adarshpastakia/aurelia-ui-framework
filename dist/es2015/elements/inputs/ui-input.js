@@ -72,7 +72,6 @@ let UIInput = class UIInput extends UIBaseInput {
         this.type = 'text';
         this.clear = false;
         this.counter = false;
-        this.ignore = false;
         this.clear = element.hasAttribute('clear');
         this.counter = element.hasAttribute('counter');
         if (element.hasAttribute('url'))
@@ -90,34 +89,26 @@ let UIInput = class UIInput extends UIBaseInput {
     }
     bind(bindingContext, overrideContext) {
         super.bind.apply(this, arguments);
-        if (this.number)
+        if (!isNaN(this.number))
             this.numberChanged(this.number);
-        if (this.decimal)
+        if (!isNaN(this.decimal))
             this.decimalChanged(this.decimal);
     }
     valueChanged(newValue) {
-        if (this.ignore)
-            return;
-        this.ignore = true;
-        this.number = isNaN(newValue) ? null : parseFloat(newValue);
-        this.decimal = isNaN(newValue) ? null : parseFloat(newValue);
-        if (this.type === 'number' && this.number === null && this.decimal === null)
-            this.inputEl.value = this.value = '';
-        setTimeout(() => this.ignore = false, 100);
+        if (this.type === 'number') {
+            let num = parseFloat(newValue);
+            this.number = isNaN(num) ? null : num;
+            this.decimal = isNaN(num) ? null : num;
+            if (this.number === null && this.decimal === null) {
+                this.value = '';
+            }
+        }
     }
     numberChanged(newValue) {
-        if (this.ignore)
-            return;
-        this.ignore = true;
-        this.inputEl.value = this.value = newValue === null ? '' : newValue;
-        setTimeout(() => this.ignore = false, 100);
+        this.value = newValue === null ? '' : newValue;
     }
     decimalChanged(newValue) {
-        if (this.ignore)
-            return;
-        this.ignore = true;
-        this.inputEl.value = this.value = newValue === null ? '' : newValue;
-        setTimeout(() => this.ignore = false, 100);
+        this.value = newValue === null ? '' : newValue;
     }
     fireEvent(evt) {
         if (evt.type === 'input') {
@@ -138,10 +129,6 @@ let UIInput = class UIInput extends UIBaseInput {
         if (this.type == 'url')
             return /[a-zA-Z0-9\/\-\.\_\?\#\%\=\$\;\:\{\[\]\}\&\+]/.test(String.fromCharCode(code));
         if (this.type == 'number') {
-            if (code == 45 && evt.target.value.indexOf('-') >= 0)
-                return false;
-            if (code == 46 && evt.target.value.indexOf('.') >= 0)
-                return false;
             return /[0-9\.\-]/.test(String.fromCharCode(code));
         }
         return true;

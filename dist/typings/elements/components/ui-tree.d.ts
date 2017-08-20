@@ -4,6 +4,7 @@ export declare class UITree {
     constructor(element: Element);
     bind(bindingContext: Object, overrideContext: Object): void;
     value: string;
+    hover: string;
     model: any[];
     options: UITreeOptions;
     private root;
@@ -31,6 +32,8 @@ export declare class UITree {
     private itemSelect(node);
     private itemChecked(node);
     private itemClicked(node);
+    private itemOver(node);
+    private itemOut(node);
     private scrollIntoView();
     private searchTextChanged(newValue);
     private filter(obj, value, parentVisible?);
@@ -43,4 +46,6 @@ export declare class TreeNode {
     hideByCount: boolean;
     readonly canHideByCount: boolean;
     private fireClicked();
+    private doMouseOver();
+    private doMouseOut();
 }

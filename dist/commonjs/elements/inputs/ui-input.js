@@ -88,7 +88,6 @@ var UIInput = (function (_super) {
         _this.type = 'text';
         _this.clear = false;
         _this.counter = false;
-        _this.ignore = false;
         _this.clear = element.hasAttribute('clear');
         _this.counter = element.hasAttribute('counter');
         if (element.hasAttribute('url'))
@@ -107,37 +106,26 @@ var UIInput = (function (_super) {
     }
     UIInput.prototype.bind = function (bindingContext, overrideContext) {
         _super.prototype.bind.apply(this, arguments);
-        if (this.number)
+        if (!isNaN(this.number))
             this.numberChanged(this.number);
-        if (this.decimal)
+        if (!isNaN(this.decimal))
             this.decimalChanged(this.decimal);
     };
     UIInput.prototype.valueChanged = function (newValue) {
-        var _this = this;
-        if (this.ignore)
-            return;
-        this.ignore = true;
-        this.number = isNaN(newValue) ? null : parseFloat(newValue);
-        this.decimal = isNaN(newValue) ? null : parseFloat(newValue);
-        if (this.type === 'number' && this.number === null && this.decimal === null)
-            this.inputEl.value = this.value = '';
-        setTimeout(function () { return _this.ignore = false; }, 100);
+        if (this.type === 'number') {
+            var num = parseFloat(newValue);
+            this.number = isNaN(num) ? null : num;
+            this.decimal = isNaN(num) ? null : num;
+            if (this.number === null && this.decimal === null) {
+                this.value = '';
+            }
+        }
     };
     UIInput.prototype.numberChanged = function (newValue) {
-        var _this = this;
-        if (this.ignore)
-            return;
-        this.ignore = true;
-        this.inputEl.value = this.value = newValue === null ? '' : newValue;
-        setTimeout(function () { return _this.ignore = false; }, 100);
+        this.value = newValue === null ? '' : newValue;
     };
     UIInput.prototype.decimalChanged = function (newValue) {
-        var _this = this;
-        if (this.ignore)
-            return;
-        this.ignore = true;
-        this.inputEl.value = this.value = newValue === null ? '' : newValue;
-        setTimeout(function () { return _this.ignore = false; }, 100);
+        this.value = newValue === null ? '' : newValue;
     };
     UIInput.prototype.fireEvent = function (evt) {
         if (evt.type === 'input') {
@@ -158,10 +146,6 @@ var UIInput = (function (_super) {
         if (this.type == 'url')
             return /[a-zA-Z0-9\/\-\.\_\?\#\%\=\$\;\:\{\[\]\}\&\+]/.test(String.fromCharCode(code));
         if (this.type == 'number') {
-            if (code == 45 && evt.target.value.indexOf('-') >= 0)
-                return false;
-            if (code == 46 && evt.target.value.indexOf('.') >= 0)
-                return false;
             return /[0-9\.\-]/.test(String.fromCharCode(code));
         }
         return true;

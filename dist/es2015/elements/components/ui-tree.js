@@ -15,6 +15,7 @@ let UITree = class UITree {
     constructor(element) {
         this.element = element;
         this.value = '';
+        this.hover = '';
         this.model = [];
         this.options = new UITreeOptions();
         this.searchText = '';
@@ -180,6 +181,12 @@ let UITree = class UITree {
             this.itemSelect(node);
         }
     }
+    itemOver(node) {
+        this.hover = node.id;
+    }
+    itemOut(node) {
+        this.hover = null;
+    }
     scrollIntoView() {
         UIEvent.queueTask(() => {
             let x;
@@ -221,6 +228,10 @@ __decorate([
     __metadata("design:type", Object)
 ], UITree.prototype, "value", void 0);
 __decorate([
+    bindable({ defaultBindingMode: bindingMode.twoWay }),
+    __metadata("design:type", Object)
+], UITree.prototype, "hover", void 0);
+__decorate([
     bindable(),
     __metadata("design:type", Object)
 ], UITree.prototype, "model", void 0);
@@ -238,7 +249,7 @@ UITree = __decorate([
     inlineView(`<template class="ui-tree-panel"><ui-input-group class="ui-tree-search" if.bind="searchable">
   <ui-input type="search" t="[placeholder]Search" placeholder="\${options.labels.search}" clear value.bind="searchText" input.trigger="searchTextChanged(searchText) & debounce:200"><ui-input-addon class="ui-text-muted" glyph="glyph-search"></ui-input-addon></ui-input></ui-input-group>
   <div class="ui-tree-level">
-    <tree-node repeat.for="child of root.children | sort:'name'" node.bind="child" options.bind="options" nodeclick.delegate="itemClicked($event.detail)"></tree-node>
+    <tree-node repeat.for="child of root.children | sort:'name'" node.bind="child" options.bind="options" nodeclick.delegate="itemClicked($event.detail)" nodeover.delegate="itemOver($event.detail)" nodeout.delegate="itemOut($event.detail)"></tree-node>
   </div></template>`),
     customElement('ui-tree'),
     __metadata("design:paramtypes", [Element])
@@ -254,6 +265,12 @@ let TreeNode = class TreeNode {
     }
     fireClicked() {
         UIEvent.fireEvent('nodeclick', this.element, this.node);
+    }
+    doMouseOver() {
+        UIEvent.fireEvent('nodeover', this.element, this.node);
+    }
+    doMouseOut() {
+        UIEvent.fireEvent('nodeout', this.element, this.node);
     }
 };
 __decorate([
@@ -274,7 +291,7 @@ TreeNode = __decorate([
         <a class="ui-node-checkbox" if.bind="options.showCheckbox && node.level>=options.checkboxLevel" click.trigger="fireClicked()">
           <ui-glyph glyph.bind="node.checked==1?'glyph-tree-check-on':(node.checked==2?'glyph-tree-check-partial':'glyph-tree-check-off')"></ui-glyph>
         </a>
-        <a class="ui-node-link \${!options.showCheckbox && node.active?'ui-active':node.childActive?'ui-partial':''}" data-id="\${node.id}" click.trigger="fireClicked()">
+        <a class="ui-node-link \${!options.showCheckbox && node.active?'ui-active':node.childActive?'ui-partial':''}" data-id="\${node.id}" click.trigger="fireClicked()" mouseover.delegate="doMouseOver($event)" mouseout.delegate="doMouseOut($event)">
             <ui-glyph glyph.bind="(node.expanded?node.openIcon:node.closedIcon)||node.icon" class.bind="(node.expanded?node.openIcon:node.closedIcon)||node.icon" if.bind="node.icon||node.openIcon"></ui-glyph>
             <span innerhtml.bind="node.text" class="\${node.level<options.checkboxLevel && node.checked!=0?'ui-strong':''}"></span>
         </a>
