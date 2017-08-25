@@ -85,12 +85,14 @@
         background: $datagrid-row-even-bg;
       }
 
-      &.odd .ui-dg-cell {
+      &.odd .ui-dg-cell,
+      &.odd .ui-dg-expander {
         background: $datagrid-row-odd-bg;
         color     : $datagrid-row-odd-text;
       }
 
-      &.even .ui-dg-cell {
+      &.even .ui-dg-cell,
+      &.even .ui-dg-expander {
         background: $datagrid-row-even-bg;
         color     : $datagrid-row-even-text;
       }
@@ -141,9 +143,9 @@
     @include flex-row($wrap:false, $align:stretch);
 
     .ui-dg-lock-holder {
+      z-index: 5;
       @include flex-auto();
       @include flex-row($wrap:false, $align:stretch);
-      z-index: 5;
       @include border(end, 1px solid $base-border-color);
     }
 
@@ -177,16 +179,27 @@
 
     .ui-dg-expander {
       @include flex-auto();
-      min-width : 1.5rem;
-      font-size : 0.7em;
-      padding   : 0.5em 6px;
-      background: rgba($muted, .2);
+      z-index  : 5;
+      position : relative;
+      min-width: 1.5rem;
+      font-size: 0.7em;
+      padding  : 0.5em 6px;
       @include border(end, 1px solid rgba($base-border-color, .25));
+
+      &:before {
+        @include position(absolute,0);
+        content   : '';
+        background: rgba($muted, .2);
+      }
     }
   }
 
   .ui-dg-header .ui-dg-row {
     background: $datagrid-header-bg;
+
+    .ui-dg-expander {
+      background: $datagrid-header-bg;
+    }
 
     .ui-dg-group {
       @include flex-auto();
@@ -263,6 +276,10 @@
 
   .ui-dg-footer .ui-dg-row {
     background: $datagrid-footer-bg;
+
+    .ui-dg-expander {
+      background: $datagrid-footer-bg;
+    }
 
     .ui-dg-cell {
       font-weight: 600;

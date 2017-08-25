@@ -43,11 +43,11 @@
             <ui-dg-empty>
               <h5>No records available...</h5>
             </ui-dg-empty>
-            <ui-dg-glyph glyph-map.bind="icons" tooltip-map.bind="titles" class="dg-glyph" data-id="icon" sortable locked></ui-dg-glyph>
-            <ui-dg-column data-id="text" sortable resizeable summary="Totals" locked class="ui-level-pad ui-titlecase">Text</ui-dg-column>
-            <ui-dg-column-group label="Actions" locked>
-              <ui-dg-link glyph="icon-line-search" label="Preview" width="6em" click.trigger="clicked('Link Clicked', $event.detail.record)" locked>Link</ui-dg-link>
-              <ui-dg-button glyph="glyph-icon-trash" theme="danger" label="Delete" width="5em" click.trigger="clicked('Button clicked', $event.detail.record)" locked>Button</ui-dg-button>
+            <ui-dg-glyph glyph-map.bind="icons" tooltip-map.bind="titles" class="dg-glyph" data-id="icon" sortable></ui-dg-glyph>
+            <ui-dg-column data-id="text" sortable resizeable summary="Totals" class="ui-level-pad ui-titlecase">Text</ui-dg-column>
+            <ui-dg-column-group label="Actions">
+              <ui-dg-link glyph="icon-line-search" label="Preview" width="6em" click.trigger="clicked('Link Clicked', $event.detail.record)">Link</ui-dg-link>
+              <ui-dg-button glyph="glyph-icon-trash" theme="danger" label="Delete" width="5em" click.trigger="clicked('Button clicked', $event.detail.record)">Button</ui-dg-button>
             </ui-dg-column-group>
             <ui-dg-column-group label="Dates">
               <ui-dg-column data-id="date" sortable resizeable date center width="7em">Date</ui-dg-column>
