@@ -1,3 +1,15 @@
+* UIDialog
+  * Fixed initial positioning
+  * Fixed `ltr` `rtl` switching
+  * Added `maximized` flag to open dialog maximized by default
+* UIHttpService: Added `patch` method
+* UIDatagrid: Fixed text bleeding through `expander` column when scrolling
+
+@avrahamcool
+* Fixed missing `aurelia-animator-css` dependency
+* UITooltip: Fixed flicker in Chrome browser
+* Updated `README`
+
 <a name="3.4.2"></a>
 ## 3.4.2 (2017-08-02)
 
