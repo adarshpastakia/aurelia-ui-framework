@@ -1,10 +1,10 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
-import {autoinject} from 'aurelia-framework';
-import {UIDialog} from "../resources/utils/ui-dialog";
+import { autoinject } from 'aurelia-framework';
+import { UIDialog } from "../resources/utils/ui-dialog";
 
 @autoinject()
 export class DlgLayout extends UIDialog {
@@ -22,7 +22,7 @@ export class DlgLayout extends UIDialog {
     return true;
   }
   bind(bindingContext) { this.printConsole(this.id, 'bind'); super.bind(); }
-  attached() { this.printConsole(this.id, 'attached'); }
+  attached() { this.printConsole(this.id, 'attached'); super.attached(); }
   detached() { this.printConsole(this.id, 'detached'); }
   unbind() { this.printConsole(this.id, 'unbind'); }
   deactivate() { this.printConsole(this.id, 'deactivate'); }
@@ -37,6 +37,8 @@ export class DlgLayout extends UIDialog {
 
   width = "800px";
   height = "600px";
+
+  maximized = true;
 
   printConsole;
 }

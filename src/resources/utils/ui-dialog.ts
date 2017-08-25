@@ -3,12 +3,12 @@
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
-import {autoinject, customElement, bindable, bindingMode, children, inlineView, useView, containerless, View, DOM} from 'aurelia-framework';
-import {UIEvent} from "./ui-event";
-import {UIUtils} from "./ui-utils";
+import { autoinject, customElement, bindable, bindingMode, children, inlineView, useView, containerless, View, DOM } from 'aurelia-framework';
+import { UIEvent } from "./ui-event";
+import { UIUtils } from "./ui-utils";
 import * as _ from "lodash";
 
-import {Origin} from "aurelia-metadata";
+import { Origin } from "aurelia-metadata";
 import {
   singleton,
   Container,
@@ -18,7 +18,7 @@ import {
   TemplatingEngine,
   ViewSlot
 } from "aurelia-framework";
-import {child} from "aurelia-templating";
+import { child } from "aurelia-templating";
 
 @autoinject()
 @singleton()
@@ -324,10 +324,9 @@ export class UIDialog {
   // aurelia hooks
   bind(bindingContext?: Object, overrideContext?: Object) {
     let isRtl = window.isRtl(UIUtils.dialogContainer);
-    if (!this.modal) {
-      this.posCurrent.top = (UIDialog.posY = UIDialog.posY == 240 ? 10 : UIDialog.posY + 30) + 'px';
-      this.posCurrent[isRtl ? 'right' : 'left'] = (UIDialog.posX = UIDialog.posY == 10 ? 60 : UIDialog.posX + 30) + 'px';
-    }
+    let pw = UIUtils.dialogContainer.offsetWidth;
+    let ph = UIUtils.dialogContainer.offsetHeight;
+
     this.posCurrent.width = this.width || this.minWidth || this.posCurrent.width;
     this.posCurrent.height = this.height || this.minHeight || this.posCurrent.height;
     this.posCurrent['min-width'] = this.minWidth || this.posCurrent['min-width'];
@@ -335,11 +334,20 @@ export class UIDialog {
     this.posCurrent['max-width'] = this.maxWidth || this.posCurrent['max-width'];
     this.posCurrent['max-height'] = this.maxHeight || this.posCurrent['max-height'];
 
+    if (!this.modal) {
+      this.posCurrent.top = (UIDialog.posY = (UIDialog.posY + parseInt(this.posCurrent.height) + 32 > ph) ? 10 : UIDialog.posY + 30) + 'px';
+      this.posCurrent.left = this.posCurrent.right = (UIDialog.posX = (UIDialog.posX + parseInt(this.posCurrent.width) + 32 > pw) ? (UIDialog.seedX += 60) : UIDialog.posX + 30) + 'px';
+    }
+
     if (!this.id) this.id = this.uniqId;
+  }
+  attached() {
+    if (this.maximized) this.expand(null);
   }
   // end aurelia hooks
 
   static seed = 0;
+  static seedX = 0;
   static posX = 0;
   static posY = 0;
 
@@ -376,6 +384,7 @@ export class UIDialog {
   public minimizable: boolean = true;
   public maximizable: boolean = true;
   public closable: boolean = true;
+  public maximized: boolean = false;
 
   focus() {
     UIEvent.queueTask(() => {
