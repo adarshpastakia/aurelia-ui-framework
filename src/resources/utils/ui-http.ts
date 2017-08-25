@@ -3,12 +3,12 @@
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
-import {autoinject, transient} from "aurelia-framework";
-import {getLogger} from "aurelia-logging";
-import {HttpClient, json} from "aurelia-fetch-client";
-import {EventAggregator} from "aurelia-event-aggregator";
-import {UIApplication} from "./ui-application";
-import {UIConstants} from "./ui-constants";
+import { autoinject, transient } from "aurelia-framework";
+import { getLogger } from "aurelia-logging";
+import { HttpClient, json } from "aurelia-fetch-client";
+import { EventAggregator } from "aurelia-event-aggregator";
+import { UIApplication } from "./ui-application";
+import { UIConstants } from "./ui-constants";
 
 @autoinject()
 export class UIHttpService {
@@ -105,7 +105,7 @@ export class UIHttpService {
       })
       .then(resp => resp.text());
   }
-  
+
   blob(slug: string, headers: any = true): Promise<any | string | void> {
     this.logger.info(`text [${slug}]`);
     return this.httpClient
@@ -116,6 +116,19 @@ export class UIHttpService {
         headers: this.__getHeaders(headers)
       })
       .then(resp => resp.blob());
+  }
+
+  patch(slug: string, obj, headers: any = true): Promise<any | string | void> {
+    this.logger.info(`patch [${slug}]`);
+    return this.httpClient
+      .fetch(slug,
+      {
+        method: 'patch',
+        body: json(obj),
+        mode: 'cors',
+        headers: this.__getHeaders(headers)
+      })
+      .then(resp => this.__getResponse(resp));
   }
 
   put(slug: string, obj, headers: any = true): Promise<any | string | void> {
