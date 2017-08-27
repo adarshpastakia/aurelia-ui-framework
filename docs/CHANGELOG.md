@@ -1,3 +1,8 @@
+<a name="3.4.3"></a>
+## 3.4.3 (2017-08-27)
+
+
+
 * UIDialog
   * Fixed initial positioning
   * Fixed `ltr` `rtl` switching

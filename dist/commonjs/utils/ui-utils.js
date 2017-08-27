@@ -220,8 +220,8 @@ var UIUtils;
                         dd.style.transform += ' translateX(0)';
                     }
                 }
+                dd.style.transform += ' translateZ(0)';
             };
-            ;
             var parent = el.parentElement;
             do {
                 var cs = getComputedStyle(parent);

@@ -211,8 +211,8 @@ export var UIUtils;
                         dd.style.transform += ' translateX(0)';
                     }
                 }
+                dd.style.transform += ' translateZ(0)';
             };
-            ;
             let parent = el.parentElement;
             do {
                 let cs = getComputedStyle(parent);

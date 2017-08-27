@@ -315,21 +315,28 @@ let UIDialog = UIDialog_1 = class UIDialog {
         this.minimizable = true;
         this.maximizable = true;
         this.closable = true;
+        this.maximized = false;
     }
     bind(bindingContext, overrideContext) {
         let isRtl = window.isRtl(UIUtils.dialogContainer);
-        if (!this.modal) {
-            this.posCurrent.top = (UIDialog_1.posY = UIDialog_1.posY == 240 ? 10 : UIDialog_1.posY + 30) + 'px';
-            this.posCurrent[isRtl ? 'right' : 'left'] = (UIDialog_1.posX = UIDialog_1.posY == 10 ? 60 : UIDialog_1.posX + 30) + 'px';
-        }
+        let pw = UIUtils.dialogContainer.offsetWidth;
+        let ph = UIUtils.dialogContainer.offsetHeight;
         this.posCurrent.width = this.width || this.minWidth || this.posCurrent.width;
         this.posCurrent.height = this.height || this.minHeight || this.posCurrent.height;
         this.posCurrent['min-width'] = this.minWidth || this.posCurrent['min-width'];
         this.posCurrent['min-height'] = this.minHeight || this.posCurrent['min-height'];
         this.posCurrent['max-width'] = this.maxWidth || this.posCurrent['max-width'];
         this.posCurrent['max-height'] = this.maxHeight || this.posCurrent['max-height'];
+        if (!this.modal) {
+            this.posCurrent.top = (UIDialog_1.posY = (UIDialog_1.posY + parseInt(this.posCurrent.height) + 32 > ph) ? 10 : UIDialog_1.posY + 30) + 'px';
+            this.posCurrent.left = this.posCurrent.right = (UIDialog_1.posX = (UIDialog_1.posX + parseInt(this.posCurrent.width) + 32 > pw) ? (UIDialog_1.seedX += 60) : UIDialog_1.posX + 30) + 'px';
+        }
         if (!this.id)
             this.id = this.uniqId;
+    }
+    attached() {
+        if (this.maximized)
+            this.expand(null);
     }
     focus() {
         UIEvent.queueTask(() => {
@@ -380,6 +387,7 @@ let UIDialog = UIDialog_1 = class UIDialog {
     }
 };
 UIDialog.seed = 0;
+UIDialog.seedX = 0;
 UIDialog.posX = 0;
 UIDialog.posY = 0;
 UIDialog = UIDialog_1 = __decorate([
