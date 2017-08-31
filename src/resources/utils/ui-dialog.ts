@@ -58,7 +58,7 @@ export class UIDialogService {
       viewModel: vm,
       container: this.container,
       childContainer: this.container.createChild(),
-      model: model ? model : {}
+      model: model
     };
     return this.getViewModel(instruction)
       .then(newInstruction => {
