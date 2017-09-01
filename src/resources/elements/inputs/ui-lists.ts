@@ -3,9 +3,9 @@
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
-import {autoinject, customElement, bindable, bindingMode, children, inlineView, useView, containerless, View, DOM} from 'aurelia-framework';
-import {UIEvent} from "../../utils/ui-event";
-import {UIUtils} from "../../utils/ui-utils";
+import { autoinject, customElement, bindable, bindingMode, children, inlineView, useView, containerless, View, DOM } from 'aurelia-framework';
+import { UIEvent } from "../../utils/ui-event";
+import { UIUtils } from "../../utils/ui-utils";
 import * as _ from "lodash";
 
 export class BaseListInput {
@@ -162,9 +162,16 @@ export class BaseListInput {
   }
 
   scrollIntoView() {
-    let h = this.dropdown.querySelector('.ui-list-item.ui-hilight');
-    if (h == null) h = this.dropdown.querySelector('.ui-list-item.ui-selected');
-    this.dropdown.scrollTop = (h !== null ? h.offsetTop - (this.dropdown.offsetHeight / 2) : 0);
+    let h = this.dropdown.querySelector('.ui-list-item.ui-hilight') || this.dropdown.querySelector('.ui-list-item.ui-selected');
+
+    if (h !== null) {
+      //if not already in view
+      if (h.offsetTop < this.dropdown.scrollTop || h.offsetTop - this.dropdown.scrollTop > this.dropdown.clientHeight - 10)
+        this.dropdown.scrollTop = h.offsetTop - (this.dropdown.offsetHeight / 2);
+    }
+    else {
+      this.dropdown.scrollTop = 0;
+    }
   }
 
   openDropdown() {
@@ -291,8 +298,6 @@ export class BaseListInput {
     this.filtered = this.original;
     this.unhilightItem(null);
     this.inputEl.focus();
-    let h = this.dropdown.querySelector('.ui-list-item.ui-selected');
-    this.dropdown.scrollTop = (h !== null ? h.offsetTop - (this.dropdown.offsetHeight / 2) : 0);
   }
 
   fireChange() { }
