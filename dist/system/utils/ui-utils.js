@@ -1,7 +1,71 @@
-System.register(["aurelia-framework", "aurelia-metadata", "./ui-event"], function (exports_1, context_1) {
+System.register(["aurelia-framework", "aurelia-metadata", "./ui-event", "lodash"], function (exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var aurelia_framework_1, aurelia_metadata_1, ui_event_1, UIUtils;
+    function lodashMixins() {
+        _.mixin({
+            'findByValues': function (collection, property, values) {
+                if (_.isArray(collection)) {
+                    return _.filter(collection, function (item) {
+                        return _.indexOf(values, item[property] + '') > -1;
+                    });
+                }
+                else {
+                    var ret_1 = [];
+                    _.forEach(collection, function (list) {
+                        ret_1.concat(_.filter(list, function (item) {
+                            return _.indexOf(values, item[property] + '') > -1;
+                        }));
+                    });
+                    return ret_1;
+                }
+            },
+            'removeByValues': function (collection, property, values) {
+                if (_.isArray(collection)) {
+                    return _.remove(collection, function (item) {
+                        return _.indexOf(values, item[property] + '') > -1;
+                    }) || [];
+                }
+                else {
+                    var ret_2 = [];
+                    _.forEach(collection, function (list, key) {
+                        ret_2 = ret_2.concat(_.remove(list, function (item) {
+                            return _.indexOf(values, item[property] + '') > -1;
+                        }));
+                    });
+                    return ret_2;
+                }
+            },
+            'findDeep': function (collection, property, value) {
+                if (_.isArray(collection)) {
+                    return _.find(collection, function (item) {
+                        return item[property] + '' === value + '';
+                    });
+                }
+                else {
+                    var ret_3;
+                    _.forEach(collection, function (item) {
+                        ret_3 = _.find(item, function (v) {
+                            return v[property] + '' === value + '';
+                        });
+                        return ret_3 === undefined;
+                    });
+                    return ret_3 || {};
+                }
+            },
+            'findChildren': function (collection, listProperty, property, value) {
+                var ret;
+                _.forEach(collection, function (item) {
+                    ret = _.find(item[listProperty], function (v) {
+                        return v[property] + '' === value + '';
+                    });
+                    return ret === undefined;
+                });
+                return ret || {};
+            }
+        });
+    }
+    exports_1("lodashMixins", lodashMixins);
+    var aurelia_framework_1, aurelia_metadata_1, ui_event_1, _, UIUtils;
     return {
         setters: [
             function (aurelia_framework_1_1) {
@@ -12,6 +76,9 @@ System.register(["aurelia-framework", "aurelia-metadata", "./ui-event"], functio
             },
             function (ui_event_1_1) {
                 ui_event_1 = ui_event_1_1;
+            },
+            function (_1) {
+                _ = _1;
             }
         ],
         execute: function () {

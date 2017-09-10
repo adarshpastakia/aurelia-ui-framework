@@ -120,7 +120,6 @@ let UIDialogService = class UIDialogService {
         this.invokeLifecycle(dialog, 'canDeactivate', force)
             .then(canDeactivate => {
             if (force || canDeactivate) {
-                this.invokeLifecycle(dialog.childSlot, 'detached', null);
                 this.invokeLifecycle(dialog, 'detached', null);
                 dialog.dialogWrapperEl.remove();
                 _.remove(this.windows, ['uniqId', dialog.uniqId]);
@@ -128,9 +127,7 @@ let UIDialogService = class UIDialogService {
                     DOM.removeNode(dialog.taskButtonEl);
                     this.nextActive();
                 }
-                this.invokeLifecycle(dialog.childSlot, 'unbind', null);
                 this.invokeLifecycle(dialog, 'unbind', null);
-                this.invokeLifecycle(dialog.childSlot, 'deactivate', null);
                 this.invokeLifecycle(dialog, 'deactivate', null);
             }
         });

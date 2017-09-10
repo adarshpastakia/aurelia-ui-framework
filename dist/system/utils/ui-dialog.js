@@ -134,7 +134,6 @@ System.register(["aurelia-framework", "./ui-event", "./ui-utils", "lodash", "aur
                     this.invokeLifecycle(dialog, 'canDeactivate', force)
                         .then(function (canDeactivate) {
                         if (force || canDeactivate) {
-                            _this.invokeLifecycle(dialog.childSlot, 'detached', null);
                             _this.invokeLifecycle(dialog, 'detached', null);
                             dialog.dialogWrapperEl.remove();
                             _.remove(_this.windows, ['uniqId', dialog.uniqId]);
@@ -142,9 +141,7 @@ System.register(["aurelia-framework", "./ui-event", "./ui-utils", "lodash", "aur
                                 aurelia_framework_1.DOM.removeNode(dialog.taskButtonEl);
                                 _this.nextActive();
                             }
-                            _this.invokeLifecycle(dialog.childSlot, 'unbind', null);
                             _this.invokeLifecycle(dialog, 'unbind', null);
-                            _this.invokeLifecycle(dialog.childSlot, 'deactivate', null);
                             _this.invokeLifecycle(dialog, 'deactivate', null);
                         }
                     });

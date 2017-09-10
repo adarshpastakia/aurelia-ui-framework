@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var aurelia_framework_1 = require("aurelia-framework");
-var ui_tree_model_1 = require("../../utils/ui-tree-model");
+var ui_tree_model_1 = require("../../data/ui-tree-model");
 var ui_event_1 = require("../../utils/ui-event");
 var _ = require("lodash");
 var UITree = (function () {

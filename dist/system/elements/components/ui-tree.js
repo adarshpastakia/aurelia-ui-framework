@@ -1,4 +1,4 @@
-System.register(["aurelia-framework", "../../utils/ui-tree-model", "../../utils/ui-event", "lodash"], function (exports_1, context_1) {
+System.register(["aurelia-framework", "../../data/ui-tree-model", "../../utils/ui-event", "lodash"], function (exports_1, context_1) {
     "use strict";
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;

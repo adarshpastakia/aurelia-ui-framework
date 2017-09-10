@@ -1,6 +1,70 @@
-define(["require", "exports", "aurelia-framework", "aurelia-metadata", "./ui-event"], function (require, exports, aurelia_framework_1, aurelia_metadata_1, ui_event_1) {
+define(["require", "exports", "aurelia-framework", "aurelia-metadata", "./ui-event", "lodash"], function (require, exports, aurelia_framework_1, aurelia_metadata_1, ui_event_1, _) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    function lodashMixins() {
+        _.mixin({
+            'findByValues': function (collection, property, values) {
+                if (_.isArray(collection)) {
+                    return _.filter(collection, function (item) {
+                        return _.indexOf(values, item[property] + '') > -1;
+                    });
+                }
+                else {
+                    var ret_1 = [];
+                    _.forEach(collection, function (list) {
+                        ret_1.concat(_.filter(list, function (item) {
+                            return _.indexOf(values, item[property] + '') > -1;
+                        }));
+                    });
+                    return ret_1;
+                }
+            },
+            'removeByValues': function (collection, property, values) {
+                if (_.isArray(collection)) {
+                    return _.remove(collection, function (item) {
+                        return _.indexOf(values, item[property] + '') > -1;
+                    }) || [];
+                }
+                else {
+                    var ret_2 = [];
+                    _.forEach(collection, function (list, key) {
+                        ret_2 = ret_2.concat(_.remove(list, function (item) {
+                            return _.indexOf(values, item[property] + '') > -1;
+                        }));
+                    });
+                    return ret_2;
+                }
+            },
+            'findDeep': function (collection, property, value) {
+                if (_.isArray(collection)) {
+                    return _.find(collection, function (item) {
+                        return item[property] + '' === value + '';
+                    });
+                }
+                else {
+                    var ret_3;
+                    _.forEach(collection, function (item) {
+                        ret_3 = _.find(item, function (v) {
+                            return v[property] + '' === value + '';
+                        });
+                        return ret_3 === undefined;
+                    });
+                    return ret_3 || {};
+                }
+            },
+            'findChildren': function (collection, listProperty, property, value) {
+                var ret;
+                _.forEach(collection, function (item) {
+                    ret = _.find(item[listProperty], function (v) {
+                        return v[property] + '' === value + '';
+                    });
+                    return ret === undefined;
+                });
+                return ret || {};
+            }
+        });
+    }
+    exports.lodashMixins = lodashMixins;
     var UIUtils;
     (function (UIUtils) {
         function lazy(T) {

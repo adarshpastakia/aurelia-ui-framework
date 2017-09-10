@@ -1,6 +1,70 @@
 import { Lazy, NewInstance, DOM, TemplatingEngine, CompositionEngine, ViewSlot } from "aurelia-framework";
 import { Origin } from "aurelia-metadata";
 import { UIEvent } from "./ui-event";
+import * as _ from "lodash";
+export function lodashMixins() {
+    _.mixin({
+        'findByValues': function (collection, property, values) {
+            if (_.isArray(collection)) {
+                return _.filter(collection, function (item) {
+                    return _.indexOf(values, item[property] + '') > -1;
+                });
+            }
+            else {
+                let ret = [];
+                _.forEach(collection, function (list) {
+                    ret.concat(_.filter(list, function (item) {
+                        return _.indexOf(values, item[property] + '') > -1;
+                    }));
+                });
+                return ret;
+            }
+        },
+        'removeByValues': function (collection, property, values) {
+            if (_.isArray(collection)) {
+                return _.remove(collection, function (item) {
+                    return _.indexOf(values, item[property] + '') > -1;
+                }) || [];
+            }
+            else {
+                let ret = [];
+                _.forEach(collection, function (list, key) {
+                    ret = ret.concat(_.remove(list, function (item) {
+                        return _.indexOf(values, item[property] + '') > -1;
+                    }));
+                });
+                return ret;
+            }
+        },
+        'findDeep': function (collection, property, value) {
+            if (_.isArray(collection)) {
+                return _.find(collection, function (item) {
+                    return item[property] + '' === value + '';
+                });
+            }
+            else {
+                let ret;
+                _.forEach(collection, function (item) {
+                    ret = _.find(item, v => {
+                        return v[property] + '' === value + '';
+                    });
+                    return ret === undefined;
+                });
+                return ret || {};
+            }
+        },
+        'findChildren': function (collection, listProperty, property, value) {
+            let ret;
+            _.forEach(collection, function (item) {
+                ret = _.find(item[listProperty], v => {
+                    return v[property] + '' === value + '';
+                });
+                return ret === undefined;
+            });
+            return ret || {};
+        }
+    });
+}
 export var UIUtils;
 (function (UIUtils) {
     function lazy(T) {

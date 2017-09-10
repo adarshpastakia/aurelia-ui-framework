@@ -8,7 +8,7 @@ var vinylPaths = require('vinyl-paths');
 var tsconfig = require('../tsconfig.json');
 var compileToModules = ['es2015', 'commonjs', 'amd', 'system'];
 
-var appRoot = 'src/resources/';
+var appRoot = 'src/';
 var paths = {
   root: appRoot,
   source: appRoot + '**/*.ts',
@@ -57,7 +57,7 @@ gulp.task('build-dts', function(done) {
   var tsResult = gulp.src(tsconfig.filesGlob, {
     base: appRoot
   }).pipe(ts(tsProject));
-  return tsResult.dts.pipe(gulp.dest(paths.output + '/typings'));
+  return tsResult.dts.pipe(gulp.dest(paths.output + 'typings'));
 });
 
 gulp.task('rename-index', function(done) {
@@ -76,7 +76,7 @@ gulp.task('rename-index', function(done) {
 
 gulp.task('copy-extras', function(done) {
   compileToModules.forEach(function(moduleType) {
-    gulp.src([paths.libs, paths.glyphs], {
+    gulp.src([paths.libs], {
       base: appRoot
     }).pipe(gulp.dest(paths.output + moduleType));
   });

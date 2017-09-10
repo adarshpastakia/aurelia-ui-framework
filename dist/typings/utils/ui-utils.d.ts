@@ -1,4 +1,5 @@
 import { Container } from "aurelia-framework";
+export declare function lodashMixins(): void;
 export declare module UIUtils {
     var auContainer: Container;
     var dialogContainer: Element;

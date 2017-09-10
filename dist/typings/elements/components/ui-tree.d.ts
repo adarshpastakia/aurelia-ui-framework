@@ -1,4 +1,4 @@
-import { UITreeOptions, UITreeModel } from "../../utils/ui-tree-model";
+import { UITreeOptions, UITreeModel } from "../../data/ui-tree-model";
 export declare class UITree {
     element: Element;
     constructor(element: Element);

@@ -8,7 +8,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { autoinject, customElement, bindable, bindingMode, inlineView, computedFrom } from 'aurelia-framework';
-import { UITreeOptions, UITreeModel } from "../../utils/ui-tree-model";
+import { UITreeOptions, UITreeModel } from "../../data/ui-tree-model";
 import { UIEvent } from "../../utils/ui-event";
 import * as _ from "lodash";
 let UITree = class UITree {

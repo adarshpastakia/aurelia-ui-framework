@@ -8,7 +8,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-define(["require", "exports", "../utils/ui-event", "../utils/ui-model", "lodash"], function (require, exports, ui_event_1, ui_model_1, _) {
+define(["require", "exports", "../utils/ui-event", "./ui-data-model", "lodash"], function (require, exports, ui_event_1, ui_data_model_1, _) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var BaseDataSource = (function () {
@@ -44,7 +44,7 @@ define(["require", "exports", "../utils/ui-event", "../utils/ui-model", "lodash"
             var _this = this;
             var ret = [];
             _.forEach(resp, function (o) {
-                var model = new (_this.model || ui_model_1.UIModel)();
+                var model = new (_this.model || ui_data_model_1.UIModel)();
                 model.deserialize(o);
                 ret.push(model);
             });

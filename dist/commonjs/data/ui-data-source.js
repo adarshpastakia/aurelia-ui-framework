@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var ui_event_1 = require("../utils/ui-event");
-var ui_model_1 = require("../utils/ui-model");
+var ui_data_model_1 = require("./ui-data-model");
 var _ = require("lodash");
 var BaseDataSource = (function () {
     function BaseDataSource() {
@@ -46,7 +46,7 @@ var BaseDataSource = (function () {
         var _this = this;
         var ret = [];
         _.forEach(resp, function (o) {
-            var model = new (_this.model || ui_model_1.UIModel)();
+            var model = new (_this.model || ui_data_model_1.UIModel)();
             model.deserialize(o);
             ret.push(model);
         });

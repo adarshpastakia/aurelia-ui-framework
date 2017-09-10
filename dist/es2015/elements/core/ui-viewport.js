@@ -40,7 +40,7 @@ let UIViewport = class UIViewport {
 UIViewport = __decorate([
     autoinject(),
     inlineView(`<template class="ui-viewport ui-fullscreen">
-  <compose view="../../ui-glyphs.html"></compose>
+  <compose view-model="./ui-glyphs"></compose>
   <slot name="ui-app-header"></slot>
   <slot></slot>
   <div class="ui-app-taskbar"><slot name="ui-app-taskbar"></slot><div class="ui-taskbutton-wrapper" ref="taskbarContainer"></div></div>

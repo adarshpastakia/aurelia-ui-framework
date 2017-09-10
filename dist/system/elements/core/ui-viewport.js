@@ -60,7 +60,7 @@ System.register(["aurelia-framework", "aurelia-router", "aurelia-fetch-client", 
             }());
             UIViewport = __decorate([
                 aurelia_framework_1.autoinject(),
-                aurelia_framework_1.inlineView("<template class=\"ui-viewport ui-fullscreen\">\n  <compose view=\"../../ui-glyphs.html\"></compose>\n  <slot name=\"ui-app-header\"></slot>\n  <slot></slot>\n  <div class=\"ui-app-taskbar\"><slot name=\"ui-app-taskbar\"></slot><div class=\"ui-taskbutton-wrapper\" ref=\"taskbarContainer\"></div></div>\n  <slot name=\"ui-app-footer\"></slot>\n\n  <div class=\"ui-dialog-container\" ref=\"dialogContainer\"></div>\n  <div class=\"ui-overlay-container\" ref=\"overlayContainer\"></div>\n\n  <ui-loader busy.bind=\"router.isNavigating\"></ui-loader>\n</template>"),
+                aurelia_framework_1.inlineView("<template class=\"ui-viewport ui-fullscreen\">\n  <compose view-model=\"./ui-glyphs\"></compose>\n  <slot name=\"ui-app-header\"></slot>\n  <slot></slot>\n  <div class=\"ui-app-taskbar\"><slot name=\"ui-app-taskbar\"></slot><div class=\"ui-taskbutton-wrapper\" ref=\"taskbarContainer\"></div></div>\n  <slot name=\"ui-app-footer\"></slot>\n\n  <div class=\"ui-dialog-container\" ref=\"dialogContainer\"></div>\n  <div class=\"ui-overlay-container\" ref=\"overlayContainer\"></div>\n\n  <ui-loader busy.bind=\"router.isNavigating\"></ui-loader>\n</template>"),
                 aurelia_framework_1.customElement('ui-viewport'),
                 __metadata("design:paramtypes", [Element, aurelia_fetch_client_1.HttpClient, ui_application_1.UIApplication])
             ], UIViewport);

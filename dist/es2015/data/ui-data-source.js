@@ -1,5 +1,5 @@
 import { UIEvent } from "../utils/ui-event";
-import { UIModel } from "../utils/ui-model";
+import { UIModel } from "./ui-data-model";
 import * as _ from "lodash";
 export class BaseDataSource {
     constructor() {

@@ -1,4 +1,4 @@
-System.register(["aurelia-framework", "../elements/inputs/ui-markdown"], function (exports_1, context_1) {
+System.register(["aurelia-framework", "aurelia-validation", "../elements/inputs/ui-markdown", "./ui-utils", "lodash"], function (exports_1, context_1) {
     "use strict";
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -7,14 +7,54 @@ System.register(["aurelia-framework", "../elements/inputs/ui-markdown"], functio
         return c > 3 && r && Object.defineProperty(target, key, r), r;
     };
     var __moduleName = context_1 && context_1.id;
-    var aurelia_framework_1, ui_markdown_1, UIValidationRenderer;
+    function loadValidators() {
+        var validator = ui_utils_1.UIUtils.lazy(aurelia_validation_1.Validator);
+        aurelia_validation_1.ValidationRules
+            .customRule('url', function (value, obj) { return value === null || value === undefined || value === '' || (/^((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?$/).test(value); }, '\${$displayName } is not a valid url.');
+        aurelia_validation_1.ValidationRules
+            .customRule('phone', function (value, obj) { return value === null || value === undefined || value === '' || PhoneLib.isValid(value); }, '\${$displayName } is not a valid phone number.');
+        aurelia_validation_1.ValidationRules
+            .customRule('number', function (value, obj, min, max) { return value === null || value === undefined || value === '' || (isNumber(value) && value >= (isEmpty(min) ? Number.MIN_VALUE : min) && value <= (isEmpty(max) ? Number.MAX_VALUE : max)); }, '\${$displayName} must be an number value between \${$config.min} and \${$config.max}.', function (min, max) { return ({ min: min, max: max }); });
+        aurelia_validation_1.ValidationRules
+            .customRule('decimal', function (value, obj, min, max) { return value === null || value === undefined || value === '' || (isDecimal(value) && value >= (isEmpty(min) ? Number.MIN_VALUE : min) && value <= (isEmpty(max) ? Number.MAX_VALUE : max)); }, '\${$displayName} must be a decimal value between \${$config.min} and \${$config.max}.', function (min, max) { return ({ min: min, max: max }); });
+        aurelia_validation_1.ValidationRules
+            .customRule('language', function (map, obj, langs) {
+            if (langs === void 0) { langs = ''; }
+            var promises = [];
+            map.__errored__ = [];
+            _.forEach(map, function (model, key) {
+                if (model && key != '__errored__') {
+                    promises.push(validator.validateObject(model)
+                        .then(function (e) {
+                        if (_.filter(e, ['valid', false]).length > 0) {
+                            map.__errored__.push(key);
+                            return true;
+                        }
+                        return false;
+                    }));
+                }
+            });
+            return Promise.all(promises).then(function (e) { return _.filter(e).length == 0; });
+        }, 'Some language entries contain invalid values');
+    }
+    exports_1("loadValidators", loadValidators);
+    var aurelia_framework_1, aurelia_validation_1, ui_markdown_1, ui_utils_1, _, UIValidationRenderer;
     return {
         setters: [
             function (aurelia_framework_1_1) {
                 aurelia_framework_1 = aurelia_framework_1_1;
             },
+            function (aurelia_validation_1_1) {
+                aurelia_validation_1 = aurelia_validation_1_1;
+            },
             function (ui_markdown_1_1) {
                 ui_markdown_1 = ui_markdown_1_1;
+            },
+            function (ui_utils_1_1) {
+                ui_utils_1 = ui_utils_1_1;
+            },
+            function (_1) {
+                _ = _1;
             }
         ],
         execute: function () {
@@ -25,15 +65,15 @@ System.register(["aurelia-framework", "../elements/inputs/ui-markdown"], functio
                     for (var _i = 0, _a = instruction.unrender; _i < _a.length; _i++) {
                         var _b = _a[_i], result = _b.result, elements = _b.elements;
                         for (var _c = 0, elements_1 = elements; _c < elements_1.length; _c++) {
-                            var element_1 = elements_1[_c];
-                            this.remove(element_1, result);
+                            var element = elements_1[_c];
+                            this.remove(element, result);
                         }
                     }
                     for (var _d = 0, _e = instruction.render; _d < _e.length; _d++) {
                         var _f = _e[_d], result = _f.result, elements = _f.elements;
                         for (var _g = 0, elements_2 = elements; _g < elements_2.length; _g++) {
-                            var element_2 = elements_2[_g];
-                            this.add(element_2, result);
+                            var element = elements_2[_g];
+                            this.add(element, result);
                         }
                     }
                 };

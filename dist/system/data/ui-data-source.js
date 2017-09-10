@@ -1,4 +1,4 @@
-System.register(["../utils/ui-event", "../utils/ui-model", "lodash"], function (exports_1, context_1) {
+System.register(["../utils/ui-event", "./ui-data-model", "lodash"], function (exports_1, context_1) {
     "use strict";
     var __extends = (this && this.__extends) || (function () {
         var extendStatics = Object.setPrototypeOf ||
@@ -11,14 +11,14 @@ System.register(["../utils/ui-event", "../utils/ui-model", "lodash"], function (
         };
     })();
     var __moduleName = context_1 && context_1.id;
-    var ui_event_1, ui_model_1, _, BaseDataSource, UILocalDS, UIRemoteDS;
+    var ui_event_1, ui_data_model_1, _, BaseDataSource, UILocalDS, UIRemoteDS;
     return {
         setters: [
             function (ui_event_1_1) {
                 ui_event_1 = ui_event_1_1;
             },
-            function (ui_model_1_1) {
-                ui_model_1 = ui_model_1_1;
+            function (ui_data_model_1_1) {
+                ui_data_model_1 = ui_data_model_1_1;
             },
             function (_1) {
                 _ = _1;
@@ -58,7 +58,7 @@ System.register(["../utils/ui-event", "../utils/ui-model", "lodash"], function (
                     var _this = this;
                     var ret = [];
                     _.forEach(resp, function (o) {
-                        var model = new (_this.model || ui_model_1.UIModel)();
+                        var model = new (_this.model || ui_data_model_1.UIModel)();
                         model.deserialize(o);
                         ret.push(model);
                     });

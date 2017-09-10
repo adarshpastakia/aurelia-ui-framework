@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-define(["require", "exports", "aurelia-framework", "../../utils/ui-tree-model", "../../utils/ui-event", "lodash"], function (require, exports, aurelia_framework_1, ui_tree_model_1, ui_event_1, _) {
+define(["require", "exports", "aurelia-framework", "../../data/ui-tree-model", "../../utils/ui-event", "lodash"], function (require, exports, aurelia_framework_1, ui_tree_model_1, ui_event_1, _) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var UITree = (function () {
