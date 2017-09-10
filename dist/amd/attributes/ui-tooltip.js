@@ -27,6 +27,7 @@ define(["require", "exports", "aurelia-framework", "../utils/ui-utils"], functio
             this.element.addEventListener('mouseleave', function () { return _this.hide(); });
         };
         UITooltip.prototype.detached = function () { this.hide(); };
+        UITooltip.prototype.unbind = function () { this.hide(); };
         UITooltip.prototype.show = function () {
             if (isEmpty(this.message))
                 return;

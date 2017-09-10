@@ -71,29 +71,27 @@ System.register(["aurelia-framework", "./ui-event", "./ui-utils", "lodash", "aur
                         viewModel: vm,
                         container: this.container,
                         childContainer: this.container.createChild(),
-                        model: model ? model : {}
+                        model: model
                     };
                     return this.getViewModel(instruction)
-                        .then(function (newInstruction) {
-                        var viewModel = newInstruction.viewModel;
-                        return _this.invokeLifecycle(viewModel, 'canActivate', model)
-                            .then(function (canActivate) {
-                            if (canActivate != false) {
-                                return _this.compositionEngine.createController(instruction)
-                                    .then(function (controller) {
-                                    controller.automate();
-                                    var view = _this.createDialog(controller.viewModel);
-                                    var childSlot = new aurelia_framework_2.ViewSlot(view['fragment'].querySelector('.ui-dialog'), true);
-                                    childSlot.add(controller.view);
-                                    childSlot.viewModel = controller.viewModel;
-                                    childSlot.attached();
-                                    var slot = new aurelia_framework_2.ViewSlot(ui_utils_1.UIUtils.dialogContainer, true);
-                                    slot.add(view);
-                                    slot.attached();
-                                    _this.initializeDialog(controller.viewModel);
-                                });
-                            }
-                        });
+                        .then(function (newInstruction) { return _this.invokeLifecycle(newInstruction.viewModel, 'canActivate', model); })
+                        .then(function (canActivate) {
+                        return canActivate ?
+                            _this.compositionEngine.createController(instruction) :
+                            Promise.reject(false);
+                    })
+                        .then(function (controller) {
+                        controller.automate();
+                        var view = _this.createDialog(controller.viewModel);
+                        var childSlot = new aurelia_framework_2.ViewSlot(view['fragment'].querySelector('.ui-dialog'), true);
+                        childSlot.add(controller.view);
+                        childSlot.viewModel = controller.viewModel;
+                        childSlot.attached();
+                        controller.viewModel["childSlot"] = childSlot;
+                        var slot = new aurelia_framework_2.ViewSlot(ui_utils_1.UIUtils.dialogContainer, true);
+                        slot.add(view);
+                        slot.attached();
+                        _this.initializeDialog(controller.viewModel);
                     });
                 };
                 UIDialogService.prototype.close = function (id, force) {
@@ -136,6 +134,7 @@ System.register(["aurelia-framework", "./ui-event", "./ui-utils", "lodash", "aur
                     this.invokeLifecycle(dialog, 'canDeactivate', force)
                         .then(function (canDeactivate) {
                         if (force || canDeactivate) {
+                            _this.invokeLifecycle(dialog.childSlot, 'detached', null);
                             _this.invokeLifecycle(dialog, 'detached', null);
                             dialog.dialogWrapperEl.remove();
                             _.remove(_this.windows, ['uniqId', dialog.uniqId]);
@@ -143,7 +142,9 @@ System.register(["aurelia-framework", "./ui-event", "./ui-utils", "lodash", "aur
                                 aurelia_framework_1.DOM.removeNode(dialog.taskButtonEl);
                                 _this.nextActive();
                             }
+                            _this.invokeLifecycle(dialog.childSlot, 'unbind', null);
                             _this.invokeLifecycle(dialog, 'unbind', null);
+                            _this.invokeLifecycle(dialog.childSlot, 'deactivate', null);
                             _this.invokeLifecycle(dialog, 'deactivate', null);
                         }
                     });
@@ -334,21 +335,28 @@ System.register(["aurelia-framework", "./ui-event", "./ui-utils", "lodash", "aur
                     this.minimizable = true;
                     this.maximizable = true;
                     this.closable = true;
+                    this.maximized = false;
                 }
                 UIDialog.prototype.bind = function (bindingContext, overrideContext) {
                     var isRtl = window.isRtl(ui_utils_1.UIUtils.dialogContainer);
-                    if (!this.modal) {
-                        this.posCurrent.top = (UIDialog_1.posY = UIDialog_1.posY == 240 ? 10 : UIDialog_1.posY + 30) + 'px';
-                        this.posCurrent[isRtl ? 'right' : 'left'] = (UIDialog_1.posX = UIDialog_1.posY == 10 ? 60 : UIDialog_1.posX + 30) + 'px';
-                    }
+                    var pw = ui_utils_1.UIUtils.dialogContainer.offsetWidth;
+                    var ph = ui_utils_1.UIUtils.dialogContainer.offsetHeight;
                     this.posCurrent.width = this.width || this.minWidth || this.posCurrent.width;
                     this.posCurrent.height = this.height || this.minHeight || this.posCurrent.height;
                     this.posCurrent['min-width'] = this.minWidth || this.posCurrent['min-width'];
                     this.posCurrent['min-height'] = this.minHeight || this.posCurrent['min-height'];
                     this.posCurrent['max-width'] = this.maxWidth || this.posCurrent['max-width'];
                     this.posCurrent['max-height'] = this.maxHeight || this.posCurrent['max-height'];
+                    if (!this.modal) {
+                        this.posCurrent.top = (UIDialog_1.posY = (UIDialog_1.posY + parseInt(this.posCurrent.height) + 32 > ph) ? 10 : UIDialog_1.posY + 30) + 'px';
+                        this.posCurrent.left = this.posCurrent.right = (UIDialog_1.posX = (UIDialog_1.posX + parseInt(this.posCurrent.width) + 32 > pw) ? (UIDialog_1.seedX += 60) : UIDialog_1.posX + 30) + 'px';
+                    }
                     if (!this.id)
                         this.id = this.uniqId;
+                };
+                UIDialog.prototype.attached = function () {
+                    if (this.maximized)
+                        this.expand(null);
                 };
                 UIDialog.prototype.focus = function () {
                     var _this = this;
@@ -401,6 +409,7 @@ System.register(["aurelia-framework", "./ui-event", "./ui-utils", "lodash", "aur
                 return UIDialog;
             }());
             UIDialog.seed = 0;
+            UIDialog.seedX = 0;
             UIDialog.posX = 0;
             UIDialog.posY = 0;
             UIDialog = UIDialog_1 = __decorate([

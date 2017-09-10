@@ -12,6 +12,7 @@ export declare class UIHttpService {
     get(slug: string, headers?: any): Promise<any | string | void>;
     text(slug: string, headers?: any): Promise<any | string | void>;
     blob(slug: string, headers?: any): Promise<any | string | void>;
+    patch(slug: string, obj: any, headers?: any): Promise<any | string | void>;
     put(slug: string, obj: any, headers?: any): Promise<any | string | void>;
     post(slug: string, obj: any, headers?: any): Promise<any | string | void>;
     delete(slug: string, headers?: any): Promise<any | string | void>;

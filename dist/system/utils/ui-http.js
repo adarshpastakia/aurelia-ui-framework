@@ -134,6 +134,19 @@ System.register(["aurelia-framework", "aurelia-logging", "aurelia-fetch-client",
                     })
                         .then(function (resp) { return resp.blob(); });
                 };
+                UIHttpService.prototype.patch = function (slug, obj, headers) {
+                    var _this = this;
+                    if (headers === void 0) { headers = true; }
+                    this.logger.info("patch [" + slug + "]");
+                    return this.httpClient
+                        .fetch(slug, {
+                        method: 'patch',
+                        body: aurelia_fetch_client_1.json(obj),
+                        mode: 'cors',
+                        headers: this.__getHeaders(headers)
+                    })
+                        .then(function (resp) { return _this.__getResponse(resp); });
+                };
                 UIHttpService.prototype.put = function (slug, obj, headers) {
                     var _this = this;
                     if (headers === void 0) { headers = true; }

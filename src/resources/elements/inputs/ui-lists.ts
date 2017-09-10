@@ -3,9 +3,9 @@
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
-import {autoinject, customElement, bindable, bindingMode, children, inlineView, useView, containerless, View, DOM} from 'aurelia-framework';
-import {UIEvent} from "../../utils/ui-event";
-import {UIUtils} from "../../utils/ui-utils";
+import { autoinject, customElement, bindable, bindingMode, children, inlineView, useView, containerless, View, DOM } from 'aurelia-framework';
+import { UIEvent } from "../../utils/ui-event";
+import { UIUtils } from "../../utils/ui-utils";
 import * as _ from "lodash";
 
 export class BaseListInput {
@@ -162,9 +162,16 @@ export class BaseListInput {
   }
 
   scrollIntoView() {
-    let h = this.dropdown.querySelector('.ui-list-item.ui-hilight');
-    if (h == null) h = this.dropdown.querySelector('.ui-list-item.ui-selected');
-    this.dropdown.scrollTop = (h !== null ? h.offsetTop - (this.dropdown.offsetHeight / 2) : 0);
+    let h = this.dropdown.querySelector('.ui-list-item.ui-hilight') || this.dropdown.querySelector('.ui-list-item.ui-selected');
+
+    if (h !== null) {
+      //if not already in view
+      if (h.offsetTop < this.dropdown.scrollTop || h.offsetTop - this.dropdown.scrollTop > this.dropdown.clientHeight - 10)
+        this.dropdown.scrollTop = h.offsetTop - (this.dropdown.offsetHeight / 2);
+    }
+    else {
+      this.dropdown.scrollTop = 0;
+    }
   }
 
   openDropdown() {
@@ -195,7 +202,7 @@ export class BaseListInput {
     if (code == 13 && this.dropdown.isOpen) {
       if (this.hilight) this.hilight.click();
       if (!this.hilight && this.forceSelect) this.elValue = _['findChildren'](this.filtered = this.original, 'items', 'value', this.value).text;
-      if (!this.hilight && !this.forceSelect) this.fireChange();
+      // if (!this.hilight && !this.forceSelect) this.fireChange();
       this.closeDropdown();
       return false;
     }
@@ -291,8 +298,6 @@ export class BaseListInput {
     this.filtered = this.original;
     this.unhilightItem(null);
     this.inputEl.focus();
-    let h = this.dropdown.querySelector('.ui-list-item.ui-selected');
-    this.dropdown.scrollTop = (h !== null ? h.offsetTop - (this.dropdown.offsetHeight / 2) : 0);
   }
 
   fireChange() { }
@@ -306,7 +311,7 @@ export class BaseListInput {
   <input ref="inputEl" value.bind="elValue" autocomplete="off" size="1"
     focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)" click.trigger="openDropdown($event)"
     input.trigger="search() & debounce:200" change.trigger="fireEvent($event)" select.trigger="$event.stopPropagation()"
-    keydown.trigger="keyDown($event)" placeholder.bind="placeholder" size="1"
+    keydown.trigger="keyDown($event)" placeholder.bind="placeholder"
     disabled.bind="isDisabled" readonly.bind="!allowSearch || readonly"/>
   <span class="ui-clear" if.bind="clear && value" click.trigger="clearInput()">&times;</span>
   <span class="ui-input-addon ui-dropdown-handle" click.trigger="openDropdown($event, inputEl.focus())"><ui-glyph glyph="glyph-chevron-down"></ui-glyph></span></div>
@@ -367,11 +372,12 @@ export class UICombo extends BaseListInput {
       UIEvent.fireEvent('select', this.element, model);
     }
     super.fireSelect(model);
+    this.fireChange();
     this.closeDropdown();
   }
 
   fireChange() {
-    UIEvent.fireEvent('change', this.element, this.value = this.elValue);
+    UIEvent.fireEvent('change', this.element, this.value);
   }
 }
 
@@ -548,11 +554,12 @@ export class UIList extends BaseListInput {
       this.value = model[this.valueProperty] == null ? model : model[this.valueProperty];
       UIEvent.fireEvent('select', this.element, model);
     }
+    this.fireChange();
     this.closeDropdown();
   }
 
   fireChange() {
-    UIEvent.fireEvent('change', this.element, this.value = this.elValue);
+    UIEvent.fireEvent('change', this.element, this.value);
   }
 }
 

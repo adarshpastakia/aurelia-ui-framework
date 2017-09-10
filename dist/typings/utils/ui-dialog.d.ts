@@ -37,7 +37,9 @@ export declare class UIDialogService {
 }
 export declare class UIDialog {
     bind(bindingContext?: Object, overrideContext?: Object): void;
+    attached(): void;
     static seed: number;
+    static seedX: number;
     static posX: number;
     static posY: number;
     private uniqId;
@@ -64,6 +66,7 @@ export declare class UIDialog {
     minimizable: boolean;
     maximizable: boolean;
     closable: boolean;
+    maximized: boolean;
     focus(): void;
     makeActive(): void;
     makeInactive(): void;

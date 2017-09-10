@@ -4,9 +4,9 @@
 // @copyright   : 2017
 // @license     : MIT
 
-import {autoinject, customAttribute, bindable} from 'aurelia-framework';
-import {UIEvent} from "../utils/ui-event";
-import {UIUtils} from "../utils/ui-utils";
+import { autoinject, customAttribute, bindable } from 'aurelia-framework';
+import { UIEvent } from "../utils/ui-event";
+import { UIUtils } from "../utils/ui-utils";
 
 @autoinject()
 @customAttribute('tooltip')
@@ -29,7 +29,7 @@ export class UITooltip {
     this.element.addEventListener('mouseleave', () => this.hide());
   }
   detached() { this.hide(); }
-  // unbind() { }
+  unbind() { this.hide(); }
   // end aurelia hooks
 
   @bindable() theme = 'light';

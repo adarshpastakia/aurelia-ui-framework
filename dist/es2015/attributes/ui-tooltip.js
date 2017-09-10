@@ -25,6 +25,7 @@ let UITooltip = UITooltip_1 = class UITooltip {
         this.element.addEventListener('mouseleave', () => this.hide());
     }
     detached() { this.hide(); }
+    unbind() { this.hide(); }
     show() {
         if (isEmpty(this.message))
             return;

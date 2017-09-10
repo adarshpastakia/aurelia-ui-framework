@@ -110,6 +110,17 @@ let UIHttpService = class UIHttpService {
         })
             .then(resp => resp.blob());
     }
+    patch(slug, obj, headers = true) {
+        this.logger.info(`patch [${slug}]`);
+        return this.httpClient
+            .fetch(slug, {
+            method: 'patch',
+            body: json(obj),
+            mode: 'cors',
+            headers: this.__getHeaders(headers)
+        })
+            .then(resp => this.__getResponse(resp));
+    }
     put(slug, obj, headers = true) {
         this.logger.info(`put [${slug}]`);
         return this.httpClient
