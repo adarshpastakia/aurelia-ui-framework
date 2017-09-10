@@ -202,7 +202,7 @@ export class BaseListInput {
     if (code == 13 && this.dropdown.isOpen) {
       if (this.hilight) this.hilight.click();
       if (!this.hilight && this.forceSelect) this.elValue = _['findChildren'](this.filtered = this.original, 'items', 'value', this.value).text;
-      if (!this.hilight && !this.forceSelect) this.fireChange();
+      // if (!this.hilight && !this.forceSelect) this.fireChange();
       this.closeDropdown();
       return false;
     }
@@ -372,11 +372,12 @@ export class UICombo extends BaseListInput {
       UIEvent.fireEvent('select', this.element, model);
     }
     super.fireSelect(model);
+    this.fireChange();
     this.closeDropdown();
   }
 
   fireChange() {
-    UIEvent.fireEvent('change', this.element, this.value = this.elValue);
+    UIEvent.fireEvent('change', this.element, this.value);
   }
 }
 
@@ -553,11 +554,12 @@ export class UIList extends BaseListInput {
       this.value = model[this.valueProperty] == null ? model : model[this.valueProperty];
       UIEvent.fireEvent('select', this.element, model);
     }
+    this.fireChange();
     this.closeDropdown();
   }
 
   fireChange() {
-    UIEvent.fireEvent('change', this.element, this.value = this.elValue);
+    UIEvent.fireEvent('change', this.element, this.value);
   }
 }
 
