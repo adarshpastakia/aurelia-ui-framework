@@ -4,6 +4,7 @@ export declare class UITooltip {
     constructor(element: Element);
     attached(): void;
     detached(): void;
+    unbind(): void;
     theme: string;
     message: string;
     private tether;

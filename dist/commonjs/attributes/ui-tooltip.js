@@ -28,6 +28,7 @@ var UITooltip = UITooltip_1 = (function () {
         this.element.addEventListener('mouseleave', function () { return _this.hide(); });
     };
     UITooltip.prototype.detached = function () { this.hide(); };
+    UITooltip.prototype.unbind = function () { this.hide(); };
     UITooltip.prototype.show = function () {
         if (isEmpty(this.message))
             return;

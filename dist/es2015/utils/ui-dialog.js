@@ -51,29 +51,27 @@ let UIDialogService = class UIDialogService {
             viewModel: vm,
             container: this.container,
             childContainer: this.container.createChild(),
-            model: model ? model : {}
+            model: model
         };
         return this.getViewModel(instruction)
-            .then(newInstruction => {
-            let viewModel = newInstruction.viewModel;
-            return this.invokeLifecycle(viewModel, 'canActivate', model)
-                .then(canActivate => {
-                if (canActivate != false) {
-                    return this.compositionEngine.createController(instruction)
-                        .then(controller => {
-                        controller.automate();
-                        let view = this.createDialog(controller.viewModel);
-                        let childSlot = new ViewSlot(view['fragment'].querySelector('.ui-dialog'), true);
-                        childSlot.add(controller.view);
-                        childSlot.viewModel = controller.viewModel;
-                        childSlot.attached();
-                        let slot = new ViewSlot(UIUtils.dialogContainer, true);
-                        slot.add(view);
-                        slot.attached();
-                        this.initializeDialog(controller.viewModel);
-                    });
-                }
-            });
+            .then(newInstruction => this.invokeLifecycle(newInstruction.viewModel, 'canActivate', model))
+            .then(canActivate => {
+            return canActivate ?
+                this.compositionEngine.createController(instruction) :
+                Promise.reject(false);
+        })
+            .then(controller => {
+            controller.automate();
+            let view = this.createDialog(controller.viewModel);
+            let childSlot = new ViewSlot(view['fragment'].querySelector('.ui-dialog'), true);
+            childSlot.add(controller.view);
+            childSlot.viewModel = controller.viewModel;
+            childSlot.attached();
+            controller.viewModel["childSlot"] = childSlot;
+            let slot = new ViewSlot(UIUtils.dialogContainer, true);
+            slot.add(view);
+            slot.attached();
+            this.initializeDialog(controller.viewModel);
         });
     }
     close(id, force) {
@@ -122,6 +120,7 @@ let UIDialogService = class UIDialogService {
         this.invokeLifecycle(dialog, 'canDeactivate', force)
             .then(canDeactivate => {
             if (force || canDeactivate) {
+                this.invokeLifecycle(dialog.childSlot, 'detached', null);
                 this.invokeLifecycle(dialog, 'detached', null);
                 dialog.dialogWrapperEl.remove();
                 _.remove(this.windows, ['uniqId', dialog.uniqId]);
@@ -129,7 +128,9 @@ let UIDialogService = class UIDialogService {
                     DOM.removeNode(dialog.taskButtonEl);
                     this.nextActive();
                 }
+                this.invokeLifecycle(dialog.childSlot, 'unbind', null);
                 this.invokeLifecycle(dialog, 'unbind', null);
+                this.invokeLifecycle(dialog.childSlot, 'deactivate', null);
                 this.invokeLifecycle(dialog, 'deactivate', null);
             }
         });

@@ -161,10 +161,14 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
                 h.classList.remove('ui-hilight');
         };
         BaseListInput.prototype.scrollIntoView = function () {
-            var h = this.dropdown.querySelector('.ui-list-item.ui-hilight');
-            if (h == null)
-                h = this.dropdown.querySelector('.ui-list-item.ui-selected');
-            this.dropdown.scrollTop = (h !== null ? h.offsetTop - (this.dropdown.offsetHeight / 2) : 0);
+            var h = this.dropdown.querySelector('.ui-list-item.ui-hilight') || this.dropdown.querySelector('.ui-list-item.ui-selected');
+            if (h !== null) {
+                if (h.offsetTop < this.dropdown.scrollTop || h.offsetTop - this.dropdown.scrollTop > this.dropdown.clientHeight - 10)
+                    this.dropdown.scrollTop = h.offsetTop - (this.dropdown.offsetHeight / 2);
+            }
+            else {
+                this.dropdown.scrollTop = 0;
+            }
         };
         BaseListInput.prototype.openDropdown = function () {
             if (this.readonly || this.disabled)
@@ -197,8 +201,6 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
                     this.hilight.click();
                 if (!this.hilight && this.forceSelect)
                     this.elValue = _['findChildren'](this.filtered = this.original, 'items', 'value', this.value).text;
-                if (!this.hilight && !this.forceSelect)
-                    this.fireChange();
                 this.closeDropdown();
                 return false;
             }
@@ -295,8 +297,6 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
             this.filtered = this.original;
             this.unhilightItem(null);
             this.inputEl.focus();
-            var h = this.dropdown.querySelector('.ui-list-item.ui-selected');
-            this.dropdown.scrollTop = (h !== null ? h.offsetTop - (this.dropdown.offsetHeight / 2) : 0);
         };
         BaseListInput.prototype.fireChange = function () { };
         BaseListInput.prototype.addValue = function (val) { };
@@ -340,10 +340,11 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
                 ui_event_1.UIEvent.fireEvent('select', this.element, model);
             }
             _super.prototype.fireSelect.call(this, model);
+            this.fireChange();
             this.closeDropdown();
         };
         UICombo.prototype.fireChange = function () {
-            ui_event_1.UIEvent.fireEvent('change', this.element, this.value = this.elValue);
+            ui_event_1.UIEvent.fireEvent('change', this.element, this.value);
         };
         return UICombo;
     }(BaseListInput));
@@ -587,10 +588,11 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
                 this.value = model[this.valueProperty] == null ? model : model[this.valueProperty];
                 ui_event_1.UIEvent.fireEvent('select', this.element, model);
             }
+            this.fireChange();
             this.closeDropdown();
         };
         UIList.prototype.fireChange = function () {
-            ui_event_1.UIEvent.fireEvent('change', this.element, this.value = this.elValue);
+            ui_event_1.UIEvent.fireEvent('change', this.element, this.value);
         };
         return UIList;
     }(BaseListInput));

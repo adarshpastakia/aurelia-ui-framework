@@ -149,10 +149,14 @@ export class BaseListInput {
             h.classList.remove('ui-hilight');
     }
     scrollIntoView() {
-        let h = this.dropdown.querySelector('.ui-list-item.ui-hilight');
-        if (h == null)
-            h = this.dropdown.querySelector('.ui-list-item.ui-selected');
-        this.dropdown.scrollTop = (h !== null ? h.offsetTop - (this.dropdown.offsetHeight / 2) : 0);
+        let h = this.dropdown.querySelector('.ui-list-item.ui-hilight') || this.dropdown.querySelector('.ui-list-item.ui-selected');
+        if (h !== null) {
+            if (h.offsetTop < this.dropdown.scrollTop || h.offsetTop - this.dropdown.scrollTop > this.dropdown.clientHeight - 10)
+                this.dropdown.scrollTop = h.offsetTop - (this.dropdown.offsetHeight / 2);
+        }
+        else {
+            this.dropdown.scrollTop = 0;
+        }
     }
     openDropdown() {
         if (this.readonly || this.disabled)
@@ -183,8 +187,6 @@ export class BaseListInput {
                 this.hilight.click();
             if (!this.hilight && this.forceSelect)
                 this.elValue = _['findChildren'](this.filtered = this.original, 'items', 'value', this.value).text;
-            if (!this.hilight && !this.forceSelect)
-                this.fireChange();
             this.closeDropdown();
             return false;
         }
@@ -280,8 +282,6 @@ export class BaseListInput {
         this.filtered = this.original;
         this.unhilightItem(null);
         this.inputEl.focus();
-        let h = this.dropdown.querySelector('.ui-list-item.ui-selected');
-        this.dropdown.scrollTop = (h !== null ? h.offsetTop - (this.dropdown.offsetHeight / 2) : 0);
     }
     fireChange() { }
     addValue(val) { }
@@ -321,10 +321,11 @@ let UICombo = class UICombo extends BaseListInput {
             UIEvent.fireEvent('select', this.element, model);
         }
         super.fireSelect(model);
+        this.fireChange();
         this.closeDropdown();
     }
     fireChange() {
-        UIEvent.fireEvent('change', this.element, this.value = this.elValue);
+        UIEvent.fireEvent('change', this.element, this.value);
     }
 };
 __decorate([
@@ -597,10 +598,11 @@ let UIList = class UIList extends BaseListInput {
             this.value = model[this.valueProperty] == null ? model : model[this.valueProperty];
             UIEvent.fireEvent('select', this.element, model);
         }
+        this.fireChange();
         this.closeDropdown();
     }
     fireChange() {
-        UIEvent.fireEvent('change', this.element, this.value = this.elValue);
+        UIEvent.fireEvent('change', this.element, this.value);
     }
 };
 __decorate([
