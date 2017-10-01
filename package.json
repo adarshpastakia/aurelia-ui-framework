@@ -14,7 +14,7 @@
   },
   "license": "MIT",
   "author": "Adarsh Pastakia <adarshpastakia@outlook.com> (http://adarshpastakia.github.io/)",
-  "main": "dist/amd/aurelia-ui-framework.js",
+  "main": "dist/commonjs/aurelia-ui-framework.js",
   "typings": "dist/typings/aurelia-ui-framework.d.ts",
   "repository":
   {

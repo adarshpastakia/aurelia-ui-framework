@@ -1,4 +1,4 @@
-var Currencies = {
+window.Currencies = {
   "AED": "United Arab Emirates Dirham",
   "AFN": "Afghanistan Afghani",
   "ALL": "Albania Lek",

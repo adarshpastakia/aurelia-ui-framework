@@ -33,6 +33,8 @@ __export(require("./utils/ui-http"));
 __export(require("./data/ui-data-source"));
 __export(require("./data/ui-data-model"));
 __export(require("./data/ui-tree-model"));
+var ui_validation_2 = require("./utils/ui-validation");
+exports.UIValidationRenderer = ui_validation_2.UIValidationRenderer;
 __export(require("./utils/ui-utils"));
 function configure(config, configCallback) {
     ui_utils_1.UIUtils.auContainer = config.container;

@@ -1,4 +1,4 @@
-var Countries = {
+window.Countries = {
   toIso2: function(c) {
     var ctry = this.find(c);
     return ctry ? ctry.iso2 : null;

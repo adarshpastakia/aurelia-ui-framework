@@ -60,7 +60,8 @@ System.register(["aurelia-pal", "aurelia-validation", "./utils/ui-validation", "
         "kramed": true,
         "moment": true,
         "numeral": true,
-        "configure": true
+        "configure": true,
+        "UIValidationRenderer": true
     };
     function exportStar_1(m) {
         var exports = {};
@@ -79,6 +80,9 @@ System.register(["aurelia-pal", "aurelia-validation", "./utils/ui-validation", "
             },
             function (ui_validation_1_1) {
                 ui_validation_1 = ui_validation_1_1;
+                exports_1({
+                    "UIValidationRenderer": ui_validation_1_1["UIValidationRenderer"]
+                });
             },
             function (ui_constants_1_1) {
                 ui_constants_1 = ui_constants_1_1;

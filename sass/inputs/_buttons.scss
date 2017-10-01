@@ -184,6 +184,7 @@
   }
 
   .ui-label {
+    line-height: 1.25;
     @include ellipsis();
   }
 

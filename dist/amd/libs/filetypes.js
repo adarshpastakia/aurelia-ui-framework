@@ -1,4 +1,4 @@
-var FileTypes = {
+window.FileTypes = {
   "text/vnd.in3d.3dml": "3dml",
   "video/3gpp2": "3g2",
   "video/3gpp": "3gp",

@@ -22,6 +22,7 @@ export * from './utils/ui-http';
 export * from './data/ui-data-source';
 export * from './data/ui-data-model';
 export * from './data/ui-tree-model';
+export { UIValidationRenderer } from './utils/ui-validation';
 export * from './utils/ui-utils';
 export interface UIConfig {
     title(t: string): UIConfig;

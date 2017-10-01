@@ -1,4 +1,4 @@
-define(["require", "exports", "aurelia-pal", "aurelia-validation", "./utils/ui-validation", "./utils/ui-constants", "./utils/ui-utils", "lodash", "kramed", "moment", "numeral", "./utils/ui-application", "./utils/ui-constants", "./utils/ui-dialog", "./utils/ui-event", "./utils/ui-format", "./utils/ui-http", "./data/ui-data-source", "./data/ui-data-model", "./data/ui-tree-model", "./utils/ui-utils", "lodash", "moment", "numeral", "./libs/countries", "./libs/currencies", "./libs/filetypes", "./libs/phonelib", "./libs/window"], function (require, exports, aurelia_pal_1, aurelia_validation_1, ui_validation_1, ui_constants_1, ui_utils_1, ld, km, mm, nm, ui_application_1, ui_constants_2, ui_dialog_1, ui_event_1, ui_format_1, ui_http_1, ui_data_source_1, ui_data_model_1, ui_tree_model_1, ui_utils_2) {
+define(["require", "exports", "aurelia-pal", "aurelia-validation", "./utils/ui-validation", "./utils/ui-constants", "./utils/ui-utils", "lodash", "kramed", "moment", "numeral", "./utils/ui-application", "./utils/ui-constants", "./utils/ui-dialog", "./utils/ui-event", "./utils/ui-format", "./utils/ui-http", "./data/ui-data-source", "./data/ui-data-model", "./data/ui-tree-model", "./utils/ui-validation", "./utils/ui-utils", "lodash", "moment", "numeral", "./libs/countries", "./libs/currencies", "./libs/filetypes", "./libs/phonelib", "./libs/window"], function (require, exports, aurelia_pal_1, aurelia_validation_1, ui_validation_1, ui_constants_1, ui_utils_1, ld, km, mm, nm, ui_application_1, ui_constants_2, ui_dialog_1, ui_event_1, ui_format_1, ui_http_1, ui_data_source_1, ui_data_model_1, ui_tree_model_1, ui_validation_2, ui_utils_2) {
     "use strict";
     function __export(m) {
         for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
@@ -17,6 +17,7 @@ define(["require", "exports", "aurelia-pal", "aurelia-validation", "./utils/ui-v
     __export(ui_data_source_1);
     __export(ui_data_model_1);
     __export(ui_tree_model_1);
+    exports.UIValidationRenderer = ui_validation_2.UIValidationRenderer;
     __export(ui_utils_2);
     function configure(config, configCallback) {
         ui_utils_1.UIUtils.auContainer = config.container;
