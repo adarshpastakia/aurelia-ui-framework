@@ -244,56 +244,56 @@ var UITextarea = (function (_super) {
         }
         return coordinates;
     };
+    __decorate([
+        aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
+        __metadata("design:type", Object)
+    ], UITextarea.prototype, "value", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UITextarea.prototype, "dir", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UITextarea.prototype, "rows", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UITextarea.prototype, "errors", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UITextarea.prototype, "maxlength", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UITextarea.prototype, "disabled", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UITextarea.prototype, "readonly", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UITextarea.prototype, "placeholder", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UITextarea.prototype, "autoComplete", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UITextarea.prototype, "info", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UITextarea.prototype, "beforeReplace", void 0);
+    UITextarea = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper\"><div role=\"input\" class=\"ui-input-control ui-textarea\"><span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"glyph-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <textarea ref=\"inputEl\" value.bind=\"value\" rows.bind=\"rows\" maxlength.bind=\"maxlength\" dir.bind=\"dir\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\"\n    input.trigger=\"fireEvent($event)\" change.trigger=\"fireEvent($event)\"\n    keyup.trigger=\"checkList($event)\" keydown.trigger=\"checkInput($event)\" placeholder.bind=\"placeholder\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"readonly\"></textarea>\n  <ul class=\"ui-list-container ui-floating\" ref=\"dropdown\"><li class=\"ui-list-item\" mouseover.trigger=\"hilightItem($event)\" repeat.for=\"item of acList\" innerhtml.bind=\"item\" data-value.bind=\"item\" click.trigger=\"replace(item)\"></li></ul>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span>\n  <span class=\"ui-counter\" if.bind=\"counter\" innerhtml.bind=\"value.length + ' of ' + maxlength\"></span></div>\n  <div class=\"ui-input-info\" if.bind=\"info\" innerhtml.bind=\"info\"></div>\n</template>"),
+        aurelia_framework_1.customElement('ui-textarea'),
+        __metadata("design:paramtypes", [Element])
+    ], UITextarea);
     return UITextarea;
 }(ui_input_1.UIBaseInput));
-__decorate([
-    aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
-    __metadata("design:type", Object)
-], UITextarea.prototype, "value", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UITextarea.prototype, "dir", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UITextarea.prototype, "rows", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UITextarea.prototype, "errors", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UITextarea.prototype, "maxlength", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UITextarea.prototype, "disabled", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UITextarea.prototype, "readonly", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UITextarea.prototype, "placeholder", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UITextarea.prototype, "autoComplete", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UITextarea.prototype, "info", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UITextarea.prototype, "beforeReplace", void 0);
-UITextarea = __decorate([
-    aurelia_framework_1.autoinject(),
-    aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper\"><div role=\"input\" class=\"ui-input-control ui-textarea\"><span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"glyph-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <textarea ref=\"inputEl\" value.bind=\"value\" rows.bind=\"rows\" maxlength.bind=\"maxlength\" dir.bind=\"dir\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\"\n    input.trigger=\"fireEvent($event)\" change.trigger=\"fireEvent($event)\"\n    keyup.trigger=\"checkList($event)\" keydown.trigger=\"checkInput($event)\" placeholder.bind=\"placeholder\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"readonly\"></textarea>\n  <ul class=\"ui-list-container ui-floating\" ref=\"dropdown\"><li class=\"ui-list-item\" mouseover.trigger=\"hilightItem($event)\" repeat.for=\"item of acList\" innerhtml.bind=\"item\" data-value.bind=\"item\" click.trigger=\"replace(item)\"></li></ul>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span>\n  <span class=\"ui-counter\" if.bind=\"counter\" innerhtml.bind=\"value.length + ' of ' + maxlength\"></span></div>\n  <div class=\"ui-input-info\" if.bind=\"info\" innerhtml.bind=\"info\"></div>\n</template>"),
-    aurelia_framework_1.customElement('ui-textarea'),
-    __metadata("design:paramtypes", [Element])
-], UITextarea);
 exports.UITextarea = UITextarea;

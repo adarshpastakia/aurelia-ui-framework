@@ -304,30 +304,30 @@ var UIDateView = (function () {
             ui_event_1.UIEvent.fireEvent('change', this.element, moment(this.date));
         }
     };
+    __decorate([
+        aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
+        __metadata("design:type", Object)
+    ], UIDateView.prototype, "date", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDateView.prototype, "minDate", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDateView.prototype, "maxDate", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDateView.prototype, "type", void 0);
+    UIDateView = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("<template class=\"ui-date-view\" click.trigger=\"clicked($event)\">\n  <div class=\"ui-dv-date-wrapper\" if.bind=\"type!='t'\">\n    <div class=\"ui-dv-header\">\n      <a class=\"prev ${disablePrev?'disabled':''}\"><ui-glyph glyph=\"glyph-chevron-left\"></ui-glyph></a>\n      <a class=\"title\">${title}<ui-glyph glyph=\"glyph-caret-up\"></ui-glyph></a>\n      <a class=\"next ${disableNext?'disabled':''}\"><ui-glyph glyph=\"glyph-chevron-right\"></ui-glyph></a>\n    </div>\n    <div class=\"ui-dv-container\">\n      <div class=\"weekdays\" if.bind=\"datePage==0\">\n        <span class=\"week\">#</span>\n        <span repeat.for=\"d of weekdays\">${d}</span>\n      </div>\n      <div repeat.for=\"w of dates\" class=\"dates\" if.bind=\"datePage==0\">\n        <span class=\"week\">${w.wk}</span>\n        <span repeat.for=\"d of w.dt\" date.bind=\"d\" class=\"date hover ${dateClass(d, current, minDate, maxDate)}\">${d.date()}</span>\n      </div>\n      <div repeat.for=\"w of 4\" class=\"months\" if.bind=\"datePage==1\">\n        <span repeat.for=\"d of 3\" month.bind=\"(w*3)+d\" class=\"month hover ${monthClass((w*3)+d, current, minDate, maxDate)}\">${months[(w*3)+d]}</span>\n      </div>\n      <div repeat.for=\"w of 5\" class=\"years\" if.bind=\"datePage==2\">\n          <span repeat.for=\"d of 4\" year.bind=\"(w*4)+d+decade\" class=\"year hover ${yearClass((w*4)+d+decade, current, minDate, maxDate)}\">${(w*4)+d+decade}</span>\n      </div>\n    </div>\n    <div class=\"ui-dv-footer\">\n      <a class=\"today\" if.bind=\"datePage==0\">Today</a>\n      <a class=\"cancel\" if.bind=\"datePage!=0\">Cancel</a>\n    </div>\n  </div>\n  <div class=\"ui-dv-time-wrapper\" if.bind=\"type!='d'\">\n    <div class=\"time\" if.bind=\"timePage==0\">\n      <div><ui-glyph glyph=\"glyph-time\"></ui-glyph></div>\n      <div>\n        <a class=\"hour-up ${disableHrUp?'disabled':''}\"><ui-glyph glyph=\"glyph-chevron-up\"></ui-glyph></a>\n        <a class=\"hour\">${(hour>11?hour-12:hour)==0?'12':(hour>11?hour-12:hour) | number:'{00}'}</a>\n        <a class=\"hour-dn ${disableHrDn?'disabled':''}\"><ui-glyph glyph=\"glyph-chevron-down\"></ui-glyph></a>\n      </div>\n      <div>:</div>\n      <div>\n        <a class=\"minute-up ${disableMnUp?'disabled':''}\"><ui-glyph glyph=\"glyph-chevron-up\"></ui-glyph></a>\n        <a class=\"minute\">${minute | number:'{00}'}</a>\n        <a class=\"minute-dn ${disableMnDn?'disabled':''}\"><ui-glyph glyph=\"glyph-chevron-down\"></ui-glyph></a>\n      </div>\n      <div><a class=\"tt\">${hour>11?'PM':'AM'}</a></div>\n    </div>\n    <div class=\"numbers hours\" if.bind=\"timePage==1\" repeat.for=\"r of 2\">\n      <span repeat.for=\"h of 6\" hour.bind=\"((r*6)+(h+1)==12?0:(r*6)+(h+1))+(hour>11?12:0)\" class=\"hr hover}\"\">${(r*6)+h+1 | number:'{00}'}</span>\n    </div>\n    <div class=\"numbers minutes\" if.bind=\"timePage==2\" repeat.for=\"r of 2\">\n      <span repeat.for=\"m of 6\" minute.bind=\"(r*30)+(m*5)\" class=\"mn hover}\"\">${(r*30)+(m*5) | number:'{00}'}</span>\n    </div>\n    <div if.bind=\"timePage!=0\">\n      <a class=\"cancel\">Cancel</a>\n    </div>\n  </div>\n</template>"),
+        aurelia_framework_1.customElement('ui-date-view'),
+        __metadata("design:paramtypes", [Element])
+    ], UIDateView);
     return UIDateView;
 }());
-__decorate([
-    aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
-    __metadata("design:type", Object)
-], UIDateView.prototype, "date", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UIDateView.prototype, "minDate", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UIDateView.prototype, "maxDate", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UIDateView.prototype, "type", void 0);
-UIDateView = __decorate([
-    aurelia_framework_1.autoinject(),
-    aurelia_framework_1.inlineView("<template class=\"ui-date-view\" click.trigger=\"clicked($event)\">\n  <div class=\"ui-dv-date-wrapper\" if.bind=\"type!='t'\">\n    <div class=\"ui-dv-header\">\n      <a class=\"prev ${disablePrev?'disabled':''}\"><ui-glyph glyph=\"glyph-chevron-left\"></ui-glyph></a>\n      <a class=\"title\">${title}<ui-glyph glyph=\"glyph-caret-up\"></ui-glyph></a>\n      <a class=\"next ${disableNext?'disabled':''}\"><ui-glyph glyph=\"glyph-chevron-right\"></ui-glyph></a>\n    </div>\n    <div class=\"ui-dv-container\">\n      <div class=\"weekdays\" if.bind=\"datePage==0\">\n        <span class=\"week\">#</span>\n        <span repeat.for=\"d of weekdays\">${d}</span>\n      </div>\n      <div repeat.for=\"w of dates\" class=\"dates\" if.bind=\"datePage==0\">\n        <span class=\"week\">${w.wk}</span>\n        <span repeat.for=\"d of w.dt\" date.bind=\"d\" class=\"date hover ${dateClass(d, current, minDate, maxDate)}\">${d.date()}</span>\n      </div>\n      <div repeat.for=\"w of 4\" class=\"months\" if.bind=\"datePage==1\">\n        <span repeat.for=\"d of 3\" month.bind=\"(w*3)+d\" class=\"month hover ${monthClass((w*3)+d, current, minDate, maxDate)}\">${months[(w*3)+d]}</span>\n      </div>\n      <div repeat.for=\"w of 5\" class=\"years\" if.bind=\"datePage==2\">\n          <span repeat.for=\"d of 4\" year.bind=\"(w*4)+d+decade\" class=\"year hover ${yearClass((w*4)+d+decade, current, minDate, maxDate)}\">${(w*4)+d+decade}</span>\n      </div>\n    </div>\n    <div class=\"ui-dv-footer\">\n      <a class=\"today\" if.bind=\"datePage==0\">Today</a>\n      <a class=\"cancel\" if.bind=\"datePage!=0\">Cancel</a>\n    </div>\n  </div>\n  <div class=\"ui-dv-time-wrapper\" if.bind=\"type!='d'\">\n    <div class=\"time\" if.bind=\"timePage==0\">\n      <div><ui-glyph glyph=\"glyph-time\"></ui-glyph></div>\n      <div>\n        <a class=\"hour-up ${disableHrUp?'disabled':''}\"><ui-glyph glyph=\"glyph-chevron-up\"></ui-glyph></a>\n        <a class=\"hour\">${(hour>11?hour-12:hour)==0?'12':(hour>11?hour-12:hour) | number:'{00}'}</a>\n        <a class=\"hour-dn ${disableHrDn?'disabled':''}\"><ui-glyph glyph=\"glyph-chevron-down\"></ui-glyph></a>\n      </div>\n      <div>:</div>\n      <div>\n        <a class=\"minute-up ${disableMnUp?'disabled':''}\"><ui-glyph glyph=\"glyph-chevron-up\"></ui-glyph></a>\n        <a class=\"minute\">${minute | number:'{00}'}</a>\n        <a class=\"minute-dn ${disableMnDn?'disabled':''}\"><ui-glyph glyph=\"glyph-chevron-down\"></ui-glyph></a>\n      </div>\n      <div><a class=\"tt\">${hour>11?'PM':'AM'}</a></div>\n    </div>\n    <div class=\"numbers hours\" if.bind=\"timePage==1\" repeat.for=\"r of 2\">\n      <span repeat.for=\"h of 6\" hour.bind=\"((r*6)+(h+1)==12?0:(r*6)+(h+1))+(hour>11?12:0)\" class=\"hr hover}\"\">${(r*6)+h+1 | number:'{00}'}</span>\n    </div>\n    <div class=\"numbers minutes\" if.bind=\"timePage==2\" repeat.for=\"r of 2\">\n      <span repeat.for=\"m of 6\" minute.bind=\"(r*30)+(m*5)\" class=\"mn hover}\"\">${(r*30)+(m*5) | number:'{00}'}</span>\n    </div>\n    <div if.bind=\"timePage!=0\">\n      <a class=\"cancel\">Cancel</a>\n    </div>\n  </div>\n</template>"),
-    aurelia_framework_1.customElement('ui-date-view'),
-    __metadata("design:paramtypes", [Element])
-], UIDateView);
 exports.UIDateView = UIDateView;
 var UIDateInput = (function (_super) {
     __extends(UIDateInput, _super);
@@ -473,52 +473,52 @@ var UIDateInput = (function (_super) {
                 this.date = moment().toISOString();
         }
     };
+    __decorate([
+        aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
+        __metadata("design:type", Object)
+    ], UIDateInput.prototype, "date", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDateInput.prototype, "minDate", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDateInput.prototype, "maxDate", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDateInput.prototype, "format", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDateInput.prototype, "width", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDateInput.prototype, "errors", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDateInput.prototype, "disabled", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDateInput.prototype, "readonly", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDateInput.prototype, "info", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDateInput.prototype, "placeholder", void 0);
+    UIDateInput = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper ui-input-date\"><div role=\"input\" class=\"ui-input-control\"><slot></slot>\n  <span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"glyph-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <input ref=\"inputEl\" value.bind=\"elValue\" size=\"1\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\"\n    change.trigger=\"fireEvent($event)\" keydown.trigger=\"keyDown($event)\" click.trigger=\"openDropdown($event, show=true)\"\n    placeholder.bind=\"placeholder\" disabled.bind=\"isDisabled\" readonly.bind=\"!allowSearch || readonly\"/>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span>\n  <span class=\"ui-input-addon\" click.trigger=\"toggleDropdown($event)\"><ui-glyph glyph=\"glyph-calendar\"></ui-glyph></span></div>\n  <div class=\"ui-input-info\" if.bind=\"info\" innerhtml.bind=\"info\"></div>\n  <ui-date-view ref=\"dropdown\" type.bind=\"type\" class=\"ui-hidden floating\" date.bind=\"date\" min-date.bind=\"minDate\" max-date.bind=\"maxDate\"></ui-date-view>\n</template>"),
+        aurelia_framework_1.customElement('ui-date'),
+        __metadata("design:paramtypes", [Element])
+    ], UIDateInput);
     return UIDateInput;
 }(ui_input_1.UIBaseInput));
-__decorate([
-    aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
-    __metadata("design:type", Object)
-], UIDateInput.prototype, "date", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UIDateInput.prototype, "minDate", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UIDateInput.prototype, "maxDate", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UIDateInput.prototype, "format", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UIDateInput.prototype, "width", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UIDateInput.prototype, "errors", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UIDateInput.prototype, "disabled", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UIDateInput.prototype, "readonly", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UIDateInput.prototype, "info", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UIDateInput.prototype, "placeholder", void 0);
-UIDateInput = __decorate([
-    aurelia_framework_1.autoinject(),
-    aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper ui-input-date\"><div role=\"input\" class=\"ui-input-control\"><slot></slot>\n  <span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"glyph-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <input ref=\"inputEl\" value.bind=\"elValue\" size=\"1\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\"\n    change.trigger=\"fireEvent($event)\" keydown.trigger=\"keyDown($event)\" click.trigger=\"openDropdown($event, show=true)\"\n    placeholder.bind=\"placeholder\" disabled.bind=\"isDisabled\" readonly.bind=\"!allowSearch || readonly\"/>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span>\n  <span class=\"ui-input-addon\" click.trigger=\"toggleDropdown($event)\"><ui-glyph glyph=\"glyph-calendar\"></ui-glyph></span></div>\n  <div class=\"ui-input-info\" if.bind=\"info\" innerhtml.bind=\"info\"></div>\n  <ui-date-view ref=\"dropdown\" type.bind=\"type\" class=\"ui-hidden floating\" date.bind=\"date\" min-date.bind=\"minDate\" max-date.bind=\"maxDate\"></ui-date-view>\n</template>"),
-    aurelia_framework_1.customElement('ui-date'),
-    __metadata("design:paramtypes", [Element])
-], UIDateInput);
 exports.UIDateInput = UIDateInput;

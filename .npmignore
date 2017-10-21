@@ -13,6 +13,7 @@
 /test
 /typings
 
+.git
 .sass-cache
 
 .DS_Store

@@ -55,58 +55,58 @@ var UIMenubar = (function () {
         else
             this.overflow.classList.remove('ui-open');
     };
+    UIMenubar = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("\n<template class=\"ui-menubar\">\n  <div class=\"ui-menubar-wrapper\" ref=\"wrapper\"><slot></slot></div>\n  <div class=\"ui-menubar-toggle\" ref=\"overflowToggle\" show.bind=\"isOverflow\" click.trigger=\"showOverflow($event)\"><ui-glyph glyph=\"glyph-handle-overflow\"></ui-glyph></div>\n  <div class=\"ui-menu ui-menubar-overflow ui-floating\" ref=\"overflow\"></div>\n</template>"),
+        aurelia_framework_1.customElement('ui-menubar'),
+        __metadata("design:paramtypes", [Element])
+    ], UIMenubar);
     return UIMenubar;
 }());
-UIMenubar = __decorate([
-    aurelia_framework_1.autoinject(),
-    aurelia_framework_1.inlineView("\n<template class=\"ui-menubar\">\n  <div class=\"ui-menubar-wrapper\" ref=\"wrapper\"><slot></slot></div>\n  <div class=\"ui-menubar-toggle\" ref=\"overflowToggle\" show.bind=\"isOverflow\" click.trigger=\"showOverflow($event)\"><ui-glyph glyph=\"glyph-handle-overflow\"></ui-glyph></div>\n  <div class=\"ui-menu ui-menubar-overflow ui-floating\" ref=\"overflow\"></div>\n</template>"),
-    aurelia_framework_1.customElement('ui-menubar'),
-    __metadata("design:paramtypes", [Element])
-], UIMenubar);
 exports.UIMenubar = UIMenubar;
 var UIMenu = (function () {
     function UIMenu(element) {
         this.element = element;
     }
+    UIMenu = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView('<template class="ui-menu"><slot></slot></template>'),
+        aurelia_framework_1.customElement('ui-menu'),
+        __metadata("design:paramtypes", [Element])
+    ], UIMenu);
     return UIMenu;
 }());
-UIMenu = __decorate([
-    aurelia_framework_1.autoinject(),
-    aurelia_framework_1.inlineView('<template class="ui-menu"><slot></slot></template>'),
-    aurelia_framework_1.customElement('ui-menu'),
-    __metadata("design:paramtypes", [Element])
-], UIMenu);
 exports.UIMenu = UIMenu;
 var UIMenuSection = (function () {
     function UIMenuSection(element) {
         this.element = element;
     }
+    UIMenuSection = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView('<template class="ui-menu-section-title"><slot></slot></template>'),
+        aurelia_framework_1.customElement('ui-menu-section'),
+        __metadata("design:paramtypes", [Element])
+    ], UIMenuSection);
     return UIMenuSection;
 }());
-UIMenuSection = __decorate([
-    aurelia_framework_1.autoinject(),
-    aurelia_framework_1.inlineView('<template class="ui-menu-section-title"><slot></slot></template>'),
-    aurelia_framework_1.customElement('ui-menu-section'),
-    __metadata("design:paramtypes", [Element])
-], UIMenuSection);
 exports.UIMenuSection = UIMenuSection;
 var UIMenuGroup = (function () {
     function UIMenuGroup(element) {
         this.element = element;
         this.label = '';
     }
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIMenuGroup.prototype, "label", void 0);
+    UIMenuGroup = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView('<template class="ui-menu-section"><div if.bind="label" class="ui-menu-section-title" innerhtml.bind="label"></div><slot></slot></template>'),
+        aurelia_framework_1.customElement('ui-menu-group'),
+        __metadata("design:paramtypes", [Element])
+    ], UIMenuGroup);
     return UIMenuGroup;
 }());
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UIMenuGroup.prototype, "label", void 0);
-UIMenuGroup = __decorate([
-    aurelia_framework_1.autoinject(),
-    aurelia_framework_1.inlineView('<template class="ui-menu-section"><div if.bind="label" class="ui-menu-section-title" innerhtml.bind="label"></div><slot></slot></template>'),
-    aurelia_framework_1.customElement('ui-menu-group'),
-    __metadata("design:paramtypes", [Element])
-], UIMenuGroup);
 exports.UIMenuGroup = UIMenuGroup;
 var UIMenuItem = (function () {
     function UIMenuItem(element) {
@@ -131,37 +131,37 @@ var UIMenuItem = (function () {
             return true;
         return ui_event_1.UIEvent.fireEvent('click', this.element, this.id);
     };
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIMenuItem.prototype, "id", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIMenuItem.prototype, "glyph", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIMenuItem.prototype, "class", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIMenuItem.prototype, "active", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIMenuItem.prototype, "disabled", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIMenuItem.prototype, "href", void 0);
+    UIMenuItem = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.containerless(),
+        aurelia_framework_1.inlineView("<template><a class=\"ui-menu-item ${active?'ui-active':''} ${disabled?'ui-disabled':''} ${class}\" href.bind=\"href\" click.trigger=\"click($event)\">\n    <ui-glyph if.bind=\"glyph\" class=\"ui-menu-icon ${glyph}\" glyph.bind=\"glyph\"></ui-glyph><span class=\"ui-menu-label\"><slot></slot></span></a></template>"),
+        aurelia_framework_1.customElement('ui-menu-item'),
+        __metadata("design:paramtypes", [Element])
+    ], UIMenuItem);
     return UIMenuItem;
 }());
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UIMenuItem.prototype, "id", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UIMenuItem.prototype, "glyph", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UIMenuItem.prototype, "class", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UIMenuItem.prototype, "active", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UIMenuItem.prototype, "disabled", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UIMenuItem.prototype, "href", void 0);
-UIMenuItem = __decorate([
-    aurelia_framework_1.autoinject(),
-    aurelia_framework_1.containerless(),
-    aurelia_framework_1.inlineView("<template><a class=\"ui-menu-item ${active?'ui-active':''} ${disabled?'ui-disabled':''} ${class}\" href.bind=\"href\" click.trigger=\"click($event)\">\n    <ui-glyph if.bind=\"glyph\" class=\"ui-menu-icon ${glyph}\" glyph.bind=\"glyph\"></ui-glyph><span class=\"ui-menu-label\"><slot></slot></span></a></template>"),
-    aurelia_framework_1.customElement('ui-menu-item'),
-    __metadata("design:paramtypes", [Element])
-], UIMenuItem);
 exports.UIMenuItem = UIMenuItem;

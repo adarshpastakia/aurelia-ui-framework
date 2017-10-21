@@ -121,11 +121,11 @@ System.register(["aurelia-framework", "aurelia-validation", "../elements/inputs/
                     }
                     catch (E) { }
                 };
+                UIValidationRenderer = __decorate([
+                    aurelia_framework_1.autoinject()
+                ], UIValidationRenderer);
                 return UIValidationRenderer;
             }());
-            UIValidationRenderer = __decorate([
-                aurelia_framework_1.autoinject()
-            ], UIValidationRenderer);
             exports_1("UIValidationRenderer", UIValidationRenderer);
         }
     };

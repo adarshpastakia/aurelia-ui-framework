@@ -25,22 +25,22 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
                     if (element.hasAttribute('animate'))
                         element.classList.add('au-animate');
                 }
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIPage.prototype, "pageClass", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIPage.prototype, "pageTitle", void 0);
+                UIPage = __decorate([
+                    aurelia_framework_1.autoinject(),
+                    aurelia_framework_1.customElement('ui-page'),
+                    aurelia_framework_1.inlineView("\n<template class=\"ui-page\">\n  <div class=\"ui-page-title\" if.bind=\"pageTitle\" innerhtml.bind=\"pageTitle\"></div>\n  <div class=\"ui-page-body ${pageClass}\"><slot></slot></div>\n</template>"),
+                    __metadata("design:paramtypes", [Element])
+                ], UIPage);
                 return UIPage;
             }());
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIPage.prototype, "pageClass", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIPage.prototype, "pageTitle", void 0);
-            UIPage = __decorate([
-                aurelia_framework_1.autoinject(),
-                aurelia_framework_1.customElement('ui-page'),
-                aurelia_framework_1.inlineView("\n<template class=\"ui-page\">\n  <div class=\"ui-page-title\" if.bind=\"pageTitle\" innerhtml.bind=\"pageTitle\"></div>\n  <div class=\"ui-page-body ${pageClass}\"><slot></slot></div>\n</template>"),
-                __metadata("design:paramtypes", [Element])
-            ], UIPage);
             exports_1("UIPage", UIPage);
             UISection = (function () {
                 function UISection(element) {
@@ -56,14 +56,14 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
                     if (element.hasAttribute('middle'))
                         element.classList.add('ui-align-middle');
                 }
+                UISection = __decorate([
+                    aurelia_framework_1.autoinject(),
+                    aurelia_framework_1.customElement('ui-section'),
+                    aurelia_framework_1.inlineView("<template class=\"ui-section\"><slot></slot></template>"),
+                    __metadata("design:paramtypes", [Element])
+                ], UISection);
                 return UISection;
             }());
-            UISection = __decorate([
-                aurelia_framework_1.autoinject(),
-                aurelia_framework_1.customElement('ui-section'),
-                aurelia_framework_1.inlineView("<template class=\"ui-section\"><slot></slot></template>"),
-                __metadata("design:paramtypes", [Element])
-            ], UISection);
             exports_1("UISection", UISection);
             UIContent = (function () {
                 function UIContent(element) {
@@ -75,32 +75,32 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
                     if (element.hasAttribute('scroll'))
                         element.classList.add('ui-scroll');
                 }
+                UIContent = __decorate([
+                    aurelia_framework_1.autoinject(),
+                    aurelia_framework_1.customElement('ui-content'),
+                    aurelia_framework_1.inlineView("<template class=\"ui-content\"><slot></slot></template>"),
+                    __metadata("design:paramtypes", [Element])
+                ], UIContent);
                 return UIContent;
             }());
-            UIContent = __decorate([
-                aurelia_framework_1.autoinject(),
-                aurelia_framework_1.customElement('ui-content'),
-                aurelia_framework_1.inlineView("<template class=\"ui-content\"><slot></slot></template>"),
-                __metadata("design:paramtypes", [Element])
-            ], UIContent);
             exports_1("UIContent", UIContent);
             UIGlyph = (function () {
                 function UIGlyph(element) {
                     this.element = element;
                     this.glyph = '';
                 }
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIGlyph.prototype, "glyph", void 0);
+                UIGlyph = __decorate([
+                    aurelia_framework_1.autoinject(),
+                    aurelia_framework_1.customElement('ui-glyph'),
+                    aurelia_framework_1.inlineView("<template class=\"ui-icon\"><svg if.bind=\"glyph\"><use tabindex=\"-1\" x=\"0\" y=\"0\" xlink:href=\"#${glyph}\"/></svg></template>"),
+                    __metadata("design:paramtypes", [Element])
+                ], UIGlyph);
                 return UIGlyph;
             }());
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIGlyph.prototype, "glyph", void 0);
-            UIGlyph = __decorate([
-                aurelia_framework_1.autoinject(),
-                aurelia_framework_1.customElement('ui-glyph'),
-                aurelia_framework_1.inlineView("<template class=\"ui-icon\"><svg if.bind=\"glyph\"><use tabindex=\"-1\" x=\"0\" y=\"0\" xlink:href=\"#${glyph}\"/></svg></template>"),
-                __metadata("design:paramtypes", [Element])
-            ], UIGlyph);
             exports_1("UIGlyph", UIGlyph);
             UILoader = (function () {
                 function UILoader(element) {
@@ -110,18 +110,18 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
                     if (element.hasAttribute('small'))
                         element.classList.add('ui-small');
                 }
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Boolean)
+                ], UILoader.prototype, "busy", void 0);
+                UILoader = __decorate([
+                    aurelia_framework_1.autoinject(),
+                    aurelia_framework_1.customElement('ui-loader'),
+                    aurelia_framework_1.inlineView("<template class=\"ui-app-loader\" show.bind=\"busy\">\n  <div class=\"ui-loader-div\">\n    <ui-glyph class=\"ui-anim-loader\" glyph=\"glyph-loader\"></ui-glyph>\n  </div>\n</template>"),
+                    __metadata("design:paramtypes", [Element])
+                ], UILoader);
                 return UILoader;
             }());
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Boolean)
-            ], UILoader.prototype, "busy", void 0);
-            UILoader = __decorate([
-                aurelia_framework_1.autoinject(),
-                aurelia_framework_1.customElement('ui-loader'),
-                aurelia_framework_1.inlineView("<template class=\"ui-app-loader\" show.bind=\"busy\">\n  <div class=\"ui-loader-div\">\n    <ui-glyph class=\"ui-anim-loader\" glyph=\"glyph-loader\"></ui-glyph>\n  </div>\n</template>"),
-                __metadata("design:paramtypes", [Element])
-            ], UILoader);
             exports_1("UILoader", UILoader);
         }
     };

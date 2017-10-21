@@ -248,14 +248,14 @@ System.register(["aurelia-framework", "aurelia-logging", "aurelia-fetch-client",
                     }
                     return headers;
                 };
+                UIHttpService = __decorate([
+                    aurelia_framework_1.autoinject(),
+                    __metadata("design:paramtypes", [aurelia_fetch_client_1.HttpClient,
+                        ui_application_1.UIApplication,
+                        aurelia_event_aggregator_1.EventAggregator])
+                ], UIHttpService);
                 return UIHttpService;
             }());
-            UIHttpService = __decorate([
-                aurelia_framework_1.autoinject(),
-                __metadata("design:paramtypes", [aurelia_fetch_client_1.HttpClient,
-                    ui_application_1.UIApplication,
-                    aurelia_event_aggregator_1.EventAggregator])
-            ], UIHttpService);
             exports_1("UIHttpService", UIHttpService);
         }
     };

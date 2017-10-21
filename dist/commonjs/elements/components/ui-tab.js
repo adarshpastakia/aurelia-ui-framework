@@ -16,24 +16,24 @@ var _ = require("lodash");
 var UITabbarStart = (function () {
     function UITabbarStart() {
     }
+    UITabbarStart = __decorate([
+        aurelia_framework_1.containerless(),
+        aurelia_framework_1.customElement('ui-tabbar-start'),
+        aurelia_framework_1.inlineView("<template><div slot=\"ui-tabbar-start\" class=\"ui-tabbar-links\"><slot></slot></div></template>")
+    ], UITabbarStart);
     return UITabbarStart;
 }());
-UITabbarStart = __decorate([
-    aurelia_framework_1.containerless(),
-    aurelia_framework_1.customElement('ui-tabbar-start'),
-    aurelia_framework_1.inlineView("<template><div slot=\"ui-tabbar-start\" class=\"ui-tabbar-links\"><slot></slot></div></template>")
-], UITabbarStart);
 exports.UITabbarStart = UITabbarStart;
 var UITabbarEnd = (function () {
     function UITabbarEnd() {
     }
+    UITabbarEnd = __decorate([
+        aurelia_framework_1.containerless(),
+        aurelia_framework_1.customElement('ui-tabbar-end'),
+        aurelia_framework_1.inlineView("<template><div slot=\"ui-tabbar-end\" class=\"ui-tabbar-links\"><slot></slot></div></template>")
+    ], UITabbarEnd);
     return UITabbarEnd;
 }());
-UITabbarEnd = __decorate([
-    aurelia_framework_1.containerless(),
-    aurelia_framework_1.customElement('ui-tabbar-end'),
-    aurelia_framework_1.inlineView("<template><div slot=\"ui-tabbar-end\" class=\"ui-tabbar-links\"><slot></slot></div></template>")
-], UITabbarEnd);
 exports.UITabbarEnd = UITabbarEnd;
 var UITabbarToggle = (function () {
     function UITabbarToggle(element) {
@@ -86,21 +86,21 @@ var UITabbarToggle = (function () {
         }
         return true;
     };
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UITabbarToggle.prototype, "dropdown", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UITabbarToggle.prototype, "disabled", void 0);
+    UITabbarToggle = __decorate([
+        aurelia_framework_1.customElement('ui-tabbar-toggle'),
+        aurelia_framework_1.inlineView("<template class=\"ui-tabbar-toggle ui-tab-button ${disabled?'ui-disabled':''}\" click.trigger=\"toggleDropdown($event)\"><slot></slot></template>"),
+        __metadata("design:paramtypes", [Element])
+    ], UITabbarToggle);
     return UITabbarToggle;
 }());
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UITabbarToggle.prototype, "dropdown", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UITabbarToggle.prototype, "disabled", void 0);
-UITabbarToggle = __decorate([
-    aurelia_framework_1.customElement('ui-tabbar-toggle'),
-    aurelia_framework_1.inlineView("<template class=\"ui-tabbar-toggle ui-tab-button ${disabled?'ui-disabled':''}\" click.trigger=\"toggleDropdown($event)\"><slot></slot></template>"),
-    __metadata("design:paramtypes", [Element])
-], UITabbarToggle);
 exports.UITabbarToggle = UITabbarToggle;
 var UITabPanel = (function () {
     function UITabPanel(element) {
@@ -227,28 +227,28 @@ var UITabPanel = (function () {
         else
             this.overflow.classList.remove('ui-open');
     };
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UITabPanel.prototype, "height", void 0);
+    __decorate([
+        aurelia_framework_1.children('ui-tab'),
+        __metadata("design:type", Object)
+    ], UITabPanel.prototype, "tabs", void 0);
+    __decorate([
+        aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
+        __metadata("design:type", Object)
+    ], UITabPanel.prototype, "activeTab", void 0);
+    UITabPanel = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("<template class=\"ui-tab-panel\" css.bind=\"{'min-height': height}\"><div class=\"ui-tabbar\">\n  <slot name=\"ui-tabbar-start\"></slot>\n  <div class=\"ui-tabbar-buttons\" ref=\"wrapper\" if.bind=\"!noTabs\">\n    <a click.trigger=\"activateTab(tab)\" repeat.for=\"tab of tabs\" class=\"ui-tab-button ${tab.active?'ui-active':''} ${tab.disabled?'ui-disabled':''}\">\n      <ui-glyph if.bind=\"tab.glyph\" class=\"ui-tab-icon ${tab.glyphClass}\" glyph.bind=\"tab.glyph\"></ui-glyph>\n      <span class=\"ui-label\" if.bind=\"tab.label\" innerhtml.bind=\"tab.label\"></span>\n      <span if.bind=\"tab.closeable\" class=\"ui-close\" click.trigger=\"closeTab(tab)\">&nbsp;&times;</span>\n    </a>\n    <div class=\"ui-tabbar-toggle ui-tab-button\" ref=\"overflowToggle\" show.bind=\"isOverflow\" click.trigger=\"showOverflow($event)\"><ui-glyph glyph=\"glyph-handle-overflow\"></ui-glyph></div>\n  </div>\n  <slot name=\"ui-tabbar-end\"></slot>\n  <div class=\"ui-menu ui-tabbar-overflow ui-floating\" ref=\"overflow\"></div>\n  </div><slot></slot></template>"),
+        aurelia_framework_1.customElement('ui-tab-panel'),
+        __metadata("design:paramtypes", [Element])
+    ], UITabPanel);
     return UITabPanel;
 }());
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UITabPanel.prototype, "height", void 0);
-__decorate([
-    aurelia_framework_1.children('ui-tab'),
-    __metadata("design:type", Object)
-], UITabPanel.prototype, "tabs", void 0);
-__decorate([
-    aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
-    __metadata("design:type", Object)
-], UITabPanel.prototype, "activeTab", void 0);
-UITabPanel = __decorate([
-    aurelia_framework_1.autoinject(),
-    aurelia_framework_1.inlineView("<template class=\"ui-tab-panel\" css.bind=\"{'min-height': height}\"><div class=\"ui-tabbar\">\n  <slot name=\"ui-tabbar-start\"></slot>\n  <div class=\"ui-tabbar-buttons\" ref=\"wrapper\" if.bind=\"!noTabs\">\n    <a click.trigger=\"activateTab(tab)\" repeat.for=\"tab of tabs\" class=\"ui-tab-button ${tab.active?'ui-active':''} ${tab.disabled?'ui-disabled':''}\">\n      <ui-glyph if.bind=\"tab.glyph\" class=\"ui-tab-icon ${tab.glyphClass}\" glyph.bind=\"tab.glyph\"></ui-glyph>\n      <span class=\"ui-label\" if.bind=\"tab.label\" innerhtml.bind=\"tab.label\"></span>\n      <span if.bind=\"tab.closeable\" class=\"ui-close\" click.trigger=\"closeTab(tab)\">&nbsp;&times;</span>\n    </a>\n    <div class=\"ui-tabbar-toggle ui-tab-button\" ref=\"overflowToggle\" show.bind=\"isOverflow\" click.trigger=\"showOverflow($event)\"><ui-glyph glyph=\"glyph-handle-overflow\"></ui-glyph></div>\n  </div>\n  <slot name=\"ui-tabbar-end\"></slot>\n  <div class=\"ui-menu ui-tabbar-overflow ui-floating\" ref=\"overflow\"></div>\n  </div><slot></slot></template>"),
-    aurelia_framework_1.customElement('ui-tab-panel'),
-    __metadata("design:paramtypes", [Element])
-], UITabPanel);
 exports.UITabPanel = UITabPanel;
-var UITab = UITab_1 = (function () {
+var UITab = (function () {
     function UITab(element) {
         this.element = element;
         this.id = '';
@@ -267,6 +267,7 @@ var UITab = UITab_1 = (function () {
         this.id = 'tab-' + (UITab_1.seed++);
         this.closeable = element.hasAttribute('closeable');
     }
+    UITab_1 = UITab;
     UITab.prototype.bind = function (bindingContext, overrideContext) {
         this.disabled = isTrue(this.disabled);
     };
@@ -306,38 +307,38 @@ var UITab = UITab_1 = (function () {
         enumerable: true,
         configurable: true
     });
+    UITab.seed = 0;
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UITab.prototype, "id", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UITab.prototype, "glyph", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UITab.prototype, "label", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UITab.prototype, "glyphClass", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UITab.prototype, "disabled", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UITab.prototype, "beforeclose", void 0);
+    UITab = UITab_1 = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("<template class=\"ui-tab ${active?'ui-active':''}\"><slot></slot></template>"),
+        aurelia_framework_1.customElement('ui-tab'),
+        __metadata("design:paramtypes", [Element])
+    ], UITab);
     return UITab;
+    var UITab_1;
 }());
-UITab.seed = 0;
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UITab.prototype, "id", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UITab.prototype, "glyph", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UITab.prototype, "label", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UITab.prototype, "glyphClass", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UITab.prototype, "disabled", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UITab.prototype, "beforeclose", void 0);
-UITab = UITab_1 = __decorate([
-    aurelia_framework_1.autoinject(),
-    aurelia_framework_1.inlineView("<template class=\"ui-tab ${active?'ui-active':''}\"><slot></slot></template>"),
-    aurelia_framework_1.customElement('ui-tab'),
-    __metadata("design:paramtypes", [Element])
-], UITab);
 exports.UITab = UITab;
-var UITab_1;

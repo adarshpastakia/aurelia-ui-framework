@@ -118,13 +118,14 @@ var UIDialogService = (function () {
         this.invokeLifecycle(dialog, 'canDeactivate', force)
             .then(function (canDeactivate) {
             if (force || canDeactivate) {
-                _this.invokeLifecycle(dialog, 'detached', null);
+                dialog["childSlot"].detached();
                 dialog.dialogWrapperEl.remove();
                 _.remove(_this.windows, ['uniqId', dialog.uniqId]);
                 if (!dialog.modal) {
                     aurelia_framework_1.DOM.removeNode(dialog.taskButtonEl);
                     _this.nextActive();
                 }
+                dialog["childSlot"].unbind();
                 _this.invokeLifecycle(dialog, 'unbind', null);
                 _this.invokeLifecycle(dialog, 'deactivate', null);
             }
@@ -278,19 +279,19 @@ var UIDialogService = (function () {
         this.__startX = x !== 0 ? ($event.x || $event.clientX) : this.__startX;
         this.__startY = y !== 0 ? ($event.y || $event.clientY) : this.__startY;
     };
+    UIDialogService = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_2.singleton(),
+        __metadata("design:paramtypes", [aurelia_framework_2.ViewCompiler,
+            aurelia_framework_2.Container,
+            aurelia_framework_2.ViewResources,
+            aurelia_framework_2.CompositionEngine,
+            aurelia_framework_2.TemplatingEngine])
+    ], UIDialogService);
     return UIDialogService;
 }());
-UIDialogService = __decorate([
-    aurelia_framework_1.autoinject(),
-    aurelia_framework_2.singleton(),
-    __metadata("design:paramtypes", [aurelia_framework_2.ViewCompiler,
-        aurelia_framework_2.Container,
-        aurelia_framework_2.ViewResources,
-        aurelia_framework_2.CompositionEngine,
-        aurelia_framework_2.TemplatingEngine])
-], UIDialogService);
 exports.UIDialogService = UIDialogService;
-var UIDialog = UIDialog_1 = (function () {
+var UIDialog = (function () {
     function UIDialog() {
         this.uniqId = "ui-win-" + UIDialog_1.seed++;
         this.isActive = true;
@@ -318,6 +319,7 @@ var UIDialog = UIDialog_1 = (function () {
         this.closable = true;
         this.maximized = false;
     }
+    UIDialog_1 = UIDialog;
     UIDialog.prototype.bind = function (bindingContext, overrideContext) {
         var isRtl = window.isRtl(ui_utils_1.UIUtils.dialogContainer);
         var pw = ui_utils_1.UIUtils.dialogContainer.offsetWidth;
@@ -387,14 +389,14 @@ var UIDialog = UIDialog_1 = (function () {
         config.container = this.dialogEl.querySelector('ui-dialog-body');
         ui_utils_1.UIUtils.toast(config);
     };
+    UIDialog.seed = 0;
+    UIDialog.seedX = 0;
+    UIDialog.posX = 0;
+    UIDialog.posY = 0;
+    UIDialog = UIDialog_1 = __decorate([
+        aurelia_framework_1.autoinject()
+    ], UIDialog);
     return UIDialog;
+    var UIDialog_1;
 }());
-UIDialog.seed = 0;
-UIDialog.seedX = 0;
-UIDialog.posX = 0;
-UIDialog.posY = 0;
-UIDialog = UIDialog_1 = __decorate([
-    aurelia_framework_1.autoinject()
-], UIDialog);
 exports.UIDialog = UIDialog;
-var UIDialog_1;

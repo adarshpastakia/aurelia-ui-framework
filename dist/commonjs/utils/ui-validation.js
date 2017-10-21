@@ -105,9 +105,9 @@ var UIValidationRenderer = (function () {
         }
         catch (E) { }
     };
+    UIValidationRenderer = __decorate([
+        aurelia_framework_1.autoinject()
+    ], UIValidationRenderer);
     return UIValidationRenderer;
 }());
-UIValidationRenderer = __decorate([
-    aurelia_framework_1.autoinject()
-], UIValidationRenderer);
 exports.UIValidationRenderer = UIValidationRenderer;

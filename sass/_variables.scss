@@ -5,7 +5,7 @@
 // @license     : MIT
 @import "colors";
 
-$splash-image                : 'splash-ring.svg' !default;
+$splash-image                : false !default;
 
 $link-text                   : $secondary !default;
 $link-hover-text             : $primary !default;

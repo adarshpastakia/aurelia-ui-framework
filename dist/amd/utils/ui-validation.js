@@ -101,10 +101,10 @@ define(["require", "exports", "aurelia-framework", "aurelia-validation", "../ele
             }
             catch (E) { }
         };
+        UIValidationRenderer = __decorate([
+            aurelia_framework_1.autoinject()
+        ], UIValidationRenderer);
         return UIValidationRenderer;
     }());
-    UIValidationRenderer = __decorate([
-        aurelia_framework_1.autoinject()
-    ], UIValidationRenderer);
     exports.UIValidationRenderer = UIValidationRenderer;
 });

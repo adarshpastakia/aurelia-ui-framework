@@ -40,18 +40,18 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
                 UIDrawer.prototype.closeDrawer = function () {
                     this.element.classList.remove('show');
                 };
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIDrawer.prototype, "position", void 0);
+                UIDrawer = __decorate([
+                    aurelia_framework_1.autoinject(),
+                    aurelia_framework_1.inlineView("<template class=\"ui-drawer ${position}\">\n  <div class=\"ui-drawer-content ui-row-vertical ui-align-stretch\">\n    <a class=\"ui-drawer-close ui-col-auto\" click.trigger=\"closeDrawer()\"><ui-glyph glyph.bind=\"glyph\"></ui-glyph></a>\n    <div class=\"ui-drawer-body ui-col-fill ${bodyCls}\"><slot></slot></div>\n  </div>\n  <div class=\"ui-drawer-shim\" click.trigger=\"closeDrawer()\"></div>\n</template>"),
+                    aurelia_framework_1.customElement('ui-drawer'),
+                    __metadata("design:paramtypes", [Element])
+                ], UIDrawer);
                 return UIDrawer;
             }());
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIDrawer.prototype, "position", void 0);
-            UIDrawer = __decorate([
-                aurelia_framework_1.autoinject(),
-                aurelia_framework_1.inlineView("<template class=\"ui-drawer ${position}\">\n  <div class=\"ui-drawer-content ui-row-vertical ui-align-stretch\">\n    <a class=\"ui-drawer-close ui-col-auto\" click.trigger=\"closeDrawer()\"><ui-glyph glyph.bind=\"glyph\"></ui-glyph></a>\n    <div class=\"ui-drawer-body ui-col-fill ${bodyCls}\"><slot></slot></div>\n  </div>\n  <div class=\"ui-drawer-shim\" click.trigger=\"closeDrawer()\"></div>\n</template>"),
-                aurelia_framework_1.customElement('ui-drawer'),
-                __metadata("design:paramtypes", [Element])
-            ], UIDrawer);
             exports_1("UIDrawer", UIDrawer);
             UIDrawerToggle = (function () {
                 function UIDrawerToggle(element) {
@@ -67,22 +67,22 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
                         this.drawer.classList.add('show');
                     }
                 };
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIDrawerToggle.prototype, "drawer", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIDrawerToggle.prototype, "glyph", void 0);
+                UIDrawerToggle = __decorate([
+                    aurelia_framework_1.autoinject(),
+                    aurelia_framework_1.inlineView('<template class="ui-drawer-toggle ui-link" click.trigger="openDrawer($event)"><slot><ui-glyph glyph.bind="glyph"></ui-glyph></slot></template>'),
+                    aurelia_framework_1.customElement('ui-drawer-toggle'),
+                    __metadata("design:paramtypes", [Element])
+                ], UIDrawerToggle);
                 return UIDrawerToggle;
             }());
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIDrawerToggle.prototype, "drawer", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIDrawerToggle.prototype, "glyph", void 0);
-            UIDrawerToggle = __decorate([
-                aurelia_framework_1.autoinject(),
-                aurelia_framework_1.inlineView('<template class="ui-drawer-toggle ui-link" click.trigger="openDrawer($event)"><slot><ui-glyph glyph.bind="glyph"></ui-glyph></slot></template>'),
-                aurelia_framework_1.customElement('ui-drawer-toggle'),
-                __metadata("design:paramtypes", [Element])
-            ], UIDrawerToggle);
             exports_1("UIDrawerToggle", UIDrawerToggle);
         }
     };

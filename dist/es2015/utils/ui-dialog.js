@@ -120,13 +120,14 @@ let UIDialogService = class UIDialogService {
         this.invokeLifecycle(dialog, 'canDeactivate', force)
             .then(canDeactivate => {
             if (force || canDeactivate) {
-                this.invokeLifecycle(dialog, 'detached', null);
+                dialog["childSlot"].detached();
                 dialog.dialogWrapperEl.remove();
                 _.remove(this.windows, ['uniqId', dialog.uniqId]);
                 if (!dialog.modal) {
                     DOM.removeNode(dialog.taskButtonEl);
                     this.nextActive();
                 }
+                dialog["childSlot"].unbind();
                 this.invokeLifecycle(dialog, 'unbind', null);
                 this.invokeLifecycle(dialog, 'deactivate', null);
             }

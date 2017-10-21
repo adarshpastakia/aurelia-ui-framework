@@ -36,19 +36,19 @@ var UIRibbon = (function () {
         this.ribbon.classList.remove('ui-hidden');
         this.ribbon.innerHTML = newValue;
     };
+    __decorate([
+        aurelia_framework_1.bindable({ primaryProperty: true }),
+        __metadata("design:type", Object)
+    ], UIRibbon.prototype, "message", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIRibbon.prototype, "theme", void 0);
+    UIRibbon = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.customAttribute('ribbon'),
+        __metadata("design:paramtypes", [Element])
+    ], UIRibbon);
     return UIRibbon;
 }());
-__decorate([
-    aurelia_framework_1.bindable({ primaryProperty: true }),
-    __metadata("design:type", Object)
-], UIRibbon.prototype, "message", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UIRibbon.prototype, "theme", void 0);
-UIRibbon = __decorate([
-    aurelia_framework_1.autoinject(),
-    aurelia_framework_1.customAttribute('ribbon'),
-    __metadata("design:paramtypes", [Element])
-], UIRibbon);
 exports.UIRibbon = UIRibbon;

@@ -147,10 +147,10 @@
   @include animation(viewLeave .3s ease-in both);
 }
 
-.au-enter-active.ui-dialog-wrapper {
+.au-enter-active.ui-dialog-wrapper .ui-dialog {
   @include animation(dialogEnter .5s ease-out both);
 }
-.au-leave-active.ui-dialog-wrapper {
+.au-leave-active.ui-dialog-wrapper .ui-dialog {
   @include animation(dialogLeave .5s ease-in both);
 }
 

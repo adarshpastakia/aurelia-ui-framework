@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 define(["require", "exports", "aurelia-framework", "aurelia-logging", "../utils/ui-http", "../utils/ui-event", "../utils/ui-utils", "lodash"], function (require, exports, aurelia_framework_1, aurelia_logging_1, ui_http_1, ui_event_1, ui_utils_1, _) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var UIModel = UIModel_1 = (function () {
+    var UIModel = (function () {
         function UIModel() {
             this.__observers__ = [];
             Object.defineProperties(this, {
@@ -42,6 +42,7 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "../utils/
             });
             this.logger.info("Model Initialized");
         }
+        UIModel_1 = UIModel;
         UIModel.prototype.init = function () {
             var _this = this;
             this.saveChanges();
@@ -165,13 +166,13 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "../utils/
                 return t.hasOwnProperty(key) && (t[key] === o[key]);
             });
         };
+        UIModel = UIModel_1 = __decorate([
+            aurelia_framework_1.autoinject(),
+            aurelia_framework_1.transient(),
+            __metadata("design:paramtypes", [])
+        ], UIModel);
         return UIModel;
+        var UIModel_1;
     }());
-    UIModel = UIModel_1 = __decorate([
-        aurelia_framework_1.autoinject(),
-        aurelia_framework_1.transient(),
-        __metadata("design:paramtypes", [])
-    ], UIModel);
     exports.UIModel = UIModel;
-    var UIModel_1;
 });

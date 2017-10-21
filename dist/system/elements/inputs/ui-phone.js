@@ -109,42 +109,42 @@ System.register(["aurelia-framework", "./ui-input", "../../utils/ui-event"], fun
                         return ui_event_1.UIEvent.fireEvent('enterpressed', this.element);
                     return /[0-9]/.test(String.fromCharCode(code));
                 };
+                __decorate([
+                    aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
+                    __metadata("design:type", Object)
+                ], UIPhone.prototype, "value", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
+                    __metadata("design:type", Object)
+                ], UIPhone.prototype, "phone", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIPhone.prototype, "errors", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIPhone.prototype, "country", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIPhone.prototype, "disabled", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIPhone.prototype, "readonly", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIPhone.prototype, "info", void 0);
+                UIPhone = __decorate([
+                    aurelia_framework_1.autoinject(),
+                    aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper\"><div  role=\"input\" class=\"ui-input-control ui-phone\"><span ref=\"prefixEl\"></span>\n  <span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"glyph-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <input ref=\"inputEl\" type=\"tel\" dir=\"ltr\" size=\"1\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\"\n    input.trigger=\"fireEvent($event)\" change.trigger=\"fireEvent($event)\"\n    keypress.trigger=\"checkInput($event)\" placeholder.bind=\"placeholder\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"readonly\"/>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span></div>\n  <div class=\"ui-input-info\" if.bind=\"info\" innerhtml.bind=\"info\"></div>\n</template>"),
+                    aurelia_framework_1.customElement('ui-phone'),
+                    __metadata("design:paramtypes", [Element])
+                ], UIPhone);
                 return UIPhone;
             }(ui_input_1.UIBaseInput));
-            __decorate([
-                aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
-                __metadata("design:type", Object)
-            ], UIPhone.prototype, "value", void 0);
-            __decorate([
-                aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
-                __metadata("design:type", Object)
-            ], UIPhone.prototype, "phone", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIPhone.prototype, "errors", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIPhone.prototype, "country", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIPhone.prototype, "disabled", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIPhone.prototype, "readonly", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIPhone.prototype, "info", void 0);
-            UIPhone = __decorate([
-                aurelia_framework_1.autoinject(),
-                aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper\"><div  role=\"input\" class=\"ui-input-control ui-phone\"><span ref=\"prefixEl\"></span>\n  <span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"glyph-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <input ref=\"inputEl\" type=\"tel\" dir=\"ltr\" size=\"1\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\"\n    input.trigger=\"fireEvent($event)\" change.trigger=\"fireEvent($event)\"\n    keypress.trigger=\"checkInput($event)\" placeholder.bind=\"placeholder\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"readonly\"/>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span></div>\n  <div class=\"ui-input-info\" if.bind=\"info\" innerhtml.bind=\"info\"></div>\n</template>"),
-                aurelia_framework_1.customElement('ui-phone'),
-                __metadata("design:paramtypes", [Element])
-            ], UIPhone);
             exports_1("UIPhone", UIPhone);
         }
     };

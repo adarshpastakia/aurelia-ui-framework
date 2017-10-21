@@ -100,14 +100,14 @@ var UITreeModel = (function () {
         enumerable: true,
         configurable: true
     });
+    UITreeModel.seed = 0;
+    __decorate([
+        aurelia_framework_1.computedFrom('leaf', 'icon'),
+        __metadata("design:type", Object),
+        __metadata("design:paramtypes", [])
+    ], UITreeModel.prototype, "isLeaf", null);
     return UITreeModel;
 }());
-UITreeModel.seed = 0;
-__decorate([
-    aurelia_framework_1.computedFrom('leaf', 'icon'),
-    __metadata("design:type", Object),
-    __metadata("design:paramtypes", [])
-], UITreeModel.prototype, "isLeaf", null);
 exports.UITreeModel = UITreeModel;
 var UITreeOptions = (function () {
     function UITreeOptions(obj) {
