@@ -4,8 +4,8 @@
 // @copyright   : 2017
 // @license     : MIT
 
-import {autoinject, customElement, bindable, bindingMode, children, inlineView, useView, containerless, View, DOM} from 'aurelia-framework';
-import {UIEvent} from "../../utils/ui-event";
+import { autoinject, customElement, bindable, bindingMode, children, inlineView, useView, containerless, View, DOM } from 'aurelia-framework';
+import { UIEvent } from "../../utils/ui-event";
 import * as _ from "lodash";
 
 @autoinject()
@@ -39,6 +39,11 @@ export class UIForm {
 
   disabledChanged(newValue: any) {
     this.disableInputs(newValue);
+  }
+
+  focus() {
+    let el: any = this.element.querySelector('input,textarea');
+    if (el !== null) el.focus();
   }
 
   disableInputs(newValue: any) {

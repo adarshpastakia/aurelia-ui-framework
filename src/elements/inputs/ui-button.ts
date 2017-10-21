@@ -3,9 +3,9 @@
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
-import {autoinject, customElement, bindable, bindingMode, children, inlineView, useView, containerless, View, DOM} from 'aurelia-framework';
-import {UIEvent} from "../../utils/ui-event";
-import {UIUtils} from "../../utils/ui-utils";
+import { autoinject, customElement, bindable, bindingMode, children, inlineView, useView, containerless, View, DOM } from 'aurelia-framework';
+import { UIEvent } from "../../utils/ui-event";
+import { UIUtils } from "../../utils/ui-utils";
 import * as _ from "lodash";
 
 @autoinject()
@@ -96,6 +96,7 @@ export class UIButton {
         if (UIEvent.fireEvent('menuopen', this.element) !== false) {
           this.element.classList.add('ui-open');
           this.dropdown.classList.add('ui-open');
+          if (this.form && this.form.focus) this.form.focus();
           this.tether.position();
         }
       }
