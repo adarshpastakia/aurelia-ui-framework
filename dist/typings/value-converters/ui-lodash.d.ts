@@ -8,5 +8,5 @@ export declare class GroupValueConverter {
     toView(object: any, property: any): any;
 }
 export declare class SortValueConverter {
-    toView(value: any, property: any): {}[];
+    toView(value: any, property: any): any;
 }

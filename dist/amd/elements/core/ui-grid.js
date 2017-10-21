@@ -13,12 +13,12 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
     var UIFiller = (function () {
         function UIFiller() {
         }
+        UIFiller = __decorate([
+            aurelia_framework_1.customElement('ui-filler'),
+            aurelia_framework_1.inlineView('<template class="ui-col-fill"></template>')
+        ], UIFiller);
         return UIFiller;
     }());
-    UIFiller = __decorate([
-        aurelia_framework_1.customElement('ui-filler'),
-        aurelia_framework_1.inlineView('<template class="ui-col-fill"></template>')
-    ], UIFiller);
     exports.UIFiller = UIFiller;
     var UIContainer = (function () {
         function UIContainer(element) {
@@ -26,13 +26,13 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
             if (element.hasAttribute('padded'))
                 element.classList.add('ui-pad-all');
         }
+        UIContainer = __decorate([
+            aurelia_framework_1.customElement('ui-container'),
+            aurelia_framework_1.inlineView('<template class="ui-container"><slot></slot></template>'),
+            __metadata("design:paramtypes", [Element])
+        ], UIContainer);
         return UIContainer;
     }());
-    UIContainer = __decorate([
-        aurelia_framework_1.customElement('ui-container'),
-        aurelia_framework_1.inlineView('<template class="ui-container"><slot></slot></template>'),
-        __metadata("design:paramtypes", [Element])
-    ], UIContainer);
     exports.UIContainer = UIContainer;
     var UIRow = (function () {
         function UIRow(element) {
@@ -56,14 +56,14 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
             if (element.hasAttribute('reverse'))
                 element.classList.add('ui-row-reverse');
         }
+        UIRow = __decorate([
+            aurelia_framework_1.autoinject(),
+            aurelia_framework_1.customElement('ui-row'),
+            aurelia_framework_1.inlineView('<template class="ui-row"><slot></slot></template>'),
+            __metadata("design:paramtypes", [Element])
+        ], UIRow);
         return UIRow;
     }());
-    UIRow = __decorate([
-        aurelia_framework_1.autoinject(),
-        aurelia_framework_1.customElement('ui-row'),
-        aurelia_framework_1.inlineView('<template class="ui-row"><slot></slot></template>'),
-        __metadata("design:paramtypes", [Element])
-    ], UIRow);
     exports.UIRow = UIRow;
     var UIColumnRow = (function () {
         function UIColumnRow(element) {
@@ -87,14 +87,14 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
             if (element.hasAttribute('reverse'))
                 element.classList.add('ui-row-reverse');
         }
+        UIColumnRow = __decorate([
+            aurelia_framework_1.autoinject(),
+            aurelia_framework_1.customElement('ui-row-column'),
+            aurelia_framework_1.inlineView('<template class="ui-row-vertical"><slot></slot></template>'),
+            __metadata("design:paramtypes", [Element])
+        ], UIColumnRow);
         return UIColumnRow;
     }());
-    UIColumnRow = __decorate([
-        aurelia_framework_1.autoinject(),
-        aurelia_framework_1.customElement('ui-row-column'),
-        aurelia_framework_1.inlineView('<template class="ui-row-vertical"><slot></slot></template>'),
-        __metadata("design:paramtypes", [Element])
-    ], UIColumnRow);
     exports.UIColumnRow = UIColumnRow;
     var UIColumn = (function () {
         function UIColumn(element) {
@@ -128,21 +128,21 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
             if (this.width)
                 this.element['style'].flexBasis = this.width;
         };
+        __decorate([
+            aurelia_framework_1.bindable(),
+            __metadata("design:type", Object)
+        ], UIColumn.prototype, "size", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(),
+            __metadata("design:type", Object)
+        ], UIColumn.prototype, "width", void 0);
+        UIColumn = __decorate([
+            aurelia_framework_1.autoinject(),
+            aurelia_framework_1.customElement('ui-column'),
+            aurelia_framework_1.inlineView('<template class="ui-column"><slot></slot></template>'),
+            __metadata("design:paramtypes", [Element])
+        ], UIColumn);
         return UIColumn;
     }());
-    __decorate([
-        aurelia_framework_1.bindable(),
-        __metadata("design:type", Object)
-    ], UIColumn.prototype, "size", void 0);
-    __decorate([
-        aurelia_framework_1.bindable(),
-        __metadata("design:type", Object)
-    ], UIColumn.prototype, "width", void 0);
-    UIColumn = __decorate([
-        aurelia_framework_1.autoinject(),
-        aurelia_framework_1.customElement('ui-column'),
-        aurelia_framework_1.inlineView('<template class="ui-column"><slot></slot></template>'),
-        __metadata("design:paramtypes", [Element])
-    ], UIColumn);
     exports.UIColumn = UIColumn;
 });

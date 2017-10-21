@@ -56,14 +56,14 @@ System.register(["aurelia-framework", "aurelia-router", "aurelia-fetch-client", 
                     if (document.querySelector('.ui-splash'))
                         aurelia_framework_1.DOM.removeNode(document.querySelector('.ui-splash'));
                 };
+                UIViewport = __decorate([
+                    aurelia_framework_1.autoinject(),
+                    aurelia_framework_1.inlineView("<template class=\"ui-viewport ui-fullscreen\">\n  <compose view=\"../../ui-glyphs.html\"></compose>\n  <slot name=\"ui-app-header\"></slot>\n  <slot></slot>\n  <div class=\"ui-app-taskbar\"><slot name=\"ui-app-taskbar\"></slot><div class=\"ui-taskbutton-wrapper\" ref=\"taskbarContainer\"></div></div>\n  <slot name=\"ui-app-footer\"></slot>\n\n  <div class=\"ui-dialog-container\" ref=\"dialogContainer\"></div>\n  <div class=\"ui-overlay-container\" ref=\"overlayContainer\"></div>\n\n  <ui-loader busy.bind=\"router.isNavigating\"></ui-loader>\n</template>"),
+                    aurelia_framework_1.customElement('ui-viewport'),
+                    __metadata("design:paramtypes", [Element, aurelia_fetch_client_1.HttpClient, ui_application_1.UIApplication])
+                ], UIViewport);
                 return UIViewport;
             }());
-            UIViewport = __decorate([
-                aurelia_framework_1.autoinject(),
-                aurelia_framework_1.inlineView("<template class=\"ui-viewport ui-fullscreen\">\n  <compose view=\"../../ui-glyphs.html\"></compose>\n  <slot name=\"ui-app-header\"></slot>\n  <slot></slot>\n  <div class=\"ui-app-taskbar\"><slot name=\"ui-app-taskbar\"></slot><div class=\"ui-taskbutton-wrapper\" ref=\"taskbarContainer\"></div></div>\n  <slot name=\"ui-app-footer\"></slot>\n\n  <div class=\"ui-dialog-container\" ref=\"dialogContainer\"></div>\n  <div class=\"ui-overlay-container\" ref=\"overlayContainer\"></div>\n\n  <ui-loader busy.bind=\"router.isNavigating\"></ui-loader>\n</template>"),
-                aurelia_framework_1.customElement('ui-viewport'),
-                __metadata("design:paramtypes", [Element, aurelia_fetch_client_1.HttpClient, ui_application_1.UIApplication])
-            ], UIViewport);
             exports_1("UIViewport", UIViewport);
             UIRouterView = (function () {
                 function UIRouterView(element) {
@@ -71,80 +71,80 @@ System.register(["aurelia-framework", "aurelia-router", "aurelia-fetch-client", 
                     this.name = 'default';
                     this.class = '';
                 }
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIRouterView.prototype, "name", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIRouterView.prototype, "class", void 0);
+                UIRouterView = __decorate([
+                    aurelia_framework_1.autoinject(),
+                    aurelia_framework_1.containerless(),
+                    aurelia_framework_1.inlineView('<template><router-view class="ui-router-view ${class}" name="\${name}"></router-view></template>'),
+                    aurelia_framework_1.customElement('ui-router-view'),
+                    __metadata("design:paramtypes", [Element])
+                ], UIRouterView);
                 return UIRouterView;
             }());
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIRouterView.prototype, "name", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIRouterView.prototype, "class", void 0);
-            UIRouterView = __decorate([
-                aurelia_framework_1.autoinject(),
-                aurelia_framework_1.containerless(),
-                aurelia_framework_1.inlineView('<template><router-view class="ui-router-view ${class}" name="\${name}"></router-view></template>'),
-                aurelia_framework_1.customElement('ui-router-view'),
-                __metadata("design:paramtypes", [Element])
-            ], UIRouterView);
             exports_1("UIRouterView", UIRouterView);
             UIAppHeader = (function () {
                 function UIAppHeader(element) {
                     this.element = element;
                     this.class = '';
                 }
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIAppHeader.prototype, "class", void 0);
+                UIAppHeader = __decorate([
+                    aurelia_framework_1.autoinject(),
+                    aurelia_framework_1.containerless(),
+                    aurelia_framework_1.inlineView('<template><div class="ui-app-header ${class}" slot="ui-app-header"><slot></slot></div></template>'),
+                    aurelia_framework_1.customElement('ui-app-header'),
+                    __metadata("design:paramtypes", [Element])
+                ], UIAppHeader);
                 return UIAppHeader;
             }());
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIAppHeader.prototype, "class", void 0);
-            UIAppHeader = __decorate([
-                aurelia_framework_1.autoinject(),
-                aurelia_framework_1.containerless(),
-                aurelia_framework_1.inlineView('<template><div class="ui-app-header ${class}" slot="ui-app-header"><slot></slot></div></template>'),
-                aurelia_framework_1.customElement('ui-app-header'),
-                __metadata("design:paramtypes", [Element])
-            ], UIAppHeader);
             exports_1("UIAppHeader", UIAppHeader);
             UIAppFooter = (function () {
                 function UIAppFooter(element) {
                     this.element = element;
                     this.class = '';
                 }
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIAppFooter.prototype, "class", void 0);
+                UIAppFooter = __decorate([
+                    aurelia_framework_1.autoinject(),
+                    aurelia_framework_1.containerless(),
+                    aurelia_framework_1.inlineView('<template><div class="ui-app-footer ${class}" slot="ui-app-footer"><slot></slot></div></template>'),
+                    aurelia_framework_1.customElement('ui-app-footer'),
+                    __metadata("design:paramtypes", [Element])
+                ], UIAppFooter);
                 return UIAppFooter;
             }());
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIAppFooter.prototype, "class", void 0);
-            UIAppFooter = __decorate([
-                aurelia_framework_1.autoinject(),
-                aurelia_framework_1.containerless(),
-                aurelia_framework_1.inlineView('<template><div class="ui-app-footer ${class}" slot="ui-app-footer"><slot></slot></div></template>'),
-                aurelia_framework_1.customElement('ui-app-footer'),
-                __metadata("design:paramtypes", [Element])
-            ], UIAppFooter);
             exports_1("UIAppFooter", UIAppFooter);
             UIAppQuickLinks = (function () {
                 function UIAppQuickLinks(element) {
                     this.element = element;
                     this.class = '';
                 }
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIAppQuickLinks.prototype, "class", void 0);
+                UIAppQuickLinks = __decorate([
+                    aurelia_framework_1.autoinject(),
+                    aurelia_framework_1.containerless(),
+                    aurelia_framework_1.inlineView('<template><div class="ui-app-taskbar-tools ${class}" slot="ui-app-taskbar"><slot></slot></div></template>'),
+                    aurelia_framework_1.customElement('ui-app-quick-links'),
+                    __metadata("design:paramtypes", [Element])
+                ], UIAppQuickLinks);
                 return UIAppQuickLinks;
             }());
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIAppQuickLinks.prototype, "class", void 0);
-            UIAppQuickLinks = __decorate([
-                aurelia_framework_1.autoinject(),
-                aurelia_framework_1.containerless(),
-                aurelia_framework_1.inlineView('<template><div class="ui-app-taskbar-tools ${class}" slot="ui-app-taskbar"><slot></slot></div></template>'),
-                aurelia_framework_1.customElement('ui-app-quick-links'),
-                __metadata("design:paramtypes", [Element])
-            ], UIAppQuickLinks);
             exports_1("UIAppQuickLinks", UIAppQuickLinks);
             UIAppTitle = (function () {
                 function UIAppTitle(element) {
@@ -152,27 +152,27 @@ System.register(["aurelia-framework", "aurelia-router", "aurelia-fetch-client", 
                     this.href = '#/';
                     this.class = '';
                 }
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIAppTitle.prototype, "src", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIAppTitle.prototype, "href", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIAppTitle.prototype, "class", void 0);
+                UIAppTitle = __decorate([
+                    aurelia_framework_1.autoinject(),
+                    aurelia_framework_1.containerless(),
+                    aurelia_framework_1.customElement('ui-app-title'),
+                    aurelia_framework_1.inlineView('<template><a href.bind="href" class="ui-row ui-row-middle ui-app-title ${class}"><img class="ui-col-auto ui-app-logo" src.bind="src" if.bind="src"/><span class="ui-col-auto"><slot></slot></span></a><div class="ui-col-fill"></div></template>'),
+                    __metadata("design:paramtypes", [Element])
+                ], UIAppTitle);
                 return UIAppTitle;
             }());
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIAppTitle.prototype, "src", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIAppTitle.prototype, "href", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIAppTitle.prototype, "class", void 0);
-            UIAppTitle = __decorate([
-                aurelia_framework_1.autoinject(),
-                aurelia_framework_1.containerless(),
-                aurelia_framework_1.customElement('ui-app-title'),
-                aurelia_framework_1.inlineView('<template><a href.bind="href" class="ui-row ui-row-middle ui-app-title ${class}"><img class="ui-col-auto ui-app-logo" src.bind="src" if.bind="src"/><span class="ui-col-auto"><slot></slot></span></a><div class="ui-col-fill"></div></template>'),
-                __metadata("design:paramtypes", [Element])
-            ], UIAppTitle);
             exports_1("UIAppTitle", UIAppTitle);
         }
     };

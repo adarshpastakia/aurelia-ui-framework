@@ -43,30 +43,30 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event"], func
         UIChip.prototype.remove = function () {
             ui_event_1.UIEvent.fireEvent('remove', this.element, this.id);
         };
+        __decorate([
+            aurelia_framework_1.bindable(),
+            __metadata("design:type", Object)
+        ], UIChip.prototype, "id", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(),
+            __metadata("design:type", Object)
+        ], UIChip.prototype, "label", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(),
+            __metadata("design:type", Object)
+        ], UIChip.prototype, "color", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(),
+            __metadata("design:type", Object)
+        ], UIChip.prototype, "theme", void 0);
+        UIChip = __decorate([
+            aurelia_framework_1.autoinject(),
+            aurelia_framework_1.inlineView("<template class=\"ui-chip ${theme}\"><span class=\"ui-chip-label\" css.bind=\"{'background-color':color}\">${label}</span><span class=\"ui-chip-value\"><slot></slot></span><a click.trigger=\"remove()\" class=\"ui-chip-close\" if.bind=\"canClose\">&times</a></template>"),
+            aurelia_framework_1.customElement('ui-chip'),
+            __metadata("design:paramtypes", [Element])
+        ], UIChip);
         return UIChip;
     }());
-    __decorate([
-        aurelia_framework_1.bindable(),
-        __metadata("design:type", Object)
-    ], UIChip.prototype, "id", void 0);
-    __decorate([
-        aurelia_framework_1.bindable(),
-        __metadata("design:type", Object)
-    ], UIChip.prototype, "label", void 0);
-    __decorate([
-        aurelia_framework_1.bindable(),
-        __metadata("design:type", Object)
-    ], UIChip.prototype, "color", void 0);
-    __decorate([
-        aurelia_framework_1.bindable(),
-        __metadata("design:type", Object)
-    ], UIChip.prototype, "theme", void 0);
-    UIChip = __decorate([
-        aurelia_framework_1.autoinject(),
-        aurelia_framework_1.inlineView("<template class=\"ui-chip ${theme}\"><span class=\"ui-chip-label\" css.bind=\"{'background-color':color}\">${label}</span><span class=\"ui-chip-value\"><slot></slot></span><a click.trigger=\"remove()\" class=\"ui-chip-close\" if.bind=\"canClose\">&times</a></template>"),
-        aurelia_framework_1.customElement('ui-chip'),
-        __metadata("design:paramtypes", [Element])
-    ], UIChip);
     exports.UIChip = UIChip;
     var UIBreadcrumb = (function () {
         function UIBreadcrumb(element) {
@@ -87,14 +87,14 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event"], func
                 ui_event_1.UIEvent.fireEvent('change', this.element, $event.detail);
             return false;
         };
+        UIBreadcrumb = __decorate([
+            aurelia_framework_1.autoinject(),
+            aurelia_framework_1.inlineView("<template class=\"ui-breadcrumb\" crumbclicked.delegate=\"fireChange($event)\"><slot></slot></template>"),
+            aurelia_framework_1.customElement('ui-breadcrumb'),
+            __metadata("design:paramtypes", [Element])
+        ], UIBreadcrumb);
         return UIBreadcrumb;
     }());
-    UIBreadcrumb = __decorate([
-        aurelia_framework_1.autoinject(),
-        aurelia_framework_1.inlineView("<template class=\"ui-breadcrumb\" crumbclicked.delegate=\"fireChange($event)\"><slot></slot></template>"),
-        aurelia_framework_1.customElement('ui-breadcrumb'),
-        __metadata("design:paramtypes", [Element])
-    ], UIBreadcrumb);
     exports.UIBreadcrumb = UIBreadcrumb;
     var UICrumb = (function () {
         function UICrumb(element) {
@@ -108,21 +108,21 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event"], func
             ui_event_1.UIEvent.fireEvent('crumbclicked', this.element, this.id);
             return false;
         };
+        __decorate([
+            aurelia_framework_1.bindable(),
+            __metadata("design:type", Object)
+        ], UICrumb.prototype, "id", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(),
+            __metadata("design:type", Object)
+        ], UICrumb.prototype, "href", void 0);
+        UICrumb = __decorate([
+            aurelia_framework_1.autoinject(),
+            aurelia_framework_1.inlineView("<template class=\"ui-crumb\"><a href=\"crumb.href || 'javascript:;'\" click.trigger=\"fireClick($event)\"><slot></slot></a></template>"),
+            aurelia_framework_1.customElement('ui-crumb'),
+            __metadata("design:paramtypes", [Element])
+        ], UICrumb);
         return UICrumb;
     }());
-    __decorate([
-        aurelia_framework_1.bindable(),
-        __metadata("design:type", Object)
-    ], UICrumb.prototype, "id", void 0);
-    __decorate([
-        aurelia_framework_1.bindable(),
-        __metadata("design:type", Object)
-    ], UICrumb.prototype, "href", void 0);
-    UICrumb = __decorate([
-        aurelia_framework_1.autoinject(),
-        aurelia_framework_1.inlineView("<template class=\"ui-crumb\"><a href=\"crumb.href || 'javascript:;'\" click.trigger=\"fireClick($event)\"><slot></slot></a></template>"),
-        aurelia_framework_1.customElement('ui-crumb'),
-        __metadata("design:paramtypes", [Element])
-    ], UICrumb);
     exports.UICrumb = UICrumb;
 });

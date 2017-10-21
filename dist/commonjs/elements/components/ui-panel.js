@@ -54,30 +54,30 @@ var UIPanel = (function () {
         var _this = this;
         setTimeout(function () { return _this.collapsed = !_this.collapsed; }, 200);
     };
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIPanel.prototype, "height", void 0);
+    __decorate([
+        aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
+        __metadata("design:type", Object)
+    ], UIPanel.prototype, "expanded", void 0);
+    __decorate([
+        aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
+        __metadata("design:type", Object)
+    ], UIPanel.prototype, "collapsed", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIPanel.prototype, "beforeclose", void 0);
+    UIPanel = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("<template class=\"ui-panel ${collapsed?'ui-collapse':''} ${expanded?'ui-expand':''}\" css.bind=\"{'height':height}\" collapse.trigger=\"toggleCollapse()\" expand.trigger=\"expand()\" restore.trigger=\"expand()\" close.trigger=\"close()\"><slot></slot></template>"),
+        aurelia_framework_1.customElement('ui-panel'),
+        __metadata("design:paramtypes", [Element])
+    ], UIPanel);
     return UIPanel;
 }());
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UIPanel.prototype, "height", void 0);
-__decorate([
-    aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
-    __metadata("design:type", Object)
-], UIPanel.prototype, "expanded", void 0);
-__decorate([
-    aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
-    __metadata("design:type", Object)
-], UIPanel.prototype, "collapsed", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UIPanel.prototype, "beforeclose", void 0);
-UIPanel = __decorate([
-    aurelia_framework_1.autoinject(),
-    aurelia_framework_1.inlineView("<template class=\"ui-panel ${collapsed?'ui-collapse':''} ${expanded?'ui-expand':''}\" css.bind=\"{'height':height}\" collapse.trigger=\"toggleCollapse()\" expand.trigger=\"expand()\" restore.trigger=\"expand()\" close.trigger=\"close()\"><slot></slot></template>"),
-    aurelia_framework_1.customElement('ui-panel'),
-    __metadata("design:paramtypes", [Element])
-], UIPanel);
 exports.UIPanel = UIPanel;
 var UIPanelBody = (function () {
     function UIPanelBody(element) {
@@ -92,26 +92,26 @@ var UIPanelBody = (function () {
         if (element.hasAttribute('padded'))
             element.classList.add('ui-pad-all');
     }
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIPanelBody.prototype, "height", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIPanelBody.prototype, "minheight", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIPanelBody.prototype, "maxheight", void 0);
+    UIPanelBody = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("<template class=\"ui-panel-body\" css.bind=\"{'max-height': maxheight,'min-height': minheight,'flex-basis':height}\"><slot></slot></template>"),
+        aurelia_framework_1.customElement('ui-panel-body'),
+        __metadata("design:paramtypes", [Element])
+    ], UIPanelBody);
     return UIPanelBody;
 }());
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UIPanelBody.prototype, "height", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UIPanelBody.prototype, "minheight", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UIPanelBody.prototype, "maxheight", void 0);
-UIPanelBody = __decorate([
-    aurelia_framework_1.autoinject(),
-    aurelia_framework_1.inlineView("<template class=\"ui-panel-body\" css.bind=\"{'max-height': maxheight,'min-height': minheight,'flex-basis':height}\"><slot></slot></template>"),
-    aurelia_framework_1.customElement('ui-panel-body'),
-    __metadata("design:paramtypes", [Element])
-], UIPanelBody);
 exports.UIPanelBody = UIPanelBody;
 var UIPanelGroup = (function () {
     function UIPanelGroup(element) {
@@ -128,18 +128,18 @@ var UIPanelGroup = (function () {
         if (this.allowtoggle && panel)
             panel.collapsed = true;
     };
+    __decorate([
+        aurelia_framework_1.children('ui-panel'),
+        __metadata("design:type", Object)
+    ], UIPanelGroup.prototype, "panels", void 0);
+    UIPanelGroup = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("<template class=\"ui-panel-group\" collapse.delegate=\"uncollapse()\"><slot></slot></template>"),
+        aurelia_framework_1.customElement('ui-panel-group'),
+        __metadata("design:paramtypes", [Element])
+    ], UIPanelGroup);
     return UIPanelGroup;
 }());
-__decorate([
-    aurelia_framework_1.children('ui-panel'),
-    __metadata("design:type", Object)
-], UIPanelGroup.prototype, "panels", void 0);
-UIPanelGroup = __decorate([
-    aurelia_framework_1.autoinject(),
-    aurelia_framework_1.inlineView("<template class=\"ui-panel-group\" collapse.delegate=\"uncollapse()\"><slot></slot></template>"),
-    aurelia_framework_1.customElement('ui-panel-group'),
-    __metadata("design:paramtypes", [Element])
-], UIPanelGroup);
 exports.UIPanelGroup = UIPanelGroup;
 var UIHeader = (function () {
     function UIHeader(element) {
@@ -162,18 +162,18 @@ var UIHeader = (function () {
         else if (element.hasAttribute('warning'))
             this.theme = 'warning';
     }
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIHeader.prototype, "theme", void 0);
+    UIHeader = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("<template class=\"ui-header ${theme}\"><slot></slot></template>"),
+        aurelia_framework_1.customElement('ui-header'),
+        __metadata("design:paramtypes", [Element])
+    ], UIHeader);
     return UIHeader;
 }());
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UIHeader.prototype, "theme", void 0);
-UIHeader = __decorate([
-    aurelia_framework_1.autoinject(),
-    aurelia_framework_1.inlineView("<template class=\"ui-header ${theme}\"><slot></slot></template>"),
-    aurelia_framework_1.customElement('ui-header'),
-    __metadata("design:paramtypes", [Element])
-], UIHeader);
 exports.UIHeader = UIHeader;
 var UIHeaderTool = (function () {
     function UIHeaderTool(element) {
@@ -253,42 +253,42 @@ var UIHeaderTool = (function () {
         }
         return ui_event_1.UIEvent.fireEvent(this.type, this.element);
     };
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIHeaderTool.prototype, "glyph", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIHeaderTool.prototype, "dropdown", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIHeaderTool.prototype, "disabled", void 0);
+    UIHeaderTool = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("<template class=\"ui-header-tool\"><button disabled.bind=\"disabled\" tabindex=\"-1\" class=\"ui-header-button ui-${type}\" click.trigger=\"fireEvent($event)\">\n  <slot><ui-glyph glyph.bind=\"glyph\"></ui-glyph></slot></button></template>"),
+        aurelia_framework_1.customElement('ui-header-tool'),
+        __metadata("design:paramtypes", [Element])
+    ], UIHeaderTool);
     return UIHeaderTool;
 }());
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UIHeaderTool.prototype, "glyph", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UIHeaderTool.prototype, "dropdown", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UIHeaderTool.prototype, "disabled", void 0);
-UIHeaderTool = __decorate([
-    aurelia_framework_1.autoinject(),
-    aurelia_framework_1.inlineView("<template class=\"ui-header-tool\"><button disabled.bind=\"disabled\" tabindex=\"-1\" class=\"ui-header-button ui-${type}\" click.trigger=\"fireEvent($event)\">\n  <slot><ui-glyph glyph.bind=\"glyph\"></ui-glyph></slot></button></template>"),
-    aurelia_framework_1.customElement('ui-header-tool'),
-    __metadata("design:paramtypes", [Element])
-], UIHeaderTool);
 exports.UIHeaderTool = UIHeaderTool;
 var UIHeaderTitle = (function () {
     function UIHeaderTitle(element) {
         this.element = element;
         this.glyph = '';
     }
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIHeaderTitle.prototype, "glyph", void 0);
+    UIHeaderTitle = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("<template class=\"ui-header-title ui-inline-block ui-col-fill\"><ui-glyph glyph.bind=\"glyph\" if.bind=\"glyph\"></ui-glyph><slot></slot></template>"),
+        aurelia_framework_1.customElement('ui-header-title'),
+        __metadata("design:paramtypes", [Element])
+    ], UIHeaderTitle);
     return UIHeaderTitle;
 }());
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UIHeaderTitle.prototype, "glyph", void 0);
-UIHeaderTitle = __decorate([
-    aurelia_framework_1.autoinject(),
-    aurelia_framework_1.inlineView("<template class=\"ui-header-title ui-inline-block ui-col-fill\"><ui-glyph glyph.bind=\"glyph\" if.bind=\"glyph\"></ui-glyph><slot></slot></template>"),
-    aurelia_framework_1.customElement('ui-header-title'),
-    __metadata("design:paramtypes", [Element])
-], UIHeaderTitle);
 exports.UIHeaderTitle = UIHeaderTitle;

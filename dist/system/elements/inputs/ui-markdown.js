@@ -149,54 +149,54 @@ System.register(["aurelia-framework", "./ui-input", "../../utils/ui-event", "../
                     if (sub == 'EditThis' && btn != 'preview' && btn != 'help')
                         ui_event_1.UIEvent.queueTask(function () { return _this.inputEl.setSelectionRange(start + diff, start + diff + sub.length); });
                 };
+                __decorate([
+                    aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
+                    __metadata("design:type", Object)
+                ], UIMarkdown.prototype, "value", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIMarkdown.prototype, "dir", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIMarkdown.prototype, "rows", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIMarkdown.prototype, "errors", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIMarkdown.prototype, "maxlength", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIMarkdown.prototype, "disabled", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIMarkdown.prototype, "readonly", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIMarkdown.prototype, "placeholder", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIMarkdown.prototype, "autoComplete", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIMarkdown.prototype, "info", void 0);
+                UIMarkdown = __decorate([
+                    aurelia_framework_1.autoinject(),
+                    aurelia_framework_1.customElement('ui-markdown'),
+                    aurelia_framework_1.inlineView("<template class=\"ui-md-editor ui-input-wrapper\"><ui-toolbar start click.trigger=\"toolClicked($event)\">\n  <div class=\"ui-button-group ui-horizontal\">\n  <ui-button data-id=\"h1\" disabled.bind=\"disableTools||disabled||readonly\" square small light>H1</ui-button>\n  <ui-button data-id=\"h2\" disabled.bind=\"disableTools||disabled||readonly\" square small light>H2</ui-button>\n  <ui-button data-id=\"h3\" disabled.bind=\"disableTools||disabled||readonly\" square small light>H3</ui-button>\n  <ui-button data-id=\"h4\" disabled.bind=\"disableTools||disabled||readonly\" square small light>H4</ui-button>\n  <ui-button data-id=\"h5\" disabled.bind=\"disableTools||disabled||readonly\" square small light>H5</ui-button>\n  <ui-button data-id=\"h6\" disabled.bind=\"disableTools||disabled||readonly\" square small light>H6</ui-button>\n  </div>\n  <div class=\"ui-button-group ui-horizontal\">\n  <ui-button glyph=\"glyph-md-bold\" data-id=\"b\" disabled.bind=\"disableTools||disabled||readonly\" square small light></ui-button>\n  <ui-button glyph=\"glyph-md-italic\" data-id=\"i\" disabled.bind=\"disableTools||disabled||readonly\" square small light></ui-button>\n  <ui-button glyph=\"glyph-md-strike\" data-id=\"s\" disabled.bind=\"disableTools||disabled||readonly\" square small light></ui-button>\n  </div>\n  <div class=\"ui-button-group ui-horizontal\">\n  <ui-button glyph=\"glyph-md-link\" data-id=\"a\" disabled.bind=\"disableTools||disabled||readonly\" square small light></ui-button>\n  <ui-button glyph=\"glyph-md-image\" data-id=\"img\" disabled.bind=\"disableTools||disabled||readonly\" square small light></ui-button>\n  </div>\n  <div class=\"ui-button-group ui-horizontal\">\n  <ui-button glyph=\"glyph-md-list\" data-id=\"ul\" disabled.bind=\"disableTools||disabled||readonly\" square small light></ui-button>\n  <ui-button glyph=\"glyph-md-number\" data-id=\"ol\" disabled.bind=\"disableTools||disabled||readonly\" square small light></ui-button>\n  </div>\n  <div class=\"ui-button-group ui-horizontal\">\n  <ui-button glyph=\"glyph-md-help\" data-id=\"help\" disabled.bind=\"disabled||readonly\" square small light></ui-button>\n  <ui-button glyph=\"glyph-md-preview\" data-id=\"preview\" disabled.bind=\"disabled||readonly\" square small light></ui-button>\n  </div></ui-toolbar>\n  <div class=\"ui-watermark ${preview?'preview':''} ${help?'help':''}\">\n  <div role=\"input\" class=\"ui-input-control ui-textarea\"><span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"glyph-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <textarea ref=\"inputEl\" value.bind=\"value\" rows.bind=\"rows\" maxlength.bind=\"maxlength\" dir.bind=\"dir\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\"\n    input.trigger=\"fireEvent($event)\" change.trigger=\"fireEvent($event)\"\n    placeholder.bind=\"placeholder\" disabled.bind=\"isDisabled\" readonly.bind=\"readonly\"></textarea>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span>\n  <span class=\"ui-counter\" if.bind=\"counter\" innerhtml.bind=\"value.length + ' of ' + maxlength\"></span>\n  </div>\n\n  <div class='ui-md-preview ui-pad-all ui-markdown' show.bind=\"help\" dir=\"ltr\">\n  <h2 class=\"ui-small-caps ui-text-primary ui-strong\">Markdown Syntax</h2>\n  <hr/>\n  <p>Add a blank line to create a separate paragraph</p>\n  <hr/>\n  <p class=\"ui-text-primary\">Headers</p>\n\n  <div>\n      <span>H1 <code class=\"ui-selectable\"># Header</code> <h1 class=\"ui-inline\">Header</h1></span>\n      <br/>\n      <span>H2 <code class=\"ui-selectable\">## Header</code> <h2 class=\"ui-inline\">Header</h2></span>\n      <br/>\n      <span>H3 <code class=\"ui-selectable\">### Header</code> <h3 class=\"ui-inline\">Header</h3></span>\n      <br/>\n      <span>H4 <code class=\"ui-selectable\">#### Header</code> <h4 class=\"ui-inline\">Header</h4></span>\n      <br/>\n      <span>H5 <code class=\"ui-selectable\">##### Header</code> <h5 class=\"ui-inline\">Header</h5></span>\n      <br/>\n      <span>H6 <code class=\"ui-selectable\">###### Header</code> <h6 class=\"ui-inline\">Header</h6></span>\n      <br/>\n  </div>\n\n  <p class=\"ui-text-primary\">Styles</p>\n\n  <p>\n      <span>Italic <code class=\"ui-selectable\">_Italic Text_</code>: <i>Italic</i></span>\n      <br/>\n      <span>Bold <code class=\"ui-selectable\">__Bold Text__</code>: <b>Bold</b></span>\n      <br/>\n      <span>Strikethrough <code class=\"ui-selectable\">~~Strikethrough~~</code>: <del>Strikethrough</del></span>\n      <br/>\n  </p>\n\n  <p class=\"ui-text-primary\">Links</p>\n\n  <p>\n      <code class=\"ui-selectable\">[link text](link URL)</code>\n      <br/>\n      <em>any url will be converted to a link, use the above to display custom text instead of url in the link.</em>\n      <br/>\n      <span>eg. <code>&lt;a href=\"url\">Link Text&lt;/a></code></span>\n      <br/>\n  </p>\n\n  <p class=\"ui-text-primary\">Images</p>\n\n  <p>\n      <code class=\"ui-selectable\">![alt text](image URL)</code>\n      <br/>\n  </p>\n\n  <p class=\"ui-text-primary\">Lists</p>\n\n  <p>\n      <span><code class=\"ui-selectable\">* list item</code>: &#8226; list item</span>\n      <br/>\n      <span><code class=\"ui-selectable\">* list item</code>: &#8226; list item</span>\n      <br/>\n      <span><code class=\"ui-selectable\">* list item</code>: &#8226; list item</span>\n      <br/>\n      <br/>\n      <span><code class=\"ui-selectable\">1. list item</code>: 1. list item</span>\n      <br/>\n      <span><code class=\"ui-selectable\">* &nbsp;list item</code>: 2. list item</span>\n      <br/>\n      <span><code class=\"ui-selectable\">* &nbsp;list item</code>: 3. list item</span>\n      <br/>\n  </p>\n\n  <p class=\"ui-text-primary\">Tables</p>\n\n  <p>\n      <span><code class=\"ui-selectable\">|Head|Head |Head|</code></span>\n      <br/>\n      <span><code class=\"ui-selectable\">|:---|:---:|---:|</code></span>\n      <br/>\n      <span><code class=\"ui-selectable\">|Left Align|Center Align|Right Aligned|</code></span>\n      <br/>\n      <span><code class=\"ui-selectable\">|Left Align|Center Align|Right Aligned|</code></span>\n      <br/>\n      <br/>\n      <table>\n          <thead>\n              <tr>\n                  <th class=\"ui-text-start\">Head</th>\n                  <th class=\"ui-text-center\">Head</th>\n                  <th class=\"ui-text-end\">Head</th>\n              </tr>\n          </thead>\n          <tr>\n              <td class=\"ui-text-start\">Left</td>\n              <td class=\"ui-text-center\">Center</td>\n              <td class=\"ui-text-end\">Right</td>\n          </tr>\n          <tr>\n              <td class=\"ui-text-start\">Left</td>\n              <td class=\"ui-text-center\">Center</td>\n              <td class=\"ui-text-end\">Right</td>\n          </tr>\n      </table>\n  </p>\n  <br/>\n  <br/></div>\n\n  <div class=\"ui-md-preview ui-pad-all ui-markdown\" dir.bind=\"dir\" show.bind=\"preview\" innerhtml.bind=\"value | markdown\" dir.bind=\"dir\"></div>\n\n  </div>\n  <div class=\"ui-input-info\" if.bind=\"info\" innerhtml.bind=\"info\"></div>\n</template>"),
+                    __metadata("design:paramtypes", [Element])
+                ], UIMarkdown);
                 return UIMarkdown;
             }(ui_input_1.UIBaseInput));
-            __decorate([
-                aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
-                __metadata("design:type", Object)
-            ], UIMarkdown.prototype, "value", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIMarkdown.prototype, "dir", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIMarkdown.prototype, "rows", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIMarkdown.prototype, "errors", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIMarkdown.prototype, "maxlength", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIMarkdown.prototype, "disabled", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIMarkdown.prototype, "readonly", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIMarkdown.prototype, "placeholder", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIMarkdown.prototype, "autoComplete", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIMarkdown.prototype, "info", void 0);
-            UIMarkdown = __decorate([
-                aurelia_framework_1.autoinject(),
-                aurelia_framework_1.customElement('ui-markdown'),
-                aurelia_framework_1.inlineView("<template class=\"ui-md-editor ui-input-wrapper\"><ui-toolbar start click.trigger=\"toolClicked($event)\">\n  <div class=\"ui-button-group ui-horizontal\">\n  <ui-button data-id=\"h1\" disabled.bind=\"disableTools||disabled||readonly\" square small light>H1</ui-button>\n  <ui-button data-id=\"h2\" disabled.bind=\"disableTools||disabled||readonly\" square small light>H2</ui-button>\n  <ui-button data-id=\"h3\" disabled.bind=\"disableTools||disabled||readonly\" square small light>H3</ui-button>\n  <ui-button data-id=\"h4\" disabled.bind=\"disableTools||disabled||readonly\" square small light>H4</ui-button>\n  <ui-button data-id=\"h5\" disabled.bind=\"disableTools||disabled||readonly\" square small light>H5</ui-button>\n  <ui-button data-id=\"h6\" disabled.bind=\"disableTools||disabled||readonly\" square small light>H6</ui-button>\n  </div>\n  <div class=\"ui-button-group ui-horizontal\">\n  <ui-button glyph=\"glyph-md-bold\" data-id=\"b\" disabled.bind=\"disableTools||disabled||readonly\" square small light></ui-button>\n  <ui-button glyph=\"glyph-md-italic\" data-id=\"i\" disabled.bind=\"disableTools||disabled||readonly\" square small light></ui-button>\n  <ui-button glyph=\"glyph-md-strike\" data-id=\"s\" disabled.bind=\"disableTools||disabled||readonly\" square small light></ui-button>\n  </div>\n  <div class=\"ui-button-group ui-horizontal\">\n  <ui-button glyph=\"glyph-md-link\" data-id=\"a\" disabled.bind=\"disableTools||disabled||readonly\" square small light></ui-button>\n  <ui-button glyph=\"glyph-md-image\" data-id=\"img\" disabled.bind=\"disableTools||disabled||readonly\" square small light></ui-button>\n  </div>\n  <div class=\"ui-button-group ui-horizontal\">\n  <ui-button glyph=\"glyph-md-list\" data-id=\"ul\" disabled.bind=\"disableTools||disabled||readonly\" square small light></ui-button>\n  <ui-button glyph=\"glyph-md-number\" data-id=\"ol\" disabled.bind=\"disableTools||disabled||readonly\" square small light></ui-button>\n  </div>\n  <div class=\"ui-button-group ui-horizontal\">\n  <ui-button glyph=\"glyph-md-help\" data-id=\"help\" disabled.bind=\"disabled||readonly\" square small light></ui-button>\n  <ui-button glyph=\"glyph-md-preview\" data-id=\"preview\" disabled.bind=\"disabled||readonly\" square small light></ui-button>\n  </div></ui-toolbar>\n  <div class=\"ui-watermark ${preview?'preview':''} ${help?'help':''}\">\n  <div role=\"input\" class=\"ui-input-control ui-textarea\"><span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"glyph-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <textarea ref=\"inputEl\" value.bind=\"value\" rows.bind=\"rows\" maxlength.bind=\"maxlength\" dir.bind=\"dir\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\"\n    input.trigger=\"fireEvent($event)\" change.trigger=\"fireEvent($event)\"\n    placeholder.bind=\"placeholder\" disabled.bind=\"isDisabled\" readonly.bind=\"readonly\"></textarea>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span>\n  <span class=\"ui-counter\" if.bind=\"counter\" innerhtml.bind=\"value.length + ' of ' + maxlength\"></span>\n  </div>\n\n  <div class='ui-md-preview ui-pad-all ui-markdown' show.bind=\"help\" dir=\"ltr\">\n  <h2 class=\"ui-small-caps ui-text-primary ui-strong\">Markdown Syntax</h2>\n  <hr/>\n  <p>Add a blank line to create a separate paragraph</p>\n  <hr/>\n  <p class=\"ui-text-primary\">Headers</p>\n\n  <div>\n      <span>H1 <code class=\"ui-selectable\"># Header</code> <h1 class=\"ui-inline\">Header</h1></span>\n      <br/>\n      <span>H2 <code class=\"ui-selectable\">## Header</code> <h2 class=\"ui-inline\">Header</h2></span>\n      <br/>\n      <span>H3 <code class=\"ui-selectable\">### Header</code> <h3 class=\"ui-inline\">Header</h3></span>\n      <br/>\n      <span>H4 <code class=\"ui-selectable\">#### Header</code> <h4 class=\"ui-inline\">Header</h4></span>\n      <br/>\n      <span>H5 <code class=\"ui-selectable\">##### Header</code> <h5 class=\"ui-inline\">Header</h5></span>\n      <br/>\n      <span>H6 <code class=\"ui-selectable\">###### Header</code> <h6 class=\"ui-inline\">Header</h6></span>\n      <br/>\n  </div>\n\n  <p class=\"ui-text-primary\">Styles</p>\n\n  <p>\n      <span>Italic <code class=\"ui-selectable\">_Italic Text_</code>: <i>Italic</i></span>\n      <br/>\n      <span>Bold <code class=\"ui-selectable\">__Bold Text__</code>: <b>Bold</b></span>\n      <br/>\n      <span>Strikethrough <code class=\"ui-selectable\">~~Strikethrough~~</code>: <del>Strikethrough</del></span>\n      <br/>\n  </p>\n\n  <p class=\"ui-text-primary\">Links</p>\n\n  <p>\n      <code class=\"ui-selectable\">[link text](link URL)</code>\n      <br/>\n      <em>any url will be converted to a link, use the above to display custom text instead of url in the link.</em>\n      <br/>\n      <span>eg. <code>&lt;a href=\"url\">Link Text&lt;/a></code></span>\n      <br/>\n  </p>\n\n  <p class=\"ui-text-primary\">Images</p>\n\n  <p>\n      <code class=\"ui-selectable\">![alt text](image URL)</code>\n      <br/>\n  </p>\n\n  <p class=\"ui-text-primary\">Lists</p>\n\n  <p>\n      <span><code class=\"ui-selectable\">* list item</code>: &#8226; list item</span>\n      <br/>\n      <span><code class=\"ui-selectable\">* list item</code>: &#8226; list item</span>\n      <br/>\n      <span><code class=\"ui-selectable\">* list item</code>: &#8226; list item</span>\n      <br/>\n      <br/>\n      <span><code class=\"ui-selectable\">1. list item</code>: 1. list item</span>\n      <br/>\n      <span><code class=\"ui-selectable\">* &nbsp;list item</code>: 2. list item</span>\n      <br/>\n      <span><code class=\"ui-selectable\">* &nbsp;list item</code>: 3. list item</span>\n      <br/>\n  </p>\n\n  <p class=\"ui-text-primary\">Tables</p>\n\n  <p>\n      <span><code class=\"ui-selectable\">|Head|Head |Head|</code></span>\n      <br/>\n      <span><code class=\"ui-selectable\">|:---|:---:|---:|</code></span>\n      <br/>\n      <span><code class=\"ui-selectable\">|Left Align|Center Align|Right Aligned|</code></span>\n      <br/>\n      <span><code class=\"ui-selectable\">|Left Align|Center Align|Right Aligned|</code></span>\n      <br/>\n      <br/>\n      <table>\n          <thead>\n              <tr>\n                  <th class=\"ui-text-start\">Head</th>\n                  <th class=\"ui-text-center\">Head</th>\n                  <th class=\"ui-text-end\">Head</th>\n              </tr>\n          </thead>\n          <tr>\n              <td class=\"ui-text-start\">Left</td>\n              <td class=\"ui-text-center\">Center</td>\n              <td class=\"ui-text-end\">Right</td>\n          </tr>\n          <tr>\n              <td class=\"ui-text-start\">Left</td>\n              <td class=\"ui-text-center\">Center</td>\n              <td class=\"ui-text-end\">Right</td>\n          </tr>\n      </table>\n  </p>\n  <br/>\n  <br/></div>\n\n  <div class=\"ui-md-preview ui-pad-all ui-markdown\" dir.bind=\"dir\" show.bind=\"preview\" innerhtml.bind=\"value | markdown\" dir.bind=\"dir\"></div>\n\n  </div>\n  <div class=\"ui-input-info\" if.bind=\"info\" innerhtml.bind=\"info\"></div>\n</template>"),
-                __metadata("design:paramtypes", [Element])
-            ], UIMarkdown);
             exports_1("UIMarkdown", UIMarkdown);
             UILanguage = (function () {
                 function UILanguage(element) {
@@ -320,46 +320,46 @@ System.register(["aurelia-framework", "./ui-input", "../../utils/ui-event", "../
                     this.unhilightItem(null);
                     ui_event_1.UIEvent.fireEvent('change', this.element, model);
                 };
+                __decorate([
+                    aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
+                    __metadata("design:type", Object)
+                ], UILanguage.prototype, "value", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
+                    __metadata("design:type", Object)
+                ], UILanguage.prototype, "dir", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UILanguage.prototype, "errors", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UILanguage.prototype, "disabled", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UILanguage.prototype, "readonly", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UILanguage.prototype, "info", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UILanguage.prototype, "languages", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UILanguage.prototype, "placeholder", void 0);
+                UILanguage = __decorate([
+                    aurelia_framework_1.autoinject(),
+                    aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper ui-input-list\"><div role=\"input\" class=\"ui-input-control\">\n  <span class=\"ui-input-addon\" click.trigger=\"openDropdown($event, show=true, inputEl.focus())\"><ui-glyph glyph=\"glyph-language\"></ui-glyph></span>\n  <span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"glyph-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <input ref=\"inputEl\" type.bind=\"type\" value.bind=\"elValue\" size=\"10\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\"\n    change.trigger=\"fireEvent($event)\" placeholder.bind=\"placeholder\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"true\" click.trigger=\"openDropdown($event, show=true)\"/>\n  <span class=\"ui-input-addon ui-dropdown-handle\" click.trigger=\"openDropdown($event, show=true, inputEl.focus())\"><ui-glyph glyph=\"glyph-chevron-down\"></ui-glyph></span></div>\n  <div class=\"ui-input-info\" if.bind=\"info\" innerhtml.bind=\"info\"></div>\n\n  <div class=\"ui-list-container ui-floating\" ref=\"dropdown\">\n    <div class=\"ui-list-group\" t=\"Selected\">Selected</div>\n    <div class=\"ui-lang-item\" repeat.for=\"item of selectedList\">\n      <div class=\"ui-list-item ${item.id==value?'ui-selected':''} ${item.disabled?'ui-disabled':''}\"\n      mouseover.delegate=\"hilightItem($event)\" click.trigger=\"fireSelect(item)\"><ui-glyph glyph=\"glyph-invalid\" class=\"ui-text-warning\" if.bind=\"errored.indexOf(item.id)>-1\"></ui-glyph> ${item.name}</div>\n      <a click.trigger=\"removeLanguage(item)\"><ui-glyph class=\"ui-text-danger ui-font-big\" glyph=\"glyph-tree-collapse\"></ui-glyph></a>\n    </div>\n    <div class=\"ui-list-group\" t=\"Available\">Available</div>\n    <div class=\"ui-lang-item\" repeat.for=\"item of availableList\" click.trigger=\"addLanguage(item)\">\n      <div class=\"ui-list-item ${item.disabled?'ui-disabled':''}\" innerhtml.bind=\"item.name\"\n      mouseover.delegate=\"hilightItem($event)\"></div>\n      <ui-glyph class=\"ui-text-info ui-font-big\" glyph=\"glyph-tree-expand\"></ui-glyph>\n    </div>\n    </template>\n  </div>\n</template>"),
+                    aurelia_framework_1.customElement('ui-language'),
+                    __metadata("design:paramtypes", [Element])
+                ], UILanguage);
                 return UILanguage;
             }());
-            __decorate([
-                aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
-                __metadata("design:type", Object)
-            ], UILanguage.prototype, "value", void 0);
-            __decorate([
-                aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
-                __metadata("design:type", Object)
-            ], UILanguage.prototype, "dir", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UILanguage.prototype, "errors", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UILanguage.prototype, "disabled", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UILanguage.prototype, "readonly", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UILanguage.prototype, "info", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UILanguage.prototype, "languages", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UILanguage.prototype, "placeholder", void 0);
-            UILanguage = __decorate([
-                aurelia_framework_1.autoinject(),
-                aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper ui-input-list\"><div role=\"input\" class=\"ui-input-control\">\n  <span class=\"ui-input-addon\" click.trigger=\"openDropdown($event, show=true, inputEl.focus())\"><ui-glyph glyph=\"glyph-language\"></ui-glyph></span>\n  <span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"glyph-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <input ref=\"inputEl\" type.bind=\"type\" value.bind=\"elValue\" size=\"10\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\"\n    change.trigger=\"fireEvent($event)\" placeholder.bind=\"placeholder\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"true\" click.trigger=\"openDropdown($event, show=true)\"/>\n  <span class=\"ui-input-addon ui-dropdown-handle\" click.trigger=\"openDropdown($event, show=true, inputEl.focus())\"><ui-glyph glyph=\"glyph-chevron-down\"></ui-glyph></span></div>\n  <div class=\"ui-input-info\" if.bind=\"info\" innerhtml.bind=\"info\"></div>\n\n  <div class=\"ui-list-container ui-floating\" ref=\"dropdown\">\n    <div class=\"ui-list-group\" t=\"Selected\">Selected</div>\n    <div class=\"ui-lang-item\" repeat.for=\"item of selectedList\">\n      <div class=\"ui-list-item ${item.id==value?'ui-selected':''} ${item.disabled?'ui-disabled':''}\"\n      mouseover.delegate=\"hilightItem($event)\" click.trigger=\"fireSelect(item)\"><ui-glyph glyph=\"glyph-invalid\" class=\"ui-text-warning\" if.bind=\"errored.indexOf(item.id)>-1\"></ui-glyph> ${item.name}</div>\n      <a click.trigger=\"removeLanguage(item)\"><ui-glyph class=\"ui-text-danger ui-font-big\" glyph=\"glyph-tree-collapse\"></ui-glyph></a>\n    </div>\n    <div class=\"ui-list-group\" t=\"Available\">Available</div>\n    <div class=\"ui-lang-item\" repeat.for=\"item of availableList\" click.trigger=\"addLanguage(item)\">\n      <div class=\"ui-list-item ${item.disabled?'ui-disabled':''}\" innerhtml.bind=\"item.name\"\n      mouseover.delegate=\"hilightItem($event)\"></div>\n      <ui-glyph class=\"ui-text-info ui-font-big\" glyph=\"glyph-tree-expand\"></ui-glyph>\n    </div>\n    </template>\n  </div>\n</template>"),
-                aurelia_framework_1.customElement('ui-language'),
-                __metadata("design:paramtypes", [Element])
-            ], UILanguage);
             exports_1("UILanguage", UILanguage);
         }
     };

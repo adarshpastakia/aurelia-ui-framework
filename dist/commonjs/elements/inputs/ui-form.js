@@ -48,22 +48,22 @@ var UIForm = (function () {
         if (!this.busy)
             ui_event_1.UIEvent.fireEvent('submit', this.element);
     };
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Boolean)
+    ], UIForm.prototype, "busy", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Boolean)
+    ], UIForm.prototype, "disabled", void 0);
+    UIForm = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.customElement('ui-form'),
+        aurelia_framework_1.inlineView("<template class=\"ui-form\"><form ref=\"formEl\" validation-renderer=\"ui-validator\" enterpressed.trigger=\"fireSubmit()\" submit.trigger=\"return false\"><slot></slot></form></template>"),
+        __metadata("design:paramtypes", [Element])
+    ], UIForm);
     return UIForm;
 }());
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Boolean)
-], UIForm.prototype, "busy", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Boolean)
-], UIForm.prototype, "disabled", void 0);
-UIForm = __decorate([
-    aurelia_framework_1.autoinject(),
-    aurelia_framework_1.customElement('ui-form'),
-    aurelia_framework_1.inlineView("<template class=\"ui-form\"><form ref=\"formEl\" validation-renderer=\"ui-validator\" enterpressed.trigger=\"fireSubmit()\" submit.trigger=\"return false\"><slot></slot></form></template>"),
-    __metadata("design:paramtypes", [Element])
-], UIForm);
 exports.UIForm = UIForm;
 var UIFieldset = (function () {
     function UIFieldset(element) {
@@ -98,26 +98,26 @@ var UIFieldset = (function () {
             }
         });
     };
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIFieldset.prototype, "legend", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Boolean)
+    ], UIFieldset.prototype, "disabled", void 0);
+    __decorate([
+        aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
+        __metadata("design:type", Object)
+    ], UIFieldset.prototype, "checked", void 0);
+    UIFieldset = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView('<template class="ui-fieldset"><fieldset><legend if.bind="legend"><span if.bind="!collapsible">\${legend}</span><ui-checkbox if.bind="collapsible" checked.bind="checked">\${legend}</ui-checkbox></legend><div ref="container"><slot></slot></div></fieldset></template>'),
+        aurelia_framework_1.customElement('ui-fieldset'),
+        __metadata("design:paramtypes", [Element])
+    ], UIFieldset);
     return UIFieldset;
 }());
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UIFieldset.prototype, "legend", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Boolean)
-], UIFieldset.prototype, "disabled", void 0);
-__decorate([
-    aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
-    __metadata("design:type", Object)
-], UIFieldset.prototype, "checked", void 0);
-UIFieldset = __decorate([
-    aurelia_framework_1.autoinject(),
-    aurelia_framework_1.inlineView('<template class="ui-fieldset"><fieldset><legend if.bind="legend"><span if.bind="!collapsible">\${legend}</span><ui-checkbox if.bind="collapsible" checked.bind="checked">\${legend}</ui-checkbox></legend><div ref="container"><slot></slot></div></fieldset></template>'),
-    aurelia_framework_1.customElement('ui-fieldset'),
-    __metadata("design:paramtypes", [Element])
-], UIFieldset);
 exports.UIFieldset = UIFieldset;
 var UIInputGroup = (function () {
     function UIInputGroup(element) {
@@ -126,37 +126,37 @@ var UIInputGroup = (function () {
         if (element.hasAttribute('plain'))
             element.classList.add('ui-plain');
     }
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIInputGroup.prototype, "width", void 0);
+    UIInputGroup = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("<template class=\"ui-input-group\"><slot name=\"inputLabel\"></slot>\n  <div css.bind=\"{'flex-basis':width}\"><div class=\"ui-group-wrapper\"><slot></slot></div><slot name=\"inputInfo\"></slot></div></template>"),
+        aurelia_framework_1.customElement('ui-input-group'),
+        __metadata("design:paramtypes", [Element])
+    ], UIInputGroup);
     return UIInputGroup;
 }());
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UIInputGroup.prototype, "width", void 0);
-UIInputGroup = __decorate([
-    aurelia_framework_1.autoinject(),
-    aurelia_framework_1.inlineView("<template class=\"ui-input-group\"><slot name=\"inputLabel\"></slot>\n  <div css.bind=\"{'flex-basis':width}\"><div class=\"ui-group-wrapper\"><slot></slot></div><slot name=\"inputInfo\"></slot></div></template>"),
-    aurelia_framework_1.customElement('ui-input-group'),
-    __metadata("design:paramtypes", [Element])
-], UIInputGroup);
 exports.UIInputGroup = UIInputGroup;
 var UIInputInfo = (function () {
     function UIInputInfo(element) {
         this.element = element;
         this.class = '';
     }
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIInputInfo.prototype, "class", void 0);
+    UIInputInfo = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.containerless(),
+        aurelia_framework_1.inlineView('<template><div slot="inputInfo" class="ui-input-info \${class}"><slot></slot></div></template>'),
+        aurelia_framework_1.customElement('ui-input-info'),
+        __metadata("design:paramtypes", [Element])
+    ], UIInputInfo);
     return UIInputInfo;
 }());
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UIInputInfo.prototype, "class", void 0);
-UIInputInfo = __decorate([
-    aurelia_framework_1.autoinject(),
-    aurelia_framework_1.containerless(),
-    aurelia_framework_1.inlineView('<template><div slot="inputInfo" class="ui-input-info \${class}"><slot></slot></div></template>'),
-    aurelia_framework_1.customElement('ui-input-info'),
-    __metadata("design:paramtypes", [Element])
-], UIInputInfo);
 exports.UIInputInfo = UIInputInfo;
 var UIInputAddon = (function () {
     function UIInputAddon(element) {
@@ -173,26 +173,27 @@ var UIInputAddon = (function () {
             ui_event_1.UIEvent.queueTask(function () { return el['focus'](); });
         return true;
     };
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIInputAddon.prototype, "glyph", void 0);
+    UIInputAddon = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.customElement('ui-input-addon'),
+        aurelia_framework_1.inlineView("<template class=\"ui-input-addon\" click.trigger=\"focusEl()\"><slot><ui-glyph glyph.bind=\"glyph\"></ui-glyph></slot></template>"),
+        __metadata("design:paramtypes", [Element])
+    ], UIInputAddon);
     return UIInputAddon;
 }());
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UIInputAddon.prototype, "glyph", void 0);
-UIInputAddon = __decorate([
-    aurelia_framework_1.autoinject(),
-    aurelia_framework_1.customElement('ui-input-addon'),
-    aurelia_framework_1.inlineView("<template class=\"ui-input-addon\" click.trigger=\"focusEl()\"><slot><ui-glyph glyph.bind=\"glyph\"></ui-glyph></slot></template>"),
-    __metadata("design:paramtypes", [Element])
-], UIInputAddon);
 exports.UIInputAddon = UIInputAddon;
-var UIInputLabel = UIInputLabel_1 = (function () {
+var UIInputLabel = (function () {
     function UIInputLabel(element) {
         this.element = element;
         this.for = '';
         this.class = '';
         this.width = '8em';
     }
+    UIInputLabel_1 = UIInputLabel;
     UIInputLabel.prototype.bind = function (bindingContext, overrideContext) {
         if (this.element.hasAttribute('align-top'))
             this.class += ' ui-align-top';
@@ -211,27 +212,27 @@ var UIInputLabel = UIInputLabel_1 = (function () {
             }
         }
     };
+    UIInputLabel.seed = 1;
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIInputLabel.prototype, "for", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIInputLabel.prototype, "class", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIInputLabel.prototype, "width", void 0);
+    UIInputLabel = UIInputLabel_1 = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.containerless(),
+        aurelia_framework_1.inlineView("<template><label ref=\"label\" slot=\"inputLabel\" class=\"ui-input-label ${class}\" for.bind=\"for\" css.bind=\"{'flex-basis':width}\"><slot></slot></label></template>"),
+        aurelia_framework_1.customElement('ui-input-label'),
+        __metadata("design:paramtypes", [Element])
+    ], UIInputLabel);
     return UIInputLabel;
+    var UIInputLabel_1;
 }());
-UIInputLabel.seed = 1;
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UIInputLabel.prototype, "for", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UIInputLabel.prototype, "class", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UIInputLabel.prototype, "width", void 0);
-UIInputLabel = UIInputLabel_1 = __decorate([
-    aurelia_framework_1.autoinject(),
-    aurelia_framework_1.containerless(),
-    aurelia_framework_1.inlineView("<template><label ref=\"label\" slot=\"inputLabel\" class=\"ui-input-label ${class}\" for.bind=\"for\" css.bind=\"{'flex-basis':width}\"><slot></slot></label></template>"),
-    aurelia_framework_1.customElement('ui-input-label'),
-    __metadata("design:paramtypes", [Element])
-], UIInputLabel);
 exports.UIInputLabel = UIInputLabel;
-var UIInputLabel_1;

@@ -10,7 +10,7 @@ System.register(["aurelia-framework", "../utils/ui-utils"], function (exports_1,
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var __moduleName = context_1 && context_1.id;
-    var aurelia_framework_1, ui_utils_1, UITooltip, UITooltip_1;
+    var aurelia_framework_1, ui_utils_1, UITooltip;
     return {
         setters: [
             function (aurelia_framework_1_1) {
@@ -21,7 +21,7 @@ System.register(["aurelia-framework", "../utils/ui-utils"], function (exports_1,
             }
         ],
         execute: function () {
-            UITooltip = UITooltip_1 = (function () {
+            UITooltip = (function () {
                 function UITooltip(element) {
                     this.element = element;
                     this.theme = 'light';
@@ -32,6 +32,7 @@ System.register(["aurelia-framework", "../utils/ui-utils"], function (exports_1,
                         document.body.appendChild(el);
                     }
                 }
+                UITooltip_1 = UITooltip;
                 UITooltip.prototype.attached = function () {
                     var _this = this;
                     this.element.addEventListener('mouseenter', function () { return _this.show(); });
@@ -55,21 +56,22 @@ System.register(["aurelia-framework", "../utils/ui-utils"], function (exports_1,
                     UITooltip_1.tooltipEl.className = 'ui-tooltip';
                     this.tether = null;
                 };
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UITooltip.prototype, "theme", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable({ primaryProperty: true }),
+                    __metadata("design:type", Object)
+                ], UITooltip.prototype, "message", void 0);
+                UITooltip = UITooltip_1 = __decorate([
+                    aurelia_framework_1.autoinject(),
+                    aurelia_framework_1.customAttribute('tooltip'),
+                    __metadata("design:paramtypes", [Element])
+                ], UITooltip);
                 return UITooltip;
+                var UITooltip_1;
             }());
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UITooltip.prototype, "theme", void 0);
-            __decorate([
-                aurelia_framework_1.bindable({ primaryProperty: true }),
-                __metadata("design:type", Object)
-            ], UITooltip.prototype, "message", void 0);
-            UITooltip = UITooltip_1 = __decorate([
-                aurelia_framework_1.autoinject(),
-                aurelia_framework_1.customAttribute('tooltip'),
-                __metadata("design:paramtypes", [Element])
-            ], UITooltip);
             exports_1("UITooltip", UITooltip);
         }
     };

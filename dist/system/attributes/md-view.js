@@ -55,13 +55,13 @@ System.register(["aurelia-framework", "kramed"], function (exports_1, context_1)
                         renderer: rend
                     });
                 };
+                MdView = __decorate([
+                    aurelia_framework_1.autoinject(),
+                    aurelia_framework_1.customAttribute('mdview'),
+                    __metadata("design:paramtypes", [Element])
+                ], MdView);
                 return MdView;
             }());
-            MdView = __decorate([
-                aurelia_framework_1.autoinject(),
-                aurelia_framework_1.customAttribute('mdview'),
-                __metadata("design:paramtypes", [Element])
-            ], MdView);
             exports_1("MdView", MdView);
         }
     };

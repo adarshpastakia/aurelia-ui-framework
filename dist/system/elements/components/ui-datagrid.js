@@ -65,30 +65,30 @@ System.register(["aurelia-framework", "../../utils/ui-event", "lodash"], functio
                     if (this.slot)
                         this.slot.detached();
                 };
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIDgCell.prototype, "col", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIDgCell.prototype, "type", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIDgCell.prototype, "record", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIDgCell.prototype, "parent", void 0);
+                UIDgCell = __decorate([
+                    aurelia_framework_1.autoinject(),
+                    aurelia_framework_1.inlineView("<template></template>"),
+                    aurelia_framework_1.customElement('ui-dg-cell'),
+                    __metadata("design:paramtypes", [Element, aurelia_framework_1.Container, aurelia_framework_1.ViewCompiler])
+                ], UIDgCell);
                 return UIDgCell;
             }());
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIDgCell.prototype, "col", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIDgCell.prototype, "type", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIDgCell.prototype, "record", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIDgCell.prototype, "parent", void 0);
-            UIDgCell = __decorate([
-                aurelia_framework_1.autoinject(),
-                aurelia_framework_1.inlineView("<template></template>"),
-                aurelia_framework_1.customElement('ui-dg-cell'),
-                __metadata("design:paramtypes", [Element, aurelia_framework_1.Container, aurelia_framework_1.ViewCompiler])
-            ], UIDgCell);
             exports_1("UIDgCell", UIDgCell);
             UIDgRow = (function () {
                 function UIDgRow(element) {
@@ -115,34 +115,34 @@ System.register(["aurelia-framework", "../../utils/ui-event", "lodash"], functio
                     if (this.rowCounter && this.parent.counterWidth < this.rowCounter.offsetWidth)
                         this.parent.counterWidth = this.rowCounter.offsetWidth;
                 };
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIDgRow.prototype, "level", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIDgRow.prototype, "index", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIDgRow.prototype, "record", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIDgRow.prototype, "parent", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIDgRow.prototype, "odd", void 0);
+                UIDgRow = __decorate([
+                    aurelia_framework_1.autoinject(),
+                    aurelia_framework_1.inlineView("<template><div class=\"ui-dg-row level-${level} ${record.isOpen?'ui-expanded':''} ${parent.selected==record?'ui-selected':''} ${odd?'even':'odd'} ${last?'last':''}\" click.trigger=\"parent.fireSelect(parent.selected=record)\">\n    <div class=\"ui-dg-lock-holder\" css.bind=\"{transform: 'translateX('+parent.scrollLeft+'px)'}\">\n      <div class=\"ui-dg-expander\" if.bind=\"parent.rowExpander\" ref=\"rowExpand\" click.trigger=\"$event.stopPropagation()\" css.bind=\"{'min-width': parent.expandWidth+'px'}\">\n        <ui-glyph glyph=\"glyph\" repeat.for=\"i of level\"></ui-glyph>\n        <a click.trigger=\"record.isOpen=!record.isOpen\" if.bind=\"record.subdata||parent.subview\"><ui-glyph glyph=\"${record.isOpen?'glyph-icon-minus':'glyph-icon-plus'}\"></ui-glyph></a>\n      </div>\n      <div class=\"ui-dg-expander ui-text-center\" if.bind=\"parent.rowCounter\" click.trigger=\"$event.stopPropagation()\" ref=\"rowCounter\" css.bind=\"{'min-width': parent.counterWidth+'px'}\">${index}</div>\n      <ui-dg-cell class=\"ui-dg-cell ${col.align}\" repeat.for=\"col of parent.colLocked\" css.bind=\"{width:col.getWidth(col.width)+'px'}\" col.bind=\"col\" parent.bind=\"parent\" record.bind=\"record\">\n      </ui-dg-cell>\n    </div>\n    <ui-dg-cell class=\"ui-dg-cell ${col.align}\" repeat.for=\"col of parent.cols\" css.bind=\"{width:col.getWidth(col.width)+'px'}\" col.bind=\"col\" parent.bind=\"parent\" record.bind=\"record\">\n    </ui-dg-cell>\n  </div>\n  <ui-dg-row containerless if.bind=\"!parent.subview&&record.subdata&&record.isOpen\" level.bind=\"level+1\" parent.bind=\"parent\" record.bind=\"rec\" index.bind=\"$index\" odd.bind=\"$odd\" repeat.for=\"rec of record.subdata\"></ui-dg-row>\n\n  <div class=\"ui-dg-row\" if.bind=\"parent.subview && record.isOpen\" css.bind=\"{transform: 'translateX('+parent.scrollLeft+'px)'}\">\n    <div class=\"ui-dg-expander\" if.bind=\"parent.rowExpander\" click.trigger=\"$event.stopPropagation()\" css.bind=\"{'min-width': parent.expandWidth+'px'}\"></div>\n    <div class=\"ui-dg-expander ui-text-center\" if.bind=\"parent.rowCounter\" click.trigger=\"$event.stopPropagation()\" css.bind=\"{'min-width': parent.counterWidth+'px'}\"></div>\n    <ui-dg-cell class=\"ui-dg-subview\" parent.bind=\"parent\" record.bind=\"record\" type=\"subview\"></ui-dg-cell>\n  </div>\n</template>"),
+                    aurelia_framework_1.customElement('ui-dg-row'),
+                    __metadata("design:paramtypes", [Element])
+                ], UIDgRow);
                 return UIDgRow;
             }());
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIDgRow.prototype, "level", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIDgRow.prototype, "index", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIDgRow.prototype, "record", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIDgRow.prototype, "parent", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIDgRow.prototype, "odd", void 0);
-            UIDgRow = __decorate([
-                aurelia_framework_1.autoinject(),
-                aurelia_framework_1.inlineView("<template><div class=\"ui-dg-row level-${level} ${record.isOpen?'ui-expanded':''} ${parent.selected==record?'ui-selected':''} ${odd?'even':'odd'} ${last?'last':''}\" click.trigger=\"parent.fireSelect(parent.selected=record)\">\n    <div class=\"ui-dg-lock-holder\" css.bind=\"{transform: 'translateX('+parent.scrollLeft+'px)'}\">\n      <div class=\"ui-dg-expander\" if.bind=\"parent.rowExpander\" ref=\"rowExpand\" click.trigger=\"$event.stopPropagation()\" css.bind=\"{'min-width': parent.expandWidth+'px'}\">\n        <ui-glyph glyph=\"glyph\" repeat.for=\"i of level\"></ui-glyph>\n        <a click.trigger=\"record.isOpen=!record.isOpen\" if.bind=\"record.subdata||parent.subview\"><ui-glyph glyph=\"${record.isOpen?'glyph-icon-minus':'glyph-icon-plus'}\"></ui-glyph></a>\n      </div>\n      <div class=\"ui-dg-expander ui-text-center\" if.bind=\"parent.rowCounter\" click.trigger=\"$event.stopPropagation()\" ref=\"rowCounter\" css.bind=\"{'min-width': parent.counterWidth+'px'}\">${index}</div>\n      <ui-dg-cell class=\"ui-dg-cell ${col.align}\" repeat.for=\"col of parent.colLocked\" css.bind=\"{width:col.getWidth(col.width)+'px'}\" col.bind=\"col\" parent.bind=\"parent\" record.bind=\"record\">\n      </ui-dg-cell>\n    </div>\n    <ui-dg-cell class=\"ui-dg-cell ${col.align}\" repeat.for=\"col of parent.cols\" css.bind=\"{width:col.getWidth(col.width)+'px'}\" col.bind=\"col\" parent.bind=\"parent\" record.bind=\"record\">\n    </ui-dg-cell>\n  </div>\n  <ui-dg-row containerless if.bind=\"!parent.subview&&record.subdata&&record.isOpen\" level.bind=\"level+1\" parent.bind=\"parent\" record.bind=\"rec\" index.bind=\"$index\" odd.bind=\"$odd\" repeat.for=\"rec of record.subdata\"></ui-dg-row>\n\n  <div class=\"ui-dg-row\" if.bind=\"parent.subview && record.isOpen\" css.bind=\"{transform: 'translateX('+parent.scrollLeft+'px)'}\">\n    <div class=\"ui-dg-expander\" if.bind=\"parent.rowExpander\" click.trigger=\"$event.stopPropagation()\" css.bind=\"{'min-width': parent.expandWidth+'px'}\"></div>\n    <div class=\"ui-dg-expander ui-text-center\" if.bind=\"parent.rowCounter\" click.trigger=\"$event.stopPropagation()\" css.bind=\"{'min-width': parent.counterWidth+'px'}\"></div>\n    <ui-dg-cell class=\"ui-dg-subview\" parent.bind=\"parent\" record.bind=\"record\" type=\"subview\"></ui-dg-cell>\n  </div>\n</template>"),
-                aurelia_framework_1.customElement('ui-dg-row'),
-                __metadata("design:paramtypes", [Element])
-            ], UIDgRow);
             exports_1("UIDgRow", UIDgRow);
             UIDatagrid = (function () {
                 function UIDatagrid(element) {
@@ -272,57 +272,57 @@ System.register(["aurelia-framework", "../../utils/ui-event", "lodash"], functio
                     evt.stopPropagation();
                     return false;
                 };
+                __decorate([
+                    aurelia_framework_1.children('ui-dg-column-group,ui-dg-column,ui-dg-button,ui-dg-link,ui-dg-glyph'),
+                    __metadata("design:type", Object)
+                ], UIDatagrid.prototype, "columns", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIDatagrid.prototype, "data", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIDatagrid.prototype, "subview", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIDatagrid.prototype, "summaryRow", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIDatagrid.prototype, "sortColumn", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIDatagrid.prototype, "sortOrder", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIDatagrid.prototype, "pager", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIDatagrid.prototype, "perPage", void 0);
+                UIDatagrid = __decorate([
+                    aurelia_framework_1.autoinject(),
+                    aurelia_framework_1.inlineView("<template class=\"ui-datagrid\"><div class=\"ui-hidden\"><slot></slot></div>\n<div show.bind=\"resizing\" ref=\"ghost\" class=\"ui-dg-ghost\"></div>\n<div ref=\"dgHead\" class=\"ui-dg-header\">\n  <div class=\"ui-dg-row\" css.bind=\"{transform: 'translateX('+(scrollLeft*-1)+'px)'}\">\n    <div class=\"ui-dg-expander\" if.bind=\"rowExpander\" css.bind=\"{width: expandWidth+'px',transform: 'translateX('+(scrollLeft)+'px)'}\"></div>\n    <div class=\"ui-dg-expander\" if.bind=\"rowCounter\" css.bind=\"{width: counterWidth+'px',transform: 'translateX('+(scrollLeft)+'px)'}\"></div>\n    <template repeat.for=\"col of colHead\">\n    <div if.bind=\"!col.columns\" css.bind=\"{width:col.getWidth(col.width)+'px', transform: 'translateX('+(col.locked==0?scrollLeft:0)+'px)'}\"\n      mouseup.trigger=\"doSort(col)\" class=\"ui-dg-cell ${col.sortable?'ui-sortable':''} ${col.locked==0?'ui-locked':''}\">\n    <span class=\"ui-title\" innerhtml.bind='col.getTitle()'></span>\n    <span class=\"ui-filter\" if.bind=\"col.filter\"><ui-glyph glyph=\"glyph-funnel\"></ui-glyph></span>\n    <span class=\"ui-sort ${col.dataId==sortColumn ? sortOrder:''}\" if.bind=\"col.sortable\"></span>\n    <span class=\"ui-resizer\" if.bind=\"col.resize\" mousedown.trigger=\"resizeColumn($event,col)\"></span>\n    </div>\n    <div if.bind=\"col.columns\" class=\"ui-dg-group ${col.locked==0?'ui-locked':''}\" css.bind=\"{transform: 'translateX('+(col.locked==0?scrollLeft:0)+'px)'}\">\n    <div class=\"ui-title\" innerhtml.bind='col.getTitle()'></div>\n    <div class=\"ui-dg-cols\">\n    <div repeat.for=\"colin of col.columns\" class=\"ui-dg-cell\" css.bind=\"{width:colin.getWidth(colin.width)+'px'}\"\n      mouseup.trigger=\"doSort(colin)\" class=\"${colin.sortable?'ui-sortable':''}\">\n    <span class=\"ui-title\" innerhtml.bind='colin.getTitle()'></span>\n    <span class=\"ui-filter\" if.bind=\"colin.filter\"><ui-glyph glyph=\"glyph-funnel\"></ui-glyph></span>\n    <span class=\"ui-sort ${colin.dataId==sortColumn ? sortOrder:''}\" if.bind=\"colin.sortable\"></span>\n    <span class=\"ui-resizer\" if.bind=\"colin.resize\" mousedown.trigger=\"resizeColumn($event,colin)\"></span>\n    </div>\n    </div>\n    </div>\n    </template>\n  </div>\n</div>\n<div show.bind=\"data.length==0\" class=\"ui-dg-empty\"><slot name=\"dg-empty\"></slot></div>\n<div ref=\"dgBody\" class=\"ui-dg-body\" scroll.trigger=\"(scrollLeft = dgBody.scrollLeft)\" if.bind=\"!virtual\">\n  <ui-dg-row containerless parent.bind=\"$parent\" record.bind=\"record\" index.bind=\"$index\" odd.bind=\"$odd\" repeat.for=\"record of paged\"></ui-dg-row>\n  <div class=\"ui-dg-row ui-dg-filler\">\n    <div class=\"ui-dg-lock-holder\" css.bind=\"{transform: 'translateX('+scrollLeft+'px)'}\">\n      <div class=\"ui-dg-expander\" if.bind=\"rowExpander\" css.bind=\"{width: expandWidth+'px'}\"></div>\n      <div class=\"ui-dg-expander\" if.bind=\"rowCounter\" css.bind=\"{width: counterWidth+'px'}\"></div>\n      <div class=\"ui-dg-cell ${col.align}\" repeat.for=\"col of colLocked\" css.bind=\"{width:col.getWidth(col.width)+'px'}\"></div>\n    </div>\n    <div class=\"ui-dg-cell ${col.align}\" repeat.for=\"col of cols\" css.bind=\"{width:col.getWidth(col.width)+'px'}\"></div>\n  </div>\n</div>\n<div ref=\"dgBody\" class=\"ui-dg-body\" scroll.trigger=\"(scrollLeft = dgBody.scrollLeft)\" if.bind=\"virtual\">\n  <ui-dg-row parent.bind=\"$parent\" record.bind=\"record\" index.bind=\"$index\" odd.bind=\"$odd\" virtual-repeat.for=\"record of paged\"></ui-dg-row>\n  <div class=\"ui-dg-row ui-dg-filler\">\n    <div class=\"ui-dg-lock-holder\" css.bind=\"{transform: 'translateX('+scrollLeft+'px)'}\">\n      <div class=\"ui-dg-expander\" if.bind=\"rowExpander\" css.bind=\"{width: expandWidth+'px'}\"></div>\n      <div class=\"ui-dg-expander\" if.bind=\"rowCounter\" css.bind=\"{width: counterWidth+'px'}\"></div>\n      <div class=\"ui-dg-cell ${col.align}\" repeat.for=\"col of colLocked\" css.bind=\"{width:col.getWidth(col.width)+'px'}\"></div>\n    </div>\n    <div class=\"ui-dg-cell ${col.align}\" repeat.for=\"col of cols\" css.bind=\"{width:col.getWidth(col.width)+'px'}\"></div>\n  </div>\n</div>\n<div ref=\"dgFoot\" class=\"ui-dg-footer\" if.bind=\"summaryRow\">\n  <div class=\"ui-dg-row\" css.bind=\"{transform: 'translateX('+(scrollLeft*-1)+'px)'}\">\n    <div class=\"ui-dg-lock-holder\" css.bind=\"{transform: 'translateX('+scrollLeft+'px)'}\">\n      <div class=\"ui-dg-expander\" if.bind=\"rowExpander\" css.bind=\"{width: expandWidth+'px'}\"></div>\n      <div class=\"ui-dg-expander\" if.bind=\"rowCounter\" css.bind=\"{width: counterWidth+'px'}\"></div>\n      <div class=\"ui-dg-cell ${col.align}\" repeat.for=\"col of colLocked\" css.bind=\"{width:col.getWidth(col.width)+'px'}\">\n        <div innerhtml.bind='col.getSummary(summaryRow, data)'></div>\n      </div>\n    </div>\n    <div class=\"ui-dg-cell ${col.align}\" repeat.for=\"col of cols\" css.bind=\"{width:col.getWidth(col.width)+'px'}\">\n      <div innerhtml.bind='col.getSummary(summaryRow, data)'></div>\n    </div>\n  </div>\n</div>\n<div class=\"ui-dg-loader\" if.bind=\"isBusy\">\n  <div class=\"ui-loader-div\">\n    <ui-glyph class=\"ui-anim-loader\" glyph=\"glyph-loader\"></ui-glyph>\n  </div>\n</div><template>"),
+                    aurelia_framework_1.customElement('ui-datagrid'),
+                    __metadata("design:paramtypes", [Element])
+                ], UIDatagrid);
                 return UIDatagrid;
             }());
-            __decorate([
-                aurelia_framework_1.children('ui-dg-column-group,ui-dg-column,ui-dg-button,ui-dg-link,ui-dg-glyph'),
-                __metadata("design:type", Object)
-            ], UIDatagrid.prototype, "columns", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIDatagrid.prototype, "data", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIDatagrid.prototype, "subview", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIDatagrid.prototype, "summaryRow", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIDatagrid.prototype, "sortColumn", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIDatagrid.prototype, "sortOrder", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIDatagrid.prototype, "pager", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIDatagrid.prototype, "perPage", void 0);
-            UIDatagrid = __decorate([
-                aurelia_framework_1.autoinject(),
-                aurelia_framework_1.inlineView("<template class=\"ui-datagrid\"><div class=\"ui-hidden\"><slot></slot></div>\n<div show.bind=\"resizing\" ref=\"ghost\" class=\"ui-dg-ghost\"></div>\n<div ref=\"dgHead\" class=\"ui-dg-header\">\n  <div class=\"ui-dg-row\" css.bind=\"{transform: 'translateX('+(scrollLeft*-1)+'px)'}\">\n    <div class=\"ui-dg-expander\" if.bind=\"rowExpander\" css.bind=\"{width: expandWidth+'px',transform: 'translateX('+(scrollLeft)+'px)'}\"></div>\n    <div class=\"ui-dg-expander\" if.bind=\"rowCounter\" css.bind=\"{width: counterWidth+'px',transform: 'translateX('+(scrollLeft)+'px)'}\"></div>\n    <template repeat.for=\"col of colHead\">\n    <div if.bind=\"!col.columns\" css.bind=\"{width:col.getWidth(col.width)+'px', transform: 'translateX('+(col.locked==0?scrollLeft:0)+'px)'}\"\n      mouseup.trigger=\"doSort(col)\" class=\"ui-dg-cell ${col.sortable?'ui-sortable':''} ${col.locked==0?'ui-locked':''}\">\n    <span class=\"ui-title\" innerhtml.bind='col.getTitle()'></span>\n    <span class=\"ui-filter\" if.bind=\"col.filter\"><ui-glyph glyph=\"glyph-funnel\"></ui-glyph></span>\n    <span class=\"ui-sort ${col.dataId==sortColumn ? sortOrder:''}\" if.bind=\"col.sortable\"></span>\n    <span class=\"ui-resizer\" if.bind=\"col.resize\" mousedown.trigger=\"resizeColumn($event,col)\"></span>\n    </div>\n    <div if.bind=\"col.columns\" class=\"ui-dg-group ${col.locked==0?'ui-locked':''}\" css.bind=\"{transform: 'translateX('+(col.locked==0?scrollLeft:0)+'px)'}\">\n    <div class=\"ui-title\" innerhtml.bind='col.getTitle()'></div>\n    <div class=\"ui-dg-cols\">\n    <div repeat.for=\"colin of col.columns\" class=\"ui-dg-cell\" css.bind=\"{width:colin.getWidth(colin.width)+'px'}\"\n      mouseup.trigger=\"doSort(colin)\" class=\"${colin.sortable?'ui-sortable':''}\">\n    <span class=\"ui-title\" innerhtml.bind='colin.getTitle()'></span>\n    <span class=\"ui-filter\" if.bind=\"colin.filter\"><ui-glyph glyph=\"glyph-funnel\"></ui-glyph></span>\n    <span class=\"ui-sort ${colin.dataId==sortColumn ? sortOrder:''}\" if.bind=\"colin.sortable\"></span>\n    <span class=\"ui-resizer\" if.bind=\"colin.resize\" mousedown.trigger=\"resizeColumn($event,colin)\"></span>\n    </div>\n    </div>\n    </div>\n    </template>\n  </div>\n</div>\n<div show.bind=\"data.length==0\" class=\"ui-dg-empty\"><slot name=\"dg-empty\"></slot></div>\n<div ref=\"dgBody\" class=\"ui-dg-body\" scroll.trigger=\"(scrollLeft = dgBody.scrollLeft)\" if.bind=\"!virtual\">\n  <ui-dg-row containerless parent.bind=\"$parent\" record.bind=\"record\" index.bind=\"$index\" odd.bind=\"$odd\" repeat.for=\"record of paged\"></ui-dg-row>\n  <div class=\"ui-dg-row ui-dg-filler\">\n    <div class=\"ui-dg-lock-holder\" css.bind=\"{transform: 'translateX('+scrollLeft+'px)'}\">\n      <div class=\"ui-dg-expander\" if.bind=\"rowExpander\" css.bind=\"{width: expandWidth+'px'}\"></div>\n      <div class=\"ui-dg-expander\" if.bind=\"rowCounter\" css.bind=\"{width: counterWidth+'px'}\"></div>\n      <div class=\"ui-dg-cell ${col.align}\" repeat.for=\"col of colLocked\" css.bind=\"{width:col.getWidth(col.width)+'px'}\"></div>\n    </div>\n    <div class=\"ui-dg-cell ${col.align}\" repeat.for=\"col of cols\" css.bind=\"{width:col.getWidth(col.width)+'px'}\"></div>\n  </div>\n</div>\n<div ref=\"dgBody\" class=\"ui-dg-body\" scroll.trigger=\"(scrollLeft = dgBody.scrollLeft)\" if.bind=\"virtual\">\n  <ui-dg-row parent.bind=\"$parent\" record.bind=\"record\" index.bind=\"$index\" odd.bind=\"$odd\" virtual-repeat.for=\"record of paged\"></ui-dg-row>\n  <div class=\"ui-dg-row ui-dg-filler\">\n    <div class=\"ui-dg-lock-holder\" css.bind=\"{transform: 'translateX('+scrollLeft+'px)'}\">\n      <div class=\"ui-dg-expander\" if.bind=\"rowExpander\" css.bind=\"{width: expandWidth+'px'}\"></div>\n      <div class=\"ui-dg-expander\" if.bind=\"rowCounter\" css.bind=\"{width: counterWidth+'px'}\"></div>\n      <div class=\"ui-dg-cell ${col.align}\" repeat.for=\"col of colLocked\" css.bind=\"{width:col.getWidth(col.width)+'px'}\"></div>\n    </div>\n    <div class=\"ui-dg-cell ${col.align}\" repeat.for=\"col of cols\" css.bind=\"{width:col.getWidth(col.width)+'px'}\"></div>\n  </div>\n</div>\n<div ref=\"dgFoot\" class=\"ui-dg-footer\" if.bind=\"summaryRow\">\n  <div class=\"ui-dg-row\" css.bind=\"{transform: 'translateX('+(scrollLeft*-1)+'px)'}\">\n    <div class=\"ui-dg-lock-holder\" css.bind=\"{transform: 'translateX('+scrollLeft+'px)'}\">\n      <div class=\"ui-dg-expander\" if.bind=\"rowExpander\" css.bind=\"{width: expandWidth+'px'}\"></div>\n      <div class=\"ui-dg-expander\" if.bind=\"rowCounter\" css.bind=\"{width: counterWidth+'px'}\"></div>\n      <div class=\"ui-dg-cell ${col.align}\" repeat.for=\"col of colLocked\" css.bind=\"{width:col.getWidth(col.width)+'px'}\">\n        <div innerhtml.bind='col.getSummary(summaryRow, data)'></div>\n      </div>\n    </div>\n    <div class=\"ui-dg-cell ${col.align}\" repeat.for=\"col of cols\" css.bind=\"{width:col.getWidth(col.width)+'px'}\">\n      <div innerhtml.bind='col.getSummary(summaryRow, data)'></div>\n    </div>\n  </div>\n</div>\n<div class=\"ui-dg-loader\" if.bind=\"isBusy\">\n  <div class=\"ui-loader-div\">\n    <ui-glyph class=\"ui-anim-loader\" glyph=\"glyph-loader\"></ui-glyph>\n  </div>\n</div><template>"),
-                aurelia_framework_1.customElement('ui-datagrid'),
-                __metadata("design:paramtypes", [Element])
-            ], UIDatagrid);
             exports_1("UIDatagrid", UIDatagrid);
             UIDGEmpty = (function () {
                 function UIDGEmpty() {
                 }
+                UIDGEmpty = __decorate([
+                    aurelia_framework_1.containerless(),
+                    aurelia_framework_1.customElement('ui-dg-empty'),
+                    aurelia_framework_1.inlineView("<template><div slot=\"dg-empty\"><slot></slot></div></template>")
+                ], UIDGEmpty);
                 return UIDGEmpty;
             }());
-            UIDGEmpty = __decorate([
-                aurelia_framework_1.containerless(),
-                aurelia_framework_1.customElement('ui-dg-empty'),
-                aurelia_framework_1.inlineView("<template><div slot=\"dg-empty\"><slot></slot></div></template>")
-            ], UIDGEmpty);
             exports_1("UIDGEmpty", UIDGEmpty);
             UIPager = (function () {
                 function UIPager(element) {
@@ -345,43 +345,43 @@ System.register(["aurelia-framework", "../../utils/ui-event", "lodash"], functio
                         this.store.loadPage(this.page);
                     ui_event_1.UIEvent.fireEvent('change', this.element, this.page);
                 };
+                __decorate([
+                    aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
+                    __metadata("design:type", Object)
+                ], UIPager.prototype, "page", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIPager.prototype, "style", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIPager.prototype, "store", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIPager.prototype, "totalPages", void 0);
+                UIPager = __decorate([
+                    aurelia_framework_1.autoinject(),
+                    aurelia_framework_1.inlineView("<template class=\"ui-pager\">\n  <a class=\"pg-first ${page==0?'disabled':''}\" click.trigger=\"fireChange(page=0)\"><ui-glyph glyph=\"glyph-${style}-double-left\"></ui-glyph></a>\n  <a class=\"pg-prev ${page==0?'disabled':''}\" click.trigger=\"fireChange(page=page-1)\" click.trigger=\"fireChange(page=totalPages)\"><ui-glyph glyph=\"glyph-${style}-left\"></ui-glyph></a>\n  <span class=\"pg-input\">${page+1} of ${totalPages}</span>\n  <a class=\"pg-next ${page+1>=totalPages?'disabled':''}\" click.trigger=\"fireChange(page=page+1)\"><ui-glyph glyph=\"glyph-${style}-right\"></ui-glyph></a>\n  <a class=\"pg-last ${page+1>=totalPages?'disabled':''}\" click.trigger=\"fireChange(page=totalPages-1)\"><ui-glyph glyph=\"glyph-${style}-double-right\"></ui-glyph></a>\n</template>"),
+                    aurelia_framework_1.customElement('ui-pager'),
+                    __metadata("design:paramtypes", [Element])
+                ], UIPager);
                 return UIPager;
             }());
-            __decorate([
-                aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
-                __metadata("design:type", Object)
-            ], UIPager.prototype, "page", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIPager.prototype, "style", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIPager.prototype, "store", void 0);
-            __decorate([
-                aurelia_framework_1.bindable(),
-                __metadata("design:type", Object)
-            ], UIPager.prototype, "totalPages", void 0);
-            UIPager = __decorate([
-                aurelia_framework_1.autoinject(),
-                aurelia_framework_1.inlineView("<template class=\"ui-pager\">\n  <a class=\"pg-first ${page==0?'disabled':''}\" click.trigger=\"fireChange(page=0)\"><ui-glyph glyph=\"glyph-${style}-double-left\"></ui-glyph></a>\n  <a class=\"pg-prev ${page==0?'disabled':''}\" click.trigger=\"fireChange(page=page-1)\" click.trigger=\"fireChange(page=totalPages)\"><ui-glyph glyph=\"glyph-${style}-left\"></ui-glyph></a>\n  <span class=\"pg-input\">${page+1} of ${totalPages}</span>\n  <a class=\"pg-next ${page+1>=totalPages?'disabled':''}\" click.trigger=\"fireChange(page=page+1)\"><ui-glyph glyph=\"glyph-${style}-right\"></ui-glyph></a>\n  <a class=\"pg-last ${page+1>=totalPages?'disabled':''}\" click.trigger=\"fireChange(page=totalPages-1)\"><ui-glyph glyph=\"glyph-${style}-double-right\"></ui-glyph></a>\n</template>"),
-                aurelia_framework_1.customElement('ui-pager'),
-                __metadata("design:paramtypes", [Element])
-            ], UIPager);
             exports_1("UIPager", UIPager);
             UIDGFilter = (function () {
                 function UIDGFilter(element) {
                     this.element = element;
                 }
+                UIDGFilter = __decorate([
+                    aurelia_framework_1.autoinject(),
+                    aurelia_framework_1.inlineView("<template class=\"ui-filter\"></template>"),
+                    aurelia_framework_1.customElement('ui-dg-filter'),
+                    __metadata("design:paramtypes", [Element])
+                ], UIDGFilter);
                 return UIDGFilter;
             }());
-            UIDGFilter = __decorate([
-                aurelia_framework_1.autoinject(),
-                aurelia_framework_1.inlineView("<template class=\"ui-filter\"></template>"),
-                aurelia_framework_1.customElement('ui-dg-filter'),
-                __metadata("design:paramtypes", [Element])
-            ], UIDGFilter);
             exports_1("UIDGFilter", UIDGFilter);
         }
     };

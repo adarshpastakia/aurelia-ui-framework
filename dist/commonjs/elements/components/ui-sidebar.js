@@ -14,23 +14,23 @@ var ui_event_1 = require("../../utils/ui-event");
 var UIAffixPoint = (function () {
     function UIAffixPoint() {
     }
+    UIAffixPoint = __decorate([
+        aurelia_framework_1.inlineView('<template class="ui-affix-point"></template>'),
+        aurelia_framework_1.customElement('ui-affix-point')
+    ], UIAffixPoint);
     return UIAffixPoint;
 }());
-UIAffixPoint = __decorate([
-    aurelia_framework_1.inlineView('<template class="ui-affix-point"></template>'),
-    aurelia_framework_1.customElement('ui-affix-point')
-], UIAffixPoint);
 exports.UIAffixPoint = UIAffixPoint;
 var UIAffixContent = (function () {
     function UIAffixContent() {
     }
+    UIAffixContent = __decorate([
+        aurelia_framework_1.containerless(),
+        aurelia_framework_1.inlineView('<template><div class="ui-affix-content" slot="affix-content"><slot></slot></div></template>'),
+        aurelia_framework_1.customElement('ui-affix-content')
+    ], UIAffixContent);
     return UIAffixContent;
 }());
-UIAffixContent = __decorate([
-    aurelia_framework_1.containerless(),
-    aurelia_framework_1.inlineView('<template><div class="ui-affix-content" slot="affix-content"><slot></slot></div></template>'),
-    aurelia_framework_1.customElement('ui-affix-content')
-], UIAffixContent);
 exports.UIAffixContent = UIAffixContent;
 var UISidebar = (function () {
     function UISidebar(element) {
@@ -98,24 +98,24 @@ var UISidebar = (function () {
                 this.affixEl.classList.remove('ui-animate');
         }
     };
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UISidebar.prototype, "label", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UISidebar.prototype, "collapsed", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UISidebar.prototype, "position", void 0);
+    UISidebar = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.inlineView("<template class=\"ui-sidebar ui-row-vertical ui-row-stretch ${collapsed?'ui-collapse':''} ${position}\" click.trigger=\"showOverlay($event)\">\n  <div class=\"ui-col-auto ui-row ui-row-end ui-row-middle ui-sidebar-head ${position=='start'?'':'ui-reverse'}\" if.bind=\"collapsible || label\">\n  <div class=\"ui-col-fill ui-sidebar-title\">${label}</div>\n  <a click.trigger=\"toggleCollapse($event)\" class=\"ui-col-auto ui-sidebar-close\" if.bind=\"collapsible\"><ui-glyph glyph.bind=\"glyph\"></ui-glyph></a></div>\n  <slot name=\"affix-content\"></slot>\n  <div class=\"ui-col-fill ui-sidebar-content ${contentCls}\" ref=\"contentEl\" scroll.trigger=\"watchScroll($event) & debounce\"><slot></slot></div>\n</template>"),
+        aurelia_framework_1.customElement('ui-sidebar'),
+        __metadata("design:paramtypes", [Element])
+    ], UISidebar);
     return UISidebar;
 }());
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UISidebar.prototype, "label", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UISidebar.prototype, "collapsed", void 0);
-__decorate([
-    aurelia_framework_1.bindable(),
-    __metadata("design:type", Object)
-], UISidebar.prototype, "position", void 0);
-UISidebar = __decorate([
-    aurelia_framework_1.autoinject(),
-    aurelia_framework_1.inlineView("<template class=\"ui-sidebar ui-row-vertical ui-row-stretch ${collapsed?'ui-collapse':''} ${position}\" click.trigger=\"showOverlay($event)\">\n  <div class=\"ui-col-auto ui-row ui-row-end ui-row-middle ui-sidebar-head ${position=='start'?'':'ui-reverse'}\" if.bind=\"collapsible || label\">\n  <div class=\"ui-col-fill ui-sidebar-title\">${label}</div>\n  <a click.trigger=\"toggleCollapse($event)\" class=\"ui-col-auto ui-sidebar-close\" if.bind=\"collapsible\"><ui-glyph glyph.bind=\"glyph\"></ui-glyph></a></div>\n  <slot name=\"affix-content\"></slot>\n  <div class=\"ui-col-fill ui-sidebar-content ${contentCls}\" ref=\"contentEl\" scroll.trigger=\"watchScroll($event) & debounce\"><slot></slot></div>\n</template>"),
-    aurelia_framework_1.customElement('ui-sidebar'),
-    __metadata("design:paramtypes", [Element])
-], UISidebar);
 exports.UISidebar = UISidebar;
