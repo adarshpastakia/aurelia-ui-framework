@@ -24,11 +24,11 @@ export class UIBaseInput {
   }
 
   disabledChanged(newValue) {
-    this.element.classList[(this.isDisabled = this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');
+    this.element.classList[(this.isDisabled = this.disabled = !!newValue) ? 'add' : 'remove']('ui-disabled');
   }
 
   readonlyChanged(newValue) {
-    this.element.classList[(this.readonly = isTrue(newValue)) ? 'add' : 'remove']('ui-readonly');
+    this.element.classList[(this.readonly = !!newValue) ? 'add' : 'remove']('ui-readonly');
   }
 
   disable(b) {
