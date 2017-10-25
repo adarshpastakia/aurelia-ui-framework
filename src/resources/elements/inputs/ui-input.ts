@@ -125,20 +125,19 @@ export class UIInput extends UIBaseInput {
   valueChanged(newValue) {
     if (this.type === 'number') {
       let num = parseFloat(newValue);
-      this.number = isNaN(num) ? null : num;
-      this.decimal = isNaN(num) ? null : num;
-      if (this.number === null && this.decimal === null) {
+      this.decimal = this.number = isNaN(num) ? null : num;
+      if (!this.number && this.number !== 0) {
         this.value = '';
       }
     }
   }
 
   numberChanged(newValue) {
-    this.value = newValue === null ? '' : newValue;
+    this.value = (!newValue && newValue !== 0) : newValue;
   }
 
   decimalChanged(newValue) {
-    this.value = newValue === null ? '' : newValue;
+    this.value = (!newValue && newValue !== 0) : newValue;
   }
 
   fireEvent(evt) {
