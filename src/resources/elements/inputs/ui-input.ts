@@ -133,11 +133,11 @@ export class UIInput extends UIBaseInput {
   }
 
   numberChanged(newValue) {
-    this.value = (!newValue && newValue !== 0) : newValue;
+    this.value = (!newValue && newValue !== 0) ? '' : newValue;
   }
 
   decimalChanged(newValue) {
-    this.value = (!newValue && newValue !== 0) : newValue;
+    this.value = (!newValue && newValue !== 0) ? '' : newValue;
   }
 
   fireEvent(evt) {
