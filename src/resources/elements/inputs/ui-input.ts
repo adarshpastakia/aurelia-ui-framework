@@ -97,8 +97,8 @@ export class UIInput extends UIBaseInput {
     if (!isNaN(this.decimal)) this.decimalChanged(this.decimal);
     
     //need to be in bind and not in constructor - to avoid reseting to `false` after bind
-    this.readonly = this.element.hasAttribute('readonly');
-    this.isDisabled = this.disabled = this.element.hasAttribute('disabled');
+    if (this.element.hasAttribute('readonly')) this.readonly = true;
+    if (this.element.hasAttribute('disabled')) this.isDisabled = this.disabled = true;
   }
   // attached() { }
   // detached() { }
