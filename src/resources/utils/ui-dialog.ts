@@ -286,10 +286,11 @@ export class UIDialogService {
 
     x = (this.__isRtl ? -1 : 1) * x;
 
-    let t = convertToPx(this.__dialog.style.top, this.__dialog);
-    let l = convertToPx(this.__dialog.style[this.__isRtl ? 'right' : 'left'], this.__dialog);
-    let w = convertToPx(this.__dialog.style.width, this.__dialog);
-    let h = convertToPx(this.__dialog.style.height, this.__dialog);
+    let style = getComputedStyle(this.__dialog);
+    let t = Number.parseFloat(style.top);
+    let l = Number.parseFloat(style[this.__isRtl ? 'right' : 'left']);
+    let w = Number.parseFloat(style.width);
+    let h = Number.parseFloat(style.height);
     let pw = UIUtils.dialogContainer.offsetWidth;
     let ph = UIUtils.dialogContainer.offsetHeight;
     if (!this.__isResizing) {
