@@ -2,6 +2,8 @@
 
 #### A bespoke UI Framework built on Aurelia for desktop business application
 
+## Version 4 - Work in progress (https://adarshpastakia.github.io/auf-demo-v4/)
+
 
 [![npm version](https://img.shields.io/npm/v/aurelia-ui-framework.svg?style=flat-square)](https://www.npmjs.com/package/aurelia-ui-framework)
 [![npm downloads](https://img.shields.io/npm/dt/aurelia-ui-framework.svg?style=flat-square)](https://www.npmjs.com/package/aurelia-ui-framework)
