@@ -17,7 +17,7 @@ export class UIPanel {
   // aurelia hooks
   // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
-    this.collapsed = isTrue(this.collapsed) || this.element.hasAttribute('collapsed');
+    this.collapsed = this.collapsed || this.element.hasAttribute('collapsed');
   }
   // attached() { }
   // detached() { }
@@ -162,7 +162,7 @@ export class UIHeaderTool {
   // aurelia hooks
   // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
-    this.disabled = isTrue(this.disabled);
+    this.disabled = !!this.disabled;
   }
   attached() {
     if (this.dropdown) {

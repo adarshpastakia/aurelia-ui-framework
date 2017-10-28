@@ -242,7 +242,7 @@ export class UITab {
   // aurelia hooks
   // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
-    this.disabled = isTrue(this.disabled);
+    this.disabled = !!this.disabled;
   }
   // attached() { }
   // detached() { }

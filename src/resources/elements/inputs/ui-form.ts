@@ -34,7 +34,7 @@ export class UIForm {
   @bindable() disabled: boolean;
 
   busyChanged(newValue: any) {
-    this.disableInputs(isTrue(newValue) || this.disabled);
+    this.disableInputs(!!newValue || this.disabled);
   }
 
   disabledChanged(newValue: any) {
@@ -45,7 +45,7 @@ export class UIForm {
     let els = this.element.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list,ui-dropdown');
     _.forEach(els, el => {
       try {
-        el.au.controller.viewModel.disable(isTrue(newValue));
+        el.au.controller.viewModel.disable(!!newValue);
       } catch (e) {
       }
     });
@@ -67,7 +67,7 @@ export class UIFieldset {
   // aurelia hooks
   // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
-    this.checked = isTrue(this.checked);
+    this.checked = !!this.checked;
   }
   attached() {
     this.checkedChanged(this.checked);
@@ -85,19 +85,19 @@ export class UIFieldset {
   private collapsible = false;
 
   checkedChanged(newValue: any) {
-    this.element.classList[isTrue(newValue) ? 'remove' : 'add']('ui-collapse');
-    this.disableInputs(isFalse(newValue));
+    this.element.classList[!!newValue ? 'remove' : 'add']('ui-collapse');
+    this.disableInputs(!newValue);
   }
 
   disabledChanged(newValue: any) {
-    this.disableInputs(newValue);
+    this.disableInputs(!!newValue);
   }
 
   disableInputs(newValue: any) {
     let els = this.container.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list,ui-dropdown');
     _.forEach(els, el => {
       try {
-        el.au.controller.viewModel.disable(isTrue(newValue));
+        el.au.controller.viewModel.disable(!!newValue);
       } catch (e) {
       }
     });

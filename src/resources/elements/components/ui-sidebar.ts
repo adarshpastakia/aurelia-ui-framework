@@ -42,7 +42,7 @@ export class UISidebar {
   // aurelia hooks
   // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
-    this.collapsed = isTrue(this.collapsed);
+    this.collapsed = !!this.collapsed;
     if (this.position == 'end') this.glyph = "glyph-arrow-right";
   }
   attached() {
@@ -69,7 +69,7 @@ export class UISidebar {
   private collapsible = false;
 
   collapsedChanged(newValue) {
-    this.glyph = (this.position == 'end' && !isTrue(newValue)) || (this.position == 'start' && isTrue(newValue)) ? "glyph-arrow-right" : "glyph-arrow-left";
+    this.glyph = (this.position == 'end' && !newValue) || (this.position == 'start' && newValue) ? "glyph-arrow-right" : "glyph-arrow-left";
   }
 
   toggleCollapse($event) {

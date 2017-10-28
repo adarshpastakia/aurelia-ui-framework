@@ -87,7 +87,7 @@ export class UIDropdown {
   }
 
   disabledChanged(newValue) {
-    this.element.classList[(this.isDisabled = this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');
+    this.element.classList[(this.isDisabled = this.disabled = !!newValue) ? 'add' : 'remove']('ui-disabled');
   }
 
   disable(b) {

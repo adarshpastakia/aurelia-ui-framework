@@ -37,8 +37,8 @@ export class UIButton {
   // aurelia hooks
   // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
-    this.busy = isTrue(this.busy);
-    this.disabled = isTrue(this.disabled);
+    this.busy = !!this.busy;
+    this.disabled = !!this.disabled;
 
     if (this.form) this.dropdown = this.form;
   }
@@ -119,7 +119,7 @@ export class UIButtonGroup {
   // aurelia hooks
   // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
-    this.disabled = isTrue(this.disabled);
+    this.disabled = !!this.disabled;
   }
   // attached() { }
   // detached() { }
@@ -131,7 +131,7 @@ export class UIButtonGroup {
   @bindable() disabled = false;
 
   disabledChanged(newValue) {
-    this.disabled = isTrue(newValue);
+    this.disabled = !!newValue;
   }
 
   buttonsChanged() {

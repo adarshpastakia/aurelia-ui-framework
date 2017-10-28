@@ -58,7 +58,7 @@ export class UICheckbox {
   // aurelia hooks
   // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
-    this.checked = isTrue(this.checked);
+    this.checked = !!this.checked;
     this.disabledChanged(this.disabled);
   }
   // attached() { }
@@ -75,7 +75,7 @@ export class UICheckbox {
   isDisabled = false;
 
   disabledChanged(newValue) {
-    this.element.classList[(this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');
+    this.element.classList[(this.disabled = !!newValue) ? 'add' : 'remove']('ui-disabled');
   }
 
   disable(b) {
@@ -113,7 +113,7 @@ export class UIRadio {
   isDisabled = false;
 
   disabledChanged(newValue) {
-    this.element.classList[(this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');
+    this.element.classList[(this.disabled = !!newValue) ? 'add' : 'remove']('ui-disabled');
   }
 
   disable(b) {
@@ -151,9 +151,9 @@ export class UISwitch {
   // aurelia hooks
   // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
-    this.checked = isTrue(this.checked) || (this.value == this.onValue);
-    this.value = isTrue(this.checked) ? this.onValue : this.offValue;
-    this.disabled = isTrue(this.disabled);
+    this.checked = !!this.checked || (this.value == this.onValue);
+    this.value = this.checked ? this.onValue : this.offValue;
+    this.disabled = !!this.disabled;
   }
   // attached() { }
   // detached() { }
