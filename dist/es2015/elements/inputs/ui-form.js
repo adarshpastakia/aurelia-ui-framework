@@ -26,7 +26,7 @@ let UIForm = class UIForm {
         });
     }
     busyChanged(newValue) {
-        this.disableInputs(isTrue(newValue) || this.disabled);
+        this.disableInputs(!!newValue || this.disabled);
     }
     disabledChanged(newValue) {
         this.disableInputs(newValue);
@@ -35,7 +35,7 @@ let UIForm = class UIForm {
         let els = this.element.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list,ui-dropdown');
         _.forEach(els, el => {
             try {
-                el.au.controller.viewModel.disable(isTrue(newValue));
+                el.au.controller.viewModel.disable(!!newValue);
             }
             catch (e) {
             }
@@ -70,7 +70,7 @@ let UIFieldset = class UIFieldset {
         this.collapsible = element.hasAttribute('checked') || element.hasAttribute('checked.bind');
     }
     bind(bindingContext, overrideContext) {
-        this.checked = isTrue(this.checked);
+        this.checked = !!this.checked;
     }
     attached() {
         this.checkedChanged(this.checked);
@@ -78,17 +78,17 @@ let UIFieldset = class UIFieldset {
             this.disabledChanged(this.disabled);
     }
     checkedChanged(newValue) {
-        this.element.classList[isTrue(newValue) ? 'remove' : 'add']('ui-collapse');
-        this.disableInputs(isFalse(newValue));
+        this.element.classList[!!newValue ? 'remove' : 'add']('ui-collapse');
+        this.disableInputs(!newValue);
     }
     disabledChanged(newValue) {
-        this.disableInputs(newValue);
+        this.disableInputs(!!newValue);
     }
     disableInputs(newValue) {
         let els = this.container.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list,ui-dropdown');
         _.forEach(els, el => {
             try {
-                el.au.controller.viewModel.disable(isTrue(newValue));
+                el.au.controller.viewModel.disable(!!newValue);
             }
             catch (e) {
             }

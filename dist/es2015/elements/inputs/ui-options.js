@@ -68,11 +68,11 @@ let UICheckbox = UICheckbox_1 = class UICheckbox {
         this.for = 'ui-checkbox-' + (UICheckbox_1.seed++);
     }
     bind(bindingContext, overrideContext) {
-        this.checked = isTrue(this.checked);
+        this.checked = !!this.checked;
         this.disabledChanged(this.disabled);
     }
     disabledChanged(newValue) {
-        this.element.classList[(this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');
+        this.element.classList[(this.disabled = !!newValue) ? 'add' : 'remove']('ui-disabled');
     }
     disable(b) {
         this.element.classList[(this.isDisabled = (b || this.disabled)) ? 'add' : 'remove']('ui-disabled');
@@ -111,7 +111,7 @@ let UIRadio = UIRadio_1 = class UIRadio {
         this.disabledChanged(this.disabled);
     }
     disabledChanged(newValue) {
-        this.element.classList[(this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');
+        this.element.classList[(this.disabled = !!newValue) ? 'add' : 'remove']('ui-disabled');
     }
     disable(b) {
         this.element.classList[(this.isDisabled = (b || this.disabled)) ? 'add' : 'remove']('ui-disabled');
@@ -181,9 +181,9 @@ let UISwitch = UISwitch_1 = class UISwitch {
             this.theme = 'warning';
     }
     bind(bindingContext, overrideContext) {
-        this.checked = isTrue(this.checked) || (this.value == this.onValue);
-        this.value = isTrue(this.checked) ? this.onValue : this.offValue;
-        this.disabled = isTrue(this.disabled);
+        this.checked = !!this.checked || (this.value == this.onValue);
+        this.value = this.checked ? this.onValue : this.offValue;
+        this.disabled = !!this.disabled;
     }
     checkedChanged(newValue) {
         this.value = newValue ? this.onValue : this.offValue;

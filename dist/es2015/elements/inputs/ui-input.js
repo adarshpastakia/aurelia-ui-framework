@@ -22,10 +22,10 @@ export class UIBaseInput {
         this.readonlyChanged(this.readonly);
     }
     disabledChanged(newValue) {
-        this.element.classList[(this.isDisabled = this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');
+        this.element.classList[(this.isDisabled = this.disabled = !!newValue) ? 'add' : 'remove']('ui-disabled');
     }
     readonlyChanged(newValue) {
-        this.element.classList[(this.readonly = isTrue(newValue)) ? 'add' : 'remove']('ui-readonly');
+        this.element.classList[(this.readonly = !!newValue) ? 'add' : 'remove']('ui-readonly');
     }
     disable(b) {
         this.element.classList[(this.isDisabled = (b || this.disabled)) ? 'add' : 'remove']('ui-disabled');
@@ -93,22 +93,25 @@ let UIInput = class UIInput extends UIBaseInput {
             this.numberChanged(this.number);
         if (!isNaN(this.decimal))
             this.decimalChanged(this.decimal);
+        if (this.element.hasAttribute('readonly'))
+            this.readonly = true;
+        if (this.element.hasAttribute('disabled'))
+            this.isDisabled = this.disabled = true;
     }
     valueChanged(newValue) {
         if (this.type === 'number') {
             let num = parseFloat(newValue);
-            this.number = isNaN(num) ? null : num;
-            this.decimal = isNaN(num) ? null : num;
-            if (this.number === null && this.decimal === null) {
+            this.decimal = this.number = isNaN(num) ? null : num;
+            if (!this.number && this.number !== 0) {
                 this.value = '';
             }
         }
     }
     numberChanged(newValue) {
-        this.value = newValue === null ? '' : newValue;
+        this.value = (!newValue && newValue !== 0) ? '' : newValue;
     }
     decimalChanged(newValue) {
-        this.value = newValue === null ? '' : newValue;
+        this.value = (!newValue && newValue !== 0) ? '' : newValue;
     }
     fireEvent(evt) {
         if (evt.type === 'input') {

@@ -68,7 +68,7 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                     });
                 }
                 UISidebar.prototype.bind = function (bindingContext, overrideContext) {
-                    this.collapsed = isTrue(this.collapsed);
+                    this.collapsed = !!this.collapsed;
                     if (this.position == 'end')
                         this.glyph = "glyph-arrow-right";
                 };
@@ -81,7 +81,7 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                         this.obClick.dispose();
                 };
                 UISidebar.prototype.collapsedChanged = function (newValue) {
-                    this.glyph = (this.position == 'end' && !isTrue(newValue)) || (this.position == 'start' && isTrue(newValue)) ? "glyph-arrow-right" : "glyph-arrow-left";
+                    this.glyph = (this.position == 'end' && !newValue) || (this.position == 'start' && newValue) ? "glyph-arrow-right" : "glyph-arrow-left";
                 };
                 UISidebar.prototype.toggleCollapse = function ($event) {
                     this.collapsed = !this.collapsed;

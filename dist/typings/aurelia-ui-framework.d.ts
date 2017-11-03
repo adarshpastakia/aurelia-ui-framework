@@ -2,6 +2,11 @@ import { Container } from 'aurelia-framework';
 import 'lodash';
 import 'moment';
 import 'numeral';
+import './libs/countries';
+import './libs/currencies';
+import './libs/filetypes';
+import './libs/phonelib';
+import './libs/window';
 import * as mm from "moment";
 export declare var _: any;
 export declare var kramed: KramedStatic;
@@ -48,16 +53,16 @@ import './value-converters/ui-lodash';
 import './value-converters/ui-text';
 import 'text!./ui-glyphs.html';
 export interface UIConfig {
-  title(t: string): UIConfig;
-  subTitle(t: string): UIConfig;
-  version(t: string): UIConfig;
-  appKey(t: string): UIConfig;
-  apiUrl(t: string): UIConfig;
-  apiHeaders(t: any): UIConfig;
-  sendAuthHeader(t: boolean): UIConfig;
-  languages(l: Array<any>): UIConfig;
+    title(t: string): UIConfig;
+    subTitle(t: string): UIConfig;
+    version(t: string): UIConfig;
+    appKey(t: string): UIConfig;
+    apiUrl(t: string): UIConfig;
+    apiHeaders(t: any): UIConfig;
+    sendAuthHeader(t: boolean): UIConfig;
+    languages(l: Array<any>): UIConfig;
 }
 export declare function configure(config: {
-  container: Container;
-  globalResources?: (...resources: string[]) => any;
+    container: Container;
+    globalResources?: (...resources: string[]) => any;
 }, configCallback: any): void;

@@ -31,7 +31,7 @@ export class BaseListInput {
     bind(bindingContext, overrideContext) {
         this.readonlyChanged(this.readonly);
         this.disabledChanged(this.disabled);
-        this.forceSelect = isTrue(this.forceSelect);
+        this.forceSelect = !!this.forceSelect;
         this.optionsChanged(this.options);
         this.valueChanged(this.value);
     }
@@ -54,10 +54,10 @@ export class BaseListInput {
         }
     }
     disabledChanged(newValue) {
-        this.element.classList[(this.isDisabled = this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');
+        this.element.classList[(this.isDisabled = this.disabled = !!newValue) ? 'add' : 'remove']('ui-disabled');
     }
     readonlyChanged(newValue) {
-        this.element.classList[(this.readonly = isTrue(newValue)) ? 'add' : 'remove']('ui-readonly');
+        this.element.classList[(this.readonly = !!newValue) ? 'add' : 'remove']('ui-readonly');
     }
     disable(b) {
         this.element.classList[(this.isDisabled = (b || this.disabled)) ? 'add' : 'remove']('ui-disabled');

@@ -117,8 +117,8 @@ let UIMenuItem = class UIMenuItem {
         this.href = 'javascript:void(0)';
     }
     bind(bindingContext, overrideContext) {
-        this.active = isTrue(this.active);
-        this.disabled = isTrue(this.disabled);
+        this.active = !!this.active;
+        this.disabled = !!this.disabled;
     }
     click(evt) {
         if (evt.button != 0)

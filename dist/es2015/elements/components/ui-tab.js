@@ -265,7 +265,7 @@ let UITab = UITab_1 = class UITab {
         this.closeable = element.hasAttribute('closeable');
     }
     bind(bindingContext, overrideContext) {
-        this.disabled = isTrue(this.disabled);
+        this.disabled = !!this.disabled;
     }
     remove() {
         try {

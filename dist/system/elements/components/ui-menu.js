@@ -131,8 +131,8 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                     this.href = 'javascript:void(0)';
                 }
                 UIMenuItem.prototype.bind = function (bindingContext, overrideContext) {
-                    this.active = isTrue(this.active);
-                    this.disabled = isTrue(this.disabled);
+                    this.active = !!this.active;
+                    this.disabled = !!this.disabled;
                 };
                 UIMenuItem.prototype.click = function (evt) {
                     if (evt.button != 0)

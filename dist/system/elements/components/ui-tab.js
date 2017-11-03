@@ -283,7 +283,7 @@ System.register(["aurelia-framework", "../../utils/ui-utils", "../../utils/ui-ev
                 }
                 UITab_1 = UITab;
                 UITab.prototype.bind = function (bindingContext, overrideContext) {
-                    this.disabled = isTrue(this.disabled);
+                    this.disabled = !!this.disabled;
                 };
                 UITab.prototype.remove = function () {
                     try {

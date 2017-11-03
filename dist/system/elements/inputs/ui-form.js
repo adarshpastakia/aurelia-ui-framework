@@ -41,7 +41,7 @@ System.register(["aurelia-framework", "../../utils/ui-event", "lodash"], functio
                     });
                 };
                 UIForm.prototype.busyChanged = function (newValue) {
-                    this.disableInputs(isTrue(newValue) || this.disabled);
+                    this.disableInputs(!!newValue || this.disabled);
                 };
                 UIForm.prototype.disabledChanged = function (newValue) {
                     this.disableInputs(newValue);
@@ -50,7 +50,7 @@ System.register(["aurelia-framework", "../../utils/ui-event", "lodash"], functio
                     var els = this.element.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list,ui-dropdown');
                     _.forEach(els, function (el) {
                         try {
-                            el.au.controller.viewModel.disable(isTrue(newValue));
+                            el.au.controller.viewModel.disable(!!newValue);
                         }
                         catch (e) {
                         }
@@ -86,7 +86,7 @@ System.register(["aurelia-framework", "../../utils/ui-event", "lodash"], functio
                     this.collapsible = element.hasAttribute('checked') || element.hasAttribute('checked.bind');
                 }
                 UIFieldset.prototype.bind = function (bindingContext, overrideContext) {
-                    this.checked = isTrue(this.checked);
+                    this.checked = !!this.checked;
                 };
                 UIFieldset.prototype.attached = function () {
                     this.checkedChanged(this.checked);
@@ -94,17 +94,17 @@ System.register(["aurelia-framework", "../../utils/ui-event", "lodash"], functio
                         this.disabledChanged(this.disabled);
                 };
                 UIFieldset.prototype.checkedChanged = function (newValue) {
-                    this.element.classList[isTrue(newValue) ? 'remove' : 'add']('ui-collapse');
-                    this.disableInputs(isFalse(newValue));
+                    this.element.classList[!!newValue ? 'remove' : 'add']('ui-collapse');
+                    this.disableInputs(!newValue);
                 };
                 UIFieldset.prototype.disabledChanged = function (newValue) {
-                    this.disableInputs(newValue);
+                    this.disableInputs(!!newValue);
                 };
                 UIFieldset.prototype.disableInputs = function (newValue) {
                     var els = this.container.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list,ui-dropdown');
                     _.forEach(els, function (el) {
                         try {
-                            el.au.controller.viewModel.disable(isTrue(newValue));
+                            el.au.controller.viewModel.disable(!!newValue);
                         }
                         catch (e) {
                         }

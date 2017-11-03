@@ -35,10 +35,10 @@ var UIBaseInput = (function () {
         this.readonlyChanged(this.readonly);
     };
     UIBaseInput.prototype.disabledChanged = function (newValue) {
-        this.element.classList[(this.isDisabled = this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');
+        this.element.classList[(this.isDisabled = this.disabled = !!newValue) ? 'add' : 'remove']('ui-disabled');
     };
     UIBaseInput.prototype.readonlyChanged = function (newValue) {
-        this.element.classList[(this.readonly = isTrue(newValue)) ? 'add' : 'remove']('ui-readonly');
+        this.element.classList[(this.readonly = !!newValue) ? 'add' : 'remove']('ui-readonly');
     };
     UIBaseInput.prototype.disable = function (b) {
         this.element.classList[(this.isDisabled = (b || this.disabled)) ? 'add' : 'remove']('ui-disabled');
@@ -110,22 +110,25 @@ var UIInput = (function (_super) {
             this.numberChanged(this.number);
         if (!isNaN(this.decimal))
             this.decimalChanged(this.decimal);
+        if (this.element.hasAttribute('readonly'))
+            this.readonly = true;
+        if (this.element.hasAttribute('disabled'))
+            this.isDisabled = this.disabled = true;
     };
     UIInput.prototype.valueChanged = function (newValue) {
         if (this.type === 'number') {
             var num = parseFloat(newValue);
-            this.number = isNaN(num) ? null : num;
-            this.decimal = isNaN(num) ? null : num;
-            if (this.number === null && this.decimal === null) {
+            this.decimal = this.number = isNaN(num) ? null : num;
+            if (!this.number && this.number !== 0) {
                 this.value = '';
             }
         }
     };
     UIInput.prototype.numberChanged = function (newValue) {
-        this.value = newValue === null ? '' : newValue;
+        this.value = (!newValue && newValue !== 0) ? '' : newValue;
     };
     UIInput.prototype.decimalChanged = function (newValue) {
-        this.value = newValue === null ? '' : newValue;
+        this.value = (!newValue && newValue !== 0) ? '' : newValue;
     };
     UIInput.prototype.fireEvent = function (evt) {
         if (evt.type === 'input') {

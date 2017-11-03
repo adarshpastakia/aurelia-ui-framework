@@ -50,8 +50,8 @@ let UIButton = class UIButton {
             this.element.classList.add('ui-round');
     }
     bind(bindingContext, overrideContext) {
-        this.busy = isTrue(this.busy);
-        this.disabled = isTrue(this.disabled);
+        this.busy = !!this.busy;
+        this.disabled = !!this.disabled;
         if (this.form)
             this.dropdown = this.form;
     }
@@ -167,10 +167,10 @@ let UIButtonGroup = class UIButtonGroup {
             this.element.classList.add('ui-toggle');
     }
     bind(bindingContext, overrideContext) {
-        this.disabled = isTrue(this.disabled);
+        this.disabled = !!this.disabled;
     }
     disabledChanged(newValue) {
-        this.disabled = isTrue(newValue);
+        this.disabled = !!newValue;
     }
     buttonsChanged() {
         this.valueChanged(this.value);

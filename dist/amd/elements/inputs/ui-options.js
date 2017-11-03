@@ -74,11 +74,11 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event"], func
         }
         UICheckbox_1 = UICheckbox;
         UICheckbox.prototype.bind = function (bindingContext, overrideContext) {
-            this.checked = isTrue(this.checked);
+            this.checked = !!this.checked;
             this.disabledChanged(this.disabled);
         };
         UICheckbox.prototype.disabledChanged = function (newValue) {
-            this.element.classList[(this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');
+            this.element.classList[(this.disabled = !!newValue) ? 'add' : 'remove']('ui-disabled');
         };
         UICheckbox.prototype.disable = function (b) {
             this.element.classList[(this.isDisabled = (b || this.disabled)) ? 'add' : 'remove']('ui-disabled');
@@ -118,7 +118,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event"], func
             this.disabledChanged(this.disabled);
         };
         UIRadio.prototype.disabledChanged = function (newValue) {
-            this.element.classList[(this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');
+            this.element.classList[(this.disabled = !!newValue) ? 'add' : 'remove']('ui-disabled');
         };
         UIRadio.prototype.disable = function (b) {
             this.element.classList[(this.isDisabled = (b || this.disabled)) ? 'add' : 'remove']('ui-disabled');
@@ -188,9 +188,9 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event"], func
         }
         UISwitch_1 = UISwitch;
         UISwitch.prototype.bind = function (bindingContext, overrideContext) {
-            this.checked = isTrue(this.checked) || (this.value == this.onValue);
-            this.value = isTrue(this.checked) ? this.onValue : this.offValue;
-            this.disabled = isTrue(this.disabled);
+            this.checked = !!this.checked || (this.value == this.onValue);
+            this.value = this.checked ? this.onValue : this.offValue;
+            this.disabled = !!this.disabled;
         };
         UISwitch.prototype.checkedChanged = function (newValue) {
             this.value = newValue ? this.onValue : this.offValue;

@@ -52,8 +52,8 @@ var UIButton = (function () {
             this.element.classList.add('ui-round');
     }
     UIButton.prototype.bind = function (bindingContext, overrideContext) {
-        this.busy = isTrue(this.busy);
-        this.disabled = isTrue(this.disabled);
+        this.busy = !!this.busy;
+        this.disabled = !!this.disabled;
         if (this.form)
             this.dropdown = this.form;
     };
@@ -166,10 +166,10 @@ var UIButtonGroup = (function () {
             this.element.classList.add('ui-toggle');
     }
     UIButtonGroup.prototype.bind = function (bindingContext, overrideContext) {
-        this.disabled = isTrue(this.disabled);
+        this.disabled = !!this.disabled;
     };
     UIButtonGroup.prototype.disabledChanged = function (newValue) {
-        this.disabled = isTrue(newValue);
+        this.disabled = !!newValue;
     };
     UIButtonGroup.prototype.buttonsChanged = function () {
         this.valueChanged(this.value);

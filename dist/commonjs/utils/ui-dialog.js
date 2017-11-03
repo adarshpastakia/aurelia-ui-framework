@@ -242,10 +242,11 @@ var UIDialogService = (function () {
         var x = ($event.x || $event.clientX) - this.__startX;
         var y = ($event.y || $event.clientY) - this.__startY;
         x = (this.__isRtl ? -1 : 1) * x;
-        var t = convertToPx(this.__dialog.style.top, this.__dialog);
-        var l = convertToPx(this.__dialog.style[this.__isRtl ? 'right' : 'left'], this.__dialog);
-        var w = convertToPx(this.__dialog.style.width, this.__dialog);
-        var h = convertToPx(this.__dialog.style.height, this.__dialog);
+        var style = getComputedStyle(this.__dialog);
+        var t = Number.parseFloat(style.top);
+        var l = Number.parseFloat(style[this.__isRtl ? 'right' : 'left']);
+        var w = Number.parseFloat(style.width);
+        var h = Number.parseFloat(style.height);
         var pw = ui_utils_1.UIUtils.dialogContainer.offsetWidth;
         var ph = ui_utils_1.UIUtils.dialogContainer.offsetHeight;
         if (!this.__isResizing) {

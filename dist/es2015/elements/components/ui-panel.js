@@ -19,7 +19,7 @@ let UIPanel = class UIPanel {
         this.collapsed = false;
     }
     bind(bindingContext, overrideContext) {
-        this.collapsed = isTrue(this.collapsed) || this.element.hasAttribute('collapsed');
+        this.collapsed = this.collapsed || this.element.hasAttribute('collapsed');
     }
     close() {
         if (isFunction(this.beforeclose)) {
@@ -199,7 +199,7 @@ let UIHeaderTool = class UIHeaderTool {
             this.glyph = "glyph-dialog-minimize";
     }
     bind(bindingContext, overrideContext) {
-        this.disabled = isTrue(this.disabled);
+        this.disabled = !!this.disabled;
     }
     attached() {
         if (this.dropdown) {

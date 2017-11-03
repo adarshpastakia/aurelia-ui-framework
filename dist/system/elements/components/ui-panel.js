@@ -35,7 +35,7 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                     this.collapsed = false;
                 }
                 UIPanel.prototype.bind = function (bindingContext, overrideContext) {
-                    this.collapsed = isTrue(this.collapsed) || this.element.hasAttribute('collapsed');
+                    this.collapsed = this.collapsed || this.element.hasAttribute('collapsed');
                 };
                 UIPanel.prototype.close = function () {
                     var _this = this;
@@ -221,7 +221,7 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                         this.glyph = "glyph-dialog-minimize";
                 }
                 UIHeaderTool.prototype.bind = function (bindingContext, overrideContext) {
-                    this.disabled = isTrue(this.disabled);
+                    this.disabled = !!this.disabled;
                 };
                 UIHeaderTool.prototype.attached = function () {
                     var _this = this;

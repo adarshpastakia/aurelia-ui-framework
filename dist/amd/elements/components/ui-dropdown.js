@@ -69,7 +69,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
             });
         };
         UIDropdown.prototype.disabledChanged = function (newValue) {
-            this.element.classList[(this.isDisabled = this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');
+            this.element.classList[(this.isDisabled = this.disabled = !!newValue) ? 'add' : 'remove']('ui-disabled');
         };
         UIDropdown.prototype.disable = function (b) {
             this.element.classList[(this.isDisabled = (b || this.disabled)) ? 'add' : 'remove']('ui-disabled');
