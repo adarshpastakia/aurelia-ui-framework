@@ -139,7 +139,7 @@ define(["require", "exports", "aurelia-framework", "./ui-event", "./ui-utils", "
             if (instance && typeof instance[name] === 'function') {
                 var result = instance[name](model);
                 if (result instanceof Promise) {
-                    return result;
+                    return result.then(function (b) { return b !== false; });
                 }
                 if (result !== null && result !== undefined) {
                     return Promise.resolve(result);

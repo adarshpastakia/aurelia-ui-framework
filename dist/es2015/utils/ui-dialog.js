@@ -146,7 +146,7 @@ let UIDialogService = class UIDialogService {
         if (instance && typeof instance[name] === 'function') {
             let result = instance[name](model);
             if (result instanceof Promise) {
-                return result;
+                return result.then(b => b !== false);
             }
             if (result !== null && result !== undefined) {
                 return Promise.resolve(result);
