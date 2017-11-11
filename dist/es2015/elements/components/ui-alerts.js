@@ -14,7 +14,7 @@ let UIToast = class UIToast {
         this.element = element;
         this.show = true;
         this.glyph = '';
-        this.timeout = 5000;
+        this.timeout = 0;
     }
     bind(bindingContext, overrideContext) {
         if (bindingContext)

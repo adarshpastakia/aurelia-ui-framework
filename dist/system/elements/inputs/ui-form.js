@@ -45,7 +45,7 @@ System.register(["aurelia-framework", "../../utils/ui-event", "lodash"], functio
                     this.disableInputs(!!newValue || this.disabled);
                 };
                 UIForm.prototype.disabledChanged = function (newValue) {
-                    this.disableInputs(newValue);
+                    this.disableInputs(!!newValue);
                 };
                 UIForm.prototype.disableInputs = function (newValue) {
                     _.forEach(this.inputEls, function (el) {
@@ -258,7 +258,7 @@ System.register(["aurelia-framework", "../../utils/ui-event", "lodash"], functio
                 UIInputLabel = UIInputLabel_1 = __decorate([
                     aurelia_framework_1.autoinject(),
                     aurelia_framework_1.containerless(),
-                    aurelia_framework_1.inlineView("<template><label ref=\"label\" slot=\"inputLabel\" class=\"ui-input-label ${class}\" for.bind=\"for\" css.bind=\"{'flex-basis':width}\"><slot></slot></label></template>"),
+                    aurelia_framework_1.inlineView("<template><label ref=\"label\" slot=\"inputLabel\" class=\"ui-input-label ${class}\" for.bind=\"for\" css.bind=\"{'flex-basis':width}\"><span><slot></slot></span></label></template>"),
                     aurelia_framework_1.customElement('ui-input-label'),
                     __metadata("design:paramtypes", [Element])
                 ], UIInputLabel);

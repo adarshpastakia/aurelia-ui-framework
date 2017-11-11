@@ -13,6 +13,7 @@ var aurelia_framework_1 = require("aurelia-framework");
 var ui_event_1 = require("../../utils/ui-event");
 var UISidebar = (function () {
     function UISidebar(element) {
+        var _this = this;
         this.element = element;
         this.label = "";
         this.collapsed = false;
@@ -25,18 +26,18 @@ var UISidebar = (function () {
         if (element.hasAttribute('scroll'))
             this.contentCls += ' ui-scroll';
         if (element.hasAttribute('flex'))
-            this.contentCls += ' ui-row-vertical ui-row-nowrap';
+            this.contentCls += ' ui-row ui-row-v ui-align-stretch ui-nowrap';
         if (element.hasAttribute('padded'))
             this.contentCls += ' ui-pad-all';
         if (this.miniDisplay = element.hasAttribute('mini-display'))
-            element.classList.add('ui-mini-display');
-        this.collapsible = element.hasAttribute('collapsible');
+            element.classList.add('ui-sidebar-mini');
         if (this.compact = element.hasAttribute('compact')) {
-            element.classList.add('ui-compact');
-            element.classList.add('ui-mini-display');
+            element.classList.add('ui-sidebar-compact');
+            element.classList.add('ui-sidebar-mini');
         }
+        this.collapsible = element.hasAttribute('collapsible');
         this.obClick = ui_event_1.UIEvent.subscribe('mouseclick', function () {
-            element.classList.remove('ui-show-overlay');
+            _this.element.classList.remove('ui-sidebar-show');
         });
     }
     UISidebar.prototype.bind = function (bindingContext, overrideContext) {
@@ -57,7 +58,7 @@ var UISidebar = (function () {
     };
     UISidebar.prototype.toggleCollapse = function ($event) {
         this.collapsed = !this.collapsed;
-        this.element.classList.remove('ui-show-overlay');
+        this.element.classList.remove('ui-sidebar-show');
         $event.cancelBubble = true;
         return true;
     };
@@ -65,9 +66,9 @@ var UISidebar = (function () {
         if (this.miniDisplay || $event.target != this.element)
             return true;
         if (this.collapsed)
-            this.element.classList.add('ui-show-overlay');
+            this.element.classList.add('ui-sidebar-show');
         else
-            this.element.classList.remove('ui-show-overlay');
+            this.element.classList.remove('ui-sidebar-show');
     };
     __decorate([
         aurelia_framework_1.bindable(),
@@ -83,7 +84,7 @@ var UISidebar = (function () {
     ], UISidebar.prototype, "position", void 0);
     UISidebar = __decorate([
         aurelia_framework_1.autoinject(),
-        aurelia_framework_1.inlineView("<template class=\"ui-sidebar ui-row-vertical ui-row-stretch ui-row-nowrap ${compact || collapsed?'ui-collapse':''} ui-${position}\" click.trigger=\"showOverlay($event)\">\n  <div class=\"ui-col-auto ui-row ui-row-end ui-row-middle ui-sidebar-head ${position=='start'?'':'ui-reverse'}\" if.bind=\"!compact && (collapsible || label)\">\n  <div class=\"ui-col-fill ui-sidebar-title\" ref=\"labelEl\">${label}</div>\n  <a click.trigger=\"toggleCollapse($event)\" class=\"ui-col-auto ui-sidebar-close\" if.bind=\"collapsible\"><ui-glyph glyph.bind=\"glyph\"></ui-glyph></a></div>\n  <slot name=\"affix-content\"></slot>\n  <div class=\"ui-col-fill ui-sidebar-content ${contentCls}\" ref=\"contentEl\"><slot></slot></div>\n</template>"),
+        aurelia_framework_1.inlineView("<template class=\"ui-sidebar ui-row ui-row-v ui-row-nowrap ui-align-stretch ${compact || collapsed?'ui-sidebar-collapse':''} ui-sidebar-${position}\" click.trigger=\"showOverlay($event)\">\n  <div class=\"ui-sidebar-head ui-row ui-row-h ui-row-nowrap ui-align-stretch\" if.bind=\"!compact && (collapsible || label)\">\n  <div class=\"ui-sidebar-title ui-column-fill\" ref=\"labelEl\">${label}</div>\n  <a click.trigger=\"toggleCollapse($event)\" class=\"ui-sidebar-close\" if.bind=\"collapsible\"><ui-glyph glyph.bind=\"glyph\"></ui-glyph></a></div>\n  <slot name=\"affix-content\"></slot>\n  <div class=\"ui-sidebar-content ui-column-fill ${contentCls}\" ref=\"contentEl\"><slot></slot></div>\n</template>"),
         aurelia_framework_1.customElement('ui-sidebar'),
         __metadata("design:paramtypes", [Element])
     ], UISidebar);

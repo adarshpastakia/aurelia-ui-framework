@@ -25,13 +25,18 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                 function UIDrawer(element) {
                     var _this = this;
                     this.element = element;
+                    this.css = {
+                        show: 'ui-drawer-show',
+                        fluid: 'ui-drawer-fluid',
+                        large: 'ui-drawer-large'
+                    };
                     this.position = "start";
                     this.closeGlyph = 'glyph-arrow-left';
                     this.bodyCls = '';
                     if (element.hasAttribute('fluid'))
-                        this.element.classList.add('ui-fluid');
+                        this.element.classList.add(this.css.fluid);
                     if (element.hasAttribute('large'))
-                        this.element.classList.add('ui-large');
+                        this.element.classList.add(this.css.large);
                     if (element.hasAttribute('close-on-click'))
                         element.addEventListener('mouseup', function (e) { if (e.button == 0)
                             _this.closeDrawer(); });
@@ -46,13 +51,13 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                 };
                 UIDrawer.prototype.closeDrawer = function () {
                     if (ui_event_1.UIEvent.fireEvent('beforeclose', this.element) !== false) {
-                        this.element.classList.remove('ui-show');
+                        this.element.classList.remove(this.css.show);
                         ui_event_1.UIEvent.fireEvent('close', this.element);
                     }
                 };
                 UIDrawer.prototype.openDrawer = function () {
                     if (ui_event_1.UIEvent.fireEvent('beforeopen', this.element) !== false) {
-                        this.element.classList.add('ui-show');
+                        this.element.classList.add(this.css.show);
                         ui_event_1.UIEvent.fireEvent('open', this.element);
                     }
                 };
@@ -66,7 +71,7 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                 ], UIDrawer.prototype, "closeGlyph", void 0);
                 UIDrawer = __decorate([
                     aurelia_framework_1.autoinject(),
-                    aurelia_framework_1.inlineView("<template class=\"ui-drawer ui-${position}\">\n  <div class=\"ui-drawer-content ui-row-vertical ui-align-stretch ui-row-nowrap\">\n    <a class=\"ui-drawer-close ui-col-auto\" click.trigger=\"closeDrawer()\"><ui-glyph glyph.bind=\"closeGlyph\"></ui-glyph></a>\n    <div class=\"ui-drawer-body ui-col-fill ${bodyCls}\"><slot></slot></div>\n  </div>\n  <div class=\"ui-drawer-shim\" click.trigger=\"closeDrawer()\"></div>\n</template>"),
+                    aurelia_framework_1.inlineView("<template class=\"ui-drawer ui-drawer-${position}\">\n  <div class=\"ui-drawer-content ui-row ui-row-v ui-align-stretch ui-nowrap\">\n    <a class=\"ui-drawer-close\" click.trigger=\"closeDrawer()\"><ui-glyph glyph.bind=\"closeGlyph\"></ui-glyph></a>\n    <div class=\"ui-drawer-body ${bodyCls}\"><slot></slot></div>\n  </div>\n  <div class=\"ui-drawer-shim\" click.trigger=\"closeDrawer()\"></div>\n</template>"),
                     aurelia_framework_1.customElement('ui-drawer'),
                     __metadata("design:paramtypes", [Element])
                 ], UIDrawer);
@@ -85,8 +90,8 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                         return true;
                     evt.stopPropagation();
                     evt.cancelBubble = true;
-                    if (this.drawer && this.drawer.classList) {
-                        this.drawer.classList.add('ui-show');
+                    if (this.drawer && this.drawer.au.controller) {
+                        this.drawer.au.controller.viewModel.openDrawer();
                     }
                 };
                 __decorate([

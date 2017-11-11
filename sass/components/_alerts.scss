@@ -15,7 +15,7 @@
   background    : $light;
   border        : 1px solid $base-border-color;
   border-radius : $base-border-radius;
-  box-shadow    : 1px 1px 2px 0 rgba($base-shadow-color, .5);
+  box-shadow    : 1px 1px 3px 0 rgba($base-shadow-color, .25);
   @include transition(max-height .5s ease-in);
 
   &.ui-open {

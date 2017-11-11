@@ -22,9 +22,7 @@
     "./src/**/*.ts",
     "./test/**/*.ts",
     "./custom_typings/**/*.d.ts",
-    "./node_modules/@types/**/*.d.ts",
-    "./node_modules/auf-libs/*.d.ts",
-    "./node_modules/aurelia-ui-framework/dist/typings/**/*.d.ts"
+    "./node_modules/@types/**/*.d.ts"
   ],
   "atom":
   {

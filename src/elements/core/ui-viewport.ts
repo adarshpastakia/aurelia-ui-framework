@@ -17,7 +17,7 @@ const CSS_PREFIX = 'ui-viewport';
   <slot name="ui-app-header"></slot>
   <slot></slot>
   <div class="${CSS_PREFIX}-taskbar"><slot name="ui-app-taskbar"></slot><div class="${CSS_PREFIX}-taskbar-wrapper" ref="taskbarContainer"></div></div>
-  <slot name="ui-app-footer ui-column-auto"></slot>
+  <slot name="ui-app-footer"></slot>
 
   <div class="ui-dialog-container" ref="dialogContainer"></div>
   <div class="ui-overlay-container ui-row ui-row-v ui-align-end" ref="overlayContainer"></div>
@@ -91,7 +91,7 @@ export class UIAppBanner {
 
 @autoinject()
 @containerless()
-@inlineView(`<template><div class="${CSS_PREFIX}-footer ui-column-auto \${class}" slot="ui-app-footer"><slot></slot></div></template>`)
+@inlineView(`<template><div class="${CSS_PREFIX}-footer ui-column-auto ui-row ui-row-h ui-align-center ui-justify-between \${class}" slot="ui-app-footer"><slot></slot></div></template>`)
 @customElement('ui-app-footer')
 export class UIAppFooter {
   constructor(public element: Element) { }

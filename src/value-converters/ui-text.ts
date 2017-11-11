@@ -3,7 +3,7 @@
 // @author      : Adarsh Pastakia
 // @copyright   : 2016
 // @license     : MIT
-import {UIFormat} from "../utils/ui-format";
+import { UIFormat } from "../utils/ui-format";
 
 export class JsonValueConverter {
   toView(value: any) {

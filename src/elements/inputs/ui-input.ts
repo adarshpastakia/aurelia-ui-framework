@@ -4,7 +4,7 @@
 // @copyright   : 2017
 // @license     : MIT
 
-import { autoinject, customElement, bindable, bindingMode, children, inlineView, useView, containerless, View, DOM } from 'aurelia-framework';
+import { autoinject, customElement, bindable, bindingMode, inlineView } from 'aurelia-framework';
 import { UIEvent } from "../../utils/ui-event";
 
 export class UIBaseInput {

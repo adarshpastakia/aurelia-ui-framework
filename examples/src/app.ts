@@ -55,7 +55,7 @@ export class App {
       }, {
         route: 'lists', moduleId: './inputs/lists', title: 'Lists & Selects', nav: true, auth: false, settings: { section: 'Inputs', disabled: true }, name: 'inputs:lists'
       }, {
-        route: 'datetime', moduleId: './inputs/datetime', title: 'Date/Time', nav: true, auth: false, settings: { section: 'Inputs', disabled: true }, name: 'inputs:datetime'
+        route: 'datetime', moduleId: './inputs/dates', title: 'Date/Time', nav: true, auth: false, settings: { section: 'Inputs' }, name: 'inputs:datetime'
       }, {
         route: 'options', moduleId: './inputs/options', title: 'Options & Switches', nav: true, auth: false, settings: { section: 'Inputs' }, name: 'inputs:options'
       }, {

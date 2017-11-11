@@ -4,8 +4,11 @@ function __export(m) {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 var aurelia_pal_1 = require("aurelia-pal");
+var aurelia_validation_1 = require("aurelia-validation");
 var ui_constants_1 = require("./utils/ui-constants");
 var ui_utils_1 = require("./utils/ui-utils");
+var ui_validation_1 = require("./utils/ui-validation");
+require("auf-utility-library");
 require("./elements/core/ui-glyphs");
 require("./elements/core/ui-grid");
 require("./elements/core/ui-page");
@@ -20,9 +23,13 @@ require("./elements/components/ui-panel");
 require("./elements/components/ui-sidebar");
 require("./elements/components/ui-tabpanel");
 require("./elements/inputs/ui-button");
+require("./elements/inputs/ui-date");
 require("./elements/inputs/ui-form");
 require("./elements/inputs/ui-input");
+require("./elements/inputs/ui-markdown");
 require("./elements/inputs/ui-options");
+require("./elements/inputs/ui-phone");
+require("./elements/inputs/ui-textarea");
 require("./attributes/ui-badge");
 require("./attributes/ui-colors");
 require("./attributes/ui-ribbon");
@@ -37,6 +44,8 @@ __export(require("./utils/ui-http"));
 function configure(config, configCallback) {
     ui_utils_1.UIUtils.auContainer = config.container;
     document.documentElement.classList.add(window.browserAgent());
+    aurelia_validation_1.ValidationController.prototype.validateTrigger = aurelia_validation_1.validateTrigger.changeOrBlur;
+    config.container.registerHandler('ui-validator', function (container) { return container.get(ui_validation_1.UIValidationRenderer); });
     config.globalResources([
         aurelia_pal_1.PLATFORM.moduleName('./elements/core/ui-grid'),
         aurelia_pal_1.PLATFORM.moduleName('./elements/core/ui-page'),
@@ -55,9 +64,13 @@ function configure(config, configCallback) {
     ]);
     config.globalResources([
         aurelia_pal_1.PLATFORM.moduleName('./elements/inputs/ui-button'),
+        aurelia_pal_1.PLATFORM.moduleName('./elements/inputs/ui-date'),
         aurelia_pal_1.PLATFORM.moduleName('./elements/inputs/ui-form'),
         aurelia_pal_1.PLATFORM.moduleName('./elements/inputs/ui-input'),
-        aurelia_pal_1.PLATFORM.moduleName('./elements/inputs/ui-options')
+        aurelia_pal_1.PLATFORM.moduleName('./elements/inputs/ui-markdown'),
+        aurelia_pal_1.PLATFORM.moduleName('./elements/inputs/ui-options'),
+        aurelia_pal_1.PLATFORM.moduleName('./elements/inputs/ui-phone'),
+        aurelia_pal_1.PLATFORM.moduleName('./elements/inputs/ui-textarea')
     ]);
     config.globalResources([
         aurelia_pal_1.PLATFORM.moduleName('./attributes/ui-badge'),
@@ -106,6 +119,7 @@ function configure(config, configCallback) {
     if (configCallback !== undefined && typeof configCallback === 'function') {
         configCallback(Configure);
     }
+    ui_validation_1.loadValidators();
     ui_utils_1.lodashMixins();
 }
 exports.configure = configure;

@@ -268,9 +268,9 @@ UIFileInput = __decorate([
     </div>
     <input type="file" ref="inputEl" class="ui-file-input-el" change.trigger="fileChoose($event)" />
     <div class="ui-file-list">
-      <p repeat.for="file of files" class="ui-row ui-row-middle">
+      <p repeat.for="file of files" class="ui-row ui-row-h ui-nowrap ui-align-center">
       <a click.trigger="remove($index)"><ui-glyph glyph="glyph-dialog-close" class="ui-text-danger"></ui-glyph></a>
-      <span class="ui-col-fill ui-row ui-row-middle"><ui-glyph glyph="glyph-icon-file" class="ui-text-muted"></ui-glyph><span>\${file.name}<br/>(<small innerhtml.bind="file.size | number:'0.00b'"></small>)</span></span></p>
+      <span class="ui-row ui-row-h ui-nowrap ui-align-center"><ui-glyph glyph="glyph-icon-file" class="ui-text-muted"></ui-glyph><span>\${file.name}<br/>(<small innerhtml.bind="file.size | number:'0.00b'"></small>)</span></span></p>
     </div>
   </div>
 </template>`),

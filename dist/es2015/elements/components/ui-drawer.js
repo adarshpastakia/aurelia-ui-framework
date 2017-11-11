@@ -12,13 +12,18 @@ import { UIEvent } from '../../utils/ui-event';
 let UIDrawer = class UIDrawer {
     constructor(element) {
         this.element = element;
+        this.css = {
+            show: 'ui-drawer-show',
+            fluid: 'ui-drawer-fluid',
+            large: 'ui-drawer-large'
+        };
         this.position = "start";
         this.closeGlyph = 'glyph-arrow-left';
         this.bodyCls = '';
         if (element.hasAttribute('fluid'))
-            this.element.classList.add('ui-fluid');
+            this.element.classList.add(this.css.fluid);
         if (element.hasAttribute('large'))
-            this.element.classList.add('ui-large');
+            this.element.classList.add(this.css.large);
         if (element.hasAttribute('close-on-click'))
             element.addEventListener('mouseup', (e) => { if (e.button == 0)
                 this.closeDrawer(); });
@@ -33,13 +38,13 @@ let UIDrawer = class UIDrawer {
     }
     closeDrawer() {
         if (UIEvent.fireEvent('beforeclose', this.element) !== false) {
-            this.element.classList.remove('ui-show');
+            this.element.classList.remove(this.css.show);
             UIEvent.fireEvent('close', this.element);
         }
     }
     openDrawer() {
         if (UIEvent.fireEvent('beforeopen', this.element) !== false) {
-            this.element.classList.add('ui-show');
+            this.element.classList.add(this.css.show);
             UIEvent.fireEvent('open', this.element);
         }
     }
@@ -54,10 +59,10 @@ __decorate([
 ], UIDrawer.prototype, "closeGlyph", void 0);
 UIDrawer = __decorate([
     autoinject(),
-    inlineView(`<template class="ui-drawer ui-\${position}">
-  <div class="ui-drawer-content ui-row-vertical ui-align-stretch ui-row-nowrap">
-    <a class="ui-drawer-close ui-col-auto" click.trigger="closeDrawer()"><ui-glyph glyph.bind="closeGlyph"></ui-glyph></a>
-    <div class="ui-drawer-body ui-col-fill \${bodyCls}"><slot></slot></div>
+    inlineView(`<template class="ui-drawer ui-drawer-\${position}">
+  <div class="ui-drawer-content ui-row ui-row-v ui-align-stretch ui-nowrap">
+    <a class="ui-drawer-close" click.trigger="closeDrawer()"><ui-glyph glyph.bind="closeGlyph"></ui-glyph></a>
+    <div class="ui-drawer-body \${bodyCls}"><slot></slot></div>
   </div>
   <div class="ui-drawer-shim" click.trigger="closeDrawer()"></div>
 </template>`),
@@ -77,8 +82,8 @@ let UIDrawerToggle = class UIDrawerToggle {
             return true;
         evt.stopPropagation();
         evt.cancelBubble = true;
-        if (this.drawer && this.drawer.classList) {
-            this.drawer.classList.add('ui-show');
+        if (this.drawer && this.drawer.au.controller) {
+            this.drawer.au.controller.viewModel.openDrawer();
         }
     }
 };

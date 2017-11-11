@@ -1,0 +1,41 @@
+import { UIBaseInput } from "./ui-input";
+export declare class UITextarea extends UIBaseInput {
+    element: Element;
+    constructor(element: Element);
+    bind(bindingContext: Object, overrideContext: Object): void;
+    attached(): void;
+    detached(): void;
+    value: string;
+    dir: string;
+    rows: number;
+    errors: any;
+    maxlength: number;
+    disabled: boolean;
+    readonly: boolean;
+    placeholder: string;
+    autoComplete: string;
+    helpText: string;
+    beforeReplace: any;
+    private clear;
+    private counter;
+    private ignore;
+    private tether;
+    private obMouseup;
+    private dropdown;
+    private acList;
+    private acShow;
+    valueChanged(newValue: any): void;
+    autoCompleteChanged(newValue: any): void;
+    hilightItem(evt: any): void;
+    checkList(evt: any): boolean;
+    checkInput(evt: any): boolean;
+    replace(selected: any): void;
+    closeAutoComplete(): void;
+    properties: string[];
+    isBrowser: boolean;
+    isFirefox: boolean;
+    getCaretCoordinates(): {
+        top: string;
+        left: string;
+    };
+}

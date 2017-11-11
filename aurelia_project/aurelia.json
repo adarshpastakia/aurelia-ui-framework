@@ -37,8 +37,8 @@
       ],
       "dependencies": [
       {
-        "name": "auf-libs",
-        "path": "../node_modules/auf-libs",
+        "name": "auf-utility-library",
+        "path": "../node_modules/auf-utility-library",
         "main": "index"
       },
       {
@@ -55,6 +55,11 @@
         "numeral",
         "aurelia-animator-css",
         "aurelia-fetch-client",
+        {
+          "name": "aurelia-validation",
+          "path": "../node_modules/aurelia-validation/dist/amd",
+          "main": "aurelia-validation"
+        },
         {
           "name": "kramed",
           "path": "../node_modules/kramed/lib",
@@ -154,7 +159,7 @@
     "displayName": "TypeScript",
     "fileExtension": ".ts",
     "dtsSource": [
-      "./custom_typings/**/*.d.ts", "./node_modules/auf-libs/**/*.d.ts"
+      "./custom_typings/**/*.d.ts", "./node_modules/auf-utility-library/*.d.ts"
     ],
     "source": [
       "examples/**/*.ts", "src/**/*.ts"

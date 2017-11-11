@@ -17,6 +17,7 @@ export function configure(aurelia: Aurelia) {
       UIConstants['colors'] = 'red,pink,violet,purple,indigo,blue,cyan,teal,green,lime,yellow,amber,orange,brown,lightGray,darkGray';
     })
     .plugin('aurelia-animator-css')
+    .plugin('aurelia-validation')
     .feature('./src/resources');
 
   if (environment.debug) {

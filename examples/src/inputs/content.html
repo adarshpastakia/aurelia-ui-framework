@@ -1,0 +1,35 @@
+<!--
+// @author : Adarsh Pastakia
+// @copyright : 2017
+// @license : MIT
+-->
+<template>
+  <ui-page animate="animate">
+    <x-container source.bind="source" wiki.bind="wiki" page-title="Content Editor" need-rtl="true">
+      <ui-form>
+        <ui-toast danger glyph="glyph-alert-error" timeout="0">Aurelia Validation seems to be broken</ui-toast>
+        <ui-row>
+          <ui-column full="full">
+            <div style="width: 24em">
+              <ui-input-group>
+                <ui-input-label align-top>Language</ui-input-label>
+                <ui-language value.bind="language" dir.bind="dir" languages.bind="model.languages" add.trigger="addLanguage($event.detail)" remove.trigger="addLanguage($event.detail)"></ui-language>
+              </ui-input-group>
+            </div>
+            <ui-input-group>
+              <ui-input-label align-top>Summary</ui-input-label>
+              <ui-input counter="counter" clear="clear" value.bind="model.languages[language].summary & validateOnChangeOrBlur" dir.bind="dir" disabled.bind="!language"></ui-input>
+            </ui-input-group>
+            <ui-input-group>
+              <ui-input-label align-top>Description</ui-input-label>
+              <ui-markdown info="GitHub Flavoured Markdown" counter="counter" clear="clear" value.bind="model.languages[language].description & validateOnChangeOrBlur" dir.bind="dir" disabled.bind="!language" rows="20"></ui-markdown>
+            </ui-input-group>
+          </ui-column>
+          <ui-column full="full" class="ui-text-end">
+            <ui-button muted click.trigger="validate()">Validate</ui-button>
+          </ui-column>
+        </ui-row>
+      </ui-form>
+    </x-container>
+  </ui-page>
+</template>

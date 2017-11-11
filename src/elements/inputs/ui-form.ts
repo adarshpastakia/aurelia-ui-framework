@@ -42,7 +42,7 @@ export class UIForm {
   }
 
   disabledChanged(newValue: any) {
-    this.disableInputs(newValue);
+    this.disableInputs(!!newValue);
   }
 
   disableInputs(newValue: any) {
@@ -152,7 +152,7 @@ export class UIInputAddon {
 
 @autoinject()
 @containerless()
-@inlineView(`<template><label ref="label" slot="inputLabel" class="ui-input-label \${class}" for.bind="for" css.bind="{'flex-basis':width}"><slot></slot></label></template>`)
+@inlineView(`<template><label ref="label" slot="inputLabel" class="ui-input-label \${class}" for.bind="for" css.bind="{'flex-basis':width}"><span><slot></slot></span></label></template>`)
 @customElement('ui-input-label')
 export class UIInputLabel {
   constructor(public element: Element) { }

@@ -1,0 +1,49 @@
+<!--
+// @author : Adarsh Pastakia
+// @copyright : 2017
+// @license : MIT
+-->
+<template>
+  <ui-page animate="animate">
+    <x-container source.bind="source" wiki.bind="wiki" page-title="Date/Time Inputs" need-rtl="true">
+      <ui-row>
+        <ui-column fill="fill" padded="padded">
+          <ui-date-view datetime="datetime" date.bind="date"></ui-date-view>
+          <p>${date}</p>
+          <p>${date | date}</p>
+          <p>${date | date} ${date | time}</p>
+        </ui-column>
+        <ui-column fill="fill" padded="padded">
+          <ui-input-group>
+            <ui-input-label>Date</ui-input-label>
+            <ui-date date.bind="date"></ui-date>
+          </ui-input-group>
+          <ui-input-group>
+            <ui-input-label>Time</ui-input-label>
+            <ui-input-addon>
+              <small>Local Time</small>
+            </ui-input-addon>
+            <ui-date time="time" date.bind="time"></ui-date>
+            <ui-input-info if.bind="time">${time | utc | time} GMT</ui-input-info>
+          </ui-input-group>
+          <ui-input-group>
+            <ui-input-label>Date/Time</ui-input-label>
+            <ui-input-addon>
+              <small>Local Time</small>
+            </ui-input-addon>
+            <ui-date datetime="datetime" date.bind="dttime" min-date.bind="minDate"></ui-date>
+            <ui-input-info if.bind="dttime">${dttime | utc | datetime} GMT</ui-input-info>
+          </ui-input-group>
+          <ui-input-group>
+            <ui-input-label>Date Range</ui-input-label>
+            <ui-date date.bind="date1"></ui-date>
+            <ui-input-addon>
+              <small>TO</small>
+            </ui-input-addon>
+            <ui-date date.bind="date2" min-date.bind="date1"></ui-date>
+          </ui-input-group>
+        </ui-column>
+      </ui-row>
+    </x-container>
+  </ui-page>
+</template>

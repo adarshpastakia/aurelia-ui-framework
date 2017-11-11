@@ -16,7 +16,7 @@ var UIToast = (function () {
         this.element = element;
         this.show = true;
         this.glyph = '';
-        this.timeout = 5000;
+        this.timeout = 0;
     }
     UIToast.prototype.bind = function (bindingContext, overrideContext) {
         var _this = this;

@@ -28,9 +28,9 @@ UIPage = __decorate([
     autoinject(),
     customElement('ui-page'),
     inlineView(`
-<template class="ui-page">
-  <div class="ui-page-title" if.bind="pageTitle" innerhtml.bind="pageTitle"></div>
-  <div class="ui-page-body \${pageClass}"><slot></slot></div>
+<template class="ui-page ui-column-fill ui-row ui-row-v ui-align-stretch ui-nowrap">
+  <div class="ui-page-title ui-column-auto" if.bind="pageTitle" innerhtml.bind="pageTitle"></div>
+  <div class="ui-page-body ui-column-fill ui-row ui-row-v ui-align-stretch \${pageClass}"><slot></slot></div>
 </template>`),
     __metadata("design:paramtypes", [Element])
 ], UIPage);
@@ -41,19 +41,19 @@ let UISection = class UISection {
         if (element.hasAttribute('animate'))
             element.classList.add('au-animate');
         if (element.hasAttribute('row-layout'))
-            element.classList.add('ui-horizontal');
+            element.classList.add('ui-row-h');
         else
-            element.classList.add('ui-vertical');
+            element.classList.add('ui-row-v');
         if (element.hasAttribute('center'))
-            element.classList.add('ui-align-center');
+            element.classList.add('ui-justify-center');
         if (element.hasAttribute('middle'))
-            element.classList.add('ui-align-middle');
+            element.classList.add('ui-align-center');
     }
 };
 UISection = __decorate([
     autoinject(),
     customElement('ui-section'),
-    inlineView(`<template class="ui-section"><slot></slot></template>`),
+    inlineView(`<template class="ui-section ui-column-fill ui-row ui-align-stretch ui-nowrap"><slot></slot></template>`),
     __metadata("design:paramtypes", [Element])
 ], UISection);
 export { UISection };
@@ -71,7 +71,7 @@ let UIContent = class UIContent {
 UIContent = __decorate([
     autoinject(),
     customElement('ui-content'),
-    inlineView(`<template class="ui-content"><slot></slot></template>`),
+    inlineView(`<template class="ui-content ui-column-fill"><slot></slot></template>`),
     __metadata("design:paramtypes", [Element])
 ], UIContent);
 export { UIContent };
@@ -116,8 +116,8 @@ __decorate([
 UILoader = __decorate([
     autoinject(),
     customElement('ui-loader'),
-    inlineView(`<template class="ui-app-loader" show.bind="busy">
-  <div class="ui-loader-div">
+    inlineView(`<template class="ui-loader" show.bind="busy">
+  <div class="ui-loader-el">
     <ui-glyph class="ui-anim-loader" glyph="glyph-busy"></ui-glyph>
   </div>
 </template>`),

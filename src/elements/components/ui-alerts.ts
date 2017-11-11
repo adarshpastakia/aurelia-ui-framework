@@ -3,7 +3,7 @@
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
-import { autoinject, customElement, bindable, bindingMode, children, inlineView, useView, containerless, View, DOM } from 'aurelia-framework';
+import { autoinject, customElement, bindable, bindingMode, inlineView, DOM } from 'aurelia-framework';
 import { UIEvent } from "../../utils/ui-event";
 
 @autoinject()
@@ -27,7 +27,7 @@ export class UIToast {
 
   @bindable() show = true;
   @bindable() glyph = '';
-  @bindable() timeout = 5000;
+  @bindable() timeout = 0;
 
   private startClose(force?) {
     if (UIEvent.fireEvent('close', this.element) !== false) {

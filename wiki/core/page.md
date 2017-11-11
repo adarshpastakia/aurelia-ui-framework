@@ -34,6 +34,8 @@ SVG glyph
 * Attributes
   * `glyph`: SVG glyph name
 
+> NOTE: `glyph` can be either an SVG glyph name or alternatively it can also use FontAwesome classes `glyph="fa fa-user-circle"`
+
 ---
 
 #### `ui-loader`

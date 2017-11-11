@@ -13,32 +13,15 @@ Flexbox row
   * `nowrap`
   * `nogutter`: Remove gutter spacing
   * `reverse`: Layout children in reverse
+  * `vertical`: Vertical flexbox
+  * `vertical-reverse`: Vertical flexbox in reverse
   * Horizontal Alignment
     * `start`
     * `center`
     * `end`
-    * `spaced`
+    * `around`
+    * `between`
   * Vertical Alignment
-    * `top`
-    * `middle`
-    * `bottom`
-    * `stretch`
-
----
-
-#### `ui-row-vertical`
-Flexbox vertical row
-
-* Attributes
-  * `nowrap`
-  * `nogutter`: Remove gutter spacing
-  * `reverse`: Layout children in reverse
-  * Vertical Alignment
-    * `start`
-    * `center`
-    * `end`
-    * `spaced`
-  * Horizontal Alignment
     * `top`
     * `middle`
     * `bottom`
@@ -50,6 +33,7 @@ Flexbox vertical row
 Flexbox column
 
 * Attributes
+  * `row`: Pass flexbox row attributes to make the column into the child row
   * Column Alignment
     * `top`
     * `middle`

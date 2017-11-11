@@ -129,9 +129,9 @@ $input-error-text            : $danger !default;
 
 // Dates
 $date-header-text            : $white !default;
-$date-header-bg              : tint($primary, 50%) !default;
+$date-header-bg              : lighten($primary, 5%) !default;
 
-$date-hover-bg               : tint($primary, 50%) !default;
+$date-hover-bg               : lighten($primary, 25%) !default;
 $date-hover-text             : $white !default;
 $date-active-bg              : $primary !default;
 $date-active-text            : $white !default;

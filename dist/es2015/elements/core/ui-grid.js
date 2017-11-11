@@ -12,7 +12,7 @@ let UIFiller = class UIFiller {
 };
 UIFiller = __decorate([
     customElement('ui-filler'),
-    inlineView('<template class="ui-col-fill"></template>')
+    inlineView('<template class="ui-column-fill"></template>')
 ], UIFiller);
 export { UIFiller };
 let UIContainer = class UIContainer {
@@ -32,29 +32,35 @@ let UIRow = class UIRow {
     constructor(element) {
         this.element = element;
         if (element.hasAttribute('top'))
-            element.classList.add('ui-row-top');
-        if (element.hasAttribute('middle'))
-            element.classList.add('ui-row-middle');
-        if (element.hasAttribute('bottom'))
-            element.classList.add('ui-row-bottom');
-        if (element.hasAttribute('stretch'))
-            element.classList.add('ui-row-stretch');
+            element.classList.add('ui-align-start');
+        else if (element.hasAttribute('middle'))
+            element.classList.add('ui-align-center');
+        else if (element.hasAttribute('bottom'))
+            element.classList.add('ui-align-end');
+        else if (element.hasAttribute('stretch'))
+            element.classList.add('ui-align-stretch');
         if (element.hasAttribute('start'))
-            element.classList.add('ui-row-start');
-        if (element.hasAttribute('center'))
-            element.classList.add('ui-row-center');
-        if (element.hasAttribute('end'))
-            element.classList.add('ui-row-end');
-        if (element.hasAttribute('spaced'))
-            element.classList.add('ui-row-spaced');
-        if (element.hasAttribute('space-around'))
-            element.classList.add('ui-row-space-around');
+            element.classList.add('ui-justify-start');
+        else if (element.hasAttribute('center'))
+            element.classList.add('ui-justify-center');
+        else if (element.hasAttribute('end'))
+            element.classList.add('ui-justify-end');
+        else if (element.hasAttribute('between'))
+            element.classList.add('ui-justify-betweeen');
+        else if (element.hasAttribute('around'))
+            element.classList.add('ui-justify-around');
         if (!element.hasAttribute('nogutter'))
             element.classList.add('ui-gutter');
         if (element.hasAttribute('nowrap'))
-            element.classList.add('ui-row-nowrap');
-        if (element.hasAttribute('reverse'))
-            element.classList.add('ui-row-reverse');
+            element.classList.add('ui-nowrap');
+        if (element.hasAttribute('vertical-reverse'))
+            element.classList.add('ui-row-v-reverse');
+        else if (element.hasAttribute('vertical'))
+            element.classList.add('ui-row-v');
+        else if (element.hasAttribute('reverse'))
+            element.classList.add('ui-row-h-reverse');
+        else
+            element.classList.add('ui-row-h');
     }
 };
 UIRow = __decorate([
@@ -64,70 +70,72 @@ UIRow = __decorate([
     __metadata("design:paramtypes", [Element])
 ], UIRow);
 export { UIRow };
-let UIColumnRow = class UIColumnRow {
-    constructor(element) {
-        this.element = element;
-        if (element.hasAttribute('top'))
-            element.classList.add('ui-row-start');
-        if (element.hasAttribute('middle'))
-            element.classList.add('ui-row-center');
-        if (element.hasAttribute('bottom'))
-            element.classList.add('ui-row-end');
-        if (element.hasAttribute('stretch'))
-            element.classList.add('ui-row-stretch');
-        if (element.hasAttribute('start'))
-            element.classList.add('ui-row-top');
-        if (element.hasAttribute('center'))
-            element.classList.add('ui-row-middle');
-        if (element.hasAttribute('end'))
-            element.classList.add('ui-row-bottom');
-        if (element.hasAttribute('spaced'))
-            element.classList.add('ui-row-spaced');
-        if (element.hasAttribute('space-around'))
-            element.classList.add('ui-row-space-around');
-        if (!element.hasAttribute('nogutter'))
-            element.classList.add('ui-gutter');
-        if (element.hasAttribute('nowrap'))
-            element.classList.add('ui-row-nowrap');
-        if (element.hasAttribute('reverse'))
-            element.classList.add('ui-row-reverse');
-    }
-};
-UIColumnRow = __decorate([
-    autoinject(),
-    customElement('ui-row-column'),
-    inlineView('<template class="ui-row ui-row-vertical"><slot></slot></template>'),
-    __metadata("design:paramtypes", [Element])
-], UIColumnRow);
-export { UIColumnRow };
 let UIColumn = class UIColumn {
     constructor(element) {
         this.element = element;
         this.size = '';
         this.width = '';
+        this.row = '';
         if (element.hasAttribute('top'))
-            element.classList.add('ui-col-top');
-        if (element.hasAttribute('middle'))
-            element.classList.add('ui-col-middle');
-        if (element.hasAttribute('bottom'))
-            element.classList.add('ui-col-bottom');
-        if (element.hasAttribute('stretch'))
-            element.classList.add('ui-col-stretch');
+            element.classList.add('ui-self-top');
+        else if (element.hasAttribute('middle'))
+            element.classList.add('ui-self-middle');
+        else if (element.hasAttribute('bottom'))
+            element.classList.add('ui-self-bottom');
+        else if (element.hasAttribute('stretch'))
+            element.classList.add('ui-self-stretch');
         if (element.hasAttribute('auto'))
-            element.classList.add('ui-col-auto');
-        if (element.hasAttribute('fill'))
-            element.classList.add('ui-col-fill');
-        if (element.hasAttribute('full'))
-            element.classList.add('ui-col-full');
-        if (element.hasAttribute('form'))
-            element.classList.add('ui-col-form');
+            element.classList.add('ui-column-auto');
+        else if (element.hasAttribute('fill'))
+            element.classList.add('ui-column-fill');
+        else if (element.hasAttribute('full'))
+            element.classList.add('ui-column-full');
+        else if (element.hasAttribute('form'))
+            element.classList.add('ui-column-form');
     }
     bind() {
-        for (var size of this.size.split(' ')) {
-            this.element.classList.add(`ui-col-${size}`);
+        if (this.size.length) {
+            for (var size of this.size.split(' ')) {
+                this.element.classList.add(`ui-column-${size}`);
+            }
         }
         if (this.width)
             this.element['style'].flexBasis = this.width;
+        if (this.row.length) {
+            for (var row of this.row.split(' ')) {
+                this.element.classList.add(`ui-row`);
+                if (row === 'top')
+                    this.element.classList.add('ui-align-start');
+                else if (row === 'middle')
+                    this.element.classList.add('ui-align-center');
+                else if (row === 'bottom')
+                    this.element.classList.add('ui-align-end');
+                else if (row === 'stretch')
+                    this.element.classList.add('ui-align-stretch');
+                if (row === 'start')
+                    this.element.classList.add('ui-justify-start');
+                else if (row === 'center')
+                    this.element.classList.add('ui-justify-center');
+                else if (row === 'end')
+                    this.element.classList.add('ui-justify-end');
+                else if (row === 'between')
+                    this.element.classList.add('ui-justify-betweeen');
+                else if (row === 'around')
+                    this.element.classList.add('ui-justify-around');
+                if (row !== 'nogutter')
+                    this.element.classList.add('ui-gutter');
+                if (row === 'nowrap')
+                    this.element.classList.add('ui-nowrap');
+                if (row === 'vertical-reverse')
+                    this.element.classList.add('ui-row-v-reverse');
+                else if (row === 'vertical')
+                    this.element.classList.add('ui-row-v');
+                else if (row === 'reverse')
+                    this.element.classList.add('ui-row-h-reverse');
+                else if (row === 'row')
+                    this.element.classList.add('ui-row-h');
+            }
+        }
     }
 };
 __decorate([
@@ -138,6 +146,10 @@ __decorate([
     bindable(),
     __metadata("design:type", Object)
 ], UIColumn.prototype, "width", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIColumn.prototype, "row", void 0);
 UIColumn = __decorate([
     autoinject(),
     customElement('ui-column'),

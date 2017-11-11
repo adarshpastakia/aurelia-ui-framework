@@ -15,10 +15,6 @@
   }
 
   &.ui-md-editor {
-    .ui-toolbar {
-      border    : none;
-      background: none;
-    }
 
     div.ui-md-preview {
       overflow: auto;
@@ -67,12 +63,13 @@
     background: $input-bg;
     max-width : 100%;
     position  : relative;
-    @include transition(box-shadow .5s);
+    @include transition(box-shadow 0.5s);
     @include flexbox($direction: row, $wrap:false, $align: flex-start);
 
     input,
     textarea {
       @include flex-fill();
+      font-weight : 300;
       background  : none;
       border-color: transparent;
       margin      : 0;

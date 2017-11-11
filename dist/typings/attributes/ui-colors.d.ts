@@ -78,6 +78,11 @@ export declare class UIThemeDarkBg extends UIColorBase {
     constructor(element: Element);
     bind(): void;
 }
+export declare class UIThemeLightBg extends UIColorBase {
+    element: Element;
+    constructor(element: Element);
+    bind(): void;
+}
 export declare class UIThemeInfoBg extends UIColorBase {
     element: Element;
     constructor(element: Element);
@@ -94,6 +99,56 @@ export declare class UIThemeSuccessBg extends UIColorBase {
     bind(): void;
 }
 export declare class UIThemeWarningBg extends UIColorBase {
+    element: Element;
+    constructor(element: Element);
+    bind(): void;
+}
+export declare class UIColorThemeText extends UIColorBase {
+    element: Element;
+    constructor(element: Element);
+    valueChanged(newValue: any): void;
+}
+export declare class UIThemePrimaryText extends UIColorBase {
+    element: Element;
+    constructor(element: Element);
+    bind(): void;
+}
+export declare class UIThemeSecondaryText extends UIColorBase {
+    element: Element;
+    constructor(element: Element);
+    bind(): void;
+}
+export declare class UIThemeMutedText extends UIColorBase {
+    element: Element;
+    constructor(element: Element);
+    bind(): void;
+}
+export declare class UIThemeDarkText extends UIColorBase {
+    element: Element;
+    constructor(element: Element);
+    bind(): void;
+}
+export declare class UIThemeLightText extends UIColorBase {
+    element: Element;
+    constructor(element: Element);
+    bind(): void;
+}
+export declare class UIThemeInfoText extends UIColorBase {
+    element: Element;
+    constructor(element: Element);
+    bind(): void;
+}
+export declare class UIThemeDangerText extends UIColorBase {
+    element: Element;
+    constructor(element: Element);
+    bind(): void;
+}
+export declare class UIThemeSuccessText extends UIColorBase {
+    element: Element;
+    constructor(element: Element);
+    bind(): void;
+}
+export declare class UIThemeWarningText extends UIColorBase {
     element: Element;
     constructor(element: Element);
     bind(): void;

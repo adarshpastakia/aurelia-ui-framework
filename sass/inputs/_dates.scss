@@ -1,0 +1,232 @@
+//
+// @description :
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+
+.ui-date-view {
+  display      : inline-block;
+  border-radius: $base-border-radius;
+  border       : 1px solid $base-border-color;
+
+  &.floating {
+    background : $input-bg;
+    white-space: nowrap;
+    z-index    : $z-index-floating;
+  }
+
+  .ui-dv-time-wrapper {
+    border-top: 1px solid rgba($base-border-color, .5);
+
+    > div {
+      @include flexbox($wrap:true,$justify:center, $align: center);
+
+      > div {
+        @include flexbox($direction: column, $align:stretch, $justify:center);
+        font-size: 1.5em;
+        padding  : 0 0.5rem;
+
+        a {
+          text-align: center;
+          padding   : 0.25rem;
+
+          .ui-icon {
+            margin   : 0 0.5em;
+          }
+
+          &.disabled {
+            opacity       : 0.3;
+            pointer-events: none;
+          }
+
+          &:not(.disabled):hover {
+            color     : $white;
+            background: rgba($secondary, .75);
+          }
+        }
+      }
+
+      &.numbers > span {
+        width      : 2.25em;
+        height     : 2.25em;
+        line-height: 2.25em;
+        margin     : 0.1em;
+        padding    : 0 0.2em;
+        text-align : center;
+        display    : inline-block;
+        cursor     : pointer;
+        position   : relative;
+        @include ellipsis();
+
+        &.disabled {
+          pointer-events: none;
+          opacity       : 0.3;
+        }
+
+        &.muted {
+          color: $muted;
+        }
+
+        &.today {
+          font-weight: 600;
+          color      : $date-today-text;
+          background : $date-today-bg;
+
+          &:after {
+            content           : '';
+            border            : 3px solid transparent;
+            border-top-color  : $secondary;
+            border-right-color: $secondary;
+            position          : absolute;
+            top               : 1px;
+            right             : 1px;
+          }
+        }
+
+        &.selected {
+          color         : $date-active-text;
+          background    : $date-active-bg;
+          pointer-events: none;
+
+          &:after {
+            border-top-color  : $date-active-text;
+            border-right-color: $date-active-text;
+          }
+        }
+
+        &.hover:hover {
+          color     : $date-hover-text;
+          background: $date-hover-bg;
+        }
+      }
+    }
+  }
+
+  .ui-dv-footer,
+  .ui-dv-header {
+    @include flexbox($wrap:false, $align: center);
+
+    a {
+      font-weight: 600;
+      text-align : center;
+      padding    : 0.25em 0;
+      @include flex-fill();
+
+      .ui-icon {
+        opacity  : 0.5;
+        margin   : 0 0.5em;
+      }
+
+      &.disabled {
+        opacity       : 0.3;
+        pointer-events: none;
+      }
+    }
+
+    a.next,
+    a.prev {
+      padding: 0.25em 0.5em;
+      @include flex-auto();
+
+      .ui-icon {
+        opacity    : 1;
+        line-height: 1rem;
+      }
+    }
+
+    a:hover {
+      color     : $white;
+      background: rgba($secondary, .75);
+    }
+  }
+
+  .ui-dv-container {
+    span {
+      width      : 2.25em;
+      height     : 2.25em;
+      line-height: 2.25em;
+      margin     : 0.1em;
+      padding    : 0 0.2em;
+      text-align : center;
+      display    : inline-block;
+      cursor     : pointer;
+      position   : relative;
+      @include ellipsis();
+
+      &.disabled {
+        pointer-events: none;
+        opacity       : 0.3;
+      }
+
+      &.muted {
+        color: $muted;
+      }
+
+      &.today {
+        font-weight: 600;
+        color      : $date-today-text;
+        background : $date-today-bg;
+
+        &:after {
+          content           : '';
+          border            : 3px solid transparent;
+          border-top-color  : $secondary;
+          border-right-color: $secondary;
+          position          : absolute;
+          top               : 1px;
+          right             : 1px;
+        }
+      }
+
+      &.selected {
+        color         : $date-active-text;
+        background    : $date-active-bg;
+        pointer-events: none;
+
+        &:after {
+          border-top-color  : $date-active-text;
+          border-right-color: $date-active-text;
+        }
+      }
+
+      &.hover:hover {
+        color     : $date-hover-text;
+        background: $date-hover-bg;
+      }
+    }
+
+    .weekdays,
+    .weekdays .week {
+      font-weight: 600;
+      color      : $date-header-text;
+      background : $date-header-bg;
+    }
+
+    .week {
+      color      : $date-week-text;
+      font-size  : 0.75em;
+      font-weight: 600;
+    }
+
+    .month {
+      width      : 6em;
+      height     : 3.25em;
+      line-height: 3.25em;
+      margin     : 0.5em 0.1em;
+    }
+
+    .year {
+      width : 4.5em;
+      margin: 0.5em 0.1em;
+    }
+
+    .date {}
+  }
+}
+
+.rtl,
+[dir="rtl"] {
+  .ui-date-view .ui-dv-header a > .ui-icon {
+    @include transform(scaleX(-1));
+  }
+}

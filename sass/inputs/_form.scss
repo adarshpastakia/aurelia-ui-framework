@@ -40,7 +40,7 @@
 
   > div {
     max-height: 150em;
-    @include transition(max-height .5s);
+    @include transition(max-height 0.5s);
   }
 
   legend {
@@ -71,7 +71,12 @@
     line-height: 2.5;
     text-align : right;
     text-align : end;
+    @include flexbox($justify: flex-end, $align: center, $wrap: false);
     @include flex(0 0 8em);
+
+    > span {
+      line-height: 1;
+    }
 
     &:after {
       content : '*';
@@ -86,11 +91,13 @@
 
     &.ui-align-top {
       flex-basis: 100%;
+      @include justify-content(flex-start);
     }
   }
 
   &.ui-focus .ui-input-label {
-    color: $input-label-active-text;
+    color      : $input-label-active-text;
+    font-weight: 400;
   }
 
   .ui-input-info {
@@ -102,15 +109,16 @@
     padding    : 0.5em;
     line-height: 1.2;
     @include flex-auto();
-  }
 
-  .ui-option {
-    padding    : 0.25em;
-    line-height: 1.2;
-    @include flex-auto();
+    .ui-option {
+      padding    : 0;
+      line-height: 1;
+      font-size  : 1.1em;
+    }
   }
 
   > div {
+    line-height: 2.2;
     @include flex(1 1 8em);
   }
 

@@ -27,7 +27,6 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
                     this.ribbon.classList.add('ui-ribbon');
                     element.appendChild(this.ribbon);
                     element['style'].overflow = 'hidden';
-                    element['style'].position = 'relative';
                 }
                 UIRibbon.prototype.bind = function (bindingContext, overrideContext) {
                     if (isEmpty(this.message))

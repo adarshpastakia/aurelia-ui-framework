@@ -30,7 +30,7 @@ let UIForm = class UIForm {
         this.disableInputs(!!newValue || this.disabled);
     }
     disabledChanged(newValue) {
-        this.disableInputs(newValue);
+        this.disableInputs(!!newValue);
     }
     disableInputs(newValue) {
         _.forEach(this.inputEls, el => {
@@ -239,7 +239,7 @@ __decorate([
 UIInputLabel = UIInputLabel_1 = __decorate([
     autoinject(),
     containerless(),
-    inlineView(`<template><label ref="label" slot="inputLabel" class="ui-input-label \${class}" for.bind="for" css.bind="{'flex-basis':width}"><slot></slot></label></template>`),
+    inlineView(`<template><label ref="label" slot="inputLabel" class="ui-input-label \${class}" for.bind="for" css.bind="{'flex-basis':width}"><span><slot></slot></span></label></template>`),
     customElement('ui-input-label'),
     __metadata("design:paramtypes", [Element])
 ], UIInputLabel);

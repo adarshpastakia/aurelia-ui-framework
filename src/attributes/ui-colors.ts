@@ -46,8 +46,10 @@ export class UIColorBase {
     else {
       el = this.element;
     }
-    el.classList.remove(`ui-${this.prefix}${oldTheme}`);
-    el.classList.add(`ui-${this.prefix}${newTheme}`);
+    if (el.classList) {
+      el.classList.remove(`ui-${this.prefix}${oldTheme}`);
+      el.classList.add(`ui-${this.prefix}${newTheme}`);
+    }
   }
 }
 
@@ -210,6 +212,18 @@ export class UIThemeDarkBg extends UIColorBase {
 }
 
 @autoinject()
+@customAttribute('bg-light')
+export class UIThemeLightBg extends UIColorBase {
+  constructor(public element: Element) {
+    super(element);
+    this.prefix = 'bg-';
+  }
+  bind() {
+    this.value = 'light';
+  }
+}
+
+@autoinject()
 @customAttribute('bg-info')
 export class UIThemeInfoBg extends UIColorBase {
   constructor(public element: Element) {
@@ -251,6 +265,127 @@ export class UIThemeWarningBg extends UIColorBase {
   constructor(public element: Element) {
     super(element);
     this.prefix = 'bg-';
+  }
+  bind() {
+    this.value = 'warning';
+  }
+}
+
+
+
+@autoinject()
+@customAttribute('text-theme')
+export class UIColorThemeText extends UIColorBase {
+  constructor(public element: Element) {
+    super(element);
+    this.prefix = 'text-';
+  }
+  valueChanged(newValue) {
+    this.changeTheme(this.value, newValue);
+  }
+}
+@autoinject()
+@customAttribute('text-primary')
+export class UIThemePrimaryText extends UIColorBase {
+  constructor(public element: Element) {
+    super(element);
+    this.prefix = 'text-';
+  }
+  bind() {
+    this.value = 'primary';
+  }
+}
+
+@autoinject()
+@customAttribute('text-secondary')
+export class UIThemeSecondaryText extends UIColorBase {
+  constructor(public element: Element) {
+    super(element);
+    this.prefix = 'text-';
+  }
+  bind() {
+    this.value = 'secondary';
+  }
+}
+
+@autoinject()
+@customAttribute('text-muted')
+export class UIThemeMutedText extends UIColorBase {
+  constructor(public element: Element) {
+    super(element);
+    this.prefix = 'text-';
+  }
+  bind() {
+    this.value = 'muted';
+  }
+}
+
+@autoinject()
+@customAttribute('text-dark')
+export class UIThemeDarkText extends UIColorBase {
+  constructor(public element: Element) {
+    super(element);
+    this.prefix = 'text-';
+  }
+  bind() {
+    this.value = 'dark';
+  }
+}
+
+@autoinject()
+@customAttribute('text-light')
+export class UIThemeLightText extends UIColorBase {
+  constructor(public element: Element) {
+    super(element);
+    this.prefix = 'text-';
+  }
+  bind() {
+    this.value = 'light';
+  }
+}
+
+@autoinject()
+@customAttribute('text-info')
+export class UIThemeInfoText extends UIColorBase {
+  constructor(public element: Element) {
+    super(element);
+    this.prefix = 'text-';
+  }
+  bind() {
+    this.value = 'info';
+  }
+}
+
+@autoinject()
+@customAttribute('text-danger')
+export class UIThemeDangerText extends UIColorBase {
+  constructor(public element: Element) {
+    super(element);
+    this.prefix = 'text-';
+  }
+  bind() {
+    this.value = 'danger';
+  }
+}
+
+@autoinject()
+@customAttribute('text-success')
+export class UIThemeSuccessText extends UIColorBase {
+  constructor(public element: Element) {
+    super(element);
+    this.prefix = 'text-';
+  }
+  bind() {
+    this.value = 'success';
+  }
+}
+
+@autoinject()
+@customAttribute('text-warning')
+export class UIThemeWarningText extends UIColorBase {
+  constructor(public element: Element) {
+    super(element);
+    this.prefix = 'text-';
   }
   bind() {
     this.value = 'warning';

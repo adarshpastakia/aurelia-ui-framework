@@ -1,5 +1,10 @@
 export declare class UIDrawer {
     element: Element;
+    css: {
+        show: string;
+        fluid: string;
+        large: string;
+    };
     constructor(element: Element);
     bind(bindingContext: Object, overrideContext: Object): void;
     position: string;

@@ -34,6 +34,8 @@
 }
 
 .ui-row {
+  @include flexbox($direction: row);
+
   > hr {
     @include flex(1 1 100%);
   }
@@ -56,19 +58,15 @@
     }
   }
 
-  &-h {
-    @include flexbox($direction: row);
-
-    &-reverse {
-      @include flexbox($direction: row-reverse);
-    }
+  &-h-reverse {
+    @include flex-direction(row-reverse);
   }
 
   &-v {
-    @include flexbox($direction: column);
+    @include flex-direction(column);
 
     &-reverse {
-      @include flexbox($direction: column-reverse);
+      @include flex-direction(column-reverse);
     }
   }
 
@@ -128,19 +126,19 @@
     @include flex(1 0 24em);
   }
 
-  &.ui-align-top {
+  &.ui-self-top {
     @include align-self(flex-start);
   }
 
-  &.ui-align-middle {
+  &.ui-self-middle {
     @include align-self(center);
   }
 
-  &.ui-align-bottom {
+  &.ui-self-bottom {
     @include align-self(flex-end);
   }
 
-  &.ui-align-stretch {
+  &.ui-self-stretch {
     @include align-self(stretch);
   }
 }

@@ -17,7 +17,6 @@ let UIRibbon = class UIRibbon {
         this.ribbon.classList.add('ui-ribbon');
         element.appendChild(this.ribbon);
         element['style'].overflow = 'hidden';
-        element['style'].position = 'relative';
     }
     bind(bindingContext, overrideContext) {
         if (isEmpty(this.message))

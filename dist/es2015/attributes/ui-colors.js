@@ -47,8 +47,10 @@ let UIColorBase = class UIColorBase {
         else {
             el = this.element;
         }
-        el.classList.remove(`ui-${this.prefix}${oldTheme}`);
-        el.classList.add(`ui-${this.prefix}${newTheme}`);
+        if (el.classList) {
+            el.classList.remove(`ui-${this.prefix}${oldTheme}`);
+            el.classList.add(`ui-${this.prefix}${newTheme}`);
+        }
     }
 };
 UIColorBase = __decorate([
@@ -271,6 +273,22 @@ UIThemeDarkBg = __decorate([
     __metadata("design:paramtypes", [Element])
 ], UIThemeDarkBg);
 export { UIThemeDarkBg };
+let UIThemeLightBg = class UIThemeLightBg extends UIColorBase {
+    constructor(element) {
+        super(element);
+        this.element = element;
+        this.prefix = 'bg-';
+    }
+    bind() {
+        this.value = 'light';
+    }
+};
+UIThemeLightBg = __decorate([
+    autoinject(),
+    customAttribute('bg-light'),
+    __metadata("design:paramtypes", [Element])
+], UIThemeLightBg);
+export { UIThemeLightBg };
 let UIThemeInfoBg = class UIThemeInfoBg extends UIColorBase {
     constructor(element) {
         super(element);
@@ -335,3 +353,163 @@ UIThemeWarningBg = __decorate([
     __metadata("design:paramtypes", [Element])
 ], UIThemeWarningBg);
 export { UIThemeWarningBg };
+let UIColorThemeText = class UIColorThemeText extends UIColorBase {
+    constructor(element) {
+        super(element);
+        this.element = element;
+        this.prefix = 'text-';
+    }
+    valueChanged(newValue) {
+        this.changeTheme(this.value, newValue);
+    }
+};
+UIColorThemeText = __decorate([
+    autoinject(),
+    customAttribute('text-theme'),
+    __metadata("design:paramtypes", [Element])
+], UIColorThemeText);
+export { UIColorThemeText };
+let UIThemePrimaryText = class UIThemePrimaryText extends UIColorBase {
+    constructor(element) {
+        super(element);
+        this.element = element;
+        this.prefix = 'text-';
+    }
+    bind() {
+        this.value = 'primary';
+    }
+};
+UIThemePrimaryText = __decorate([
+    autoinject(),
+    customAttribute('text-primary'),
+    __metadata("design:paramtypes", [Element])
+], UIThemePrimaryText);
+export { UIThemePrimaryText };
+let UIThemeSecondaryText = class UIThemeSecondaryText extends UIColorBase {
+    constructor(element) {
+        super(element);
+        this.element = element;
+        this.prefix = 'text-';
+    }
+    bind() {
+        this.value = 'secondary';
+    }
+};
+UIThemeSecondaryText = __decorate([
+    autoinject(),
+    customAttribute('text-secondary'),
+    __metadata("design:paramtypes", [Element])
+], UIThemeSecondaryText);
+export { UIThemeSecondaryText };
+let UIThemeMutedText = class UIThemeMutedText extends UIColorBase {
+    constructor(element) {
+        super(element);
+        this.element = element;
+        this.prefix = 'text-';
+    }
+    bind() {
+        this.value = 'muted';
+    }
+};
+UIThemeMutedText = __decorate([
+    autoinject(),
+    customAttribute('text-muted'),
+    __metadata("design:paramtypes", [Element])
+], UIThemeMutedText);
+export { UIThemeMutedText };
+let UIThemeDarkText = class UIThemeDarkText extends UIColorBase {
+    constructor(element) {
+        super(element);
+        this.element = element;
+        this.prefix = 'text-';
+    }
+    bind() {
+        this.value = 'dark';
+    }
+};
+UIThemeDarkText = __decorate([
+    autoinject(),
+    customAttribute('text-dark'),
+    __metadata("design:paramtypes", [Element])
+], UIThemeDarkText);
+export { UIThemeDarkText };
+let UIThemeLightText = class UIThemeLightText extends UIColorBase {
+    constructor(element) {
+        super(element);
+        this.element = element;
+        this.prefix = 'text-';
+    }
+    bind() {
+        this.value = 'light';
+    }
+};
+UIThemeLightText = __decorate([
+    autoinject(),
+    customAttribute('text-light'),
+    __metadata("design:paramtypes", [Element])
+], UIThemeLightText);
+export { UIThemeLightText };
+let UIThemeInfoText = class UIThemeInfoText extends UIColorBase {
+    constructor(element) {
+        super(element);
+        this.element = element;
+        this.prefix = 'text-';
+    }
+    bind() {
+        this.value = 'info';
+    }
+};
+UIThemeInfoText = __decorate([
+    autoinject(),
+    customAttribute('text-info'),
+    __metadata("design:paramtypes", [Element])
+], UIThemeInfoText);
+export { UIThemeInfoText };
+let UIThemeDangerText = class UIThemeDangerText extends UIColorBase {
+    constructor(element) {
+        super(element);
+        this.element = element;
+        this.prefix = 'text-';
+    }
+    bind() {
+        this.value = 'danger';
+    }
+};
+UIThemeDangerText = __decorate([
+    autoinject(),
+    customAttribute('text-danger'),
+    __metadata("design:paramtypes", [Element])
+], UIThemeDangerText);
+export { UIThemeDangerText };
+let UIThemeSuccessText = class UIThemeSuccessText extends UIColorBase {
+    constructor(element) {
+        super(element);
+        this.element = element;
+        this.prefix = 'text-';
+    }
+    bind() {
+        this.value = 'success';
+    }
+};
+UIThemeSuccessText = __decorate([
+    autoinject(),
+    customAttribute('text-success'),
+    __metadata("design:paramtypes", [Element])
+], UIThemeSuccessText);
+export { UIThemeSuccessText };
+let UIThemeWarningText = class UIThemeWarningText extends UIColorBase {
+    constructor(element) {
+        super(element);
+        this.element = element;
+        this.prefix = 'text-';
+    }
+    bind() {
+        this.value = 'warning';
+    }
+};
+UIThemeWarningText = __decorate([
+    autoinject(),
+    customAttribute('text-warning'),
+    __metadata("design:paramtypes", [Element])
+], UIThemeWarningText);
+export { UIThemeWarningText };

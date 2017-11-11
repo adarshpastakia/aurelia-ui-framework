@@ -59,8 +59,10 @@ var UIColorBase = (function () {
         else {
             el = this.element;
         }
-        el.classList.remove("ui-" + this.prefix + oldTheme);
-        el.classList.add("ui-" + this.prefix + newTheme);
+        if (el.classList) {
+            el.classList.remove("ui-" + this.prefix + oldTheme);
+            el.classList.add("ui-" + this.prefix + newTheme);
+        }
     };
     UIColorBase = __decorate([
         aurelia_framework_1.noView(),
@@ -326,6 +328,25 @@ var UIThemeDarkBg = (function (_super) {
     return UIThemeDarkBg;
 }(UIColorBase));
 exports.UIThemeDarkBg = UIThemeDarkBg;
+var UIThemeLightBg = (function (_super) {
+    __extends(UIThemeLightBg, _super);
+    function UIThemeLightBg(element) {
+        var _this = _super.call(this, element) || this;
+        _this.element = element;
+        _this.prefix = 'bg-';
+        return _this;
+    }
+    UIThemeLightBg.prototype.bind = function () {
+        this.value = 'light';
+    };
+    UIThemeLightBg = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.customAttribute('bg-light'),
+        __metadata("design:paramtypes", [Element])
+    ], UIThemeLightBg);
+    return UIThemeLightBg;
+}(UIColorBase));
+exports.UIThemeLightBg = UIThemeLightBg;
 var UIThemeInfoBg = (function (_super) {
     __extends(UIThemeInfoBg, _super);
     function UIThemeInfoBg(element) {
@@ -402,3 +423,193 @@ var UIThemeWarningBg = (function (_super) {
     return UIThemeWarningBg;
 }(UIColorBase));
 exports.UIThemeWarningBg = UIThemeWarningBg;
+var UIColorThemeText = (function (_super) {
+    __extends(UIColorThemeText, _super);
+    function UIColorThemeText(element) {
+        var _this = _super.call(this, element) || this;
+        _this.element = element;
+        _this.prefix = 'text-';
+        return _this;
+    }
+    UIColorThemeText.prototype.valueChanged = function (newValue) {
+        this.changeTheme(this.value, newValue);
+    };
+    UIColorThemeText = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.customAttribute('text-theme'),
+        __metadata("design:paramtypes", [Element])
+    ], UIColorThemeText);
+    return UIColorThemeText;
+}(UIColorBase));
+exports.UIColorThemeText = UIColorThemeText;
+var UIThemePrimaryText = (function (_super) {
+    __extends(UIThemePrimaryText, _super);
+    function UIThemePrimaryText(element) {
+        var _this = _super.call(this, element) || this;
+        _this.element = element;
+        _this.prefix = 'text-';
+        return _this;
+    }
+    UIThemePrimaryText.prototype.bind = function () {
+        this.value = 'primary';
+    };
+    UIThemePrimaryText = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.customAttribute('text-primary'),
+        __metadata("design:paramtypes", [Element])
+    ], UIThemePrimaryText);
+    return UIThemePrimaryText;
+}(UIColorBase));
+exports.UIThemePrimaryText = UIThemePrimaryText;
+var UIThemeSecondaryText = (function (_super) {
+    __extends(UIThemeSecondaryText, _super);
+    function UIThemeSecondaryText(element) {
+        var _this = _super.call(this, element) || this;
+        _this.element = element;
+        _this.prefix = 'text-';
+        return _this;
+    }
+    UIThemeSecondaryText.prototype.bind = function () {
+        this.value = 'secondary';
+    };
+    UIThemeSecondaryText = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.customAttribute('text-secondary'),
+        __metadata("design:paramtypes", [Element])
+    ], UIThemeSecondaryText);
+    return UIThemeSecondaryText;
+}(UIColorBase));
+exports.UIThemeSecondaryText = UIThemeSecondaryText;
+var UIThemeMutedText = (function (_super) {
+    __extends(UIThemeMutedText, _super);
+    function UIThemeMutedText(element) {
+        var _this = _super.call(this, element) || this;
+        _this.element = element;
+        _this.prefix = 'text-';
+        return _this;
+    }
+    UIThemeMutedText.prototype.bind = function () {
+        this.value = 'muted';
+    };
+    UIThemeMutedText = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.customAttribute('text-muted'),
+        __metadata("design:paramtypes", [Element])
+    ], UIThemeMutedText);
+    return UIThemeMutedText;
+}(UIColorBase));
+exports.UIThemeMutedText = UIThemeMutedText;
+var UIThemeDarkText = (function (_super) {
+    __extends(UIThemeDarkText, _super);
+    function UIThemeDarkText(element) {
+        var _this = _super.call(this, element) || this;
+        _this.element = element;
+        _this.prefix = 'text-';
+        return _this;
+    }
+    UIThemeDarkText.prototype.bind = function () {
+        this.value = 'dark';
+    };
+    UIThemeDarkText = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.customAttribute('text-dark'),
+        __metadata("design:paramtypes", [Element])
+    ], UIThemeDarkText);
+    return UIThemeDarkText;
+}(UIColorBase));
+exports.UIThemeDarkText = UIThemeDarkText;
+var UIThemeLightText = (function (_super) {
+    __extends(UIThemeLightText, _super);
+    function UIThemeLightText(element) {
+        var _this = _super.call(this, element) || this;
+        _this.element = element;
+        _this.prefix = 'text-';
+        return _this;
+    }
+    UIThemeLightText.prototype.bind = function () {
+        this.value = 'light';
+    };
+    UIThemeLightText = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.customAttribute('text-light'),
+        __metadata("design:paramtypes", [Element])
+    ], UIThemeLightText);
+    return UIThemeLightText;
+}(UIColorBase));
+exports.UIThemeLightText = UIThemeLightText;
+var UIThemeInfoText = (function (_super) {
+    __extends(UIThemeInfoText, _super);
+    function UIThemeInfoText(element) {
+        var _this = _super.call(this, element) || this;
+        _this.element = element;
+        _this.prefix = 'text-';
+        return _this;
+    }
+    UIThemeInfoText.prototype.bind = function () {
+        this.value = 'info';
+    };
+    UIThemeInfoText = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.customAttribute('text-info'),
+        __metadata("design:paramtypes", [Element])
+    ], UIThemeInfoText);
+    return UIThemeInfoText;
+}(UIColorBase));
+exports.UIThemeInfoText = UIThemeInfoText;
+var UIThemeDangerText = (function (_super) {
+    __extends(UIThemeDangerText, _super);
+    function UIThemeDangerText(element) {
+        var _this = _super.call(this, element) || this;
+        _this.element = element;
+        _this.prefix = 'text-';
+        return _this;
+    }
+    UIThemeDangerText.prototype.bind = function () {
+        this.value = 'danger';
+    };
+    UIThemeDangerText = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.customAttribute('text-danger'),
+        __metadata("design:paramtypes", [Element])
+    ], UIThemeDangerText);
+    return UIThemeDangerText;
+}(UIColorBase));
+exports.UIThemeDangerText = UIThemeDangerText;
+var UIThemeSuccessText = (function (_super) {
+    __extends(UIThemeSuccessText, _super);
+    function UIThemeSuccessText(element) {
+        var _this = _super.call(this, element) || this;
+        _this.element = element;
+        _this.prefix = 'text-';
+        return _this;
+    }
+    UIThemeSuccessText.prototype.bind = function () {
+        this.value = 'success';
+    };
+    UIThemeSuccessText = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.customAttribute('text-success'),
+        __metadata("design:paramtypes", [Element])
+    ], UIThemeSuccessText);
+    return UIThemeSuccessText;
+}(UIColorBase));
+exports.UIThemeSuccessText = UIThemeSuccessText;
+var UIThemeWarningText = (function (_super) {
+    __extends(UIThemeWarningText, _super);
+    function UIThemeWarningText(element) {
+        var _this = _super.call(this, element) || this;
+        _this.element = element;
+        _this.prefix = 'text-';
+        return _this;
+    }
+    UIThemeWarningText.prototype.bind = function () {
+        this.value = 'warning';
+    };
+    UIThemeWarningText = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.customAttribute('text-warning'),
+        __metadata("design:paramtypes", [Element])
+    ], UIThemeWarningText);
+    return UIThemeWarningText;
+}(UIColorBase));
+exports.UIThemeWarningText = UIThemeWarningText;

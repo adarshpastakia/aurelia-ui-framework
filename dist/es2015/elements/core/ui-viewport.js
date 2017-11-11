@@ -11,6 +11,7 @@ import { autoinject, customElement, bindable, inlineView, containerless, DOM } f
 import { AppRouter } from 'aurelia-router';
 import { UIEvent } from "../../utils/ui-event";
 import { UIUtils } from "../../utils/ui-utils";
+const CSS_PREFIX = 'ui-viewport';
 let UIViewport = class UIViewport {
     constructor(element) {
         this.element = element;
@@ -35,16 +36,16 @@ let UIViewport = class UIViewport {
 };
 UIViewport = __decorate([
     autoinject(),
-    inlineView(`<template class="ui-viewport">
+    inlineView(`<template class="${CSS_PREFIX} ui-row ui-row-v ui-align-stretch ui-nowrap">
   <compose view-model="./ui-glyphs"></compose>
   <slot name="ui-app-banner"></slot>
   <slot name="ui-app-header"></slot>
   <slot></slot>
-  <div class="ui-app-taskbar"><slot name="ui-app-taskbar"></slot><div class="ui-taskbutton-wrapper" ref="taskbarContainer"></div></div>
+  <div class="${CSS_PREFIX}-taskbar"><slot name="ui-app-taskbar"></slot><div class="${CSS_PREFIX}-taskbar-wrapper" ref="taskbarContainer"></div></div>
   <slot name="ui-app-footer"></slot>
 
   <div class="ui-dialog-container" ref="dialogContainer"></div>
-  <div class="ui-overlay-container" ref="overlayContainer"></div>
+  <div class="ui-overlay-container ui-row ui-row-v ui-align-end" ref="overlayContainer"></div>
 
   <ui-loader large busy.bind="router.isNavigating"></ui-loader>
 </template>`),
@@ -70,7 +71,7 @@ __decorate([
 UIRouterView = __decorate([
     autoinject(),
     containerless(),
-    inlineView('<template><router-view class="ui-router-view ${class}" name="\${name}"></router-view></template>'),
+    inlineView(`<template><router-view class="ui-router-view ui-column-fill ui-row ui-row-v ui-align-stretch ui-nowrap \${class}" name="\${name}"></router-view></template>`),
     customElement('ui-router-view'),
     __metadata("design:paramtypes", [Element])
 ], UIRouterView);
@@ -88,7 +89,7 @@ __decorate([
 UIAppHeader = __decorate([
     autoinject(),
     containerless(),
-    inlineView('<template><div class="ui-app-header ui-row ui-row-middle ${class}" slot="ui-app-header"><slot></slot></div></template>'),
+    inlineView(`<template><div class="${CSS_PREFIX}-header ui-column-auto ui-row ui-row-h ui-align-center ui-nowrap \${class}" slot="ui-app-header"><slot></slot></div></template>`),
     customElement('ui-app-header'),
     __metadata("design:paramtypes", [Element])
 ], UIAppHeader);
@@ -106,7 +107,7 @@ __decorate([
 UIAppBanner = __decorate([
     autoinject(),
     containerless(),
-    inlineView('<template><div class="ui-app-banner ${class}" slot="ui-app-banner"><slot></slot></div></template>'),
+    inlineView(`<template><div class="${CSS_PREFIX}-banner ui-column-auto \${class}" slot="ui-app-banner"><slot></slot></div></template>`),
     customElement('ui-app-banner'),
     __metadata("design:paramtypes", [Element])
 ], UIAppBanner);
@@ -124,7 +125,7 @@ __decorate([
 UIAppFooter = __decorate([
     autoinject(),
     containerless(),
-    inlineView('<template><div class="ui-app-footer ui-row ui-row-middle ui-row-spaced ${class}" slot="ui-app-footer"><slot></slot></div></template>'),
+    inlineView(`<template><div class="${CSS_PREFIX}-footer ui-column-auto ui-row ui-row-h ui-align-center ui-justify-between \${class}" slot="ui-app-footer"><slot></slot></div></template>`),
     customElement('ui-app-footer'),
     __metadata("design:paramtypes", [Element])
 ], UIAppFooter);
@@ -142,7 +143,7 @@ __decorate([
 UIAppQuickLinks = __decorate([
     autoinject(),
     containerless(),
-    inlineView('<template><div class="ui-app-taskbar-tools ${class}" slot="ui-app-taskbar"><slot></slot></div></template>'),
+    inlineView(`<template><div class="${CSS_PREFIX}-taskbar-tools \${class}" slot="ui-app-taskbar"><slot></slot></div></template>`),
     customElement('ui-app-quick-links'),
     __metadata("design:paramtypes", [Element])
 ], UIAppQuickLinks);
@@ -171,7 +172,7 @@ UIAppTitle = __decorate([
     autoinject(),
     containerless(),
     customElement('ui-app-title'),
-    inlineView('<template><a href.bind="href" class="ui-row ui-row-middle ui-app-title ${class}"><img if.bind="src" src.bind="src"/><span class="ui-col-auto"><slot></slot></span></a><div class="ui-col-fill"></div></template>'),
+    inlineView(`<template><a href.bind="href" class="${CSS_PREFIX}-title ui-row ui-row-h ui-align-center ui-nowrap \${class}"><img if.bind="src" src.bind="src" class="${CSS_PREFIX}-tile-image"/><span class="ui-column-auto"><slot></slot></span></a><div class="ui-column-fill"></div></template>`),
     __metadata("design:paramtypes", [Element])
 ], UIAppTitle);
 export { UIAppTitle };
