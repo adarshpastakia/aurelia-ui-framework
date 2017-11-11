@@ -3,8 +3,8 @@
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
-import {autoinject, customElement, bindable, bindingMode, children, inlineView, useView, containerless, View, DOM} from 'aurelia-framework';
-import {UIEvent} from "../../utils/ui-event";
+import { autoinject, customElement, bindable, bindingMode, children, inlineView, useView, containerless, View, DOM } from 'aurelia-framework';
+import { UIEvent } from "../../utils/ui-event";
 
 @autoinject()
 @inlineView('<template class="ui-input-group ui-option-group cols-\${cols}"><slot name="inputLabel"></slot><div class="ui-group-wrapper" change.trigger="changed($event)"><slot></slot></div></template>')
@@ -53,13 +53,15 @@ export class UIOptionGroup {
   <label for.bind="for" class="ui-option-label"><slot></slot></label></template>`)
 @customElement('ui-checkbox')
 export class UICheckbox {
-  constructor(public element: Element) { this.for = 'ui-checkbox-' + (UICheckbox.seed++); }
+  constructor(public element: Element) {
+    this.for = 'ui-checkbox-' + (UICheckbox.seed++);
+  }
 
   // aurelia hooks
   // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
-    this.checked = isTrue(this.checked);
     this.disabledChanged(this.disabled);
+    this.checked = this.checked || this.element.hasAttribute('checked');
   }
   // attached() { }
   // detached() { }
@@ -74,12 +76,11 @@ export class UICheckbox {
   private for = '';
   isDisabled = false;
 
-  disabledChanged(newValue) {
-    this.element.classList[(this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');
-  }
-
   disable(b) {
     this.element.classList[(this.isDisabled = (b || this.disabled)) ? 'add' : 'remove']('ui-disabled');
+  }
+  disabledChanged(newValue) {
+    this.disable(this.disabled = !!newValue);
   }
 }
 
@@ -112,12 +113,11 @@ export class UIRadio {
   private for = '';
   isDisabled = false;
 
-  disabledChanged(newValue) {
-    this.element.classList[(this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');
-  }
-
   disable(b) {
     this.element.classList[(this.isDisabled = (b || this.disabled)) ? 'add' : 'remove']('ui-disabled');
+  }
+  disabledChanged(newValue) {
+    this.disable(this.disabled = !!newValue);
   }
 
   changed($event) {
@@ -128,39 +128,26 @@ export class UIRadio {
 }
 
 @autoinject()
-@inlineView(`<template class="ui-option ui-switch-control \${theme}">
-<div class="ui-switch \${disabled?'ui-disabled':''}" css.bind="{width: size}">
+@inlineView(`<template class="ui-option ui-switch-control">
+<div class="ui-switch" css.bind="{width: size}">
   <input class="ui-switch-input" type="checkbox" id.bind="for" disabled.bind="disabled" checked.bind="checked" change.trigger="fireChange($event)"/>
   <label class="ui-switch-inner" for.bind="for" data-on="\${onLabel}" data-off="\${offLabel}"></label>
   <div class="ui-switch-handle"></div>
-</div><label class="ui-switch-label" for.bind="for"><slot></slot></label>
+</div><label class="ui-option-label" for.bind="for"><slot></slot></label>
 </template>`)
 @customElement('ui-switch')
 export class UISwitch {
   constructor(public element: Element) {
     this.for = 'ui-switch-' + (UISwitch.seed++);
-    if (this.element.hasAttribute('primary')) this.theme = 'primary';
-    else if (this.element.hasAttribute('secondary')) this.theme = 'secondary';
-    else if (this.element.hasAttribute('dark')) this.theme = 'dark';
-    else if (this.element.hasAttribute('info')) this.theme = 'info';
-    else if (this.element.hasAttribute('danger')) this.theme = 'danger';
-    else if (this.element.hasAttribute('success')) this.theme = 'success';
-    else if (this.element.hasAttribute('warning')) this.theme = 'warning';
   }
 
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
-    this.checked = isTrue(this.checked) || (this.value == this.onValue);
-    this.value = isTrue(this.checked) ? this.onValue : this.offValue;
-    this.disabled = isTrue(this.disabled);
+    this.checked = this.checked || this.element.hasAttribute('checked') || (this.value == this.onValue);
+    this.value = !!(this.checked) ? this.onValue : this.offValue;
+    this.disabledChanged(this.disabled);
   }
-  // attached() { }
-  // detached() { }
-  // unbind() { }
-  // end aurelia hooks
 
-  @bindable({ defaultBindingMode: bindingMode.twoWay }) checked: boolean = false;
+  @bindable({ defaultBindingMode: bindingMode.twoWay }) checked: any = false;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value: any = '';
 
   @bindable() size = 'auto';
@@ -170,7 +157,6 @@ export class UISwitch {
   @bindable() onValue = true;
   @bindable() offValue = false;
   @bindable() disabled = false;
-  @bindable() theme = 'default';
 
   static seed = 1;
   private for = '';
@@ -180,11 +166,14 @@ export class UISwitch {
     this.value = newValue ? this.onValue : this.offValue;
   }
   valueChanged(newValue) {
-    this.checked = newValue == this.onValue;
+    this.checked = newValue === this.onValue;
   }
 
   disable(b) {
     this.element.classList[(this.isDisabled = (b || this.disabled)) ? 'add' : 'remove']('ui-disabled');
+  }
+  disabledChanged(newValue) {
+    this.disable(this.disabled = !!newValue);
   }
 
   private fireChange($event) {

@@ -10,7 +10,7 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var __moduleName = context_1 && context_1.id;
-    var aurelia_framework_1, ui_event_1, UIAffixPoint, UIAffixContent, UISidebar;
+    var aurelia_framework_1, ui_event_1, UISidebar;
     return {
         setters: [
             function (aurelia_framework_1_1) {
@@ -21,27 +21,6 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
             }
         ],
         execute: function () {
-            UIAffixPoint = (function () {
-                function UIAffixPoint() {
-                }
-                UIAffixPoint = __decorate([
-                    aurelia_framework_1.inlineView('<template class="ui-affix-point"></template>'),
-                    aurelia_framework_1.customElement('ui-affix-point')
-                ], UIAffixPoint);
-                return UIAffixPoint;
-            }());
-            exports_1("UIAffixPoint", UIAffixPoint);
-            UIAffixContent = (function () {
-                function UIAffixContent() {
-                }
-                UIAffixContent = __decorate([
-                    aurelia_framework_1.containerless(),
-                    aurelia_framework_1.inlineView('<template><div class="ui-affix-content" slot="affix-content"><slot></slot></div></template>'),
-                    aurelia_framework_1.customElement('ui-affix-content')
-                ], UIAffixContent);
-                return UIAffixContent;
-            }());
-            exports_1("UIAffixContent", UIAffixContent);
             UISidebar = (function () {
                 function UISidebar(element) {
                     this.element = element;
@@ -50,38 +29,41 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                     this.position = "start";
                     this.glyph = 'glyph-arrow-left';
                     this.contentCls = '';
+                    this.compact = false;
                     this.miniDisplay = false;
                     this.collapsible = false;
                     if (element.hasAttribute('scroll'))
                         this.contentCls += ' ui-scroll';
                     if (element.hasAttribute('flex'))
-                        this.contentCls += ' ui-row-vertical';
+                        this.contentCls += ' ui-row-vertical ui-row-nowrap';
                     if (element.hasAttribute('padded'))
                         this.contentCls += ' ui-pad-all';
-                    if (element.hasAttribute('small'))
-                        element.classList.add('ui-small');
                     if (this.miniDisplay = element.hasAttribute('mini-display'))
                         element.classList.add('ui-mini-display');
                     this.collapsible = element.hasAttribute('collapsible');
+                    if (this.compact = element.hasAttribute('compact')) {
+                        element.classList.add('ui-compact');
+                        element.classList.add('ui-mini-display');
+                    }
                     this.obClick = ui_event_1.UIEvent.subscribe('mouseclick', function () {
                         element.classList.remove('ui-show-overlay');
                     });
                 }
                 UISidebar.prototype.bind = function (bindingContext, overrideContext) {
-                    this.collapsed = isTrue(this.collapsed);
-                    if (this.position == 'end')
+                    this.collapsed = !!(this.collapsed);
+                    if (this.position === 'end' && this.glyph === 'glyph-arrow-left')
                         this.glyph = "glyph-arrow-right";
                 };
                 UISidebar.prototype.attached = function () {
-                    this.affixPoint = this.element.querySelector('.ui-affix-point');
-                    this.affixEl = this.element.querySelector('.ui-affix-content');
+                    if (this.label instanceof HTMLElement)
+                        [this.labelEl.innerHTML = '', this.labelEl.appendChild(this.label)];
                 };
                 UISidebar.prototype.detached = function () {
                     if (this.obClick)
                         this.obClick.dispose();
                 };
                 UISidebar.prototype.collapsedChanged = function (newValue) {
-                    this.glyph = (this.position == 'end' && !isTrue(newValue)) || (this.position == 'start' && isTrue(newValue)) ? "glyph-arrow-right" : "glyph-arrow-left";
+                    this.glyph = (this.position == 'end' && !(newValue)) || (this.position == 'start' && !!(newValue)) ? "glyph-arrow-right" : "glyph-arrow-left";
                 };
                 UISidebar.prototype.toggleCollapse = function ($event) {
                     this.collapsed = !this.collapsed;
@@ -97,17 +79,6 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                     else
                         this.element.classList.remove('ui-show-overlay');
                 };
-                UISidebar.prototype.watchScroll = function (e) {
-                    if (this.affixEl) {
-                        var point = 0;
-                        if (this.affixPoint)
-                            point = this.affixPoint.offsetTop;
-                        if (this.contentEl.scrollTop > point)
-                            this.affixEl.classList.add('ui-animate');
-                        else
-                            this.affixEl.classList.remove('ui-animate');
-                    }
-                };
                 __decorate([
                     aurelia_framework_1.bindable(),
                     __metadata("design:type", Object)
@@ -122,7 +93,7 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                 ], UISidebar.prototype, "position", void 0);
                 UISidebar = __decorate([
                     aurelia_framework_1.autoinject(),
-                    aurelia_framework_1.inlineView("<template class=\"ui-sidebar ui-row-vertical ui-row-stretch ${collapsed?'ui-collapse':''} ${position}\" click.trigger=\"showOverlay($event)\">\n  <div class=\"ui-col-auto ui-row ui-row-end ui-row-middle ui-sidebar-head ${position=='start'?'':'ui-reverse'}\" if.bind=\"collapsible || label\">\n  <div class=\"ui-col-fill ui-sidebar-title\">${label}</div>\n  <a click.trigger=\"toggleCollapse($event)\" class=\"ui-col-auto ui-sidebar-close\" if.bind=\"collapsible\"><ui-glyph glyph.bind=\"glyph\"></ui-glyph></a></div>\n  <slot name=\"affix-content\"></slot>\n  <div class=\"ui-col-fill ui-sidebar-content ${contentCls}\" ref=\"contentEl\" scroll.trigger=\"watchScroll($event) & debounce\"><slot></slot></div>\n</template>"),
+                    aurelia_framework_1.inlineView("<template class=\"ui-sidebar ui-row-vertical ui-row-stretch ui-row-nowrap ${compact || collapsed?'ui-collapse':''} ui-${position}\" click.trigger=\"showOverlay($event)\">\n  <div class=\"ui-col-auto ui-row ui-row-end ui-row-middle ui-sidebar-head ${position=='start'?'':'ui-reverse'}\" if.bind=\"!compact && (collapsible || label)\">\n  <div class=\"ui-col-fill ui-sidebar-title\" ref=\"labelEl\">${label}</div>\n  <a click.trigger=\"toggleCollapse($event)\" class=\"ui-col-auto ui-sidebar-close\" if.bind=\"collapsible\"><ui-glyph glyph.bind=\"glyph\"></ui-glyph></a></div>\n  <slot name=\"affix-content\"></slot>\n  <div class=\"ui-col-fill ui-sidebar-content ${contentCls}\" ref=\"contentEl\"><slot></slot></div>\n</template>"),
                     aurelia_framework_1.customElement('ui-sidebar'),
                     __metadata("design:paramtypes", [Element])
                 ], UISidebar);

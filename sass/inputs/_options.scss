@@ -8,11 +8,11 @@
   .ui-group-wrapper {
     background: none;
     box-shadow: none;
+    flex-wrap : wrap;
     @include flex(1 1 1em);
-    @include flex-wrap(wrap);
 
     .ui-option {
-      min-width: 5em;
+      margin: 0 0 0.25em;
     }
   }
 
@@ -39,15 +39,16 @@
   }
 
   &.ui-vertical .ui-group-wrapper {
-    @include flex-direction(column);
+    flex-direction: column;
   }
 }
 
 .ui-option {
   line-height: 1;
+  font-size  : 1.25em;
   white-space: nowrap;
   position   : relative;
-  display    : inline-block;
+  @include flexbox($direction: row, $display: inline-flex, $wrap:false);
 
   input {
     width   : 1em;
@@ -68,10 +69,12 @@
   }
 
   .ui-option-label {
-    color      : $input-label-text;
-    font-size  : 0.8em;
-    line-height: 1em;
+    color      : $input-label-active-text;
+    font-size  : 0.75em;
+    line-height: 1.25;
+    padding    : 0 0.25em;
     @include ellipsis();
+    @include flex(0 1 auto);
   }
 
   &.ui-radio input:checked ~ .off {

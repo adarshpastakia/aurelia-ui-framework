@@ -1,0 +1,45 @@
+.x-admin-layout {
+  z-index: 25; }
+  .x-admin-layout .x-dash-card {
+    border: none;
+    display: block; }
+    .x-admin-layout .x-dash-card.bgLighter {
+      background: #ecf0f1; }
+      .x-admin-layout .x-dash-card.bgLighter:hover {
+        background: #dde4e6; }
+    .x-admin-layout .x-dash-card.bgLight {
+      background: #bdc3c7; }
+      .x-admin-layout .x-dash-card.bgLight:hover {
+        background: #afb6bb; }
+    .x-admin-layout .x-dash-card.bgMedium {
+      background: #95a5a6; }
+      .x-admin-layout .x-dash-card.bgMedium:hover {
+        background: #87999a; }
+    .x-admin-layout .x-dash-card.bgDark {
+      background: #7f8c8d; }
+      .x-admin-layout .x-dash-card.bgDark:hover {
+        background: #727f80; }
+    .x-admin-layout .x-dash-card.bgDarker {
+      background: #34495e; }
+      .x-admin-layout .x-dash-card.bgDarker:hover {
+        background: #2b3c4e; }
+  .x-admin-layout .ui-sidebar,
+  .x-admin-layout .x-dash-card .ui-header,
+  .x-admin-layout .x-dash-card .ui-panel-body {
+    background: none;
+    border: none; }
+  .x-admin-layout .x-dash-card .ui-header {
+    font-weight: 400; }
+  .x-admin-layout .ui-sidebar-content {
+    background: #2b3c4e;
+    border: none; }
+  .x-admin-layout .x-app-header {
+    height: 4em; }
+  .x-admin-layout .x-app-header {
+    color: #FFFEFC;
+    background: #2980b9; }
+    .x-admin-layout .x-app-header > .ui-icon {
+      height: 4em;
+      width: 4em;
+      padding: 1em;
+      background: #20638f; }

@@ -3,68 +3,71 @@
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
-import {autoinject, customElement, bindable, bindingMode, children, inlineView, useView, containerless, View, DOM} from 'aurelia-framework';
+import { autoinject, customElement, bindable, inlineView } from 'aurelia-framework';
+import { UIEvent } from '../../utils/ui-event';
 
 @autoinject()
-@inlineView(`<template class="ui-drawer \${position}">
-  <div class="ui-drawer-content ui-row-vertical ui-align-stretch">
-    <a class="ui-drawer-close ui-col-auto" click.trigger="closeDrawer()"><ui-glyph glyph.bind="glyph"></ui-glyph></a>
-    <div class="ui-drawer-body ui-col-fill \${bodyCls}"><slot></slot></div>
+@inlineView(`<template class="ui-drawer ui-drawer-\${position}">
+  <div class="ui-drawer-content ui-row ui-row-v ui-align-stretch ui-nowrap">
+    <a class="ui-drawer-close" click.trigger="closeDrawer()"><ui-glyph glyph.bind="closeGlyph"></ui-glyph></a>
+    <div class="ui-drawer-body \${bodyCls}"><slot></slot></div>
   </div>
   <div class="ui-drawer-shim" click.trigger="closeDrawer()"></div>
 </template>`)
 @customElement('ui-drawer')
 export class UIDrawer {
+  css = {
+    show: 'ui-drawer-show',
+    fluid: 'ui-drawer-fluid',
+    large: 'ui-drawer-large'
+  };
+
   constructor(public element: Element) {
+    if (element.hasAttribute('fluid')) this.element.classList.add(this.css.fluid);
+    if (element.hasAttribute('large')) this.element.classList.add(this.css.large);
     if (element.hasAttribute('close-on-click')) element.addEventListener('mouseup', (e: any) => { if (e.button == 0) this.closeDrawer(); });
   }
-
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     if (this.element.hasAttribute('scroll')) this.bodyCls += ' ui-scroll';
     if (this.element.hasAttribute('padded')) this.bodyCls += ' ui-pad-all';
 
-    if (this.position == 'end') this.glyph = 'glyph-arrow-right';
+    if (this.position == 'end' && this.closeGlyph === 'glyph-arrow-left') this.closeGlyph = 'glyph-arrow-right';
   }
-  // attached() { }
-  // detached() { }
-  // unbind() { }
-  // end aurelia hooks
 
   @bindable() position = "start";
+  @bindable() closeGlyph = 'glyph-arrow-left';
 
-  private glyph = 'glyph-arrow-left';
   private bodyCls = '';
-
   closeDrawer() {
-    this.element.classList.remove('show');
+    if (UIEvent.fireEvent('beforeclose', this.element) !== false) {
+      this.element.classList.remove(this.css.show);
+      UIEvent.fireEvent('close', this.element);
+    }
+  }
+  openDrawer() {
+    if (UIEvent.fireEvent('beforeopen', this.element) !== false) {
+      this.element.classList.add(this.css.show);
+      UIEvent.fireEvent('open', this.element);
+    }
   }
 }
 
 @autoinject()
-@inlineView('<template class="ui-drawer-toggle ui-link" click.trigger="openDrawer($event)"><slot><ui-glyph glyph.bind="glyph"></ui-glyph></slot></template>')
+@inlineView('<template class="ui-drawer-toggle" click.trigger="openDrawer($event)"><slot><ui-glyph glyph.bind="glyph"></ui-glyph></slot></template>')
 @customElement('ui-drawer-toggle')
 export class UIDrawerToggle {
   constructor(public element: Element) { }
-
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
-  // bind(bindingContext: Object, overrideContext: Object) { }
-  // attached() { }
-  // detached() { }
-  // unbind() { }
-  // end aurelia hooks
 
   @bindable() drawer;
   @bindable() glyph = 'glyph-handle-menu';
 
   openDrawer(evt) {
+    if (!this.drawer) throw Error('Drawer element required');
     if (evt.button != 0) return true;
     evt.stopPropagation();
     evt.cancelBubble = true;
-    if (this.drawer && this.drawer.classList) {
-      this.drawer.classList.add('show');
+    if (this.drawer && this.drawer.au.controller) {
+      this.drawer.au.controller.viewModel.openDrawer();
     }
   }
 }

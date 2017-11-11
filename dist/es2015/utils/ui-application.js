@@ -57,7 +57,7 @@ let UIApplication = class UIApplication {
         this.AuthToken = user.token;
         this.Authenticated = true;
         this.persist('AppUsername', user.username);
-        this.persist('AppPassword', user.password);
+        this.persist('AppToken', user.remember ? user.token : null);
         this.navigateTo(route || 'home');
         UIEvent.broadcast('auf:login');
     }
@@ -65,7 +65,7 @@ let UIApplication = class UIApplication {
         this.AuthUser = null;
         this.AuthToken = null;
         UIEvent.broadcast('auf:logout');
-        this.persist('AppPassword', null);
+        this.persist('AppToken', null);
         this.Authenticated = false;
         this.navigateTo('login');
     }
@@ -113,6 +113,10 @@ let UIApplication = class UIApplication {
         }
         return null;
     }
+    clearPersist() {
+        if (window.localStorage)
+            window.localStorage.clear();
+    }
     info(tag, msg, ...rest) {
         this.logger.info.apply(this.logger, [`${tag}::${msg}`].concat(rest));
     }
@@ -151,15 +155,9 @@ let UIApplication = class UIApplication {
         UIUtils.toast(config);
     }
     alert(config) {
-        if (typeof config === 'string')
-            config = { message: config };
-        config.glyph = config.glyph || 'glyph-alert-info';
         return UIUtils.alert(config);
     }
     confirm(config) {
-        if (typeof config === 'string')
-            config = { message: config };
-        config.glyph = config.glyph || 'glyph-alert-question';
         return UIUtils.confirm(config);
     }
     prompt(config) {

@@ -53,7 +53,6 @@ var UIDropdown = (function () {
             if (it.value != newValue)
                 this.value = it.value;
             this.display = it.element.innerText;
-            this.glyph = it.element.au.controller.viewModel.glyph;
             (this.selected = it).element.classList.add('ui-selected');
             ui_event_1.UIEvent.queueTask(function () { return ui_event_1.UIEvent.fireEvent('change', _this.element, _this.value); });
         }
@@ -71,7 +70,7 @@ var UIDropdown = (function () {
         });
     };
     UIDropdown.prototype.disabledChanged = function (newValue) {
-        this.element.classList[(this.isDisabled = this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');
+        this.element.classList[(this.isDisabled = this.disabled = !!newValue) ? 'add' : 'remove']('ui-disabled');
     };
     UIDropdown.prototype.disable = function (b) {
         this.element.classList[(this.isDisabled = (b || this.disabled)) ? 'add' : 'remove']('ui-disabled');
@@ -79,11 +78,11 @@ var UIDropdown = (function () {
     UIDropdown.prototype.select = function (evt) {
         var _this = this;
         var params = { value: evt.detail.value, model: evt.detail.model };
-        if (isFunction(this.beforeselect)) {
+        if (typeof this.beforeselect === "function") {
             var ret = this.beforeselect(params);
             if (ret instanceof Promise)
                 ret.then(function (b) {
-                    if (b) {
+                    if (b !== false) {
                         _this.doChange(params);
                     }
                 });
@@ -130,10 +129,14 @@ var UIDropdown = (function () {
     __decorate([
         aurelia_framework_1.bindable(),
         __metadata("design:type", Object)
+    ], UIDropdown.prototype, "glyph", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
     ], UIDropdown.prototype, "beforeselect", void 0);
     UIDropdown = __decorate([
         aurelia_framework_1.autoinject(),
-        aurelia_framework_1.inlineView("<template class=\"ui-dropdown\" select.trigger=\"select($event)\" click.trigger=\"toggleDropdown($event)\" css.bind=\"{'min-width':width}\">\n  <div class=\"ui-label\"><span><ui-glyph class=\"ui-invalid-icon\" glyph=\"glyph-invalid\"></ui-glyph>\n  <ui-glyph class.bind=\"glyph\" glyph.bind=\"glyph\" if.bind=\"glyph\"></ui-glyph>${display}</span>\n  <ui-glyph class=\"ui-caret\" glyph=\"glyph-caret-down\"></ui-glyph></div>\n  <ul class=\"ui-list-container ui-floating\" ref=\"dropdown\"><slot></slot></ul></template>"),
+        aurelia_framework_1.inlineView("<template class=\"ui-dropdown\" select.trigger=\"select($event)\" click.trigger=\"toggleDropdown($event)\" css.bind=\"{'min-width':width}\">\n  <div class=\"ui-label\">\n  <div class=\"ui-addon-icon\" if.bind=\"glyph\"><ui-glyph class.bind=\"glyph\" glyph.bind=\"glyph\"></ui-glyph></div>\n  <ui-glyph class=\"ui-invalid-icon\" glyph=\"glyph-invalid\"></ui-glyph><span>${display}</span>\n  <ui-glyph class=\"ui-caret\" glyph=\"glyph-caret-down\"></ui-glyph></div>\n  <ul class=\"ui-list-container ui-floating\" ref=\"dropdown\"><slot></slot></ul></template>"),
         aurelia_framework_1.customElement('ui-dropdown'),
         __metadata("design:paramtypes", [Element])
     ], UIDropdown);

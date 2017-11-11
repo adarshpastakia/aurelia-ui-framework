@@ -10,13 +10,13 @@ export declare class UIDropdown {
     model: any;
     disabled: boolean;
     defaultText: string;
+    glyph: string;
     beforeselect: any;
     private tether;
     private dropdown;
     private obMouseup;
     private obLocale;
     private selected;
-    private glyph;
     private display;
     private isDisabled;
     valueChanged(newValue: any): void;

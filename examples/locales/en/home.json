@@ -1,0 +1,156 @@
+{
+  "start":
+  {
+    "title": "Getting Started",
+    "description": ""
+  },
+  "examples":
+  {
+    "title": "App Examples",
+    "description": ""
+  },
+  "theming":
+  {
+    "title": "Theming",
+    "description": "Themeable stylings built on Compass-Sass",
+
+    "titleOverview": "Overview",
+    "descOverview": "Basic theming overview",
+    "titleTypo": "Typography",
+    "descTypo": "Font styles and contextual colors",
+    "titleGlyphs": "SVG Glyphs",
+    "descGlyphs": "SVG Icon Glyphs built using IcoMooon App",
+    "titleFlags": "Flag Icons",
+    "descFlags": "Country flags"
+  },
+  "core":
+  {
+    "title": "Core Elements",
+    "description": "Core viewport and page components for building applications",
+
+    "titleViewport": "Viewport",
+    "descViewport": "Main application viewport",
+    "titlePages": "Page Components",
+    "descPages": "Page components for creating various page layouts",
+    "titleGrid": "Responsive Layout",
+    "descGrid": "Responsive layout for various display viewports"
+  },
+  "inputs":
+  {
+    "title": "Input Elements",
+    "description": "Comprehensive input elements for business related forms",
+
+    "titleButtons": "Buttons",
+    "descButtons": "Basic buttons with groups and dropdowns",
+    "titleText": "Text Inputs",
+    "descText": "Basic inputs for text, numbers and phone numbers",
+    "titleMulti": "Multiline Input",
+    "descMulti": "Multiline input with auto-complete",
+    "titleOption": "Option Inputs",
+    "descOption": "Checkbox, radio and switch controls",
+    "titleLists": "List Inputs",
+    "descLists": "Common list, combo and tag inputs, with search capability",
+    "titleDate": "Date Inputs",
+    "descDate": "Date/Time inputs",
+    "titleMd": "Content Editor",
+    "descMd": "Content editors for multi-language and markdown content",
+    "titleValidation": "Input Validation",
+    "descValidation": "Input validations and error displays"
+  },
+  "comps":
+  {
+    "title": "UI Components",
+    "description": "",
+
+    "titleMenus": "Menus",
+    "descMenus": "Menu components for creating menu lists and menubars",
+    "titleDrawer": "Drawer",
+    "descDrawer": "Sliding side drawer",
+    "titleSidebar": "Sidebar",
+    "descSidebar": "In page sidebar",
+    "titleToolbar": "Toolbar",
+    "descToolbar": "Simple toolbar for dialogs and panels",
+    "titleStats": "Statsbar",
+    "descStats": "Horizontal simple statistics display",
+    "titlePanels": "Panels",
+    "descPanels": "Create panels with optional collapsible and closable",
+    "titleDialogs": "Dialogs",
+    "descDialogs": "Create panels with optional collapsible and closable",
+    "titleAlerts": "Alerts",
+    "descAlerts": "Alert dialogs and floating toast messages",
+    "titleCrumbs": "Breadcrumbs",
+    "descCrumbs": "Themed breadcrumbs for navigating through various levels",
+    "titleTabs": "Tab Panel",
+    "descTabs": "Tabbed panels",
+    "titleTree": "Tree Panel",
+    "descTree": "Tree styled data display with optional checkable nodes",
+    "titleGrid": "Datagrid",
+    "descGrid": "Functional datagrid with resizable columns and summary row."
+  },
+  "apis":
+  {
+    "title": "API Classes",
+
+    "titleApp": "Application",
+    "descApp": "Application singleton for common functionality shared across entire app",
+    "titleHttp": "Http Client",
+    "descHttp": "Extended aurelia-fetch-client for http requests",
+    "titleData": "Data Model",
+    "descData": "Generic data model for serializing/deserializing pojo data",
+    "titleEvent": "Event Handling",
+    "descEvent": "Helper class for event broadcast, subscribe and task queues"
+  },
+
+  "support":
+  {
+    "title": "Browser Support",
+
+    "tested": "Tested",
+    "untested": "Untested",
+    "issues": "Known Issues",
+
+    "sectionCore": "Core Elements",
+    "sectionInputs": "Input Elements",
+    "sectionComponents": "UI Components",
+    "sectionApi": "API Classes",
+
+    "titleGlyphs": "SVG Glyphs",
+    "titleGrid": "Responsive Layout",
+    "titleViewport": "Viewport",
+    "titlePage": "Page",
+    "titleSection": "Section",
+    "titleContent": "Content",
+    "titleButton": "Button",
+    "titleText": "Text",
+    "titleMultiline": "Multiline",
+    "titlePhone": "Phone",
+    "titleList": "List",
+    "titleCombo": "Combo",
+    "titleTag": "Tag",
+    "titleDate": "Date",
+    "titleRadio": "Radio",
+    "titleCheckbox": "Checkbox",
+    "titleSwitch": "Switch",
+    "titleLanguage": "Language",
+    "titleMarkdown": "Markdown",
+    "titleValidation": "Validation",
+    "titleMenu": "Menu",
+    "titleMenubar": "Menubar",
+    "titlePanel": "Panel",
+    "titleDialog": "Dialog",
+    "titleAlerts": "Alerts",
+    "titleDrawer": "Drawer",
+    "titleToolbar": "Toolbar",
+    "titleSidebar": "Sidebar",
+    "titleStatsbar": "Statsbar",
+    "titleCrumbs": "Breadcrumbs",
+    "titleTabs": "Tab Panel",
+    "titleTree": "Tree Panel",
+    "titleDatagrid": "Datagrid",
+    "titleApp": "Application",
+    "titleHttp": "Http Client",
+    "titleData": "Data Model",
+    "titleEvent": "Event Handling",
+    "titleConvert": "Value Converters"
+  }
+}

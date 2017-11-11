@@ -1,0 +1,176 @@
+//
+// @description :
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+
+body,
+html {
+  height          : 100%;
+  width           : 100%;
+  padding         : 0;
+  margin          : 0;
+  line-height     : 1.5;
+  overflow        : hidden;
+  @include user-select(none);
+  color           : $base-text;
+  background-color: $base-bg;
+  font            : {
+    family: $base-font-family;
+    size  : $base-font-size;
+    weight: $base-font-weight;
+  }
+
+  .ui-selectable {
+    @include user-select(text);
+  }
+}
+@include selection {
+  background: $selection-bg;
+  color     : $selection-text;
+}
+
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+
+a,
+abbr,
+address,
+article,
+aside,
+b,
+big,
+blockquote,
+button,
+caption,
+cite,
+code,
+dd,
+del,
+dfn,
+div,
+dl,
+dt,
+em,
+fieldset,
+figcaption,
+figure,
+footer,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+header,
+i,
+img,
+input,
+ins,
+kbd,
+label,
+legend,
+li,
+nav,
+ol,
+optgroup,
+option,
+p,
+pre,
+progress,
+section,
+select,
+small,
+span,
+strong,
+sub,
+sup,
+textarea,
+ul {
+  margin: 0;
+}
+
+input::-ms-clear,
+select::-ms-clear,
+textarea::-ms-clear {
+  display: none;
+}
+
+input:-webkit-autofill,
+select:-webkit-autofill,
+textarea:-webkit-autofill {
+  background-color: transparent !important;
+}
+
+img {
+  border: none;
+}
+
+hr {
+  background  : none;
+  margin      : 0.25em;
+  border      : 1px solid transparent;
+  border-width: 1px 0;
+  border-color: rgba(#373737, .3) rgba(#373737, .3) #F7F9F0 #F7F9F0;
+  transform   : scaleY(.5);
+}
+
+a,
+button {
+  cursor     : pointer;
+  outline    : none;
+  font-weight: 400;
+}
+
+a {
+  text-decoration: none;
+  color          : $link-text;
+
+  &:hover {
+    color: $link-hover-text;
+  }
+
+  &.ui-external:after {
+    content       : '\2B00';
+    font-size     : 0.8em;
+    vertical-align: super;
+  }
+
+  &.disabled,
+  &[disabled] {
+    color         : $lightGray;
+    pointer-events: none;
+  }
+}
+
+textarea {
+  resize: vertical;
+}
+
+input,
+textarea {
+  font-size  : 1em;
+  line-height: 1;
+  outline    : none !important;
+  font-family: $base-font-family-input;
+  @include placeholder {
+    color: $placeholder-text;
+  }
+}
+
+table {
+  table-layout   : fixed;
+  border-spacing : 0;
+  border-collapse: collapse;
+}
+
+caption,
+td,
+th {
+  padding   : 0;
+  text-align: start;
+}

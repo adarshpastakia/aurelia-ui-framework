@@ -1,9 +1,9 @@
-import {singleton, autoinject} from "aurelia-framework";
-import {Redirect, Router} from "aurelia-router";
-import {getLogger} from "aurelia-logging";
-import {UIUtils} from "./ui-utils";
-import {UIEvent} from "./ui-event";
-import {UIConstants} from "./ui-constants";
+import { singleton, autoinject } from "aurelia-framework";
+import { Redirect, Router } from "aurelia-router";
+import { getLogger } from "aurelia-logging";
+import { UIUtils } from "./ui-utils";
+import { UIEvent } from "./ui-event";
+import { UIConstants } from "./ui-constants";
 
 @singleton()
 @autoinject()
@@ -69,7 +69,7 @@ export class UIApplication {
     this.Authenticated = true;
 
     this.persist('AppUsername', user.username);
-    this.persist('AppPassword', user.password);
+    this.persist('AppToken', user.remember ? user.token : null);
 
     this.navigateTo(route || 'home');
     UIEvent.broadcast('auf:login');
@@ -78,7 +78,7 @@ export class UIApplication {
     this.AuthUser = null;
     this.AuthToken = null;
     UIEvent.broadcast('auf:logout');
-    this.persist('AppPassword', null);
+    this.persist('AppToken', null);
     this.Authenticated = false;
     this.navigateTo('login');
   }
@@ -133,6 +133,10 @@ export class UIApplication {
     return null;
   }
 
+  clearPersist() {
+    if (window.localStorage) window.localStorage.clear();
+  }
+
   /** Logger **/
   info(tag, msg, ...rest) {
     this.logger.info.apply(this.logger, [`${tag}::${msg}`].concat(rest));
@@ -174,22 +178,17 @@ export class UIApplication {
   }
 
 
-  alert(config) {
-    if (typeof config === 'string') config = { message: config };
-    config.glyph = config.glyph || 'glyph-alert-info';
+  alert(config): Promise<boolean> {
     return UIUtils.alert(config);
   }
-  confirm(config) {
-    if (typeof config === 'string') config = { message: config };
-    config.glyph = config.glyph || 'glyph-alert-question';
+  confirm(config): Promise<boolean> {
     return UIUtils.confirm(config);
   }
-  prompt(config) {
+  prompt(config): Promise<string> {
     if (typeof config === 'string') config = { message: config };
     return UIUtils.prompt(config);
   }
 }
-
 
 @singleton()
 @autoinject()

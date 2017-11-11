@@ -25,20 +25,19 @@
 .ui-panel {
   overflow     : hidden;
   position     : relative;
-  max-height   : 50rem;
+  max-height   : 100vh;
   border       : 1px solid $base-border-color;
   border-radius: $base-border-radius;
-  @include flex-column($align:stretch);
+  @include flexbox($direction: column, $align:stretch, $wrap: false);
   @include transition(max-height .5s);
 
   .ui-panel-body {
-    max-height: 50em;
     position  : relative;
-    background: $base-bg;
+    background: lighten($white, 10%);
     @include flex(1 1 auto);
 
     &.ui-flexed {
-      @include flex-column();
+      @include flexbox($direction: column);
     }
   }
 
@@ -47,7 +46,7 @@
       @include transform(rotate(-180deg));
     }
 
-    max-height: 2.1em !important;
+    max-height: 2.5em !important;
   }
 
   &.ui-expand {
@@ -59,38 +58,51 @@
 }
 
 .ui-header {
-  line-height  : 2em;
-  padding      : 0 0.5em;
-  background   : $base-bg;
-  text-shadow  : -1px -1px 0 rgba(128,128,128, .1);
+  background   : $light;
   border-bottom: 1px solid rgba($base-border-color, .3);
   @include flex-auto();
-  @include flex-row($align:center, $wrap:false);
+  @include flexbox($direction: row,$align:center, $wrap:false);
 
   .ui-header-title {
+    align-self: stretch;
     @include ellipsis();
+    @include flex-fill();
+    @include flexbox($direction: row,$align:center, $wrap:false);
 
-    .ui-icon {
-      margin: 0 0.25em;
+    .ui-title-icon {
+      align-self: stretch;
+      padding   : 0.5em;
+    }
+
+    .ui-title {
+      padding: 0.5em;
+    }
+
+    &.ui-icon-hilight {
+      .ui-title-icon {
+        background: rgba(darken($button-default-bg, 20%), .5);
+      }
     }
   }
 
   .ui-header-tool {
     line-height: 1;
+
+    &:last-child {
+      @include margin(end, .5em);
+    }
   }
 
   .ui-header-button {
     color        : rgba($base-text, .7);
-    background   : lighten($base-bg, 2%);
+    background   : lighten($light, 2%);
     border-radius: $base-border-radius;
-    border       : 1px solid rgba(shade($base-bg, 20%), .5);
-    text-shadow  : -1px -1px 0 rgba(0, 0, 0, .1);
+    border       : 1px solid rgba($base-border-color, .5);
     line-height  : 1.5;
-    padding      : 0 0.5em;
+    padding      : 0.25em 0.5em;
     margin       : 0 0.25em;
 
     .ui-icon {
-      margin-top: -.25em;
       @include transition(transform .5s);
       @include transform-origin(50% 50% 0);
     }
@@ -98,18 +110,20 @@
     &:disabled {
       opacity       : 0.5;
       pointer-events: none;
+      background    : rgba($dark, .25);
     }
 
     &:hover {
       color       : rgba($base-text, .9);
-      border-color: rgba(shade($base-bg, 40%), .5);
+      border-color: rgba($base-border-color, .75);
     }
 
-    &:active {}
+    &:active {
+      background: rgba($dark, .1);
+    }
   }
 }
 @include header-theme(dark, $dark);
-@include header-theme(light, $light, $secondary);
 @include header-theme(primary, $primary);
 @include header-theme(secondary, $secondary);
 @include header-theme(info, $info);

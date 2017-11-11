@@ -1,0 +1,55 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <ui-page animate>
+    <x-container source.bind="source" wiki.bind="wiki" page-title="Sidebars" need-rtl="true">
+      <h4 class="x-title">Basic Sidebars</h4>
+      <div class="x-view">
+        <ui-section row-layout>
+          <ui-sidebar label="Sidebar" padded scroll>
+            <compose view="../home/lipsum-small.html"></compose>
+          </ui-sidebar>
+          <ui-content padded scroll>
+            <compose view="../home/lipsum-big.html"></compose>
+          </ui-content>
+          <ui-sidebar collapsible label="Sidebar" scroll padded position="end">
+            <compose view="../home/lipsum-small.html"></compose>
+          </ui-sidebar>
+        </ui-section>
+      </div>
+
+      <hr/>
+      <h4 class="x-title">Variant Sidebars</h4>
+      <div class="x-view">
+        <ui-section row-layout>
+          <ui-sidebar label="Sidebar" mini-display scroll collapsible>
+            <ui-menu ref="btnMenu">
+              <ui-menu-item glyph="icon-moon-pencil2">Edit</ui-menu-item>
+              <ui-menu-item glyph="icon-moon-search">Search</ui-menu-item>
+              <ui-menu-item glyph="icon-moon-bin">Delete</ui-menu-item>
+              <ui-divider></ui-divider>
+              <ui-menu-item glyph="icon-moon-bubbles4" badge-dark="9">Notifications</ui-menu-item>
+              <ui-menu-item glyph="icon-moon-cog">Settings</ui-menu-item>
+            </ui-menu>
+          </ui-sidebar>
+          <ui-content padded scroll>
+            <compose view="../home/lipsum-big.html"></compose>
+          </ui-content>
+          <ui-sidebar compact scroll position="end">
+            <ui-menu ref="btnMenu">
+              <ui-menu-item glyph="icon-moon-pencil2"></ui-menu-item>
+              <ui-menu-item glyph="icon-moon-search"></ui-menu-item>
+              <ui-menu-item glyph="icon-moon-bin"></ui-menu-item>
+              <ui-divider></ui-divider>
+              <ui-menu-item glyph="icon-moon-bubbles4"></ui-menu-item>
+              <ui-menu-item glyph="icon-moon-cog"></ui-menu-item>
+            </ui-menu>
+          </ui-sidebar>
+        </ui-section>
+      </div>
+    </x-container>
+  </ui-page>
+</template>

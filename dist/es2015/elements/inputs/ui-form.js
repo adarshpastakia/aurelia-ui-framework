@@ -7,16 +7,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { autoinject, customElement, bindable, bindingMode, inlineView, containerless } from 'aurelia-framework';
+import { autoinject, customElement, bindable, bindingMode, children, inlineView, containerless } from 'aurelia-framework';
 import { UIEvent } from "../../utils/ui-event";
 import * as _ from "lodash";
 let UIForm = class UIForm {
     constructor(element) {
         this.element = element;
+        this.class = '';
     }
     attached() {
         UIEvent.queueTask(() => {
-            let el = this.element.querySelector('input,textarea');
+            let el = this.formEl.querySelector('input,textarea');
             if (el !== null)
                 el.focus();
             if (this.busy)
@@ -26,16 +27,15 @@ let UIForm = class UIForm {
         });
     }
     busyChanged(newValue) {
-        this.disableInputs(isTrue(newValue) || this.disabled);
+        this.disableInputs(!!newValue || this.disabled);
     }
     disabledChanged(newValue) {
         this.disableInputs(newValue);
     }
     disableInputs(newValue) {
-        let els = this.element.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list,ui-dropdown');
-        _.forEach(els, el => {
+        _.forEach(this.inputEls, el => {
             try {
-                el.au.controller.viewModel.disable(isTrue(newValue));
+                el.au.controller.viewModel.disable(!!newValue);
             }
             catch (e) {
             }
@@ -48,29 +48,39 @@ let UIForm = class UIForm {
 };
 __decorate([
     bindable(),
+    __metadata("design:type", Object)
+], UIForm.prototype, "class", void 0);
+__decorate([
+    bindable(),
     __metadata("design:type", Boolean)
 ], UIForm.prototype, "busy", void 0);
 __decorate([
     bindable(),
     __metadata("design:type", Boolean)
 ], UIForm.prototype, "disabled", void 0);
+__decorate([
+    children('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list,ui-dropdown'),
+    __metadata("design:type", Object)
+], UIForm.prototype, "inputEls", void 0);
 UIForm = __decorate([
     autoinject(),
+    containerless(),
     customElement('ui-form'),
-    inlineView(`<template class="ui-form"><form ref="formEl" validation-renderer="ui-validator" enterpressed.trigger="fireSubmit()" submit.trigger="return false"><slot></slot></form></template>`),
+    inlineView(`<template><form class="ui-form \${class}" ref="formEl" validation-renderer="ui-validator" enterpressed.trigger="fireSubmit()" submit.trigger="return false"><slot></slot></form></template>`),
     __metadata("design:paramtypes", [Element])
 ], UIForm);
 export { UIForm };
 let UIFieldset = class UIFieldset {
     constructor(element) {
         this.element = element;
+        this.class = '';
         this.legend = '';
         this.checked = true;
         this.collapsible = false;
         this.collapsible = element.hasAttribute('checked') || element.hasAttribute('checked.bind');
     }
     bind(bindingContext, overrideContext) {
-        this.checked = isTrue(this.checked);
+        this.checked = this.checked || this.element.hasAttribute('checked');
     }
     attached() {
         this.checkedChanged(this.checked);
@@ -78,23 +88,26 @@ let UIFieldset = class UIFieldset {
             this.disabledChanged(this.disabled);
     }
     checkedChanged(newValue) {
-        this.element.classList[isTrue(newValue) ? 'remove' : 'add']('ui-collapse');
-        this.disableInputs(isFalse(newValue));
+        this.fieldsetEl.classList[!!newValue ? 'remove' : 'add']('ui-collapse');
+        this.disableInputs(!newValue);
     }
     disabledChanged(newValue) {
-        this.disableInputs(newValue);
+        this.disableInputs(!!newValue);
     }
     disableInputs(newValue) {
-        let els = this.container.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list,ui-dropdown');
-        _.forEach(els, el => {
+        _.forEach(this.inputEls, el => {
             try {
-                el.au.controller.viewModel.disable(isTrue(newValue));
+                el.au.controller.viewModel.disable(!!newValue);
             }
             catch (e) {
             }
         });
     }
 };
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIFieldset.prototype, "class", void 0);
 __decorate([
     bindable(),
     __metadata("design:type", Object)
@@ -107,9 +120,14 @@ __decorate([
     bindable({ defaultBindingMode: bindingMode.twoWay }),
     __metadata("design:type", Object)
 ], UIFieldset.prototype, "checked", void 0);
+__decorate([
+    children('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list,ui-dropdown'),
+    __metadata("design:type", Object)
+], UIFieldset.prototype, "inputEls", void 0);
 UIFieldset = __decorate([
     autoinject(),
-    inlineView('<template class="ui-fieldset"><fieldset><legend if.bind="legend"><span if.bind="!collapsible">\${legend}</span><ui-checkbox if.bind="collapsible" checked.bind="checked">\${legend}</ui-checkbox></legend><div ref="container"><slot></slot></div></fieldset></template>'),
+    containerless(),
+    inlineView('<template><fieldset class="ui-fieldset" ref="fieldsetEl"><legend if.bind="legend"><span if.bind="!collapsible">\${legend}</span><ui-checkbox if.bind="collapsible" checked.bind="checked">\${legend}</ui-checkbox></legend><div><slot></slot></div></fieldset></template>'),
     customElement('ui-fieldset'),
     __metadata("design:paramtypes", [Element])
 ], UIFieldset);

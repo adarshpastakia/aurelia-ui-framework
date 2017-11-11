@@ -61,6 +61,12 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
                         element.classList.add('ui-row-end');
                     if (element.hasAttribute('spaced'))
                         element.classList.add('ui-row-spaced');
+                    if (element.hasAttribute('space-around'))
+                        element.classList.add('ui-row-space-around');
+                    if (!element.hasAttribute('nogutter'))
+                        element.classList.add('ui-gutter');
+                    if (element.hasAttribute('nowrap'))
+                        element.classList.add('ui-row-nowrap');
                     if (element.hasAttribute('reverse'))
                         element.classList.add('ui-row-reverse');
                 }
@@ -92,13 +98,19 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
                         element.classList.add('ui-row-bottom');
                     if (element.hasAttribute('spaced'))
                         element.classList.add('ui-row-spaced');
+                    if (element.hasAttribute('space-around'))
+                        element.classList.add('ui-row-space-around');
+                    if (!element.hasAttribute('nogutter'))
+                        element.classList.add('ui-gutter');
+                    if (element.hasAttribute('nowrap'))
+                        element.classList.add('ui-row-nowrap');
                     if (element.hasAttribute('reverse'))
                         element.classList.add('ui-row-reverse');
                 }
                 UIColumnRow = __decorate([
                     aurelia_framework_1.autoinject(),
                     aurelia_framework_1.customElement('ui-row-column'),
-                    aurelia_framework_1.inlineView('<template class="ui-row-vertical"><slot></slot></template>'),
+                    aurelia_framework_1.inlineView('<template class="ui-row ui-row-vertical"><slot></slot></template>'),
                     __metadata("design:paramtypes", [Element])
                 ], UIColumnRow);
                 return UIColumnRow;
@@ -125,8 +137,6 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
                         element.classList.add('ui-col-full');
                     if (element.hasAttribute('form'))
                         element.classList.add('ui-col-form');
-                    if (element.hasAttribute('padded'))
-                        element.classList.add('ui-pad-all');
                 }
                 UIColumn.prototype.bind = function () {
                     for (var _i = 0, _a = this.size.split(' '); _i < _a.length; _i++) {

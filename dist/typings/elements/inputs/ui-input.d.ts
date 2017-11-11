@@ -26,7 +26,7 @@ export declare class UIInput extends UIBaseInput {
     maxlength: number;
     disabled: boolean;
     readonly: boolean;
-    info: string;
+    helpText: string;
     placeholder: string;
     private type;
     private clear;

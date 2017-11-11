@@ -25,14 +25,14 @@
 |>10.0|>49.0|>42.0|>51.0|>13.0|
 
 
-### Features
+### Demo
 
-* _Todo_
+https://adarshpastakia.github.io/auf-demo-v4
 
 ---
 
 
-### Dependencies
+### Framework Dependencies
 
 ###### Aurelia (http://aurelia.io)
   * aurelia-bootstrapper
@@ -53,10 +53,48 @@
   * kramed (https://www.npmjs.com/package/kramed)
 
 
-### Build & Run the project
-  * download or clone the repo
-  * run `npm install`
-  * if you dont have typings installed globaly, run `npm install typings -g`
-  * run `typings install`
-  * run `au run --watch`
-  * browse to `localhost:9000`
+### Building The Code
+
+1. Ensure NodeJs and Git is installed
+
+2. Clone the project `v4-dev` branch from GitHub
+  ```shell
+  git clone https://github.com/adarshpastakia/aurelia-ui-framework.git -b v4-dev
+  ```
+
+3. From project folder execute the following commands
+
+4. Install npm module dependencies
+  ```shell
+  yarn install
+  ```
+4. Build the framework source
+  ```shell
+  yarn build:source
+  ```
+
+> Use `npm` in place of `yarn` if preferable
+
+
+### Using The Framework via Local Link
+
+1. Create a npm link
+  ```shell
+  yarn link
+  ```
+
+2. Use the framework in your application
+  ```shell
+  yarn link aurelia-ui-framework
+  ```
+
+> NOTE: Ensue that the `auf-utility-library` module dependency is also added
+
+### Running The Demo Application
+
+1. Run the application
+  ```shell
+  yarn start
+  ```
+
+2. Browse the application on `http://localhost:9000`

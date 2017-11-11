@@ -3,47 +3,15 @@
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
-import {autoinject, customElement, bindable, bindingMode, children, inlineView, useView, containerless, View, DOM} from 'aurelia-framework';
+import { autoinject, customElement, bindable, inlineView } from 'aurelia-framework';
 
 @autoinject()
 @inlineView(`<template class="ui-toolbar"><slot></slot></template>`)
 @customElement('ui-toolbar')
 export class UIToolbar {
   constructor(public element: Element) {
-    if (element.hasAttribute('dark')) element.classList.add('dark');
-    if (element.hasAttribute('light')) element.classList.add('light');
-    if (element.hasAttribute('primary')) element.classList.add('primary');
-    if (element.hasAttribute('secondary')) element.classList.add('secondary');
-    if (element.hasAttribute('info')) element.classList.add('info');
-    if (element.hasAttribute('danger')) element.classList.add('danger');
-    if (element.hasAttribute('success')) element.classList.add('success');
-    if (element.hasAttribute('warning')) element.classList.add('warning');
-
     if (element.hasAttribute('start')) element.classList.add('ui-start');
   }
-
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
-  // bind(bindingContext: Object, overrideContext: Object) { }
-  // attached() { }
-  // detached() { }
-  // unbind() { }
-  // end aurelia hooks
-}
-
-@autoinject()
-@inlineView(`<template class="ui-divider"></template>`)
-@customElement('ui-divider')
-export class UIDivider {
-  constructor(public element: Element) { }
-
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
-  // bind(bindingContext: Object, overrideContext: Object) { }
-  // attached() { }
-  // detached() { }
-  // unbind() { }
-  // end aurelia hooks
 }
 
 @autoinject()
@@ -53,35 +21,10 @@ export class UIStatsbar {
   constructor(public element: Element) {
     if (element.hasAttribute('small')) element.classList.add('ui-small');
     if (element.hasAttribute('icon-top')) element.classList.add('ui-icon-top');
+    if (element.hasAttribute('icon-end')) element.classList.add('ui-icon-end');
     if (element.hasAttribute('vertical')) element.classList.add('ui-vertical');
-
-    if (element.hasAttribute('dark')) element.classList.add('dark');
-    if (element.hasAttribute('light')) element.classList.add('light');
-    if (element.hasAttribute('muted')) element.classList.add('muted');
-    if (element.hasAttribute('primary')) element.classList.add('primary');
-    if (element.hasAttribute('secondary')) element.classList.add('secondary');
-    if (element.hasAttribute('info')) element.classList.add('info');
-    if (element.hasAttribute('danger')) element.classList.add('danger');
-    if (element.hasAttribute('success')) element.classList.add('success');
-    if (element.hasAttribute('warning')) element.classList.add('warning');
-
-    if (element.hasAttribute('dark-bg')) element.classList.add('dark-bg');
-    if (element.hasAttribute('light-bg')) element.classList.add('light-bg');
-    if (element.hasAttribute('primary-bg')) element.classList.add('primary-bg');
-    if (element.hasAttribute('secondary-bg')) element.classList.add('secondary-bg');
-    if (element.hasAttribute('info-bg')) element.classList.add('info-bg');
-    if (element.hasAttribute('danger-bg')) element.classList.add('danger-bg');
-    if (element.hasAttribute('success-bg')) element.classList.add('success-bg');
-    if (element.hasAttribute('warning-bg')) element.classList.add('warning-bg');
+    if (element.hasAttribute('icon-only')) element.classList.add('ui-icon-only');
   }
-
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
-  // bind(bindingContext: Object, overrideContext: Object) { }
-  // attached() { }
-  // detached() { }
-  // unbind() { }
-  // end aurelia hooks
 }
 
 @autoinject()
@@ -90,33 +33,10 @@ export class UIStatsbar {
 @customElement('ui-stat')
 export class UIStat {
   constructor(public element: Element) {
-    if (element.hasAttribute('dark')) element.classList.add('dark');
-    if (element.hasAttribute('light')) element.classList.add('light');
-    if (element.hasAttribute('muted')) element.classList.add('muted');
-    if (element.hasAttribute('primary')) element.classList.add('primary');
-    if (element.hasAttribute('secondary')) element.classList.add('secondary');
-    if (element.hasAttribute('info')) element.classList.add('info');
-    if (element.hasAttribute('danger')) element.classList.add('danger');
-    if (element.hasAttribute('success')) element.classList.add('success');
-    if (element.hasAttribute('warning')) element.classList.add('warning');
 
-    if (element.hasAttribute('dark-bg')) element.classList.add('dark-bg');
-    if (element.hasAttribute('light-bg')) element.classList.add('light-bg');
-    if (element.hasAttribute('primary-bg')) element.classList.add('primary-bg');
-    if (element.hasAttribute('secondary-bg')) element.classList.add('secondary-bg');
-    if (element.hasAttribute('info-bg')) element.classList.add('info-bg');
-    if (element.hasAttribute('danger-bg')) element.classList.add('danger-bg');
-    if (element.hasAttribute('success-bg')) element.classList.add('success-bg');
-    if (element.hasAttribute('warning-bg')) element.classList.add('warning-bg');
+    if (element.hasAttribute('icon-end')) element.classList.add('ui-icon-end');
+    if (element.hasAttribute('icon-only')) element.classList.add('ui-icon-only');
   }
-
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
-  // bind(bindingContext: Object, overrideContext: Object) { }
-  // attached() { }
-  // detached() { }
-  // unbind() { }
-  // end aurelia hooks
 
   @bindable() glyph = '';
   @bindable() label = '';

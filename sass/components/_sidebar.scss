@@ -4,28 +4,12 @@
 // @copyright   : 2017
 // @license     : MIT
 
-.ui-affix-content {
-  position  : absolute;
-  padding   : 0.25em 0.5em;
-  top       : -100%;
-  left      : 0;
-  right     : 0;
-  z-index   : 4;
-  background: $drawer-bg;
-  @include transition(top .5s);
-
-  &.ui-animate {
-    top       : 0;
-    box-shadow: 0 2px 2px 0 rgba($base-shadow-color, .5);
-  }
-}
-
 .ui-sidebar {
   z-index   : 5;
   position  : relative;
   background: $drawer-bg;
   max-width : $sidebar-width;
-  border    : 0 solid rgba($base-border-color, .5);
+  border    : 0 solid rgba($base-border-color, .25);
   @include flex(0 0 $sidebar-width);
   @include transition(max-width .5s);
 
@@ -39,84 +23,90 @@
       color         : rgba($base-text, .75);
       pointer-events: none;
       padding       : 0 0.5em;
+      font-size     : 1.1em;
       left          : 0;
       top           : 0;
       @include ellipsis();
       @include transition(all .25s);
-      @include apply-origin(0% 0% 0, false);
+      @include transform-origin(0% 0% 0);
     }
 
     .ui-sidebar-close {
       padding: 0 0.5em;
     }
 
-    ~ .ui-affix-content.ui-animate {
-      top: 2em !important;
-    }
   }
 
   .ui-sidebar-content {
     border: 0 solid $base-border-color;
   }
 
-  &.start {
-    @include order(-1);
+  &.ui-sidebar-compact {
+    font-size: 0.6em;
+
+    .ui-menu-label {
+      display: none;
+    }
+  }
+
+  &.ui-sidebar-start {
+    order       : -1;
     border-width: 0 1px 0 0;
 
     .ui-sidebar-close {}
 
-    &.ui-collapse {
+    &.ui-sidebar-collapse {
       .ui-sidebar-close {}
 
-      &:not(.ui-mini-display) {
+      &:not(.ui-sidebar-mini) {
         .ui-sidebar-content {
           left        : -1 * $sidebar-collapse-width;
           border-width: 0 1px 0 0;
           @include transition(left .5s);
         }
 
-        &.ui-show-overlay {
+        &.ui-sidebar-show {
           .ui-sidebar-content {
-            left: 2em;
-            @include box-shadow(25px 0 50px 5px rgba($base-shadow-color, .25));
+            left      : 2em;
+            box-shadow: 25px 0 50px 5px rgba($base-shadow-color, .25);
           }
         }
       }
     }
   }
 
-  &.end {
-    @include order(1);
+  &.ui-sidebar-end {
+    order       : 1;
     border-width: 0 0 0 1px;
 
     .ui-sidebar-head {
-      @include flex-direction(row-reverse);
+      flex-direction: row-reverse;
     }
 
     .ui-sidebar-close {}
 
-    &.ui-collapse {
+    &.ui-sidebar-collapse {
       .ui-sidebar-close {}
 
-      &:not(.ui-mini-display) {
+      &:not(.ui-sidebar-mini) {
         .ui-sidebar-content {
           right       : -1 * $sidebar-collapse-width;
           border-width: 0 0 0 1px;
           @include transition(right .5s);
         }
 
-        &.ui-show-overlay {
+        &.ui-sidebar-show {
           .ui-sidebar-content {
-            right: 2em;
-            @include box-shadow(-25px 0 50px 5px rgba($base-shadow-color, .25));
+            right     : 2em;
+            box-shadow: -25px 0 50px 5px rgba($base-shadow-color, .25);
           }
         }
       }
     }
   }
 
-  &.ui-collapse {
-    &:not(.ui-mini-display) {
+  &.ui-sidebar-collapse {
+    &:not(.ui-sidebar-mini) {
       z-index  : 10;
       max-width: 2em;
 
@@ -127,55 +117,52 @@
         @include position(absolute, 0 auto);
       }
 
-      .ui-affix-content {
-        left   : 2em;
-        width  : $sidebar-collapse-width;
-        right  : auto;
-        top    : -100% !important;
-        z-index: $z-index-floating + 1;
-      }
-
       .ui-sidebar-title {
         @include transform(rotate(90deg) translate(2em,-100%));
         position: absolute;
       }
 
-      &.ui-show-overlay {
+      &.ui-sidebar-show {
         .ui-affix-content.ui-animate {
           top: 0 !important;
         }
       }
     }
 
-    &.ui-mini-display {
+    &.ui-sidebar-mini {
       max-width: 4em !important;
-
-      &.ui-small {
-        font-size: 0.6em;
-      }
 
       .ui-sidebar-title {
         display: none;
       }
 
       .ui-menu-item {
-        line-height  : 1.2;
         padding      : 0.5em 0;
-        text-align   : center;
         text-overflow: clip;
+        flex-wrap    : wrap;
 
         .ui-menu-icon {
-          font-size: 2em;
-          margin   : 0.25em 0;
+          font-size : 2em;
+          width     : 1em;
+          height    : 1em;
+          text-align: center;
+          margin    : 0.25em 0.5em;
         }
 
         .ui-menu-label {
-          display      : block;
           font-size    : 0.8em;
-          margin       : 0;
+          max-width    : 4rem;
+          line-height  : 1.25em;
+          display      : block;
           text-align   : center;
           text-overflow: ellipsis;
           overflow     : hidden;
+        }
+
+        .ui-badge {
+          position: absolute;
+          right   : 0;
+          top     : 50%;
         }
       }
     }
@@ -189,15 +176,15 @@
       @include transform(scaleX(-1));
     }
 
-    &.start {
+    &.ui-sidebar-start {
       border-width: 0 0 0 1px;
 
       .ui-sidebar-close {}
 
-      &.ui-collapse {
+      &.ui-sidebar-collapse {
         .ui-sidebar-close {}
 
-        &:not(.ui-mini-display) {
+        &:not(.ui-sidebar-mini) {
           .ui-sidebar-content {
             left        : auto;
             border-width: 0 0 0 1px;
@@ -205,25 +192,25 @@
             @include transition(right .5s);
           }
 
-          &.ui-show-overlay {
+          &.ui-sidebar-show {
             .ui-sidebar-content {
-              right: 2em;
-              @include box-shadow(-25px 0 50px 5px rgba($base-shadow-color, .25));
+              right     : 2em;
+              box-shadow: -25px 0 50px 5px rgba($base-shadow-color, .25);
             }
           }
         }
       }
     }
 
-    &.end {
+    &.ui-sidebar-end {
       border-width: 0 1px 0 0;
 
       .ui-sidebar-close {}
 
-      &.ui-collapse {
+      &.ui-sidebar-collapse {
         .ui-sidebar-close {}
 
-        &:not(.ui-mini-display) {
+        &:not(.ui-sidebar-mini) {
           .ui-sidebar-content {
             right       : auto;
             border-width: 0 1px 0 0;
@@ -231,10 +218,10 @@
             @include transition(left .5s);
           }
 
-          &.ui-show-overlay {
+          &.ui-sidebar-show {
             .ui-sidebar-content {
-              left: 2em;
-              @include box-shadow(25px 0 50px 5px rgba($base-shadow-color, .25));
+              left      : 2em;
+              box-shadow: 25px 0 50px 5px rgba($base-shadow-color, .25);
             }
           }
         }

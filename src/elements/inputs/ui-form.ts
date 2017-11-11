@@ -4,13 +4,14 @@
 // @copyright   : 2017
 // @license     : MIT
 
-import { autoinject, customElement, bindable, bindingMode, children, inlineView, useView, containerless, View, DOM } from 'aurelia-framework';
+import { autoinject, customElement, bindable, bindingMode, children, inlineView, containerless } from 'aurelia-framework';
 import { UIEvent } from "../../utils/ui-event";
 import * as _ from "lodash";
 
 @autoinject()
+@containerless()
 @customElement('ui-form')
-@inlineView(`<template class="ui-form"><form ref="formEl" validation-renderer="ui-validator" enterpressed.trigger="fireSubmit()" submit.trigger="return false"><slot></slot></form></template>`)
+@inlineView(`<template><form class="ui-form \${class}" ref="formEl" validation-renderer="ui-validator" enterpressed.trigger="fireSubmit()" submit.trigger="return false"><slot></slot></form></template>`)
 export class UIForm {
   constructor(public element: Element) { }
 
@@ -19,7 +20,7 @@ export class UIForm {
   // bind(bindingContext: Object, overrideContext: Object) { }
   attached() {
     UIEvent.queueTask(() => {
-      let el: any = this.element.querySelector('input,textarea');
+      let el: any = this.formEl.querySelector('input,textarea');
       if (el !== null) el.focus();
       if (this.busy) this.busyChanged(this.busy);
       if (this.disabled) this.disabledChanged(this.disabled);
@@ -30,27 +31,24 @@ export class UIForm {
   // end aurelia hooks
 
   formEl;
+  @bindable() class = '';
   @bindable() busy: boolean;
   @bindable() disabled: boolean;
 
+  @children('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list,ui-dropdown') inputEls;
+
   busyChanged(newValue: any) {
-    this.disableInputs(isTrue(newValue) || this.disabled);
+    this.disableInputs(!!newValue || this.disabled);
   }
 
   disabledChanged(newValue: any) {
     this.disableInputs(newValue);
   }
 
-  focus() {
-    let el: any = this.element.querySelector('input,textarea');
-    if (el !== null) el.focus();
-  }
-
   disableInputs(newValue: any) {
-    let els = this.element.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list,ui-dropdown');
-    _.forEach(els, el => {
+    _.forEach(this.inputEls, el => {
       try {
-        el.au.controller.viewModel.disable(isTrue(newValue));
+        el.au.controller.viewModel.disable(!!newValue);
       } catch (e) {
       }
     });
@@ -62,7 +60,8 @@ export class UIForm {
 }
 
 @autoinject()
-@inlineView('<template class="ui-fieldset"><fieldset><legend if.bind="legend"><span if.bind="!collapsible">\${legend}</span><ui-checkbox if.bind="collapsible" checked.bind="checked">\${legend}</ui-checkbox></legend><div ref="container"><slot></slot></div></fieldset></template>')
+@containerless()
+@inlineView('<template><fieldset class="ui-fieldset" ref="fieldsetEl"><legend if.bind="legend"><span if.bind="!collapsible">\${legend}</span><ui-checkbox if.bind="collapsible" checked.bind="checked">\${legend}</ui-checkbox></legend><div><slot></slot></div></fieldset></template>')
 @customElement('ui-fieldset')
 export class UIFieldset {
   constructor(public element: Element) {
@@ -72,7 +71,7 @@ export class UIFieldset {
   // aurelia hooks
   // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
-    this.checked = isTrue(this.checked);
+    this.checked = this.checked || this.element.hasAttribute('checked');
   }
   attached() {
     this.checkedChanged(this.checked);
@@ -82,27 +81,29 @@ export class UIFieldset {
   // unbind() { }
   // end aurelia hooks
 
+  @bindable() class = '';
   @bindable() legend = '';
   @bindable() disabled: boolean;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) checked = true;
 
-  private container;
+  @children('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list,ui-dropdown') inputEls;
+
+  private fieldsetEl;
   private collapsible = false;
 
   checkedChanged(newValue: any) {
-    this.element.classList[isTrue(newValue) ? 'remove' : 'add']('ui-collapse');
-    this.disableInputs(isFalse(newValue));
+    this.fieldsetEl.classList[!!newValue ? 'remove' : 'add']('ui-collapse');
+    this.disableInputs(!newValue);
   }
 
   disabledChanged(newValue: any) {
-    this.disableInputs(newValue);
+    this.disableInputs(!!newValue);
   }
 
   disableInputs(newValue: any) {
-    let els = this.container.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list,ui-dropdown');
-    _.forEach(els, el => {
+    _.forEach(this.inputEls, el => {
       try {
-        el.au.controller.viewModel.disable(isTrue(newValue));
+        el.au.controller.viewModel.disable(!!newValue);
       } catch (e) {
       }
     });
@@ -118,14 +119,6 @@ export class UIInputGroup {
     if (element.hasAttribute('plain')) element.classList.add('ui-plain');
   }
 
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
-  // bind(bindingContext: Object, overrideContext: Object) { }
-  // attached() { }
-  // detached() { }
-  // unbind() { }
-  // end aurelia hooks
-
   @bindable() width = '15em';
 }
 
@@ -135,15 +128,6 @@ export class UIInputGroup {
 @customElement('ui-input-info')
 export class UIInputInfo {
   constructor(public element: Element) { }
-
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
-  // bind(bindingContext: Object, overrideContext: Object) { }
-  // attached() { }
-  // detached() { }
-  // unbind() { }
-  // end aurelia hooks
-
   @bindable() class = '';
 }
 
@@ -156,14 +140,6 @@ export class UIInputAddon {
     if (element.hasAttribute('end')) element.classList.add('ui-end');
     else element.classList.add('ui-start');
   }
-
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
-  // bind(bindingContext: Object, overrideContext: Object) { }
-  // attached() { }
-  // detached() { }
-  // unbind() { }
-  // end aurelia hooks
 
   @bindable() glyph = '';
 

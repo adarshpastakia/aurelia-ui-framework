@@ -36,7 +36,7 @@ export class UIHttpService {
               self.logger.info(`Response ${response.status} ${response.url}`);
 
               if (response instanceof TypeError) {
-                throw Error(response['message']);
+                return Promise.reject({ errorCode: '0xFFFF', message: response['message'] });
               }
 
               if (response.status == 401 && ~response.url.indexOf(self.httpClient.baseUrl)) {
@@ -46,26 +46,15 @@ export class UIHttpService {
                 return response.text()
                   .then(resp => {
                     let json: any = {};
-                    let error = 'Network Error!!';
                     try {
                       json = JSON.parse(resp);
                     } catch (e) { }
-                    if (json.message) error = json.message;
-                    else if (json.error) error = json.error;
-                    else if (response.statusText) error = response.statusText;
-                    if (error) throw new Error(error);
-                    return null;
+                    const message = json.message || json.error || '0xFFFF';
+                    const errorCode = json.errorCode || json.error || 'Network Error!!';
+                    return Promise.reject({ errorCode, message });
                   });
               }
               return response;
-            },
-            requestError(error) {
-              if (error !== null) throw Error(error.message);
-              return error;
-            },
-            responseError(error) {
-              if (error !== null) throw Error(error.message);
-              return error;
             }
           });
       });
@@ -82,7 +71,12 @@ export class UIHttpService {
   }
 
   //**** SHARED METHODS ****//
+  //DEPRECATED: Bacward compatibility
   get(slug: string, headers: any = true): Promise<any | string | void> {
+    return this.json(slug, headers);
+  }
+
+  json(slug: string, headers: any = true): Promise<any | string | void> {
     this.logger.info(`get [${slug}]`);
     return this.httpClient
       .fetch(slug,
@@ -94,7 +88,7 @@ export class UIHttpService {
       .then(resp => this.__getResponse(resp));
   }
 
-  text(slug: string, headers: any = true): Promise<any | string | void> {
+  text(slug: string, headers: any = false): Promise<any | string | void> {
     this.logger.info(`text [${slug}]`);
     return this.httpClient
       .fetch(slug,
@@ -106,7 +100,7 @@ export class UIHttpService {
       .then(resp => resp.text());
   }
 
-  blob(slug: string, headers: any = true): Promise<any | string | void> {
+  blob(slug: string, headers: any = false): Promise<any | string | void> {
     this.logger.info(`text [${slug}]`);
     return this.httpClient
       .fetch(slug,

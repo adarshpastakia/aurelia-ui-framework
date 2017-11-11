@@ -7,25 +7,8 @@
 .ui-input-wrapper {
   @include flex(1 1 4em);
 
-  &.ui-fill {
-    @include flex(1 1 auto);
-    @include flex-column();
-
-    > .ui-input-control {
-      @include flex(1 1 auto);
-      @include align-self(stretch);
-
-       > .ui-list-container,
-      > textarea {
-        max-height: inherit;
-        @include align-self(stretch);
-      }
-    }
-  }
-
-  &:not(:first-child):not(:last-child) {}
-
   .ui-input-info {
+    background: rgba($light, .25);
     color     : $muted;
     text-align: center;
     @include ellipsis();
@@ -80,33 +63,33 @@
   }
 
   .ui-input-control {
-    @include flex-row($wrap:false, $align: flex-start);
     color     : $input-text;
     background: $input-bg;
     max-width : 100%;
     position  : relative;
-    box-shadow: 0 -1px 0 0 $base-border-color inset;
     @include transition(box-shadow .5s);
+    @include flexbox($direction: row, $wrap:false, $align: flex-start);
 
     input,
     textarea {
       @include flex-fill();
-      background : none;
-      border     : none;
-      margin     : 0;
-      color      : inherit;
-      min-height : 1em;
-      max-width  : 100%;
-      width      : 1em;
-      font-size  : 0.9em;
-      line-height: 1rem;
-      padding    : 0.25rem 0.5rem;
+      background  : none;
+      border-color: transparent;
+      margin      : 0;
+      color       : inherit;
+      max-width   : 100%;
+      width       : 1em;
+      line-height : 1.4;
+      min-height  : 2em;
+      padding     : 0.25em 0.5em;
+      align-self  : stretch;
     }
 
     .ui-error {
-      color     : $input-error-text;
-      background: $input-error-bg;
-      padding   : 0 0.25em;
+      color      : $input-error-text;
+      background : $input-error-bg;
+      padding    : 0.5em 0.25em;
+      line-height: 1;
       @include flex-auto();
 
       .ui-error-list {
@@ -138,7 +121,7 @@
       @include flex-auto();
       color      : rgba($input-text, .5);
       font-size  : 0.7em;
-      line-height: 1.5rem;
+      line-height: 3;
       padding    : 0 0.25em;
       direction  : ltr;
     }
@@ -148,7 +131,7 @@
       color      : rgba($input-text, .5);
       cursor     : pointer;
       font-size  : 1em;
-      line-height: 1.5em;
+      line-height: 2.2;
       padding    : 0 0.25em;
 
       &:hover {
@@ -158,7 +141,7 @@
 
     &.ui-phone {
       span:first-child {
-        @include align-self(center);
+        align-self: center;
       }
     }
 
@@ -186,7 +169,7 @@
 
   &.ui-invalid {
     .ui-input-control {
-      background: tint($input-invalid-border, 98%);
+      background: rgba($input-invalid-border, .04);
       box-shadow: 0 -1px 0 0 $input-invalid-border inset;
     }
 

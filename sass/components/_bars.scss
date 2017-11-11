@@ -6,16 +6,15 @@
 
 .ui-toolbar {
   z-index         : 5;
-  background-color: shade($base-bg, 1%);
-  border          : 1px solid rgba($base-border-color, .5);
+  background-color: $toolbar-bg;
+  border          : 1px solid rgba($base-border-color, .25);
   border-width    : 1px 0;
   padding         : 0.2em 0.5em;
   @include flex-auto();
-  // @include box-shadow(0 0 1px 0 $base-border-color);
-  @include flex-row($align:center, $justify:flex-end, $wrap:false);
+  @include flexbox($direction: row, $align:center, $justify:flex-end, $wrap:false);
 
   &.ui-start {
-    @include justify-content(flex-start);
+    justify-content: flex-start;
   }
 
   &:first-child {
@@ -27,14 +26,14 @@
   }
 
   .ui-divider {
-    display: block;
-    margin : 0.2rem;
-    border : {
+    display   : block;
+    margin    : 0.2rem;
+    border    : {
       left : 1px solid $dark;
       right: 1px solid $light;
     }
+    align-self: stretch;
     @include transform(scaleX(.5));
-    @include align-self(stretch);
   }
 
    > .ui-input-group,
@@ -47,8 +46,8 @@
     margin: 0 0.2rem;
   }
 }
-@include toolbar-theme(light, $light, $dark);
 @include toolbar-theme(dark, lighten($dark,5%));
+@include toolbar-theme(muted, lighten($muted,5%));
 @include toolbar-theme(primary, lighten($primary,5%));
 @include toolbar-theme(secondary, lighten($secondary,5%));
 @include toolbar-theme(info, lighten($info,5%));
@@ -59,11 +58,11 @@
 .ui-statsbar {
   z-index         : 5;
   position        : relative;
-  background-color: $base-bg;
-  border          : 1px solid rgba($base-border-color, .5);
+  background-color: $statsbar-bg;
+  border          : 1px solid rgba($base-border-color, .25);
   border-width    : 1px 0;
   @include flex-auto();
-  @include flex-row($align:stretch, $justify:flex-start, $wrap:false);
+  @include flexbox($direction: row, $align:stretch, $justify:flex-start, $wrap:false);
 
   &:first-child {
     border-top: none;
@@ -74,28 +73,41 @@
   }
 
   &.ui-small {
-    font-size: 0.7em;
+    font-size: 0.8em;
   }
 
   .ui-stat {
     color  : $dark;
     padding: 0.25em 0.5em;
     @include flex(1 0 1em);
-    @include flex-row($justify:center, $align:center, $wrap:false);
+    @include flexbox($direction: row, $justify:center, $align:center, $wrap:false);
 
     &:not(:first-child) {
       @include border(start, 1px solid rgba($base-border-color, .5));
     }
 
+    &.ui-icon-end {
+      .ui-icon {
+        order : 1;
+        margin: 0;
+        @include margin(start, .5em);
+      }
+
+      > div {
+        order: 0;
+      }
+    }
+
     .ui-icon {
-      margin    : 0 0.5rem;
       font-size : 2em;
       text-align: center;
+      margin    : 0;
+      @include margin(end, .5em);
     }
 
     .ui-stat-value {
       line-height: 1;
-      font-size  : 2em;
+      font-size  : 1.25em;
       text-align : center;
       font-weight: 600;
     }
@@ -108,19 +120,37 @@
     }
   }
 
-  &:not(.ui-vertical).ui-icon-top {
-    .ui-stat {
-      @include flex-wrap(wrap);
+  &:not(.ui-vertical) {
+    &.ui-icon-top {
+      .ui-stat {
+        flex-wrap: wrap;
+      }
+
+      .ui-stat > .ui-icon {
+        margin: 0 0 0.5em;
+      }
+
+      .ui-stat > div {
+        @include flex(1 1 100%);
+      }
     }
 
-    .ui-stat > div {
-      @include flex(1 1 100%);
+    &.ui-icon-end {
+      .ui-stat .ui-icon {
+        order : 1;
+        margin: 0;
+        @include margin(start, .5em);
+      }
+
+      .ui-stat > div {
+        order: 0;
+      }
     }
   }
 
   &.ui-vertical {
-    overflow: auto;
-    @include flex-direction(column);
+    overflow      : auto;
+    flex-direction: column;
 
     &:first-child {
       @include border(end, 1px solid rgba($base-border-color, .5));
@@ -131,21 +161,20 @@
     }
 
     .ui-stat {
-      max-width: 5em;
-      border   : none;
-      @include flex-direction(column);
+      max-width     : 5em;
+      border        : none;
+      flex-direction: column;
 
       &:not(:first-child) {
         border-top: 1px solid rgba($base-border-color, .5);
       }
 
       .ui-icon {
-        margin   : 0.25em 0;
-        font-size: 1.5em;
+        margin   : 0 0 0.5em;
       }
 
       .ui-stat-value {
-        font-size: 1.2em;
+        font-size: 1.25em;
       }
 
       .ui-stat-label {
@@ -154,20 +183,19 @@
     }
   }
 }
-@include statsbar-theme(light-bg, $dark, $light);
-@include statsbar-theme(dark-bg, $light, $dark);
-@include statsbar-theme(primary-bg, $light, lighten($primary,5%));
-@include statsbar-theme(secondary-bg, $light, lighten($secondary,5%));
-@include statsbar-theme(info-bg, $light, lighten($info,5%));
-@include statsbar-theme(danger-bg, $light, lighten($danger,5%));
-@include statsbar-theme(success-bg, $light, lighten($success,5%));
-@include statsbar-theme(warning-bg, $light, lighten($warning,5%));
-@include statsbar-theme(light, $light, inherit);
-@include statsbar-theme(dark, $dark, inherit);
-@include statsbar-theme(muted, $muted, inherit);
-@include statsbar-theme(primary, lighten($primary,5%), inherit);
-@include statsbar-theme(secondary, lighten($secondary,5%), inherit);
-@include statsbar-theme(info, lighten($info,5%), inherit);
-@include statsbar-theme(danger, lighten($danger,5%), inherit);
-@include statsbar-theme(success, lighten($success,5%), inherit);
-@include statsbar-theme(warning, lighten($warning,5%), inherit);
+@include statsbar-theme(bg-dark, $white, $dark);
+@include statsbar-theme(bg-muted, $white, $muted);
+@include statsbar-theme(bg-primary, $white, lighten($primary,5%));
+@include statsbar-theme(bg-secondary, $white, lighten($secondary,5%));
+@include statsbar-theme(bg-info, $white, lighten($info,5%));
+@include statsbar-theme(bg-danger, $white, lighten($danger,5%));
+@include statsbar-theme(bg-success, $white, lighten($success,5%));
+@include statsbar-theme(bg-warning, $white, lighten($warning,5%));
+@include statsbar-theme(dark, $dark);
+@include statsbar-theme(muted, $muted);
+@include statsbar-theme(primary, lighten($primary,5%));
+@include statsbar-theme(secondary, lighten($secondary,5%));
+@include statsbar-theme(info, lighten($info,5%));
+@include statsbar-theme(danger, lighten($danger,5%));
+@include statsbar-theme(success, lighten($success,5%));
+@include statsbar-theme(warning, lighten($warning,5%));

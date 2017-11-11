@@ -1,0 +1,35 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <require from="css/sample.admin.css"></require>
+
+  <ui-viewport class="x-sample-viewport x-admin-layout" bg-dark>
+    <ui-row class="x-app-header" middle nogutter>
+      <ui-glyph ref="headIcon" glyph='icon-moon-rocket'></ui-glyph>
+      <div class="ui-app-title ui-font-large ui-pad-h">Administrative Dashboard</div>
+      <ui-filler></ui-filler>
+      <div class="ui-pad-all">
+        <a href="#/" class="ui-text-white ui-pad-v">
+          <ui-glyph glyph="glyph-arrow-left"></ui-glyph>&nbsp;Back to Website</a>
+      </div>
+    </ui-row>
+    <ui-section row-layout>
+      <ui-sidebar mini-display collapsed="true" css.bind="{maxWidth: '10em'}">
+        <ui-menu>
+          <ui-menu-item class="ui-text-white ui-active" glyph="icon-moon-calculator">Dashboard</ui-menu-item>
+          <ui-menu-item class="ui-text-white" glyph="icon-moon-history">History</ui-menu-item>
+          <ui-menu-item class="ui-text-white" glyph="icon-moon-cog">Settings</ui-menu-item>
+        </ui-menu>
+      </ui-sidebar>
+
+      <ui-router-view></ui-router-view>
+    </ui-section>
+    <ui-app-footer>
+      <span>&copy; 2017, Adarsh Pastakia</span>
+      <span>Sample Application, version 0.1 (Build 1)</span>
+    </ui-app-footer>
+  </ui-viewport>
+</template>

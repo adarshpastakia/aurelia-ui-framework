@@ -41,9 +41,9 @@ let UISection = class UISection {
         if (element.hasAttribute('animate'))
             element.classList.add('au-animate');
         if (element.hasAttribute('row-layout'))
-            element.classList.add('row');
+            element.classList.add('ui-horizontal');
         else
-            element.classList.add('column');
+            element.classList.add('ui-vertical');
         if (element.hasAttribute('center'))
             element.classList.add('ui-align-center');
         if (element.hasAttribute('middle'))
@@ -88,17 +88,25 @@ __decorate([
 UIGlyph = __decorate([
     autoinject(),
     customElement('ui-glyph'),
-    inlineView(`<template class="ui-icon"><svg if.bind="glyph"><use tabindex="-1" x="0" y="0" xlink:href="#\${glyph}"/></svg></template>`),
+    inlineView(`<template class="ui-icon \${glyph}"><svg if.bind="glyph"><use tabindex="-1" x="0" y="0" xlink:href="#\${glyph}"/></svg></template>`),
     __metadata("design:paramtypes", [Element])
 ], UIGlyph);
 export { UIGlyph };
+let UIDivider = class UIDivider {
+};
+UIDivider = __decorate([
+    autoinject(),
+    customElement('ui-divider'),
+    inlineView(`<template class="ui-divider"></template>`)
+], UIDivider);
+export { UIDivider };
 let UILoader = class UILoader {
     constructor(element) {
         this.busy = false;
-        if (element.hasAttribute('big'))
-            element.classList.add('ui-big');
         if (element.hasAttribute('small'))
             element.classList.add('ui-small');
+        if (element.hasAttribute('large'))
+            element.classList.add('ui-large');
     }
 };
 __decorate([
@@ -110,7 +118,7 @@ UILoader = __decorate([
     customElement('ui-loader'),
     inlineView(`<template class="ui-app-loader" show.bind="busy">
   <div class="ui-loader-div">
-    <ui-glyph class="ui-anim-loader" glyph="glyph-loader"></ui-glyph>
+    <ui-glyph class="ui-anim-loader" glyph="glyph-busy"></ui-glyph>
   </div>
 </template>`),
     __metadata("design:paramtypes", [Element])

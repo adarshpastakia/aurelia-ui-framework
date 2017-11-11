@@ -32,7 +32,7 @@ let UIHttpService = class UIHttpService {
                 response(response) {
                     self.logger.info(`Response ${response.status} ${response.url}`);
                     if (response instanceof TypeError) {
-                        throw Error(response['message']);
+                        return Promise.reject({ errorCode: '0xFFFF', message: response['message'] });
                     }
                     if (response.status == 401 && ~response.url.indexOf(self.httpClient.baseUrl)) {
                         eventAggregator.publish('auf:unauthorized', null);
@@ -41,33 +41,16 @@ let UIHttpService = class UIHttpService {
                         return response.text()
                             .then(resp => {
                             let json = {};
-                            let error = 'Network Error!!';
                             try {
                                 json = JSON.parse(resp);
                             }
                             catch (e) { }
-                            if (json.message)
-                                error = json.message;
-                            else if (json.error)
-                                error = json.error;
-                            else if (response.statusText)
-                                error = response.statusText;
-                            if (error)
-                                throw new Error(error);
-                            return null;
+                            const message = json.message || json.error || '0xFFFF';
+                            const errorCode = json.errorCode || json.error || 'Network Error!!';
+                            return Promise.reject({ errorCode, message });
                         });
                     }
                     return response;
-                },
-                requestError(error) {
-                    if (error !== null)
-                        throw Error(error.message);
-                    return error;
-                },
-                responseError(error) {
-                    if (error !== null)
-                        throw Error(error.message);
-                    return error;
                 }
             });
         });
@@ -81,6 +64,9 @@ let UIHttpService = class UIHttpService {
             .join('&');
     }
     get(slug, headers = true) {
+        return this.json(slug, headers);
+    }
+    json(slug, headers = true) {
         this.logger.info(`get [${slug}]`);
         return this.httpClient
             .fetch(slug, {
@@ -90,7 +76,7 @@ let UIHttpService = class UIHttpService {
         })
             .then(resp => this.__getResponse(resp));
     }
-    text(slug, headers = true) {
+    text(slug, headers = false) {
         this.logger.info(`text [${slug}]`);
         return this.httpClient
             .fetch(slug, {
@@ -100,7 +86,7 @@ let UIHttpService = class UIHttpService {
         })
             .then(resp => resp.text());
     }
-    blob(slug, headers = true) {
+    blob(slug, headers = false) {
         this.logger.info(`text [${slug}]`);
         return this.httpClient
             .fetch(slug, {

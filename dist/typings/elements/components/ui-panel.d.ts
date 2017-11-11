@@ -3,10 +3,13 @@ export declare class UIPanel {
     constructor(element: Element);
     bind(bindingContext: Object, overrideContext: Object): void;
     height: string;
+    minheight: string;
+    maxheight: string;
     expanded: boolean;
     collapsed: boolean;
     beforeclose: any;
     close(): void;
+    remove(): void;
     collapse(): void;
     expand(): void;
     restore(): void;
@@ -15,9 +18,6 @@ export declare class UIPanel {
 export declare class UIPanelBody {
     element: Element;
     constructor(element: Element);
-    height: string;
-    minheight: string;
-    maxheight: string;
 }
 export declare class UIPanelGroup {
     element: Element;
@@ -30,7 +30,6 @@ export declare class UIPanelGroup {
 export declare class UIHeader {
     element: Element;
     constructor(element: Element);
-    theme: string;
 }
 export declare class UIHeaderTool {
     element: Element;

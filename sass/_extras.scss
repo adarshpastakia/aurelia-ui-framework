@@ -4,30 +4,28 @@
 // @copyright   : 2017
 // @license     : MIT
 
-// Compass
-@import "compass/css3";
-@import 'compass/css3/selection';
-@import "compass/typography";
 // Vars
 @import "colors";
 @import "variables";
-@import "themes";
+@import "mixins";
+@import "utils/themes";
 $colors: (
-  ('red',   $red,     $light),
-  ('pink',  $pink,    $light),
-  ('violet',$violet,  $light),
-  ('purple',$purple,  $light),
-  ('indigo',$indigo,  $light),
-  ('blue',  $blue,    $light),
-  ('cyan',  $cyan,    $light),
-  ('teal',  $teal,    $light),
-  ('green', $green,   $light),
+  ('red',   $red,     $white),
+  ('pink',  $pink,    $white),
+  ('violet',$violet,  $white),
+  ('purple',$purple,  $white),
+  ('indigo',$indigo,  $white),
+  ('blue',  $blue,    $white),
+  ('cyan',  $cyan,    $white),
+  ('teal',  $teal,    $white),
+  ('green', $green,   $white),
   ('lime',  $lime,    $dark),
   ('yellow',$yellow,  $dark),
   ('amber', $amber,   $dark),
-  ('orange',$orange,  $light),
-  ('brown', $brown,   $light),
-  ('gray',  $gray,    $light)
+  ('orange',$orange,  $white),
+  ('brown', $brown,   $white),
+  ('lightGray',  $lightGray,    $dark),
+  ('darkGray',  $darkGray,    $white)
 );
 @each $key, $color, $text in $colors {
 
@@ -41,11 +39,11 @@ $colors: (
   @include statsbar-theme($key, $color);
   @include toast-theme($key, $color, $text);
   @include header-theme($key, $color, $text);
-  @include breadcrumb-theme($key, $color);
+  @include breadcrumb-theme($key, $color, $text);
 
   @include chip-theme($key, $color, $text);
   @include ribbon-theme($key, $color, $text);
   @include tooltip-theme($key, $color, $text);
 
-  @include button-theme($key, $color, $text, tint($color, 10%), $text, shade($color, 10%), $text);
+  @include button-theme($key, $color, $white, lighten($color, 10%), $white, darken($color, 10%), $white);
 }

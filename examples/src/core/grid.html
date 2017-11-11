@@ -1,0 +1,144 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <x-container source.bind="source" wiki.bind="wiki" page-title="Responsive Layout">
+    <style>
+      .col-view {
+        border: 1px solid #F877A8;
+        background: #9777A8;
+        min-height: 3rem;
+        line-height: 3rem;
+        text-align: center;
+        color: #fff;
+      }
+      .col-visi {
+        border: 1px dashed #F877A8;
+        background: #EFCBDD;
+        line-height: 3rem;
+        text-align: center;
+        color: #454545;
+      }
+
+    </style>
+    <h4 class="x-title">Viewport Sizes</h4>
+
+    <div class="x-viewports">
+      <div class="x-xl"></div>
+      <div class="x-lg"></div>
+      <div class="x-md"></div>
+      <div class="x-sm"></div>
+      <div class="x-xs"></div>
+    </div>
+
+    <h6 class="x-title">X-Large Viewport</h6>
+    <ui-row>
+      <ui-column size="xl-3">
+        <div class="col-view">X-Large 3</div>
+      </ui-column>
+      <ui-column size="xl-3">
+        <div class="col-view">X-Large 3</div>
+      </ui-column>
+      <ui-column size="xl-3">
+        <div class="col-view">X-Large 3</div>
+      </ui-column>
+      <ui-column size="xl-3">
+        <div class="col-view">X-Large 3</div>
+      </ui-column>
+    </ui-row>
+    <h6 class="x-title">Large Viewport</h6>
+    <ui-row>
+      <ui-column size="lg-3">
+        <div class="col-view">Large 3</div>
+      </ui-column>
+      <ui-column size="lg-3">
+        <div class="col-view">Large 3</div>
+      </ui-column>
+      <ui-column size="lg-3">
+        <div class="col-view">Large 3</div>
+      </ui-column>
+      <ui-column size="lg-3">
+        <div class="col-view">Large 3</div>
+      </ui-column>
+    </ui-row>
+    <h6 class="x-title">Medium Viewport</h6>
+    <ui-row>
+      <ui-column size="md-3">
+        <div class="col-view">Medium 3</div>
+      </ui-column>
+      <ui-column size="md-3">
+        <div class="col-view">Medium 3</div>
+      </ui-column>
+      <ui-column size="md-3">
+        <div class="col-view">Medium 3</div>
+      </ui-column>
+      <ui-column size="md-3">
+        <div class="col-view">Medium 3</div>
+      </ui-column>
+    </ui-row>
+    <h6 class="x-title">Small Viewport</h6>
+    <ui-row>
+      <ui-column size="sm-3">
+        <div class="col-view">Small 3</div>
+      </ui-column>
+      <ui-column size="sm-3">
+        <div class="col-view">Small 3</div>
+      </ui-column>
+      <ui-column size="sm-3">
+        <div class="col-view">Small 3</div>
+      </ui-column>
+      <ui-column size="sm-3">
+        <div class="col-view">Small 3</div>
+      </ui-column>
+    </ui-row>
+
+    <hr/>
+    <h4 class="x-title">Visibility</h4>
+    <ui-row class="x-cards">
+      <ui-column size="sm-3">
+        <div class="col-visi ui-hide-sm-down">Hidden >SM</div>
+        <div class="col-view ui-hide-sm-up">Visible &lt;SM</div>
+        <p>ui-hide-sm-up</p>
+      </ui-column>
+      <ui-column size="sm-3">
+        <div class="col-visi ui-hide-md-down">Hidden >MD</div>
+        <div class="col-view ui-hide-md-up">Visible &lt;MD</div>
+        <p>ui-hide-md-up</p>
+      </ui-column>
+      <ui-column size="sm-3">
+        <div class="col-visi ui-hide-lg-down">Hidden >LG</div>
+        <div class="col-view ui-hide-lg-up">Visible &lt;LG</div>
+        <p>ui-hide-lg-up</p>
+      </ui-column>
+      <ui-column size="sm-3">
+        <div class="col-visi ui-hide-xl-down">Hidden >XL</div>
+        <div class="col-view ui-hide-xl-up">Visible &lt;XL</div>
+        <p>ui-hide-xl-up</p>
+      </ui-column>
+    </ui-row>
+    <ui-row class="x-cards">
+      <ui-column size="sm-3">
+        <div class="col-visi ui-hide-sm-up">Hidden &lt;SM</div>
+        <div class="col-view ui-hide-sm-down">Visible >SM</div>
+        <p>ui-hide-sm-down</p>
+      </ui-column>
+      <ui-column size="sm-3">
+        <div class="col-visi ui-hide-md-up">Hidden &lt;MD</div>
+        <div class="col-view ui-hide-md-down">Visible >MD</div>
+        <p>ui-hide-md-down</p>
+      </ui-column>
+      <ui-column size="sm-3">
+        <div class="col-visi ui-hide-lg-up">Hidden &lt;LG</div>
+        <div class="col-view ui-hide-lg-down">Visible >LG</div>
+        <p>ui-hide-lg-down</p>
+      </ui-column>
+      <ui-column size="sm-3">
+        <div class="col-visi ui-hide-xl-up">Hidden &lt;XL</div>
+        <div class="col-view ui-hide-xl-down">Visible >XL</div>
+        <p>ui-hide-xl-down</p>
+      </ui-column>
+    </ui-row>
+  </x-container>
+</template>

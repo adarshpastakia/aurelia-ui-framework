@@ -1,0 +1,26 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <ui-page animate>
+    <x-container source.bind="source" wiki.bind="wiki" page-title="Viewport">
+      <div class="x-view">
+        <div class="ui-viewport" css.bind="{position: 'relative', width:'100%', height:'100%'}">
+          <ui-app-header>
+            <ui-app-title href="#">Application</ui-app-title>
+          </ui-app-header>
+
+          <ui-content padded>
+            <h6>Router View goes here</h6>
+          </ui-content>
+
+          <ui-app-footer>
+            <span>&copy; 2017, Company</span>
+          </ui-app-footer>
+        </div>
+      </div>
+    </x-container>
+  </ui-page>
+</template>

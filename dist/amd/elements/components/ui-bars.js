@@ -13,22 +13,6 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
     var UIToolbar = (function () {
         function UIToolbar(element) {
             this.element = element;
-            if (element.hasAttribute('dark'))
-                element.classList.add('dark');
-            if (element.hasAttribute('light'))
-                element.classList.add('light');
-            if (element.hasAttribute('primary'))
-                element.classList.add('primary');
-            if (element.hasAttribute('secondary'))
-                element.classList.add('secondary');
-            if (element.hasAttribute('info'))
-                element.classList.add('info');
-            if (element.hasAttribute('danger'))
-                element.classList.add('danger');
-            if (element.hasAttribute('success'))
-                element.classList.add('success');
-            if (element.hasAttribute('warning'))
-                element.classList.add('warning');
             if (element.hasAttribute('start'))
                 element.classList.add('ui-start');
         }
@@ -41,19 +25,6 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
         return UIToolbar;
     }());
     exports.UIToolbar = UIToolbar;
-    var UIDivider = (function () {
-        function UIDivider(element) {
-            this.element = element;
-        }
-        UIDivider = __decorate([
-            aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template class=\"ui-divider\"></template>"),
-            aurelia_framework_1.customElement('ui-divider'),
-            __metadata("design:paramtypes", [Element])
-        ], UIDivider);
-        return UIDivider;
-    }());
-    exports.UIDivider = UIDivider;
     var UIStatsbar = (function () {
         function UIStatsbar(element) {
             this.element = element;
@@ -61,42 +32,12 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
                 element.classList.add('ui-small');
             if (element.hasAttribute('icon-top'))
                 element.classList.add('ui-icon-top');
+            if (element.hasAttribute('icon-end'))
+                element.classList.add('ui-icon-end');
             if (element.hasAttribute('vertical'))
                 element.classList.add('ui-vertical');
-            if (element.hasAttribute('dark'))
-                element.classList.add('dark');
-            if (element.hasAttribute('light'))
-                element.classList.add('light');
-            if (element.hasAttribute('muted'))
-                element.classList.add('muted');
-            if (element.hasAttribute('primary'))
-                element.classList.add('primary');
-            if (element.hasAttribute('secondary'))
-                element.classList.add('secondary');
-            if (element.hasAttribute('info'))
-                element.classList.add('info');
-            if (element.hasAttribute('danger'))
-                element.classList.add('danger');
-            if (element.hasAttribute('success'))
-                element.classList.add('success');
-            if (element.hasAttribute('warning'))
-                element.classList.add('warning');
-            if (element.hasAttribute('dark-bg'))
-                element.classList.add('dark-bg');
-            if (element.hasAttribute('light-bg'))
-                element.classList.add('light-bg');
-            if (element.hasAttribute('primary-bg'))
-                element.classList.add('primary-bg');
-            if (element.hasAttribute('secondary-bg'))
-                element.classList.add('secondary-bg');
-            if (element.hasAttribute('info-bg'))
-                element.classList.add('info-bg');
-            if (element.hasAttribute('danger-bg'))
-                element.classList.add('danger-bg');
-            if (element.hasAttribute('success-bg'))
-                element.classList.add('success-bg');
-            if (element.hasAttribute('warning-bg'))
-                element.classList.add('warning-bg');
+            if (element.hasAttribute('icon-only'))
+                element.classList.add('ui-icon-only');
         }
         UIStatsbar = __decorate([
             aurelia_framework_1.autoinject(),
@@ -112,40 +53,10 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
             this.element = element;
             this.glyph = '';
             this.label = '';
-            if (element.hasAttribute('dark'))
-                element.classList.add('dark');
-            if (element.hasAttribute('light'))
-                element.classList.add('light');
-            if (element.hasAttribute('muted'))
-                element.classList.add('muted');
-            if (element.hasAttribute('primary'))
-                element.classList.add('primary');
-            if (element.hasAttribute('secondary'))
-                element.classList.add('secondary');
-            if (element.hasAttribute('info'))
-                element.classList.add('info');
-            if (element.hasAttribute('danger'))
-                element.classList.add('danger');
-            if (element.hasAttribute('success'))
-                element.classList.add('success');
-            if (element.hasAttribute('warning'))
-                element.classList.add('warning');
-            if (element.hasAttribute('dark-bg'))
-                element.classList.add('dark-bg');
-            if (element.hasAttribute('light-bg'))
-                element.classList.add('light-bg');
-            if (element.hasAttribute('primary-bg'))
-                element.classList.add('primary-bg');
-            if (element.hasAttribute('secondary-bg'))
-                element.classList.add('secondary-bg');
-            if (element.hasAttribute('info-bg'))
-                element.classList.add('info-bg');
-            if (element.hasAttribute('danger-bg'))
-                element.classList.add('danger-bg');
-            if (element.hasAttribute('success-bg'))
-                element.classList.add('success-bg');
-            if (element.hasAttribute('warning-bg'))
-                element.classList.add('warning-bg');
+            if (element.hasAttribute('icon-end'))
+                element.classList.add('ui-icon-end');
+            if (element.hasAttribute('icon-only'))
+                element.classList.add('ui-icon-only');
         }
         __decorate([
             aurelia_framework_1.bindable(),
@@ -165,3 +76,5 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
     }());
     exports.UIStat = UIStat;
 });
+
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImVsZW1lbnRzL2NvbXBvbmVudHMvdWktYmFycy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7SUFVQTtRQUNFLG1CQUFtQixPQUFnQjtZQUFoQixZQUFPLEdBQVAsT0FBTyxDQUFTO1lBQ2pDLEVBQUUsQ0FBQyxDQUFDLE9BQU8sQ0FBQyxZQUFZLENBQUMsT0FBTyxDQUFDLENBQUM7Z0JBQUMsT0FBTyxDQUFDLFNBQVMsQ0FBQyxHQUFHLENBQUMsVUFBVSxDQUFDLENBQUM7UUFDdkUsQ0FBQztRQUhVLFNBQVM7WUFIckIsOEJBQVUsRUFBRTtZQUNaLDhCQUFVLENBQUMseURBQXVELENBQUM7WUFDbkUsaUNBQWEsQ0FBQyxZQUFZLENBQUM7NkNBRUUsT0FBTztXQUR4QixTQUFTLENBSXJCO1FBQUQsZ0JBQUM7S0FKRCxBQUlDLElBQUE7SUFKWSw4QkFBUztJQVN0QjtRQUNFLG9CQUFtQixPQUFnQjtZQUFoQixZQUFPLEdBQVAsT0FBTyxDQUFTO1lBQ2pDLEVBQUUsQ0FBQyxDQUFDLE9BQU8sQ0FBQyxZQUFZLENBQUMsT0FBTyxDQUFDLENBQUM7Z0JBQUMsT0FBTyxDQUFDLFNBQVMsQ0FBQyxHQUFHLENBQUMsVUFBVSxDQUFDLENBQUM7WUFDckUsRUFBRSxDQUFDLENBQUMsT0FBTyxDQUFDLFlBQVksQ0FBQyxVQUFVLENBQUMsQ0FBQztnQkFBQyxPQUFPLENBQUMsU0FBUyxDQUFDLEdBQUcsQ0FBQyxhQUFhLENBQUMsQ0FBQztZQUMzRSxFQUFFLENBQUMsQ0FBQyxPQUFPLENBQUMsWUFBWSxDQUFDLFVBQVUsQ0FBQyxDQUFDO2dCQUFDLE9BQU8sQ0FBQyxTQUFTLENBQUMsR0FBRyxDQUFDLGFBQWEsQ0FBQyxDQUFDO1lBQzNFLEVBQUUsQ0FBQyxDQUFDLE9BQU8sQ0FBQyxZQUFZLENBQUMsVUFBVSxDQUFDLENBQUM7Z0JBQUMsT0FBTyxDQUFDLFNBQVMsQ0FBQyxHQUFHLENBQUMsYUFBYSxDQUFDLENBQUM7WUFDM0UsRUFBRSxDQUFDLENBQUMsT0FBTyxDQUFDLFlBQVksQ0FBQyxXQUFXLENBQUMsQ0FBQztnQkFBQyxPQUFPLENBQUMsU0FBUyxDQUFDLEdBQUcsQ0FBQyxjQUFjLENBQUMsQ0FBQztRQUMvRSxDQUFDO1FBUFUsVUFBVTtZQUh0Qiw4QkFBVSxFQUFFO1lBQ1osOEJBQVUsQ0FBQywwREFBd0QsQ0FBQztZQUNwRSxpQ0FBYSxDQUFDLGFBQWEsQ0FBQzs2Q0FFQyxPQUFPO1dBRHhCLFVBQVUsQ0FRdEI7UUFBRCxpQkFBQztLQVJELEFBUUMsSUFBQTtJQVJZLGdDQUFVO0lBY3ZCO1FBQ0UsZ0JBQW1CLE9BQWdCO1lBQWhCLFlBQU8sR0FBUCxPQUFPLENBQVM7WUFNdkIsVUFBSyxHQUFHLEVBQUUsQ0FBQztZQUNYLFVBQUssR0FBRyxFQUFFLENBQUM7WUFMckIsRUFBRSxDQUFDLENBQUMsT0FBTyxDQUFDLFlBQVksQ0FBQyxVQUFVLENBQUMsQ0FBQztnQkFBQyxPQUFPLENBQUMsU0FBUyxDQUFDLEdBQUcsQ0FBQyxhQUFhLENBQUMsQ0FBQztZQUMzRSxFQUFFLENBQUMsQ0FBQyxPQUFPLENBQUMsWUFBWSxDQUFDLFdBQVcsQ0FBQyxDQUFDO2dCQUFDLE9BQU8sQ0FBQyxTQUFTLENBQUMsR0FBRyxDQUFDLGNBQWMsQ0FBQyxDQUFDO1FBQy9FLENBQUM7UUFFVztZQUFYLDRCQUFRLEVBQUU7OzZDQUFZO1FBQ1g7WUFBWCw0QkFBUSxFQUFFOzs2Q0FBWTtRQVJaLE1BQU07WUFKbEIsOEJBQVUsRUFBRTtZQUNaLDhCQUFVLENBQUMsa1BBQ21JLENBQUM7WUFDL0ksaUNBQWEsQ0FBQyxTQUFTLENBQUM7NkNBRUssT0FBTztXQUR4QixNQUFNLENBU2xCO1FBQUQsYUFBQztLQVRELEFBU0MsSUFBQTtJQVRZLHdCQUFNIiwiZmlsZSI6ImVsZW1lbnRzL2NvbXBvbmVudHMvdWktYmFycy5qcyIsInNvdXJjZXNDb250ZW50IjpbIi8vXG4vLyBAZGVzY3JpcHRpb24gOlxuLy8gQGF1dGhvciAgICAgIDogQWRhcnNoIFBhc3Rha2lhXG4vLyBAY29weXJpZ2h0ICAgOiAyMDE3XG4vLyBAbGljZW5zZSAgICAgOiBNSVRcbmltcG9ydCB7IGF1dG9pbmplY3QsIGN1c3RvbUVsZW1lbnQsIGJpbmRhYmxlLCBpbmxpbmVWaWV3IH0gZnJvbSAnYXVyZWxpYS1mcmFtZXdvcmsnO1xuXG5AYXV0b2luamVjdCgpXG5AaW5saW5lVmlldyhgPHRlbXBsYXRlIGNsYXNzPVwidWktdG9vbGJhclwiPjxzbG90Pjwvc2xvdD48L3RlbXBsYXRlPmApXG5AY3VzdG9tRWxlbWVudCgndWktdG9vbGJhcicpXG5leHBvcnQgY2xhc3MgVUlUb29sYmFyIHtcbiAgY29uc3RydWN0b3IocHVibGljIGVsZW1lbnQ6IEVsZW1lbnQpIHtcbiAgICBpZiAoZWxlbWVudC5oYXNBdHRyaWJ1dGUoJ3N0YXJ0JykpIGVsZW1lbnQuY2xhc3NMaXN0LmFkZCgndWktc3RhcnQnKTtcbiAgfVxufVxuXG5AYXV0b2luamVjdCgpXG5AaW5saW5lVmlldyhgPHRlbXBsYXRlIGNsYXNzPVwidWktc3RhdHNiYXJcIj48c2xvdD48L3Nsb3Q+PC90ZW1wbGF0ZT5gKVxuQGN1c3RvbUVsZW1lbnQoJ3VpLXN0YXRzYmFyJylcbmV4cG9ydCBjbGFzcyBVSVN0YXRzYmFyIHtcbiAgY29uc3RydWN0b3IocHVibGljIGVsZW1lbnQ6IEVsZW1lbnQpIHtcbiAgICBpZiAoZWxlbWVudC5oYXNBdHRyaWJ1dGUoJ3NtYWxsJykpIGVsZW1lbnQuY2xhc3NMaXN0LmFkZCgndWktc21hbGwnKTtcbiAgICBpZiAoZWxlbWVudC5oYXNBdHRyaWJ1dGUoJ2ljb24tdG9wJykpIGVsZW1lbnQuY2xhc3NMaXN0LmFkZCgndWktaWNvbi10b3AnKTtcbiAgICBpZiAoZWxlbWVudC5oYXNBdHRyaWJ1dGUoJ2ljb24tZW5kJykpIGVsZW1lbnQuY2xhc3NMaXN0LmFkZCgndWktaWNvbi1lbmQnKTtcbiAgICBpZiAoZWxlbWVudC5oYXNBdHRyaWJ1dGUoJ3ZlcnRpY2FsJykpIGVsZW1lbnQuY2xhc3NMaXN0LmFkZCgndWktdmVydGljYWwnKTtcbiAgICBpZiAoZWxlbWVudC5oYXNBdHRyaWJ1dGUoJ2ljb24tb25seScpKSBlbGVtZW50LmNsYXNzTGlzdC5hZGQoJ3VpLWljb24tb25seScpO1xuICB9XG59XG5cbkBhdXRvaW5qZWN0KClcbkBpbmxpbmVWaWV3KGA8dGVtcGxhdGUgY2xhc3M9XCJ1aS1zdGF0XCI+PHVpLWdseXBoIGdseXBoLmJpbmQ9XCJnbHlwaFwiIGlmLmJpbmQ9XCJnbHlwaFwiPjwvdWktZ2x5cGg+XG4gIDxkaXY+PGRpdiBjbGFzcz1cInVpLXN0YXQtdmFsdWVcIj48c2xvdD48L3Nsb3Q+PC9kaXY+PGRpdiBjbGFzcz1cInVpLXN0YXQtbGFiZWxcIiBpbm5lcmh0bWwuYmluZD1cImxhYmVsXCIgaWYuYmluZD1cImxhYmVsXCI+PC9kaXY+PC9kaXY+PC90ZW1wbGF0ZT5gKVxuQGN1c3RvbUVsZW1lbnQoJ3VpLXN0YXQnKVxuZXhwb3J0IGNsYXNzIFVJU3RhdCB7XG4gIGNvbnN0cnVjdG9yKHB1YmxpYyBlbGVtZW50OiBFbGVtZW50KSB7XG5cbiAgICBpZiAoZWxlbWVudC5oYXNBdHRyaWJ1dGUoJ2ljb24tZW5kJykpIGVsZW1lbnQuY2xhc3NMaXN0LmFkZCgndWktaWNvbi1lbmQnKTtcbiAgICBpZiAoZWxlbWVudC5oYXNBdHRyaWJ1dGUoJ2ljb24tb25seScpKSBlbGVtZW50LmNsYXNzTGlzdC5hZGQoJ3VpLWljb24tb25seScpO1xuICB9XG5cbiAgQGJpbmRhYmxlKCkgZ2x5cGggPSAnJztcbiAgQGJpbmRhYmxlKCkgbGFiZWwgPSAnJztcbn1cbiJdLCJzb3VyY2VSb290Ijoic3JjIn0=

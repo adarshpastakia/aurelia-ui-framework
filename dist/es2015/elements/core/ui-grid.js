@@ -47,6 +47,12 @@ let UIRow = class UIRow {
             element.classList.add('ui-row-end');
         if (element.hasAttribute('spaced'))
             element.classList.add('ui-row-spaced');
+        if (element.hasAttribute('space-around'))
+            element.classList.add('ui-row-space-around');
+        if (!element.hasAttribute('nogutter'))
+            element.classList.add('ui-gutter');
+        if (element.hasAttribute('nowrap'))
+            element.classList.add('ui-row-nowrap');
         if (element.hasAttribute('reverse'))
             element.classList.add('ui-row-reverse');
     }
@@ -77,6 +83,12 @@ let UIColumnRow = class UIColumnRow {
             element.classList.add('ui-row-bottom');
         if (element.hasAttribute('spaced'))
             element.classList.add('ui-row-spaced');
+        if (element.hasAttribute('space-around'))
+            element.classList.add('ui-row-space-around');
+        if (!element.hasAttribute('nogutter'))
+            element.classList.add('ui-gutter');
+        if (element.hasAttribute('nowrap'))
+            element.classList.add('ui-row-nowrap');
         if (element.hasAttribute('reverse'))
             element.classList.add('ui-row-reverse');
     }
@@ -84,7 +96,7 @@ let UIColumnRow = class UIColumnRow {
 UIColumnRow = __decorate([
     autoinject(),
     customElement('ui-row-column'),
-    inlineView('<template class="ui-row-vertical"><slot></slot></template>'),
+    inlineView('<template class="ui-row ui-row-vertical"><slot></slot></template>'),
     __metadata("design:paramtypes", [Element])
 ], UIColumnRow);
 export { UIColumnRow };
@@ -109,8 +121,6 @@ let UIColumn = class UIColumn {
             element.classList.add('ui-col-full');
         if (element.hasAttribute('form'))
             element.classList.add('ui-col-form');
-        if (element.hasAttribute('padded'))
-            element.classList.add('ui-pad-all');
     }
     bind() {
         for (var size of this.size.split(' ')) {

@@ -1,0 +1,46 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <ui-section column-layout>
+    <div class="ui-light-bg ui-border-b">
+      <ui-container>
+        <ui-row middle>
+          <ui-column fill>
+            <h4 class="ui-text-primary">${pageTitle}</h4>
+          </ui-column>
+          <ui-column width="8em">
+            <ui-switch if.bind="needRtl" class="ui-themed" checked.bind="rtl" value.bind="dir" on-label="rtl" off-label="ltr" on-value="rtl" off-value="ltr"></ui-switch>
+          </ui-column>
+          <a class="x-tab ${currentView==0?'x-tab-active':''}" click.trigger="currentView=0" tooltip-dark="Examples">
+            <ui-glyph glyph="icon-moon-eye"></ui-glyph>
+          </a>
+          <a class="x-tab ${currentView==1?'x-tab-active':''}" click.trigger="currentView=1" tooltip-dark="Source" if.bind="source">
+            <ui-glyph glyph="icon-moon-embed2"></ui-glyph>
+          </a>
+          <a class="x-tab ${currentView==2?'x-tab-active':''}" click.trigger="currentView=2" tooltip-dark="Wiki" if.bind="wiki">
+            <ui-glyph glyph="icon-moon-lab"></ui-glyph>
+          </a>
+        </ui-row>
+      </ui-container>
+    </div>
+    <ui-content padded scroll show.bind="currentView===0">
+      <ui-container dir.bind="dir">
+        <slot></slot>
+        <br/><br/>
+      </ui-container>
+    </ui-content>
+    <ui-content padded scroll show.bind="currentView===1">
+      <ui-container>
+        <div class="x-section ui-markdown" ref="elSource"></div>
+      </ui-container>
+    </ui-content>
+    <ui-content padded scroll show.bind="currentView===2">
+      <ui-container>
+        <div class="x-section ui-markdown" ref="elWiki"></div>
+      </ui-container>
+    </ui-content>
+  </ui-section>
+</template>

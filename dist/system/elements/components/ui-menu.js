@@ -10,7 +10,7 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var __moduleName = context_1 && context_1.id;
-    var aurelia_framework_1, ui_event_1, ui_utils_1, UIMenubar, UIMenu, UIMenuSection, UIMenuGroup, UIMenuItem;
+    var aurelia_framework_1, ui_event_1, ui_utils_1, UIMenubar, UIMenu, UIMenuTitle, UIMenuGroup, UIMenuItem;
     return {
         setters: [
             function (aurelia_framework_1_1) {
@@ -32,9 +32,13 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                 UIMenubar.prototype.attached = function () {
                     var _this = this;
                     this.obResize = ui_event_1.UIEvent.subscribe('windowresize', function () { return _this.arrange(); });
-                    this.obClick = ui_event_1.UIEvent.subscribe('mouseclick', function () { return _this.overflow.classList.remove('ui-open'); });
-                    this.tether = ui_utils_1.UIUtils.tether(this.overflowToggle, this.overflow, { resize: false, position: 'br' });
-                    window.setTimeout(function () { return _this.arrange(); }, 500);
+                    this.obClick = ui_event_1.UIEvent.subscribe('mouseclick', function (evt) {
+                        if (getParentByClass(evt.target, 'ui-menubar-toggle') == _this.element)
+                            return;
+                        _this.overflow.classList.remove('ui-open');
+                    });
+                    this.tether = ui_utils_1.UIUtils.tether(this.element, this.overflow, { resize: false, position: 'br' });
+                    window.setTimeout(function () { return _this.arrange(); }, 100);
                 };
                 UIMenubar.prototype.detached = function () {
                     this.tether.dispose();
@@ -89,31 +93,52 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                 return UIMenu;
             }());
             exports_1("UIMenu", UIMenu);
-            UIMenuSection = (function () {
-                function UIMenuSection(element) {
+            UIMenuTitle = (function () {
+                function UIMenuTitle(element) {
                     this.element = element;
                 }
-                UIMenuSection = __decorate([
+                UIMenuTitle = __decorate([
                     aurelia_framework_1.autoinject(),
                     aurelia_framework_1.inlineView('<template class="ui-menu-section-title"><slot></slot></template>'),
                     aurelia_framework_1.customElement('ui-menu-section'),
                     __metadata("design:paramtypes", [Element])
-                ], UIMenuSection);
-                return UIMenuSection;
+                ], UIMenuTitle);
+                return UIMenuTitle;
             }());
-            exports_1("UIMenuSection", UIMenuSection);
+            exports_1("UIMenuTitle", UIMenuTitle);
             UIMenuGroup = (function () {
                 function UIMenuGroup(element) {
                     this.element = element;
                     this.label = '';
+                    this.collapsed = false;
+                    this.collapsible = false;
+                    this.collapsible = element.hasAttribute('collapsible');
                 }
+                UIMenuGroup.prototype.toggleCollapse = function (event) {
+                    this.collapsed = !this.collapsed;
+                    event.stopPropagation();
+                    event.preventDefault();
+                    return false;
+                };
                 __decorate([
                     aurelia_framework_1.bindable(),
                     __metadata("design:type", Object)
                 ], UIMenuGroup.prototype, "label", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIMenuGroup.prototype, "collapsed", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIMenuGroup.prototype, "collapsible", void 0);
+                __decorate([
+                    aurelia_framework_1.child('ui-menu-item.ui-active'),
+                    __metadata("design:type", Object)
+                ], UIMenuGroup.prototype, "hasActive", void 0);
                 UIMenuGroup = __decorate([
                     aurelia_framework_1.autoinject(),
-                    aurelia_framework_1.inlineView('<template class="ui-menu-section"><div if.bind="label" class="ui-menu-section-title" innerhtml.bind="label"></div><slot></slot></template>'),
+                    aurelia_framework_1.inlineView('<template class="ui-menu-section ${collapsible?\'ui-collapsible\':\'\'} ${collapsed?\'ui-collapsed\':\'\'}"><div mouseup.trigger="toggleCollapse($event)" if.bind="label" class="ui-menu-section-title ${hasActive?\'ui-has-active\':\'\'}"><ui-glyph glyph="glyph-chevron-down" if.bind="collapsible"></ui-glyph><span innerhtml.bind="label"></span></div><div class="ui-menu-section-body"><slot></slot></div></template>'),
                     aurelia_framework_1.customElement('ui-menu-group'),
                     __metadata("design:paramtypes", [Element])
                 ], UIMenuGroup);
@@ -124,6 +149,7 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                 function UIMenuItem(element) {
                     this.element = element;
                     this.id = '';
+                    this.description = '';
                     this.glyph = '';
                     this.class = '';
                     this.active = false;
@@ -131,8 +157,8 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                     this.href = 'javascript:void(0)';
                 }
                 UIMenuItem.prototype.bind = function (bindingContext, overrideContext) {
-                    this.active = isTrue(this.active);
-                    this.disabled = isTrue(this.disabled);
+                    this.active = !!(this.active);
+                    this.disabled = !!(this.disabled);
                 };
                 UIMenuItem.prototype.click = function (evt) {
                     if (evt.button != 0)
@@ -147,6 +173,10 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                     aurelia_framework_1.bindable(),
                     __metadata("design:type", Object)
                 ], UIMenuItem.prototype, "id", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIMenuItem.prototype, "description", void 0);
                 __decorate([
                     aurelia_framework_1.bindable(),
                     __metadata("design:type", Object)
@@ -170,7 +200,7 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                 UIMenuItem = __decorate([
                     aurelia_framework_1.autoinject(),
                     aurelia_framework_1.containerless(),
-                    aurelia_framework_1.inlineView("<template><a class=\"ui-menu-item ${active?'ui-active':''} ${disabled?'ui-disabled':''} ${class}\" href.bind=\"href\" click.trigger=\"click($event)\">\n    <ui-glyph if.bind=\"glyph\" class=\"ui-menu-icon ${glyph}\" glyph.bind=\"glyph\"></ui-glyph><span class=\"ui-menu-label\"><slot></slot></span></a></template>"),
+                    aurelia_framework_1.inlineView("<template><a class=\"ui-menu-item ${active?'ui-active':''} ${disabled?'ui-disabled':''} ${class}\" href.bind=\"href\" click.trigger=\"click($event)\">\n    <ui-glyph if.bind=\"glyph\" class=\"ui-menu-icon ${glyph}\" glyph.bind=\"glyph\"></ui-glyph><span class=\"ui-menu-label\"><slot></slot><small if.bind=\"description\">${description}</small></span></a></template>"),
                     aurelia_framework_1.customElement('ui-menu-item'),
                     __metadata("design:paramtypes", [Element])
                 ], UIMenuItem);

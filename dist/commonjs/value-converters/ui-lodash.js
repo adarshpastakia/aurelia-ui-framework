@@ -34,6 +34,16 @@ var GroupValueConverter = (function () {
     return GroupValueConverter;
 }());
 exports.GroupValueConverter = GroupValueConverter;
+var FilterValueConverter = (function () {
+    function FilterValueConverter() {
+    }
+    FilterValueConverter.prototype.toView = function (object, property, value) {
+        if (object === void 0) { object = []; }
+        return _.filter(object, [property, value]);
+    };
+    return FilterValueConverter;
+}());
+exports.FilterValueConverter = FilterValueConverter;
 var SortValueConverter = (function () {
     function SortValueConverter() {
     }

@@ -7,7 +7,7 @@
     "desktop-framework",
     "aurelia-ui-framework"
   ],
-  "homepage": "",
+  "homepage": "http://adarshpastakia.github.io/auf-demo-v4",
   "bugs":
   {
     "url": ""
@@ -24,102 +24,67 @@
   "scripts":
   {
     "start": "au run --watch",
-    "staging": "au build --env stage && gulp production",
-    "production": "au build --env prod && gulp production"
-  },
-  "jspm":
-  {
-    "registry": "npm",
-    "jspmPackage": true,
-    "main": "aurelia-ui-framework",
-    "format": "amd",
-    "directories":
-    {
-      "dist": "dist/amd"
-    },
-    "peerDependencies":
-    {
-      "aurelia-bootstrapper": "^1.0.1",
-      "aurelia-fetch-client": "^1.1.2",
-      "aurelia-pal": "^1.3.0",
-      "aurelia-ui-virtualization": "^1.0.0-beta.3.0.2",
-      "aurelia-validation": "^1.0.0",
-      "kramed": "^0.5.6",
-      "lodash": "^4.17.2",
-      "moment": "^2.18.1",
-      "numeral": "^1.5.6",
-      "whatwg-fetch": "^2.0.1"
-    },
-    "dependencies":
-    {
-      "aurelia-animator-css": "^1.0.2",
-      "aurelia-bootstrapper": "^1.0.1",
-      "aurelia-fetch-client": "^1.1.2",
-      "aurelia-pal": "^1.3.0",
-      "aurelia-ui-virtualization": "^1.0.0-beta.3.0.2",
-      "aurelia-validation": "^1.0.0",
-      "kramed": "^0.5.6",
-      "lodash": "^4.17.2",
-      "moment": "^2.18.1",
-      "numeral": "^1.5.6",
-      "whatwg-fetch": "^2.0.1"
-    }
+    "build:demo": "au build --env prod",
+    "build:source": "gulp build-source",
+    "build:sass": "node-sass ./examples/sass/app.scss ./examples/css/app.css"
   },
   "dependencies":
   {
-    "aurelia-animator-css": "^1.0.2",
-    "aurelia-bootstrapper": "^1.0.1",
-    "aurelia-fetch-client": "^1.1.2",
-    "aurelia-ui-virtualization": "^1.0.0-beta.3.0.2",
-    "aurelia-validation": "^1.0.0",
+    "amcharts3": "amcharts/amcharts3",
+    "aurelia-fetch-client": "^1.1.3",
+    "aurelia-framework": "^1.1.5",
     "kramed": "^0.5.6",
-    "lodash": "^4.17.2",
-    "moment": "^2.18.1",
-    "numeral": "^1.5.6",
-    "whatwg-fetch": "^2.0.1"
+    "lodash": "^4.17.4",
+    "moment": "^2.19.1",
+    "numeral": "^2.0.6"
   },
   "peerDependencies":
   {},
   "devDependencies":
   {
-    "aurelia-cli": "^0.27.0",
-    "aurelia-i18n": "^1.2.3",
-    "aurelia-testing": "^1.0.0-beta.2.0.0",
-    "aurelia-tools": "^0.2.2",
+    "@types/amcharts": "0.0.41",
+    "@types/jasmine": "^2.2.0",
+    "@types/node": "^6.0.45",
+    "aurelia-animator-css": "^1.0.4",
+    "aurelia-bootstrapper": "^2.1.1",
+    "aurelia-cli": "^0.32.0",
+    "aurelia-testing": "^1.0.0-beta.3.0.1",
+    "aurelia-tools": "^1.0.0",
     "bluebird": "^3.4.1",
     "browser-sync": "^2.13.0",
     "connect-history-api-fallback": "^1.2.0",
-    "del": "^2.2.2",
+    "debounce": "^1.0.2",
+    "del": "^3.0.0",
     "event-stream": "^3.3.3",
     "gulp": "github:gulpjs/gulp#4.0",
-    "gulp-bump": "^2.5.1",
     "gulp-changed-in-place": "^2.0.3",
-    "gulp-compass": "^2.1.0",
-    "gulp-conventional-changelog": "^1.1.0",
+    "gulp-htmlmin": "^3.0.0",
     "gulp-notify": "^2.2.0",
     "gulp-plumber": "^1.1.0",
     "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.0.0-alpha",
     "gulp-tslint": "^5.0.0",
-    "gulp-typescript": "^2.13.6",
+    "gulp-typescript": "^3.2.3",
+    "gulp-watch": "^4.3.11",
     "highlightjs": "^9.10.0",
-    "i18next-xhr-backend": "^1.2.1",
+    "html-minifier": "^3.2.3",
     "jasmine-core": "^2.4.1",
     "karma": "^0.13.22",
-    "karma-chrome-launcher": "^1.0.1",
+    "karma-chrome-launcher": "^2.2.0",
     "karma-jasmine": "^1.0.2",
+    "karma-sourcemap-loader": "^0.3.7",
     "karma-typescript-preprocessor": "^0.2.1",
     "minimatch": "^3.0.2",
-    "require-dir": "^0.3.1",
+    "node-sass": "^4.5.3",
+    "require-dir": "^0.3.2",
     "requirejs": "^2.3.2",
     "text": "github:requirejs/text#latest",
     "through2": "^2.0.1",
     "tslint": "^3.11.0",
     "typescript": ">=1.9.0-dev || ^2.0.0",
-    "typings": "^1.3.0",
-    "uglify-js": "^2.6.3",
+    "uglify-js": "^3.0.19",
     "vinyl-fs": "^2.4.3",
-    "vinyl-paths": "^2.1.0",
-    "yargs": "^6.4.0"
+    "vinyl-paths": "^2.1.0"
   }
 }

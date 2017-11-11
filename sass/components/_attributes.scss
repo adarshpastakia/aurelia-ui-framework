@@ -1,0 +1,132 @@
+//
+// @description :
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+
+.ui-tooltip {
+  font-size    : 0.8em;
+  min-width    : 2em;
+  position     : fixed;
+  padding      : 0.5em 1rem;
+  border-radius: $base-border-radius;
+  opacity      : 0;
+  z-index      : $z-index-floating;
+  visibility   : hidden;
+  white-space  : nowrap;
+  background   : $light;
+  box-shadow   : 0 0 8px 2px rgba(0,0,0,.5);
+  @include transition(opacity 500ms);
+
+  &:after {
+    border      : 0 solid transparent;
+    border-color: $light transparent;
+    position    : absolute;
+    content     : '';
+    left        : 50%;
+    margin-left : -6px;
+  }
+
+  &.ui-tether-bottom:after {
+    border-width: 0.5em 0.5em 0 0.5em;
+    bottom      : -.49em;
+  }
+
+  &.ui-tether-top:after {
+    border-width: 0 0.5em 0.5em 0.5em;
+    top         : -.49em;
+  }
+
+  &.ui-show {
+    opacity   : 1;
+    visibility: visible;
+  }
+}
+@include tooltip-theme(primary, $primary, $button-primary-text);
+@include tooltip-theme(secondary, $secondary, $button-secondary-text);
+@include tooltip-theme(dark, $dark, $light);
+@include tooltip-theme(info, $info, $button-info-text);
+@include tooltip-theme(danger, $danger, $button-danger-text);
+@include tooltip-theme(success, $success, $button-success-text);
+@include tooltip-theme(warning, $warning, $button-warning-text);
+
+.ui-ribbon {
+  position   : absolute;
+  top        : 0;
+  right      : 0;
+  font-size  : 0.9rem;
+  padding    : 0.25em 3em;
+  z-index    : 10;
+  background : $light;
+  font-weight: 400;
+  box-shadow : 0 0 4px 1px rgba(0,0,0,.5);
+  @include transform(rotate(45deg) translate(30%, -50%));
+}
+@include ribbon-theme(primary, $primary, $button-primary-text);
+@include ribbon-theme(secondary, $secondary, $button-secondary-text);
+@include ribbon-theme(dark, $dark, $button-dark-text);
+@include ribbon-theme(info, $info, $button-info-text);
+@include ribbon-theme(danger, $danger, $button-danger-text);
+@include ribbon-theme(success, $success, $button-success-text);
+@include ribbon-theme(warning, $warning, $button-warning-text);
+
+//BADGES
+.ui-has-badge {}
+
+.ui-badge {
+  display       : inline-block;
+  line-height   : 1;
+  order         : 9;
+  padding       : 0.25em 0.5em;
+  background    : none !important;
+  pointer-events: none;
+
+  &:after {
+    content      : attr(data-value);
+    position     : absolute;
+    top          : 50%;
+    right        : 0;
+    border-radius: 1em;
+    padding      : 0.25em 0.5em;
+    color        : $light;
+    background   : $muted;
+    box-shadow   : 0 0 2px 0 rgba($base-shadow-color, .25);
+    @include transform(translateY(-50%) scale(.75));
+  }
+
+  &.ui-dark:after {
+    background: $dark;
+  }
+
+  &.ui-primary:after {
+    background: $primary;
+  }
+
+  &.ui-secondary:after {
+    background: $secondary;
+  }
+
+  &.ui-info:after {
+    background: $info;
+  }
+
+  &.ui-danger:after {
+    background: $danger;
+  }
+
+  &.ui-success:after {
+    background: $success;
+  }
+
+  &.ui-warning:after {
+    background: $warning;
+  }
+}
+
+.rtl,
+[dir="rtl"] {
+  .ui-badge:after {
+    right: auto;
+    left : 0;
+  }
+}

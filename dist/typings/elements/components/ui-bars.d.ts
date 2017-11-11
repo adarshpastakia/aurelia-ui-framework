@@ -2,10 +2,6 @@ export declare class UIToolbar {
     element: Element;
     constructor(element: Element);
 }
-export declare class UIDivider {
-    element: Element;
-    constructor(element: Element);
-}
 export declare class UIStatsbar {
     element: Element;
     constructor(element: Element);

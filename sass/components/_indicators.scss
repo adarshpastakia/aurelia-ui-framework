@@ -1,0 +1,343 @@
+//
+// @description :
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+
+.ui-chip {
+  margin       : 0.25em;
+  border-radius: 1em;
+  overflow     : hidden;
+  text-align   : center;
+  @include flexbox($direction: row, $display:inline-flex, $align:center, $wrap:false);
+  @include box-shadow(0 0 0 1px rgba($base-border-color, .5));
+
+  &.ui-large {
+    font-size: 1.25rem;
+  }
+
+  &.ui-small {
+    font-size: 0.8rem;
+  }
+
+  .ui-chip-label {
+    color      : $dark;
+    background : $light;
+    padding    : 0 0.5em;
+    font-weight: $font-weight-medium;
+    @include flex(1 1 0);
+  }
+
+  .ui-chip-value {
+    padding: 0 0.5em;
+    @include flex(1 1 0);
+  }
+
+  .ui-chip-close {
+    color      : $primary;
+    opacity    : 0.6;
+    line-height: 1;
+    margin     : 0 0.25em;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}
+@include chip-theme(primary, $primary, $button-primary-text);
+@include chip-theme(secondary, $secondary, $button-secondary-text);
+@include chip-theme(dark, $dark, $button-dark-text);
+@include chip-theme(muted, $muted, $button-muted-text);
+@include chip-theme(info, $info, $button-info-text);
+@include chip-theme(danger, $danger, $button-danger-text);
+@include chip-theme(success, $success, $button-success-text);
+@include chip-theme(warning, $warning, $button-warning-text);
+
+.ui-breadcrumb {
+  display      : flex;
+  flex-flow    : row wrap;
+  list-style   : none;
+  overflow     : hidden;
+  line-height  : 1.5;
+  // margin       : 0 .5em;
+  border-radius: $base-border-radius;
+  @include flex-auto();
+
+  .ui-crumb {
+    margin       : 0.25em 0;
+    overflow     : hidden;
+    padding-right: 0.75em;
+    position     : relative;
+
+    &:after {
+      display   : block;
+      content   : '';
+      right     : 1em;
+      left      : 1em;
+      bottom    : 0;
+      position  : absolute;
+      width     : 0;
+      height    : 1px;
+      margin    : 0 auto;
+      background: $secondary;
+      @include transition(width .25s);
+    }
+
+    &:hover:after {
+      width           : 100%;
+    }
+
+    &:not(:first-child) {
+      margin-left: -.75em;
+    }
+
+    a {
+      text-decoration: none;
+      color          : $link-text;
+      background     : $base-bg;
+      position       : relative;
+      padding        : 0.25em 0.25em 0.25em 1em;
+    }
+
+    a:hover {
+      color: $link-hover-text;
+
+      &:before {
+        border-left-color: $link-hover-text;
+      }
+    }
+
+    &:first-child a {
+      padding: 0.25em 0.25em 0.25em 0.75em;
+    }
+
+    &:last-child {
+      pointer-events: none !important;
+      cursor        : default;
+
+      a {
+        color: $base-text;
+
+        &:after,
+        &:before {
+          content: none;
+        }
+      }
+    }
+
+    a:after {
+      content      : ' ';
+      display      : block;
+      width        : 0;
+      height       : 0;
+      border-top   : 0.5em solid transparent;
+      /* Go big on the size, and let overflow hide */
+      border-bottom: 0.5em solid transparent;
+      border-left  : 0.5em solid $base-bg;
+      position     : absolute;
+      top          : 50%;
+      transform    : translateY(-50%);
+      left         : 100%;
+      z-index      : 2;
+    }
+
+    a:before {
+      content      : ' ';
+      display      : block;
+      width        : 0;
+      height       : 0;
+      border-top   : 0.5em solid transparent;
+      border-bottom: 0.5em solid transparent;
+      border-left  : 0.5em solid $muted;
+      position     : absolute;
+      top          : 50%;
+      margin-left  : 2px;
+      left         : 100%;
+      z-index      : 1;
+      transform    : translateY(-50%);
+    }
+  }
+
+  &.ui-themed {
+    .ui-crumb {
+      padding-right: 1.5em;
+
+      &:after {
+        bottom: 1px;
+      }
+
+      &:not(:first-child) {
+        margin-left: -1.5em;
+
+        &:after {
+          left : 2em;
+          right: 1em;
+        }
+      }
+
+      a {
+        background: $light;
+        color     : $primary;
+        padding   : 0.25em 2px 0.25em 2em;
+      }
+
+      &:first-child a {
+        padding      : 0.25em 2px 0.25em 1em;
+        border-radius: 0.25em 0 0 0.25em;
+      }
+
+      &:last-child a {
+        color: $dark;
+
+        &:after,
+        &:before {
+          content: ' ';
+        }
+      }
+
+      a:after {
+        margin-left  : -1px;
+        border-top   : 1.5em solid transparent;
+        /* Go big on the size, and let overflow hide */
+        border-bottom: 1.5em solid transparent;
+        border-left  : 1.25em solid $light;
+      }
+
+      a:before {
+        margin-left  : 1px;
+        border-top   : 1.5em solid transparent;
+        border-bottom: 1.5em solid transparent;
+        border-left  : 1.25em solid $white;
+      }
+    }
+  }
+}
+@include breadcrumb-theme(primary, $primary, $button-primary-text);
+@include breadcrumb-theme(secondary, $secondary, $button-secondary-text);
+@include breadcrumb-theme(dark, $dark, $button-dark-text);
+@include breadcrumb-theme(muted, $muted, $button-muted-text);
+@include breadcrumb-theme(info, $info, $button-info-text);
+@include breadcrumb-theme(danger, $danger, $button-danger-text);
+@include breadcrumb-theme(success, $success, $button-success-text);
+@include breadcrumb-theme(warning, $warning, $button-warning-text);
+
+.ui-pager {
+  border-radius: $base-border-radius;
+  border       : 1px solid rgba($base-border-color, .5);
+  @include flexbox($direction: row, $display: inline-flex, $wrap:false, $align:stretch);
+
+  a {
+    padding  : 0.25em 0.4em;
+    font-size: 0.8em;
+    color    : $secondary;
+
+    &:hover {
+      color: darken($secondary, 5%);
+    }
+
+    &.ui-disabled {
+      color         : $muted;
+      pointer-events: none;
+    }
+
+    &.ui-first,
+    &.ui-last {
+      font-size  : 0.9em;
+      line-height: 1.2em;
+    }
+  }
+
+  span {
+    font-size  : 0.9em;
+    line-height: 1rem;
+    align-self : center;
+
+    input {
+      margin    : 0;
+      border    : none;
+      text-align: center;
+    }
+  }
+}
+
+.rtl,
+[dir="rtl"] {
+  .ui-breadcrumb {
+    .ui-crumb {
+      padding-right: 0;
+      padding-left : 0.75em;
+
+      &:not(:first-child) {
+        margin-left : 0;
+        margin-right: -.75em;
+      }
+
+      a {
+        padding: 0.25em 1em 0.25em 0.25em;
+      }
+
+      a:hover {
+        &:before {
+          border-right-color: $link-hover-text;
+        }
+      }
+
+      &:first-child a {
+        padding: 0.25em 0.75em 0.25em 0.25em;
+      }
+
+      a:after {
+        border-left : none;
+        border-right: 0.5em solid $base-bg;
+        right       : 100%;
+        left        : auto;
+      }
+
+      a:before {
+        border-left : none;
+        border-right: 0.5em solid $link-text;
+        margin-right: 2px;
+        right       : 100%;
+        left        : auto;
+      }
+    }
+
+    &.ui-themed {
+      .ui-crumb {
+        padding-right: 0;
+        padding-left : 1.5em;
+
+        &:not(:first-child):after {
+          right: 2em;
+          left : 1em;
+        }
+
+        &:not(:first-child) {
+          margin-left : 0;
+          margin-right: -1.5em;
+        }
+
+        a {
+          padding: 0.25em 2em 0.25em 0;
+        }
+
+        &:first-child a {
+          padding      : 0.25em 1em 0.25em 0;
+          border-radius: 0 0.25em 0.25em 0;
+        }
+
+        a:after {
+          border-right: 1.25em solid $light;
+        }
+
+        a:before {
+          border-right: 1.25em solid $white;
+        }
+      }
+    }
+  }
+
+  .ui-pager a > .ui-icon {
+    @include transform(scaleX(-1));
+  }
+}

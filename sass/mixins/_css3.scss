@@ -1,0 +1,40 @@
+//
+// @description :
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+@mixin transform-origin($val...) {
+   @include browser-prefixed(transform-origin, $val);
+}
+@mixin transform($val...) {
+   @include browser-prefixed(transform, $val);
+}
+@mixin transition-delay($val...) {
+   @include browser-prefixed(transition-delay, $val);
+}
+@mixin transition($val...) {
+   @include browser-prefixed(transition, $val);
+}
+@mixin animation($val...) {
+   @include browser-prefixed(animation, $val);
+}
+@mixin animation-delay($val...) {
+   @include browser-prefixed(animation-delay, $val);
+}
+@mixin keyframes($name) {
+   @-moz-keyframes #{$name}{
+    @content;
+  }
+  @-webkit-keyframes #{$name} {
+     @content;
+  }
+  @-o-keyframes #{$name} {
+     @content;
+  }
+  @-ms-keyframes #{$name} {
+     @content;
+  }
+  @keyframes #{$name} {
+     @content;
+  }
+}

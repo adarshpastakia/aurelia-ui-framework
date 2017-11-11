@@ -12,41 +12,32 @@ import { UIEvent } from "../../utils/ui-event";
 let UIToast = class UIToast {
     constructor(element) {
         this.element = element;
+        this.show = true;
         this.glyph = '';
         this.timeout = 5000;
-        if (element.hasAttribute('dark'))
-            element.classList.add('dark');
-        else if (element.hasAttribute('primary'))
-            element.classList.add('primary');
-        else if (element.hasAttribute('secondary'))
-            element.classList.add('secondary');
-        else if (element.hasAttribute('info'))
-            element.classList.add('info');
-        else if (element.hasAttribute('danger'))
-            element.classList.add('danger');
-        else if (element.hasAttribute('success'))
-            element.classList.add('success');
-        else if (element.hasAttribute('warning'))
-            element.classList.add('warning');
-        else
-            element.classList.add('light');
     }
     bind(bindingContext, overrideContext) {
         if (bindingContext)
             Object.assign(this, bindingContext);
         UIEvent.queueTask(() => {
-            this.element.classList.add('open');
+            this.element.classList.add('ui-open');
             if (!isNaN(this.timeout) && parseInt(this.timeout + '') > 0) {
-                setTimeout(() => this.startClose(), parseInt(this.timeout + '') + 1000);
+                setTimeout(() => this.startClose(), parseInt(this.timeout + ''));
             }
         });
     }
     startClose(force) {
-        this.element.classList.remove('open');
-        setTimeout(() => DOM.removeNode(this.element), 1000);
+        if (UIEvent.fireEvent('close', this.element) !== false) {
+            this.element.classList.remove('ui-open');
+            setTimeout(() => DOM.removeNode(this.element), 500);
+        }
         return true;
     }
 };
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIToast.prototype, "show", void 0);
 __decorate([
     bindable(),
     __metadata("design:type", Object)
@@ -59,7 +50,7 @@ UIToast = __decorate([
     autoinject(),
     customElement('ui-toast'),
     inlineView(`<template class="ui-toast" click.trigger="startClose()"><div class="ui-wrapper">
-  <ui-glyph glyph.bind="glyph" class.bind="glyph" if.bind="glyph"></ui-glyph>
+  <ui-glyph glyph.bind="glyph"></ui-glyph>
   <span class="ui-message"><slot><slot></span><span class="ui-close">&times;</span>
 </div></template>`),
     __metadata("design:paramtypes", [Element])
@@ -78,13 +69,13 @@ let UIAlert = class UIAlert {
         if (bindingContext)
             Object.assign(this, bindingContext);
         UIEvent.queueTask(() => {
-            this.element.classList.add('open');
+            this.element.classList.add('ui-open');
             if (this.focusBlock)
                 this.focusBlock.focus();
         });
     }
     closeAlert(b) {
-        this.element.classList.remove('open');
+        this.element.classList.remove('ui-open');
         setTimeout(() => {
             if (this.closeCallback)
                 this.closeCallback(b);
@@ -148,7 +139,7 @@ let UIPrompt = class UIPrompt {
         if (bindingContext)
             Object.assign(this, bindingContext);
         UIEvent.queueTask(() => {
-            this.element.classList.add('open');
+            this.element.classList.add('ui-open');
             if (this.focusBlock)
                 this.focusBlock.focus();
         });
@@ -156,7 +147,7 @@ let UIPrompt = class UIPrompt {
     closeAlert(b) {
         if (b && isEmpty(this.value))
             return this.changed = true;
-        this.element.classList.remove('open');
+        this.element.classList.remove('ui-open');
         setTimeout(() => {
             if (this.closeCallback)
                 this.closeCallback(b ? this.value : null);

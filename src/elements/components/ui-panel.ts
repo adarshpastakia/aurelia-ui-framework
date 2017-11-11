@@ -3,28 +3,25 @@
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
-import {autoinject, customElement, bindable, bindingMode, children, inlineView, useView, containerless, View, DOM} from 'aurelia-framework';
-import {UIEvent} from "../../utils/ui-event";
-import {UIUtils} from "../../utils/ui-utils";
+import { autoinject, customElement, bindable, bindingMode, children, inlineView, DOM } from 'aurelia-framework';
+import { UIEvent } from "../../utils/ui-event";
+import { UIUtils } from "../../utils/ui-utils";
 import * as _ from "lodash";
 
 @autoinject()
-@inlineView(`<template class="ui-panel \${collapsed?'ui-collapse':''} \${expanded?'ui-expand':''}" css.bind="{'height':height}" collapse.trigger="toggleCollapse()" expand.trigger="expand()" restore.trigger="expand()" close.trigger="close()"><slot></slot></template>`)
+@inlineView(`<template class="ui-panel \${collapsed?'ui-collapse':''} \${expanded?'ui-expand':''}" css.bind="{'max-height': maxheight,'min-height': minheight,'height':height}" collapse.trigger="toggleCollapse()" expand.trigger="expand()" restore.trigger="expand()" close.trigger="close()"><slot></slot></template>`)
 @customElement('ui-panel')
 export class UIPanel {
   constructor(public element: Element) { }
 
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
-    this.collapsed = isTrue(this.collapsed) || this.element.hasAttribute('collapsed');
+    this.collapsed = !!(this.collapsed) || this.element.hasAttribute('collapsed');
   }
-  // attached() { }
-  // detached() { }
-  // unbind() { }
-  // end aurelia hooks
 
   @bindable() height = 'auto';
+  @bindable() minheight = 'auto';
+  @bindable() maxheight = 'auto';
+
   @bindable({ defaultBindingMode: bindingMode.twoWay }) expanded = false;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) collapsed = false;
 
@@ -35,16 +32,20 @@ export class UIPanel {
       let ret = this.beforeclose();
       if (ret instanceof Promise) ret.then(b => {
         if (b) {
-          DOM.removeNode(this.element);
+          this.remove();
         }
       });
       else if (ret !== false) {
-        DOM.removeNode(this.element);
+        this.remove();
       }
     }
     else if (UIEvent.fireEvent('beforeclose', this.element) !== false) {
-      DOM.removeNode(this.element);
+      this.remove();
     }
+  }
+  remove() {
+    DOM.removeNode(this.element);
+    UIEvent.fireEvent('close', this.element)
   }
   collapse() {
     this.collapsed = true;
@@ -70,18 +71,6 @@ export class UIPanelBody {
     if (element.hasAttribute('scroll')) element.classList.add('ui-scroll');
     if (element.hasAttribute('padded')) element.classList.add('ui-pad-all');
   }
-
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
-  // bind(bindingContext: Object, overrideContext: Object) { }
-  // attached() { }
-  // detached() { }
-  // unbind() { }
-  // end aurelia hooks
-
-  @bindable() height = 'auto';
-  @bindable() minheight = 'auto';
-  @bindable() maxheight = 'auto';
 }
 
 @autoinject()
@@ -91,17 +80,9 @@ export class UIPanelGroup {
   constructor(public element: Element) {
     this.allowtoggle = element.hasAttribute('toggle');
   }
-
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
-  // bind(bindingContext: Object, overrideContext: Object) { }
   attached() {
     if (_.find(this.panels, ['collapsed', false]) == null) this.panels[0].collapsed = false;
   }
-  // detached() { }
-  // unbind() { }
-  // end aurelia hooks
-
   @children('ui-panel') panels;
 
   private allowtoggle = false;
@@ -113,29 +94,11 @@ export class UIPanelGroup {
 }
 
 @autoinject()
-@inlineView(`<template class="ui-header \${theme}"><slot></slot></template>`)
+@inlineView(`<template class="ui-header"><slot></slot></template>`)
 @customElement('ui-header')
 export class UIHeader {
   constructor(public element: Element) {
-    if (element.hasAttribute('primary')) this.theme = 'primary';
-    else if (element.hasAttribute('secondary')) this.theme = 'secondary';
-    else if (element.hasAttribute('dark')) this.theme = 'dark';
-    else if (element.hasAttribute('light')) this.theme = 'light';
-    else if (element.hasAttribute('info')) this.theme = 'info';
-    else if (element.hasAttribute('danger')) this.theme = 'danger';
-    else if (element.hasAttribute('success')) this.theme = 'success';
-    else if (element.hasAttribute('warning')) this.theme = 'warning';
   }
-
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
-  // bind(bindingContext: Object, overrideContext: Object) { }
-  // attached() { }
-  // detached() { }
-  // unbind() { }
-  // end aurelia hooks
-
-  @bindable() theme = 'default';
 }
 
 @autoinject()
@@ -159,10 +122,8 @@ export class UIHeaderTool {
     if (element.hasAttribute('minimize')) this.glyph = "glyph-dialog-minimize";
   }
 
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
-    this.disabled = isTrue(this.disabled);
+    this.disabled = !!(this.disabled);
   }
   attached() {
     if (this.dropdown) {
@@ -180,8 +141,6 @@ export class UIHeaderTool {
     if (this.obMouseup) this.obMouseup.dispose();
     if (this.dropdown) DOM.removeNode(this.dropdown);
   }
-  // unbind() { }
-  // end aurelia hooks
 
   @bindable() glyph = '';
   @bindable() dropdown;
@@ -218,18 +177,12 @@ export class UIHeaderTool {
 }
 
 @autoinject()
-@inlineView(`<template class="ui-header-title ui-inline-block ui-col-fill"><ui-glyph glyph.bind="glyph" if.bind="glyph"></ui-glyph><slot></slot></template>`)
+@inlineView(`<template class="ui-header-title ui-inline-block ui-col-fill"><div class="ui-title-icon"><ui-glyph glyph.bind="glyph" if.bind="glyph"></ui-glyph></div><div class="ui-title"><slot></slot></div></template>`)
 @customElement('ui-header-title')
 export class UIHeaderTitle {
-  constructor(public element: Element) { }
-
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
-  // bind(bindingContext: Object, overrideContext: Object) { }
-  // attached() { }
-  // detached() { }
-  // unbind() { }
-  // end aurelia hooks
+  constructor(public element: Element) {
+    if (this.element.hasAttribute('icon-hilight')) this.element.classList.add('ui-icon-hilight');
+  }
 
   @bindable() glyph = '';
 }

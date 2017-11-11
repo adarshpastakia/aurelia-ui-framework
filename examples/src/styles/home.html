@@ -1,0 +1,49 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <ui-page animate>
+    <x-container page-title="Overview" wiki.bind="wiki">
+      <style>
+        .color-card {
+          min-width: 8rem;
+          font-size: 0.8rem;
+          text-align: center;
+          padding: 0.5rem 1rem;
+          margin: 0.25rem;
+          line-height: 1.5;
+          display: inline-block;
+          color: #fff;
+        }
+        .ui-bg-light {
+          color: #454545;
+        }
+
+      </style>
+      <h4 class="x-title">Theme Colors</h4>
+      <div class="ui-pad-all">
+        <div class="color-card ui-titlecase ui-bg-${c}" repeat.for="c of themes">${c}</div>
+      </div>
+
+      <h6 class="x-title">Extra Colors</h6>
+      <div class="ui-pad-all">
+        <div class="color-card ui-titlecase ui-bg-${c}" repeat.for="c of colors">${c}</div>
+      </div>
+
+      <hr/>
+      <h4 class="x-title">Fonts</h4>
+
+      <h6 class="x-title">Default</h6>
+      <p class="ui-pad-all ui-font-large" innerhtml.bind="chars"></p>
+      <h6 class="x-title">Serif</h6>
+      <p class="ui-pad-all ui-font-large ui-font-serif" innerhtml.bind="chars"></p>
+      <h6 class="x-title">Input</h6>
+      <p class="ui-pad-all ui-font-large ui-font-input" innerhtml.bind="chars"></p>
+      <h6 class="x-title">Fixed Width</h6>
+      <p class="ui-pad-all ui-font-large ui-font-fixed" innerhtml.bind="chars"></p>
+
+    </x-container>
+  </ui-page>
+</template>

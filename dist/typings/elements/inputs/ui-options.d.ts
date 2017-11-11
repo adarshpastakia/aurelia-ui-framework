@@ -19,8 +19,8 @@ export declare class UICheckbox {
     static seed: number;
     private for;
     isDisabled: boolean;
-    disabledChanged(newValue: any): void;
     disable(b: any): void;
+    disabledChanged(newValue: any): void;
 }
 export declare class UIRadio {
     element: Element;
@@ -33,15 +33,15 @@ export declare class UIRadio {
     static seed: number;
     private for;
     isDisabled: boolean;
-    disabledChanged(newValue: any): void;
     disable(b: any): void;
+    disabledChanged(newValue: any): void;
     changed($event: any): any;
 }
 export declare class UISwitch {
     element: Element;
     constructor(element: Element);
     bind(bindingContext: Object, overrideContext: Object): void;
-    checked: boolean;
+    checked: any;
     value: any;
     size: string;
     class: string;
@@ -50,12 +50,12 @@ export declare class UISwitch {
     onValue: boolean;
     offValue: boolean;
     disabled: boolean;
-    theme: string;
     static seed: number;
     private for;
     isDisabled: boolean;
     checkedChanged(newValue: any): void;
     valueChanged(newValue: any): void;
     disable(b: any): void;
+    disabledChanged(newValue: any): void;
     private fireChange($event);
 }

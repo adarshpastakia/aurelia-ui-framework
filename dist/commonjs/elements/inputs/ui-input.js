@@ -35,10 +35,10 @@ var UIBaseInput = (function () {
         this.readonlyChanged(this.readonly);
     };
     UIBaseInput.prototype.disabledChanged = function (newValue) {
-        this.element.classList[(this.isDisabled = this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');
+        this.element.classList[(this.isDisabled = this.disabled = !!newValue) ? 'add' : 'remove']('ui-disabled');
     };
     UIBaseInput.prototype.readonlyChanged = function (newValue) {
-        this.element.classList[(this.readonly = isTrue(newValue)) ? 'add' : 'remove']('ui-readonly');
+        this.element.classList[(this.readonly = !!newValue) ? 'add' : 'remove']('ui-readonly');
     };
     UIBaseInput.prototype.disable = function (b) {
         this.element.classList[(this.isDisabled = (b || this.disabled)) ? 'add' : 'remove']('ui-disabled');
@@ -83,7 +83,7 @@ var UIInput = (function (_super) {
         _this.maxlength = 1000;
         _this.disabled = false;
         _this.readonly = false;
-        _this.info = '';
+        _this.helpText = '';
         _this.placeholder = '';
         _this.type = 'text';
         _this.clear = false;
@@ -110,22 +110,25 @@ var UIInput = (function (_super) {
             this.numberChanged(this.number);
         if (!isNaN(this.decimal))
             this.decimalChanged(this.decimal);
+        if (this.element.hasAttribute('readonly'))
+            this.readonly = true;
+        if (this.element.hasAttribute('disabled'))
+            this.isDisabled = this.disabled = true;
     };
     UIInput.prototype.valueChanged = function (newValue) {
         if (this.type === 'number') {
             var num = parseFloat(newValue);
-            this.number = isNaN(num) ? null : num;
-            this.decimal = isNaN(num) ? null : num;
-            if (this.number === null && this.decimal === null) {
+            this.decimal = this.number = isNaN(num) ? null : num;
+            if (!this.number && this.number !== 0) {
                 this.value = '';
             }
         }
     };
     UIInput.prototype.numberChanged = function (newValue) {
-        this.value = newValue === null ? '' : newValue;
+        this.value = (!newValue && newValue !== 0) ? '' : newValue;
     };
     UIInput.prototype.decimalChanged = function (newValue) {
-        this.value = newValue === null ? '' : newValue;
+        this.value = (!newValue && newValue !== 0) ? '' : newValue;
     };
     UIInput.prototype.fireEvent = function (evt) {
         if (evt.type === 'input') {
@@ -189,14 +192,14 @@ var UIInput = (function (_super) {
     __decorate([
         aurelia_framework_1.bindable(),
         __metadata("design:type", Object)
-    ], UIInput.prototype, "info", void 0);
+    ], UIInput.prototype, "helpText", void 0);
     __decorate([
         aurelia_framework_1.bindable(),
         __metadata("design:type", Object)
     ], UIInput.prototype, "placeholder", void 0);
     UIInput = __decorate([
         aurelia_framework_1.autoinject(),
-        aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper\" css.bind=\"{width: width}\"><div role=\"input\" class=\"ui-input-control\"><slot></slot>\n  <span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"glyph-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <input ref=\"inputEl\" type.bind=\"type\" value.bind=\"value\" maxlength.bind=\"maxlength\" dir.bind=\"dir\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\" step=\"any\"\n    input.trigger=\"fireEvent($event)\" change.trigger=\"fireEvent($event)\" size=\"1\"\n    keypress.trigger=\"checkInput($event)\" placeholder.bind=\"placeholder\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"readonly\" size=\"1\"/>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span>\n  <span class=\"ui-counter\" if.bind=\"counter\" innerhtml.bind=\"maxlength - value.length\"></span></div>\n  <div class=\"ui-input-info\" if.bind=\"info\" innerhtml.bind=\"info\"></div>\n</template>"),
+        aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper\" css.bind=\"{width: width}\"><div role=\"input\" class=\"ui-input-control\"><slot></slot>\n  <span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"glyph-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <input ref=\"inputEl\" type.bind=\"type\" value.bind=\"value\" maxlength.bind=\"maxlength\" dir.bind=\"dir\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\" step=\"any\"\n    input.trigger=\"fireEvent($event)\" change.trigger=\"fireEvent($event)\"\n    keypress.trigger=\"checkInput($event)\" placeholder.bind=\"placeholder\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"readonly\" size=\"1\"/>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span>\n  <span class=\"ui-counter\" if.bind=\"counter\" innerhtml.bind=\"maxlength - value.length\"></span></div>\n  <div class=\"ui-input-info\" if.bind=\"helpText\" innerhtml.bind=\"helpText\"></div>\n</template>"),
         aurelia_framework_1.customElement('ui-input'),
         __metadata("design:paramtypes", [Element])
     ], UIInput);

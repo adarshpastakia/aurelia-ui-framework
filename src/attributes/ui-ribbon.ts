@@ -4,9 +4,9 @@
 // @copyright   : 2017
 // @license     : MIT
 
-import {autoinject, customAttribute, bindable} from 'aurelia-framework';
-import {UIEvent} from "../utils/ui-event";
-import {UIUtils} from "../utils/ui-utils";
+import { autoinject, customAttribute, bindable } from 'aurelia-framework';
+import { UIEvent } from "../utils/ui-event";
+import { UIUtils } from "../utils/ui-utils";
 
 @autoinject()
 @customAttribute('ribbon')
@@ -19,7 +19,6 @@ export class UIRibbon {
     element.appendChild(this.ribbon);
 
     element['style'].overflow = 'hidden';
-    element['style'].position = 'relative';
   }
 
   // aurelia hooks
@@ -27,7 +26,7 @@ export class UIRibbon {
   bind(bindingContext: Object, overrideContext: Object) {
     if (isEmpty(this.message)) this.ribbon.classList.add('ui-hidden');
     this.ribbon.innerHTML = this.message;
-    this.ribbon.className = 'ui-ribbon ' + this.theme;
+    this.ribbon.className = 'ui-ribbon ui-' + this.theme;
   }
   // attached() { }
   // detached() { }

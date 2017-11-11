@@ -1,11 +1,7 @@
-import { HttpClient } from 'aurelia-fetch-client';
-import { UIApplication } from "../../utils/ui-application";
 export declare class UIViewport {
     element: Element;
-    httpClient: HttpClient;
-    app: UIApplication;
     router: any;
-    constructor(element: Element, httpClient: HttpClient, app: UIApplication);
+    constructor(element: Element);
     attached(): void;
     private dialogContainer;
     private overlayContainer;
@@ -18,6 +14,11 @@ export declare class UIRouterView {
     class: string;
 }
 export declare class UIAppHeader {
+    element: Element;
+    constructor(element: Element);
+    class: string;
+}
+export declare class UIAppBanner {
     element: Element;
     constructor(element: Element);
     class: string;
@@ -35,7 +36,7 @@ export declare class UIAppQuickLinks {
 export declare class UIAppTitle {
     element: Element;
     constructor(element: Element);
-    src: any;
     href: string;
+    src: string;
     class: string;
 }

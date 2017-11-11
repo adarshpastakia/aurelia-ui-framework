@@ -1,0 +1,79 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <ui-page animate>
+    <x-container page-title="Application" view-model.ref="container">
+      <p>Singleton class that provides application level methods and sharing of data between routes</p>
+      <hr/>
+      <div class="ui-markdown">
+        <h6 class="x-title">Data Sharing</h6>
+        <ul>
+          <li>
+            <code>shared(propertyName)</code>
+            <p>Get shared property value</p>
+          </li>
+          <li>
+            <code>shared(propertyName, propertyValue)</code>
+            <p>Set shared property, pass &nbsp;<code>null</code>&nbsp; as value to delete property</p>
+          </li>
+          <li>
+            <code>session(propertyName)</code>
+            <p>Get session property value. <small class="ui-strong ui-text-red">Uses sessionStorage</small></p>
+          </li>
+          <li>
+            <code>session(propertyName, propertyValue)</code>
+            <p>Set session property, pass &nbsp;<code>null</code>&nbsp; as value to delete property</p>
+          </li>
+          <li>
+            <code>persist(propertyName)</code>
+            <p>Get persistant property value. <small class="ui-strong ui-text-red">Uses localStorage</small></p>
+          </li>
+          <li>
+            <code>persist(propertyName, propertyValue)</code>
+            <p>Set persistant property, pass &nbsp;<code>null</code>&nbsp; as value to delete property</p>
+          </li>
+          <li>
+            <code>clearSession()</code>
+            <p>Clear session state</p>
+          </li>
+          <li>
+            <code>clearPersist()</code>
+            <p>Clear persistant state</p>
+          </li>
+        </ul>
+        <h6 class="x-title">Event Loggers</h6>
+        <ul>
+          <li>
+            <code>log(tag, msg, ...rest)</code>
+          </li>
+          <li>
+            <code>info(tag, msg, ...rest)</code>
+          </li>
+          <li>
+            <code>warn(tag, msg, ...rest)</code>
+          </li>
+          <li>
+            <code>error(tag, msg, ...rest)</code>
+          </li>
+        </ul>
+        <h6 class="x-title">Authentication Methods</h6>
+        <ul>
+          <li>
+            <code>login({ username, token, remember }, nextRoute)</code>
+            <p>This method broadcasts event <code>auf:login</code></p>
+          </li>
+          <li>
+            <code>logout()</code>
+            <p>This method broadcasts event <code>auf:logout</code></p>
+          </li>
+        </ul>
+      </div>
+      <hr/>
+      <h4 class="x-title">Basic Usage</h4>
+      <div class="ui-markdown x-section" ref="basicUsage"></div>
+    </x-container>
+  </ui-page>
+</template>

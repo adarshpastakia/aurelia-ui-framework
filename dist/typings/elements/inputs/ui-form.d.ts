@@ -3,8 +3,10 @@ export declare class UIForm {
     constructor(element: Element);
     attached(): void;
     formEl: any;
+    class: string;
     busy: boolean;
     disabled: boolean;
+    inputEls: any;
     busyChanged(newValue: any): void;
     disabledChanged(newValue: any): void;
     disableInputs(newValue: any): void;
@@ -15,10 +17,12 @@ export declare class UIFieldset {
     constructor(element: Element);
     bind(bindingContext: Object, overrideContext: Object): void;
     attached(): void;
+    class: string;
     legend: string;
     disabled: boolean;
     checked: boolean;
-    private container;
+    inputEls: any;
+    private fieldsetEl;
     private collapsible;
     checkedChanged(newValue: any): void;
     disabledChanged(newValue: any): void;

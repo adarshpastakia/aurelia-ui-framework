@@ -85,14 +85,14 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                 }
                 UICheckbox_1 = UICheckbox;
                 UICheckbox.prototype.bind = function (bindingContext, overrideContext) {
-                    this.checked = isTrue(this.checked);
                     this.disabledChanged(this.disabled);
-                };
-                UICheckbox.prototype.disabledChanged = function (newValue) {
-                    this.element.classList[(this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');
+                    this.checked = this.checked || this.element.hasAttribute('checked');
                 };
                 UICheckbox.prototype.disable = function (b) {
                     this.element.classList[(this.isDisabled = (b || this.disabled)) ? 'add' : 'remove']('ui-disabled');
+                };
+                UICheckbox.prototype.disabledChanged = function (newValue) {
+                    this.disable(this.disabled = !!newValue);
                 };
                 UICheckbox.seed = 1;
                 __decorate([
@@ -128,11 +128,11 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                 UIRadio.prototype.bind = function (bindingContext, overrideContext) {
                     this.disabledChanged(this.disabled);
                 };
-                UIRadio.prototype.disabledChanged = function (newValue) {
-                    this.element.classList[(this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');
-                };
                 UIRadio.prototype.disable = function (b) {
                     this.element.classList[(this.isDisabled = (b || this.disabled)) ? 'add' : 'remove']('ui-disabled');
+                };
+                UIRadio.prototype.disabledChanged = function (newValue) {
+                    this.disable(this.disabled = !!newValue);
                 };
                 UIRadio.prototype.changed = function ($event) {
                     $event.cancelBubble = true;
@@ -178,39 +178,27 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                     this.onValue = true;
                     this.offValue = false;
                     this.disabled = false;
-                    this.theme = 'default';
                     this.for = '';
                     this.isDisabled = false;
                     this.for = 'ui-switch-' + (UISwitch_1.seed++);
-                    if (this.element.hasAttribute('primary'))
-                        this.theme = 'primary';
-                    else if (this.element.hasAttribute('secondary'))
-                        this.theme = 'secondary';
-                    else if (this.element.hasAttribute('dark'))
-                        this.theme = 'dark';
-                    else if (this.element.hasAttribute('info'))
-                        this.theme = 'info';
-                    else if (this.element.hasAttribute('danger'))
-                        this.theme = 'danger';
-                    else if (this.element.hasAttribute('success'))
-                        this.theme = 'success';
-                    else if (this.element.hasAttribute('warning'))
-                        this.theme = 'warning';
                 }
                 UISwitch_1 = UISwitch;
                 UISwitch.prototype.bind = function (bindingContext, overrideContext) {
-                    this.checked = isTrue(this.checked) || (this.value == this.onValue);
-                    this.value = isTrue(this.checked) ? this.onValue : this.offValue;
-                    this.disabled = isTrue(this.disabled);
+                    this.checked = this.checked || this.element.hasAttribute('checked') || (this.value == this.onValue);
+                    this.value = !!(this.checked) ? this.onValue : this.offValue;
+                    this.disabledChanged(this.disabled);
                 };
                 UISwitch.prototype.checkedChanged = function (newValue) {
                     this.value = newValue ? this.onValue : this.offValue;
                 };
                 UISwitch.prototype.valueChanged = function (newValue) {
-                    this.checked = newValue == this.onValue;
+                    this.checked = newValue === this.onValue;
                 };
                 UISwitch.prototype.disable = function (b) {
                     this.element.classList[(this.isDisabled = (b || this.disabled)) ? 'add' : 'remove']('ui-disabled');
+                };
+                UISwitch.prototype.disabledChanged = function (newValue) {
+                    this.disable(this.disabled = !!newValue);
                 };
                 UISwitch.prototype.fireChange = function ($event) {
                     $event.cancelBubble = true;
@@ -221,7 +209,7 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                 UISwitch.seed = 1;
                 __decorate([
                     aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
-                    __metadata("design:type", Boolean)
+                    __metadata("design:type", Object)
                 ], UISwitch.prototype, "checked", void 0);
                 __decorate([
                     aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
@@ -255,13 +243,9 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                     aurelia_framework_1.bindable(),
                     __metadata("design:type", Object)
                 ], UISwitch.prototype, "disabled", void 0);
-                __decorate([
-                    aurelia_framework_1.bindable(),
-                    __metadata("design:type", Object)
-                ], UISwitch.prototype, "theme", void 0);
                 UISwitch = UISwitch_1 = __decorate([
                     aurelia_framework_1.autoinject(),
-                    aurelia_framework_1.inlineView("<template class=\"ui-option ui-switch-control ${theme}\">\n<div class=\"ui-switch ${disabled?'ui-disabled':''}\" css.bind=\"{width: size}\">\n  <input class=\"ui-switch-input\" type=\"checkbox\" id.bind=\"for\" disabled.bind=\"disabled\" checked.bind=\"checked\" change.trigger=\"fireChange($event)\"/>\n  <label class=\"ui-switch-inner\" for.bind=\"for\" data-on=\"${onLabel}\" data-off=\"${offLabel}\"></label>\n  <div class=\"ui-switch-handle\"></div>\n</div><label class=\"ui-switch-label\" for.bind=\"for\"><slot></slot></label>\n</template>"),
+                    aurelia_framework_1.inlineView("<template class=\"ui-option ui-switch-control\">\n<div class=\"ui-switch\" css.bind=\"{width: size}\">\n  <input class=\"ui-switch-input\" type=\"checkbox\" id.bind=\"for\" disabled.bind=\"disabled\" checked.bind=\"checked\" change.trigger=\"fireChange($event)\"/>\n  <label class=\"ui-switch-inner\" for.bind=\"for\" data-on=\"${onLabel}\" data-off=\"${offLabel}\"></label>\n  <div class=\"ui-switch-handle\"></div>\n</div><label class=\"ui-option-label\" for.bind=\"for\"><slot></slot></label>\n</template>"),
                     aurelia_framework_1.customElement('ui-switch'),
                     __metadata("design:paramtypes", [Element])
                 ], UISwitch);

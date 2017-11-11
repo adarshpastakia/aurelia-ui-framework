@@ -72,7 +72,7 @@ var UIApplication = (function () {
         this.AuthToken = user.token;
         this.Authenticated = true;
         this.persist('AppUsername', user.username);
-        this.persist('AppPassword', user.password);
+        this.persist('AppToken', user.remember ? user.token : null);
         this.navigateTo(route || 'home');
         ui_event_1.UIEvent.broadcast('auf:login');
     };
@@ -80,7 +80,7 @@ var UIApplication = (function () {
         this.AuthUser = null;
         this.AuthToken = null;
         ui_event_1.UIEvent.broadcast('auf:logout');
-        this.persist('AppPassword', null);
+        this.persist('AppToken', null);
         this.Authenticated = false;
         this.navigateTo('login');
     };
@@ -130,6 +130,10 @@ var UIApplication = (function () {
             }
         }
         return null;
+    };
+    UIApplication.prototype.clearPersist = function () {
+        if (window.localStorage)
+            window.localStorage.clear();
     };
     UIApplication.prototype.info = function (tag, msg) {
         var rest = [];
@@ -185,15 +189,9 @@ var UIApplication = (function () {
         ui_utils_1.UIUtils.toast(config);
     };
     UIApplication.prototype.alert = function (config) {
-        if (typeof config === 'string')
-            config = { message: config };
-        config.glyph = config.glyph || 'glyph-alert-info';
         return ui_utils_1.UIUtils.alert(config);
     };
     UIApplication.prototype.confirm = function (config) {
-        if (typeof config === 'string')
-            config = { message: config };
-        config.glyph = config.glyph || 'glyph-alert-question';
         return ui_utils_1.UIUtils.confirm(config);
     };
     UIApplication.prototype.prompt = function (config) {

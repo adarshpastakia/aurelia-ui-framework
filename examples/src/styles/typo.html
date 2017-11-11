@@ -1,0 +1,107 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <ui-page animate>
+    <x-container page-title="Typography" wiki.bind="wiki">
+      <h6 class="x-title">Display Headings</h6>
+      <div class="ui-pad-all">
+        <h1 class="ui-display-1">Display Heading 1</h1>
+        <h1 class="ui-display-2">Display Heading 2</h1>
+        <h1 class="ui-display-3">Display Heading 3</h1>
+      </div>
+      <ui-row>
+        <ui-column size="md-6">
+          <h6 class="x-title">Headers</h6>
+          <div class="ui-pad-all">
+            <h1>Header 1</h1>
+            <h2>Header 2</h2>
+            <h3>Header 3</h3>
+            <h4>Header 4</h4>
+            <h5>Header 5</h5>
+            <h6>Header 6</h6>
+          </div>
+        </ui-column>
+        <ui-column size="md-6" style="line-height:1.5">
+          <h6 class="x-title">Styles</h6>
+          <div class="ui-row ui-row-middle">
+            <div style="width:10em" class="ui-thin ui-font-small">Bold</div>
+            <div class="ui-col-fill ui-bold">Lorem ipsum dolor sit amet</div>
+          </div>
+          <div class="ui-row ui-row-middle">
+            <div style="width:10em" class="ui-thin ui-font-small">Strong</div>
+            <div class="ui-col-fill ui-strong">Lorem ipsum dolor sit amet</div>
+          </div>
+          <div class="ui-row ui-row-middle">
+            <div style="width:10em" class="ui-thin ui-font-small">Normal</div>
+            <div class="ui-col-fill ui-normal">Lorem ipsum dolor sit amet</div>
+          </div>
+          <div class="ui-row ui-row-middle">
+            <div style="width:10em" class="ui-thin ui-font-small">Italic</div>
+            <div class="ui-col-fill ui-italic">Lorem ipsum dolor sit amet</div>
+          </div>
+          <h6 class="x-title">Sizes</h6>
+          <div class="ui-row ui-row-middle">
+            <div style="width:10em" class="ui-thin ui-font-small">Large</div>
+            <div class="ui-col-fill ui-font-large">Lorem ipsum dolor sit amet</div>
+          </div>
+          <div class="ui-row ui-row-middle">
+            <div style="width:10em" class="ui-thin ui-font-small">Big</div>
+            <div class="ui-col-fill ui-font-big">Lorem ipsum dolor sit amet</div>
+          </div>
+          <div class="ui-row ui-row-middle">
+            <div style="width:10em" class="ui-thin ui-font-small">Normal</div>
+            <div class="ui-col-fill ui-normal">Lorem ipsum dolor sit amet</div>
+          </div>
+          <div class="ui-row ui-row-middle">
+            <div style="width:10em" class="ui-thin ui-font-small">Small</div>
+            <div class="ui-col-fill ui-font-small">Lorem ipsum dolor sit amet</div>
+          </div>
+        </ui-column>
+      </ui-row>
+      <hr/>
+      <h6 class="x-title">Paragraphs</h6>
+      <div class="ui-pad-all">
+        <p class="ui-para emphasis-large">
+          <b class="ui-text-info">Lorem ipsum</b>&nbsp; dolor sit amet, consectetur adipiscing elit. Etiam vel tincidunt eros, nec venenatis ipsum. Nulla hendrerit urna ex, id sagittis mi scelerisque vitae. Vestibulum posuere rutrum interdum. Sed ut
+          ullamcorper odio, non pharetra eros. Aenean sed lacus sed enim ornare vestibulum quis a felis. Sed cursus nunc sit amet mauris sodales tempus.</p>
+        <p class="ui-para">
+          <em>Fusce mollis</em>&nbsp; sagittis elit ut maximus. Nullam blandit lacus sit amet luctus euismod. Duis luctus leo vel consectetur consequat. Phasellus ex ligula, pellentesque et neque vitae, elementum placerat eros. Proin eleifend odio nec velit
+          lacinia suscipit. Morbi mollis ante nec dapibus gravida. In tincidunt augue eu elit porta, vel condimentum purus posuere.</p>
+        <p class="ui-para">
+          <u>Ut imperdiet</u>&nbsp; dignissim feugiat. Phasellus tristique odio eu justo dapibus, nec rutrum ipsum luctus. Ut posuere nec tortor eu ullamcorper. Etiam pellentesque tincidunt tortor, non sagittis nibh pretium sit amet. Sed neque dolor, blandit
+          eu ornare vel, lacinia porttitor nisi. Vestibulum sit amet diam rhoncus, consectetur enim sit amet, interdum mauris. Praesent feugiat finibus quam, porttitor varius est egestas id.</p>
+      </div>
+      <hr/>
+      <h6 class="x-title">Contextual Colors</h6>
+      <ui-row>
+        <ui-column size="md-6">
+          <div class="ui-text-primary ui-pad-all">Primary Text</div>
+          <div class="ui-text-secondary ui-pad-all">Secondary Text</div>
+          <div class="ui-text-light ui-pad-all">
+            <span class="ui-bg-dark">Light Text</span>
+          </div>
+          <div class="ui-text-muted ui-pad-all">Muted Text</div>
+          <div class="ui-text-dark ui-pad-all">Dark Text</div>
+          <div class="ui-text-info ui-pad-all">Info Text</div>
+          <div class="ui-text-danger ui-pad-all">Danger Text</div>
+          <div class="ui-text-success ui-pad-all">Success Text</div>
+          <div class="ui-text-warning ui-pad-all">Warning Text</div>
+        </ui-column>
+        <ui-column size="md-6">
+          <div class="ui-bg-primary ui-pad-all ui-text-white">Primary Bg</div>
+          <div class="ui-bg-secondary ui-pad-all ui-text-white">Secondary Bg</div>
+          <div class="ui-bg-light ui-pad-all ui-text-dark">Light Bg</div>
+          <div class="ui-bg-muted ui-pad-all ui-text-white">Muted Bg</div>
+          <div class="ui-bg-dark ui-pad-all ui-text-white">Dark Bg</div>
+          <div class="ui-bg-info ui-pad-all ui-text-white">Info Bg</div>
+          <div class="ui-bg-danger ui-pad-all ui-text-white">Danger Bg</div>
+          <div class="ui-bg-success ui-pad-all ui-text-white">Success Bg</div>
+          <div class="ui-bg-warning ui-pad-all ui-text-white">Warning Bg</div>
+        </ui-column>
+      </ui-row>
+    </x-container>
+  </ui-page>
+</template>

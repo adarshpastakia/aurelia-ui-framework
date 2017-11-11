@@ -4,87 +4,23 @@
 // @copyright   : 2017
 // @license     : MIT
 
-.ui-tooltip {
-  font-size    : 0.7em;
-  min-width    : 32px;
-  position     : fixed;
-  padding      : 0.5em 1.2em;
-  border-radius: $base-border-radius;
-  opacity      : 0;
-  z-index      : $z-index-floating;
-  visibility   : hidden;
-  white-space  : nowrap;
-  background   : $light;
-  box-shadow   : 0 0 8px 2px rgba(0,0,0,.5);
-  @include transition(opacity 500ms);
-
-  &:after {
-    border      : 0 solid transparent;
-    border-color: $light transparent;
-    position    : absolute;
-    content     : '';
-    left        : 50%;
-    margin-left : -6px;
-  }
-
-  &.ui-tether-bottom:after {
-    border-width: 6px 6px 0 6px;
-    bottom      : -6px;
-  }
-
-  &.ui-tether-top:after {
-    border-width: 0 6px 6px 6px;
-    top         : -6px;
-  }
-
-  &.show {
-    opacity   : 1;
-    visibility: visible;
-  }
-}
-@include tooltip-theme(primary, $primary, $button-primary-text);
-@include tooltip-theme(secondary, $secondary, $button-secondary-text);
-@include tooltip-theme(dark, $dark, $button-dark-text);
-@include tooltip-theme(light, $light, $button-light-text);
-@include tooltip-theme(info, $info, $button-info-text);
-@include tooltip-theme(danger, $danger, $button-danger-text);
-@include tooltip-theme(success, $success, $button-success-text);
-@include tooltip-theme(warning, $warning, $button-warning-text);
-
-.ui-ribbon {
-  position  : absolute;
-  top       : 0;
-  right     : 0;
-  font-size : 0.6rem;
-  padding   : 0.2em 3em;
-  z-index   : $z-index-floating;
-  background: $light;
-  box-shadow: 0 0 4px 1px rgba(0,0,0,.5);
-  @include transform(rotate(45deg) translate(30%, -50%));
-}
-@include ribbon-theme(primary, $primary, $button-primary-text);
-@include ribbon-theme(secondary, $secondary, $button-secondary-text);
-@include ribbon-theme(dark, $dark, $button-dark-text);
-@include ribbon-theme(light, $light, $button-light-text);
-@include ribbon-theme(info, $info, $button-info-text);
-@include ribbon-theme(danger, $danger, $button-danger-text);
-@include ribbon-theme(success, $success, $button-success-text);
-@include ribbon-theme(warning, $warning, $button-warning-text);
-
 .ui-toast {
   display       : block;
   max-height    : 0;
-  margin        : 0.25rem 0.5em;
+  margin        : 0.25rem 0.5rem;
   cursor        : pointer;
   pointer-events: all;
   overflow      : hidden;
+  color         : $dark;
+  background    : $light;
   border        : 1px solid $base-border-color;
   border-radius : $base-border-radius;
   box-shadow    : 1px 1px 2px 0 rgba($base-shadow-color, .5);
-  @include transition(max-height 1s);
+  @include transition(max-height .5s ease-in);
 
-  &.open {
-    max-height: 5rem;
+  &.ui-open {
+    max-height                : 5rem;
+    transition-timing-function: ease-out;
   }
 
   .ui-close,
@@ -94,10 +30,10 @@
 
   .ui-wrapper {
     padding: 0.5em 1em;
-    @include flex-row($wrap:false,$align: flex-start);
+    @include flexbox($direction: row, $wrap:false,$align: flex-start);
 
     .ui-icon {
-      font-size  : 1.5em;
+      font-size  : 2em;
       text-shadow: -1px -1px 0 rgba(0, 0, 0, .1);
     }
   }
@@ -107,32 +43,30 @@
   }
 
   .ui-message {
-    font-size: 0.9em;
-    padding  : 0 0.5em;
+    line-height: 1.25;
+    padding    : 0 0.5em;
+    align-self : center;
     @include flex(1 1 auto);
-    @include align-self(center);
 
     h1 {
-      line-height: 1.2;
       font-weight: 600;
       margin     : 0;
-      font-size  : 1.2em;
+      font-size  : 1.25em;
     }
 
     p {
-      margin     : 0;
-      line-height: 1.2;
+      margin: 0;
     }
   }
 }
-@include toast-theme(light, $light, $dark);
-@include toast-theme(dark, tint($dark,15%));
-@include toast-theme(primary, tint($primary,85%), shade($primary,20%));
-@include toast-theme(secondary, tint($secondary,85%), shade($secondary,20%));
-@include toast-theme(info, tint($info,85%), shade($info,20%));
-@include toast-theme(danger, tint($danger,85%), shade($danger,20%));
-@include toast-theme(success, tint($success,85%), shade($success,20%));
-@include toast-theme(warning, tint($warning,85%), shade($warning,20%));
+@include toast-theme(dark, lighten($dark,5%), $white);
+@include toast-theme(muted, $muted, $dark);
+@include toast-theme(primary, lighten($primary,5%), $white);
+@include toast-theme(secondary, lighten($secondary,5%), $white);
+@include toast-theme(info, lighten($info,5%), $white);
+@include toast-theme(danger, lighten($danger,5%), $white);
+@include toast-theme(success, lighten($success,5%), $white);
+@include toast-theme(warning, lighten($warning,5%), $dark);
 
 .ui-alert-shim {
   pointer-events: all;
@@ -140,7 +74,7 @@
   background    : rgba(0,0,0,.05);
   @include position(fixed,0);
 
-  &.open .ui-alert {
+  &.ui-open .ui-alert {
     opacity: 1;
     @include transform(translate(-50%,-50%) scale(1));
   }
@@ -161,7 +95,7 @@
     .ui-wrapper {
       padding : 1rem 1.5rem;
       overflow: hidden;
-      @include flex-row($wrap:false,$align: flex-start);
+      @include flexbox($direction: row, $wrap:false,$align: flex-start);
 
       .ui-icon {
         font-size  : 2em;
@@ -170,21 +104,19 @@
     }
 
     .ui-message {
-      font-size: 0.9em;
-      padding  : 0 0.5em;
+      padding    : 0 0.5em;
+      line-height: 1.25;
+      align-self : center;
       @include flex(1 1 auto);
-      @include align-self(center);
 
       h1 {
-        line-height: 1.2;
-        font-weight: 600;
+        font-weight: 400;
         margin     : 0;
-        font-size  : 1.2em;
+        font-size  : 1.25em;
       }
 
       p {
-        margin     : 0;
-        line-height: 1.2;
+        margin: 0;
       }
     }
 
@@ -193,36 +125,31 @@
     }
 
     .ui-button-bar {
-      padding   : 1rem 1.5rem;
       box-shadow: 0 1px 0 0 rgba(0,0,0,.05) inset;
-      @include flex-row($wrap:false,$align: center, $justify:center);
+      @include flexbox($direction: row, $wrap:false,$align: stretch, $justify:center);
 
       button {
-        min-width    : 7rem;
-        border-radius: $base-border-radius;
-        padding      : 0.3rem 1rem;
-        font-size    : 0.9rem;
-        margin       : 0 0.5rem;
-        color        : $alert-button-text;
-        background   : $alert-button-bg;
-        border       : 1px solid $alert-button-border;
+        min-width : 7rem;
+        padding   : 0.75em 1em;
+        font-size : 1em;
+        color     : rgba($dark, .75);
+        border    : none;
+        background: rgba($light, .1);
+        @include flex-fill();
+        @include border(start, 1px solid rgba($dark,.1));
 
         &:first-child {
-          font-weight: 600;
+          font-weight: 400;
+          color      : $secondary;
+          border     : none;
         }
 
         &:hover {
-          color       : $alert-button-hover-text;
-          background  : $alert-button-hover-bg;
-          border-color: $alert-button-hover-border;
-          box-shadow  : 0 0 2px 0 rgba($alert-button-hover-border,.5) inset;
+          background: rgba($dark, .1);
         }
 
         &:active {
-          color       : $alert-button-active-text;
-          background  : $alert-button-active-bg;
-          border-color: $alert-button-active-border;
-          box-shadow  : 0 0 5px 0 rgba($alert-button-active-border,.5) inset;
+          background: rgba($dark, .3);
         }
       }
     }

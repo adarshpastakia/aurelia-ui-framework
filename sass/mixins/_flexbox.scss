@@ -1,0 +1,48 @@
+//
+// @description :
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+@mixin flexbox($align:flex-start, $justify: flex-start, $wrap:true, $direction: row, $display:flex) {
+  display: $display;
+  @include flex-direction($direction);
+  @include align-items($align);
+  @include justify-content($justify);
+  @include flex-wrap(if($wrap, wrap, nowrap));
+}
+@mixin flex-fill($basis: 1em) {
+   @include flex(1 1 $basis);
+}
+@mixin flex-auto() {
+   @include flex(0 0 auto);
+}
+@mixin flex($val...) {
+   @include browser-prefixed(flex, $val);
+}
+@mixin flex-flow($val...) {
+   @include browser-prefixed(flex-flow, $val);
+}
+@mixin flex-basis($val...) {
+   @include browser-prefixed(flex-basis, $val);
+}
+@mixin flex-direction($val...) {
+   @include browser-prefixed(flex-direction, $val);
+}
+@mixin flex-wrap($val...) {
+   @include browser-prefixed(flex-wrap, $val);
+}
+@mixin align-items($val...) {
+   @include browser-prefixed(align-items, $val);
+}
+@mixin align-self($val...) {
+   @include browser-prefixed(align-self, $val);
+}
+@mixin justify-content($val...) {
+   @include browser-prefixed(justify-content, $val);
+}
+@mixin order($val...) {
+   @include browser-prefixed(order, $val);
+}
+@mixin align-content($val...) {
+   @include browser-prefixed(align-content, $val);
+}

@@ -7,23 +7,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { autoinject, customElement, bindable, inlineView, containerless } from 'aurelia-framework';
+import { autoinject, customElement, bindable, inlineView } from 'aurelia-framework';
 import { UIEvent } from "../../utils/ui-event";
-let UIAffixPoint = class UIAffixPoint {
-};
-UIAffixPoint = __decorate([
-    inlineView('<template class="ui-affix-point"></template>'),
-    customElement('ui-affix-point')
-], UIAffixPoint);
-export { UIAffixPoint };
-let UIAffixContent = class UIAffixContent {
-};
-UIAffixContent = __decorate([
-    containerless(),
-    inlineView('<template><div class="ui-affix-content" slot="affix-content"><slot></slot></div></template>'),
-    customElement('ui-affix-content')
-], UIAffixContent);
-export { UIAffixContent };
 let UISidebar = class UISidebar {
     constructor(element) {
         this.element = element;
@@ -32,38 +17,41 @@ let UISidebar = class UISidebar {
         this.position = "start";
         this.glyph = 'glyph-arrow-left';
         this.contentCls = '';
+        this.compact = false;
         this.miniDisplay = false;
         this.collapsible = false;
         if (element.hasAttribute('scroll'))
             this.contentCls += ' ui-scroll';
         if (element.hasAttribute('flex'))
-            this.contentCls += ' ui-row-vertical';
+            this.contentCls += ' ui-row-vertical ui-row-nowrap';
         if (element.hasAttribute('padded'))
             this.contentCls += ' ui-pad-all';
-        if (element.hasAttribute('small'))
-            element.classList.add('ui-small');
         if (this.miniDisplay = element.hasAttribute('mini-display'))
             element.classList.add('ui-mini-display');
         this.collapsible = element.hasAttribute('collapsible');
+        if (this.compact = element.hasAttribute('compact')) {
+            element.classList.add('ui-compact');
+            element.classList.add('ui-mini-display');
+        }
         this.obClick = UIEvent.subscribe('mouseclick', () => {
             element.classList.remove('ui-show-overlay');
         });
     }
     bind(bindingContext, overrideContext) {
-        this.collapsed = isTrue(this.collapsed);
-        if (this.position == 'end')
+        this.collapsed = !!(this.collapsed);
+        if (this.position === 'end' && this.glyph === 'glyph-arrow-left')
             this.glyph = "glyph-arrow-right";
     }
     attached() {
-        this.affixPoint = this.element.querySelector('.ui-affix-point');
-        this.affixEl = this.element.querySelector('.ui-affix-content');
+        if (this.label instanceof HTMLElement)
+            [this.labelEl.innerHTML = '', this.labelEl.appendChild(this.label)];
     }
     detached() {
         if (this.obClick)
             this.obClick.dispose();
     }
     collapsedChanged(newValue) {
-        this.glyph = (this.position == 'end' && !isTrue(newValue)) || (this.position == 'start' && isTrue(newValue)) ? "glyph-arrow-right" : "glyph-arrow-left";
+        this.glyph = (this.position == 'end' && !(newValue)) || (this.position == 'start' && !!(newValue)) ? "glyph-arrow-right" : "glyph-arrow-left";
     }
     toggleCollapse($event) {
         this.collapsed = !this.collapsed;
@@ -78,17 +66,6 @@ let UISidebar = class UISidebar {
             this.element.classList.add('ui-show-overlay');
         else
             this.element.classList.remove('ui-show-overlay');
-    }
-    watchScroll(e) {
-        if (this.affixEl) {
-            let point = 0;
-            if (this.affixPoint)
-                point = this.affixPoint.offsetTop;
-            if (this.contentEl.scrollTop > point)
-                this.affixEl.classList.add('ui-animate');
-            else
-                this.affixEl.classList.remove('ui-animate');
-        }
     }
 };
 __decorate([
@@ -105,12 +82,12 @@ __decorate([
 ], UISidebar.prototype, "position", void 0);
 UISidebar = __decorate([
     autoinject(),
-    inlineView(`<template class="ui-sidebar ui-row-vertical ui-row-stretch \${collapsed?'ui-collapse':''} \${position}" click.trigger="showOverlay($event)">
-  <div class="ui-col-auto ui-row ui-row-end ui-row-middle ui-sidebar-head \${position=='start'?'':'ui-reverse'}" if.bind="collapsible || label">
-  <div class="ui-col-fill ui-sidebar-title">\${label}</div>
+    inlineView(`<template class="ui-sidebar ui-row-vertical ui-row-stretch ui-row-nowrap \${compact || collapsed?'ui-collapse':''} ui-\${position}" click.trigger="showOverlay($event)">
+  <div class="ui-col-auto ui-row ui-row-end ui-row-middle ui-sidebar-head \${position=='start'?'':'ui-reverse'}" if.bind="!compact && (collapsible || label)">
+  <div class="ui-col-fill ui-sidebar-title" ref="labelEl">\${label}</div>
   <a click.trigger="toggleCollapse($event)" class="ui-col-auto ui-sidebar-close" if.bind="collapsible"><ui-glyph glyph.bind="glyph"></ui-glyph></a></div>
   <slot name="affix-content"></slot>
-  <div class="ui-col-fill ui-sidebar-content \${contentCls}" ref="contentEl" scroll.trigger="watchScroll($event) & debounce"><slot></slot></div>
+  <div class="ui-col-fill ui-sidebar-content \${contentCls}" ref="contentEl"><slot></slot></div>
 </template>`),
     customElement('ui-sidebar'),
     __metadata("design:paramtypes", [Element])

@@ -43,6 +43,21 @@
     @include transform(scale(2));
   }
 }
+@include keyframes(ripple) {
+  0% {
+    opacity: 0;
+    @include transform(scale(.5));
+  }
+
+  50% {
+    opacity: 0.75;
+  }
+
+  100% {
+    opacity: 0;
+    @include transform(scale(2));
+  }
+}
 @include keyframes(color) {
   0% {
     color: $info;
@@ -107,7 +122,7 @@
   width      : 1em;
   height     : 1em;
   line-height: 1;
-  @include transform-origin(50% 50% 0);
+  @include transform-origin(center);
 
   &.ui-anim-spin {
     @include animation(spin 2.5s linear infinite);
@@ -136,6 +151,33 @@
   &.ui-anim-loader {
     @include animation(spin 2s infinite linear, color 8s linear infinite);
   }
+
+  &.ui-anim-ripple {
+    position: relative;
+
+    &:after,
+    &:before {
+      content      : '';
+      margin       : auto;
+      width        : 1em;
+      height       : 1em;
+      border-radius: 1em;
+      opacity      : 0;
+      border       : 1px solid $white;
+      @include transform(scale(.5));
+      @include position(absolute, 0);
+      @include animation(ripple 1.5s infinite);
+    }
+
+    &:before {
+      border-color: $secondary;
+      @include animation-delay(.75s);
+    }
+
+    &:after {
+      border-color: $primary;
+    }
+  }
 }
 
 // Page animations
@@ -143,6 +185,7 @@
 .au-enter-active:not(.ui-dialog-wrapper) {
   @include animation(viewEnter .3s ease-out both);
 }
+
 .au-leave-active:not(.ui-dialog-wrapper) {
   @include animation(viewLeave .3s ease-in both);
 }
@@ -150,6 +193,7 @@
 .au-enter-active.ui-dialog-wrapper .ui-dialog {
   @include animation(dialogEnter .5s ease-out both);
 }
+
 .au-leave-active.ui-dialog-wrapper .ui-dialog {
   @include animation(dialogLeave .5s ease-in both);
 }

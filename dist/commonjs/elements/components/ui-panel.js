@@ -17,11 +17,13 @@ var UIPanel = (function () {
     function UIPanel(element) {
         this.element = element;
         this.height = 'auto';
+        this.minheight = 'auto';
+        this.maxheight = 'auto';
         this.expanded = false;
         this.collapsed = false;
     }
     UIPanel.prototype.bind = function (bindingContext, overrideContext) {
-        this.collapsed = isTrue(this.collapsed) || this.element.hasAttribute('collapsed');
+        this.collapsed = !!(this.collapsed) || this.element.hasAttribute('collapsed');
     };
     UIPanel.prototype.close = function () {
         var _this = this;
@@ -30,16 +32,20 @@ var UIPanel = (function () {
             if (ret instanceof Promise)
                 ret.then(function (b) {
                     if (b) {
-                        aurelia_framework_1.DOM.removeNode(_this.element);
+                        _this.remove();
                     }
                 });
             else if (ret !== false) {
-                aurelia_framework_1.DOM.removeNode(this.element);
+                this.remove();
             }
         }
         else if (ui_event_1.UIEvent.fireEvent('beforeclose', this.element) !== false) {
-            aurelia_framework_1.DOM.removeNode(this.element);
+            this.remove();
         }
+    };
+    UIPanel.prototype.remove = function () {
+        aurelia_framework_1.DOM.removeNode(this.element);
+        ui_event_1.UIEvent.fireEvent('close', this.element);
     };
     UIPanel.prototype.collapse = function () {
         this.collapsed = true;
@@ -59,6 +65,14 @@ var UIPanel = (function () {
         __metadata("design:type", Object)
     ], UIPanel.prototype, "height", void 0);
     __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIPanel.prototype, "minheight", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIPanel.prototype, "maxheight", void 0);
+    __decorate([
         aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
         __metadata("design:type", Object)
     ], UIPanel.prototype, "expanded", void 0);
@@ -72,7 +86,7 @@ var UIPanel = (function () {
     ], UIPanel.prototype, "beforeclose", void 0);
     UIPanel = __decorate([
         aurelia_framework_1.autoinject(),
-        aurelia_framework_1.inlineView("<template class=\"ui-panel ${collapsed?'ui-collapse':''} ${expanded?'ui-expand':''}\" css.bind=\"{'height':height}\" collapse.trigger=\"toggleCollapse()\" expand.trigger=\"expand()\" restore.trigger=\"expand()\" close.trigger=\"close()\"><slot></slot></template>"),
+        aurelia_framework_1.inlineView("<template class=\"ui-panel ${collapsed?'ui-collapse':''} ${expanded?'ui-expand':''}\" css.bind=\"{'max-height': maxheight,'min-height': minheight,'height':height}\" collapse.trigger=\"toggleCollapse()\" expand.trigger=\"expand()\" restore.trigger=\"expand()\" close.trigger=\"close()\"><slot></slot></template>"),
         aurelia_framework_1.customElement('ui-panel'),
         __metadata("design:paramtypes", [Element])
     ], UIPanel);
@@ -82,9 +96,6 @@ exports.UIPanel = UIPanel;
 var UIPanelBody = (function () {
     function UIPanelBody(element) {
         this.element = element;
-        this.height = 'auto';
-        this.minheight = 'auto';
-        this.maxheight = 'auto';
         if (element.hasAttribute('flex'))
             element.classList.add('ui-flexed');
         if (element.hasAttribute('scroll'))
@@ -92,18 +103,6 @@ var UIPanelBody = (function () {
         if (element.hasAttribute('padded'))
             element.classList.add('ui-pad-all');
     }
-    __decorate([
-        aurelia_framework_1.bindable(),
-        __metadata("design:type", Object)
-    ], UIPanelBody.prototype, "height", void 0);
-    __decorate([
-        aurelia_framework_1.bindable(),
-        __metadata("design:type", Object)
-    ], UIPanelBody.prototype, "minheight", void 0);
-    __decorate([
-        aurelia_framework_1.bindable(),
-        __metadata("design:type", Object)
-    ], UIPanelBody.prototype, "maxheight", void 0);
     UIPanelBody = __decorate([
         aurelia_framework_1.autoinject(),
         aurelia_framework_1.inlineView("<template class=\"ui-panel-body\" css.bind=\"{'max-height': maxheight,'min-height': minheight,'flex-basis':height}\"><slot></slot></template>"),
@@ -144,31 +143,10 @@ exports.UIPanelGroup = UIPanelGroup;
 var UIHeader = (function () {
     function UIHeader(element) {
         this.element = element;
-        this.theme = 'default';
-        if (element.hasAttribute('primary'))
-            this.theme = 'primary';
-        else if (element.hasAttribute('secondary'))
-            this.theme = 'secondary';
-        else if (element.hasAttribute('dark'))
-            this.theme = 'dark';
-        else if (element.hasAttribute('light'))
-            this.theme = 'light';
-        else if (element.hasAttribute('info'))
-            this.theme = 'info';
-        else if (element.hasAttribute('danger'))
-            this.theme = 'danger';
-        else if (element.hasAttribute('success'))
-            this.theme = 'success';
-        else if (element.hasAttribute('warning'))
-            this.theme = 'warning';
     }
-    __decorate([
-        aurelia_framework_1.bindable(),
-        __metadata("design:type", Object)
-    ], UIHeader.prototype, "theme", void 0);
     UIHeader = __decorate([
         aurelia_framework_1.autoinject(),
-        aurelia_framework_1.inlineView("<template class=\"ui-header ${theme}\"><slot></slot></template>"),
+        aurelia_framework_1.inlineView("<template class=\"ui-header\"><slot></slot></template>"),
         aurelia_framework_1.customElement('ui-header'),
         __metadata("design:paramtypes", [Element])
     ], UIHeader);
@@ -207,7 +185,7 @@ var UIHeaderTool = (function () {
             this.glyph = "glyph-dialog-minimize";
     }
     UIHeaderTool.prototype.bind = function (bindingContext, overrideContext) {
-        this.disabled = isTrue(this.disabled);
+        this.disabled = !!(this.disabled);
     };
     UIHeaderTool.prototype.attached = function () {
         var _this = this;
@@ -278,6 +256,8 @@ var UIHeaderTitle = (function () {
     function UIHeaderTitle(element) {
         this.element = element;
         this.glyph = '';
+        if (this.element.hasAttribute('icon-hilight'))
+            this.element.classList.add('ui-icon-hilight');
     }
     __decorate([
         aurelia_framework_1.bindable(),
@@ -285,7 +265,7 @@ var UIHeaderTitle = (function () {
     ], UIHeaderTitle.prototype, "glyph", void 0);
     UIHeaderTitle = __decorate([
         aurelia_framework_1.autoinject(),
-        aurelia_framework_1.inlineView("<template class=\"ui-header-title ui-inline-block ui-col-fill\"><ui-glyph glyph.bind=\"glyph\" if.bind=\"glyph\"></ui-glyph><slot></slot></template>"),
+        aurelia_framework_1.inlineView("<template class=\"ui-header-title ui-inline-block ui-col-fill\"><div class=\"ui-title-icon\"><ui-glyph glyph.bind=\"glyph\" if.bind=\"glyph\"></ui-glyph></div><div class=\"ui-title\"><slot></slot></div></template>"),
         aurelia_framework_1.customElement('ui-header-title'),
         __metadata("design:paramtypes", [Element])
     ], UIHeaderTitle);

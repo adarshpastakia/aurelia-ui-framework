@@ -1,6 +1,6 @@
-import { UIUtils } from "./ui-utils";
 import { BindingEngine, DOM, TaskQueue } from "aurelia-framework";
 import { EventAggregator } from "aurelia-event-aggregator";
+import { UIUtils } from "./ui-utils";
 export var UIEvent;
 (function (UIEvent) {
     function fireEvent(event, element, data) {

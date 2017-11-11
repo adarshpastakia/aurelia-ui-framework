@@ -27,11 +27,12 @@ System.register(["aurelia-framework", "../../utils/ui-event", "lodash"], functio
             UIForm = (function () {
                 function UIForm(element) {
                     this.element = element;
+                    this.class = '';
                 }
                 UIForm.prototype.attached = function () {
                     var _this = this;
                     ui_event_1.UIEvent.queueTask(function () {
-                        var el = _this.element.querySelector('input,textarea');
+                        var el = _this.formEl.querySelector('input,textarea');
                         if (el !== null)
                             el.focus();
                         if (_this.busy)
@@ -41,16 +42,15 @@ System.register(["aurelia-framework", "../../utils/ui-event", "lodash"], functio
                     });
                 };
                 UIForm.prototype.busyChanged = function (newValue) {
-                    this.disableInputs(isTrue(newValue) || this.disabled);
+                    this.disableInputs(!!newValue || this.disabled);
                 };
                 UIForm.prototype.disabledChanged = function (newValue) {
                     this.disableInputs(newValue);
                 };
                 UIForm.prototype.disableInputs = function (newValue) {
-                    var els = this.element.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list,ui-dropdown');
-                    _.forEach(els, function (el) {
+                    _.forEach(this.inputEls, function (el) {
                         try {
-                            el.au.controller.viewModel.disable(isTrue(newValue));
+                            el.au.controller.viewModel.disable(!!newValue);
                         }
                         catch (e) {
                         }
@@ -62,16 +62,25 @@ System.register(["aurelia-framework", "../../utils/ui-event", "lodash"], functio
                 };
                 __decorate([
                     aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIForm.prototype, "class", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
                     __metadata("design:type", Boolean)
                 ], UIForm.prototype, "busy", void 0);
                 __decorate([
                     aurelia_framework_1.bindable(),
                     __metadata("design:type", Boolean)
                 ], UIForm.prototype, "disabled", void 0);
+                __decorate([
+                    aurelia_framework_1.children('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list,ui-dropdown'),
+                    __metadata("design:type", Object)
+                ], UIForm.prototype, "inputEls", void 0);
                 UIForm = __decorate([
                     aurelia_framework_1.autoinject(),
+                    aurelia_framework_1.containerless(),
                     aurelia_framework_1.customElement('ui-form'),
-                    aurelia_framework_1.inlineView("<template class=\"ui-form\"><form ref=\"formEl\" validation-renderer=\"ui-validator\" enterpressed.trigger=\"fireSubmit()\" submit.trigger=\"return false\"><slot></slot></form></template>"),
+                    aurelia_framework_1.inlineView("<template><form class=\"ui-form ${class}\" ref=\"formEl\" validation-renderer=\"ui-validator\" enterpressed.trigger=\"fireSubmit()\" submit.trigger=\"return false\"><slot></slot></form></template>"),
                     __metadata("design:paramtypes", [Element])
                 ], UIForm);
                 return UIForm;
@@ -80,13 +89,14 @@ System.register(["aurelia-framework", "../../utils/ui-event", "lodash"], functio
             UIFieldset = (function () {
                 function UIFieldset(element) {
                     this.element = element;
+                    this.class = '';
                     this.legend = '';
                     this.checked = true;
                     this.collapsible = false;
                     this.collapsible = element.hasAttribute('checked') || element.hasAttribute('checked.bind');
                 }
                 UIFieldset.prototype.bind = function (bindingContext, overrideContext) {
-                    this.checked = isTrue(this.checked);
+                    this.checked = this.checked || this.element.hasAttribute('checked');
                 };
                 UIFieldset.prototype.attached = function () {
                     this.checkedChanged(this.checked);
@@ -94,22 +104,25 @@ System.register(["aurelia-framework", "../../utils/ui-event", "lodash"], functio
                         this.disabledChanged(this.disabled);
                 };
                 UIFieldset.prototype.checkedChanged = function (newValue) {
-                    this.element.classList[isTrue(newValue) ? 'remove' : 'add']('ui-collapse');
-                    this.disableInputs(isFalse(newValue));
+                    this.fieldsetEl.classList[!!newValue ? 'remove' : 'add']('ui-collapse');
+                    this.disableInputs(!newValue);
                 };
                 UIFieldset.prototype.disabledChanged = function (newValue) {
-                    this.disableInputs(newValue);
+                    this.disableInputs(!!newValue);
                 };
                 UIFieldset.prototype.disableInputs = function (newValue) {
-                    var els = this.container.querySelectorAll('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list,ui-dropdown');
-                    _.forEach(els, function (el) {
+                    _.forEach(this.inputEls, function (el) {
                         try {
-                            el.au.controller.viewModel.disable(isTrue(newValue));
+                            el.au.controller.viewModel.disable(!!newValue);
                         }
                         catch (e) {
                         }
                     });
                 };
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIFieldset.prototype, "class", void 0);
                 __decorate([
                     aurelia_framework_1.bindable(),
                     __metadata("design:type", Object)
@@ -122,9 +135,14 @@ System.register(["aurelia-framework", "../../utils/ui-event", "lodash"], functio
                     aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
                     __metadata("design:type", Object)
                 ], UIFieldset.prototype, "checked", void 0);
+                __decorate([
+                    aurelia_framework_1.children('ui-button,ui-combo,ui-date,ui-input,ui-textarea,ui-phone,ui-language,ui-markdown,ui-checkbox,ui-radio,ui-switch,ui-tag,ui-list,ui-dropdown'),
+                    __metadata("design:type", Object)
+                ], UIFieldset.prototype, "inputEls", void 0);
                 UIFieldset = __decorate([
                     aurelia_framework_1.autoinject(),
-                    aurelia_framework_1.inlineView('<template class="ui-fieldset"><fieldset><legend if.bind="legend"><span if.bind="!collapsible">\${legend}</span><ui-checkbox if.bind="collapsible" checked.bind="checked">\${legend}</ui-checkbox></legend><div ref="container"><slot></slot></div></fieldset></template>'),
+                    aurelia_framework_1.containerless(),
+                    aurelia_framework_1.inlineView('<template><fieldset class="ui-fieldset" ref="fieldsetEl"><legend if.bind="legend"><span if.bind="!collapsible">\${legend}</span><ui-checkbox if.bind="collapsible" checked.bind="checked">\${legend}</ui-checkbox></legend><div><slot></slot></div></fieldset></template>'),
                     aurelia_framework_1.customElement('ui-fieldset'),
                     __metadata("design:paramtypes", [Element])
                 ], UIFieldset);

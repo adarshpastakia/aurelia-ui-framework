@@ -4,8 +4,8 @@
 // @copyright   : 2017
 // @license     : MIT
 
-import {autoinject, customElement, bindable, bindingMode, children, inlineView, useView, containerless, View, DOM} from 'aurelia-framework';
-import {UIEvent} from "../../utils/ui-event";
+import { autoinject, customElement, bindable, bindingMode, children, inlineView, useView, containerless, View, DOM } from 'aurelia-framework';
+import { UIEvent } from "../../utils/ui-event";
 
 export class UIBaseInput {
   value = '';
@@ -24,11 +24,11 @@ export class UIBaseInput {
   }
 
   disabledChanged(newValue) {
-    this.element.classList[(this.isDisabled = this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');
+    this.element.classList[(this.isDisabled = this.disabled = !!newValue) ? 'add' : 'remove']('ui-disabled');
   }
 
   readonlyChanged(newValue) {
-    this.element.classList[(this.readonly = isTrue(newValue)) ? 'add' : 'remove']('ui-readonly');
+    this.element.classList[(this.readonly = !!newValue) ? 'add' : 'remove']('ui-readonly');
   }
 
   disable(b) {
@@ -67,12 +67,12 @@ export class UIBaseInput {
   <span class="ui-error" if.bind="errors"><ui-glyph glyph="glyph-invalid"></ui-glyph><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
   <input ref="inputEl" type.bind="type" value.bind="value" maxlength.bind="maxlength" dir.bind="dir"
     focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)" step="any"
-    input.trigger="fireEvent($event)" change.trigger="fireEvent($event)" size="1"
+    input.trigger="fireEvent($event)" change.trigger="fireEvent($event)"
     keypress.trigger="checkInput($event)" placeholder.bind="placeholder"
     disabled.bind="isDisabled" readonly.bind="readonly" size="1"/>
   <span class="ui-clear" if.bind="clear && value" click.trigger="clearInput()">&times;</span>
   <span class="ui-counter" if.bind="counter" innerhtml.bind="maxlength - value.length"></span></div>
-  <div class="ui-input-info" if.bind="info" innerhtml.bind="info"></div>
+  <div class="ui-input-info" if.bind="helpText" innerhtml.bind="helpText"></div>
 </template>`)
 @customElement('ui-input')
 export class UIInput extends UIBaseInput {
@@ -95,6 +95,10 @@ export class UIInput extends UIBaseInput {
     super.bind.apply(this, arguments);
     if (!isNaN(this.number)) this.numberChanged(this.number);
     if (!isNaN(this.decimal)) this.decimalChanged(this.decimal);
+
+    //need to be in bind and not in constructor - to avoid reseting to `false` after bind
+    if (this.element.hasAttribute('readonly')) this.readonly = true;
+    if (this.element.hasAttribute('disabled')) this.isDisabled = this.disabled = true;
   }
   // attached() { }
   // detached() { }
@@ -111,7 +115,7 @@ export class UIInput extends UIBaseInput {
   @bindable() maxlength = 1000;
   @bindable() disabled = false;
   @bindable() readonly = false;
-  @bindable() info = '';
+  @bindable() helpText = '';
   @bindable() placeholder = '';
 
   private type = 'text';
@@ -121,20 +125,19 @@ export class UIInput extends UIBaseInput {
   valueChanged(newValue) {
     if (this.type === 'number') {
       let num = parseFloat(newValue);
-      this.number = isNaN(num) ? null : num;
-      this.decimal = isNaN(num) ? null : num;
-      if (this.number === null && this.decimal === null) {
+      this.decimal = this.number = isNaN(num) ? null : num;
+      if (!this.number && this.number !== 0) {
         this.value = '';
       }
     }
   }
 
   numberChanged(newValue) {
-    this.value = newValue === null ? '' : newValue;
+    this.value = (!newValue && newValue !== 0) ? '' : newValue;
   }
 
   decimalChanged(newValue) {
-    this.value = newValue === null ? '' : newValue;
+    this.value = (!newValue && newValue !== 0) ? '' : newValue;
   }
 
   fireEvent(evt) {
@@ -168,9 +171,9 @@ export class UIInput extends UIBaseInput {
     </div>
     <input type="file" ref="inputEl" class="ui-file-input-el" change.trigger="fileChoose($event)" />
     <div class="ui-file-list">
-      <p repeat.for="file of files" class="ui-row ui-row-middle">
+      <p repeat.for="file of files" class="ui-row ui-row-h ui-nowrap ui-align-center">
       <a click.trigger="remove($index)"><ui-glyph glyph="glyph-dialog-close" class="ui-text-danger"></ui-glyph></a>
-      <span class="ui-col-fill ui-row ui-row-middle"><ui-glyph glyph="glyph-icon-file" class="ui-text-muted"></ui-glyph><span>\${file.name}<br/>(<small innerhtml.bind="file.size | number:'0.00b'"></small>)</span></span></p>
+      <span class="ui-row ui-row-h ui-nowrap ui-align-center"><ui-glyph glyph="glyph-icon-file" class="ui-text-muted"></ui-glyph><span>\${file.name}<br/>(<small innerhtml.bind="file.size | number:'0.00b'"></small>)</span></span></p>
     </div>
   </div>
 </template>`)

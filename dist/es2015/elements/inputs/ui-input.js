@@ -22,10 +22,10 @@ export class UIBaseInput {
         this.readonlyChanged(this.readonly);
     }
     disabledChanged(newValue) {
-        this.element.classList[(this.isDisabled = this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');
+        this.element.classList[(this.isDisabled = this.disabled = !!newValue) ? 'add' : 'remove']('ui-disabled');
     }
     readonlyChanged(newValue) {
-        this.element.classList[(this.readonly = isTrue(newValue)) ? 'add' : 'remove']('ui-readonly');
+        this.element.classList[(this.readonly = !!newValue) ? 'add' : 'remove']('ui-readonly');
     }
     disable(b) {
         this.element.classList[(this.isDisabled = (b || this.disabled)) ? 'add' : 'remove']('ui-disabled');
@@ -67,7 +67,7 @@ let UIInput = class UIInput extends UIBaseInput {
         this.maxlength = 1000;
         this.disabled = false;
         this.readonly = false;
-        this.info = '';
+        this.helpText = '';
         this.placeholder = '';
         this.type = 'text';
         this.clear = false;
@@ -93,22 +93,25 @@ let UIInput = class UIInput extends UIBaseInput {
             this.numberChanged(this.number);
         if (!isNaN(this.decimal))
             this.decimalChanged(this.decimal);
+        if (this.element.hasAttribute('readonly'))
+            this.readonly = true;
+        if (this.element.hasAttribute('disabled'))
+            this.isDisabled = this.disabled = true;
     }
     valueChanged(newValue) {
         if (this.type === 'number') {
             let num = parseFloat(newValue);
-            this.number = isNaN(num) ? null : num;
-            this.decimal = isNaN(num) ? null : num;
-            if (this.number === null && this.decimal === null) {
+            this.decimal = this.number = isNaN(num) ? null : num;
+            if (!this.number && this.number !== 0) {
                 this.value = '';
             }
         }
     }
     numberChanged(newValue) {
-        this.value = newValue === null ? '' : newValue;
+        this.value = (!newValue && newValue !== 0) ? '' : newValue;
     }
     decimalChanged(newValue) {
-        this.value = newValue === null ? '' : newValue;
+        this.value = (!newValue && newValue !== 0) ? '' : newValue;
     }
     fireEvent(evt) {
         if (evt.type === 'input') {
@@ -173,7 +176,7 @@ __decorate([
 __decorate([
     bindable(),
     __metadata("design:type", Object)
-], UIInput.prototype, "info", void 0);
+], UIInput.prototype, "helpText", void 0);
 __decorate([
     bindable(),
     __metadata("design:type", Object)
@@ -184,12 +187,12 @@ UIInput = __decorate([
   <span class="ui-error" if.bind="errors"><ui-glyph glyph="glyph-invalid"></ui-glyph><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
   <input ref="inputEl" type.bind="type" value.bind="value" maxlength.bind="maxlength" dir.bind="dir"
     focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)" step="any"
-    input.trigger="fireEvent($event)" change.trigger="fireEvent($event)" size="1"
+    input.trigger="fireEvent($event)" change.trigger="fireEvent($event)"
     keypress.trigger="checkInput($event)" placeholder.bind="placeholder"
     disabled.bind="isDisabled" readonly.bind="readonly" size="1"/>
   <span class="ui-clear" if.bind="clear && value" click.trigger="clearInput()">&times;</span>
   <span class="ui-counter" if.bind="counter" innerhtml.bind="maxlength - value.length"></span></div>
-  <div class="ui-input-info" if.bind="info" innerhtml.bind="info"></div>
+  <div class="ui-input-info" if.bind="helpText" innerhtml.bind="helpText"></div>
 </template>`),
     customElement('ui-input'),
     __metadata("design:paramtypes", [Element])

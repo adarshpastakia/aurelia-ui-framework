@@ -3,9 +3,9 @@
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
-import {autoinject, customElement, bindable, bindingMode, children, inlineView, useView, containerless, View, DOM} from 'aurelia-framework';
-import {UIEvent} from "../../utils/ui-event";
-import {UIUtils} from "../../utils/ui-utils";
+import { autoinject, customElement, bindable, bindingMode, inlineView, containerless, child } from 'aurelia-framework';
+import { UIEvent } from "../../utils/ui-event";
+import { UIUtils } from "../../utils/ui-utils";
 
 @autoinject()
 @inlineView(`
@@ -23,9 +23,12 @@ export class UIMenubar {
   // bind(bindingContext: Object, overrideContext: Object) { }
   attached() {
     this.obResize = UIEvent.subscribe('windowresize', () => this.arrange());
-    this.obClick = UIEvent.subscribe('mouseclick', () => this.overflow.classList.remove('ui-open'));
-    this.tether = UIUtils.tether(this.overflowToggle, this.overflow, { resize: false, position: 'br' });
-    window.setTimeout(() => this.arrange(), 500);
+    this.obClick = UIEvent.subscribe('mouseclick', (evt) => {
+      if (getParentByClass(evt.target, 'ui-menubar-toggle') == this.element) return;
+      this.overflow.classList.remove('ui-open');
+    });
+    this.tether = UIUtils.tether(this.element, this.overflow, { resize: false, position: 'br' });
+    window.setTimeout(() => this.arrange(), 100);
   }
   detached() {
     this.tether.dispose();
@@ -50,6 +53,7 @@ export class UIMenubar {
     for (let i = 0, c = this.overflow['children']; i < c.length; i++) {
       this.wrapper.appendChild(c[i]);
     }
+    //TODO: Implement fix for RTL
     if (this.isOverflow = (this.wrapper.lastElementChild.offsetLeft + this.wrapper.lastElementChild.offsetWidth > this.wrapper.offsetWidth)) {
       for (let c = this.wrapper['children'], i = c.length - 1; i >= 0; i--) {
         if (c[i].offsetLeft + c[i].offsetWidth > this.wrapper.offsetWidth) {
@@ -74,52 +78,42 @@ export class UIMenubar {
 @customElement('ui-menu')
 export class UIMenu {
   constructor(public element: Element) { }
-
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
-  // bind(bindingContext: Object, overrideContext: Object) { }
-  // attached() { }
-  // detached() { }
-  // unbind() { }
-  // end aurelia hooks
 }
+
 
 @autoinject()
 @inlineView('<template class="ui-menu-section-title"><slot></slot></template>')
 @customElement('ui-menu-section')
-export class UIMenuSection {
+export class UIMenuTitle {
   constructor(public element: Element) { }
-
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
-  // bind(bindingContext: Object, overrideContext: Object) { }
-  // attached() { }
-  // detached() { }
-  // unbind() { }
-  // end aurelia hooks
 }
 
 @autoinject()
-@inlineView('<template class="ui-menu-section"><div if.bind="label" class="ui-menu-section-title" innerhtml.bind="label"></div><slot></slot></template>')
+@inlineView('<template class="ui-menu-section ${collapsible?\'ui-collapsible\':\'\'} ${collapsed?\'ui-collapsed\':\'\'}"><div mouseup.trigger="toggleCollapse($event)" if.bind="label" class="ui-menu-section-title ${hasActive?\'ui-has-active\':\'\'}"><ui-glyph glyph="glyph-chevron-down" if.bind="collapsible"></ui-glyph><span innerhtml.bind="label"></span></div><div class="ui-menu-section-body"><slot></slot></div></template>')
 @customElement('ui-menu-group')
 export class UIMenuGroup {
-  constructor(public element: Element) { }
-
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
-  // bind(bindingContext: Object, overrideContext: Object) { }
-  // attached() { }
-  // detached() { }
-  // unbind() { }
-  // end aurelia hooks
+  constructor(public element: Element) {
+    this.collapsible = element.hasAttribute('collapsible');
+  }
 
   @bindable() label = '';
+  @bindable() collapsed = false;
+  @bindable() collapsible = false;
+
+  @child('ui-menu-item.ui-active') hasActive;
+
+  toggleCollapse(event) {
+    this.collapsed = !this.collapsed;
+    event.stopPropagation();
+    event.preventDefault();
+    return false;
+  }
 }
 
 @autoinject()
 @containerless()
 @inlineView(`<template><a class="ui-menu-item \${active?'ui-active':''} \${disabled?'ui-disabled':''} \${class}" href.bind="href" click.trigger="click($event)">
-    <ui-glyph if.bind="glyph" class="ui-menu-icon \${glyph}" glyph.bind="glyph"></ui-glyph><span class="ui-menu-label"><slot></slot></span></a></template>`)
+    <ui-glyph if.bind="glyph" class="ui-menu-icon \${glyph}" glyph.bind="glyph"></ui-glyph><span class="ui-menu-label"><slot></slot><small if.bind="description">\${description}</small></span></a></template>`)
 @customElement('ui-menu-item')
 export class UIMenuItem {
   constructor(public element: Element) { }
@@ -127,8 +121,8 @@ export class UIMenuItem {
   // aurelia hooks
   // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
-    this.active = isTrue(this.active);
-    this.disabled = isTrue(this.disabled);
+    this.active = !!(this.active);
+    this.disabled = !!(this.disabled);
   }
   // attached() { }
   // detached() { }
@@ -136,6 +130,7 @@ export class UIMenuItem {
   // end aurelia hooks
 
   @bindable() id = '';
+  @bindable() description = '';
   @bindable() glyph = '';
   @bindable() class = '';
   @bindable() active = false;

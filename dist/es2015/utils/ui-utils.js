@@ -81,114 +81,6 @@ export var UIUtils;
         return NewInstance.of(T).get(this.auContainer);
     }
     UIUtils.newInstance = newInstance;
-    function toast(options) {
-        let opts = { container: this.overlayContainer, theme: 'dark', timeout: 5000, glyph: 'glyph-alert-info', message: '', title: '' };
-        if (isString(options))
-            opts.message = options;
-        else
-            opts = Object.assign(opts, options);
-        let toast = DOM.createElement('ui-toast');
-        toast.classList.add('ui-toast');
-        toast.classList.add(opts.theme);
-        toast.innerHTML = `<h1>${opts.title}</h1><p>${opts.message}</p>`;
-        if (opts.container.children.length > 0)
-            opts.container.insertBefore(toast, opts.container.children[0]);
-        else
-            opts.container.appendChild(toast);
-        let engine = this.lazy(TemplatingEngine);
-        UIEvent.queueTask(() => engine.enhance({
-            element: toast, bindingContext: {
-                glyph: opts.glyph,
-                timeout: opts.timeout
-            }
-        }));
-    }
-    UIUtils.toast = toast;
-    function alert(options) {
-        let opts = { glyph: 'glyph-alert-info', message: '', title: '', okLabel: 'OK' };
-        if (isString(options))
-            opts.message = options;
-        else
-            opts = Object.assign(opts, options);
-        let alert = DOM.createElement('ui-alert');
-        alert.classList.add('ui-alert-shim');
-        alert.innerHTML = `<h1>${opts.title}</h1><p>${opts.message}</p>`;
-        this.dialogContainer.appendChild(alert);
-        let engine = this.lazy(TemplatingEngine);
-        return new Promise((resolve, reject) => {
-            UIEvent.queueTask(() => engine.enhance({
-                element: alert, bindingContext: {
-                    glyph: opts.glyph,
-                    okLabel: opts.okLabel,
-                    closeCallback: function (b) {
-                        resolve(b);
-                    }
-                }
-            }));
-        });
-    }
-    UIUtils.alert = alert;
-    function confirm(options) {
-        let opts = { glyph: 'glyph-alert-question', message: '', title: '', okLabel: 'OK', cancelLabel: 'Cancel' };
-        if (isString(options))
-            opts.message = options;
-        else
-            opts = Object.assign(opts, options);
-        let alert = DOM.createElement('ui-alert');
-        alert.classList.add('ui-alert-shim');
-        alert.innerHTML = `<h1>${opts.title}</h1><p>${opts.message}</p>`;
-        this.dialogContainer.appendChild(alert);
-        let engine = this.lazy(TemplatingEngine);
-        return new Promise((resolve, reject) => {
-            UIEvent.queueTask(() => engine.enhance({
-                element: alert, bindingContext: {
-                    confirm: true,
-                    glyph: opts.glyph,
-                    okLabel: opts.okLabel,
-                    cancelLabel: opts.cancelLabel,
-                    closeCallback: function (b) {
-                        resolve(b);
-                    }
-                }
-            }));
-        });
-    }
-    UIUtils.confirm = confirm;
-    function prompt(options) {
-        let opts = { glyph: 'glyph-alert-question', message: '', title: '', okLabel: 'OK', cancelLabel: 'Cancel', type: 'single', };
-        if (isString(options))
-            opts.message = options;
-        else
-            opts = Object.assign(opts, options);
-        let alert = DOM.createElement('ui-prompt');
-        alert.classList.add('ui-alert-shim');
-        alert.innerHTML = `<h1>${opts.title}</h1><p>${opts.message}</p>`;
-        this.dialogContainer.appendChild(alert);
-        let engine = this.lazy(TemplatingEngine);
-        return new Promise((resolve, reject) => {
-            UIEvent.queueTask(() => engine.enhance({
-                element: alert, bindingContext: {
-                    type: opts.type,
-                    glyph: opts.glyph,
-                    okLabel: opts.okLabel,
-                    cancelLabel: opts.cancelLabel,
-                    closeCallback: function (value) {
-                        resolve(value);
-                    }
-                }
-            }));
-        });
-    }
-    UIUtils.prompt = prompt;
-    function eventCallback(fn, self, ...rest) {
-        let ret = fn.apply(self, rest);
-        if (ret instanceof Promise)
-            return ret;
-        return new Promise((resolve, reject) => {
-            ret !== false ? resolve(true) : reject();
-        });
-    }
-    UIUtils.eventCallback = eventCallback;
     function tether(parent, child, opts) {
         opts = Object.assign({ resize: true, position: 'bl' }, opts);
         child.style.position = 'fixed';
@@ -248,7 +140,7 @@ export var UIUtils;
                     dd.style.transform += ' translateX(-50%)';
                 }
                 else if (align[1] == (isRtl ? 'l' : 'r')) {
-                    if (pos.left - dd.offsetWidth < 0) {
+                    if (pos.right - dd.offsetWidth < 0) {
                         dd.classList.add('ui-tether-left');
                         el.classList.add('ui-tether-left');
                         dd.style.left = pos.left + 'px';
@@ -280,7 +172,7 @@ export var UIUtils;
             let parent = el.parentElement;
             do {
                 let cs = getComputedStyle(parent);
-                if (!(['scroll', 'auto'].indexOf(cs.overflowX) == -1 && ['scroll', 'auto'].indexOf(cs.overflowX) == -1)) {
+                if (!(['scroll', 'auto'].indexOf(cs.overflowX) == -1 && ['scroll', 'auto'].indexOf(cs.overflowY) == -1)) {
                     this.listeners.push(parent);
                     parent.addEventListener('scroll', this.position);
                     parent.addEventListener('touchstart', this.position);
@@ -292,6 +184,87 @@ export var UIUtils;
         })(parent, child, opts);
     }
     UIUtils.tether = tether;
+    function toast(options) {
+        let opts = { container: this.overlayContainer, theme: 'dark', timeout: 5000, glyph: 'glyph-alert-info', message: '', title: '' };
+        if (isString(options))
+            opts.message = options;
+        else
+            opts = Object.assign(opts, options);
+        let toast = DOM.createElement('ui-toast');
+        toast.classList.add(`ui-${opts.theme}`);
+        toast.innerHTML = `${opts.title ? `<h1>${opts.title}</h1>` : ''}<p>${opts.message}</p>`;
+        if (opts.container.children.length > 0)
+            opts.container.insertBefore(toast, opts.container.children[0]);
+        else
+            opts.container.appendChild(toast);
+        let engine = this.lazy(TemplatingEngine);
+        UIEvent.queueTask(() => engine.enhance({
+            element: toast, bindingContext: {
+                glyph: opts.glyph,
+                timeout: opts.timeout
+            }
+        }));
+    }
+    UIUtils.toast = toast;
+    function alert(options) {
+        let opts = { glyph: 'glyph-alert-info', message: '', title: '', okLabel: 'OK', cancelLabel: 'Cancel', confirm: false };
+        if (isString(options))
+            opts.message = options;
+        else
+            opts = Object.assign(opts, options);
+        let alert = DOM.createElement('ui-alert');
+        alert.innerHTML = `${opts.title ? `<h1>${opts.title}</h1>` : ''}<p>${opts.message}</p>`;
+        this.dialogContainer.appendChild(alert);
+        let engine = this.lazy(TemplatingEngine);
+        return new Promise((resolve, reject) => {
+            UIEvent.queueTask(() => engine.enhance({
+                element: alert, bindingContext: {
+                    glyph: opts.glyph,
+                    okLabel: opts.okLabel,
+                    cancelLabel: opts.cancelLabel,
+                    confirm: opts.confirm,
+                    closeCallback: function (b) {
+                        resolve(b);
+                    }
+                }
+            }));
+        });
+    }
+    UIUtils.alert = alert;
+    function confirm(options) {
+        let opts = { glyph: 'glyph-alert-question', message: '', title: '', confirm: true };
+        if (isString(options))
+            opts.message = options;
+        else
+            opts = Object.assign(opts, options);
+        return UIUtils.alert(opts);
+    }
+    UIUtils.confirm = confirm;
+    function prompt(options) {
+        let opts = { glyph: 'glyph-alert-question', message: '', title: '', okLabel: 'OK', cancelLabel: 'Cancel', type: 'single', };
+        if (isString(options))
+            opts.message = options;
+        else
+            opts = Object.assign(opts, options);
+        let alert = DOM.createElement('ui-prompt');
+        alert.innerHTML = `${opts.title ? `<h1>${opts.title}</h1>` : ''}<p>${opts.message}</p>`;
+        this.dialogContainer.appendChild(alert);
+        let engine = this.lazy(TemplatingEngine);
+        return new Promise((resolve, reject) => {
+            UIEvent.queueTask(() => engine.enhance({
+                element: alert, bindingContext: {
+                    type: opts.type,
+                    glyph: opts.glyph,
+                    okLabel: opts.okLabel,
+                    cancelLabel: opts.cancelLabel,
+                    closeCallback: function (value) {
+                        resolve(value);
+                    }
+                }
+            }));
+        });
+    }
+    UIUtils.prompt = prompt;
     function loadView(url, parent, model) {
         let __compositionEngine = this.lazy(CompositionEngine);
         let instruction = {

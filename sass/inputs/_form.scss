@@ -1,0 +1,137 @@
+//
+// @description :
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+
+.ui-form {
+  .ui-col-form .ui-input-group {
+    min-width: 18em;
+  }
+
+  &.ui-floating {
+    max-height      : 50vh;
+    background-color: $menu-dropdown-bg;
+    border-radius   : $base-border-radius;
+    position        : fixed;
+    display         : none;
+    z-index         : $z-index-floating;
+    box-shadow      : 0 0 2px 0 $base-shadow-color;
+
+    &.ui-tether-top {
+      box-shadow: 0 1px 2px 0 $base-shadow-color;
+    }
+
+    &.ui-tether-bottom {
+      box-shadow: 0 -1px 2px 0 $base-shadow-color;
+    }
+
+    &.ui-open {
+      display: block;
+    }
+  }
+}
+
+.ui-fieldset {
+  margin       : 0.25em 0.5em;
+  padding      : 0;
+  border-radius: $base-border-radius;
+  border       : 1px solid rgba($base-border-color, .25);
+
+  > div {
+    max-height: 150em;
+    @include transition(max-height .5s);
+  }
+
+  legend {
+    font-size: 0.9em;
+    padding  : 0 0.25em;
+    margin   : 0 0.5em;
+
+    > span {
+      color: $input-label-text;
+    }
+  }
+
+  &.ui-collapse > div {
+    overflow  : hidden;
+    max-height: 0;
+  }
+}
+
+.ui-input-group {
+  @include flexbox($direction: row, $align:flex-start);
+  margin   : 0.5em 0.25em;
+  max-width: 100%;
+
+  .ui-input-label {
+    position   : relative;
+    font-size  : 0.85em;
+    color      : $input-label-text;
+    line-height: 2.5;
+    text-align : right;
+    text-align : end;
+    @include flex(0 0 8em);
+
+    &:after {
+      content : '*';
+      color   : rgba(0,0,0,0);
+      position: relative;
+      padding : 0 0.25em;
+    }
+
+    &.ui-required:after {
+      color: $secondary;
+    }
+
+    &.ui-align-top {
+      flex-basis: 100%;
+    }
+  }
+
+  &.ui-focus .ui-input-label {
+    color: $input-label-active-text;
+  }
+
+  .ui-input-info {
+    font-size: 0.8em;
+    color    : $muted;
+  }
+
+  .ui-input-addon {
+    padding    : 0.5em;
+    line-height: 1.2;
+    @include flex-auto();
+  }
+
+  .ui-option {
+    padding    : 0.25em;
+    line-height: 1.2;
+    @include flex-auto();
+  }
+
+  > div {
+    @include flex(1 1 8em);
+  }
+
+  .ui-group-wrapper {
+    background: $input-bg;
+    color     : $input-text;
+    box-shadow: 0 0 0 1px rgba($base-border-color, .2);
+    @include flexbox($direction: row, $display: flex, $align: stretch, $wrap: false);
+
+    .ui-dropdown {
+      margin: 0;
+    }
+  }
+
+  .ui-button {
+    margin    : 0;
+    align-self: stretch;
+  }
+
+  &.ui-plain .ui-group-wrapper {
+    background: none;
+    box-shadow: none;
+  }
+}

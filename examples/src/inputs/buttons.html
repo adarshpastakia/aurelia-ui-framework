@@ -1,0 +1,193 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <ui-page animate>
+    <x-container source.bind="source" wiki.bind="wiki" page-title="Buttons" need-rtl="true">
+      <h4 class="x-title">Themes</h4>
+      <ui-row class="ui-titlecase">
+        <ui-button width="8em" repeat.for="c of themes" theme.bind="c">${c}</ui-button>
+      </ui-row>
+      <h6 class="x-title">Extras</h6>
+      <ui-row class="ui-titlecase">
+        <ui-button width="8em" repeat.for="c of colors" theme.bind="c">${c}</ui-button>
+      </ui-row>
+
+      <hr/>
+      <h4 class="x-title">Variations</h4>
+      <h6 class="x-title">Sizes</h6>
+      <ui-row bottom class="x-cards">
+        <ui-column auto>
+          <ui-button glyph="fa fa-id-card" width="7em" small badge="value:9;theme:blue">Click</ui-button>
+          <p>small</p>
+        </ui-column>
+        <ui-column auto>
+          <ui-button glyph="fa fa-user-circle" width="7em" normal badge-success="9">Click</ui-button>
+          <p>normal</p>
+        </ui-column>
+        <ui-column auto>
+          <ui-button glyph="fa fa-handshake-o" width="7em" large badge-info="9">Click</ui-button>
+          <p>large</p>
+        </ui-column>
+        <ui-column auto>
+          <ui-button glyph="fa fa-bar-chart" width="7em" xlarge badge-danger="9">Click</ui-button>
+          <p>xlarge</p>
+        </ui-column>
+      </ui-row>
+
+      <h6 class="x-title">Icons</h6>
+      <ui-row middle class="x-cards">
+        <ui-column auto>
+          <ui-button glyph="glyph-icon-page"></ui-button>
+          <p>only glyph</p>
+        </ui-column>
+        <ui-column auto>
+          <ui-button width="7em" glyph="glyph-icon-page">Click</ui-button>
+          <p>glyph</p>
+        </ui-column>
+        <ui-column auto>
+          <ui-button width="7em" glyph="glyph-icon-page">Click</ui-button>
+          <p>icon-start</p>
+        </ui-column>
+        <ui-column auto>
+          <ui-button width="7em" glyph="glyph-icon-page" icon-end>Click</ui-button>
+          <p>icon-end</p>
+        </ui-column>
+        <ui-column auto>
+          <ui-button width="7em" glyph="glyph-icon-page" icon-hilight>Click</ui-button>
+          <p>icon-hilight</p>
+        </ui-column>
+        <ui-column auto>
+          <ui-button width="7em" glyph="glyph-icon-page" icon-hilight icon-end>Click</ui-button>
+          <p>icon-hilight</p>
+        </ui-column>
+        <ui-column auto>
+          <ui-button width="7em" glyph="glyph-icon-page" icon-top>Click</ui-button>
+          <p>icon-top</p>
+        </ui-column>
+      </ui-row>
+
+      <h6 class="x-title">Badges</h6>
+      <ui-row bottom class="x-cards">
+        <ui-column auto>
+          <ui-button badge="value:9;theme:blue">Click</ui-button>
+        </ui-column>
+        <ui-column auto>
+          <ui-button width="7em" badge-dark="9">Click</ui-button>
+        </ui-column>
+        <ui-column auto>
+          <ui-button width="7em" badge-primary="9" glyph="glyph-icon-page" icon-hilight>Click</ui-button>
+        </ui-column>
+        <ui-column auto>
+          <ui-button width="7em" badge-secondary="9" glyph="glyph-icon-page" icon-hilight icon-end>Click</ui-button>
+        </ui-column>
+      </ui-row>
+
+      <h6 class="x-title">Other Variants</h6>
+      <ui-row middle class="x-cards">
+        <ui-column auto>
+          <ui-button width="10em" glyph="glyph-icon-page" icon-hilight theme="info" dropdown.bind="btnMenu">Click</ui-button>
+          <p>dropdown</p>
+        </ui-column>
+        <ui-column auto>
+          <ui-button width="10em" glyph="glyph-icon-page" split theme="success" split-theme="green" dropdown.bind="btnMenuColumned">Click</ui-button>
+          <p>split</p>
+        </ui-column>
+        <ui-column auto>
+          <ui-button-group separator="or">
+            <ui-button width="7em" success width="">Proceed</ui-button>
+            <ui-button width="7em" info width="">Recheck</ui-button>
+            <ui-button width="7em" danger width="">Cancel</ui-button>
+          </ui-button-group>
+          <p>grouped with separator</p>
+        </ui-column>
+        <ui-column auto>
+          <ui-button width="7em" busy.bind="isBusy" glyph="glyph-icon-page" icon-hilight theme="info">Click</ui-button>
+          <ui-button width="7em" busy.bind="isBusy" glyph="glyph-icon-page" icon-end icon-hilight theme="info">Click</ui-button>
+          <ui-switch theme="info" on-label="busy" checked.bind="isBusy"></ui-switch>
+          <p>busy</p>
+        </ui-column>
+      </ui-row>
+
+      <div class="x-section">
+        <blockquote>
+          <strong>NOTE</strong>
+          For button-group with separator use equal width buttons</blockquote>
+      </div>
+
+      <ui-menu ref="btnMenu">
+        <ui-menu-section>Actions</ui-menu-section>
+        <ui-menu-item glyph="icon-moon-pencil2">Edit</ui-menu-item>
+        <ui-menu-item glyph="icon-moon-search">Search</ui-menu-item>
+        <ui-menu-item glyph="icon-moon-bin">Delete</ui-menu-item>
+        <ui-menu-section>Options</ui-menu-section>
+        <ui-menu-item glyph="icon-moon-bubbles4">Notifications</ui-menu-item>
+        <ui-menu-item glyph="icon-moon-cog">Settings</ui-menu-item>
+      </ui-menu>
+
+      <ui-menu ref="btnMenuColumned">
+        <ui-row>
+          <ui-column>
+            <ui-menu-section>Actions</ui-menu-section>
+            <ui-menu-item glyph="icon-moon-pencil2">Edit</ui-menu-item>
+            <ui-menu-item glyph="icon-moon-search">Search</ui-menu-item>
+            <ui-menu-item glyph="icon-moon-bin">Delete</ui-menu-item>
+            <ui-menu-section>Options</ui-menu-section>
+            <ui-menu-item glyph="icon-moon-bubbles4">Notifications</ui-menu-item>
+            <ui-menu-item glyph="icon-moon-cog">Settings</ui-menu-item>
+          </ui-column>
+          <ui-column>
+            <ui-menu-section>Social Networking</ui-menu-section>
+            <ui-menu-item glyph="icon-moon-google-plus">Google</ui-menu-item>
+            <ui-menu-item glyph="icon-moon-facebook">Facebook</ui-menu-item>
+            <ui-menu-item glyph="icon-moon-twitter">Twitter</ui-menu-item>
+            <ui-menu-item glyph="icon-moon-linkedin2">LinkedIn</ui-menu-item>
+            <ui-menu-item glyph="icon-moon-instagram">Instagram</ui-menu-item>
+          </ui-column>
+          <ui-column>
+            <ui-menu-section>Other Sites</ui-menu-section>
+            <ui-menu-item glyph="icon-moon-yahoo2">Yahoo!</ui-menu-item>
+            <ui-menu-item glyph="icon-moon-youtube">YouTube</ui-menu-item>
+            <ui-menu-item glyph="icon-moon-dribbble">Dribbble</ui-menu-item>
+            <ui-menu-item glyph="icon-moon-flickr">Flickr</ui-menu-item>
+            <ui-menu-item glyph="icon-moon-pinterest">Pinterest</ui-menu-item>
+          </ui-column>
+        </ui-row>
+      </ui-menu>
+
+      <hr/>
+      <h4 class="x-title">Button Groups</h4>
+      <ui-row middle class="x-cards">
+        <ui-column auto>
+          <ui-button-group>
+            <ui-button secondary>Grouped</ui-button>
+            <ui-button success>Grouped</ui-button>
+            <ui-button warning>Grouped</ui-button>
+            <ui-button danger>Grouped</ui-button>
+          </ui-button-group>
+          <p>horizontal</p>
+        </ui-column>
+        <ui-column auto>
+          <ui-button-group vertical>
+            <ui-button secondary>Grouped</ui-button>
+            <ui-button success>Grouped</ui-button>
+            <ui-button warning>Grouped</ui-button>
+            <ui-button danger>Grouped</ui-button>
+          </ui-button-group>
+          <p>vertical</p>
+        </ui-column>
+        <ui-column auto>
+          <ui-button-group value="1" toggle>
+            <ui-button value="0" secondary>Grouped</ui-button>
+            <ui-button value="1" success>Grouped</ui-button>
+            <ui-button value="2" warning>Grouped</ui-button>
+            <ui-button value="3" danger>Grouped</ui-button>
+          </ui-button-group>
+          <p>toggle</p>
+        </ui-column>
+      </ui-row>
+    </x-container>
+  </x-page>
+</template>

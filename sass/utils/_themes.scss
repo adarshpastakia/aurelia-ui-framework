@@ -1,0 +1,372 @@
+//
+// @description :
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+
+// Contextual Colors
+@mixin color-maker($class, $colorName) {
+  .ui-#{$class}-#{$colorName} {
+    @content;
+  }
+}
+@mixin color-property($class, $colorName, $property, $color) {
+  .ui-#{$class}-#{$colorName} {
+    #{$property}: $color !important;
+  }
+}
+
+// Switch
+@mixin switch-theme($theme, $offBg: $light, $offText: $muted, $onBg: $dark, $onText: $white) {
+  .ui-switch-control.ui-#{$theme} .ui-switch {
+    > .ui-switch-input ~ .ui-switch-inner {
+      background-color: $offBg;
+
+      &:before {
+        color: $offText;
+      }
+    }
+
+    > .ui-switch-input:checked ~ .ui-switch-inner {
+      background-color: $onBg;
+
+      &:after {
+        color: $onText;
+      }
+    }
+    //
+    // .ui-switch-handle {
+    //   background    : $onBg; //linear-gradient(top, $dark, desaturate($dark, 5%));
+    // }
+    //
+    // .ui-switch-input:checked ~ .ui-switch-handle {
+    //   background    : $offBg; //linear-gradient(top, $dark, desaturate($dark, 5%));
+    // }
+  }
+}
+//
+
+// Toolbars
+@mixin toolbar-theme($theme, $bg, $color: $white) {
+  .ui-toolbar.ui-#{$theme} {
+    background: rgba($bg, .25);
+
+    .ui-dropdown {
+      .ui-caret,
+      .ui-label {
+        color: $color;
+      }
+      background: rgba($bg, .8);
+
+      .ui-list-item {
+        &.ui-hilight {
+          color     : $color;
+          background: rgba($bg, .5);
+        }
+
+        &.ui-selected,
+        &:active {
+          color     : $color;
+          background: $bg;
+        }
+      }
+    }
+
+     > .ui-input-wrapper .ui-input-control,
+    > .ui-input-group .ui-group-wrapper {
+      background: rgba($white, .1);
+      color     : $color;
+    }
+
+    > .ui-input-group .ui-group-wrapper .ui-input-control {
+      background: none;
+      color     : $color;
+    }
+
+     > .ui-input-wrapper:not(.ui-focus) .ui-input-control,
+    > .ui-input-group .ui-input-wrapper:not(.ui-focus) .ui-input-control {
+      box-shadow: 0 -1px 0 0 rgba($color, .5) inset;
+    }
+
+     > .ui-input-wrapper.ui-focus .ui-input-control,
+    > .ui-input-group .ui-input-wrapper.ui-focus .ui-input-control {
+      box-shadow: 0 -2px 0 0 $color inset;
+    }
+  }
+}
+
+// Statsbar
+@mixin statsbar-theme($theme, $color, $bg: auto) {
+  .ui-statsbar.ui-#{$theme} {
+    background: $bg;
+
+    .ui-stat .ui-icon {
+      color: $color;
+    }
+
+    &:not(.ui-icon-only) {
+      .ui-stat-value {
+        color: $color;
+      }
+
+      .ui-stat-label {
+        color: rgba($color, .75);
+      }
+    }
+  }
+
+  .ui-statsbar .ui-stat.ui-#{$theme} {
+    background: $bg;
+
+    .ui-icon {
+      color: $color;
+    }
+
+    &:not(.ui-icon-only) {
+      .ui-stat-value {
+        color: $color;
+      }
+
+      .ui-stat-label {
+        color: rgba($color, .75);
+      }
+    }
+  }
+}
+
+// Alerts/Toasts
+@mixin toast-theme($theme, $bg, $color: $white) {
+  .ui-toast.ui-#{$theme} {
+    background  : $bg;
+    color       : $color;
+    border-color: darken($bg, 10%);
+  }
+}
+
+// Headers
+@mixin header-theme($theme, $bg, $color: $white) {
+  .ui-header.ui-#{$theme} {
+    background: lighten($bg, 10%);
+    color     : $color;
+
+    .ui-drawer-toggle {
+      color: $color !important;
+    }
+
+    .ui-header-title.ui-icon-hilight {
+      .ui-title-icon {
+        background: rgba(darken($bg, 20%), .5);
+      }
+    }
+
+    .ui-dropdown {
+      .ui-caret,
+      .ui-label {
+        color: $color;
+      }
+      background: rgba($white, .1);
+
+      .ui-list-item {
+        &.ui-hilight {
+          color     : $color;
+          background: rgba($bg, .5);
+        }
+
+        &.ui-selected,
+        &:active {
+          color     : $color;
+          background: $bg;
+        }
+      }
+    }
+
+    .ui-header-button {
+      color     : rgba($color, .7);
+      background: lighten($bg, 20%);
+      border    : 1px solid rgba(darken($bg, 20%), .25);
+
+      &:hover {
+        color       : rgba($color, .9);
+        border-color: rgba(darken($bg, 20%), .5);
+      }
+
+      &:active {
+        background: darken($bg, 10%);
+      }
+    }
+  }
+}
+//
+
+// Breadcrumbs
+@mixin breadcrumb-theme($theme, $themecolor, $color) {
+  .ui-breadcrumb:not(.ui-themed).ui-#{$theme} .ui-crumb {
+    a {
+      color: $themecolor;
+    }
+
+    a:hover {
+      color: darken($themecolor, 5%);
+
+      &:before {
+        border-left-color: darken($themecolor, 5%);
+      }
+    }
+
+    &:last-child a {
+      color: $base-text;
+    }
+
+    &:after {
+      background: $themecolor;
+    }
+  }
+
+  .rtl,
+  [dir="rtl"] {
+    .ui-breadcrumb:not(.ui-themed).ui-#{$theme} .ui-crumb {
+      a:hover {
+        &:before {
+          border-right-color: darken($themecolor, 5%);
+        }
+      }
+    }
+  }
+
+  $themecolor: scale-color($themecolor, $lightness: -30%);
+
+  .ui-breadcrumb.ui-themed.ui-#{$theme} .ui-crumb {
+    @for $i from 0 through 12 {
+      $bgcolor: lighten($themecolor, $i * 8%);
+      $hover  : darken($bgcolor, 5%);
+
+      &:nth-child(#{$i + 1}) a {
+        background: $bgcolor;
+        color     : $color;
+
+        &:after {
+          border-left-color: $bgcolor;
+        }
+
+        &:hover {
+          background: $hover;
+
+          &:after {
+            border-left-color: $hover;
+          }
+        }
+      }
+    }
+
+    &:after {
+      background: $color;
+    }
+  }
+
+  .rtl,
+  [dir="rtl"] {
+    .ui-breadcrumb.ui-themed.ui-#{$theme} .ui-crumb {
+      @for $i from 0 through 12 {
+        $bgcolor: lighten($themecolor, $i * 8%);
+        $hover  : darken($bgcolor, 5%);
+
+        &:nth-child(#{$i + 1}) a {
+          &:after {
+            border-right-color: $bgcolor;
+          }
+
+          &:hover:after {
+            border-right-color: $hover;
+          }
+        }
+      }
+    }
+  }
+}
+//
+
+// Chips
+@mixin chip-theme($style, $bg, $text) {
+  .ui-chip.ui-#{$style} {
+    .ui-chip-label {
+      color     : $text;
+      background: $bg;
+    }
+  }
+}
+//
+
+// Tooltip
+@mixin tooltip-theme($style, $bg, $text) {
+  .ui-tooltip.ui-#{$style} {
+    color     : $text;
+    background: $bg;
+
+    &:after {
+      border-color: $bg transparent;
+    }
+  }
+}
+//
+
+// Ribbon
+@mixin ribbon-theme($style, $bg, $text) {
+  .ui-ribbon.ui-#{$style} {
+    color     : $text;
+    background: $bg;
+  }
+}
+//
+
+// Badge
+@mixin badge-theme($style, $bg, $text) {
+  .ui-badge.ui-#{$style}:after {
+    color     : $text;
+    background: $bg;
+  }
+}
+//
+
+// Buttons
+@mixin button-theme($style, $bg, $text, $hoverBg, $hoverText, $activeBg, $activeText, $shadow: true) {
+  .ui-button-group.ui-toggle .ui-button.ui-active .ui-button-el.ui-#{$style} {
+    color         : $text;
+    background    : $bg;
+    border-color  : lighten($bg, 5%);
+    cursor        : default;
+    pointer-events: none;
+  }
+
+  .ui-button.ui-open .ui-button-el.ui-#{$style}:last-child {
+    color       : $activeText;
+    background  : $activeBg;
+    border-color: lighten($activeBg, 5%);
+    box-shadow  : 0 0 3px 0 darken($activeBg, 25%) inset;
+  }
+
+  .ui-button .ui-button-el.ui-#{$style} {
+    color       : $text;
+    background  : $bg;
+    border-color: lighten($bg, 5%);
+    text-shadow : 0 0 2px if($shadow, $muted, transparent);
+
+    &:hover {
+      color       : $hoverText;
+      background  : $hoverBg;
+      border-color: lighten($hoverBg, 5%);
+    }
+
+    &:active {
+      color       : $activeText;
+      background  : $activeBg;
+      border-color: lighten($activeBg, 5%);
+      box-shadow  : 0 0 3px 0 darken($activeBg, 25%) inset;
+    }
+  }
+
+  .ui-button.ui-icon-hilight .ui-button-el.ui-#{$style} {
+    .ui-button-icon {
+      background: rgba(darken($bg, 20%), .5);
+    }
+  }
+}

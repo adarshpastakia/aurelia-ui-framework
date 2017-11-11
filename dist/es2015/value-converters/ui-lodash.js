@@ -19,6 +19,11 @@ export class GroupValueConverter {
         return a;
     }
 }
+export class FilterValueConverter {
+    toView(object = [], property, value) {
+        return _.filter(object, [property, value]);
+    }
+}
 export class SortValueConverter {
     toView(value, property) {
         return _.sortBy(value, property);

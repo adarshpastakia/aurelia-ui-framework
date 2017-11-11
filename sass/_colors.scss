@@ -3,34 +3,48 @@
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
+$usePastels    : true !default;
 
 // COLORS
-$primary        : #582758 !default;
-$secondary      : #8F1C56 !default;
+$primary       : #AD1457 !default;
+$secondary     : #F06292 !default;
 
-$white          : #FFFEFC !default;
-$black          : #150E06 !default;
-$light          : #F7F9F0 !default;
-$dark           : #373737 !default;
-$muted          : #808387 !default;
+$white         : #FFFEFC !default;
+$black         : #2c3e50 !default;
+$light         : #ecf0f1 !default;
+$dark          : #34495e !default;
+$muted         : #95a5a6 !default;
 
-$info           : #1993C0 !default;
-$danger         : #CE3333 !default;
-$success        : #3EA746 !default;
-$warning        : #FAAD34 !default;
+// grays
+$darkGray      : #7f8c8d !default;
+$lightGray     : #bdc3c7 !default;
 
-$red            : #ff3b30 !default;
-$pink           : #e91e63 !default;
-$violet         : #9c27b0 !default;
-$purple         : #673ab7 !default;
-$indigo         : #3f51b5 !default;
-$blue           : #2196f3 !default;
-$cyan           : #00bcd4 !default;
-$teal           : #009688 !default;
-$green          : #4caf50 !default;
-$lime           : #cddc39 !default;
-$yellow         : #ffeb3b !default;
-$amber          : #ffc107 !default;
-$orange         : #ff5722 !default;
-$brown          : #795548 !default;
-$gray           : #607d8b !default;
+$info-deep     : #0F98D9;
+$danger-deep   : #E4131C;
+$success-deep  : #63B03C;
+$warning-deep  : #FDB512;
+
+$info-pastel   : #29B6F6;
+$danger-pastel : #EF5350;
+$success-pastel: #66BB6A;
+$warning-pastel: #FFCA28;
+
+$info          : if($usePastels, $info-pastel, $info-deep) !default;
+$danger        : if($usePastels, $danger-pastel, $danger-deep) !default;
+$success       : if($usePastels, $success-pastel, $success-deep) !default;
+$warning       : if($usePastels, $warning-pastel, $warning-deep) !default;
+
+$red           : #ff3b30 !default;
+$pink          : #e91e63 !default;
+$violet        : #9c27b0 !default;
+$purple        : #673ab7 !default;
+$indigo        : #3f51b5 !default;
+$blue          : #2196f3 !default;
+$cyan          : #00bcd4 !default;
+$teal          : #009688 !default;
+$green         : #4caf50 !default;
+$lime          : #cddc39 !default;
+$yellow        : #ffeb3b !default;
+$amber         : #ffc107 !default;
+$orange        : #ff5722 !default;
+$brown         : #795548 !default;

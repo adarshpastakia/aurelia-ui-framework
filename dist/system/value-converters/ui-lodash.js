@@ -1,7 +1,7 @@
 System.register(["lodash"], function (exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var _, SplitValueConverter, KeysValueConverter, GroupValueConverter, SortValueConverter;
+    var _, SplitValueConverter, KeysValueConverter, GroupValueConverter, FilterValueConverter, SortValueConverter;
     return {
         setters: [
             function (_1) {
@@ -42,6 +42,16 @@ System.register(["lodash"], function (exports_1, context_1) {
                 return GroupValueConverter;
             }());
             exports_1("GroupValueConverter", GroupValueConverter);
+            FilterValueConverter = (function () {
+                function FilterValueConverter() {
+                }
+                FilterValueConverter.prototype.toView = function (object, property, value) {
+                    if (object === void 0) { object = []; }
+                    return _.filter(object, [property, value]);
+                };
+                return FilterValueConverter;
+            }());
+            exports_1("FilterValueConverter", FilterValueConverter);
             SortValueConverter = (function () {
                 function SortValueConverter() {
                 }

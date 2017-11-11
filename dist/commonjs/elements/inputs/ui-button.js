@@ -19,58 +19,48 @@ var UIButton = (function () {
         this.glyph = '';
         this.label = '';
         this.value = '';
-        this.theme = 'default';
         this.width = 'auto';
+        this.splitTheme = '';
+        this.splitGlyph = 'glyph-caret-down';
         this.busy = false;
         this.disabled = false;
+        this.hasLabel = true;
+        this.split = false;
         this.isDisabled = false;
-        if (this.element.hasAttribute('primary'))
-            this.theme = 'primary';
-        else if (this.element.hasAttribute('secondary'))
-            this.theme = 'secondary';
-        else if (this.element.hasAttribute('light'))
-            this.theme = 'light';
-        else if (this.element.hasAttribute('dark'))
-            this.theme = 'dark';
-        else if (this.element.hasAttribute('info'))
-            this.theme = 'info';
-        else if (this.element.hasAttribute('danger'))
-            this.theme = 'danger';
-        else if (this.element.hasAttribute('success'))
-            this.theme = 'success';
-        else if (this.element.hasAttribute('warning'))
-            this.theme = 'warning';
         if (this.element.hasAttribute('icon-top'))
             this.element.classList.add('ui-icon-top');
-        if (this.element.hasAttribute('big'))
-            this.element.classList.add('ui-big');
+        if (this.element.hasAttribute('icon-end'))
+            this.element.classList.add('ui-icon-end');
+        else
+            this.element.classList.add('ui-icon-start');
+        if (this.element.hasAttribute('icon-hilight'))
+            this.element.classList.add('ui-icon-hilight');
+        if (this.element.hasAttribute('xlarge'))
+            this.element.classList.add('ui-size-xl');
+        if (this.element.hasAttribute('large'))
+            this.element.classList.add('ui-size-lg');
         if (this.element.hasAttribute('small'))
-            this.element.classList.add('ui-small');
-        if (this.element.hasAttribute('square'))
-            this.element.classList.add('ui-square');
-        if (this.element.hasAttribute('round'))
-            this.element.classList.add('ui-round');
+            this.element.classList.add('ui-size-sm');
+        this.split = this.element.hasAttribute('split');
     }
     UIButton.prototype.bind = function (bindingContext, overrideContext) {
-        this.busy = isTrue(this.busy);
-        this.disabled = isTrue(this.disabled);
         if (this.form)
             this.dropdown = this.form;
     };
     UIButton.prototype.attached = function () {
         var _this = this;
+        this.hasLabel = !!(this.label || this.labelEl.childNodes[0].length);
         if (this.dropdown) {
             this.obMouseup = ui_event_1.UIEvent.subscribe('mouseclick', function (evt) {
                 if (getParentByClass(evt.target, 'ui-button') == _this.element)
                     return;
                 if (_this.form && getParentByClass(evt.target, 'ui-floating') == _this.dropdown)
                     return;
-                _this.element.classList.remove('ui-open');
-                _this.dropdown.classList.remove('ui-open');
+                _this.hideDropdown();
             });
             this.element.classList.add('ui-btn-dropdown');
             this.dropdown.classList.add('ui-floating');
-            this.tether = ui_utils_1.UIUtils.tether(this.element, this.dropdown);
+            this.tether = ui_utils_1.UIUtils.tether(this.element, this.dropdown, { position: this.split ? 'br' : 'bl' });
         }
     };
     UIButton.prototype.detached = function () {
@@ -84,7 +74,17 @@ var UIButton = (function () {
     UIButton.prototype.disable = function (b) {
         this.element.classList[(this.isDisabled = (b || this.disabled)) ? 'add' : 'remove']('ui-disabled');
     };
-    UIButton.prototype.toggleDropdown = function (evt) {
+    UIButton.prototype.disabledChanged = function (newValue) {
+        this.disable(this.disabled = !!newValue);
+    };
+    UIButton.prototype.hideDropdown = function () {
+        this.element.classList.remove('ui-open');
+        this.dropdown.classList.remove('ui-open');
+        return true;
+    };
+    UIButton.prototype.toggleDropdown = function (evt, isSplit) {
+        if (this.split && !isSplit)
+            return this.hideDropdown();
         if (evt.button != 0)
             return true;
         if (this.dropdown) {
@@ -93,13 +93,14 @@ var UIButton = (function () {
             evt.cancelBubble = true;
             if (this.element.classList.contains('ui-open')) {
                 ui_event_1.UIEvent.fireEvent('menuhide', this.element);
-                this.element.classList.remove('ui-open');
-                this.dropdown.classList.remove('ui-open');
+                this.hideDropdown();
             }
             else {
                 if (ui_event_1.UIEvent.fireEvent('menuopen', this.element) !== false) {
                     this.element.classList.add('ui-open');
                     this.dropdown.classList.add('ui-open');
+                    if (this.form && this.form.focus)
+                        this.form.focus();
                     this.tether.position();
                 }
             }
@@ -122,11 +123,15 @@ var UIButton = (function () {
     __decorate([
         aurelia_framework_1.bindable(),
         __metadata("design:type", Object)
-    ], UIButton.prototype, "theme", void 0);
+    ], UIButton.prototype, "width", void 0);
     __decorate([
         aurelia_framework_1.bindable(),
         __metadata("design:type", Object)
-    ], UIButton.prototype, "width", void 0);
+    ], UIButton.prototype, "splitTheme", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIButton.prototype, "splitGlyph", void 0);
     __decorate([
         aurelia_framework_1.bindable(),
         __metadata("design:type", Object)
@@ -145,7 +150,7 @@ var UIButton = (function () {
     ], UIButton.prototype, "disabled", void 0);
     UIButton = __decorate([
         aurelia_framework_1.autoinject(),
-        aurelia_framework_1.inlineView("<template role=\"button\" class=\"ui-button ${theme} ${busy?'ui-busy':''} ${disabled?'ui-disabled':''}\" click.trigger=\"toggleDropdown($event)\" data-value=\"${value}\" css.bind=\"{width: width}\">\n    <span class=\"ui-indicator\"><ui-glyph if.bind=\"busy\" class=\"ui-anim-busy\" glyph=\"glyph-busy\"></ui-glyph></span>\n    <ui-glyph if.bind=\"glyph\" class=\"ui-btn-icon ${glyph}\" glyph.bind=\"glyph\"></ui-glyph>\n    <span if.bind=\"glyph && label\">&nbsp;</span>\n    <span class=\"ui-label\"><slot>${label}</slot></span>\n    <ui-glyph class=\"ui-caret\" glyph=\"glyph-caret-down\" if.bind=\"!form && dropdown\"></ui-glyph></template>"),
+        aurelia_framework_1.inlineView("<template class=\"ui-button ${busy?'ui-busy':''}\" css.bind=\"{width: width}\">\n  <a role=\"button\" tabindex=\"-1\" class=\"ui-button-el\" click.trigger=\"toggleDropdown($event, false)\" data-value=\"${value}\" ref=\"buttonEl\">\n    <div class=\"ui-busy-icon\"><ui-glyph glyph=\"glyph-busy\" class=\"ui-anim-busy\"></ui-glyph></div>\n    <div class=\"ui-button-icon\" if.bind=\"glyph\"><ui-glyph glyph.bind=\"glyph\"></ui-glyph></div>\n    <div class=\"ui-button-label\" ref=\"labelEl\" show.bind=\"hasLabel\"><slot>${label}</slot></div>\n    <div class=\"ui-button-caret\" if.bind=\"!split && !form && dropdown\"><ui-glyph glyph=\"glyph-chevron-down\"></ui-glyph></div>\n  </a>\n  <a role=\"button\" tabindex=\"-1\" class=\"ui-button-el ui-${splitTheme}\" if.bind=\"split\" click.trigger=\"toggleDropdown($event, true)\">\n    <div class=\"ui-button-splitter\"></div>\n    <div class=\"ui-button-caret\"><ui-glyph glyph=\"glyph-chevron-down\"></ui-glyph></div>\n  </a>\n</template>"),
         aurelia_framework_1.customElement('ui-button'),
         __metadata("design:paramtypes", [Element])
     ], UIButton);
@@ -157,22 +162,34 @@ var UIButtonGroup = (function () {
         this.element = element;
         this.buttons = [];
         this.value = '';
+        this.separator = '';
         this.disabled = false;
+        this.size = '';
         if (this.element.hasAttribute('vertical'))
             this.element.classList.add('ui-vertical');
         else
             this.element.classList.add('ui-horizontal');
         if (this.element.hasAttribute('toggle'))
             this.element.classList.add('ui-toggle');
+        if (this.element.hasAttribute('separator'))
+            this.element.classList.add('ui-has-separator');
+        if (this.element.hasAttribute('small'))
+            this.size = 'ui-size-sm';
+        if (this.element.hasAttribute('large'))
+            this.size = 'ui-size-lg';
+        if (this.element.hasAttribute('xlarge'))
+            this.size = 'ui-size-xl';
     }
-    UIButtonGroup.prototype.bind = function (bindingContext, overrideContext) {
-        this.disabled = isTrue(this.disabled);
-    };
-    UIButtonGroup.prototype.disabledChanged = function (newValue) {
-        this.disabled = isTrue(newValue);
+    UIButtonGroup.prototype.attached = function () {
+        this.buttonsChanged();
     };
     UIButtonGroup.prototype.buttonsChanged = function () {
+        var _this = this;
         this.valueChanged(this.value);
+        if (this.size)
+            this.buttons.forEach(function (b) { return b.element.classList.add(_this.size); });
+        if (this.separator)
+            this.buttons.forEach(function (b) { return b.element.dataset.separator = _this.separator; });
     };
     UIButtonGroup.prototype.valueChanged = function (newValue) {
         var _this = this;
@@ -180,6 +197,7 @@ var UIButtonGroup = (function () {
             this.active.element.classList.remove('ui-active');
         if (this.buttons.length > 0 && (this.active = _.find(this.buttons, function (b) { return b.value === _this.value; })))
             this.active.element.classList.add('ui-active');
+        ui_event_1.UIEvent.fireEvent('change', this.element, this.value);
     };
     UIButtonGroup.prototype.clickEvent = function (evt) {
         if (evt.target.dataset['value'])
@@ -196,10 +214,14 @@ var UIButtonGroup = (function () {
     __decorate([
         aurelia_framework_1.bindable(),
         __metadata("design:type", Object)
+    ], UIButtonGroup.prototype, "separator", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
     ], UIButtonGroup.prototype, "disabled", void 0);
     UIButtonGroup = __decorate([
         aurelia_framework_1.autoinject(),
-        aurelia_framework_1.inlineView("<template class=\"ui-button-group ${disabled?'ui-disabled':''}\" click.trigger=\"clickEvent($event)\"><slot></slot></template>"),
+        aurelia_framework_1.inlineView("<template class=\"ui-button-group ${disabled?'ui-disabled':''}\" click.trigger=\"clickEvent($event)\" data-separator.bind=\"separator\"><slot></slot></template>"),
         aurelia_framework_1.customElement('ui-button-group'),
         __metadata("design:paramtypes", [Element])
     ], UIButtonGroup);

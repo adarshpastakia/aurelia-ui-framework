@@ -3,14 +3,15 @@
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
-import {autoinject, customElement, bindable, bindingMode, children, inlineView, useView, containerless, View, DOM} from 'aurelia-framework';
-import {UIEvent} from "../../utils/ui-event";
-import {UIUtils} from "../../utils/ui-utils";
+import { autoinject, customElement, bindable, bindingMode, children, inlineView, useView, containerless, View, DOM } from 'aurelia-framework';
+import { UIEvent } from "../../utils/ui-event";
+import { UIUtils } from "../../utils/ui-utils";
 
 @autoinject()
 @inlineView(`<template class="ui-dropdown" select.trigger="select($event)" click.trigger="toggleDropdown($event)" css.bind="{'min-width':width}">
-  <div class="ui-label"><span><ui-glyph class="ui-invalid-icon" glyph="glyph-invalid"></ui-glyph>
-  <ui-glyph class.bind="glyph" glyph.bind="glyph" if.bind="glyph"></ui-glyph>\${display}</span>
+  <div class="ui-label">
+  <div class="ui-addon-icon" if.bind="glyph"><ui-glyph class.bind="glyph" glyph.bind="glyph"></ui-glyph></div>
+  <ui-glyph class="ui-invalid-icon" glyph="glyph-invalid"></ui-glyph><span>\${display}</span>
   <ui-glyph class="ui-caret" glyph="glyph-caret-down"></ui-glyph></div>
   <ul class="ui-list-container ui-floating" ref="dropdown"><slot></slot></ul></template>`)
 @customElement('ui-dropdown')
@@ -47,6 +48,7 @@ export class UIDropdown {
   @bindable() model = null;
   @bindable() disabled = false;
   @bindable() defaultText = 'Select';
+  @bindable() glyph = '';
 
   @bindable() beforeselect: any;
 
@@ -55,7 +57,6 @@ export class UIDropdown {
   private obMouseup;
   private obLocale;
   private selected;
-  private glyph = '';
   private display = '';
 
   private isDisabled = false;
@@ -69,7 +70,6 @@ export class UIDropdown {
     if (it) {
       if (it.value != newValue) this.value = it.value;
       this.display = it.element.innerText;
-      this.glyph = it.element.au.controller.viewModel.glyph;
       (this.selected = it).element.classList.add('ui-selected');
       UIEvent.queueTask(() => UIEvent.fireEvent('change', this.element, this.value));
     }
@@ -87,7 +87,7 @@ export class UIDropdown {
   }
 
   disabledChanged(newValue) {
-    this.element.classList[(this.isDisabled = this.disabled = isTrue(newValue)) ? 'add' : 'remove']('ui-disabled');
+    this.element.classList[(this.isDisabled = this.disabled = !!newValue) ? 'add' : 'remove']('ui-disabled');
   }
 
   disable(b) {
@@ -96,10 +96,10 @@ export class UIDropdown {
 
   select(evt) {
     let params = { value: evt.detail.value, model: evt.detail.model };
-    if (isFunction(this.beforeselect)) {
+    if (typeof this.beforeselect === "function") {
       let ret = this.beforeselect(params);
       if (ret instanceof Promise) ret.then(b => {
-        if (b) {
+        if (b !== false) {
           this.doChange(params);
         }
       });

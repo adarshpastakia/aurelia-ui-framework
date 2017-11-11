@@ -1,4 +1,4 @@
-System.register(["aurelia-framework", "aurelia-router", "aurelia-fetch-client", "../../utils/ui-application", "../../utils/ui-utils", "../../utils/ui-event"], function (exports_1, context_1) {
+System.register(["aurelia-framework", "aurelia-router", "../../utils/ui-event", "../../utils/ui-utils"], function (exports_1, context_1) {
     "use strict";
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -10,7 +10,7 @@ System.register(["aurelia-framework", "aurelia-router", "aurelia-fetch-client", 
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var __moduleName = context_1 && context_1.id;
-    var aurelia_framework_1, aurelia_router_1, aurelia_fetch_client_1, ui_application_1, ui_utils_1, ui_event_1, UIViewport, UIRouterView, UIAppHeader, UIAppFooter, UIAppQuickLinks, UIAppTitle;
+    var aurelia_framework_1, aurelia_router_1, ui_event_1, ui_utils_1, UIViewport, UIRouterView, UIAppHeader, UIAppBanner, UIAppFooter, UIAppQuickLinks, UIAppTitle;
     return {
         setters: [
             function (aurelia_framework_1_1) {
@@ -19,25 +19,17 @@ System.register(["aurelia-framework", "aurelia-router", "aurelia-fetch-client", 
             function (aurelia_router_1_1) {
                 aurelia_router_1 = aurelia_router_1_1;
             },
-            function (aurelia_fetch_client_1_1) {
-                aurelia_fetch_client_1 = aurelia_fetch_client_1_1;
-            },
-            function (ui_application_1_1) {
-                ui_application_1 = ui_application_1_1;
+            function (ui_event_1_1) {
+                ui_event_1 = ui_event_1_1;
             },
             function (ui_utils_1_1) {
                 ui_utils_1 = ui_utils_1_1;
-            },
-            function (ui_event_1_1) {
-                ui_event_1 = ui_event_1_1;
             }
         ],
         execute: function () {
             UIViewport = (function () {
-                function UIViewport(element, httpClient, app) {
+                function UIViewport(element) {
                     this.element = element;
-                    this.httpClient = httpClient;
-                    this.app = app;
                     var __resizeTimer;
                     document.ondragstart = function (e) { return getParentByClass(e.target, '.ui-draggable') != null; };
                     document.onmouseup = function (e) { return ui_event_1.UIEvent.broadcast('mouseclick', e); };
@@ -58,9 +50,9 @@ System.register(["aurelia-framework", "aurelia-router", "aurelia-fetch-client", 
                 };
                 UIViewport = __decorate([
                     aurelia_framework_1.autoinject(),
-                    aurelia_framework_1.inlineView("<template class=\"ui-viewport ui-fullscreen\">\n  <compose view-model=\"./ui-glyphs\"></compose>\n  <slot name=\"ui-app-header\"></slot>\n  <slot></slot>\n  <div class=\"ui-app-taskbar\"><slot name=\"ui-app-taskbar\"></slot><div class=\"ui-taskbutton-wrapper\" ref=\"taskbarContainer\"></div></div>\n  <slot name=\"ui-app-footer\"></slot>\n\n  <div class=\"ui-dialog-container\" ref=\"dialogContainer\"></div>\n  <div class=\"ui-overlay-container\" ref=\"overlayContainer\"></div>\n\n  <ui-loader busy.bind=\"router.isNavigating\"></ui-loader>\n</template>"),
+                    aurelia_framework_1.inlineView("<template class=\"ui-viewport\">\n  <compose view-model=\"./ui-glyphs\"></compose>\n  <slot name=\"ui-app-banner\"></slot>\n  <slot name=\"ui-app-header\"></slot>\n  <slot></slot>\n  <div class=\"ui-app-taskbar\"><slot name=\"ui-app-taskbar\"></slot><div class=\"ui-taskbutton-wrapper\" ref=\"taskbarContainer\"></div></div>\n  <slot name=\"ui-app-footer\"></slot>\n\n  <div class=\"ui-dialog-container\" ref=\"dialogContainer\"></div>\n  <div class=\"ui-overlay-container\" ref=\"overlayContainer\"></div>\n\n  <ui-loader large busy.bind=\"router.isNavigating\"></ui-loader>\n</template>"),
                     aurelia_framework_1.customElement('ui-viewport'),
-                    __metadata("design:paramtypes", [Element, aurelia_fetch_client_1.HttpClient, ui_application_1.UIApplication])
+                    __metadata("design:paramtypes", [Element])
                 ], UIViewport);
                 return UIViewport;
             }());
@@ -101,13 +93,32 @@ System.register(["aurelia-framework", "aurelia-router", "aurelia-fetch-client", 
                 UIAppHeader = __decorate([
                     aurelia_framework_1.autoinject(),
                     aurelia_framework_1.containerless(),
-                    aurelia_framework_1.inlineView('<template><div class="ui-app-header ${class}" slot="ui-app-header"><slot></slot></div></template>'),
+                    aurelia_framework_1.inlineView('<template><div class="ui-app-header ui-row ui-row-middle ${class}" slot="ui-app-header"><slot></slot></div></template>'),
                     aurelia_framework_1.customElement('ui-app-header'),
                     __metadata("design:paramtypes", [Element])
                 ], UIAppHeader);
                 return UIAppHeader;
             }());
             exports_1("UIAppHeader", UIAppHeader);
+            UIAppBanner = (function () {
+                function UIAppBanner(element) {
+                    this.element = element;
+                    this.class = '';
+                }
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIAppBanner.prototype, "class", void 0);
+                UIAppBanner = __decorate([
+                    aurelia_framework_1.autoinject(),
+                    aurelia_framework_1.containerless(),
+                    aurelia_framework_1.inlineView('<template><div class="ui-app-banner ${class}" slot="ui-app-banner"><slot></slot></div></template>'),
+                    aurelia_framework_1.customElement('ui-app-banner'),
+                    __metadata("design:paramtypes", [Element])
+                ], UIAppBanner);
+                return UIAppBanner;
+            }());
+            exports_1("UIAppBanner", UIAppBanner);
             UIAppFooter = (function () {
                 function UIAppFooter(element) {
                     this.element = element;
@@ -120,7 +131,7 @@ System.register(["aurelia-framework", "aurelia-router", "aurelia-fetch-client", 
                 UIAppFooter = __decorate([
                     aurelia_framework_1.autoinject(),
                     aurelia_framework_1.containerless(),
-                    aurelia_framework_1.inlineView('<template><div class="ui-app-footer ${class}" slot="ui-app-footer"><slot></slot></div></template>'),
+                    aurelia_framework_1.inlineView('<template><div class="ui-app-footer ui-row ui-row-middle ui-row-spaced ${class}" slot="ui-app-footer"><slot></slot></div></template>'),
                     aurelia_framework_1.customElement('ui-app-footer'),
                     __metadata("design:paramtypes", [Element])
                 ], UIAppFooter);
@@ -149,17 +160,18 @@ System.register(["aurelia-framework", "aurelia-router", "aurelia-fetch-client", 
             UIAppTitle = (function () {
                 function UIAppTitle(element) {
                     this.element = element;
-                    this.href = '#/';
+                    this.href = '/';
+                    this.src = '';
                     this.class = '';
                 }
                 __decorate([
                     aurelia_framework_1.bindable(),
                     __metadata("design:type", Object)
-                ], UIAppTitle.prototype, "src", void 0);
+                ], UIAppTitle.prototype, "href", void 0);
                 __decorate([
                     aurelia_framework_1.bindable(),
                     __metadata("design:type", Object)
-                ], UIAppTitle.prototype, "href", void 0);
+                ], UIAppTitle.prototype, "src", void 0);
                 __decorate([
                     aurelia_framework_1.bindable(),
                     __metadata("design:type", Object)
@@ -168,7 +180,7 @@ System.register(["aurelia-framework", "aurelia-router", "aurelia-fetch-client", 
                     aurelia_framework_1.autoinject(),
                     aurelia_framework_1.containerless(),
                     aurelia_framework_1.customElement('ui-app-title'),
-                    aurelia_framework_1.inlineView('<template><a href.bind="href" class="ui-row ui-row-middle ui-app-title ${class}"><img class="ui-col-auto ui-app-logo" src.bind="src" if.bind="src"/><span class="ui-col-auto"><slot></slot></span></a><div class="ui-col-fill"></div></template>'),
+                    aurelia_framework_1.inlineView('<template><a href.bind="href" class="ui-row ui-row-middle ui-app-title ${class}"><img if.bind="src" src.bind="src"/><span class="ui-col-auto"><slot></slot></span></a><div class="ui-col-fill"></div></template>'),
                     __metadata("design:paramtypes", [Element])
                 ], UIAppTitle);
                 return UIAppTitle;

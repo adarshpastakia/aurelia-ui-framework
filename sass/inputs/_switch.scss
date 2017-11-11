@@ -1,30 +1,20 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
 
 .ui-switch-control {
-  height: 1.5em;
-  @include flex-row($display: inline-flex, $wrap:false);
-
-  .ui-switch-label {
-    color      : $input-label-text;
-    font-size  : .8em;
-    line-height: 1em;
-    padding    : 0 .25em;
-    @include ellipsis();
-    @include flex(0 1 auto);
-  }
+  @include flexbox($direction: row, $display: inline-flex, $wrap:false);
 
   .ui-switch {
-    overflow     : hidden;
     display      : inline-block;
     white-space  : nowrap;
     position     : relative;
+    font-size    : 1em;
     border-radius: 1em;
     min-width    : 3em;
-    height       : 1.2em;
+    height       : 1em;
     direction    : ltr;
     @include flex-auto();
     @include box-shadow(0 0 0 1px $base-border-color);
@@ -53,19 +43,20 @@
 
     .ui-switch-inner {
       display         : block;
-      height          : inherit;
+      height          : 1em;
       cursor          : pointer;
       text-transform  : uppercase;
       border-radius   : inherit;
       background-color: $light;
-      line-height     : 1.8em;
-      font-size       : .7em;
+      position        : relative;
       @include transition(background .25s ease-out);
     }
 
     .ui-switch-inner:after,
     .ui-switch-inner:before {
-      text-align: center;
+      text-align : center;
+      line-height: 1.65em;
+      font-size  : 0.65em;
       @include position(absolute, 0);
       @include transition(opacity .25s ease-out);
     }
@@ -74,7 +65,7 @@
       content    : attr(data-off);
       color      : $muted;
       text-shadow: 0 1px rgba($white, .5);
-      @include padding(start, 1.5em);
+      @include padding(start, 1em);
     }
 
     .ui-switch-inner:after {
@@ -82,7 +73,7 @@
       opacity    : 0;
       color      : $white;
       text-shadow: 0 1px rgba($black, .2);
-      @include padding(end, 1.5em);
+      @include padding(end, 1em);
     }
 
     .ui-switch-input:checked ~ .ui-switch-inner {
@@ -98,11 +89,11 @@
     }
 
     .ui-switch-handle {
-      width         : 1em;
-      height        : 1em;
-      border-radius : 1em;
-      margin        : .1em;
-      background    : $white linear-gradient(top, $white, desaturate($white, 5%));
+      width         : 0.8em;
+      height        : 0.8em;
+      border-radius : 0.8em;
+      margin        : 0.1em;
+      background    : $white; //linear-gradient(top, $dark, desaturate($dark, 5%));
       border        : 1px solid $base-border-color;
       box-shadow    : 1px 0 2px 0 rgba(0, 0, 0, .2);
       pointer-events: none;
@@ -112,7 +103,7 @@
 
     .ui-switch-input:checked ~ .ui-switch-handle {
       left       : 100%;
-      margin-left: -1.15em;
+      margin-left: -.9em;
       box-shadow : -1px 0 2px 0 rgba(0, 0, 0, .2);
     }
   }
@@ -121,9 +112,11 @@
 //
 @include switch-theme(primary, $onBg: $primary);
 @include switch-theme(secondary, $onBg: $secondary);
+@include switch-theme(muted, $onBg: $muted);
 @include switch-theme(info, $onBg: $info);
 @include switch-theme(danger, $onBg: $danger);
 @include switch-theme(success, $onBg: $success);
 @include switch-theme(warning, $onBg: $warning);
+@include switch-theme(themed, $secondary, $white, $primary, $white);
 @include switch-theme(ampm, #FBE033, $black, #333333, $white);
-@include switch-theme(gender, #1993C0, $white, #FA60A9, $white);
+@include switch-theme(gender, #3498db, $white, #FA60A9, $white);

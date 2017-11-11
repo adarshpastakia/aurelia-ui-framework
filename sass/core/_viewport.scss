@@ -3,163 +3,82 @@
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
-
 .ui-splash {
-  background: #fff no-repeat center center;
-  @include position(absolute);
-  @if $splash-image {
-    background-image: image-url($splash-image);
-  }
-}
-
-.ui-icon {
-  font-size      : 1em;
-  display        : inline-block;
-  width          : 1em;
-  height         : 1em;
-  stroke-width   : 0;
-  line-height    : 1;
-  color          : inherit;
-  stroke         : currentColor;
-  fill           : currentColor;
-  pointer-events : none;
-  background-size: 100% auto;
-
-  svg {
-    font-size     : 1em;
-    display       : inline-block;
-    width         : 100%;
-    height        : 100%;
-    padding       : 0.5px;
-    stroke-width  : 0;
-    line-height   : 1;
-    color         : inherit;
-    stroke        : currentColor;
-    fill          : currentColor;
-    vertical-align: top;
-    pointer-events: none;
-  }
+  background-color: white;
+  z-index         : $z-index-splash;
+  @include position(fixed, 0);
 }
 
 .ui-viewport {
-  @include position(fixed, 0);
-  overflow: auto;
-
-  &.ui-fullscreen {
-    @include flex-column();
-    overflow: hidden;
-
-    .ui-app-footer {
-      font-size: 0.7em;
-    }
-  }
-
-  .ui-app-header {
-    background: $app-header-bg;
-    color     : $app-header-text;
-    padding   : 0 0.5em;
-    @include flex-row($align:center, $wrap:false);
-
-    .ui-app-title {
-      @include flex-auto();
-      color: $app-header-link-text;
-    }
-
-    > :first-child {}
-
-    .ui-app-logo {
-      height: 3em;
-      margin: 0 0.25em;
-    }
-
-    // .ui-link {
-    //   color: $app-header-link-text;
-    //
-    //   &:hover {
-    //     color: $secondary;
-    //   }
-    // }
-
-    .ui-divider {
-      display: block;
-      margin : 0.2rem;
-      border : {
-        left : 1px solid $dark;
-        right: 1px solid $light;
-      }
-      @include transform(scaleX(.5));
-      @include align-self(stretch);
-    }
-
-    .ui-dropdown {
-      .ui-caret,
-      .ui-label {
-        color: $app-header-link-text;
-      }
-      background: rgba($white, .1);
-    }
-
-     > .ui-input-wrapper .ui-input-control,
-    > .ui-input-group .ui-group-wrapper {
-      background: rgba($white, .1);
-      color     : $app-header-text;
-    }
-
-    > .ui-input-group .ui-group-wrapper .ui-input-control {
-      background: none;
-      color     : $app-header-text;
-    }
-
-    input {
-      @include input-placeholder {
-        color: rgba($white,.3);
-      }
-    }
-  }
-
-  .ui-app-footer {
-    @include flex-row($justify:space-between, $wrap:false);
-    background : $app-footer-bg;
-    color      : $app-footer-text;
-    padding    : 0 0.5em;
-    line-height: 1.5;
-  }
+  position: fixed;
+  overflow: hidden;
+  width   : 100vw;
+  height  : 100vh;
 
   .ui-router-view {
-    z-index : 0;
     overflow: hidden;
     position: relative;
-    @include flex-fill();
-    @include flex-column();
   }
 
-  .ui-app-loader {
-    @include position(absolute, 0);
-    background: rgba($black, .05);
-    cursor    : wait;
-    direction : ltr;
-    z-index   : $z-index-splash;
+  .ui-viewport-banner {
+    background: $app-banner-bg;
+    color     : $app-banner-text;
+    padding   : 0 nth($base-padding, 2);
+    text-align: center;
+  }
 
-    .ui-loader-div {
-      @include box-shadow(0 0 15px 0 rgba($black,.1));
-      @include position(absolute, 50% auto auto 50%);
-      @include transform(translateX(-50%) translateY(-50%));
+  .ui-viewport-header {
+    background: $app-header-bg;
+    color     : $app-header-text;
+    height    : $app-header-height;
+    padding   : $base-padding;
 
-      background   : $base-bg;
-      overflow     : hidden;
-      padding      : 0.5em;
-      font-size    : 1.5em;
-      line-height  : 1;
-      z-index      : $z-index-splash;
-      border-radius: $base-border-radius;
+    .ui-drawer-toggle {
+      font-size: 1.5em;
+      color    : $app-header-text;
+
+      &:hover {
+        color: rgba($app-header-link-text, .75);
+      }
+
+      &:active {
+        color: rgba($app-header-link-text, .5);
+      }
     }
 
-    &.ui-small .ui-loader-div {
-      font-size: 1em;
+    .ui-viewport-title {
+      font-size  : 1.5em;
+      line-height: 1.25;
+      font-weight: 300;
+
+      > img {
+        max-height: $app-header-height - 1.5em;
+        @include margin(end, .5em);
+      }
+
+      small {
+        display  : block;
+        font-size: 0.9rem;
+      }
     }
 
-    &.ui-big .ui-loader-div {
-      font-size: 2.2em;
+    a {
+      color: inherit;
+    }
+  }
+
+  .ui-viewport-footer {
+    font-size : 0.7em;
+    background: $app-footer-bg;
+    color     : $app-footer-text;
+    padding   : 0 nth($base-padding, 2);
+
+    .ui-link {
+      color: $app-footer-link-text;
+
+      &:hover {
+        color: $app-footer-link-hover-text;
+      }
     }
   }
 
@@ -179,23 +98,10 @@
     pointer-events: none;
     z-index       : $z-index-toast;
     @include position(absolute, 0);
-    @include flex-column(flex-end, flex-start);
 
     .ui-toast {
       max-width : 24rem;
       box-shadow: 0 0 0.5em 0 rgba(0,0,0,0.25);
-    }
-  }
-}
-
-.rtl,
-[dir="rtl"] {
-  .ui-icon {
-    &[class$="-left"],
-    &[class$="-right"] {
-      svg {
-        transform: rotate(180deg);
-      }
     }
   }
 }

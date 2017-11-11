@@ -34,7 +34,7 @@ var UIHttpService = (function () {
                 response: function (response) {
                     self.logger.info("Response " + response.status + " " + response.url);
                     if (response instanceof TypeError) {
-                        throw Error(response['message']);
+                        return Promise.reject({ errorCode: '0xFFFF', message: response['message'] });
                     }
                     if (response.status == 401 && ~response.url.indexOf(self.httpClient.baseUrl)) {
                         eventAggregator.publish('auf:unauthorized', null);
@@ -43,33 +43,16 @@ var UIHttpService = (function () {
                         return response.text()
                             .then(function (resp) {
                             var json = {};
-                            var error = 'Network Error!!';
                             try {
                                 json = JSON.parse(resp);
                             }
                             catch (e) { }
-                            if (json.message)
-                                error = json.message;
-                            else if (json.error)
-                                error = json.error;
-                            else if (response.statusText)
-                                error = response.statusText;
-                            if (error)
-                                throw new Error(error);
-                            return null;
+                            var message = json.message || json.error || '0xFFFF';
+                            var errorCode = json.errorCode || json.error || 'Network Error!!';
+                            return Promise.reject({ errorCode: errorCode, message: message });
                         });
                     }
                     return response;
-                },
-                requestError: function (error) {
-                    if (error !== null)
-                        throw Error(error.message);
-                    return error;
-                },
-                responseError: function (error) {
-                    if (error !== null)
-                        throw Error(error.message);
-                    return error;
                 }
             });
         });
@@ -83,6 +66,10 @@ var UIHttpService = (function () {
             .join('&');
     };
     UIHttpService.prototype.get = function (slug, headers) {
+        if (headers === void 0) { headers = true; }
+        return this.json(slug, headers);
+    };
+    UIHttpService.prototype.json = function (slug, headers) {
         var _this = this;
         if (headers === void 0) { headers = true; }
         this.logger.info("get [" + slug + "]");
@@ -95,7 +82,7 @@ var UIHttpService = (function () {
             .then(function (resp) { return _this.__getResponse(resp); });
     };
     UIHttpService.prototype.text = function (slug, headers) {
-        if (headers === void 0) { headers = true; }
+        if (headers === void 0) { headers = false; }
         this.logger.info("text [" + slug + "]");
         return this.httpClient
             .fetch(slug, {
@@ -106,7 +93,7 @@ var UIHttpService = (function () {
             .then(function (resp) { return resp.text(); });
     };
     UIHttpService.prototype.blob = function (slug, headers) {
-        if (headers === void 0) { headers = true; }
+        if (headers === void 0) { headers = false; }
         this.logger.info("text [" + slug + "]");
         return this.httpClient
             .fetch(slug, {

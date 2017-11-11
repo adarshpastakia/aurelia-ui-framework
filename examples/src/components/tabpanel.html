@@ -1,0 +1,50 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <ui-page animate>
+    <x-container source.bind="source" wiki.bind="wiki" page-title="Tab Panels" need-rtl="true">
+      <h4 class="x-title">Simple Tab Panel</h4>
+      <!-- <div ref="tabLabel">
+        <p>Hello</p>
+        <small>Wols</small>
+      </div> -->
+      <ui-row>
+        <ui-column size="md-6 sm-12">
+          <h6 class="x-title">Top</h6>
+          <div class="x-view ui-border-none">
+            <ui-tab-panel>
+              <ui-tab label="Tab 1" padded scroll>
+                <compose view="../home/lipsum-big.html"></compose>
+              </ui-tab>
+              <ui-tab label="Tab 2" disabled="true">
+              </ui-tab>
+              <ui-tab label="Tab 3" closeable padded scroll>
+                <compose view="../home/lipsum-small.html"></compose>
+              </ui-tab>
+              <!-- <ui-tab label.bind="tabLabel"></ui-tab> -->
+            </ui-tab-panel>
+          </div>
+        </ui-column>
+        <ui-column size="md-6 sm-12">
+          <h6 class="x-title">Bottom</h6>
+          <div class="x-view ui-border-none">
+            <ui-tab-panel bottom>
+              <ui-tab label="Tab 1" padded scroll>
+                <compose view="../home/lipsum-big.html"></compose>
+              </ui-tab>
+              <ui-tab label="Tab 2" padded scroll>
+                <compose view="../home/lipsum-big.html"></compose>
+              </ui-tab>
+              <ui-tab label="Tab 3" padded scroll>
+                <compose view="../home/lipsum-big.html"></compose>
+              </ui-tab>
+            </ui-tab-panel>
+          </div>
+        </ui-column>
+      </ui-row>
+    </x-container>
+  </ui-page>
+</template>

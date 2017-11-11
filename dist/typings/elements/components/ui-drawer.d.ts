@@ -3,9 +3,10 @@ export declare class UIDrawer {
     constructor(element: Element);
     bind(bindingContext: Object, overrideContext: Object): void;
     position: string;
-    private glyph;
+    closeGlyph: string;
     private bodyCls;
     closeDrawer(): void;
+    openDrawer(): void;
 }
 export declare class UIDrawerToggle {
     element: Element;

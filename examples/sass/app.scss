@@ -1,0 +1,312 @@
+//
+// @description :
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+@import "node_modules/aurelia-ui-framework/sass/framework";
+@import "./hljs";
+
+.x-sample-viewport {
+  z-index: 25;
+  @include position(fixed, 0);
+}
+
+.x-app-menu {
+  .ui-drawer-close {
+    display: none;
+  }
+
+  .x-app-menu-title {
+    top       : 0;
+    display   : block;
+    z-index   : 2;
+    margin    : 0.5em 0;
+    background: $drawer-bg;
+    box-shadow: 0 0 2em $drawer-bg;
+    @include sticky();
+  }
+}
+
+
+.ui-splash {
+  background-color: white;
+  z-index         : $z-index-splash;
+  @include position(fixed, 0);
+
+  > div:first-child {
+    background     : url('../images/logo.png') no-repeat left center;
+    padding-left   : 72px;
+    background-size: 64px;
+    font-size      : 32px;
+    font-weight    : bold;
+    color          : $dark;
+    line-height    : 1;
+    width          : 300px;
+    margin         : 40vh auto 32px;
+
+    > small {
+      font-size  : 16px;
+      display    : block;
+      color      : rgba($dark, .75);
+      font-weight: 400;
+    }
+  }
+
+  > div.ui-anim-ripple {
+    display  : block;
+    font-size: 32px;
+    margin   : 0 auto;
+  }
+}
+
+.x-fixed-banner {
+  position     : fixed;
+  color        : white;
+  font-weight  : bold;
+  background   : $danger;
+  padding      : 0.25rem 1rem;
+  left         : 50%;
+  top          : 0;
+  border-radius: 0 0 0.5em 0.5em;
+  @include transform(translateX(-50%));
+}
+
+.x-view {
+  border : 1px solid #e5e5e5;
+  height : 400px;
+  display: flex;
+
+  h6 {
+    color      : $secondary;
+    font-size  : 2em;
+    margin-top : 1em;
+    font-weight: 300;
+  }
+}
+
+.x-cards p {
+  font-size : 0.8em;
+  text-align: center;
+  color     : $muted;
+}
+
+.x-banner {
+  color     : $white;
+  background: $app-header-bg;
+
+  &:before {
+    content   : '';
+    position  : absolute;
+    left      : 0;
+    right     : 0;
+    top       : -29em;
+    height    : 30em;
+    background: $app-header-bg;
+  }
+
+  &.ui-bg-secondary {
+    background: $page-title-bg !important;
+  }
+
+  .big-button {
+    border    : 1px solid rgba(#f0f0f0, .3);
+    padding   : 1em 2em;
+    margin    : 0 1em 1em;
+    min-width : 12em;
+    color     : white;
+    background: rgba($black, .1);
+    text-align: center;
+    position  : relative;
+    display   : inline-block;
+
+    &:hover {
+      text      : white;
+      background: rgba($white, .1);
+    }
+  }
+}
+
+.ui-viewport-title {
+  @include transition(transform .2s .2s);
+
+  &.x-hide {
+    @include transition(transform .2s .5s);
+    @include transform(translateY(-100%));
+  }
+}
+
+.x-app-menu.ui-drawer {
+  position: fixed;
+  > .ui-drawer-content {
+    box-shadow: none !important;
+  }
+
+  & ~ .ui-viewport {
+    @include transition(transform .5s);
+  }
+
+  &.ui-drawer-show ~ .ui-viewport {
+    @include transform(translateX($drawer-width));
+  }
+}
+
+.x-title {
+  color      : $darkGray;
+  margin     : 1em 0 0.5em !important;
+  font-weight: 400;
+}
+
+h4.x-title {
+  color: $secondary;
+}
+
+.x-tab {
+  padding    : 6px 12px;
+  margin     : 6px 0;
+  font-size  : 24px;
+  line-height: 1;
+  cursor     : pointer;
+  color      : $secondary;
+}
+
+.x-tab-active {
+  background: $secondary;
+  color     : $white;
+
+  &:hover {
+    color: $white;
+  }
+}
+
+.x-section h4 {
+  color : $secondary;
+  margin: 1em 0 0.5em !important;
+}
+
+.x-section h6 {
+  color      : $secondary;
+  margin-top : 1em;
+  font-weight: 300;
+}
+
+.x-section blockquote {
+  padding   : 0.5rem 1rem;
+  background: rgba($danger, .025);
+  border    : 1px solid rgba($danger, .25);
+  box-shadow: 4px 4px 0 0 rgba($danger, .75);
+
+  &.success {
+    background: rgba($success, .025);
+    border    : 1px solid rgba($success, .25);
+    box-shadow: 4px 4px 0 0 rgba($success, .75);
+  }
+
+  strong:first-child {
+    color      : $danger;
+    padding    : 0 0.5em;
+    font-weight: 600;
+  }
+
+  p:last-child {
+    margin-bottom: 0.25em;
+  }
+}
+
+.x-viewports {
+  position: relative;
+  height  : 15em;
+  margin  : 0 0.5rem;
+
+  > div {
+    left    : 0;
+    top     : 0;
+    width   : 100%;
+    position: absolute;
+    border  : 1px dotted $lightGray;
+
+    &:before {
+      position : absolute;
+      bottom   : 1.25rem;
+      left     : 1rem;
+      font-size: 1rem;
+    }
+
+    &:after {
+      position : absolute;
+      bottom   : 0.25rem;
+      left     : 1rem;
+      font-size: 0.8rem;
+    }
+  }
+
+  .x-xl {
+    &:before {
+      content: 'X-Large';
+    }
+
+    &:after {
+      content: '#{$grid-xl-min}';
+    }
+    height    : 100%;
+    background: lighten($muted, 50%);
+  }
+
+  .x-lg {
+    &:before {
+      content: 'Large';
+    }
+
+    &:after {
+      content: '#{$grid-lg-min} - #{$grid-xl-min}';
+    }
+    height    : 80%;
+    max-width : $grid-lg-min;
+    background: lighten($success, 35%);
+  }
+
+  .x-md {
+    &:before {
+      content: 'Medium';
+    }
+
+    &:after {
+      content: '#{$grid-md-min} - #{$grid-lg-min}';
+    }
+    height    : 60%;
+    max-width : $grid-md-min;
+    background: lighten($info, 30%);
+  }
+
+  .x-sm {
+    &:before {
+      content: 'Small';
+    }
+
+    &:after {
+      content: '#{$grid-sm-min} - #{$grid-md-min}';
+    }
+    height    : 40%;
+    max-width : $grid-sm-min;
+    background: lighten($warning, 30%);
+  }
+
+  .x-xs {
+    &:before {
+      content: 'X-Small';
+    }
+
+    &:after {
+      content: '#{$grid-xs-min} - #{$grid-sm-min}';
+    }
+    height    : 20%;
+    max-width : $grid-xs-min;
+    background: lighten($danger, 25%);
+  }
+}
+
+.page-404 {
+  min-height     : 250px;
+  padding        : 50px 0 50px 180px;
+  background     : url('../images/working.png') no-repeat 25px 50px;
+  background-size: auto 120px;
+}

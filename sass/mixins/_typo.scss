@@ -1,0 +1,66 @@
+//
+// @description :
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+
+// Styling
+@mixin padding($dir, $size) {
+   @include browser-prefixed(padding-#{$dir}, $size);
+}
+@mixin margin($dir, $size) {
+   @include browser-prefixed(margin-#{$dir}, $size);
+}
+@mixin border($dir, $val...) {
+   @include browser-prefixed(border-#{$dir}, $val);
+}
+@mixin borderEx($dir, $prop, $val) {
+   @include browser-prefixed(border-#{$dir}-#{$prop}, $val);
+}
+@mixin ellipsis($cursor: true) {
+   @if($cursor){
+    cursor: default;
+  }
+  white-space  : nowrap;
+  text-overflow: ellipsis;
+  overflow     : hidden;
+}
+@mixin user-select($select: text) {
+   @if($select == 'text'){
+    cursor: text;
+  }
+  @if($select == 'none') {
+    cursor: default;
+  }
+  @include browser-prefixed(user-select, $select);
+}
+@mixin selection {
+  &::-moz-selection {
+    @content;
+  }
+
+  &::selection {
+    @content;
+  }
+}
+@mixin placeholder {
+  &::-webkit-input-placeholder {
+    @content;
+  }
+
+  &::-moz-placeholder {
+    @content;
+  }
+
+  &:-ms-input-placeholder {
+    @content;
+  }
+
+  &::-o-placeholder {
+    @content;
+  }
+
+  &::placeholder {
+    @content;
+  }
+}

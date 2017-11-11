@@ -17,6 +17,8 @@ export declare class UIGlyph {
     constructor(element: Element);
     glyph: string;
 }
+export declare class UIDivider {
+}
 export declare class UILoader {
     constructor(element: Element);
     busy: boolean;

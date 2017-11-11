@@ -1,0 +1,99 @@
+//
+// @description :
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+@import "node_modules/aurelia-ui-framework/sass/colors";
+
+.x-admin-layout {
+  z-index : 25;
+  $default: #2980b9;
+
+  .x-dash-grid > .ui-column,
+  .x-dash-grid > .ui-row > .ui-column {
+    // padding: 0.25em;
+  }
+
+  .x-dash-grid {
+    // padding: 0.25em;
+  }
+
+  .x-dash-card {
+    border : none;
+    display: block;
+
+    &.bgLighter {
+      background: $light;
+
+      &:hover {
+        background: darken($light, 5%);
+      }
+    }
+
+    &.bgLight {
+      background: $lightGray;
+
+      &:hover {
+        background: darken($lightGray, 5%);
+      }
+    }
+
+    &.bgMedium {
+      background: $muted;
+
+      &:hover {
+        background: darken($muted, 5%);
+      }
+    }
+
+    &.bgDark {
+      background: $darkGray;
+
+      &:hover {
+        background: darken($darkGray, 5%);
+      }
+    }
+
+    &.bgDarker {
+      background: $dark;
+
+      &:hover {
+        background: darken($dark, 5%);
+      }
+    }
+  }
+
+  .ui-sidebar,
+  .x-dash-card .ui-header,
+  .x-dash-card .ui-panel-body {
+    background: none;
+    border    : none;
+  }
+
+  .x-dash-card .ui-header {
+    font-weight: 400;
+  }
+
+  .ui-sidebar-content {
+    background: darken($dark, 5%);
+    border    : none;
+  }
+
+  .x-app-header {
+    height: 4em;
+  }
+
+  .x-app-header {
+    color     : $white;
+    background: $default;
+
+    > .ui-icon {
+      height    : 4em;
+      width     : 4em;
+      padding   : 1em;
+      background: darken($default, 10%);
+    }
+  }
+
+  .ui-menu-item {}
+}

@@ -9,15 +9,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { autoinject, customElement, bindable, inlineView, containerless, DOM } from 'aurelia-framework';
 import { AppRouter } from 'aurelia-router';
-import { HttpClient } from 'aurelia-fetch-client';
-import { UIApplication } from "../../utils/ui-application";
-import { UIUtils } from "../../utils/ui-utils";
 import { UIEvent } from "../../utils/ui-event";
+import { UIUtils } from "../../utils/ui-utils";
 let UIViewport = class UIViewport {
-    constructor(element, httpClient, app) {
+    constructor(element) {
         this.element = element;
-        this.httpClient = httpClient;
-        this.app = app;
         var __resizeTimer;
         document.ondragstart = (e) => getParentByClass(e.target, '.ui-draggable') != null;
         document.onmouseup = (e) => UIEvent.broadcast('mouseclick', e);
@@ -39,8 +35,9 @@ let UIViewport = class UIViewport {
 };
 UIViewport = __decorate([
     autoinject(),
-    inlineView(`<template class="ui-viewport ui-fullscreen">
+    inlineView(`<template class="ui-viewport">
   <compose view-model="./ui-glyphs"></compose>
+  <slot name="ui-app-banner"></slot>
   <slot name="ui-app-header"></slot>
   <slot></slot>
   <div class="ui-app-taskbar"><slot name="ui-app-taskbar"></slot><div class="ui-taskbutton-wrapper" ref="taskbarContainer"></div></div>
@@ -49,10 +46,10 @@ UIViewport = __decorate([
   <div class="ui-dialog-container" ref="dialogContainer"></div>
   <div class="ui-overlay-container" ref="overlayContainer"></div>
 
-  <ui-loader busy.bind="router.isNavigating"></ui-loader>
+  <ui-loader large busy.bind="router.isNavigating"></ui-loader>
 </template>`),
     customElement('ui-viewport'),
-    __metadata("design:paramtypes", [Element, HttpClient, UIApplication])
+    __metadata("design:paramtypes", [Element])
 ], UIViewport);
 export { UIViewport };
 let UIRouterView = class UIRouterView {
@@ -91,11 +88,29 @@ __decorate([
 UIAppHeader = __decorate([
     autoinject(),
     containerless(),
-    inlineView('<template><div class="ui-app-header ${class}" slot="ui-app-header"><slot></slot></div></template>'),
+    inlineView('<template><div class="ui-app-header ui-row ui-row-middle ${class}" slot="ui-app-header"><slot></slot></div></template>'),
     customElement('ui-app-header'),
     __metadata("design:paramtypes", [Element])
 ], UIAppHeader);
 export { UIAppHeader };
+let UIAppBanner = class UIAppBanner {
+    constructor(element) {
+        this.element = element;
+        this.class = '';
+    }
+};
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIAppBanner.prototype, "class", void 0);
+UIAppBanner = __decorate([
+    autoinject(),
+    containerless(),
+    inlineView('<template><div class="ui-app-banner ${class}" slot="ui-app-banner"><slot></slot></div></template>'),
+    customElement('ui-app-banner'),
+    __metadata("design:paramtypes", [Element])
+], UIAppBanner);
+export { UIAppBanner };
 let UIAppFooter = class UIAppFooter {
     constructor(element) {
         this.element = element;
@@ -109,7 +124,7 @@ __decorate([
 UIAppFooter = __decorate([
     autoinject(),
     containerless(),
-    inlineView('<template><div class="ui-app-footer ${class}" slot="ui-app-footer"><slot></slot></div></template>'),
+    inlineView('<template><div class="ui-app-footer ui-row ui-row-middle ui-row-spaced ${class}" slot="ui-app-footer"><slot></slot></div></template>'),
     customElement('ui-app-footer'),
     __metadata("design:paramtypes", [Element])
 ], UIAppFooter);
@@ -135,18 +150,19 @@ export { UIAppQuickLinks };
 let UIAppTitle = class UIAppTitle {
     constructor(element) {
         this.element = element;
-        this.href = '#/';
+        this.href = '/';
+        this.src = '';
         this.class = '';
     }
 };
 __decorate([
     bindable(),
     __metadata("design:type", Object)
-], UIAppTitle.prototype, "src", void 0);
+], UIAppTitle.prototype, "href", void 0);
 __decorate([
     bindable(),
     __metadata("design:type", Object)
-], UIAppTitle.prototype, "href", void 0);
+], UIAppTitle.prototype, "src", void 0);
 __decorate([
     bindable(),
     __metadata("design:type", Object)
@@ -155,7 +171,7 @@ UIAppTitle = __decorate([
     autoinject(),
     containerless(),
     customElement('ui-app-title'),
-    inlineView('<template><a href.bind="href" class="ui-row ui-row-middle ui-app-title ${class}"><img class="ui-col-auto ui-app-logo" src.bind="src" if.bind="src"/><span class="ui-col-auto"><slot></slot></span></a><div class="ui-col-fill"></div></template>'),
+    inlineView('<template><a href.bind="href" class="ui-row ui-row-middle ui-app-title ${class}"><img if.bind="src" src.bind="src"/><span class="ui-col-auto"><slot></slot></span></a><div class="ui-col-fill"></div></template>'),
     __metadata("design:paramtypes", [Element])
 ], UIAppTitle);
 export { UIAppTitle };

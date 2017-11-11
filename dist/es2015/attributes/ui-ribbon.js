@@ -23,7 +23,7 @@ let UIRibbon = class UIRibbon {
         if (isEmpty(this.message))
             this.ribbon.classList.add('ui-hidden');
         this.ribbon.innerHTML = this.message;
-        this.ribbon.className = 'ui-ribbon ' + this.theme;
+        this.ribbon.className = 'ui-ribbon ui-' + this.theme;
     }
     themeChanged(newValue) {
         this.ribbon.className = 'ui-ribbon ' + newValue;

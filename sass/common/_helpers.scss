@@ -1,0 +1,140 @@
+//
+// @description :
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+
+.ui-scroll {
+  @include scroll();
+}
+
+.ui-hide {
+  display: none !important;
+}
+
+.ui-hidden {
+  visibility: hidden !important;
+}
+
+.ui-link {
+  *display: inline-block;
+  position: relative;
+
+  &:before {
+    display   : block;
+    content   : '';
+    bottom    : 0;
+    left      : 0;
+    right     : 0;
+    position  : absolute;
+    width     : 0;
+    height    : 1px;
+    margin    : 0 auto;
+    background: $secondary;
+    @include transition(width .25s);
+  }
+
+  &:hover:before {
+    width: 100%;
+  }
+}
+
+.ui-float-l {
+  float: left;
+
+  &:after,
+  &:before {
+    content: '';
+  }
+}
+
+.ui-float-r {
+  float: right;
+
+  &:after,
+  &:before {
+    content: '';
+  }
+}
+
+// BORDERS
+.ui-border-none {
+  border: none !important;
+}
+
+.ui-border-all {
+  border: 1px solid $base-border-color;
+}
+
+.ui-border-h {
+  border      : 1px solid $base-border-color;
+  border-width: 1px 0;
+}
+
+.ui-border-v {
+  border      : 1px solid $base-border-color;
+  border-width: 0 1px;
+}
+
+.ui-border-t {
+  border-top: 1px solid $base-border-color;
+}
+
+.ui-border-b {
+  border-bottom: 1px solid $base-border-color;
+}
+
+.ui-border-s {
+  @include border(start, 1px solid $base-border-color);
+}
+
+.ui-border-e {
+  @include border(end, 1px solid $base-border-color);
+}
+
+// MARGINS
+.ui-margin-none {
+  margin: 0 !important;
+}
+
+.ui-margin-all {
+  margin: $base-padding;
+}
+
+.ui-margin-v {
+  margin: nth($base-padding,1) 0;
+}
+
+.ui-margin-h {
+  margin: 0 nth($base-padding,2);
+}
+
+// MARGINS
+.ui-pad-none {
+  padding: 0 !important;
+}
+
+.ui-pad-all {
+  padding: $base-padding;
+}
+
+.ui-pad-v {
+  padding: nth($base-padding,1) 0;
+}
+
+.ui-pad-h {
+  padding: 0 nth($base-padding,2);
+}
+
+// COLOR HELPERS
+$colors: ( ('primary', $primary, $primary), ('secondary', $secondary, $secondary), ('white',$white, $white), ('light',$light, $light), ('muted', $muted, $muted), ('dark', $dark, $dark), ('info', $info, $info-deep), ('danger', $danger, $danger-deep), ('success', $success, $success-deep), ('warning', $warning, $warning-deep) );
+@each $key, $color, $text in $colors {
+   @include color-property(bg, $key, background-color, $color);
+  @include color-property(text, $key, color, $text);
+  @include color-property(border, $key, border-color, $color);
+  @include color-maker(hover, $key) {
+    &:hover {
+      color: $text !important;
+    }
+  }
+}

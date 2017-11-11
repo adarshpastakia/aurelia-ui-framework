@@ -8,8 +8,11 @@
   margin     : 0 0.5em;
   display    : inline-block;
   line-height: 1;
+  color      : $primary;
 
-  &:hover {}
+  &:hover {
+    color: $secondary;
+  }
 }
 
 .ui-drawer {
@@ -17,11 +20,26 @@
   z-index       : $z-index-drawer;
   @include position(absolute, 0);
 
+  &.ui-drawer-fixed {
+    @include position(fixed, 0);
+  }
+
+  &.ui-drawer-fluid > .ui-drawer-content {
+    width: 70vw;
+  }
+
+  &.ui-drawer-large > .ui-drawer-content {
+    width: $drawer-width*1.5;
+  }
+
   > .ui-drawer-content {
     z-index         : 1;
     width           : $drawer-width;
+    max-width       : 90%;
     pointer-events  : all;
     background-color: $drawer-bg;
+    border          : 1px solid transparent;
+    border-width    : 0 1px;
     @include position(absolute, 0 auto);
     @include transition(all .5s);
 
@@ -42,39 +60,35 @@
     @include position(absolute, 0);
   }
 
-  &.start {
+  &.ui-drawer-start {
     > .ui-drawer-content {
-      left: -1 * $drawer-width;
+      left: 0;
+      @include transform(translateX(-100%));
 
       > .ui-drawer-close {
         text-align: right;
         text-align: end;
       }
     }
-
-    &.show > .ui-drawer-content {
-      left: 0;
-    }
   }
 
-  &.end {
+  &.ui-drawer-end {
     > .ui-drawer-content {
-      right: -1 * $drawer-width;
+      right: 0;
+      @include transform(translateX(100%));
 
       > .ui-drawer-close {
         text-align: left;
         text-align: start;
       }
     }
-
-    &.show > .ui-drawer-content {
-      right: 0;
-    }
   }
 
-  &.show {
+  &.ui-drawer-show {
     & > .ui-drawer-content {
-      @include box-shadow(0 0 50px 5px $base-shadow-color);
+      @include transform(translateX(0));
+      border-color: rgba($base-border-color,.5);
+      box-shadow  : 0 0 50px 0 $base-shadow-color;
     }
 
     & > .ui-drawer-shim {
@@ -90,26 +104,25 @@
       @include transform(scaleX(-1));
     }
 
-    &.start {
+    &.ui-drawer-start {
       > .ui-drawer-content {
-        right: -1 * $drawer-width;
-        left : auto;
-      }
-
-      &.show > .ui-drawer-content {
         right: 0;
+        left : auto;
+        @include transform(translateX(100%));
       }
     }
 
-    &.end {
+    &.ui-drawer-end {
       > .ui-drawer-content {
-        left : -1 * $drawer-width;
+        left : 0;
         right: auto;
-      }
-
-      &.show > .ui-drawer-content {
-        left: 0;
+        @include transform(translateX(-100%));
       }
     }
+
+    &.ui-drawer-show > .ui-drawer-content {
+      @include transform(translateX(0));
+    }
+
   }
 }

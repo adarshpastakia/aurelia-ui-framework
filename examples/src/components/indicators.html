@@ -1,0 +1,41 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <ui-page animate>
+    <x-container source.bind="source" wiki.bind="wiki" page-title="Breadcrumbs & Chips" need-rtl="true">
+      <h4 class="x-title">Value Chips</h4>
+      <h6 class="x-title">Themed</h6>
+      <ui-row middle>
+        <ui-chip repeat.for="c of themes" theme.bind="c" label.bind="c">99</ui-chip>
+      </ui-row>
+      <h6 class="x-title">Extra Colors</h6>
+      <ui-row middle>
+        <ui-chip width="9em" repeat.for="c of colors" theme.bind="c" label.bind="c" removable>99</ui-chip>
+      </ui-row>
+      <h6 class="x-title">Styles</h6>
+      <ui-row middle>
+        <ui-chip primary label="Large" large removable>99</ui-chip>
+        <ui-chip theme="pink" label="Normal" normal removable>99</ui-chip>
+        <ui-chip secondary label="Small" small removable>99</ui-chip>
+      </ui-row>
+      <hr/>
+
+      <h4 class="x-title">Breadcrumbs</h4>
+      <ui-row>
+        <ui-column fill>
+          <ui-breadcrumb change.trigger="changeTab($event)" theme.bind="c" repeat.for="c of themes">
+            <ui-crumb repeat.for="c of 4" id.bind="c">${crumbs[c]}</ui-crumb>
+          </ui-breadcrumb>
+        </ui-column>
+        <ui-column fill>
+          <ui-breadcrumb class="ui-themed" change.trigger="changeTab($event)" repeat.for="c of themes" theme.bind="c">
+            <ui-crumb repeat.for="c of 4" id.bind="c">${crumbs[c]}</ui-crumb>
+          </ui-breadcrumb>
+        </ui-column>
+      </ui-row>
+    </x-container>
+  </ui-page>
+</template>

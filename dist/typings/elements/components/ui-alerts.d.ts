@@ -2,6 +2,7 @@ export declare class UIToast {
     element: Element;
     constructor(element: Element);
     bind(bindingContext: Object, overrideContext: Object): void;
+    show: boolean;
     glyph: string;
     timeout: number;
     private startClose(force?);

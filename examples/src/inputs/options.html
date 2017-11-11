@@ -1,0 +1,59 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <ui-page animate>
+    <x-container source.bind="source" wiki.bind="wiki" page-title="Options" need-rtl="true">
+      <ui-row>
+        <ui-column fill>
+          <h4 class="x-title">Checkboxes</h4>
+          <ui-option-group cols="4">
+            <ui-input-label>Checkboxes</ui-input-label>
+            <ui-checkbox checked>Red</ui-checkbox>
+            <ui-checkbox>Green</ui-checkbox>
+            <ui-checkbox>Blue</ui-checkbox>
+            <ui-checkbox>Orange</ui-checkbox>
+            <ui-checkbox>Yellow</ui-checkbox>
+            <ui-checkbox>Purple</ui-checkbox>
+            <ui-checkbox>Indigo</ui-checkbox>
+            <ui-checkbox>Brown</ui-checkbox>
+          </ui-option-group>
+        </ui-column>
+        <ui-column fill>
+          <h4 class="x-title">Radios</h4>
+          <ui-option-group cols="3" value="square" name="shapes">
+            <ui-input-label>Radios</ui-input-label>
+            <ui-radio value="line">Line</ui-radio>
+            <ui-radio value="square">Square</ui-radio>
+            <ui-radio value="circle">Circle</ui-radio>
+            <ui-radio value="ellipse">Ellipse</ui-radio>
+            <ui-radio value="star">Star</ui-radio>
+            <ui-radio value="triangle">Triangle</ui-radio>
+          </ui-option-group>
+        </ui-column>
+      </ui-row>
+      <hr/>
+      <h4 class="x-title">Switches</h4>
+      <h6 class="x-title">Themed</h6>
+      <ui-row class="ui-titlecase">
+        <ui-column width="10em" repeat.for="c of themes">
+          <ui-switch theme.bind="c" value="1">${c}</ui-switch>
+        </ui-column>
+        <ui-column width="10em">
+          <ui-switch theme="ampm" on-label="PM" off-label="AM">AM/PM</ui-switch>
+        </ui-column>
+        <ui-column width="10em">
+          <ui-switch theme="gender" on-label="Female" off-label="Male" size="4em">Gender</ui-switch>
+        </ui-column>
+      </ui-row>
+      <h6 class="x-title">Extras</h6>
+      <ui-row class="ui-titlecase">
+        <ui-column width="10em" repeat.for="c of colors">
+          <ui-switch theme.bind="c" value="1">${c}</ui-switch>
+        </ui-column>
+      </ui-row>
+    </x-container>
+  </x-page>
+</template>

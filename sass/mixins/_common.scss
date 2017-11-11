@@ -1,0 +1,65 @@
+//
+// @description :
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+@mixin browser-prefixed($prop, $val...) {
+  -webkit-#{$prop}: $val;
+  -moz-#{$prop}   : $val;
+  -ms-#{$prop}    : $val;
+  -o-#{$prop}     : $val;
+  #{$prop}        : $val;
+}
+@mixin sticky() {
+  position: -webkit-sticky;
+  position: -moz-sticky;
+  position: sticky;
+}
+@mixin scroll() {
+  overflow                  : auto;
+  -webkit-overflow-scrolling: touch;
+}
+@mixin box-shadow($val...) {
+  box-shadow: $val;
+}
+// Postioning
+@mixin position($pos:absolute,$coords:0) {
+  position: $pos;
+  @if length($coords)==1 {
+    top   : nth($coords,1);
+    right : nth($coords,1);
+    bottom: nth($coords,1);
+    left  : nth($coords,1);
+  }
+  @if length($coords)==2 {
+    top   : nth($coords,1);
+    right : nth($coords,2);
+    bottom: nth($coords,1);
+    left  : nth($coords,2);
+  }
+  @if length($coords)==3 {
+    top   : nth($coords,1);
+    right : nth($coords,2);
+    bottom: nth($coords,3);
+    left  : nth($coords,2);
+  }
+  @if length($coords)==4 {
+    top   : nth($coords,1);
+    right : nth($coords,2);
+    bottom: nth($coords,3);
+    left  : nth($coords,4);
+  }
+}
+
+// From compass
+@function contrast-color($color, $dark: $black, $light: $white) {
+   @if $color == null{
+    @return null;
+  }
+  @else {
+    $color-brightness     : lightness($color);
+    $dark-text-brightness : lightness($dark);
+    $light-text-brightness: lightness($light);
+    @return if(abs($color-brightness - $light-text-brightness) > abs($color-brightness - $dark-text-brightness), $light, $dark);
+  }
+}

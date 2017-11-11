@@ -1,0 +1,319 @@
+// @author: Adarsh Pastakia
+// Copyright © 2017, Innominds Software
+
+.ui-button {
+  @include flexbox($direction: row, $display:inline-flex, $align: stretch);
+  font-size  : 1rem;
+  line-height: 1;
+  margin     : 0.25em;
+  position   : relative;
+
+  .ui-button-el {
+    position  : relative;
+    min-height: 100%;
+    color     : $button-default-text;
+    background: $button-default-bg;
+    border    : 1px solid darken($button-default-bg, 10%);
+    @include flexbox($direction: row, $wrap: false, $align: center, $justify: center);
+
+    &:first-child {
+      @include flex(1 1 auto);
+    }
+
+    &:hover {
+      color     : $button-default-hover-text;
+      background: $button-default-hover-bg;
+    }
+
+    &:active {
+      color     : $button-default-active-text;
+      background: $button-default-active-bg;
+      box-shadow: 0 0 3px 0 darken($button-default-active-bg, 5%) inset;
+    }
+
+    .ui-button-icon {
+      align-self    : stretch;
+      padding       : 0.5em;
+      text-align    : center;
+      overflow      : hidden;
+      width         : 2em;
+      max-width     : 2em;
+      pointer-events: none;
+      @include transition(all .2s);
+
+      .ui-icon {
+        margin: auto;
+      }
+    }
+
+    .ui-button-label {
+      padding       : 0.5em;
+      max-width     : 15em;
+      pointer-events: none;
+      text-align    : center;
+      @include ellipsis(false);
+
+      &:first-child:last-child {
+        padding: 0.5em 1em;
+      }
+    }
+
+    .ui-button-caret {
+      opacity       : 0.8;
+      padding       : 0.5em;
+      width         : 2em;
+      order         : 3;
+      pointer-events: none;
+
+      .ui-icon {
+        font-size : 0.8em;
+        margin-top: -4px;
+      }
+    }
+
+    .ui-busy-icon {
+      width         : 0;
+      order         : 0;
+      overflow      : hidden;
+      text-align    : center;
+      pointer-events: none;
+      line-height   : 1;
+      padding       : 0.25em 0;
+      @include transition(width .2s);
+
+      .ui-icon {
+        font-size: 1.5em;
+      }
+    }
+  }
+
+  .ui-button-splitter {
+    width     : 2px;
+    height    : 1.5em;
+    background: rgba($white, .5);
+    @include transform(translateX(-2px) scaleX(.5));
+  }
+
+  &.ui-btn-dropdown .ui-button-label {
+    @include flex(1 1 auto);
+  }
+
+  &.ui-disabled {
+    cursor: no-drop;
+
+    .ui-button-el {
+      pointer-events: none;
+
+      &:before {
+        z-index   : 5;
+        content   : '';
+        background: rgba($button-disabled-bg, .5);
+        @include position(absolute, -1px);
+      }
+    }
+  }
+
+  &.ui-busy {
+    cursor: wait;
+
+    .ui-button-el {
+      pointer-events: none;
+
+      .ui-button-icon,
+      .ui-button-label {
+        opacity: 0.8;
+      }
+
+      .ui-button-icon {
+        padding  : 0.5em 0;
+        max-width: 0;
+        overflow : hidden;
+      }
+
+      .ui-busy-icon {
+        width: 2em;
+      }
+    }
+  }
+
+  &.ui-icon-hilight {
+    .ui-button-icon {
+      background: rgba(darken($button-default-bg, 20%), .5);
+    }
+
+    .ui-button-label {
+      flex: 1 0 auto;
+    }
+  }
+
+  &.ui-icon-start {
+    .ui-button-icon {
+      order: 1;
+    }
+
+    .ui-button-icon ~ .ui-button-label {
+      order: 2;
+    }
+
+    &:not(.ui-icon-hilight):not(.ui-icon-top) .ui-button-icon ~ .ui-button-label {
+      @include padding(start, 0);
+    }
+  }
+
+  &.ui-icon-end {
+    .ui-badge {
+      position: relative;
+      order   : 2;
+    }
+
+    .ui-button-icon {
+      order: 3;
+    }
+
+    .ui-button-icon ~ .ui-button-label {
+      order: 1;
+    }
+
+    &:not(.ui-icon-hilight):not(.ui-icon-top) .ui-button-icon ~ .ui-button-label {
+      @include padding(end, 0);
+    }
+  }
+
+  &.ui-icon-top .ui-button-el {
+    flex-wrap: wrap;
+
+    .ui-button-icon {
+      flex      : 1 1 100%;
+      width     : 100%;
+      max-width : 100%;
+      text-align: center;
+    }
+  }
+
+  &.ui-size-xs {
+    font-size: 0.6rem;
+  }
+
+  &.ui-size-sm {
+    font-size: 0.8rem;
+  }
+
+  &.ui-size-md {
+    font-size: 1rem;
+  }
+
+  &.ui-size-lg {
+    font-size: 1.5rem;
+  }
+
+  &.ui-size-xl {
+    font-size: 2rem;
+  }
+}
+
+.ui-button-group {
+  margin: 0.25em;
+
+  > .ui-button {
+    @include flex(0 0 auto);
+    margin       : 0;
+    border-radius: 0;
+
+    &:not(:first-child) .ui-button-el:first-child {
+      border-left: none;
+    }
+  }
+
+  &.ui-has-separator > .ui-button {
+    &:not(:last-child):after {
+      content      : attr(data-separator);
+      border-radius: 1em;
+      width        : 1.3em;
+      height       : 1.3em;
+      padding      : 0.15em;
+      display      : inline-block;
+      z-index      : 5;
+      line-height  : 0.8;
+      position     : relative;
+      font-variant : small-caps;
+      background   : $base-bg;
+      font-weight  : $font-weight-medium;
+    }
+  }
+
+  &.ui-fill > .ui-button {
+    @include flex(1 1 auto);
+    text-align: center;
+    max-width : none;
+  }
+
+  &.ui-toggle > .ui-button .ui-button-el {
+    text-shadow : none;
+    color       : $button-default-text;
+    background  : $button-default-bg;
+    border-color: darken($button-default-bg, 20%);
+  }
+
+  &.ui-disabled > .ui-button {
+    pointer-events: none !important;
+
+    &:after {
+      content      : ' ';
+      border-radius: inherit;
+      background   : rgba($button-disabled-bg, .5);
+      @include position(absolute, 0);
+    }
+  }
+
+  &.ui-horizontal {
+    @include flexbox($direction: row, $display:inline-flex, $align: stretch);
+
+    &.ui-has-separator > .ui-button {
+      &:not(:last-child):after {
+        margin: 0 -.65em;
+        @include transform(translate(0, 30%));
+      }
+    }
+  }
+
+  &.ui-vertical {
+    @include flexbox($direction: column, $display:inline-flex, $align: stretch, $wrap:false);
+
+    &.ui-has-separator > .ui-button {
+      &:not(:last-child):after {
+        left: -50%;
+        top : 1em;
+        @include transform(translate(0, .5em));
+      }
+    }
+  }
+}
+
+.rtl,
+[dir="rtl"] {
+  .ui-button-splitter {
+    @include transform(translateX(2px) scaleX(.5));
+  }
+
+  .ui-button {
+    &.ui-icon-start {
+      &:not(.ui-icon-hilight):not(.ui-icon-top) .ui-button-icon ~ .ui-button-label {
+        padding-right: 0;
+      }
+    }
+
+    &.ui-icon-end {
+      &:not(.ui-icon-hilight):not(.ui-icon-top) .ui-button-icon ~ .ui-button-label {
+        padding-left: 0;
+      }
+    }
+  }
+}
+@include button-theme(primary, $button-primary-bg, $button-primary-text, $button-primary-hover-bg, $button-primary-hover-text, $button-primary-active-bg, $button-primary-active-text);
+@include button-theme(secondary, $button-secondary-bg, $button-secondary-text, $button-secondary-hover-bg, $button-secondary-hover-text, $button-secondary-active-bg, $button-secondary-active-text);
+@include button-theme(muted, $button-muted-bg, $button-muted-text, $button-muted-hover-bg, $button-muted-hover-text, $button-muted-active-bg, $button-muted-active-text, false);
+@include button-theme(dark, $button-dark-bg, $button-dark-text, $button-dark-hover-bg, $button-dark-hover-text, $button-dark-active-bg, $button-dark-active-text, false);
+@include button-theme(info, $button-info-bg, $button-info-text, $button-info-hover-bg, $button-info-hover-text, $button-info-active-bg, $button-info-active-text);
+@include button-theme(danger, $button-danger-bg, $button-danger-text, $button-danger-hover-bg, $button-danger-hover-text, $button-danger-active-bg, $button-danger-active-text);
+@include button-theme(success, $button-success-bg, $button-success-text, $button-success-hover-bg, $button-success-hover-text, $button-success-active-bg, $button-success-active-text);
+@include button-theme(warning, $button-warning-bg, $button-warning-text, $button-warning-hover-bg, $button-warning-hover-text, $button-warning-active-bg, $button-warning-active-text);

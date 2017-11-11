@@ -1,5 +1,5 @@
-// 
-// @description : 
+//
+// @description :
 // @author      : Adarsh Pastakia
 // @copyright   : 2016
 // @license     : MIT
@@ -22,6 +22,11 @@ export class GroupValueConverter {
     let g = _.groupBy(object, property);
     _.forEach(g, (v, k) => a.push({ key: k, items: v }));
     return a;
+  }
+}
+export class FilterValueConverter {
+  toView(object: any = [], property: any, value: any): any {
+    return _.filter(object, [property, value]);
   }
 }
 

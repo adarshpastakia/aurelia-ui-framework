@@ -1,0 +1,229 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <ui-page animate>
+    <x-container source.bind="source" wiki.bind="wiki" page-title="Toolbars" need-rtl="true">
+      <ui-menu ref="btnMenu">
+        <ui-menu-section>Actions</ui-menu-section>
+        <ui-menu-item glyph="icon-moon-pencil2">Edit</ui-menu-item>
+        <ui-menu-item glyph="icon-moon-search">Search</ui-menu-item>
+        <ui-menu-item glyph="icon-moon-bin">Delete</ui-menu-item>
+        <ui-menu-section>Options</ui-menu-section>
+        <ui-menu-item glyph="icon-moon-bubbles4">Notifications</ui-menu-item>
+        <ui-menu-item glyph="icon-moon-cog">Settings</ui-menu-item>
+      </ui-menu>
+
+      <h6 class="x-title">Default</h6>
+      <div class="ui-border-all ui-border-light">
+        <ui-toolbar>
+          <ui-input-group>
+            <ui-input width="12em">
+              <ui-input-addon glyph="icon-fill-search"></ui-input-addon>
+            </ui-input>
+            <ui-dropdown value="0">
+              <ui-list-item value="0">Site</ui-list-item>
+              <ui-list-item value="1">Posts</ui-list-item>
+              <ui-list-item value="2">Docs</ui-list-item>
+            </ui-dropdown>
+          </ui-input-group>
+          <ui-filler></ui-filler>
+          <ui-button glyph="icon-moon-bubbles4" badge-danger="9"></ui-button>
+          <ui-divider></ui-divider>
+          <ui-button width="9em" glyph="glyph-icon-page" icon-hilight split theme="info" split-theme="blue" dropdown.bind="btnMenu">Click</ui-button>
+          <ui-divider></ui-divider>
+          <ui-button-group separator="or">
+            <ui-button success width="6em">Save</ui-button>
+            <ui-button danger width="6em">Cancel</ui-button>
+          </ui-button-group>
+        </ui-toolbar>
+      </div>
+
+      <h6 class="x-title">Muted</h6>
+      <div class="ui-border-all ui-border-light">
+        <ui-toolbar muted>
+          <ui-input-group>
+            <ui-input width="12em">
+              <ui-input-addon glyph="icon-fill-search"></ui-input-addon>
+            </ui-input>
+            <ui-dropdown value="0">
+              <ui-list-item value="0">Site</ui-list-item>
+              <ui-list-item value="1">Posts</ui-list-item>
+              <ui-list-item value="2">Docs</ui-list-item>
+            </ui-dropdown>
+          </ui-input-group>
+          <ui-filler></ui-filler>
+          <ui-button width="9em" glyph="glyph-icon-page" icon-hilight split muted dropdown.bind="btnMenu">Click</ui-button>
+          <ui-divider></ui-divider>
+          <ui-button-group separator="or">
+            <ui-button muted width="6em">Save</ui-button>
+            <ui-button light width="6em">Cancel</ui-button>
+          </ui-button-group>
+        </ui-toolbar>
+      </div>
+
+      <h6 class="x-title">Dark</h6>
+      <div class="ui-border-all ui-border-light">
+        <ui-toolbar dark>
+          <ui-input-group>
+            <ui-input width="12em">
+              <ui-input-addon glyph="icon-fill-search"></ui-input-addon>
+            </ui-input>
+            <ui-dropdown value="0">
+              <ui-list-item value="0">Site</ui-list-item>
+              <ui-list-item value="1">Posts</ui-list-item>
+              <ui-list-item value="2">Docs</ui-list-item>
+            </ui-dropdown>
+          </ui-input-group>
+          <ui-filler></ui-filler>
+          <ui-button width="9em" glyph="glyph-icon-page" icon-hilight split dark dropdown.bind="btnMenu">Click</ui-button>
+          <ui-divider></ui-divider>
+          <ui-button-group separator="or">
+            <ui-button dark width="6em">Save</ui-button>
+            <ui-button muted width="6em">Cancel</ui-button>
+          </ui-button-group>
+        </ui-toolbar>
+      </div>
+
+      <h6 class="x-title">Primary</h6>
+      <div class="ui-border-all ui-border-light">
+        <ui-toolbar primary>
+          <ui-input-group>
+            <ui-input width="12em">
+              <ui-input-addon glyph="icon-fill-search"></ui-input-addon>
+            </ui-input>
+            <ui-dropdown value="0">
+              <ui-list-item value="0">Site</ui-list-item>
+              <ui-list-item value="1">Posts</ui-list-item>
+              <ui-list-item value="2">Docs</ui-list-item>
+            </ui-dropdown>
+          </ui-input-group>
+          <ui-filler></ui-filler>
+          <ui-button width="9em" glyph="glyph-icon-page" icon-hilight split primary dropdown.bind="btnMenu">Click</ui-button>
+          <ui-divider></ui-divider>
+          <ui-button-group separator="or">
+            <ui-button primary width="6em">Save</ui-button>
+            <ui-button theme="pink" width="6em">Cancel</ui-button>
+          </ui-button-group>
+        </ui-toolbar>
+      </div>
+
+      <h6 class="x-title">Secondary</h6>
+      <div class="ui-border-all ui-border-light">
+        <ui-toolbar secondary>
+          <ui-input-group>
+            <ui-input width="12em">
+              <ui-input-addon glyph="icon-fill-search"></ui-input-addon>
+            </ui-input>
+            <ui-dropdown value="0">
+              <ui-list-item value="0">Site</ui-list-item>
+              <ui-list-item value="1">Posts</ui-list-item>
+              <ui-list-item value="2">Docs</ui-list-item>
+            </ui-dropdown>
+          </ui-input-group>
+          <ui-filler></ui-filler>
+          <ui-button width="9em" glyph="glyph-icon-page" icon-hilight split secondary dropdown.bind="btnMenu">Click</ui-button>
+          <ui-divider></ui-divider>
+          <ui-button-group separator="or">
+            <ui-button theme="pink" width="6em">Save</ui-button>
+            <ui-button secondary width="6em">Cancel</ui-button>
+          </ui-button-group>
+        </ui-toolbar>
+      </div>
+
+      <h6 class="x-title">Info</h6>
+      <div class="ui-border-all ui-border-light">
+        <ui-toolbar info>
+          <ui-input-group>
+            <ui-input width="12em">
+              <ui-input-addon glyph="icon-fill-search"></ui-input-addon>
+            </ui-input>
+            <ui-dropdown value="0">
+              <ui-list-item value="0">Site</ui-list-item>
+              <ui-list-item value="1">Posts</ui-list-item>
+              <ui-list-item value="2">Docs</ui-list-item>
+            </ui-dropdown>
+          </ui-input-group>
+          <ui-filler></ui-filler>
+          <ui-button width="9em" glyph="glyph-icon-page" icon-hilight split info dropdown.bind="btnMenu">Click</ui-button>
+          <ui-divider></ui-divider>
+          <ui-button-group separator="or">
+            <ui-button theme="blue" width="6em">Save</ui-button>
+            <ui-button info width="6em">Cancel</ui-button>
+          </ui-button-group>
+        </ui-toolbar>
+      </div>
+
+      <h6 class="x-title">Danger</h6>
+      <div class="ui-border-all ui-border-light">
+        <ui-toolbar danger>
+          <ui-input-group>
+            <ui-input width="12em">
+              <ui-input-addon glyph="icon-fill-search"></ui-input-addon>
+            </ui-input>
+            <ui-dropdown value="0">
+              <ui-list-item value="0">Site</ui-list-item>
+              <ui-list-item value="1">Posts</ui-list-item>
+              <ui-list-item value="2">Docs</ui-list-item>
+            </ui-dropdown>
+          </ui-input-group>
+          <ui-filler></ui-filler>
+          <ui-button width="9em" glyph="glyph-icon-page" icon-hilight split danger dropdown.bind="btnMenu">Click</ui-button>
+          <ui-divider></ui-divider>
+          <ui-button-group separator="or">
+            <ui-button theme="red" width="6em">Save</ui-button>
+            <ui-button danger width="6em">Cancel</ui-button>
+          </ui-button-group>
+        </ui-toolbar>
+      </div>
+
+      <h6 class="x-title">Success</h6>
+      <div class="ui-border-all ui-border-light">
+        <ui-toolbar success>
+          <ui-input-group>
+            <ui-input width="12em">
+              <ui-input-addon glyph="icon-fill-search"></ui-input-addon>
+            </ui-input>
+            <ui-dropdown value="0">
+              <ui-list-item value="0">Site</ui-list-item>
+              <ui-list-item value="1">Posts</ui-list-item>
+              <ui-list-item value="2">Docs</ui-list-item>
+            </ui-dropdown>
+          </ui-input-group>
+          <ui-filler></ui-filler>
+          <ui-button width="9em" glyph="glyph-icon-page" icon-hilight split success dropdown.bind="btnMenu">Click</ui-button>
+          <ui-divider></ui-divider>
+          <ui-button-group separator="or">
+            <ui-button theme="green" width="6em">Save</ui-button>
+            <ui-button success width="6em">Cancel</ui-button>
+          </ui-button-group>
+        </ui-toolbar>
+      </div>
+
+      <h6 class="x-title">Warning</h6>
+      <div class="ui-border-all ui-border-light">
+        <ui-toolbar warning>
+          <ui-input-group>
+            <ui-input width="12em">
+              <ui-input-addon glyph="icon-fill-search"></ui-input-addon>
+            </ui-input>
+            <ui-dropdown value="0">
+              <ui-list-item value="0">Site</ui-list-item>
+              <ui-list-item value="1">Posts</ui-list-item>
+              <ui-list-item value="2">Docs</ui-list-item>
+            </ui-dropdown>
+          </ui-input-group>
+          <ui-filler></ui-filler>
+          <ui-button width="9em" glyph="glyph-icon-page" icon-hilight split warning dropdown.bind="btnMenu">Click</ui-button>
+          <ui-divider></ui-divider>
+          <ui-button-group separator="or">
+            <ui-button theme="amber" width="6em">Save</ui-button>
+            <ui-button warning width="6em">Cancel</ui-button>
+          </ui-button-group>
+        </ui-toolbar>
+      </div>
+    </x-container>
+  </ui-page>
+</template>

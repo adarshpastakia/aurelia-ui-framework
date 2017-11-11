@@ -10,7 +10,7 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var __moduleName = context_1 && context_1.id;
-    var aurelia_framework_1, UIPage, UISection, UIContent, UIGlyph, UILoader;
+    var aurelia_framework_1, UIPage, UISection, UIContent, UIGlyph, UIDivider, UILoader;
     return {
         setters: [
             function (aurelia_framework_1_1) {
@@ -48,9 +48,9 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
                     if (element.hasAttribute('animate'))
                         element.classList.add('au-animate');
                     if (element.hasAttribute('row-layout'))
-                        element.classList.add('row');
+                        element.classList.add('ui-horizontal');
                     else
-                        element.classList.add('column');
+                        element.classList.add('ui-vertical');
                     if (element.hasAttribute('center'))
                         element.classList.add('ui-align-center');
                     if (element.hasAttribute('middle'))
@@ -96,19 +96,30 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
                 UIGlyph = __decorate([
                     aurelia_framework_1.autoinject(),
                     aurelia_framework_1.customElement('ui-glyph'),
-                    aurelia_framework_1.inlineView("<template class=\"ui-icon\"><svg if.bind=\"glyph\"><use tabindex=\"-1\" x=\"0\" y=\"0\" xlink:href=\"#${glyph}\"/></svg></template>"),
+                    aurelia_framework_1.inlineView("<template class=\"ui-icon ${glyph}\"><svg if.bind=\"glyph\"><use tabindex=\"-1\" x=\"0\" y=\"0\" xlink:href=\"#${glyph}\"/></svg></template>"),
                     __metadata("design:paramtypes", [Element])
                 ], UIGlyph);
                 return UIGlyph;
             }());
             exports_1("UIGlyph", UIGlyph);
+            UIDivider = (function () {
+                function UIDivider() {
+                }
+                UIDivider = __decorate([
+                    aurelia_framework_1.autoinject(),
+                    aurelia_framework_1.customElement('ui-divider'),
+                    aurelia_framework_1.inlineView("<template class=\"ui-divider\"></template>")
+                ], UIDivider);
+                return UIDivider;
+            }());
+            exports_1("UIDivider", UIDivider);
             UILoader = (function () {
                 function UILoader(element) {
                     this.busy = false;
-                    if (element.hasAttribute('big'))
-                        element.classList.add('ui-big');
                     if (element.hasAttribute('small'))
                         element.classList.add('ui-small');
+                    if (element.hasAttribute('large'))
+                        element.classList.add('ui-large');
                 }
                 __decorate([
                     aurelia_framework_1.bindable(),
@@ -117,7 +128,7 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
                 UILoader = __decorate([
                     aurelia_framework_1.autoinject(),
                     aurelia_framework_1.customElement('ui-loader'),
-                    aurelia_framework_1.inlineView("<template class=\"ui-app-loader\" show.bind=\"busy\">\n  <div class=\"ui-loader-div\">\n    <ui-glyph class=\"ui-anim-loader\" glyph=\"glyph-loader\"></ui-glyph>\n  </div>\n</template>"),
+                    aurelia_framework_1.inlineView("<template class=\"ui-app-loader\" show.bind=\"busy\">\n  <div class=\"ui-loader-div\">\n    <ui-glyph class=\"ui-anim-loader\" glyph=\"glyph-busy\"></ui-glyph>\n  </div>\n</template>"),
                     __metadata("design:paramtypes", [Element])
                 ], UILoader);
                 return UILoader;

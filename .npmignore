@@ -3,21 +3,19 @@
 /build
 /custom_typings
 /docs
-/favicons
-/glyphs
+/examples
 /icons
-/images
-/locales
 /scripts
 /src
 /test
-/typings
+/wiki
 
 .git
 .sass-cache
 
 .DS_Store
 
+/.dropbox
 /.editorconfig
 /.gitattributes
 /.gitignore
@@ -27,4 +25,3 @@
 /karma.conf.js
 /tsconfig.json
 /tslint.json
-/typings.json

@@ -1,0 +1,78 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <ui-page animate>
+    <x-container page-title="SVG Glyphs">
+      <style>
+        .glyph-card {
+          display: inline-block;
+          border-radius: 0.5em;
+          margin: 0.5em;
+          width: 8rem;
+          height: 8rem;
+          text-align: center;
+        }
+        .glyph-card .ui-icon {
+          margin: 1.5rem auto;
+          font-size: 2rem;
+        }
+        .glyph-card .name {
+          font-size: 0.8rem;
+          line-height: 1.5;
+        }
+
+      </style>
+      <!-- <ui-row bottom class="sticky-top" dir="ltr">
+        <h5 class="ui-col-fill"></h5>
+        <ui-column width="220px" class="ui-sticky">
+          <ui-input value.bind="filterText" input.trigger="filter() & debounce" clear placeholder="Search...">
+            <ui-input-addon class="ui-text-muted" glyph="glyph-search"></ui-input-addon>
+          </ui-input>
+        </ui-column>
+      </ui-row> -->
+      <h4 class="x-title">Framework Glyphs</h4>
+      <div>
+        <div repeat.for="key of glyphs | keys">
+          <h6 class="x-title">${key}</h6>
+          <ui-row>
+            <div class="glyph-card ui-border-all ui-border-light" repeat.for="c of glyphs[key]">
+              <ui-glyph glyph.bind="c" class="ui-text-primary"></ui-glyph>
+              <div class="name ui-selectable">${c}</div>
+            </div>
+          </ui-row>
+        </div>
+      </div>
+      <h4 class="x-title">Add-On Glyphs</h4>
+      <h6 class="x-title">
+        <a href="https://icomoon.io" target="_blank" class="ui-link ui-external">Icomoon Icons</a>
+      </h6>
+      <ui-row>
+        <div class="glyph-card ui-border-all ui-border-light" repeat.for="c of fIcomoon | sort">
+          <ui-glyph class="ui-text-primary" glyph.bind="c"></ui-glyph>
+          <div class="name ui-selectable">${c}</div>
+        </div>
+      </ui-row>
+      <h6 class="x-title">
+        <a href="http://hawcons.com" target="_blank" class="ui-link ui-external">Hawcons Linear Icons</a>
+      </h6>
+      <ui-row>
+        <div class="glyph-card ui-border-all ui-border-light" repeat.for="c of fHawLine | sort">
+          <ui-glyph class="ui-text-primary" glyph.bind="c"></ui-glyph>
+          <div class="name ui-selectable">${c}</div>
+        </div>
+      </ui-row>
+      <h6 class="x-title">
+        <a href="http://hawcons.com" target="_blank" class="ui-link ui-external">Hawcons Filled Icons</a>
+      </h6>
+      <ui-row>
+        <div class="glyph-card ui-border-all ui-border-light" repeat.for="c of fHawFill | sort">
+          <ui-glyph class="ui-text-primary" glyph.bind="c"></ui-glyph>
+          <div class="name ui-selectable">${c}</div>
+        </div>
+      </ui-row>
+    </x-container>
+  </ui-page>
+</template>

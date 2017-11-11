@@ -7,26 +7,34 @@ export declare class UIButton {
     glyph: string;
     label: string;
     value: string;
-    theme: string;
     width: string;
+    splitTheme: string;
+    splitGlyph: string;
     dropdown: any;
     form: any;
     busy: boolean;
     disabled: boolean;
+    buttonEl: any;
+    private labelEl;
+    private hasLabel;
     private tether;
     private obMouseup;
+    split: boolean;
     isDisabled: boolean;
     disable(b: any): void;
-    toggleDropdown(evt: any): boolean;
+    disabledChanged(newValue: any): void;
+    hideDropdown(): boolean;
+    toggleDropdown(evt: any, isSplit: any): boolean;
 }
 export declare class UIButtonGroup {
     element: Element;
     constructor(element: Element);
-    bind(bindingContext: Object, overrideContext: Object): void;
+    attached(): void;
     buttons: any[];
     value: string;
+    separator: string;
     disabled: boolean;
-    disabledChanged(newValue: any): void;
+    private size;
     buttonsChanged(): void;
     active: any;
     valueChanged(newValue: any): void;

@@ -9,31 +9,39 @@
   cursor     : pointer;
   position   : relative;
   display    : inline-block;
-  font-size  : 0.9em;
-  line-height: 1.8em;
-  padding    : 0 0.5em;
+  line-height: 1;
+  margin     : 0.25rem;
 
   &:not(.ui-invalid) .ui-invalid-icon {
     display: none;
   }
 
   .ui-invalid-icon {
-    color: $input-error-text;
+    margin: 0.5em;
+    color : $input-error-text;
+  }
+
+  .ui-addon-icon {
+    padding   : 0.5em;
+    background: rgba($dark, .1);
   }
 
   .ui-label {
-    @include flex-row($wrap:false, $justify: space-between);
+    @include flexbox($direction: row, $wrap:false, $align: center);
 
-    > span:first-child {
+    span {
+      line-height: 2em;
+      padding    : 0 0.5em;
       @include ellipsis();
+      @include flex-fill();
     }
   }
 
   .ui-caret {
-    font-size: 0.5rem;
+    font-size: 0.8em;
     position : relative;
-    top      : 0.2em;
-    margin   : 0 0.2rem;
+    top      : 0.1em;
+    margin   : 0 0.5em;
     color    : rgba($input-text, .5);
   }
 
@@ -71,6 +79,9 @@
   max-height: 20rem;
   overflow  : auto;
   background: $input-bg;
+  list-style: none;
+  padding   : 0;
+  margin    : 0;
 
   &.ui-floating {
     position: fixed;
@@ -99,8 +110,7 @@
   }
 
   .ui-list-item {
-    font-size  : 0.9em;
-    line-height: 1.8rem;
+    line-height: 2em;
     padding    : 0 0.5em;
     color      : $dark;
     cursor     : pointer;
@@ -108,7 +118,7 @@
     list-style : none;
 
     .ui-icon {
-      line-height: 1.2;
+      @include margin(end, .5em);
     }
 
     * {

@@ -1,0 +1,60 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <ui-page animate>
+    <x-container page-title="HTTP Service" wiki.bind="wiki" source.bind="source">
+      <h4 class="x-title">Tester</h4>
+
+      <h6 class="x-title">Authenticate</h6>
+      <div class="ui-font-big"><strong>Token:</strong> ${token}</div>
+
+
+      <h6 class="x-title">Send Request</h6>
+      <div>
+        <ui-button success icon-hilight glyph="icon-moon-checkmark" click.trigger="testAuthenticator()" busy.bind="fetching === 2">Send actual Request</ui-button>
+        <ui-button danger icon-hilight glyph="icon-moon-cancel-circle" click.trigger="testAuthenticator(true)" busy.bind="fetching === 1">Send bad Request</ui-button>
+      </div>
+      <h6 class="x-title">Response</h6>
+      <div>
+        <p class="ui-text-success" if.bind="authPassed===true">PASS</p>
+        <p class="ui-text-danger" if.bind="authPassed===false">FAIL</p>
+        <pre>${authResponse | json}</pre>
+      </div>
+
+      <hr/>
+
+      <h5 class="x-title">Get Users</h5>
+      <h6 class="x-title">Send Request</h6>
+      <div>
+        <ui-button success icon-hilight glyph="icon-moon-checkmark" click.trigger="testUsers()" busy.bind="fetching === 4">Send actual Request</ui-button>
+        <ui-button danger icon-hilight glyph="icon-moon-cancel-circle" click.trigger="testUsers(true)" busy.bind="fetching === 3">Send unauthorized Request</ui-button>
+      </div>
+      <h6 class="x-title">Response</h6>
+      <div>
+        <p class="ui-text-success" if.bind="usersPassed===true">PASS</p>
+        <p class="ui-text-danger" if.bind="usersPassed===false">FAIL</p>
+        <pre>${usersResponse | json}</pre>
+      </div>
+      <hr/>
+
+      <h5 class="x-title">Get User</h5>
+      <small>Missing query call, should fail on server and respond with 404</small>
+      <h6 class="x-title">Send Request</h6>
+      <div>
+        <ui-button success icon-hilight glyph="icon-moon-checkmark" click.trigger="testUser()" busy.bind="fetching === 7">Send actual Request</ui-button>
+        <ui-button danger icon-hilight glyph="icon-moon-cancel-circle" click.trigger="testUser(true)" busy.bind="fetching === 6">Send unauthorized Request</ui-button>
+        <ui-button info icon-hilight glyph="icon-moon-stop" click.trigger="testUser(0)" busy.bind="fetching === 5">Send bad Route</ui-button>
+      </div>
+      <h6 class="x-title">Response</h6>
+      <div>
+        <p class="ui-text-success" if.bind="userPassed===true">PASS</p>
+        <p class="ui-text-danger" if.bind="userPassed===false">FAIL</p>
+        <pre>${userResponse | json}</pre>
+      </div>
+
+    </x-container>
+  </ui-page>
+</template>

@@ -7,6 +7,9 @@ export declare class KeysValueConverter {
 export declare class GroupValueConverter {
     toView(object: any, property: any): any;
 }
+export declare class FilterValueConverter {
+    toView(object: any, property: any, value: any): any;
+}
 export declare class SortValueConverter {
     toView(value: any, property: any): any;
 }

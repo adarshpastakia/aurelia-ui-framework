@@ -1,0 +1,53 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <ui-page animate>
+    <x-container page-title="Event Manager" view-model.ref="container">
+      <h4 class="x-title">Eventing Operations</h4>
+      <div class="ui-markdown">
+        <h6 class="x-title">Event Broadcast</h6>
+        <ul>
+          <li>
+            <code>broadcast(eventName, eventData)</code>
+            <p>Broadcast event</p>
+          </li>
+          <li>
+            <code>subscribe(eventName, callbackFn):Disposable</code>
+            <p>Subscribe for broadcasted event</p>
+          </li>
+        </ul>
+        <h6 class="x-title">Property Observers</h6>
+        <ul>
+          <li>
+            <code>observe(object, propertyName, callbackFn):Disposable</code>
+            <p>Observe property changes</p>
+          </li>
+          <li>
+            <code>collection(collection, callbackFn):Disposable</code>
+            <p>Observe collection mutations</p>
+          </li>
+        </ul>
+        <h6 class="x-title">Aurelia Task Queues<small>Queues a task on the macro task queue for turn-based execution.</small></h6>
+        <ul>
+          <li>
+            <code>queueTask(taskFn)</code>
+          </li>
+        </ul>
+      </div>
+      <br/>
+      <div class="x-section">
+        <blockquote>
+          <strong>NOTE</strong>
+          Use &nbsp;<code>queueTask</code>&nbsp; when property changes affect DOM tree.</blockquote>
+      </div>
+      <hr/>
+      <h4 class="x-title">Basic Usage</h4>
+      <div class="ui-markdown x-section" ref="basicUsage">
+
+      </div>
+    </x-container>
+  </ui-page>
+</template>

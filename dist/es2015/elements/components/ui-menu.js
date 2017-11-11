@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { autoinject, customElement, bindable, inlineView, containerless } from 'aurelia-framework';
+import { autoinject, customElement, bindable, inlineView, containerless, child } from 'aurelia-framework';
 import { UIEvent } from "../../utils/ui-event";
 import { UIUtils } from "../../utils/ui-utils";
 let UIMenubar = class UIMenubar {
@@ -17,9 +17,13 @@ let UIMenubar = class UIMenubar {
     }
     attached() {
         this.obResize = UIEvent.subscribe('windowresize', () => this.arrange());
-        this.obClick = UIEvent.subscribe('mouseclick', () => this.overflow.classList.remove('ui-open'));
-        this.tether = UIUtils.tether(this.overflowToggle, this.overflow, { resize: false, position: 'br' });
-        window.setTimeout(() => this.arrange(), 500);
+        this.obClick = UIEvent.subscribe('mouseclick', (evt) => {
+            if (getParentByClass(evt.target, 'ui-menubar-toggle') == this.element)
+                return;
+            this.overflow.classList.remove('ui-open');
+        });
+        this.tether = UIUtils.tether(this.element, this.overflow, { resize: false, position: 'br' });
+        window.setTimeout(() => this.arrange(), 100);
     }
     detached() {
         this.tether.dispose();
@@ -77,31 +81,52 @@ UIMenu = __decorate([
     __metadata("design:paramtypes", [Element])
 ], UIMenu);
 export { UIMenu };
-let UIMenuSection = class UIMenuSection {
+let UIMenuTitle = class UIMenuTitle {
     constructor(element) {
         this.element = element;
     }
 };
-UIMenuSection = __decorate([
+UIMenuTitle = __decorate([
     autoinject(),
     inlineView('<template class="ui-menu-section-title"><slot></slot></template>'),
     customElement('ui-menu-section'),
     __metadata("design:paramtypes", [Element])
-], UIMenuSection);
-export { UIMenuSection };
+], UIMenuTitle);
+export { UIMenuTitle };
 let UIMenuGroup = class UIMenuGroup {
     constructor(element) {
         this.element = element;
         this.label = '';
+        this.collapsed = false;
+        this.collapsible = false;
+        this.collapsible = element.hasAttribute('collapsible');
+    }
+    toggleCollapse(event) {
+        this.collapsed = !this.collapsed;
+        event.stopPropagation();
+        event.preventDefault();
+        return false;
     }
 };
 __decorate([
     bindable(),
     __metadata("design:type", Object)
 ], UIMenuGroup.prototype, "label", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIMenuGroup.prototype, "collapsed", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIMenuGroup.prototype, "collapsible", void 0);
+__decorate([
+    child('ui-menu-item.ui-active'),
+    __metadata("design:type", Object)
+], UIMenuGroup.prototype, "hasActive", void 0);
 UIMenuGroup = __decorate([
     autoinject(),
-    inlineView('<template class="ui-menu-section"><div if.bind="label" class="ui-menu-section-title" innerhtml.bind="label"></div><slot></slot></template>'),
+    inlineView('<template class="ui-menu-section ${collapsible?\'ui-collapsible\':\'\'} ${collapsed?\'ui-collapsed\':\'\'}"><div mouseup.trigger="toggleCollapse($event)" if.bind="label" class="ui-menu-section-title ${hasActive?\'ui-has-active\':\'\'}"><ui-glyph glyph="glyph-chevron-down" if.bind="collapsible"></ui-glyph><span innerhtml.bind="label"></span></div><div class="ui-menu-section-body"><slot></slot></div></template>'),
     customElement('ui-menu-group'),
     __metadata("design:paramtypes", [Element])
 ], UIMenuGroup);
@@ -110,6 +135,7 @@ let UIMenuItem = class UIMenuItem {
     constructor(element) {
         this.element = element;
         this.id = '';
+        this.description = '';
         this.glyph = '';
         this.class = '';
         this.active = false;
@@ -117,8 +143,8 @@ let UIMenuItem = class UIMenuItem {
         this.href = 'javascript:void(0)';
     }
     bind(bindingContext, overrideContext) {
-        this.active = isTrue(this.active);
-        this.disabled = isTrue(this.disabled);
+        this.active = !!(this.active);
+        this.disabled = !!(this.disabled);
     }
     click(evt) {
         if (evt.button != 0)
@@ -134,6 +160,10 @@ __decorate([
     bindable(),
     __metadata("design:type", Object)
 ], UIMenuItem.prototype, "id", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIMenuItem.prototype, "description", void 0);
 __decorate([
     bindable(),
     __metadata("design:type", Object)
@@ -158,7 +188,7 @@ UIMenuItem = __decorate([
     autoinject(),
     containerless(),
     inlineView(`<template><a class="ui-menu-item \${active?'ui-active':''} \${disabled?'ui-disabled':''} \${class}" href.bind="href" click.trigger="click($event)">
-    <ui-glyph if.bind="glyph" class="ui-menu-icon \${glyph}" glyph.bind="glyph"></ui-glyph><span class="ui-menu-label"><slot></slot></span></a></template>`),
+    <ui-glyph if.bind="glyph" class="ui-menu-icon \${glyph}" glyph.bind="glyph"></ui-glyph><span class="ui-menu-label"><slot></slot><small if.bind="description">\${description}</small></span></a></template>`),
     customElement('ui-menu-item'),
     __metadata("design:paramtypes", [Element])
 ], UIMenuItem);

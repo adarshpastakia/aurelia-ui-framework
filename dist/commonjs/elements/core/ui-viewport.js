@@ -11,15 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var aurelia_framework_1 = require("aurelia-framework");
 var aurelia_router_1 = require("aurelia-router");
-var aurelia_fetch_client_1 = require("aurelia-fetch-client");
-var ui_application_1 = require("../../utils/ui-application");
-var ui_utils_1 = require("../../utils/ui-utils");
 var ui_event_1 = require("../../utils/ui-event");
+var ui_utils_1 = require("../../utils/ui-utils");
 var UIViewport = (function () {
-    function UIViewport(element, httpClient, app) {
+    function UIViewport(element) {
         this.element = element;
-        this.httpClient = httpClient;
-        this.app = app;
         var __resizeTimer;
         document.ondragstart = function (e) { return getParentByClass(e.target, '.ui-draggable') != null; };
         document.onmouseup = function (e) { return ui_event_1.UIEvent.broadcast('mouseclick', e); };
@@ -40,9 +36,9 @@ var UIViewport = (function () {
     };
     UIViewport = __decorate([
         aurelia_framework_1.autoinject(),
-        aurelia_framework_1.inlineView("<template class=\"ui-viewport ui-fullscreen\">\n  <compose view-model=\"./ui-glyphs\"></compose>\n  <slot name=\"ui-app-header\"></slot>\n  <slot></slot>\n  <div class=\"ui-app-taskbar\"><slot name=\"ui-app-taskbar\"></slot><div class=\"ui-taskbutton-wrapper\" ref=\"taskbarContainer\"></div></div>\n  <slot name=\"ui-app-footer\"></slot>\n\n  <div class=\"ui-dialog-container\" ref=\"dialogContainer\"></div>\n  <div class=\"ui-overlay-container\" ref=\"overlayContainer\"></div>\n\n  <ui-loader busy.bind=\"router.isNavigating\"></ui-loader>\n</template>"),
+        aurelia_framework_1.inlineView("<template class=\"ui-viewport\">\n  <compose view-model=\"./ui-glyphs\"></compose>\n  <slot name=\"ui-app-banner\"></slot>\n  <slot name=\"ui-app-header\"></slot>\n  <slot></slot>\n  <div class=\"ui-app-taskbar\"><slot name=\"ui-app-taskbar\"></slot><div class=\"ui-taskbutton-wrapper\" ref=\"taskbarContainer\"></div></div>\n  <slot name=\"ui-app-footer\"></slot>\n\n  <div class=\"ui-dialog-container\" ref=\"dialogContainer\"></div>\n  <div class=\"ui-overlay-container\" ref=\"overlayContainer\"></div>\n\n  <ui-loader large busy.bind=\"router.isNavigating\"></ui-loader>\n</template>"),
         aurelia_framework_1.customElement('ui-viewport'),
-        __metadata("design:paramtypes", [Element, aurelia_fetch_client_1.HttpClient, ui_application_1.UIApplication])
+        __metadata("design:paramtypes", [Element])
     ], UIViewport);
     return UIViewport;
 }());
@@ -83,13 +79,32 @@ var UIAppHeader = (function () {
     UIAppHeader = __decorate([
         aurelia_framework_1.autoinject(),
         aurelia_framework_1.containerless(),
-        aurelia_framework_1.inlineView('<template><div class="ui-app-header ${class}" slot="ui-app-header"><slot></slot></div></template>'),
+        aurelia_framework_1.inlineView('<template><div class="ui-app-header ui-row ui-row-middle ${class}" slot="ui-app-header"><slot></slot></div></template>'),
         aurelia_framework_1.customElement('ui-app-header'),
         __metadata("design:paramtypes", [Element])
     ], UIAppHeader);
     return UIAppHeader;
 }());
 exports.UIAppHeader = UIAppHeader;
+var UIAppBanner = (function () {
+    function UIAppBanner(element) {
+        this.element = element;
+        this.class = '';
+    }
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIAppBanner.prototype, "class", void 0);
+    UIAppBanner = __decorate([
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.containerless(),
+        aurelia_framework_1.inlineView('<template><div class="ui-app-banner ${class}" slot="ui-app-banner"><slot></slot></div></template>'),
+        aurelia_framework_1.customElement('ui-app-banner'),
+        __metadata("design:paramtypes", [Element])
+    ], UIAppBanner);
+    return UIAppBanner;
+}());
+exports.UIAppBanner = UIAppBanner;
 var UIAppFooter = (function () {
     function UIAppFooter(element) {
         this.element = element;
@@ -102,7 +117,7 @@ var UIAppFooter = (function () {
     UIAppFooter = __decorate([
         aurelia_framework_1.autoinject(),
         aurelia_framework_1.containerless(),
-        aurelia_framework_1.inlineView('<template><div class="ui-app-footer ${class}" slot="ui-app-footer"><slot></slot></div></template>'),
+        aurelia_framework_1.inlineView('<template><div class="ui-app-footer ui-row ui-row-middle ui-row-spaced ${class}" slot="ui-app-footer"><slot></slot></div></template>'),
         aurelia_framework_1.customElement('ui-app-footer'),
         __metadata("design:paramtypes", [Element])
     ], UIAppFooter);
@@ -131,17 +146,18 @@ exports.UIAppQuickLinks = UIAppQuickLinks;
 var UIAppTitle = (function () {
     function UIAppTitle(element) {
         this.element = element;
-        this.href = '#/';
+        this.href = '/';
+        this.src = '';
         this.class = '';
     }
     __decorate([
         aurelia_framework_1.bindable(),
         __metadata("design:type", Object)
-    ], UIAppTitle.prototype, "src", void 0);
+    ], UIAppTitle.prototype, "href", void 0);
     __decorate([
         aurelia_framework_1.bindable(),
         __metadata("design:type", Object)
-    ], UIAppTitle.prototype, "href", void 0);
+    ], UIAppTitle.prototype, "src", void 0);
     __decorate([
         aurelia_framework_1.bindable(),
         __metadata("design:type", Object)
@@ -150,7 +166,7 @@ var UIAppTitle = (function () {
         aurelia_framework_1.autoinject(),
         aurelia_framework_1.containerless(),
         aurelia_framework_1.customElement('ui-app-title'),
-        aurelia_framework_1.inlineView('<template><a href.bind="href" class="ui-row ui-row-middle ui-app-title ${class}"><img class="ui-col-auto ui-app-logo" src.bind="src" if.bind="src"/><span class="ui-col-auto"><slot></slot></span></a><div class="ui-col-fill"></div></template>'),
+        aurelia_framework_1.inlineView('<template><a href.bind="href" class="ui-row ui-row-middle ui-app-title ${class}"><img if.bind="src" src.bind="src"/><span class="ui-col-auto"><slot></slot></span></a><div class="ui-col-fill"></div></template>'),
         __metadata("design:paramtypes", [Element])
     ], UIAppTitle);
     return UIAppTitle;

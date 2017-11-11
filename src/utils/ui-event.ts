@@ -5,9 +5,9 @@
 // @license     : MIT
 
 
+import { BindingEngine, PropertyObserver, DOM, TaskQueue } from "aurelia-framework";
+import { EventAggregator, Subscription } from "aurelia-event-aggregator";
 import {UIUtils} from "./ui-utils";
-import {BindingEngine, PropertyObserver, DOM, TaskQueue} from "aurelia-framework";
-import {EventAggregator, Subscription} from "aurelia-event-aggregator";
 
 export module UIEvent {
   export function fireEvent(event: string,

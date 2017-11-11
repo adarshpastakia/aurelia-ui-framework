@@ -1,0 +1,132 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <ui-page animate>
+    <x-container source.bind="source" wiki.bind="wiki" page-title="Menus" need-rtl="true">
+      <h4 class="x-title">Menubar</h4>
+      <ui-menubar>
+        <ui-menu-item active.bind="!mbactive" click.trigger="mbactive=0" glyph="icon-moon-pencil2">Edit</ui-menu-item>
+        <ui-menu-item active.bind="mbactive==1" click.trigger="mbactive=1" glyph="icon-moon-search">Search</ui-menu-item>
+        <ui-menu-item active.bind="mbactive==2" click.trigger="mbactive=2" glyph="icon-moon-bin">Delete</ui-menu-item>
+        <ui-divider></ui-divider>
+        <ui-menu-item active.bind="mbactive==3" click.trigger="mbactive=3" glyph="icon-moon-bubbles4">Notifications</ui-menu-item>
+        <ui-menu-item active.bind="mbactive==4" click.trigger="mbactive=4" glyph="icon-moon-cog">Settings</ui-menu-item>
+      </ui-menubar>
+      <br/>
+      <ui-menubar>
+        <ui-menu-group label="Actions">
+          <ui-menu-item active.bind="mgactive==1" click.trigger="mgactive=1" glyph="icon-moon-pencil2">Edit</ui-menu-item>
+          <ui-menu-item active.bind="mgactive==2" click.trigger="mgactive=2" glyph="icon-moon-search">Search</ui-menu-item>
+          <ui-menu-item active.bind="!mgactive" click.trigger="mgactive=0" glyph="icon-moon-bin">Delete</ui-menu-item>
+        </ui-menu-group>
+        <ui-menu-group label="Options">
+          <ui-menu-item active.bind="mgactive==3" click.trigger="mgactive=3" glyph="icon-moon-bubbles4">Notifications</ui-menu-item>
+          <ui-menu-item active.bind="mgactive==4" click.trigger="mgactive=4" glyph="icon-moon-cog">Settings</ui-menu-item>
+        </ui-menu-group>
+        <ui-menu-group label="Social Networking">
+          <ui-menu-item glyph="icon-moon-google-plus">Google</ui-menu-item>
+          <ui-menu-item glyph="icon-moon-facebook">Facebook</ui-menu-item>
+          <ui-menu-item glyph="icon-moon-twitter">Twitter</ui-menu-item>
+          <ui-menu-item glyph="icon-moon-linkedin2">LinkedIn</ui-menu-item>
+          <ui-menu-item glyph="icon-moon-instagram">Instagram</ui-menu-item>
+        </ui-menu-group>
+        <ui-menu-group label="Other Sites">
+          <ui-menu-item glyph="icon-moon-yahoo2">Yahoo!</ui-menu-item>
+          <ui-menu-item glyph="icon-moon-youtube">YouTube</ui-menu-item>
+          <ui-menu-item glyph="icon-moon-dribbble">Dribbble</ui-menu-item>
+          <ui-menu-item glyph="icon-moon-flickr">Flickr</ui-menu-item>
+          <ui-menu-item glyph="icon-moon-pinterest">Pinterest</ui-menu-item>
+        </ui-menu-group>
+      </ui-menubar>
+      <br/>
+
+      <div class="x-section">
+        <blockquote>
+          <strong>Known Issue</strong>
+          Menubar overflow broken in RTL layout</blockquote>
+      </div>
+
+      <hr/>
+      <h4 class="x-title">Menus</h4>
+      <ui-menu ref="btnMenu">
+        <ui-menu-section>Actions</ui-menu-section>
+        <ui-menu-item glyph="icon-moon-pencil2">Edit</ui-menu-item>
+        <ui-menu-item glyph="icon-moon-search">Search</ui-menu-item>
+        <ui-menu-item glyph="icon-moon-bin">Delete</ui-menu-item>
+        <ui-menu-section>Options</ui-menu-section>
+        <ui-menu-item glyph="icon-moon-bubbles4" badge-dark="9">Notifications</ui-menu-item>
+        <ui-menu-item glyph="icon-moon-cog">Settings</ui-menu-item>
+      </ui-menu>
+      <ui-menu ref="btnColumnMenu">
+        <ui-row>
+          <ui-column>
+            <ui-menu-section>Actions</ui-menu-section>
+            <ui-menu-item glyph="icon-moon-pencil2">Edit</ui-menu-item>
+            <ui-menu-item glyph="icon-moon-search">Search</ui-menu-item>
+            <ui-menu-item glyph="icon-moon-bin">Delete</ui-menu-item>
+            <ui-menu-section>Options</ui-menu-section>
+            <ui-menu-item glyph="icon-moon-bubbles4">Notifications</ui-menu-item>
+            <ui-menu-item glyph="icon-moon-cog">Settings</ui-menu-item>
+          </ui-column>
+          <ui-column>
+            <ui-menu-section>Social Networking</ui-menu-section>
+            <ui-menu-item glyph="icon-moon-google-plus">Google</ui-menu-item>
+            <ui-menu-item glyph="icon-moon-facebook">Facebook</ui-menu-item>
+            <ui-menu-item glyph="icon-moon-twitter">Twitter</ui-menu-item>
+            <ui-menu-item glyph="icon-moon-linkedin2">LinkedIn</ui-menu-item>
+            <ui-menu-item glyph="icon-moon-instagram">Instagram</ui-menu-item>
+          </ui-column>
+          <ui-column>
+            <ui-menu-section>Other Sites</ui-menu-section>
+            <ui-menu-item glyph="icon-moon-yahoo2">Yahoo!</ui-menu-item>
+            <ui-menu-item glyph="icon-moon-youtube">YouTube</ui-menu-item>
+            <ui-menu-item glyph="icon-moon-dribbble">Dribbble</ui-menu-item>
+            <ui-menu-item glyph="icon-moon-flickr">Flickr</ui-menu-item>
+            <ui-menu-item glyph="icon-moon-pinterest">Pinterest</ui-menu-item>
+          </ui-column>
+        </ui-row>
+      </ui-menu>
+      <ui-row>
+        <ui-column size="md-4" padded>
+          <h6 class="x-title">Button Menu</h6>
+          <ui-button light dropdown.bind="btnMenu">Open Me</ui-button>
+          <hr/>
+          <h6 class="x-title">Button Menu Columns</h6>
+          <ui-button light dropdown.bind="btnColumnMenu">Open Me</ui-button>
+        </ui-column>
+        <ui-column size="md-4" padded>
+          <h6 class="x-title">Inline Menu</h6>
+          <ui-menu class="ui-border-all ui-border-light ui-inline">
+            <ui-menu-section>Actions</ui-menu-section>
+            <ui-menu-item active.bind="mnactive==1" click.trigger="mnactive=1" glyph="icon-moon-pencil2" description="Edit user profile">Edit</ui-menu-item>
+            <ui-menu-item active.bind="mnactive==2" click.trigger="mnactive=2" glyph="icon-moon-search" description="Search user by username/email">Search</ui-menu-item>
+            <ui-menu-item active.bind="mnactive==3" click.trigger="mnactive=3" glyph="icon-moon-bin" description="Delete user profile">Delete</ui-menu-item>
+            <ui-menu-section>Options</ui-menu-section>
+            <ui-menu-item active.bind="!mnactive" click.trigger="mnactive=0" glyph="icon-moon-bubbles4" badge-dark="9">Notifications</ui-menu-item>
+            <ui-menu-item active.bind="mnactive==4" click.trigger="mnactive=4" glyph="icon-moon-cog">Settings</ui-menu-item>
+          </ui-menu>
+        </ui-column>
+        <ui-column size="md-4" padded>
+          <h6 class="x-title">Simple Dropdown</h6>
+          <ui-dropdown width="10em" value="1">
+            <ui-list-item value="1">Mobile</ui-list-item>
+            <ui-list-item value="2">Work</ui-list-item>
+            <ui-list-item value="3">Home</ui-list-item>
+          </ui-dropdown>
+          <ui-dropdown width="10em" glyph="glyph-icon-email" value="1">
+            <ui-list-item value="1">Mobile</ui-list-item>
+            <ui-list-item value="2">Work</ui-list-item>
+            <ui-list-item value="3">Home</ui-list-item>
+          </ui-dropdown>
+          <ui-dropdown width="10em" glyph="glyph-icon-email" class="ui-invalid">
+            <ui-list-item value="1">Mobile</ui-list-item>
+            <ui-list-item value="2">Work</ui-list-item>
+            <ui-list-item value="3">Home</ui-list-item>
+          </ui-dropdown>
+        </ui-column>
+      </x-container>
+    </ui-page>
+  </template>

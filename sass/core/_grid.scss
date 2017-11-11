@@ -7,129 +7,142 @@
    @media only screen and (min-width : $size){
     @if($size > $grid-sm-min) {
       .ui-container {
-        display  : block;
-        // position : relative;
-        margin   : 0 auto;
         max-width: $size - 16px;
       }
     }
 
-    .ui-hidden-#{$prefix}-up {
+    .ui-hide-#{$prefix}-up {
       display: none;
     }
     @for $i from 1 through 12 {
-      .ui-col-#{$prefix}-#{$i} {
+      .ui-column-#{$prefix}-#{$i} {
         @include flex(0 0 (($i/12)*100%));
       }
     }
   }
   @media only screen and (max-width : $size) {
-    .ui-hidden-#{$prefix}-down {
+    .ui-hide-#{$prefix}-down {
       display: none;
     }
   }
 }
 
-// Resposive Row Horizontal
+.ui-container {
+  display: block;
+  margin : 0 auto;
+  width  : 100%;
+}
+
 .ui-row {
-  // position: relative;
-  @include flex-row(flex-start);
-
   > hr {
     @include flex(1 1 100%);
   }
-}
 
-.ui-row-vertical {
-  // position: relative;
-  @include flex-column();
+  &.ui-gutter {
+    padding: $grid-gutter;
 
-  > hr {
-    border-width: 0 1px;
-    @include flex(1 1 100%);
+    .ui-column {
+      box-sizing: border-box;
+      padding   : $grid-gutter;
+
+      &.ui-row {
+        padding: 0;
+      }
+
+      > .ui-row {
+        margin : -1 * $grid-gutter;
+        padding: 0;
+      }
+    }
+  }
+
+  &-h {
+    @include flexbox($direction: row);
+
+    &-reverse {
+      @include flexbox($direction: row-reverse);
+    }
+  }
+
+  &-v {
+    @include flexbox($direction: column);
+
+    &-reverse {
+      @include flexbox($direction: column-reverse);
+    }
+  }
+
+  &.ui-nowrap {
+    @include flex-wrap(nowrap);
+  }
+
+  &.ui-align-start {
+    @include align-items(flex-start);
+  }
+
+  &.ui-align-center {
+    @include align-items(center);
+  }
+
+  &.ui-align-end {
+    @include align-items(flex-end);
+  }
+
+  &.ui-align-stretch {
+    @include align-items(stretch);
+  }
+
+  &.ui-justify-start {
+    @include justify-content(flex-start);
+  }
+
+  &.ui-justify-center {
+    @include justify-content(center);
+  }
+
+  &.ui-justify-end {
+    @include justify-content(flex-end);
+  }
+
+  &.ui-justify-around {
+    @include justify-content(space-around);
+  }
+
+  &.ui-justify-between {
+    @include justify-content(space-between);
   }
 }
 
-.ui-row-reverse {
-  @include flex-direction(row-reverse);
-}
-
-.ui-row-nowrap {
-  @include flex-wrap(nowrap);
-}
-
-.ui-row-top {
-  @include align-items(flex-start);
-}
-
-.ui-row-middle {
-  @include align-items(center);
-}
-
-.ui-row-bottom {
-  @include align-items(flex-end);
-}
-
-.ui-row-stretch {
-  @include align-items(stretch);
-}
-
-.ui-row-start {
-  @include justify-content(flex-start);
-}
-
-.ui-row-center {
-  @include justify-content(center);
-}
-
-.ui-row-end {
-  @include justify-content(flex-end);
-}
-
-.ui-row-spaced {
-  @include justify-content(space-between);
-}
-
-[class*=" ui-col-"],
-[class^="ui-col-"] {
+.ui-column {
   @include flex-basis(100%);
-  // position: relative;
-}
 
-.ui-col {
-  @include flex-auto();
-}
+  &-auto {
+    @include flex-auto();
+  }
 
-.ui-col-auto {
-  @include flex-auto();
-}
+  &-fill {
+    @include flex-fill();
+  }
 
-.ui-col-fill {
-  @include flex-fill();
-}
+  &-form {
+    @include flex(1 0 24em);
+  }
 
-.ui-col-form {
-  @include flex-fill(1em);
-}
+  &.ui-align-top {
+    @include align-self(flex-start);
+  }
 
-.ui-col-full {
-  @include flex(1 1 100%);
-}
+  &.ui-align-middle {
+    @include align-self(center);
+  }
 
-.ui-col-top {
-  @include align-self(flex-start);
-}
+  &.ui-align-bottom {
+    @include align-self(flex-end);
+  }
 
-.ui-col-middle {
-  @include align-self(center);
-}
-
-.ui-col-bottom {
-  @include align-self(flex-end);
-}
-
-.ui-col-stretch {
-  @include align-self(stretch);
+  &.ui-align-stretch {
+    @include align-self(stretch);
+  }
 }
 @include grid-columns(xs, $grid-xs-min);
 @include grid-columns(sm, $grid-sm-min);

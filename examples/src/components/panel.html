@@ -1,0 +1,57 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <ui-page animate>
+    <x-container source.bind="source" wiki.bind="wiki" page-title="Panels" need-rtl="true">
+      <h4 class="x-title">Basic Panels</h4>
+      <ui-row>
+        <ui-column size="lg-6" padded>
+          <ui-panel height="20em">
+            <ui-panel-body padded scroll>
+              <compose view="../home/lipsum-small.html"></compose>
+            </ui-panel-body>
+          </ui-panel>
+        </ui-column>
+        <ui-column size="lg-6" padded>
+          <ui-panel height="20em">
+            <ui-header>
+              <ui-header-title>Panel Title</ui-header-title>
+              <ui-header-tool refresh disabled.bind="1"></ui-header-tool>
+              <ui-header-tool collapse></ui-header-tool>
+            </ui-header>
+            <ui-panel-body padded scroll>
+              <compose view="../home/lipsum-small.html"></compose>
+            </ui-panel-body>
+          </ui-panel>
+        </ui-column>
+        <ui-column size="lg-6" padded>
+          <ui-panel height="20em">
+            <ui-header dark>
+              <ui-header-title glyph="glyph-icon-page">Panel Title</ui-header-title>
+              <ui-header-tool expand></ui-header-tool>
+              <ui-header-tool collapse></ui-header-tool>
+            </ui-header>
+            <ui-panel-body padded scroll>
+              <compose view="../home/lipsum-small.html"></compose>
+            </ui-panel-body>
+          </ui-panel>
+        </ui-column>
+        <ui-column size="lg-6" padded>
+          <ui-panel height="20em">
+            <ui-header primary>
+              <ui-header-title glyph="glyph-icon-page" icon-hilight>Panel Title</ui-header-title>
+              <ui-header-tool expand></ui-header-tool>
+              <ui-header-tool collapse></ui-header-tool>
+            </ui-header>
+            <ui-panel-body padded scroll>
+              <compose view="../home/lipsum-small.html"></compose>
+            </ui-panel-body>
+          </ui-panel>
+        </ui-column>
+      </ui-row>
+    </x-container>
+  </ui-page>
+</template>

@@ -24,42 +24,33 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
             UIToast = (function () {
                 function UIToast(element) {
                     this.element = element;
+                    this.show = true;
                     this.glyph = '';
                     this.timeout = 5000;
-                    if (element.hasAttribute('dark'))
-                        element.classList.add('dark');
-                    else if (element.hasAttribute('primary'))
-                        element.classList.add('primary');
-                    else if (element.hasAttribute('secondary'))
-                        element.classList.add('secondary');
-                    else if (element.hasAttribute('info'))
-                        element.classList.add('info');
-                    else if (element.hasAttribute('danger'))
-                        element.classList.add('danger');
-                    else if (element.hasAttribute('success'))
-                        element.classList.add('success');
-                    else if (element.hasAttribute('warning'))
-                        element.classList.add('warning');
-                    else
-                        element.classList.add('light');
                 }
                 UIToast.prototype.bind = function (bindingContext, overrideContext) {
                     var _this = this;
                     if (bindingContext)
                         Object.assign(this, bindingContext);
                     ui_event_1.UIEvent.queueTask(function () {
-                        _this.element.classList.add('open');
+                        _this.element.classList.add('ui-open');
                         if (!isNaN(_this.timeout) && parseInt(_this.timeout + '') > 0) {
-                            setTimeout(function () { return _this.startClose(); }, parseInt(_this.timeout + '') + 1000);
+                            setTimeout(function () { return _this.startClose(); }, parseInt(_this.timeout + ''));
                         }
                     });
                 };
                 UIToast.prototype.startClose = function (force) {
                     var _this = this;
-                    this.element.classList.remove('open');
-                    setTimeout(function () { return aurelia_framework_1.DOM.removeNode(_this.element); }, 1000);
+                    if (ui_event_1.UIEvent.fireEvent('close', this.element) !== false) {
+                        this.element.classList.remove('ui-open');
+                        setTimeout(function () { return aurelia_framework_1.DOM.removeNode(_this.element); }, 500);
+                    }
                     return true;
                 };
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIToast.prototype, "show", void 0);
                 __decorate([
                     aurelia_framework_1.bindable(),
                     __metadata("design:type", Object)
@@ -71,7 +62,7 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                 UIToast = __decorate([
                     aurelia_framework_1.autoinject(),
                     aurelia_framework_1.customElement('ui-toast'),
-                    aurelia_framework_1.inlineView("<template class=\"ui-toast\" click.trigger=\"startClose()\"><div class=\"ui-wrapper\">\n  <ui-glyph glyph.bind=\"glyph\" class.bind=\"glyph\" if.bind=\"glyph\"></ui-glyph>\n  <span class=\"ui-message\"><slot><slot></span><span class=\"ui-close\">&times;</span>\n</div></template>"),
+                    aurelia_framework_1.inlineView("<template class=\"ui-toast\" click.trigger=\"startClose()\"><div class=\"ui-wrapper\">\n  <ui-glyph glyph.bind=\"glyph\"></ui-glyph>\n  <span class=\"ui-message\"><slot><slot></span><span class=\"ui-close\">&times;</span>\n</div></template>"),
                     __metadata("design:paramtypes", [Element])
                 ], UIToast);
                 return UIToast;
@@ -91,14 +82,14 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                     if (bindingContext)
                         Object.assign(this, bindingContext);
                     ui_event_1.UIEvent.queueTask(function () {
-                        _this.element.classList.add('open');
+                        _this.element.classList.add('ui-open');
                         if (_this.focusBlock)
                             _this.focusBlock.focus();
                     });
                 };
                 UIAlert.prototype.closeAlert = function (b) {
                     var _this = this;
-                    this.element.classList.remove('open');
+                    this.element.classList.remove('ui-open');
                     setTimeout(function () {
                         if (_this.closeCallback)
                             _this.closeCallback(b);
@@ -158,7 +149,7 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                     if (bindingContext)
                         Object.assign(this, bindingContext);
                     ui_event_1.UIEvent.queueTask(function () {
-                        _this.element.classList.add('open');
+                        _this.element.classList.add('ui-open');
                         if (_this.focusBlock)
                             _this.focusBlock.focus();
                     });
@@ -167,7 +158,7 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                     var _this = this;
                     if (b && isEmpty(this.value))
                         return this.changed = true;
-                    this.element.classList.remove('open');
+                    this.element.classList.remove('ui-open');
                     setTimeout(function () {
                         if (_this.closeCallback)
                             _this.closeCallback(b ? _this.value : null);

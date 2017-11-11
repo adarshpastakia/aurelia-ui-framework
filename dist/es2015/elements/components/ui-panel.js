@@ -15,11 +15,13 @@ let UIPanel = class UIPanel {
     constructor(element) {
         this.element = element;
         this.height = 'auto';
+        this.minheight = 'auto';
+        this.maxheight = 'auto';
         this.expanded = false;
         this.collapsed = false;
     }
     bind(bindingContext, overrideContext) {
-        this.collapsed = isTrue(this.collapsed) || this.element.hasAttribute('collapsed');
+        this.collapsed = !!(this.collapsed) || this.element.hasAttribute('collapsed');
     }
     close() {
         if (isFunction(this.beforeclose)) {
@@ -27,16 +29,20 @@ let UIPanel = class UIPanel {
             if (ret instanceof Promise)
                 ret.then(b => {
                     if (b) {
-                        DOM.removeNode(this.element);
+                        this.remove();
                     }
                 });
             else if (ret !== false) {
-                DOM.removeNode(this.element);
+                this.remove();
             }
         }
         else if (UIEvent.fireEvent('beforeclose', this.element) !== false) {
-            DOM.removeNode(this.element);
+            this.remove();
         }
+    }
+    remove() {
+        DOM.removeNode(this.element);
+        UIEvent.fireEvent('close', this.element);
     }
     collapse() {
         this.collapsed = true;
@@ -56,6 +62,14 @@ __decorate([
     __metadata("design:type", Object)
 ], UIPanel.prototype, "height", void 0);
 __decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIPanel.prototype, "minheight", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIPanel.prototype, "maxheight", void 0);
+__decorate([
     bindable({ defaultBindingMode: bindingMode.twoWay }),
     __metadata("design:type", Object)
 ], UIPanel.prototype, "expanded", void 0);
@@ -69,7 +83,7 @@ __decorate([
 ], UIPanel.prototype, "beforeclose", void 0);
 UIPanel = __decorate([
     autoinject(),
-    inlineView(`<template class="ui-panel \${collapsed?'ui-collapse':''} \${expanded?'ui-expand':''}" css.bind="{'height':height}" collapse.trigger="toggleCollapse()" expand.trigger="expand()" restore.trigger="expand()" close.trigger="close()"><slot></slot></template>`),
+    inlineView(`<template class="ui-panel \${collapsed?'ui-collapse':''} \${expanded?'ui-expand':''}" css.bind="{'max-height': maxheight,'min-height': minheight,'height':height}" collapse.trigger="toggleCollapse()" expand.trigger="expand()" restore.trigger="expand()" close.trigger="close()"><slot></slot></template>`),
     customElement('ui-panel'),
     __metadata("design:paramtypes", [Element])
 ], UIPanel);
@@ -77,9 +91,6 @@ export { UIPanel };
 let UIPanelBody = class UIPanelBody {
     constructor(element) {
         this.element = element;
-        this.height = 'auto';
-        this.minheight = 'auto';
-        this.maxheight = 'auto';
         if (element.hasAttribute('flex'))
             element.classList.add('ui-flexed');
         if (element.hasAttribute('scroll'))
@@ -88,18 +99,6 @@ let UIPanelBody = class UIPanelBody {
             element.classList.add('ui-pad-all');
     }
 };
-__decorate([
-    bindable(),
-    __metadata("design:type", Object)
-], UIPanelBody.prototype, "height", void 0);
-__decorate([
-    bindable(),
-    __metadata("design:type", Object)
-], UIPanelBody.prototype, "minheight", void 0);
-__decorate([
-    bindable(),
-    __metadata("design:type", Object)
-], UIPanelBody.prototype, "maxheight", void 0);
 UIPanelBody = __decorate([
     autoinject(),
     inlineView(`<template class="ui-panel-body" css.bind="{'max-height': maxheight,'min-height': minheight,'flex-basis':height}"><slot></slot></template>`),
@@ -137,32 +136,11 @@ export { UIPanelGroup };
 let UIHeader = class UIHeader {
     constructor(element) {
         this.element = element;
-        this.theme = 'default';
-        if (element.hasAttribute('primary'))
-            this.theme = 'primary';
-        else if (element.hasAttribute('secondary'))
-            this.theme = 'secondary';
-        else if (element.hasAttribute('dark'))
-            this.theme = 'dark';
-        else if (element.hasAttribute('light'))
-            this.theme = 'light';
-        else if (element.hasAttribute('info'))
-            this.theme = 'info';
-        else if (element.hasAttribute('danger'))
-            this.theme = 'danger';
-        else if (element.hasAttribute('success'))
-            this.theme = 'success';
-        else if (element.hasAttribute('warning'))
-            this.theme = 'warning';
     }
 };
-__decorate([
-    bindable(),
-    __metadata("design:type", Object)
-], UIHeader.prototype, "theme", void 0);
 UIHeader = __decorate([
     autoinject(),
-    inlineView(`<template class="ui-header \${theme}"><slot></slot></template>`),
+    inlineView(`<template class="ui-header"><slot></slot></template>`),
     customElement('ui-header'),
     __metadata("design:paramtypes", [Element])
 ], UIHeader);
@@ -199,7 +177,7 @@ let UIHeaderTool = class UIHeaderTool {
             this.glyph = "glyph-dialog-minimize";
     }
     bind(bindingContext, overrideContext) {
-        this.disabled = isTrue(this.disabled);
+        this.disabled = !!(this.disabled);
     }
     attached() {
         if (this.dropdown) {
@@ -269,6 +247,8 @@ let UIHeaderTitle = class UIHeaderTitle {
     constructor(element) {
         this.element = element;
         this.glyph = '';
+        if (this.element.hasAttribute('icon-hilight'))
+            this.element.classList.add('ui-icon-hilight');
     }
 };
 __decorate([
@@ -277,7 +257,7 @@ __decorate([
 ], UIHeaderTitle.prototype, "glyph", void 0);
 UIHeaderTitle = __decorate([
     autoinject(),
-    inlineView(`<template class="ui-header-title ui-inline-block ui-col-fill"><ui-glyph glyph.bind="glyph" if.bind="glyph"></ui-glyph><slot></slot></template>`),
+    inlineView(`<template class="ui-header-title ui-inline-block ui-col-fill"><div class="ui-title-icon"><ui-glyph glyph.bind="glyph" if.bind="glyph"></ui-glyph></div><div class="ui-title"><slot></slot></div></template>`),
     customElement('ui-header-title'),
     __metadata("design:paramtypes", [Element])
 ], UIHeaderTitle);

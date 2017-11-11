@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var ui_utils_1 = require("./ui-utils");
 var aurelia_framework_1 = require("aurelia-framework");
 var aurelia_event_aggregator_1 = require("aurelia-event-aggregator");
+var ui_utils_1 = require("./ui-utils");
 var UIEvent;
 (function (UIEvent) {
     function fireEvent(event, element, data) {

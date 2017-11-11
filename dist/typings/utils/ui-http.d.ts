@@ -10,6 +10,7 @@ export declare class UIHttpService {
     setBaseUrl(url: any): void;
     static buildQueryString(json: any): string;
     get(slug: string, headers?: any): Promise<any | string | void>;
+    json(slug: string, headers?: any): Promise<any | string | void>;
     text(slug: string, headers?: any): Promise<any | string | void>;
     blob(slug: string, headers?: any): Promise<any | string | void>;
     patch(slug: string, obj: any, headers?: any): Promise<any | string | void>;

@@ -25,6 +25,7 @@ export declare class UIApplication {
     clearSession(): void;
     /** Persistent State **/
     persist(key: any, value?: any): any;
+    clearPersist(): void;
     /** Logger **/
     info(tag: any, msg: any, ...rest: any[]): void;
     warn(tag: any, msg: any, ...rest: any[]): void;
@@ -34,9 +35,9 @@ export declare class UIApplication {
     toast(config: any, container?: any): void;
     toastSuccess(config: any, container?: any): void;
     toastError(config: any, container?: any): void;
-    alert(config: any): Promise<{}>;
-    confirm(config: any): Promise<{}>;
-    prompt(config: any): Promise<{}>;
+    alert(config: any): Promise<boolean>;
+    confirm(config: any): Promise<boolean>;
+    prompt(config: any): Promise<string>;
 }
 export declare class AuthInterceptor {
     appState: UIApplication;
