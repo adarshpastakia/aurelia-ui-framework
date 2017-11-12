@@ -12,7 +12,7 @@
             <h4 class="ui-text-primary">${pageTitle}</h4>
           </ui-column>
           <ui-column width="8em">
-            <ui-switch if.bind="needRtl" class="ui-themed" checked.bind="rtl" value.bind="dir" on-label="rtl" off-label="ltr" on-value="rtl" off-value="ltr"></ui-switch>
+            <ui-switch if.bind="needRtl" class="ui-themed" value.bind="dir" on-label="rtl" off-label="ltr" on-value="rtl" off-value="ltr"></ui-switch>
           </ui-column>
           <a class="x-tab ${currentView==0?'x-tab-active':''}" click.trigger="currentView=0" tooltip-dark="Examples">
             <ui-glyph glyph="icon-moon-eye"></ui-glyph>

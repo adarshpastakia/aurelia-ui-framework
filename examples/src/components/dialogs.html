@@ -1,0 +1,50 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <ui-page animate>
+    <style>
+.event-console {
+  border: 1px solid #f0f0f0;
+  border-radius: 5px;
+  font-size: 13px;
+  height: 300px;
+  line-height: 2;
+  overflow: auto;
+  font-family: monospace;
+  background: #333;
+  color: #fff;
+}
+
+.event-console .tag {
+  color: tomato;
+  padding: 0 10px;
+}
+
+.event-console .time {
+  color: SteelBlue;
+  padding: 0 10px;
+}
+
+.event-console .event {
+  color: slategray;
+  padding: 0 10px;
+}
+    </style>
+    <x-container source.bind="source" wiki.bind="wiki" page-title="Dialogs" need-rtl="true" dir.bind="dir">
+      <ui-row dir="ltr">
+        <ui-column fill padded>
+          <ui-button light click.trigger="openDialog(true)">Show Modal</ui-button>&nbsp;
+          <ui-button light click.trigger="openDialog(false)">Open Dialog</ui-button>&nbsp;
+        </ui-column>
+
+        <ui-column fill padded>
+          <div class="ui-text-primary">Lifecycle Console</div>
+          <div class="event-console" ref="evtConsole"></div>
+        </ui-column>
+      </ui-row>
+    </x-container>
+  </ui-page>
+</template>

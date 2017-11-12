@@ -1,0 +1,13 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <require from="./dlg-lifecycle"></require>
+  <ui-content padded scroll>
+    <dlg-lifecycle lifecycle.trigger="printConsole('Child View', $event.detail)"></dlg-lifecycle>
+    <compose view="../home/lipsum-small.html"></compose>
+  </ui-content>
+  <ui-loader busy.bind="closing"></ui-loader>
+</template>

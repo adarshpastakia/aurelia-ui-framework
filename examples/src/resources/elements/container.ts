@@ -3,7 +3,7 @@
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
-import { bindable, customElement, containerless } from 'aurelia-framework';
+import { bindable, customElement, containerless, bindingMode } from 'aurelia-framework';
 import * as kramed from 'kramed';
 
 @containerless()
@@ -14,7 +14,7 @@ export class Container {
   @bindable() wiki = '';
   @bindable() needRtl = false;
 
-  dir = "ltr";
+  @bindable({ defaultBindingMode: bindingMode.twoWay }) dir = "ltr";
   currentView = 0;
 
   elSource: any = {};
