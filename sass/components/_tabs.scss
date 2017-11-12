@@ -76,7 +76,7 @@
       line-height            : 2;
       padding                : 0 0.5em;
       min-width              : 6em;
-      margin                 : 4px 2px 0;
+      margin                 : 4px 2px -1px;
       overflow               : hidden;
       border                 : 1px solid $base-border-color;
       border-bottom-width    : 0;
@@ -85,7 +85,7 @@
 
       > div {
         @include flex-fill();
-        @include flexbox($direction: row,$align:center, $justify:center );
+        @include flexbox($direction: row,$align:center, $justify:center);
 
         .ui-tab-icon ~ .ui-label {
           padding       : 0 0.5em;
@@ -116,25 +116,24 @@
         height    : 0;
         margin    : 0 auto;
         background: $tab-active-text;
-        @include transition(all .25s);
+        @include transition(all 0.25s);
       }
 
       &:hover {
-        margin-top: 2px;
+        // margin-top: 2px;
 
         &:after {
-          height: 1px;
+          height: 2px;
           left  : 0;
           right : 0;
         }
       }
 
       &.ui-active {
-        margin-top   : 0;
-        margin-bottom: -1px;
-        font-weight  : 600;
-        color        : $tab-active-text;
-        background   : $tab-active-bg;
+        // margin-top   : 0;
+        font-weight: 600;
+        color      : $tab-active-text;
+        background : $tab-active-bg;
 
         &:after {
           height    : 0;
@@ -161,7 +160,7 @@
     background: $base-bg;
     @include flex-fill();
     @include position(absolute, 0);
-    @include transition(all .5s);
+    @include transition(all 0.5s);
 
     &.ui-flexed {
       @include flexbox($direction: column);
@@ -201,7 +200,7 @@
 
     .ui-tabbar {
       .ui-tab-button {
-        margin                    : 0 2px 4px;
+        margin                    : -1px 2px 4px;
         border-top-width          : 0;
         border-bottom-width       : 1px;
         border-radius             : 0;
@@ -214,12 +213,12 @@
         }
 
         &:hover {
-          margin-bottom: 2px;
+          // margin-bottom: 2px;
         }
 
         &.ui-active {
-          margin-top   : -1px;
-          margin-bottom: 0;
+          // margin-top   : -1px;
+          // margin-bottom: 0;
 
           &:after {
             bottom: 0;
