@@ -17,7 +17,7 @@ import { UIEvent } from "../../utils/ui-event";
     keypress.trigger="checkInput($event)" placeholder.bind="placeholder"
     disabled.bind="isDisabled" readonly.bind="readonly"/>
   <span class="ui-clear" if.bind="clear && value" click.trigger="clearInput()">&times;</span></div>
-  <div class="ui-input-info" if.bind="info" innerhtml.bind="info"></div>
+  <div class="ui-input-info" if.bind="helpText" innerhtml.bind="helpText"></div>
 </template>`)
 @customElement('ui-phone')
 export class UIPhone extends UIBaseInput {
@@ -47,7 +47,7 @@ export class UIPhone extends UIBaseInput {
   @bindable() country = '';
   @bindable() disabled = false;
   @bindable() readonly = false;
-  @bindable() info = '';
+  @bindable() helpText = '';
 
   private clear = false;
   private national = false;

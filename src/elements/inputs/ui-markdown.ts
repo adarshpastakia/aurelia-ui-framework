@@ -12,7 +12,7 @@ import * as _ from "lodash";
 
 @autoinject()
 @customElement('ui-markdown')
-@inlineView(`<template class="ui-md-editor ui-input-wrapper"><ui-toolbar start click.trigger="toolClicked($event)">
+@inlineView(`<template class="ui-md-editor ui-input-wrapper" dir.bind="dir"><ui-toolbar start click.trigger="toolClicked($event)">
   <div class="ui-button-group ui-horizontal">
   <ui-button data-id="h1" disabled.bind="disableTools||disabled||readonly" square small light>H1</ui-button>
   <ui-button data-id="h2" disabled.bind="disableTools||disabled||readonly" square small light>H2</ui-button>
