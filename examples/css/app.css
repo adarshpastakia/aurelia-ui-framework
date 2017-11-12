@@ -1216,6 +1216,18 @@ th {
 .ui-hover-dark:hover {
   color: #34495e !important; }
 
+.ui-bg-black {
+  background-color: #2c3e50 !important; }
+
+.ui-text-black {
+  color: #2c3e50 !important; }
+
+.ui-border-black {
+  border-color: #2c3e50 !important; }
+
+.ui-hover-black:hover {
+  color: #2c3e50 !important; }
+
 .ui-bg-info {
   background-color: #29B6F6 !important; }
 
@@ -5154,6 +5166,7 @@ strong {
     width: 30em; }
   .ui-drawer > .ui-drawer-content {
     z-index: 1;
+    overflow: hidden;
     width: 20em;
     max-width: 90%;
     pointer-events: all;
@@ -7808,7 +7821,7 @@ a.ui-menu-item {
     box-shadow: 0 -4px 0 0 #AD1457 inset; }
 
 .ui-menu-section-title {
-  color: #95a5a6;
+  color: #34495e;
   display: block;
   font-size: 0.9em;
   line-height: 2em;
@@ -7999,7 +8012,6 @@ a.ui-menu-item {
       background: #AD1457;
       margin: 0.5em 6px; }
     .ui-menu .ui-menu-section.ui-collapsible .ui-menu-section-title .ui-icon {
-      color: #34495e;
       font-size: 0.8em;
       margin-right: 0.5em;
       -webkit-transition: transform 0.5s;
@@ -8473,7 +8485,7 @@ a.ui-menu-item {
   z-index: 5;
   position: relative;
   background: #fffdf9;
-  max-width: 18em;
+  max-width: 30%;
   border: 0 solid rgba(189, 195, 199, 0.25);
   -webkit-flex: 0 0 18em;
   -moz-flex: 0 0 18em;
@@ -8488,7 +8500,6 @@ a.ui-menu-item {
   .ui-sidebar .ui-sidebar-head {
     z-index: 5;
     line-height: 2em;
-    background: #fffdf9;
     border-bottom: 1px solid rgba(189, 195, 199, 0.25); }
     .ui-sidebar .ui-sidebar-head .ui-sidebar-title {
       color: rgba(44, 62, 80, 0.75);
@@ -8573,7 +8584,7 @@ a.ui-menu-item {
   .ui-sidebar.ui-sidebar-collapse.ui-sidebar-mini {
     max-width: 4em !important; }
     .ui-sidebar.ui-sidebar-collapse.ui-sidebar-mini .ui-sidebar-title {
-      display: none; }
+      visibility: hidden; }
     .ui-sidebar.ui-sidebar-collapse.ui-sidebar-mini .ui-menu-item {
       padding: 0.5em 0;
       text-overflow: clip;
@@ -9101,15 +9112,11 @@ hue-6-2: #c18401
   display: none; }
 
 .x-app-menu .x-app-menu-title {
-  top: 0;
   display: block;
   z-index: 2;
-  margin: 0.5em 0;
-  background: #fffdf9;
-  box-shadow: 0 0 2em #fffdf9;
-  position: -webkit-sticky;
-  position: -moz-sticky;
-  position: sticky; }
+  padding-top: 0.5em;
+  margin: 0 0 0.5em;
+  box-shadow: 0 0 5em #fffdf9; }
 
 .ui-splash {
   background-color: white;
