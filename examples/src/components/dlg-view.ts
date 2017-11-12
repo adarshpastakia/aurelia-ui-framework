@@ -30,7 +30,7 @@ export class DlgView extends UIDialog {
   deactivate() { this.printConsole(this.id, 'deactivate'); }
   // end aurelia hooks
 
-  id = "dlgView";
+  id = "dialogView";
   title = "Simple Dialog";
   glyph = "icon-fill-document";
 

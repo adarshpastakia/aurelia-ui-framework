@@ -5137,6 +5137,241 @@ strong {
   .ui-statsbar .ui-stat.ui-warning:not(.ui-icon-only) .ui-stat-label {
     color: rgba(255, 208, 66, 0.75); }
 
+.ui-viewport-taskbar {
+  border-top: 1px solid rgba(127, 140, 141, 0.3);
+  background-color: #fffcf7;
+  display: flex;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  -ms-flex-direction: row;
+  -o-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: flex-start;
+  -moz-align-items: flex-start;
+  -ms-align-items: flex-start;
+  -o-align-items: flex-start;
+  align-items: flex-start;
+  -webkit-justify-content: flex-start;
+  -moz-justify-content: flex-start;
+  -ms-justify-content: flex-start;
+  -o-justify-content: flex-start;
+  justify-content: flex-start;
+  -webkit-flex-wrap: nowrap;
+  -moz-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  -o-flex-wrap: nowrap;
+  flex-wrap: nowrap; }
+  .ui-viewport-taskbar .ui-taskbar-taskbar-tools {
+    -webkit-flex: 0 0 auto;
+    -moz-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    -o-flex: 0 0 auto;
+    flex: 0 0 auto; }
+  .ui-viewport-taskbar .ui-viewport-taskbar-wrapper {
+    display: flex;
+    -webkit-flex-direction: row;
+    -moz-flex-direction: row;
+    -ms-flex-direction: row;
+    -o-flex-direction: row;
+    flex-direction: row;
+    -webkit-align-items: flex-start;
+    -moz-align-items: flex-start;
+    -ms-align-items: flex-start;
+    -o-align-items: flex-start;
+    align-items: flex-start;
+    -webkit-justify-content: flex-start;
+    -moz-justify-content: flex-start;
+    -ms-justify-content: flex-start;
+    -o-justify-content: flex-start;
+    justify-content: flex-start;
+    -webkit-flex-wrap: wrap;
+    -moz-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    -o-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-flex: 1 1 1em;
+    -moz-flex: 1 1 1em;
+    -ms-flex: 1 1 1em;
+    -o-flex: 1 1 1em;
+    flex: 1 1 1em; }
+    .ui-viewport-taskbar .ui-viewport-taskbar-wrapper > button {
+      background: #FFFEFC;
+      color: #34495e;
+      margin: 0.1rem;
+      max-width: 12rem;
+      padding: 0.5em 0;
+      font-size: 1em;
+      border: 1px solid #fff6e3;
+      cursor: default;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden; }
+      .ui-viewport-taskbar .ui-viewport-taskbar-wrapper > button span {
+        pointer-events: none;
+        padding: 0 0.5em;
+        font-size: 0.9em; }
+      .ui-viewport-taskbar .ui-viewport-taskbar-wrapper > button:hover {
+        background: rgba(240, 98, 146, 0.2); }
+      .ui-viewport-taskbar .ui-viewport-taskbar-wrapper > button.ui-active {
+        color: #FFFEFC;
+        background: rgba(240, 98, 146, 0.8); }
+
+.ui-dialog-container.ui-dragging {
+  pointer-events: all; }
+
+.ui-dialog-container .ui-dialog-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0; }
+  .ui-dialog-container .ui-dialog-wrapper.ui-modal {
+    pointer-events: all;
+    padding: 0.5em;
+    z-index: 60;
+    background: rgba(0, 0, 0, 0.05);
+    display: flex;
+    -webkit-flex-direction: row;
+    -moz-flex-direction: row;
+    -ms-flex-direction: row;
+    -o-flex-direction: row;
+    flex-direction: row;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    -ms-align-items: center;
+    -o-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    -ms-justify-content: center;
+    -o-justify-content: center;
+    justify-content: center;
+    -webkit-flex-wrap: wrap;
+    -moz-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    -o-flex-wrap: wrap;
+    flex-wrap: wrap; }
+    .ui-dialog-container .ui-dialog-wrapper.ui-modal > .ui-dialog {
+      top: 0 !important;
+      left: 0 !important; }
+  .ui-dialog-container .ui-dialog-wrapper:not(.ui-modal) {
+    padding: 0.5em 0.5em 3em; }
+  .ui-dialog-container .ui-dialog-wrapper .ui-dialog {
+    pointer-events: all;
+    position: relative;
+    background: #FFFEFC;
+    z-index: 50;
+    border-radius: 2px;
+    box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.15);
+    -webkit-transition: all 0.25s;
+    -moz-transition: all 0.25s;
+    -ms-transition: all 0.25s;
+    -o-transition: all 0.25s;
+    transition: all 0.25s;
+    display: flex;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    -o-flex-direction: column;
+    flex-direction: column;
+    -webkit-align-items: stretch;
+    -moz-align-items: stretch;
+    -ms-align-items: stretch;
+    -o-align-items: stretch;
+    align-items: stretch;
+    -webkit-justify-content: flex-start;
+    -moz-justify-content: flex-start;
+    -ms-justify-content: flex-start;
+    -o-justify-content: flex-start;
+    justify-content: flex-start;
+    -webkit-flex-wrap: wrap;
+    -moz-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    -o-flex-wrap: wrap;
+    flex-wrap: wrap; }
+    .ui-dialog-container .ui-dialog-wrapper .ui-dialog .ui-header {
+      z-index: 5;
+      border-top-left-radius: 2px;
+      border-top-right-radius: 2px; }
+      .ui-dialog-container .ui-dialog-wrapper .ui-dialog .ui-header .ui-header-button {
+        font-size: 0.8rem; }
+    .ui-dialog-container .ui-dialog-wrapper .ui-dialog > :last-child {
+      border-bottom-left-radius: 2px;
+      border-bottom-right-radius: 2px; }
+    .ui-dialog-container .ui-dialog-wrapper .ui-dialog .ui-sidebar:not(.ui-collapse) {
+      max-width: 13.5em; }
+    .ui-dialog-container .ui-dialog-wrapper .ui-dialog .ui-resizer {
+      position: absolute;
+      z-index: 10;
+      bottom: 0;
+      line-height: 1;
+      opacity: 0.3 !important;
+      pointer-events: all !important; }
+      .ui-dialog-container .ui-dialog-wrapper .ui-dialog .ui-resizer:active, .ui-dialog-container .ui-dialog-wrapper .ui-dialog .ui-resizer:hover {
+        opacity: 0.6 !important; }
+    .ui-dialog-container .ui-dialog-wrapper .ui-dialog.ui-maximize {
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      -webkit-transform: translateY(0%);
+      -moz-transform: translateY(0%);
+      -ms-transform: translateY(0%);
+      -o-transform: translateY(0%);
+      transform: translateY(0%); }
+      .ui-dialog-container .ui-dialog-wrapper .ui-dialog.ui-maximize .ui-resizer {
+        display: none; }
+    .ui-dialog-container .ui-dialog-wrapper .ui-dialog.ui-minimize {
+      min-height: 0 !important;
+      min-width: 0 !important;
+      height: 2rem !important;
+      width: 10em !important;
+      margin-top: 100% !important; }
+      .ui-dialog-container .ui-dialog-wrapper .ui-dialog.ui-minimize > :not(.ui-header) {
+        visibility: hidden; }
+    .ui-dialog-container .ui-dialog-wrapper .ui-dialog.ui-active {
+      z-index: 5;
+      box-shadow: 0 0 0 1px #FFFEFC, 0 0 30px 5px rgba(0, 0, 0, 0.2); }
+    .ui-dialog-container .ui-dialog-wrapper .ui-dialog.ui-inactive {
+      z-index: 1; }
+      .ui-dialog-container .ui-dialog-wrapper .ui-dialog.ui-inactive > .ui-header {
+        opacity: 0.75; }
+      .ui-dialog-container .ui-dialog-wrapper .ui-dialog.ui-inactive > :not(.ui-header) {
+        opacity: 0.85; }
+    .ui-dialog-container .ui-dialog-wrapper .ui-dialog.ui-dragging {
+      -webkit-transition: none;
+      -moz-transition: none;
+      -ms-transition: none;
+      -o-transition: none;
+      transition: none;
+      background: rgba(255, 254, 252, 0.95); }
+      .ui-dialog-container .ui-dialog-wrapper .ui-dialog.ui-dragging > :not(.ui-header) {
+        opacity: 0.3; }
+
+.ltr .ui-dialog .ui-resizer,
+[dir="ltr"] .ui-dialog .ui-resizer {
+  right: 0;
+  cursor: nwse-resize; }
+
+.ltr .ui-dialog,
+[dir="ltr"] .ui-dialog {
+  right: auto !important; }
+
+.rtl .ui-dialog .ui-resizer,
+[dir="rtl"] .ui-dialog .ui-resizer {
+  left: 0;
+  cursor: nesw-resize;
+  -webkit-transform: scaleX(-1);
+  -moz-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  transform: scaleX(-1); }
+
+.rtl .ui-dialog,
+[dir="rtl"] .ui-dialog {
+  left: auto !important; }
+
 .ui-drawer-toggle {
   cursor: pointer;
   margin: 0 0.5em;
@@ -8826,7 +9061,7 @@ a.ui-menu-item {
       line-height: 2;
       padding: 0 0.5em;
       min-width: 6em;
-      margin: 4px 2px 0;
+      margin: 4px 2px -1px;
       overflow: hidden;
       border: 1px solid rgba(189, 195, 199, 0.5);
       border-bottom-width: 0;
@@ -8889,15 +9124,11 @@ a.ui-menu-item {
         -ms-transition: all 0.25s;
         -o-transition: all 0.25s;
         transition: all 0.25s; }
-      .ui-tab-panel .ui-tabbar .ui-tab-button:hover {
-        margin-top: 2px; }
-        .ui-tab-panel .ui-tabbar .ui-tab-button:hover:after {
-          height: 1px;
-          left: 0;
-          right: 0; }
+      .ui-tab-panel .ui-tabbar .ui-tab-button:hover:after {
+        height: 2px;
+        left: 0;
+        right: 0; }
       .ui-tab-panel .ui-tabbar .ui-tab-button.ui-active {
-        margin-top: 0;
-        margin-bottom: -1px;
         font-weight: 600;
         color: #AD1457;
         background: #FFFEFC; }
@@ -8998,7 +9229,7 @@ a.ui-menu-item {
   .ui-tab-panel.ui-bottom {
     flex-direction: column-reverse; }
     .ui-tab-panel.ui-bottom .ui-tabbar .ui-tab-button {
-      margin: 0 2px 4px;
+      margin: -1px 2px 4px;
       border-top-width: 0;
       border-bottom-width: 1px;
       border-radius: 0;
@@ -9007,14 +9238,9 @@ a.ui-menu-item {
       .ui-tab-panel.ui-bottom .ui-tabbar .ui-tab-button:after {
         bottom: auto;
         top: 0; }
-      .ui-tab-panel.ui-bottom .ui-tabbar .ui-tab-button:hover {
-        margin-bottom: 2px; }
-      .ui-tab-panel.ui-bottom .ui-tabbar .ui-tab-button.ui-active {
-        margin-top: -1px;
-        margin-bottom: 0; }
-        .ui-tab-panel.ui-bottom .ui-tabbar .ui-tab-button.ui-active:after {
-          bottom: 0;
-          top: auto; }
+      .ui-tab-panel.ui-bottom .ui-tabbar .ui-tab-button.ui-active:after {
+        bottom: 0;
+        top: auto; }
 
 /*
 

@@ -29,6 +29,7 @@ import './value-converters/ui-lodash';
 import './value-converters/ui-text';
 export * from './utils/ui-application';
 export * from './utils/ui-constants';
+export * from './utils/ui-dialog';
 export * from './utils/ui-event';
 export * from './utils/ui-format';
 export * from './utils/ui-http';

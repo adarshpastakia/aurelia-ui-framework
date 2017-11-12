@@ -1,7 +1,7 @@
 {
   "name": "aurelia-ui-framework",
   "description": "An Aurelia UI/UX framework.",
-  "version": "4.0.0-Beta.1",
+  "version": "4.0.0-Beta.2",
   "keywords": [
     "ui-framework",
     "desktop-framework",
@@ -27,7 +27,7 @@
     "build:demo": "au build --env prod",
     "build:source": "gulp build-source",
     "build:sass": "node-sass ./examples/sass/app.scss ./examples/css/app.css",
-    "release:beta": "gulp release --bump prerelease",
+    "release:beta": "gulp release --bump prerelease"
   },
   "dependencies":
   {
@@ -60,7 +60,9 @@
     "del": "^3.0.0",
     "event-stream": "^3.3.3",
     "gulp": "github:gulpjs/gulp#4.0",
+    "gulp-bump": "^2.8.0",
     "gulp-changed-in-place": "^2.0.3",
+    "gulp-conventional-changelog": "^1.1.6",
     "gulp-htmlmin": "^3.0.0",
     "gulp-notify": "^2.2.0",
     "gulp-plumber": "^1.1.0",
@@ -88,6 +90,7 @@
     "typescript": ">=1.9.0-dev || ^2.0.0",
     "uglify-js": "^3.0.19",
     "vinyl-fs": "^2.4.3",
-    "vinyl-paths": "^2.1.0"
+    "vinyl-paths": "^2.1.0",
+    "yargs": "^10.0.3"
   }
 }

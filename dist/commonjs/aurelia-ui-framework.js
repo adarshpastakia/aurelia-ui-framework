@@ -38,6 +38,7 @@ require("./value-converters/ui-lodash");
 require("./value-converters/ui-text");
 __export(require("./utils/ui-application"));
 __export(require("./utils/ui-constants"));
+__export(require("./utils/ui-dialog"));
 __export(require("./utils/ui-event"));
 __export(require("./utils/ui-format"));
 __export(require("./utils/ui-http"));
