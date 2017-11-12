@@ -14,7 +14,7 @@ export class Sidebar {
   wiki = '';
   source = '';
   activate() {
-    this.httpClient.text('wiki/components/sidebar.md').then(md => this.wiki = md);
-    this.httpClient.text('wiki/components/sidebar.example.md').then(md => this.source = md);
+    this.httpClient.text('docs/components/sidebar.md').then(md => this.wiki = md);
+    this.httpClient.text('docs/components/sidebar.example.md').then(md => this.source = md);
   }
 }

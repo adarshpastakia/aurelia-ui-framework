@@ -14,7 +14,7 @@ export class Drawer {
   wiki = '';
   source = '';
   activate() {
-    this.httpClient.text('wiki/components/drawer.md').then(md => this.wiki = md);
-    this.httpClient.text('wiki/components/drawer.example.md').then(md => this.source = md);
+    this.httpClient.text('docs/components/drawer.md').then(md => this.wiki = md);
+    this.httpClient.text('docs/components/drawer.example.md').then(md => this.source = md);
   }
 }

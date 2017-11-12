@@ -15,10 +15,10 @@ export class Inputs {
   source = '';
 
   activate() {
-    this.httpClient.text('wiki/inputs/form.md').then(mdForm => {
-      this.httpClient.text('wiki/inputs/inputs.md').then(md => this.wiki = mdForm + md);
+    this.httpClient.text('docs/inputs/form.md').then(mdForm => {
+      this.httpClient.text('docs/inputs/inputs.md').then(md => this.wiki = mdForm + md);
     });
-    this.httpClient.text('wiki/inputs/form.example.md').then(md => this.source = md);
+    this.httpClient.text('docs/inputs/form.example.md').then(md => this.source = md);
   }
 
   attached() {

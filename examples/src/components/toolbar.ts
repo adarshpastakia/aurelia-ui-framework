@@ -15,7 +15,7 @@ export class Toolbar {
   source = '';
 
   activate() {
-    this.httpClient.text('wiki/components/toolbar.md').then(md => this.wiki = md);
-    this.httpClient.text('wiki/components/toolbar.example.md').then(md => this.source = md);
+    this.httpClient.text('docs/components/toolbar.md').then(md => this.wiki = md);
+    this.httpClient.text('docs/components/toolbar.example.md').then(md => this.source = md);
   }
 }

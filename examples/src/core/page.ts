@@ -14,7 +14,7 @@ export class Page {
   wiki = '';
   source = '';
   activate() {
-    this.httpClient.text('wiki/core/page.md').then(md => this.wiki = md);
-    this.httpClient.text('wiki/core/page.example.md').then(md => this.source = md);
+    this.httpClient.text('docs/core/page.md').then(md => this.wiki = md);
+    this.httpClient.text('docs/core/page.example.md').then(md => this.source = md);
   }
 }

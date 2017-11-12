@@ -19,7 +19,7 @@ export class Buttons {
 
   activate() {
     this.themes.splice(0, 1);
-    this.httpClient.text('wiki/inputs/options.md').then(md => this.wiki = md);
-    this.httpClient.text('wiki/inputs/options.example.md').then(md => this.source = md);
+    this.httpClient.text('docs/inputs/options.md').then(md => this.wiki = md);
+    this.httpClient.text('docs/inputs/options.example.md').then(md => this.source = md);
   }
 }

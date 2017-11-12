@@ -14,7 +14,7 @@ export class TabPanel {
   wiki = '';
   source = '';
   activate() {
-    this.httpClient.text('wiki/components/tabpanel.md').then(md => this.wiki = md);
-    this.httpClient.text('wiki/components/tabpanel.example.md').then(md => this.source = md);
+    this.httpClient.text('docs/components/tabpanel.md').then(md => this.wiki = md);
+    this.httpClient.text('docs/components/tabpanel.example.md').then(md => this.source = md);
   }
 }

@@ -14,6 +14,6 @@ export class EventManager {
   container;
   basicUsage;
   attached() {
-    this.httpClient.text('wiki/api/event.md').then(md => this.basicUsage.innerHTML = this.container.renderHtml(md));
+    this.httpClient.text('docs/api/event.md').then(md => this.basicUsage.innerHTML = this.container.renderHtml(md));
   }
 }

@@ -14,6 +14,6 @@ export class Application {
   container;
   basicUsage;
   attached() {
-    this.httpClient.text('wiki/api/application.md').then(md => this.basicUsage.innerHTML = this.container.renderHtml(md));
+    this.httpClient.text('docs/api/application.md').then(md => this.basicUsage.innerHTML = this.container.renderHtml(md));
   }
 }

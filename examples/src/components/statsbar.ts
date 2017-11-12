@@ -15,7 +15,7 @@ export class Statsbar {
   source = '';
 
   activate() {
-    this.httpClient.text('wiki/components/statsbar.md').then(md => this.wiki = md);
-    this.httpClient.text('wiki/components/statsbar.example.md').then(md => this.source = md);
+    this.httpClient.text('docs/components/statsbar.md').then(md => this.wiki = md);
+    this.httpClient.text('docs/components/statsbar.example.md').then(md => this.source = md);
   }
 }

@@ -18,7 +18,7 @@ export class Buttons {
   colors = UIConstants['colors'].split(',');
 
   activate() {
-    this.httpClient.text('wiki/inputs/button.md').then(md => this.wiki = md);
-    this.httpClient.text('wiki/inputs/button.example.md').then(md => this.source = md);
+    this.httpClient.text('docs/inputs/button.md').then(md => this.wiki = md);
+    this.httpClient.text('docs/inputs/button.example.md').then(md => this.source = md);
   }
 }

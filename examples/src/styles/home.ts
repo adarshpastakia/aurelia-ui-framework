@@ -12,7 +12,7 @@ export class StylesHome {
 
   wiki;
   activate() {
-    this.httpClient.text('wiki/styles/overview.md').then(md => this.wiki = md);
+    this.httpClient.text('docs/styles/overview.md').then(md => this.wiki = md);
   }
   themes = UIConstants['themes'].split(',');
   colors = UIConstants['colors'].split(',');

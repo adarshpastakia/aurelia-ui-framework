@@ -14,7 +14,7 @@ export class Viewport {
   wiki = '';
   source = '';
   activate() {
-    this.httpClient.text('wiki/core/viewport.md').then(md => this.wiki = md);
-    this.httpClient.text('wiki/core/viewport.example.md').then(md => this.source = md);
+    this.httpClient.text('docs/core/viewport.md').then(md => this.wiki = md);
+    this.httpClient.text('docs/core/viewport.example.md').then(md => this.source = md);
   }
 }

@@ -19,7 +19,7 @@ export class Indicators {
   wiki = '';
   source = '';
   activate() {
-    this.httpClient.text('wiki/components/indicators.md').then(md => this.wiki = md);
-    this.httpClient.text('wiki/components/indicators.example.md').then(md => this.source = md);
+    this.httpClient.text('docs/components/indicators.md').then(md => this.wiki = md);
+    this.httpClient.text('docs/components/indicators.example.md').then(md => this.source = md);
   }
 }

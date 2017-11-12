@@ -13,7 +13,7 @@ export class Grid {
   wiki = '';
   source = '';
   activate() {
-    this.httpClient.text('wiki/core/grid.md').then(md => this.wiki = md);
-    this.httpClient.text('wiki/core/grid.example.md').then(md => this.source = md);
+    this.httpClient.text('docs/core/grid.md').then(md => this.wiki = md);
+    this.httpClient.text('docs/core/grid.example.md').then(md => this.source = md);
   }
 }

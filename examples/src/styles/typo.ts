@@ -12,7 +12,7 @@ export class StyleTypo {
 
   wiki;
   activate() {
-    this.httpClient.text('wiki/styles/typography.md').then(md => this.wiki = md);
+    this.httpClient.text('docs/styles/typography.md').then(md => this.wiki = md);
   }
 
 }

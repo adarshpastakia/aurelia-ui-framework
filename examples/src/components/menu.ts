@@ -14,7 +14,7 @@ export class Menu {
   wiki = '';
   source = '';
   activate() {
-    this.httpClient.text('wiki/components/menu.md').then(md => this.wiki = md);
-    this.httpClient.text('wiki/components/menu.example.md').then(md => this.source = md);
+    this.httpClient.text('docs/components/menu.md').then(md => this.wiki = md);
+    this.httpClient.text('docs/components/menu.example.md').then(md => this.source = md);
   }
 }

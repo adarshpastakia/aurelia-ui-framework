@@ -14,8 +14,8 @@ export class HttpService {
   wiki;
   source;
   attached() {
-    this.httpClient.text('wiki/api/http.md').then(md => this.wiki = md);
-    this.httpClient.text('wiki/api/http.example.md').then(md => this.source = md);
+    this.httpClient.text('docs/api/http.md').then(md => this.wiki = md);
+    this.httpClient.text('docs/api/http.example.md').then(md => this.source = md);
   }
 
   token;
