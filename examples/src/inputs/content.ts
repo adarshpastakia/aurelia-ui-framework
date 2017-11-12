@@ -3,12 +3,11 @@
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
-import { autoinject, inject, NewInstance } from "aurelia-framework";
-import { ValidationController, ValidationRules, ValidationControllerFactory } from "aurelia-validation";
+import { autoinject } from "aurelia-framework";
 
-@inject(NewInstance.of(ValidationController))
+@autoinject()
 export class InputContent {
-  constructor(public controller: ValidationController) {
+  constructor() {
     this.model = new DataModel();
     (this.model.languages['en'] = new LangModel()).description = `# English Content ${this.md}`;
   }
@@ -26,17 +25,13 @@ export class InputContent {
   errors;
   dir = 'ltr';
   plain = '';
-  language = 'en';
+  language = '';
   model: DataModel;
-  addLanguage(model) {
-    (this.model.languages[model.id] = new LangModel()).description = `# ${model.name} Content ${this.md}`;
+  addLanguage(lang) {
+    (this.model.languages[lang.id] = new LangModel()).description = `# ${lang.name} Content ${this.md}`;
   }
-  removeLanguage(model) {
-    delete this.model.languages[model.id];
-  }
-
-  validate() {
-    this.controller.validate({ object: this.model });
+  removeLanguage(lang) {
+    delete this.model.languages[lang.id];
   }
 
   md = `
@@ -69,25 +64,9 @@ I can also be a link [Click Me](https://github.com/adam-p/markdown-here/wiki/Mar
 export class DataModel {
   title: string = '';
   languages = {};
-
-  constructor() {
-    ValidationRules
-      .ensure((m: DataModel) => m.languages)
-      .satisfiesRule('language')
-      .on(this);
-  }
 }
 
 export class LangModel {
   summary: string = '';
   description: string = '';
-
-  constructor() {
-    ValidationRules
-      .ensure((m: LangModel) => m.summary)
-      .required()
-      .ensure(m => m.description)
-      .required()
-      .on(this);
-  }
 }
