@@ -4,36 +4,36 @@
 
 
 #### Stylings
-* [Overview](./overview.md)
-* [Typography](./typography.md)
+* [Overview](./styles/overview.md)
+* [Typography](./styles/typography.md)
 
 
 #### Core
-* [Viewport](./viewport.md)
-* [Pages](./page.md)
-* [Responsive Grid](./grid.md)
+* [Viewport](./core/viewport.md)
+* [Pages](./core/page.md)
+* [Responsive Grid](./core/grid.md)
 
 
 #### Inputs
-* [Forms](./form.md)
-* [Inputs](./inputs.md)
-* [Buttons](./buttons.md)
-* [Options](./options.md)
-* [DateTime](./dates.md)
+* [Forms](./inputs/form.md)
+* [Inputs](./inputs/inputs.md)
+* [Buttons](./inputs/buttons.md)
+* [Options](./inputs/options.md)
+* [DateTime](./inputs/dates.md)
 
 
 #### Components
-* [Drawer](./drawer.md)
-* [Sidebar](./sidebar.md)
-* [Toolbar](./toolbar.md)
-* [Statsbar](./statsbar.md)
-* [Menus](./menu.md)
-* [Panels](./panel.md)
-* [Tab Panel](./tabpanel.md)
-* [Breadcrumbs/Chips](./indicators.md)
+* [Drawer](./components/drawer.md)
+* [Sidebar](./components/sidebar.md)
+* [Toolbar](./components/toolbar.md)
+* [Statsbar](./components/statsbar.md)
+* [Menus](./components/menu.md)
+* [Panels](./components/panel.md)
+* [Tab Panel](./components/tabpanel.md)
+* [Breadcrumbs/Chips](./components/indicators.md)
 
 
 #### Framework API
-* [Application](./application.md)
-* [Http Service](./http.md)
-* [Event Manager](./event.md)
+* [Application](./api/application.md)
+* [Http Service](./api/http.md)
+* [Event Manager](./api/event.md)
