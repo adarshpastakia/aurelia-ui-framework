@@ -48,11 +48,12 @@ export declare class UIDateInput extends UIBaseInput {
     minDate: any;
     maxDate: any;
     format: string;
+    dir: string;
     width: string;
     errors: any;
     disabled: boolean;
     readonly: boolean;
-    info: string;
+    helpText: string;
     placeholder: string;
     private type;
     private elValue;

@@ -17,9 +17,11 @@ let UIDrawer = class UIDrawer {
             fluid: 'ui-drawer-fluid',
             large: 'ui-drawer-large'
         };
+        this.width = '';
+        this.bodyClass = '';
+        this.contentClass = "";
         this.position = "start";
         this.closeGlyph = 'glyph-arrow-left';
-        this.bodyCls = '';
         if (element.hasAttribute('fluid'))
             this.element.classList.add(this.css.fluid);
         if (element.hasAttribute('large'))
@@ -30,11 +32,13 @@ let UIDrawer = class UIDrawer {
     }
     bind(bindingContext, overrideContext) {
         if (this.element.hasAttribute('scroll'))
-            this.bodyCls += ' ui-scroll';
+            this.bodyClass += ' ui-scroll';
         if (this.element.hasAttribute('padded'))
-            this.bodyCls += ' ui-pad-all';
+            this.bodyClass += ' ui-pad-all';
         if (this.position == 'end' && this.closeGlyph === 'glyph-arrow-left')
             this.closeGlyph = 'glyph-arrow-right';
+        if (this.width)
+            this.contentEl['style'].flexBasis = this.width;
     }
     closeDrawer() {
         if (UIEvent.fireEvent('beforeclose', this.element) !== false) {
@@ -52,6 +56,18 @@ let UIDrawer = class UIDrawer {
 __decorate([
     bindable(),
     __metadata("design:type", Object)
+], UIDrawer.prototype, "width", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIDrawer.prototype, "bodyClass", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIDrawer.prototype, "contentClass", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
 ], UIDrawer.prototype, "position", void 0);
 __decorate([
     bindable(),
@@ -60,9 +76,11 @@ __decorate([
 UIDrawer = __decorate([
     autoinject(),
     inlineView(`<template class="ui-drawer ui-drawer-\${position}">
-  <div class="ui-drawer-content ui-row ui-row-v ui-align-stretch ui-nowrap">
+  <div ref="contentEl" class="ui-drawer-content ui-row ui-row-v ui-align-stretch ui-nowrap \${contentClass}">
     <a class="ui-drawer-close" click.trigger="closeDrawer()"><ui-glyph glyph.bind="closeGlyph"></ui-glyph></a>
-    <div class="ui-drawer-body \${bodyCls}"><slot></slot></div>
+    <slot name="drawer-head"></slot>
+    <div class="ui-drawer-body \${bodyClass}"><slot></slot></div>
+    <slot name="drawer-foot"></slot>
   </div>
   <div class="ui-drawer-shim" click.trigger="closeDrawer()"></div>
 </template>`),

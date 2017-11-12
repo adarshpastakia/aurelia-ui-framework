@@ -13,19 +13,14 @@ let UISidebar = class UISidebar {
     constructor(element) {
         this.element = element;
         this.label = "";
+        this.bodyClass = "";
+        this.width = "";
         this.collapsed = false;
         this.position = "start";
         this.glyph = 'glyph-arrow-left';
-        this.contentCls = '';
         this.compact = false;
         this.miniDisplay = false;
         this.collapsible = false;
-        if (element.hasAttribute('scroll'))
-            this.contentCls += ' ui-scroll';
-        if (element.hasAttribute('flex'))
-            this.contentCls += ' ui-row ui-row-v ui-align-stretch ui-nowrap';
-        if (element.hasAttribute('padded'))
-            this.contentCls += ' ui-pad-all';
         if (this.miniDisplay = element.hasAttribute('mini-display'))
             element.classList.add('ui-sidebar-mini');
         if (this.compact = element.hasAttribute('compact')) {
@@ -41,6 +36,14 @@ let UISidebar = class UISidebar {
         this.collapsed = !!(this.collapsed);
         if (this.position === 'end' && this.glyph === 'glyph-arrow-left')
             this.glyph = "glyph-arrow-right";
+        if (this.element.hasAttribute('scroll'))
+            this.bodyClass += ' ui-scroll';
+        if (this.element.hasAttribute('flex'))
+            this.bodyClass += ' ui-row ui-row-v ui-align-stretch ui-nowrap';
+        if (this.element.hasAttribute('padded'))
+            this.bodyClass += ' ui-pad-all';
+        if (this.width)
+            this.element['style'].flexBasis = this.width;
     }
     attached() {
         if (this.label instanceof HTMLElement)
@@ -75,6 +78,14 @@ __decorate([
 __decorate([
     bindable(),
     __metadata("design:type", Object)
+], UISidebar.prototype, "bodyClass", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UISidebar.prototype, "width", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
 ], UISidebar.prototype, "collapsed", void 0);
 __decorate([
     bindable(),
@@ -86,8 +97,7 @@ UISidebar = __decorate([
   <div class="ui-sidebar-head ui-row ui-row-h ui-row-nowrap ui-align-stretch" if.bind="!compact && (collapsible || label)">
   <div class="ui-sidebar-title ui-column-fill" ref="labelEl">\${label}</div>
   <a click.trigger="toggleCollapse($event)" class="ui-sidebar-close" if.bind="collapsible"><ui-glyph glyph.bind="glyph"></ui-glyph></a></div>
-  <slot name="affix-content"></slot>
-  <div class="ui-sidebar-content ui-column-fill \${contentCls}" ref="contentEl"><slot></slot></div>
+  <div class="ui-sidebar-content ui-column-fill \${bodyClass}" ref="contentEl"><slot></slot></div>
 </template>`),
     customElement('ui-sidebar'),
     __metadata("design:paramtypes", [Element])

@@ -5,10 +5,11 @@ export declare class UISidebar {
     attached(): void;
     detached(): void;
     label: any;
+    bodyClass: any;
+    width: any;
     collapsed: boolean;
     position: string;
     glyph: string;
-    contentCls: string;
     private labelEl;
     private contentEl;
     private obClick;

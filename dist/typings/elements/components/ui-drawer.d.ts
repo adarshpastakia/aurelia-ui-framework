@@ -7,9 +7,12 @@ export declare class UIDrawer {
     };
     constructor(element: Element);
     bind(bindingContext: Object, overrideContext: Object): void;
+    private contentEl;
+    width: string;
+    bodyClass: string;
+    contentClass: string;
     position: string;
     closeGlyph: string;
-    private bodyCls;
     closeDrawer(): void;
     openDrawer(): void;
 }

@@ -19,7 +19,7 @@ let UIPhone = class UIPhone extends UIBaseInput {
         this.country = '';
         this.disabled = false;
         this.readonly = false;
-        this.info = '';
+        this.helpText = '';
         this.clear = false;
         this.national = false;
         this.placeholder = '';
@@ -109,7 +109,7 @@ __decorate([
 __decorate([
     bindable(),
     __metadata("design:type", Object)
-], UIPhone.prototype, "info", void 0);
+], UIPhone.prototype, "helpText", void 0);
 UIPhone = __decorate([
     autoinject(),
     inlineView(`<template class="ui-input-wrapper"><div role="input" class="ui-input-control ui-phone"><span ref="prefixEl"></span>
@@ -120,7 +120,7 @@ UIPhone = __decorate([
     keypress.trigger="checkInput($event)" placeholder.bind="placeholder"
     disabled.bind="isDisabled" readonly.bind="readonly"/>
   <span class="ui-clear" if.bind="clear && value" click.trigger="clearInput()">&times;</span></div>
-  <div class="ui-input-info" if.bind="info" innerhtml.bind="info"></div>
+  <div class="ui-input-info" if.bind="helpText" innerhtml.bind="helpText"></div>
 </template>`),
     customElement('ui-phone'),
     __metadata("design:paramtypes", [Element])

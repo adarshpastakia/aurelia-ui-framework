@@ -9,7 +9,7 @@ export declare class UIPhone extends UIBaseInput {
     country: string;
     disabled: boolean;
     readonly: boolean;
-    info: string;
+    helpText: string;
     private clear;
     private national;
     private prefixEl;

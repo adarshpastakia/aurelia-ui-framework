@@ -20,9 +20,11 @@ var UIDrawer = (function () {
             fluid: 'ui-drawer-fluid',
             large: 'ui-drawer-large'
         };
+        this.width = '';
+        this.bodyClass = '';
+        this.contentClass = "";
         this.position = "start";
         this.closeGlyph = 'glyph-arrow-left';
-        this.bodyCls = '';
         if (element.hasAttribute('fluid'))
             this.element.classList.add(this.css.fluid);
         if (element.hasAttribute('large'))
@@ -33,11 +35,13 @@ var UIDrawer = (function () {
     }
     UIDrawer.prototype.bind = function (bindingContext, overrideContext) {
         if (this.element.hasAttribute('scroll'))
-            this.bodyCls += ' ui-scroll';
+            this.bodyClass += ' ui-scroll';
         if (this.element.hasAttribute('padded'))
-            this.bodyCls += ' ui-pad-all';
+            this.bodyClass += ' ui-pad-all';
         if (this.position == 'end' && this.closeGlyph === 'glyph-arrow-left')
             this.closeGlyph = 'glyph-arrow-right';
+        if (this.width)
+            this.contentEl['style'].flexBasis = this.width;
     };
     UIDrawer.prototype.closeDrawer = function () {
         if (ui_event_1.UIEvent.fireEvent('beforeclose', this.element) !== false) {
@@ -54,6 +58,18 @@ var UIDrawer = (function () {
     __decorate([
         aurelia_framework_1.bindable(),
         __metadata("design:type", Object)
+    ], UIDrawer.prototype, "width", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDrawer.prototype, "bodyClass", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDrawer.prototype, "contentClass", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
     ], UIDrawer.prototype, "position", void 0);
     __decorate([
         aurelia_framework_1.bindable(),
@@ -61,7 +77,7 @@ var UIDrawer = (function () {
     ], UIDrawer.prototype, "closeGlyph", void 0);
     UIDrawer = __decorate([
         aurelia_framework_1.autoinject(),
-        aurelia_framework_1.inlineView("<template class=\"ui-drawer ui-drawer-${position}\">\n  <div class=\"ui-drawer-content ui-row ui-row-v ui-align-stretch ui-nowrap\">\n    <a class=\"ui-drawer-close\" click.trigger=\"closeDrawer()\"><ui-glyph glyph.bind=\"closeGlyph\"></ui-glyph></a>\n    <div class=\"ui-drawer-body ${bodyCls}\"><slot></slot></div>\n  </div>\n  <div class=\"ui-drawer-shim\" click.trigger=\"closeDrawer()\"></div>\n</template>"),
+        aurelia_framework_1.inlineView("<template class=\"ui-drawer ui-drawer-${position}\">\n  <div ref=\"contentEl\" class=\"ui-drawer-content ui-row ui-row-v ui-align-stretch ui-nowrap ${contentClass}\">\n    <a class=\"ui-drawer-close\" click.trigger=\"closeDrawer()\"><ui-glyph glyph.bind=\"closeGlyph\"></ui-glyph></a>\n    <slot name=\"drawer-head\"></slot>\n    <div class=\"ui-drawer-body ${bodyClass}\"><slot></slot></div>\n    <slot name=\"drawer-foot\"></slot>\n  </div>\n  <div class=\"ui-drawer-shim\" click.trigger=\"closeDrawer()\"></div>\n</template>"),
         aurelia_framework_1.customElement('ui-drawer'),
         __metadata("design:paramtypes", [Element])
     ], UIDrawer);

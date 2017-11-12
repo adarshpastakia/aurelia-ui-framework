@@ -26,7 +26,8 @@
     "start": "au run --watch",
     "build:demo": "au build --env prod",
     "build:source": "gulp build-source",
-    "build:sass": "node-sass ./examples/sass/app.scss ./examples/css/app.css"
+    "build:sass": "node-sass ./examples/sass/app.scss ./examples/css/app.css",
+    "release:beta": "gulp release --bump prerelease",
   },
   "dependencies":
   {
