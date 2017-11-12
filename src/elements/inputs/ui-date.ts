@@ -343,13 +343,13 @@ export class UIDateView {
 @autoinject()
 @inlineView(`<template class="ui-input-wrapper ui-input-date"><div role="input" class="ui-input-control"><slot></slot>
   <span class="ui-error" if.bind="errors"><ui-glyph glyph="glyph-invalid"></ui-glyph><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
-  <input ref="inputEl" value.bind="elValue" size="1"
+  <input ref="inputEl" value.bind="elValue" size="1" dir.bind="dir"
     focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)"
     change.trigger="fireEvent($event)" keydown.trigger="keyDown($event)" click.trigger="openDropdown($event, show=true)"
     placeholder.bind="placeholder" disabled.bind="isDisabled" readonly.bind="!allowSearch || readonly"/>
   <span class="ui-clear" if.bind="clear && value" click.trigger="clearInput()">&times;</span>
   <span class="ui-input-addon" click.trigger="toggleDropdown($event)"><ui-glyph glyph="glyph-calendar"></ui-glyph></span></div>
-  <div class="ui-input-info" if.bind="info" innerhtml.bind="info"></div>
+  <div class="ui-input-info" if.bind="helpText" innerhtml.bind="helpText"></div>
   <ui-date-view ref="dropdown" type.bind="type" class="ui-hidden floating" date.bind="date" min-date.bind="minDate" max-date.bind="maxDate"></ui-date-view>
 </template>`)
 @customElement('ui-date')
@@ -398,11 +398,12 @@ export class UIDateInput extends UIBaseInput {
   @bindable() maxDate;
   @bindable() format = 'DD MMM YYYY';
 
+  @bindable() dir = '';
   @bindable() width = 'auto';
   @bindable() errors = null;
   @bindable() disabled = false;
   @bindable() readonly = false;
-  @bindable() info = '';
+  @bindable() helpText = '';
   @bindable() placeholder = '';
 
   private type = 'd';
@@ -421,7 +422,7 @@ export class UIDateInput extends UIBaseInput {
   dateChanged(newValue) {
     if (newValue && moment(newValue).isValid()) this.elValue = moment(newValue).format(this.format);
     else this.elValue = '';
-    this.inputEl.focus();
+    if (this.dropdown.isOpen) this.inputEl.focus();
     if (this.type == 'd') this.closeDropdown();
     UIEvent.fireEvent('change', this.element, newValue || null);
   }

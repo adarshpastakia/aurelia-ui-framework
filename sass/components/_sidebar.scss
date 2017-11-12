@@ -8,7 +8,7 @@
   z-index   : 5;
   position  : relative;
   background: $drawer-bg;
-  max-width : $sidebar-width;
+  max-width : 30%;
   border    : 0 solid rgba($base-border-color, .25);
   @include flex(0 0 $sidebar-width);
   @include transition(max-width .5s);
@@ -16,7 +16,7 @@
   .ui-sidebar-head {
     z-index      : 5;
     line-height  : 2em;
-    background   : $drawer-bg;
+    // background   : $drawer-bg;
     border-bottom: 1px solid rgba($base-border-color, .25);
 
     .ui-sidebar-title {
@@ -133,7 +133,7 @@
       max-width: 4em !important;
 
       .ui-sidebar-title {
-        display: none;
+        visibility: hidden;
       }
 
       .ui-menu-item {

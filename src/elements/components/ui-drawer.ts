@@ -8,9 +8,11 @@ import { UIEvent } from '../../utils/ui-event';
 
 @autoinject()
 @inlineView(`<template class="ui-drawer ui-drawer-\${position}">
-  <div class="ui-drawer-content ui-row ui-row-v ui-align-stretch ui-nowrap">
+  <div ref="contentEl" class="ui-drawer-content ui-row ui-row-v ui-align-stretch ui-nowrap \${contentClass}">
     <a class="ui-drawer-close" click.trigger="closeDrawer()"><ui-glyph glyph.bind="closeGlyph"></ui-glyph></a>
-    <div class="ui-drawer-body \${bodyCls}"><slot></slot></div>
+    <slot name="drawer-head"></slot>
+    <div class="ui-drawer-body \${bodyClass}"><slot></slot></div>
+    <slot name="drawer-foot"></slot>
   </div>
   <div class="ui-drawer-shim" click.trigger="closeDrawer()"></div>
 </template>`)
@@ -28,16 +30,22 @@ export class UIDrawer {
     if (element.hasAttribute('close-on-click')) element.addEventListener('mouseup', (e: any) => { if (e.button == 0) this.closeDrawer(); });
   }
   bind(bindingContext: Object, overrideContext: Object) {
-    if (this.element.hasAttribute('scroll')) this.bodyCls += ' ui-scroll';
-    if (this.element.hasAttribute('padded')) this.bodyCls += ' ui-pad-all';
+    if (this.element.hasAttribute('scroll')) this.bodyClass += ' ui-scroll';
+    if (this.element.hasAttribute('padded')) this.bodyClass += ' ui-pad-all';
 
     if (this.position == 'end' && this.closeGlyph === 'glyph-arrow-left') this.closeGlyph = 'glyph-arrow-right';
+
+    if (this.width) this.contentEl['style'].flexBasis = this.width;
   }
 
+  private contentEl;
+
+  @bindable() width = '';
+  @bindable() bodyClass = '';
+  @bindable() contentClass = "";
   @bindable() position = "start";
   @bindable() closeGlyph = 'glyph-arrow-left';
 
-  private bodyCls = '';
   closeDrawer() {
     if (UIEvent.fireEvent('beforeclose', this.element) !== false) {
       this.element.classList.remove(this.css.show);

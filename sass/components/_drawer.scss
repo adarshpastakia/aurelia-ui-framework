@@ -34,6 +34,7 @@
 
   > .ui-drawer-content {
     z-index         : 1;
+    overflow        : hidden;
     width           : $drawer-width;
     max-width       : 90%;
     pointer-events  : all;
@@ -41,7 +42,7 @@
     border          : 1px solid transparent;
     border-width    : 0 1px;
     @include position(absolute, 0 auto);
-    @include transition(all .5s);
+    @include transition(all 0.5s);
 
     > .ui-drawer-close {
       width      : 100%;

@@ -15,8 +15,8 @@ export class InputDates {
   source = '';
 
   activate() {
-    this.httpClient.text('wiki/inputs/form.md').then(md => this.wiki = md);
-    this.httpClient.text('wiki/inputs/form.example.md').then(md => this.source = md);
+    this.httpClient.text('wiki/inputs/dates.md').then(md => this.wiki = md);
+    this.httpClient.text('wiki/inputs/dates.example.md').then(md => this.source = md);
   }
 
   minDate = moment().toISOString();

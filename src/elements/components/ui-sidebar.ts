@@ -11,16 +11,11 @@ import { UIEvent } from "../../utils/ui-event";
   <div class="ui-sidebar-head ui-row ui-row-h ui-row-nowrap ui-align-stretch" if.bind="!compact && (collapsible || label)">
   <div class="ui-sidebar-title ui-column-fill" ref="labelEl">\${label}</div>
   <a click.trigger="toggleCollapse($event)" class="ui-sidebar-close" if.bind="collapsible"><ui-glyph glyph.bind="glyph"></ui-glyph></a></div>
-  <slot name="affix-content"></slot>
-  <div class="ui-sidebar-content ui-column-fill \${contentCls}" ref="contentEl"><slot></slot></div>
+  <div class="ui-sidebar-content ui-column-fill \${bodyClass}" ref="contentEl"><slot></slot></div>
 </template>`)
 @customElement('ui-sidebar')
 export class UISidebar {
   constructor(public element: Element) {
-    if (element.hasAttribute('scroll')) this.contentCls += ' ui-scroll';
-    if (element.hasAttribute('flex')) this.contentCls += ' ui-row ui-row-v ui-align-stretch ui-nowrap';
-    if (element.hasAttribute('padded')) this.contentCls += ' ui-pad-all';
-
     if (this.miniDisplay = element.hasAttribute('mini-display')) element.classList.add('ui-sidebar-mini');
     if (this.compact = element.hasAttribute('compact')) {
       element.classList.add('ui-sidebar-compact');
@@ -39,6 +34,12 @@ export class UISidebar {
   bind(bindingContext: Object, overrideContext: Object) {
     this.collapsed = !!(this.collapsed);
     if (this.position === 'end' && this.glyph === 'glyph-arrow-left') this.glyph = "glyph-arrow-right";
+
+    if (this.element.hasAttribute('scroll')) this.bodyClass += ' ui-scroll';
+    if (this.element.hasAttribute('flex')) this.bodyClass += ' ui-row ui-row-v ui-align-stretch ui-nowrap';
+    if (this.element.hasAttribute('padded')) this.bodyClass += ' ui-pad-all';
+
+    if (this.width) this.element['style'].flexBasis = this.width;
   }
   attached() {
     if (this.label instanceof HTMLElement)[this.labelEl.innerHTML = '', this.labelEl.appendChild(this.label)];
@@ -50,11 +51,12 @@ export class UISidebar {
   // end aurelia hooks
 
   @bindable() label: any = "";
+  @bindable() bodyClass: any = "";
+  @bindable() width: any = "";
   @bindable() collapsed = false;
   @bindable() position = "start";
 
   glyph = 'glyph-arrow-left';
-  contentCls = '';
   private labelEl;
   private contentEl;
   private obClick;

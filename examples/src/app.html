@@ -4,11 +4,11 @@
   <compose view="../glyphs/hawcons-filled.svg"></compose>
 
   <ui-drawer ref="appDrawer" close-on-click scroll close-glyph="glyph-none" class="x-app-menu">
-    <a href="#/" class="x-app-menu-title">
+    <a href="#/" class="x-app-menu-title" slot="drawer-head">
       <ui-row>
         <ui-column auto class="ui-pad-h"><img src="examples/images/logo.png" width="36"/></ui-column>
         <ui-column fill class="ui-margin-none">
-          <h6 class="ui-text-primary ui-strong">${constants.Title}<small class="ui-text-gray">Version ${constants.Version}</small>
+          <h6 class="ui-strong" text-primary>${constants.Title}<small text-muted>Version ${constants.Version}</small>
           </h6>
         </ui-column>
       </ui-row>

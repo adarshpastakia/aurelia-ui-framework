@@ -8,7 +8,7 @@
     <x-container source.bind="source" wiki.bind="wiki" page-title="Date/Time Inputs" need-rtl="true">
       <ui-row>
         <ui-column fill="fill" padded="padded">
-          <ui-date-view datetime="datetime" date.bind="date"></ui-date-view>
+          <ui-date-view datetime date.bind="date"></ui-date-view>
           <p>${date}</p>
           <p>${date | date}</p>
           <p>${date | date} ${date | time}</p>

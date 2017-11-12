@@ -17,16 +17,13 @@
   }
 
   .x-app-menu-title {
-    top       : 0;
-    display   : block;
-    z-index   : 2;
-    margin    : 0.5em 0;
-    background: $drawer-bg;
-    box-shadow: 0 0 2em $drawer-bg;
-    @include sticky();
+    display    : block;
+    z-index    : 2;
+    padding-top: 0.5em;
+    margin     : 0 0 0.5em;
+    box-shadow : 0 0 5em $drawer-bg;
   }
 }
-
 
 .ui-splash {
   background-color: white;
@@ -127,22 +124,23 @@
 }
 
 .ui-viewport-title {
-  @include transition(transform .2s .2s);
+  @include transition(transform 0.2s 0.2s);
 
   &.x-hide {
-    @include transition(transform .2s .5s);
+    @include transition(transform 0.2s 0.5s);
     @include transform(translateY(-100%));
   }
 }
 
 .x-app-menu.ui-drawer {
   position: fixed;
+
   > .ui-drawer-content {
     box-shadow: none !important;
   }
 
   & ~ .ui-viewport {
-    @include transition(transform .5s);
+    @include transition(transform 0.5s);
   }
 
   &.ui-drawer-show ~ .ui-viewport {
