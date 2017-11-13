@@ -161,9 +161,7 @@
     "dtsSource": [
       "./custom_typings/**/*.d.ts", "./node_modules/auf-utility-library/*.d.ts"
     ],
-    "source": [
-      "examples/**/*.ts", "src/**/*.ts"
-    ],
+    "source": "examples/**/*.ts",
     "framework": "src/**/*.ts",
     "output": "dist/amd"
   },
@@ -191,11 +189,12 @@
   {
     "id": "karma",
     "displayName": "Karma",
-    "source": "test/unit/**/*.ts"
+    "source": "test/**/*.ts"
   },
   "paths":
   {
     "root": "examples",
+    "framework": "src",
     "resources": "resources",
     "elements": "resources/elements",
     "attributes": "resources/attributes",

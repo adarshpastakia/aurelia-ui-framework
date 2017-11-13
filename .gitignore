@@ -33,3 +33,6 @@ pids
 
 # Build directory
 /scripts
+
+# Coverage directory
+/coverage

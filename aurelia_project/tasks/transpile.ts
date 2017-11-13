@@ -34,8 +34,24 @@ function buildFrameworkScript() {
     .pipe(plumber({ errorHandler: notify.onError('Error: <%= error.message %>') }))
     .pipe(sourcemaps.init())
     .pipe(typescriptCompiler())
+    .pipe(gulp.dest(project.transpiler.output))
+}
+function buildFrameworkBundle() {
+  typescriptCompiler = ts.createProject('tsconfig.json', {
+    typescript: require('typescript')
+  });
+
+  let dts = gulp.src(project.transpiler.dtsSource);
+
+  let src = gulp.src(project.transpiler.framework)
+    .pipe(changedInPlace({ firstPass: true }));
+
+  return eventStream.merge(dts, src)
+    .pipe(plumber({ errorHandler: notify.onError('Error: <%= error.message %>') }))
+    .pipe(sourcemaps.init())
+    .pipe(typescriptCompiler())
     .pipe(sourcemaps.write({ sourceRoot: 'src' }))
-    .pipe(gulp.dest(project.transpiler.output));
+    .pipe(build.bundle());
 }
 
 function buildTypeScript() {
@@ -59,5 +75,6 @@ function buildTypeScript() {
 export default gulp.series(
   configureEnvironment,
   buildFrameworkScript,
+  buildFrameworkBundle,
   buildTypeScript
 );

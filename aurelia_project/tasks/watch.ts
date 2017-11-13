@@ -14,8 +14,8 @@ let isBuilding = false;
 let pendingRefreshPaths = [];
 let watchCallback = () => { };
 let watches = [
-  { name: 'transpile', callback: transpile, source: project.transpiler.source },
-  { name: 'transpile', callback: transpile, source: project.transpiler.framework },
+  { name: 'transpile', callback: transpile, source: [project.transpiler.source, project.transpiler.framework] },
+  // { name: 'transpile', callback: buildFrameworkScript, source: project.transpiler.framework },
   { name: 'markup', callback: processMarkup, source: project.markupProcessor.source },
   { name: 'CSS', callback: processCSS, source: project.cssProcessor.source }
 ];
