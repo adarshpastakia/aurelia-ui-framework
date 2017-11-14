@@ -89,8 +89,8 @@ System.register(["aurelia-framework", "./ui-input", "../../utils/ui-event", "../
                         var time = moment(newValue).second(0).millisecond(0);
                         this.hour = time.hour();
                         this.minute = time.minute();
-                        this.refresh();
                     }
+                    this.refresh();
                 };
                 UIDateView.prototype.minDateChanged = function (newValue) {
                     if (this.date && moment(this.date).isBefore(this.minDate, 'date'))
@@ -103,11 +103,15 @@ System.register(["aurelia-framework", "./ui-input", "../../utils/ui-event", "../
                     this.buildDatePage();
                 };
                 UIDateView.prototype.refresh = function () {
-                    if (this.minDate && moment(this.date).isBefore(this.minDate, 'date'))
-                        this.date = this.minDate;
-                    if (this.maxDate && moment(this.date).isAfter(this.maxDate, 'date'))
-                        this.date = this.maxDate;
-                    this.current = moment(this.date);
+                    if (this.date && moment(this.date).isValid()) {
+                        if (this.minDate && moment(this.date).isBefore(this.minDate, 'date'))
+                            this.date = this.minDate;
+                        else if (this.maxDate && moment(this.date).isAfter(this.maxDate, 'date'))
+                            this.date = this.maxDate;
+                        this.current = moment(this.date);
+                    }
+                    else
+                        this.current = moment();
                     this.buildDatePage();
                 };
                 UIDateView.prototype.dateClass = function (dt) {
@@ -397,6 +401,10 @@ System.register(["aurelia-framework", "./ui-input", "../../utils/ui-event", "../
                     this.obLocale.dispose();
                     this.obMouseup.dispose();
                 };
+                UIDateInput.prototype.clearInput = function () {
+                    this.date = '';
+                    this.inputEl.focus();
+                };
                 UIDateInput.prototype.dateChanged = function (newValue) {
                     if (newValue && moment(newValue).isValid())
                         this.elValue = moment(newValue).format(this.format);
@@ -545,7 +553,7 @@ System.register(["aurelia-framework", "./ui-input", "../../utils/ui-event", "../
                 ], UIDateInput.prototype, "placeholder", void 0);
                 UIDateInput = __decorate([
                     aurelia_framework_1.autoinject(),
-                    aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper ui-input-date\"><div role=\"input\" class=\"ui-input-control\" dir.bind=\"dir\"><slot></slot>\n  <span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"glyph-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <input ref=\"inputEl\" value.bind=\"elValue\" size=\"1\" dir.bind=\"dir\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\"\n    change.trigger=\"fireEvent($event)\" keydown.trigger=\"keyDown($event)\" click.trigger=\"openDropdown($event, show=true)\"\n    placeholder.bind=\"placeholder\" disabled.bind=\"isDisabled\" readonly.bind=\"!allowSearch || readonly\"/>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span>\n  <span class=\"ui-input-addon\" click.trigger=\"toggleDropdown($event)\"><ui-glyph glyph=\"glyph-calendar\"></ui-glyph></span></div>\n  <div class=\"ui-input-info\" if.bind=\"helpText\" innerhtml.bind=\"helpText\"></div>\n  <ui-date-view ref=\"dropdown\" type.bind=\"type\" class=\"ui-hidden floating\" date.bind=\"date\" min-date.bind=\"minDate\" max-date.bind=\"maxDate\"></ui-date-view>\n</template>"),
+                    aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper ui-input-date\"><div role=\"input\" class=\"ui-input-control\" dir.bind=\"dir\"><slot></slot>\n  <span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"glyph-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <input ref=\"inputEl\" value.bind=\"elValue\" size=\"1\" dir.bind=\"dir\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\"\n    change.trigger=\"fireEvent($event)\" keydown.trigger=\"keyDown($event)\" click.trigger=\"openDropdown($event, show=true)\"\n    placeholder.bind=\"placeholder\" disabled.bind=\"isDisabled\" readonly.bind=\"!allowSearch || readonly\"/>\n  <span class=\"ui-clear\" if.bind=\"clear && date\" click.trigger=\"clearInput()\">&times;</span>\n  <span class=\"ui-input-addon\" click.trigger=\"toggleDropdown($event)\"><ui-glyph glyph=\"glyph-calendar\"></ui-glyph></span></div>\n  <div class=\"ui-input-info\" if.bind=\"helpText\" innerhtml.bind=\"helpText\"></div>\n  <ui-date-view ref=\"dropdown\" type.bind=\"type\" class=\"ui-hidden floating\" date.bind=\"date\" min-date.bind=\"minDate\" max-date.bind=\"maxDate\"></ui-date-view>\n</template>"),
                     aurelia_framework_1.customElement('ui-date'),
                     __metadata("design:paramtypes", [Element])
                 ], UIDateInput);

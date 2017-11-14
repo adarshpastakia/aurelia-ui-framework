@@ -44,6 +44,7 @@ let UIButton = class UIButton {
     bind(bindingContext, overrideContext) {
         if (this.form)
             this.dropdown = this.form;
+        this.disabledChanged(this.disabled);
     }
     attached() {
         this.hasLabel = !!(this.label || this.labelEl.childNodes[0].length);

@@ -57,14 +57,9 @@ System.register(["aurelia-framework", "aurelia-logging", "aurelia-metadata", "lo
                     this.metadata.original = _.cloneDeep(this.serialize());
                     this.metadata.updated = _.cloneDeep(this.serialize());
                     Object.defineProperties(this, {
-                        '_id': {
-                            enumerable: false,
+                        id: {
+                            enumerable: true,
                             writable: true
-                        },
-                        'id': {
-                            get: this.propertyGetter('id'),
-                            set: this.propertySetter('id'),
-                            enumerable: true
                         },
                         apiUrl: {
                             enumerable: false,
@@ -93,17 +88,59 @@ System.register(["aurelia-framework", "aurelia-logging", "aurelia-metadata", "lo
                         this.get(id);
                 }
                 UIDataModel.prototype.get = function (id) {
+                    var _this = this;
                     if (!this.apiUrl)
-                        throw Error('API route required');
+                        return Promise.reject({ errorCode: 'AUF-DM:000', message: "API route required" });
+                    ;
+                    return this.callPreHook('preGet', id)
+                        .then(function (result) {
+                        if (result !== false) {
+                            return _this.doGet(id);
+                        }
+                        Promise.reject({ errorCode: 'AUF-DM:001', message: "Get rejected" });
+                    }).then(function (response) { return _this.postGet(response); });
                 };
                 UIDataModel.prototype.save = function () {
+                    var _this = this;
                     if (!this.apiUrl)
-                        throw Error('API route required');
-                    this.id = this[this.idProperty] || this.generateId();
-                    this.metadata.dirtyProps = [];
-                    this.metadata.original = _.cloneDeep(this.serialize());
-                    this.metadata.updated = _.cloneDeep(this.serialize());
+                        return Promise.reject({ errorCode: 'AUF-DM:000', message: "API route required" });
+                    return this.callPreHook('preSave')
+                        .then(function (result) {
+                        if (result !== false) {
+                            if (_this.loaded)
+                                return _this.doPut();
+                            else
+                                return _this.doPost();
+                        }
+                        Promise.reject({ errorCode: 'AUF-DM:002', message: "Save rejected" });
+                    }).then(function (response) {
+                        _this.loaded = true;
+                        _this.deserialize(_this.serialize());
+                        _this.postSave(response);
+                    });
                 };
+                UIDataModel.prototype.delete = function () {
+                    var _this = this;
+                    if (!this.apiUrl)
+                        return Promise.reject({ errorCode: 'AUF-DM:000', message: "API route required" });
+                    ;
+                    if (!this.loaded)
+                        return Promise.reject({ errorCode: 'AUF-DM:009', message: "Unknown id for model object" });
+                    ;
+                    return this.callPreHook('preDelete')
+                        .then(function (result) {
+                        if (result !== false) {
+                            return _this.doDelete();
+                        }
+                        Promise.reject({ errorCode: 'AUF-DM:003', message: "Delete rejected" });
+                    }).then(function (response) { return _this.postDelete(response); });
+                };
+                UIDataModel.prototype.preGet = function () { };
+                UIDataModel.prototype.preSave = function () { };
+                UIDataModel.prototype.preDelete = function () { };
+                UIDataModel.prototype.postGet = function (response) { };
+                UIDataModel.prototype.postSave = function (response) { };
+                UIDataModel.prototype.postDelete = function (response) { };
                 UIDataModel.prototype.update = function () {
                     this.metadata.updated = _.cloneDeep(this.serialize());
                 };
@@ -125,6 +162,7 @@ System.register(["aurelia-framework", "aurelia-logging", "aurelia-metadata", "lo
                 };
                 UIDataModel.prototype.deserialize = function (json) {
                     var _this = this;
+                    this.loaded = true;
                     this.metadata.original = _.cloneDeep(json);
                     this.metadata.updated = _.cloneDeep(json);
                     this.metadata.serializableProps.forEach(function (prop) { return _this[prop] = json[prop]; });
@@ -162,12 +200,15 @@ System.register(["aurelia-framework", "aurelia-logging", "aurelia-metadata", "lo
                     enumerable: true,
                     configurable: true
                 });
-                UIDataModel.prototype.isPropDirty = function (prop) {
-                    return !!(~this.metadata.dirtyProps.indexOf(prop));
-                };
-                UIDataModel.prototype.getDirtyProps = function () {
-                    return this.metadata.dirtyProps;
-                };
+                Object.defineProperty(UIDataModel.prototype, "dirtyProps", {
+                    get: function () {
+                        var ret = {};
+                        this.metadata.dirtyProps.forEach(function (prop) { return ret[prop] = true; });
+                        return ret;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
                 UIDataModel.prototype.generateId = function () {
                     return Math.round(Math.random() * new Date().getTime()).toString(18);
                 };
@@ -185,17 +226,46 @@ System.register(["aurelia-framework", "aurelia-logging", "aurelia-metadata", "lo
                 };
                 UIDataModel.prototype.updateDirty = function (prop, value) {
                     var hasDirty = !!(~this.metadata.dirtyProps.indexOf(prop));
-                    var isDirty = this.metadata.original[prop] !== value;
+                    var isDirty = this.metadata.original[prop] !== (value === '' ? null : value);
                     if (!hasDirty && isDirty)
                         this.metadata.dirtyProps.push(prop);
                     if (hasDirty && !isDirty)
                         this.metadata.dirtyProps.splice(this.metadata.dirtyProps.indexOf(prop), 1);
                 };
+                UIDataModel.prototype.callPreHook = function (hook, data) {
+                    var result = this[hook](data);
+                    if (result instanceof Promise) {
+                        return result;
+                    }
+                    if (result !== null && result !== undefined) {
+                        return Promise.resolve(result);
+                    }
+                    return Promise.resolve(true);
+                };
+                UIDataModel.prototype.doGet = function (id) {
+                };
+                UIDataModel.prototype.doPost = function () {
+                };
+                UIDataModel.prototype.doPut = function () {
+                };
+                UIDataModel.prototype.doDelete = function () {
+                };
+                UIDataModel.prototype.doUpdate = function () {
+                    this.id = this[this.idProperty] || this.generateId();
+                    this.metadata.dirtyProps = [];
+                    this.metadata.original = _.cloneDeep(this.serialize());
+                    this.metadata.updated = _.cloneDeep(this.serialize());
+                };
                 __decorate([
-                    aurelia_framework_1.computedFrom('metadata.dirtyProps'),
-                    __metadata("design:type", Object),
+                    aurelia_framework_1.computedFrom('metadata.dirtyProps.length'),
+                    __metadata("design:type", Boolean),
                     __metadata("design:paramtypes", [])
                 ], UIDataModel.prototype, "isDirty", null);
+                __decorate([
+                    aurelia_framework_1.computedFrom('metadata.dirtyProps.length'),
+                    __metadata("design:type", Object),
+                    __metadata("design:paramtypes", [])
+                ], UIDataModel.prototype, "dirtyProps", null);
                 return UIDataModel;
             }());
             exports_1("UIDataModel", UIDataModel);

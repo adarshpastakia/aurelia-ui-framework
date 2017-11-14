@@ -60,8 +60,8 @@ let UIDateView = class UIDateView {
             let time = moment(newValue).second(0).millisecond(0);
             this.hour = time.hour();
             this.minute = time.minute();
-            this.refresh();
         }
+        this.refresh();
     }
     minDateChanged(newValue) {
         if (this.date && moment(this.date).isBefore(this.minDate, 'date'))
@@ -74,11 +74,15 @@ let UIDateView = class UIDateView {
         this.buildDatePage();
     }
     refresh() {
-        if (this.minDate && moment(this.date).isBefore(this.minDate, 'date'))
-            this.date = this.minDate;
-        if (this.maxDate && moment(this.date).isAfter(this.maxDate, 'date'))
-            this.date = this.maxDate;
-        this.current = moment(this.date);
+        if (this.date && moment(this.date).isValid()) {
+            if (this.minDate && moment(this.date).isBefore(this.minDate, 'date'))
+                this.date = this.minDate;
+            else if (this.maxDate && moment(this.date).isAfter(this.maxDate, 'date'))
+                this.date = this.maxDate;
+            this.current = moment(this.date);
+        }
+        else
+            this.current = moment();
         this.buildDatePage();
     }
     dateClass(dt) {
@@ -418,6 +422,10 @@ let UIDateInput = class UIDateInput extends UIBaseInput {
         this.obLocale.dispose();
         this.obMouseup.dispose();
     }
+    clearInput() {
+        this.date = '';
+        this.inputEl.focus();
+    }
     dateChanged(newValue) {
         if (newValue && moment(newValue).isValid())
             this.elValue = moment(newValue).format(this.format);
@@ -572,7 +580,7 @@ UIDateInput = __decorate([
     focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)"
     change.trigger="fireEvent($event)" keydown.trigger="keyDown($event)" click.trigger="openDropdown($event, show=true)"
     placeholder.bind="placeholder" disabled.bind="isDisabled" readonly.bind="!allowSearch || readonly"/>
-  <span class="ui-clear" if.bind="clear && value" click.trigger="clearInput()">&times;</span>
+  <span class="ui-clear" if.bind="clear && date" click.trigger="clearInput()">&times;</span>
   <span class="ui-input-addon" click.trigger="toggleDropdown($event)"><ui-glyph glyph="glyph-calendar"></ui-glyph></span></div>
   <div class="ui-input-info" if.bind="helpText" innerhtml.bind="helpText"></div>
   <ui-date-view ref="dropdown" type.bind="type" class="ui-hidden floating" date.bind="date" min-date.bind="minDate" max-date.bind="maxDate"></ui-date-view>

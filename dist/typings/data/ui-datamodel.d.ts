@@ -5,8 +5,15 @@ export declare class UIDataModel {
     id: any;
     busy: boolean;
     loaded: boolean;
-    get(id: any): void;
-    save(): void;
+    get(id: any): Promise<void>;
+    save(): Promise<void>;
+    delete(): Promise<void>;
+    preGet(): void;
+    preSave(): void;
+    preDelete(): void;
+    postGet(response: any): void;
+    postSave(response: any): void;
+    postDelete(response: any): void;
     update(): void;
     reset(): void;
     discard(): void;
@@ -15,8 +22,7 @@ export declare class UIDataModel {
     static serializeObject(o: any): {};
     static serializeProperty(p: any): any;
     readonly isDirty: boolean;
-    isPropDirty(prop: any): boolean;
-    getDirtyProps(): any[];
+    readonly dirtyProps: any;
     protected apiUrl: any;
     protected idProperty: string;
     private _id;
@@ -24,5 +30,11 @@ export declare class UIDataModel {
     private propertyGetter(prop);
     private propertySetter(prop);
     private updateDirty(prop, value);
+    private callPreHook(hook, data?);
+    private doGet(id);
+    private doPost();
+    private doPut();
+    private doDelete();
+    private doUpdate();
 }
 export declare function serializable(defaultValue?: any): any;

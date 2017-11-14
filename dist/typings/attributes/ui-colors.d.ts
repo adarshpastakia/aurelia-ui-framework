@@ -5,13 +5,14 @@ export declare class UIColorBase {
     parentEl: any;
     prefix: string;
     value: string;
+    oldValue: string;
     attached(): void;
+    valueChanged(newValue: any): void;
     changeTheme(oldTheme: any, newTheme: any): void;
 }
 export declare class UIColorTheme extends UIColorBase {
     element: Element;
     constructor(element: Element);
-    valueChanged(newValue: any): void;
 }
 export declare class UIThemePrimary extends UIColorBase {
     element: Element;
@@ -56,7 +57,6 @@ export declare class UIThemeWarning extends UIColorBase {
 export declare class UIColorThemeBg extends UIColorBase {
     element: Element;
     constructor(element: Element);
-    valueChanged(newValue: any): void;
 }
 export declare class UIThemePrimaryBg extends UIColorBase {
     element: Element;
@@ -106,7 +106,6 @@ export declare class UIThemeWarningBg extends UIColorBase {
 export declare class UIColorThemeText extends UIColorBase {
     element: Element;
     constructor(element: Element);
-    valueChanged(newValue: any): void;
 }
 export declare class UIThemePrimaryText extends UIColorBase {
     element: Element;

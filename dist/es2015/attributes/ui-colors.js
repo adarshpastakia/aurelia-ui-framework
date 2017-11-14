@@ -14,6 +14,7 @@ let UIColorBase = class UIColorBase {
         this.element = element;
         this.prefix = '';
         this.value = 'default';
+        this.oldValue = '';
         if (element['au'] && element['au'].controller)
             this.vm = element['au'].controller.viewModel;
         if (element.nodeType == Node.ELEMENT_NODE) {
@@ -24,7 +25,10 @@ let UIColorBase = class UIColorBase {
         }
     }
     attached() {
-        this.changeTheme('', this.value);
+        this.changeTheme(this.oldValue, this.value);
+    }
+    valueChanged(newValue) {
+        this.changeTheme(this.oldValue, newValue);
     }
     changeTheme(oldTheme, newTheme) {
         let el;
@@ -42,15 +46,15 @@ let UIColorBase = class UIColorBase {
                 b.element.classList.remove(`ui-${oldTheme}`);
                 b.element.classList.add(`ui-${newTheme}`);
             });
-            return;
         }
         else {
             el = this.element;
         }
-        if (el.classList) {
+        if (el && el.classList) {
             el.classList.remove(`ui-${this.prefix}${oldTheme}`);
             el.classList.add(`ui-${this.prefix}${newTheme}`);
         }
+        this.oldValue = newTheme;
     }
 };
 UIColorBase = __decorate([
@@ -62,9 +66,6 @@ let UIColorTheme = class UIColorTheme extends UIColorBase {
     constructor(element) {
         super(element);
         this.element = element;
-    }
-    valueChanged(newValue) {
-        this.changeTheme(this.value, newValue);
     }
 };
 UIColorTheme = __decorate([
@@ -198,9 +199,6 @@ let UIColorThemeBg = class UIColorThemeBg extends UIColorBase {
         super(element);
         this.element = element;
         this.prefix = 'bg-';
-    }
-    valueChanged(newValue) {
-        this.changeTheme(this.value, newValue);
     }
 };
 UIColorThemeBg = __decorate([
@@ -358,9 +356,6 @@ let UIColorThemeText = class UIColorThemeText extends UIColorBase {
         super(element);
         this.element = element;
         this.prefix = 'text-';
-    }
-    valueChanged(newValue) {
-        this.changeTheme(this.value, newValue);
     }
 };
 UIColorThemeText = __decorate([

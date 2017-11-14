@@ -21,14 +21,9 @@ export class UIDataModel {
         this.metadata.original = _.cloneDeep(this.serialize());
         this.metadata.updated = _.cloneDeep(this.serialize());
         Object.defineProperties(this, {
-            '_id': {
-                enumerable: false,
+            id: {
+                enumerable: true,
                 writable: true
-            },
-            'id': {
-                get: this.propertyGetter('id'),
-                set: this.propertySetter('id'),
-                enumerable: true
             },
             apiUrl: {
                 enumerable: false,
@@ -58,16 +53,55 @@ export class UIDataModel {
     }
     get(id) {
         if (!this.apiUrl)
-            throw Error('API route required');
+            return Promise.reject({ errorCode: 'AUF-DM:000', message: "API route required" });
+        ;
+        return this.callPreHook('preGet', id)
+            .then(result => {
+            if (result !== false) {
+                return this.doGet(id);
+            }
+            Promise.reject({ errorCode: 'AUF-DM:001', message: "Get rejected" });
+        }).then(response => this.postGet(response));
     }
     save() {
         if (!this.apiUrl)
-            throw Error('API route required');
-        this.id = this[this.idProperty] || this.generateId();
-        this.metadata.dirtyProps = [];
-        this.metadata.original = _.cloneDeep(this.serialize());
-        this.metadata.updated = _.cloneDeep(this.serialize());
+            return Promise.reject({ errorCode: 'AUF-DM:000', message: "API route required" });
+        return this.callPreHook('preSave')
+            .then(result => {
+            if (result !== false) {
+                if (this.loaded)
+                    return this.doPut();
+                else
+                    return this.doPost();
+            }
+            Promise.reject({ errorCode: 'AUF-DM:002', message: "Save rejected" });
+        }).then(response => {
+            this.loaded = true;
+            this.deserialize(this.serialize());
+            this.postSave(response);
+        });
     }
+    delete() {
+        if (!this.apiUrl)
+            return Promise.reject({ errorCode: 'AUF-DM:000', message: "API route required" });
+        ;
+        if (!this.loaded)
+            return Promise.reject({ errorCode: 'AUF-DM:009', message: "Unknown id for model object" });
+        ;
+        return this.callPreHook('preDelete')
+            .then(result => {
+            if (result !== false) {
+                return this.doDelete();
+            }
+            Promise.reject({ errorCode: 'AUF-DM:003', message: "Delete rejected" });
+        }).then(response => this.postDelete(response));
+    }
+    preGet() { }
+    preSave() { }
+    preDelete() { }
+    postGet(response) { }
+    postSave(response) { }
+    postDelete(response) { }
     update() {
         this.metadata.updated = _.cloneDeep(this.serialize());
     }
@@ -86,6 +120,7 @@ export class UIDataModel {
         return POJO;
     }
     deserialize(json) {
+        this.loaded = true;
         this.metadata.original = _.cloneDeep(json);
         this.metadata.updated = _.cloneDeep(json);
         this.metadata.serializableProps.forEach(prop => this[prop] = json[prop]);
@@ -118,11 +153,10 @@ export class UIDataModel {
     get isDirty() {
         return !!this.metadata.dirtyProps.length;
     }
-    isPropDirty(prop) {
-        return !!(~this.metadata.dirtyProps.indexOf(prop));
-    }
-    getDirtyProps() {
-        return this.metadata.dirtyProps;
+    get dirtyProps() {
+        const ret = {};
+        this.metadata.dirtyProps.forEach(prop => ret[prop] = true);
+        return ret;
     }
     generateId() {
         return Math.round(Math.random() * new Date().getTime()).toString(18);
@@ -141,18 +175,47 @@ export class UIDataModel {
     }
     updateDirty(prop, value) {
         const hasDirty = !!(~this.metadata.dirtyProps.indexOf(prop));
-        const isDirty = this.metadata.original[prop] !== value;
+        const isDirty = this.metadata.original[prop] !== (value === '' ? null : value);
         if (!hasDirty && isDirty)
             this.metadata.dirtyProps.push(prop);
         if (hasDirty && !isDirty)
             this.metadata.dirtyProps.splice(this.metadata.dirtyProps.indexOf(prop), 1);
     }
+    callPreHook(hook, data) {
+        let result = this[hook](data);
+        if (result instanceof Promise) {
+            return result;
+        }
+        if (result !== null && result !== undefined) {
+            return Promise.resolve(result);
+        }
+        return Promise.resolve(true);
+    }
+    doGet(id) {
+    }
+    doPost() {
+    }
+    doPut() {
+    }
+    doDelete() {
+    }
+    doUpdate() {
+        this.id = this[this.idProperty] || this.generateId();
+        this.metadata.dirtyProps = [];
+        this.metadata.original = _.cloneDeep(this.serialize());
+        this.metadata.updated = _.cloneDeep(this.serialize());
+    }
 }
 __decorate([
-    computedFrom('metadata.dirtyProps'),
-    __metadata("design:type", Object),
+    computedFrom('metadata.dirtyProps.length'),
+    __metadata("design:type", Boolean),
     __metadata("design:paramtypes", [])
 ], UIDataModel.prototype, "isDirty", null);
+__decorate([
+    computedFrom('metadata.dirtyProps.length'),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [])
+], UIDataModel.prototype, "dirtyProps", null);
 export function serializable(defaultValue = null) {
     return function (target, property) {
         if (!property)

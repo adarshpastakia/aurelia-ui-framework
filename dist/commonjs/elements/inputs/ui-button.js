@@ -46,6 +46,7 @@ var UIButton = (function () {
     UIButton.prototype.bind = function (bindingContext, overrideContext) {
         if (this.form)
             this.dropdown = this.form;
+        this.disabledChanged(this.disabled);
     };
     UIButton.prototype.attached = function () {
         var _this = this;
