@@ -161,12 +161,12 @@ export class UIDataModel {
   }
 
   @computedFrom('metadata.dirtyProps.length')
-  get isDirty():boolean {
+  get isDirty(): boolean {
     return !!this.metadata.dirtyProps.length;
   }
 
   @computedFrom('metadata.dirtyProps.length')
-  get dirtyProps():any {
+  get dirtyProps(): any {
     const ret = {}
     this.metadata.dirtyProps.forEach(prop => ret[prop] = true);
     return ret;

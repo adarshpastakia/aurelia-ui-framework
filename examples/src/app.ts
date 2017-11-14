@@ -29,7 +29,11 @@ export class App {
       }, {
         route: 'docs', moduleId: './home/unknown', title: 'Getting Started', nav: true, auth: false, name: 'docs', settings: { section: '' }
       }, {
-        route: 'examples', moduleId: './samples/admin/view', title: 'Examples', nav: true, auth: false, name: 'examples', settings: { section: '' }
+        route: 'examples', moduleId: './samples/home', title: 'Examples', nav: true, auth: false, name: 'examples', settings: { section: '' }
+      }, {
+        route: 'examples:dashboard', moduleId: './samples/dashboard/view', title: 'Dashboard Example', nav: false, auth: false, name: 'examples:dashboard', settings: { section: '' }
+      }, {
+        route: 'examples:desktop', moduleId: './samples/desktop/view', title: 'Desktop Example', nav: false, auth: false, name: 'examples:desktop', settings: { section: '' }
       }, {
         route: 'styles/*path', moduleId: './styles/view', title: 'Styling', nav: false, auth: false, name: 'styles'
       }, {

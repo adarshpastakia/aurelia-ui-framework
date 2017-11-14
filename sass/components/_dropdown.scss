@@ -78,6 +78,7 @@
 .ui-list-container {
   max-height: 20rem;
   overflow  : auto;
+  color     : $input-text;
   background: $input-bg;
   list-style: none;
   padding   : 0;
@@ -117,7 +118,7 @@
     list-style : none;
 
     .ui-icon {
-      @include margin(end, .5em);
+      @include margin(end, 0.5em);
     }
 
     * {

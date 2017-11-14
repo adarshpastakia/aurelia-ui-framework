@@ -45,7 +45,6 @@ __export(require("./utils/ui-format"));
 __export(require("./utils/ui-http"));
 function configure(config, configCallback) {
     ui_utils_1.UIUtils.auContainer = config.container;
-    document.documentElement.classList.add(window.browserAgent());
     aurelia_validation_1.ValidationController.prototype.validateTrigger = aurelia_validation_1.validateTrigger.changeOrBlur;
     config.container.registerHandler('ui-validator', function (container) { return container.get(ui_validation_1.UIValidationRenderer); });
     config.globalResources([

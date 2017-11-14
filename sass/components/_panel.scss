@@ -29,7 +29,7 @@
   border       : 1px solid $base-border-color;
   border-radius: $base-border-radius;
   @include flexbox($direction: column, $align:stretch, $wrap: false);
-  @include transition(max-height .5s);
+  @include transition(max-height 0.5s);
 
   .ui-panel-body {
     position  : relative;
@@ -53,7 +53,7 @@
     height    : auto !important;
     max-height: none !important;
     z-index   : $z-index-dialog;
-    @include position(absolute, .5em);
+    @include position(absolute, 0.5em);
   }
 }
 
@@ -89,8 +89,12 @@
     line-height: 1;
 
     &:last-child {
-      @include margin(end, .5em);
+      @include margin(end, 0.5em);
     }
+  }
+
+  .ui-dropdown .ui-label span {
+    line-height: 1.5;
   }
 
   .ui-header-button {
@@ -103,7 +107,7 @@
     margin       : 0 0.25em;
 
     .ui-icon {
-      @include transition(transform .5s);
+      @include transition(transform 0.5s);
       @include transform-origin(50% 50% 0);
     }
 

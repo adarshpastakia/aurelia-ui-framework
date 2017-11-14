@@ -13,6 +13,8 @@ export declare class UISidebar {
     private labelEl;
     private contentEl;
     private obClick;
+    private obResize;
+    private forceCollapse;
     private compact;
     private miniDisplay;
     private collapsible;

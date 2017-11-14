@@ -17,7 +17,7 @@ export class DataModel {
   source;
   attached() {
     // this.httpClient.text('docs/api/http.md').then(md => this.wiki = md);
-    // this.httpClient.text('docs/api/http.example.md').then(md => this.source = md);
+    this.httpClient.text('docs/api/datamodel.example.md').then(md => this.source = md);
   }
 }
 

@@ -16,19 +16,20 @@ let UIViewport = class UIViewport {
     constructor(element) {
         this.element = element;
         var __resizeTimer;
-        document.ondragstart = (e) => getParentByClass(e.target, '.ui-draggable') != null;
-        document.onmouseup = (e) => UIEvent.broadcast('mouseclick', e);
-        document.ontouchstart = (e) => UIEvent.broadcast('mouseclick', e);
-        window.onresize = (e) => {
+        document.addEventListener('dragstart', (e) => getParentByClass(e.target, '.ui-draggable') != null);
+        document.addEventListener('mouseup', (e) => UIEvent.broadcast('mouseclick', e));
+        document.addEventListener('touchstart', (e) => UIEvent.broadcast('mouseclick', e));
+        window.addEventListener('resize', (e) => {
             window.clearTimeout(__resizeTimer);
             window.setTimeout(() => UIEvent.broadcast('windowresize'), 500);
-        };
+        });
         this.router = UIUtils.auContainer.get(AppRouter);
     }
     attached() {
         UIUtils.dialogContainer = this.dialogContainer;
         UIUtils.overlayContainer = this.overlayContainer;
         UIUtils.taskbarContainer = this.taskbarContainer;
+        document.documentElement.classList.add(window.browserAgent());
         UIEvent.fireEvent('appready', this.element);
         if (document.querySelector('.ui-splash'))
             DOM.removeNode(document.querySelector('.ui-splash'));

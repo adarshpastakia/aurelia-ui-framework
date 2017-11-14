@@ -1,0 +1,57 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <require from="css/sample.desktop.css"></require>
+
+  <ui-viewport class="x-sample-viewport x-desktop-layout" bg-theme="white">
+    <ui-row class="x-app-header" middle nogutter>
+      <ui-glyph ref="headIcon" glyph='icon-moon-rocket'></ui-glyph>
+      <div class="ui-app-title ui-font-large ui-pad-h">Desktop Application</div>
+      <ui-filler></ui-filler>
+      <div class="ui-pad-all">
+        <a href="#/examples" class="ui-text-white ui-pad-v">
+          <ui-glyph glyph="glyph-arrow-left"></ui-glyph>&nbsp;Back to Website</a>
+      </div>
+    </ui-row>
+    <ui-content padded scroll>
+      <ui-row vertical>
+        <ui-button text-theme="green" class="x-desktop-icon" icon-top glyph="icon-moon-book">New Sale</ui-button>
+        <ui-button text-theme="blue" class="x-desktop-icon" icon-top glyph="icon-moon-file-excel">Open Query</ui-button>
+        <ui-button text-theme="darkGray" class="x-desktop-icon" icon-top glyph="icon-moon-folder-open">Saved Queries</ui-button>
+      </ui-row>
+    </ui-content>
+
+    <div ref="startMenu" class="x-start-menu ui-menu">
+      <div class="ui-scroll x-menu-frequent">
+        <ui-menu>
+          <ui-menu-item glyph="icon-moon-calculator">Dashboard</ui-menu-item>
+          <ui-menu-item glyph="icon-moon-history">History</ui-menu-item>
+          <ui-menu-item glyph="icon-moon-book">Sales Form</ui-menu-item>
+        </ui-menu>
+      </div>
+      <div class="x-side-section">
+        <div class="x-profilename">
+          <ui-glyph glyph="icon-moon-cool"></ui-glyph>
+          <span>&nbsp;Username</span>
+        </div>
+        <ui-column fill>
+          <ui-menu>
+            <ui-menu-item glyph="icon-moon-profile">Profile</ui-menu-item>
+            <ui-menu-item glyph="icon-moon-cog">Settings</ui-menu-item>
+          </ui-menu>
+        </ui-column>
+        <ui-column auto class="x-toolbar">
+          <ui-button glyph="icon-moon-switch" class="x-btn-logout" dark>Logout</ui-button>
+        </ui-column>
+      </div>
+    </div>
+
+    <ui-app-quick-links>
+      <ui-button secondary icon-hilight class="x-btn-start" dropdown.bind="startMenu" glyph="icon-moon-basecamp">Start</ui-button>
+    </ui-app-quick-links>
+
+  </ui-viewport>
+</template>

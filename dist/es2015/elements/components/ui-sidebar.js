@@ -28,9 +28,13 @@ let UISidebar = class UISidebar {
             element.classList.add('ui-sidebar-mini');
         }
         this.collapsible = element.hasAttribute('collapsible');
+        this.obResize = UIEvent.subscribe('windowresize', () => {
+            this.forceCollapse = window.innerWidth <= 768;
+        });
         this.obClick = UIEvent.subscribe('mouseclick', () => {
             this.element.classList.remove('ui-sidebar-show');
         });
+        this.forceCollapse = window.innerWidth <= 768;
     }
     bind(bindingContext, overrideContext) {
         this.collapsed = !!(this.collapsed);
@@ -52,6 +56,8 @@ let UISidebar = class UISidebar {
     detached() {
         if (this.obClick)
             this.obClick.dispose();
+        if (this.obResize)
+            this.obResize.dispose();
     }
     collapsedChanged(newValue) {
         this.glyph = (this.position == 'end' && !(newValue)) || (this.position == 'start' && !!(newValue)) ? "glyph-arrow-right" : "glyph-arrow-left";
@@ -65,7 +71,7 @@ let UISidebar = class UISidebar {
     showOverlay($event) {
         if (this.miniDisplay || $event.target != this.element)
             return true;
-        if (this.collapsed)
+        if (this.collapsed || this.forceCollapse)
             this.element.classList.add('ui-sidebar-show');
         else
             this.element.classList.remove('ui-sidebar-show');
@@ -93,10 +99,10 @@ __decorate([
 ], UISidebar.prototype, "position", void 0);
 UISidebar = __decorate([
     autoinject(),
-    inlineView(`<template class="ui-sidebar ui-row ui-row-v ui-row-nowrap ui-align-stretch \${compact || collapsed?'ui-sidebar-collapse':''} ui-sidebar-\${position}" click.trigger="showOverlay($event)">
+    inlineView(`<template class="ui-sidebar ui-row ui-row-v ui-row-nowrap ui-align-stretch \${compact || collapsed || forceCollapse ?'ui-sidebar-collapse':''} ui-sidebar-\${position}" click.trigger="showOverlay($event)">
   <div class="ui-sidebar-head ui-row ui-row-h ui-row-nowrap ui-align-stretch" if.bind="!compact && (collapsible || label)">
   <div class="ui-sidebar-title ui-column-fill" ref="labelEl">\${label}</div>
-  <a click.trigger="toggleCollapse($event)" class="ui-sidebar-close" if.bind="collapsible"><ui-glyph glyph.bind="glyph"></ui-glyph></a></div>
+  <a click.trigger="toggleCollapse($event)" class="ui-sidebar-close" if.bind="collapsible && !forceCollapse"><ui-glyph glyph.bind="glyph"></ui-glyph></a></div>
   <div class="ui-sidebar-content ui-column-fill \${bodyClass}" ref="contentEl"><slot></slot></div>
 </template>`),
     customElement('ui-sidebar'),

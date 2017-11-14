@@ -5,6 +5,21 @@
 // @license     : MIT
 
 export class ColorChart {
+
+  copyEl;
+  doCopy(ev, color) {
+    this.copyEl.value = color;
+    this.copyEl.select();
+    try {
+      document.execCommand('copy');
+      ev.target.parentElement.classList.add('copied');
+      setTimeout(() => ev.target.parentElement.classList.remove('copied'), 1000);
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
+
   crayola = {
     "Red": "#ED0A3F",
     "Maroon": "#C32148",

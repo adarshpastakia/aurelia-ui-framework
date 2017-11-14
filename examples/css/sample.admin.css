@@ -33,13 +33,3 @@
   .x-admin-layout .ui-sidebar-content {
     background: #2b3c4e;
     border: none; }
-  .x-admin-layout .x-app-header {
-    height: 4em; }
-  .x-admin-layout .x-app-header {
-    color: #FFFEFC;
-    background: #2980b9; }
-    .x-admin-layout .x-app-header > .ui-icon {
-      height: 4em;
-      width: 4em;
-      padding: 1em;
-      background: #20638f; }

@@ -79,21 +79,5 @@
     border    : none;
   }
 
-  .x-app-header {
-    height: 4em;
-  }
-
-  .x-app-header {
-    color     : $white;
-    background: $default;
-
-    > .ui-icon {
-      height    : 4em;
-      width     : 4em;
-      padding   : 1em;
-      background: darken($default, 10%);
-    }
-  }
-
   .ui-menu-item {}
 }

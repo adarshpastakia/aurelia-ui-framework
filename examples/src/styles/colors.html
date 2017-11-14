@@ -5,40 +5,74 @@
 -->
 <template>
   <style>
-    .color-card {
-      height: 50px;
-      position: relative;
-      border: 1px solid #e5e5e5;
-    }
-    .color-card span {
-      display: none;
-    }
-    .color-card:hover span {
-      background: rgba(0,0,0,.5);
-      color: white;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      top: 0;
-      height: 2rem;
-      width: 75px;
-      text-align: center;
-      font-size: 0.8em;
-      padding: 0.5em 1em;
-      margin: auto;
-      display: block;
-      position: absolute;
-    }
+.color-card {
+  height: 50px;
+  position: relative;
+  border: 1px solid #e5e5e5;
+}
 
+.color-card span {
+  display: none;
+  background: rgba(0, 0, 0, .5);
+  color: white;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  line-height: 1;
+  height: 2em;
+  width: 5em;
+  cursor: pointer;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 1.2em;
+  padding: 0.5em;
+  margin: auto;
+  position: absolute;
+}
+
+.color-card:before {
+  opacity: 0;
+  position: absolute;
+  background: rgba(255,255,255, .65);
+  color: black;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  line-height: 32px;
+  padding: 0.5em;
+  font-size: 1.2em;
+  margin: auto;
+  text-align: center;
+  content: 'Copied!';
+  transition: opacity .5s;
+}
+
+.color-card.copied:before {
+  opacity: 1;
+  z-index: 10;
+}
+
+.color-card:not(.copied):hover span {
+  display: block;
+}
+
+.offscreen {
+  position: fixed;
+  top: -100vh;
+  left: -100vw;
+}
   </style>
   <ui-page animate>
+    <input ref="copyEl" class="offscreen" />
     <x-container page-title="Color Charts">
       <h4 class="x-title">Flat UI</small>
       </h4>
       <ui-row>
         <ui-column padded style="max-width: 120px" width="120px" repeat.for="key of flat | keys">
           <div css.bind="{background: flat[key]}" class="color-card">
-            <span class="ui-selectable">${flat[key]}</span>
+            <span class="ui-selectable" click.trigger="doCopy($event, flat[key])">${flat[key]}</span>
           </div>
           <div class="ui-ellipsis ui-text-center ui-font-small">${key}</div>
         </ui-column>
@@ -47,7 +81,7 @@
       <ui-row>
         <ui-column padded style="max-width: 120px" width="120px" repeat.for="key of copic | keys">
           <div css.bind="{background: copic[key]}" class="color-card">
-            <span class="ui-selectable">${copic[key]}</span>
+            <span class="ui-selectable" click.trigger="doCopy($event, copic[key])">${copic[key]}</span>
           </div>
           <div class="ui-ellipsis ui-text-center ui-font-small">${key}</div>
         </ui-column>
@@ -55,7 +89,9 @@
       <h4 class="x-title">Crayola© Colors</h4>
       <ui-row>
         <ui-column padded style="max-width: 120px" width="120px" repeat.for="key of crayola | keys">
-          <div css.bind="{background: crayola[key]}" class="color-card ui-selectable" data-color="${crayola[key]}"></div>
+          <div css.bind="{background: crayola[key]}" class="color-card">
+            <span class="ui-selectable" click.trigger="doCopy($event, crayola[key])">${crayola[key]}</span>
+          </div>
           <div class="ui-ellipsis ui-text-center ui-font-small">${key}</div>
         </ui-column>
       </ui-row>

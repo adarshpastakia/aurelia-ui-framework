@@ -32,19 +32,20 @@ System.register(["aurelia-framework", "aurelia-router", "../../utils/ui-event", 
                 function UIViewport(element) {
                     this.element = element;
                     var __resizeTimer;
-                    document.ondragstart = function (e) { return getParentByClass(e.target, '.ui-draggable') != null; };
-                    document.onmouseup = function (e) { return ui_event_1.UIEvent.broadcast('mouseclick', e); };
-                    document.ontouchstart = function (e) { return ui_event_1.UIEvent.broadcast('mouseclick', e); };
-                    window.onresize = function (e) {
+                    document.addEventListener('dragstart', function (e) { return getParentByClass(e.target, '.ui-draggable') != null; });
+                    document.addEventListener('mouseup', function (e) { return ui_event_1.UIEvent.broadcast('mouseclick', e); });
+                    document.addEventListener('touchstart', function (e) { return ui_event_1.UIEvent.broadcast('mouseclick', e); });
+                    window.addEventListener('resize', function (e) {
                         window.clearTimeout(__resizeTimer);
                         window.setTimeout(function () { return ui_event_1.UIEvent.broadcast('windowresize'); }, 500);
-                    };
+                    });
                     this.router = ui_utils_1.UIUtils.auContainer.get(aurelia_router_1.AppRouter);
                 }
                 UIViewport.prototype.attached = function () {
                     ui_utils_1.UIUtils.dialogContainer = this.dialogContainer;
                     ui_utils_1.UIUtils.overlayContainer = this.overlayContainer;
                     ui_utils_1.UIUtils.taskbarContainer = this.taskbarContainer;
+                    document.documentElement.classList.add(window.browserAgent());
                     ui_event_1.UIEvent.fireEvent('appready', this.element);
                     if (document.querySelector('.ui-splash'))
                         aurelia_framework_1.DOM.removeNode(document.querySelector('.ui-splash'));

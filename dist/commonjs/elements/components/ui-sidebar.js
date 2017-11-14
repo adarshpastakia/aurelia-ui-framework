@@ -31,9 +31,13 @@ var UISidebar = (function () {
             element.classList.add('ui-sidebar-mini');
         }
         this.collapsible = element.hasAttribute('collapsible');
+        this.obResize = ui_event_1.UIEvent.subscribe('windowresize', function () {
+            _this.forceCollapse = window.innerWidth <= 768;
+        });
         this.obClick = ui_event_1.UIEvent.subscribe('mouseclick', function () {
             _this.element.classList.remove('ui-sidebar-show');
         });
+        this.forceCollapse = window.innerWidth <= 768;
     }
     UISidebar.prototype.bind = function (bindingContext, overrideContext) {
         this.collapsed = !!(this.collapsed);
@@ -55,6 +59,8 @@ var UISidebar = (function () {
     UISidebar.prototype.detached = function () {
         if (this.obClick)
             this.obClick.dispose();
+        if (this.obResize)
+            this.obResize.dispose();
     };
     UISidebar.prototype.collapsedChanged = function (newValue) {
         this.glyph = (this.position == 'end' && !(newValue)) || (this.position == 'start' && !!(newValue)) ? "glyph-arrow-right" : "glyph-arrow-left";
@@ -68,7 +74,7 @@ var UISidebar = (function () {
     UISidebar.prototype.showOverlay = function ($event) {
         if (this.miniDisplay || $event.target != this.element)
             return true;
-        if (this.collapsed)
+        if (this.collapsed || this.forceCollapse)
             this.element.classList.add('ui-sidebar-show');
         else
             this.element.classList.remove('ui-sidebar-show');
@@ -95,7 +101,7 @@ var UISidebar = (function () {
     ], UISidebar.prototype, "position", void 0);
     UISidebar = __decorate([
         aurelia_framework_1.autoinject(),
-        aurelia_framework_1.inlineView("<template class=\"ui-sidebar ui-row ui-row-v ui-row-nowrap ui-align-stretch ${compact || collapsed?'ui-sidebar-collapse':''} ui-sidebar-${position}\" click.trigger=\"showOverlay($event)\">\n  <div class=\"ui-sidebar-head ui-row ui-row-h ui-row-nowrap ui-align-stretch\" if.bind=\"!compact && (collapsible || label)\">\n  <div class=\"ui-sidebar-title ui-column-fill\" ref=\"labelEl\">${label}</div>\n  <a click.trigger=\"toggleCollapse($event)\" class=\"ui-sidebar-close\" if.bind=\"collapsible\"><ui-glyph glyph.bind=\"glyph\"></ui-glyph></a></div>\n  <div class=\"ui-sidebar-content ui-column-fill ${bodyClass}\" ref=\"contentEl\"><slot></slot></div>\n</template>"),
+        aurelia_framework_1.inlineView("<template class=\"ui-sidebar ui-row ui-row-v ui-row-nowrap ui-align-stretch ${compact || collapsed || forceCollapse ?'ui-sidebar-collapse':''} ui-sidebar-${position}\" click.trigger=\"showOverlay($event)\">\n  <div class=\"ui-sidebar-head ui-row ui-row-h ui-row-nowrap ui-align-stretch\" if.bind=\"!compact && (collapsible || label)\">\n  <div class=\"ui-sidebar-title ui-column-fill\" ref=\"labelEl\">${label}</div>\n  <a click.trigger=\"toggleCollapse($event)\" class=\"ui-sidebar-close\" if.bind=\"collapsible && !forceCollapse\"><ui-glyph glyph.bind=\"glyph\"></ui-glyph></a></div>\n  <div class=\"ui-sidebar-content ui-column-fill ${bodyClass}\" ref=\"contentEl\"><slot></slot></div>\n</template>"),
         aurelia_framework_1.customElement('ui-sidebar'),
         __metadata("design:paramtypes", [Element])
     ], UISidebar);

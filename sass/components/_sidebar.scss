@@ -11,7 +11,7 @@
   max-width : 30%;
   border    : 0 solid rgba($base-border-color, .25);
   @include flex(0 0 $sidebar-width);
-  @include transition(max-width .5s);
+  @include transition(max-width 0.5s);
 
   .ui-sidebar-head {
     z-index      : 5;
@@ -27,8 +27,8 @@
       left          : 0;
       top           : 0;
       @include ellipsis();
-      @include transition(all .25s);
-      @include transform-origin(0% 0% 0);
+      @include transition(all 0.25s);
+      @include transform-origin(0 0 0);
     }
 
     .ui-sidebar-close {
@@ -62,7 +62,7 @@
         .ui-sidebar-content {
           left        : -1 * $sidebar-collapse-width;
           border-width: 0 1px 0 0;
-          @include transition(left .5s);
+          @include transition(left 0.5s);
         }
 
         &.ui-sidebar-show {
@@ -92,7 +92,7 @@
         .ui-sidebar-content {
           right       : -1 * $sidebar-collapse-width;
           border-width: 0 0 0 1px;
-          @include transition(right .5s);
+          @include transition(right 0.5s);
         }
 
         &.ui-sidebar-show {
@@ -106,6 +106,11 @@
   }
 
   &.ui-sidebar-collapse {
+    .ui-sidebar-title {
+      @include transform(rotate(90deg) translate(2em,-100%));
+      position: absolute;
+    }
+
     &:not(.ui-sidebar-mini) {
       z-index  : 10;
       max-width: 2em;
@@ -115,11 +120,6 @@
         z-index         : $z-index-floating;
         background-color: $drawer-bg;
         @include position(absolute, 0 auto);
-      }
-
-      .ui-sidebar-title {
-        @include transform(rotate(90deg) translate(2em,-100%));
-        position: absolute;
       }
 
       &.ui-sidebar-show {
@@ -169,6 +169,12 @@
   }
 }
 
+@media only screen and (max-width : $grid-md-min) {
+  .ui-sidebar.ui-sidebar-collapse .ui-sidebar-title {
+    @include transform(rotate(90deg) translate(0,-100%));
+  }
+}
+
 .rtl,
 [dir="rtl"] {
   .ui-sidebar {
@@ -189,7 +195,7 @@
             left        : auto;
             border-width: 0 0 0 1px;
             right       : -1 * $sidebar-collapse-width;
-            @include transition(right .5s);
+            @include transition(right 0.5s);
           }
 
           &.ui-sidebar-show {
@@ -215,7 +221,7 @@
             right       : auto;
             border-width: 0 1px 0 0;
             left        : -1 * $sidebar-collapse-width;
-            @include transition(left .5s);
+            @include transition(left 0.5s);
           }
 
           &.ui-sidebar-show {

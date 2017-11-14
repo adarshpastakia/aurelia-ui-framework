@@ -31,13 +31,13 @@ export class UIViewport {
   constructor(public element: Element) {
     var __resizeTimer;
     // Browser events hooks
-    document.ondragstart = (e: any) => getParentByClass(e.target, '.ui-draggable') != null;
-    document.onmouseup = (e: any) => UIEvent.broadcast('mouseclick', e);
-    document.ontouchstart = (e: any) => UIEvent.broadcast('mouseclick', e);
-    window.onresize = (e: any) => {
+    document.addEventListener('dragstart', (e: any) => getParentByClass(e.target, '.ui-draggable') != null);
+    document.addEventListener('mouseup', (e: any) => UIEvent.broadcast('mouseclick', e));
+    document.addEventListener('touchstart', (e: any) => UIEvent.broadcast('mouseclick', e));
+    window.addEventListener('resize', (e: any) => {
       window.clearTimeout(__resizeTimer);
       window.setTimeout(() => UIEvent.broadcast('windowresize'), 500);
-    }
+    });
     this.router = UIUtils.auContainer.get(AppRouter);
   }
 
@@ -46,6 +46,10 @@ export class UIViewport {
     UIUtils.dialogContainer = this.dialogContainer;
     UIUtils.overlayContainer = this.overlayContainer;
     UIUtils.taskbarContainer = this.taskbarContainer;
+
+    // Add browserAgent class to html element
+    document.documentElement.classList.add(window.browserAgent());
+
     // Fire appready event
     UIEvent.fireEvent('appready', this.element);
 

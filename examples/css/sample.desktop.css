@@ -1,0 +1,84 @@
+.x-desktop-layout .x-start-menu {
+  color: #FFFEFC;
+  background: #34495e;
+  height: 30em;
+  width: 30em;
+  max-height: 90%;
+  box-shadow: 2px -2px 5px 0 gray !important; }
+  .x-desktop-layout .x-start-menu.ui-open {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: stretch; }
+  .x-desktop-layout .x-start-menu .x-menu-frequent {
+    flex: 1 1 1em; }
+    .x-desktop-layout .x-start-menu .x-menu-frequent .ui-menu .ui-menu-item {
+      font-size: 1.2em;
+      color: #FFFEFC; }
+  .x-desktop-layout .x-start-menu .x-side-section {
+    flex: 1 1 1em;
+    background: #2c3e50;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: stretch; }
+    .x-desktop-layout .x-start-menu .x-side-section .ui-menu .ui-menu-item {
+      font-size: 1em;
+      color: #FFFEFC; }
+  .x-desktop-layout .x-start-menu .x-profilename {
+    font-size: 2em;
+    padding: 0.25em 0.5em; }
+  .x-desktop-layout .x-start-menu .x-toolbar {
+    text-align: end;
+    background: #233140; }
+  .x-desktop-layout .x-start-menu .ui-menu .ui-menu-item {
+    color: #FFFEFC; }
+  .x-desktop-layout .x-start-menu .x-btn-logout .ui-button-el:not(:hover):not(:active) {
+    background: none;
+    border-color: transparent; }
+  .x-desktop-layout .x-start-menu .x-btn-logout .ui-button-icon {
+    color: red; }
+
+.x-desktop-layout .ui-viewport-taskbar {
+  background: #2c3e50;
+  padding: 1px 2px 2px; }
+  .x-desktop-layout .ui-viewport-taskbar .x-btn-start {
+    margin: 0;
+    overflow: hidden;
+    font-size: 1.1em;
+    border-radius: 1em; }
+    .x-desktop-layout .ui-viewport-taskbar .x-btn-start .ui-button-el {
+      border: none; }
+    .x-desktop-layout .ui-viewport-taskbar .x-btn-start:not(.ui-open) .ui-button-el:not(:hover):not(:active) {
+      background: #2196f3; }
+      .x-desktop-layout .ui-viewport-taskbar .x-btn-start:not(.ui-open) .ui-button-el:not(:hover):not(:active) .ui-button-icon {
+        background: #3f51b5; }
+    .x-desktop-layout .ui-viewport-taskbar .x-btn-start .ui-button-icon {
+      border-radius: 0 1em 1em 0; }
+    .x-desktop-layout .ui-viewport-taskbar .x-btn-start.ui-open {
+      border-radius: 0 0 1em 1em; }
+    .x-desktop-layout .ui-viewport-taskbar .x-btn-start .ui-button-label {
+      padding: 0.5em 1em;
+      font-weight: 300;
+      text-transform: uppercase; }
+    .x-desktop-layout .ui-viewport-taskbar .x-btn-start .ui-button-caret {
+      visibility: hidden;
+      max-width: 0.5em; }
+
+.x-desktop-layout .x-desktop-icon {
+  min-width: 5em;
+  max-width: 5em;
+  margin: 8px; }
+  .x-desktop-layout .x-desktop-icon > .ui-button-el {
+    background: none !important;
+    border-style: dashed; }
+  .x-desktop-layout .x-desktop-icon .ui-button-label {
+    padding: 5px;
+    white-space: normal;
+    font-weight: 300;
+    font-size: 0.8em;
+    color: #34495e;
+    text-shadow: none; }
+  .x-desktop-layout .x-desktop-icon .ui-button-icon {
+    font-size: 2.5em;
+    padding: 5px; }
+  .x-desktop-layout .x-desktop-icon .ui-button-el:not(:hover):not(:active) {
+    border-color: transparent; }

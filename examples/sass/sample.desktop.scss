@@ -1,0 +1,142 @@
+//
+// @description :
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+@import "sass/colors";
+
+.x-desktop-layout {
+  .x-start-menu {
+    color     : $white;
+    background: $dark;
+    height    : 30em;
+    width     : 30em;
+    max-height: 90%;
+    box-shadow: 2px -2px 5px 0 gray !important;
+
+    &.ui-open {
+      display    : flex;
+      flex-flow  : row nowrap;
+      align-items: stretch;
+    }
+
+    .x-menu-frequent {
+      flex: 1 1 1em;
+
+      .ui-menu .ui-menu-item {
+        font-size: 1.2em;
+        color    : $white;
+      }
+    }
+
+    .x-side-section {
+      flex       : 1 1 1em;
+      background : $black;
+      display    : flex;
+      flex-flow  : column nowrap;
+      align-items: stretch;
+
+      .ui-menu .ui-menu-item {
+        font-size: 1em;
+        color    : $white;
+      }
+    }
+
+    .x-profilename {
+      font-size: 2em;
+      padding  : 0.25em 0.5em;
+    }
+
+    .x-toolbar {
+      text-align: end;
+      background: darken($black, 5%);
+    }
+
+    .ui-menu .ui-menu-item {
+      color: $white;
+    }
+
+    .x-btn-logout {
+      .ui-button-el:not(:hover):not(:active) {
+        background  : none;
+        border-color: transparent;
+      }
+
+      .ui-button-icon {
+        color: red;
+      }
+    }
+  }
+
+  .ui-viewport-taskbar {
+    background: $black;
+    padding   : 1px 2px 2px;
+
+    .x-btn-start {
+      margin       : 0;
+      overflow     : hidden;
+      font-size    : 1.1em;
+      border-radius: 1em;
+
+      .ui-button-el {
+        border: none;
+      }
+
+      &:not(.ui-open) .ui-button-el:not(:hover):not(:active) {
+        background: $blue;
+
+        .ui-button-icon {
+          background: $indigo;
+        }
+      }
+
+      .ui-button-icon {
+        border-radius: 0 1em 1em 0;
+      }
+
+      &.ui-open {
+        border-radius: 0 0 1em 1em;
+      }
+
+      .ui-button-label {
+        padding       : 0.5em 1em;
+        font-weight   : 300;
+        text-transform: uppercase;
+      }
+
+      .ui-button-caret {
+        visibility: hidden;
+        max-width : 0.5em;
+      }
+    }
+  }
+
+  .x-desktop-icon {
+    min-width: 5em;
+    max-width: 5em;
+    margin   : 8px;
+
+    > .ui-button-el {
+      background  : none !important;
+      border-style: dashed;
+    }
+
+    .ui-button-label {
+      padding    : 5px;
+      white-space: normal;
+      font-weight: 300;
+      font-size  : 0.8em;
+      color      : $dark;
+      text-shadow: none;
+    }
+
+    .ui-button-icon {
+      font-size: 2.5em;
+      padding  : 5px;
+    }
+
+    .ui-button-el:not(:hover):not(:active) {
+      border-color: transparent;
+    }
+  }
+}

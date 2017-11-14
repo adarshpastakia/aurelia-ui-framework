@@ -25,6 +25,19 @@
   }
 }
 
+.x-app-header {
+  height    : 4em;
+  color     : $white;
+  background: #2980b9;
+
+  > .ui-icon {
+    height    : 4em;
+    width     : 4em;
+    padding   : 1em;
+    background: darken(#2980b9, 10%);
+  }
+}
+
 .ui-splash {
   background-color: white;
   z-index         : $z-index-splash;

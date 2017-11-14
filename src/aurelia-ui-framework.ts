@@ -69,7 +69,6 @@ export interface UIConfig {
 
 export function configure(config: FrameworkConfiguration, configCallback) {
   UIUtils.auContainer = config.container;
-  document.documentElement.classList.add(window.browserAgent());
 
   ValidationController.prototype.validateTrigger = validateTrigger.changeOrBlur;
   config.container.registerHandler('ui-validator', container => container.get(UIValidationRenderer));
