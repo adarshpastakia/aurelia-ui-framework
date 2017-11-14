@@ -107,7 +107,7 @@
       &:before {
         z-index   : 5;
         content   : '';
-        background: rgba($button-disabled-bg, .5);
+        background: rgba($button-disabled-bg, .75);
         @include position(absolute, -1px);
       }
     }
@@ -311,6 +311,7 @@
 }
 @include button-theme(primary, $button-primary-bg, $button-primary-text, $button-primary-hover-bg, $button-primary-hover-text, $button-primary-active-bg, $button-primary-active-text);
 @include button-theme(secondary, $button-secondary-bg, $button-secondary-text, $button-secondary-hover-bg, $button-secondary-hover-text, $button-secondary-active-bg, $button-secondary-active-text);
+@include button-theme(light, $button-light-bg, $button-light-text, $button-light-hover-bg, $button-light-hover-text, $button-light-active-bg, $button-light-active-text, false);
 @include button-theme(muted, $button-muted-bg, $button-muted-text, $button-muted-hover-bg, $button-muted-hover-text, $button-muted-active-bg, $button-muted-active-text, false);
 @include button-theme(dark, $button-dark-bg, $button-dark-text, $button-dark-hover-bg, $button-dark-hover-text, $button-dark-active-bg, $button-dark-active-text, false);
 @include button-theme(info, $button-info-bg, $button-info-text, $button-info-hover-bg, $button-info-hover-text, $button-info-active-bg, $button-info-active-text);

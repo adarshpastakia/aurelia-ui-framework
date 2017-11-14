@@ -98,11 +98,11 @@
 
   th {
     font-weight  : bold;
-    border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid $base-border-color;
   }
 
   tr:nth-of-type(even) td {
-    background-color: #f0f0f0;
+    background-color: darken($base-bg, 5%);
   }
 
   hr {
@@ -125,18 +125,19 @@
 
   code {
     background   : rgba(#FDC1BE, .1);
-    color        : #7D2C42;
+    color        : relative-color($base-text, #7D2C42, #e74c3c);
     padding      : 0 0.5em;
     border-radius: 0.2em;
     font-family  : $base-font-family-mono;
+    text-shadow  : none;
   }
 
   pre > code {
     position     : static;
     display      : block;
     padding      : 1.2em;
-    color        : #242424;
-    background   : #FFFFFF;
+    color        : $base-text;
+    background   : lighten($base-bg, 5%);
     border       : 1px solid rgba($base-border-color, .5);
     border-radius: $base-border-radius;
     margin       : 0.5em 0;

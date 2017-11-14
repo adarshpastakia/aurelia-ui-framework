@@ -7,14 +7,14 @@
   <ui-page animate>
     <x-container page-title="Data Model" wiki.bind="wiki" source.bind="source">
       <h4 class="x-title">DataModel Tester</h4>
-      <ui-form>
 
-        <ui-row>
-          <ui-column size="lg-6 md-8">
-            <ui-fieldset legend="Personal Info">
-
+      <ui-row>
+        <ui-column size="lg-6 md-8">
+          <ui-form class="ui-border-all">
+            <div class="ui-pad-all">
+              <p text-muted>Personal Info</p>
               <ui-input-group>
-                <ui-input-label required>Model State?</ui-input-label>
+                <ui-input-label>Model State?</ui-input-label>
                 <ui-input-addon if.bind="model.isDirty" glyph="glyph-icon-no" text-theme="red"></ui-input-addon>
                 <ui-input-addon if.bind="!model.isDirty" glyph="glyph-icon-yes" text-theme="green"></ui-input-addon>
                 <span>${model.isDirty ? 'Dirty' : 'Unchanged'}</span>
@@ -48,10 +48,8 @@
                   </ui-input-group>
                 </ui-column>
               </ui-row>
-            </ui-fieldset>
-
-            <ui-fieldset legend="Contact Info">
-
+              <hr/>
+              <p text-muted>Contact Info</p>
               <ui-input-group>
                 <ui-input-label required>Address</ui-input-label>
                 <ui-input-addon text-theme.bind="model.dirtyProps.address1?'red':'green'" glyph.bind="model.dirtyProps.address1?'glyph-icon-no':'glyph-icon-yes'"></ui-input-addon>
@@ -89,29 +87,44 @@
                 <ui-input-addon text-theme.bind="model.dirtyProps.phone?'red':'green'" glyph.bind="model.dirtyProps.phone?'glyph-icon-no':'glyph-icon-yes'"></ui-input-addon>
                 <ui-phone value.bind="model.phone" clear></ui-phone>
               </ui-input-group>
-            </ui-fieldset>
-
+            </div>
             <ui-toolbar muted>
               <ui-button-group separator="or">
                 <ui-button muted width="6em" click.trigger="model.update()">Update</ui-button>
                 <ui-button light width="6em" click.trigger="model.discard()">Discard</ui-button>
               </ui-button-group>
+              <ui-filler></ui-filler>
               <ui-button-group separator="or">
-                <ui-button dark width="6em" click.trigger="model.save()">Save</ui-button>
                 <ui-button muted width="6em" click.trigger="model.reset()">Reset</ui-button>
+                <ui-button dark width="6em" click.trigger="model.save()">Save</ui-button>
               </ui-button-group>
             </ui-toolbar>
-          </ui-column>
-          <ui-column size="lg-6 md-4" padded>
-            <h6 class="x-title">Local Changes</h6>
-            <p><strong text-info>Update</strong><br/>Update form changes locally. Model is still dirty since the data has not yet been saved.</p>
-            <p><strong text-info>Discard</strong><br/>Discard any changes made since last update.</p>
-            <h6 class="x-title">Remote Changes</h6>
-            <p><strong text-info>Save</strong><br/>Save form changes will update all field values and reset model dirty.</p>
-            <p><strong text-info>Reset</strong><br/>Reset form changes back to original, regardless of update.</p>
-          </ui-column>
-        </ui-row>
-      </ui-form>
+          </ui-form>
+        </ui-column>
+        <ui-column size="lg-6 md-4" padded>
+          <h6 class="x-title" text-primary>Local Changes</h6>
+          <p>
+            <strong text-info>Update</strong>
+            <br/>Update form changes locally. Model is still dirty since the data has not yet been saved.</p>
+          <p>
+            <strong text-info>Discard</strong>
+            <br/>Discard any changes made since last update.</p>
+          <h6 class="x-title" text-primary>Remote Changes</h6>
+          <p>
+            <strong text-info>Save</strong>
+            <br/>Save form changes will update all field values and reset model dirty.</p>
+          <p>
+            <strong text-info>Reset</strong>
+            <br/>Reset form changes back to original, regardless of update.</p>
+
+          <div class="x-section">
+            <blockquote>
+              <strong>NOTE</strong>
+              Model dirty check works on
+              <code>serializable</code> properties only.</blockquote>
+          </div>
+        </ui-column>
+      </ui-row>
     </x-container>
   </ui-page>
 </template>

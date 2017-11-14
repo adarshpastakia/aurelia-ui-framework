@@ -7,7 +7,7 @@
   <ui-page animate>
     <x-container source.bind="source" wiki.bind="wiki" page-title="Menus" need-rtl="true">
       <h4 class="x-title">Menubar</h4>
-      <ui-menubar>
+      <ui-menubar class="ui-border-all">
         <ui-menu-item active.bind="!mbactive" click.trigger="mbactive=0" glyph="icon-moon-pencil2">Edit</ui-menu-item>
         <ui-menu-item active.bind="mbactive==1" click.trigger="mbactive=1" glyph="icon-moon-search">Search</ui-menu-item>
         <ui-menu-item active.bind="mbactive==2" click.trigger="mbactive=2" glyph="icon-moon-bin">Delete</ui-menu-item>
@@ -16,7 +16,7 @@
         <ui-menu-item active.bind="mbactive==4" click.trigger="mbactive=4" glyph="icon-moon-cog">Settings</ui-menu-item>
       </ui-menubar>
       <br/>
-      <ui-menubar>
+      <ui-menubar class="ui-border-all">
         <ui-menu-group label="Actions">
           <ui-menu-item active.bind="mgactive==1" click.trigger="mgactive=1" glyph="icon-moon-pencil2">Edit</ui-menu-item>
           <ui-menu-item active.bind="mgactive==2" click.trigger="mgactive=2" glyph="icon-moon-search">Search</ui-menu-item>
@@ -99,7 +99,7 @@
         </ui-column>
         <ui-column size="md-4" padded>
           <h6 class="x-title">Inline Menu</h6>
-          <ui-menu class="ui-border-all ui-border-light ui-inline">
+          <ui-menu class="ui-border-all ui-inline">
             <ui-menu-section>Actions</ui-menu-section>
             <ui-menu-item active.bind="mnactive==1" click.trigger="mnactive=1" glyph="icon-moon-pencil2" description="Edit user profile">Edit</ui-menu-item>
             <ui-menu-item active.bind="mnactive==2" click.trigger="mnactive=2" glyph="icon-moon-search" description="Search user by username/email">Search</ui-menu-item>

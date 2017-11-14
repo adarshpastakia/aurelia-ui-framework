@@ -33,7 +33,7 @@
 
   .ui-panel-body {
     position  : relative;
-    background: lighten($white, 10%);
+    background: $base-comp-bg-alt;
     @include flex(1 1 auto);
 
     &.ui-flexed {
@@ -58,7 +58,7 @@
 }
 
 .ui-header {
-  background   : $light;
+  background   : $base-comp-bg;
   border-bottom: 1px solid rgba($base-border-color, .3);
   @include flex-auto();
   @include flexbox($direction: row,$align:center, $wrap:false);
@@ -95,7 +95,7 @@
 
   .ui-header-button {
     color        : rgba($base-text, .7);
-    background   : lighten($light, 2%);
+    background   : $base-comp-bg-alt;
     border-radius: $base-border-radius;
     border       : 1px solid rgba($base-border-color, .5);
     line-height  : 1.5;

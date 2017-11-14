@@ -5,7 +5,7 @@
 // @license     : MIT
 
 .ui-dropdown {
-  background : $light;
+  background : $base-comp-bg;
   cursor     : pointer;
   position   : relative;
   display    : inline-block;
@@ -112,7 +112,6 @@
   .ui-list-item {
     line-height: 2em;
     padding    : 0 0.5em;
-    color      : $dark;
     cursor     : pointer;
     display    : list-item;
     list-style : none;

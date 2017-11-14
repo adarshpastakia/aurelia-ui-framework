@@ -16,7 +16,7 @@ a.ui-menu-item {
   text-align: start;
   @include flexbox($direction: row, $display: inline-flex, $wrap: false, $align: center);
   @include ellipsis(false);
-  @include transition(background-color .2s);
+  @include transition(background-color 0.2s);
 
   .ui-menu-label {
     line-height: 1.25;
@@ -37,7 +37,7 @@ a.ui-menu-item {
     background-position: left center;
     background-repeat  : no-repeat;
     background-size    : 1em 1em;
-    @include transition(font-size 0.25s, margin .25s);
+    @include transition(font-size 0.25s, margin 0.25s);
   }
 
   &:hover {
@@ -79,10 +79,9 @@ a.ui-menu-item {
 .ui-menubar {
   z-index         : 5;
   position        : relative;
+  background-color: $menubar-bg;
   @include flex(0 0 auto);
   @include flexbox($direction: row, $align: center, $wrap:false);
-  background-color: $menubar-bg;
-  border-bottom   : 1px solid rgba($base-border-color,.25);
 
   .ui-menubar-toggle {
     min-width : 2em;
@@ -125,7 +124,7 @@ a.ui-menu-item {
     overflow     : hidden;
     margin       : 0.1em 0.2em;
     flex         : 0 0 auto;
-    background   : rgba($white, .25);
+    background   : rgba($base-bg, .25);
     border       : 1px solid rgba($base-border-color, .25);
     border-radius: $base-border-radius;
 
@@ -143,8 +142,8 @@ a.ui-menu-item {
     display   : block;
     align-self: stretch;
     border    : {
-      left : 1px solid rgba($dark,.5);
-      right: 1px solid $light;
+      left : 1px solid rgba($base-text,.5);
+      right: 1px solid $base-bg;
     }
     @include transform(scaleX(.5));
   }
@@ -256,14 +255,14 @@ a.ui-menu-item {
         .ui-icon {
           font-size   : 0.8em;
           margin-right: 0.5em;
-          @include transition(transform .5s);
+          @include transition(transform 0.5s);
         }
       }
 
       .ui-menu-section-body {
         max-height: 100vh;
         overflow  : hidden;
-        @include transition(max-height .5s);
+        @include transition(max-height 0.5s);
       }
 
       &.ui-collapsed {
@@ -278,9 +277,9 @@ a.ui-menu-item {
     }
   }
 
-   > .ui-menu-section-title:not(:first-child):before,
+  > .ui-menu-section:not(:first-child) > .ui-menu-section-title:before,
   .ui-column > .ui-menu-section-title:not(:first-child):before,
-  > .ui-menu-section:not(:first-child) > .ui-menu-section-title:before {
+  > .ui-menu-section-title:not(:first-child):before {
     content: '';
     display: block;
     border : {

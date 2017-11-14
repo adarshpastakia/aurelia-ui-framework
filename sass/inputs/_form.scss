@@ -67,7 +67,7 @@
   .ui-input-label {
     position   : relative;
     font-size  : 0.85em;
-    color      : $input-label-text;
+    color      : rgba($input-label-text, .8);
     line-height: 2.5;
     text-align : right;
     text-align : end;
@@ -96,7 +96,7 @@
   }
 
   &.ui-focus .ui-input-label {
-    color      : $input-label-active-text;
+    // color      : $input-label-text;
     font-weight: 400;
   }
 

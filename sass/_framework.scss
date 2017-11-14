@@ -16,9 +16,9 @@
 @import url( '//fonts.googleapis.com/css?family=Roboto+Mono:300,300i,400,400i');
 
 // Framework imports
+@import "./mixins";
 @import "./variables";
 // utils
-@import "./mixins";
 @import "./utils/themes";
 @import "./utils/animations";
 // common

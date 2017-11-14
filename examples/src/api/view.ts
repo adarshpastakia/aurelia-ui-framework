@@ -39,7 +39,6 @@ export class ApiView {
         route: 'datamodel',
         moduleId: './datamodel',
         title: 'Data Model',
-        settings: { disabled: true },
         nav: true,
         auth: false,
         name: 'datamodel'

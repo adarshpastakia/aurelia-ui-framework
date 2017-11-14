@@ -67,33 +67,6 @@
           color: $muted;
         }
 
-        &.today {
-          font-weight: 600;
-          color      : $date-today-text;
-          background : $date-today-bg;
-
-          &:after {
-            content           : '';
-            border            : 3px solid transparent;
-            border-top-color  : $secondary;
-            border-right-color: $secondary;
-            position          : absolute;
-            top               : 1px;
-            right             : 1px;
-          }
-        }
-
-        &.selected {
-          color         : $date-active-text;
-          background    : $date-active-bg;
-          pointer-events: none;
-
-          &:after {
-            border-top-color  : $date-active-text;
-            border-right-color: $date-active-text;
-          }
-        }
-
         &.hover:hover {
           color     : $date-hover-text;
           background: $date-hover-bg;

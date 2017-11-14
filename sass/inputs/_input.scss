@@ -182,7 +182,7 @@
     &:after {
       content   : '';
       @include position(absolute, 0);
-      background: rgba($input-disabled-bg, 0.5);
+      background: rgba($input-disabled-bg, 0.75);
     }
   }
 

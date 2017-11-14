@@ -77,7 +77,6 @@
   }
 
   .ui-stat {
-    color  : $dark;
     padding: 0.25em 0.5em;
     @include flex(1 0 1em);
     @include flexbox($direction: row, $justify:center, $align:center, $wrap:false);

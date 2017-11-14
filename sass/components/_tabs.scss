@@ -11,9 +11,9 @@
 
   .ui-tab-panel-body {
     @include flex-fill();
-    border  : 1px solid $base-border-color;
-    position: relative;
-    overflow: hidden;
+    border    : 1px solid $base-border-color;
+    position  : relative;
+    overflow  : hidden;
   }
 
   .ui-tabbar {
@@ -157,7 +157,7 @@
 
   .ui-tab {
     z-index   : 5;
-    background: $base-bg;
+    background: $tab-body-bg;
     @include flex-fill();
     @include position(absolute, 0);
     @include transition(all 0.5s);

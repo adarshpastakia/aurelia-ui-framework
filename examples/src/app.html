@@ -3,45 +3,51 @@
   <compose view="../glyphs/hawcons-linear.svg"></compose>
   <compose view="../glyphs/hawcons-filled.svg"></compose>
 
-  <ui-drawer ref="appDrawer" close-on-click scroll close-glyph="glyph-none" class="x-app-menu">
-    <a href="#/" class="x-app-menu-title" slot="drawer-head">
-      <ui-row>
-        <ui-column auto class="ui-pad-h"><img src="examples/images/logo.png" width="36"/></ui-column>
-        <ui-column fill class="ui-margin-none">
-          <h6 class="ui-strong" text-primary>${constants.Title}<small text-muted>Version ${constants.Version}</small>
-          </h6>
-        </ui-column>
-      </ui-row>
-    </a>
-    <ui-menu>
-      <ui-menu-group label.bind="routes.key" repeat.for="routes of router.navigation | group:'settings.section'" collapsible.bind="!!routes.key">
-        <ui-menu-item repeat.for="route of routes.items" href.bind="route.href" active.bind="app.routeActive(route, router.currentInstruction)" icon.bind="route.settings.icon" disabled.bind="route.settings.disabled">${route.settings.title || route.title}</ui-menu-item>
-      </ui-menu-group>
-    </ui-menu>
-  </ui-drawer>
+  <div dir="ltr">
+    <ui-drawer ref="appDrawer" close-on-click scroll close-glyph="glyph-none" class="x-app-menu">
+      <a href="#/" class="x-app-menu-title" slot="drawer-head">
+        <ui-row>
+          <ui-column auto class="ui-pad-h">
+            <img src="examples/images/logo.png" width="36" />
+          </ui-column>
+          <ui-column fill class="ui-margin-none">
+            <h6 class="ui-strong" text-primary>${constants.Title}
+              <small text-muted>Version ${constants.Version}</small>
+            </h6>
+          </ui-column>
+        </ui-row>
+      </a>
+      <ui-menu>
+        <ui-menu-group label.bind="routes.key" repeat.for="routes of router.navigation | group:'settings.section'" collapsible.bind="!!routes.key">
+          <ui-menu-item repeat.for="route of routes.items" href.bind="route.href" active.bind="app.routeActive(route, router.currentInstruction)" icon.bind="route.settings.icon" disabled.bind="route.settings.disabled">${route.settings.title || route.title}</ui-menu-item>
+        </ui-menu-group>
+      </ui-menu>
+    </ui-drawer>
 
-  <ui-viewport ribbon="message:v4 Work in Progress;theme:blue">
-    <ui-app-header>
-      <ui-drawer-toggle drawer.bind="appDrawer"></ui-drawer-toggle>
-      <ui-app-title href="#/" class="${hideTitle && router.currentInstruction.fragment=='/'?'x-hide':''}" src="examples/images/logo.png">${constants.Title}</ui-app-title>
-    </ui-app-header>
+    <ui-viewport ribbon="message:v4 Work in Progress;theme:blue">
+      <ui-app-header>
+        <ui-drawer-toggle drawer.bind="appDrawer"></ui-drawer-toggle>
+        <ui-app-title href="#/" class="${hideTitle && router.currentInstruction.fragment=='/'?'x-hide':''}" src="examples/images/logo.png">${constants.Title}</ui-app-title>
+      </ui-app-header>
 
-    <ui-router-view></ui-router-view>
+      <ui-router-view></ui-router-view>
 
-    <ui-app-footer>
-      <span>&copy; 2017, Adarsh Pastakia<br/>
-        <small>Version ${constants.Version}</small>
-      </span>
-      <div>
-        <a class="ui-link ui-hover-warning" href="https://stackoverflow.com/questions/tagged/aurelia-ui-framework" target="_blank" css.bind="{fontSize: '2rem'}">
-          <ui-glyph glyph="icon-moon-stackoverflow"></ui-glyph>
-        </a>
-        <span css.bind="{fontSize: '2rem'}">&nbsp;&nbsp;</span>
-        <a class="ui-link ui-hover-info" href="https://github.com/adarshpastakia/aurelia-ui-framework" target="_blank" css.bind="{fontSize: '2rem'}">
-          <ui-glyph glyph="icon-moon-github"></ui-glyph>
-        </a>
-        <span css.bind="{fontSize: '2rem'}">&nbsp;&nbsp;</span>
-      </div>
-    </ui-app-footer>
-  </ui-viewport>
+      <ui-app-footer>
+        <span>&copy; 2017, Adarsh Pastakia
+          <br/>
+          <small>Version ${constants.Version}</small>
+        </span>
+        <div>
+          <a class="ui-link ui-hover-warning" href="https://stackoverflow.com/questions/tagged/aurelia-ui-framework" target="_blank" css.bind="{fontSize: '2rem'}">
+            <ui-glyph glyph="icon-moon-stackoverflow"></ui-glyph>
+          </a>
+          <span css.bind="{fontSize: '2rem'}"></span>
+          <a class="ui-link ui-hover-info" href="https://github.com/adarshpastakia/aurelia-ui-framework" target="_blank" css.bind="{fontSize: '2rem'}">
+            <ui-glyph glyph="icon-moon-github"></ui-glyph>
+          </a>
+          <span css.bind="{fontSize: '2rem'}"></span>
+        </div>
+      </ui-app-footer>
+    </ui-viewport>
+  </div>
 </template>

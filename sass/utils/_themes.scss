@@ -72,8 +72,8 @@
       }
     }
 
-     > .ui-input-wrapper .ui-input-control,
-    > .ui-input-group .ui-group-wrapper {
+    > .ui-input-group .ui-group-wrapper,
+    > .ui-input-wrapper .ui-input-control {
       background: rgba($white, .1);
       color     : $color;
     }
@@ -83,13 +83,13 @@
       color     : $color;
     }
 
-     > .ui-input-wrapper:not(.ui-focus) .ui-input-control,
-    > .ui-input-group .ui-input-wrapper:not(.ui-focus) .ui-input-control {
+    > .ui-input-group .ui-input-wrapper:not(.ui-focus) .ui-input-control,
+    > .ui-input-wrapper:not(.ui-focus) .ui-input-control {
       box-shadow: 0 -1px 0 0 rgba($color, .5) inset;
     }
 
-     > .ui-input-wrapper.ui-focus .ui-input-control,
-    > .ui-input-group .ui-input-wrapper.ui-focus .ui-input-control {
+    > .ui-input-group .ui-input-wrapper.ui-focus .ui-input-control,
+    > .ui-input-wrapper.ui-focus .ui-input-control {
       box-shadow: 0 -2px 0 0 $color inset;
     }
   }
@@ -201,7 +201,7 @@
 // Breadcrumbs
 @mixin breadcrumb-theme($theme, $themecolor, $color) {
   .ui-breadcrumb:not(.ui-themed).ui-#{$theme} .ui-crumb {
-    a {
+    &:not(:last-child) a {
       color: $themecolor;
     }
 
@@ -211,10 +211,6 @@
       &:before {
         border-left-color: darken($themecolor, 5%);
       }
-    }
-
-    &:last-child a {
-      color: $base-text;
     }
 
     &:after {
@@ -332,7 +328,7 @@
   .ui-button-group.ui-toggle .ui-button.ui-active .ui-button-el.ui-#{$style} {
     color         : $text;
     background    : $bg;
-    border-color  : lighten($bg, 5%);
+    border-color  : darken($bg, 5%);
     cursor        : default;
     pointer-events: none;
   }
@@ -340,26 +336,26 @@
   .ui-button.ui-open .ui-button-el.ui-#{$style}:last-child {
     color       : $activeText;
     background  : $activeBg;
-    border-color: lighten($activeBg, 5%);
+    border-color: darken($activeBg, 5%);
     box-shadow  : 0 0 3px 0 darken($activeBg, 25%) inset;
   }
 
   .ui-button .ui-button-el.ui-#{$style} {
     color       : $text;
     background  : $bg;
-    border-color: lighten($bg, 5%);
+    border-color: darken($bg, 5%);
     text-shadow : 0 0 2px if($shadow, $muted, transparent);
 
     &:hover {
       color       : $hoverText;
       background  : $hoverBg;
-      border-color: lighten($hoverBg, 5%);
+      border-color: darken($hoverBg, 5%);
     }
 
     &:active {
       color       : $activeText;
       background  : $activeBg;
-      border-color: lighten($activeBg, 5%);
+      border-color: darken($activeBg, 5%);
       box-shadow  : 0 0 3px 0 darken($activeBg, 25%) inset;
     }
   }

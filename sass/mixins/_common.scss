@@ -63,3 +63,12 @@
     @return if(abs($color-brightness - $light-text-brightness) > abs($color-brightness - $dark-text-brightness), $light, $dark);
   }
 }
+@function relative-color($color, $dark: $black, $light: $white) {
+   @if $color == null{
+    @return null;
+  }
+  @else {
+    $color-brightness     : lightness($color);
+    @return if(abs($color-brightness) > 50, $light, $dark);
+  }
+}

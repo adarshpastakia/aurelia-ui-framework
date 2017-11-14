@@ -8,8 +8,11 @@
 $base-bg                     : $white !default;
 $base-text                   : $black !default;
 
-$base-border-color           : rgba($lightGray, .5) !default;
-$base-shadow-color           : rgba($darkGray, .5) !default;
+$base-comp-bg                : relative-color($base-bg, darken($dark, 10%), lighten($light, 5%));
+$base-comp-bg-alt            : relative-color($base-bg, darken($dark, 10%), $white);
+
+$base-border-color           : rgba(relative-color($base-bg, $darkGray, $lightGray), .5) !default;
+$base-shadow-color           : rgba(relative-color($base-bg, $black, $muted), .5) !default;
 
 // Typography
 $base-font-family            : 'Open Sans', sans-serif !default;
@@ -60,7 +63,7 @@ $app-banner-text             : $white !default;
 $app-header-link-text        : $white !default;
 $app-header-link-hover-text  : $secondary !default;
 
-$app-footer-bg               : $black !default;
+$app-footer-bg               : relative-color($base-bg, darken($black, 10%), $black) !default;
 $app-footer-text             : $muted !default;
 
 $app-footer-link-text        : $white !default;
@@ -74,21 +77,21 @@ $placeholder-text            : $lightGray !default;
 
 // Drawer
 $drawer-width                : 20em !default;
-$drawer-bg                   : darken($base-bg, .5%) !default;
+$drawer-bg                   : $base-comp-bg !default;
 $drawer-shim                 : rgba($black, 0) !default;
 
 $sidebar-width               : 18em !default;
 $sidebar-collapse-width      : 20em !default;
 
 // Bars
-$toolbar-bg                  : lighten($light, 5%) !default;
-$statsbar-bg                 : lighten($light, 5%) !default;
+$toolbar-bg                  : $base-comp-bg !default;
+$statsbar-bg                 : $base-comp-bg !default;
 
 // Menus
-$menubar-bg                  : $light !default;
-$menu-dropdown-bg            : $base-bg !default;
+$menubar-bg                  : $base-comp-bg !default;
+$menu-dropdown-bg            : $base-comp-bg !default;
 
-$menu-section-title          : $dark !default;
+$menu-section-title          : relative-color($base-text, $darkGray, $lightGray) !default;
 
 $menu-link-text              : $primary !default;
 $menu-link-disabled          : $muted !default;
@@ -99,7 +102,8 @@ $menu-link-active-text       : $white !default;
 $menu-link-active-hilight    : $primary !default;
 
 // Tabs
-$tab-active-bg               : $white !default;
+$tab-body-bg                 : $base-comp-bg-alt !default;
+$tab-active-bg               : $base-comp-bg-alt !default;
 $tab-active-text             : $primary !default;
 
 // Lists
@@ -110,10 +114,9 @@ $list-selected-bg            : rgba($secondary, .85) !default;
 $list-selected-text          : $white !default;
 
 // Inputs
-$input-bg                    : #FFFFFF !default;
-$input-text                  : #35495D !default;
-$input-label-text            : $darkGray !default;
-$input-label-active-text     : #35495D !default;
+$input-bg                    : relative-color($base-bg, darken($dark, 10%), lighten($light,10%)) !default;
+$input-text                  : $base-text !default;
+$input-label-text            : $base-text !default;
 
 $input-focus-border          : $secondary !default;
 $input-invalid-border        : $danger !default;
@@ -121,8 +124,8 @@ $input-invalid-border        : $danger !default;
 // 1:'invalid-filled', 2:'invalid-line'
 $input-invalid-icon          : 2 !default;
 
-$input-readonly-bg           : #FCFCFB !default;
-$input-disabled-bg           : #EAE6E3 !default;
+$input-readonly-bg           : relative-color($base-bg, darken($dark, 5%), lighten($light,5%)) !default;
+$input-disabled-bg           : relative-color($base-bg, darken($dark, 5%), lighten($light,5%)) !default;
 
 $input-error-bg              : none !default;
 $input-error-text            : $danger !default;
@@ -137,18 +140,25 @@ $date-active-bg              : $primary !default;
 $date-active-text            : $white !default;
 
 $date-week-text              : $secondary !default;
-$date-today-bg               : $light !default;
+$date-today-bg               : $base-comp-bg !default;
 $date-today-text             : $secondary !default;
 
 // Buttons
-$button-default-bg           : $light !default;
-$button-default-text         : $dark !default;
+$button-default-bg           : $base-comp-bg !default;
+$button-default-text         : $base-text !default;
 $button-default-hover-bg     : darken($button-default-bg, 10%) !default;
 $button-default-hover-text   : $button-default-text !default;
 $button-default-active-bg    : lighten($button-default-bg, 10%) !default;
 $button-default-active-text  : $button-default-text !default;
 
-$button-disabled-bg          : #EAE6E3 !default;
+$button-disabled-bg          : relative-color($base-bg, $dark, $light) !default;
+
+$button-light-bg             : $light !default;
+$button-light-text           : $black !default;
+$button-light-hover-bg       : darken($button-light-bg, 10%) !default;
+$button-light-hover-text     : $button-light-text !default;
+$button-light-active-bg      : lighten($button-light-bg, 10%) !default;
+$button-light-active-text    : $button-light-text !default;
 
 $button-dark-bg              : $dark !default;
 $button-dark-text            : $white !default;
