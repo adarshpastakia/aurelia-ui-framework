@@ -29,7 +29,7 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "aurelia-m
                     set: this.propertySetter('id'),
                     enumerable: true
                 },
-                apiSlug: {
+                apiUrl: {
                     enumerable: false,
                     writable: true
                 },
@@ -56,11 +56,11 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "aurelia-m
                 this.get(id);
         }
         UIDataModel.prototype.get = function (id) {
-            if (!this.apiSlug)
+            if (!this.apiUrl)
                 throw Error('API route required');
         };
         UIDataModel.prototype.save = function () {
-            if (!this.apiSlug)
+            if (!this.apiUrl)
                 throw Error('API route required');
             this.id = this[this.idProperty] || this.generateId();
             this.metadata.dirtyProps = [];
@@ -85,6 +85,12 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "aurelia-m
             var POJO = {};
             this.metadata.serializableProps.forEach(function (prop) { return POJO[prop] = UIDataModel.serializeProperty(_this[prop]); });
             return POJO;
+        };
+        UIDataModel.prototype.deserialize = function (json) {
+            var _this = this;
+            this.metadata.original = _.cloneDeep(json);
+            this.metadata.updated = _.cloneDeep(json);
+            this.metadata.serializableProps.forEach(function (prop) { return _this[prop] = json[prop]; });
         };
         UIDataModel.serializeObject = function (o) {
             var _this = this;
@@ -114,13 +120,17 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "aurelia-m
         };
         Object.defineProperty(UIDataModel.prototype, "isDirty", {
             get: function () {
+                this.logger.info('DirtyProps', this.metadata.dirtyProps.length);
                 return !!this.metadata.dirtyProps.length;
             },
             enumerable: true,
             configurable: true
         });
-        UIDataModel.prototype.dirtyProp = function (prop) {
+        UIDataModel.prototype.isPropDirty = function (prop) {
             return !!(~this.metadata.dirtyProps.indexOf(prop));
+        };
+        UIDataModel.prototype.getDirtyProps = function () {
+            return this.metadata.dirtyProps;
         };
         UIDataModel.prototype.generateId = function () {
             return Math.round(Math.random() * new Date().getTime()).toString(18);
@@ -139,14 +149,14 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "aurelia-m
         };
         UIDataModel.prototype.updateDirty = function (prop, value) {
             var hasDirty = !!(~this.metadata.dirtyProps.indexOf(prop));
-            var isDirty = this.metadata.original[prop] !== value;
+            var isDirty = this.metadata.original[prop] !== (value === '' ? null : value);
             if (!hasDirty && isDirty)
                 this.metadata.dirtyProps.push(prop);
             if (hasDirty && !isDirty)
                 this.metadata.dirtyProps.splice(this.metadata.dirtyProps.indexOf(prop), 1);
         };
         __decorate([
-            aurelia_framework_1.computedFrom('metadata.dirtyProps'),
+            aurelia_framework_1.computedFrom('metadata.dirtyProps.length'),
             __metadata("design:type", Object),
             __metadata("design:paramtypes", [])
         ], UIDataModel.prototype, "isDirty", null);

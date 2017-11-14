@@ -23,9 +23,14 @@ export class UIColorBase {
   parentEl;
   prefix = '';
   value = 'default';
+  oldValue = '';
 
   attached() {
-    this.changeTheme('', this.value);
+    this.changeTheme(this.oldValue, this.value);
+  }
+
+  valueChanged(newValue) {
+    this.changeTheme(this.oldValue, newValue);
   }
 
   changeTheme(oldTheme, newTheme) {
@@ -41,15 +46,16 @@ export class UIColorBase {
         b.element.classList.remove(`ui-${oldTheme}`);
         b.element.classList.add(`ui-${newTheme}`);
       });
-      return;
     }
     else {
       el = this.element;
     }
-    if (el.classList) {
+    if (el && el.classList) {
       el.classList.remove(`ui-${this.prefix}${oldTheme}`);
       el.classList.add(`ui-${this.prefix}${newTheme}`);
     }
+
+    this.oldValue = newTheme;
   }
 }
 
@@ -58,9 +64,6 @@ export class UIColorBase {
 export class UIColorTheme extends UIColorBase {
   constructor(public element: Element) {
     super(element);
-  }
-  valueChanged(newValue) {
-    this.changeTheme(this.value, newValue);
   }
 }
 @autoinject()
@@ -158,9 +161,6 @@ export class UIColorThemeBg extends UIColorBase {
   constructor(public element: Element) {
     super(element);
     this.prefix = 'bg-';
-  }
-  valueChanged(newValue) {
-    this.changeTheme(this.value, newValue);
   }
 }
 @autoinject()
@@ -279,9 +279,6 @@ export class UIColorThemeText extends UIColorBase {
   constructor(public element: Element) {
     super(element);
     this.prefix = 'text-';
-  }
-  valueChanged(newValue) {
-    this.changeTheme(this.value, newValue);
   }
 }
 @autoinject()

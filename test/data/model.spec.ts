@@ -10,7 +10,7 @@ class MyModel extends UIDataModel {
   @serializable('hello') firstName: string;
   @serializable() lastName: string;
 
-  apiSlug = '/api/user';
+  apiUrl = '/api/user';
   tempCounter = 9;
 
   get(id) {
@@ -40,10 +40,10 @@ describe('Data Model', () => {
     expect(model.isDirty).toEqual(true);
   });
   it("firstName should not be dirty", () => {
-    expect(model.dirtyProp('firstName')).toEqual(false);
+    expect(model.isPropDirty('firstName')).toEqual(false);
   });
   it("lastName should be dirty", () => {
-    expect(model.dirtyProp('lastName')).toEqual(true);
+    expect(model.isPropDirty('lastName')).toEqual(true);
   });
   it("reset lastName, should not be dirty", () => {
     model.lastName = null;

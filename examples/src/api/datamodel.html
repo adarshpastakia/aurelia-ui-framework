@@ -1,0 +1,40 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <ui-page animate>
+    <x-container page-title="Data Model" wiki.bind="wiki" source.bind="source">
+      <h4 class="x-title">DataModel Tester</h4>
+      <ui-form>
+
+        <ui-row>
+          <ui-column size="lg-6 md-8">
+            <ui-fieldset legend="Personal Info">
+
+              <ui-input-group>
+                <ui-input-label required>Model State?</ui-input-label>
+                <ui-input-addon if.bind="model.isDirty" glyph="glyph-icon-no" text-theme="red"></ui-input-addon>
+                <ui-input-addon if.bind="!model.isDirty" glyph="glyph-icon-yes" text-theme="green"></ui-input-addon>
+                <span>${model.isDirty ? 'Dirty' : 'Unchanged'}</span>
+              </ui-input-group>
+              <ui-input-group>
+                <ui-input-label required>First Name</ui-input-label>
+                <ui-input value.bind="model.firstName" maxlength="99" counter clear></ui-input>
+                <ui-input-addon text-theme.bind="model.isPropDirty('firstName', model.firstName)?'red':'green'" glyph.bind="model.isPropDirty('firstName', model.firstName)?'glyph-icon-no':'glyph-icon-yes'"></ui-input-addon>
+              </ui-input-group>
+
+              <ui-input-group required>
+                <ui-input-label>Last Name</ui-input-label>
+                <ui-input value.bind="model.lastName" maxlength="99" counter clear></ui-input>
+                <ui-input-addon text-theme.bind="model.isPropDirty('lastName', model.lastName)?'red':'green'" glyph.bind="model.isPropDirty('lastName', model.lastName)?'glyph-icon-no':'glyph-icon-yes'"></ui-input-addon>
+              </ui-input-group>
+            </ui-fieldset>
+
+          </ui-column>
+        </ui-row>
+      </ui-form>
+    </x-container>
+  </ui-page>
+</template>

@@ -36,6 +36,7 @@ require("./attributes/ui-ribbon");
 require("./attributes/ui-tooltip");
 require("./value-converters/ui-lodash");
 require("./value-converters/ui-text");
+__export(require("./data/ui-datamodel"));
 __export(require("./utils/ui-application"));
 __export(require("./utils/ui-constants"));
 __export(require("./utils/ui-dialog"));

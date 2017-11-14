@@ -95,7 +95,7 @@ export class App {
       }, {
         route: 'event', redirect: 'api/event', title: 'Event Manager', nav: true, auth: false, settings: { section: 'API Classes' }, name: 'api:event'
       }, {
-        route: 'api:datamodel', redirect: 'api/model', title: 'Data Model', nav: true, auth: false, settings: { section: 'API Classes', disabled: true }, name: 'api:datamodel'
+        route: 'api:datamodel', redirect: 'api/datamodel', title: 'Data Model', nav: true, auth: false, settings: { section: 'API Classes' }, name: 'api:datamodel'
       }, {
         route: 'api:datasource', redirect: 'api/datasource', title: 'Data Source', nav: true, auth: false, settings: { section: 'API Classes', disabled: true }, name: 'api:datasource'
       }

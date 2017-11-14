@@ -25,6 +25,7 @@ define(["require", "exports", "aurelia-framework", "../elements/inputs/ui-button
             this.element = element;
             this.prefix = '';
             this.value = 'default';
+            this.oldValue = '';
             if (element['au'] && element['au'].controller)
                 this.vm = element['au'].controller.viewModel;
             if (element.nodeType == Node.ELEMENT_NODE) {
@@ -35,7 +36,10 @@ define(["require", "exports", "aurelia-framework", "../elements/inputs/ui-button
             }
         }
         UIColorBase.prototype.attached = function () {
-            this.changeTheme('', this.value);
+            this.changeTheme(this.oldValue, this.value);
+        };
+        UIColorBase.prototype.valueChanged = function (newValue) {
+            this.changeTheme(this.oldValue, newValue);
         };
         UIColorBase.prototype.changeTheme = function (oldTheme, newTheme) {
             var el;
@@ -53,15 +57,15 @@ define(["require", "exports", "aurelia-framework", "../elements/inputs/ui-button
                     b.element.classList.remove("ui-" + oldTheme);
                     b.element.classList.add("ui-" + newTheme);
                 });
-                return;
             }
             else {
                 el = this.element;
             }
-            if (el.classList) {
+            if (el && el.classList) {
                 el.classList.remove("ui-" + this.prefix + oldTheme);
                 el.classList.add("ui-" + this.prefix + newTheme);
             }
+            this.oldValue = newTheme;
         };
         UIColorBase = __decorate([
             aurelia_framework_1.noView(),
@@ -77,9 +81,6 @@ define(["require", "exports", "aurelia-framework", "../elements/inputs/ui-button
             _this.element = element;
             return _this;
         }
-        UIColorTheme.prototype.valueChanged = function (newValue) {
-            this.changeTheme(this.value, newValue);
-        };
         UIColorTheme = __decorate([
             aurelia_framework_1.autoinject(),
             aurelia_framework_1.customAttribute('theme'),
@@ -240,9 +241,6 @@ define(["require", "exports", "aurelia-framework", "../elements/inputs/ui-button
             _this.prefix = 'bg-';
             return _this;
         }
-        UIColorThemeBg.prototype.valueChanged = function (newValue) {
-            this.changeTheme(this.value, newValue);
-        };
         UIColorThemeBg = __decorate([
             aurelia_framework_1.autoinject(),
             aurelia_framework_1.customAttribute('bg-theme'),
@@ -430,9 +428,6 @@ define(["require", "exports", "aurelia-framework", "../elements/inputs/ui-button
             _this.prefix = 'text-';
             return _this;
         }
-        UIColorThemeText.prototype.valueChanged = function (newValue) {
-            this.changeTheme(this.value, newValue);
-        };
         UIColorThemeText = __decorate([
             aurelia_framework_1.autoinject(),
             aurelia_framework_1.customAttribute('text-theme'),

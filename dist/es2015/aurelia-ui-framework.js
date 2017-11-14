@@ -31,6 +31,7 @@ import './attributes/ui-ribbon';
 import './attributes/ui-tooltip';
 import './value-converters/ui-lodash';
 import './value-converters/ui-text';
+export * from './data/ui-datamodel';
 export * from './utils/ui-application';
 export * from './utils/ui-constants';
 export * from './utils/ui-dialog';

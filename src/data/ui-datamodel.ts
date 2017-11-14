@@ -29,7 +29,7 @@ export class UIDataModel {
         set: this.propertySetter('id'),
         enumerable: true
       },
-      apiSlug: {
+      apiUrl: {
         enumerable: false,
         writable: true
       },
@@ -62,12 +62,12 @@ export class UIDataModel {
   loaded = false;
 
   get(id) {
-    if (!this.apiSlug) throw Error('API route required');
+    if (!this.apiUrl) throw Error('API route required');
     // TODO: Return fetch promise
   }
 
   save() {
-    if (!this.apiSlug) throw Error('API route required');
+    if (!this.apiUrl) throw Error('API route required');
     // TODO: Check if id is null post else put
     // TODO: Return fetch promise
     this.id = this[this.idProperty] || this.generateId();
@@ -95,6 +95,11 @@ export class UIDataModel {
     const POJO = {}
     this.metadata.serializableProps.forEach(prop => POJO[prop] = UIDataModel.serializeProperty(this[prop]));
     return POJO;
+  }
+  deserialize(json) {
+    this.metadata.original = _.cloneDeep(json);
+    this.metadata.updated = _.cloneDeep(json);
+    this.metadata.serializableProps.forEach(prop => this[prop] = json[prop]);
   }
 
   static serializeObject(o) {
@@ -124,17 +129,22 @@ export class UIDataModel {
     }
   }
 
-  @computedFrom('metadata.dirtyProps')
+  @computedFrom('metadata.dirtyProps.length')
   get isDirty() {
+    this.logger.info('DirtyProps', this.metadata.dirtyProps.length);
     return !!this.metadata.dirtyProps.length;
   }
 
-  dirtyProp(prop) {
+  isPropDirty(prop) {
     return !!(~this.metadata.dirtyProps.indexOf(prop));
   }
 
+  getDirtyProps() {
+    return this.metadata.dirtyProps;
+  }
+
   // ------ PROTECTED PROPS/METHODS
-  protected apiSlug;
+  protected apiUrl;
   protected idProperty = 'id';
 
   // ------ PRIVATE PROPS/METHODS
@@ -160,7 +170,7 @@ export class UIDataModel {
 
   private updateDirty(prop, value) {
     const hasDirty = !!(~this.metadata.dirtyProps.indexOf(prop));
-    const isDirty = this.metadata.original[prop] !== value;
+    const isDirty = this.metadata.original[prop] !== (value === '' ? null : value);
     if (!hasDirty && isDirty) this.metadata.dirtyProps.push(prop);
     if (hasDirty && !isDirty) this.metadata.dirtyProps.splice(this.metadata.dirtyProps.indexOf(prop), 1);
   }
