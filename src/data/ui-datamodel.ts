@@ -20,14 +20,9 @@ export class UIDataModel {
     this.metadata.updated = _.cloneDeep(this.serialize());
 
     Object.defineProperties(this, {
-      '_id': {
-        enumerable: false,
+      id: {
+        enumerable: true,
         writable: true
-      },
-      'id': {
-        get: this.propertyGetter('id'),
-        set: this.propertySetter('id'),
-        enumerable: true
       },
       apiUrl: {
         enumerable: false,
@@ -62,19 +57,54 @@ export class UIDataModel {
   loaded = false;
 
   get(id) {
-    if (!this.apiUrl) throw Error('API route required');
-    // TODO: Return fetch promise
+    if (!this.apiUrl) return Promise.reject({ errorCode: 'AUF-DM:000', message: "API route required" });;
+
+    return this.callPreHook('preGet', id)
+      .then(result => {
+        if (result !== false) {
+          return this.doGet(id);
+        }
+        Promise.reject({ errorCode: 'AUF-DM:001', message: "Get rejected" });
+      }).then(response => this.postGet(response));
   }
 
   save() {
-    if (!this.apiUrl) throw Error('API route required');
-    // TODO: Check if id is null post else put
-    // TODO: Return fetch promise
-    this.id = this[this.idProperty] || this.generateId();
-    this.metadata.dirtyProps = [];
-    this.metadata.original = _.cloneDeep(this.serialize());
-    this.metadata.updated = _.cloneDeep(this.serialize());
+    if (!this.apiUrl) return Promise.reject({ errorCode: 'AUF-DM:000', message: "API route required" });
+
+    return this.callPreHook('preSave')
+      .then(result => {
+        if (result !== false) {
+          if (this.loaded) return this.doPut();
+          else return this.doPost();
+        }
+        Promise.reject({ errorCode: 'AUF-DM:002', message: "Save rejected" });
+      }).then(response => {
+        this.loaded = true;
+        this.deserialize(this.serialize());
+        this.postSave(response);
+      });
   }
+
+  delete() {
+    if (!this.apiUrl) return Promise.reject({ errorCode: 'AUF-DM:000', message: "API route required" });;
+    if (!this.loaded) return Promise.reject({ errorCode: 'AUF-DM:009', message: "Unknown id for model object" });;
+
+    return this.callPreHook('preDelete')
+      .then(result => {
+        if (result !== false) {
+          return this.doDelete();
+        }
+        Promise.reject({ errorCode: 'AUF-DM:003', message: "Delete rejected" });
+      }).then(response => this.postDelete(response));
+  }
+
+  // Pre/Post hooks for fetch calls
+  preGet() { }
+  preSave() { }
+  preDelete() { }
+  postGet(response) { }
+  postSave(response) { }
+  postDelete(response) { }
 
   update() {
     this.metadata.updated = _.cloneDeep(this.serialize());
@@ -97,6 +127,7 @@ export class UIDataModel {
     return POJO;
   }
   deserialize(json) {
+    this.loaded = true;
     this.metadata.original = _.cloneDeep(json);
     this.metadata.updated = _.cloneDeep(json);
     this.metadata.serializableProps.forEach(prop => this[prop] = json[prop]);
@@ -130,17 +161,15 @@ export class UIDataModel {
   }
 
   @computedFrom('metadata.dirtyProps.length')
-  get isDirty() {
-    this.logger.info('DirtyProps', this.metadata.dirtyProps.length);
+  get isDirty():boolean {
     return !!this.metadata.dirtyProps.length;
   }
 
-  isPropDirty(prop) {
-    return !!(~this.metadata.dirtyProps.indexOf(prop));
-  }
-
-  getDirtyProps() {
-    return this.metadata.dirtyProps;
+  @computedFrom('metadata.dirtyProps.length')
+  get dirtyProps():any {
+    const ret = {}
+    this.metadata.dirtyProps.forEach(prop => ret[prop] = true);
+    return ret;
   }
 
   // ------ PROTECTED PROPS/METHODS
@@ -173,6 +202,39 @@ export class UIDataModel {
     const isDirty = this.metadata.original[prop] !== (value === '' ? null : value);
     if (!hasDirty && isDirty) this.metadata.dirtyProps.push(prop);
     if (hasDirty && !isDirty) this.metadata.dirtyProps.splice(this.metadata.dirtyProps.indexOf(prop), 1);
+  }
+
+  private callPreHook(hook, data?) {
+    let result = this[hook](data);
+
+    if (result instanceof Promise) {
+      return result;
+    }
+
+    if (result !== null && result !== undefined) {
+      return Promise.resolve(result);
+    }
+
+    return Promise.resolve(true);
+  }
+
+  private doGet(id) {
+    //TODO: call deserailize after fetch
+  }
+  private doPost() {
+    //TODO: call doUpdate after fetch
+  }
+  private doPut() {
+    //TODO: call doUpdate after fetch
+  }
+  private doDelete() {
+    //TODO: call dispose after fetch
+  }
+  private doUpdate() {
+    this.id = this[this.idProperty] || this.generateId();
+    this.metadata.dirtyProps = [];
+    this.metadata.original = _.cloneDeep(this.serialize());
+    this.metadata.updated = _.cloneDeep(this.serialize());
   }
 }
 
