@@ -17,6 +17,7 @@ class MyModel extends UIDataModel {
     this.id = id;
     this.firstName = 'Username';
     this.lastName = 'Surname';
+    return Promise.resolve();
   }
 }
 
@@ -40,10 +41,10 @@ describe('Data Model', () => {
     expect(model.isDirty).toEqual(true);
   });
   it("firstName should not be dirty", () => {
-    expect(model.isPropDirty('firstName')).toEqual(false);
+    expect(model.dirtyProps.firstName).toEqual(false);
   });
   it("lastName should be dirty", () => {
-    expect(model.isPropDirty('lastName')).toEqual(true);
+    expect(model.dirtyProps.lastName).toEqual(true);
   });
   it("reset lastName, should not be dirty", () => {
     model.lastName = null;
