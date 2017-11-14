@@ -19,19 +19,96 @@
                 <ui-input-addon if.bind="!model.isDirty" glyph="glyph-icon-yes" text-theme="green"></ui-input-addon>
                 <span>${model.isDirty ? 'Dirty' : 'Unchanged'}</span>
               </ui-input-group>
+
               <ui-input-group>
                 <ui-input-label required>First Name</ui-input-label>
+                <ui-input-addon text-theme.bind="model.dirtyProps.firstName?'red':'green'" glyph.bind="model.dirtyProps.firstName?'glyph-icon-no':'glyph-icon-yes'"></ui-input-addon>
                 <ui-input value.bind="model.firstName" maxlength="99" counter clear></ui-input>
-                <ui-input-addon text-theme.bind="model.isPropDirty('firstName', model.firstName)?'red':'green'" glyph.bind="model.isPropDirty('firstName', model.firstName)?'glyph-icon-no':'glyph-icon-yes'"></ui-input-addon>
               </ui-input-group>
 
-              <ui-input-group required>
-                <ui-input-label>Last Name</ui-input-label>
+              <ui-input-group>
+                <ui-input-label required>Last Name</ui-input-label>
+                <ui-input-addon text-theme.bind="model.dirtyProps.lastName?'red':'green'" glyph.bind="model.dirtyProps.lastName?'glyph-icon-no':'glyph-icon-yes'"></ui-input-addon>
                 <ui-input value.bind="model.lastName" maxlength="99" counter clear></ui-input>
-                <ui-input-addon text-theme.bind="model.isPropDirty('lastName', model.lastName)?'red':'green'" glyph.bind="model.isPropDirty('lastName', model.lastName)?'glyph-icon-no':'glyph-icon-yes'"></ui-input-addon>
+              </ui-input-group>
+
+              <ui-row nogutter>
+                <ui-column>
+                  <ui-input-group>
+                    <ui-input-label>Date of Birth</ui-input-label>
+                    <ui-input-addon text-theme.bind="model.dirtyProps.dob?'red':'green'" glyph.bind="model.dirtyProps.dob?'glyph-icon-no':'glyph-icon-yes'"></ui-input-addon>
+                    <ui-date date.bind="model.dob" clear></ui-date>
+                  </ui-input-group>
+                </ui-column>
+                <ui-column>
+                  <ui-input-group>
+                    <ui-input-label>Age</ui-input-label>
+                    <ui-input-addon text-theme.bind="model.dirtyProps.age?'red':'green'" glyph.bind="model.dirtyProps.age?'glyph-icon-no':'glyph-icon-yes'"></ui-input-addon>
+                    <ui-input number.bind="model.age" clear></ui-input>
+                  </ui-input-group>
+                </ui-column>
+              </ui-row>
+            </ui-fieldset>
+
+            <ui-fieldset legend="Contact Info">
+
+              <ui-input-group>
+                <ui-input-label required>Address</ui-input-label>
+                <ui-input-addon text-theme.bind="model.dirtyProps.address1?'red':'green'" glyph.bind="model.dirtyProps.address1?'glyph-icon-no':'glyph-icon-yes'"></ui-input-addon>
+                <ui-input value.bind="model.address1" maxlength="99" counter clear></ui-input>
+              </ui-input-group>
+
+              <ui-input-group>
+                <ui-input-label> </ui-input-label>
+                <ui-input-addon text-theme.bind="model.dirtyProps.address2?'red':'green'" glyph.bind="model.dirtyProps.address2?'glyph-icon-no':'glyph-icon-yes'"></ui-input-addon>
+                <ui-input value.bind="model.address2" maxlength="99" counter clear></ui-input>
+              </ui-input-group>
+
+              <ui-input-group>
+                <ui-input-label>City</ui-input-label>
+                <ui-input-addon text-theme.bind="model.dirtyProps.city?'red':'green'" glyph.bind="model.dirtyProps.city?'glyph-icon-no':'glyph-icon-yes'"></ui-input-addon>
+                <ui-input value.bind="model.city" maxlength="99" counter clear></ui-input>
+              </ui-input-group>
+
+              <ui-input-group>
+                <ui-input-label>Country</ui-input-label>
+                <ui-input-addon text-theme.bind="model.dirtyProps.model.country?'red':'green'" glyph.bind="model.dirtyProps.country?'glyph-icon-no':'glyph-icon-yes'"></ui-input-addon>
+                <ui-input value.bind="model.country" maxlength="99" counter clear></ui-input>
+              </ui-input-group>
+
+              <hr/>
+
+              <ui-input-group>
+                <ui-input-label>Email</ui-input-label>
+                <ui-input-addon text-theme.bind="model.dirtyProps.email?'red':'green'" glyph.bind="model.dirtyProps.email?'glyph-icon-no':'glyph-icon-yes'"></ui-input-addon>
+                <ui-input email value.bind="model.email" maxlength="99" counter clear></ui-input>
+              </ui-input-group>
+
+              <ui-input-group>
+                <ui-input-label>Mobile</ui-input-label>
+                <ui-input-addon text-theme.bind="model.dirtyProps.phone?'red':'green'" glyph.bind="model.dirtyProps.phone?'glyph-icon-no':'glyph-icon-yes'"></ui-input-addon>
+                <ui-phone value.bind="model.phone" clear></ui-phone>
               </ui-input-group>
             </ui-fieldset>
 
+            <ui-toolbar muted>
+              <ui-button-group separator="or">
+                <ui-button muted width="6em" click.trigger="model.update()">Update</ui-button>
+                <ui-button light width="6em" click.trigger="model.discard()">Discard</ui-button>
+              </ui-button-group>
+              <ui-button-group separator="or">
+                <ui-button dark width="6em" click.trigger="model.save()">Save</ui-button>
+                <ui-button muted width="6em" click.trigger="model.reset()">Reset</ui-button>
+              </ui-button-group>
+            </ui-toolbar>
+          </ui-column>
+          <ui-column size="lg-6 md-4" padded>
+            <h6 class="x-title">Local Changes</h6>
+            <p><strong text-info>Update</strong><br/>Update form changes on locally. Model is still dirty since the data has not yet been saved.</p>
+            <p><strong text-info>Discard</strong><br/>Discard any changes made since last update.</p>
+            <h6 class="x-title">Remote Changes</h6>
+            <p><strong text-info>Save</strong><br/>Save form changes will update all field values and reset model dirty.</p>
+            <p><strong text-info>Reset</strong><br/>Reset form changes back to original, regardless of update.</p>
           </ui-column>
         </ui-row>
       </ui-form>

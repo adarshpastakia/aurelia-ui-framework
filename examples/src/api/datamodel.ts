@@ -25,6 +25,8 @@ export class DataModel {
 class MyModel extends UIDataModel {
   @serializable() firstName;
   @serializable() lastName;
+  @serializable() dob;
+  @serializable() age;
   @serializable() address1;
   @serializable() address2;
   @serializable() city;
