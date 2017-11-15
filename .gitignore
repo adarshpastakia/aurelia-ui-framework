@@ -17,9 +17,6 @@ Thumbs.db
 # Dependencies
 node_modules
 
-# Compiled files
-scripts
-
 # Logs
 logs
 *.log
@@ -30,9 +27,6 @@ npm-debug.log*
 pids
 *.pid
 *.seed
-
-# Build directory
-/scripts
 
 # Coverage directory
 /coverage

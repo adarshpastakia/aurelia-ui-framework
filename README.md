@@ -27,7 +27,11 @@
 
 ### Demo
 
-https://adarshpastakia.github.io/auf-demo-v4
+https://adarshpastakia.github.io/aurelia-ui-framework
+
+### Demo for version 3
+
+https://adarshpastakia.github.io/auf-demo-v3
 
 ---
 
