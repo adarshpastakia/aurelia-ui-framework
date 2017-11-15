@@ -17,7 +17,7 @@ export class UIAffixPoint { }
 export class UIAffixContent { }
 
 @autoinject()
-@inlineView(`<template class="ui-sidebar ui-row-vertical ui-row-stretch \${collapsed?'ui-collapse':''} \${position}" click.trigger="showOverlay($event)">
+@inlineView(`<template class="ui-sidebar ui-row-vertical ui-row-stretch \${collapsed?'ui-collapse':''} \${position}" click.trigger="toggleCollapse($event)">
   <div class="ui-col-auto ui-row ui-row-end ui-row-middle ui-sidebar-head \${position=='start'?'':'ui-reverse'}" if.bind="collapsible || label">
   <div class="ui-col-fill ui-sidebar-title">\${label}</div>
   <a click.trigger="toggleCollapse($event)" class="ui-col-auto ui-sidebar-close" if.bind="collapsible"><ui-glyph glyph.bind="glyph"></ui-glyph></a></div>
