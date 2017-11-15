@@ -17,7 +17,7 @@ export class UIAffixPoint { }
 export class UIAffixContent { }
 
 @autoinject()
-@inlineView(`<template class="ui-sidebar ui-row-vertical ui-row-stretch \${collapsed?'ui-collapse':''} \${position}" click.trigger="toggleCollapse($event)">
+@inlineView(`<template class="ui-sidebar ui-row-vertical ui-row-stretch \${collapsed?'ui-collapse':''} \${position}" click.trigger="showBody($event)">
   <div class="ui-col-auto ui-row ui-row-end ui-row-middle ui-sidebar-head \${position=='start'?'':'ui-reverse'}" if.bind="collapsible || label">
   <div class="ui-col-fill ui-sidebar-title">\${label}</div>
   <a click.trigger="toggleCollapse($event)" class="ui-col-auto ui-sidebar-close" if.bind="collapsible"><ui-glyph glyph.bind="glyph"></ui-glyph></a></div>
@@ -33,6 +33,7 @@ export class UISidebar {
     if (element.hasAttribute('small')) element.classList.add('ui-small');
     if (this.miniDisplay = element.hasAttribute('mini-display')) element.classList.add('ui-mini-display');
     this.collapsible = element.hasAttribute('collapsible');
+    this.bodyToggle = element.hasAttribute('toggle');
 
     this.obClick = UIEvent.subscribe('mouseclick', () => {
       element.classList.remove('ui-show-overlay');
@@ -67,9 +68,17 @@ export class UISidebar {
   private obClick;
   private miniDisplay = false;
   private collapsible = false;
+  private bodyToggle = false;
 
   collapsedChanged(newValue) {
     this.glyph = (this.position == 'end' && !newValue) || (this.position == 'start' && newValue) ? "glyph-arrow-right" : "glyph-arrow-left";
+  }
+
+  showBody($event) {
+    if(this.bodyToggle) 
+      this.toggleCollapse($event);
+     else 
+      this.showOverlay($event);
   }
 
   toggleCollapse($event) {
