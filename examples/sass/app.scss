@@ -171,6 +171,55 @@ h4.x-title {
   color: $secondary;
 }
 
+.x-title-alt {
+  color : $primary;
+  margin: 1em 0 0.5em;
+
+  > span {
+    border-bottom: 1px solid rgba($muted,.2);
+  }
+}
+
+.x-started-read {
+  font-size: 1.25em;
+
+  p {
+    line-height: 2;
+  }
+}
+
+.x-started-guide {
+  pre > code {
+    background: $dark;
+    color     : $white;
+  }
+
+  ol > li {
+    margin: 2em 0 0.5em;
+  }
+}
+
+ul.x-checklist {
+  margin      : 0;
+  padding-left: 2em;
+  list-style  : none;
+  line-height : 1.5;
+
+  li:before {
+    color      : $darkGray;
+    content    : '\2713';
+    position   : absolute;
+    margin-left: -1.5em;
+    font-size  : 0.8em;
+    margin-top : 0.5em;
+  }
+
+  .x-explain {
+    font-size: 0.8em;
+    color    : $darkGray;
+  }
+}
+
 .x-tab {
   padding    : 6px 12px;
   margin     : 6px 0;

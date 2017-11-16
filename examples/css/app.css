@@ -1320,18 +1320,15 @@ p {
 
 p.ui-para.ui-emphasis:first-letter {
   font-size: 1.5em;
-  line-height: 1;
-  color: #F06292; }
+  line-height: 1; }
 
 p.ui-para.ui-emphasis-big:first-letter {
   font-size: 2.5em;
-  line-height: 1;
-  color: #F06292; }
+  line-height: 1; }
 
 p.ui-para.ui-emphasis-large:first-letter {
   font-size: 4em;
-  line-height: 1;
-  color: #F06292; }
+  line-height: 1; }
 
 .ui-display-1 {
   font-size: 4em;
@@ -2513,6 +2510,7 @@ strong {
     position: relative;
     font-variant: small-caps;
     background: #FFFEFC;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2) inset;
     font-weight: 400; }
   .ui-button-group.ui-fill > .ui-button {
     -webkit-flex: 1 1 auto;
@@ -5516,7 +5514,8 @@ strong {
   position: relative;
   display: inline-block;
   line-height: 1;
-  margin: 0.25rem; }
+  margin: 0.25rem;
+  box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.2); }
   .ui-dropdown:not(.ui-invalid) .ui-invalid-icon {
     display: none; }
   .ui-dropdown .ui-invalid-icon {
@@ -9475,6 +9474,40 @@ hue-6-2: #c18401
 
 h4.x-title {
   color: #F06292; }
+
+.x-title-alt {
+  color: #AD1457;
+  margin: 1em 0 0.5em; }
+  .x-title-alt > span {
+    border-bottom: 1px solid rgba(149, 165, 166, 0.2); }
+
+.x-started-read {
+  font-size: 1.25em; }
+  .x-started-read p {
+    line-height: 2; }
+
+.x-started-guide pre > code {
+  background: #34495e;
+  color: #FFFEFC; }
+
+.x-started-guide ol > li {
+  margin: 2em 0 0.5em; }
+
+ul.x-checklist {
+  margin: 0;
+  padding-left: 2em;
+  list-style: none;
+  line-height: 1.5; }
+  ul.x-checklist li:before {
+    color: #7f8c8d;
+    content: '\2713';
+    position: absolute;
+    margin-left: -1.5em;
+    font-size: 0.8em;
+    margin-top: 0.5em; }
+  ul.x-checklist .x-explain {
+    font-size: 0.8em;
+    color: #7f8c8d; }
 
 .x-tab {
   padding: 6px 12px;

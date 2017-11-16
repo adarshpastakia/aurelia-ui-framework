@@ -11,6 +11,7 @@
   display    : inline-block;
   line-height: 1;
   margin     : 0.25rem;
+  box-shadow : 0 0 1px 0 rgba(0,0,0,.2);
 
   &:not(.ui-invalid) .ui-invalid-icon {
     display: none;

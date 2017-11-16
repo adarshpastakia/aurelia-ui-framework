@@ -39,7 +39,7 @@
       width         : 2em;
       max-width     : 2em;
       pointer-events: none;
-      @include transition(all .2s);
+      @include transition(all 0.2s);
 
       .ui-icon {
         margin: auto;
@@ -79,7 +79,7 @@
       pointer-events: none;
       line-height   : 1;
       padding       : 0.25em 0;
-      @include transition(width .2s);
+      @include transition(width 0.2s);
 
       .ui-icon {
         font-size: 1.5em;
@@ -237,6 +237,7 @@
       position     : relative;
       font-variant : small-caps;
       background   : $base-bg;
+      box-shadow   : 0 0 2px 1px rgba(0,0,0,0.2) inset;
       font-weight  : $font-weight-medium;
     }
   }

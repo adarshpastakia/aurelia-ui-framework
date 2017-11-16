@@ -32,11 +32,11 @@ export class Container {
     if (newValue) this.elWiki.innerHTML = this.renderHtml(newValue);
   }
 
-  renderHtml(html) {
+  renderHtml(html, hilight = true) {
     let rend = new kramed.Renderer();
     rend.code = (code, lang) => {
-      code = code.replace(/&gt;/g, '>').replace(/&lt;/g, '<').replace(/&amp;/g, '&');
-      if (window.hljs) {
+      if (hilight && window.hljs) {
+        code = code.replace(/&gt;/g, '>').replace(/&lt;/g, '<').replace(/&amp;/g, '&');
         window.hljs.configure({
           useBR: true,
           tabReplace: '    '
@@ -44,7 +44,7 @@ export class Container {
         return `<pre><code class="hljs ${lang} lang-${lang}">` + window.hljs.highlightAuto(code, [lang]).value + '</code></pre>';
       }
       else {
-        return `<pre><code class="hljs ${lang} lang-${lang}"><xmp>${code}</xmp></code></pre>`;
+        return `<pre><code class="hljs ${lang} lang-${lang}">${code}</code></pre>`;
       }
     }
     return kramed(html, {

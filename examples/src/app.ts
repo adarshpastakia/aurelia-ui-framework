@@ -27,7 +27,7 @@ export class App {
       }, {
         route: '404', moduleId: './home/unknown', nav: false, auth: false, name: '404'
       }, {
-        route: 'docs', moduleId: './home/unknown', title: 'Getting Started', nav: true, auth: false, name: 'docs', settings: { section: '' }
+        route: 'start', moduleId: './start/view', title: 'Getting Started', nav: true, auth: false, name: 'start', settings: { section: '' }
       }, {
         route: 'examples', moduleId: './samples/home', title: 'Examples', nav: true, auth: false, name: 'examples', settings: { section: '' }
       }, {

@@ -1,0 +1,91 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <ui-page animate>
+    <x-container page-title="Installation">
+      <div class="x-started-guide">
+        <ol>
+          <li>
+            <h5 class="x-title-alt">
+              <span>Install NPM Modules</span>
+            </h5>
+            <p class="ui-para">To get started we will need to install some global npm modules.</p>
+            <div class="ui-markdown">
+              <pre><code class="lang-shell"><span text-muted># Use npm to install yarn package manager and aurelia-cli.</span>
+
+npm install yarn aurelia-cli -g</code></pre>
+            </div>
+          </li>
+          <li>
+            <h5 class="x-title-alt">
+              <span>Create an Aurelia application</span>
+            </h5>
+            <div class="ui-markdown">
+              <pre><code class="lang-shell"><span text-muted># Create an application folder.</span>
+<span text-muted># Within your application folder</span>
+
+<span text-muted># Create a new aurelia application</span>
+au new --here</code></pre>
+            </div>
+            <div class="x-section">
+              <blockquote>Use SASS css pre-compiler</blockquote>
+            </div>
+          </li>
+          <li>
+            <h5 class="x-title-alt">
+              <span>Install the UI Framework</span>
+            </h5>
+            <div class="ui-markdown">
+              <pre><code class="lang-shell"><span text-muted># Add the aurelia-ui-framework module.</span>
+
+yarn add aurelia-ui-framework</code></pre>
+            </div>
+          </li>
+          <li>
+            <h5 class="x-title-alt">
+              <span>Update the aurelia project</span>
+            </h5>
+            <div class="ui-markdown">
+              <p>Update the&nbsp;
+                <code>aurelia_project/aurelia.json</code>&nbsp;file to include the framework and its dependencies
+                <br/>Add the following code to the&nbsp;
+                <code>bundles</code>&nbsp;array.</p>
+              <pre><code class="lang-json">{
+  "name": "framework-bundle.js",
+  "dependencies": [
+    "lodash",
+    "moment",
+    "numeral",
+    "aurelia-animator-css",
+    "aurelia-fetch-client",
+    {
+      "name": "auf-utility-library",
+      "path": "../node_modules/auf-utility-library",
+      "main": "index"
+    },
+    {
+      "name": "aurelia-ui-framework",
+      "path": "../node_modules/aurelia-ui-framework/dist/amd",
+      "main": "aurelia-ui-framework"
+    },
+    {
+      "name": "aurelia-validation",
+      "path": "../node_modules/aurelia-validation/dist/amd",
+      "main": "aurelia-validation"
+    },
+    {
+      "name": "kramed",
+      "path": "../node_modules/kramed/lib",
+      "main": "kramed"
+    }
+  ]
+}</code></pre>
+            </div>
+          </li>
+      </div>
+    </x-container>
+  </ui-page>
+</template>
