@@ -110,7 +110,11 @@ define(["require", "exports", "aurelia-framework", "aurelia-metadata", "./ui-eve
                     dd.classList.remove('ui-tether-left');
                     dd.classList.remove('ui-tether-right');
                     var align = options.position.split('');
-                    if (align[0] == 't') {
+                    if (align[0] == 'c') {
+                        dd.style.top = pos.top + (pos.height / 2) + 'px';
+                        dd.style.transform += ' translateY(-50%)';
+                    }
+                    else if (align[0] == 't') {
                         if (pos.top - dd.offsetHeight < 0) {
                             dd.classList.add('ui-tether-top');
                             el.classList.add('ui-tether-bottom');

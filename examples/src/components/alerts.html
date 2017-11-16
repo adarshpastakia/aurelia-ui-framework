@@ -41,9 +41,9 @@
 
             <ui-row>
               <ui-column fill>
-                <ui-input-group plain width="6em">
+                <ui-input-group plain>
                   <ui-input-label>Glyph</ui-input-label>
-                  <ui-dropdown value.bind="toast.glyph" glyph.bind="toast.glyph" width="6em">
+                  <ui-dropdown value.bind="toast.glyph" glyph.bind="toast.glyph" width="10em">
                     <ui-list-item value="">None</ui-list-item>
                     <ui-list-item value="glyph-alert-info" glyph="glyph-alert-info">Info</ui-list-item>
                     <ui-list-item value="glyph-alert-exclaim" glyph="glyph-alert-exclaim">Exclaim</ui-list-item>
@@ -53,9 +53,9 @@
                   </ui-dropdown>
                 </ui-input-group>
               </ui-column>
-              <ui-column fill>
-                <ui-input-group width="8em">
-                  <ui-input-label>Timeout</ui-input-label>
+              <ui-column width="14em">
+                <ui-input-group>
+                  <ui-input-label width="7em">Timeout</ui-input-label>
                   <ui-input number.bind="toast.timeout"></ui-input>
                 </ui-input-group>
               </ui-column>

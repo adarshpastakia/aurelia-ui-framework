@@ -3526,7 +3526,11 @@ define('aurelia-ui-framework/utils/ui-utils',["require", "exports", "aurelia-fra
                     dd.classList.remove('ui-tether-left');
                     dd.classList.remove('ui-tether-right');
                     var align = options.position.split('');
-                    if (align[0] == 't') {
+                    if (align[0] == 'c') {
+                        dd.style.top = pos.top + (pos.height / 2) + 'px';
+                        dd.style.transform += ' translateY(-50%)';
+                    }
+                    else if (align[0] == 't') {
                         if (pos.top - dd.offsetHeight < 0) {
                             dd.classList.add('ui-tether-top');
                             el.classList.add('ui-tether-bottom');
@@ -4311,6 +4315,8 @@ define('aurelia-ui-framework/elements/inputs/ui-input',["require", "exports", "a
                     el.classList.add('ui-focus');
             }
             if (evt.type === 'blur') {
+                if (getParentByClass(document.activeElement, 'ui-input-group'))
+                    return;
                 this.element.classList.remove('ui-focus');
                 if (el)
                     el.classList.remove('ui-focus');
@@ -8809,7 +8815,7 @@ define('aurelia-ui-framework/elements/inputs/ui-form',["require", "exports", "au
     var UIInputGroup = (function () {
         function UIInputGroup(element) {
             this.element = element;
-            this.width = '15em';
+            this.width = '4em';
             if (element.hasAttribute('plain'))
                 element.classList.add('ui-plain');
         }

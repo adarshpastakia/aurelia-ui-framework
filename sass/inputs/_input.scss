@@ -5,7 +5,7 @@
 // @license     : MIT
 
 .ui-input-wrapper {
-  @include flex(1 1 4em);
+  @include flex(1 0 4em);
 
   .ui-input-info {
     background: rgba($light, .25);

@@ -55,6 +55,7 @@ export class UIBaseInput {
       if (el) el.classList.add('ui-focus');
     }
     if (evt.type === 'blur') {
+      if (getParentByClass(document.activeElement, 'ui-input-group')) return;
       this.element.classList.remove('ui-focus');
       if (el) el.classList.remove('ui-focus');
     }

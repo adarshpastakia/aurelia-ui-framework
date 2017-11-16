@@ -4,43 +4,60 @@
 // @license     : MIT
 -->
 <template>
+  <style>
+.flag-card {
+  display: inline-block;
+  border-radius: 0.5em;
+  margin: 0.5em;
+  width: 128px;
+  text-align: center;
+}
+
+.flag-card .ui-flag {
+  margin: 0.5rem auto;
+  width: 32px;
+  height: 21px;
+}
+
+.flag-card .name {
+  font-size: 0.8rem;
+  overflow: hidden;
+  line-height: 1.5;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.flag-card .code {
+  font-size: 0.6rem;
+}
+
+.x-search-box {
+  transition: width .5s;
+}
+  </style>
   <ui-page animate>
     <x-container page-title="Flag Icons">
-      <style>
-        .flag-card {
-          display: inline-block;
-          border-radius: 0.5em;
-          margin: 0.5em;
-          width: 128px;
-          text-align: center;
-        }
-        .flag-card .ui-flag {
-          margin: 0.5rem auto;
-          width: 32px;
-          height: 21px;
-        }
-        .flag-card .name {
-          font-size: 0.8rem;
-          overflow: hidden;
-          line-height: 1.5;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-        }
-        .flag-card .code {
-          font-size: 0.6rem;
-        }
+      <ui-input-group slot="x-search-bar" class="x-search-box" css.bind="{width:elWidth}" plain>
+        <ui-input value.bind="filterText" focus.trigger="elWidth='20em'" blur.trigger="elWidth='8em'" input.trigger="filter() & debounce" clear placeholder="Search...">
+          <ui-input-addon text-muted glyph="glyph-search"></ui-input-addon>
+        </ui-input>
+      </ui-input-group>
 
-      </style>
-      <ui-row>
-        <div repeat.for="key of countries | keys">
-          <h6 class="x-title">${key}</h6>
-          <div class="flag-card ui-border-all ui-border-light" repeat.for="c of countries[key]">
+      <div>
+      <div class="ui-markdown">
+        <pre><code class="hljs lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">ui-glyph</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"ui-flag {iso-code}"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">ui-glyph</span>&gt;</span></code></pre>
+      </div>
+      <div repeat.for="group of fCountries | sort:['continent','name'] | group:'continent'">
+        <h6 class="x-title">${group.key}</h6>
+        <ui-row>
+          <div class="flag-card ui-border-all ui-border-light" repeat.for="c of group.items">
             <ui-glyph class="ui-flag ${c.iso2}"></ui-glyph>
             <div class="name">${c.name}</div>
             <div class="code ui-text-info ui-selectable">${c.iso2}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${c.iso3}</div>
           </div>
-        </div>
-      </ui-row>
+        </ui-row>
+      </div>
+      </div>
     </x-container>
   </ui-page>
 </template>

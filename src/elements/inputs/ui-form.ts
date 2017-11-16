@@ -119,7 +119,7 @@ export class UIInputGroup {
     if (element.hasAttribute('plain')) element.classList.add('ui-plain');
   }
 
-  @bindable() width = '15em';
+  @bindable() width = '4em';
 }
 
 @autoinject()

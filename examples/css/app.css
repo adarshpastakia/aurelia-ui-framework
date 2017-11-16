@@ -1002,9 +1002,16 @@ a {
   a:hover {
     color: #AD1457; }
   a.ui-external:after {
-    content: '\2B00';
-    font-size: 0.8em;
-    vertical-align: super; }
+    content: '\21F1';
+    font-size: 0.7em;
+    color: #95a5a6;
+    display: inline-block;
+    vertical-align: super;
+    -webkit-transform: scaleX(-1);
+    -moz-transform: scaleX(-1);
+    -ms-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    transform: scaleX(-1); }
   a.disabled, a[disabled] {
     color: #bdc3c7;
     pointer-events: none; }
@@ -3240,11 +3247,11 @@ strong {
       font-size: 1.1em; }
   .ui-input-group > div {
     line-height: 2.2;
-    -webkit-flex: 1 1 8em;
-    -moz-flex: 1 1 8em;
-    -ms-flex: 1 1 8em;
-    -o-flex: 1 1 8em;
-    flex: 1 1 8em; }
+    -webkit-flex: 1 0 1em;
+    -moz-flex: 1 0 1em;
+    -ms-flex: 1 0 1em;
+    -o-flex: 1 0 1em;
+    flex: 1 0 1em; }
   .ui-input-group .ui-group-wrapper {
     background: white;
     color: #2c3e50;
@@ -3280,11 +3287,11 @@ strong {
     box-shadow: none; }
 
 .ui-input-wrapper {
-  -webkit-flex: 1 1 4em;
-  -moz-flex: 1 1 4em;
-  -ms-flex: 1 1 4em;
-  -o-flex: 1 1 4em;
-  flex: 1 1 4em; }
+  -webkit-flex: 1 0 4em;
+  -moz-flex: 1 0 4em;
+  -ms-flex: 1 0 4em;
+  -o-flex: 1 0 4em;
+  flex: 1 0 4em; }
   .ui-input-wrapper .ui-input-info {
     background: rgba(236, 240, 241, 0.25);
     color: #95a5a6;
@@ -4358,6 +4365,7 @@ strong {
   font-size: 0.9rem;
   padding: 0.25em 3em;
   z-index: 10;
+  color: #34495e;
   background: #ecf0f1;
   font-weight: 400;
   box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.5);
@@ -4366,6 +4374,8 @@ strong {
   -ms-transform: rotate(45deg) translate(30%, -50%);
   -o-transform: rotate(45deg) translate(30%, -50%);
   transform: rotate(45deg) translate(30%, -50%); }
+  .ui-ribbon.ui-small {
+    font-size: 0.5em; }
 
 .ui-ribbon.ui-primary {
   color: #FFFEFC;

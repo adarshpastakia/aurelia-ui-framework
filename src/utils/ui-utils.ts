@@ -124,7 +124,11 @@ export module UIUtils {
 
         let align = options.position.split('');
 
-        if (align[0] == 't') {
+        if (align[0] == 'c') {
+          dd.style.top = pos.top + (pos.height / 2) + 'px';
+          dd.style.transform += ' translateY(-50%)';
+        }
+        else if (align[0] == 't') {
           if (pos.top - dd.offsetHeight < 0) {
             dd.classList.add('ui-tether-top');
             el.classList.add('ui-tether-bottom');
@@ -222,7 +226,7 @@ export module UIUtils {
     else opts = Object.assign(opts, options);
     let toast = DOM.createElement('ui-toast');
     toast.classList.add(`ui-${opts.theme}`);
-    toast.innerHTML = `${opts.title ? `<h1>${opts.title}</h1>`: ''}<p>${opts.message}</p>`;
+    toast.innerHTML = `${opts.title ? `<h1>${opts.title}</h1>` : ''}<p>${opts.message}</p>`;
     if (opts.container.children.length > 0)
       opts.container.insertBefore(toast, opts.container.children[0]);
     else
@@ -243,7 +247,7 @@ export module UIUtils {
     if (isString(options)) opts.message = options;
     else opts = Object.assign(opts, options);
     let alert = DOM.createElement('ui-alert');
-    alert.innerHTML = `${opts.title ? `<h1>${opts.title}</h1>`: ''}<p>${opts.message}</p>`;
+    alert.innerHTML = `${opts.title ? `<h1>${opts.title}</h1>` : ''}<p>${opts.message}</p>`;
     this.dialogContainer.appendChild(alert);
 
     let engine = this.lazy(TemplatingEngine);
@@ -275,7 +279,7 @@ export module UIUtils {
     if (isString(options)) opts.message = options;
     else opts = Object.assign(opts, options);
     let alert = DOM.createElement('ui-prompt');
-    alert.innerHTML = `${opts.title ? `<h1>${opts.title}</h1>`: ''}<p>${opts.message}</p>`;
+    alert.innerHTML = `${opts.title ? `<h1>${opts.title}</h1>` : ''}<p>${opts.message}</p>`;
     this.dialogContainer.appendChild(alert);
 
     let engine = this.lazy(TemplatingEngine);

@@ -30,18 +30,25 @@ export class ApiView {
         name: 'install'
       }, {
         route: 'usage',
-        moduleId: './usage',
+        moduleId: '../home/unknown',
         title: 'Usage',
         nav: true,
         auth: false,
         name: 'usage'
       }, {
         route: 'example',
-        moduleId: './example',
+        moduleId: '../home/unknown',
         title: 'Example',
         nav: true,
         auth: false,
         name: 'example'
+      }, {
+        route: 'i18n',
+        moduleId: '../home/unknown',
+        title: 'Using Aurelia I18N',
+        nav: true,
+        auth: false,
+        name: 'i18n'
       }
     ]);
   }

@@ -136,9 +136,12 @@ a {
   }
 
   &.ui-external:after {
-    content       : '\2B00';
-    font-size     : 0.8em;
+    content       : '\21F1';
+    font-size     : 0.7em;
+    color         : $muted;
+    display       : inline-block;
     vertical-align: super;
+    @include transform(scaleX(-1));
   }
 
   &.disabled,

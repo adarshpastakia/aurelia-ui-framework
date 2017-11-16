@@ -11,6 +11,9 @@
           <ui-column fill>
             <h4 class="ui-text-primary">${pageTitle}</h4>
           </ui-column>
+          <div class="ui-column ui-column-auto">
+            <slot name="x-search-bar"></slot>
+          </div>
           <ui-column width="8em">
             <ui-switch if.bind="needRtl" class="ui-themed" value.bind="dir" on-label="rtl" off-label="ltr" on-value="rtl" off-value="ltr"></ui-switch>
           </ui-column>
@@ -29,7 +32,8 @@
     <ui-content padded scroll show.bind="currentView===0">
       <ui-container dir.bind="dir">
         <slot></slot>
-        <br/><br/>
+        <br/>
+        <br/>
       </ui-container>
     </ui-content>
     <ui-content padded scroll show.bind="currentView===1">

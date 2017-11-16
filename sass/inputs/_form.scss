@@ -119,7 +119,7 @@
 
   > div {
     line-height: 2.2;
-    @include flex(1 1 8em);
+    @include flex(1 0 1em);
   }
 
   .ui-group-wrapper {

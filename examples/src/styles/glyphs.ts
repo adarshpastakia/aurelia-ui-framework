@@ -20,6 +20,7 @@ export class StyleGlyphs {
   // deactivate() { }
   // end aurelia hooks
 
+  elWidth = '8em';
   fIcomoon = [];
   fHawLine = [];
   fHawFill = [];
