@@ -63,7 +63,7 @@ https://adarshpastakia.github.io/auf-demo-v3
 
 2. Clone the project `v4-dev` branch from GitHub
   ```shell
-  git clone https://github.com/adarshpastakia/aurelia-ui-framework.git -b v4-dev
+  git clone https://github.com/adarshpastakia/aurelia-ui-framework.git
   ```
 
 3. From project folder execute the following commands

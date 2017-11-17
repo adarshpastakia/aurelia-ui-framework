@@ -1,5 +1,5 @@
-<a name="4.0.0-Beta.3"></a>
-# 4.0.0-Beta.3 (2017-11-17)
+<a name="4.0.0-Beta.4"></a>
+# 4.0.0-Beta.4 (2017-11-17)
 
 * DataModel
   - `serializable` decorator for serializable properties. The serializable property map is maintained in the model' metadata.
@@ -12,8 +12,14 @@
 * Minor style changes
 
 
+<a name="4.0.0-Beta.3"></a>
+# 4.0.0-Beta.3 (2017-11-17)
+
+> Messed up the npm publish, by forgetting to add tag.
+
+
 <a name="4.0.0-Beta.2"></a>
-# 4.0.0-Beta.3 (2017-11-12)
+# 4.0.0-Beta.2 (2017-11-12)
 
 ### Major Updates
 

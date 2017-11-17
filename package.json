@@ -1,25 +1,28 @@
 {
   "name": "aurelia-ui-framework",
   "description": "An Aurelia UI/UX framework.",
-  "version": "4.0.0-Beta.3",
+  "version": "4.0.0-Beta.4",
   "keywords": [
     "ui-framework",
     "desktop-framework",
     "aurelia-ui-framework"
   ],
-  "homepage": "http://adarshpastakia.github.io/auf-demo-v4",
-  "bugs": {
+  "homepage": "http://adarshpastakia.github.io/aurelia-ui-framework",
+  "bugs":
+  {
     "url": ""
   },
   "license": "MIT",
   "author": "Adarsh Pastakia <adarshpastakia@outlook.com> (http://adarshpastakia.github.io/)",
   "main": "dist/commonjs/aurelia-ui-framework.js",
   "typings": "dist/typings/aurelia-ui-framework.d.ts",
-  "repository": {
+  "repository":
+  {
     "type": "git",
     "url": "https://github.com/adarshpastakia/aurelia-ui-framework"
   },
-  "scripts": {
+  "scripts":
+  {
     "start": "au run --watch",
     "build:demo": "au build --env prod",
     "build:source": "gulp build-source",
@@ -27,15 +30,18 @@
     "release:beta": "gulp release --bump prerelease",
     "test": "karma start"
   },
-  "jspm": {
+  "jspm":
+  {
     "registry": "npm",
     "jspmPackage": true,
     "main": "aurelia-ui-framework",
     "format": "amd",
-    "directories": {
+    "directories":
+    {
       "dist": "dist/amd"
     },
-    "dependencies": {
+    "dependencies":
+    {
       "auf-utility-library": "^0.0.1",
       "aurelia-fetch-client": "^1.1.3",
       "aurelia-framework": "^1.1.5",
@@ -45,10 +51,13 @@
       "moment": "^2.19.1",
       "numeral": "^2.0.6"
     },
-    "peerDependencies": {},
-    "devDependencies": {}
+    "peerDependencies":
+    {},
+    "devDependencies":
+    {}
   },
-  "dependencies": {
+  "dependencies":
+  {
     "auf-utility-library": "^0.0.1",
     "aurelia-fetch-client": "^1.1.3",
     "aurelia-framework": "^1.1.5",
@@ -58,8 +67,10 @@
     "moment": "^2.19.1",
     "numeral": "^2.0.6"
   },
-  "peerDependencies": {},
-  "devDependencies": {
+  "peerDependencies":
+  {},
+  "devDependencies":
+  {
     "@types/amcharts": "0.0.41",
     "@types/jasmine": "^2.6.3",
     "@types/node": "^6.0.45",
