@@ -135,7 +135,7 @@ export { UIFieldset };
 let UIInputGroup = class UIInputGroup {
     constructor(element) {
         this.element = element;
-        this.width = '15em';
+        this.width = '4em';
         if (element.hasAttribute('plain'))
             element.classList.add('ui-plain');
     }

@@ -1,3 +1,17 @@
+<a name="4.0.0-Beta.3"></a>
+# 4.0.0-Beta.3 (2017-11-17)
+
+* DataModel
+  - `serializable` decorator for serializable properties. The serializable property map is maintained in the model' metadata.
+  - Dirty checking at property level. All serializable properties have custom `getter` and `setter` to mark properties as dirty.
+  - CRUD operation methods with pre and post hooks.
+    - `get(id)`
+    - `save()` POST/PUT depending on whether the id property is present.
+    - `delete()`
+
+* Minor style changes
+
+
 <a name="4.0.0-Beta.2"></a>
 # 4.0.0-Beta.3 (2017-11-12)
 

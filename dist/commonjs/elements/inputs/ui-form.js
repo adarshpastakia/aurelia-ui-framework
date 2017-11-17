@@ -140,7 +140,7 @@ exports.UIFieldset = UIFieldset;
 var UIInputGroup = (function () {
     function UIInputGroup(element) {
         this.element = element;
-        this.width = '15em';
+        this.width = '4em';
         if (element.hasAttribute('plain'))
             element.classList.add('ui-plain');
     }
