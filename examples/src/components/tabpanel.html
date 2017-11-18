@@ -13,34 +13,22 @@
       </div> -->
       <ui-row>
         <ui-column size="md-6 sm-12">
-          <h6 class="x-title">Top</h6>
+          <h6 class="x-title">Top<small>Using compose element</small></h6>
           <div class="x-view ui-border-none">
-            <ui-tab-panel>
-              <ui-tab label="Tab 1" padded scroll>
-                <compose view="../home/lipsum-big.html"></compose>
-              </ui-tab>
-              <ui-tab label="Tab 2" disabled="true">
-              </ui-tab>
-              <ui-tab label="Tab 3" closeable padded scroll>
-                <compose view="../home/lipsum-small.html"></compose>
-              </ui-tab>
-              <!-- <ui-tab label.bind="tabLabel"></ui-tab> -->
+            <ui-tab-panel tab.bind="activeTab">
+              <ui-tab view-model="../inputs/buttons">View Model</ui-tab>
+              <ui-tab closeable view="../home/lipsum-page.html">View</ui-tab>
+              <ui-tab disabled="true">Disabled</ui-tab>
+              <compose view.bind="activeTab.view" view-model.bind="activeTab.viewModel"></compose>
             </ui-tab-panel>
           </div>
         </ui-column>
         <ui-column size="md-6 sm-12">
-          <h6 class="x-title">Bottom</h6>
+          <h6 class="x-title">Bottom<small>Using router-view element</small></h6>
           <div class="x-view ui-border-none">
-            <ui-tab-panel bottom>
-              <ui-tab label="Tab 1" padded scroll>
-                <compose view="../home/lipsum-big.html"></compose>
-              </ui-tab>
-              <ui-tab label="Tab 2" padded scroll>
-                <compose view="../home/lipsum-big.html"></compose>
-              </ui-tab>
-              <ui-tab label="Tab 3" padded scroll>
-                <compose view="../home/lipsum-big.html"></compose>
-              </ui-tab>
+            <ui-tab-panel use-router bottom>
+              <ui-tab repeat.for="route of router.navigation" active.bind="route.isActive" href.bind="route.href">${route.title}</ui-tab>
+              <ui-router-view></ui-router-view>
             </ui-tab-panel>
           </div>
         </ui-column>
