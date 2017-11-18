@@ -6,15 +6,10 @@ Tab Panel
 
 
 #### `ui-tab`
-Tab Body
+Tab Button
 
 * Attributes
   * `glyph = ''`
-  * `label = ''`
+  * `active = ''`
+  * `disabled = ''`
   * `closeable`: Allow closing of table
-
-* Events/Callback
-  * `beforeclose.call` or `beforeclose.trigger`: return false to stop close event
-  * `close.trigger`
-
-> __NOTE__ Use `beforclose.call` if need to return a promise object

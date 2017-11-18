@@ -29,13 +29,11 @@ export declare class UITabPanel {
     height: string;
     tabs: any[];
     activeTab: any;
+    tab: any;
     private noTabs;
-    private activeTabEl;
+    private useRouter;
     private tabsChanged();
     private activeTabChanged(newValue);
-    close(id: any, force?: boolean): void;
-    private closeTab(tab);
-    private doClose(tab);
     private activateTab(newTab);
     canActivate(id: any): boolean;
     private arrange();
@@ -46,15 +44,17 @@ export declare class UITab {
     static seed: number;
     constructor(element: Element);
     bind(bindingContext: Object, overrideContext: Object): void;
+    attached(): void;
     id: string;
     glyph: string;
-    label: string;
     glyphClass: string;
     disabled: boolean;
-    beforeclose: any;
     active: boolean;
+    href: string;
+    view: string;
+    model: any;
+    viewModel: string;
+    private buttonEl;
     closeable: boolean;
-    remove(): void;
-    canDeactivate(): Promise<any>;
-    readonly viewModel: any;
+    private fireTabChange();
 }

@@ -1,15 +1,23 @@
-###### Simple TabPanel
+###### Simple TabPanel with Composed Views
 
 ```html
-<ui-tab-panel>
-  <ui-tab label="Tab 1" padded scroll glyph="glyph-icon-home">
-    <!-- any Composed view or Datagrid or any Content -->
-  </ui-tab>
-  <ui-tab label="Tab 2" disabled="true">
-    <!-- any Composed view or Datagrid or any Content -->
-  </ui-tab>
-  <ui-tab label="Tab 3" closeable padded scroll beforeclose.call="doSomething()">
-    <!-- any Composed view or Datagrid or any Content -->
-  </ui-tab>
+<ui-tab-panel tab.bind="activeTab">
+  <ui-tab view-model="anyViewModel">View Model</ui-tab>
+  <ui-tab closeable view="any.html">View</ui-tab>
+  <ui-tab disabled="true">Disabled</ui-tab>
+
+  <compose view.bind="activeTab.view" view-model.bind="activeTab.viewModel"></compose>
+</ui-tab-panel>
+```
+
+----
+
+###### Simple TabPanel with Router Views
+
+```html
+<ui-tab-panel tab.bind="activeTab">
+  <ui-tab repeat.for="route of router.navigation" active.bind="route.isActive" href.bind="route.href">${route.title}</ui-tab>
+  
+  <ui-router-view></ui-router-view>
 </ui-tab-panel>
 ```

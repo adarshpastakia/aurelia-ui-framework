@@ -4,7 +4,8 @@
 // @license     : MIT
 -->
 <template>
-  <style>
+  <ui-page animate>
+    <style>
 .glyph-card {
   display: inline-block;
   border-radius: 0.5em;
@@ -27,8 +28,7 @@
 .x-search-box {
   transition: width .5s;
 }
-  </style>
-  <ui-page animate>
+    </style>
     <x-container page-title="SVG Glyphs">
       <ui-input-group slot="x-search-bar" class="x-search-box" css.bind="{width:elWidth}" plain>
         <ui-input value.bind="filterText" focus.trigger="elWidth='20em'" blur.trigger="elWidth='8em'" input.trigger="filter() & debounce" clear placeholder="Search...">

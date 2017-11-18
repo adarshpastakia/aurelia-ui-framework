@@ -4,7 +4,8 @@
 // @license     : MIT
 -->
 <template>
-  <style>
+  <ui-page animate>
+    <style>
 .flag-card {
   display: inline-block;
   border-radius: 0.5em;
@@ -34,8 +35,7 @@
 .x-search-box {
   transition: width .5s;
 }
-  </style>
-  <ui-page animate>
+    </style>
     <x-container page-title="Flag Icons">
       <ui-input-group slot="x-search-bar" class="x-search-box" css.bind="{width:elWidth}" plain>
         <ui-input value.bind="filterText" focus.trigger="elWidth='20em'" blur.trigger="elWidth='8em'" input.trigger="filter() & debounce" clear placeholder="Search...">
@@ -44,19 +44,19 @@
       </ui-input-group>
 
       <div>
-      <div class="ui-markdown">
-        <pre><code class="hljs lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">ui-glyph</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"ui-flag {iso-code}"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">ui-glyph</span>&gt;</span></code></pre>
-      </div>
-      <div repeat.for="group of fCountries | sort:['continent','name'] | group:'continent'">
-        <h6 class="x-title">${group.key}</h6>
-        <ui-row>
-          <div class="flag-card ui-border-all ui-border-light" repeat.for="c of group.items">
-            <ui-glyph class="ui-flag ${c.iso2}"></ui-glyph>
-            <div class="name">${c.name}</div>
-            <div class="code ui-text-info ui-selectable">${c.iso2}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${c.iso3}</div>
-          </div>
-        </ui-row>
-      </div>
+        <div class="ui-markdown">
+          <pre><code class="hljs lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">ui-glyph</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"ui-flag {iso-code}"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">ui-glyph</span>&gt;</span></code></pre>
+        </div>
+        <div repeat.for="group of fCountries | sort:['continent','name'] | group:'continent'">
+          <h6 class="x-title">${group.key}</h6>
+          <ui-row>
+            <div class="flag-card ui-border-all ui-border-light" repeat.for="c of group.items">
+              <ui-glyph class="ui-flag ${c.iso2}"></ui-glyph>
+              <div class="name">${c.name}</div>
+              <div class="code ui-text-info ui-selectable">${c.iso2}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${c.iso3}</div>
+            </div>
+          </ui-row>
+        </div>
       </div>
     </x-container>
   </ui-page>

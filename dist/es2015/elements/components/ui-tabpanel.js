@@ -100,11 +100,13 @@ let UITabPanel = class UITabPanel {
         this.tabs = [];
         this.activeTab = 0;
         this.noTabs = false;
+        this.useRouter = false;
         if (element.hasAttribute('bottom'))
             element.classList.add('ui-bottom');
         if (element.hasAttribute('noborder'))
             element.classList.add('ui-noborder');
         this.noTabs = element.hasAttribute('notabs');
+        this.useRouter = element.hasAttribute('use-router');
     }
     attached() {
         if (!this.noTabs) {
@@ -122,65 +124,31 @@ let UITabPanel = class UITabPanel {
         }
     }
     tabsChanged() {
-        if (!this.activeTabEl && this.tabs.length > 0 && _.find(this.tabs, ['active', true]) == null)
-            this.activateTab(_.find(this.tabs, ['disabled', false]));
+        if (!this.tab && this.tabs.length > 0 && _.find(this.tabs, ['viewModel.active', true]) == null)
+            this.activateTab(_.find(this.tabs, ['viewModel.disabled', false]));
         UIEvent.queueTask(() => this.arrange());
     }
     activeTabChanged(newValue) {
         if (this.tabs.length == 0)
             return;
-        let tab = (_.find(this.tabs, ['id', newValue]) || this.tabs[newValue] || this.activeTabEl);
-        if (this.activeTabEl)
-            this.activeTabEl.active = false;
-        (this.activeTabEl = tab).active = true;
-    }
-    close(id, force = false) {
-        let tab = _.find(this.tabs, ['id', id]);
-        if (tab)
-            force ? this.doClose(tab) : this.closeTab(tab);
-    }
-    closeTab(tab) {
-        tab.canDeactivate()
-            .then(b => {
-            if (b === true) {
-                if (typeof tab.beforeclose === "function") {
-                    let ret = tab.beforeclose(tab);
-                    if (ret instanceof Promise)
-                        ret.then(b => {
-                            if (b !== false) {
-                                this.doClose(tab);
-                            }
-                        });
-                    else if (ret !== false) {
-                        this.doClose(tab);
-                    }
-                }
-                else if (UIEvent.fireEvent('beforeclose', tab.element, tab) !== false) {
-                    this.doClose(tab);
-                }
-            }
-        });
-    }
-    doClose(tab) {
-        _.remove(this.tabs, ['id', tab.id]);
-        if (this.tabs.length > 0 && _.find(this.tabs, ['active', true]) == null)
-            this.activateTab(_.findLast(this.tabs, ['disabled', false]));
-        tab.remove();
-        UIEvent.fireEvent('closed', this.element, tab);
+        let tab = (_.find(this.tabs, ['viewModel.id', newValue]) || this.tabs[newValue] || this.tab.buttonEl);
+        console.log(this.tab, tab.viewModel);
+        if (this.tab)
+            this.tab.active = false;
+        (this.tab = tab.viewModel).active = true;
     }
     activateTab(newTab) {
-        if (this.activeTabEl)
-            this.activeTabEl.active = false;
-        (this.activeTabEl = newTab).active = true;
-        this.activeTab = newTab.id;
-        UIEvent.fireEvent('activate', newTab.element, newTab);
+        if (!newTab)
+            return;
+        this.activeTab = newTab.viewModel.id;
+        UIEvent.fireEvent('activate', this.element, newTab);
     }
     canActivate(id) {
-        let tab = _.find(this.tabs, ['id', id]);
-        if (tab) {
-            if (this.activeTabEl)
-                this.activeTabEl.active = false;
-            (this.activeTabEl = tab).active = true;
+        let tab = _.find(this.tabs, ['viewModel.id', id]);
+        if (tab && tab.viewModel) {
+            if (this.tab)
+                this.tab.active = false;
+            (this.tab = tab.viewModel).active = true;
             return true;
         }
         return false;
@@ -219,23 +187,23 @@ __decorate([
     __metadata("design:type", Object)
 ], UITabPanel.prototype, "height", void 0);
 __decorate([
-    children('ui-tab'),
+    children('.ui-tab-button'),
     __metadata("design:type", Object)
 ], UITabPanel.prototype, "tabs", void 0);
 __decorate([
     bindable({ defaultBindingMode: bindingMode.twoWay }),
     __metadata("design:type", Object)
 ], UITabPanel.prototype, "activeTab", void 0);
+__decorate([
+    bindable({ defaultBindingMode: bindingMode.fromView }),
+    __metadata("design:type", Object)
+], UITabPanel.prototype, "tab", void 0);
 UITabPanel = __decorate([
     autoinject(),
     inlineView(`<template class="ui-tab-panel" css.bind="{'min-height': height}"><div class="ui-tabbar">
   <slot name="ui-tabbar-start"></slot>
-  <div class="ui-tabbar-buttons" ref="wrapper" if.bind="!noTabs">
-    <a click.trigger="activateTab(tab)" repeat.for="tab of tabs" class="ui-tab-button \${tab.active?'ui-active':''} \${tab.disabled?'ui-disabled':''}">
-      <div><ui-glyph if.bind="tab.glyph" class="ui-tab-icon \${tab.glyphClass}" glyph.bind="tab.glyph"></ui-glyph>
-      <span class="ui-label" if.bind="tab.label" innerhtml.bind="tab.label"></span></div>
-      <span if.bind="tab.closeable" class="ui-close" click.trigger="closeTab(tab)">&nbsp;&times;</span>
-    </a>
+  <div class="ui-tabbar-buttons" ref="wrapper" show.bind="!noTabs" tabactivated.trigger="activateTab($event.target)">
+    <slot name="tab-button"></slot>
     <div class="ui-tabbar-toggle ui-tab-button" ref="overflowToggle" show.bind="isOverflow" click.trigger="showOverflow($event)"><ui-glyph glyph="glyph-handle-overflow"></ui-glyph></div>
   </div>
   <slot name="ui-tabbar-end"></slot>
@@ -250,54 +218,27 @@ let UITab = UITab_1 = class UITab {
         this.element = element;
         this.id = '';
         this.glyph = '';
-        this.label = '';
         this.glyphClass = '';
         this.disabled = false;
         this.active = false;
+        this.href = 'javascript:;';
+        this.view = '';
+        this.model = null;
+        this.viewModel = '';
         this.closeable = false;
-        if (element.hasAttribute('flex'))
-            element.classList.add('ui-flexed');
-        if (element.hasAttribute('scroll'))
-            element.classList.add('ui-scroll');
-        if (element.hasAttribute('padded'))
-            element.classList.add('ui-pad-all');
         this.id = 'tab-' + (UITab_1.seed++);
         this.closeable = element.hasAttribute('closeable');
     }
     bind(bindingContext, overrideContext) {
         this.disabled = this.disabled || this.element.hasAttribute('disabled');
     }
-    remove() {
-        try {
-            if (this.viewModel)
-                this.viewModel.detached();
-        }
-        catch (e) { }
-        DOM.removeNode(this.element);
-        try {
-            if (this.viewModel)
-                this.viewModel.unbind();
-        }
-        catch (e) { }
+    attached() {
+        this.buttonEl.viewModel = this;
     }
-    canDeactivate() {
-        let instance = this.viewModel;
-        if (instance && typeof instance.canDeactivate === 'function') {
-            let result = instance.canDeactivate();
-            if (result instanceof Promise) {
-                return result;
-            }
-            if (result !== null && result !== undefined) {
-                return Promise.resolve(result);
-            }
-            return Promise.resolve(true);
-        }
-        return Promise.resolve(true);
-    }
-    get viewModel() {
-        if (this.element.firstElementChild && this.element.firstElementChild.tagName.toLowerCase() == 'compose')
-            return this.element.firstElementChild.au.compose.viewModel.currentViewModel;
-        return null;
+    fireTabChange() {
+        if (this.href === 'javascript:;')
+            UIEvent.fireEvent('tabactivated', this.buttonEl);
+        return true;
     }
 };
 UITab.seed = 0;
@@ -312,10 +253,6 @@ __decorate([
 __decorate([
     bindable(),
     __metadata("design:type", Object)
-], UITab.prototype, "label", void 0);
-__decorate([
-    bindable(),
-    __metadata("design:type", Object)
 ], UITab.prototype, "glyphClass", void 0);
 __decorate([
     bindable(),
@@ -324,10 +261,31 @@ __decorate([
 __decorate([
     bindable(),
     __metadata("design:type", Object)
-], UITab.prototype, "beforeclose", void 0);
+], UITab.prototype, "active", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UITab.prototype, "href", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UITab.prototype, "view", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UITab.prototype, "model", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UITab.prototype, "viewModel", void 0);
 UITab = UITab_1 = __decorate([
     autoinject(),
-    inlineView(`<template class="ui-tab \${active?'ui-active':''}"><slot></slot></template>`),
+    containerless(),
+    inlineView(`<template><a ref="buttonEl" slot="tab-button" click.trigger="fireTabChange()" href.bind="href" class="ui-tab-button \${active?'ui-active':''} \${disabled?'ui-disabled':''}">
+  <div><ui-glyph if.bind="glyph" class="ui-tab-icon \${glyphClass}" glyph.bind="glyph"></ui-glyph>
+  <span class="ui-label"><slot></slot></span></div>
+  <span if.bind="closeable" class="ui-close" click.trigger="closeTab()">&nbsp;&times;</span>
+</a></template>`),
     customElement('ui-tab'),
     __metadata("design:paramtypes", [Element])
 ], UITab);

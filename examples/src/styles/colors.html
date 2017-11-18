@@ -4,7 +4,8 @@
 // @license     : MIT
 -->
 <template>
-  <style>
+  <ui-page animate>
+    <style>
 .color-card {
   height: 50px;
   position: relative;
@@ -34,7 +35,7 @@
 .color-card:before {
   opacity: 0;
   position: absolute;
-  background: rgba(255,255,255, .65);
+  background: rgba(255, 255, 255, .65);
   color: black;
   left: 0;
   right: 0;
@@ -63,8 +64,7 @@
   top: -100vh;
   left: -100vw;
 }
-  </style>
-  <ui-page animate>
+    </style>
     <input ref="copyEl" class="offscreen" />
     <x-container page-title="Color Charts">
       <h4 class="x-title">Flat UI</small>

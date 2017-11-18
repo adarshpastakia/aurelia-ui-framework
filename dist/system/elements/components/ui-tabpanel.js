@@ -124,11 +124,13 @@ System.register(["aurelia-framework", "../../utils/ui-utils", "../../utils/ui-ev
                     this.tabs = [];
                     this.activeTab = 0;
                     this.noTabs = false;
+                    this.useRouter = false;
                     if (element.hasAttribute('bottom'))
                         element.classList.add('ui-bottom');
                     if (element.hasAttribute('noborder'))
                         element.classList.add('ui-noborder');
                     this.noTabs = element.hasAttribute('notabs');
+                    this.useRouter = element.hasAttribute('use-router');
                 }
                 UITabPanel.prototype.attached = function () {
                     var _this = this;
@@ -148,67 +150,31 @@ System.register(["aurelia-framework", "../../utils/ui-utils", "../../utils/ui-ev
                 };
                 UITabPanel.prototype.tabsChanged = function () {
                     var _this = this;
-                    if (!this.activeTabEl && this.tabs.length > 0 && _.find(this.tabs, ['active', true]) == null)
-                        this.activateTab(_.find(this.tabs, ['disabled', false]));
+                    if (!this.tab && this.tabs.length > 0 && _.find(this.tabs, ['viewModel.active', true]) == null)
+                        this.activateTab(_.find(this.tabs, ['viewModel.disabled', false]));
                     ui_event_1.UIEvent.queueTask(function () { return _this.arrange(); });
                 };
                 UITabPanel.prototype.activeTabChanged = function (newValue) {
                     if (this.tabs.length == 0)
                         return;
-                    var tab = (_.find(this.tabs, ['id', newValue]) || this.tabs[newValue] || this.activeTabEl);
-                    if (this.activeTabEl)
-                        this.activeTabEl.active = false;
-                    (this.activeTabEl = tab).active = true;
-                };
-                UITabPanel.prototype.close = function (id, force) {
-                    if (force === void 0) { force = false; }
-                    var tab = _.find(this.tabs, ['id', id]);
-                    if (tab)
-                        force ? this.doClose(tab) : this.closeTab(tab);
-                };
-                UITabPanel.prototype.closeTab = function (tab) {
-                    var _this = this;
-                    tab.canDeactivate()
-                        .then(function (b) {
-                        if (b === true) {
-                            if (typeof tab.beforeclose === "function") {
-                                var ret = tab.beforeclose(tab);
-                                if (ret instanceof Promise)
-                                    ret.then(function (b) {
-                                        if (b !== false) {
-                                            _this.doClose(tab);
-                                        }
-                                    });
-                                else if (ret !== false) {
-                                    _this.doClose(tab);
-                                }
-                            }
-                            else if (ui_event_1.UIEvent.fireEvent('beforeclose', tab.element, tab) !== false) {
-                                _this.doClose(tab);
-                            }
-                        }
-                    });
-                };
-                UITabPanel.prototype.doClose = function (tab) {
-                    _.remove(this.tabs, ['id', tab.id]);
-                    if (this.tabs.length > 0 && _.find(this.tabs, ['active', true]) == null)
-                        this.activateTab(_.findLast(this.tabs, ['disabled', false]));
-                    tab.remove();
-                    ui_event_1.UIEvent.fireEvent('closed', this.element, tab);
+                    var tab = (_.find(this.tabs, ['viewModel.id', newValue]) || this.tabs[newValue] || this.tab.buttonEl);
+                    console.log(this.tab, tab.viewModel);
+                    if (this.tab)
+                        this.tab.active = false;
+                    (this.tab = tab.viewModel).active = true;
                 };
                 UITabPanel.prototype.activateTab = function (newTab) {
-                    if (this.activeTabEl)
-                        this.activeTabEl.active = false;
-                    (this.activeTabEl = newTab).active = true;
-                    this.activeTab = newTab.id;
-                    ui_event_1.UIEvent.fireEvent('activate', newTab.element, newTab);
+                    if (!newTab)
+                        return;
+                    this.activeTab = newTab.viewModel.id;
+                    ui_event_1.UIEvent.fireEvent('activate', this.element, newTab);
                 };
                 UITabPanel.prototype.canActivate = function (id) {
-                    var tab = _.find(this.tabs, ['id', id]);
-                    if (tab) {
-                        if (this.activeTabEl)
-                            this.activeTabEl.active = false;
-                        (this.activeTabEl = tab).active = true;
+                    var tab = _.find(this.tabs, ['viewModel.id', id]);
+                    if (tab && tab.viewModel) {
+                        if (this.tab)
+                            this.tab.active = false;
+                        (this.tab = tab.viewModel).active = true;
                         return true;
                     }
                     return false;
@@ -246,16 +212,20 @@ System.register(["aurelia-framework", "../../utils/ui-utils", "../../utils/ui-ev
                     __metadata("design:type", Object)
                 ], UITabPanel.prototype, "height", void 0);
                 __decorate([
-                    aurelia_framework_1.children('ui-tab'),
+                    aurelia_framework_1.children('.ui-tab-button'),
                     __metadata("design:type", Object)
                 ], UITabPanel.prototype, "tabs", void 0);
                 __decorate([
                     aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
                     __metadata("design:type", Object)
                 ], UITabPanel.prototype, "activeTab", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.fromView }),
+                    __metadata("design:type", Object)
+                ], UITabPanel.prototype, "tab", void 0);
                 UITabPanel = __decorate([
                     aurelia_framework_1.autoinject(),
-                    aurelia_framework_1.inlineView("<template class=\"ui-tab-panel\" css.bind=\"{'min-height': height}\"><div class=\"ui-tabbar\">\n  <slot name=\"ui-tabbar-start\"></slot>\n  <div class=\"ui-tabbar-buttons\" ref=\"wrapper\" if.bind=\"!noTabs\">\n    <a click.trigger=\"activateTab(tab)\" repeat.for=\"tab of tabs\" class=\"ui-tab-button ${tab.active?'ui-active':''} ${tab.disabled?'ui-disabled':''}\">\n      <div><ui-glyph if.bind=\"tab.glyph\" class=\"ui-tab-icon ${tab.glyphClass}\" glyph.bind=\"tab.glyph\"></ui-glyph>\n      <span class=\"ui-label\" if.bind=\"tab.label\" innerhtml.bind=\"tab.label\"></span></div>\n      <span if.bind=\"tab.closeable\" class=\"ui-close\" click.trigger=\"closeTab(tab)\">&nbsp;&times;</span>\n    </a>\n    <div class=\"ui-tabbar-toggle ui-tab-button\" ref=\"overflowToggle\" show.bind=\"isOverflow\" click.trigger=\"showOverflow($event)\"><ui-glyph glyph=\"glyph-handle-overflow\"></ui-glyph></div>\n  </div>\n  <slot name=\"ui-tabbar-end\"></slot>\n  <div class=\"ui-menu ui-tabbar-overflow ui-floating\" ref=\"overflow\"></div>\n  </div><div class=\"ui-tab-panel-body\"><slot></slot></div></template>"),
+                    aurelia_framework_1.inlineView("<template class=\"ui-tab-panel\" css.bind=\"{'min-height': height}\"><div class=\"ui-tabbar\">\n  <slot name=\"ui-tabbar-start\"></slot>\n  <div class=\"ui-tabbar-buttons\" ref=\"wrapper\" show.bind=\"!noTabs\" tabactivated.trigger=\"activateTab($event.target)\">\n    <slot name=\"tab-button\"></slot>\n    <div class=\"ui-tabbar-toggle ui-tab-button\" ref=\"overflowToggle\" show.bind=\"isOverflow\" click.trigger=\"showOverflow($event)\"><ui-glyph glyph=\"glyph-handle-overflow\"></ui-glyph></div>\n  </div>\n  <slot name=\"ui-tabbar-end\"></slot>\n  <div class=\"ui-menu ui-tabbar-overflow ui-floating\" ref=\"overflow\"></div>\n  </div><div class=\"ui-tab-panel-body\"><slot></slot></div></template>"),
                     aurelia_framework_1.customElement('ui-tab-panel'),
                     __metadata("design:paramtypes", [Element])
                 ], UITabPanel);
@@ -267,17 +237,14 @@ System.register(["aurelia-framework", "../../utils/ui-utils", "../../utils/ui-ev
                     this.element = element;
                     this.id = '';
                     this.glyph = '';
-                    this.label = '';
                     this.glyphClass = '';
                     this.disabled = false;
                     this.active = false;
+                    this.href = 'javascript:;';
+                    this.view = '';
+                    this.model = null;
+                    this.viewModel = '';
                     this.closeable = false;
-                    if (element.hasAttribute('flex'))
-                        element.classList.add('ui-flexed');
-                    if (element.hasAttribute('scroll'))
-                        element.classList.add('ui-scroll');
-                    if (element.hasAttribute('padded'))
-                        element.classList.add('ui-pad-all');
                     this.id = 'tab-' + (UITab_1.seed++);
                     this.closeable = element.hasAttribute('closeable');
                 }
@@ -285,42 +252,14 @@ System.register(["aurelia-framework", "../../utils/ui-utils", "../../utils/ui-ev
                 UITab.prototype.bind = function (bindingContext, overrideContext) {
                     this.disabled = this.disabled || this.element.hasAttribute('disabled');
                 };
-                UITab.prototype.remove = function () {
-                    try {
-                        if (this.viewModel)
-                            this.viewModel.detached();
-                    }
-                    catch (e) { }
-                    aurelia_framework_1.DOM.removeNode(this.element);
-                    try {
-                        if (this.viewModel)
-                            this.viewModel.unbind();
-                    }
-                    catch (e) { }
+                UITab.prototype.attached = function () {
+                    this.buttonEl.viewModel = this;
                 };
-                UITab.prototype.canDeactivate = function () {
-                    var instance = this.viewModel;
-                    if (instance && typeof instance.canDeactivate === 'function') {
-                        var result = instance.canDeactivate();
-                        if (result instanceof Promise) {
-                            return result;
-                        }
-                        if (result !== null && result !== undefined) {
-                            return Promise.resolve(result);
-                        }
-                        return Promise.resolve(true);
-                    }
-                    return Promise.resolve(true);
+                UITab.prototype.fireTabChange = function () {
+                    if (this.href === 'javascript:;')
+                        ui_event_1.UIEvent.fireEvent('tabactivated', this.buttonEl);
+                    return true;
                 };
-                Object.defineProperty(UITab.prototype, "viewModel", {
-                    get: function () {
-                        if (this.element.firstElementChild && this.element.firstElementChild.tagName.toLowerCase() == 'compose')
-                            return this.element.firstElementChild.au.compose.viewModel.currentViewModel;
-                        return null;
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
                 UITab.seed = 0;
                 __decorate([
                     aurelia_framework_1.bindable(),
@@ -333,10 +272,6 @@ System.register(["aurelia-framework", "../../utils/ui-utils", "../../utils/ui-ev
                 __decorate([
                     aurelia_framework_1.bindable(),
                     __metadata("design:type", Object)
-                ], UITab.prototype, "label", void 0);
-                __decorate([
-                    aurelia_framework_1.bindable(),
-                    __metadata("design:type", Object)
                 ], UITab.prototype, "glyphClass", void 0);
                 __decorate([
                     aurelia_framework_1.bindable(),
@@ -345,10 +280,27 @@ System.register(["aurelia-framework", "../../utils/ui-utils", "../../utils/ui-ev
                 __decorate([
                     aurelia_framework_1.bindable(),
                     __metadata("design:type", Object)
-                ], UITab.prototype, "beforeclose", void 0);
+                ], UITab.prototype, "active", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UITab.prototype, "href", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UITab.prototype, "view", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UITab.prototype, "model", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UITab.prototype, "viewModel", void 0);
                 UITab = UITab_1 = __decorate([
                     aurelia_framework_1.autoinject(),
-                    aurelia_framework_1.inlineView("<template class=\"ui-tab ${active?'ui-active':''}\"><slot></slot></template>"),
+                    aurelia_framework_1.containerless(),
+                    aurelia_framework_1.inlineView("<template><a ref=\"buttonEl\" slot=\"tab-button\" click.trigger=\"fireTabChange()\" href.bind=\"href\" class=\"ui-tab-button ${active?'ui-active':''} ${disabled?'ui-disabled':''}\">\n  <div><ui-glyph if.bind=\"glyph\" class=\"ui-tab-icon ${glyphClass}\" glyph.bind=\"glyph\"></ui-glyph>\n  <span class=\"ui-label\"><slot></slot></span></div>\n  <span if.bind=\"closeable\" class=\"ui-close\" click.trigger=\"closeTab()\">&nbsp;&times;</span>\n</a></template>"),
                     aurelia_framework_1.customElement('ui-tab'),
                     __metadata("design:paramtypes", [Element])
                 ], UITab);
