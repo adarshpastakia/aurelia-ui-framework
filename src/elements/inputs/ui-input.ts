@@ -90,8 +90,6 @@ export class UIInput extends UIBaseInput {
     if (element.hasAttribute('password')) this.type = 'password';
   }
 
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     super.bind.apply(this, arguments);
     if (!isNaN(this.number)) this.numberChanged(this.number);
@@ -101,10 +99,6 @@ export class UIInput extends UIBaseInput {
     if (this.element.hasAttribute('readonly')) this.readonly = true;
     if (this.element.hasAttribute('disabled')) this.isDisabled = this.disabled = true;
   }
-  // attached() { }
-  // detached() { }
-  // unbind() { }
-  // end aurelia hooks
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value = '';
   @bindable({ defaultBindingMode: bindingMode.twoWay }) number;
@@ -188,17 +182,11 @@ export class UIFileInput {
 
   constructor(public element: Element) { }
 
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
-  // bind(bindingContext: Object, overrideContext: Object) { }
   attached() {
     this.files = [];
     this.inputEl.value = '';
     this.inputEl.draggedFiles = this.files;
   }
-  // detached() { }
-  // unbind() { }
-  // end aurelia hooks
 
   inputEl;
   files = [];

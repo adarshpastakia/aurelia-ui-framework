@@ -29,8 +29,6 @@ export class UITextarea extends UIBaseInput {
     this.counter = element.hasAttribute('counter');
   }
 
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     super.bind.apply(this, arguments);
     this.autoCompleteChanged(this.autoComplete);
@@ -43,8 +41,6 @@ export class UITextarea extends UIBaseInput {
     this.tether.dispose();
     this.obMouseup.dispose();
   }
-  // unbind() { }
-  // end aurelia hooks
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value = '';
 

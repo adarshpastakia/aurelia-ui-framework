@@ -92,9 +92,6 @@ export class UITabPanel {
     this.useRouter = element.hasAttribute('use-router');
   }
 
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
-  // bind(bindingContext: Object, overrideContext: Object) { }
   attached() {
     if (!this.noTabs) {
       this.obResize = UIEvent.subscribe('windowresize', () => this.arrange());
@@ -112,8 +109,6 @@ export class UITabPanel {
       this.obResize.dispose();
     }
   }
-  // unbind() { }
-  // end aurelia hooks
 
   private tether;
   private isOverflow = false;

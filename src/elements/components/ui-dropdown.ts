@@ -18,8 +18,6 @@ import { UIUtils } from "../../utils/ui-utils";
 export class UIDropdown {
   constructor(public element: Element) { }
 
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     this.disabledChanged(this.disabled);
   }
@@ -37,8 +35,6 @@ export class UIDropdown {
     this.obMouseup.dispose();
     this.obLocale.dispose();
   }
-  // unbind() { }
-  // end aurelia hooks
 
   @children('.ui-list-item') items = [];
 
@@ -129,15 +125,6 @@ export class UIDropdown {
 @customElement('ui-list-group')
 export class UIListGroup {
   constructor(public element: Element) { }
-
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
-  // bind(bindingContext: Object, overrideContext: Object) { }
-  // attached() { }
-  // detached() { }
-  // unbind() { }
-  // end aurelia hooks
-
   @bindable() label = '';
 }
 
@@ -147,14 +134,6 @@ export class UIListGroup {
 @customElement('ui-list-item')
 export class UIListItem {
   constructor(public element: Element) { }
-
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
-  // bind(bindingContext: Object, overrideContext: Object) { }
-  // attached() { }
-  // detached() { }
-  // unbind() { }
-  // end aurelia hooks
 
   @bindable() model;
   @bindable() glyph = '';

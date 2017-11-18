@@ -32,8 +32,6 @@ export class UISidebar {
     this.forceCollapse = window.innerWidth <= 768;
   }
 
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     this.collapsed = !!(this.collapsed);
     if (this.position === 'end' && this.glyph === 'glyph-arrow-left') this.glyph = "glyph-arrow-right";
@@ -51,8 +49,6 @@ export class UISidebar {
     if (this.obClick) this.obClick.dispose();
     if (this.obResize) this.obResize.dispose();
   }
-  // unbind() { }
-  // end aurelia hooks
 
   @bindable() label: any = "";
   @bindable() bodyClass: any = "";

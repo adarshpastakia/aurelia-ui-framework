@@ -164,15 +164,9 @@ export class UIMarkdown extends UIBaseInput {
     this.counter = element.hasAttribute('counter');
   }
 
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     super.bind.apply(this, arguments);
   }
-  // attached() { }
-  // detached() { }
-  // unbind() { }
-  // end aurelia hooks
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value = '';
 
@@ -279,8 +273,6 @@ export class UIMarkdown extends UIBaseInput {
 export class UILanguage {
   constructor(public element: Element) { }
 
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     this.languagesChanged(this.languages);
   }
@@ -298,8 +290,6 @@ export class UILanguage {
     this.tether.dispose();
     this.obMouseup.dispose();
   }
-  // unbind() { }
-  // end aurelia hooks
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value = '';
   @bindable({ defaultBindingMode: bindingMode.twoWay }) dir = '';

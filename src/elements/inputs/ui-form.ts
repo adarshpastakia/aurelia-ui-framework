@@ -15,9 +15,6 @@ import * as _ from "lodash";
 export class UIForm {
   constructor(public element: Element) { }
 
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
-  // bind(bindingContext: Object, overrideContext: Object) { }
   attached() {
     UIEvent.queueTask(() => {
       let el: any = this.formEl.querySelector('input,textarea');
@@ -26,9 +23,6 @@ export class UIForm {
       if (this.disabled) this.disabledChanged(this.disabled);
     });
   }
-  // detached() { }
-  // unbind() { }
-  // end aurelia hooks
 
   formEl;
   @bindable() class = '';
@@ -68,8 +62,6 @@ export class UIFieldset {
     this.collapsible = element.hasAttribute('checked') || element.hasAttribute('checked.bind');
   }
 
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     this.checked = this.checked || this.element.hasAttribute('checked');
   }
@@ -77,9 +69,6 @@ export class UIFieldset {
     this.checkedChanged(this.checked);
     if (this.disabled) this.disabledChanged(this.disabled);
   }
-  // detached() { }
-  // unbind() { }
-  // end aurelia hooks
 
   @bindable() class = '';
   @bindable() legend = '';
@@ -157,8 +146,6 @@ export class UIInputAddon {
 export class UIInputLabel {
   constructor(public element: Element) { }
 
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     if (this.element.hasAttribute('align-top')) this.class += ' ui-align-top';
     if (this.element.hasAttribute('required')) this.class += ' ui-required';
@@ -173,9 +160,6 @@ export class UIInputLabel {
       }
     }
   }
-  // detached() { }
-  // unbind() { }
-  // end aurelia hooks
 
   static seed = 1;
 

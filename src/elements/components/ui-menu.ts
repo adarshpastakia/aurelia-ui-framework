@@ -18,9 +18,6 @@ import { UIUtils } from "../../utils/ui-utils";
 export class UIMenubar {
   constructor(public element: Element) { }
 
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
-  // bind(bindingContext: Object, overrideContext: Object) { }
   attached() {
     this.obResize = UIEvent.subscribe('windowresize', () => this.arrange());
     this.obClick = UIEvent.subscribe('mouseclick', (evt) => {
@@ -35,8 +32,6 @@ export class UIMenubar {
     this.obClick.dispose();
     this.obResize.dispose();
   }
-  // unbind() { }
-  // end aurelia hooks
 
   private tether;
   private isOverflow = false;
@@ -118,16 +113,10 @@ export class UIMenuGroup {
 export class UIMenuItem {
   constructor(public element: Element) { }
 
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     this.active = !!(this.active);
     this.disabled = !!(this.disabled);
   }
-  // attached() { }
-  // detached() { }
-  // unbind() { }
-  // end aurelia hooks
 
   @bindable() id = '';
   @bindable() description = '';

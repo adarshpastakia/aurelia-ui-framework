@@ -52,8 +52,6 @@ export class UIAlert {
     this.confirm = element.hasAttribute('confirm');
   }
 
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     if (bindingContext) Object.assign(this, bindingContext);
     UIEvent.queueTask(() => {
@@ -61,10 +59,6 @@ export class UIAlert {
       if (this.focusBlock) this.focusBlock.focus();
     });
   }
-  // attached() { }
-  // detached() { }
-  // unbind() { }
-  // end aurelia hooks
 
   @bindable() glyph = '';
   @bindable() okLabel = 'OK';
@@ -110,8 +104,6 @@ export class UIPrompt {
     this.multiline = element.hasAttribute('multiline');
   }
 
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     if (bindingContext) Object.assign(this, bindingContext);
     UIEvent.queueTask(() => {
@@ -119,10 +111,6 @@ export class UIPrompt {
       if (this.focusBlock) this.focusBlock.focus();
     });
   }
-  // attached() { }
-  // detached() { }
-  // unbind() { }
-  // end aurelia hooks
 
   @bindable() glyph = '';
   @bindable() okLabel = 'OK';

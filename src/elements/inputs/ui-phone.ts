@@ -28,17 +28,11 @@ export class UIPhone extends UIBaseInput {
     if (this.national = element.hasAttribute('country') || element.hasAttribute('country.bind')) this.country = 'us';
   }
 
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     super.bind.apply(this, arguments);
     this.countryChanged(this.country);
     UIEvent.queueTask(() => this.valueChanged(this.value));
   }
-  // attached() { }
-  // detached() { }
-  // unbind() { }
-  // end aurelia hooks
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value = '';
   @bindable({ defaultBindingMode: bindingMode.twoWay }) phone;

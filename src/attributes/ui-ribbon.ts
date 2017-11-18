@@ -21,18 +21,12 @@ export class UIRibbon {
     element['style'].overflow = 'hidden';
   }
 
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     if (isEmpty(this.message)) this.ribbon.classList.add('ui-hidden');
     this.ribbon.innerHTML = this.message;
     this.ribbon.className = 'ui-ribbon ui-' + this.theme;
   }
-  // attached() { }
-  // detached() { }
-  // unbind() { }
-  // end aurelia hooks
-  //
+
   @bindable({ primaryProperty: true }) message = '';
   @bindable() theme = 'dark';
 

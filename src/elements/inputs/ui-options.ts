@@ -15,8 +15,6 @@ export class UIOptionGroup {
     this.name = "ui-optgroup-" + (UIOptionGroup.seed++);
   }
 
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     this.valueChanged(this.value);
   }
@@ -24,9 +22,6 @@ export class UIOptionGroup {
     let els = this.element.querySelectorAll('input[type="radio"]');
     for (let i = 0; i < els.length; i++)els[i]['name'] = this.name;
   }
-  // detached() { }
-  // unbind() { }
-  // end aurelia hooks
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value: any = '';
 
@@ -57,16 +52,10 @@ export class UICheckbox {
     this.for = 'ui-checkbox-' + (UICheckbox.seed++);
   }
 
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     this.disabledChanged(this.disabled);
     this.checked = this.checked || this.element.hasAttribute('checked');
   }
-  // attached() { }
-  // detached() { }
-  // unbind() { }
-  // end aurelia hooks
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) checked = false;
 
@@ -93,15 +82,9 @@ export class UICheckbox {
 export class UIRadio {
   constructor(public element: Element) { this.for = 'ui-radio-' + (UIRadio.seed++); }
 
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     this.disabledChanged(this.disabled);
   }
-  // attached() { }
-  // detached() { }
-  // unbind() { }
-  // end aurelia hooks
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) checked = false;
 

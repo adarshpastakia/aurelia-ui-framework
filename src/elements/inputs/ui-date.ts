@@ -74,8 +74,6 @@ export class UIDateView {
     this.obLocale = UIEvent.subscribe('i18n:locale:changed', payload => this.buildDatePage(payload.newValue));
   }
 
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     if (this.date && moment(this.date).isValid()) this.date = moment(this.date).toISOString();
     if (this.date && moment(this.date).isValid()) this.current = moment(this.date);
@@ -89,8 +87,6 @@ export class UIDateView {
   detached() {
     this.obLocale.dispose();
   }
-  // unbind() { }
-  // end aurelia hooks
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) date = '';
 
@@ -371,8 +367,6 @@ export class UIDateInput extends UIBaseInput {
     this.obLocale = UIEvent.subscribe('i18n:locale:changed', payload => this.updateInputValue(payload.newValue));
   }
 
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
     super.bind.apply(this, arguments);
     if (!isEmpty(this.date) && moment(this.date).isValid()) {
@@ -392,8 +386,6 @@ export class UIDateInput extends UIBaseInput {
     this.obLocale.dispose();
     this.obMouseup.dispose();
   }
-  // unbind() { }
-  // end aurelia hooks
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) date = '';
 
