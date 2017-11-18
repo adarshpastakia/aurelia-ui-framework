@@ -6,20 +6,26 @@
 
 .ui-tab-panel {
   @include flex-fill();
-  @include flexbox($direction: column,$align:stretch);
+  @include flexbox($direction: column,$align:stretch, $wrap:false);
   overflow: hidden;
 
   .ui-tab-panel-body {
+    border  : 1px solid $base-border-color;
+    position: relative;
+    overflow: hidden;
     @include flex-fill();
-    border    : 1px solid $base-border-color;
-    position  : relative;
-    overflow  : hidden;
+    @include flexbox($direction: column,$align:stretch, $wrap:false);
+
+    > compose {
+      @include flex-fill();
+      @include flexbox($direction: column,$align:stretch, $wrap:false);
+    }
   }
 
   .ui-tabbar {
     min-height: 2em;
     @include flex-auto();
-    @include flexbox($direction: row,$align:stretch);
+    @include flexbox($direction: row,$align:stretch, $wrap:false);
 
     .ui-tabbar-toggle {
       cursor    : pointer;
