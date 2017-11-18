@@ -27,18 +27,6 @@
     @include flex-auto();
     @include flexbox($direction: row,$align:stretch, $wrap:false);
 
-    .ui-tabbar-toggle {
-      cursor    : pointer;
-      color     : $menu-link-text;
-      align-self: stretch;
-
-      &:hover {
-        box-shadow: none;
-        background: $menu-link-hover-bg;
-        color     : $menu-link-hover-text;
-      }
-    }
-
     > .ui-tabbar-overflow {
       display: none;
 
@@ -69,7 +57,9 @@
     }
 
     > .ui-tabbar-buttons {
-      position: relative;
+      position     : relative;
+      overflow     : hidden;
+      margin-bottom: -1px;
       @include flex-fill();
       @include flexbox($direction: row,$align:stretch, $wrap:false);
     }
@@ -159,6 +149,20 @@
         }
       }
     }
+
+    .ui-tabbar-toggle {
+      cursor    : pointer;
+      color     : $menu-link-text;
+      align-self: stretch;
+      min-width : 2em !important;
+
+      &:hover {
+        box-shadow: none;
+        background: $menu-link-hover-bg;
+        color     : $menu-link-hover-text;
+      }
+    }
+
   }
 
   .ui-tab {
@@ -205,6 +209,11 @@
     flex-direction: column-reverse;
 
     .ui-tabbar {
+      .ui-tabbar-buttons {
+        margin-top   : -1px;
+        margin-bottom: 0;
+      }
+
       .ui-tab-button {
         margin                    : -1px 2px 4px;
         border-top-width          : 0;

@@ -74,9 +74,9 @@ export class UITabbarToggle {
 }
 
 @autoinject()
-@inlineView(`<template class="ui-tab-panel" css.bind="{'min-height': height}"><div class="ui-tabbar">
+@inlineView(`<template class="ui-tab-panel" css.bind="{'min-height': height}"><div class="ui-tabbar" tabclosing.trigger="tabClose($event.detail)" tabactivated.trigger="activateTab($event.target)">
   <slot name="ui-tabbar-start"></slot>
-  <div class="ui-tabbar-buttons" ref="wrapper" show.bind="!noTabs" tabactivated.trigger="activateTab($event.target)">
+  <div class="ui-tabbar-buttons" ref="wrapper" show.bind="!noTabs">
     <slot name="tab-button"></slot>
     <div class="ui-tabbar-toggle ui-tab-button" ref="overflowToggle" show.bind="isOverflow" click.trigger="showOverflow($event)"><ui-glyph glyph="glyph-handle-overflow"></ui-glyph></div>
   </div>
@@ -102,6 +102,8 @@ export class UITabPanel {
       this.tether = UIUtils.tether(this.overflowToggle, this.overflow, { resize: false, position: 'br' });
       window.setTimeout(() => this.arrange(), 500);
     }
+
+    UIEvent.queueTask(this.tabsChanged.bind(this));
   }
   detached() {
     if (!this.noTabs) {
@@ -124,39 +126,40 @@ export class UITabPanel {
   private obResize;
 
   @bindable() height = "auto";
-  @children('.ui-tab-button') tabs = [];
-  @bindable({ defaultBindingMode: bindingMode.twoWay }) activeTab: any = 0;
-  @bindable({ defaultBindingMode: bindingMode.fromView }) tab;
+  // @children('a.ui-tab-button') tabs = [];
+  @bindable({ defaultBindingMode: bindingMode.twoWay }) active: any = 0;
+  @bindable({ defaultBindingMode: bindingMode.fromView }) activeTab;
 
 
   private noTabs = false;
   private useRouter = false;
 
   private tabsChanged() {
-    if (!this.tab && this.tabs.length > 0 && _.find(this.tabs, ['viewModel.active', true]) == null)
-      this.activateTab(_.find(this.tabs, ['viewModel.disabled', false]));
-    UIEvent.queueTask(() => this.arrange());
+    let tabs = this.element.querySelectorAll('a.ui-tab-button');
+    if (!this.activeTab && tabs.length > 0 && _.find(tabs, ['viewModel.active', true]) == null)
+      this.activateTab(_.find(tabs, ['viewModel.disabled', false]));
   }
 
-  private activeTabChanged(newValue) {
-    if (this.tabs.length == 0) return;
-    let tab = (_.find(this.tabs, ['viewModel.id', newValue]) || this.tabs[newValue] || this.tab.buttonEl);
-    console.log(this.tab, tab.viewModel)
-    if (this.tab) this.tab.active = false;
-    (this.tab = tab.viewModel).active = true;
+  private activeChanged(newValue) {
+    let tabs = this.element.querySelectorAll('a.ui-tab-button');
+    if (tabs.length == 0) return;
+    let tab = (_.find(tabs, ['viewModel.id', newValue]) || tabs[newValue] || this.activeTab.buttonEl);
+    if (this.activeTab) this.activeTab.active = false;
+    (this.activeTab = tab.viewModel).active = true;
   }
 
   private activateTab(newTab) {
     if (!newTab) return;
-    this.activeTab = newTab.viewModel.id;
-    UIEvent.fireEvent('activate', this.element, newTab);
+    this.active = newTab.viewModel.id;
+    UIEvent.fireEvent('change', this.element, newTab.viewModel);
   }
 
   public canActivate(id) {
-    let tab = _.find(this.tabs, ['viewModel.id', id]);
+    let tabs = this.element.querySelectorAll('a.ui-tab-button');
+    let tab = _.find(tabs, ['viewModel.id', id]);
     if (tab && tab.viewModel) {
-      if (this.tab) this.tab.active = false;
-      (this.tab = tab.viewModel).active = true;
+      if (this.activeTab) this.activeTab.active = false;
+      (this.activeTab = tab.viewModel).active = true;
       return true;
     }
     return false;
@@ -165,11 +168,12 @@ export class UITabPanel {
   private arrange() {
     if (!this.wrapper) return;
     this.overflow.classList.remove('ui-open');
+    let tabs = this.element.querySelectorAll('a.ui-tab-button');
     for (let i = 0, c = this.overflow['children']; i < c.length; i++) {
       this.wrapper.insertBefore(c[i], this.overflowToggle);
     }
     // this.wrapper.appendChild(this.overflowToggle);
-    if (this.tabs.length > 0 && (this.isOverflow = (this.wrapper.lastElementChild.previousElementSibling.offsetLeft + this.wrapper.lastElementChild.previousElementSibling.offsetWidth > this.wrapper.offsetWidth))) {
+    if (tabs.length > 0 && (this.isOverflow = (this.wrapper.lastElementChild.previousElementSibling.offsetLeft + this.wrapper.lastElementChild.previousElementSibling.offsetWidth > this.wrapper.offsetWidth))) {
       for (let c = this.wrapper['children'], i = c.length - 2; i >= 0; i--) {
         if (c[i].offsetLeft + c[i].offsetWidth > this.wrapper.offsetWidth) {
           if (this.overflow.hasChildNodes) this.overflow.insertBefore(c[i], this.overflow.childNodes[0]); else this.overflow.appendChild(c[i]);
@@ -187,6 +191,29 @@ export class UITabPanel {
       this.overflow.classList.remove('ui-open');
   }
 
+  private tabClose(tab) {
+    this.canClose()
+      .then(() => {
+        tab.close();
+        if (!this.activeTab || this.activeTab.id === tab.id)
+          UIEvent.queueTask(() => [this.activeTab = null, this.tabsChanged(), this.arrange()]);
+      });
+  }
+
+  private canClose() {
+    let instance = null;
+    if (instance && typeof instance.canClose === 'function') {
+      let result = instance.canClose();
+      if (result instanceof Promise) {
+        return result;
+      }
+      if (result !== null && result !== undefined) {
+        return Promise.resolve(result);
+      }
+      return Promise.resolve(true);
+    }
+    return Promise.resolve(true);
+  }
 }
 
 @autoinject()
@@ -194,32 +221,28 @@ export class UITabPanel {
 @inlineView(`<template><a ref="buttonEl" slot="tab-button" click.trigger="fireTabChange()" href.bind="href" class="ui-tab-button \${active?'ui-active':''} \${disabled?'ui-disabled':''}">
   <div><ui-glyph if.bind="glyph" class="ui-tab-icon \${glyphClass}" glyph.bind="glyph"></ui-glyph>
   <span class="ui-label"><slot></slot></span></div>
-  <span if.bind="closeable" class="ui-close" click.trigger="closeTab()">&nbsp;&times;</span>
+  <span if.bind="closeable" class="ui-close" click.trigger="fireTabClose($event)">&nbsp;&times;</span>
 </a></template>`)
 @customElement('ui-tab')
 export class UITab {
   static seed = 0;
   constructor(public element: Element) {
     this.id = 'tab-' + (UITab.seed++);
-    this.closeable = element.hasAttribute('closeable');
   }
 
-  // aurelia hooks
-  // created(owningView: View, myView: View) { }
   bind(bindingContext: Object, overrideContext: Object) {
+    this.closeable = this.closeable || this.element.hasAttribute('closeable');
     this.disabled = this.disabled || this.element.hasAttribute('disabled');
   }
   attached() {
     this.buttonEl.viewModel = this;
   }
-  // detached() { }
-  // unbind() { }
-  // end aurelia hooks
 
   @bindable() id = '';
   @bindable() glyph = '';
   @bindable() glyphClass = '';
   @bindable() disabled = false;
+  @bindable() closeable = false;
   @bindable() active = false;
 
   @bindable() href = 'javascript:;';
@@ -228,7 +251,22 @@ export class UITab {
   @bindable() viewModel = '';
 
   private buttonEl;
-  public closeable = false;
+
+  close() {
+    DOM.removeNode(this.buttonEl);
+    UIEvent.fireEvent('closed', this.buttonEl, this);
+  }
+
+  activeChanged(newValue) {
+    if (!!newValue && this.href !== 'javascript:;') this.buttonEl.click();
+  }
+
+  private fireTabClose(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    UIEvent.fireEvent('tabclosing', this.buttonEl, this);
+    return false;
+  }
 
   private fireTabChange() {
     if (this.href === 'javascript:;') UIEvent.fireEvent('tabactivated', this.buttonEl);

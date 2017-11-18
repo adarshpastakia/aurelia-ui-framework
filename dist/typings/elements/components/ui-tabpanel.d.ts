@@ -27,17 +27,18 @@ export declare class UITabPanel {
     private obClick;
     private obResize;
     height: string;
-    tabs: any[];
+    active: any;
     activeTab: any;
-    tab: any;
     private noTabs;
     private useRouter;
     private tabsChanged();
-    private activeTabChanged(newValue);
+    private activeChanged(newValue);
     private activateTab(newTab);
     canActivate(id: any): boolean;
     private arrange();
     private showOverflow(evt);
+    private tabClose(tab);
+    private canClose();
 }
 export declare class UITab {
     element: Element;
@@ -49,12 +50,15 @@ export declare class UITab {
     glyph: string;
     glyphClass: string;
     disabled: boolean;
+    closeable: boolean;
     active: boolean;
     href: string;
     view: string;
     model: any;
     viewModel: string;
     private buttonEl;
-    closeable: boolean;
+    close(): void;
+    activeChanged(newValue: any): void;
+    private fireTabClose(evt);
     private fireTabChange();
 }

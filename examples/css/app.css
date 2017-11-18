@@ -1691,6 +1691,8 @@ strong {
     -ms-flex: 1 1 1em;
     -o-flex: 1 1 1em;
     flex: 1 1 1em; }
+  .ui-column:not(.ui-column-auto) {
+    overflow: hidden; }
   .ui-column-form {
     -webkit-flex: 1 0 24em;
     -moz-flex: 1 0 24em;
@@ -9003,14 +9005,6 @@ a.ui-menu-item {
     -ms-flex-wrap: nowrap;
     -o-flex-wrap: nowrap;
     flex-wrap: nowrap; }
-    .ui-tab-panel .ui-tabbar .ui-tabbar-toggle {
-      cursor: pointer;
-      color: #AD1457;
-      align-self: stretch; }
-      .ui-tab-panel .ui-tabbar .ui-tabbar-toggle:hover {
-        box-shadow: none;
-        background: rgba(240, 98, 146, 0.5);
-        color: #FFFEFC; }
     .ui-tab-panel .ui-tabbar > .ui-tabbar-overflow {
       display: none; }
       .ui-tab-panel .ui-tabbar > .ui-tabbar-overflow.ui-open {
@@ -9054,6 +9048,8 @@ a.ui-menu-item {
       flex-wrap: nowrap; }
     .ui-tab-panel .ui-tabbar > .ui-tabbar-buttons {
       position: relative;
+      overflow: hidden;
+      margin-bottom: -1px;
       -webkit-flex: 1 1 1em;
       -moz-flex: 1 1 1em;
       -ms-flex: 1 1 1em;
@@ -9194,6 +9190,15 @@ a.ui-menu-item {
         opacity: 0.7; }
         .ui-tab-panel .ui-tabbar .ui-tab-button .ui-close:hover {
           opacity: 1; }
+    .ui-tab-panel .ui-tabbar .ui-tabbar-toggle {
+      cursor: pointer;
+      color: #AD1457;
+      align-self: stretch;
+      min-width: 2em !important; }
+      .ui-tab-panel .ui-tabbar .ui-tabbar-toggle:hover {
+        box-shadow: none;
+        background: rgba(240, 98, 146, 0.5);
+        color: #FFFEFC; }
   .ui-tab-panel .ui-tab {
     z-index: 5;
     background: #FFFEFC;
@@ -9279,6 +9284,9 @@ a.ui-menu-item {
     border-top: 1px solid rgba(189, 195, 199, 0.5); }
   .ui-tab-panel.ui-bottom {
     flex-direction: column-reverse; }
+    .ui-tab-panel.ui-bottom .ui-tabbar .ui-tabbar-buttons {
+      margin-top: -1px;
+      margin-bottom: 0; }
     .ui-tab-panel.ui-bottom .ui-tabbar .ui-tab-button {
       margin: -1px 2px 4px;
       border-top-width: 0;
