@@ -1,0 +1,51 @@
+<!--
+// @author : Adarsh Pastakia
+// @copyright : 2017
+// @license : MIT
+-->
+<template>
+  <ui-page animate="animate">
+    <x-container source.bind="source" wiki.bind="wiki" page-title="List Inputs" need-rtl="true">
+      <ui-row>
+        <ui-column fill padded>
+          <ui-input-group>
+            <ui-input-label>Combo</ui-input-label>
+            <ui-combo value.bind="ctr" options.bind="countries" display-property="name" value-property="iso3" icon-property="iso3" icon-class="ui-flag" force-select="true" model.bind="country">
+              <ui-input-addon glyph-class="ui-flag" glyph.bind="ctr"></ui-input-addon>
+            </ui-combo>
+          </ui-input-group>
+          <br/>
+          <ui-row>
+            <ui-column width="8em"></ui-column>
+            <ui-column auto class="ui-font-large">
+              <ui-glyph class="ui-flag" glyph.bind="ctr"></ui-glyph>
+            </ui-column>
+            <ui-column fill>
+              <h5>${country.name}</h5>
+              <div text-info class="ui-uppercase">${country.iso2}&nbsp;&nbsp;&nbsp;${country.iso3}</div>
+            </ui-column>
+          </ui-row>
+          <br/>
+          <ui-input-group>
+            <ui-input-label>Tags</ui-input-label>
+            <ui-tags value='UAE,IND' force-select="true" options.bind="countries" display-property="name" value-property="iso3" icon-property="iso3" icon-class="ui-flag"></ui-tags>
+          </ui-input-group>
+          <br/>
+          <ui-input-group>
+            <ui-input-label>Tags</ui-input-label>
+            <ui-tags value='user@email.com' force-select="false" options.bind="['user@email.com', 'user@hotmail.com']"></ui-tags>
+          </ui-input-group>
+        </ui-column>
+
+        <ui-column fill padded>
+          <ui-input-group>
+            <ui-input-label>List</ui-input-label>
+            <ui-list value.bind="ctr" options.bind="countries" display-property="name" value-property="iso3" icon-property="iso3" icon-class="ui-flag">
+              <ui-input-addon glyph-class="ui-flag" glyph.bind="ctr"></ui-input-addon>
+            </ui-list>
+          </ui-input-group>
+        </ui-column>
+      </ui-row>
+    </x-container>
+  </ui-page>
+</template>

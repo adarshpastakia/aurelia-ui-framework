@@ -6,13 +6,12 @@
 
 .ui-input-list {
   .ui-dropdown-handle {
-    cursor     : pointer;
-    font-size  : 0.8em;
-    line-height: 1.5rem;
-    opacity    : 0.5;
+    cursor : pointer;
+    opacity: 0.5;
 
     .ui-icon {
-      margin: 0;
+      margin   : 0;
+      font-size: 0.8em;
     }
 
     &:hover {
@@ -22,6 +21,11 @@
 
   .ui-list-container {
     max-height: 20rem;
+
+    .ui-list-item u {
+      font-weight: $font-weight-medium;
+      color      : $primary;
+    }
 
     .ui-lang-item {
       @include flexbox($wrap: false, $align:center);
@@ -49,9 +53,9 @@
     border-radius: $base-border-radius;
     border       : 1px solid rgba($base-border-color, .5);
     position     : relative;
-    // max-width    : 10em;
-    font-size    : 0.8em;
-    margin       : 0.15rem 0.2em;
+    max-width    : 10em;
+    font-size    : 0.85em;
+    margin       : 0.4em 0.2em;
     @include flexbox($wrap:false, $align: center);
     @include flex-auto();
 
@@ -69,14 +73,17 @@
     }
   }
 
-  &.tags {
-    &,
+  &.ui-tags {
     & > .ui-input-control {
       @include flex-wrap(wrap);
+
+      > input:focus {
+        @include flex-basis(6em);
+      }
     }
   }
 
-  &.listbox {
+  &.ui-listbox {
     @include flex-wrap(wrap);
 
     .ui-input.ui-remove {
@@ -89,9 +96,13 @@
       // border-top: 1px solid rgba($base-border-color, .3);
       @include flex(1 1 100%);
     }
+
+    &.ui-readonly .ui-list-container {
+      pointer-events: none;
+    }
   }
 
-  &.reorder {
+  &.ui-reorder {
     .ui-list-container {
       background: none;
       position  : relative;

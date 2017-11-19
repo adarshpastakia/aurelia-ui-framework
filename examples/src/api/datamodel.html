@@ -70,8 +70,10 @@
 
               <ui-input-group>
                 <ui-input-label>Country</ui-input-label>
-                <ui-input-addon text-theme.bind="model.dirtyProps.model.country?'red':'green'" glyph.bind="model.dirtyProps.country?'glyph-icon-no':'glyph-icon-yes'"></ui-input-addon>
-                <ui-input value.bind="model.country" maxlength="99" counter clear></ui-input>
+                <ui-input-addon text-theme.bind="model.dirtyProps.country?'red':'green'" glyph.bind="model.dirtyProps.country?'glyph-icon-no':'glyph-icon-yes'"></ui-input-addon>
+                <ui-combo value.bind="model.country" clear options.bind="countries" display-property="name" value-property="iso2" icon-property="iso2" icon-class="ui-flag">
+                  <ui-input-addon glyph-class="ui-flag" glyph.bind="model.country"></ui-input-addon>
+                </ui-combo>
               </ui-input-group>
 
               <hr/>

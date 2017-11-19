@@ -123,7 +123,7 @@ export class UIInputInfo {
 
 @autoinject()
 @customElement('ui-input-addon')
-@inlineView(`<template class="ui-input-addon" click.trigger="focusEl()"><slot><ui-glyph glyph.bind="glyph"></ui-glyph></slot></template>`)
+@inlineView(`<template class="ui-input-addon" click.trigger="focusEl()"><slot><ui-glyph class.bind="glyphClass" glyph.bind="glyph"></ui-glyph></slot></template>`)
 export class UIInputAddon {
   constructor(public element: Element) {
     if (element.hasAttribute('end')) element.classList.add('ui-end');
@@ -131,6 +131,7 @@ export class UIInputAddon {
   }
 
   @bindable() glyph = '';
+  @bindable() glyphClass = '';
 
   focusEl() {
     let el = this.element.nextElementSibling;

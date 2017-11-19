@@ -6,6 +6,7 @@
 
 import { autoinject } from 'aurelia-framework';
 import { UIHttpService, UIDataModel, serializable } from 'aurelia-ui-framework';
+import * as _ from "lodash";
 
 @autoinject()
 export class DataModel {
@@ -15,6 +16,7 @@ export class DataModel {
 
   wiki;
   source;
+  countries = _.chain(window.Countries.list).sortBy(['continent', 'name']).groupBy('continent').value();
   attached() {
     // this.httpClient.text('docs/api/http.md').then(md => this.wiki = md);
     this.httpClient.text('docs/api/datamodel.example.md').then(md => this.source = md);
