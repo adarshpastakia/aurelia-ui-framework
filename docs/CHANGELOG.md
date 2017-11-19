@@ -1,3 +1,14 @@
+<a name="4.0.0-Beta.5"></a>
+# 4.0.0-Beta.5 (2017-11-19)
+
+* List Inputs
+  - `UICombo`
+  - `UIList`
+  - `UITag`
+
+* Fixed validation example. Needed to include `aurelia-validation` plugin before the ui-framework.
+
+
 <a name="4.0.0-Beta.4"></a>
 # 4.0.0-Beta.4 (2017-11-17)
 
