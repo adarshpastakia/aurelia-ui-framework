@@ -17,6 +17,7 @@ import './elements/inputs/ui-button';
 import './elements/inputs/ui-date';
 import './elements/inputs/ui-form';
 import './elements/inputs/ui-input';
+import './elements/inputs/ui-list';
 import './elements/inputs/ui-markdown';
 import './elements/inputs/ui-options';
 import './elements/inputs/ui-phone';

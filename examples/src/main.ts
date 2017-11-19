@@ -12,12 +12,12 @@ import 'highlightjs';
 export function configure(aurelia: Aurelia) {
   aurelia.use
     .standardConfiguration()
+    .plugin('aurelia-animator-css')
+    .plugin('aurelia-validation')
     .plugin('aurelia-ui-framework', config => {
       UIConstants['themes'] = 'light,muted,dark,primary,secondary,info,danger,success,warning';
       UIConstants['colors'] = 'red,pink,violet,purple,indigo,blue,cyan,teal,green,lime,yellow,amber,orange,brown,lightGray,darkGray';
     })
-    .plugin('aurelia-animator-css')
-    .plugin('aurelia-validation')
     .feature('./src/resources');
 
   if (environment.debug) {

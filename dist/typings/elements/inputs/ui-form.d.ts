@@ -42,6 +42,7 @@ export declare class UIInputAddon {
     element: Element;
     constructor(element: Element);
     glyph: string;
+    glyphClass: string;
     focusEl(): boolean;
 }
 export declare class UIInputLabel {

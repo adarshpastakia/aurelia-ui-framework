@@ -129,7 +129,8 @@
     @include flexbox($direction: row, $display: flex, $align: stretch, $wrap: false);
 
     .ui-dropdown {
-      margin: 0;
+      margin    : 0;
+      box-shadow: none;
     }
   }
 

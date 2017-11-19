@@ -180,6 +180,7 @@ var UIInputAddon = (function () {
     function UIInputAddon(element) {
         this.element = element;
         this.glyph = '';
+        this.glyphClass = '';
         if (element.hasAttribute('end'))
             element.classList.add('ui-end');
         else
@@ -195,10 +196,14 @@ var UIInputAddon = (function () {
         aurelia_framework_1.bindable(),
         __metadata("design:type", Object)
     ], UIInputAddon.prototype, "glyph", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIInputAddon.prototype, "glyphClass", void 0);
     UIInputAddon = __decorate([
         aurelia_framework_1.autoinject(),
         aurelia_framework_1.customElement('ui-input-addon'),
-        aurelia_framework_1.inlineView("<template class=\"ui-input-addon\" click.trigger=\"focusEl()\"><slot><ui-glyph glyph.bind=\"glyph\"></ui-glyph></slot></template>"),
+        aurelia_framework_1.inlineView("<template class=\"ui-input-addon\" click.trigger=\"focusEl()\"><slot><ui-glyph class.bind=\"glyphClass\" glyph.bind=\"glyph\"></ui-glyph></slot></template>"),
         __metadata("design:paramtypes", [Element])
     ], UIInputAddon);
     return UIInputAddon;

@@ -26,6 +26,7 @@ require("./elements/inputs/ui-button");
 require("./elements/inputs/ui-date");
 require("./elements/inputs/ui-form");
 require("./elements/inputs/ui-input");
+require("./elements/inputs/ui-list");
 require("./elements/inputs/ui-markdown");
 require("./elements/inputs/ui-options");
 require("./elements/inputs/ui-phone");
@@ -68,6 +69,7 @@ function configure(config, configCallback) {
         aurelia_pal_1.PLATFORM.moduleName('./elements/inputs/ui-date'),
         aurelia_pal_1.PLATFORM.moduleName('./elements/inputs/ui-form'),
         aurelia_pal_1.PLATFORM.moduleName('./elements/inputs/ui-input'),
+        aurelia_pal_1.PLATFORM.moduleName('./elements/inputs/ui-list'),
         aurelia_pal_1.PLATFORM.moduleName('./elements/inputs/ui-markdown'),
         aurelia_pal_1.PLATFORM.moduleName('./elements/inputs/ui-options'),
         aurelia_pal_1.PLATFORM.moduleName('./elements/inputs/ui-phone'),

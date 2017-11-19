@@ -21,6 +21,7 @@ import './elements/inputs/ui-button';
 import './elements/inputs/ui-date';
 import './elements/inputs/ui-form';
 import './elements/inputs/ui-input';
+import './elements/inputs/ui-list';
 import './elements/inputs/ui-markdown';
 import './elements/inputs/ui-options';
 import './elements/inputs/ui-phone';
@@ -63,6 +64,7 @@ export function configure(config, configCallback) {
         PLATFORM.moduleName('./elements/inputs/ui-date'),
         PLATFORM.moduleName('./elements/inputs/ui-form'),
         PLATFORM.moduleName('./elements/inputs/ui-input'),
+        PLATFORM.moduleName('./elements/inputs/ui-list'),
         PLATFORM.moduleName('./elements/inputs/ui-markdown'),
         PLATFORM.moduleName('./elements/inputs/ui-options'),
         PLATFORM.moduleName('./elements/inputs/ui-phone'),

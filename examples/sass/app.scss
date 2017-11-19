@@ -82,9 +82,10 @@
 }
 
 .x-view {
-  border : 1px solid $base-border-color;
-  height : 400px;
-  display: flex;
+  border  : 1px solid $base-border-color;
+  height  : 400px;
+  display : flex;
+  overflow: hidden;
 
   h6 {
     color      : $secondary;

@@ -1,13 +1,13 @@
 import { autoinject, inject, NewInstance } from 'aurelia-framework';
-import { ValidationRules, ValidationController, validateTrigger } from "aurelia-validation";
+import { ValidationRules, ValidationController, Validator, validateTrigger } from "aurelia-validation";
 // import { UIModel } from "aurelia-ui-framework";
 import * as _ from "lodash";
 
-@inject(NewInstance.of(ValidationController))
+@inject(NewInstance.of(ValidationController), Validator)
 export class InputValidation {
   constructor(public controller: ValidationController) {
     this.model = new DataModel();
-    this.controller.addObject(this.model);
+    this.controller.validateTrigger = validateTrigger.changeOrBlur;
   }
 
   // aurelia hooks

@@ -122,9 +122,9 @@
     @include flex-fill();
   }
 
-  &:not(.ui-column-auto) {
-    overflow: hidden;
-  }
+  // &:not(.ui-column-auto) {
+  //   overflow: hidden;
+  // }
 
   &-form {
     @include flex(1 0 24em);

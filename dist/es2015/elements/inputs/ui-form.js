@@ -174,6 +174,7 @@ let UIInputAddon = class UIInputAddon {
     constructor(element) {
         this.element = element;
         this.glyph = '';
+        this.glyphClass = '';
         if (element.hasAttribute('end'))
             element.classList.add('ui-end');
         else
@@ -190,10 +191,14 @@ __decorate([
     bindable(),
     __metadata("design:type", Object)
 ], UIInputAddon.prototype, "glyph", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIInputAddon.prototype, "glyphClass", void 0);
 UIInputAddon = __decorate([
     autoinject(),
     customElement('ui-input-addon'),
-    inlineView(`<template class="ui-input-addon" click.trigger="focusEl()"><slot><ui-glyph glyph.bind="glyph"></ui-glyph></slot></template>`),
+    inlineView(`<template class="ui-input-addon" click.trigger="focusEl()"><slot><ui-glyph class.bind="glyphClass" glyph.bind="glyph"></ui-glyph></slot></template>`),
     __metadata("design:paramtypes", [Element])
 ], UIInputAddon);
 export { UIInputAddon };

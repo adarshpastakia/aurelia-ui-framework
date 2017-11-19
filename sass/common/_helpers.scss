@@ -16,6 +16,10 @@
   visibility: hidden !important;
 }
 
+.ui-noscroll {
+  overflow: hidden;
+}
+
 .ui-link {
   *display: inline-block;
   position: relative;
@@ -31,7 +35,7 @@
     height    : 1px;
     margin    : 0 auto;
     background: $secondary;
-    @include transition(width .25s);
+    @include transition(width 0.25s);
   }
 
   &:hover:before {
@@ -127,9 +131,23 @@
 }
 
 // COLOR HELPERS
-$colors: ( ('primary', $primary, $primary), ('secondary', $secondary, $secondary), ('white',$white, $white), ('light',$light, $light), ('muted', $muted, $muted), ('dark', $dark, $dark), ('black', $black, $black), ('info', $info, $info-deep), ('danger', $danger, $danger-deep), ('success', $success, $success-deep), ('warning', $warning, $warning-deep) );
+$colors: (
+  ('primary',$primary,$primary),
+  ('secondary', $secondary, $secondary),
+  ('white',$white, $white),
+  ('light',$light, $light),
+  ('muted', $muted, $muted),
+  ('dark', $dark, $dark),
+  ('black', $black, $black),
+  ('info', $info, $info-deep),
+  ('danger', $danger, $danger-deep),
+  ('success', $success, $success-deep),
+  ('warning', $warning, $warning-deep)
+);
+
+
 @each $key, $color, $text in $colors {
-   @include color-property(bg, $key, background-color, $color);
+  @include color-property(bg, $key, background-color, $color);
   @include color-property(text, $key, color, $text);
   @include color-property(border, $key, border-color, $color);
   @include color-maker(hover, $key) {

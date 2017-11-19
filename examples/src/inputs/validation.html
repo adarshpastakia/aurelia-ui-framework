@@ -6,8 +6,7 @@
 <template>
   <ui-page animate="animate">
     <x-container source.bind="source" wiki.bind="wiki" page-title="Validation" need-rtl="true">
-      <ui-form>
-        <ui-toast danger glyph="glyph-alert-error" timeout="0">Aurelia Validation seems to be broken</ui-toast>
+      <ui-form submit.trigger="validate()">
         <ui-row>
           <ui-column fill>
             <ui-fieldset legend="Personal Info">

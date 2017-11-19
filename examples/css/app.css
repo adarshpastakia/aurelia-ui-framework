@@ -1062,6 +1062,9 @@ th {
 .ui-hidden {
   visibility: hidden !important; }
 
+.ui-noscroll {
+  overflow: hidden; }
+
 .ui-link {
   *display: inline-block;
   position: relative; }
@@ -1585,14 +1588,14 @@ strong {
     -o-flex: 1 1 100%;
     flex: 1 1 100%; }
   .ui-row.ui-gutter {
-    padding: 0.25em; }
+    padding: 0.25rem; }
     .ui-row.ui-gutter .ui-column {
       box-sizing: border-box;
-      padding: 0.25em; }
+      padding: 0.25rem; }
       .ui-row.ui-gutter .ui-column.ui-row {
         padding: 0; }
       .ui-row.ui-gutter .ui-column > .ui-row {
-        margin: -0.25em;
+        margin: -0.25rem;
         padding: 0; }
   .ui-row-h-reverse {
     -webkit-flex-direction: row-reverse;
@@ -1691,8 +1694,6 @@ strong {
     -ms-flex: 1 1 1em;
     -o-flex: 1 1 1em;
     flex: 1 1 1em; }
-  .ui-column:not(.ui-column-auto) {
-    overflow: hidden; }
   .ui-column-form {
     -webkit-flex: 1 0 24em;
     -moz-flex: 1 0 24em;
@@ -3280,7 +3281,8 @@ strong {
     -o-flex-wrap: nowrap;
     flex-wrap: nowrap; }
     .ui-input-group .ui-group-wrapper .ui-dropdown {
-      margin: 0; }
+      margin: 0;
+      box-shadow: none; }
   .ui-input-group .ui-button {
     margin: 0;
     align-self: stretch; }
@@ -3509,16 +3511,18 @@ strong {
 
 .ui-input-list .ui-dropdown-handle {
   cursor: pointer;
-  font-size: 0.8em;
-  line-height: 1.5rem;
   opacity: 0.5; }
   .ui-input-list .ui-dropdown-handle .ui-icon {
-    margin: 0; }
+    margin: 0;
+    font-size: 0.8em; }
   .ui-input-list .ui-dropdown-handle:hover {
     opacity: 0.8; }
 
 .ui-input-list .ui-list-container {
   max-height: 20rem; }
+  .ui-input-list .ui-list-container .ui-list-item u {
+    font-weight: 400;
+    color: #AD1457; }
   .ui-input-list .ui-list-container .ui-lang-item {
     display: flex;
     -webkit-flex-direction: row;
@@ -3565,8 +3569,9 @@ strong {
   border-radius: 2px;
   border: 1px solid rgba(189, 195, 199, 0.5);
   position: relative;
-  font-size: 0.8em;
-  margin: 0.15rem 0.2em;
+  max-width: 10em;
+  font-size: 0.85em;
+  margin: 0.4em 0.2em;
   display: flex;
   -webkit-flex-direction: row;
   -moz-flex-direction: row;
@@ -3614,32 +3619,39 @@ strong {
     -o-flex: 0 0 auto;
     flex: 0 0 auto; }
 
-.ui-input-list.tags,
-.ui-input-list.tags > .ui-input-control {
+.ui-input-list.ui-tags > .ui-input-control {
   -webkit-flex-wrap: wrap;
   -moz-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   -o-flex-wrap: wrap;
   flex-wrap: wrap; }
+  .ui-input-list.ui-tags > .ui-input-control > input:focus {
+    -webkit-flex-basis: 6em;
+    -moz-flex-basis: 6em;
+    -ms-flex-basis: 6em;
+    -o-flex-basis: 6em;
+    flex-basis: 6em; }
 
-.ui-input-list.listbox {
+.ui-input-list.ui-listbox {
   -webkit-flex-wrap: wrap;
   -moz-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   -o-flex-wrap: wrap;
   flex-wrap: wrap; }
-  .ui-input-list.listbox .ui-input.ui-remove {
+  .ui-input-list.ui-listbox .ui-input.ui-remove {
     position: absolute;
     top: -100%; }
-  .ui-input-list.listbox .ui-list-container {
+  .ui-input-list.ui-listbox .ui-list-container {
     background: none;
     -webkit-flex: 1 1 100%;
     -moz-flex: 1 1 100%;
     -ms-flex: 1 1 100%;
     -o-flex: 1 1 100%;
     flex: 1 1 100%; }
+  .ui-input-list.ui-listbox.ui-readonly .ui-list-container {
+    pointer-events: none; }
 
-.ui-input-list.reorder .ui-list-container {
+.ui-input-list.ui-reorder .ui-list-container {
   background: none;
   position: relative;
   -webkit-flex: 1 1 100%;
@@ -3648,7 +3660,7 @@ strong {
   -o-flex: 1 1 100%;
   flex: 1 1 100%; }
 
-.ui-input-list.reorder .ui-list-item {
+.ui-input-list.ui-reorder .ui-list-item {
   cursor: move;
   padding: 0;
   display: flex;
@@ -3672,22 +3684,22 @@ strong {
   -ms-flex-wrap: nowrap;
   -o-flex-wrap: nowrap;
   flex-wrap: nowrap; }
-  .ui-input-list.reorder .ui-list-item > .ui-icon {
+  .ui-input-list.ui-reorder .ui-list-item > .ui-icon {
     fill: #95a5a6;
     margin: 0 0.5em; }
-  .ui-input-list.reorder .ui-list-item:hover {
+  .ui-input-list.ui-reorder .ui-list-item:hover {
     background: none; }
-  .ui-input-list.reorder .ui-list-item.dragging {
+  .ui-input-list.ui-reorder .ui-list-item.dragging {
     visibility: hidden; }
 
-.ui-input-list.reorder .ui-ghost {
+.ui-input-list.ui-reorder .ui-ghost {
   color: #FFFEFC;
   background: rgba(240, 98, 146, 0.5) !important;
   border: 1px dotted #F06292;
   position: absolute;
   left: 0;
   right: 0; }
-  .ui-input-list.reorder .ui-ghost > .ui-icon {
+  .ui-input-list.ui-reorder .ui-ghost > .ui-icon {
     fill: #FFFEFC; }
 
 .ui-option-group .ui-group-wrapper {
@@ -9459,7 +9471,8 @@ hue-6-2: #c18401
 .x-view {
   border: 1px solid rgba(189, 195, 199, 0.5);
   height: 400px;
-  display: flex; }
+  display: flex;
+  overflow: hidden; }
   .x-view h6 {
     color: #F06292;
     font-size: 2em;
