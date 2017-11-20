@@ -377,7 +377,7 @@
   color: #FFFEFC;
   background: #ff3b30; }
   .ui-tooltip.ui-red:after {
-    border-color: #ff3b30 transparent; }
+    color: #ff3b30; }
 
 .ui-button-group.ui-toggle .ui-button.ui-active .ui-button-el.ui-red {
   color: #FFFEFC;
@@ -789,7 +789,7 @@
   color: #FFFEFC;
   background: #e91e63; }
   .ui-tooltip.ui-pink:after {
-    border-color: #e91e63 transparent; }
+    color: #e91e63; }
 
 .ui-button-group.ui-toggle .ui-button.ui-active .ui-button-el.ui-pink {
   color: #FFFEFC;
@@ -1201,7 +1201,7 @@
   color: #FFFEFC;
   background: #9c27b0; }
   .ui-tooltip.ui-violet:after {
-    border-color: #9c27b0 transparent; }
+    color: #9c27b0; }
 
 .ui-button-group.ui-toggle .ui-button.ui-active .ui-button-el.ui-violet {
   color: #FFFEFC;
@@ -1613,7 +1613,7 @@
   color: #FFFEFC;
   background: #673ab7; }
   .ui-tooltip.ui-purple:after {
-    border-color: #673ab7 transparent; }
+    color: #673ab7; }
 
 .ui-button-group.ui-toggle .ui-button.ui-active .ui-button-el.ui-purple {
   color: #FFFEFC;
@@ -2025,7 +2025,7 @@
   color: #FFFEFC;
   background: #3f51b5; }
   .ui-tooltip.ui-indigo:after {
-    border-color: #3f51b5 transparent; }
+    color: #3f51b5; }
 
 .ui-button-group.ui-toggle .ui-button.ui-active .ui-button-el.ui-indigo {
   color: #FFFEFC;
@@ -2437,7 +2437,7 @@
   color: #FFFEFC;
   background: #2196f3; }
   .ui-tooltip.ui-blue:after {
-    border-color: #2196f3 transparent; }
+    color: #2196f3; }
 
 .ui-button-group.ui-toggle .ui-button.ui-active .ui-button-el.ui-blue {
   color: #FFFEFC;
@@ -2849,7 +2849,7 @@
   color: #FFFEFC;
   background: #00bcd4; }
   .ui-tooltip.ui-cyan:after {
-    border-color: #00bcd4 transparent; }
+    color: #00bcd4; }
 
 .ui-button-group.ui-toggle .ui-button.ui-active .ui-button-el.ui-cyan {
   color: #FFFEFC;
@@ -3261,7 +3261,7 @@
   color: #FFFEFC;
   background: #009688; }
   .ui-tooltip.ui-teal:after {
-    border-color: #009688 transparent; }
+    color: #009688; }
 
 .ui-button-group.ui-toggle .ui-button.ui-active .ui-button-el.ui-teal {
   color: #FFFEFC;
@@ -3673,7 +3673,7 @@
   color: #FFFEFC;
   background: #4caf50; }
   .ui-tooltip.ui-green:after {
-    border-color: #4caf50 transparent; }
+    color: #4caf50; }
 
 .ui-button-group.ui-toggle .ui-button.ui-active .ui-button-el.ui-green {
   color: #FFFEFC;
@@ -4085,7 +4085,7 @@
   color: #34495e;
   background: #cddc39; }
   .ui-tooltip.ui-lime:after {
-    border-color: #cddc39 transparent; }
+    color: #cddc39; }
 
 .ui-button-group.ui-toggle .ui-button.ui-active .ui-button-el.ui-lime {
   color: #FFFEFC;
@@ -4497,7 +4497,7 @@
   color: #34495e;
   background: #ffeb3b; }
   .ui-tooltip.ui-yellow:after {
-    border-color: #ffeb3b transparent; }
+    color: #ffeb3b; }
 
 .ui-button-group.ui-toggle .ui-button.ui-active .ui-button-el.ui-yellow {
   color: #FFFEFC;
@@ -4909,7 +4909,7 @@
   color: #34495e;
   background: #ffc107; }
   .ui-tooltip.ui-amber:after {
-    border-color: #ffc107 transparent; }
+    color: #ffc107; }
 
 .ui-button-group.ui-toggle .ui-button.ui-active .ui-button-el.ui-amber {
   color: #FFFEFC;
@@ -5321,7 +5321,7 @@
   color: #FFFEFC;
   background: #ff5722; }
   .ui-tooltip.ui-orange:after {
-    border-color: #ff5722 transparent; }
+    color: #ff5722; }
 
 .ui-button-group.ui-toggle .ui-button.ui-active .ui-button-el.ui-orange {
   color: #FFFEFC;
@@ -5733,7 +5733,7 @@
   color: #FFFEFC;
   background: #795548; }
   .ui-tooltip.ui-brown:after {
-    border-color: #795548 transparent; }
+    color: #795548; }
 
 .ui-button-group.ui-toggle .ui-button.ui-active .ui-button-el.ui-brown {
   color: #FFFEFC;
@@ -6145,7 +6145,7 @@
   color: #34495e;
   background: #bdc3c7; }
   .ui-tooltip.ui-lightGray:after {
-    border-color: #bdc3c7 transparent; }
+    color: #bdc3c7; }
 
 .ui-button-group.ui-toggle .ui-button.ui-active .ui-button-el.ui-lightGray {
   color: #FFFEFC;
@@ -6557,7 +6557,7 @@
   color: #FFFEFC;
   background: #7f8c8d; }
   .ui-tooltip.ui-darkGray:after {
-    border-color: #7f8c8d transparent; }
+    color: #7f8c8d; }
 
 .ui-button-group.ui-toggle .ui-button.ui-active .ui-button-el.ui-darkGray {
   color: #FFFEFC;

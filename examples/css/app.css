@@ -1062,7 +1062,7 @@ th {
 .ui-hidden {
   visibility: hidden !important; }
 
-.ui-noscroll {
+.ui-nooverflow {
   overflow: hidden; }
 
 .ui-link {
@@ -4307,7 +4307,7 @@ strong {
   visibility: hidden;
   white-space: nowrap;
   background: #ecf0f1;
-  box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.5);
   -webkit-transition: opacity 500ms;
   -moz-transition: opacity 500ms;
   -ms-transition: opacity 500ms;
@@ -4315,17 +4315,35 @@ strong {
   transition: opacity 500ms; }
   .ui-tooltip:after {
     border: 0 solid transparent;
-    border-color: #ecf0f1 transparent;
     position: absolute;
+    width: 0.5em;
+    height: 0.5em;
     content: '';
-    left: 50%;
-    margin-left: -6px; }
+    color: #ecf0f1; }
   .ui-tooltip.ui-tether-bottom:after {
+    border-top-color: currentcolor;
     border-width: 0.5em 0.5em 0 0.5em;
-    bottom: -.49em; }
+    bottom: -.49em;
+    left: 50%;
+    margin-left: -0.5em; }
   .ui-tooltip.ui-tether-top:after {
+    border-bottom-color: currentcolor;
     border-width: 0 0.5em 0.5em 0.5em;
-    top: -.49em; }
+    top: -.49em;
+    left: 50%;
+    margin-left: -0.5em; }
+  .ui-tooltip.ui-tether-left:after {
+    border-left-color: currentcolor;
+    border-width: 0.5em 0 0.5em 0.5em;
+    right: -.5em;
+    top: 50%;
+    margin-top: -0.5em; }
+  .ui-tooltip.ui-tether-right:after {
+    border-right-color: currentcolor;
+    border-width: 0.5em 0.5em 0.5em 0;
+    left: -.5em;
+    top: 50%;
+    margin-top: -0.5em; }
   .ui-tooltip.ui-show {
     opacity: 1;
     visibility: visible; }
@@ -4334,43 +4352,43 @@ strong {
   color: #FFFEFC;
   background: #AD1457; }
   .ui-tooltip.ui-primary:after {
-    border-color: #AD1457 transparent; }
+    color: #AD1457; }
 
 .ui-tooltip.ui-secondary {
   color: #FFFEFC;
   background: #F06292; }
   .ui-tooltip.ui-secondary:after {
-    border-color: #F06292 transparent; }
+    color: #F06292; }
 
 .ui-tooltip.ui-dark {
   color: #ecf0f1;
   background: #34495e; }
   .ui-tooltip.ui-dark:after {
-    border-color: #34495e transparent; }
+    color: #34495e; }
 
 .ui-tooltip.ui-info {
   color: #FFFEFC;
   background: #29B6F6; }
   .ui-tooltip.ui-info:after {
-    border-color: #29B6F6 transparent; }
+    color: #29B6F6; }
 
 .ui-tooltip.ui-danger {
   color: #FFFEFC;
   background: #EF5350; }
   .ui-tooltip.ui-danger:after {
-    border-color: #EF5350 transparent; }
+    color: #EF5350; }
 
 .ui-tooltip.ui-success {
   color: #FFFEFC;
   background: #66BB6A; }
   .ui-tooltip.ui-success:after {
-    border-color: #66BB6A transparent; }
+    color: #66BB6A; }
 
 .ui-tooltip.ui-warning {
   color: #FFFEFC;
   background: #FFCA28; }
   .ui-tooltip.ui-warning:after {
-    border-color: #FFCA28 transparent; }
+    color: #FFCA28; }
 
 .ui-ribbon {
   position: absolute;

@@ -42,5 +42,6 @@ Form wrapper
 
 * Attributes
   * `glyph = ''`
+  * `glyph-class = ''`
 
 ---
