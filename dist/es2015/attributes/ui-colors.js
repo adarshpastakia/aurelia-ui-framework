@@ -14,7 +14,6 @@ let UIColorBase = class UIColorBase {
         this.element = element;
         this.prefix = '';
         this.value = 'default';
-        this.oldValue = '';
         if (element['au'] && element['au'].controller)
             this.vm = element['au'].controller.viewModel;
         if (element.nodeType == Node.ELEMENT_NODE) {
@@ -25,12 +24,9 @@ let UIColorBase = class UIColorBase {
         }
     }
     attached() {
-        this.changeTheme(this.oldValue, this.value);
+        this.valueChanged(this.value);
     }
-    valueChanged(newValue) {
-        this.changeTheme(this.oldValue, newValue);
-    }
-    changeTheme(oldTheme, newTheme) {
+    valueChanged(newTheme, oldTheme = '') {
         let el;
         if (this.vm instanceof UIButton) {
             if (!this.vm.buttonEl)
@@ -54,7 +50,6 @@ let UIColorBase = class UIColorBase {
             el.classList.remove(`ui-${this.prefix}${oldTheme}`);
             el.classList.add(`ui-${this.prefix}${newTheme}`);
         }
-        this.oldValue = newTheme;
     }
 };
 UIColorBase = __decorate([

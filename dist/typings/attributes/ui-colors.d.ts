@@ -5,10 +5,8 @@ export declare class UIColorBase {
     parentEl: any;
     prefix: string;
     value: string;
-    oldValue: string;
     attached(): void;
-    valueChanged(newValue: any): void;
-    changeTheme(oldTheme: any, newTheme: any): void;
+    valueChanged(newTheme: any, oldTheme?: string): void;
 }
 export declare class UIColorTheme extends UIColorBase {
     element: Element;

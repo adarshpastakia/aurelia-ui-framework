@@ -1,12 +1,19 @@
 export declare class UITooltipBase {
-    element: Element;
     static tooltipEl: any;
+    static POSITIONS: {
+        top: string;
+        bottom: string;
+        left: string;
+        right: string;
+    };
     constructor(element: Element);
     attached(): void;
     detached(): void;
     unbind(): void;
+    position: string;
     theme: string;
-    value: string;
+    value: any;
+    private parentEl;
     private tether;
     private timer;
     show(): void;
@@ -15,6 +22,7 @@ export declare class UITooltipBase {
 export declare class UITooltip extends UITooltipBase {
     element: Element;
     constructor(element: Element);
+    position: string;
     theme: string;
     value: string;
 }

@@ -52,6 +52,8 @@ export declare class UICombo extends BaseList {
     constructor(element: Element);
     value: string;
     model: any;
+    dir: string;
+    width: string;
     errors: any;
     disabled: boolean;
     readonly: boolean;
@@ -69,6 +71,8 @@ export declare class UITags extends BaseList {
     element: Element;
     constructor(element: Element);
     value: string;
+    dir: string;
+    width: string;
     errors: any;
     disabled: boolean;
     readonly: boolean;
@@ -91,6 +95,8 @@ export declare class UIList extends BaseList {
     constructor(element: Element);
     value: string;
     model: any;
+    dir: string;
+    width: string;
     errors: any;
     disabled: boolean;
     readonly: boolean;

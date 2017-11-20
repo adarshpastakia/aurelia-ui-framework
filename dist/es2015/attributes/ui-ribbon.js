@@ -10,13 +10,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { autoinject, customAttribute, bindable } from 'aurelia-framework';
 let UIRibbon = class UIRibbon {
     constructor(element) {
-        this.element = element;
         this.message = '';
         this.theme = 'dark';
+        if (element.nodeType == Node.ELEMENT_NODE) {
+            this.parentEl = element;
+        }
+        if (element.nodeType == Node.COMMENT_NODE) {
+            this.parentEl = element.previousSibling;
+        }
         this.ribbon = document.createElement('div');
         this.ribbon.classList.add('ui-ribbon');
-        element.appendChild(this.ribbon);
-        element['style'].overflow = 'hidden';
+        this.parentEl.appendChild(this.ribbon);
+        this.parentEl['style'].overflow = 'hidden';
     }
     bind(bindingContext, overrideContext) {
         if (isEmpty(this.message))
@@ -25,7 +30,7 @@ let UIRibbon = class UIRibbon {
         this.ribbon.className = 'ui-ribbon ui-' + this.theme;
     }
     themeChanged(newValue) {
-        this.ribbon.className = 'ui-ribbon ' + newValue;
+        this.ribbon.className = 'ui-ribbon ui-' + newValue;
     }
     messageChanged(newValue) {
         if (isEmpty(newValue))

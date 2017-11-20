@@ -11,9 +11,15 @@ import { autoinject, customAttribute, bindable, noView } from 'aurelia-framework
 import { UIUtils } from "../utils/ui-utils";
 let UITooltipBase = UITooltipBase_1 = class UITooltipBase {
     constructor(element) {
-        this.element = element;
-        this.theme = 'light';
+        this.position = '';
+        this.theme = '';
         this.value = '';
+        if (element.nodeType == Node.ELEMENT_NODE) {
+            this.parentEl = element;
+        }
+        if (element.nodeType == Node.COMMENT_NODE) {
+            this.parentEl = element.previousSibling;
+        }
     }
     attached() {
         if (!UITooltipBase_1.tooltipEl) {
@@ -21,18 +27,26 @@ let UITooltipBase = UITooltipBase_1 = class UITooltipBase {
             el.classList.add('ui-tooltip');
             UIUtils.overlayContainer.appendChild(el);
         }
-        this.element.addEventListener('mouseenter', () => this.show());
-        this.element.addEventListener('mouseleave', () => this.hide());
+        this.parentEl.addEventListener('mouseenter', () => this.show());
+        this.parentEl.addEventListener('mouseleave', () => this.hide());
     }
     detached() { this.hide(); }
     unbind() { this.hide(); }
     show() {
+        let position = this.position;
+        let theme = this.theme;
+        let value = this.value;
+        if (typeof this.value === 'object') {
+            position = this.value.position || 'top';
+            theme = this.value.theme || 'light';
+            value = this.value.value || '';
+        }
         if (isEmpty(this.value))
             return;
         let el = UITooltipBase_1.tooltipEl;
-        el.className = 'ui-tooltip ui-' + this.theme;
-        el.innerHTML = this.value;
-        this.tether = UIUtils.tether(this.element, el, { resize: false, position: 'tc' });
+        el.className = 'ui-tooltip ui-' + theme;
+        el.innerHTML = value;
+        this.tether = UIUtils.tether(this.parentEl, el, { resize: false, oppEdge: true, position: UITooltip.POSITIONS[position] });
         this.timer = setTimeout(() => el.classList.add('ui-show'), 700);
     }
     hide() {
@@ -43,6 +57,12 @@ let UITooltipBase = UITooltipBase_1 = class UITooltipBase {
         this.tether = null;
     }
 };
+UITooltipBase.POSITIONS = {
+    top: 'tc',
+    bottom: 'bc',
+    left: 'cl',
+    right: 'cr'
+};
 UITooltipBase = UITooltipBase_1 = __decorate([
     noView(),
     __metadata("design:paramtypes", [Element])
@@ -52,10 +72,15 @@ let UITooltip = class UITooltip extends UITooltipBase {
     constructor(element) {
         super(element);
         this.element = element;
+        this.position = 'top';
         this.theme = 'light';
         this.value = '';
     }
 };
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UITooltip.prototype, "position", void 0);
 __decorate([
     bindable(),
     __metadata("design:type", Object)

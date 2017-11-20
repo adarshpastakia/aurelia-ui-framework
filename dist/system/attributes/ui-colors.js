@@ -36,7 +36,6 @@ System.register(["aurelia-framework", "../elements/inputs/ui-button"], function 
                     this.element = element;
                     this.prefix = '';
                     this.value = 'default';
-                    this.oldValue = '';
                     if (element['au'] && element['au'].controller)
                         this.vm = element['au'].controller.viewModel;
                     if (element.nodeType == Node.ELEMENT_NODE) {
@@ -47,12 +46,10 @@ System.register(["aurelia-framework", "../elements/inputs/ui-button"], function 
                     }
                 }
                 UIColorBase.prototype.attached = function () {
-                    this.changeTheme(this.oldValue, this.value);
+                    this.valueChanged(this.value);
                 };
-                UIColorBase.prototype.valueChanged = function (newValue) {
-                    this.changeTheme(this.oldValue, newValue);
-                };
-                UIColorBase.prototype.changeTheme = function (oldTheme, newTheme) {
+                UIColorBase.prototype.valueChanged = function (newTheme, oldTheme) {
+                    if (oldTheme === void 0) { oldTheme = ''; }
                     var el;
                     if (this.vm instanceof ui_button_1.UIButton) {
                         if (!this.vm.buttonEl)
@@ -76,7 +73,6 @@ System.register(["aurelia-framework", "../elements/inputs/ui-button"], function 
                         el.classList.remove("ui-" + this.prefix + oldTheme);
                         el.classList.add("ui-" + this.prefix + newTheme);
                     }
-                    this.oldValue = newTheme;
                 };
                 UIColorBase = __decorate([
                     aurelia_framework_1.noView(),

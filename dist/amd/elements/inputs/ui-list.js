@@ -331,6 +331,8 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
             var _this = _super.call(this) || this;
             _this.element = element;
             _this.value = '';
+            _this.dir = '';
+            _this.width = 'auto';
             _this.errors = null;
             _this.disabled = false;
             _this.readonly = false;
@@ -350,9 +352,17 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
             __metadata("design:type", Object)
         ], UICombo.prototype, "value", void 0);
         __decorate([
-            aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
+            aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.fromView }),
             __metadata("design:type", Object)
         ], UICombo.prototype, "model", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(),
+            __metadata("design:type", Object)
+        ], UICombo.prototype, "dir", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(),
+            __metadata("design:type", Object)
+        ], UICombo.prototype, "width", void 0);
         __decorate([
             aurelia_framework_1.bindable(),
             __metadata("design:type", Object)
@@ -403,7 +413,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
         ], UICombo.prototype, "forceSelect", void 0);
         UICombo = __decorate([
             aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper ui-input-list\"><div role=\"input\" class=\"ui-input-control\"><slot></slot>\n  <span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"glyph-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <input ref=\"inputEl\" value.bind=\"elValue\" autocomplete=\"off\" size=\"1\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\" click.trigger=\"openDropdown($event)\"\n    input.trigger=\"search() & debounce:200\" change.trigger=\"fireEvent($event)\" select.trigger=\"$event.stopPropagation()\"\n    keydown.trigger=\"keyDown($event)\" placeholder.bind=\"placeholder\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"!allowSearch || readonly\"/>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span>\n  <span class=\"ui-input-addon ui-dropdown-handle\" click.trigger=\"toggleDropdown($event)\"><ui-glyph glyph=\"glyph-chevron-down\"></ui-glyph></span></div>\n\n  <div class=\"ui-list-container ui-floating\" ref=\"dropdown\">\n    <div if.bind=\"filtered.length==0\" class=\"ui-text-muted ui-pad-h\">${emptyText}</div>\n    <template repeat.for=\"group of filtered\"><div if.bind=\"group.label\" class=\"ui-list-group\">${group.label}</div>\n    <div class=\"ui-list-item ${item.value==value?'ui-selected':''} ${item.disabled?'ui-disabled':''}\" repeat.for=\"item of group.items\"\n      mouseover.trigger=\"hilightItem($event)\" click.trigger=\"fireSelect(item.model)\">\n      <span class=\"${iconClass} ${item.icon}\" if.bind=\"item.icon\"></span>&nbsp;<span innerhtml.bind=\"item.display\"></span></div>\n    </template></div>\n  <div class=\"ui-input-info\" if.bind=\"helpText\" innerhtml.bind=\"helpText\"></div>\n</template>"),
+            aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper ui-input-list\" css.bind=\"{width: width}\"><div role=\"input\" class=\"ui-input-control\"><slot></slot>\n  <span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"glyph-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <input ref=\"inputEl\" value.bind=\"elValue\" autocomplete=\"off\" size=\"1\" dir.bind=\"dir\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\" click.trigger=\"openDropdown($event)\"\n    input.trigger=\"search() & debounce:200\" change.trigger=\"fireEvent($event)\" select.trigger=\"$event.stopPropagation()\"\n    keydown.trigger=\"keyDown($event)\" placeholder.bind=\"placeholder\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"!allowSearch || readonly\"/>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span>\n  <span class=\"ui-input-addon ui-dropdown-handle\" click.trigger=\"toggleDropdown($event)\"><ui-glyph glyph=\"glyph-chevron-down\"></ui-glyph></span></div>\n\n  <div class=\"ui-list-container ui-floating\" ref=\"dropdown\" dir.bind=\"dir\">\n    <div if.bind=\"filtered.length==0\" class=\"ui-text-muted ui-pad-h\">${emptyText}</div>\n    <template repeat.for=\"group of filtered\"><div if.bind=\"group.label\" class=\"ui-list-group\">${group.label}</div>\n    <div class=\"ui-list-item ${item.value==value?'ui-selected':''} ${item.disabled?'ui-disabled':''}\" repeat.for=\"item of group.items\"\n      mouseover.trigger=\"hilightItem($event)\" click.trigger=\"fireSelect(item.model)\">\n      <span class=\"${iconClass} ${item.icon}\" if.bind=\"item.icon\"></span>&nbsp;<span innerhtml.bind=\"item.display\"></span></div>\n    </template></div>\n  <div class=\"ui-input-info\" if.bind=\"helpText\" innerhtml.bind=\"helpText\"></div>\n</template>"),
             aurelia_framework_1.customElement('ui-combo'),
             __metadata("design:paramtypes", [Element])
         ], UICombo);
@@ -416,6 +426,8 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
             var _this = _super.call(this) || this;
             _this.element = element;
             _this.value = '';
+            _this.dir = '';
+            _this.width = 'auto';
             _this.errors = null;
             _this.disabled = false;
             _this.readonly = false;
@@ -480,6 +492,14 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
         __decorate([
             aurelia_framework_1.bindable(),
             __metadata("design:type", Object)
+        ], UITags.prototype, "dir", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(),
+            __metadata("design:type", Object)
+        ], UITags.prototype, "width", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(),
+            __metadata("design:type", Object)
         ], UITags.prototype, "errors", void 0);
         __decorate([
             aurelia_framework_1.bindable(),
@@ -527,7 +547,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
         ], UITags.prototype, "forceSelect", void 0);
         UITags = __decorate([
             aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper ui-input-list ui-tags\"><div role=\"input\" class=\"ui-input-control\"><slot></slot>\n  <span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"glyph-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <div class=\"ui-tag-item\" repeat.for=\"tag of value | split\" if.bind=\"tag!=''\"><span innerhtml.bind=\"getDisplay(tag)\"></span><i class=\"ui-clear\" click.trigger=\"removeValue(tag)\">&times;</i></div>\n  <input ref=\"inputEl\" value.bind=\"elValue\" autocomplete=\"off\" size=\"1\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\" select.trigger=\"$event.stopPropagation()\"\n    input.trigger=\"search() & debounce:200\" change.trigger=\"fireEvent($event)\"\n    keydown.trigger=\"keyDown($event)\" placeholder.bind=\"placeholder\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"!allowSearch || readonly\"/></div>\n  <div class=\"ui-input-info\" if.bind=\"helpText\" innerhtml.bind=\"helpText\"></div>\n\n  <div class=\"ui-list-container ui-floating\" ref=\"dropdown\">\n    <div if.bind=\"filtered.length==0\" class=\"ui-text-muted ui-pad-h\">${emptyText}</div>\n    <template repeat.for=\"group of filtered\"><div if.bind=\"group.label\" class=\"ui-list-group\">${group.label}</div>\n    <div class=\"ui-list-item ${item.disabled?'ui-disabled':''}\" repeat.for=\"item of group.items\"\n      mouseover.trigger=\"hilightItem($event)\" click.trigger=\"fireSelect(item.model)\">\n      <span class=\"${iconClass} ${item.icon}\" if.bind=\"item.icon\"></span>&nbsp;<span innerhtml.bind=\"item.display\"></span></div>\n    </template>\n  </div>\n</template>"),
+            aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper ui-input-list ui-tags\" css.bind=\"{width: width}\"><div role=\"input\" class=\"ui-input-control\" dir.bind=\"dir\"><slot></slot>\n  <span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"glyph-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <div class=\"ui-tag-item\" repeat.for=\"tag of value | split\" if.bind=\"tag!=''\"><span innerhtml.bind=\"getDisplay(tag)\"></span><i class=\"ui-clear\" click.trigger=\"removeValue(tag)\">&times;</i></div>\n  <input ref=\"inputEl\" value.bind=\"elValue\" autocomplete=\"off\" size=\"1\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\" select.trigger=\"$event.stopPropagation()\"\n    input.trigger=\"search() & debounce:200\" change.trigger=\"fireEvent($event)\"\n    keydown.trigger=\"keyDown($event)\" placeholder.bind=\"placeholder\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"!allowSearch || readonly\"/></div>\n  <div class=\"ui-input-info\" if.bind=\"helpText\" innerhtml.bind=\"helpText\"></div>\n\n  <div class=\"ui-list-container ui-floating\" ref=\"dropdown\" dir.bind=\"dir\">\n    <div if.bind=\"filtered.length==0\" class=\"ui-text-muted ui-pad-h\">${emptyText}</div>\n    <template repeat.for=\"group of filtered\"><div if.bind=\"group.label\" class=\"ui-list-group\">${group.label}</div>\n    <div class=\"ui-list-item ${item.disabled?'ui-disabled':''}\" repeat.for=\"item of group.items\"\n      mouseover.trigger=\"hilightItem($event)\" click.trigger=\"fireSelect(item.model)\">\n      <span class=\"${iconClass} ${item.icon}\" if.bind=\"item.icon\"></span>&nbsp;<span innerhtml.bind=\"item.display\"></span></div>\n    </template>\n  </div>\n</template>"),
             aurelia_framework_1.customElement('ui-tags'),
             __metadata("design:paramtypes", [Element])
         ], UITags);
@@ -540,6 +560,8 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
             var _this = _super.call(this) || this;
             _this.element = element;
             _this.value = '';
+            _this.dir = '';
+            _this.width = 'auto';
             _this.errors = null;
             _this.disabled = false;
             _this.readonly = false;
@@ -561,9 +583,17 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
             __metadata("design:type", Object)
         ], UIList.prototype, "value", void 0);
         __decorate([
-            aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
+            aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.fromView }),
             __metadata("design:type", Object)
         ], UIList.prototype, "model", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(),
+            __metadata("design:type", Object)
+        ], UIList.prototype, "dir", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(),
+            __metadata("design:type", Object)
+        ], UIList.prototype, "width", void 0);
         __decorate([
             aurelia_framework_1.bindable(),
             __metadata("design:type", Object)
@@ -614,7 +644,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
         ], UIList.prototype, "forceSelect", void 0);
         UIList = __decorate([
             aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper ui-input-list ui-listbox\"><div role=\"input\" class=\"ui-input-control\">\n  <span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"glyph-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <input ref=\"inputEl\" value.bind=\"elValue\" class=\"ui-input ui-remove\" autocomplete=\"off\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\" size=\"1\"\n    input.trigger=\"search() & debounce:200\" change.trigger=\"fireEvent($event)\"\n    keydown.trigger=\"keyDown($event)\" placeholder.bind=\"placeholder\" select.trigger=\"$event.stopPropagation()\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"true\"/>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span>\n\n  <div class=\"ui-list-container\" ref=\"dropdown\" mouseout.trigger=\"unhilightItem()\">\n    <div if.bind=\"filtered.length==0\" class=\"ui-text-muted ui-pad-h\">${emptyText}</div>\n    <template repeat.for=\"group of filtered\"><div if.bind=\"group.label\" class=\"ui-list-group\">${group.label}</div>\n    <div class=\"ui-list-item ${item.value==value?'ui-selected':''} ${item.disabled?'ui-disabled':''}\" repeat.for=\"item of group.items\"\n      mouseover.trigger=\"hilightItem($event)\" click.trigger=\"fireSelect(item.model)\">\n      <span class=\"${iconClass} ${item.icon}\" if.bind=\"item.icon\"></span>&nbsp;<span innerhtml.bind=\"item.display\"></span></div>\n    </template>\n  </div></div>\n  <div class=\"ui-input-info\" if.bind=\"helpText\" innerhtml.bind=\"helpText\"></div>\n</template>"),
+            aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper ui-input-list ui-listbox\" css.bind=\"{width: width}\"><div role=\"input\" class=\"ui-input-control\">\n  <span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"glyph-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <input ref=\"inputEl\" value.bind=\"elValue\" class=\"ui-input ui-remove\" autocomplete=\"off\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\" size=\"1\"\n    input.trigger=\"search() & debounce:200\" change.trigger=\"fireEvent($event)\"\n    keydown.trigger=\"keyDown($event)\" placeholder.bind=\"placeholder\" select.trigger=\"$event.stopPropagation()\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"true\"/>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span>\n\n  <div class=\"ui-list-container\" ref=\"dropdown\" mouseout.trigger=\"unhilightItem()\" dir.bind=\"dir\">\n    <div if.bind=\"filtered.length==0\" class=\"ui-text-muted ui-pad-h\">${emptyText}</div>\n    <template repeat.for=\"group of filtered\"><div if.bind=\"group.label\" class=\"ui-list-group\">${group.label}</div>\n    <div class=\"ui-list-item ${item.value==value?'ui-selected':''} ${item.disabled?'ui-disabled':''}\" repeat.for=\"item of group.items\"\n      mouseover.trigger=\"hilightItem($event)\" click.trigger=\"fireSelect(item.model)\">\n      <span class=\"${iconClass} ${item.icon}\" if.bind=\"item.icon\"></span>&nbsp;<span innerhtml.bind=\"item.display\"></span></div>\n    </template>\n  </div></div>\n  <div class=\"ui-input-info\" if.bind=\"helpText\" innerhtml.bind=\"helpText\"></div>\n</template>"),
             aurelia_framework_1.customElement('ui-list'),
             __metadata("design:paramtypes", [Element])
         ], UIList);

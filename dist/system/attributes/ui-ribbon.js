@@ -20,13 +20,18 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
         execute: function () {
             UIRibbon = (function () {
                 function UIRibbon(element) {
-                    this.element = element;
                     this.message = '';
                     this.theme = 'dark';
+                    if (element.nodeType == Node.ELEMENT_NODE) {
+                        this.parentEl = element;
+                    }
+                    if (element.nodeType == Node.COMMENT_NODE) {
+                        this.parentEl = element.previousSibling;
+                    }
                     this.ribbon = document.createElement('div');
                     this.ribbon.classList.add('ui-ribbon');
-                    element.appendChild(this.ribbon);
-                    element['style'].overflow = 'hidden';
+                    this.parentEl.appendChild(this.ribbon);
+                    this.parentEl['style'].overflow = 'hidden';
                 }
                 UIRibbon.prototype.bind = function (bindingContext, overrideContext) {
                     if (isEmpty(this.message))
@@ -35,7 +40,7 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
                     this.ribbon.className = 'ui-ribbon ui-' + this.theme;
                 };
                 UIRibbon.prototype.themeChanged = function (newValue) {
-                    this.ribbon.className = 'ui-ribbon ' + newValue;
+                    this.ribbon.className = 'ui-ribbon ui-' + newValue;
                 };
                 UIRibbon.prototype.messageChanged = function (newValue) {
                     if (isEmpty(newValue))

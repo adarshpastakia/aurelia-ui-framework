@@ -23,9 +23,15 @@ var aurelia_framework_1 = require("aurelia-framework");
 var ui_utils_1 = require("../utils/ui-utils");
 var UITooltipBase = (function () {
     function UITooltipBase(element) {
-        this.element = element;
-        this.theme = 'light';
+        this.position = '';
+        this.theme = '';
         this.value = '';
+        if (element.nodeType == Node.ELEMENT_NODE) {
+            this.parentEl = element;
+        }
+        if (element.nodeType == Node.COMMENT_NODE) {
+            this.parentEl = element.previousSibling;
+        }
     }
     UITooltipBase_1 = UITooltipBase;
     UITooltipBase.prototype.attached = function () {
@@ -35,18 +41,26 @@ var UITooltipBase = (function () {
             el.classList.add('ui-tooltip');
             ui_utils_1.UIUtils.overlayContainer.appendChild(el);
         }
-        this.element.addEventListener('mouseenter', function () { return _this.show(); });
-        this.element.addEventListener('mouseleave', function () { return _this.hide(); });
+        this.parentEl.addEventListener('mouseenter', function () { return _this.show(); });
+        this.parentEl.addEventListener('mouseleave', function () { return _this.hide(); });
     };
     UITooltipBase.prototype.detached = function () { this.hide(); };
     UITooltipBase.prototype.unbind = function () { this.hide(); };
     UITooltipBase.prototype.show = function () {
+        var position = this.position;
+        var theme = this.theme;
+        var value = this.value;
+        if (typeof this.value === 'object') {
+            position = this.value.position || 'top';
+            theme = this.value.theme || 'light';
+            value = this.value.value || '';
+        }
         if (isEmpty(this.value))
             return;
         var el = UITooltipBase_1.tooltipEl;
-        el.className = 'ui-tooltip ui-' + this.theme;
-        el.innerHTML = this.value;
-        this.tether = ui_utils_1.UIUtils.tether(this.element, el, { resize: false, position: 'tc' });
+        el.className = 'ui-tooltip ui-' + theme;
+        el.innerHTML = value;
+        this.tether = ui_utils_1.UIUtils.tether(this.parentEl, el, { resize: false, oppEdge: true, position: UITooltip.POSITIONS[position] });
         this.timer = setTimeout(function () { return el.classList.add('ui-show'); }, 700);
     };
     UITooltipBase.prototype.hide = function () {
@@ -55,6 +69,12 @@ var UITooltipBase = (function () {
             this.tether.dispose();
         UITooltipBase_1.tooltipEl.className = 'ui-tooltip';
         this.tether = null;
+    };
+    UITooltipBase.POSITIONS = {
+        top: 'tc',
+        bottom: 'bc',
+        left: 'cl',
+        right: 'cr'
     };
     UITooltipBase = UITooltipBase_1 = __decorate([
         aurelia_framework_1.noView(),
@@ -69,10 +89,15 @@ var UITooltip = (function (_super) {
     function UITooltip(element) {
         var _this = _super.call(this, element) || this;
         _this.element = element;
+        _this.position = 'top';
         _this.theme = 'light';
         _this.value = '';
         return _this;
     }
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UITooltip.prototype, "position", void 0);
     __decorate([
         aurelia_framework_1.bindable(),
         __metadata("design:type", Object)
