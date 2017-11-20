@@ -91,6 +91,8 @@ export class App {
       }, {
         route: 'alerts', moduleId: './components/alerts', title: 'Alerts & Toasts', nav: true, auth: false, settings: { section: 'Components' }, name: 'comps:alerts'
       }, {
+        route: 'tooltips', moduleId: './components/tooltips', title: 'Tooltips & Ribbons', nav: true, auth: false, settings: { section: 'Components' }, name: 'comps:tooltips'
+      }, {
         route: 'api/*path', moduleId: './api/view', title: 'API Classes', nav: false, auth: false, name: 'api'
       }, , {
         route: 'api:application', redirect: 'api/application', title: 'Application', nav: true, auth: false, settings: { section: 'API Classes' }, name: 'api:application'

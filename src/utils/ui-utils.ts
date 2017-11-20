@@ -95,11 +95,12 @@ export module UIUtils {
 
   // Floating Tether
   export function tether(parent, child, opts?) {
-    opts = Object.assign({ resize: true, position: 'bl' }, opts);
+    opts = Object.assign({ resize: true, position: 'bl', oppEdge: false }, opts);
     child.style.position = 'fixed';
 
     return new (function(el, dd, options) {
       this.listeners = [];
+      this.align = options.position;
       this.dispose = () => {
         this.listeners.forEach(parent => {
           parent.removeEventListener('scroll', this.position);
@@ -122,11 +123,11 @@ export module UIUtils {
         dd.classList.remove('ui-tether-left');
         dd.classList.remove('ui-tether-right');
 
-        let align = options.position.split('');
+        let align = this.align.split('');
 
         if (align[0] == 'c') {
           dd.style.top = pos.top + (pos.height / 2) + 'px';
-          dd.style.transform += ' translateY(-50%)';
+          dd.style.transform = ' translateY(-50%)';
         }
         else if (align[0] == 't') {
           if (pos.top - dd.offsetHeight < 0) {
@@ -174,14 +175,14 @@ export module UIUtils {
             el.classList.add('ui-tether-left');
 
             dd.style.left = pos.left + 'px';
-            dd.style.transform += ' translateX(0)';
+            dd.style.transform += options.oppEdge ? ' translateX(-100%)' : ' translateX(0)';
           }
           else {
             dd.classList.add('ui-tether-right');
             el.classList.add('ui-tether-right');
 
             dd.style.left = pos.right + 'px';
-            dd.style.transform += ' translateX(-100%)';
+            dd.style.transform += options.oppEdge ? ' translateX(0)' : ' translateX(-100%)';
           }
         }
         else {
@@ -190,14 +191,14 @@ export module UIUtils {
             el.classList.add('ui-tether-right');
 
             dd.style.left = pos.right + 'px';
-            dd.style.transform += ' translateX(-100%)';
+            dd.style.transform += options.oppEdge ? ' translateX(0)' : ' translateX(-100%)';
           }
           else {
             dd.classList.add('ui-tether-left');
             el.classList.add('ui-tether-left');
 
             dd.style.left = pos.left + 'px';
-            dd.style.transform += ' translateX(0)';
+            dd.style.transform += options.oppEdge ? ' translateX(-100%)' : ' translateX(0)';
           }
         }
         dd.style.transform += ' translateZ(0)';

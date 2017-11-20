@@ -13,12 +13,19 @@ import { UIUtils } from "../utils/ui-utils";
 export class UIRibbon {
 
   ribbon;
-  constructor(public element: Element) {
+  constructor(element: Element) {
+    if (element.nodeType == Node.ELEMENT_NODE) {
+      this.parentEl = element;
+    }
+    if (element.nodeType == Node.COMMENT_NODE) {
+      this.parentEl = element.previousSibling;
+    }
+
     this.ribbon = document.createElement('div');
     this.ribbon.classList.add('ui-ribbon');
-    element.appendChild(this.ribbon);
+    this.parentEl.appendChild(this.ribbon);
 
-    element['style'].overflow = 'hidden';
+    this.parentEl['style'].overflow = 'hidden';
   }
 
   bind(bindingContext: Object, overrideContext: Object) {
@@ -29,9 +36,10 @@ export class UIRibbon {
 
   @bindable({ primaryProperty: true }) message = '';
   @bindable() theme = 'dark';
+  private parentEl;
 
   themeChanged(newValue) {
-    this.ribbon.className = 'ui-ribbon ' + newValue;
+    this.ribbon.className = 'ui-ribbon ui-' + newValue;
   }
   messageChanged(newValue) {
     if (isEmpty(newValue)) return this.ribbon.classList.add('ui-hidden');

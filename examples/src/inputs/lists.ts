@@ -19,7 +19,7 @@ export class InputLists {
   countries = _.chain(window.Countries.list).sortBy(['continent', 'name']).groupBy('continent').value();
 
   activate() {
-    // this.httpClient.text('docs/inputs/dates.md').then(md => this.wiki = md);
+    this.httpClient.text('docs/inputs/lists.md').then(md => this.wiki = md);
     // this.httpClient.text('docs/inputs/dates.example.md').then(md => this.source = md);
   }
 }

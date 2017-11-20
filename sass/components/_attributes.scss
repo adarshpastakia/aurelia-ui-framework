@@ -15,26 +15,48 @@
   visibility   : hidden;
   white-space  : nowrap;
   background   : $light;
-  box-shadow   : 0 0 8px 2px rgba(0,0,0,.5);
+  box-shadow   : 0 0 5px 1px rgba(0,0,0,.5);
   @include transition(opacity 500ms);
 
   &:after {
-    border      : 0 solid transparent;
-    border-color: $light transparent;
-    position    : absolute;
-    content     : '';
-    left        : 50%;
-    margin-left : -6px;
+    border  : 0 solid transparent;
+    position: absolute;
+    width   : 0.5em;
+    height  : 0.5em;
+    content : '';
+    color   : $light;
   }
 
   &.ui-tether-bottom:after {
-    border-width: 0.5em 0.5em 0 0.5em;
-    bottom      : -.49em;
+    border-top-color: currentcolor;
+    border-width    : 0.5em 0.5em 0 0.5em;
+    bottom          : -.49em;
+    left            : 50%;
+    margin-left     : -0.5em;
   }
 
   &.ui-tether-top:after {
-    border-width: 0 0.5em 0.5em 0.5em;
-    top         : -.49em;
+    border-bottom-color: currentcolor;
+    border-width       : 0 0.5em 0.5em 0.5em;
+    top                : -.49em;
+    left               : 50%;
+    margin-left        : -0.5em;
+  }
+
+  &.ui-tether-left:after {
+    border-left-color: currentcolor;
+    border-width     : 0.5em 0 0.5em 0.5em;
+    right            : -.5em;
+    top              : 50%;
+    margin-top       : -0.5em;
+  }
+
+  &.ui-tether-right:after {
+    border-right-color: currentcolor;
+    border-width      : 0.5em 0.5em 0.5em 0;
+    left              : -.5em;
+    top               : 50%;
+    margin-top        : -0.5em;
   }
 
   &.ui-show {

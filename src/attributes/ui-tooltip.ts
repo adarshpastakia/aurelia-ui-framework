@@ -12,7 +12,21 @@ import { UIUtils } from "../utils/ui-utils";
 export class UITooltipBase {
   static tooltipEl;
 
-  constructor(public element: Element) { }
+  static POSITIONS = {
+    top: 'tc',
+    bottom: 'bc',
+    left: 'cl',
+    right: 'cr'
+  }
+
+  constructor(element: Element) {
+    if (element.nodeType == Node.ELEMENT_NODE) {
+      this.parentEl = element;
+    }
+    if (element.nodeType == Node.COMMENT_NODE) {
+      this.parentEl = element.previousSibling;
+    }
+  }
   attached() {
     if (!UITooltipBase.tooltipEl) {
       let el = UITooltipBase.tooltipEl = document.createElement('div');
@@ -20,24 +34,36 @@ export class UITooltipBase {
       UIUtils.overlayContainer.appendChild(el);
     }
 
-    this.element.addEventListener('mouseenter', () => this.show());
-    this.element.addEventListener('mouseleave', () => this.hide());
+    this.parentEl.addEventListener('mouseenter', () => this.show());
+    this.parentEl.addEventListener('mouseleave', () => this.hide());
   }
   detached() { this.hide(); }
   unbind() { this.hide(); }
 
-  theme = 'light';
-  value = '';
+  position = '';
+  theme = '';
+  value: any = '';
 
+  private parentEl;
   private tether;
   private timer;
 
   show() {
+    let position = this.position;
+    let theme = this.theme;
+    let value = this.value;
+
+    if (typeof this.value === 'object') {
+      position = this.value.position || 'top';
+      theme = this.value.theme || 'light';
+      value = this.value.value || '';
+    }
+
     if (isEmpty(this.value)) return;
     let el = UITooltipBase.tooltipEl;
-    el.className = 'ui-tooltip ui-' + this.theme;
-    el.innerHTML = this.value;
-    this.tether = UIUtils.tether(this.element, el, { resize: false, position: 'tc' });
+    el.className = 'ui-tooltip ui-' + theme;
+    el.innerHTML = value;
+    this.tether = UIUtils.tether(this.parentEl, el, { resize: false, oppEdge: true, position: UITooltip.POSITIONS[position] });
     this.timer = setTimeout(() => el.classList.add('ui-show'), 700);
   }
   hide() {
@@ -53,6 +79,7 @@ export class UITooltipBase {
 export class UITooltip extends UITooltipBase {
   constructor(public element: Element) { super(element); }
 
+  @bindable() position = 'top';
   @bindable() theme = 'light';
   @bindable({ primaryProperty: true }) value = '';
 }

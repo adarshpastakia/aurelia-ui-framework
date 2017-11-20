@@ -23,17 +23,12 @@ export class UIColorBase {
   parentEl;
   prefix = '';
   value = 'default';
-  oldValue = '';
 
   attached() {
-    this.changeTheme(this.oldValue, this.value);
+    this.valueChanged(this.value);
   }
 
-  valueChanged(newValue) {
-    this.changeTheme(this.oldValue, newValue);
-  }
-
-  changeTheme(oldTheme, newTheme) {
+  valueChanged(newTheme, oldTheme = '') {
     let el;
     if (this.vm instanceof UIButton) {
       if (!this.vm.buttonEl) return;
@@ -54,8 +49,6 @@ export class UIColorBase {
       el.classList.remove(`ui-${this.prefix}${oldTheme}`);
       el.classList.add(`ui-${this.prefix}${newTheme}`);
     }
-
-    this.oldValue = newTheme;
   }
 }
 

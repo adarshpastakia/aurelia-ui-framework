@@ -327,9 +327,9 @@ export class BaseList {
 }
 
 @autoinject()
-@inlineView(`<template class="ui-input-wrapper ui-input-list"><div role="input" class="ui-input-control"><slot></slot>
+@inlineView(`<template class="ui-input-wrapper ui-input-list" css.bind="{width: width}"><div role="input" class="ui-input-control"><slot></slot>
   <span class="ui-error" if.bind="errors"><ui-glyph glyph="glyph-invalid"></ui-glyph><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
-  <input ref="inputEl" value.bind="elValue" autocomplete="off" size="1"
+  <input ref="inputEl" value.bind="elValue" autocomplete="off" size="1" dir.bind="dir"
     focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)" click.trigger="openDropdown($event)"
     input.trigger="search() & debounce:200" change.trigger="fireEvent($event)" select.trigger="$event.stopPropagation()"
     keydown.trigger="keyDown($event)" placeholder.bind="placeholder"
@@ -337,7 +337,7 @@ export class BaseList {
   <span class="ui-clear" if.bind="clear && value" click.trigger="clearInput()">&times;</span>
   <span class="ui-input-addon ui-dropdown-handle" click.trigger="toggleDropdown($event)"><ui-glyph glyph="glyph-chevron-down"></ui-glyph></span></div>
 
-  <div class="ui-list-container ui-floating" ref="dropdown">
+  <div class="ui-list-container ui-floating" ref="dropdown" dir.bind="dir">
     <div if.bind="filtered.length==0" class="ui-text-muted ui-pad-h">\${emptyText}</div>
     <template repeat.for="group of filtered"><div if.bind="group.label" class="ui-list-group">\${group.label}</div>
     <div class="ui-list-item \${item.value==value?'ui-selected':''} \${item.disabled?'ui-disabled':''}" repeat.for="item of group.items"
@@ -354,8 +354,10 @@ export class UICombo extends BaseList {
   }
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value = '';
-  @bindable({ defaultBindingMode: bindingMode.twoWay }) model;
+  @bindable({ defaultBindingMode: bindingMode.fromView }) model;
 
+  @bindable() dir = '';
+  @bindable() width = 'auto';
   @bindable() errors = null;
   @bindable() disabled = false;
   @bindable() readonly = false;
@@ -374,7 +376,7 @@ export class UICombo extends BaseList {
 
 
 @autoinject()
-@inlineView(`<template class="ui-input-wrapper ui-input-list ui-tags"><div role="input" class="ui-input-control"><slot></slot>
+@inlineView(`<template class="ui-input-wrapper ui-input-list ui-tags" css.bind="{width: width}"><div role="input" class="ui-input-control" dir.bind="dir"><slot></slot>
   <span class="ui-error" if.bind="errors"><ui-glyph glyph="glyph-invalid"></ui-glyph><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
   <div class="ui-tag-item" repeat.for="tag of value | split" if.bind="tag!=''"><span innerhtml.bind="getDisplay(tag)"></span><i class="ui-clear" click.trigger="removeValue(tag)">&times;</i></div>
   <input ref="inputEl" value.bind="elValue" autocomplete="off" size="1"
@@ -384,7 +386,7 @@ export class UICombo extends BaseList {
     disabled.bind="isDisabled" readonly.bind="!allowSearch || readonly"/></div>
   <div class="ui-input-info" if.bind="helpText" innerhtml.bind="helpText"></div>
 
-  <div class="ui-list-container ui-floating" ref="dropdown">
+  <div class="ui-list-container ui-floating" ref="dropdown" dir.bind="dir">
     <div if.bind="filtered.length==0" class="ui-text-muted ui-pad-h">\${emptyText}</div>
     <template repeat.for="group of filtered"><div if.bind="group.label" class="ui-list-group">\${group.label}</div>
     <div class="ui-list-item \${item.disabled?'ui-disabled':''}" repeat.for="item of group.items"
@@ -403,6 +405,8 @@ export class UITags extends BaseList {
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value = '';
 
+  @bindable() dir = '';
+  @bindable() width = 'auto';
   @bindable() errors = null;
   @bindable() disabled = false;
   @bindable() readonly = false;
@@ -458,7 +462,7 @@ export class UITags extends BaseList {
 }
 
 @autoinject()
-@inlineView(`<template class="ui-input-wrapper ui-input-list ui-listbox"><div role="input" class="ui-input-control">
+@inlineView(`<template class="ui-input-wrapper ui-input-list ui-listbox" css.bind="{width: width}"><div role="input" class="ui-input-control">
   <span class="ui-error" if.bind="errors"><ui-glyph glyph="glyph-invalid"></ui-glyph><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
   <input ref="inputEl" value.bind="elValue" class="ui-input ui-remove" autocomplete="off"
     focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)" size="1"
@@ -467,7 +471,7 @@ export class UITags extends BaseList {
     disabled.bind="isDisabled" readonly.bind="true"/>
   <span class="ui-clear" if.bind="clear && value" click.trigger="clearInput()">&times;</span>
 
-  <div class="ui-list-container" ref="dropdown" mouseout.trigger="unhilightItem()">
+  <div class="ui-list-container" ref="dropdown" mouseout.trigger="unhilightItem()" dir.bind="dir">
     <div if.bind="filtered.length==0" class="ui-text-muted ui-pad-h">\${emptyText}</div>
     <template repeat.for="group of filtered"><div if.bind="group.label" class="ui-list-group">\${group.label}</div>
     <div class="ui-list-item \${item.value==value?'ui-selected':''} \${item.disabled?'ui-disabled':''}" repeat.for="item of group.items"
@@ -486,8 +490,10 @@ export class UIList extends BaseList {
   }
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value = '';
-  @bindable({ defaultBindingMode: bindingMode.twoWay }) model;
+  @bindable({ defaultBindingMode: bindingMode.fromView }) model;
 
+  @bindable() dir = '';
+  @bindable() width = 'auto';
   @bindable() errors = null;
   @bindable() disabled = false;
   @bindable() readonly = false;

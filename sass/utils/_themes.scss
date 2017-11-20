@@ -299,7 +299,7 @@
     background: $bg;
 
     &:after {
-      border-color: $bg transparent;
+      color: $bg;
     }
   }
 }

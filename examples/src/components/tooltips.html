@@ -1,0 +1,67 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <ui-page animate>
+    <x-container source.bind="source" wiki.bind="wiki" page-title="Tooltips & Ribbons" need-rtl="true">
+      <h4 class="x-title">Tooltips</h4>
+      <ui-fieldset legend="Tooltips">
+        <ui-row>
+          <ui-column fill padded>
+            <ui-input-group>
+              <ui-input-label>Message</ui-input-label>
+              <ui-input value.bind="tip.value"></ui-input>
+            </ui-input-group>
+          </ui-column>
+          <ui-column fill padded>
+            <ui-option-group name="theme" value.bind="tip.theme" cols="4">
+              <ui-input-label>Theme</ui-input-label>
+              <ui-radio value="light">Light</ui-radio>
+              <ui-radio value="dark">Dark</ui-radio>
+              <ui-radio value="primary">Primary</ui-radio>
+              <ui-radio value="secondary">Secondary</ui-radio>
+              <ui-radio value="info">Info</ui-radio>
+              <ui-radio value="danger">Danger</ui-radio>
+              <ui-radio value="success">Success</ui-radio>
+              <ui-radio value="warning">Warning</ui-radio>
+            </ui-option-group>
+          </ui-column>
+        </ui-row>
+        <ui-row around>
+          <ui-button width="8em" tooltip.bind="getTip('left', tip.value, tip.theme)">Left</ui-button>
+          <ui-button width="8em" tooltip.bind="getTip('top', tip.value, tip.theme)">Top</ui-button>
+          <ui-button width="8em" tooltip.bind="getTip('bottom', tip.value, tip.theme)">Bottom</ui-button>
+          <ui-button width="8em" tooltip.bind="getTip('right', tip.value, tip.theme)">Right</ui-button>
+        </ui-row>
+      </ui-fieldset>
+
+      <h4 class="x-title">Ribbons</h4>
+      <ui-fieldset legend="Ribbons" ribbon="{;message.bind:ribbonValue; theme.bind:ribbonTheme;}">
+        <ui-row>
+          <ui-column fill padded>
+            <ui-input-group>
+              <ui-input-label>Message</ui-input-label>
+              <ui-input value.bind="ribbonValue"></ui-input>
+            </ui-input-group>
+          </ui-column>
+          <ui-column fill padded>
+            <ui-option-group name="theme" value.bind="ribbonTheme" cols="4">
+              <ui-input-label>Theme</ui-input-label>
+              <ui-radio value="light">Light</ui-radio>
+              <ui-radio value="dark">Dark</ui-radio>
+              <ui-radio value="primary">Primary</ui-radio>
+              <ui-radio value="secondary">Secondary</ui-radio>
+              <ui-radio value="info">Info</ui-radio>
+              <ui-radio value="danger">Danger</ui-radio>
+              <ui-radio value="success">Success</ui-radio>
+              <ui-radio value="warning">Warning</ui-radio>
+            </ui-option-group>
+          </ui-column>
+        </ui-row>
+      </ui-fieldset>
+
+    </x-container>
+  </ui-page>
+</template>
