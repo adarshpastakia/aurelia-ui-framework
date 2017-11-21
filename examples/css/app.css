@@ -4320,6 +4320,14 @@ strong {
     height: 0.5em;
     content: '';
     color: #ecf0f1; }
+  .ui-tooltip.ui-tether-bottom {
+    margin-top: -0.5em; }
+  .ui-tooltip.ui-tether-top {
+    margin-top: 0.5em; }
+  .ui-tooltip.ui-tether-left {
+    margin-left: -0.5em; }
+  .ui-tooltip.ui-tether-right {
+    margin-left: 0.5em; }
   .ui-tooltip.ui-tether-bottom:after {
     border-top-color: currentcolor;
     border-width: 0.5em 0.5em 0 0.5em;
@@ -4478,6 +4486,14 @@ strong {
 [dir="rtl"] .ui-badge:after {
   right: auto;
   left: 0; }
+
+.rtl.ui-tether-left,
+[dir="rtl"].ui-tether-left {
+  margin-left: 0.5em; }
+
+.rtl.ui-tether-right,
+[dir="rtl"].ui-tether-right {
+  margin-left: -.5em; }
 
 .ui-toolbar {
   z-index: 5;

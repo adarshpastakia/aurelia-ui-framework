@@ -43,7 +43,7 @@ export class DataModel {
   address2 = '';
   city = '';
   state = '';
-  country = 'us';
+  country = '';
   phoneType = '';
   phone = '';
   email = '';

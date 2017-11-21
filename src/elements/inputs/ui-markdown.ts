@@ -155,7 +155,7 @@ import * as _ from "lodash";
   <div class="ui-md-preview ui-pad-all ui-markdown" dir.bind="dir" show.bind="preview" innerhtml.bind="value | markdown" dir.bind="dir"></div>
 
   </div>
-  <div class="ui-input-info" if.bind="info" innerhtml.bind="info"></div>
+  <div class="ui-input-info" if.bind="helpText" innerhtml.bind="helpText"></div>
 </template>`)
 export class UIMarkdown extends UIBaseInput {
   constructor(public element: Element) {
@@ -178,7 +178,7 @@ export class UIMarkdown extends UIBaseInput {
   @bindable() readonly = false;
   @bindable() placeholder = '';
   @bindable() autoComplete = '';
-  @bindable() info = '';
+  @bindable() helpText = '';
 
   private clear = false;
   private counter = false;
@@ -251,7 +251,7 @@ export class UIMarkdown extends UIBaseInput {
     change.trigger="fireEvent($event)" placeholder.bind="placeholder"
     disabled.bind="isDisabled" readonly.bind="true" mouseup.trigger="![$event.stopPropagation(), show=true, openDropdown()]"/>
   <span class="ui-input-addon ui-dropdown-handle" mouseup.trigger="![show=true, toggleDropdown($event)]"><ui-glyph glyph="glyph-chevron-down"></ui-glyph></span></div>
-  <div class="ui-input-info" if.bind="info" innerhtml.bind="info"></div>
+  <div class="ui-input-info" if.bind="helpText" innerhtml.bind="helpText"></div>
 
   <div class="ui-list-container ui-floating" ref="dropdown">
     <div class="ui-list-group" t="Selected">Selected</div>
@@ -297,7 +297,7 @@ export class UILanguage {
   @bindable() errors = null;
   @bindable() disabled = false;
   @bindable() readonly = false;
-  @bindable() info = '';
+  @bindable() helpText = '';
   @bindable() languages;
   @bindable() placeholder = '';
 

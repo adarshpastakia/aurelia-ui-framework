@@ -92,6 +92,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
                 this.model = item.model;
             }
             else {
+                this.elValue = '';
                 var v = (newValue || '').split(',');
                 _.forEach(v, function (n) { return _['findChildren'](_this.filtered = _this.original, 'items', 'value', n).disabled = true; });
             }
@@ -184,6 +185,11 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
                     el.classList.add('ui-focus');
             }
             if (evt.type === 'blur') {
+                var item = _['findChildren'](this.filtered = this.original, 'items', 'value', this.value === null ? '' : this.value);
+                if (this.forceSelect && !this.isTagInput)
+                    this.elValue = item.text;
+                if (this.isTagInput)
+                    this.elValue = '';
                 this.element.classList.remove('ui-focus');
                 if (el)
                     el.classList.remove('ui-focus');
@@ -277,11 +283,11 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
             this.hilight = null;
             this.dropdown.scrollTop = 0;
             var groups = [];
-            var rx = new RegExp(getAscii(this.elValue), 'i');
+            var rx = new RegExp(this.elValue.ascii(), 'i');
             _.forEach(_.cloneDeep(this.original), function (v, k) {
                 var list = _.filter(v.items, function (n) {
                     var lbl = n.text + '';
-                    var asc = getAscii(lbl);
+                    var asc = lbl.ascii();
                     if (rx.test(asc)) {
                         var start = asc.search(rx);
                         lbl = lbl.substr(0, start + _this.elValue.length) + '</u>' +

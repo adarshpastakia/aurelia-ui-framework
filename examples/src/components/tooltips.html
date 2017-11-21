@@ -30,10 +30,10 @@
           </ui-column>
         </ui-row>
         <ui-row around>
-          <ui-button width="8em" tooltip.bind="getTip('left', tip.value, tip.theme)">Left</ui-button>
+          <ui-button width="8em" tooltip.bind="getTip('start', tip.value, tip.theme)">Start</ui-button>
           <ui-button width="8em" tooltip.bind="getTip('top', tip.value, tip.theme)">Top</ui-button>
           <ui-button width="8em" tooltip.bind="getTip('bottom', tip.value, tip.theme)">Bottom</ui-button>
-          <ui-button width="8em" tooltip.bind="getTip('right', tip.value, tip.theme)">Right</ui-button>
+          <ui-button width="8em" tooltip.bind="getTip('end', tip.value, tip.theme)">End</ui-button>
         </ui-row>
       </ui-fieldset>
 
@@ -47,7 +47,7 @@
             </ui-input-group>
           </ui-column>
           <ui-column fill padded>
-            <ui-option-group name="theme" value.bind="ribbonTheme" cols="4">
+            <ui-option-group name="theme2" value.bind="ribbonTheme" cols="4">
               <ui-input-label>Theme</ui-input-label>
               <ui-radio value="light">Light</ui-radio>
               <ui-radio value="dark">Dark</ui-radio>

@@ -15,8 +15,8 @@ export class UITooltipBase {
   static POSITIONS = {
     top: 'tc',
     bottom: 'bc',
-    left: 'cl',
-    right: 'cr'
+    start: 'cl',
+    end: 'cr'
   }
 
   constructor(element: Element) {
@@ -63,7 +63,7 @@ export class UITooltipBase {
     let el = UITooltipBase.tooltipEl;
     el.className = 'ui-tooltip ui-' + theme;
     el.innerHTML = value;
-    this.tether = UIUtils.tether(this.parentEl, el, { resize: false, oppEdge: true, position: UITooltip.POSITIONS[position] });
+    this.tether = UIUtils.tether(this.parentEl, el, { resize: false, oppEdge: true, position: UITooltip.POSITIONS[position] || 'tc' });
     this.timer = setTimeout(() => el.classList.add('ui-show'), 700);
   }
   hide() {

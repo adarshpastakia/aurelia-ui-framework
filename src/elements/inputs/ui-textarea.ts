@@ -89,9 +89,9 @@ export class UITextarea extends UIBaseInput {
     let text = this.inputEl.value.substring(0, this.inputEl.selectionEnd);
     let query = text.match(eval(`/\\b([\\d\\w\\-]{1,})$/`));
     if (query !== null) {
-      var rx = new RegExp(getAscii(query[1]), 'i');
+      var rx = new RegExp(query[1].ascii(), 'i');
       this.acList = _.filter(this.autoComplete, v => {
-        let asc = getAscii(v);
+        let asc = v.ascii();
         return rx.test(asc);
       });
       if (this.acShow = (this.acList.length > 0)) {

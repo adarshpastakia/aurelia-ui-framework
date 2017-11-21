@@ -96,6 +96,7 @@ export class BaseList {
       this.model = item.model
     }
     else {
+      this.elValue = '';
       let v = (newValue || '').split(',');
       _.forEach(v, n => _['findChildren'](this.filtered = this.original, 'items', 'value', n).disabled = true);
     }
@@ -192,6 +193,9 @@ export class BaseList {
       if (el) el.classList.add('ui-focus');
     }
     if (evt.type === 'blur') {
+      let item = _['findChildren'](this.filtered = this.original, 'items', 'value', this.value === null ? '' : this.value);
+      if (this.forceSelect && !this.isTagInput) this.elValue = item.text;
+      if (this.isTagInput) this.elValue = '';
       this.element.classList.remove('ui-focus');
       if (el) el.classList.remove('ui-focus');
       if (!this.dropdown.isOpen) this.scrollIntoView();
@@ -278,11 +282,11 @@ export class BaseList {
     this.dropdown.scrollTop = 0;
 
     let groups = [];
-    let rx = new RegExp(getAscii(this.elValue), 'i');
+    let rx = new RegExp(this.elValue.ascii(), 'i');
     _.forEach(_.cloneDeep(this.original), (v, k) => {
       let list = _.filter(v.items, (n: any) => {
         var lbl = n.text + '';
-        let asc = getAscii(lbl);
+        let asc = lbl.ascii();
         if (rx.test(asc)) {
           let start = asc.search(rx);
           lbl = lbl.substr(0, start + this.elValue.length) + '</u>' +

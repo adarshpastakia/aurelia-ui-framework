@@ -111,9 +111,9 @@ define(["require", "exports", "aurelia-framework", "./ui-input", "../../utils/ui
             var text = this.inputEl.value.substring(0, this.inputEl.selectionEnd);
             var query = text.match(eval("/\\b([\\d\\w\\-]{1,})$/"));
             if (query !== null) {
-                var rx = new RegExp(getAscii(query[1]), 'i');
+                var rx = new RegExp(query[1].ascii(), 'i');
                 this.acList = _.filter(this.autoComplete, function (v) {
-                    var asc = getAscii(v);
+                    var asc = v.ascii();
                     return rx.test(asc);
                 });
                 if (this.acShow = (this.acList.length > 0)) {

@@ -27,6 +27,22 @@
     color   : $light;
   }
 
+  &.ui-tether-bottom {
+    margin-top: -0.5em;
+  }
+
+  &.ui-tether-top {
+    margin-top: 0.5em;
+  }
+
+  &.ui-tether-left {
+    margin-left: -0.5em;
+  }
+
+  &.ui-tether-right {
+    margin-left: 0.5em;
+  }
+
   &.ui-tether-bottom:after {
     border-top-color: currentcolor;
     border-width    : 0.5em 0.5em 0 0.5em;
@@ -155,5 +171,13 @@
   .ui-badge:after {
     right: auto;
     left : 0;
+  }
+
+  &.ui-tether-left {
+    margin-left: 0.5em;
+  }
+
+  &.ui-tether-right {
+    margin-left: -.5em;
   }
 }

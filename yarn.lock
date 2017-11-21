@@ -358,9 +358,9 @@ atob@~1.1.0:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/atob/-/atob-1.1.3.tgz#95f13629b12c3a51a5d215abdce2aa9f32f80773"
 
-auf-utility-library@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/auf-utility-library/-/auf-utility-library-0.0.1.tgz#cc0f95ad865570d441ac25bbf370457ecefa3cfd"
+auf-utility-library@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/auf-utility-library/-/auf-utility-library-1.0.0.tgz#e1bd3642a34df2ef2325e19420a58e1d8adc0c38"
 
 aurelia-animator-css@^1.0.4:
   version "1.0.4"
