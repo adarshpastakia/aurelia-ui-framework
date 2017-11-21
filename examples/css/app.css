@@ -3523,6 +3523,34 @@ strong {
   .ui-input-list .ui-list-container .ui-list-item u {
     font-weight: 400;
     color: #AD1457; }
+  .ui-input-list .ui-list-container .ui-list-item {
+    display: flex;
+    -webkit-flex-direction: row;
+    -moz-flex-direction: row;
+    -ms-flex-direction: row;
+    -o-flex-direction: row;
+    flex-direction: row;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    -ms-align-items: center;
+    -o-align-items: center;
+    align-items: center;
+    -webkit-justify-content: flex-start;
+    -moz-justify-content: flex-start;
+    -ms-justify-content: flex-start;
+    -o-justify-content: flex-start;
+    justify-content: flex-start;
+    -webkit-flex-wrap: nowrap;
+    -moz-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    -o-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    padding: 0.5em;
+    line-height: 1.25; }
+    .ui-input-list .ui-list-container .ui-list-item small {
+      color: #95a5a6; }
+    .ui-input-list .ui-list-container .ui-list-item.ui-selected small, .ui-input-list .ui-list-container .ui-list-item.ui-hilight small {
+      color: #FFFEFC; }
   .ui-input-list .ui-list-container .ui-lang-item {
     display: flex;
     -webkit-flex-direction: row;

@@ -20,6 +20,6 @@ export class InputLists {
 
   activate() {
     this.httpClient.text('docs/inputs/lists.md').then(md => this.wiki = md);
-    // this.httpClient.text('docs/inputs/dates.example.md').then(md => this.source = md);
+    this.httpClient.text('docs/inputs/lists.example.md').then(md => this.source = md);
   }
 }

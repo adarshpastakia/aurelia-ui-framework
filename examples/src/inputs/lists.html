@@ -10,7 +10,7 @@
         <ui-column fill padded>
           <ui-input-group>
             <ui-input-label>Combo</ui-input-label>
-            <ui-combo value.bind="ctr" options.bind="countries" display-property="name" value-property="iso3" icon-property="iso3" icon-class="ui-flag" force-select="true" model.bind="country">
+            <ui-combo value.bind="ctr" options.bind="countries" display-property="name" value-property="iso3" icon-property="iso3" icon-class="ui-flag" force-select="true" model.bind="country" tpl="\${name}<br/><small>\${capital}</small>">
               <ui-input-addon glyph-class="ui-flag" glyph.bind="ctr"></ui-input-addon>
             </ui-combo>
           </ui-input-group>
@@ -23,6 +23,8 @@
             <ui-column fill>
               <h5>${country.name}</h5>
               <div text-info class="ui-uppercase">${country.iso2}&nbsp;&nbsp;&nbsp;${country.iso3}</div>
+              <div text-muted class="ui-font-small">${country.fullname}</div>
+              <div text-muted class="ui-font-small">${country.capital}</div>
             </ui-column>
           </ui-row>
           <br/>
@@ -40,7 +42,7 @@
         <ui-column fill padded>
           <ui-input-group>
             <ui-input-label>List</ui-input-label>
-            <ui-list value.bind="ctr" options.bind="countries" display-property="name" value-property="iso3" icon-property="iso3" icon-class="ui-flag">
+            <ui-list value.bind="ctr" options.bind="countries" display-property="name" value-property="iso3" icon-property="iso3" icon-class="ui-flag" tpl="\${name}<br/><small>\${fullname}</small>">
               <ui-input-addon glyph-class="ui-flag" glyph.bind="ctr"></ui-input-addon>
             </ui-list>
           </ui-input-group>

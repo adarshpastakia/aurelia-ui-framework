@@ -15,6 +15,7 @@ export class BaseList {
     constructor() {
         this.value = '';
         this.options = [];
+        this.tpl = '';
         this.clear = true;
         this.readonly = false;
         this.disabled = false;
@@ -70,6 +71,11 @@ export class BaseList {
     focus() {
         this.inputEl.focus();
     }
+    getDisplay(item) {
+        if (this.tpl)
+            return this.tpl.interpolate(item.model);
+        return item.display;
+    }
     valueChanged(newValue, oldValue) {
         if (!this.isTagInput) {
             let item = _['findChildren'](this.filtered = this.original, 'items', 'value', newValue === null ? '' : newValue);
@@ -81,6 +87,7 @@ export class BaseList {
             this.model = item.model;
         }
         else {
+            this.elValue = '';
             let v = (newValue || '').split(',');
             _.forEach(v, n => _['findChildren'](this.filtered = this.original, 'items', 'value', n).disabled = true);
         }
@@ -172,6 +179,11 @@ export class BaseList {
                 el.classList.add('ui-focus');
         }
         if (evt.type === 'blur') {
+            let item = _['findChildren'](this.filtered = this.original, 'items', 'value', this.value === null ? '' : this.value);
+            if (this.forceSelect && !this.isTagInput)
+                this.elValue = item.text;
+            if (this.isTagInput)
+                this.elValue = '';
             this.element.classList.remove('ui-focus');
             if (el)
                 el.classList.remove('ui-focus');
@@ -263,11 +275,11 @@ export class BaseList {
         this.hilight = null;
         this.dropdown.scrollTop = 0;
         let groups = [];
-        let rx = new RegExp(getAscii(this.elValue), 'i');
+        let rx = new RegExp(this.elValue.ascii(), 'i');
         _.forEach(_.cloneDeep(this.original), (v, k) => {
             let list = _.filter(v.items, (n) => {
                 var lbl = n.text + '';
-                let asc = getAscii(lbl);
+                let asc = lbl.ascii();
                 if (rx.test(asc)) {
                     let start = asc.search(rx);
                     lbl = lbl.substr(0, start + this.elValue.length) + '</u>' +
@@ -572,6 +584,7 @@ let UIList = class UIList extends BaseList {
         this.element = element;
         this.value = '';
         this.dir = '';
+        this.tpl = '';
         this.width = 'auto';
         this.errors = null;
         this.disabled = false;
@@ -601,6 +614,10 @@ __decorate([
     bindable(),
     __metadata("design:type", Object)
 ], UIList.prototype, "dir", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIList.prototype, "tpl", void 0);
 __decorate([
     bindable(),
     __metadata("design:type", Object)
@@ -669,7 +686,7 @@ UIList = __decorate([
     <template repeat.for="group of filtered"><div if.bind="group.label" class="ui-list-group">\${group.label}</div>
     <div class="ui-list-item \${item.value==value?'ui-selected':''} \${item.disabled?'ui-disabled':''}" repeat.for="item of group.items"
       mouseover.trigger="hilightItem($event)" click.trigger="fireSelect(item.model)">
-      <span class="\${iconClass} \${item.icon}" if.bind="item.icon"></span>&nbsp;<span innerhtml.bind="item.display"></span></div>
+      <span class="\${iconClass} \${item.icon}" if.bind="item.icon"></span>&nbsp;<span innerhtml.bind="getDisplay(item)"></span></div>
     </template>
   </div></div>
   <div class="ui-input-info" if.bind="helpText" innerhtml.bind="helpText"></div>

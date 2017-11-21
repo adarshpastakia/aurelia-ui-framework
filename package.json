@@ -49,7 +49,7 @@
     "devDependencies": {}
   },
   "dependencies": {
-    "auf-utility-library": "1.0.0",
+    "auf-utility-library": "^1.0.3",
     "aurelia-fetch-client": "^1.1.3",
     "aurelia-framework": "^1.1.5",
     "aurelia-validation": "^1.1.2",

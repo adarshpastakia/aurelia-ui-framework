@@ -46,7 +46,7 @@ let UITooltipBase = UITooltipBase_1 = class UITooltipBase {
         let el = UITooltipBase_1.tooltipEl;
         el.className = 'ui-tooltip ui-' + theme;
         el.innerHTML = value;
-        this.tether = UIUtils.tether(this.parentEl, el, { resize: false, oppEdge: true, position: UITooltip.POSITIONS[position] });
+        this.tether = UIUtils.tether(this.parentEl, el, { resize: false, oppEdge: true, position: UITooltip.POSITIONS[position] || 'tc' });
         this.timer = setTimeout(() => el.classList.add('ui-show'), 700);
     }
     hide() {
@@ -60,8 +60,8 @@ let UITooltipBase = UITooltipBase_1 = class UITooltipBase {
 UITooltipBase.POSITIONS = {
     top: 'tc',
     bottom: 'bc',
-    left: 'cl',
-    right: 'cr'
+    start: 'cl',
+    end: 'cr'
 };
 UITooltipBase = UITooltipBase_1 = __decorate([
     noView(),

@@ -27,6 +27,23 @@
       color      : $primary;
     }
 
+    .ui-list-item {
+      @include flexbox($wrap: false, $align:center);
+      padding    : 0.5em;
+      line-height: 1.25;
+
+      small {
+        color: $muted;
+      }
+
+      &.ui-selected,
+      &.ui-hilight {
+        small {
+          color: $list-hover-text;
+        }
+      }
+    }
+
     .ui-lang-item {
       @include flexbox($wrap: false, $align:center);
 

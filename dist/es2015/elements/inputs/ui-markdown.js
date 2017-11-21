@@ -26,7 +26,7 @@ let UIMarkdown = class UIMarkdown extends UIBaseInput {
         this.readonly = false;
         this.placeholder = '';
         this.autoComplete = '';
-        this.info = '';
+        this.helpText = '';
         this.clear = false;
         this.counter = false;
         this.ignore = false;
@@ -156,7 +156,7 @@ __decorate([
 __decorate([
     bindable(),
     __metadata("design:type", Object)
-], UIMarkdown.prototype, "info", void 0);
+], UIMarkdown.prototype, "helpText", void 0);
 UIMarkdown = __decorate([
     autoinject(),
     customElement('ui-markdown'),
@@ -303,7 +303,7 @@ UIMarkdown = __decorate([
   <div class="ui-md-preview ui-pad-all ui-markdown" dir.bind="dir" show.bind="preview" innerhtml.bind="value | markdown" dir.bind="dir"></div>
 
   </div>
-  <div class="ui-input-info" if.bind="info" innerhtml.bind="info"></div>
+  <div class="ui-input-info" if.bind="helpText" innerhtml.bind="helpText"></div>
 </template>`),
     __metadata("design:paramtypes", [Element])
 ], UIMarkdown);
@@ -316,7 +316,7 @@ let UILanguage = class UILanguage {
         this.errors = null;
         this.disabled = false;
         this.readonly = false;
-        this.info = '';
+        this.helpText = '';
         this.placeholder = '';
         this.errored = [];
         this.show = false;
@@ -450,7 +450,7 @@ __decorate([
 __decorate([
     bindable(),
     __metadata("design:type", Object)
-], UILanguage.prototype, "info", void 0);
+], UILanguage.prototype, "helpText", void 0);
 __decorate([
     bindable(),
     __metadata("design:type", Object)
@@ -469,7 +469,7 @@ UILanguage = __decorate([
     change.trigger="fireEvent($event)" placeholder.bind="placeholder"
     disabled.bind="isDisabled" readonly.bind="true" mouseup.trigger="![$event.stopPropagation(), show=true, openDropdown()]"/>
   <span class="ui-input-addon ui-dropdown-handle" mouseup.trigger="![show=true, toggleDropdown($event)]"><ui-glyph glyph="glyph-chevron-down"></ui-glyph></span></div>
-  <div class="ui-input-info" if.bind="info" innerhtml.bind="info"></div>
+  <div class="ui-input-info" if.bind="helpText" innerhtml.bind="helpText"></div>
 
   <div class="ui-list-container ui-floating" ref="dropdown">
     <div class="ui-list-group" t="Selected">Selected</div>

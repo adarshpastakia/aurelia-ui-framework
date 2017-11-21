@@ -574,400 +574,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-define('src/home/unknown',["require", "exports", "aurelia-framework"], function (require, exports, aurelia_framework_1) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    var View404 = (function () {
-        function View404() {
-        }
-        View404 = __decorate([
-            aurelia_framework_1.inlineView("<template><div class=\"page-404 ui-container\">\n  <h1 class=\"ui-display-1\">TODO</h1>\n  <h6 class=\"ui-text-muted ui-font-big\">Due to work schedule certain sections are pending...will get to it soon</h6>\n  <hr/><a href=\"javascript:history.back()\" class=\"ui-font-large\">&laquo; Go back</a>\n  </div></template>")
-        ], View404);
-        return View404;
-    }());
-    exports.View404 = View404;
-});
-
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-define('src/home/view',["require", "exports", "aurelia-framework", "aurelia-router", "aurelia-ui-framework"], function (require, exports, aurelia_framework_1, aurelia_router_1, aurelia_ui_framework_1) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    var Home = (function () {
-        function Home(router) {
-            this.router = router;
-            this.titleHidden = true;
-        }
-        Home.prototype.activate = function () {
-            aurelia_ui_framework_1.UIEvent.broadcast('hidetitle', true);
-        };
-        Home.prototype.hideTitle = function (b) {
-            if (this.titleHidden != b)
-                aurelia_ui_framework_1.UIEvent.broadcast('hidetitle', this.titleHidden = b);
-        };
-        Home = __decorate([
-            aurelia_framework_1.autoinject(),
-            __metadata("design:paramtypes", [aurelia_router_1.Router])
-        ], Home);
-        return Home;
-    }());
-    exports.Home = Home;
-});
-
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-define('src/inputs/buttons',["require", "exports", "aurelia-framework", "aurelia-ui-framework"], function (require, exports, aurelia_framework_1, aurelia_ui_framework_1) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    var Buttons = (function () {
-        function Buttons(httpClient) {
-            this.httpClient = httpClient;
-            this.wiki = '';
-            this.source = '';
-            this.themes = aurelia_ui_framework_1.UIConstants['themes'].split(',');
-            this.colors = aurelia_ui_framework_1.UIConstants['colors'].split(',');
-        }
-        Buttons.prototype.activate = function () {
-            var _this = this;
-            this.httpClient.text('docs/inputs/button.md').then(function (md) { return _this.wiki = md; });
-            this.httpClient.text('docs/inputs/button.example.md').then(function (md) { return _this.source = md; });
-        };
-        Buttons = __decorate([
-            aurelia_framework_1.autoinject(),
-            __metadata("design:paramtypes", [aurelia_ui_framework_1.UIHttpService])
-        ], Buttons);
-        return Buttons;
-    }());
-    exports.Buttons = Buttons;
-});
-
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-define('src/inputs/content',["require", "exports", "aurelia-framework"], function (require, exports, aurelia_framework_1) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    var InputContent = (function () {
-        function InputContent() {
-            this.dir = 'ltr';
-            this.plain = '';
-            this.language = '';
-            this.md = "\n\n\n##### I _Love_ ~~HTML~~ __Markdown__!\n\n---\n\nI can be __BOLD__, I can also be _ITALIC_, or you can ~~DELETE~~ me too!\n\nLook at me I'm a list\n\n-\tItem\n-\tItem\n-\tItem\n\nAnd I'm numbered\n\n1.\tItem\n2.\tItem\n3.\tItem\n\nI can also be a link [Click Me](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) or show the whole url http://google.com\n\n![Image](examples/images/heart.png) Dont you just love images!\n";
-            this.model = new DataModel();
-            (this.model.languages['en'] = new LangModel()).description = "# English Content " + this.md;
-        }
-        InputContent.prototype.addLanguage = function (lang) {
-            (this.model.languages[lang.id] = new LangModel()).description = "# " + lang.name + " Content " + this.md;
-        };
-        InputContent.prototype.removeLanguage = function (lang) {
-            delete this.model.languages[lang.id];
-        };
-        InputContent = __decorate([
-            aurelia_framework_1.autoinject(),
-            __metadata("design:paramtypes", [])
-        ], InputContent);
-        return InputContent;
-    }());
-    exports.InputContent = InputContent;
-    var DataModel = (function () {
-        function DataModel() {
-            this.title = '';
-            this.languages = {};
-        }
-        return DataModel;
-    }());
-    exports.DataModel = DataModel;
-    var LangModel = (function () {
-        function LangModel() {
-            this.summary = '';
-            this.description = '';
-        }
-        return LangModel;
-    }());
-    exports.LangModel = LangModel;
-});
-
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-define('src/inputs/dates',["require", "exports", "aurelia-framework", "aurelia-ui-framework", "moment"], function (require, exports, aurelia_framework_1, aurelia_ui_framework_1, moment) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    var InputDates = (function () {
-        function InputDates(httpClient) {
-            this.httpClient = httpClient;
-            this.wiki = '';
-            this.source = '';
-            this.minDate = moment().toISOString();
-            this.date1 = moment().toISOString();
-            this.date2 = moment().add(1, 'month').toISOString();
-        }
-        InputDates.prototype.activate = function () {
-            var _this = this;
-            this.httpClient.text('docs/inputs/dates.md').then(function (md) { return _this.wiki = md; });
-            this.httpClient.text('docs/inputs/dates.example.md').then(function (md) { return _this.source = md; });
-        };
-        InputDates = __decorate([
-            aurelia_framework_1.autoinject(),
-            __metadata("design:paramtypes", [aurelia_ui_framework_1.UIHttpService])
-        ], InputDates);
-        return InputDates;
-    }());
-    exports.InputDates = InputDates;
-});
-
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-define('src/inputs/inputs',["require", "exports", "aurelia-framework", "aurelia-ui-framework"], function (require, exports, aurelia_framework_1, aurelia_ui_framework_1) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    var Inputs = (function () {
-        function Inputs(httpClient) {
-            this.httpClient = httpClient;
-            this.wiki = '';
-            this.source = '';
-            this.dis1 = true;
-        }
-        Inputs.prototype.activate = function () {
-            var _this = this;
-            this.httpClient.text('docs/inputs/form.md').then(function (mdForm) {
-                _this.httpClient.text('docs/inputs/inputs.md').then(function (md) { return _this.wiki = mdForm + md; });
-            });
-            this.httpClient.text('docs/inputs/form.example.md').then(function (md) { return _this.source = md; });
-        };
-        Inputs.prototype.attached = function () {
-            var _this = this;
-            setTimeout(function () {
-                _this.files.files = [
-                    { file: '', name: 'Filename.txt', size: Math.random() * 100000, ext: 'txt' },
-                    { file: '', name: 'Filename.txt', size: Math.random() * 100000, ext: 'txt' },
-                    { file: '', name: 'Filename.txt', size: Math.random() * 100000, ext: 'txt' }
-                ];
-            }, 500);
-        };
-        Inputs = __decorate([
-            aurelia_framework_1.autoinject(),
-            __metadata("design:paramtypes", [aurelia_ui_framework_1.UIHttpService])
-        ], Inputs);
-        return Inputs;
-    }());
-    exports.Inputs = Inputs;
-});
-
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-define('src/inputs/lists',["require", "exports", "aurelia-framework", "aurelia-ui-framework", "lodash"], function (require, exports, aurelia_framework_1, aurelia_ui_framework_1, _) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    var InputLists = (function () {
-        function InputLists(httpClient) {
-            this.httpClient = httpClient;
-            this.wiki = '';
-            this.source = '';
-            this.ctr = 'IND';
-            this.countries = _.chain(window.Countries.list).sortBy(['continent', 'name']).groupBy('continent').value();
-        }
-        InputLists.prototype.activate = function () {
-            var _this = this;
-            this.httpClient.text('docs/inputs/lists.md').then(function (md) { return _this.wiki = md; });
-        };
-        InputLists = __decorate([
-            aurelia_framework_1.autoinject(),
-            __metadata("design:paramtypes", [aurelia_ui_framework_1.UIHttpService])
-        ], InputLists);
-        return InputLists;
-    }());
-    exports.InputLists = InputLists;
-});
-
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-define('src/inputs/options',["require", "exports", "aurelia-framework", "aurelia-ui-framework"], function (require, exports, aurelia_framework_1, aurelia_ui_framework_1) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    var Buttons = (function () {
-        function Buttons(httpClient) {
-            this.httpClient = httpClient;
-            this.wiki = '';
-            this.source = '';
-            this.themes = aurelia_ui_framework_1.UIConstants['themes'].split(',');
-            this.colors = aurelia_ui_framework_1.UIConstants['colors'].split(',');
-        }
-        Buttons.prototype.activate = function () {
-            var _this = this;
-            this.themes.splice(0, 1);
-            this.httpClient.text('docs/inputs/options.md').then(function (md) { return _this.wiki = md; });
-            this.httpClient.text('docs/inputs/options.example.md').then(function (md) { return _this.source = md; });
-        };
-        Buttons = __decorate([
-            aurelia_framework_1.autoinject(),
-            __metadata("design:paramtypes", [aurelia_ui_framework_1.UIHttpService])
-        ], Buttons);
-        return Buttons;
-    }());
-    exports.Buttons = Buttons;
-});
-
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-define('src/inputs/validation',["require", "exports", "aurelia-framework", "aurelia-validation", "lodash"], function (require, exports, aurelia_framework_1, aurelia_validation_1, _) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    var InputValidation = (function () {
-        function InputValidation(controller) {
-            this.controller = controller;
-            this.salutations = ['Mr', 'Miss', 'Mrs', 'Dr', 'Prof'];
-            this.countries = _.chain(window.Countries.list).sortBy(['continent', 'name']).groupBy('continent').value();
-            this.model = new DataModel();
-            this.controller.validateTrigger = aurelia_validation_1.validateTrigger.changeOrBlur;
-        }
-        InputValidation.prototype.detached = function () {
-        };
-        InputValidation.prototype.validate = function () {
-            this.controller.validate();
-        };
-        InputValidation = __decorate([
-            aurelia_framework_1.inject(aurelia_framework_1.NewInstance.of(aurelia_validation_1.ValidationController), aurelia_validation_1.Validator),
-            __metadata("design:paramtypes", [aurelia_validation_1.ValidationController])
-        ], InputValidation);
-        return InputValidation;
-    }());
-    exports.InputValidation = InputValidation;
-    var DataModel = (function () {
-        function DataModel() {
-            this.salutation = '';
-            this.firstName = '';
-            this.lastName = '';
-            this.latitude = '';
-            this.longitude = '';
-            this.address1 = '';
-            this.address2 = '';
-            this.city = '';
-            this.state = '';
-            this.country = '';
-            this.phoneType = '';
-            this.phone = '';
-            this.email = '';
-            this.hasSecondContact = false;
-            this.secondContactType = 'home';
-            this.secondContact = '';
-            aurelia_validation_1.ValidationRules
-                .ensure(function (m) { return m.firstName; })
-                .required()
-                .maxLength(99)
-                .ensure(function (m) { return m.lastName; })
-                .required()
-                .maxLength(99)
-                .ensure(function (m) { return m.latitude; })
-                .satisfiesRule('decimal', -90, 90)
-                .ensure(function (m) { return m.longitude; })
-                .satisfiesRule('decimal', -180, 180)
-                .ensure(function (m) { return m.address1; })
-                .displayName('Address')
-                .required()
-                .ensure(function (m) { return m.city; })
-                .required()
-                .ensure(function (m) { return m.country; })
-                .required()
-                .ensure(function (m) { return m.email; })
-                .required()
-                .email()
-                .ensure(function (m) { return m.salutation; })
-                .required()
-                .ensure(function (m) { return m.phoneType; })
-                .required()
-                .ensure(function (m) { return m.phone; })
-                .required()
-                .satisfiesRule('phone')
-                .ensure(function (m) { return m.secondContact; })
-                .required()
-                .when(function (m) { return m.hasSecondContact; })
-                .satisfiesRule('phone')
-                .on(this);
-        }
-        return DataModel;
-    }());
-    exports.DataModel = DataModel;
-});
-
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
@@ -1531,6 +1137,401 @@ define('src/components/tooltips',["require", "exports", "aurelia-framework", "au
 
 
 
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+define('src/home/unknown',["require", "exports", "aurelia-framework"], function (require, exports, aurelia_framework_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var View404 = (function () {
+        function View404() {
+        }
+        View404 = __decorate([
+            aurelia_framework_1.inlineView("<template><div class=\"page-404 ui-container\">\n  <h1 class=\"ui-display-1\">TODO</h1>\n  <h6 class=\"ui-text-muted ui-font-big\">Due to work schedule certain sections are pending...will get to it soon</h6>\n  <hr/><a href=\"javascript:history.back()\" class=\"ui-font-large\">&laquo; Go back</a>\n  </div></template>")
+        ], View404);
+        return View404;
+    }());
+    exports.View404 = View404;
+});
+
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+define('src/home/view',["require", "exports", "aurelia-framework", "aurelia-router", "aurelia-ui-framework"], function (require, exports, aurelia_framework_1, aurelia_router_1, aurelia_ui_framework_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var Home = (function () {
+        function Home(router) {
+            this.router = router;
+            this.titleHidden = true;
+        }
+        Home.prototype.activate = function () {
+            aurelia_ui_framework_1.UIEvent.broadcast('hidetitle', true);
+        };
+        Home.prototype.hideTitle = function (b) {
+            if (this.titleHidden != b)
+                aurelia_ui_framework_1.UIEvent.broadcast('hidetitle', this.titleHidden = b);
+        };
+        Home = __decorate([
+            aurelia_framework_1.autoinject(),
+            __metadata("design:paramtypes", [aurelia_router_1.Router])
+        ], Home);
+        return Home;
+    }());
+    exports.Home = Home;
+});
+
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+define('src/inputs/buttons',["require", "exports", "aurelia-framework", "aurelia-ui-framework"], function (require, exports, aurelia_framework_1, aurelia_ui_framework_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var Buttons = (function () {
+        function Buttons(httpClient) {
+            this.httpClient = httpClient;
+            this.wiki = '';
+            this.source = '';
+            this.themes = aurelia_ui_framework_1.UIConstants['themes'].split(',');
+            this.colors = aurelia_ui_framework_1.UIConstants['colors'].split(',');
+        }
+        Buttons.prototype.activate = function () {
+            var _this = this;
+            this.httpClient.text('docs/inputs/button.md').then(function (md) { return _this.wiki = md; });
+            this.httpClient.text('docs/inputs/button.example.md').then(function (md) { return _this.source = md; });
+        };
+        Buttons = __decorate([
+            aurelia_framework_1.autoinject(),
+            __metadata("design:paramtypes", [aurelia_ui_framework_1.UIHttpService])
+        ], Buttons);
+        return Buttons;
+    }());
+    exports.Buttons = Buttons;
+});
+
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+define('src/inputs/content',["require", "exports", "aurelia-framework"], function (require, exports, aurelia_framework_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var InputContent = (function () {
+        function InputContent() {
+            this.dir = 'ltr';
+            this.plain = '';
+            this.language = '';
+            this.md = "\n\n\n##### I _Love_ ~~HTML~~ __Markdown__!\n\n---\n\nI can be __BOLD__, I can also be _ITALIC_, or you can ~~DELETE~~ me too!\n\nLook at me I'm a list\n\n-\tItem\n-\tItem\n-\tItem\n\nAnd I'm numbered\n\n1.\tItem\n2.\tItem\n3.\tItem\n\nI can also be a link [Click Me](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) or show the whole url http://google.com\n\n![Image](examples/images/heart.png) Dont you just love images!\n";
+            this.model = new DataModel();
+            (this.model.languages['en'] = new LangModel()).description = "# English Content " + this.md;
+        }
+        InputContent.prototype.addLanguage = function (lang) {
+            (this.model.languages[lang.id] = new LangModel()).description = "# " + lang.name + " Content " + this.md;
+        };
+        InputContent.prototype.removeLanguage = function (lang) {
+            delete this.model.languages[lang.id];
+        };
+        InputContent = __decorate([
+            aurelia_framework_1.autoinject(),
+            __metadata("design:paramtypes", [])
+        ], InputContent);
+        return InputContent;
+    }());
+    exports.InputContent = InputContent;
+    var DataModel = (function () {
+        function DataModel() {
+            this.title = '';
+            this.languages = {};
+        }
+        return DataModel;
+    }());
+    exports.DataModel = DataModel;
+    var LangModel = (function () {
+        function LangModel() {
+            this.summary = '';
+            this.description = '';
+        }
+        return LangModel;
+    }());
+    exports.LangModel = LangModel;
+});
+
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+define('src/inputs/dates',["require", "exports", "aurelia-framework", "aurelia-ui-framework", "moment"], function (require, exports, aurelia_framework_1, aurelia_ui_framework_1, moment) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var InputDates = (function () {
+        function InputDates(httpClient) {
+            this.httpClient = httpClient;
+            this.wiki = '';
+            this.source = '';
+            this.minDate = moment().toISOString();
+            this.date1 = moment().toISOString();
+            this.date2 = moment().add(1, 'month').toISOString();
+        }
+        InputDates.prototype.activate = function () {
+            var _this = this;
+            this.httpClient.text('docs/inputs/dates.md').then(function (md) { return _this.wiki = md; });
+            this.httpClient.text('docs/inputs/dates.example.md').then(function (md) { return _this.source = md; });
+        };
+        InputDates = __decorate([
+            aurelia_framework_1.autoinject(),
+            __metadata("design:paramtypes", [aurelia_ui_framework_1.UIHttpService])
+        ], InputDates);
+        return InputDates;
+    }());
+    exports.InputDates = InputDates;
+});
+
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+define('src/inputs/inputs',["require", "exports", "aurelia-framework", "aurelia-ui-framework"], function (require, exports, aurelia_framework_1, aurelia_ui_framework_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var Inputs = (function () {
+        function Inputs(httpClient) {
+            this.httpClient = httpClient;
+            this.wiki = '';
+            this.source = '';
+            this.dis1 = true;
+        }
+        Inputs.prototype.activate = function () {
+            var _this = this;
+            this.httpClient.text('docs/inputs/form.md').then(function (mdForm) {
+                _this.httpClient.text('docs/inputs/inputs.md').then(function (md) { return _this.wiki = mdForm + md; });
+            });
+            this.httpClient.text('docs/inputs/form.example.md').then(function (md) { return _this.source = md; });
+        };
+        Inputs.prototype.attached = function () {
+            var _this = this;
+            setTimeout(function () {
+                _this.files.files = [
+                    { file: '', name: 'Filename.txt', size: Math.random() * 100000, ext: 'txt' },
+                    { file: '', name: 'Filename.txt', size: Math.random() * 100000, ext: 'txt' },
+                    { file: '', name: 'Filename.txt', size: Math.random() * 100000, ext: 'txt' }
+                ];
+            }, 500);
+        };
+        Inputs = __decorate([
+            aurelia_framework_1.autoinject(),
+            __metadata("design:paramtypes", [aurelia_ui_framework_1.UIHttpService])
+        ], Inputs);
+        return Inputs;
+    }());
+    exports.Inputs = Inputs;
+});
+
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+define('src/inputs/lists',["require", "exports", "aurelia-framework", "aurelia-ui-framework", "lodash"], function (require, exports, aurelia_framework_1, aurelia_ui_framework_1, _) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var InputLists = (function () {
+        function InputLists(httpClient) {
+            this.httpClient = httpClient;
+            this.wiki = '';
+            this.source = '';
+            this.ctr = 'IND';
+            this.countries = _.chain(window.Countries.list).sortBy(['continent', 'name']).groupBy('continent').value();
+        }
+        InputLists.prototype.activate = function () {
+            var _this = this;
+            this.httpClient.text('docs/inputs/lists.md').then(function (md) { return _this.wiki = md; });
+            this.httpClient.text('docs/inputs/lists.example.md').then(function (md) { return _this.source = md; });
+        };
+        InputLists = __decorate([
+            aurelia_framework_1.autoinject(),
+            __metadata("design:paramtypes", [aurelia_ui_framework_1.UIHttpService])
+        ], InputLists);
+        return InputLists;
+    }());
+    exports.InputLists = InputLists;
+});
+
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+define('src/inputs/options',["require", "exports", "aurelia-framework", "aurelia-ui-framework"], function (require, exports, aurelia_framework_1, aurelia_ui_framework_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var Buttons = (function () {
+        function Buttons(httpClient) {
+            this.httpClient = httpClient;
+            this.wiki = '';
+            this.source = '';
+            this.themes = aurelia_ui_framework_1.UIConstants['themes'].split(',');
+            this.colors = aurelia_ui_framework_1.UIConstants['colors'].split(',');
+        }
+        Buttons.prototype.activate = function () {
+            var _this = this;
+            this.themes.splice(0, 1);
+            this.httpClient.text('docs/inputs/options.md').then(function (md) { return _this.wiki = md; });
+            this.httpClient.text('docs/inputs/options.example.md').then(function (md) { return _this.source = md; });
+        };
+        Buttons = __decorate([
+            aurelia_framework_1.autoinject(),
+            __metadata("design:paramtypes", [aurelia_ui_framework_1.UIHttpService])
+        ], Buttons);
+        return Buttons;
+    }());
+    exports.Buttons = Buttons;
+});
+
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+define('src/inputs/validation',["require", "exports", "aurelia-framework", "aurelia-validation", "lodash"], function (require, exports, aurelia_framework_1, aurelia_validation_1, _) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var InputValidation = (function () {
+        function InputValidation(controller) {
+            this.controller = controller;
+            this.salutations = ['Mr', 'Miss', 'Mrs', 'Dr', 'Prof'];
+            this.countries = _.chain(window.Countries.list).sortBy(['continent', 'name']).groupBy('continent').value();
+            this.model = new DataModel();
+            this.controller.validateTrigger = aurelia_validation_1.validateTrigger.changeOrBlur;
+        }
+        InputValidation.prototype.detached = function () {
+        };
+        InputValidation.prototype.validate = function () {
+            this.controller.validate();
+        };
+        InputValidation = __decorate([
+            aurelia_framework_1.inject(aurelia_framework_1.NewInstance.of(aurelia_validation_1.ValidationController), aurelia_validation_1.Validator),
+            __metadata("design:paramtypes", [aurelia_validation_1.ValidationController])
+        ], InputValidation);
+        return InputValidation;
+    }());
+    exports.InputValidation = InputValidation;
+    var DataModel = (function () {
+        function DataModel() {
+            this.salutation = '';
+            this.firstName = '';
+            this.lastName = '';
+            this.latitude = '';
+            this.longitude = '';
+            this.address1 = '';
+            this.address2 = '';
+            this.city = '';
+            this.state = '';
+            this.country = '';
+            this.phoneType = '';
+            this.phone = '';
+            this.email = '';
+            this.hasSecondContact = false;
+            this.secondContactType = 'home';
+            this.secondContact = '';
+            aurelia_validation_1.ValidationRules
+                .ensure(function (m) { return m.firstName; })
+                .required()
+                .maxLength(99)
+                .ensure(function (m) { return m.lastName; })
+                .required()
+                .maxLength(99)
+                .ensure(function (m) { return m.latitude; })
+                .satisfiesRule('decimal', -90, 90)
+                .ensure(function (m) { return m.longitude; })
+                .satisfiesRule('decimal', -180, 180)
+                .ensure(function (m) { return m.address1; })
+                .displayName('Address')
+                .required()
+                .ensure(function (m) { return m.city; })
+                .required()
+                .ensure(function (m) { return m.country; })
+                .required()
+                .ensure(function (m) { return m.email; })
+                .required()
+                .email()
+                .ensure(function (m) { return m.salutation; })
+                .required()
+                .ensure(function (m) { return m.phoneType; })
+                .required()
+                .ensure(function (m) { return m.phone; })
+                .required()
+                .satisfiesRule('phone')
+                .ensure(function (m) { return m.secondContact; })
+                .required()
+                .when(function (m) { return m.hasSecondContact; })
+                .satisfiesRule('phone')
+                .on(this);
+        }
+        return DataModel;
+    }());
+    exports.DataModel = DataModel;
+});
+
+
+
 define('src/resources/index',["require", "exports", "aurelia-pal"], function (require, exports, aurelia_pal_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
@@ -1538,19 +1539,6 @@ define('src/resources/index',["require", "exports", "aurelia-pal"], function (re
         config.globalResources(aurelia_pal_1.PLATFORM.moduleName('./elements/container'));
     }
     exports.configure = configure;
-});
-
-
-
-define('src/samples/home',["require", "exports"], function (require, exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    var SamplesHome = (function () {
-        function SamplesHome() {
-        }
-        return SamplesHome;
-    }());
-    exports.SamplesHome = SamplesHome;
 });
 
 
@@ -1662,6 +1650,19 @@ define('src/start/view',["require", "exports", "aurelia-framework"], function (r
         return ApiView;
     }());
     exports.ApiView = ApiView;
+});
+
+
+
+define('src/samples/home',["require", "exports"], function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var SamplesHome = (function () {
+        function SamplesHome() {
+        }
+        return SamplesHome;
+    }());
+    exports.SamplesHome = SamplesHome;
 });
 
 
@@ -3559,6 +3560,19 @@ define('src/resources/elements/container',["require", "exports", "aurelia-framew
 
 
 
+define('src/samples/desktop/view',["require", "exports"], function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var SampleDesktop = (function () {
+        function SampleDesktop() {
+        }
+        return SampleDesktop;
+    }());
+    exports.SampleDesktop = SampleDesktop;
+});
+
+
+
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3627,25 +3641,15 @@ define('src/samples/dashboard/view',["require", "exports", "aurelia-framework"],
 
 
 
-define('src/samples/desktop/view',["require", "exports"], function (require, exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    var SampleDesktop = (function () {
-        function SampleDesktop() {
-        }
-        return SampleDesktop;
-    }());
-    exports.SampleDesktop = SampleDesktop;
-});
-
-
-
 define('text!src/app.html', ['module'], function(module) { module.exports = "<template><compose view=../glyphs/icomoon.svg></compose><compose view=../glyphs/hawcons-linear.svg></compose><compose view=../glyphs/hawcons-filled.svg></compose><div dir=ltr><ui-drawer ref=appDrawer close-on-click scroll close-glyph=glyph-none class=x-app-menu><a href=#/ class=x-app-menu-title slot=drawer-head><ui-row><ui-column auto class=ui-pad-h><img src=examples/images/logo.png width=36></ui-column><ui-column fill class=ui-margin-none><h6 class=ui-strong text-primary>${constants.Title} <small text-muted>Version ${constants.Version}</small></h6></ui-column></ui-row></a><ui-menu><ui-menu-group label.bind=routes.key repeat.for=\"routes of router.navigation | group:'settings.section'\" collapsible.bind=!!routes.key><ui-menu-item repeat.for=\"route of routes.items\" href.bind=route.href active.bind=\"app.routeActive(route, router.currentInstruction)\" icon.bind=route.settings.icon disabled.bind=route.settings.disabled>${route.settings.title || route.title}</ui-menu-item></ui-menu-group></ui-menu></ui-drawer><ui-viewport ribbon=\"message:v4 Work in Progress;theme:blue\"><ui-app-header><ui-drawer-toggle drawer.bind=appDrawer></ui-drawer-toggle><ui-app-title href=#/ class=\"${hideTitle && router.currentInstruction.fragment=='/'?'x-hide':''}\" src=examples/images/logo.png>${constants.Title}</ui-app-title></ui-app-header><ui-router-view></ui-router-view><ui-app-footer><span>&copy; 2017, Adarsh Pastakia<br><small>Version ${constants.Version}</small></span><div><a class=\"ui-link ui-hover-warning\" href=https://stackoverflow.com/questions/tagged/aurelia-ui-framework target=_blank css.bind=\"{fontSize: '2rem'}\"><ui-glyph glyph=icon-moon-stackoverflow></ui-glyph></a><span css.bind=\"{padding: '0 .7rem'}\"></span><a class=\"ui-link ui-hover-info\" href=https://github.com/adarshpastakia/aurelia-ui-framework target=_blank css.bind=\"{fontSize: '2rem'}\"><ui-glyph glyph=icon-moon-github></ui-glyph></a><span css.bind=\"{padding: '0 .7rem'}\"></span></div></ui-app-footer></ui-viewport></div></template>"; });
 define('text!src/api/application.html', ['module'], function(module) { module.exports = "<template><ui-page animate><x-container page-title=Application view-model.ref=container><p>Singleton class that provides application level methods and sharing of data between routes</p><hr><div class=ui-markdown><h6 class=x-title>Data Sharing</h6><ul><li><code>shared(propertyName)</code><p>Get shared property value</p></li><li><code>shared(propertyName, propertyValue)</code><p>Set shared property, pass &nbsp;<code>null</code>&nbsp; as value to delete property</p></li><li><code>session(propertyName)</code><p>Get session property value.<small class=\"ui-strong ui-text-red\">Uses sessionStorage</small></p></li><li><code>session(propertyName, propertyValue)</code><p>Set session property, pass &nbsp;<code>null</code>&nbsp; as value to delete property</p></li><li><code>persist(propertyName)</code><p>Get persistant property value.<small class=\"ui-strong ui-text-red\">Uses localStorage</small></p></li><li><code>persist(propertyName, propertyValue)</code><p>Set persistant property, pass &nbsp;<code>null</code>&nbsp; as value to delete property</p></li><li><code>clearSession()</code><p>Clear session state</p></li><li><code>clearPersist()</code><p>Clear persistant state</p></li></ul><h6 class=x-title>Event Loggers</h6><ul><li><code>log(tag, msg, ...rest)</code></li><li><code>info(tag, msg, ...rest)</code></li><li><code>warn(tag, msg, ...rest)</code></li><li><code>error(tag, msg, ...rest)</code></li></ul><h6 class=x-title>Authentication Methods</h6><ul><li><code>login({ username, token, remember }, nextRoute)</code><p>This method broadcasts event<code>auf:login</code></p></li><li><code>logout()</code><p>This method broadcasts event<code>auf:logout</code></p></li></ul></div><hr><h4 class=x-title>Basic Usage</h4><div class=\"ui-markdown x-section\" ref=basicUsage></div></x-container></ui-page></template>"; });
 define('text!src/api/datamodel.html', ['module'], function(module) { module.exports = "<template><ui-page animate><x-container page-title=\"Data Model\" wiki.bind=wiki source.bind=source><h4 class=x-title>DataModel Tester</h4><ui-row><ui-column size=lg-6><ui-form class=ui-border-all><div class=ui-pad-all><p text-muted>Personal Info</p><ui-input-group plain><ui-input-label>Model State?</ui-input-label><ui-input-addon if.bind=model.isDirty glyph=glyph-icon-no text-theme=red></ui-input-addon><ui-input-addon if.bind=!model.isDirty glyph=glyph-icon-yes text-theme=green></ui-input-addon><span>${model.isDirty ? 'Dirty' : 'Unchanged'}</span></ui-input-group><ui-input-group><ui-input-label required>First Name</ui-input-label><ui-input-addon text-theme.bind=\"model.dirtyProps.firstName?'red':'green'\" glyph.bind=\"model.dirtyProps.firstName?'glyph-icon-no':'glyph-icon-yes'\"></ui-input-addon><ui-input value.bind=model.firstName maxlength=99 counter clear></ui-input></ui-input-group><ui-input-group><ui-input-label required>Last Name</ui-input-label><ui-input-addon text-theme.bind=\"model.dirtyProps.lastName?'red':'green'\" glyph.bind=\"model.dirtyProps.lastName?'glyph-icon-no':'glyph-icon-yes'\"></ui-input-addon><ui-input value.bind=model.lastName maxlength=99 counter clear></ui-input></ui-input-group><ui-row nogutter><ui-column><ui-input-group><ui-input-label>Date of Birth</ui-input-label><ui-input-addon text-theme.bind=\"model.dirtyProps.dob?'red':'green'\" glyph.bind=\"model.dirtyProps.dob?'glyph-icon-no':'glyph-icon-yes'\"></ui-input-addon><ui-date date.bind=model.dob clear></ui-date></ui-input-group></ui-column><ui-column><ui-input-group><ui-input-label>Age</ui-input-label><ui-input-addon text-theme.bind=\"model.dirtyProps.age?'red':'green'\" glyph.bind=\"model.dirtyProps.age?'glyph-icon-no':'glyph-icon-yes'\"></ui-input-addon><ui-input number.bind=model.age clear></ui-input></ui-input-group></ui-column></ui-row><hr><p text-muted>Contact Info</p><ui-input-group><ui-input-label required>Address</ui-input-label><ui-input-addon text-theme.bind=\"model.dirtyProps.address1?'red':'green'\" glyph.bind=\"model.dirtyProps.address1?'glyph-icon-no':'glyph-icon-yes'\"></ui-input-addon><ui-input value.bind=model.address1 maxlength=99 counter clear></ui-input></ui-input-group><ui-input-group><ui-input-label></ui-input-label><ui-input-addon text-theme.bind=\"model.dirtyProps.address2?'red':'green'\" glyph.bind=\"model.dirtyProps.address2?'glyph-icon-no':'glyph-icon-yes'\"></ui-input-addon><ui-input value.bind=model.address2 maxlength=99 counter clear></ui-input></ui-input-group><ui-input-group><ui-input-label>City</ui-input-label><ui-input-addon text-theme.bind=\"model.dirtyProps.city?'red':'green'\" glyph.bind=\"model.dirtyProps.city?'glyph-icon-no':'glyph-icon-yes'\"></ui-input-addon><ui-input value.bind=model.city maxlength=99 counter clear></ui-input></ui-input-group><ui-input-group><ui-input-label>Country</ui-input-label><ui-input-addon text-theme.bind=\"model.dirtyProps.country?'red':'green'\" glyph.bind=\"model.dirtyProps.country?'glyph-icon-no':'glyph-icon-yes'\"></ui-input-addon><ui-combo value.bind=model.country clear options.bind=countries display-property=name value-property=iso2 icon-property=iso2 icon-class=ui-flag><ui-input-addon glyph-class=ui-flag glyph.bind=model.country></ui-input-addon></ui-combo></ui-input-group><hr><ui-input-group><ui-input-label>Email</ui-input-label><ui-input-addon text-theme.bind=\"model.dirtyProps.email?'red':'green'\" glyph.bind=\"model.dirtyProps.email?'glyph-icon-no':'glyph-icon-yes'\"></ui-input-addon><ui-input email value.bind=model.email maxlength=99 counter clear></ui-input></ui-input-group><ui-input-group><ui-input-label>Mobile</ui-input-label><ui-input-addon text-theme.bind=\"model.dirtyProps.phone?'red':'green'\" glyph.bind=\"model.dirtyProps.phone?'glyph-icon-no':'glyph-icon-yes'\"></ui-input-addon><ui-phone value.bind=model.phone clear></ui-phone></ui-input-group></div><ui-toolbar muted><ui-button-group separator=or><ui-button muted width=6em click.trigger=model.update()>Update</ui-button><ui-button light width=6em click.trigger=model.discard()>Discard</ui-button></ui-button-group><ui-filler></ui-filler><ui-button-group separator=or><ui-button muted width=6em click.trigger=model.reset()>Reset</ui-button><ui-button dark width=6em click.trigger=model.save()>Save</ui-button></ui-button-group></ui-toolbar></ui-form></ui-column><ui-column size=lg-6 padded><h6 class=x-title text-primary>Local Changes</h6><p><strong text-info>Update</strong><br>Update form changes locally. Model is still dirty since the data has not yet been saved.</p><p><strong text-info>Discard</strong><br>Discard any changes made since last update.</p><h6 class=x-title text-primary>Remote Changes</h6><p><strong text-info>Save</strong><br>Save form changes will update all field values and reset model dirty.</p><p><strong text-info>Reset</strong><br>Reset form changes back to original, regardless of update.</p><div class=x-section><blockquote><strong>NOTE</strong>Model dirty check works on &nbsp;<code>serializable</code>&nbsp; properties only.</blockquote></div></ui-column></ui-row></x-container></ui-page></template>"; });
 define('text!src/api/event.html', ['module'], function(module) { module.exports = "<template><ui-page animate><x-container page-title=\"Event Manager\" view-model.ref=container><h4 class=x-title>Eventing Operations</h4><div class=ui-markdown><h6 class=x-title>Event Broadcast</h6><ul><li><code>broadcast(eventName, eventData)</code><p>Broadcast event</p></li><li><code>subscribe(eventName, callbackFn):Disposable</code><p>Subscribe for broadcasted event</p></li></ul><h6 class=x-title>Property Observers</h6><ul><li><code>observe(object, propertyName, callbackFn):Disposable</code><p>Observe property changes</p></li><li><code>collection(collection, callbackFn):Disposable</code><p>Observe collection mutations</p></li></ul><h6 class=x-title>Aurelia Task Queues<small>Queues a task on the macro task queue for turn-based execution.</small></h6><ul><li><code>queueTask(taskFn)</code></li></ul></div><br><div class=x-section><blockquote><strong>NOTE</strong>Use &nbsp;<code>queueTask</code>&nbsp; when property changes affect DOM tree.</blockquote></div><hr><h4 class=x-title>Basic Usage</h4><div class=\"ui-markdown x-section\" ref=basicUsage></div></x-container></ui-page></template>"; });
 define('text!src/api/http.html', ['module'], function(module) { module.exports = "<template><ui-page animate><x-container page-title=\"HTTP Service\" wiki.bind=wiki source.bind=source><h4 class=x-title>Tester</h4><h6 class=x-title>Authenticate</h6><div class=ui-font-big><strong>Token:</strong> ${token}</div><h6 class=x-title>Send Request</h6><div><ui-button success icon-hilight glyph=icon-moon-checkmark click.trigger=testAuthenticator() busy.bind=\"fetching === 2\">Send actual Request</ui-button><ui-button danger icon-hilight glyph=icon-moon-cancel-circle click.trigger=testAuthenticator(true) busy.bind=\"fetching === 1\">Send bad Request</ui-button></div><h6 class=x-title>Response</h6><div><p class=ui-text-success if.bind=\"authPassed===true\">PASS</p><p class=ui-text-danger if.bind=\"authPassed===false\">FAIL</p><pre>${authResponse | json}</pre></div><hr><h5 class=x-title>Get Users</h5><h6 class=x-title>Send Request</h6><div><ui-button success icon-hilight glyph=icon-moon-checkmark click.trigger=testUsers() busy.bind=\"fetching === 4\">Send actual Request</ui-button><ui-button danger icon-hilight glyph=icon-moon-cancel-circle click.trigger=testUsers(true) busy.bind=\"fetching === 3\">Send unauthorized Request</ui-button></div><h6 class=x-title>Response</h6><div><p class=ui-text-success if.bind=\"usersPassed===true\">PASS</p><p class=ui-text-danger if.bind=\"usersPassed===false\">FAIL</p><pre>${usersResponse | json}</pre></div><hr><h5 class=x-title>Get User</h5><small>Missing query call, should fail on server and respond with 404</small><h6 class=x-title>Send Request</h6><div><ui-button success icon-hilight glyph=icon-moon-checkmark click.trigger=testUser() busy.bind=\"fetching === 7\">Send actual Request</ui-button><ui-button danger icon-hilight glyph=icon-moon-cancel-circle click.trigger=testUser(true) busy.bind=\"fetching === 6\">Send unauthorized Request</ui-button><ui-button info icon-hilight glyph=icon-moon-stop click.trigger=testUser(0) busy.bind=\"fetching === 5\">Send bad Route</ui-button></div><h6 class=x-title>Response</h6><div><p class=ui-text-success if.bind=\"userPassed===true\">PASS</p><p class=ui-text-danger if.bind=\"userPassed===false\">FAIL</p><pre>${userResponse | json}</pre></div></x-container></ui-page></template>"; });
 define('text!src/api/view.html', ['module'], function(module) { module.exports = "<template><ui-section row-layout animate><ui-sidebar label=\"API Classes\" collapsible scroll class=ui-hidden-lg-down><ui-menu><ui-menu-item repeat.for=\"route of router.navigation\" href.bind=route.href active.bind=route.isActive icon.bind=route.settings.icon disabled.bind=route.settings.disabled>${route.settings.title || route.title}</ui-menu-item></ui-menu></ui-sidebar><ui-router-view></ui-router-view></ui-section></template>"; });
+define('text!src/core/grid.html', ['module'], function(module) { module.exports = "<template><x-container source.bind=source wiki.bind=wiki page-title=\"Responsive Layout\"><style>.col-view{border:1px solid #f877a8;background:#9777a8;min-height:3rem;line-height:3rem;text-align:center;color:#fff}.col-visi{border:1px dashed #f877a8;background:#efcbdd;line-height:3rem;text-align:center;color:#454545}</style><h4 class=x-title>Viewport Sizes</h4><div class=x-viewports><div class=x-xl></div><div class=x-lg></div><div class=x-md></div><div class=x-sm></div><div class=x-xs></div></div><h6 class=x-title>X-Large Viewport</h6><ui-row><ui-column size=xl-3><div class=col-view>X-Large 3</div></ui-column><ui-column size=xl-3><div class=col-view>X-Large 3</div></ui-column><ui-column size=xl-3><div class=col-view>X-Large 3</div></ui-column><ui-column size=xl-3><div class=col-view>X-Large 3</div></ui-column></ui-row><h6 class=x-title>Large Viewport</h6><ui-row><ui-column size=lg-3><div class=col-view>Large 3</div></ui-column><ui-column size=lg-3><div class=col-view>Large 3</div></ui-column><ui-column size=lg-3><div class=col-view>Large 3</div></ui-column><ui-column size=lg-3><div class=col-view>Large 3</div></ui-column></ui-row><h6 class=x-title>Medium Viewport</h6><ui-row><ui-column size=md-3><div class=col-view>Medium 3</div></ui-column><ui-column size=md-3><div class=col-view>Medium 3</div></ui-column><ui-column size=md-3><div class=col-view>Medium 3</div></ui-column><ui-column size=md-3><div class=col-view>Medium 3</div></ui-column></ui-row><h6 class=x-title>Small Viewport</h6><ui-row><ui-column size=sm-3><div class=col-view>Small 3</div></ui-column><ui-column size=sm-3><div class=col-view>Small 3</div></ui-column><ui-column size=sm-3><div class=col-view>Small 3</div></ui-column><ui-column size=sm-3><div class=col-view>Small 3</div></ui-column></ui-row><hr><h4 class=x-title>Visibility</h4><ui-row class=x-cards><ui-column size=sm-3><div class=\"col-visi ui-hide-sm-down\">Hidden >SM</div><div class=\"col-view ui-hide-sm-up\">Visible &lt;SM</div><p>ui-hide-sm-up</p></ui-column><ui-column size=sm-3><div class=\"col-visi ui-hide-md-down\">Hidden >MD</div><div class=\"col-view ui-hide-md-up\">Visible &lt;MD</div><p>ui-hide-md-up</p></ui-column><ui-column size=sm-3><div class=\"col-visi ui-hide-lg-down\">Hidden >LG</div><div class=\"col-view ui-hide-lg-up\">Visible &lt;LG</div><p>ui-hide-lg-up</p></ui-column><ui-column size=sm-3><div class=\"col-visi ui-hide-xl-down\">Hidden >XL</div><div class=\"col-view ui-hide-xl-up\">Visible &lt;XL</div><p>ui-hide-xl-up</p></ui-column></ui-row><ui-row class=x-cards><ui-column size=sm-3><div class=\"col-visi ui-hide-sm-up\">Hidden &lt;SM</div><div class=\"col-view ui-hide-sm-down\">Visible >SM</div><p>ui-hide-sm-down</p></ui-column><ui-column size=sm-3><div class=\"col-visi ui-hide-md-up\">Hidden &lt;MD</div><div class=\"col-view ui-hide-md-down\">Visible >MD</div><p>ui-hide-md-down</p></ui-column><ui-column size=sm-3><div class=\"col-visi ui-hide-lg-up\">Hidden &lt;LG</div><div class=\"col-view ui-hide-lg-down\">Visible >LG</div><p>ui-hide-lg-down</p></ui-column><ui-column size=sm-3><div class=\"col-visi ui-hide-xl-up\">Hidden &lt;XL</div><div class=\"col-view ui-hide-xl-down\">Visible >XL</div><p>ui-hide-xl-down</p></ui-column></ui-row></x-container></template>"; });
+define('text!src/core/page.html', ['module'], function(module) { module.exports = "<template><ui-page animate><x-container source.bind=source wiki.bind=wiki page-title=\"Page Layouts\" need-rtl=true><h4 class=x-title>Simple Page</h4><div class=x-view><ui-page page-title=\"My Title\"><ui-content padded scroll><compose view=../home/lipsum-big.html></compose></ui-content></ui-page></div><h4 class=x-title>Page w/ Sidebar</h4><div class=x-view><ui-page page-title=\"My Title\"><ui-section row-layout><ui-sidebar collapsible label=Sidebar padded scroll><compose view=../home/lipsum-small.html></compose></ui-sidebar><ui-content padded scroll><compose view=../home/lipsum-small.html></compose></ui-content><ui-sidebar position=end collapsible label=Sidebar padded scroll><ui-loader busy.bind=true large></ui-loader><compose view=../home/lipsum-small.html></compose></ui-sidebar></ui-section></ui-page></div><h4 class=x-title>Page w/ Toolbar</h4><div class=x-view><ui-page page-title=\"My Title\"><ui-section column-layout><ui-content padded scroll><compose view=../home/lipsum-big.html></compose></ui-content><ui-toolbar><ui-button dark>Save</ui-button><ui-button>Cancel</ui-button></ui-toolbar></ui-section></ui-page></div><h4 class=x-title>Page w/ multiple sections</h4><div class=x-view><ui-page page-title=\"My Title\"><ui-section column-layout><ui-section row-layout><ui-sidebar collapsible label=Sidebar padded scroll><compose view=../home/lipsum-small.html></compose></ui-sidebar><ui-content padded scroll><compose view=../home/lipsum-small.html></compose></ui-content><ui-sidebar position=end collapsible label=Sidebar padded scroll><compose view=../home/lipsum-small.html></compose></ui-sidebar></ui-section><ui-toolbar><ui-button dark>Save</ui-button><ui-button>Cancel</ui-button></ui-toolbar></ui-section></ui-page></div></x-container></ui-page></template>"; });
+define('text!src/core/viewport.html', ['module'], function(module) { module.exports = "<template><ui-page animate><x-container source.bind=source wiki.bind=wiki page-title=Viewport><div class=x-view><div class=\"ui-viewport ui-row ui-row-v ui-align-stretch\" css.bind=\"{position: 'relative', width:'100%', height:'100%'}\"><ui-app-header><ui-app-title href=#>Application</ui-app-title></ui-app-header><ui-content padded><h6>Router View goes here</h6></ui-content><ui-app-footer><span>&copy; 2017, Company</span></ui-app-footer></div></div></x-container></ui-page></template>"; });
 define('text!src/components/alerts.html', ['module'], function(module) { module.exports = "<template><ui-page animate><x-container source.bind=source wiki.bind=wiki page-title=Alerts need-rtl=true><h4 class=x-title>Toast Messages</h4><div ref=alertHolder></div><ui-fieldset legend=Toasts><ui-row><ui-column fill padded><ui-input-group><ui-input-label>Title</ui-input-label><ui-input value.bind=toast.title clear></ui-input></ui-input-group></ui-column><ui-column fill padded><ui-input-group><ui-input-label>Message</ui-input-label><ui-input value.bind=toast.message></ui-input></ui-input-group></ui-column></ui-row><ui-row><ui-column fill padded><ui-option-group name=theme value.bind=toast.theme cols=4><ui-input-label>Theme</ui-input-label><ui-radio value=light>Light</ui-radio><ui-radio value=dark>Dark</ui-radio><ui-radio value=primary>Primary</ui-radio><ui-radio value=secondary>Secondary</ui-radio><ui-radio value=info>Info</ui-radio><ui-radio value=danger>Danger</ui-radio><ui-radio value=success>Success</ui-radio><ui-radio value=warning>Warning</ui-radio></ui-option-group></ui-column><ui-column fill padded><ui-row><ui-column fill><ui-input-group plain><ui-input-label>Glyph</ui-input-label><ui-dropdown value.bind=toast.glyph glyph.bind=toast.glyph width=10em><ui-list-item value=\"\">None</ui-list-item><ui-list-item value=glyph-alert-info glyph=glyph-alert-info>Info</ui-list-item><ui-list-item value=glyph-alert-exclaim glyph=glyph-alert-exclaim>Exclaim</ui-list-item><ui-list-item value=glyph-alert-question glyph=glyph-alert-question>Question</ui-list-item><ui-list-item value=glyph-alert-error glyph=glyph-alert-error>Error</ui-list-item><ui-list-item value=glyph-alert-notif glyph=glyph-alert-notif>Notification</ui-list-item></ui-dropdown></ui-input-group></ui-column><ui-column width=14em><ui-input-group><ui-input-label width=7em>Timeout</ui-input-label><ui-input number.bind=toast.timeout></ui-input></ui-input-group></ui-column></ui-row></ui-column></ui-row><ui-toolbar><ui-button small click.trigger=toastAlert()>Viewport Toast</ui-button><ui-button small click.trigger=inlineToast()>Inline Toast</ui-button></ui-toolbar></ui-fieldset><h4 class=x-title>Alerts</h4><ui-fieldset legend=Alerts><ui-row><ui-column fill padded><ui-input-group><ui-input-label>Title</ui-input-label><ui-input value.bind=alert.title clear></ui-input></ui-input-group></ui-column><ui-column fill padded><ui-input-group><ui-input-label>Message</ui-input-label><ui-input value.bind=alert.message></ui-input></ui-input-group></ui-column></ui-row><ui-row><ui-column fill padded><ui-input-group><ui-input-label>Button Labels</ui-input-label><ui-input-addon glyph=glyph-icon-yes bg-light text-success></ui-input-addon><ui-input value.bind=alert.okLabel info=\"Ok Label\"></ui-input><ui-input-addon glyph=glyph-icon-no bg-light text-danger></ui-input-addon><ui-input value.bind=alert.cancelLabel info=\"Cancel Label\"></ui-input></ui-input-group></ui-column><ui-column fill padded><ui-input-group plain><ui-input-label>Glyph</ui-input-label><ui-dropdown value.bind=alert.glyph glyph.bind=alert.glyph width=8em><ui-list-item value=\"\">None</ui-list-item><ui-list-item value=glyph-alert-info glyph=glyph-alert-info>Info</ui-list-item><ui-list-item value=glyph-alert-exclaim glyph=glyph-alert-exclaim>Exclaim</ui-list-item><ui-list-item value=glyph-alert-question glyph=glyph-alert-question>Question</ui-list-item><ui-list-item value=glyph-alert-error glyph=glyph-alert-error>Error</ui-list-item></ui-dropdown></ui-input-group></ui-column></ui-row><ui-toolbar><ui-button light small click.trigger=openAlert()>Show Alert</ui-button><ui-button light small click.trigger=openPrompt()>Show Prompt</ui-button><ui-button light small click.trigger=openConfirm()>Show Confirm</ui-button></ui-toolbar></ui-fieldset></x-container></ui-page></template>"; });
 define('text!src/components/dialogs.html', ['module'], function(module) { module.exports = "<template><ui-page animate><style>.event-console{border:1px solid #f0f0f0;border-radius:5px;font-size:13px;height:400px;line-height:2;overflow:auto;font-family:monospace;background:#333;color:#fff}.event-console .tag{color:tomato;padding:0 10px}.event-console .time{color:#4682b4;padding:0 10px}.event-console .event{color:#708090;padding:0 10px}</style><x-container source.bind=source wiki.bind=wiki page-title=Dialogs need-rtl=true dir.bind=dir><ui-row dir=ltr><ui-column fill padded><ui-button light click.trigger=openDialog(true)>Show Modal</ui-button><ui-button light click.trigger=openDialog(false)>Open Dialog</ui-button></ui-column><ui-column fill padded><div class=ui-text-primary>Lifecycle Console</div><div class=event-console ref=evtConsole></div></ui-column></ui-row></x-container></ui-page></template>"; });
 define('text!src/components/dlg-view.html', ['module'], function(module) { module.exports = "<template><require from=./dlg-lifecycle></require><ui-content padded scroll><dlg-lifecycle lifecycle.trigger=\"printConsole('Child View', $event.detail)\"></dlg-lifecycle><compose view=../home/lipsum-small.html></compose></ui-content><ui-loader busy.bind=closing></ui-loader></template>"; });
@@ -3658,9 +3662,6 @@ define('text!src/components/statsbar.html', ['module'], function(module) { modul
 define('text!src/components/tabpanel.html', ['module'], function(module) { module.exports = "<template><ui-page animate><x-container source.bind=source wiki.bind=wiki page-title=\"Tab Panels\" need-rtl=true><h4 class=x-title>Simple Tab Panel</h4><ui-row><ui-column size=\"lg-6 md-12\" class=ui-nooverflow><h6 class=x-title>Top<small>Using compose element</small></h6><div class=\"x-view ui-border-none\"><ui-tab-panel active-tab.bind=activeTab><ui-tab view-model=../inputs/buttons>View Model</ui-tab><ui-tab closeable view=../home/lipsum-page.html>View</ui-tab><ui-tab disabled>Disabled</ui-tab><compose view.bind=activeTab.view view-model.bind=activeTab.viewModel></compose></ui-tab-panel></div></ui-column><ui-column size=\"lg-6 md-12\" class=ui-nooverflow><h6 class=x-title>Bottom<small>Using router-view element</small></h6><div class=\"x-view ui-border-none\"><ui-tab-panel use-router bottom><ui-tab repeat.for=\"route of router.navigation\" active.bind=route.isActive href.bind=route.href closeable=true>${route.title}</ui-tab><ui-router-view></ui-router-view></ui-tab-panel></div></ui-column></ui-row></x-container></ui-page></template>"; });
 define('text!src/components/toolbar.html', ['module'], function(module) { module.exports = "<template><ui-page animate><x-container source.bind=source wiki.bind=wiki page-title=Toolbars need-rtl=true><ui-menu ref=btnMenu><ui-menu-section>Actions</ui-menu-section><ui-menu-item glyph=icon-moon-pencil2>Edit</ui-menu-item><ui-menu-item glyph=icon-moon-search>Search</ui-menu-item><ui-menu-item glyph=icon-moon-bin>Delete</ui-menu-item><ui-menu-section>Options</ui-menu-section><ui-menu-item glyph=icon-moon-bubbles4>Notifications</ui-menu-item><ui-menu-item glyph=icon-moon-cog>Settings</ui-menu-item></ui-menu><h6 class=x-title>Default</h6><div class=\"ui-border-all ui-border-light\"><ui-toolbar><ui-input-group><ui-input width=12em><ui-input-addon glyph=icon-fill-search></ui-input-addon></ui-input><ui-dropdown value=0><ui-list-item value=0>Site</ui-list-item><ui-list-item value=1>Posts</ui-list-item><ui-list-item value=2>Docs</ui-list-item></ui-dropdown></ui-input-group><ui-filler></ui-filler><ui-button glyph=icon-moon-bubbles4 badge-danger=9></ui-button><ui-divider></ui-divider><ui-button width=9em glyph=glyph-icon-page icon-hilight split theme=info split-theme=blue dropdown.bind=btnMenu>Click</ui-button><ui-divider></ui-divider><ui-button-group separator=or><ui-button success width=6em>Save</ui-button><ui-button danger width=6em>Cancel</ui-button></ui-button-group></ui-toolbar></div><h6 class=x-title>Muted</h6><div class=\"ui-border-all ui-border-light\"><ui-toolbar muted><ui-input-group><ui-input width=12em><ui-input-addon glyph=icon-fill-search></ui-input-addon></ui-input><ui-dropdown value=0><ui-list-item value=0>Site</ui-list-item><ui-list-item value=1>Posts</ui-list-item><ui-list-item value=2>Docs</ui-list-item></ui-dropdown></ui-input-group><ui-filler></ui-filler><ui-button width=9em glyph=glyph-icon-page icon-hilight split muted dropdown.bind=btnMenu>Click</ui-button><ui-divider></ui-divider><ui-button-group separator=or><ui-button muted width=6em>Save</ui-button><ui-button light width=6em>Cancel</ui-button></ui-button-group></ui-toolbar></div><h6 class=x-title>Dark</h6><div class=\"ui-border-all ui-border-light\"><ui-toolbar dark><ui-input-group><ui-input width=12em><ui-input-addon glyph=icon-fill-search></ui-input-addon></ui-input><ui-dropdown value=0><ui-list-item value=0>Site</ui-list-item><ui-list-item value=1>Posts</ui-list-item><ui-list-item value=2>Docs</ui-list-item></ui-dropdown></ui-input-group><ui-filler></ui-filler><ui-button width=9em glyph=glyph-icon-page icon-hilight split dark dropdown.bind=btnMenu>Click</ui-button><ui-divider></ui-divider><ui-button-group separator=or><ui-button dark width=6em>Save</ui-button><ui-button muted width=6em>Cancel</ui-button></ui-button-group></ui-toolbar></div><h6 class=x-title>Primary</h6><div class=\"ui-border-all ui-border-light\"><ui-toolbar primary><ui-input-group><ui-input width=12em><ui-input-addon glyph=icon-fill-search></ui-input-addon></ui-input><ui-dropdown value=0><ui-list-item value=0>Site</ui-list-item><ui-list-item value=1>Posts</ui-list-item><ui-list-item value=2>Docs</ui-list-item></ui-dropdown></ui-input-group><ui-filler></ui-filler><ui-button width=9em glyph=glyph-icon-page icon-hilight split primary dropdown.bind=btnMenu>Click</ui-button><ui-divider></ui-divider><ui-button-group separator=or><ui-button primary width=6em>Save</ui-button><ui-button theme=pink width=6em>Cancel</ui-button></ui-button-group></ui-toolbar></div><h6 class=x-title>Secondary</h6><div class=\"ui-border-all ui-border-light\"><ui-toolbar secondary><ui-input-group><ui-input width=12em><ui-input-addon glyph=icon-fill-search></ui-input-addon></ui-input><ui-dropdown value=0><ui-list-item value=0>Site</ui-list-item><ui-list-item value=1>Posts</ui-list-item><ui-list-item value=2>Docs</ui-list-item></ui-dropdown></ui-input-group><ui-filler></ui-filler><ui-button width=9em glyph=glyph-icon-page icon-hilight split secondary dropdown.bind=btnMenu>Click</ui-button><ui-divider></ui-divider><ui-button-group separator=or><ui-button theme=pink width=6em>Save</ui-button><ui-button secondary width=6em>Cancel</ui-button></ui-button-group></ui-toolbar></div><h6 class=x-title>Info</h6><div class=\"ui-border-all ui-border-light\"><ui-toolbar info><ui-input-group><ui-input width=12em><ui-input-addon glyph=icon-fill-search></ui-input-addon></ui-input><ui-dropdown value=0><ui-list-item value=0>Site</ui-list-item><ui-list-item value=1>Posts</ui-list-item><ui-list-item value=2>Docs</ui-list-item></ui-dropdown></ui-input-group><ui-filler></ui-filler><ui-button width=9em glyph=glyph-icon-page icon-hilight split info dropdown.bind=btnMenu>Click</ui-button><ui-divider></ui-divider><ui-button-group separator=or><ui-button theme=blue width=6em>Save</ui-button><ui-button info width=6em>Cancel</ui-button></ui-button-group></ui-toolbar></div><h6 class=x-title>Danger</h6><div class=\"ui-border-all ui-border-light\"><ui-toolbar danger><ui-input-group><ui-input width=12em><ui-input-addon glyph=icon-fill-search></ui-input-addon></ui-input><ui-dropdown value=0><ui-list-item value=0>Site</ui-list-item><ui-list-item value=1>Posts</ui-list-item><ui-list-item value=2>Docs</ui-list-item></ui-dropdown></ui-input-group><ui-filler></ui-filler><ui-button width=9em glyph=glyph-icon-page icon-hilight split danger dropdown.bind=btnMenu>Click</ui-button><ui-divider></ui-divider><ui-button-group separator=or><ui-button theme=red width=6em>Save</ui-button><ui-button danger width=6em>Cancel</ui-button></ui-button-group></ui-toolbar></div><h6 class=x-title>Success</h6><div class=\"ui-border-all ui-border-light\"><ui-toolbar success><ui-input-group><ui-input width=12em><ui-input-addon glyph=icon-fill-search></ui-input-addon></ui-input><ui-dropdown value=0><ui-list-item value=0>Site</ui-list-item><ui-list-item value=1>Posts</ui-list-item><ui-list-item value=2>Docs</ui-list-item></ui-dropdown></ui-input-group><ui-filler></ui-filler><ui-button width=9em glyph=glyph-icon-page icon-hilight split success dropdown.bind=btnMenu>Click</ui-button><ui-divider></ui-divider><ui-button-group separator=or><ui-button theme=green width=6em>Save</ui-button><ui-button success width=6em>Cancel</ui-button></ui-button-group></ui-toolbar></div><h6 class=x-title>Warning</h6><div class=\"ui-border-all ui-border-light\"><ui-toolbar warning><ui-input-group><ui-input width=12em><ui-input-addon glyph=icon-fill-search></ui-input-addon></ui-input><ui-dropdown value=0><ui-list-item value=0>Site</ui-list-item><ui-list-item value=1>Posts</ui-list-item><ui-list-item value=2>Docs</ui-list-item></ui-dropdown></ui-input-group><ui-filler></ui-filler><ui-button width=9em glyph=glyph-icon-page icon-hilight split warning dropdown.bind=btnMenu>Click</ui-button><ui-divider></ui-divider><ui-button-group separator=or><ui-button theme=amber width=6em>Save</ui-button><ui-button warning width=6em>Cancel</ui-button></ui-button-group></ui-toolbar></div></x-container></ui-page></template>"; });
 define('text!src/components/tooltips.html', ['module'], function(module) { module.exports = "<template><ui-page animate><x-container source.bind=source wiki.bind=wiki page-title=\"Tooltips & Ribbons\" need-rtl=true><h4 class=x-title>Tooltips</h4><ui-fieldset legend=Tooltips><ui-row><ui-column fill padded><ui-input-group><ui-input-label>Message</ui-input-label><ui-input value.bind=tip.value></ui-input></ui-input-group></ui-column><ui-column fill padded><ui-option-group name=theme value.bind=tip.theme cols=4><ui-input-label>Theme</ui-input-label><ui-radio value=light>Light</ui-radio><ui-radio value=dark>Dark</ui-radio><ui-radio value=primary>Primary</ui-radio><ui-radio value=secondary>Secondary</ui-radio><ui-radio value=info>Info</ui-radio><ui-radio value=danger>Danger</ui-radio><ui-radio value=success>Success</ui-radio><ui-radio value=warning>Warning</ui-radio></ui-option-group></ui-column></ui-row><ui-row around><ui-button width=8em tooltip.bind=\"getTip('start', tip.value, tip.theme)\">Start</ui-button><ui-button width=8em tooltip.bind=\"getTip('top', tip.value, tip.theme)\">Top</ui-button><ui-button width=8em tooltip.bind=\"getTip('bottom', tip.value, tip.theme)\">Bottom</ui-button><ui-button width=8em tooltip.bind=\"getTip('end', tip.value, tip.theme)\">End</ui-button></ui-row></ui-fieldset><h4 class=x-title>Ribbons</h4><ui-fieldset legend=Ribbons ribbon=\"{;message.bind:ribbonValue; theme.bind:ribbonTheme;}\"><ui-row><ui-column fill padded><ui-input-group><ui-input-label>Message</ui-input-label><ui-input value.bind=ribbonValue></ui-input></ui-input-group></ui-column><ui-column fill padded><ui-option-group name=theme2 value.bind=ribbonTheme cols=4><ui-input-label>Theme</ui-input-label><ui-radio value=light>Light</ui-radio><ui-radio value=dark>Dark</ui-radio><ui-radio value=primary>Primary</ui-radio><ui-radio value=secondary>Secondary</ui-radio><ui-radio value=info>Info</ui-radio><ui-radio value=danger>Danger</ui-radio><ui-radio value=success>Success</ui-radio><ui-radio value=warning>Warning</ui-radio></ui-option-group></ui-column></ui-row></ui-fieldset></x-container></ui-page></template>"; });
-define('text!src/core/grid.html', ['module'], function(module) { module.exports = "<template><x-container source.bind=source wiki.bind=wiki page-title=\"Responsive Layout\"><style>.col-view{border:1px solid #f877a8;background:#9777a8;min-height:3rem;line-height:3rem;text-align:center;color:#fff}.col-visi{border:1px dashed #f877a8;background:#efcbdd;line-height:3rem;text-align:center;color:#454545}</style><h4 class=x-title>Viewport Sizes</h4><div class=x-viewports><div class=x-xl></div><div class=x-lg></div><div class=x-md></div><div class=x-sm></div><div class=x-xs></div></div><h6 class=x-title>X-Large Viewport</h6><ui-row><ui-column size=xl-3><div class=col-view>X-Large 3</div></ui-column><ui-column size=xl-3><div class=col-view>X-Large 3</div></ui-column><ui-column size=xl-3><div class=col-view>X-Large 3</div></ui-column><ui-column size=xl-3><div class=col-view>X-Large 3</div></ui-column></ui-row><h6 class=x-title>Large Viewport</h6><ui-row><ui-column size=lg-3><div class=col-view>Large 3</div></ui-column><ui-column size=lg-3><div class=col-view>Large 3</div></ui-column><ui-column size=lg-3><div class=col-view>Large 3</div></ui-column><ui-column size=lg-3><div class=col-view>Large 3</div></ui-column></ui-row><h6 class=x-title>Medium Viewport</h6><ui-row><ui-column size=md-3><div class=col-view>Medium 3</div></ui-column><ui-column size=md-3><div class=col-view>Medium 3</div></ui-column><ui-column size=md-3><div class=col-view>Medium 3</div></ui-column><ui-column size=md-3><div class=col-view>Medium 3</div></ui-column></ui-row><h6 class=x-title>Small Viewport</h6><ui-row><ui-column size=sm-3><div class=col-view>Small 3</div></ui-column><ui-column size=sm-3><div class=col-view>Small 3</div></ui-column><ui-column size=sm-3><div class=col-view>Small 3</div></ui-column><ui-column size=sm-3><div class=col-view>Small 3</div></ui-column></ui-row><hr><h4 class=x-title>Visibility</h4><ui-row class=x-cards><ui-column size=sm-3><div class=\"col-visi ui-hide-sm-down\">Hidden >SM</div><div class=\"col-view ui-hide-sm-up\">Visible &lt;SM</div><p>ui-hide-sm-up</p></ui-column><ui-column size=sm-3><div class=\"col-visi ui-hide-md-down\">Hidden >MD</div><div class=\"col-view ui-hide-md-up\">Visible &lt;MD</div><p>ui-hide-md-up</p></ui-column><ui-column size=sm-3><div class=\"col-visi ui-hide-lg-down\">Hidden >LG</div><div class=\"col-view ui-hide-lg-up\">Visible &lt;LG</div><p>ui-hide-lg-up</p></ui-column><ui-column size=sm-3><div class=\"col-visi ui-hide-xl-down\">Hidden >XL</div><div class=\"col-view ui-hide-xl-up\">Visible &lt;XL</div><p>ui-hide-xl-up</p></ui-column></ui-row><ui-row class=x-cards><ui-column size=sm-3><div class=\"col-visi ui-hide-sm-up\">Hidden &lt;SM</div><div class=\"col-view ui-hide-sm-down\">Visible >SM</div><p>ui-hide-sm-down</p></ui-column><ui-column size=sm-3><div class=\"col-visi ui-hide-md-up\">Hidden &lt;MD</div><div class=\"col-view ui-hide-md-down\">Visible >MD</div><p>ui-hide-md-down</p></ui-column><ui-column size=sm-3><div class=\"col-visi ui-hide-lg-up\">Hidden &lt;LG</div><div class=\"col-view ui-hide-lg-down\">Visible >LG</div><p>ui-hide-lg-down</p></ui-column><ui-column size=sm-3><div class=\"col-visi ui-hide-xl-up\">Hidden &lt;XL</div><div class=\"col-view ui-hide-xl-down\">Visible >XL</div><p>ui-hide-xl-down</p></ui-column></ui-row></x-container></template>"; });
-define('text!src/core/page.html', ['module'], function(module) { module.exports = "<template><ui-page animate><x-container source.bind=source wiki.bind=wiki page-title=\"Page Layouts\" need-rtl=true><h4 class=x-title>Simple Page</h4><div class=x-view><ui-page page-title=\"My Title\"><ui-content padded scroll><compose view=../home/lipsum-big.html></compose></ui-content></ui-page></div><h4 class=x-title>Page w/ Sidebar</h4><div class=x-view><ui-page page-title=\"My Title\"><ui-section row-layout><ui-sidebar collapsible label=Sidebar padded scroll><compose view=../home/lipsum-small.html></compose></ui-sidebar><ui-content padded scroll><compose view=../home/lipsum-small.html></compose></ui-content><ui-sidebar position=end collapsible label=Sidebar padded scroll><ui-loader busy.bind=true large></ui-loader><compose view=../home/lipsum-small.html></compose></ui-sidebar></ui-section></ui-page></div><h4 class=x-title>Page w/ Toolbar</h4><div class=x-view><ui-page page-title=\"My Title\"><ui-section column-layout><ui-content padded scroll><compose view=../home/lipsum-big.html></compose></ui-content><ui-toolbar><ui-button dark>Save</ui-button><ui-button>Cancel</ui-button></ui-toolbar></ui-section></ui-page></div><h4 class=x-title>Page w/ multiple sections</h4><div class=x-view><ui-page page-title=\"My Title\"><ui-section column-layout><ui-section row-layout><ui-sidebar collapsible label=Sidebar padded scroll><compose view=../home/lipsum-small.html></compose></ui-sidebar><ui-content padded scroll><compose view=../home/lipsum-small.html></compose></ui-content><ui-sidebar position=end collapsible label=Sidebar padded scroll><compose view=../home/lipsum-small.html></compose></ui-sidebar></ui-section><ui-toolbar><ui-button dark>Save</ui-button><ui-button>Cancel</ui-button></ui-toolbar></ui-section></ui-page></div></x-container></ui-page></template>"; });
-define('text!src/core/viewport.html', ['module'], function(module) { module.exports = "<template><ui-page animate><x-container source.bind=source wiki.bind=wiki page-title=Viewport><div class=x-view><div class=\"ui-viewport ui-row ui-row-v ui-align-stretch\" css.bind=\"{position: 'relative', width:'100%', height:'100%'}\"><ui-app-header><ui-app-title href=#>Application</ui-app-title></ui-app-header><ui-content padded><h6>Router View goes here</h6></ui-content><ui-app-footer><span>&copy; 2017, Company</span></ui-app-footer></div></div></x-container></ui-page></template>"; });
 define('text!src/home/lipsum-big.html', ['module'], function(module) { module.exports = "<template><div class=ui-text-justify><p class=\"ui-para ui-emphasis\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ac enim eget lectus consequat feugiat. Integer eu fermentum lacus, et feugiat mi. Mauris quis ex odio. Nulla ex ex, suscipit quis purus ut, sollicitudin consequat nulla. Vivamus pretium tellus dolor. Nulla ex mi, faucibus ut rhoncus quis, rhoncus ut lorem. In interdum id neque in dapibus. Nulla dignissim sagittis luctus. Quisque odio enim, vehicula vel lectus vel, scelerisque elementum felis. Aliquam pulvinar, ex eu pharetra consectetur, mi arcu consectetur ex, quis euismod nibh magna vitae ante. Maecenas finibus finibus ligula, ut ultrices sem convallis vel. Curabitur neque neque, bibendum ut est non, dapibus egestas eros. Suspendisse potenti. Maecenas tristique suscipit quam, quis consectetur ante. Morbi a mi eu dolor condimentum accumsan id in tellus. Cras mi mauris, egestas sit amet tortor faucibus, sagittis euismod metus.</p><p class=ui-para>Aliquam vestibulum vestibulum mauris. Sed nisl ipsum, consectetur vel purus eget, euismod aliquam velit. Suspendisse id consequat magna. Cras ultrices libero eu maximus ornare. Vivamus vulputate ipsum ut scelerisque pellentesque. Praesent sed est urna. Curabitur venenatis laoreet urna at rhoncus. Integer blandit eros mollis, sagittis sem id, dictum tortor. Quisque convallis ornare erat ut laoreet.</p><p class=ui-para>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris nec neque rhoncus, sollicitudin purus lacinia, aliquam nibh. Nunc aliquam ex sed ligula varius, in porttitor ipsum feugiat. Pellentesque gravida enim ipsum, in fermentum felis ullamcorper id. Sed leo nibh, rutrum vitae dapibus eget, fermentum in diam. Maecenas dignissim ante et lorem ornare, at bibendum tellus tristique. Mauris sagittis erat tellus, ac accumsan sapien tristique ac. Duis nibh nisl, imperdiet non egestas eget, blandit id orci. Vivamus luctus sit amet dolor eget cursus. Maecenas orci nulla, rhoncus quis erat in, ornare euismod neque. Quisque vulputate elementum turpis, ac finibus leo. Donec nec nibh suscipit purus tristique elementum ac sed massa. Suspendisse sit amet dapibus ligula. Quisque lacinia erat vitae odio porttitor, nec dictum justo imperdiet.</p><p class=ui-para>Phasellus dolor tortor, scelerisque id rhoncus volutpat, scelerisque eu lorem. Quisque id nisi eget justo laoreet suscipit. Donec porttitor enim ipsum, sed semper urna gravida sed. Fusce scelerisque nisi sit amet massa imperdiet, a sollicitudin purus elementum. Sed justo nibh, mollis sed venenatis at, blandit vitae ligula. Vestibulum ac diam venenatis, lobortis metus vel, gravida mauris. Morbi porta, nisi sit amet efficitur dignissim, ex mauris dapibus metus, quis interdum massa urna quis purus. Fusce consectetur dolor et nunc pharetra gravida. Aliquam tempor, est eget tempus faucibus, magna turpis pharetra tortor, at accumsan enim leo vel ex. Cras malesuada libero vehicula erat vestibulum, in rhoncus magna rutrum.</p><p class=ui-para>Aliquam erat volutpat. Nunc mollis venenatis porttitor. Etiam bibendum sapien sit amet justo ultricies, nec pretium nibh dignissim. Vivamus efficitur dictum urna, ut posuere nunc hendrerit nec. Nullam pellentesque enim orci, non scelerisque eros ornare ac. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla ac lorem sapien. Vestibulum sed elit eu arcu euismod sodales a quis lorem. Nunc gravida ac lectus non tempus. Aliquam id vestibulum ex. Aenean egestas rutrum dignissim. Donec et lacus et mauris porttitor commodo. Vestibulum massa orci, egestas ac aliquam id, vestibulum et erat.</p></div></template>"; });
 define('text!src/home/lipsum-page.html', ['module'], function(module) { module.exports = "<template><ui-page animate><ui-content scroll padded><div class=ui-text-justify><p class=\"ui-para ui-emphasis\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ac enim eget lectus consequat feugiat. Integer eu fermentum lacus, et feugiat mi. Mauris quis ex odio. Nulla ex ex, suscipit quis purus ut, sollicitudin consequat nulla. Vivamus pretium tellus dolor. Nulla ex mi, faucibus ut rhoncus quis, rhoncus ut lorem. In interdum id neque in dapibus. Nulla dignissim sagittis luctus. Quisque odio enim, vehicula vel lectus vel, scelerisque elementum felis. Aliquam pulvinar, ex eu pharetra consectetur, mi arcu consectetur ex, quis euismod nibh magna vitae ante. Maecenas finibus finibus ligula, ut ultrices sem convallis vel. Curabitur neque neque, bibendum ut est non, dapibus egestas eros. Suspendisse potenti. Maecenas tristique suscipit quam, quis consectetur ante. Morbi a mi eu dolor condimentum accumsan id in tellus. Cras mi mauris, egestas sit amet tortor faucibus, sagittis euismod metus.</p><p class=ui-para>Aliquam vestibulum vestibulum mauris. Sed nisl ipsum, consectetur vel purus eget, euismod aliquam velit. Suspendisse id consequat magna. Cras ultrices libero eu maximus ornare. Vivamus vulputate ipsum ut scelerisque pellentesque. Praesent sed est urna. Curabitur venenatis laoreet urna at rhoncus. Integer blandit eros mollis, sagittis sem id, dictum tortor. Quisque convallis ornare erat ut laoreet.</p><p class=ui-para>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris nec neque rhoncus, sollicitudin purus lacinia, aliquam nibh. Nunc aliquam ex sed ligula varius, in porttitor ipsum feugiat. Pellentesque gravida enim ipsum, in fermentum felis ullamcorper id. Sed leo nibh, rutrum vitae dapibus eget, fermentum in diam. Maecenas dignissim ante et lorem ornare, at bibendum tellus tristique. Mauris sagittis erat tellus, ac accumsan sapien tristique ac. Duis nibh nisl, imperdiet non egestas eget, blandit id orci. Vivamus luctus sit amet dolor eget cursus. Maecenas orci nulla, rhoncus quis erat in, ornare euismod neque. Quisque vulputate elementum turpis, ac finibus leo. Donec nec nibh suscipit purus tristique elementum ac sed massa. Suspendisse sit amet dapibus ligula. Quisque lacinia erat vitae odio porttitor, nec dictum justo imperdiet.</p><p class=ui-para>Phasellus dolor tortor, scelerisque id rhoncus volutpat, scelerisque eu lorem. Quisque id nisi eget justo laoreet suscipit. Donec porttitor enim ipsum, sed semper urna gravida sed. Fusce scelerisque nisi sit amet massa imperdiet, a sollicitudin purus elementum. Sed justo nibh, mollis sed venenatis at, blandit vitae ligula. Vestibulum ac diam venenatis, lobortis metus vel, gravida mauris. Morbi porta, nisi sit amet efficitur dignissim, ex mauris dapibus metus, quis interdum massa urna quis purus. Fusce consectetur dolor et nunc pharetra gravida. Aliquam tempor, est eget tempus faucibus, magna turpis pharetra tortor, at accumsan enim leo vel ex. Cras malesuada libero vehicula erat vestibulum, in rhoncus magna rutrum.</p><p class=ui-para>Aliquam erat volutpat. Nunc mollis venenatis porttitor. Etiam bibendum sapien sit amet justo ultricies, nec pretium nibh dignissim. Vivamus efficitur dictum urna, ut posuere nunc hendrerit nec. Nullam pellentesque enim orci, non scelerisque eros ornare ac. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla ac lorem sapien. Vestibulum sed elit eu arcu euismod sodales a quis lorem. Nunc gravida ac lectus non tempus. Aliquam id vestibulum ex. Aenean egestas rutrum dignissim. Donec et lacus et mauris porttitor commodo. Vestibulum massa orci, egestas ac aliquam id, vestibulum et erat.</p></div></ui-content></ui-page></template>"; });
 define('text!src/home/lipsum-small.html', ['module'], function(module) { module.exports = "<template><div class=ui-text-justify><p class=\"ui-para ui-emphasis\"><span class=\"ui-text-info ui-bold\">Lorem ipsum</span>&nbsp;dolor sit amet, consectetur adipiscing elit. Duis ac enim eget lectus consequat feugiat. Integer eu fermentum lacus, et feugiat mi. Mauris quis ex odio. Nulla ex ex, suscipit quis purus ut, sollicitudin consequat nulla. Vivamus pretium tellus dolor. Nulla ex mi, faucibus ut rhoncus quis, rhoncus ut lorem. In interdum id neque in dapibus. Nulla dignissim sagittis luctus. Quisque odio enim, vehicula vel lectus vel, scelerisque elementum felis. Aliquam pulvinar, ex eu pharetra consectetur, mi arcu consectetur ex, quis euismod nibh magna vitae ante. Maecenas finibus finibus ligula, ut ultrices sem convallis vel. Curabitur neque neque, bibendum ut est non, dapibus egestas eros. Suspendisse potenti. Maecenas tristique suscipit quam, quis consectetur ante. Morbi a mi eu dolor condimentum accumsan id in tellus. Cras mi mauris, egestas sit amet tortor faucibus, sagittis euismod metus.</p></div></template>"; });
@@ -3669,7 +3670,7 @@ define('text!src/inputs/buttons.html', ['module'], function(module) { module.exp
 define('text!src/inputs/content.html', ['module'], function(module) { module.exports = "<template><ui-page animate=animate><x-container source.bind=source wiki.bind=wiki page-title=\"Content Editor\" need-rtl=true><ui-form><ui-row><ui-column full=full><div style=width:24em><ui-input-group><ui-input-label align-top>Language</ui-input-label><ui-language value.bind=language dir.bind=dir languages.bind=\"model.languages | keys\" add.trigger=addLanguage($event.detail) remove.trigger=addLanguage($event.detail)></ui-language></ui-input-group></div><ui-input-group><ui-input-label align-top>Summary</ui-input-label><ui-input counter=counter clear=clear value.bind=model.languages[language].summary dir.bind=dir disabled.bind=!language></ui-input></ui-input-group><ui-input-group><ui-input-label align-top>Description</ui-input-label><ui-markdown help-text=\"GitHub Flavoured Markdown\" counter=counter clear=clear value.bind=model.languages[language].description dir.bind=dir disabled.bind=!language rows=20></ui-markdown></ui-input-group></ui-column></ui-row></ui-form></x-container></ui-page></template>"; });
 define('text!src/inputs/dates.html', ['module'], function(module) { module.exports = "<template><ui-page animate=animate><x-container source.bind=source wiki.bind=wiki page-title=\"Date/Time Inputs\" need-rtl=true><ui-row><ui-column fill=fill padded=padded><ui-date-view datetime date.bind=date></ui-date-view><p>${date}</p><p>${date | date}</p><p>${date | date} ${date | time}</p></ui-column><ui-column fill=fill padded=padded><ui-input-group><ui-input-label>Date</ui-input-label><ui-date date.bind=date></ui-date></ui-input-group><ui-input-group><ui-input-label>Time</ui-input-label><ui-input-addon><small>Local Time</small></ui-input-addon><ui-date time=time date.bind=time></ui-date><ui-input-info if.bind=time>${time | utc | time} GMT</ui-input-info></ui-input-group><ui-input-group><ui-input-label>Date/Time</ui-input-label><ui-input-addon><small>Local Time</small></ui-input-addon><ui-date datetime=datetime date.bind=dttime min-date.bind=minDate></ui-date><ui-input-info if.bind=dttime>${dttime | utc | datetime} GMT</ui-input-info></ui-input-group><ui-input-group><ui-input-label>Date Range</ui-input-label><ui-date date.bind=date1></ui-date><ui-input-addon><small>TO</small></ui-input-addon><ui-date date.bind=date2 min-date.bind=date1></ui-date></ui-input-group></ui-column></ui-row></x-container></ui-page></template>"; });
 define('text!src/inputs/inputs.html', ['module'], function(module) { module.exports = "<template><ui-page animate><x-container source.bind=source wiki.bind=wiki page-title=\"Textual Inputs\" need-rtl=true><ui-form><ui-row><ui-column full><ui-fieldset legend=\"Basic Inputs\"><div ref=inlineContainer></div><ui-row><ui-column form padded><ui-input-group><ui-input-label required>Text</ui-input-label><ui-input placeholder=\"Any text...\"><ui-input-addon><small class=ui-strong text-info>User</small></ui-input-addon></ui-input><ui-button secondary glyph=glyph-arrow-right></ui-button></ui-input-group><ui-input-group><ui-input-label>Password</ui-input-label><ui-input password placeholder=\"Any text...\"><ui-input-addon><small class=ui-strong text-success>Strong</small></ui-input-addon></ui-input></ui-input-group><ui-input-group><ui-input-label>Number</ui-input-label><ui-input number placeholder=\"Any number...\"></ui-input></ui-input-group><ui-input-group><ui-input-label>Decimal</ui-input-label><ui-input decimal placeholder=\"Any decimal...\"></ui-input></ui-input-group><ui-input-group><ui-input-label>Email</ui-input-label><ui-input email placeholder=user@domain.com><ui-input-addon text-info glyph=icon-moon-envelop></ui-input-addon></ui-input></ui-input-group><ui-input-group><ui-input-label>URL</ui-input-label><ui-input url placeholder=http://domain.com><ui-input-addon text-info glyph=icon-moon-link></ui-input-addon></ui-input></ui-input-group><ui-input-group><ui-input-label>Double Input</ui-input-label><ui-input decimal placeholder=Latitude... help-text=Latitude><ui-input-addon text-warning glyph=icon-moon-location></ui-input-addon></ui-input><ui-input decimal placeholder=Longitude... help-text=Longitude><ui-input-addon text-warning glyph=icon-moon-location></ui-input-addon></ui-input></ui-input-group></ui-column><ui-column form padded><ui-input-group><ui-input-label>Readonly</ui-input-label><ui-input readonly value=\"Input value...\"></ui-input></ui-input-group><ui-input-group><ui-input-label>Disabled</ui-input-label><ui-input disabled value=\"Input value...\"></ui-input></ui-input-group><ui-input-group><ui-input-label>Invalid</ui-input-label><ui-input value=\"Errored input...\" class=ui-invalid errors.bind=\"['Input required', 'Input must be minimum 5 characters']\"></ui-input></ui-input-group><ui-input-group><ui-input-label>Clear</ui-input-label><ui-input clear value=\"Text value\"></ui-input></ui-input-group><ui-input-group><ui-input-label>Counter</ui-input-label><ui-input counter value=\"Text value\"></ui-input><ui-input-info text-muted><ui-glyph text-danger glyph=icon-moon-lifebuoy></ui-glyph>Display remaining length</ui-input-info></ui-input-group></ui-column></ui-row><ui-row><ui-column form padded><hr><div text-primary>Phone Input</div><ui-input-group><ui-input-label>International</ui-input-label><ui-phone><ui-input-addon glyph=icon-moon-phone></ui-input-addon></ui-phone></ui-input-group><ui-input-group><ui-input-label>National</ui-input-label><ui-dropdown value=2><ui-list-item value=0>Home</ui-list-item><ui-list-item value=1>Work</ui-list-item><ui-list-item value=2>Mobile</ui-list-item></ui-dropdown><ui-phone country=us><ui-input-addon glyph=icon-line-phone></ui-input-addon></ui-phone></ui-input-group><hr><div text-primary>Multiline Input</div><ui-input-group><ui-input-label>Textarea</ui-input-label><ui-input-addon glyph=icon-moon-pencil></ui-input-addon><ui-textarea clear counter value=\"With auto-complete...\" auto-complete=Alpha,Bravo,Alfa-Bravo,Charlie,Delta,Echo,Foxtrot,Lima,Omega,Sigma,Theta,Zulu></ui-textarea><ui-button info>Go!</ui-button></ui-input-group><div class=x-section><blockquote><strong>Known Issue</strong>Auto-Complete list positioning broken in RTL layout</blockquote></div></ui-column><ui-column form padded><hr><div text-primary>File Inputs</div><ui-input-group><ui-input-label>File</ui-input-label><ui-input file placeholder=\"Any file...\"><ui-input-addon glyph=icon-moon-file-zip></ui-input-addon></ui-input></ui-input-group><ui-input-group><ui-input-label>File</ui-input-label><ui-file view-model.ref=files></ui-file></ui-input-group></ui-column></ui-row></ui-fieldset></ui-column><ui-column full><ui-fieldset legend=\"Optional Inputs\" checked><ui-row><ui-column form padded><h6 text-primary>Single</h6><ui-input-group><ui-input-label>Microsoft Live</ui-input-label><ui-input-addon><ui-radio name=rdis value=0 checked.bind=rdis change.trigger=\"ropt2=(ropt3='')\"></ui-radio></ui-input-addon><ui-input disabled.bind=\"rdis!=0\" value.bind=ropt1></ui-input></ui-input-group><ui-input-group><ui-input-label>Google</ui-input-label><ui-input-addon><ui-radio name=rdis value=1 checked.bind=rdis change.trigger=\"ropt1=(ropt3='')\"></ui-radio></ui-input-addon><ui-input disabled.bind=\"rdis!=1\" value.bind=ropt2></ui-input></ui-input-group><ui-input-group><ui-input-label>Facebook</ui-input-label><ui-input-addon><ui-radio name=rdis value=2 checked.bind=rdis change.trigger=\"ropt1=(ropt2='')\"></ui-radio></ui-input-addon><ui-input disabled.bind=\"rdis!=2\" value.bind=ropt3></ui-input></ui-input-group></ui-column><ui-column form padded><h6 text-primary>Multiple</h6><ui-input-group><ui-input-label>Google+</ui-input-label><ui-input-addon><ui-checkbox checked.bind=dis1 change.trigger=\"opt1=''\"></ui-checkbox></ui-input-addon><ui-input disabled.bind=!dis1 value.bind=opt1 placeholder=\"Google+ profile...\"></ui-input></ui-input-group><ui-input-group><ui-input-label>Facebook</ui-input-label><ui-input-addon><ui-checkbox checked.bind=dis2 change.trigger=\"opt2=''\"></ui-checkbox></ui-input-addon><ui-input disabled.bind=!dis2 value.bind=opt2 placeholder=\"Facebook profile...\"></ui-input></ui-input-group><ui-input-group><ui-input-label>Twitter</ui-input-label><ui-input-addon><ui-checkbox checked.bind=dis3 change.trigger=\"opt3=''\"></ui-checkbox></ui-input-addon><ui-input disabled.bind=!dis3 value.bind=opt3 placeholder=\"Twitter handle...\"></ui-input></ui-input-group></ui-column></ui-row></ui-fieldset></ui-column></ui-row></ui-form></x-container></ui-page></template>"; });
-define('text!src/inputs/lists.html', ['module'], function(module) { module.exports = "<template><ui-page animate=animate><x-container source.bind=source wiki.bind=wiki page-title=\"List Inputs\" need-rtl=true><ui-row><ui-column fill padded><ui-input-group><ui-input-label>Combo</ui-input-label><ui-combo value.bind=ctr options.bind=countries display-property=name value-property=iso3 icon-property=iso3 icon-class=ui-flag force-select=true model.bind=country><ui-input-addon glyph-class=ui-flag glyph.bind=ctr></ui-input-addon></ui-combo></ui-input-group><br><ui-row><ui-column width=8em></ui-column><ui-column auto class=ui-font-large><ui-glyph class=ui-flag glyph.bind=ctr></ui-glyph></ui-column><ui-column fill><h5>${country.name}</h5><div text-info class=ui-uppercase>${country.iso2}&nbsp;&nbsp;&nbsp;${country.iso3}</div></ui-column></ui-row><br><ui-input-group><ui-input-label>Tags</ui-input-label><ui-tags value=UAE,IND force-select=true options.bind=countries display-property=name value-property=iso3 icon-property=iso3 icon-class=ui-flag></ui-tags></ui-input-group><br><ui-input-group><ui-input-label>Tags</ui-input-label><ui-tags value=user@email.com force-select=false options.bind=\"['user@email.com', 'user@hotmail.com']\"></ui-tags></ui-input-group></ui-column><ui-column fill padded><ui-input-group><ui-input-label>List</ui-input-label><ui-list value.bind=ctr options.bind=countries display-property=name value-property=iso3 icon-property=iso3 icon-class=ui-flag><ui-input-addon glyph-class=ui-flag glyph.bind=ctr></ui-input-addon></ui-list></ui-input-group></ui-column></ui-row></x-container></ui-page></template>"; });
+define('text!src/inputs/lists.html', ['module'], function(module) { module.exports = "<template><ui-page animate=animate><x-container source.bind=source wiki.bind=wiki page-title=\"List Inputs\" need-rtl=true><ui-row><ui-column fill padded><ui-input-group><ui-input-label>Combo</ui-input-label><ui-combo value.bind=ctr options.bind=countries display-property=name value-property=iso3 icon-property=iso3 icon-class=ui-flag force-select=true model.bind=country tpl=\"\\${name}<br/><small>\\${capital}</small>\"><ui-input-addon glyph-class=ui-flag glyph.bind=ctr></ui-input-addon></ui-combo></ui-input-group><br><ui-row><ui-column width=8em></ui-column><ui-column auto class=ui-font-large><ui-glyph class=ui-flag glyph.bind=ctr></ui-glyph></ui-column><ui-column fill><h5>${country.name}</h5><div text-info class=ui-uppercase>${country.iso2}&nbsp;&nbsp;&nbsp;${country.iso3}</div><div text-muted class=ui-font-small>${country.fullname}</div><div text-muted class=ui-font-small>${country.capital}</div></ui-column></ui-row><br><ui-input-group><ui-input-label>Tags</ui-input-label><ui-tags value=UAE,IND force-select=true options.bind=countries display-property=name value-property=iso3 icon-property=iso3 icon-class=ui-flag></ui-tags></ui-input-group><br><ui-input-group><ui-input-label>Tags</ui-input-label><ui-tags value=user@email.com force-select=false options.bind=\"['user@email.com', 'user@hotmail.com']\"></ui-tags></ui-input-group></ui-column><ui-column fill padded><ui-input-group><ui-input-label>List</ui-input-label><ui-list value.bind=ctr options.bind=countries display-property=name value-property=iso3 icon-property=iso3 icon-class=ui-flag tpl=\"\\${name}<br/><small>\\${fullname}</small>\"><ui-input-addon glyph-class=ui-flag glyph.bind=ctr></ui-input-addon></ui-list></ui-input-group></ui-column></ui-row></x-container></ui-page></template>"; });
 define('text!src/inputs/options.html', ['module'], function(module) { module.exports = "<template><ui-page animate><x-container source.bind=source wiki.bind=wiki page-title=Options need-rtl=true><ui-row><ui-column fill><h4 class=x-title>Checkboxes</h4><ui-option-group cols=4><ui-input-label>Checkboxes</ui-input-label><ui-checkbox checked>Red</ui-checkbox><ui-checkbox>Green</ui-checkbox><ui-checkbox>Blue</ui-checkbox><ui-checkbox>Orange</ui-checkbox><ui-checkbox>Yellow</ui-checkbox><ui-checkbox>Purple</ui-checkbox><ui-checkbox>Indigo</ui-checkbox><ui-checkbox>Brown</ui-checkbox></ui-option-group></ui-column><ui-column fill><h4 class=x-title>Radios</h4><ui-option-group cols=3 value=square name=shapes><ui-input-label>Radios</ui-input-label><ui-radio value=line>Line</ui-radio><ui-radio value=square>Square</ui-radio><ui-radio value=circle>Circle</ui-radio><ui-radio value=ellipse>Ellipse</ui-radio><ui-radio value=star>Star</ui-radio><ui-radio value=triangle>Triangle</ui-radio></ui-option-group></ui-column></ui-row><hr><h4 class=x-title>Switches</h4><h6 class=x-title>Themed</h6><ui-row class=ui-titlecase><ui-column width=10em repeat.for=\"c of themes\"><ui-switch theme.bind=c value=1>${c}</ui-switch></ui-column><ui-column width=10em><ui-switch theme=ampm on-label=PM off-label=AM>AM/PM</ui-switch></ui-column><ui-column width=10em><ui-switch theme=gender on-label=Female off-label=Male size=4em>Gender</ui-switch></ui-column></ui-row><h6 class=x-title>Extras</h6><ui-row class=ui-titlecase><ui-column width=10em repeat.for=\"c of colors\"><ui-switch theme.bind=c value=1>${c}</ui-switch></ui-column></ui-row></x-container></ui-page></template>"; });
 define('text!src/inputs/validation.html', ['module'], function(module) { module.exports = "<template><ui-page animate=animate><x-container source.bind=source wiki.bind=wiki page-title=Validation need-rtl=true><ui-form submit.trigger=validate()><ui-row><ui-column fill><ui-fieldset legend=\"Personal Info\"><ui-input-group><ui-input-label required>First Name</ui-input-label><ui-dropdown value.bind=\"model.salutation & validate\"><ui-list-item repeat.for=\"s of salutations\" value.bind=s>${s}</ui-list-item></ui-dropdown><ui-input value.bind=\"model.firstName & validate\" maxlength=99 counter clear></ui-input></ui-input-group><ui-input-group required><ui-input-label>Last Name</ui-input-label><ui-input value.bind=\"model.lastName & validate\" maxlength=99 counter clear></ui-input></ui-input-group><ui-input-group><ui-input-label>Location</ui-input-label><ui-input-addon glyph=icon-moon-location></ui-input-addon><ui-input decimal.bind=\"model.latitude & validate\" placeholder=Latitude... info=Latitude></ui-input><ui-input-addon glyph=icon-moon-location></ui-input-addon><ui-input decimal.bind=\"model.longitude & validate\" placeholder=Longitude... info=Longitude></ui-input></ui-input-group></ui-fieldset></ui-column><ui-column fill><ui-fieldset legend=Address><ui-input-group><ui-input-label required>Address</ui-input-label><ui-input value.bind=\"model.address1 & validate\" placeholder=Address... maxlength=99 counter clear></ui-input></ui-input-group><ui-input-group><ui-input-label></ui-input-label><ui-input value.bind=\"model.address2 & validate\" maxlength=99 counter clear></ui-input></ui-input-group><ui-input-group><ui-input-label required>City</ui-input-label><ui-input value.bind=\"model.city & validate\" placeholder=City... maxlength=99 counter clear></ui-input></ui-input-group><ui-input-group><ui-input-label>State</ui-input-label><ui-input value.bind=\"model.state & validate\" placeholder=State/Province... maxlength=99 counter clear></ui-input></ui-input-group><ui-input-group><ui-input-label required>Country</ui-input-label><ui-combo value.bind=\"model.country & validate\" options.bind=countries display-property=name value-property=iso2 icon-property=iso2 icon-class=ui-flag><ui-input-addon><span class=\"ui-flag ${model.country}\"></span></ui-input-addon></ui-combo></ui-input-group></ui-fieldset><ui-fieldset legend=\"Contact Info\"><ui-input-group><ui-input-label required>Email</ui-input-label><ui-input email name=email placeholder=user@domain.com value.bind=\"model.email & validate\"><ui-input-addon glyph=icon-moon-envelop></ui-input-addon></ui-input></ui-input-group><ui-input-group><ui-input-label required>Phone</ui-input-label><ui-dropdown value.bind=\"model.phoneType & validate\" default-text=--Choose--><ui-list-item value=home>Home</ui-list-item><ui-list-item value=work>Work</ui-list-item><ui-list-item value=mobile>Mobile</ui-list-item></ui-dropdown><ui-phone country.bind=model.country name=mobile value.bind=\"model.phone & validate\"></ui-phone></ui-input-group><ui-input-group><ui-input-label>Secondary Contact</ui-input-label><ui-input-addon><ui-checkbox checked.bind=model.hasSecondContact change.trigger=\"model.secondContact=''\"></ui-checkbox></ui-input-addon><ui-dropdown disabled.bind=!model.hasSecondContact value.bind=model.secondContactType><ui-list-item value=home>Home</ui-list-item><ui-list-item value=work>Work</ui-list-item><ui-list-item value=mobile>Mobile</ui-list-item></ui-dropdown><ui-phone disabled.bind=!model.hasSecondContact country.bind=model.country value.bind=\"model.secondContact & validate\"></ui-phone></ui-input-group></ui-fieldset></ui-column></ui-row></ui-form><ui-row end><ui-button click.trigger=validate() secondary>Validate</ui-button></ui-row></x-container></ui-page></template>"; });
 define('text!src/samples/home.html', ['module'], function(module) { module.exports = "<template><ui-page animate><x-container page-title=\"Sample Applications\"><ui-row around stretch><a href=#/examples:dashboard class=\"ui-border-all ui-column ui-column-auto ui-text-center\" css.bind=\"{width: '256px'}\"><img src=examples/images/app-dashboard.png width=100% height=192><h4>Executive Dashboard</h4><p text-dark>A simple executive dashboard, layout build using responsive grid and panels.</p></a><a href=#/examples:tabbed class=\"ui-border-all ui-column ui-column-auto ui-text-center\" css.bind=\"{width: '256px'}\"><img src=examples/images/wireframes/image.png width=100% height=192><h4>Tabbed Application</h4><p text-dark>A simple admin application, layout built using closable tabs.</p></a><a href=#/examples:desktop class=\"ui-border-all ui-column ui-column-auto ui-text-center\" css.bind=\"{width: '256px'}\"><img src=examples/images/app-desktop.png width=100% height=192><h4>Desktop Application</h4><p text-dark>A simple classic desktop styled application.</p></a></ui-row></x-container></ui-page></template>"; });

@@ -60,7 +60,7 @@ var UITooltipBase = (function () {
         var el = UITooltipBase_1.tooltipEl;
         el.className = 'ui-tooltip ui-' + theme;
         el.innerHTML = value;
-        this.tether = ui_utils_1.UIUtils.tether(this.parentEl, el, { resize: false, oppEdge: true, position: UITooltip.POSITIONS[position] });
+        this.tether = ui_utils_1.UIUtils.tether(this.parentEl, el, { resize: false, oppEdge: true, position: UITooltip.POSITIONS[position] || 'tc' });
         this.timer = setTimeout(function () { return el.classList.add('ui-show'); }, 700);
     };
     UITooltipBase.prototype.hide = function () {
@@ -73,8 +73,8 @@ var UITooltipBase = (function () {
     UITooltipBase.POSITIONS = {
         top: 'tc',
         bottom: 'bc',
-        left: 'cl',
-        right: 'cr'
+        start: 'cl',
+        end: 'cr'
     };
     UITooltipBase = UITooltipBase_1 = __decorate([
         aurelia_framework_1.noView(),

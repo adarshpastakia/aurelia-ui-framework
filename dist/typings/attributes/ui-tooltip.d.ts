@@ -3,8 +3,8 @@ export declare class UITooltipBase {
     static POSITIONS: {
         top: string;
         bottom: string;
-        left: string;
-        right: string;
+        start: string;
+        end: string;
     };
     constructor(element: Element);
     attached(): void;

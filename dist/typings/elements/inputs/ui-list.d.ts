@@ -2,6 +2,7 @@ export declare class BaseList {
     model: any;
     value: string;
     options: any[];
+    tpl: string;
     clear: boolean;
     readonly: boolean;
     disabled: boolean;
@@ -31,6 +32,7 @@ export declare class BaseList {
     disable(b: any): void;
     clearInput(): void;
     focus(): void;
+    getDisplay(item: any): any;
     valueChanged(newValue: any, oldValue?: any): void;
     optionsChanged(newValue: any): void;
     hilightItem(evt: any): void;
@@ -96,6 +98,7 @@ export declare class UIList extends BaseList {
     value: string;
     model: any;
     dir: string;
+    tpl: string;
     width: string;
     errors: any;
     disabled: boolean;

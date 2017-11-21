@@ -41,6 +41,7 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                 function BaseList() {
                     this.value = '';
                     this.options = [];
+                    this.tpl = '';
                     this.clear = true;
                     this.readonly = false;
                     this.disabled = false;
@@ -97,6 +98,11 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                 BaseList.prototype.focus = function () {
                     this.inputEl.focus();
                 };
+                BaseList.prototype.getDisplay = function (item) {
+                    if (this.tpl)
+                        return this.tpl.interpolate(item.model);
+                    return item.display;
+                };
                 BaseList.prototype.valueChanged = function (newValue, oldValue) {
                     var _this = this;
                     if (!this.isTagInput) {
@@ -109,6 +115,7 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                         this.model = item.model;
                     }
                     else {
+                        this.elValue = '';
                         var v = (newValue || '').split(',');
                         _.forEach(v, function (n) { return _['findChildren'](_this.filtered = _this.original, 'items', 'value', n).disabled = true; });
                     }
@@ -201,6 +208,11 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                             el.classList.add('ui-focus');
                     }
                     if (evt.type === 'blur') {
+                        var item = _['findChildren'](this.filtered = this.original, 'items', 'value', this.value === null ? '' : this.value);
+                        if (this.forceSelect && !this.isTagInput)
+                            this.elValue = item.text;
+                        if (this.isTagInput)
+                            this.elValue = '';
                         this.element.classList.remove('ui-focus');
                         if (el)
                             el.classList.remove('ui-focus');
@@ -294,11 +306,11 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                     this.hilight = null;
                     this.dropdown.scrollTop = 0;
                     var groups = [];
-                    var rx = new RegExp(getAscii(this.elValue), 'i');
+                    var rx = new RegExp(this.elValue.ascii(), 'i');
                     _.forEach(_.cloneDeep(this.original), function (v, k) {
                         var list = _.filter(v.items, function (n) {
                             var lbl = n.text + '';
-                            var asc = getAscii(lbl);
+                            var asc = lbl.ascii();
                             if (rx.test(asc)) {
                                 var start = asc.search(rx);
                                 lbl = lbl.substr(0, start + _this.elValue.length) + '</u>' +
@@ -578,6 +590,7 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                     _this.element = element;
                     _this.value = '';
                     _this.dir = '';
+                    _this.tpl = '';
                     _this.width = 'auto';
                     _this.errors = null;
                     _this.disabled = false;
@@ -607,6 +620,10 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                     aurelia_framework_1.bindable(),
                     __metadata("design:type", Object)
                 ], UIList.prototype, "dir", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIList.prototype, "tpl", void 0);
                 __decorate([
                     aurelia_framework_1.bindable(),
                     __metadata("design:type", Object)
@@ -661,7 +678,7 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                 ], UIList.prototype, "forceSelect", void 0);
                 UIList = __decorate([
                     aurelia_framework_1.autoinject(),
-                    aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper ui-input-list ui-listbox\" css.bind=\"{width: width}\"><div role=\"input\" class=\"ui-input-control\">\n  <span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"glyph-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <input ref=\"inputEl\" value.bind=\"elValue\" class=\"ui-input ui-remove\" autocomplete=\"off\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\" size=\"1\"\n    input.trigger=\"search() & debounce:200\" change.trigger=\"fireEvent($event)\"\n    keydown.trigger=\"keyDown($event)\" placeholder.bind=\"placeholder\" select.trigger=\"$event.stopPropagation()\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"true\"/>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span>\n\n  <div class=\"ui-list-container\" ref=\"dropdown\" mouseout.trigger=\"unhilightItem()\" dir.bind=\"dir\">\n    <div if.bind=\"filtered.length==0\" class=\"ui-text-muted ui-pad-h\">${emptyText}</div>\n    <template repeat.for=\"group of filtered\"><div if.bind=\"group.label\" class=\"ui-list-group\">${group.label}</div>\n    <div class=\"ui-list-item ${item.value==value?'ui-selected':''} ${item.disabled?'ui-disabled':''}\" repeat.for=\"item of group.items\"\n      mouseover.trigger=\"hilightItem($event)\" click.trigger=\"fireSelect(item.model)\">\n      <span class=\"${iconClass} ${item.icon}\" if.bind=\"item.icon\"></span>&nbsp;<span innerhtml.bind=\"item.display\"></span></div>\n    </template>\n  </div></div>\n  <div class=\"ui-input-info\" if.bind=\"helpText\" innerhtml.bind=\"helpText\"></div>\n</template>"),
+                    aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper ui-input-list ui-listbox\" css.bind=\"{width: width}\"><div role=\"input\" class=\"ui-input-control\">\n  <span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"glyph-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <input ref=\"inputEl\" value.bind=\"elValue\" class=\"ui-input ui-remove\" autocomplete=\"off\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\" size=\"1\"\n    input.trigger=\"search() & debounce:200\" change.trigger=\"fireEvent($event)\"\n    keydown.trigger=\"keyDown($event)\" placeholder.bind=\"placeholder\" select.trigger=\"$event.stopPropagation()\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"true\"/>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span>\n\n  <div class=\"ui-list-container\" ref=\"dropdown\" mouseout.trigger=\"unhilightItem()\" dir.bind=\"dir\">\n    <div if.bind=\"filtered.length==0\" class=\"ui-text-muted ui-pad-h\">${emptyText}</div>\n    <template repeat.for=\"group of filtered\"><div if.bind=\"group.label\" class=\"ui-list-group\">${group.label}</div>\n    <div class=\"ui-list-item ${item.value==value?'ui-selected':''} ${item.disabled?'ui-disabled':''}\" repeat.for=\"item of group.items\"\n      mouseover.trigger=\"hilightItem($event)\" click.trigger=\"fireSelect(item.model)\">\n      <span class=\"${iconClass} ${item.icon}\" if.bind=\"item.icon\"></span>&nbsp;<span innerhtml.bind=\"getDisplay(item)\"></span></div>\n    </template>\n  </div></div>\n  <div class=\"ui-input-info\" if.bind=\"helpText\" innerhtml.bind=\"helpText\"></div>\n</template>"),
                     aurelia_framework_1.customElement('ui-list'),
                     __metadata("design:paramtypes", [Element])
                 ], UIList);

@@ -7,6 +7,7 @@ Combo/List input
   * `readonly.bind = ''`
   * `disabled.bind = ''`
   * `dir = ''`
+  * `tpl = ''`: Display template
   * `width = ''`
   * `placeholder = ''`
   * `help-text = ''`

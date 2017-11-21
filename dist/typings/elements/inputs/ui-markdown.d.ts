@@ -12,7 +12,7 @@ export declare class UIMarkdown extends UIBaseInput {
     readonly: boolean;
     placeholder: string;
     autoComplete: string;
-    info: string;
+    helpText: string;
     private clear;
     private counter;
     private ignore;
@@ -32,7 +32,7 @@ export declare class UILanguage {
     errors: any;
     disabled: boolean;
     readonly: boolean;
-    info: string;
+    helpText: string;
     languages: any;
     placeholder: string;
     errored: any[];
