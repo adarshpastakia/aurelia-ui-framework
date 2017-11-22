@@ -88,10 +88,10 @@
           <ui-column fill padded>
             <ui-input-group>
               <ui-input-label>Button Labels</ui-input-label>
-              <ui-input-addon glyph="glyph-icon-yes" bg-light text-success></ui-input-addon>
-              <ui-input value.bind="alert.okLabel" info="Ok Label"></ui-input>
-              <ui-input-addon glyph="glyph-icon-no" bg-light text-danger></ui-input-addon>
-              <ui-input value.bind="alert.cancelLabel" info="Cancel Label"></ui-input>
+
+              <ui-input value.bind="alert.okLabel" help-text="Ok Label"><ui-input-addon glyph="glyph-icon-yes" bg-light text-success></ui-input-addon></ui-input>
+
+              <ui-input value.bind="alert.cancelLabel" help-text="Cancel Label"><ui-input-addon glyph="glyph-icon-no" bg-light text-danger></ui-input-addon></ui-input>
             </ui-input-group>
           </ui-column>
           <ui-column fill padded>

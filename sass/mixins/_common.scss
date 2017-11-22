@@ -52,14 +52,22 @@
 }
 
 // From compass
+@function brightness($color) {
+  @if type-of($color) == color {
+    @return (red($color) * 0.299 + green($color) * 0.587 + blue($color) * 0.114) / 255 * 100%;
+  }
+  @else {
+    @return unquote("brightness(#{$color})");
+  }
+}
 @function contrast-color($color, $dark: $black, $light: $white) {
    @if $color == null{
     @return null;
   }
   @else {
-    $color-brightness     : lightness($color);
-    $dark-text-brightness : lightness($dark);
-    $light-text-brightness: lightness($light);
+    $color-brightness     : brightness($color);
+    $dark-text-brightness : brightness($dark);
+    $light-text-brightness: brightness($light);
     @return if(abs($color-brightness - $light-text-brightness) > abs($color-brightness - $dark-text-brightness), $light, $dark);
   }
 }

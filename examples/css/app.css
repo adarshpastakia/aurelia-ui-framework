@@ -3280,14 +3280,14 @@ strong {
     -ms-flex-wrap: nowrap;
     -o-flex-wrap: nowrap;
     flex-wrap: nowrap; }
-    .ui-input-group .ui-group-wrapper .ui-dropdown {
-      margin: 0;
-      box-shadow: none; }
   .ui-input-group .ui-button {
     margin: 0;
     align-self: stretch; }
   .ui-input-group.ui-plain .ui-group-wrapper {
     background: none;
+    box-shadow: none; }
+  .ui-input-group:not(.ui-plain) .ui-group-wrapper .ui-dropdown {
+    margin: 0;
     box-shadow: none; }
 
 .ui-input-wrapper {
@@ -4397,7 +4397,7 @@ strong {
     color: #F06292; }
 
 .ui-tooltip.ui-dark {
-  color: #ecf0f1;
+  color: #FFFEFC;
   background: #34495e; }
   .ui-tooltip.ui-dark:after {
     color: #34495e; }
@@ -4421,7 +4421,7 @@ strong {
     color: #66BB6A; }
 
 .ui-tooltip.ui-warning {
-  color: #FFFEFC;
+  color: #2c3e50;
   background: #FFCA28; }
   .ui-tooltip.ui-warning:after {
     color: #FFCA28; }
@@ -4470,7 +4470,7 @@ strong {
   background: #66BB6A; }
 
 .ui-ribbon.ui-warning {
-  color: #FFFEFC;
+  color: #2c3e50;
   background: #FFCA28; }
 
 .ui-badge {

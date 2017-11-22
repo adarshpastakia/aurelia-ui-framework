@@ -127,11 +127,6 @@
     color     : $input-text;
     box-shadow: 0 0 0 1px rgba($base-border-color, .2);
     @include flexbox($direction: row, $display: flex, $align: stretch, $wrap: false);
-
-    .ui-dropdown {
-      margin    : 0;
-      box-shadow: none;
-    }
   }
 
   .ui-button {
@@ -143,4 +138,12 @@
     background: none;
     box-shadow: none;
   }
+
+  &:not(.ui-plain) .ui-group-wrapper {
+    .ui-dropdown {
+      margin    : 0;
+      box-shadow: none;
+    }
+  }
+
 }

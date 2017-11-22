@@ -80,13 +80,13 @@
     visibility: visible;
   }
 }
-@include tooltip-theme(primary, $primary, $button-primary-text);
-@include tooltip-theme(secondary, $secondary, $button-secondary-text);
-@include tooltip-theme(dark, $dark, $light);
-@include tooltip-theme(info, $info, $button-info-text);
-@include tooltip-theme(danger, $danger, $button-danger-text);
-@include tooltip-theme(success, $success, $button-success-text);
-@include tooltip-theme(warning, $warning, $button-warning-text);
+@include tooltip-theme(primary, $primary, contrast-color($primary));
+@include tooltip-theme(secondary, $secondary, contrast-color($secondary));
+@include tooltip-theme(dark, $dark, contrast-color($dark));
+@include tooltip-theme(info, $info, contrast-color($info));
+@include tooltip-theme(danger, $danger, contrast-color($danger));
+@include tooltip-theme(success, $success, contrast-color($success));
+@include tooltip-theme(warning, $warning, contrast-color($warning));
 
 .ui-ribbon {
   position   : absolute;
@@ -105,13 +105,13 @@
     font-size: 0.5em;
   }
 }
-@include ribbon-theme(primary, $primary, $button-primary-text);
-@include ribbon-theme(secondary, $secondary, $button-secondary-text);
-@include ribbon-theme(dark, $dark, $button-dark-text);
-@include ribbon-theme(info, $info, $button-info-text);
-@include ribbon-theme(danger, $danger, $button-danger-text);
-@include ribbon-theme(success, $success, $button-success-text);
-@include ribbon-theme(warning, $warning, $button-warning-text);
+@include ribbon-theme(primary, $primary, contrast-color($primary));
+@include ribbon-theme(secondary, $secondary, contrast-color($secondary));
+@include ribbon-theme(dark, $dark, contrast-color($dark));
+@include ribbon-theme(info, $info, contrast-color($info));
+@include ribbon-theme(danger, $danger, contrast-color($danger));
+@include ribbon-theme(success, $success, contrast-color($success));
+@include ribbon-theme(warning, $warning, contrast-color($warning));
 
 //BADGES
 .ui-has-badge {}
