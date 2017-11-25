@@ -47,6 +47,7 @@ import './value-converters/ui-lodash';
 import './value-converters/ui-text';
 
 export * from './data/ui-datamodel';
+export * from './data/ui-datasource';
 
 export * from './utils/ui-application';
 export * from './utils/ui-constants';
@@ -63,7 +64,6 @@ export interface UIConfig {
 
   apiUrl(t: string): UIConfig;
   apiHeaders(t: any): UIConfig;
-  sendAuthHeader(t: boolean): UIConfig;
 
   languages(l: Array<any>): UIConfig;
 }
@@ -139,10 +139,6 @@ export function configure(config: FrameworkConfiguration, configCallback) {
     },
     apiHeaders: (t) => {
       UIConstants.Http.Headers = t;
-      return Configure;
-    },
-    sendAuthHeader: (t) => {
-      UIConstants.Http.AuthorizationHeader = t;
       return Configure;
     },
     languages: (l) => {

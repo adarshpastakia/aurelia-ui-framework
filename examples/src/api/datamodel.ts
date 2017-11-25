@@ -36,5 +36,5 @@ class MyModel extends UIDataModel {
   @serializable() email;
   @serializable() phone;
 
-  apiUrl = 't';
+  apiSlug = 't';
 }

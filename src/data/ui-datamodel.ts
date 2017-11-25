@@ -6,14 +6,24 @@
 import { autoinject, transient, computedFrom } from 'aurelia-framework';
 import { getLogger, Logger } from 'aurelia-logging';
 import { metadata as Metadata } from 'aurelia-metadata';
+import { UIHttpService } from "../utils/ui-http";
+import { UIEvent } from "../utils/ui-event";
+import { UIUtils } from "../utils/ui-utils";
 import * as _ from "lodash";
+
+const ERROR_CODES = {
+  NO_API: { errorCode: 'AUF-DM:000', message: "API route required" },
+  REJECTED: { errorCode: 'AUF-DM:001', message: "REST call rejected" },
+  UNKNOWNID: { errorCode: 'AUF-DM:002', message: "Data model not loaded" }
+}
 
 export class UIDataModel {
   private metadata: ModelMetadata;
+  private httpClient;
   public logger;
 
   constructor(id?) {
-    this.metadata = Metadata.get(Metadata.properties, Object.getPrototypeOf(this)) as ModelMetadata;
+    this.metadata = Metadata.getOrCreateOwn(Metadata.properties, ModelMetadata, Object.getPrototypeOf(this)) as ModelMetadata;
     Object.defineProperties(this, this.metadata.propertyDefs);
 
     this.metadata.original = _.cloneDeep(this.serialize());
@@ -24,7 +34,7 @@ export class UIDataModel {
         enumerable: true,
         writable: true
       },
-      apiUrl: {
+      apiSlug: {
         enumerable: false,
         writable: true
       },
@@ -36,6 +46,11 @@ export class UIDataModel {
         enumerable: false
       },
       busy: {
+        enumerable: false
+      },
+      'httpClient': {
+        value: UIUtils.lazy(UIHttpService),
+        writable: false,
         enumerable: false
       },
       logger: {
@@ -56,20 +71,27 @@ export class UIDataModel {
   busy = false;
   loaded = false;
 
+  /**
+   * @description Get record by id
+   * @param any record id
+   **/
   get(id) {
-    if (!this.apiUrl) return Promise.reject({ errorCode: 'AUF-DM:000', message: "API route required" });;
+    if (!this.apiSlug) return Promise.reject(ERROR_CODES.NO_API);;
 
     return this.callPreHook('preGet', id)
       .then(result => {
         if (result !== false) {
           return this.doGet(id);
         }
-        Promise.reject({ errorCode: 'AUF-DM:001', message: "Get rejected" });
+        Promise.reject(ERROR_CODES.REJECTED);
       }).then(response => this.postGet(response));
   }
 
+  /**
+   * @description Save record, perform post if not loaded else perform a put
+   **/
   save() {
-    if (!this.apiUrl) return Promise.reject({ errorCode: 'AUF-DM:000', message: "API route required" });
+    if (!this.apiSlug) return Promise.reject(ERROR_CODES.NO_API);
 
     return this.callPreHook('preSave')
       .then(result => {
@@ -77,60 +99,98 @@ export class UIDataModel {
           if (this.loaded) return this.doPut();
           else return this.doPost();
         }
-        Promise.reject({ errorCode: 'AUF-DM:002', message: "Save rejected" });
+        Promise.reject(ERROR_CODES.REJECTED);
       }).then(response => {
         this.loaded = true;
-        this.deserialize(this.serialize());
         this.postSave(response);
       });
   }
 
+  /**
+   * @description Delete record
+   **/
   delete() {
-    if (!this.apiUrl) return Promise.reject({ errorCode: 'AUF-DM:000', message: "API route required" });;
-    if (!this.loaded) return Promise.reject({ errorCode: 'AUF-DM:009', message: "Unknown id for model object" });;
+    if (!this.apiSlug) return Promise.reject(ERROR_CODES.NO_API);;
+    if (!this.loaded) return Promise.reject(ERROR_CODES.UNKNOWNID);;
 
     return this.callPreHook('preDelete')
       .then(result => {
         if (result !== false) {
           return this.doDelete();
         }
-        Promise.reject({ errorCode: 'AUF-DM:003', message: "Delete rejected" });
-      }).then(response => this.postDelete(response));
+        Promise.reject(ERROR_CODES.REJECTED);
+      }).then(response => {
+        this.postDelete(response);
+        this.dispose();
+      });
   }
 
-  // Pre/Post hooks for fetch calls
-  preGet() { }
-  preSave() { }
-  preDelete() { }
-  postGet(response) { }
-  postSave(response) { }
-  postDelete(response) { }
-
+  /**
+   * @description Update local copy
+   */
   update() {
     this.metadata.updated = _.cloneDeep(this.serialize());
   }
 
+  /**
+   * @description Reset changes to original values
+   */
   reset() {
     this.metadata.updated = Object.assign({}, this.metadata.original);
     this.discard();
   }
 
+  /**
+   * @description Reset changes to previously updated values
+   */
   discard() {
     this.metadata.dirtyProps = [];
     const updated = _.cloneDeep(this.metadata.updated);
     this.metadata.serializableProps.forEach(prop => this[prop] = updated[prop]);
   }
 
+  /**
+   * @description add any observer / disposable object
+   */
+  addObserver(ob) {
+    this.metadata.observers.push(ob);
+  }
+
+  /**
+   * @description Observe a property for changes
+   */
+  observe(property, callback) {
+    this.metadata.observers.push(UIEvent.observe(this, property, callback));
+  }
+
+  /**
+   * @description Dispose the data model, ensuring to dispose all added observers
+   */
+  dispose() {
+    this.logger.info("Model Disposing");
+    while (this.metadata.observers && this.metadata.observers.length) {
+      this.metadata.observers.pop().dispose();
+    }
+  }
+
+  /**
+   * @description Serialize the data model into a POJO
+   */
   serialize() {
     const POJO = {}
     this.metadata.serializableProps.forEach(prop => POJO[prop] = UIDataModel.serializeProperty(this[prop]));
     return POJO;
   }
+  /**
+   * @description Deserialize POJO object into the data model properties
+   */
   deserialize(json) {
     this.loaded = true;
+    if (json[this.idProperty]) this._id = json[this.idProperty];
     this.metadata.original = _.cloneDeep(json);
     this.metadata.updated = _.cloneDeep(json);
-    this.metadata.serializableProps.forEach(prop => this[prop] = json[prop]);
+    Object.keys(json)
+      .forEach(prop => this[prop] = json[prop]);
   }
 
   static serializeObject(o) {
@@ -173,8 +233,15 @@ export class UIDataModel {
   }
 
   // ------ PROTECTED PROPS/METHODS
-  protected apiUrl;
+  protected apiSlug;
   protected idProperty = 'id';
+  // Pre/Post hooks for fetch calls
+  preGet() { }
+  preSave() { }
+  preDelete() { }
+  postGet(response) { }
+  postSave(response) { }
+  postDelete(response) { }
 
   // ------ PRIVATE PROPS/METHODS
   private _id;
@@ -220,15 +287,57 @@ export class UIDataModel {
 
   private doGet(id) {
     //TODO: call deserailize after fetch
+    this.busy = true;
+    return this.httpClient.json(this.apiSlug + id)
+      .then(json => {
+        this.deserialize(json);
+        this.busy = false;
+        return json;
+      })
+      .catch(e => {
+        Promise.reject(e);
+        this.busy = false;
+      });
   }
   private doPost() {
     //TODO: call doUpdate after fetch
+    this.busy = true;
+    return this.httpClient.post(this.apiSlug, this.serialize())
+      .then(json => {
+        this.deserialize(json);
+        this.busy = false;
+        return json;
+      })
+      .catch(e => {
+        Promise.reject(e);
+        this.busy = false;
+      });
   }
   private doPut() {
     //TODO: call doUpdate after fetch
+    this.busy = true;
+    return this.httpClient.put(this.apiSlug + this._id, this.serialize())
+      .then(json => {
+        this.deserialize(json);
+        this.busy = false;
+        return json;
+      })
+      .catch(e => {
+        Promise.reject(e);
+        this.busy = false;
+      });
   }
   private doDelete() {
-    //TODO: call dispose after fetch
+    //TODO: call dispose after fetchthis.busy = true;
+    return this.httpClient.delete(this.apiSlug + this._id)
+      .then(json => {
+        this.busy = false;
+        return json;
+      })
+      .catch(e => {
+        Promise.reject(e);
+        this.busy = false;
+      });
   }
   private doUpdate() {
     this.id = this[this.idProperty] || this.generateId();

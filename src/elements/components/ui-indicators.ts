@@ -3,7 +3,7 @@
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
-import { autoinject, customElement, bindable, bindingMode, inlineView } from 'aurelia-framework';
+import { autoinject, customElement, bindable, bindingMode, inlineView, computedFrom } from 'aurelia-framework';
 import { UIEvent } from "../../utils/ui-event";
 
 @autoinject()
@@ -62,26 +62,27 @@ export class UICrumb {
 
 @autoinject()
 @inlineView(`<template class="ui-pager">
-  <a class="pg-first \${page==0?'disabled':''}" click.trigger="fireChange(page=0)"><ui-glyph glyph="glyph-\${style}-double-left"></ui-glyph></a>
-  <a class="pg-prev \${page==0?'disabled':''}" click.trigger="fireChange(page=page-1)" click.trigger="fireChange(page=totalPages)"><ui-glyph glyph="glyph-\${style}-left"></ui-glyph></a>
-  <span class="pg-input">\${page+1} of \${totalPages}</span>
-  <a class="pg-next \${page+1>=totalPages?'disabled':''}" click.trigger="fireChange(page=page+1)"><ui-glyph glyph="glyph-\${style}-right"></ui-glyph></a>
-  <a class="pg-last \${page+1>=totalPages?'disabled':''}" click.trigger="fireChange(page=totalPages-1)"><ui-glyph glyph="glyph-\${style}-double-right"></ui-glyph></a>
+  <a class="pg-first \${page==0?'ui-disabled':''}" click.trigger="fireChange(page=0)"><ui-glyph glyph="glyph-\${style}-double-left"></ui-glyph></a>
+  <a class="pg-prev \${page==0?'ui-disabled':''}" click.trigger="fireChange(page=page-1)"><ui-glyph glyph="glyph-\${style}-left"></ui-glyph></a>
+  <span class="pg-input">\${page+1} of \${pages}</span>
+  <a class="pg-next \${page+1>=pages?'ui-disabled':''}" click.trigger="fireChange(page=page+1)"><ui-glyph glyph="glyph-\${style}-right"></ui-glyph></a>
+  <a class="pg-last \${page+1>=pages?'ui-disabled':''}" click.trigger="fireChange(page=pages-1)"><ui-glyph glyph="glyph-\${style}-double-right"></ui-glyph></a>
 </template>`)
 @customElement('ui-pager')
 export class UIPager {
   constructor(public element: Element) { }
 
-  bind(bindingContext: Object, overrideContext: Object) {
-    if (this.store)
-      this.totalPages = this.store.totalPages;
-  }
-
   @bindable({ defaultBindingMode: bindingMode.twoWay }) page = 0;
 
   @bindable() store;
   @bindable() style = "chevron";
-  @bindable() totalPages = 1;
+  @bindable() totalPages = 0;
+
+  @computedFrom('store.metadata.totalPages', 'totalPages')
+  get pages() {
+    if (this.store) return this.store.totalPages;
+    return this.totalPages;
+  }
 
   fireChange() {
     if (this.store) this.store.loadPage(this.page);
