@@ -144,7 +144,7 @@ a {
     @include transform(scaleX(-1));
   }
 
-  &.disabled,
+  &.ui-disabled,
   &[disabled] {
     color         : $lightGray;
     pointer-events: none;

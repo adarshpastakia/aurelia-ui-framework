@@ -38,6 +38,7 @@ require("./attributes/ui-tooltip");
 require("./value-converters/ui-lodash");
 require("./value-converters/ui-text");
 __export(require("./data/ui-datamodel"));
+__export(require("./data/ui-datasource"));
 __export(require("./utils/ui-application"));
 __export(require("./utils/ui-constants"));
 __export(require("./utils/ui-dialog"));
@@ -108,10 +109,6 @@ function configure(config, configCallback) {
         },
         apiHeaders: function (t) {
             ui_constants_1.UIConstants.Http.Headers = t;
-            return Configure;
-        },
-        sendAuthHeader: function (t) {
-            ui_constants_1.UIConstants.Http.AuthorizationHeader = t;
             return Configure;
         },
         languages: function (l) {

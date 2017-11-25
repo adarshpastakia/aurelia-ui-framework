@@ -72,8 +72,10 @@ export class BaseList {
         this.inputEl.focus();
     }
     getDisplay(item) {
-        if (this.tpl)
+        if (this.tpl) {
+            console.log(this.tpl, this.tpl.interpolate(item.model));
             return this.tpl.interpolate(item.model);
+        }
         return item.display;
     }
     valueChanged(newValue, oldValue) {
@@ -179,11 +181,12 @@ export class BaseList {
                 el.classList.add('ui-focus');
         }
         if (evt.type === 'blur') {
-            let item = _['findChildren'](this.filtered = this.original, 'items', 'value', this.value === null ? '' : this.value);
-            if (this.forceSelect && !this.isTagInput)
-                this.elValue = item.text;
-            if (this.isTagInput)
+            setTimeout(() => {
+                let item = _['findChildren'](this.filtered, 'items', 'value', this.value === null ? '' : this.value);
                 this.elValue = '';
+                if (this.forceSelect && !this.isTagInput)
+                    this.elValue = item.text;
+            }, 500);
             this.element.classList.remove('ui-focus');
             if (el)
                 el.classList.remove('ui-focus');
@@ -327,6 +330,7 @@ let UICombo = class UICombo extends BaseList {
         this.element = element;
         this.value = '';
         this.dir = '';
+        this.tpl = '';
         this.width = 'auto';
         this.errors = null;
         this.disabled = false;
@@ -354,6 +358,10 @@ __decorate([
     bindable(),
     __metadata("design:type", Object)
 ], UICombo.prototype, "dir", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UICombo.prototype, "tpl", void 0);
 __decorate([
     bindable(),
     __metadata("design:type", Object)
@@ -423,7 +431,7 @@ UICombo = __decorate([
     <template repeat.for="group of filtered"><div if.bind="group.label" class="ui-list-group">\${group.label}</div>
     <div class="ui-list-item \${item.value==value?'ui-selected':''} \${item.disabled?'ui-disabled':''}" repeat.for="item of group.items"
       mouseover.trigger="hilightItem($event)" click.trigger="fireSelect(item.model)">
-      <span class="\${iconClass} \${item.icon}" if.bind="item.icon"></span>&nbsp;<span innerhtml.bind="item.display"></span></div>
+      <span class="\${iconClass} \${item.icon}" if.bind="item.icon"></span>&nbsp;<span innerhtml.bind="getDisplay(item)"></span></div>
     </template></div>
   <div class="ui-input-info" if.bind="helpText" innerhtml.bind="helpText"></div>
 </template>`),
@@ -452,7 +460,7 @@ let UITags = class UITags extends BaseList {
         this.isTagInput = true;
         this.clear = element.hasAttribute('clear');
     }
-    getDisplay(tag) {
+    getTagText(tag) {
         return _['findChildren'](this.original, 'items', 'value', tag).text || tag;
     }
     addValue(val) {
@@ -557,7 +565,7 @@ UITags = __decorate([
     autoinject(),
     inlineView(`<template class="ui-input-wrapper ui-input-list ui-tags" css.bind="{width: width}"><div role="input" class="ui-input-control" dir.bind="dir"><slot></slot>
   <span class="ui-error" if.bind="errors"><ui-glyph glyph="glyph-invalid"></ui-glyph><ul class="ui-error-list"><li repeat.for="err of errors" innerhtml.bind="err"></li></ul></span>
-  <div class="ui-tag-item" repeat.for="tag of value | split" if.bind="tag!=''"><span innerhtml.bind="getDisplay(tag)"></span><i class="ui-clear" click.trigger="removeValue(tag)">&times;</i></div>
+  <div class="ui-tag-item" repeat.for="tag of value | split" if.bind="tag!=''"><span innerhtml.bind="getTagText(tag)"></span><i class="ui-clear" click.trigger="removeValue(tag)">&times;</i></div>
   <input ref="inputEl" value.bind="elValue" autocomplete="off" size="1"
     focus.trigger="fireEvent($event)" blur.trigger="fireEvent($event)" select.trigger="$event.stopPropagation()"
     input.trigger="search() & debounce:200" change.trigger="fireEvent($event)"

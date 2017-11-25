@@ -29,6 +29,7 @@ import './attributes/ui-tooltip';
 import './value-converters/ui-lodash';
 import './value-converters/ui-text';
 export * from './data/ui-datamodel';
+export * from './data/ui-datasource';
 export * from './utils/ui-application';
 export * from './utils/ui-constants';
 export * from './utils/ui-dialog';
@@ -42,7 +43,6 @@ export interface UIConfig {
     appKey(t: string): UIConfig;
     apiUrl(t: string): UIConfig;
     apiHeaders(t: any): UIConfig;
-    sendAuthHeader(t: boolean): UIConfig;
     languages(l: Array<any>): UIConfig;
 }
 export declare function configure(config: FrameworkConfiguration, configCallback: any): void;

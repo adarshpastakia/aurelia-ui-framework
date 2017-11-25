@@ -32,7 +32,10 @@ let UIHttpService = class UIHttpService {
                 response(response) {
                     self.logger.info(`Response ${response.status} ${response.url}`);
                     if (response instanceof TypeError) {
-                        return Promise.reject({ errorCode: '0xFFFF', message: response['message'] });
+                        return Promise.reject({
+                            errorCode: response.status || '0xFFFF',
+                            message: response['message'] || response.statusText || 'Network Error!!'
+                        });
                     }
                     if (response.status == 401 && ~response.url.indexOf(self.httpClient.baseUrl)) {
                         eventAggregator.publish('auf:unauthorized', null);
@@ -45,8 +48,8 @@ let UIHttpService = class UIHttpService {
                                 json = JSON.parse(resp);
                             }
                             catch (e) { }
-                            const message = json.message || json.error || '0xFFFF';
-                            const errorCode = json.errorCode || json.error || 'Network Error!!';
+                            const errorCode = json.errorCode || json.error || '0xFFFF';
+                            const message = json.message || json.error || 'Network Error!!';
                             return Promise.reject({ errorCode, message });
                         });
                     }
@@ -58,72 +61,74 @@ let UIHttpService = class UIHttpService {
     setBaseUrl(url) {
         this.httpClient.baseUrl = url;
     }
-    static buildQueryString(json) {
-        return Object.keys(json)
+    buildQueryString(json) {
+        if (!json)
+            return '';
+        return '?' + Object.keys(json)
             .map(k => escape(k) + "=" + escape(json[k]))
             .join('&');
     }
     get(slug, headers = true) {
         return this.json(slug, headers);
     }
-    json(slug, headers = true) {
+    json(slug, query = null, headers = true) {
         this.logger.info(`get [${slug}]`);
         return this.httpClient
-            .fetch(slug, {
+            .fetch(slug + this.buildQueryString(query), {
             method: 'get',
             mode: 'cors',
             headers: this.__getHeaders(headers)
         })
             .then(resp => this.__getResponse(resp));
     }
-    text(slug, headers = false) {
+    text(slug, query = null, headers = false) {
         this.logger.info(`text [${slug}]`);
         return this.httpClient
-            .fetch(slug, {
+            .fetch(slug + this.buildQueryString(query), {
             method: 'get',
             mode: 'cors',
             headers: this.__getHeaders(headers)
         })
             .then(resp => resp.text());
     }
-    blob(slug, headers = false) {
+    blob(slug, query = null, headers = false) {
         this.logger.info(`text [${slug}]`);
         return this.httpClient
-            .fetch(slug, {
+            .fetch(slug + this.buildQueryString(query), {
             method: 'get',
             mode: 'cors',
             headers: this.__getHeaders(headers)
         })
             .then(resp => resp.blob());
     }
-    patch(slug, obj, headers = true) {
+    patch(slug, body, headers = true) {
         this.logger.info(`patch [${slug}]`);
         return this.httpClient
             .fetch(slug, {
             method: 'patch',
-            body: json(obj),
+            body: json(body),
             mode: 'cors',
             headers: this.__getHeaders(headers)
         })
             .then(resp => this.__getResponse(resp));
     }
-    put(slug, obj, headers = true) {
+    put(slug, body, headers = true) {
         this.logger.info(`put [${slug}]`);
         return this.httpClient
             .fetch(slug, {
             method: 'put',
-            body: json(obj),
+            body: json(body),
             mode: 'cors',
             headers: this.__getHeaders(headers)
         })
             .then(resp => this.__getResponse(resp));
     }
-    post(slug, obj, headers = true) {
+    post(slug, body, headers = true) {
         this.logger.info(`post [${slug}]`);
         return this.httpClient
             .fetch(slug, {
             method: 'post',
-            body: json(obj),
+            body: json(body),
             mode: 'cors',
             headers: this.__getHeaders(headers)
         })
@@ -188,10 +193,11 @@ let UIHttpService = class UIHttpService {
             'Access-Control-Allow-Origin': '*'
         };
         Object.assign(headers, UIConstants.Http.Headers || {});
-        if (override !== false && UIConstants.Http.AuthorizationHeader && !isEmpty(this.app.AuthUser)) {
-            var token = this.app.AuthUser + ":" + this.app.AuthToken;
-            var hash = btoa(token);
-            headers['Authorization'] = "Basic " + hash;
+        if (override !== false) {
+            if (typeof UIConstants.Http.AuthorizationHeader === 'function')
+                Object.assign(headers, UIConstants.Http.AuthorizationHeader() || {});
+            if (typeof UIConstants.Http.AuthorizationHeader === 'object')
+                Object.assign(headers, UIConstants.Http.AuthorizationHeader || {});
         }
         if (typeof override == 'object') {
             Object.assign(headers, override || {});

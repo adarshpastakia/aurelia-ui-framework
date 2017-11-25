@@ -32,8 +32,7 @@ export class HttpService {
     }
     this.httpClient.post(`${this.baseUrl}/login`, bad ? {} : body)
       .then(r => {
-        this.app.AuthUser = 'user@email.com';
-        this.token = this.app.AuthToken = r.token;
+        this.token = r.token;
         this.authPassed = true;
         this.authResponse = r;
         this.fetching = 0;

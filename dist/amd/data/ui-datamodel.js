@@ -7,15 +7,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-define(["require", "exports", "aurelia-framework", "aurelia-logging", "aurelia-metadata", "lodash"], function (require, exports, aurelia_framework_1, aurelia_logging_1, aurelia_metadata_1, _) {
+define(["require", "exports", "aurelia-framework", "aurelia-logging", "aurelia-metadata", "../utils/ui-http", "../utils/ui-event", "../utils/ui-utils", "lodash"], function (require, exports, aurelia_framework_1, aurelia_logging_1, aurelia_metadata_1, ui_http_1, ui_event_1, ui_utils_1, _) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    var ERROR_CODES = {
+        NO_API: { errorCode: 'AUF-DM:000', message: "API route required" },
+        REJECTED: { errorCode: 'AUF-DM:001', message: "REST call rejected" },
+        UNKNOWNID: { errorCode: 'AUF-DM:002', message: "Data model not loaded" }
+    };
     var UIDataModel = (function () {
         function UIDataModel(id) {
             this.busy = false;
             this.loaded = false;
             this.idProperty = 'id';
-            this.metadata = aurelia_metadata_1.metadata.get(aurelia_metadata_1.metadata.properties, Object.getPrototypeOf(this));
+            this.metadata = aurelia_metadata_1.metadata.getOrCreateOwn(aurelia_metadata_1.metadata.properties, ModelMetadata, Object.getPrototypeOf(this));
             Object.defineProperties(this, this.metadata.propertyDefs);
             this.metadata.original = _.cloneDeep(this.serialize());
             this.metadata.updated = _.cloneDeep(this.serialize());
@@ -24,7 +29,7 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "aurelia-m
                     enumerable: true,
                     writable: true
                 },
-                apiUrl: {
+                apiSlug: {
                     enumerable: false,
                     writable: true
                 },
@@ -36,6 +41,11 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "aurelia-m
                     enumerable: false
                 },
                 busy: {
+                    enumerable: false
+                },
+                'httpClient': {
+                    value: ui_utils_1.UIUtils.lazy(ui_http_1.UIHttpService),
+                    writable: false,
                     enumerable: false
                 },
                 logger: {
@@ -52,21 +62,21 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "aurelia-m
         }
         UIDataModel.prototype.get = function (id) {
             var _this = this;
-            if (!this.apiUrl)
-                return Promise.reject({ errorCode: 'AUF-DM:000', message: "API route required" });
+            if (!this.apiSlug)
+                return Promise.reject(ERROR_CODES.NO_API);
             ;
             return this.callPreHook('preGet', id)
                 .then(function (result) {
                 if (result !== false) {
                     return _this.doGet(id);
                 }
-                Promise.reject({ errorCode: 'AUF-DM:001', message: "Get rejected" });
+                Promise.reject(ERROR_CODES.REJECTED);
             }).then(function (response) { return _this.postGet(response); });
         };
         UIDataModel.prototype.save = function () {
             var _this = this;
-            if (!this.apiUrl)
-                return Promise.reject({ errorCode: 'AUF-DM:000', message: "API route required" });
+            if (!this.apiSlug)
+                return Promise.reject(ERROR_CODES.NO_API);
             return this.callPreHook('preSave')
                 .then(function (result) {
                 if (result !== false) {
@@ -75,35 +85,31 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "aurelia-m
                     else
                         return _this.doPost();
                 }
-                Promise.reject({ errorCode: 'AUF-DM:002', message: "Save rejected" });
+                Promise.reject(ERROR_CODES.REJECTED);
             }).then(function (response) {
                 _this.loaded = true;
-                _this.deserialize(_this.serialize());
                 _this.postSave(response);
             });
         };
         UIDataModel.prototype.delete = function () {
             var _this = this;
-            if (!this.apiUrl)
-                return Promise.reject({ errorCode: 'AUF-DM:000', message: "API route required" });
+            if (!this.apiSlug)
+                return Promise.reject(ERROR_CODES.NO_API);
             ;
             if (!this.loaded)
-                return Promise.reject({ errorCode: 'AUF-DM:009', message: "Unknown id for model object" });
+                return Promise.reject(ERROR_CODES.UNKNOWNID);
             ;
             return this.callPreHook('preDelete')
                 .then(function (result) {
                 if (result !== false) {
                     return _this.doDelete();
                 }
-                Promise.reject({ errorCode: 'AUF-DM:003', message: "Delete rejected" });
-            }).then(function (response) { return _this.postDelete(response); });
+                Promise.reject(ERROR_CODES.REJECTED);
+            }).then(function (response) {
+                _this.postDelete(response);
+                _this.dispose();
+            });
         };
-        UIDataModel.prototype.preGet = function () { };
-        UIDataModel.prototype.preSave = function () { };
-        UIDataModel.prototype.preDelete = function () { };
-        UIDataModel.prototype.postGet = function (response) { };
-        UIDataModel.prototype.postSave = function (response) { };
-        UIDataModel.prototype.postDelete = function (response) { };
         UIDataModel.prototype.update = function () {
             this.metadata.updated = _.cloneDeep(this.serialize());
         };
@@ -117,6 +123,18 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "aurelia-m
             var updated = _.cloneDeep(this.metadata.updated);
             this.metadata.serializableProps.forEach(function (prop) { return _this[prop] = updated[prop]; });
         };
+        UIDataModel.prototype.addObserver = function (ob) {
+            this.metadata.observers.push(ob);
+        };
+        UIDataModel.prototype.observe = function (property, callback) {
+            this.metadata.observers.push(ui_event_1.UIEvent.observe(this, property, callback));
+        };
+        UIDataModel.prototype.dispose = function () {
+            this.logger.info("Model Disposing");
+            while (this.metadata.observers && this.metadata.observers.length) {
+                this.metadata.observers.pop().dispose();
+            }
+        };
         UIDataModel.prototype.serialize = function () {
             var _this = this;
             var POJO = {};
@@ -126,9 +144,12 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "aurelia-m
         UIDataModel.prototype.deserialize = function (json) {
             var _this = this;
             this.loaded = true;
+            if (json[this.idProperty])
+                this._id = json[this.idProperty];
             this.metadata.original = _.cloneDeep(json);
             this.metadata.updated = _.cloneDeep(json);
-            this.metadata.serializableProps.forEach(function (prop) { return _this[prop] = json[prop]; });
+            Object.keys(json)
+                .forEach(function (prop) { return _this[prop] = json[prop]; });
         };
         UIDataModel.serializeObject = function (o) {
             var _this = this;
@@ -172,6 +193,12 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "aurelia-m
             enumerable: true,
             configurable: true
         });
+        UIDataModel.prototype.preGet = function () { };
+        UIDataModel.prototype.preSave = function () { };
+        UIDataModel.prototype.preDelete = function () { };
+        UIDataModel.prototype.postGet = function (response) { };
+        UIDataModel.prototype.postSave = function (response) { };
+        UIDataModel.prototype.postDelete = function (response) { };
         UIDataModel.prototype.generateId = function () {
             return Math.round(Math.random() * new Date().getTime()).toString(18);
         };
@@ -206,12 +233,58 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "aurelia-m
             return Promise.resolve(true);
         };
         UIDataModel.prototype.doGet = function (id) {
+            var _this = this;
+            this.busy = true;
+            return this.httpClient.json(this.apiSlug + id)
+                .then(function (json) {
+                _this.deserialize(json);
+                _this.busy = false;
+                return json;
+            })
+                .catch(function (e) {
+                Promise.reject(e);
+                _this.busy = false;
+            });
         };
         UIDataModel.prototype.doPost = function () {
+            var _this = this;
+            this.busy = true;
+            return this.httpClient.post(this.apiSlug, this.serialize())
+                .then(function (json) {
+                _this.deserialize(json);
+                _this.busy = false;
+                return json;
+            })
+                .catch(function (e) {
+                Promise.reject(e);
+                _this.busy = false;
+            });
         };
         UIDataModel.prototype.doPut = function () {
+            var _this = this;
+            this.busy = true;
+            return this.httpClient.put(this.apiSlug + this._id, this.serialize())
+                .then(function (json) {
+                _this.deserialize(json);
+                _this.busy = false;
+                return json;
+            })
+                .catch(function (e) {
+                Promise.reject(e);
+                _this.busy = false;
+            });
         };
         UIDataModel.prototype.doDelete = function () {
+            var _this = this;
+            return this.httpClient.delete(this.apiSlug + this._id)
+                .then(function (json) {
+                _this.busy = false;
+                return json;
+            })
+                .catch(function (e) {
+                Promise.reject(e);
+                _this.busy = false;
+            });
         };
         UIDataModel.prototype.doUpdate = function () {
             this.id = this[this.idProperty] || this.generateId();

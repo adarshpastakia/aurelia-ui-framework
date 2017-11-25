@@ -52,7 +52,10 @@ System.register(["aurelia-framework", "aurelia-logging", "aurelia-fetch-client",
                             response: function (response) {
                                 self.logger.info("Response " + response.status + " " + response.url);
                                 if (response instanceof TypeError) {
-                                    return Promise.reject({ errorCode: '0xFFFF', message: response['message'] });
+                                    return Promise.reject({
+                                        errorCode: response.status || '0xFFFF',
+                                        message: response['message'] || response.statusText || 'Network Error!!'
+                                    });
                                 }
                                 if (response.status == 401 && ~response.url.indexOf(self.httpClient.baseUrl)) {
                                     eventAggregator.publish('auf:unauthorized', null);
@@ -65,8 +68,8 @@ System.register(["aurelia-framework", "aurelia-logging", "aurelia-fetch-client",
                                             json = JSON.parse(resp);
                                         }
                                         catch (e) { }
-                                        var message = json.message || json.error || '0xFFFF';
-                                        var errorCode = json.errorCode || json.error || 'Network Error!!';
+                                        var errorCode = json.errorCode || json.error || '0xFFFF';
+                                        var message = json.message || json.error || 'Network Error!!';
                                         return Promise.reject({ errorCode: errorCode, message: message });
                                     });
                                 }
@@ -78,8 +81,10 @@ System.register(["aurelia-framework", "aurelia-logging", "aurelia-fetch-client",
                 UIHttpService.prototype.setBaseUrl = function (url) {
                     this.httpClient.baseUrl = url;
                 };
-                UIHttpService.buildQueryString = function (json) {
-                    return Object.keys(json)
+                UIHttpService.prototype.buildQueryString = function (json) {
+                    if (!json)
+                        return '';
+                    return '?' + Object.keys(json)
                         .map(function (k) { return escape(k) + "=" + escape(json[k]); })
                         .join('&');
                 };
@@ -87,74 +92,77 @@ System.register(["aurelia-framework", "aurelia-logging", "aurelia-fetch-client",
                     if (headers === void 0) { headers = true; }
                     return this.json(slug, headers);
                 };
-                UIHttpService.prototype.json = function (slug, headers) {
+                UIHttpService.prototype.json = function (slug, query, headers) {
                     var _this = this;
+                    if (query === void 0) { query = null; }
                     if (headers === void 0) { headers = true; }
                     this.logger.info("get [" + slug + "]");
                     return this.httpClient
-                        .fetch(slug, {
+                        .fetch(slug + this.buildQueryString(query), {
                         method: 'get',
                         mode: 'cors',
                         headers: this.__getHeaders(headers)
                     })
                         .then(function (resp) { return _this.__getResponse(resp); });
                 };
-                UIHttpService.prototype.text = function (slug, headers) {
+                UIHttpService.prototype.text = function (slug, query, headers) {
+                    if (query === void 0) { query = null; }
                     if (headers === void 0) { headers = false; }
                     this.logger.info("text [" + slug + "]");
                     return this.httpClient
-                        .fetch(slug, {
+                        .fetch(slug + this.buildQueryString(query), {
                         method: 'get',
                         mode: 'cors',
                         headers: this.__getHeaders(headers)
                     })
                         .then(function (resp) { return resp.text(); });
                 };
-                UIHttpService.prototype.blob = function (slug, headers) {
+                UIHttpService.prototype.blob = function (slug, query, headers) {
+                    if (query === void 0) { query = null; }
                     if (headers === void 0) { headers = false; }
                     this.logger.info("text [" + slug + "]");
                     return this.httpClient
-                        .fetch(slug, {
+                        .fetch(slug + this.buildQueryString(query), {
                         method: 'get',
                         mode: 'cors',
                         headers: this.__getHeaders(headers)
                     })
                         .then(function (resp) { return resp.blob(); });
                 };
-                UIHttpService.prototype.patch = function (slug, obj, headers) {
+                UIHttpService.prototype.patch = function (slug, body, headers) {
                     var _this = this;
                     if (headers === void 0) { headers = true; }
                     this.logger.info("patch [" + slug + "]");
                     return this.httpClient
                         .fetch(slug, {
                         method: 'patch',
-                        body: aurelia_fetch_client_1.json(obj),
+                        body: aurelia_fetch_client_1.json(body),
                         mode: 'cors',
                         headers: this.__getHeaders(headers)
                     })
                         .then(function (resp) { return _this.__getResponse(resp); });
                 };
-                UIHttpService.prototype.put = function (slug, obj, headers) {
+                UIHttpService.prototype.put = function (slug, body, headers) {
                     var _this = this;
                     if (headers === void 0) { headers = true; }
                     this.logger.info("put [" + slug + "]");
                     return this.httpClient
                         .fetch(slug, {
                         method: 'put',
-                        body: aurelia_fetch_client_1.json(obj),
+                        body: aurelia_fetch_client_1.json(body),
                         mode: 'cors',
                         headers: this.__getHeaders(headers)
                     })
                         .then(function (resp) { return _this.__getResponse(resp); });
                 };
-                UIHttpService.prototype.post = function (slug, obj, headers) {
+                UIHttpService.prototype.post = function (slug, body, headers) {
                     var _this = this;
                     if (headers === void 0) { headers = true; }
                     this.logger.info("post [" + slug + "]");
                     return this.httpClient
                         .fetch(slug, {
                         method: 'post',
-                        body: aurelia_fetch_client_1.json(obj),
+                        body: aurelia_fetch_client_1.json(body),
                         mode: 'cors',
                         headers: this.__getHeaders(headers)
                     })
@@ -225,10 +233,11 @@ System.register(["aurelia-framework", "aurelia-logging", "aurelia-fetch-client",
                         'Access-Control-Allow-Origin': '*'
                     };
                     Object.assign(headers, ui_constants_1.UIConstants.Http.Headers || {});
-                    if (override !== false && ui_constants_1.UIConstants.Http.AuthorizationHeader && !isEmpty(this.app.AuthUser)) {
-                        var token = this.app.AuthUser + ":" + this.app.AuthToken;
-                        var hash = btoa(token);
-                        headers['Authorization'] = "Basic " + hash;
+                    if (override !== false) {
+                        if (typeof ui_constants_1.UIConstants.Http.AuthorizationHeader === 'function')
+                            Object.assign(headers, ui_constants_1.UIConstants.Http.AuthorizationHeader() || {});
+                        if (typeof ui_constants_1.UIConstants.Http.AuthorizationHeader === 'object')
+                            Object.assign(headers, ui_constants_1.UIConstants.Http.AuthorizationHeader || {});
                     }
                     if (typeof override == 'object') {
                         Object.assign(headers, override || {});

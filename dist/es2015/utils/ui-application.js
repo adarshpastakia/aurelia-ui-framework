@@ -18,6 +18,7 @@ let UIApplication = class UIApplication {
         this.router = router;
         this.isBusy = false;
         this.constants = UIConstants;
+        this.Authenticated = false;
         this.sharedState = {};
         this.logger = getLogger('UIApplication');
         this.logger.info('Initialized');
@@ -34,38 +35,15 @@ let UIApplication = class UIApplication {
         return route.isActive || route.href == location.hash ||
             location.hash.indexOf(route.config.redirect || 'QWER') > -1;
     }
-    get AuthUser() {
-        return this.authUser;
-    }
-    set AuthUser(v) {
-        this.authUser = v;
-    }
-    get AuthToken() {
-        return this.authToken;
-    }
-    set AuthToken(v) {
-        this.authToken = v;
-    }
-    get Authenticated() {
-        return this.autenticated;
-    }
-    set Authenticated(v) {
-        this.autenticated = v;
-    }
-    login(user, route) {
-        this.AuthUser = user.username;
-        this.AuthToken = user.token;
-        this.Authenticated = true;
-        this.persist('AppUsername', user.username);
-        this.persist('AppToken', user.remember ? user.token : null);
-        this.navigateTo(route || 'home');
+    login(route = 'home', authHeader) {
         UIEvent.broadcast('auf:login');
+        this.Authenticated = true;
+        this.navigateTo(route);
+        if (authHeader)
+            UIConstants.Http.AuthorizationHeader = authHeader;
     }
     logout() {
-        this.AuthUser = null;
-        this.AuthToken = null;
         UIEvent.broadcast('auf:logout');
-        this.persist('AppToken', null);
         this.Authenticated = false;
         this.navigateTo('login');
     }

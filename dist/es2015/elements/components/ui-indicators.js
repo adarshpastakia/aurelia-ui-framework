@@ -102,11 +102,12 @@ let UIPager = class UIPager {
         this.element = element;
         this.page = 0;
         this.style = "chevron";
-        this.totalPages = 1;
+        this.totalPages = 0;
     }
-    bind(bindingContext, overrideContext) {
+    get pages() {
         if (this.store)
-            this.totalPages = this.store.totalPages;
+            this.store.totalPages;
+        return this.totalPages;
     }
     fireChange() {
         if (this.store)
@@ -133,11 +134,11 @@ __decorate([
 UIPager = __decorate([
     autoinject(),
     inlineView(`<template class="ui-pager">
-  <a class="pg-first \${page==0?'disabled':''}" click.trigger="fireChange(page=0)"><ui-glyph glyph="glyph-\${style}-double-left"></ui-glyph></a>
-  <a class="pg-prev \${page==0?'disabled':''}" click.trigger="fireChange(page=page-1)" click.trigger="fireChange(page=totalPages)"><ui-glyph glyph="glyph-\${style}-left"></ui-glyph></a>
-  <span class="pg-input">\${page+1} of \${totalPages}</span>
-  <a class="pg-next \${page+1>=totalPages?'disabled':''}" click.trigger="fireChange(page=page+1)"><ui-glyph glyph="glyph-\${style}-right"></ui-glyph></a>
-  <a class="pg-last \${page+1>=totalPages?'disabled':''}" click.trigger="fireChange(page=totalPages-1)"><ui-glyph glyph="glyph-\${style}-double-right"></ui-glyph></a>
+  <a class="pg-first \${page==0?'ui-disabled':''}" click.trigger="fireChange(page=0)"><ui-glyph glyph="glyph-\${style}-double-left"></ui-glyph></a>
+  <a class="pg-prev \${page==0?'ui-disabled':''}" click.trigger="fireChange(page=page-1)"><ui-glyph glyph="glyph-\${style}-left"></ui-glyph></a>
+  <span class="pg-input">\${page+1} of \${pages}</span>
+  <a class="pg-next \${page+1>=pages?'ui-disabled':''}" click.trigger="fireChange(page=page+1)"><ui-glyph glyph="glyph-\${style}-right"></ui-glyph></a>
+  <a class="pg-last \${page+1>=pages?'ui-disabled':''}" click.trigger="fireChange(page=pages-1)"><ui-glyph glyph="glyph-\${style}-double-right"></ui-glyph></a>
 </template>`),
     customElement('ui-pager'),
     __metadata("design:paramtypes", [Element])

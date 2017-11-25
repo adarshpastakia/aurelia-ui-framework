@@ -33,6 +33,7 @@ import './attributes/ui-tooltip';
 import './value-converters/ui-lodash';
 import './value-converters/ui-text';
 export * from './data/ui-datamodel';
+export * from './data/ui-datasource';
 export * from './utils/ui-application';
 export * from './utils/ui-constants';
 export * from './utils/ui-dialog';
@@ -103,10 +104,6 @@ export function configure(config, configCallback) {
         },
         apiHeaders: (t) => {
             UIConstants.Http.Headers = t;
-            return Configure;
-        },
-        sendAuthHeader: (t) => {
-            UIConstants.Http.AuthorizationHeader = t;
             return Configure;
         },
         languages: (l) => {

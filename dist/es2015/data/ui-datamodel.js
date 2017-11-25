@@ -10,13 +10,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { computedFrom } from 'aurelia-framework';
 import { getLogger } from 'aurelia-logging';
 import { metadata as Metadata } from 'aurelia-metadata';
+import { UIHttpService } from "../utils/ui-http";
+import { UIEvent } from "../utils/ui-event";
+import { UIUtils } from "../utils/ui-utils";
 import * as _ from "lodash";
+const ERROR_CODES = {
+    NO_API: { errorCode: 'AUF-DM:000', message: "API route required" },
+    REJECTED: { errorCode: 'AUF-DM:001', message: "REST call rejected" },
+    UNKNOWNID: { errorCode: 'AUF-DM:002', message: "Data model not loaded" }
+};
 export class UIDataModel {
     constructor(id) {
         this.busy = false;
         this.loaded = false;
         this.idProperty = 'id';
-        this.metadata = Metadata.get(Metadata.properties, Object.getPrototypeOf(this));
+        this.metadata = Metadata.getOrCreateOwn(Metadata.properties, ModelMetadata, Object.getPrototypeOf(this));
         Object.defineProperties(this, this.metadata.propertyDefs);
         this.metadata.original = _.cloneDeep(this.serialize());
         this.metadata.updated = _.cloneDeep(this.serialize());
@@ -25,7 +33,7 @@ export class UIDataModel {
                 enumerable: true,
                 writable: true
             },
-            apiUrl: {
+            apiSlug: {
                 enumerable: false,
                 writable: true
             },
@@ -37,6 +45,11 @@ export class UIDataModel {
                 enumerable: false
             },
             busy: {
+                enumerable: false
+            },
+            'httpClient': {
+                value: UIUtils.lazy(UIHttpService),
+                writable: false,
                 enumerable: false
             },
             logger: {
@@ -52,20 +65,20 @@ export class UIDataModel {
             this.get(id);
     }
     get(id) {
-        if (!this.apiUrl)
-            return Promise.reject({ errorCode: 'AUF-DM:000', message: "API route required" });
+        if (!this.apiSlug)
+            return Promise.reject(ERROR_CODES.NO_API);
         ;
         return this.callPreHook('preGet', id)
             .then(result => {
             if (result !== false) {
                 return this.doGet(id);
             }
-            Promise.reject({ errorCode: 'AUF-DM:001', message: "Get rejected" });
+            Promise.reject(ERROR_CODES.REJECTED);
         }).then(response => this.postGet(response));
     }
     save() {
-        if (!this.apiUrl)
-            return Promise.reject({ errorCode: 'AUF-DM:000', message: "API route required" });
+        if (!this.apiSlug)
+            return Promise.reject(ERROR_CODES.NO_API);
         return this.callPreHook('preSave')
             .then(result => {
             if (result !== false) {
@@ -74,34 +87,30 @@ export class UIDataModel {
                 else
                     return this.doPost();
             }
-            Promise.reject({ errorCode: 'AUF-DM:002', message: "Save rejected" });
+            Promise.reject(ERROR_CODES.REJECTED);
         }).then(response => {
             this.loaded = true;
-            this.deserialize(this.serialize());
             this.postSave(response);
         });
     }
     delete() {
-        if (!this.apiUrl)
-            return Promise.reject({ errorCode: 'AUF-DM:000', message: "API route required" });
+        if (!this.apiSlug)
+            return Promise.reject(ERROR_CODES.NO_API);
         ;
         if (!this.loaded)
-            return Promise.reject({ errorCode: 'AUF-DM:009', message: "Unknown id for model object" });
+            return Promise.reject(ERROR_CODES.UNKNOWNID);
         ;
         return this.callPreHook('preDelete')
             .then(result => {
             if (result !== false) {
                 return this.doDelete();
             }
-            Promise.reject({ errorCode: 'AUF-DM:003', message: "Delete rejected" });
-        }).then(response => this.postDelete(response));
+            Promise.reject(ERROR_CODES.REJECTED);
+        }).then(response => {
+            this.postDelete(response);
+            this.dispose();
+        });
     }
-    preGet() { }
-    preSave() { }
-    preDelete() { }
-    postGet(response) { }
-    postSave(response) { }
-    postDelete(response) { }
     update() {
         this.metadata.updated = _.cloneDeep(this.serialize());
     }
@@ -114,6 +123,18 @@ export class UIDataModel {
         const updated = _.cloneDeep(this.metadata.updated);
         this.metadata.serializableProps.forEach(prop => this[prop] = updated[prop]);
     }
+    addObserver(ob) {
+        this.metadata.observers.push(ob);
+    }
+    observe(property, callback) {
+        this.metadata.observers.push(UIEvent.observe(this, property, callback));
+    }
+    dispose() {
+        this.logger.info("Model Disposing");
+        while (this.metadata.observers && this.metadata.observers.length) {
+            this.metadata.observers.pop().dispose();
+        }
+    }
     serialize() {
         const POJO = {};
         this.metadata.serializableProps.forEach(prop => POJO[prop] = UIDataModel.serializeProperty(this[prop]));
@@ -121,9 +142,12 @@ export class UIDataModel {
     }
     deserialize(json) {
         this.loaded = true;
+        if (json[this.idProperty])
+            this._id = json[this.idProperty];
         this.metadata.original = _.cloneDeep(json);
         this.metadata.updated = _.cloneDeep(json);
-        this.metadata.serializableProps.forEach(prop => this[prop] = json[prop]);
+        Object.keys(json)
+            .forEach(prop => this[prop] = json[prop]);
     }
     static serializeObject(o) {
         let _pojo = {};
@@ -158,6 +182,12 @@ export class UIDataModel {
         this.metadata.dirtyProps.forEach(prop => ret[prop] = true);
         return ret;
     }
+    preGet() { }
+    preSave() { }
+    preDelete() { }
+    postGet(response) { }
+    postSave(response) { }
+    postDelete(response) { }
     generateId() {
         return Math.round(Math.random() * new Date().getTime()).toString(18);
     }
@@ -192,12 +222,54 @@ export class UIDataModel {
         return Promise.resolve(true);
     }
     doGet(id) {
+        this.busy = true;
+        return this.httpClient.json(this.apiSlug + id)
+            .then(json => {
+            this.deserialize(json);
+            this.busy = false;
+            return json;
+        })
+            .catch(e => {
+            Promise.reject(e);
+            this.busy = false;
+        });
     }
     doPost() {
+        this.busy = true;
+        return this.httpClient.post(this.apiSlug, this.serialize())
+            .then(json => {
+            this.deserialize(json);
+            this.busy = false;
+            return json;
+        })
+            .catch(e => {
+            Promise.reject(e);
+            this.busy = false;
+        });
     }
     doPut() {
+        this.busy = true;
+        return this.httpClient.put(this.apiSlug + this._id, this.serialize())
+            .then(json => {
+            this.deserialize(json);
+            this.busy = false;
+            return json;
+        })
+            .catch(e => {
+            Promise.reject(e);
+            this.busy = false;
+        });
     }
     doDelete() {
+        return this.httpClient.delete(this.apiSlug + this._id)
+            .then(json => {
+            this.busy = false;
+            return json;
+        })
+            .catch(e => {
+            Promise.reject(e);
+            this.busy = false;
+        });
     }
     doUpdate() {
         this.id = this[this.idProperty] || this.generateId();

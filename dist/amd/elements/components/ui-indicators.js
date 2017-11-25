@@ -106,12 +106,17 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event"], func
             this.element = element;
             this.page = 0;
             this.style = "chevron";
-            this.totalPages = 1;
+            this.totalPages = 0;
         }
-        UIPager.prototype.bind = function (bindingContext, overrideContext) {
-            if (this.store)
-                this.totalPages = this.store.totalPages;
-        };
+        Object.defineProperty(UIPager.prototype, "pages", {
+            get: function () {
+                if (this.store)
+                    return this.store.totalPages;
+                return this.totalPages;
+            },
+            enumerable: true,
+            configurable: true
+        });
         UIPager.prototype.fireChange = function () {
             if (this.store)
                 this.store.loadPage(this.page);
@@ -133,9 +138,14 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event"], func
             aurelia_framework_1.bindable(),
             __metadata("design:type", Object)
         ], UIPager.prototype, "totalPages", void 0);
+        __decorate([
+            aurelia_framework_1.computedFrom('store.metadata.totalPages', 'totalPages'),
+            __metadata("design:type", Object),
+            __metadata("design:paramtypes", [])
+        ], UIPager.prototype, "pages", null);
         UIPager = __decorate([
             aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template class=\"ui-pager\">\n  <a class=\"pg-first ${page==0?'disabled':''}\" click.trigger=\"fireChange(page=0)\"><ui-glyph glyph=\"glyph-${style}-double-left\"></ui-glyph></a>\n  <a class=\"pg-prev ${page==0?'disabled':''}\" click.trigger=\"fireChange(page=page-1)\" click.trigger=\"fireChange(page=totalPages)\"><ui-glyph glyph=\"glyph-${style}-left\"></ui-glyph></a>\n  <span class=\"pg-input\">${page+1} of ${totalPages}</span>\n  <a class=\"pg-next ${page+1>=totalPages?'disabled':''}\" click.trigger=\"fireChange(page=page+1)\"><ui-glyph glyph=\"glyph-${style}-right\"></ui-glyph></a>\n  <a class=\"pg-last ${page+1>=totalPages?'disabled':''}\" click.trigger=\"fireChange(page=totalPages-1)\"><ui-glyph glyph=\"glyph-${style}-double-right\"></ui-glyph></a>\n</template>"),
+            aurelia_framework_1.inlineView("<template class=\"ui-pager\">\n  <a class=\"pg-first ${page==0?'ui-disabled':''}\" click.trigger=\"fireChange(page=0)\"><ui-glyph glyph=\"glyph-${style}-double-left\"></ui-glyph></a>\n  <a class=\"pg-prev ${page==0?'ui-disabled':''}\" click.trigger=\"fireChange(page=page-1)\"><ui-glyph glyph=\"glyph-${style}-left\"></ui-glyph></a>\n  <span class=\"pg-input\">${page+1} of ${pages}</span>\n  <a class=\"pg-next ${page+1>=pages?'ui-disabled':''}\" click.trigger=\"fireChange(page=page+1)\"><ui-glyph glyph=\"glyph-${style}-right\"></ui-glyph></a>\n  <a class=\"pg-last ${page+1>=pages?'ui-disabled':''}\" click.trigger=\"fireChange(page=pages-1)\"><ui-glyph glyph=\"glyph-${style}-double-right\"></ui-glyph></a>\n</template>"),
             aurelia_framework_1.customElement('ui-pager'),
             __metadata("design:paramtypes", [Element])
         ], UIPager);

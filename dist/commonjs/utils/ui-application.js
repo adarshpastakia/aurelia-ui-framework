@@ -20,6 +20,7 @@ var UIApplication = (function () {
         this.router = router;
         this.isBusy = false;
         this.constants = ui_constants_1.UIConstants;
+        this.Authenticated = false;
         this.sharedState = {};
         this.logger = aurelia_logging_1.getLogger('UIApplication');
         this.logger.info('Initialized');
@@ -37,50 +38,16 @@ var UIApplication = (function () {
         return route.isActive || route.href == location.hash ||
             location.hash.indexOf(route.config.redirect || 'QWER') > -1;
     };
-    Object.defineProperty(UIApplication.prototype, "AuthUser", {
-        get: function () {
-            return this.authUser;
-        },
-        set: function (v) {
-            this.authUser = v;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(UIApplication.prototype, "AuthToken", {
-        get: function () {
-            return this.authToken;
-        },
-        set: function (v) {
-            this.authToken = v;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(UIApplication.prototype, "Authenticated", {
-        get: function () {
-            return this.autenticated;
-        },
-        set: function (v) {
-            this.autenticated = v;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    UIApplication.prototype.login = function (user, route) {
-        this.AuthUser = user.username;
-        this.AuthToken = user.token;
-        this.Authenticated = true;
-        this.persist('AppUsername', user.username);
-        this.persist('AppToken', user.remember ? user.token : null);
-        this.navigateTo(route || 'home');
+    UIApplication.prototype.login = function (route, authHeader) {
+        if (route === void 0) { route = 'home'; }
         ui_event_1.UIEvent.broadcast('auf:login');
+        this.Authenticated = true;
+        this.navigateTo(route);
+        if (authHeader)
+            ui_constants_1.UIConstants.Http.AuthorizationHeader = authHeader;
     };
     UIApplication.prototype.logout = function () {
-        this.AuthUser = null;
-        this.AuthToken = null;
         ui_event_1.UIEvent.broadcast('auf:logout');
-        this.persist('AppToken', null);
         this.Authenticated = false;
         this.navigateTo('login');
     };

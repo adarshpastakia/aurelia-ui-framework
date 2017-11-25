@@ -55,6 +55,7 @@ export declare class UICombo extends BaseList {
     value: string;
     model: any;
     dir: string;
+    tpl: string;
     width: string;
     errors: any;
     disabled: boolean;
@@ -87,7 +88,7 @@ export declare class UITags extends BaseList {
     displayProperty: string;
     iconProperty: string;
     forceSelect: boolean;
-    getDisplay(tag: any): any;
+    getTagText(tag: any): any;
     addValue(val: any): void;
     removeValue(val: any): void;
     fireSelect(model?: any): void;

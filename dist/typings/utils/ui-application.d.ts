@@ -5,19 +5,29 @@ export declare class UIApplication {
     private logger;
     isBusy: boolean;
     constants: typeof UIConstants;
+    Authenticated: boolean;
     constructor(router: Router);
+    /**
+     * @description Navigate to a using hash route
+     */
     navigate(hash: any, options?: any): void;
+    /**
+     * @description Navigate to a using route name
+     */
     navigateTo(route: any, params?: {}, options?: any): void;
+    /**
+     * @description Check if route is active, this includes redirected routes
+     */
     routeActive(route: any): any;
-    /** App Constants **/
-    private authUser;
-    private authToken;
-    private autenticated;
-    AuthUser: any;
-    AuthToken: any;
-    Authenticated: any;
-    login(user: any, route?: any): void;
+    /**
+     * @description Perform login action, optionally set current session authentication header
+     */
+    login(route?: string, authHeader?: any): void;
+    /**
+     * @description Perform logout action
+     */
     logout(): void;
+    /** App Shared State **/
     private sharedState;
     shared(key: any, value?: any): any;
     /** Session State **/

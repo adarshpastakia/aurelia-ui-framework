@@ -13,76 +13,58 @@ export class UIApplication {
 
   public isBusy: boolean = false;
   public constants = UIConstants;
+  public Authenticated: boolean = false;
 
   constructor(public router: Router) {
     this.logger = getLogger('UIApplication');
     this.logger.info('Initialized');
   }
 
+  /**
+   * @description Navigate to a using hash route
+   */
   navigate(hash, options?) {
     this.logger.info("navigate::" + hash);
     this.router.navigate(hash, options);
   }
 
+  /**
+   * @description Navigate to a using route name
+   */
   navigateTo(route, params = {}, options?) {
     this.logger.info("navigateTo::" + route);
     this.router.navigateToRoute(route, params, options);
   }
 
+  /**
+   * @description Check if route is active, this includes redirected routes
+   */
   routeActive(route) {
     return route.isActive || route.href == location.hash ||
       location.hash.indexOf(route.config.redirect || 'QWER') > -1;
   }
 
-  /** App Constants **/
-  private authUser;
-  private authToken;
-  private autenticated;
-
-  get AuthUser() {
-    return this.authUser;
-  }
-
-  set AuthUser(v) {
-    this.authUser = v;
-  }
-
-  get AuthToken() {
-    return this.authToken;
-  }
-
-  set AuthToken(v) {
-    this.authToken = v;
-  }
-
-  get Authenticated() {
-    return this.autenticated;
-  }
-
-  set Authenticated(v) {
-    this.autenticated = v;
-  }
-
-  login(user, route?) {
-    this.AuthUser = user.username;
-    this.AuthToken = user.token;
-    this.Authenticated = true;
-
-    this.persist('AppUsername', user.username);
-    this.persist('AppToken', user.remember ? user.token : null);
-
-    this.navigateTo(route || 'home');
+  /**
+   * @description Perform login action, optionally set current session authentication header
+   */
+  login(route = 'home', authHeader?) {
     UIEvent.broadcast('auf:login');
+    this.Authenticated = true;
+    this.navigateTo(route);
+
+    if (authHeader) UIConstants.Http.AuthorizationHeader = authHeader;
   }
+
+  /**
+   * @description Perform logout action
+   */
   logout() {
-    this.AuthUser = null;
-    this.AuthToken = null;
     UIEvent.broadcast('auf:logout');
-    this.persist('AppToken', null);
     this.Authenticated = false;
     this.navigateTo('login');
   }
 
+  /** App Shared State **/
   private sharedState = {};
   shared(key, value: any = '§') {
     if (value === '§') {

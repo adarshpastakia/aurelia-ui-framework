@@ -3769,13 +3769,14 @@ String.prototype.ascii = function() {
 
 define("auf-utility-library/libs/window", [],function(){});
 
-define('aurelia-ui-framework/aurelia-ui-framework',["require", "exports", "aurelia-pal", "aurelia-validation", "./utils/ui-constants", "./utils/ui-utils", "./utils/ui-validation", "./data/ui-datamodel", "./utils/ui-application", "./utils/ui-constants", "./utils/ui-dialog", "./utils/ui-event", "./utils/ui-format", "./utils/ui-http", "auf-utility-library", "./elements/core/ui-glyphs", "./elements/core/ui-grid", "./elements/core/ui-page", "./elements/core/ui-viewport", "./elements/components/ui-alerts", "./elements/components/ui-bars", "./elements/components/ui-drawer", "./elements/components/ui-dropdown", "./elements/components/ui-indicators", "./elements/components/ui-menu", "./elements/components/ui-panel", "./elements/components/ui-sidebar", "./elements/components/ui-tabpanel", "./elements/inputs/ui-button", "./elements/inputs/ui-date", "./elements/inputs/ui-form", "./elements/inputs/ui-input", "./elements/inputs/ui-list", "./elements/inputs/ui-markdown", "./elements/inputs/ui-options", "./elements/inputs/ui-phone", "./elements/inputs/ui-textarea", "./attributes/ui-badge", "./attributes/ui-colors", "./attributes/ui-ribbon", "./attributes/ui-tooltip", "./value-converters/ui-lodash", "./value-converters/ui-text"], function (require, exports, aurelia_pal_1, aurelia_validation_1, ui_constants_1, ui_utils_1, ui_validation_1, ui_datamodel_1, ui_application_1, ui_constants_2, ui_dialog_1, ui_event_1, ui_format_1, ui_http_1) {
+define('aurelia-ui-framework/aurelia-ui-framework',["require", "exports", "aurelia-pal", "aurelia-validation", "./utils/ui-constants", "./utils/ui-utils", "./utils/ui-validation", "./data/ui-datamodel", "./data/ui-datasource", "./utils/ui-application", "./utils/ui-constants", "./utils/ui-dialog", "./utils/ui-event", "./utils/ui-format", "./utils/ui-http", "auf-utility-library", "./elements/core/ui-glyphs", "./elements/core/ui-grid", "./elements/core/ui-page", "./elements/core/ui-viewport", "./elements/components/ui-alerts", "./elements/components/ui-bars", "./elements/components/ui-drawer", "./elements/components/ui-dropdown", "./elements/components/ui-indicators", "./elements/components/ui-menu", "./elements/components/ui-panel", "./elements/components/ui-sidebar", "./elements/components/ui-tabpanel", "./elements/inputs/ui-button", "./elements/inputs/ui-date", "./elements/inputs/ui-form", "./elements/inputs/ui-input", "./elements/inputs/ui-list", "./elements/inputs/ui-markdown", "./elements/inputs/ui-options", "./elements/inputs/ui-phone", "./elements/inputs/ui-textarea", "./attributes/ui-badge", "./attributes/ui-colors", "./attributes/ui-ribbon", "./attributes/ui-tooltip", "./value-converters/ui-lodash", "./value-converters/ui-text"], function (require, exports, aurelia_pal_1, aurelia_validation_1, ui_constants_1, ui_utils_1, ui_validation_1, ui_datamodel_1, ui_datasource_1, ui_application_1, ui_constants_2, ui_dialog_1, ui_event_1, ui_format_1, ui_http_1) {
     "use strict";
     function __export(m) {
         for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
     }
     Object.defineProperty(exports, "__esModule", { value: true });
     __export(ui_datamodel_1);
+    __export(ui_datasource_1);
     __export(ui_application_1);
     __export(ui_constants_2);
     __export(ui_dialog_1);
@@ -3846,10 +3847,6 @@ define('aurelia-ui-framework/aurelia-ui-framework',["require", "exports", "aurel
             },
             apiHeaders: function (t) {
                 ui_constants_1.UIConstants.Http.Headers = t;
-                return Configure;
-            },
-            sendAuthHeader: function (t) {
-                ui_constants_1.UIConstants.Http.AuthorizationHeader = t;
                 return Configure;
             },
             languages: function (l) {
@@ -5035,15 +5032,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-define('aurelia-ui-framework/data/ui-datamodel',["require", "exports", "aurelia-framework", "aurelia-logging", "aurelia-metadata", "lodash"], function (require, exports, aurelia_framework_1, aurelia_logging_1, aurelia_metadata_1, _) {
+define('aurelia-ui-framework/data/ui-datamodel',["require", "exports", "aurelia-framework", "aurelia-logging", "aurelia-metadata", "../utils/ui-http", "../utils/ui-event", "../utils/ui-utils", "lodash"], function (require, exports, aurelia_framework_1, aurelia_logging_1, aurelia_metadata_1, ui_http_1, ui_event_1, ui_utils_1, _) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    var ERROR_CODES = {
+        NO_API: { errorCode: 'AUF-DM:000', message: "API route required" },
+        REJECTED: { errorCode: 'AUF-DM:001', message: "REST call rejected" },
+        UNKNOWNID: { errorCode: 'AUF-DM:002', message: "Data model not loaded" }
+    };
     var UIDataModel = (function () {
         function UIDataModel(id) {
             this.busy = false;
             this.loaded = false;
             this.idProperty = 'id';
-            this.metadata = aurelia_metadata_1.metadata.get(aurelia_metadata_1.metadata.properties, Object.getPrototypeOf(this));
+            this.metadata = aurelia_metadata_1.metadata.getOrCreateOwn(aurelia_metadata_1.metadata.properties, ModelMetadata, Object.getPrototypeOf(this));
             Object.defineProperties(this, this.metadata.propertyDefs);
             this.metadata.original = _.cloneDeep(this.serialize());
             this.metadata.updated = _.cloneDeep(this.serialize());
@@ -5052,7 +5054,7 @@ define('aurelia-ui-framework/data/ui-datamodel',["require", "exports", "aurelia-
                     enumerable: true,
                     writable: true
                 },
-                apiUrl: {
+                apiSlug: {
                     enumerable: false,
                     writable: true
                 },
@@ -5064,6 +5066,11 @@ define('aurelia-ui-framework/data/ui-datamodel',["require", "exports", "aurelia-
                     enumerable: false
                 },
                 busy: {
+                    enumerable: false
+                },
+                'httpClient': {
+                    value: ui_utils_1.UIUtils.lazy(ui_http_1.UIHttpService),
+                    writable: false,
                     enumerable: false
                 },
                 logger: {
@@ -5080,21 +5087,21 @@ define('aurelia-ui-framework/data/ui-datamodel',["require", "exports", "aurelia-
         }
         UIDataModel.prototype.get = function (id) {
             var _this = this;
-            if (!this.apiUrl)
-                return Promise.reject({ errorCode: 'AUF-DM:000', message: "API route required" });
+            if (!this.apiSlug)
+                return Promise.reject(ERROR_CODES.NO_API);
             ;
             return this.callPreHook('preGet', id)
                 .then(function (result) {
                 if (result !== false) {
                     return _this.doGet(id);
                 }
-                Promise.reject({ errorCode: 'AUF-DM:001', message: "Get rejected" });
+                Promise.reject(ERROR_CODES.REJECTED);
             }).then(function (response) { return _this.postGet(response); });
         };
         UIDataModel.prototype.save = function () {
             var _this = this;
-            if (!this.apiUrl)
-                return Promise.reject({ errorCode: 'AUF-DM:000', message: "API route required" });
+            if (!this.apiSlug)
+                return Promise.reject(ERROR_CODES.NO_API);
             return this.callPreHook('preSave')
                 .then(function (result) {
                 if (result !== false) {
@@ -5103,35 +5110,31 @@ define('aurelia-ui-framework/data/ui-datamodel',["require", "exports", "aurelia-
                     else
                         return _this.doPost();
                 }
-                Promise.reject({ errorCode: 'AUF-DM:002', message: "Save rejected" });
+                Promise.reject(ERROR_CODES.REJECTED);
             }).then(function (response) {
                 _this.loaded = true;
-                _this.deserialize(_this.serialize());
                 _this.postSave(response);
             });
         };
         UIDataModel.prototype.delete = function () {
             var _this = this;
-            if (!this.apiUrl)
-                return Promise.reject({ errorCode: 'AUF-DM:000', message: "API route required" });
+            if (!this.apiSlug)
+                return Promise.reject(ERROR_CODES.NO_API);
             ;
             if (!this.loaded)
-                return Promise.reject({ errorCode: 'AUF-DM:009', message: "Unknown id for model object" });
+                return Promise.reject(ERROR_CODES.UNKNOWNID);
             ;
             return this.callPreHook('preDelete')
                 .then(function (result) {
                 if (result !== false) {
                     return _this.doDelete();
                 }
-                Promise.reject({ errorCode: 'AUF-DM:003', message: "Delete rejected" });
-            }).then(function (response) { return _this.postDelete(response); });
+                Promise.reject(ERROR_CODES.REJECTED);
+            }).then(function (response) {
+                _this.postDelete(response);
+                _this.dispose();
+            });
         };
-        UIDataModel.prototype.preGet = function () { };
-        UIDataModel.prototype.preSave = function () { };
-        UIDataModel.prototype.preDelete = function () { };
-        UIDataModel.prototype.postGet = function (response) { };
-        UIDataModel.prototype.postSave = function (response) { };
-        UIDataModel.prototype.postDelete = function (response) { };
         UIDataModel.prototype.update = function () {
             this.metadata.updated = _.cloneDeep(this.serialize());
         };
@@ -5145,6 +5148,18 @@ define('aurelia-ui-framework/data/ui-datamodel',["require", "exports", "aurelia-
             var updated = _.cloneDeep(this.metadata.updated);
             this.metadata.serializableProps.forEach(function (prop) { return _this[prop] = updated[prop]; });
         };
+        UIDataModel.prototype.addObserver = function (ob) {
+            this.metadata.observers.push(ob);
+        };
+        UIDataModel.prototype.observe = function (property, callback) {
+            this.metadata.observers.push(ui_event_1.UIEvent.observe(this, property, callback));
+        };
+        UIDataModel.prototype.dispose = function () {
+            this.logger.info("Model Disposing");
+            while (this.metadata.observers && this.metadata.observers.length) {
+                this.metadata.observers.pop().dispose();
+            }
+        };
         UIDataModel.prototype.serialize = function () {
             var _this = this;
             var POJO = {};
@@ -5154,9 +5169,12 @@ define('aurelia-ui-framework/data/ui-datamodel',["require", "exports", "aurelia-
         UIDataModel.prototype.deserialize = function (json) {
             var _this = this;
             this.loaded = true;
+            if (json[this.idProperty])
+                this._id = json[this.idProperty];
             this.metadata.original = _.cloneDeep(json);
             this.metadata.updated = _.cloneDeep(json);
-            this.metadata.serializableProps.forEach(function (prop) { return _this[prop] = json[prop]; });
+            Object.keys(json)
+                .forEach(function (prop) { return _this[prop] = json[prop]; });
         };
         UIDataModel.serializeObject = function (o) {
             var _this = this;
@@ -5200,6 +5218,12 @@ define('aurelia-ui-framework/data/ui-datamodel',["require", "exports", "aurelia-
             enumerable: true,
             configurable: true
         });
+        UIDataModel.prototype.preGet = function () { };
+        UIDataModel.prototype.preSave = function () { };
+        UIDataModel.prototype.preDelete = function () { };
+        UIDataModel.prototype.postGet = function (response) { };
+        UIDataModel.prototype.postSave = function (response) { };
+        UIDataModel.prototype.postDelete = function (response) { };
         UIDataModel.prototype.generateId = function () {
             return Math.round(Math.random() * new Date().getTime()).toString(18);
         };
@@ -5234,12 +5258,58 @@ define('aurelia-ui-framework/data/ui-datamodel',["require", "exports", "aurelia-
             return Promise.resolve(true);
         };
         UIDataModel.prototype.doGet = function (id) {
+            var _this = this;
+            this.busy = true;
+            return this.httpClient.json(this.apiSlug + id)
+                .then(function (json) {
+                _this.deserialize(json);
+                _this.busy = false;
+                return json;
+            })
+                .catch(function (e) {
+                Promise.reject(e);
+                _this.busy = false;
+            });
         };
         UIDataModel.prototype.doPost = function () {
+            var _this = this;
+            this.busy = true;
+            return this.httpClient.post(this.apiSlug, this.serialize())
+                .then(function (json) {
+                _this.deserialize(json);
+                _this.busy = false;
+                return json;
+            })
+                .catch(function (e) {
+                Promise.reject(e);
+                _this.busy = false;
+            });
         };
         UIDataModel.prototype.doPut = function () {
+            var _this = this;
+            this.busy = true;
+            return this.httpClient.put(this.apiSlug + this._id, this.serialize())
+                .then(function (json) {
+                _this.deserialize(json);
+                _this.busy = false;
+                return json;
+            })
+                .catch(function (e) {
+                Promise.reject(e);
+                _this.busy = false;
+            });
         };
         UIDataModel.prototype.doDelete = function () {
+            var _this = this;
+            return this.httpClient.delete(this.apiSlug + this._id)
+                .then(function (json) {
+                _this.busy = false;
+                return json;
+            })
+                .catch(function (e) {
+                Promise.reject(e);
+                _this.busy = false;
+            });
         };
         UIDataModel.prototype.doUpdate = function () {
             this.id = this[this.idProperty] || this.generateId();
@@ -5302,6 +5372,240 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+define('aurelia-ui-framework/utils/ui-http',["require", "exports", "aurelia-framework", "aurelia-logging", "aurelia-fetch-client", "aurelia-event-aggregator", "./ui-application", "./ui-constants"], function (require, exports, aurelia_framework_1, aurelia_logging_1, aurelia_fetch_client_1, aurelia_event_aggregator_1, ui_application_1, ui_constants_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var UIHttpService = (function () {
+        function UIHttpService(httpClient, app, eventAggregator) {
+            this.httpClient = httpClient;
+            this.app = app;
+            this.eventAggregator = eventAggregator;
+            this.logger = aurelia_logging_1.getLogger('UIHttpService');
+            this.logger.info('Initialized');
+            var self = this;
+            httpClient.configure(function (config) {
+                config
+                    .withBaseUrl(ui_constants_1.UIConstants.Http.BaseUrl)
+                    .withInterceptor({
+                    request: function (request) {
+                        self.logger.info("Requesting " + request.method + " " + request.url);
+                        return request;
+                    },
+                    response: function (response) {
+                        self.logger.info("Response " + response.status + " " + response.url);
+                        if (response instanceof TypeError) {
+                            return Promise.reject({
+                                errorCode: response.status || '0xFFFF',
+                                message: response['message'] || response.statusText || 'Network Error!!'
+                            });
+                        }
+                        if (response.status == 401 && ~response.url.indexOf(self.httpClient.baseUrl)) {
+                            eventAggregator.publish('auf:unauthorized', null);
+                        }
+                        else if (response.status >= 400) {
+                            return response.text()
+                                .then(function (resp) {
+                                var json = {};
+                                try {
+                                    json = JSON.parse(resp);
+                                }
+                                catch (e) { }
+                                var errorCode = json.errorCode || json.error || '0xFFFF';
+                                var message = json.message || json.error || 'Network Error!!';
+                                return Promise.reject({ errorCode: errorCode, message: message });
+                            });
+                        }
+                        return response;
+                    }
+                });
+            });
+        }
+        UIHttpService.prototype.setBaseUrl = function (url) {
+            this.httpClient.baseUrl = url;
+        };
+        UIHttpService.prototype.buildQueryString = function (json) {
+            if (!json)
+                return '';
+            return '?' + Object.keys(json)
+                .map(function (k) { return escape(k) + "=" + escape(json[k]); })
+                .join('&');
+        };
+        UIHttpService.prototype.get = function (slug, headers) {
+            if (headers === void 0) { headers = true; }
+            return this.json(slug, headers);
+        };
+        UIHttpService.prototype.json = function (slug, query, headers) {
+            var _this = this;
+            if (query === void 0) { query = null; }
+            if (headers === void 0) { headers = true; }
+            this.logger.info("get [" + slug + "]");
+            return this.httpClient
+                .fetch(slug + this.buildQueryString(query), {
+                method: 'get',
+                mode: 'cors',
+                headers: this.__getHeaders(headers)
+            })
+                .then(function (resp) { return _this.__getResponse(resp); });
+        };
+        UIHttpService.prototype.text = function (slug, query, headers) {
+            if (query === void 0) { query = null; }
+            if (headers === void 0) { headers = false; }
+            this.logger.info("text [" + slug + "]");
+            return this.httpClient
+                .fetch(slug + this.buildQueryString(query), {
+                method: 'get',
+                mode: 'cors',
+                headers: this.__getHeaders(headers)
+            })
+                .then(function (resp) { return resp.text(); });
+        };
+        UIHttpService.prototype.blob = function (slug, query, headers) {
+            if (query === void 0) { query = null; }
+            if (headers === void 0) { headers = false; }
+            this.logger.info("text [" + slug + "]");
+            return this.httpClient
+                .fetch(slug + this.buildQueryString(query), {
+                method: 'get',
+                mode: 'cors',
+                headers: this.__getHeaders(headers)
+            })
+                .then(function (resp) { return resp.blob(); });
+        };
+        UIHttpService.prototype.patch = function (slug, body, headers) {
+            var _this = this;
+            if (headers === void 0) { headers = true; }
+            this.logger.info("patch [" + slug + "]");
+            return this.httpClient
+                .fetch(slug, {
+                method: 'patch',
+                body: aurelia_fetch_client_1.json(body),
+                mode: 'cors',
+                headers: this.__getHeaders(headers)
+            })
+                .then(function (resp) { return _this.__getResponse(resp); });
+        };
+        UIHttpService.prototype.put = function (slug, body, headers) {
+            var _this = this;
+            if (headers === void 0) { headers = true; }
+            this.logger.info("put [" + slug + "]");
+            return this.httpClient
+                .fetch(slug, {
+                method: 'put',
+                body: aurelia_fetch_client_1.json(body),
+                mode: 'cors',
+                headers: this.__getHeaders(headers)
+            })
+                .then(function (resp) { return _this.__getResponse(resp); });
+        };
+        UIHttpService.prototype.post = function (slug, body, headers) {
+            var _this = this;
+            if (headers === void 0) { headers = true; }
+            this.logger.info("post [" + slug + "]");
+            return this.httpClient
+                .fetch(slug, {
+                method: 'post',
+                body: aurelia_fetch_client_1.json(body),
+                mode: 'cors',
+                headers: this.__getHeaders(headers)
+            })
+                .then(function (resp) { return _this.__getResponse(resp); });
+        };
+        UIHttpService.prototype.delete = function (slug, headers) {
+            var _this = this;
+            if (headers === void 0) { headers = true; }
+            this.logger.info("delete [" + slug + "]");
+            return this.httpClient
+                .fetch(slug, {
+                method: 'delete',
+                mode: 'cors',
+                headers: this.__getHeaders(headers)
+            })
+                .then(function (resp) { return _this.__getResponse(resp); });
+        };
+        UIHttpService.prototype.upload = function (slug, form, headers) {
+            if (headers === void 0) { headers = true; }
+            this.logger.info("upload [" + slug + "]");
+            return this.__upload('post', slug, form, headers);
+        };
+        UIHttpService.prototype.reupload = function (slug, form, headers) {
+            if (headers === void 0) { headers = true; }
+            this.logger.info("reupload [" + slug + "]");
+            return this.__upload('put', slug, form, headers);
+        };
+        UIHttpService.prototype.__upload = function (method, slug, form, headers) {
+            var _this = this;
+            var data = new FormData();
+            for (var i = 0, q = form.querySelectorAll('input'); i < q.length; i++) {
+                if (q[i].type == 'file') {
+                    var files = q[i]['draggedFiles'] || q[i].files;
+                    for (var x = 0; x < files.length; x++) {
+                        data.append(q[i].name || ('file' + (i + 1) + (x + 1)), (files[x].file || files[x]), files[x].name);
+                    }
+                }
+                else {
+                    data.append(q[i].name || ('input' + (i + 1)), q[i].value);
+                }
+            }
+            return this.httpClient
+                .fetch(slug, {
+                method: method,
+                body: data,
+                mode: 'cors',
+                headers: this.__getHeaders(headers)
+            })
+                .then(function (resp) { return _this.__getResponse(resp); });
+        };
+        UIHttpService.prototype.__getResponse = function (response) {
+            if (response.status === 204)
+                return null;
+            return response.text().then(function (text) {
+                try {
+                    return JSON.parse(text);
+                }
+                catch (e) {
+                    return {};
+                }
+            });
+        };
+        UIHttpService.prototype.__getHeaders = function (override) {
+            if (override === void 0) { override = true; }
+            var headers = {
+                'X-Requested-With': 'Fetch',
+                'Accept': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            };
+            Object.assign(headers, ui_constants_1.UIConstants.Http.Headers || {});
+            if (override !== false) {
+                if (typeof ui_constants_1.UIConstants.Http.AuthorizationHeader === 'function')
+                    Object.assign(headers, ui_constants_1.UIConstants.Http.AuthorizationHeader() || {});
+                if (typeof ui_constants_1.UIConstants.Http.AuthorizationHeader === 'object')
+                    Object.assign(headers, ui_constants_1.UIConstants.Http.AuthorizationHeader || {});
+            }
+            if (typeof override == 'object') {
+                Object.assign(headers, override || {});
+            }
+            return headers;
+        };
+        UIHttpService = __decorate([
+            aurelia_framework_1.autoinject(),
+            __metadata("design:paramtypes", [aurelia_fetch_client_1.HttpClient,
+                ui_application_1.UIApplication,
+                aurelia_event_aggregator_1.EventAggregator])
+        ], UIHttpService);
+        return UIHttpService;
+    }());
+    exports.UIHttpService = UIHttpService;
+});
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 define('aurelia-ui-framework/utils/ui-application',["require", "exports", "aurelia-framework", "aurelia-router", "aurelia-logging", "./ui-utils", "./ui-event", "./ui-constants"], function (require, exports, aurelia_framework_1, aurelia_router_1, aurelia_logging_1, ui_utils_1, ui_event_1, ui_constants_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
@@ -5310,6 +5614,7 @@ define('aurelia-ui-framework/utils/ui-application',["require", "exports", "aurel
             this.router = router;
             this.isBusy = false;
             this.constants = ui_constants_1.UIConstants;
+            this.Authenticated = false;
             this.sharedState = {};
             this.logger = aurelia_logging_1.getLogger('UIApplication');
             this.logger.info('Initialized');
@@ -5327,50 +5632,16 @@ define('aurelia-ui-framework/utils/ui-application',["require", "exports", "aurel
             return route.isActive || route.href == location.hash ||
                 location.hash.indexOf(route.config.redirect || 'QWER') > -1;
         };
-        Object.defineProperty(UIApplication.prototype, "AuthUser", {
-            get: function () {
-                return this.authUser;
-            },
-            set: function (v) {
-                this.authUser = v;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(UIApplication.prototype, "AuthToken", {
-            get: function () {
-                return this.authToken;
-            },
-            set: function (v) {
-                this.authToken = v;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(UIApplication.prototype, "Authenticated", {
-            get: function () {
-                return this.autenticated;
-            },
-            set: function (v) {
-                this.autenticated = v;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        UIApplication.prototype.login = function (user, route) {
-            this.AuthUser = user.username;
-            this.AuthToken = user.token;
-            this.Authenticated = true;
-            this.persist('AppUsername', user.username);
-            this.persist('AppToken', user.remember ? user.token : null);
-            this.navigateTo(route || 'home');
+        UIApplication.prototype.login = function (route, authHeader) {
+            if (route === void 0) { route = 'home'; }
             ui_event_1.UIEvent.broadcast('auf:login');
+            this.Authenticated = true;
+            this.navigateTo(route);
+            if (authHeader)
+                ui_constants_1.UIConstants.Http.AuthorizationHeader = authHeader;
         };
         UIApplication.prototype.logout = function () {
-            this.AuthUser = null;
-            this.AuthToken = null;
             ui_event_1.UIEvent.broadcast('auf:logout');
-            this.persist('AppToken', null);
             this.Authenticated = false;
             this.navigateTo('login');
         };
@@ -5526,6 +5797,232 @@ define('aurelia-ui-framework/utils/ui-application',["require", "exports", "aurel
         return AuthInterceptor;
     }());
     exports.AuthInterceptor = AuthInterceptor;
+});
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+define('aurelia-ui-framework/data/ui-datasource',["require", "exports", "aurelia-framework", "aurelia-logging", "aurelia-metadata", "../utils/ui-http", "../utils/ui-event", "../utils/ui-utils", "lodash"], function (require, exports, aurelia_framework_1, aurelia_logging_1, aurelia_metadata_1, ui_http_1, ui_event_1, ui_utils_1, _) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var ERROR_CODES = {
+        NO_API: { errorCode: 'AUF-DM:000', message: "API route required" },
+        REJECTED: { errorCode: 'AUF-DM:001', message: "REST call rejected" },
+        UNKNOWNID: { errorCode: 'AUF-DM:002', message: "Data model not loaded" }
+    };
+    var DEFAULT_OPTIONS = {
+        apiSlug: '',
+        paginate: false,
+        recordsPerPage: 10,
+        rootProperty: 'data',
+        pageProperty: 'page',
+        queryProperty: 'query',
+        sortByProperty: 'sortBy',
+        orderByProperty: 'orderBy',
+        totalPagesProperty: 'totalPages',
+        totalRecordsProperty: 'totalRecords',
+        recordsPerPageProperty: 'recordsPerPage',
+        remoteSorting: true,
+        remoteFiltering: true
+    };
+    var UIDataSource = (function () {
+        function UIDataSource(options) {
+            if (options === void 0) { options = {}; }
+            var _this = this;
+            this.data = [];
+            this.busy = false;
+            this.loaded = false;
+            this.paginate = false;
+            this.metadata = aurelia_metadata_1.metadata.getOrCreateOwn(aurelia_metadata_1.metadata.properties, DSMetadata, Object.getPrototypeOf(this));
+            this.logger = aurelia_logging_1.getLogger(this.constructor.name);
+            options = Object.assign({}, DEFAULT_OPTIONS, options);
+            Object.keys(options).forEach(function (key) { return (_this.hasOwnProperty(key) && (_this[key] = options[key]))
+                || (_this.metadata.hasOwnProperty(key) && (_this.metadata[key] = options[key])); });
+        }
+        UIDataSource.prototype.load = function (dataList) {
+            if (dataList === void 0) { dataList = []; }
+            this.metadata.original = dataList;
+            this.buildDataList();
+        };
+        UIDataSource.prototype.loadPage = function (page) {
+            this.metadata.page = page;
+            this.buildDataList();
+        };
+        UIDataSource.prototype.filter = function (query) { };
+        UIDataSource.prototype.sort = function (column, order) {
+            this.metadata.sortBy = column;
+            this.metadata.orderBy = order;
+            this.buildDataList();
+        };
+        Object.defineProperty(UIDataSource.prototype, "totalPages", {
+            get: function () {
+                return this.metadata.totalPages;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(UIDataSource.prototype, "totalRecords", {
+            get: function () {
+                return this.metadata.totalRecords;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(UIDataSource.prototype, "recordsPerPage", {
+            get: function () {
+                return this.metadata.recordsPerPage;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(UIDataSource.prototype, "page", {
+            get: function () {
+                return this.metadata.page;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(UIDataSource.prototype, "sortBy", {
+            get: function () {
+                return this.metadata.sortBy;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(UIDataSource.prototype, "orderBy", {
+            get: function () {
+                return this.metadata.orderBy;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        UIDataSource.prototype.buildDataList = function () {
+            var _this = this;
+            ui_event_1.UIEvent.queueTask(function () { return _this.busy = true; });
+            var filtered = _.orderBy(this.metadata.original, [this.metadata.sortBy || 'id'], [this.metadata.orderBy]);
+            if (this.paginate) {
+                this.metadata.totalRecords = filtered.length;
+                this.metadata.totalPages = Math.ceil(filtered.length / this.metadata.recordsPerPage);
+                filtered = filtered.splice((this.metadata.page * this.metadata.recordsPerPage), this.metadata.recordsPerPage);
+            }
+            ui_event_1.UIEvent.queueTask(function () { return _this.data = filtered; });
+            ui_event_1.UIEvent.queueTask(function () { return [_this.busy = false, _this.loaded = true]; });
+        };
+        __decorate([
+            aurelia_framework_1.computedFrom('metadata.totalPages'),
+            __metadata("design:type", Object),
+            __metadata("design:paramtypes", [])
+        ], UIDataSource.prototype, "totalPages", null);
+        __decorate([
+            aurelia_framework_1.computedFrom('metadata.totalRecords'),
+            __metadata("design:type", Object),
+            __metadata("design:paramtypes", [])
+        ], UIDataSource.prototype, "totalRecords", null);
+        __decorate([
+            aurelia_framework_1.computedFrom('metadata.recordsPerPage'),
+            __metadata("design:type", Object),
+            __metadata("design:paramtypes", [])
+        ], UIDataSource.prototype, "recordsPerPage", null);
+        __decorate([
+            aurelia_framework_1.computedFrom('metadata.page'),
+            __metadata("design:type", Object),
+            __metadata("design:paramtypes", [])
+        ], UIDataSource.prototype, "page", null);
+        __decorate([
+            aurelia_framework_1.computedFrom('metadata.sortBy'),
+            __metadata("design:type", Object),
+            __metadata("design:paramtypes", [])
+        ], UIDataSource.prototype, "sortBy", null);
+        __decorate([
+            aurelia_framework_1.computedFrom('metadata.orderBy'),
+            __metadata("design:type", Object),
+            __metadata("design:paramtypes", [])
+        ], UIDataSource.prototype, "orderBy", null);
+        return UIDataSource;
+    }());
+    exports.UIDataSource = UIDataSource;
+    var UIRemoteDataSource = (function (_super) {
+        __extends(UIRemoteDataSource, _super);
+        function UIRemoteDataSource() {
+            var _this = _super !== null && _super.apply(this, arguments) || this;
+            _this.rootProperty = 'data';
+            _this.pageProperty = 'page';
+            _this.queryProperty = 'query';
+            _this.sortByProperty = 'sortBy';
+            _this.orderByProperty = 'orderBy';
+            _this.totalPagesProperty = 'totalPages';
+            _this.totalRecordsProperty = 'totalRecords';
+            _this.recordsPerPageProperty = 'recordsPerPage';
+            _this.remoteSorting = true;
+            _this.remoteFiltering = true;
+            _this.httpClient = ui_utils_1.UIUtils.lazy(ui_http_1.UIHttpService);
+            return _this;
+        }
+        UIRemoteDataSource.prototype.load = function () { };
+        UIRemoteDataSource.prototype.loadPage = function (page) { };
+        UIRemoteDataSource.prototype.filter = function (query) { };
+        UIRemoteDataSource.prototype.sort = function (column, order) { };
+        UIRemoteDataSource.prototype.preRequest = function (req) { };
+        UIRemoteDataSource.prototype.postRequest = function (req) { };
+        UIRemoteDataSource.prototype.buildQueryObject = function () {
+        };
+        UIRemoteDataSource.prototype.doRequest = function () {
+            if (!this.apiSlug)
+                return Promise.reject(ERROR_CODES.NO_API);
+            ;
+            var queryObject = this.buildQueryObject();
+            var url = "" + this.apiSlug + this.httpClient.buildQueryString(queryObject);
+            this.callPreHook('preRequest', { url: url, queryObject: queryObject })
+                .then(function (result) {
+                if (result !== false) {
+                }
+                Promise.reject(ERROR_CODES.REJECTED);
+            }).then(function (response) {
+            });
+        };
+        UIRemoteDataSource.prototype.callPreHook = function (hook, data) {
+            var result = this[hook](data);
+            if (result instanceof Promise) {
+                return result;
+            }
+            if (result !== null && result !== undefined) {
+                return Promise.resolve(result);
+            }
+            return Promise.resolve(true);
+        };
+        return UIRemoteDataSource;
+    }(UIDataSource));
+    exports.UIRemoteDataSource = UIRemoteDataSource;
+    var DSMetadata = (function () {
+        function DSMetadata() {
+            this.original = [];
+            this.apiSlug = '';
+            this.query = '';
+            this.page = 0;
+            this.sortBy = '';
+            this.orderBy = 'asc';
+            this.totalPages = 0;
+            this.totalRecords = 0;
+            this.recordsPerPage = 10;
+        }
+        return DSMetadata;
+    }());
 });
 
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -6005,231 +6502,6 @@ define('aurelia-ui-framework/utils/ui-format',["require", "exports", "kramed", "
         }
         UIFormat.exRate = exRate;
     })(UIFormat = exports.UIFormat || (exports.UIFormat = {}));
-});
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-define('aurelia-ui-framework/utils/ui-http',["require", "exports", "aurelia-framework", "aurelia-logging", "aurelia-fetch-client", "aurelia-event-aggregator", "./ui-application", "./ui-constants"], function (require, exports, aurelia_framework_1, aurelia_logging_1, aurelia_fetch_client_1, aurelia_event_aggregator_1, ui_application_1, ui_constants_1) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    var UIHttpService = (function () {
-        function UIHttpService(httpClient, app, eventAggregator) {
-            this.httpClient = httpClient;
-            this.app = app;
-            this.eventAggregator = eventAggregator;
-            this.logger = aurelia_logging_1.getLogger('UIHttpService');
-            this.logger.info('Initialized');
-            var self = this;
-            httpClient.configure(function (config) {
-                config
-                    .withBaseUrl(ui_constants_1.UIConstants.Http.BaseUrl)
-                    .withInterceptor({
-                    request: function (request) {
-                        self.logger.info("Requesting " + request.method + " " + request.url);
-                        return request;
-                    },
-                    response: function (response) {
-                        self.logger.info("Response " + response.status + " " + response.url);
-                        if (response instanceof TypeError) {
-                            return Promise.reject({ errorCode: '0xFFFF', message: response['message'] });
-                        }
-                        if (response.status == 401 && ~response.url.indexOf(self.httpClient.baseUrl)) {
-                            eventAggregator.publish('auf:unauthorized', null);
-                        }
-                        else if (response.status >= 400) {
-                            return response.text()
-                                .then(function (resp) {
-                                var json = {};
-                                try {
-                                    json = JSON.parse(resp);
-                                }
-                                catch (e) { }
-                                var message = json.message || json.error || '0xFFFF';
-                                var errorCode = json.errorCode || json.error || 'Network Error!!';
-                                return Promise.reject({ errorCode: errorCode, message: message });
-                            });
-                        }
-                        return response;
-                    }
-                });
-            });
-        }
-        UIHttpService.prototype.setBaseUrl = function (url) {
-            this.httpClient.baseUrl = url;
-        };
-        UIHttpService.buildQueryString = function (json) {
-            return Object.keys(json)
-                .map(function (k) { return escape(k) + "=" + escape(json[k]); })
-                .join('&');
-        };
-        UIHttpService.prototype.get = function (slug, headers) {
-            if (headers === void 0) { headers = true; }
-            return this.json(slug, headers);
-        };
-        UIHttpService.prototype.json = function (slug, headers) {
-            var _this = this;
-            if (headers === void 0) { headers = true; }
-            this.logger.info("get [" + slug + "]");
-            return this.httpClient
-                .fetch(slug, {
-                method: 'get',
-                mode: 'cors',
-                headers: this.__getHeaders(headers)
-            })
-                .then(function (resp) { return _this.__getResponse(resp); });
-        };
-        UIHttpService.prototype.text = function (slug, headers) {
-            if (headers === void 0) { headers = false; }
-            this.logger.info("text [" + slug + "]");
-            return this.httpClient
-                .fetch(slug, {
-                method: 'get',
-                mode: 'cors',
-                headers: this.__getHeaders(headers)
-            })
-                .then(function (resp) { return resp.text(); });
-        };
-        UIHttpService.prototype.blob = function (slug, headers) {
-            if (headers === void 0) { headers = false; }
-            this.logger.info("text [" + slug + "]");
-            return this.httpClient
-                .fetch(slug, {
-                method: 'get',
-                mode: 'cors',
-                headers: this.__getHeaders(headers)
-            })
-                .then(function (resp) { return resp.blob(); });
-        };
-        UIHttpService.prototype.patch = function (slug, obj, headers) {
-            var _this = this;
-            if (headers === void 0) { headers = true; }
-            this.logger.info("patch [" + slug + "]");
-            return this.httpClient
-                .fetch(slug, {
-                method: 'patch',
-                body: aurelia_fetch_client_1.json(obj),
-                mode: 'cors',
-                headers: this.__getHeaders(headers)
-            })
-                .then(function (resp) { return _this.__getResponse(resp); });
-        };
-        UIHttpService.prototype.put = function (slug, obj, headers) {
-            var _this = this;
-            if (headers === void 0) { headers = true; }
-            this.logger.info("put [" + slug + "]");
-            return this.httpClient
-                .fetch(slug, {
-                method: 'put',
-                body: aurelia_fetch_client_1.json(obj),
-                mode: 'cors',
-                headers: this.__getHeaders(headers)
-            })
-                .then(function (resp) { return _this.__getResponse(resp); });
-        };
-        UIHttpService.prototype.post = function (slug, obj, headers) {
-            var _this = this;
-            if (headers === void 0) { headers = true; }
-            this.logger.info("post [" + slug + "]");
-            return this.httpClient
-                .fetch(slug, {
-                method: 'post',
-                body: aurelia_fetch_client_1.json(obj),
-                mode: 'cors',
-                headers: this.__getHeaders(headers)
-            })
-                .then(function (resp) { return _this.__getResponse(resp); });
-        };
-        UIHttpService.prototype.delete = function (slug, headers) {
-            var _this = this;
-            if (headers === void 0) { headers = true; }
-            this.logger.info("delete [" + slug + "]");
-            return this.httpClient
-                .fetch(slug, {
-                method: 'delete',
-                mode: 'cors',
-                headers: this.__getHeaders(headers)
-            })
-                .then(function (resp) { return _this.__getResponse(resp); });
-        };
-        UIHttpService.prototype.upload = function (slug, form, headers) {
-            if (headers === void 0) { headers = true; }
-            this.logger.info("upload [" + slug + "]");
-            return this.__upload('post', slug, form, headers);
-        };
-        UIHttpService.prototype.reupload = function (slug, form, headers) {
-            if (headers === void 0) { headers = true; }
-            this.logger.info("reupload [" + slug + "]");
-            return this.__upload('put', slug, form, headers);
-        };
-        UIHttpService.prototype.__upload = function (method, slug, form, headers) {
-            var _this = this;
-            var data = new FormData();
-            for (var i = 0, q = form.querySelectorAll('input'); i < q.length; i++) {
-                if (q[i].type == 'file') {
-                    var files = q[i]['draggedFiles'] || q[i].files;
-                    for (var x = 0; x < files.length; x++) {
-                        data.append(q[i].name || ('file' + (i + 1) + (x + 1)), (files[x].file || files[x]), files[x].name);
-                    }
-                }
-                else {
-                    data.append(q[i].name || ('input' + (i + 1)), q[i].value);
-                }
-            }
-            return this.httpClient
-                .fetch(slug, {
-                method: method,
-                body: data,
-                mode: 'cors',
-                headers: this.__getHeaders(headers)
-            })
-                .then(function (resp) { return _this.__getResponse(resp); });
-        };
-        UIHttpService.prototype.__getResponse = function (response) {
-            if (response.status === 204)
-                return null;
-            return response.text().then(function (text) {
-                try {
-                    return JSON.parse(text);
-                }
-                catch (e) {
-                    return {};
-                }
-            });
-        };
-        UIHttpService.prototype.__getHeaders = function (override) {
-            if (override === void 0) { override = true; }
-            var headers = {
-                'X-Requested-With': 'Fetch',
-                'Accept': 'application/json',
-                'Access-Control-Allow-Origin': '*'
-            };
-            Object.assign(headers, ui_constants_1.UIConstants.Http.Headers || {});
-            if (override !== false && ui_constants_1.UIConstants.Http.AuthorizationHeader && !isEmpty(this.app.AuthUser)) {
-                var token = this.app.AuthUser + ":" + this.app.AuthToken;
-                var hash = btoa(token);
-                headers['Authorization'] = "Basic " + hash;
-            }
-            if (typeof override == 'object') {
-                Object.assign(headers, override || {});
-            }
-            return headers;
-        };
-        UIHttpService = __decorate([
-            aurelia_framework_1.autoinject(),
-            __metadata("design:paramtypes", [aurelia_fetch_client_1.HttpClient,
-                ui_application_1.UIApplication,
-                aurelia_event_aggregator_1.EventAggregator])
-        ], UIHttpService);
-        return UIHttpService;
-    }());
-    exports.UIHttpService = UIHttpService;
 });
 
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -7434,12 +7706,17 @@ define('aurelia-ui-framework/elements/components/ui-indicators',["require", "exp
             this.element = element;
             this.page = 0;
             this.style = "chevron";
-            this.totalPages = 1;
+            this.totalPages = 0;
         }
-        UIPager.prototype.bind = function (bindingContext, overrideContext) {
-            if (this.store)
-                this.totalPages = this.store.totalPages;
-        };
+        Object.defineProperty(UIPager.prototype, "pages", {
+            get: function () {
+                if (this.store)
+                    return this.store.totalPages;
+                return this.totalPages;
+            },
+            enumerable: true,
+            configurable: true
+        });
         UIPager.prototype.fireChange = function () {
             if (this.store)
                 this.store.loadPage(this.page);
@@ -7461,9 +7738,14 @@ define('aurelia-ui-framework/elements/components/ui-indicators',["require", "exp
             aurelia_framework_1.bindable(),
             __metadata("design:type", Object)
         ], UIPager.prototype, "totalPages", void 0);
+        __decorate([
+            aurelia_framework_1.computedFrom('store.metadata.totalPages', 'totalPages'),
+            __metadata("design:type", Object),
+            __metadata("design:paramtypes", [])
+        ], UIPager.prototype, "pages", null);
         UIPager = __decorate([
             aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template class=\"ui-pager\">\n  <a class=\"pg-first ${page==0?'disabled':''}\" click.trigger=\"fireChange(page=0)\"><ui-glyph glyph=\"glyph-${style}-double-left\"></ui-glyph></a>\n  <a class=\"pg-prev ${page==0?'disabled':''}\" click.trigger=\"fireChange(page=page-1)\" click.trigger=\"fireChange(page=totalPages)\"><ui-glyph glyph=\"glyph-${style}-left\"></ui-glyph></a>\n  <span class=\"pg-input\">${page+1} of ${totalPages}</span>\n  <a class=\"pg-next ${page+1>=totalPages?'disabled':''}\" click.trigger=\"fireChange(page=page+1)\"><ui-glyph glyph=\"glyph-${style}-right\"></ui-glyph></a>\n  <a class=\"pg-last ${page+1>=totalPages?'disabled':''}\" click.trigger=\"fireChange(page=totalPages-1)\"><ui-glyph glyph=\"glyph-${style}-double-right\"></ui-glyph></a>\n</template>"),
+            aurelia_framework_1.inlineView("<template class=\"ui-pager\">\n  <a class=\"pg-first ${page==0?'ui-disabled':''}\" click.trigger=\"fireChange(page=0)\"><ui-glyph glyph=\"glyph-${style}-double-left\"></ui-glyph></a>\n  <a class=\"pg-prev ${page==0?'ui-disabled':''}\" click.trigger=\"fireChange(page=page-1)\"><ui-glyph glyph=\"glyph-${style}-left\"></ui-glyph></a>\n  <span class=\"pg-input\">${page+1} of ${pages}</span>\n  <a class=\"pg-next ${page+1>=pages?'ui-disabled':''}\" click.trigger=\"fireChange(page=page+1)\"><ui-glyph glyph=\"glyph-${style}-right\"></ui-glyph></a>\n  <a class=\"pg-last ${page+1>=pages?'ui-disabled':''}\" click.trigger=\"fireChange(page=pages-1)\"><ui-glyph glyph=\"glyph-${style}-double-right\"></ui-glyph></a>\n</template>"),
             aurelia_framework_1.customElement('ui-pager'),
             __metadata("design:paramtypes", [Element])
         ], UIPager);

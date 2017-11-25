@@ -94,7 +94,7 @@
           <ui-row>
             <ui-column auto repeat.for="route of router.navigation | filter:'settings.section':'Inputs'">
               <div class="ui-pad-all">
-                <a href.bind="route.href" class="ui-link ${route.settings.disabled?'disabled':''}">${route.settings.title || route.title}</a>
+                <a href.bind="route.href" class="ui-link ${route.settings.disabled?'ui-disabled':''}">${route.settings.title || route.title}</a>
               </div>
             </ui-column>
           </ui-row>
@@ -106,7 +106,7 @@
           <ui-row>
             <ui-column auto repeat.for="route of router.navigation | filter:'settings.section':'Components'">
               <div class="ui-pad-all">
-                <a href.bind="route.href" class="ui-link ${route.settings.disabled?'disabled':''}">${route.settings.title || route.title}</a>
+                <a href.bind="route.href" class="ui-link ${route.settings.disabled?'ui-disabled':''}">${route.settings.title || route.title}</a>
               </div>
             </ui-column>
           </ui-row>
@@ -118,7 +118,7 @@
           <ui-row>
             <ui-column auto repeat.for="route of router.navigation | filter:'settings.section':'API Classes'">
               <div class="ui-pad-all">
-                <a href.bind="route.href" class="ui-link ${route.settings.disabled?'disabled':''}">${route.settings.title || route.title}</a>
+                <a href.bind="route.href" class="ui-link ${route.settings.disabled?'ui-disabled':''}">${route.settings.title || route.title}</a>
               </div>
             </ui-column>
           </ui-row>

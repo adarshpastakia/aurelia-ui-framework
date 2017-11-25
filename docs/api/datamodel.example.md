@@ -19,7 +19,7 @@ export class MyModel extends UIDataModel {
   @serializable() email;
   @serializable() phone;
 
-  apiUrl = '/api/user';
+  apiSlug = '/api/user';
 }
 ```
 

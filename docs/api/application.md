@@ -14,7 +14,7 @@ export class MyClass {
     ...
     ...
     this.prop = app.shared('myProperty');
-    
+
     app.info('MyView', 'activated');
   }
 
@@ -23,7 +23,7 @@ export class MyClass {
     ...
     ...
     app.log('MyView', 'afterLogin', response);
-    app.login(response, 'dashboard');
+    app.login('dashboard', {'X-Authorization': `${response.User}:${response.token}`});
   }
 }
 ```

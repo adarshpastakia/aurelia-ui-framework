@@ -23,10 +23,10 @@ export declare class UICrumb {
 export declare class UIPager {
     element: Element;
     constructor(element: Element);
-    bind(bindingContext: Object, overrideContext: Object): void;
     page: number;
     store: any;
     style: string;
     totalPages: number;
+    readonly pages: number;
     fireChange(): void;
 }
