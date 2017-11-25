@@ -2,17 +2,17 @@
 
 ###### Retrieval Operations
 
-* `get(apiSlug, headerOptions):Promise<JSON>`
-Fetch json result
+* `get(apiSlug, query, headerOptions):Promise<JSON>`
+DEPRECATED: Alias for json method.
 
-* `text(apiSlug, headerOptions):Promise<String>`
+* `text(apiSlug, query, headerOptions):Promise<String>`
 Fetch text
 
-* `blob(apiSlug, headerOptions):Promise<BLOB>`
+* `blob(apiSlug, query, headerOptions):Promise<BLOB>`
 Fetch BLOB
 
-* `json(apiSlug, headerOptions):Promise<JSON>`
-Alias for get method
+* `json(apiSlug, query, headerOptions):Promise<JSON>`
+Fetch json result
 
 
 ###### Change Operations
