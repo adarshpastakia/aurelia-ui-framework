@@ -36,13 +36,22 @@
     @include transform(scaleX(.5));
   }
 
-   > .ui-input-group,
-  > .ui-input-wrapper {
+  > .ui-input-wrapper,
+  > .ui-input-group {
     margin: 0 0.25em;
   }
 
-   > .ui-button-group,
-  > .ui-button {
+  .ui-input-wrapper.ui-spring {
+    width: 8em !important;
+    @include transition(width 0.5s);
+
+    &.ui-focus {
+      width: 24em !important;
+    }
+  }
+
+  > .ui-button,
+  > .ui-button-group {
     margin: 0 0.2rem;
   }
 }
@@ -89,7 +98,7 @@
       .ui-icon {
         order : 1;
         margin: 0;
-        @include margin(start, .5em);
+        @include margin(start, 0.5em);
       }
 
       > div {
@@ -101,7 +110,7 @@
       font-size : 2em;
       text-align: center;
       margin    : 0;
-      @include margin(end, .5em);
+      @include margin(end, 0.5em);
     }
 
     .ui-stat-value {
@@ -138,7 +147,7 @@
       .ui-stat .ui-icon {
         order : 1;
         margin: 0;
-        @include margin(start, .5em);
+        @include margin(start, 0.5em);
       }
 
       .ui-stat > div {
@@ -169,7 +178,7 @@
       }
 
       .ui-icon {
-        margin   : 0 0 0.5em;
+        margin: 0 0 0.5em;
       }
 
       .ui-stat-value {

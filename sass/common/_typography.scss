@@ -68,6 +68,21 @@ p.ui-para {
   }
 }
 
+// FONT SIZES
+.ui-font-large {
+  font-size: 1.5em;
+}
+
+.ui-font-big,
+big {
+  font-size: 1.2em;
+}
+
+.ui-font-small,
+small {
+  font-size: 0.8em;
+}
+
 // LARGE DISPLAY TEXT
 .ui-display-1 {
   font-size  : 4em;
@@ -84,20 +99,6 @@ p.ui-para {
   font-weight: 300;
 }
 
-// FONT SIZES
-.ui-font-large {
-  font-size: 1.5em;
-}
-
-.ui-font-big,
-big {
-  font-size: 1.2em;
-}
-
-.ui-font-small,
-small {
-  font-size: 0.8em;
-}
 
 .ui-font-default {
   font-family: $base-font-family;

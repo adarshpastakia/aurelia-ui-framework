@@ -23,16 +23,17 @@
   }
 
   .ui-addon-icon {
-    padding   : 0.5em;
-    background: rgba($dark, .1);
+    line-height: 1.2;
+    padding    : 0.5em;
+    background : rgba($dark, .1);
   }
 
   .ui-label {
     @include flexbox($direction: row, $wrap:false, $align: center);
 
     span {
-      line-height: 2em;
-      padding    : 0 0.5em;
+      line-height: 1.7;
+      padding    : 0.25em 0.5em;
       @include ellipsis();
       @include flex-fill();
     }
