@@ -78,7 +78,10 @@ export class UIDataSource {
    * @description Filter data list
    * @param string filter query
    **/
-  filter(query) { }
+  filter(query) {
+    this.metadata.query = query;
+    this.buildDataList();
+  }
 
   /**
    * @description: Sort data list
@@ -119,14 +122,28 @@ export class UIDataSource {
   //----- Protected Methods -----//
   protected paginate = false;
   protected buildDataList() {
-    UIEvent.queueTask(() => this.busy = true);
-    let filtered = _.orderBy(this.metadata.original, [this.metadata.sortBy || 'id'], [this.metadata.orderBy]);
+    this.busy = true;
+
+    let filtered = this.metadata.original;
+    if (this.metadata.query) {
+      const keys = Object.keys(this.metadata.query);
+      filtered = _.filter(filtered, record => {
+        let ret = false;
+        _.forEach(keys, key =>
+          !(ret = isEmpty(this.metadata.query[key]) ||
+            record[key].ascii().toLowerCase().indexOf(this.metadata.query[key].ascii().toLowerCase()) >= 0)
+        );
+        return ret;
+      });
+    }
+
+    filtered = _.orderBy(filtered, [this.metadata.sortBy || 'id'], [this.metadata.orderBy]);
     if (this.paginate) {
       this.metadata.totalRecords = filtered.length;
       this.metadata.totalPages = Math.ceil(filtered.length / this.metadata.recordsPerPage);
       filtered = filtered.splice((this.metadata.page * this.metadata.recordsPerPage), this.metadata.recordsPerPage);
     }
-    UIEvent.queueTask(() => this.data = filtered);
+    this.data = filtered;
     UIEvent.queueTask(() => [this.busy = false, this.loaded = true]);
   }
 }
