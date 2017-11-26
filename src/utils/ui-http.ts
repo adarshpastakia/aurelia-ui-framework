@@ -72,7 +72,7 @@ export class UIHttpService {
   buildQueryString(json) {
     if (!json) return '';
     return '?' + Object.keys(json)
-      .map(k => escape(k) + "=" + escape(json[k]))
+      .map(k => escape(k) + "=" + escape(typeof json[k] === 'object' ? JSON.stringify(json[k]) : json[k]))
       .join('&');
   }
 
