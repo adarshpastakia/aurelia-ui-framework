@@ -20,8 +20,19 @@ export class DataModel {
     this.ds.load(Countries.list);
   }
 
-  sortBy = '';
+  sortBy = 'name';
   orderBy = 'asc';
 
   ds = new UIDataSource({ paginate: true, recordsPerPage: 20 });
+
+  filter;
+
+  doFilter() {
+    console.log(this.httpClient.buildQueryString({
+      sortBy: this.sortBy,
+      orderBy: this.orderBy,
+      query: { name: this.filter }
+    }));
+    this.ds.filter({ name: this.filter });
+  }
 }

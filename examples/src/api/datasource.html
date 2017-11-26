@@ -5,29 +5,40 @@
 -->
 <template>
   <ui-page animate>
+    <ui-loader busy.bind="ds.busy"></ui-loader>
     <x-container page-title="Data Source" wiki.bind="wiki" source.bind="source">
-      <ui-toolbar>
-        <h6>List</h6>
-        <ui-filler></ui-filler>
-        Sort By:
-        <ui-dropdown value.bind="sortBy" change.trigger="ds.sort(sortBy, orderBy)">
-          <ui-list-item value='iso3'>Code</ui-list-item>
-          <ui-list-item value='name'>Name</ui-list-item>
-        </ui-dropdown>
-        <ui-switch change.trigger="ds.sort(sortBy, orderBy)" theme="ampm" on-label="desc" off-label="asc" on-value="desc" off-value="asc" value.bind="orderBy"></ui-switch>
-        <ui-divider></ui-divider>
-        <ui-column auto>Showing: ${ds.data.length}/${ds.totalRecords}&nbsp;</ui-column>
-        <ui-pager store.bind="ds"></ui-pager>
-      </ui-toolbar>
+      <div class="ui-border-all">
+        <ui-toolbar>
+          <h6>List</h6>
+          <ui-column auto>Showing: ${ds.data.length}/${ds.totalRecords}&nbsp;</ui-column>
+          <ui-filler></ui-filler>
+          <ui-input-group inner-width="18em" plain>
+            <ui-input class="ui-spring" placeholder="Filter..." clear input.trigger="doFilter() & debounce" value.bind="filter">
+              <ui-input-addon glyph="icon-fill-search"></ui-input-addon>
+            </ui-input>
+            <ui-dropdown value.bind="sortBy" change.trigger="ds.sort(sortBy, orderBy)">
+              <ui-list-item value='iso2'>Code</ui-list-item>
+              <ui-list-item value='name'>Name</ui-list-item>
+            </ui-dropdown>
+            <ui-input-addon>
+              <ui-switch change.trigger="ds.sort(sortBy, orderBy)" theme="ampm" on-label="desc" off-label="asc" on-value="desc" off-value="asc" value.bind="orderBy"></ui-switch>
+            </ui-input-addon>
+          </ui-input-group>
+          <ui-pager store.bind="ds"></ui-pager>
+        </ui-toolbar>
+      </div>
       <div>
         <ui-row middle>
           <ui-column size="lg-6" repeat.for="item of ds.data">
             <ui-row middle>
-              <ui-column auto class="ui-font-large">
-                <ui-glyph class="ui-flag ${item.iso3}"></ui-glyph>
+              <ui-column auto>
+                <div class="ui-display-1" bg-theme="light">
+                  <ui-glyph class="ui-flag ${item.iso3}"></ui-glyph>
+                </div>
               </ui-column>
               <ui-column fill>
-                <div>${item.fullname}</div>
+                <div>${item.name}</div>
+                <div text-theme="darkGray">${item.fullname}</div>
                 <small text-info>${item.iso2}&nbsp;&nbsp;&nbsp;&nbsp;${item.iso3}</small>
               </ui-column>
             </ui-row>
