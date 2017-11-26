@@ -32,6 +32,7 @@ var ERROR_CODES = {
     UNKNOWNID: { errorCode: 'AUF-DM:002', message: "Data model not loaded" }
 };
 var DEFAULT_OPTIONS = {
+    apiSlug: '',
     paginate: false,
     recordsPerPage: 10,
     rootProperty: 'data',
@@ -48,6 +49,7 @@ var DEFAULT_OPTIONS = {
 var UIDataSource = (function () {
     function UIDataSource(options) {
         if (options === void 0) { options = {}; }
+        var _this = this;
         this.data = [];
         this.busy = false;
         this.loaded = false;
@@ -55,8 +57,8 @@ var UIDataSource = (function () {
         this.metadata = aurelia_metadata_1.metadata.getOrCreateOwn(aurelia_metadata_1.metadata.properties, DSMetadata, Object.getPrototypeOf(this));
         this.logger = aurelia_logging_1.getLogger(this.constructor.name);
         options = Object.assign({}, DEFAULT_OPTIONS, options);
-        this.paginate = options.paginate;
-        this.metadata.recordsPerPage = options.recordsPerPage;
+        Object.keys(options).forEach(function (key) { return (_this.hasOwnProperty(key) && (_this[key] = options[key]))
+            || (_this.metadata.hasOwnProperty(key) && (_this.metadata[key] = options[key])); });
     }
     UIDataSource.prototype.load = function (dataList) {
         if (dataList === void 0) { dataList = []; }
@@ -65,6 +67,15 @@ var UIDataSource = (function () {
     };
     UIDataSource.prototype.loadPage = function (page) {
         this.metadata.page = page;
+        this.buildDataList();
+    };
+    UIDataSource.prototype.filter = function (query) {
+        this.metadata.query = query;
+        this.buildDataList();
+    };
+    UIDataSource.prototype.sort = function (column, order) {
+        this.metadata.sortBy = column;
+        this.metadata.orderBy = order;
         this.buildDataList();
     };
     Object.defineProperty(UIDataSource.prototype, "totalPages", {
@@ -111,14 +122,26 @@ var UIDataSource = (function () {
     });
     UIDataSource.prototype.buildDataList = function () {
         var _this = this;
-        ui_event_1.UIEvent.queueTask(function () { return _this.busy = true; });
-        var filtered = _.orderBy(this.metadata.original, [this.metadata.sortBy || 'id'], [this.metadata.orderBy]);
+        this.busy = true;
+        var filtered = this.metadata.original;
+        if (this.metadata.query) {
+            var keys_1 = Object.keys(this.metadata.query);
+            filtered = _.filter(filtered, function (record) {
+                var ret = false;
+                _.forEach(keys_1, function (key) {
+                    return !(ret = isEmpty(_this.metadata.query[key]) ||
+                        record[key].ascii().toLowerCase().indexOf(_this.metadata.query[key].ascii().toLowerCase()) >= 0);
+                });
+                return ret;
+            });
+        }
+        filtered = _.orderBy(filtered, [this.metadata.sortBy || 'id'], [this.metadata.orderBy]);
         if (this.paginate) {
             this.metadata.totalRecords = filtered.length;
             this.metadata.totalPages = Math.ceil(filtered.length / this.metadata.recordsPerPage);
             filtered = filtered.splice((this.metadata.page * this.metadata.recordsPerPage), this.metadata.recordsPerPage);
         }
-        ui_event_1.UIEvent.queueTask(function () { return _this.data = filtered; });
+        this.data = filtered;
         ui_event_1.UIEvent.queueTask(function () { return [_this.busy = false, _this.loaded = true]; });
     };
     __decorate([
@@ -203,15 +226,13 @@ var UIRemoteDataSource = (function (_super) {
         }
         return Promise.resolve(true);
     };
-    UIRemoteDataSource = __decorate([
-        aurelia_framework_1.autoinject()
-    ], UIRemoteDataSource);
     return UIRemoteDataSource;
 }(UIDataSource));
 exports.UIRemoteDataSource = UIRemoteDataSource;
 var DSMetadata = (function () {
     function DSMetadata() {
         this.original = [];
+        this.apiSlug = '';
         this.query = '';
         this.page = 0;
         this.sortBy = '';

@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { autoinject, customElement, bindable, bindingMode, inlineView } from 'aurelia-framework';
+import { autoinject, customElement, bindable, bindingMode, inlineView, computedFrom } from 'aurelia-framework';
 import { UIEvent } from "../../utils/ui-event";
 let UIChip = class UIChip {
     constructor(element) {
@@ -106,7 +106,7 @@ let UIPager = class UIPager {
     }
     get pages() {
         if (this.store)
-            this.store.totalPages;
+            return this.store.totalPages;
         return this.totalPages;
     }
     fireChange() {
@@ -131,6 +131,11 @@ __decorate([
     bindable(),
     __metadata("design:type", Object)
 ], UIPager.prototype, "totalPages", void 0);
+__decorate([
+    computedFrom('store.metadata.totalPages', 'totalPages'),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [])
+], UIPager.prototype, "pages", null);
 UIPager = __decorate([
     autoinject(),
     inlineView(`<template class="ui-pager">

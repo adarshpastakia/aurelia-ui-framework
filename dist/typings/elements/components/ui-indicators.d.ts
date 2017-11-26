@@ -27,6 +27,6 @@ export declare class UIPager {
     store: any;
     style: string;
     totalPages: number;
-    readonly pages: number;
+    readonly pages: any;
     fireChange(): void;
 }

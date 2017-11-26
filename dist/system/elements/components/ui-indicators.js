@@ -122,7 +122,7 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                 Object.defineProperty(UIPager.prototype, "pages", {
                     get: function () {
                         if (this.store)
-                            this.store.totalPages;
+                            return this.store.totalPages;
                         return this.totalPages;
                     },
                     enumerable: true,
@@ -149,6 +149,11 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                     aurelia_framework_1.bindable(),
                     __metadata("design:type", Object)
                 ], UIPager.prototype, "totalPages", void 0);
+                __decorate([
+                    aurelia_framework_1.computedFrom('store.metadata.totalPages', 'totalPages'),
+                    __metadata("design:type", Object),
+                    __metadata("design:paramtypes", [])
+                ], UIPager.prototype, "pages", null);
                 UIPager = __decorate([
                     aurelia_framework_1.autoinject(),
                     aurelia_framework_1.inlineView("<template class=\"ui-pager\">\n  <a class=\"pg-first ${page==0?'ui-disabled':''}\" click.trigger=\"fireChange(page=0)\"><ui-glyph glyph=\"glyph-${style}-double-left\"></ui-glyph></a>\n  <a class=\"pg-prev ${page==0?'ui-disabled':''}\" click.trigger=\"fireChange(page=page-1)\"><ui-glyph glyph=\"glyph-${style}-left\"></ui-glyph></a>\n  <span class=\"pg-input\">${page+1} of ${pages}</span>\n  <a class=\"pg-next ${page+1>=pages?'ui-disabled':''}\" click.trigger=\"fireChange(page=page+1)\"><ui-glyph glyph=\"glyph-${style}-right\"></ui-glyph></a>\n  <a class=\"pg-last ${page+1>=pages?'ui-disabled':''}\" click.trigger=\"fireChange(page=pages-1)\"><ui-glyph glyph=\"glyph-${style}-double-right\"></ui-glyph></a>\n</template>"),

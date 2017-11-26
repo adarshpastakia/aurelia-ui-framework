@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { autoinject, computedFrom } from 'aurelia-framework';
+import { computedFrom } from 'aurelia-framework';
 import { getLogger } from 'aurelia-logging';
 import { metadata as Metadata } from 'aurelia-metadata';
 import { UIHttpService } from "../utils/ui-http";
@@ -20,6 +20,7 @@ const ERROR_CODES = {
     UNKNOWNID: { errorCode: 'AUF-DM:002', message: "Data model not loaded" }
 };
 const DEFAULT_OPTIONS = {
+    apiSlug: '',
     paginate: false,
     recordsPerPage: 10,
     rootProperty: 'data',
@@ -42,8 +43,8 @@ export class UIDataSource {
         this.metadata = Metadata.getOrCreateOwn(Metadata.properties, DSMetadata, Object.getPrototypeOf(this));
         this.logger = getLogger(this.constructor.name);
         options = Object.assign({}, DEFAULT_OPTIONS, options);
-        this.paginate = options.paginate;
-        this.metadata.recordsPerPage = options.recordsPerPage;
+        Object.keys(options).forEach(key => (this.hasOwnProperty(key) && (this[key] = options[key]))
+            || (this.metadata.hasOwnProperty(key) && (this.metadata[key] = options[key])));
     }
     load(dataList = []) {
         this.metadata.original = dataList;
@@ -51,6 +52,15 @@ export class UIDataSource {
     }
     loadPage(page) {
         this.metadata.page = page;
+        this.buildDataList();
+    }
+    filter(query) {
+        this.metadata.query = query;
+        this.buildDataList();
+    }
+    sort(column, order) {
+        this.metadata.sortBy = column;
+        this.metadata.orderBy = order;
         this.buildDataList();
     }
     get totalPages() {
@@ -72,14 +82,24 @@ export class UIDataSource {
         return this.metadata.orderBy;
     }
     buildDataList() {
-        UIEvent.queueTask(() => this.busy = true);
-        let filtered = _.orderBy(this.metadata.original, [this.metadata.sortBy || 'id'], [this.metadata.orderBy]);
+        this.busy = true;
+        let filtered = this.metadata.original;
+        if (this.metadata.query) {
+            const keys = Object.keys(this.metadata.query);
+            filtered = _.filter(filtered, record => {
+                let ret = false;
+                _.forEach(keys, key => !(ret = isEmpty(this.metadata.query[key]) ||
+                    record[key].ascii().toLowerCase().indexOf(this.metadata.query[key].ascii().toLowerCase()) >= 0));
+                return ret;
+            });
+        }
+        filtered = _.orderBy(filtered, [this.metadata.sortBy || 'id'], [this.metadata.orderBy]);
         if (this.paginate) {
             this.metadata.totalRecords = filtered.length;
             this.metadata.totalPages = Math.ceil(filtered.length / this.metadata.recordsPerPage);
             filtered = filtered.splice((this.metadata.page * this.metadata.recordsPerPage), this.metadata.recordsPerPage);
         }
-        UIEvent.queueTask(() => this.data = filtered);
+        this.data = filtered;
         UIEvent.queueTask(() => [this.busy = false, this.loaded = true]);
     }
 }
@@ -113,7 +133,7 @@ __decorate([
     __metadata("design:type", Object),
     __metadata("design:paramtypes", [])
 ], UIDataSource.prototype, "orderBy", null);
-let UIRemoteDataSource = class UIRemoteDataSource extends UIDataSource {
+export class UIRemoteDataSource extends UIDataSource {
     constructor() {
         super(...arguments);
         this.rootProperty = 'data';
@@ -160,14 +180,11 @@ let UIRemoteDataSource = class UIRemoteDataSource extends UIDataSource {
         }
         return Promise.resolve(true);
     }
-};
-UIRemoteDataSource = __decorate([
-    autoinject()
-], UIRemoteDataSource);
-export { UIRemoteDataSource };
+}
 class DSMetadata {
     constructor() {
         this.original = [];
+        this.apiSlug = '';
         this.query = '';
         this.page = 0;
         this.sortBy = '';

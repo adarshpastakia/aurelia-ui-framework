@@ -63,7 +63,10 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "aurelia-m
             this.metadata.page = page;
             this.buildDataList();
         };
-        UIDataSource.prototype.filter = function (query) { };
+        UIDataSource.prototype.filter = function (query) {
+            this.metadata.query = query;
+            this.buildDataList();
+        };
         UIDataSource.prototype.sort = function (column, order) {
             this.metadata.sortBy = column;
             this.metadata.orderBy = order;
@@ -113,14 +116,26 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "aurelia-m
         });
         UIDataSource.prototype.buildDataList = function () {
             var _this = this;
-            ui_event_1.UIEvent.queueTask(function () { return _this.busy = true; });
-            var filtered = _.orderBy(this.metadata.original, [this.metadata.sortBy || 'id'], [this.metadata.orderBy]);
+            this.busy = true;
+            var filtered = this.metadata.original;
+            if (this.metadata.query) {
+                var keys_1 = Object.keys(this.metadata.query);
+                filtered = _.filter(filtered, function (record) {
+                    var ret = false;
+                    _.forEach(keys_1, function (key) {
+                        return !(ret = isEmpty(_this.metadata.query[key]) ||
+                            record[key].ascii().toLowerCase().indexOf(_this.metadata.query[key].ascii().toLowerCase()) >= 0);
+                    });
+                    return ret;
+                });
+            }
+            filtered = _.orderBy(filtered, [this.metadata.sortBy || 'id'], [this.metadata.orderBy]);
             if (this.paginate) {
                 this.metadata.totalRecords = filtered.length;
                 this.metadata.totalPages = Math.ceil(filtered.length / this.metadata.recordsPerPage);
                 filtered = filtered.splice((this.metadata.page * this.metadata.recordsPerPage), this.metadata.recordsPerPage);
             }
-            ui_event_1.UIEvent.queueTask(function () { return _this.data = filtered; });
+            this.data = filtered;
             ui_event_1.UIEvent.queueTask(function () { return [_this.busy = false, _this.loaded = true]; });
         };
         __decorate([

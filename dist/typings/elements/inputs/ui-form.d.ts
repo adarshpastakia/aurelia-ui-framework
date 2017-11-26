@@ -32,6 +32,7 @@ export declare class UIInputGroup {
     element: Element;
     constructor(element: Element);
     width: string;
+    innerWidth: string;
 }
 export declare class UIInputInfo {
     element: Element;

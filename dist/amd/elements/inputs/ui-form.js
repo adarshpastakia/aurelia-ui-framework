@@ -138,7 +138,8 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "loda
     var UIInputGroup = (function () {
         function UIInputGroup(element) {
             this.element = element;
-            this.width = '4em';
+            this.width = 'auto';
+            this.innerWidth = '4em';
             if (element.hasAttribute('plain'))
                 element.classList.add('ui-plain');
         }
@@ -146,9 +147,13 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "loda
             aurelia_framework_1.bindable(),
             __metadata("design:type", Object)
         ], UIInputGroup.prototype, "width", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(),
+            __metadata("design:type", Object)
+        ], UIInputGroup.prototype, "innerWidth", void 0);
         UIInputGroup = __decorate([
             aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template class=\"ui-input-group\"><slot name=\"inputLabel\"></slot>\n  <div css.bind=\"{'flex-basis':width}\"><div class=\"ui-group-wrapper\"><slot></slot></div><slot name=\"inputInfo\"></slot></div></template>"),
+            aurelia_framework_1.inlineView("<template class=\"ui-input-group\" css.bind=\"{'width':width}\"><slot name=\"inputLabel\"></slot>\n  <div css.bind=\"{'min-width':innerWidth}\"><div class=\"ui-group-wrapper\"><slot></slot></div><slot name=\"inputInfo\"></slot></div></template>"),
             aurelia_framework_1.customElement('ui-input-group'),
             __metadata("design:paramtypes", [Element])
         ], UIInputGroup);

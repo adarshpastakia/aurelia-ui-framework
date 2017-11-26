@@ -135,7 +135,8 @@ export { UIFieldset };
 let UIInputGroup = class UIInputGroup {
     constructor(element) {
         this.element = element;
-        this.width = '4em';
+        this.width = 'auto';
+        this.innerWidth = '4em';
         if (element.hasAttribute('plain'))
             element.classList.add('ui-plain');
     }
@@ -144,10 +145,14 @@ __decorate([
     bindable(),
     __metadata("design:type", Object)
 ], UIInputGroup.prototype, "width", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIInputGroup.prototype, "innerWidth", void 0);
 UIInputGroup = __decorate([
     autoinject(),
-    inlineView(`<template class="ui-input-group"><slot name="inputLabel"></slot>
-  <div css.bind="{'flex-basis':width}"><div class="ui-group-wrapper"><slot></slot></div><slot name="inputInfo"></slot></div></template>`),
+    inlineView(`<template class="ui-input-group" css.bind="{'width':width}"><slot name="inputLabel"></slot>
+  <div css.bind="{'min-width':innerWidth}"><div class="ui-group-wrapper"><slot></slot></div><slot name="inputInfo"></slot></div></template>`),
     customElement('ui-input-group'),
     __metadata("design:paramtypes", [Element])
 ], UIInputGroup);

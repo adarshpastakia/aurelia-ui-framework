@@ -5427,7 +5427,7 @@ define('aurelia-ui-framework/utils/ui-http',["require", "exports", "aurelia-fram
             if (!json)
                 return '';
             return '?' + Object.keys(json)
-                .map(function (k) { return escape(k) + "=" + escape(json[k]); })
+                .map(function (k) { return escape(k) + "=" + escape(typeof json[k] === 'object' ? JSON.stringify(json[k]) : json[k]); })
                 .join('&');
         };
         UIHttpService.prototype.get = function (slug, headers) {
@@ -5864,7 +5864,10 @@ define('aurelia-ui-framework/data/ui-datasource',["require", "exports", "aurelia
             this.metadata.page = page;
             this.buildDataList();
         };
-        UIDataSource.prototype.filter = function (query) { };
+        UIDataSource.prototype.filter = function (query) {
+            this.metadata.query = query;
+            this.buildDataList();
+        };
         UIDataSource.prototype.sort = function (column, order) {
             this.metadata.sortBy = column;
             this.metadata.orderBy = order;
@@ -5914,14 +5917,26 @@ define('aurelia-ui-framework/data/ui-datasource',["require", "exports", "aurelia
         });
         UIDataSource.prototype.buildDataList = function () {
             var _this = this;
-            ui_event_1.UIEvent.queueTask(function () { return _this.busy = true; });
-            var filtered = _.orderBy(this.metadata.original, [this.metadata.sortBy || 'id'], [this.metadata.orderBy]);
+            this.busy = true;
+            var filtered = this.metadata.original;
+            if (this.metadata.query) {
+                var keys_1 = Object.keys(this.metadata.query);
+                filtered = _.filter(filtered, function (record) {
+                    var ret = false;
+                    _.forEach(keys_1, function (key) {
+                        return !(ret = isEmpty(_this.metadata.query[key]) ||
+                            record[key].ascii().toLowerCase().indexOf(_this.metadata.query[key].ascii().toLowerCase()) >= 0);
+                    });
+                    return ret;
+                });
+            }
+            filtered = _.orderBy(filtered, [this.metadata.sortBy || 'id'], [this.metadata.orderBy]);
             if (this.paginate) {
                 this.metadata.totalRecords = filtered.length;
                 this.metadata.totalPages = Math.ceil(filtered.length / this.metadata.recordsPerPage);
                 filtered = filtered.splice((this.metadata.page * this.metadata.recordsPerPage), this.metadata.recordsPerPage);
             }
-            ui_event_1.UIEvent.queueTask(function () { return _this.data = filtered; });
+            this.data = filtered;
             ui_event_1.UIEvent.queueTask(function () { return [_this.busy = false, _this.loaded = true]; });
         };
         __decorate([
@@ -9582,7 +9597,8 @@ define('aurelia-ui-framework/elements/inputs/ui-form',["require", "exports", "au
     var UIInputGroup = (function () {
         function UIInputGroup(element) {
             this.element = element;
-            this.width = '4em';
+            this.width = 'auto';
+            this.innerWidth = '4em';
             if (element.hasAttribute('plain'))
                 element.classList.add('ui-plain');
         }
@@ -9590,9 +9606,13 @@ define('aurelia-ui-framework/elements/inputs/ui-form',["require", "exports", "au
             aurelia_framework_1.bindable(),
             __metadata("design:type", Object)
         ], UIInputGroup.prototype, "width", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(),
+            __metadata("design:type", Object)
+        ], UIInputGroup.prototype, "innerWidth", void 0);
         UIInputGroup = __decorate([
             aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template class=\"ui-input-group\"><slot name=\"inputLabel\"></slot>\n  <div css.bind=\"{'flex-basis':width}\"><div class=\"ui-group-wrapper\"><slot></slot></div><slot name=\"inputInfo\"></slot></div></template>"),
+            aurelia_framework_1.inlineView("<template class=\"ui-input-group\" css.bind=\"{'width':width}\"><slot name=\"inputLabel\"></slot>\n  <div css.bind=\"{'min-width':innerWidth}\"><div class=\"ui-group-wrapper\"><slot></slot></div><slot name=\"inputInfo\"></slot></div></template>"),
             aurelia_framework_1.customElement('ui-input-group'),
             __metadata("design:paramtypes", [Element])
         ], UIInputGroup);
