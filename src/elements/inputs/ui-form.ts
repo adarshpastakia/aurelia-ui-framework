@@ -100,15 +100,16 @@ export class UIFieldset {
 }
 
 @autoinject()
-@inlineView(`<template class="ui-input-group"><slot name="inputLabel"></slot>
-  <div css.bind="{'flex-basis':width}"><div class="ui-group-wrapper"><slot></slot></div><slot name="inputInfo"></slot></div></template>`)
+@inlineView(`<template class="ui-input-group" css.bind="{'width':width}"><slot name="inputLabel"></slot>
+  <div css.bind="{'min-width':innerWidth}"><div class="ui-group-wrapper"><slot></slot></div><slot name="inputInfo"></slot></div></template>`)
 @customElement('ui-input-group')
 export class UIInputGroup {
   constructor(public element: Element) {
     if (element.hasAttribute('plain')) element.classList.add('ui-plain');
   }
 
-  @bindable() width = '4em';
+  @bindable() width = 'auto';
+  @bindable() innerWidth = '4em';
 }
 
 @autoinject()
