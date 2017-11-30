@@ -1,0 +1,15 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <ui-page animate>
+    <ui-loader busy.bind="ds.busy"></ui-loader>
+    <x-container page-title="Basic Datagrid" wiki.bind="wiki" source.bind="source">
+      <div css.bind="{height: '70vh'}" class="ui-scroll ui-border-all">
+        <ui-datagrid data-source.bind="ds"></ui-datagrid>
+      </div>
+    </x-container>
+  </ui-page>
+</template>

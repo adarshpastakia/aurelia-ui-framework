@@ -67,7 +67,7 @@ var UIHttpService = (function () {
         if (!json)
             return '';
         return '?' + Object.keys(json)
-            .map(function (k) { return escape(k) + "=" + escape(json[k]); })
+            .map(function (k) { return escape(k) + "=" + escape(typeof json[k] === 'object' ? JSON.stringify(json[k]) : json[k]); })
             .join('&');
     };
     UIHttpService.prototype.get = function (slug, headers) {

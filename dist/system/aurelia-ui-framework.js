@@ -1,4 +1,4 @@
-System.register(["aurelia-pal", "aurelia-validation", "./utils/ui-constants", "./utils/ui-utils", "./utils/ui-validation", "auf-utility-library", "./elements/core/ui-glyphs", "./elements/core/ui-grid", "./elements/core/ui-page", "./elements/core/ui-viewport", "./elements/components/ui-alerts", "./elements/components/ui-bars", "./elements/components/ui-drawer", "./elements/components/ui-dropdown", "./elements/components/ui-indicators", "./elements/components/ui-menu", "./elements/components/ui-panel", "./elements/components/ui-sidebar", "./elements/components/ui-tabpanel", "./elements/inputs/ui-button", "./elements/inputs/ui-date", "./elements/inputs/ui-form", "./elements/inputs/ui-input", "./elements/inputs/ui-list", "./elements/inputs/ui-markdown", "./elements/inputs/ui-options", "./elements/inputs/ui-phone", "./elements/inputs/ui-textarea", "./attributes/ui-badge", "./attributes/ui-colors", "./attributes/ui-ribbon", "./attributes/ui-tooltip", "./value-converters/ui-lodash", "./value-converters/ui-text", "./data/ui-datamodel", "./data/ui-datasource", "./utils/ui-application", "./utils/ui-dialog", "./utils/ui-event", "./utils/ui-format", "./utils/ui-http"], function (exports_1, context_1) {
+System.register(["aurelia-pal", "aurelia-validation", "./utils/ui-constants", "./utils/ui-utils", "./utils/ui-validation", "auf-utility-library", "./elements/core/ui-glyphs", "./elements/core/ui-grid", "./elements/core/ui-page", "./elements/core/ui-viewport", "./elements/components/ui-alerts", "./elements/components/ui-bars", "./elements/components/ui-datagrid", "./elements/components/ui-drawer", "./elements/components/ui-dropdown", "./elements/components/ui-indicators", "./elements/components/ui-menu", "./elements/components/ui-panel", "./elements/components/ui-sidebar", "./elements/components/ui-tabpanel", "./elements/inputs/ui-button", "./elements/inputs/ui-date", "./elements/inputs/ui-form", "./elements/inputs/ui-input", "./elements/inputs/ui-list", "./elements/inputs/ui-markdown", "./elements/inputs/ui-options", "./elements/inputs/ui-phone", "./elements/inputs/ui-textarea", "./attributes/ui-badge", "./attributes/ui-colors", "./attributes/ui-ribbon", "./attributes/ui-tooltip", "./value-converters/ui-lodash", "./value-converters/ui-text", "./data/ui-datamodel", "./data/ui-datasource", "./utils/ui-application", "./utils/ui-dialog", "./utils/ui-event", "./utils/ui-format", "./utils/ui-http"], function (exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     function configure(config, configCallback) {
@@ -13,6 +13,7 @@ System.register(["aurelia-pal", "aurelia-validation", "./utils/ui-constants", ".
         config.globalResources([
             aurelia_pal_1.PLATFORM.moduleName('./elements/components/ui-alerts'),
             aurelia_pal_1.PLATFORM.moduleName('./elements/components/ui-bars'),
+            aurelia_pal_1.PLATFORM.moduleName('./elements/components/ui-datagrid'),
             aurelia_pal_1.PLATFORM.moduleName('./elements/components/ui-drawer'),
             aurelia_pal_1.PLATFORM.moduleName('./elements/components/ui-dropdown'),
             aurelia_pal_1.PLATFORM.moduleName('./elements/components/ui-indicators'),
@@ -165,6 +166,8 @@ System.register(["aurelia-pal", "aurelia-validation", "./utils/ui-constants", ".
             function (_28) {
             },
             function (_29) {
+            },
+            function (_30) {
             },
             function (ui_datamodel_1_1) {
                 exportStar_1(ui_datamodel_1_1);

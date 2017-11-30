@@ -46,7 +46,6 @@ export class ApiView {
         route: 'datasource',
         moduleId: './datasource',
         title: 'Data Source',
-        settings: { disabled: true },
         nav: true,
         auth: false,
         name: 'datasource'

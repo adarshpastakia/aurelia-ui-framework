@@ -20,6 +20,7 @@ import './elements/core/ui-viewport';
 
 import './elements/components/ui-alerts';
 import './elements/components/ui-bars';
+import './elements/components/ui-datagrid';
 import './elements/components/ui-drawer';
 import './elements/components/ui-dropdown';
 import './elements/components/ui-indicators';
@@ -83,6 +84,7 @@ export function configure(config: FrameworkConfiguration, configCallback) {
   config.globalResources([
     PLATFORM.moduleName('./elements/components/ui-alerts'),
     PLATFORM.moduleName('./elements/components/ui-bars'),
+    PLATFORM.moduleName('./elements/components/ui-datagrid'),
     PLATFORM.moduleName('./elements/components/ui-drawer'),
     PLATFORM.moduleName('./elements/components/ui-dropdown'),
     PLATFORM.moduleName('./elements/components/ui-indicators'),
