@@ -1340,6 +1340,17 @@ p.ui-para.ui-emphasis-large:first-letter {
   font-size: 4em;
   line-height: 1; }
 
+.ui-font-large {
+  font-size: 1.5em; }
+
+.ui-font-big,
+big {
+  font-size: 1.2em; }
+
+.ui-font-small,
+small {
+  font-size: 0.8em; }
+
 .ui-display-1 {
   font-size: 4em;
   font-weight: 300; }
@@ -1351,17 +1362,6 @@ p.ui-para.ui-emphasis-large:first-letter {
 .ui-display-3 {
   font-size: 2em;
   font-weight: 300; }
-
-.ui-font-large {
-  font-size: 1.5em; }
-
-.ui-font-big,
-big {
-  font-size: 1.2em; }
-
-.ui-font-small,
-small {
-  font-size: 0.8em; }
 
 .ui-font-default {
   font-family: "Open Sans", sans-serif; }
@@ -3244,10 +3244,11 @@ strong {
     -ms-flex: 0 0 auto;
     -o-flex: 0 0 auto;
     flex: 0 0 auto; }
-    .ui-input-group .ui-input-addon .ui-option {
+    .ui-input-group .ui-input-addon .ui-option,
+    .ui-input-group .ui-input-addon .ui-switch {
       padding: 0;
       line-height: 1;
-      font-size: 1.1em; }
+      font-size: 1em; }
   .ui-input-group > div {
     line-height: 2.2;
     -webkit-flex: 1 0 1em;
@@ -3283,11 +3284,14 @@ strong {
   .ui-input-group .ui-button {
     margin: 0;
     align-self: stretch; }
+  .ui-input-group .ui-dropdown {
+    margin: 0; }
   .ui-input-group.ui-plain .ui-group-wrapper {
     background: none;
     box-shadow: none; }
+    .ui-input-group.ui-plain .ui-group-wrapper .ui-input-wrapper:not(.ui-focus) > .ui-input-control {
+      box-shadow: 0 -1px 0 0 rgba(149, 165, 166, 0.5) inset; }
   .ui-input-group:not(.ui-plain) .ui-group-wrapper .ui-dropdown {
-    margin: 0;
     box-shadow: none; }
 
 .ui-input-wrapper {
@@ -4572,11 +4576,20 @@ strong {
     -ms-transform: scaleX(0.5);
     -o-transform: scaleX(0.5);
     transform: scaleX(0.5); }
-  .ui-toolbar > .ui-input-group,
-  .ui-toolbar > .ui-input-wrapper {
+  .ui-toolbar > .ui-input-wrapper,
+  .ui-toolbar > .ui-input-group {
     margin: 0 0.25em; }
-  .ui-toolbar > .ui-button-group,
-  .ui-toolbar > .ui-button {
+  .ui-toolbar .ui-input-wrapper.ui-spring {
+    width: 8em !important;
+    -webkit-transition: width 0.5s;
+    -moz-transition: width 0.5s;
+    -ms-transition: width 0.5s;
+    -o-transition: width 0.5s;
+    transition: width 0.5s; }
+    .ui-toolbar .ui-input-wrapper.ui-spring.ui-focus {
+      width: 24em !important; }
+  .ui-toolbar > .ui-button,
+  .ui-toolbar > .ui-button-group {
     margin: 0 0.2rem; }
 
 .ui-toolbar.ui-dark {
@@ -5608,6 +5621,7 @@ strong {
     margin: 0.5em;
     color: #EF5350; }
   .ui-dropdown .ui-addon-icon {
+    line-height: 1.2;
     padding: 0.5em;
     background: rgba(52, 73, 94, 0.1); }
   .ui-dropdown .ui-label {
@@ -5633,8 +5647,8 @@ strong {
     -o-flex-wrap: nowrap;
     flex-wrap: nowrap; }
     .ui-dropdown .ui-label span {
-      line-height: 2em;
-      padding: 0 0.5em;
+      line-height: 1.7;
+      padding: 0.25em 0.5em;
       cursor: default;
       white-space: nowrap;
       text-overflow: ellipsis;

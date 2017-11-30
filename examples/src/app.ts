@@ -83,7 +83,7 @@ export class App {
       }, {
         route: 'tree', moduleId: './components/tree', title: 'Tree Panel', nav: true, auth: false, settings: { section: 'Components', disabled: true }, name: 'comps:tree'
       }, {
-        route: 'datagrid', moduleId: './components/datagrid', title: 'Datagrid', nav: true, auth: false, settings: { section: 'Components', disabled: true }, name: 'comps:datagrid'
+        route: 'datagrid', moduleId: './datagrids/view', title: 'Datagrid', nav: true, auth: false, settings: { section: 'Components', disabled: true }, name: 'comps:datagrid'
       }, {
         route: 'indicators', moduleId: './components/indicators', title: 'Breadcrumbs & Chips', nav: true, auth: false, settings: { section: 'Components' }, name: 'comps:indicators'
       }, {
@@ -103,7 +103,7 @@ export class App {
       }, {
         route: 'api:datamodel', redirect: 'api/datamodel', title: 'Data Model', nav: true, auth: false, settings: { section: 'API Classes' }, name: 'api:datamodel'
       }, {
-        route: 'api:datasource', redirect: 'api/datasource', title: 'Data Source', nav: true, auth: false, settings: { section: 'API Classes', disabled: true }, name: 'api:datasource'
+        route: 'api:datasource', redirect: 'api/datasource', title: 'Data Source', nav: true, auth: false, settings: { section: 'API Classes' }, name: 'api:datasource'
       }
     ]);
   }
