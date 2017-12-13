@@ -9,7 +9,6 @@
     <x-container page-title="Data Source" wiki.bind="wiki" source.bind="source">
       <div class="ui-border-all">
         <ui-toolbar>
-          <h6>List</h6>
           <ui-column auto>Showing: ${ds.data.length}/${ds.totalRecords}&nbsp;</ui-column>
           <ui-filler></ui-filler>
           <ui-input-group inner-width="18em" plain>
@@ -24,7 +23,7 @@
               <ui-switch change.trigger="ds.sort(sortBy, orderBy)" theme="ampm" on-label="desc" off-label="asc" on-value="desc" off-value="asc" value.bind="orderBy"></ui-switch>
             </ui-input-addon>
           </ui-input-group>
-          <ui-pager store.bind="ds"></ui-pager>
+          <ui-pager data-source.bind="ds"></ui-pager>
         </ui-toolbar>
       </div>
       <div>
