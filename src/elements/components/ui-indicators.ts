@@ -74,18 +74,18 @@ export class UIPager {
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) page = 0;
 
-  @bindable() store;
+  @bindable() dataSource;
   @bindable() style = "chevron";
   @bindable() totalPages = 0;
 
-  @computedFrom('store.metadata.totalPages', 'totalPages')
+  @computedFrom('dataSource.metadata.totalPages', 'totalPages')
   get pages() {
-    if (this.store) return this.store.totalPages;
+    if (this.dataSource) return this.dataSource.totalPages;
     return this.totalPages;
   }
 
   fireChange() {
-    if (this.store) this.store.loadPage(this.page);
+    if (this.dataSource) this.dataSource.loadPage(this.page);
     UIEvent.fireEvent('change', this.element, this.page);
   }
 }

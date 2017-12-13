@@ -7,9 +7,126 @@
   <ui-page animate>
     <ui-loader busy.bind="ds.busy"></ui-loader>
     <x-container page-title="Basic Datagrid" wiki.bind="wiki" source.bind="source">
-      <div css.bind="{height: '70vh'}" class="ui-scroll ui-border-all">
-        <ui-datagrid data-source.bind="ds"></ui-datagrid>
+      <ui-pager data-source.bind="ds"></ui-pager>
+      <br/>
+      <ui-datagrid>
+        <ui-dg-column locked resizeable sortable>Flag</ui-dg-column>
+        <ui-dg-column-group label="Codes" locked>
+          <ui-dg-column>ISO2</ui-dg-column>
+          <ui-dg-column>ISO3</ui-dg-column>
+        </ui-dg-column-group>
+        <ui-dg-column width="250px" locked>Name</ui-dg-column>
+        <ui-dg-column width="150px">Capital</ui-dg-column>
+        <ui-dg-column width="550px">Fullname</ui-dg-column>
+      </ui-datagrid>
+      <!-- <div class="ui-scroll ui-border-all"> -->
+      <div class="ui-datagrid ui-border-h" css.bind="{height: '70vh'}">
+        <div class="ui-dg-head">
+          <div class="ui-dg-row" css.bind="{transform: 'translateX('+(scrollLeft*-1)+'px)'}">
+            <div class="ui-dg-lock-group" css.bind="{transform: 'translateX('+(scrollLeft)+'px)'}">
+              <div class="ui-dg-cell ui-row-head" css.bind="{width: '3em'}"></div>
+              <div class="ui-dg-cell ui-cell-checkbox"></div>
+              <div class="ui-dg-cell" css.bind="{width: '64px'}">
+                <div class="ui-dg-cell-content">Flag</div>
+                <div class="ui-dg-cell-icon ui-sort asc">
+                  <ui-glyph glyph="glyph-caret-up"></ui-glyph>
+                  <ui-glyph glyph="glyph-caret-down"></ui-glyph>
+                </div>
+                <div class="ui-dg-cell-icon ui-filter">
+                  <ui-glyph glyph="glyph-funnel"></ui-glyph>
+                </div>
+                <div class="ui-dg-cell-resize"></div>
+              </div>
+              <div class="ui-dg-col-group">
+                <div class="ui-dg-col-group-title">Codes</div>
+                <div class="ui-dg-col-group-cells">
+                  <div class="ui-dg-cell" css.bind="{width: '64px'}">
+                    <div class="ui-dg-cell-content">ISO2</div>
+                    <div class="ui-dg-cell-icon ui-sort desc">
+                      <ui-glyph glyph="glyph-caret-up"></ui-glyph>
+                      <ui-glyph glyph="glyph-caret-down"></ui-glyph>
+                    </div>
+                  </div>
+                  <div class="ui-dg-cell" css.bind="{width: '64px'}">
+                    <div class="ui-dg-cell-content">ISO3</div>
+                  </div>
+                </div>
+              </div>
+              <div class="ui-dg-cell" css.bind="{width: '250px'}">
+                <div class="ui-dg-cell-content">Name</div>
+              </div>
+            </div>
+            <div class="ui-dg-cell" css.bind="{width: '150px'}">
+              <div class="ui-dg-cell-content">Capital</div>
+            </div>
+            <div class="ui-dg-cell" css.bind="{width: '550px'}">
+              <div class="ui-dg-cell-content">Fullname</div>
+            </div>
+            <div class="ui-dg-cell">
+              <div class="ui-dg-cell-content">&nbsp;</div>
+            </div>
+          </div>
+        </div>
+        <div class="ui-dg-body" scroll.trigger="scrollLeft = $event.target.scrollLeft">
+          <div class="ui-dg-row ${c.__selected__?'ui-selected':''}" repeat.for="c of ds.data">
+            <div class="ui-dg-lock-group" css.bind="{transform: 'translateX('+(scrollLeft)+'px)'}">
+              <div class="ui-dg-cell ui-row-head" css.bind="{width: '3em'}">
+                <div class="ui-dg-cell-content ui-text-center">${($index+1) + (ds.metadata.recordsPerPage * ds.metadata.page)}</div>
+              </div>
+              <div class="ui-dg-cell ui-cell-checkbox" click.trigger="c.__selected__=!c.__selected__">
+                <ui-glyph glyph.bind="c.__selected__?'glyph-tree-check-on':'glyph-tree-check-off'"></ui-glyph>
+              </div>
+              <div class="ui-dg-cell" css.bind="{width: '64px'}">
+                <div class="ui-dg-cell-content ui-text-center">
+                  <ui-glyph class="ui-flag ${c.iso2}"></ui-glyph>
+                </div>
+              </div>
+              <div class="ui-dg-cell" css.bind="{width: '64px'}">
+                <div class="ui-dg-cell-content ui-text-center ui-text-info">${c.iso2}</div>
+              </div>
+              <div class="ui-dg-cell" css.bind="{width: '64px'}">
+                <div class="ui-dg-cell-content ui-text-center ui-text-info">${c.iso3}</div>
+              </div>
+              <div class="ui-dg-cell" css.bind="{width: '250px'}">
+                <div class="ui-dg-cell-content">${c.name}</div>
+              </div>
+            </div>
+            <div class="ui-dg-cell" css.bind="{width: '150px'}">
+              <div class="ui-dg-cell-content">${c.capital}</div>
+            </div>
+            <div class="ui-dg-cell" css.bind="{width: '550px'}">
+              <div class="ui-dg-cell-content">${c.fullname}</div>
+            </div>
+            <div class="ui-dg-cell">
+              <div class="ui-dg-cell-content">&nbsp;</div>
+            </div>
+          </div>
+          <div class="ui-dg-row ui-last-row">
+            <div class="ui-dg-lock-group" css.bind="{transform: 'translateX('+(scrollLeft)+'px)'}">
+              <div class="ui-dg-cell ui-row-head" css.bind="{width: '3em'}">
+              </div>
+              <div class="ui-dg-cell ui-cell-checkbox" click.trigger="c.__selected__=!c.__selected__">
+              </div>
+              <div class="ui-dg-cell" css.bind="{width: '64px'}">
+              </div>
+              <div class="ui-dg-cell" css.bind="{width: '64px'}">
+              </div>
+              <div class="ui-dg-cell" css.bind="{width: '64px'}">
+              </div>
+              <div class="ui-dg-cell" css.bind="{width: '250px'}">
+              </div>
+            </div>
+            <div class="ui-dg-cell" css.bind="{width: '150px'}">
+            </div>
+            <div class="ui-dg-cell" css.bind="{width: '550px'}">
+            </div>
+            <div class="ui-dg-cell">
+              <div class="ui-dg-cell-content">&nbsp;</div>
+            </div>
+          </div>
+        </div>
       </div>
+      <!-- </div> -->
     </x-container>
   </ui-page>
 </template>

@@ -23,6 +23,6 @@ export class DgBasic {
   sortBy = 'name';
   orderBy = 'asc';
 
-  ds = new UIDataSource();
+  ds = new UIDataSource({ paginate: true, recordsPerPage: 20 });
 
 }
