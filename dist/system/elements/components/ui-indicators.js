@@ -121,16 +121,16 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                 }
                 Object.defineProperty(UIPager.prototype, "pages", {
                     get: function () {
-                        if (this.store)
-                            return this.store.totalPages;
+                        if (this.dataSource)
+                            return this.dataSource.totalPages;
                         return this.totalPages;
                     },
                     enumerable: true,
                     configurable: true
                 });
                 UIPager.prototype.fireChange = function () {
-                    if (this.store)
-                        this.store.loadPage(this.page);
+                    if (this.dataSource)
+                        this.dataSource.loadPage(this.page);
                     ui_event_1.UIEvent.fireEvent('change', this.element, this.page);
                 };
                 __decorate([
@@ -140,7 +140,7 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                 __decorate([
                     aurelia_framework_1.bindable(),
                     __metadata("design:type", Object)
-                ], UIPager.prototype, "store", void 0);
+                ], UIPager.prototype, "dataSource", void 0);
                 __decorate([
                     aurelia_framework_1.bindable(),
                     __metadata("design:type", Object)
@@ -150,7 +150,7 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                     __metadata("design:type", Object)
                 ], UIPager.prototype, "totalPages", void 0);
                 __decorate([
-                    aurelia_framework_1.computedFrom('store.metadata.totalPages', 'totalPages'),
+                    aurelia_framework_1.computedFrom('dataSource.metadata.totalPages', 'totalPages'),
                     __metadata("design:type", Object),
                     __metadata("design:paramtypes", [])
                 ], UIPager.prototype, "pages", null);

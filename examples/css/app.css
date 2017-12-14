@@ -5245,6 +5245,297 @@ strong {
   .ui-statsbar .ui-stat.ui-warning:not(.ui-icon-only) .ui-stat-label {
     color: rgba(255, 208, 66, 0.75); }
 
+.ui-datagrid {
+  -webkit-flex: 1 1 1em;
+  -moz-flex: 1 1 1em;
+  -ms-flex: 1 1 1em;
+  -o-flex: 1 1 1em;
+  flex: 1 1 1em;
+  display: flex;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  -o-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: stretch;
+  -moz-align-items: stretch;
+  -ms-align-items: stretch;
+  -o-align-items: stretch;
+  align-items: stretch;
+  -webkit-justify-content: flex-start;
+  -moz-justify-content: flex-start;
+  -ms-justify-content: flex-start;
+  -o-justify-content: flex-start;
+  justify-content: flex-start;
+  -webkit-flex-wrap: nowrap;
+  -moz-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  -o-flex-wrap: nowrap;
+  flex-wrap: nowrap; }
+  .ui-datagrid.ui-auto-size > .ui-dg-body {
+    overflow: hidden;
+    -webkit-flex-basis: auto;
+    -moz-flex-basis: auto;
+    -ms-flex-basis: auto;
+    -o-flex-basis: auto;
+    flex-basis: auto; }
+  .ui-datagrid .ui-dg-row {
+    background: white;
+    display: flex;
+    -webkit-flex-direction: row;
+    -moz-flex-direction: row;
+    -ms-flex-direction: row;
+    -o-flex-direction: row;
+    flex-direction: row;
+    -webkit-align-items: stretch;
+    -moz-align-items: stretch;
+    -ms-align-items: stretch;
+    -o-align-items: stretch;
+    align-items: stretch;
+    -webkit-justify-content: flex-start;
+    -moz-justify-content: flex-start;
+    -ms-justify-content: flex-start;
+    -o-justify-content: flex-start;
+    justify-content: flex-start;
+    -webkit-flex-wrap: nowrap;
+    -moz-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    -o-flex-wrap: nowrap;
+    flex-wrap: nowrap; }
+    .ui-datagrid .ui-dg-row:nth-child(odd) .ui-dg-cell {
+      background: #FFFEFC; }
+    .ui-datagrid .ui-dg-row:nth-child(even) .ui-dg-cell {
+      background: #fffcf7; }
+    .ui-datagrid .ui-dg-row.ui-last-row {
+      min-height: 0;
+      -webkit-flex: 1 1 0;
+      -moz-flex: 1 1 0;
+      -ms-flex: 1 1 0;
+      -o-flex: 1 1 0;
+      flex: 1 1 0; }
+    .ui-datagrid .ui-dg-row:not(.ui-last-row) {
+      -webkit-flex: 0 0 auto;
+      -moz-flex: 0 0 auto;
+      -ms-flex: 0 0 auto;
+      -o-flex: 0 0 auto;
+      flex: 0 0 auto; }
+    .ui-datagrid .ui-dg-row .ui-dg-lock-group {
+      background: white;
+      -webkit-flex: 0 0 auto;
+      -moz-flex: 0 0 auto;
+      -ms-flex: 0 0 auto;
+      -o-flex: 0 0 auto;
+      flex: 0 0 auto;
+      display: flex;
+      -webkit-flex-direction: row;
+      -moz-flex-direction: row;
+      -ms-flex-direction: row;
+      -o-flex-direction: row;
+      flex-direction: row;
+      -webkit-align-items: stretch;
+      -moz-align-items: stretch;
+      -ms-align-items: stretch;
+      -o-align-items: stretch;
+      align-items: stretch;
+      -webkit-justify-content: flex-start;
+      -moz-justify-content: flex-start;
+      -ms-justify-content: flex-start;
+      -o-justify-content: flex-start;
+      justify-content: flex-start;
+      -webkit-flex-wrap: nowrap;
+      -moz-flex-wrap: nowrap;
+      -ms-flex-wrap: nowrap;
+      -o-flex-wrap: nowrap;
+      flex-wrap: nowrap; }
+    .ui-datagrid .ui-dg-row .ui-dg-cell {
+      color: #2c3e50;
+      -webkit-flex: 0 0 auto;
+      -moz-flex: 0 0 auto;
+      -ms-flex: 0 0 auto;
+      -o-flex: 0 0 auto;
+      flex: 0 0 auto;
+      display: flex;
+      -webkit-flex-direction: row;
+      -moz-flex-direction: row;
+      -ms-flex-direction: row;
+      -o-flex-direction: row;
+      flex-direction: row;
+      -webkit-align-items: center;
+      -moz-align-items: center;
+      -ms-align-items: center;
+      -o-align-items: center;
+      align-items: center;
+      -webkit-justify-content: flex-start;
+      -moz-justify-content: flex-start;
+      -ms-justify-content: flex-start;
+      -o-justify-content: flex-start;
+      justify-content: flex-start;
+      -webkit-flex-wrap: nowrap;
+      -moz-flex-wrap: nowrap;
+      -ms-flex-wrap: nowrap;
+      -o-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+      -webkit-border-end: 1px solid rgba(189, 195, 199, 0.5);
+      -moz-border-end: 1px solid rgba(189, 195, 199, 0.5);
+      -ms-border-end: 1px solid rgba(189, 195, 199, 0.5);
+      -o-border-end: 1px solid rgba(189, 195, 199, 0.5);
+      border-end: 1px solid rgba(189, 195, 199, 0.5); }
+      .ui-datagrid .ui-dg-row .ui-dg-cell > .ui-dg-cell-content {
+        padding: 0.25em 0.5em;
+        cursor: default;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        -webkit-flex: 1 1 1em;
+        -moz-flex: 1 1 1em;
+        -ms-flex: 1 1 1em;
+        -o-flex: 1 1 1em;
+        flex: 1 1 1em; }
+      .ui-datagrid .ui-dg-row .ui-dg-cell.btn-fix > .ui-dg-cell-content {
+        padding: 0 0.25em; }
+      .ui-datagrid .ui-dg-row .ui-dg-cell:last-child {
+        -webkit-flex: 1 1 2em;
+        -moz-flex: 1 1 2em;
+        -ms-flex: 1 1 2em;
+        -o-flex: 1 1 2em;
+        flex: 1 1 2em; }
+      .ui-datagrid .ui-dg-row .ui-dg-cell.ui-cell-checkbox {
+        width: 2em;
+        padding: 0.35em;
+        color: #95a5a6; }
+        .ui-datagrid .ui-dg-row .ui-dg-cell.ui-cell-checkbox:hover {
+          color: #F06292; }
+      .ui-datagrid .ui-dg-row .ui-dg-cell.ui-row-head {
+        font-size: 0.8em;
+        background: #bdc3c7;
+        color: #FFFEFC; }
+    .ui-datagrid .ui-dg-row.ui-selected .ui-dg-cell:not(.ui-row-head) {
+      background: rgba(240, 98, 146, 0.1); }
+  .ui-datagrid .ui-dg-head {
+    overflow: hidden;
+    font-weight: 400;
+    -webkit-flex: 0 0 auto;
+    -moz-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    -o-flex: 0 0 auto;
+    flex: 0 0 auto; }
+    .ui-datagrid .ui-dg-head > .ui-dg-row .ui-dg-col-group {
+      -webkit-flex: 0 0 auto;
+      -moz-flex: 0 0 auto;
+      -ms-flex: 0 0 auto;
+      -o-flex: 0 0 auto;
+      flex: 0 0 auto; }
+      .ui-datagrid .ui-dg-head > .ui-dg-row .ui-dg-col-group > .ui-dg-col-group-title {
+        text-align: center;
+        padding: 0.25em 0.1em;
+        background: #F06292;
+        color: #FFFEFC;
+        border-bottom: 1px dotted rgba(189, 195, 199, 0.75);
+        -webkit-flex: 1 1 100%;
+        -moz-flex: 1 1 100%;
+        -ms-flex: 1 1 100%;
+        -o-flex: 1 1 100%;
+        flex: 1 1 100%;
+        -webkit-border-end: 1px solid rgba(189, 195, 199, 0.5);
+        -moz-border-end: 1px solid rgba(189, 195, 199, 0.5);
+        -ms-border-end: 1px solid rgba(189, 195, 199, 0.5);
+        -o-border-end: 1px solid rgba(189, 195, 199, 0.5);
+        border-end: 1px solid rgba(189, 195, 199, 0.5); }
+      .ui-datagrid .ui-dg-head > .ui-dg-row .ui-dg-col-group > .ui-dg-col-group-cells {
+        display: flex;
+        -webkit-flex-direction: row;
+        -moz-flex-direction: row;
+        -ms-flex-direction: row;
+        -o-flex-direction: row;
+        flex-direction: row;
+        -webkit-align-items: stretch;
+        -moz-align-items: stretch;
+        -ms-align-items: stretch;
+        -o-align-items: stretch;
+        align-items: stretch;
+        -webkit-justify-content: flex-start;
+        -moz-justify-content: flex-start;
+        -ms-justify-content: flex-start;
+        -o-justify-content: flex-start;
+        justify-content: flex-start;
+        -webkit-flex-wrap: nowrap;
+        -moz-flex-wrap: nowrap;
+        -ms-flex-wrap: nowrap;
+        -o-flex-wrap: nowrap;
+        flex-wrap: nowrap; }
+    .ui-datagrid .ui-dg-head > .ui-dg-row .ui-dg-cell {
+      background: #F06292;
+      color: #FFFEFC; }
+      .ui-datagrid .ui-dg-head > .ui-dg-row .ui-dg-cell > .ui-dg-cell-icon {
+        padding: 0.25em 0.1em;
+        -webkit-flex: 0 0 auto;
+        -moz-flex: 0 0 auto;
+        -ms-flex: 0 0 auto;
+        -o-flex: 0 0 auto;
+        flex: 0 0 auto; }
+        .ui-datagrid .ui-dg-head > .ui-dg-row .ui-dg-cell > .ui-dg-cell-icon.ui-filter {
+          cursor: pointer;
+          color: rgba(255, 254, 252, 0.6); }
+          .ui-datagrid .ui-dg-head > .ui-dg-row .ui-dg-cell > .ui-dg-cell-icon.ui-filter.ui-active, .ui-datagrid .ui-dg-head > .ui-dg-row .ui-dg-cell > .ui-dg-cell-icon.ui-filter:hover {
+            color: rgba(255, 254, 252, 0.9); }
+        .ui-datagrid .ui-dg-head > .ui-dg-row .ui-dg-cell > .ui-dg-cell-icon.ui-sort {
+          width: 1em;
+          height: 1.25em;
+          position: relative;
+          color: rgba(255, 254, 252, 0.5); }
+          .ui-datagrid .ui-dg-head > .ui-dg-row .ui-dg-cell > .ui-dg-cell-icon.ui-sort .ui-icon {
+            position: absolute;
+            height: 0.75em; }
+            .ui-datagrid .ui-dg-head > .ui-dg-row .ui-dg-cell > .ui-dg-cell-icon.ui-sort .ui-icon:first-child {
+              top: 0; }
+            .ui-datagrid .ui-dg-head > .ui-dg-row .ui-dg-cell > .ui-dg-cell-icon.ui-sort .ui-icon:last-child {
+              bottom: 0; }
+          .ui-datagrid .ui-dg-head > .ui-dg-row .ui-dg-cell > .ui-dg-cell-icon.ui-sort.asc .ui-icon:first-child,
+          .ui-datagrid .ui-dg-head > .ui-dg-row .ui-dg-cell > .ui-dg-cell-icon.ui-sort.desc .ui-icon:last-child {
+            color: rgba(255, 254, 252, 0.9); }
+      .ui-datagrid .ui-dg-head > .ui-dg-row .ui-dg-cell > .ui-dg-cell-resize {
+        width: 2px;
+        cursor: ew-resize;
+        -webkit-align-self: stretch;
+        -moz-align-self: stretch;
+        -ms-align-self: stretch;
+        -o-align-self: stretch;
+        align-self: stretch;
+        -webkit-border-start: 1px solid rgba(255, 254, 252, 0.5);
+        -moz-border-start: 1px solid rgba(255, 254, 252, 0.5);
+        -ms-border-start: 1px solid rgba(255, 254, 252, 0.5);
+        -o-border-start: 1px solid rgba(255, 254, 252, 0.5);
+        border-start: 1px solid rgba(255, 254, 252, 0.5); }
+  .ui-datagrid .ui-dg-body {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    -webkit-flex: 1 1 1em;
+    -moz-flex: 1 1 1em;
+    -ms-flex: 1 1 1em;
+    -o-flex: 1 1 1em;
+    flex: 1 1 1em;
+    display: flex;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    -o-flex-direction: column;
+    flex-direction: column;
+    -webkit-align-items: stretch;
+    -moz-align-items: stretch;
+    -ms-align-items: stretch;
+    -o-align-items: stretch;
+    align-items: stretch;
+    -webkit-justify-content: flex-start;
+    -moz-justify-content: flex-start;
+    -ms-justify-content: flex-start;
+    -o-justify-content: flex-start;
+    justify-content: flex-start;
+    -webkit-flex-wrap: nowrap;
+    -moz-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    -o-flex-wrap: nowrap;
+    flex-wrap: nowrap; }
+
 .ui-viewport-taskbar {
   box-shadow: 0 1px 0 0 rgba(149, 165, 166, 0.1) inset;
   background-color: #fffcf7;

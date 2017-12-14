@@ -24,7 +24,7 @@ export declare class UIPager {
     element: Element;
     constructor(element: Element);
     page: number;
-    store: any;
+    dataSource: any;
     style: string;
     totalPages: number;
     readonly pages: any;

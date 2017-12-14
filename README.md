@@ -92,7 +92,7 @@ https://adarshpastakia.github.io/auf-demo-v3
   yarn link aurelia-ui-framework
   ```
 
-> NOTE: Ensue that the `auf-utility-library` module dependency is also added
+> NOTE: Ensure that the `auf-utility-library` module dependency is also added
 
 ### Running The Demo Application
 

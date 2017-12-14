@@ -7,6 +7,7 @@ import './elements/core/ui-viewport';
 import './elements/components/ui-alerts';
 import './elements/components/ui-bars';
 import './elements/components/ui-datagrid';
+import './elements/components/ui-dg-columns';
 import './elements/components/ui-drawer';
 import './elements/components/ui-dropdown';
 import './elements/components/ui-indicators';

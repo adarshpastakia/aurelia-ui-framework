@@ -105,13 +105,13 @@ let UIPager = class UIPager {
         this.totalPages = 0;
     }
     get pages() {
-        if (this.store)
-            return this.store.totalPages;
+        if (this.dataSource)
+            return this.dataSource.totalPages;
         return this.totalPages;
     }
     fireChange() {
-        if (this.store)
-            this.store.loadPage(this.page);
+        if (this.dataSource)
+            this.dataSource.loadPage(this.page);
         UIEvent.fireEvent('change', this.element, this.page);
     }
 };
@@ -122,7 +122,7 @@ __decorate([
 __decorate([
     bindable(),
     __metadata("design:type", Object)
-], UIPager.prototype, "store", void 0);
+], UIPager.prototype, "dataSource", void 0);
 __decorate([
     bindable(),
     __metadata("design:type", Object)
@@ -132,7 +132,7 @@ __decorate([
     __metadata("design:type", Object)
 ], UIPager.prototype, "totalPages", void 0);
 __decorate([
-    computedFrom('store.metadata.totalPages', 'totalPages'),
+    computedFrom('dataSource.metadata.totalPages', 'totalPages'),
     __metadata("design:type", Object),
     __metadata("design:paramtypes", [])
 ], UIPager.prototype, "pages", null);
