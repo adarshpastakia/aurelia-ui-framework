@@ -15,7 +15,13 @@ $datagrid-row-head-bg: $lightGray;
 $datagrid-row-head-text: $white;
 
 .ui-datagrid {
+  @include flex-fill(1em);
   @include flexbox($direction: column, $wrap: false, $align: stretch);
+
+  &.ui-auto-size > .ui-dg-body {
+    overflow: hidden;
+    @include flex-basis(auto);
+  }
 
   .ui-dg-row {
     background: white;
@@ -30,7 +36,7 @@ $datagrid-row-head-text: $white;
     }
 
     &.ui-last-row {
-      min-height: 10px;
+      min-height: 0;
       @include flex-fill(0);
     }
 
@@ -54,6 +60,10 @@ $datagrid-row-head-text: $white;
         padding: 0.25em 0.5em;
         @include ellipsis();
         @include flex-fill();
+      }
+
+      &.btn-fix > .ui-dg-cell-content {
+        padding: 0 0.25em;
       }
 
       &:last-child {
@@ -161,7 +171,7 @@ $datagrid-row-head-text: $white;
   .ui-dg-body {
     @include scroll();
     @include flex-fill();
-    @include flexbox($direction: column, $wrap: false);
+    @include flexbox($direction: column, $wrap: false, $align: stretch);
   }
 
 }
