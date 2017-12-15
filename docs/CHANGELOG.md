@@ -1,3 +1,16 @@
+<a name="4.0.0-Beta.6"></a>
+# 4.0.0-Beta.6 (2017-12-15)
+
+* Added basic UIDatagrid
+* Local DataSource
+
+- Pending
+  * Virtual scroll datagrid
+  * Remote data-source
+  * Expanding rows
+  * Editable rows
+
+
 <a name="4.0.0-Beta.5"></a>
 # 4.0.0-Beta.5 (2017-11-19)
 
