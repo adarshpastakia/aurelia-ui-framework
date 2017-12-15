@@ -86,6 +86,7 @@ export declare class UIDGButton extends UIDataColumn {
     glyph: any;
     label: any;
     dropdown: any;
+    buttonWidth: any;
     buttonTheme: any;
     show: any;
     disabled: any;

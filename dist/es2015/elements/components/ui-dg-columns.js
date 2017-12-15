@@ -338,6 +338,7 @@ let UIDGButton = class UIDGButton extends UIDataColumn {
         super(element);
         this.element = element;
         this.type = 'button';
+        this.buttonWidth = 'auto';
         this.buttonTheme = 'default';
         this.show = null;
         this.disabled = null;
@@ -409,6 +410,10 @@ __decorate([
     bindable(),
     __metadata("design:type", Object)
 ], UIDGButton.prototype, "dropdown", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIDGButton.prototype, "buttonWidth", void 0);
 __decorate([
     bindable(),
     __metadata("design:type", Object)

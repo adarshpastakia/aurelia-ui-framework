@@ -367,6 +367,7 @@ var UIDGButton = (function (_super) {
         var _this = _super.call(this, element) || this;
         _this.element = element;
         _this.type = 'button';
+        _this.buttonWidth = 'auto';
         _this.buttonTheme = 'default';
         _this.show = null;
         _this.disabled = null;
@@ -438,6 +439,10 @@ var UIDGButton = (function (_super) {
         aurelia_framework_1.bindable(),
         __metadata("design:type", Object)
     ], UIDGButton.prototype, "dropdown", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDGButton.prototype, "buttonWidth", void 0);
     __decorate([
         aurelia_framework_1.bindable(),
         __metadata("design:type", Object)

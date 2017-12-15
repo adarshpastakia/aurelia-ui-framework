@@ -365,6 +365,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
             var _this = _super.call(this, element) || this;
             _this.element = element;
             _this.type = 'button';
+            _this.buttonWidth = 'auto';
             _this.buttonTheme = 'default';
             _this.show = null;
             _this.disabled = null;
@@ -436,6 +437,10 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
             aurelia_framework_1.bindable(),
             __metadata("design:type", Object)
         ], UIDGButton.prototype, "dropdown", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(),
+            __metadata("design:type", Object)
+        ], UIDGButton.prototype, "buttonWidth", void 0);
         __decorate([
             aurelia_framework_1.bindable(),
             __metadata("design:type", Object)

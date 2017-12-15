@@ -379,6 +379,7 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-fo
                     var _this = _super.call(this, element) || this;
                     _this.element = element;
                     _this.type = 'button';
+                    _this.buttonWidth = 'auto';
                     _this.buttonTheme = 'default';
                     _this.show = null;
                     _this.disabled = null;
@@ -450,6 +451,10 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-fo
                     aurelia_framework_1.bindable(),
                     __metadata("design:type", Object)
                 ], UIDGButton.prototype, "dropdown", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UIDGButton.prototype, "buttonWidth", void 0);
                 __decorate([
                     aurelia_framework_1.bindable(),
                     __metadata("design:type", Object)

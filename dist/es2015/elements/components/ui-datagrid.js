@@ -75,7 +75,7 @@ let BodyCell = class BodyCell {
         <span innerhtml.bind="column.getLabel(record[column.dataId],record)"></span>
       </a>`;
         else if (this.column.type == 'button') {
-            template = `<ui-button click.trigger="column.fireClick($event,record[column.dataId],record)" show.bind="column.isVisible(record[column.dataId],record)" theme.bind="column.getTheme(record[column.dataId],record)" small square glyph.bind="column.getGlyph(record[column.dataId],record)" disabled.bind="column.isDisabled(record[column.dataId],record)" dropdown.bind="column.dropdown" menuopen.trigger="column.fireMenuOpen($event, record)" label.bind="column.getLabel(record[column.dataId],record)">
+            template = `<ui-button click.trigger="column.fireClick($event,record[column.dataId],record)" show.bind="column.isVisible(record[column.dataId],record)" theme.bind="column.getTheme(record[column.dataId],record)" small square glyph.bind="column.getGlyph(record[column.dataId],record)" width.bind="column.buttonWidth" disabled.bind="column.isDisabled(record[column.dataId],record)" dropdown.bind="column.dropdown" menuopen.trigger="column.fireMenuOpen($event, record)" label.bind="column.getLabel(record[column.dataId],record)">
       </ui-button>`;
             this.element.classList.add('btn-fix');
         }
@@ -206,7 +206,7 @@ UIDatagrid = __decorate([
       <div repeat.for="column of colLocked" class="ui-dg-cell" css.bind="{width: column.width, minWidth: column.minWidth}"></div>
     </div>
     <div repeat.for="column of cols" class="ui-dg-cell" css.bind="{width: column.width, minWidth: column.minWidth}"></div>
-    <div class="ui-dg-cell"><div class="ui-dg-cell-content">&nbsp;</div></div>
+    <div class="ui-dg-cell"></div>
   </div>
 </div>
 <div class="ui-dg-foot"></div>
