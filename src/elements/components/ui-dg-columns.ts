@@ -214,6 +214,7 @@ export class UIDGButton extends UIDataColumn {
   @bindable() glyph;
   @bindable() label;
   @bindable() dropdown;
+  @bindable() buttonWidth: any = 'auto';
   @bindable() buttonTheme: any = 'default';
   @bindable() show = null;
   @bindable() disabled = null;
