@@ -177,7 +177,7 @@
     "id": "sass",
     "displayName": "Sass",
     "fileExtension": ".scss",
-    "source": ["examples/sass/*.scss", "sass/**/*.scss"],
+    "source": ["examples/sass/*.scss", "sass/**/_*.scss"],
     "output": "examples/css"
   },
   "editor":
