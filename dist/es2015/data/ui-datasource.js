@@ -15,9 +15,9 @@ import { UIEvent } from "../utils/ui-event";
 import { UIUtils } from "../utils/ui-utils";
 import * as _ from "lodash";
 const ERROR_CODES = {
-    NO_API: { errorCode: 'AUF-DM:000', message: "API route required" },
-    REJECTED: { errorCode: 'AUF-DM:001', message: "REST call rejected" },
-    UNKNOWNID: { errorCode: 'AUF-DM:002', message: "Data model not loaded" }
+    NO_API: { errorCode: 'AUF-DS:000', message: "API route required" },
+    REJECTED: { errorCode: 'AUF-DS:001', message: "REST call rejected" },
+    UNKNOWNID: { errorCode: 'AUF-DS:002', message: "Data source error" }
 };
 const DEFAULT_OPTIONS = {
     apiSlug: '',
@@ -83,7 +83,7 @@ export class UIDataSource {
     }
     buildDataList() {
         this.busy = true;
-        let filtered = this.metadata.original;
+        let filtered = _.cloneDeep(this.metadata.original);
         if (this.metadata.query) {
             const keys = Object.keys(this.metadata.query);
             filtered = _.filter(filtered, record => {
@@ -148,13 +148,32 @@ export class UIRemoteDataSource extends UIDataSource {
         this.remoteFiltering = true;
         this.httpClient = UIUtils.lazy(UIHttpService);
     }
-    load() { }
-    loadPage(page) { }
-    filter(query) { }
-    sort(column, order) { }
+    load() {
+        this.doRequest().then(data => this.metadata.original = _.cloneDeep(this.data = data));
+    }
+    loadPage(page) {
+        this.metadata.page = page;
+        this.doRequest().then(data => this.data = data);
+    }
+    filter(query) {
+        this.metadata.query = query;
+        this.remoteFiltering ? this.doRequest().then(data => this.data = data) : this.buildDataList();
+    }
+    sort(column, order) {
+        this.metadata.sortBy = column;
+        this.metadata.orderBy = order;
+        this.remoteSorting ? this.doRequest().then(data => this.data = data) : this.buildDataList();
+    }
     preRequest(req) { }
     postRequest(req) { }
     buildQueryObject() {
+        return {
+            [this.pageProperty]: this.metadata.page,
+            [this.queryProperty]: this.metadata.query,
+            [this.sortByProperty]: this.metadata.sortBy,
+            [this.orderByProperty]: this.metadata.orderBy,
+            [this.recordsPerPageProperty]: this.metadata.recordsPerPage
+        };
     }
     doRequest() {
         if (!this.apiSlug)
@@ -165,9 +184,13 @@ export class UIRemoteDataSource extends UIDataSource {
         this.callPreHook('preRequest', { url, queryObject })
             .then(result => {
             if (result !== false) {
+                return this.httpClient.json(url);
             }
             Promise.reject(ERROR_CODES.REJECTED);
         }).then(response => {
+            this.metadata.totalPages = response[this.totalPagesProperty];
+            this.metadata.totalRecords = response[this.totalRecordsProperty];
+            return response[this.rootProperty];
         });
     }
     callPreHook(hook, data) {

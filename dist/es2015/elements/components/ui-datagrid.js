@@ -7,7 +7,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { autoinject, customElement, bindable, children, inlineView, TemplatingEngine, computedFrom, Container, ViewCompiler, ViewSlot } from 'aurelia-framework';
+import { autoinject, customElement, bindable, bindingMode, children, inlineView, TemplatingEngine, computedFrom, Container, ViewCompiler, ViewSlot } from 'aurelia-framework';
+import { UIDataSource } from "../../data/ui-datasource";
 import { UIEvent } from "../../utils/ui-event";
 import * as _ from "lodash";
 let HeaderCell = class HeaderCell {
@@ -127,10 +128,13 @@ BodyRow = __decorate([
   <div class="ui-dg-cell ui-row-head" css.bind="{width: parent.counterWidth+'px'}" if.bind="parent.rowCounter">
     <div class="ui-dg-cell-content ui-text-center">\${(index+1) + (parent.dataSource.recordsPerPage * parent.dataSource.page)}</div>
   </div>
+  <div class="ui-dg-cell ui-cell-checkbox" click.trigger="parent.toggleRecordCheck(record)">
+    <ui-glyph glyph.bind="record.__selected__?'glyph-tree-check-on':'glyph-tree-check-off'"></ui-glyph>
+  </div>
   <body-cell repeat.for="column of parent.colLocked" record.bind="record" column.bind="column"></body-cell>
 </div>
 <body-cell repeat.for="column of parent.cols" record.bind="record" column.bind="column"></body-cell>
-<div class="ui-dg-cell"><div class="ui-dg-cell-content">&nbsp;</div></div>
+<div class="ui-dg-cell last-cell"><div class="ui-dg-cell-content">&nbsp;</div></div>
 </template>`)
 ], BodyRow);
 export { BodyRow };
@@ -138,27 +142,60 @@ let UIDatagrid = class UIDatagrid {
     constructor(element, engine) {
         this.element = element;
         this.engine = engine;
+        this.selectedRows = [];
         this.cols = [];
         this.colHead = [];
         this.colLocked = [];
         this.counterWidth = 32;
         this.virtual = false;
+        this.rowSelect = false;
+        this.rowCheckbox = false;
         this.rowCounter = false;
         this.rowExpander = false;
+        this.virtual = element.hasAttribute('virtual');
+        this.rowSelect = element.hasAttribute('rowselect');
+        this.rowCheckbox = element.hasAttribute('row-checkbox');
         this.rowCounter = element.hasAttribute('row-counter');
         this.rowExpander = element.hasAttribute('row-expander');
         if (!element.hasAttribute('scroll'))
             this.element.classList.add('ui-auto-size');
+    }
+    bind() {
+        this.dataSourceChanged(this.dataSource);
     }
     attached() {
         UIEvent.queueTask(() => {
             this.columnsChanged(this.columns);
         });
     }
+    detached() {
+        if (this.obPageChange)
+            this.obPageChange.dispose();
+    }
     columnsChanged(columns) {
         this.colHead = _.sortBy(columns, 'locked');
         this.cols = _.flatMap(_.filter(columns, (c) => c.locked == 1), c => c.columns || c);
         this.colLocked = _.flatMap(_.filter(columns, (c) => c.locked == 0), c => c.columns || c);
+    }
+    dataSourceChanged(newValue) {
+        if (_.isArray(newValue)) {
+            const ds = new UIDataSource();
+            ds.load(newValue);
+            this.dataSource = ds;
+        }
+        this.obPageChange = UIEvent.observe(this.dataSource, 'data', () => this.selectedRows = []);
+    }
+    toggleRecordCheck(record) {
+        record.__selected__ = !record.__selected__;
+        this.selectedRows = _.filter(this.dataSource.data, ['__selected__', true]);
+    }
+    fireSelect($event, record) {
+        $event.stopPropagation();
+        $event.preventDefault();
+        if (!this.rowSelect)
+            return;
+        UIEvent.fireEvent('rowselect', this.element, ({ record }));
+        return false;
     }
 };
 __decorate([
@@ -169,6 +206,14 @@ __decorate([
     bindable(),
     __metadata("design:type", Object)
 ], UIDatagrid.prototype, "dataSource", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIDatagrid.prototype, "viewTpl", void 0);
+__decorate([
+    bindable({ defaultBindingMode: bindingMode.fromView }),
+    __metadata("design:type", Object)
+], UIDatagrid.prototype, "selectedRows", void 0);
 UIDatagrid = __decorate([
     autoinject(),
     inlineView(`<template class="ui-datagrid"><div class="ui-hide"><slot></slot></div>
@@ -176,6 +221,7 @@ UIDatagrid = __decorate([
   <div class="ui-dg-row" css.bind="{transform: 'translateX('+(scrollLeft*-1)+'px)'}">
     <div class="ui-dg-lock-group" css.bind="{transform: 'translateX('+(scrollLeft)+'px)'}">
       <div class="ui-dg-cell ui-row-head" css.bind="{width: counterWidth+'px'}" if.bind="rowCounter"></div>
+      <div class="ui-dg-cell ui-cell-checkbox" if.bind="rowCheckbox"></div>
       <template repeat.for="column of colHead | filter:'locked':0">
       <header-cell column.bind="column" ds.bind="dataSource" if.bind="!column.isGroup"></header-cell>
       <div class="ui-dg-col-group" if.bind="column.isGroup">
@@ -195,18 +241,19 @@ UIDatagrid = __decorate([
       </div>
     </div>
     </template>
-    <div class="ui-dg-cell"><div class="ui-dg-cell-content">&nbsp;</div></div>
+    <div class="ui-dg-cell last-cell"><div class="ui-dg-cell-content">&nbsp;</div></div>
   </div>
 </div>
 <div class="ui-dg-body" scroll.trigger="scrollLeft = $event.target.scrollLeft">
-  <body-row repeat.for="record of dataSource.data" record.bind="record"></body-row>
+  <body-row repeat.for="record of dataSource.data" record.bind="record" if.bind="!virtual" click.trigger="fireSelect($event, record)"></body-row>
   <div class="ui-dg-row ui-last-row">
     <div class="ui-dg-lock-group" css.bind="{transform: 'translateX('+(scrollLeft)+'px)'}">
       <div class="ui-dg-cell ui-row-head" css.bind="{width: counterWidth+'px'}" if.bind="rowCounter"></div>
+      <div class="ui-dg-cell ui-cell-checkbox" if.bind="rowCheckbox"></div>
       <div repeat.for="column of colLocked" class="ui-dg-cell" css.bind="{width: column.width, minWidth: column.minWidth}"></div>
     </div>
     <div repeat.for="column of cols" class="ui-dg-cell" css.bind="{width: column.width, minWidth: column.minWidth}"></div>
-    <div class="ui-dg-cell"></div>
+    <div class="ui-dg-cell last-cell"></div>
   </div>
 </div>
 <div class="ui-dg-foot"></div>

@@ -47,9 +47,9 @@ System.register(["aurelia-framework", "aurelia-logging", "aurelia-metadata", "..
         ],
         execute: function () {
             ERROR_CODES = {
-                NO_API: { errorCode: 'AUF-DM:000', message: "API route required" },
-                REJECTED: { errorCode: 'AUF-DM:001', message: "REST call rejected" },
-                UNKNOWNID: { errorCode: 'AUF-DM:002', message: "Data model not loaded" }
+                NO_API: { errorCode: 'AUF-DS:000', message: "API route required" },
+                REJECTED: { errorCode: 'AUF-DS:001', message: "REST call rejected" },
+                UNKNOWNID: { errorCode: 'AUF-DS:002', message: "Data source error" }
             };
             DEFAULT_OPTIONS = {
                 apiSlug: '',
@@ -143,7 +143,7 @@ System.register(["aurelia-framework", "aurelia-logging", "aurelia-metadata", "..
                 UIDataSource.prototype.buildDataList = function () {
                     var _this = this;
                     this.busy = true;
-                    var filtered = this.metadata.original;
+                    var filtered = _.cloneDeep(this.metadata.original);
                     if (this.metadata.query) {
                         var keys_1 = Object.keys(this.metadata.query);
                         filtered = _.filter(filtered, function (record) {
@@ -214,15 +214,40 @@ System.register(["aurelia-framework", "aurelia-logging", "aurelia-metadata", "..
                     _this.httpClient = ui_utils_1.UIUtils.lazy(ui_http_1.UIHttpService);
                     return _this;
                 }
-                UIRemoteDataSource.prototype.load = function () { };
-                UIRemoteDataSource.prototype.loadPage = function (page) { };
-                UIRemoteDataSource.prototype.filter = function (query) { };
-                UIRemoteDataSource.prototype.sort = function (column, order) { };
+                UIRemoteDataSource.prototype.load = function () {
+                    var _this = this;
+                    this.doRequest().then(function (data) { return _this.metadata.original = _.cloneDeep(_this.data = data); });
+                };
+                UIRemoteDataSource.prototype.loadPage = function (page) {
+                    var _this = this;
+                    this.metadata.page = page;
+                    this.doRequest().then(function (data) { return _this.data = data; });
+                };
+                UIRemoteDataSource.prototype.filter = function (query) {
+                    var _this = this;
+                    this.metadata.query = query;
+                    this.remoteFiltering ? this.doRequest().then(function (data) { return _this.data = data; }) : this.buildDataList();
+                };
+                UIRemoteDataSource.prototype.sort = function (column, order) {
+                    var _this = this;
+                    this.metadata.sortBy = column;
+                    this.metadata.orderBy = order;
+                    this.remoteSorting ? this.doRequest().then(function (data) { return _this.data = data; }) : this.buildDataList();
+                };
                 UIRemoteDataSource.prototype.preRequest = function (req) { };
                 UIRemoteDataSource.prototype.postRequest = function (req) { };
                 UIRemoteDataSource.prototype.buildQueryObject = function () {
+                    return _a = {},
+                        _a[this.pageProperty] = this.metadata.page,
+                        _a[this.queryProperty] = this.metadata.query,
+                        _a[this.sortByProperty] = this.metadata.sortBy,
+                        _a[this.orderByProperty] = this.metadata.orderBy,
+                        _a[this.recordsPerPageProperty] = this.metadata.recordsPerPage,
+                        _a;
+                    var _a;
                 };
                 UIRemoteDataSource.prototype.doRequest = function () {
+                    var _this = this;
                     if (!this.apiSlug)
                         return Promise.reject(ERROR_CODES.NO_API);
                     ;
@@ -231,9 +256,13 @@ System.register(["aurelia-framework", "aurelia-logging", "aurelia-metadata", "..
                     this.callPreHook('preRequest', { url: url, queryObject: queryObject })
                         .then(function (result) {
                         if (result !== false) {
+                            return _this.httpClient.json(url);
                         }
                         Promise.reject(ERROR_CODES.REJECTED);
                     }).then(function (response) {
+                        _this.metadata.totalPages = response[_this.totalPagesProperty];
+                        _this.metadata.totalRecords = response[_this.totalRecordsProperty];
+                        return response[_this.rootProperty];
                     });
                 };
                 UIRemoteDataSource.prototype.callPreHook = function (hook, data) {

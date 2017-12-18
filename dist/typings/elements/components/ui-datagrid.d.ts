@@ -27,15 +27,25 @@ export declare class UIDatagrid {
     element: Element;
     private engine;
     constructor(element: Element, engine: TemplatingEngine);
+    bind(): void;
     attached(): void;
+    detached(): void;
     columns: any;
     dataSource: any;
+    viewTpl: any;
+    selectedRows: any[];
     cols: any[];
     colHead: any[];
     colLocked: any[];
     private counterWidth;
     private virtual;
+    private rowSelect;
+    private rowCheckbox;
     private rowCounter;
     private rowExpander;
+    private obPageChange;
     columnsChanged(columns: any): void;
+    dataSourceChanged(newValue: any): void;
+    toggleRecordCheck(record: any): void;
+    private fireSelect($event, record);
 }
