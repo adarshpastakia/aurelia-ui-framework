@@ -15,7 +15,7 @@ export class DgBasic {
   wiki;
   source;
   attached() {
-    // this.httpClient.text('docs/api/http.md').then(md => this.wiki = md);
+    this.httpClient.text('docs/components/datagrid.md').then(md => this.wiki = md);
     // this.httpClient.text('docs/api/datamodel.example.md').then(md => this.source = md);
     this.ds.load(Countries.list);
   }
@@ -23,7 +23,7 @@ export class DgBasic {
   sortBy = 'name';
   orderBy = 'asc';
 
-  ds = new UIDataSource({ paginate: true, recordsPerPage: 20, sortBy: 'name' });
+  ds = new UIDataSource({ paginate: true, recordsPerPage: 18, sortBy: 'name' });
 
 
   linkClick(e) {

@@ -5393,7 +5393,8 @@ strong {
         flex: 1 1 1em; }
       .ui-datagrid .ui-dg-row .ui-dg-cell.btn-fix > .ui-dg-cell-content {
         padding: 0 0.25em; }
-      .ui-datagrid .ui-dg-row .ui-dg-cell:last-child {
+      .ui-datagrid .ui-dg-row .ui-dg-cell.last-cell {
+        border: none;
         -webkit-flex: 1 1 2em;
         -moz-flex: 1 1 2em;
         -ms-flex: 1 1 2em;
