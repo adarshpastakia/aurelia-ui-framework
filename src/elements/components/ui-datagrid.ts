@@ -5,6 +5,7 @@
 // @license     : MIT
 
 import { autoinject, customElement, bindable, bindingMode, children, inlineView, containerless, DOM, TemplatingEngine, computedFrom, Container, ViewCompiler, ViewSlot } from 'aurelia-framework';
+import { UIDataSource } from "../../data/ui-datasource";
 import { UIEvent } from "../../utils/ui-event";
 import { UIUtils } from "../../utils/ui-utils";
 import * as _ from "lodash";
@@ -90,10 +91,13 @@ export class BodyCell {
   <div class="ui-dg-cell ui-row-head" css.bind="{width: parent.counterWidth+'px'}" if.bind="parent.rowCounter">
     <div class="ui-dg-cell-content ui-text-center">\${(index+1) + (parent.dataSource.recordsPerPage * parent.dataSource.page)}</div>
   </div>
+  <div class="ui-dg-cell ui-cell-checkbox" click.trigger="parent.toggleRecordCheck(record)">
+    <ui-glyph glyph.bind="record.__selected__?'glyph-tree-check-on':'glyph-tree-check-off'"></ui-glyph>
+  </div>
   <body-cell repeat.for="column of parent.colLocked" record.bind="record" column.bind="column"></body-cell>
 </div>
 <body-cell repeat.for="column of parent.cols" record.bind="record" column.bind="column"></body-cell>
-<div class="ui-dg-cell"><div class="ui-dg-cell-content">&nbsp;</div></div>
+<div class="ui-dg-cell last-cell"><div class="ui-dg-cell-content">&nbsp;</div></div>
 </template>`)
 export class BodyRow {
   bind(bindingContext, overrideContext) {
@@ -112,6 +116,7 @@ export class BodyRow {
   <div class="ui-dg-row" css.bind="{transform: 'translateX('+(scrollLeft*-1)+'px)'}">
     <div class="ui-dg-lock-group" css.bind="{transform: 'translateX('+(scrollLeft)+'px)'}">
       <div class="ui-dg-cell ui-row-head" css.bind="{width: counterWidth+'px'}" if.bind="rowCounter"></div>
+      <div class="ui-dg-cell ui-cell-checkbox" if.bind="rowCheckbox"></div>
       <template repeat.for="column of colHead | filter:'locked':0">
       <header-cell column.bind="column" ds.bind="dataSource" if.bind="!column.isGroup"></header-cell>
       <div class="ui-dg-col-group" if.bind="column.isGroup">
@@ -131,18 +136,19 @@ export class BodyRow {
       </div>
     </div>
     </template>
-    <div class="ui-dg-cell"><div class="ui-dg-cell-content">&nbsp;</div></div>
+    <div class="ui-dg-cell last-cell"><div class="ui-dg-cell-content">&nbsp;</div></div>
   </div>
 </div>
 <div class="ui-dg-body" scroll.trigger="scrollLeft = $event.target.scrollLeft">
-  <body-row repeat.for="record of dataSource.data" record.bind="record"></body-row>
+  <body-row repeat.for="record of dataSource.data" record.bind="record" if.bind="!virtual" click.trigger="fireSelect($event, record)"></body-row>
   <div class="ui-dg-row ui-last-row">
     <div class="ui-dg-lock-group" css.bind="{transform: 'translateX('+(scrollLeft)+'px)'}">
       <div class="ui-dg-cell ui-row-head" css.bind="{width: counterWidth+'px'}" if.bind="rowCounter"></div>
+      <div class="ui-dg-cell ui-cell-checkbox" if.bind="rowCheckbox"></div>
       <div repeat.for="column of colLocked" class="ui-dg-cell" css.bind="{width: column.width, minWidth: column.minWidth}"></div>
     </div>
     <div repeat.for="column of cols" class="ui-dg-cell" css.bind="{width: column.width, minWidth: column.minWidth}"></div>
-    <div class="ui-dg-cell"></div>
+    <div class="ui-dg-cell last-cell"></div>
   </div>
 </div>
 <div class="ui-dg-foot"></div>
@@ -150,10 +156,16 @@ export class BodyRow {
 @customElement('ui-datagrid')
 export class UIDatagrid {
   constructor(public element: Element, private engine: TemplatingEngine) {
-    // if (element.hasAttribute('virtual'))
+    this.virtual = element.hasAttribute('virtual');
+    this.rowSelect = element.hasAttribute('rowselect');
+    this.rowCheckbox = element.hasAttribute('row-checkbox');
     this.rowCounter = element.hasAttribute('row-counter');
     this.rowExpander = element.hasAttribute('row-expander');
     if (!element.hasAttribute('scroll')) this.element.classList.add('ui-auto-size');
+  }
+
+  bind() {
+    this.dataSourceChanged(this.dataSource);
   }
 
   attached() {
@@ -162,9 +174,17 @@ export class UIDatagrid {
     });
   }
 
+  detached() {
+    if (this.obPageChange) this.obPageChange.dispose();
+  }
+
   @children('ui-dg-column-group,ui-dg-column,ui-dg-button,ui-dg-link,ui-dg-glyph') columns;
 
   @bindable() dataSource;
+
+  @bindable() viewTpl;
+
+  @bindable({ defaultBindingMode: bindingMode.fromView }) selectedRows = [];
 
   cols = [];
   colHead = [];
@@ -173,12 +193,38 @@ export class UIDatagrid {
   private counterWidth = 32;
 
   private virtual = false;
+  private rowSelect = false;
+  private rowCheckbox = false;
   private rowCounter = false;
   private rowExpander = false;
+
+  private obPageChange;
 
   columnsChanged(columns) {
     this.colHead = _.sortBy(columns, 'locked');
     this.cols = _.flatMap(_.filter(columns, (c: any) => c.locked == 1), c => c.columns || c);
     this.colLocked = _.flatMap(_.filter(columns, (c: any) => c.locked == 0), c => c.columns || c);
+  }
+
+  dataSourceChanged(newValue) {
+    if (_.isArray(newValue)) {
+      const ds = new UIDataSource();
+      ds.load(newValue);
+      this.dataSource = ds;
+    }
+    this.obPageChange = UIEvent.observe(this.dataSource, 'data', () => this.selectedRows = []);
+  }
+
+  toggleRecordCheck(record) {
+    record.__selected__ = !record.__selected__;
+    this.selectedRows = _.filter(this.dataSource.data, ['__selected__', true]);
+  }
+
+  private fireSelect($event, record) {
+    $event.stopPropagation();
+    $event.preventDefault();
+    if (!this.rowSelect) return;
+    UIEvent.fireEvent('rowselect', this.element, ({ record }));
+    return false;
   }
 }

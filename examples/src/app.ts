@@ -83,7 +83,7 @@ export class App {
       }, {
         route: 'tree', moduleId: './components/tree', title: 'Tree Panel', nav: true, auth: false, settings: { section: 'Components', disabled: true }, name: 'comps:tree'
       }, {
-        route: 'datagrid', moduleId: './datagrids/view', title: 'Datagrid', nav: true, auth: false, settings: { section: 'Components', disabled: true }, name: 'comps:datagrid'
+        route: 'datagrid', moduleId: './datagrids/view', title: 'Datagrid', nav: true, auth: false, settings: { section: 'Components' }, name: 'comps:datagrid'
       }, {
         route: 'indicators', moduleId: './components/indicators', title: 'Breadcrumbs & Chips', nav: true, auth: false, settings: { section: 'Components' }, name: 'comps:indicators'
       }, {

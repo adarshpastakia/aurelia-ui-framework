@@ -4,16 +4,6 @@
 // @copyright   : 2017
 // @license     : MIT
 
-$datagrid-header-bg: $secondary;
-$datagrid-header-text: $white;
-$datagrid-row-odd-bg: $white;
-$datagrid-row-even-bg: darken($white, 1%);
-$datagrid-row-text: $base-text;
-$datagrid-row-selected-bg: rgba($secondary, .1);
-
-$datagrid-row-head-bg: $lightGray;
-$datagrid-row-head-text: $white;
-
 .ui-datagrid {
   @include flex-fill(1em);
   @include flexbox($direction: column, $wrap: false, $align: stretch);
@@ -66,7 +56,8 @@ $datagrid-row-head-text: $white;
         padding: 0 0.25em;
       }
 
-      &:last-child {
+      &.last-cell {
+        border: none;
         @include flex-fill(2em);
       }
 
