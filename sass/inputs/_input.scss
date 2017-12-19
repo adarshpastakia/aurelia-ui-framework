@@ -90,7 +90,7 @@
 
       .ui-error-list {
         display    : none;
-        position   : absolute;
+        position   : fixed;
         background : $danger;
         color      : $white;
         z-index    : 5;
