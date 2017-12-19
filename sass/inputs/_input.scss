@@ -15,7 +15,6 @@
   }
 
   &.ui-md-editor {
-
     div.ui-md-preview {
       overflow: auto;
       @include position(absolute, 0);
@@ -158,20 +157,41 @@
         right      : 0;
       }
     }
+
+    &:before {
+      content   : '';
+      position  : absolute;
+      bottom    : 0;
+      height    : 1px;
+      left      : 50%;
+      right     : 50%;
+      background: $input-focus-border;
+      @include transition(all 0.25s);
+    }
   }
 
-  &.ui-focus .ui-input-control {
-    box-shadow: 0 -2px 0 0 $input-focus-border inset;
+  &.ui-focus .ui-input-control:before {
+    left : 0;
+    right: 0;
   }
 
   &.ui-invalid {
+    z-index   : 2;
+    box-shadow: 0 0 1px 0 $input-invalid-border;
+
     .ui-input-control {
       background: rgba($input-invalid-border, .04);
-      box-shadow: 0 -1px 0 0 $input-invalid-border inset;
+
+      &:before {
+        background: $input-invalid-border;
+      }
     }
 
-    &.ui-focus .ui-input-control {
-      box-shadow: 0 -2px 0 0 $input-invalid-border inset;
+    &.ui-focus {
+      .ui-input-control:after {
+        left : 0;
+        right: 0;
+      }
     }
   }
 
