@@ -128,7 +128,7 @@ BodyRow = __decorate([
   <div class="ui-dg-cell ui-row-head" css.bind="{width: parent.counterWidth+'px'}" if.bind="parent.rowCounter">
     <div class="ui-dg-cell-content ui-text-center">\${(index+1) + (parent.dataSource.recordsPerPage * parent.dataSource.page)}</div>
   </div>
-  <div class="ui-dg-cell ui-cell-checkbox" click.trigger="parent.toggleRecordCheck(record)">
+  <div class="ui-dg-cell ui-cell-checkbox" click.trigger="parent.toggleRecordCheck($event,record)">
     <ui-glyph glyph.bind="record.__selected__?'glyph-tree-check-on':'glyph-tree-check-off'"></ui-glyph>
   </div>
   <body-cell repeat.for="column of parent.colLocked" record.bind="record" column.bind="column"></body-cell>
@@ -153,7 +153,7 @@ let UIDatagrid = class UIDatagrid {
         this.rowCounter = false;
         this.rowExpander = false;
         this.virtual = element.hasAttribute('virtual');
-        this.rowSelect = element.hasAttribute('rowselect');
+        this.rowSelect = element.hasAttribute('rowselect.trigger');
         this.rowCheckbox = element.hasAttribute('row-checkbox');
         this.rowCounter = element.hasAttribute('row-counter');
         this.rowExpander = element.hasAttribute('row-expander');
@@ -185,7 +185,9 @@ let UIDatagrid = class UIDatagrid {
         }
         this.obPageChange = UIEvent.observe(this.dataSource, 'data', () => this.selectedRows = []);
     }
-    toggleRecordCheck(record) {
+    toggleRecordCheck($event, record) {
+        $event.stopPropagation();
+        $event.preventDefault();
         record.__selected__ = !record.__selected__;
         this.selectedRows = _.filter(this.dataSource.data, ['__selected__', true]);
     }
@@ -244,7 +246,7 @@ UIDatagrid = __decorate([
     <div class="ui-dg-cell last-cell"><div class="ui-dg-cell-content">&nbsp;</div></div>
   </div>
 </div>
-<div class="ui-dg-body" scroll.trigger="scrollLeft = $event.target.scrollLeft">
+<div class="ui-dg-body \${rowSelect?'ui-row-hilight':''}" scroll.trigger="scrollLeft = $event.target.scrollLeft">
   <body-row repeat.for="record of dataSource.data" record.bind="record" if.bind="!virtual" click.trigger="fireSelect($event, record)"></body-row>
   <div class="ui-dg-row ui-last-row">
     <div class="ui-dg-lock-group" css.bind="{transform: 'translateX('+(scrollLeft)+'px)'}">

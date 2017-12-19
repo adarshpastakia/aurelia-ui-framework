@@ -292,6 +292,7 @@ System.register(["aurelia-framework", "aurelia-logging", "aurelia-metadata", "..
                 }
                 return DSMetadata;
             }());
+            exports_1("DSMetadata", DSMetadata);
         }
     };
 });

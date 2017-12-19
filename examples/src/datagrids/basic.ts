@@ -32,4 +32,7 @@ export class DgBasic {
   btnClick(e) {
     this.app.toast(`Button Clicked - ${e.detail.value}`);
   }
+  rowClick(r) {
+    this.app.toast(`Row Clicked - ${r.name}`);
+  }
 }

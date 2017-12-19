@@ -251,7 +251,7 @@ export class UIRemoteDataSource extends UIDataSource {
 }
 
 
-class DSMetadata {
+export class DSMetadata {
   original = [];
 
   apiSlug = '';

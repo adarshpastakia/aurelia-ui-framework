@@ -272,3 +272,4 @@ var DSMetadata = (function () {
     }
     return DSMetadata;
 }());
+exports.DSMetadata = DSMetadata;

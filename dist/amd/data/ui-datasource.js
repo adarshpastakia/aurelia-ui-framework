@@ -266,4 +266,5 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "aurelia-m
         }
         return DSMetadata;
     }());
+    exports.DSMetadata = DSMetadata;
 });
