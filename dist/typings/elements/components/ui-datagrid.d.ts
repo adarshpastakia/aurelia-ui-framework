@@ -46,6 +46,6 @@ export declare class UIDatagrid {
     private obPageChange;
     columnsChanged(columns: any): void;
     dataSourceChanged(newValue: any): void;
-    toggleRecordCheck(record: any): void;
+    toggleRecordCheck($event: any, record: any): void;
     private fireSelect($event, record);
 }

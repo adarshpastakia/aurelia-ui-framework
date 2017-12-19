@@ -204,7 +204,7 @@ export class UIRemoteDataSource extends UIDataSource {
         return Promise.resolve(true);
     }
 }
-class DSMetadata {
+export class DSMetadata {
     constructor() {
         this.original = [];
         this.apiSlug = '';
