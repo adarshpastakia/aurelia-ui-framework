@@ -48,7 +48,7 @@ export class DataModel {
   phone = '';
   email = '';
   hasSecondContact = false;
-  secondContactType = 'home';
+  secondContactType = '';
   secondContact = '';
 
   constructor() {
@@ -80,6 +80,9 @@ export class DataModel {
       .ensure(m => m.phone)
       .required()
       .satisfiesRule('phone')
+      .ensure(m => m.secondContactType)
+      .required()
+      .when(m => m.hasSecondContact)
       .ensure(m => m.secondContact)
       .required()
       .when(m => m.hasSecondContact)

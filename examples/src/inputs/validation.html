@@ -78,6 +78,7 @@
 
               <ui-input-group>
                 <ui-input-label required>Phone</ui-input-label>
+                <ui-input-addon glyph="icon-moon-phone"></ui-input-addon>
                 <ui-dropdown value.bind="model.phoneType & validate" default-text="--Choose--">
                   <ui-list-item value="home">Home</ui-list-item>
                   <ui-list-item value="work">Work</ui-list-item>
@@ -91,7 +92,7 @@
                 <ui-input-addon>
                   <ui-checkbox checked.bind="model.hasSecondContact" change.trigger="model.secondContact=''"></ui-checkbox>
                 </ui-input-addon>
-                <ui-dropdown disabled.bind="!model.hasSecondContact" value.bind="model.secondContactType">
+                <ui-dropdown disabled.bind="!model.hasSecondContact" value.bind="model.secondContactType & validate" default-text="--Choose--">
                   <ui-list-item value="home">Home</ui-list-item>
                   <ui-list-item value="work">Work</ui-list-item>
                   <ui-list-item value="mobile">Mobile</ui-list-item>
