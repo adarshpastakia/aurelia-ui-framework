@@ -150,6 +150,7 @@ $datagrid-row-odd-bg         : $white !default;
 $datagrid-row-even-bg        : darken($white, 1%) !default;
 $datagrid-row-text           : $base-text !default;
 $datagrid-row-selected-bg    : rgba($secondary, .1) !default;
+$datagrid-row-hilight-bg     : rgba($secondary, .25) !default;
 
 $datagrid-row-head-bg        : $lightGray !default;
 $datagrid-row-head-text      : $white !default;

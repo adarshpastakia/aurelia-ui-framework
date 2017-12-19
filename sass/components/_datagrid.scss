@@ -28,6 +28,10 @@
     &.ui-last-row {
       min-height: 0;
       @include flex-fill(0);
+
+      .ui-dg-cell {
+        background: $base-bg !important;
+      }
     }
 
     &:not(.ui-last-row) {
@@ -73,13 +77,13 @@
 
       &.ui-row-head {
         font-size : 0.8em;
-        background: $datagrid-row-head-bg;
+        background: $datagrid-row-head-bg !important;
         color     : $datagrid-row-head-text;
       }
     }
 
-    &.ui-selected .ui-dg-cell:not(.ui-row-head) {
-      background: $datagrid-row-selected-bg;
+    &.ui-selected .ui-dg-cell {
+      background-color: $datagrid-row-selected-bg;
     }
   }
 
@@ -163,6 +167,10 @@
     @include scroll();
     @include flex-fill();
     @include flexbox($direction: column, $wrap: false, $align: stretch);
+
+    &.ui-row-hilight .ui-dg-row:hover .ui-dg-cell {
+      background-color: $datagrid-row-hilight-bg;
+    }
   }
 
 }
