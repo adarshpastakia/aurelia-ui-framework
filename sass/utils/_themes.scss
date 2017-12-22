@@ -47,7 +47,7 @@
 //
 
 // Toolbars
-@mixin toolbar-theme($theme, $bg, $color: $white) {
+@mixin toolbar-theme($theme, $bg, $color: $white, $input: $black) {
   .ui-toolbar.ui-#{$theme} {
     background: rgba($bg, .25);
 
@@ -75,12 +75,12 @@
     > .ui-input-group .ui-group-wrapper,
     > .ui-input-wrapper .ui-input-control {
       background: rgba($white, .1);
-      color     : $color;
+      color     : $input;
     }
 
     > .ui-input-group .ui-group-wrapper .ui-input-control {
       background: none;
-      color     : $color;
+      color     : $input;
     }
 
     > .ui-input-group .ui-input-wrapper:not(.ui-focus) .ui-input-control,

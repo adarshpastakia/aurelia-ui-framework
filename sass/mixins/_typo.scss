@@ -6,27 +6,39 @@
 
 // Styling
 @mixin padding($dir, $size) {
-   @include browser-prefixed(padding-#{$dir}, $size);
+  @include browser-prefixed(padding-#{$dir}, $size);
 }
 @mixin margin($dir, $size) {
-   @include browser-prefixed(margin-#{$dir}, $size);
+  @include browser-prefixed(margin-#{$dir}, $size);
 }
 @mixin border($dir, $val...) {
-   @include browser-prefixed(border-#{$dir}, $val);
+  @include browser-prefixed(border-#{$dir}, $val);
 }
 @mixin borderEx($dir, $prop, $val) {
-   @include browser-prefixed(border-#{$dir}-#{$prop}, $val);
+  @include browser-prefixed(border-#{$dir}-#{$prop}, $val);
 }
 @mixin ellipsis($cursor: true) {
-   @if($cursor){
+  @if($cursor) {
     cursor: default;
   }
   white-space  : nowrap;
   text-overflow: ellipsis;
   overflow     : hidden;
 }
+@mixin clip($lines: 2, $line-height: 1.2) {
+  padding           : 0;
+  line-height       : $line-height;
+  white-space       : normal;
+  overflow          : hidden;
+  text-overflow     : ellipsis;
+  max-height        : $line-height * $lines * 1em;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  display           : -webkit-box;
+
+}
 @mixin user-select($select: text) {
-   @if($select == 'text'){
+  @if($select == 'text') {
     cursor: text;
   }
   @if($select == 'none') {

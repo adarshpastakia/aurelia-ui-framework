@@ -56,7 +56,7 @@
   }
 }
 @include toolbar-theme(dark, lighten($dark,5%));
-@include toolbar-theme(muted, lighten($muted,5%));
+@include toolbar-theme(muted, lighten($muted,15%));
 @include toolbar-theme(primary, lighten($primary,5%));
 @include toolbar-theme(secondary, lighten($secondary,5%));
 @include toolbar-theme(info, lighten($info,5%));
