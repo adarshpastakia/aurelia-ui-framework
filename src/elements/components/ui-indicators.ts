@@ -7,7 +7,7 @@ import { autoinject, customElement, bindable, bindingMode, inlineView, computedF
 import { UIEvent } from "../../utils/ui-event";
 
 @autoinject()
-@inlineView(`<template class="ui-chip" css.bind="{minWidth:width}"><span class="ui-chip-label" css.bind="{backgroundColor:color}">\${label}</span><span class="ui-chip-value"><slot></slot></span><a click.trigger="remove()" class="ui-chip-close" if.bind="canClose">&times</a></template>`)
+@inlineView(`<template class="ui-chip" css.bind="{minWidth:width}"><span class="ui-chip-label" css.bind="{backgroundColor:color}"><ui-glyph if.bind="glyph" glyph.bind="glyph"></ui-glyph><span if.bind="label">\${label}</span></span><span class="ui-chip-value"><slot></slot></span><a click.trigger="remove()" class="ui-chip-close" if.bind="canClose">&times</a></template>`)
 @customElement('ui-chip')
 export class UIChip {
   constructor(public element: Element) {
@@ -17,6 +17,7 @@ export class UIChip {
   }
 
   @bindable() id = '';
+  @bindable() glyph = '';
   @bindable() label = '';
   @bindable() color = '';
   @bindable() width = 'auto';

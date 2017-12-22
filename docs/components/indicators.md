@@ -3,6 +3,7 @@ Value chips
 
 * Attributes
   * `label = ''`
+  * `glyph = ''`
   * `theme = ''`
   * `width = ''`: Set minimum width
   * `small/normal/large`: Sizes
