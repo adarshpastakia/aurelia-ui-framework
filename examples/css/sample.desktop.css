@@ -71,12 +71,19 @@
     background: none !important;
     border-style: dashed; }
   .x-desktop-layout .x-desktop-icon .ui-button-label {
-    padding: 5px;
-    white-space: normal;
     font-weight: 300;
     font-size: 0.8em;
     color: #34495e;
-    text-shadow: none; }
+    text-shadow: none;
+    padding: 0;
+    line-height: 1.2;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 2.4em;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    display: -webkit-box; }
   .x-desktop-layout .x-desktop-icon .ui-button-icon {
     font-size: 2.5em;
     padding: 5px; }
