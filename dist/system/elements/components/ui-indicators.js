@@ -25,6 +25,7 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                 function UIChip(element) {
                     this.element = element;
                     this.id = '';
+                    this.glyph = '';
                     this.label = '';
                     this.color = '';
                     this.width = 'auto';
@@ -45,6 +46,10 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                 __decorate([
                     aurelia_framework_1.bindable(),
                     __metadata("design:type", Object)
+                ], UIChip.prototype, "glyph", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
                 ], UIChip.prototype, "label", void 0);
                 __decorate([
                     aurelia_framework_1.bindable(),
@@ -56,7 +61,7 @@ System.register(["aurelia-framework", "../../utils/ui-event"], function (exports
                 ], UIChip.prototype, "width", void 0);
                 UIChip = __decorate([
                     aurelia_framework_1.autoinject(),
-                    aurelia_framework_1.inlineView("<template class=\"ui-chip\" css.bind=\"{minWidth:width}\"><span class=\"ui-chip-label\" css.bind=\"{backgroundColor:color}\">${label}</span><span class=\"ui-chip-value\"><slot></slot></span><a click.trigger=\"remove()\" class=\"ui-chip-close\" if.bind=\"canClose\">&times</a></template>"),
+                    aurelia_framework_1.inlineView("<template class=\"ui-chip\" css.bind=\"{minWidth:width}\"><span class=\"ui-chip-label\" css.bind=\"{backgroundColor:color}\"><ui-glyph if.bind=\"glyph\" glyph.bind=\"glyph\"></ui-glyph><span if.bind=\"label\">${label}</span></span><span class=\"ui-chip-value\"><slot></slot></span><a click.trigger=\"remove()\" class=\"ui-chip-close\" if.bind=\"canClose\">&times</a></template>"),
                     aurelia_framework_1.customElement('ui-chip'),
                     __metadata("design:paramtypes", [Element])
                 ], UIChip);

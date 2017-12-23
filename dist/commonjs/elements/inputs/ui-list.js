@@ -86,7 +86,6 @@ var BaseList = (function () {
     };
     BaseList.prototype.getDisplay = function (item) {
         if (this.tpl) {
-            console.log(this.tpl, this.tpl.interpolate(item.model));
             return this.tpl.interpolate(item.model);
         }
         return item.display;

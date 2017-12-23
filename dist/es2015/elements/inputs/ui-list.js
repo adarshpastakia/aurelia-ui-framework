@@ -73,7 +73,6 @@ export class BaseList {
     }
     getDisplay(item) {
         if (this.tpl) {
-            console.log(this.tpl, this.tpl.interpolate(item.model));
             return this.tpl.interpolate(item.model);
         }
         return item.display;

@@ -24,6 +24,7 @@ require("./elements/components/ui-menu");
 require("./elements/components/ui-panel");
 require("./elements/components/ui-sidebar");
 require("./elements/components/ui-tabpanel");
+require("./elements/components/ui-tree");
 require("./elements/inputs/ui-button");
 require("./elements/inputs/ui-date");
 require("./elements/inputs/ui-form");
@@ -41,6 +42,7 @@ require("./value-converters/ui-lodash");
 require("./value-converters/ui-text");
 __export(require("./data/ui-datamodel"));
 __export(require("./data/ui-datasource"));
+__export(require("./data/ui-treemodel"));
 __export(require("./utils/ui-application"));
 __export(require("./utils/ui-constants"));
 __export(require("./utils/ui-dialog"));
@@ -67,7 +69,8 @@ function configure(config, configCallback) {
         aurelia_pal_1.PLATFORM.moduleName('./elements/components/ui-menu'),
         aurelia_pal_1.PLATFORM.moduleName('./elements/components/ui-panel'),
         aurelia_pal_1.PLATFORM.moduleName('./elements/components/ui-sidebar'),
-        aurelia_pal_1.PLATFORM.moduleName('./elements/components/ui-tabpanel')
+        aurelia_pal_1.PLATFORM.moduleName('./elements/components/ui-tabpanel'),
+        aurelia_pal_1.PLATFORM.moduleName('./elements/components/ui-tree')
     ]);
     config.globalResources([
         aurelia_pal_1.PLATFORM.moduleName('./elements/inputs/ui-button'),
