@@ -81,7 +81,7 @@ export class App {
       }, {
         route: 'tabs', moduleId: './components/tabpanel', title: 'Tab Panel', nav: true, auth: false, settings: { section: 'Components' }, name: 'comps:tabs'
       }, {
-        route: 'tree', moduleId: './components/tree', title: 'Tree Panel', nav: true, auth: false, settings: { section: 'Components', disabled: true }, name: 'comps:tree'
+        route: 'tree', moduleId: './components/tree', title: 'Tree Panel', nav: true, auth: false, settings: { section: 'Components' }, name: 'comps:tree'
       }, {
         route: 'datagrid', moduleId: './datagrids/view', title: 'Datagrid', nav: true, auth: false, settings: { section: 'Components' }, name: 'comps:datagrid'
       }, {

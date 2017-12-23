@@ -1,4 +1,4 @@
-define(["require", "exports", "aurelia-pal", "aurelia-validation", "./utils/ui-constants", "./utils/ui-utils", "./utils/ui-validation", "./data/ui-datamodel", "./data/ui-datasource", "./utils/ui-application", "./utils/ui-constants", "./utils/ui-dialog", "./utils/ui-event", "./utils/ui-format", "./utils/ui-http", "auf-utility-library", "./elements/core/ui-glyphs", "./elements/core/ui-grid", "./elements/core/ui-page", "./elements/core/ui-viewport", "./elements/components/ui-alerts", "./elements/components/ui-bars", "./elements/components/ui-datagrid", "./elements/components/ui-dg-columns", "./elements/components/ui-drawer", "./elements/components/ui-dropdown", "./elements/components/ui-indicators", "./elements/components/ui-menu", "./elements/components/ui-panel", "./elements/components/ui-sidebar", "./elements/components/ui-tabpanel", "./elements/inputs/ui-button", "./elements/inputs/ui-date", "./elements/inputs/ui-form", "./elements/inputs/ui-input", "./elements/inputs/ui-list", "./elements/inputs/ui-markdown", "./elements/inputs/ui-options", "./elements/inputs/ui-phone", "./elements/inputs/ui-textarea", "./attributes/ui-badge", "./attributes/ui-colors", "./attributes/ui-ribbon", "./attributes/ui-tooltip", "./value-converters/ui-lodash", "./value-converters/ui-text"], function (require, exports, aurelia_pal_1, aurelia_validation_1, ui_constants_1, ui_utils_1, ui_validation_1, ui_datamodel_1, ui_datasource_1, ui_application_1, ui_constants_2, ui_dialog_1, ui_event_1, ui_format_1, ui_http_1) {
+define(["require", "exports", "aurelia-pal", "aurelia-validation", "./utils/ui-constants", "./utils/ui-utils", "./utils/ui-validation", "./data/ui-datamodel", "./data/ui-datasource", "./data/ui-treemodel", "./utils/ui-application", "./utils/ui-constants", "./utils/ui-dialog", "./utils/ui-event", "./utils/ui-format", "./utils/ui-http", "auf-utility-library", "./elements/core/ui-glyphs", "./elements/core/ui-grid", "./elements/core/ui-page", "./elements/core/ui-viewport", "./elements/components/ui-alerts", "./elements/components/ui-bars", "./elements/components/ui-datagrid", "./elements/components/ui-dg-columns", "./elements/components/ui-drawer", "./elements/components/ui-dropdown", "./elements/components/ui-indicators", "./elements/components/ui-menu", "./elements/components/ui-panel", "./elements/components/ui-sidebar", "./elements/components/ui-tabpanel", "./elements/components/ui-tree", "./elements/inputs/ui-button", "./elements/inputs/ui-date", "./elements/inputs/ui-form", "./elements/inputs/ui-input", "./elements/inputs/ui-list", "./elements/inputs/ui-markdown", "./elements/inputs/ui-options", "./elements/inputs/ui-phone", "./elements/inputs/ui-textarea", "./attributes/ui-badge", "./attributes/ui-colors", "./attributes/ui-ribbon", "./attributes/ui-tooltip", "./value-converters/ui-lodash", "./value-converters/ui-text"], function (require, exports, aurelia_pal_1, aurelia_validation_1, ui_constants_1, ui_utils_1, ui_validation_1, ui_datamodel_1, ui_datasource_1, ui_treemodel_1, ui_application_1, ui_constants_2, ui_dialog_1, ui_event_1, ui_format_1, ui_http_1) {
     "use strict";
     function __export(m) {
         for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
@@ -6,6 +6,7 @@ define(["require", "exports", "aurelia-pal", "aurelia-validation", "./utils/ui-c
     Object.defineProperty(exports, "__esModule", { value: true });
     __export(ui_datamodel_1);
     __export(ui_datasource_1);
+    __export(ui_treemodel_1);
     __export(ui_application_1);
     __export(ui_constants_2);
     __export(ui_dialog_1);
@@ -32,7 +33,8 @@ define(["require", "exports", "aurelia-pal", "aurelia-validation", "./utils/ui-c
             aurelia_pal_1.PLATFORM.moduleName('./elements/components/ui-menu'),
             aurelia_pal_1.PLATFORM.moduleName('./elements/components/ui-panel'),
             aurelia_pal_1.PLATFORM.moduleName('./elements/components/ui-sidebar'),
-            aurelia_pal_1.PLATFORM.moduleName('./elements/components/ui-tabpanel')
+            aurelia_pal_1.PLATFORM.moduleName('./elements/components/ui-tabpanel'),
+            aurelia_pal_1.PLATFORM.moduleName('./elements/components/ui-tree')
         ]);
         config.globalResources([
             aurelia_pal_1.PLATFORM.moduleName('./elements/inputs/ui-button'),

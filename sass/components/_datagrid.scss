@@ -111,7 +111,7 @@
     }
 
     > .ui-dg-row .ui-dg-cell {
-      background: $datagrid-header-bg;
+      background: $datagrid-header-bg !important;
       color     : $datagrid-header-text;
 
       > .ui-dg-cell-icon {

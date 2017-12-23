@@ -100,7 +100,6 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                 };
                 BaseList.prototype.getDisplay = function (item) {
                     if (this.tpl) {
-                        console.log(this.tpl, this.tpl.interpolate(item.model));
                         return this.tpl.interpolate(item.model);
                     }
                     return item.display;

@@ -13,6 +13,7 @@ let UIChip = class UIChip {
     constructor(element) {
         this.element = element;
         this.id = '';
+        this.glyph = '';
         this.label = '';
         this.color = '';
         this.width = 'auto';
@@ -34,6 +35,10 @@ __decorate([
 __decorate([
     bindable(),
     __metadata("design:type", Object)
+], UIChip.prototype, "glyph", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
 ], UIChip.prototype, "label", void 0);
 __decorate([
     bindable(),
@@ -45,7 +50,7 @@ __decorate([
 ], UIChip.prototype, "width", void 0);
 UIChip = __decorate([
     autoinject(),
-    inlineView(`<template class="ui-chip" css.bind="{minWidth:width}"><span class="ui-chip-label" css.bind="{backgroundColor:color}">\${label}</span><span class="ui-chip-value"><slot></slot></span><a click.trigger="remove()" class="ui-chip-close" if.bind="canClose">&times</a></template>`),
+    inlineView(`<template class="ui-chip" css.bind="{minWidth:width}"><span class="ui-chip-label" css.bind="{backgroundColor:color}"><ui-glyph if.bind="glyph" glyph.bind="glyph"></ui-glyph><span if.bind="label">\${label}</span></span><span class="ui-chip-value"><slot></slot></span><a click.trigger="remove()" class="ui-chip-close" if.bind="canClose">&times</a></template>`),
     customElement('ui-chip'),
     __metadata("design:paramtypes", [Element])
 ], UIChip);

@@ -34,7 +34,7 @@ $colors: (
 
   @include switch-theme($key, $onBg: $color, $onText: $text);
   @include toolbar-theme($key, $color, $text);
-  @include statsbar-theme(#{$key}-bg, $text, $color);
+  @include statsbar-theme(bg-#{$key}, $text, $color);
   @include statsbar-theme($key, $color);
   @include toast-theme($key, $color, $text);
   @include header-theme($key, $color, $text);

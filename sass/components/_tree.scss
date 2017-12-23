@@ -1,0 +1,136 @@
+//
+// @description :
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+
+$tree-active-bg: $secondary;
+$tree-active-text: $white;
+$tree-hover-bg: rgba($secondary, .5);
+$tree-hover-text: $white;
+
+.ui-tree-panel {
+  @include flex-fill();
+  @include flexbox($direction:column, $align:stretch, $wrap:false);
+
+  .ui-tree-search {
+    margin: 0;
+    @include flex-auto();
+  }
+
+  .ui-tree-container {
+    @include scroll();
+    @include flex-fill();
+  }
+
+  .ui-tree-node {
+    .ui-node-label-row {
+      line-height: 1;
+      @include flexbox($wrap: false, $align: center);
+
+      &.last-info-line {
+        padding      : 0 0.25em;
+        margin-bottom: 0.5em;
+      }
+    }
+
+    .ui-node-expander {
+      text-align: center;
+      cursor    : pointer;
+      @include flex(0 0 1.5rem);
+    }
+
+    .ui-node-checkbox {
+      cursor    : pointer;
+      text-align: center;
+      color     : rgba($base-text, .7);
+      @include flex(0 0 1.5rem);
+
+      &:hover {
+        color: $tree-active-bg;
+      }
+    }
+
+    .ui-node-label {
+      cursor     : pointer;
+      padding    : 0 0.25em;
+      white-space: nowrap;
+      @include flex-fill();
+
+      &:hover {
+        color           : $tree-hover-text;
+        background-color: $tree-hover-bg;
+      }
+
+      &.ui-active {
+        color           : $tree-active-text;
+        background-color: $tree-active-bg;
+      }
+
+      span {
+        font-size  : 0.8rem;
+        line-height: 1.5rem;
+      }
+
+      span > u {
+        font-weight: $font-weight-medium;
+        color      : $primary;
+      }
+
+      .ui-icon {
+        @include margin(end, 0.25em);
+      }
+    }
+
+    .ui-node-line {
+      height     : 1.5rem;
+      width      : 1.5rem;
+      line-height: 1;
+      font-size  : 1.5rem;
+      color      : $muted;
+      opacity    : 0.25;
+      text-align : center;
+      @include flex(0 0 1.5rem);
+    }
+  }
+
+  &.ui-lines .ui-tree-node {
+    &:not(:last-child) > .ui-node-label-row > .ui-node-line:before {
+      content: '\251C';
+    }
+
+    &:last-child > .ui-node-label-row > .ui-node-line:before {
+      content: '\2514';
+    }
+
+    .ui-node-children .ui-node-label-row > .ui-node-line.parent:before {
+      content: '\2502';
+    }
+
+    &.ui-leaf > .ui-node-label-row > .ui-node-expander {
+      height     : 1.5rem;
+      width      : 1.5rem;
+      line-height: 1;
+      font-size  : 1.5rem;
+      color      : $muted;
+      opacity    : 0.25;
+
+      &:before {
+        content: '\2500';
+      }
+    }
+  }
+}
+
+.rtl,
+[dir="rtl"] {
+  .ui-tree-panel.ui-lines .ui-tree-node {
+    &:not(:last-child) > .ui-node-label-row > .ui-node-line:before {
+      content: '\2524';
+    }
+
+    &:last-child > .ui-node-label-row > .ui-node-line:before {
+      content: '\2518';
+    }
+  }
+}

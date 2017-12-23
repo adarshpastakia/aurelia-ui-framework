@@ -4,6 +4,7 @@
 // @copyright   : 2017
 // @license     : MIT
 @import "sass/colors";
+@import "sass/mixins/typo";
 
 .x-desktop-layout {
   .x-start-menu {
@@ -122,12 +123,11 @@
     }
 
     .ui-button-label {
-      padding    : 5px;
-      white-space: normal;
       font-weight: 300;
       font-size  : 0.8em;
       color      : $dark;
       text-shadow: none;
+      @include clip(2);
     }
 
     .ui-button-icon {

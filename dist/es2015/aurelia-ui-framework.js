@@ -19,6 +19,7 @@ import './elements/components/ui-menu';
 import './elements/components/ui-panel';
 import './elements/components/ui-sidebar';
 import './elements/components/ui-tabpanel';
+import './elements/components/ui-tree';
 import './elements/inputs/ui-button';
 import './elements/inputs/ui-date';
 import './elements/inputs/ui-form';
@@ -36,6 +37,7 @@ import './value-converters/ui-lodash';
 import './value-converters/ui-text';
 export * from './data/ui-datamodel';
 export * from './data/ui-datasource';
+export * from './data/ui-treemodel';
 export * from './utils/ui-application';
 export * from './utils/ui-constants';
 export * from './utils/ui-dialog';
@@ -62,7 +64,8 @@ export function configure(config, configCallback) {
         PLATFORM.moduleName('./elements/components/ui-menu'),
         PLATFORM.moduleName('./elements/components/ui-panel'),
         PLATFORM.moduleName('./elements/components/ui-sidebar'),
-        PLATFORM.moduleName('./elements/components/ui-tabpanel')
+        PLATFORM.moduleName('./elements/components/ui-tabpanel'),
+        PLATFORM.moduleName('./elements/components/ui-tree')
     ]);
     config.globalResources([
         PLATFORM.moduleName('./elements/inputs/ui-button'),
