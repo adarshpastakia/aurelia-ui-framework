@@ -1,0 +1,20 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+
+<template>
+  <ui-page animate>
+    <x-container source.bind="source" wiki.bind="wiki" page-title="Tree Panel" need-rtl="true">
+      <div class="x-view">
+        <ui-section row-layout>
+          <ui-sidebar flex>
+            <ui-tree data-source.bind="treeModel" show-lines checkable searchable></ui-tree>
+          </ui-sidebar>
+          <ui-content></ui-content>
+        </ui-section>
+      </div>
+    </x-container>
+  </ui-page>
+</template>
