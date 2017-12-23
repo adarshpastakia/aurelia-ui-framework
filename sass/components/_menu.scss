@@ -43,6 +43,10 @@ a.ui-menu-item {
   &:hover {
     color           : $menu-link-hover-text;
     background-color: $menu-link-hover-bg;
+
+    small {
+      color: rgba($menu-link-hover-text, .7);
+    }
   }
 
   &:active {
@@ -60,6 +64,10 @@ a.ui-menu-item {
     color           : $menu-link-active-text;
     background-color: $menu-link-active-bg;
     @include box-shadow(0 -4px 0 0 $menu-link-active-hilight inset);
+
+    small {
+      color: rgba($menu-link-active-text, .7);
+    }
   }
 }
 
