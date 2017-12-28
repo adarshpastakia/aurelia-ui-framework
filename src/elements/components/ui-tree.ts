@@ -46,6 +46,23 @@ export class UITree {
 
   private ignoreChange = false;
 
+  valueChanged(newValue) {
+    if (this.ignoreChange) return;
+    if (!this.checkable) {
+      if (this.selectedNode) {
+        let p = this.selectedNode;
+        p.active = false;
+        do { p.childActive = false } while (p = p.parent);
+      }
+      this.selectedNode = this.findNode(this.root.children, newValue, 'active', true, true);
+    }
+    else {
+      if (isEmpty(newValue)) return;
+      _.forEach(this.root.children, n => n.isChecked = false);
+      if (newValue) _.forEach((newValue || '').split(','), v => this.findNode(this.root.children, v, 'checked', true, true));
+    }
+  }
+
   public expandAll() {
     this.root.expandToggle(true);
   }

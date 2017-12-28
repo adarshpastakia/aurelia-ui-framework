@@ -37,6 +37,28 @@ var UITree = (function () {
         if ((this.searchable = element.hasAttribute('searchable')))
             element.classList.add('has-search');
     }
+    UITree.prototype.valueChanged = function (newValue) {
+        var _this = this;
+        if (this.ignoreChange)
+            return;
+        if (!this.checkable) {
+            if (this.selectedNode) {
+                var p = this.selectedNode;
+                p.active = false;
+                do {
+                    p.childActive = false;
+                } while (p = p.parent);
+            }
+            this.selectedNode = this.findNode(this.root.children, newValue, 'active', true, true);
+        }
+        else {
+            if (isEmpty(newValue))
+                return;
+            _.forEach(this.root.children, function (n) { return n.isChecked = false; });
+            if (newValue)
+                _.forEach((newValue || '').split(','), function (v) { return _this.findNode(_this.root.children, v, 'checked', true, true); });
+        }
+    };
     UITree.prototype.expandAll = function () {
         this.root.expandToggle(true);
     };

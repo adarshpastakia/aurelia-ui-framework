@@ -18,6 +18,7 @@ export declare class UITree {
     private searchable;
     private checkable;
     private ignoreChange;
+    valueChanged(newValue: any): void;
     expandAll(): void;
     collapseAll(): void;
     getChecked(nodes?: any, retVal?: {
