@@ -40,7 +40,6 @@ export class TreePanel {
       ct.push(c);
     });
     this.treeModel = new UITreeModel(ct);
-    console.log(this.treeModel);
   }
 
 }
