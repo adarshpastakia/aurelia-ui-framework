@@ -1,7 +1,10 @@
+<a name="4.0.0-Beta.8"></a>
+# 4.0.0-Beta.8 (2017-12-28)
+
+
+
 <a name="4.0.0-Beta.7"></a>
 # 4.0.0-Beta.7 (2017-12-23)
-
-
 
 * Added glyph property for `ui-chip`
 * Fixed `ui-statsbar` theme for extra colors
