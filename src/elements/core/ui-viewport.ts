@@ -3,10 +3,11 @@
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
-import { autoinject, customElement, bindable, inlineView, containerless, Container, DOM } from 'aurelia-framework';
+import { autoinject, customElement, bindable, inlineView, containerless, Container, DOM, PLATFORM } from 'aurelia-framework';
 import { AppRouter } from 'aurelia-router';
 import { UIEvent } from "../../utils/ui-event";
 import { UIUtils } from "../../utils/ui-utils";
+PLATFORM.moduleName('./ui-glyphs');
 
 const CSS_PREFIX = 'ui-viewport';
 

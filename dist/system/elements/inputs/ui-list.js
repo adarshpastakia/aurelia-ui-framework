@@ -55,6 +55,7 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                     this.isDisabled = false;
                     this.isTagInput = false;
                     this.showDropdown = false;
+                    this.multiSelect = false;
                 }
                 BaseList.prototype.bind = function (bindingContext, overrideContext) {
                     this.readonlyChanged(this.readonly);
@@ -106,7 +107,7 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                 };
                 BaseList.prototype.valueChanged = function (newValue, oldValue) {
                     var _this = this;
-                    if (!this.isTagInput) {
+                    if (!this.isTagInput && !this.multiSelect) {
                         var item = _['findChildren'](this.filtered = this.original, 'items', 'value', newValue === null ? '' : newValue);
                         this.elValue = item.text;
                         if (!this.forceSelect && !this.elValue)
@@ -612,6 +613,7 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-ut
                     _this.iconProperty = 'icon';
                     _this.forceSelect = true;
                     _this.clear = element.hasAttribute('clear');
+                    _this.multiSelect = element.hasAttribute('multi');
                     if (_this.element.hasAttribute('fill'))
                         _this.element.classList.add('ui-fill');
                     return _this;

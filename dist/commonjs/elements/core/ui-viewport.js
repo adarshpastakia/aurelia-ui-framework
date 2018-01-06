@@ -13,6 +13,7 @@ var aurelia_framework_1 = require("aurelia-framework");
 var aurelia_router_1 = require("aurelia-router");
 var ui_event_1 = require("../../utils/ui-event");
 var ui_utils_1 = require("../../utils/ui-utils");
+aurelia_framework_1.PLATFORM.moduleName('./ui-glyphs');
 var CSS_PREFIX = 'ui-viewport';
 var UIViewport = (function () {
     function UIViewport(element) {
