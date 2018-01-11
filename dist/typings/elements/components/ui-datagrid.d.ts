@@ -1,9 +1,12 @@
 import { TemplatingEngine, Container, ViewCompiler } from 'aurelia-framework';
 export declare class HeaderCell {
+    element: Element;
     ds: any;
     column: any;
+    constructor(element: Element);
     readonly sortOrder: any;
     doSort(): void;
+    fireResize(evt: any): boolean;
 }
 export declare class BodyCell {
     element: Element;
@@ -48,4 +51,15 @@ export declare class UIDatagrid {
     dataSourceChanged(newValue: any): void;
     toggleRecordCheck($event: any, record: any): void;
     private fireSelect($event, record);
+    private _X;
+    private ghostEl;
+    private _column;
+    private _columnEl;
+    private _evtStop;
+    private _evtMove;
+    private _isRtl;
+    private _resizing;
+    private startResize(evt);
+    private onResize(evt);
+    private endResize(evt);
 }

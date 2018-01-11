@@ -75,8 +75,11 @@ export class UIDataColumn {
             this.dataType = 'exrate';
         this.headTitle = element['innerText'];
     }
-    get _width() {
+    get columnWidth() {
         return convertToPx(this.width || this.minWidth || 250);
+    }
+    get columnMinWidth() {
+        return convertToPx(this.minWidth || 40);
     }
     getValue(value, record) {
         return this.processValue(value, record);
@@ -128,7 +131,12 @@ __decorate([
     computedFrom('width', 'minWidth'),
     __metadata("design:type", Object),
     __metadata("design:paramtypes", [])
-], UIDataColumn.prototype, "_width", null);
+], UIDataColumn.prototype, "columnWidth", null);
+__decorate([
+    computedFrom('minWidth'),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [])
+], UIDataColumn.prototype, "columnMinWidth", null);
 let UIDgColumn = class UIDgColumn extends UIDataColumn {
     constructor(element) {
         super(element);

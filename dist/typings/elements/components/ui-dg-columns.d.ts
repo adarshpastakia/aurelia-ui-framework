@@ -24,7 +24,8 @@ export declare class UIDataColumn {
     sortable: boolean;
     resizeable: boolean;
     align: string;
-    readonly _width: number;
+    readonly columnWidth: number;
+    readonly columnMinWidth: number;
     getValue(value: any, record: any): string;
     processValue(value: any, record: any): string;
 }

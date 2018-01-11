@@ -1,14 +1,25 @@
-<a name="4.0.0-Beta.8"></a>
-# 4.0.0-Beta.8 (2017-12-28)
+<a name="4.0.0-Beta.10"></a>
+# 4.0.0-Beta.10 (2018-01-11)
 
+
+
+* [UIDatagrid] - Added column resize functionality
+* [UIButton] - Added `hide-caret` option for button with dropdown
+
+
+<a name="4.0.0-Beta.9"></a>
+# 4.0.0-Beta.9 (2018-01-06)
+
+* [BUG] - Fixed webpack load issue
+* [BUG] - Fixed input field overlay
 
 
 <a name="4.0.0-Beta.7"></a>
 # 4.0.0-Beta.7 (2017-12-23)
 
-* Added glyph property for `ui-chip`
-* Fixed `ui-statsbar` theme for extra colors
-* Added UITree
+* [UIChip] - Added glyph property
+* [UIStatsbar] - Fixed theme for extra colors
+* [UITree] - Added
 
 <a name="4.0.0-Beta.6"></a>
 # 4.0.0-Beta.6 (2017-12-15)

@@ -21,6 +21,7 @@ export declare class UIButton {
     private obMouseup;
     split: boolean;
     isDisabled: boolean;
+    hideCaret: boolean;
     disable(b: any): void;
     disabledChanged(newValue: any): void;
     hideDropdown(): boolean;
