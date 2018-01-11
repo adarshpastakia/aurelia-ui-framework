@@ -27,6 +27,7 @@ System.register(["aurelia-framework", "aurelia-router", "../../utils/ui-event", 
             }
         ],
         execute: function () {
+            aurelia_framework_1.PLATFORM.moduleName('./ui-glyphs');
             CSS_PREFIX = 'ui-viewport';
             UIViewport = (function () {
                 function UIViewport(element) {

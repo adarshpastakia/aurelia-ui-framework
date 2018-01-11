@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 define(["require", "exports", "aurelia-framework", "aurelia-router", "../../utils/ui-event", "../../utils/ui-utils"], function (require, exports, aurelia_framework_1, aurelia_router_1, ui_event_1, ui_utils_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    aurelia_framework_1.PLATFORM.moduleName('./ui-glyphs');
     var CSS_PREFIX = 'ui-viewport';
     var UIViewport = (function () {
         function UIViewport(element) {

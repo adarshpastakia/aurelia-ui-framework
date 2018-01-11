@@ -100,9 +100,16 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-fo
                         this.dataType = 'exrate';
                     this.headTitle = element['innerText'];
                 }
-                Object.defineProperty(UIDataColumn.prototype, "_width", {
+                Object.defineProperty(UIDataColumn.prototype, "columnWidth", {
                     get: function () {
                         return convertToPx(this.width || this.minWidth || 250);
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(UIDataColumn.prototype, "columnMinWidth", {
+                    get: function () {
+                        return convertToPx(this.minWidth || 40);
                     },
                     enumerable: true,
                     configurable: true
@@ -156,7 +163,12 @@ System.register(["aurelia-framework", "../../utils/ui-event", "../../utils/ui-fo
                     aurelia_framework_1.computedFrom('width', 'minWidth'),
                     __metadata("design:type", Object),
                     __metadata("design:paramtypes", [])
-                ], UIDataColumn.prototype, "_width", null);
+                ], UIDataColumn.prototype, "columnWidth", null);
+                __decorate([
+                    aurelia_framework_1.computedFrom('minWidth'),
+                    __metadata("design:type", Object),
+                    __metadata("design:paramtypes", [])
+                ], UIDataColumn.prototype, "columnMinWidth", null);
                 return UIDataColumn;
             }());
             exports_1("UIDataColumn", UIDataColumn);

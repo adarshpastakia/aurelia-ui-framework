@@ -24,6 +24,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
             this.hasLabel = true;
             this.split = false;
             this.isDisabled = false;
+            this.hideCaret = false;
             if (this.element.hasAttribute('icon-top'))
                 this.element.classList.add('ui-icon-top');
             if (this.element.hasAttribute('icon-end'))
@@ -39,6 +40,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
             if (this.element.hasAttribute('small'))
                 this.element.classList.add('ui-size-sm');
             this.split = this.element.hasAttribute('split');
+            this.hideCaret = this.element.hasAttribute('hide-caret');
         }
         UIButton.prototype.bind = function (bindingContext, overrideContext) {
             if (this.form)
@@ -148,7 +150,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
         ], UIButton.prototype, "disabled", void 0);
         UIButton = __decorate([
             aurelia_framework_1.autoinject(),
-            aurelia_framework_1.inlineView("<template class=\"ui-button ${busy?'ui-busy':''}\" css.bind=\"{width: width}\">\n  <a role=\"button\" tabindex=\"-1\" class=\"ui-button-el\" click.trigger=\"toggleDropdown($event, false)\" data-value=\"${value}\" ref=\"buttonEl\">\n    <div class=\"ui-busy-icon\"><ui-glyph glyph=\"glyph-busy\" class=\"ui-anim-busy\"></ui-glyph></div>\n    <div class=\"ui-button-icon\" if.bind=\"glyph\"><ui-glyph glyph.bind=\"glyph\"></ui-glyph></div>\n    <div class=\"ui-button-label\" ref=\"labelEl\" show.bind=\"hasLabel\"><slot>${label}</slot></div>\n    <div class=\"ui-button-caret\" if.bind=\"!split && !form && dropdown\"><ui-glyph glyph=\"glyph-chevron-down\"></ui-glyph></div>\n  </a>\n  <a role=\"button\" tabindex=\"-1\" class=\"ui-button-el ui-${splitTheme}\" if.bind=\"split\" click.trigger=\"toggleDropdown($event, true)\">\n    <div class=\"ui-button-splitter\"></div>\n    <div class=\"ui-button-caret\"><ui-glyph glyph=\"glyph-chevron-down\"></ui-glyph></div>\n  </a>\n</template>"),
+            aurelia_framework_1.inlineView("<template class=\"ui-button ${busy?'ui-busy':''}\" css.bind=\"{width: width}\">\n  <a role=\"button\" tabindex=\"-1\" class=\"ui-button-el\" click.trigger=\"toggleDropdown($event, false)\" data-value=\"${value}\" ref=\"buttonEl\">\n    <div class=\"ui-busy-icon\"><ui-glyph glyph=\"glyph-busy\" class=\"ui-anim-busy\"></ui-glyph></div>\n    <div class=\"ui-button-icon\" if.bind=\"glyph\"><ui-glyph glyph.bind=\"glyph\"></ui-glyph></div>\n    <div class=\"ui-button-label\" ref=\"labelEl\" show.bind=\"hasLabel\"><slot>${label}</slot></div>\n    <div class=\"ui-button-caret\" if.bind=\"!hideCaret && !split && !form && dropdown\"><ui-glyph glyph=\"glyph-chevron-down\"></ui-glyph></div>\n  </a>\n  <a role=\"button\" tabindex=\"-1\" class=\"ui-button-el ui-${splitTheme}\" if.bind=\"split\" click.trigger=\"toggleDropdown($event, true)\">\n    <div class=\"ui-button-splitter\"></div>\n    <div class=\"ui-button-caret\"><ui-glyph glyph=\"glyph-chevron-down\"></ui-glyph></div>\n  </a>\n</template>"),
             aurelia_framework_1.customElement('ui-button'),
             __metadata("design:paramtypes", [Element])
         ], UIButton);

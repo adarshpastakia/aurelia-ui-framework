@@ -29,6 +29,7 @@ export class BaseList {
         this.isDisabled = false;
         this.isTagInput = false;
         this.showDropdown = false;
+        this.multiSelect = false;
     }
     bind(bindingContext, overrideContext) {
         this.readonlyChanged(this.readonly);
@@ -78,7 +79,7 @@ export class BaseList {
         return item.display;
     }
     valueChanged(newValue, oldValue) {
-        if (!this.isTagInput) {
+        if (!this.isTagInput && !this.multiSelect) {
             let item = _['findChildren'](this.filtered = this.original, 'items', 'value', newValue === null ? '' : newValue);
             this.elValue = item.text;
             if (!this.forceSelect && !this.elValue)
@@ -605,6 +606,7 @@ let UIList = class UIList extends BaseList {
         this.iconProperty = 'icon';
         this.forceSelect = true;
         this.clear = element.hasAttribute('clear');
+        this.multiSelect = element.hasAttribute('multi');
         if (this.element.hasAttribute('fill'))
             this.element.classList.add('ui-fill');
     }

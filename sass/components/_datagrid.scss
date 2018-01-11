@@ -5,12 +5,24 @@
 // @license     : MIT
 
 .ui-datagrid {
+  position: relative;
   @include flex-fill(1em);
   @include flexbox($direction: column, $wrap: false, $align: stretch);
 
   &.ui-auto-size > .ui-dg-body {
     overflow: hidden;
     @include flex-basis(auto);
+  }
+
+  .ui-dg-ghost {
+    position   : absolute;
+    display    : none;
+    top        : 0;
+    border-left: 1px dashed $muted;
+
+    &.resizing {
+      display: block;
+    }
   }
 
   .ui-dg-row {

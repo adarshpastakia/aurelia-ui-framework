@@ -67,8 +67,12 @@ export class UIDataColumn {
   align = 'ui-text-start';
 
   @computedFrom('width', 'minWidth')
-  get _width() {
+  get columnWidth() {
     return convertToPx(this.width || this.minWidth || 250);
+  }
+  @computedFrom('minWidth')
+  get columnMinWidth() {
+    return convertToPx(this.minWidth || 40);
   }
 
   getValue(value, record) {

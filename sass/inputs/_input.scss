@@ -176,7 +176,7 @@
   }
 
   &.ui-invalid {
-    z-index   : 2;
+    // z-index   : 2;
     box-shadow: 0 0 1px 0 $input-invalid-border;
 
     .ui-input-control {

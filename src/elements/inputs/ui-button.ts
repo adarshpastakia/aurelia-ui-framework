@@ -14,7 +14,7 @@ import * as _ from "lodash";
     <div class="ui-busy-icon"><ui-glyph glyph="glyph-busy" class="ui-anim-busy"></ui-glyph></div>
     <div class="ui-button-icon" if.bind="glyph"><ui-glyph glyph.bind="glyph"></ui-glyph></div>
     <div class="ui-button-label" ref="labelEl" show.bind="hasLabel"><slot>\${label}</slot></div>
-    <div class="ui-button-caret" if.bind="!split && !form && dropdown"><ui-glyph glyph="glyph-chevron-down"></ui-glyph></div>
+    <div class="ui-button-caret" if.bind="!hideCaret && !split && !form && dropdown"><ui-glyph glyph="glyph-chevron-down"></ui-glyph></div>
   </a>
   <a role="button" tabindex="-1" class="ui-button-el ui-\${splitTheme}" if.bind="split" click.trigger="toggleDropdown($event, true)">
     <div class="ui-button-splitter"></div>
@@ -34,6 +34,7 @@ export class UIButton {
     if (this.element.hasAttribute('small')) this.element.classList.add('ui-size-sm');
 
     this.split = this.element.hasAttribute('split');
+    this.hideCaret = this.element.hasAttribute('hide-caret');
   }
 
   bind(bindingContext: Object, overrideContext: Object) {
@@ -80,6 +81,7 @@ export class UIButton {
 
   split = false;
   isDisabled = false;
+  hideCaret = false;
 
   disable(b) {
     this.element.classList[(this.isDisabled = (b || this.disabled)) ? 'add' : 'remove']('ui-disabled');

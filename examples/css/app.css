@@ -3470,7 +3470,6 @@ strong {
     left: 0;
     right: 0; }
   .ui-input-wrapper.ui-invalid {
-    z-index: 2;
     box-shadow: 0 0 1px 0 #EF5350; }
     .ui-input-wrapper.ui-invalid .ui-input-control {
       background: rgba(239, 83, 80, 0.04); }
@@ -5268,6 +5267,7 @@ strong {
     color: rgba(255, 208, 66, 0.75); }
 
 .ui-datagrid {
+  position: relative;
   -webkit-flex: 1 1 1em;
   -moz-flex: 1 1 1em;
   -ms-flex: 1 1 1em;
@@ -5301,6 +5301,13 @@ strong {
     -ms-flex-basis: auto;
     -o-flex-basis: auto;
     flex-basis: auto; }
+  .ui-datagrid .ui-dg-ghost {
+    position: absolute;
+    display: none;
+    top: 0;
+    border-left: 1px dashed #95a5a6; }
+    .ui-datagrid .ui-dg-ghost.resizing {
+      display: block; }
   .ui-datagrid .ui-dg-row {
     background: white;
     display: flex;

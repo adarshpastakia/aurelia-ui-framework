@@ -8,10 +8,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { autoinject, customElement, bindable, bindingMode, children, inlineView, TemplatingEngine, computedFrom, Container, ViewCompiler, ViewSlot } from 'aurelia-framework';
+import { getLogger } from 'aurelia-logging';
 import { UIDataSource } from "../../data/ui-datasource";
 import { UIEvent } from "../../utils/ui-event";
 import * as _ from "lodash";
+const logger = getLogger('UIDatagrid');
 let HeaderCell = class HeaderCell {
+    constructor(element) {
+        this.element = element;
+    }
     get sortOrder() {
         if (this.ds.sortBy !== this.column.dataId)
             return '';
@@ -24,6 +29,13 @@ let HeaderCell = class HeaderCell {
             this.ds.sort(this.column.dataId, 'asc');
         else
             this.ds.sort(this.column.dataId, this.ds.orderBy === 'asc' ? 'desc' : 'asc');
+    }
+    fireResize(evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        const startX = evt.x || evt.clientX;
+        UIEvent.fireEvent('resize', this.element, { column: this.column, startX });
+        return false;
     }
 };
 __decorate([
@@ -41,7 +53,7 @@ __decorate([
 ], HeaderCell.prototype, "sortOrder", null);
 HeaderCell = __decorate([
     autoinject(),
-    inlineView(`<template class="ui-dg-cell" css.bind="{width: column.width, minWidth: column.minWidth}" click.trigger="doSort()">
+    inlineView(`<template class="ui-dg-cell" css.bind="{width: column.columnWidth+'px', minWidth: column.columnMinWidth+'px'}" click.delegate="doSort()">
   <div class="ui-dg-cell-content">\${column.headTitle}</div>
   <div class="ui-dg-cell-icon ui-sort \${sortOrder}" if.bind="column.sortable">
     <ui-glyph glyph="glyph-caret-up"></ui-glyph>
@@ -50,8 +62,9 @@ HeaderCell = __decorate([
   <div class="ui-dg-cell-icon ui-filter" if.bind="column.filter">
     <ui-glyph glyph="glyph-funnel"></ui-glyph>
   </div>
-  <div class="ui-dg-cell-resize" if.bind="column.resizeable"></div>
-</template>`)
+  <div class="ui-dg-cell-resize" if.bind="column.resizeable" mousedown.trigger="fireResize($event)" click.trigger="$event.stopPropagation() && false"></div>
+</template>`),
+    __metadata("design:paramtypes", [Element])
 ], HeaderCell);
 export { HeaderCell };
 let BodyCell = class BodyCell {
@@ -102,7 +115,7 @@ __decorate([
 ], BodyCell.prototype, "record", void 0);
 BodyCell = __decorate([
     autoinject(),
-    inlineView(`<template class="ui-dg-cell" css.bind="{width: column.width, minWidth: column.minWidth}">
+    inlineView(`<template class="ui-dg-cell" css.bind="{width: column.columnWidth+'px', minWidth: column.columnMinWidth+'px'}">
 <div class="ui-dg-cell-content \${column.align}" ref="elContent"></div>
 </template>`),
     __metadata("design:paramtypes", [Element, Container, ViewCompiler])
@@ -152,6 +165,8 @@ let UIDatagrid = class UIDatagrid {
         this.rowCheckbox = false;
         this.rowCounter = false;
         this.rowExpander = false;
+        this._X = 0;
+        this._resizing = true;
         this.virtual = element.hasAttribute('virtual');
         this.rowSelect = element.hasAttribute('rowselect.trigger');
         this.rowCheckbox = element.hasAttribute('row-checkbox');
@@ -199,6 +214,44 @@ let UIDatagrid = class UIDatagrid {
         UIEvent.fireEvent('rowselect', this.element, ({ record }));
         return false;
     }
+    startResize(evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        this._isRtl = isRtl(this.element);
+        this._X = evt.detail.startX;
+        this._resizing = true;
+        this._column = evt.detail.column;
+        this._columnEl = evt.target;
+        this.ghostEl.classList.add('resizing');
+        this.ghostEl.style.left = (this._columnEl.offsetLeft + (this._isRtl ? 0 : this._column.columnWidth)) + 'px';
+        document.addEventListener('mouseup', this._evtStop = evt => this.endResize(evt));
+        document.addEventListener('mousemove', this._evtMove = evt => this.onResize(evt));
+    }
+    onResize(evt) {
+        let w = this._column.columnWidth;
+        let diff = (evt.x || evt.clientX || 0) - this._X;
+        if (this._isRtl)
+            diff = diff * -1;
+        if (w + diff < this._column.columnMinWidth)
+            w = this._column.columnMinWidth;
+        else if (w + diff > 500)
+            w = 500;
+        else
+            w = w + diff;
+        this._X = evt.x || evt.clientX;
+        this._column.width = w;
+        this.ghostEl.style.left = (this._columnEl.offsetLeft + (this._isRtl ? 0 : this._column.columnWidth)) + 'px';
+        return false;
+    }
+    endResize(evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        this._resizing = false;
+        this.ghostEl.classList.remove('resizing');
+        document.removeEventListener('mouseup', this._evtStop);
+        document.removeEventListener('mousemove', this._evtMove);
+        return false;
+    }
 };
 __decorate([
     children('ui-dg-column-group,ui-dg-column,ui-dg-button,ui-dg-link,ui-dg-glyph'),
@@ -219,7 +272,8 @@ __decorate([
 UIDatagrid = __decorate([
     autoinject(),
     inlineView(`<template class="ui-datagrid"><div class="ui-hide"><slot></slot></div>
-<div class="ui-dg-head">
+<div class="ui-dg-ghost" ref="ghostEl" css.bind="{height: element.offsetHeight+'px'}"></div>
+<div class="ui-dg-head" resize.trigger="startResize($event)">
   <div class="ui-dg-row" css.bind="{transform: 'translateX('+(scrollLeft*-1)+'px)'}">
     <div class="ui-dg-lock-group" css.bind="{transform: 'translateX('+(scrollLeft)+'px)'}">
       <div class="ui-dg-cell ui-row-head" css.bind="{width: counterWidth+'px'}" if.bind="rowCounter"></div>
@@ -252,9 +306,9 @@ UIDatagrid = __decorate([
     <div class="ui-dg-lock-group" css.bind="{transform: 'translateX('+(scrollLeft)+'px)'}">
       <div class="ui-dg-cell ui-row-head" css.bind="{width: counterWidth+'px'}" if.bind="rowCounter"></div>
       <div class="ui-dg-cell ui-cell-checkbox" if.bind="rowCheckbox"></div>
-      <div repeat.for="column of colLocked" class="ui-dg-cell" css.bind="{width: column.width, minWidth: column.minWidth}"></div>
+      <div repeat.for="column of colLocked" class="ui-dg-cell" css.bind="{width: column.columnWidth+'px', minWidth: column.columnMinWidth+'px'}"></div>
     </div>
-    <div repeat.for="column of cols" class="ui-dg-cell" css.bind="{width: column.width, minWidth: column.minWidth}"></div>
+    <div repeat.for="column of cols" class="ui-dg-cell" css.bind="{width: column.columnWidth+'px', minWidth: column.columnMinWidth+'px'}"></div>
     <div class="ui-dg-cell last-cell"></div>
   </div>
 </div>

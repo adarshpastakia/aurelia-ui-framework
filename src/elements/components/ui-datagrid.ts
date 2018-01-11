@@ -5,13 +5,16 @@
 // @license     : MIT
 
 import { autoinject, customElement, bindable, bindingMode, children, inlineView, containerless, DOM, TemplatingEngine, computedFrom, Container, ViewCompiler, ViewSlot } from 'aurelia-framework';
+import { getLogger } from 'aurelia-logging';
 import { UIDataSource } from "../../data/ui-datasource";
 import { UIEvent } from "../../utils/ui-event";
 import { UIUtils } from "../../utils/ui-utils";
 import * as _ from "lodash";
 
+const logger = getLogger('UIDatagrid');
+
 @autoinject()
-@inlineView(`<template class="ui-dg-cell" css.bind="{width: column.width, minWidth: column.minWidth}" click.trigger="doSort()">
+@inlineView(`<template class="ui-dg-cell" css.bind="{width: column.columnWidth+'px', minWidth: column.columnMinWidth+'px'}" click.delegate="doSort()">
   <div class="ui-dg-cell-content">\${column.headTitle}</div>
   <div class="ui-dg-cell-icon ui-sort \${sortOrder}" if.bind="column.sortable">
     <ui-glyph glyph="glyph-caret-up"></ui-glyph>
@@ -20,11 +23,13 @@ import * as _ from "lodash";
   <div class="ui-dg-cell-icon ui-filter" if.bind="column.filter">
     <ui-glyph glyph="glyph-funnel"></ui-glyph>
   </div>
-  <div class="ui-dg-cell-resize" if.bind="column.resizeable"></div>
+  <div class="ui-dg-cell-resize" if.bind="column.resizeable" mousedown.trigger="fireResize($event)" click.trigger="$event.stopPropagation() && false"></div>
 </template>`)
 export class HeaderCell {
   @bindable() ds;
   @bindable() column;
+
+  constructor(public element: Element) { }
 
   @computedFrom('ds.sortBy', 'ds.orderBy')
   get sortOrder() {
@@ -37,10 +42,20 @@ export class HeaderCell {
     if (this.ds.sortBy !== this.column.dataId) this.ds.sort(this.column.dataId, 'asc');
     else this.ds.sort(this.column.dataId, this.ds.orderBy === 'asc' ? 'desc' : 'asc');
   }
+
+  fireResize(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+
+    const startX = evt.x || evt.clientX;
+    UIEvent.fireEvent('resize', this.element, { column: this.column, startX });
+
+    return false;
+  }
 }
 
 @autoinject()
-@inlineView(`<template class="ui-dg-cell" css.bind="{width: column.width, minWidth: column.minWidth}">
+@inlineView(`<template class="ui-dg-cell" css.bind="{width: column.columnWidth+'px', minWidth: column.columnMinWidth+'px'}">
 <div class="ui-dg-cell-content \${column.align}" ref="elContent"></div>
 </template>`)
 export class BodyCell {
@@ -112,7 +127,8 @@ export class BodyRow {
 
 @autoinject()
 @inlineView(`<template class="ui-datagrid"><div class="ui-hide"><slot></slot></div>
-<div class="ui-dg-head">
+<div class="ui-dg-ghost" ref="ghostEl" css.bind="{height: element.offsetHeight+'px'}"></div>
+<div class="ui-dg-head" resize.trigger="startResize($event)">
   <div class="ui-dg-row" css.bind="{transform: 'translateX('+(scrollLeft*-1)+'px)'}">
     <div class="ui-dg-lock-group" css.bind="{transform: 'translateX('+(scrollLeft)+'px)'}">
       <div class="ui-dg-cell ui-row-head" css.bind="{width: counterWidth+'px'}" if.bind="rowCounter"></div>
@@ -145,9 +161,9 @@ export class BodyRow {
     <div class="ui-dg-lock-group" css.bind="{transform: 'translateX('+(scrollLeft)+'px)'}">
       <div class="ui-dg-cell ui-row-head" css.bind="{width: counterWidth+'px'}" if.bind="rowCounter"></div>
       <div class="ui-dg-cell ui-cell-checkbox" if.bind="rowCheckbox"></div>
-      <div repeat.for="column of colLocked" class="ui-dg-cell" css.bind="{width: column.width, minWidth: column.minWidth}"></div>
+      <div repeat.for="column of colLocked" class="ui-dg-cell" css.bind="{width: column.columnWidth+'px', minWidth: column.columnMinWidth+'px'}"></div>
     </div>
-    <div repeat.for="column of cols" class="ui-dg-cell" css.bind="{width: column.width, minWidth: column.minWidth}"></div>
+    <div repeat.for="column of cols" class="ui-dg-cell" css.bind="{width: column.columnWidth+'px', minWidth: column.columnMinWidth+'px'}"></div>
     <div class="ui-dg-cell last-cell"></div>
   </div>
 </div>
@@ -227,6 +243,60 @@ export class UIDatagrid {
     $event.preventDefault();
     if (!this.rowSelect) return;
     UIEvent.fireEvent('rowselect', this.element, ({ record }));
+    return false;
+  }
+
+  private _X = 0;
+  private ghostEl;
+  private _column;
+  private _columnEl;
+  private _evtStop;
+  private _evtMove;
+  private _isRtl;
+  private _resizing = true;
+  private startResize(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+
+    this._isRtl = isRtl(this.element);
+    this._X = evt.detail.startX;
+    this._resizing = true;
+    this._column = evt.detail.column;
+    this._columnEl = evt.target;
+
+    this.ghostEl.classList.add('resizing');
+    this.ghostEl.style.left = (this._columnEl.offsetLeft + (this._isRtl ? 0 : this._column.columnWidth)) + 'px';
+    document.addEventListener('mouseup', this._evtStop = evt => this.endResize(evt));
+    document.addEventListener('mousemove', this._evtMove = evt => this.onResize(evt));
+  }
+
+  private onResize(evt) {
+    let w = this._column.columnWidth;
+    let diff = (evt.x || evt.clientX || 0) - this._X;
+
+    if (this._isRtl) diff = diff * -1;
+
+    if (w + diff < this._column.columnMinWidth) w = this._column.columnMinWidth;
+    else if (w + diff > 500) w = 500;
+    else w = w + diff;
+
+    this._X = evt.x || evt.clientX;
+    this._column.width = w;
+    this.ghostEl.style.left = (this._columnEl.offsetLeft + (this._isRtl ? 0 : this._column.columnWidth)) + 'px';
+
+    return false;
+  }
+
+  private endResize(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+
+    this._resizing = false;
+    this.ghostEl.classList.remove('resizing');
+
+    document.removeEventListener('mouseup', this._evtStop);
+    document.removeEventListener('mousemove', this._evtMove);
+
     return false;
   }
 }

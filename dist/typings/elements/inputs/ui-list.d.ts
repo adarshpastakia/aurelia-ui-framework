@@ -22,6 +22,7 @@ export declare class BaseList {
     protected isDisabled: boolean;
     protected isTagInput: boolean;
     protected showDropdown: boolean;
+    protected multiSelect: boolean;
     protected hilight: any;
     protected floating: any;
     bind(bindingContext: Object, overrideContext: Object): void;
