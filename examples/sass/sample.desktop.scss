@@ -5,8 +5,15 @@
 // @license     : MIT
 @import "sass/colors";
 @import "sass/mixins/typo";
+@import "sass/mixins/common";
 
 .x-desktop-layout {
+  .x-desk-logo {
+    opacity: 0.03;
+    margin: auto;
+    @include position(absolute, 0);
+  }
+
   .x-start-menu {
     color     : $white;
     background: $dark;

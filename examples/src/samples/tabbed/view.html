@@ -1,0 +1,47 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <require from="css/sample.tabbed.css"></require>
+
+  <ui-viewport class="x-sample-viewport x-tabbed-layout">
+    <ui-row class="x-app-header" middle nogutter>
+      <ui-glyph ref="headIcon" glyph='icon-moon-rocket'></ui-glyph>
+      <div class="ui-app-title ui-font-large ui-pad-h">Tabbed Application</div>
+      <ui-filler></ui-filler>
+      <div class="ui-pad-all">
+        <a href="#/examples" class="ui-text-white ui-pad-v">
+          <ui-glyph glyph="glyph-arrow-left"></ui-glyph>&nbsp;Back to Website</a>
+      </div>
+    </ui-row>
+
+    <ui-menu ref="tabMenu">
+      <ui-menu-item click.trigger="openNewTab('users')">Users</ui-menu-item>
+      <ui-menu-item click.trigger="openNewTab('userform')">New User</ui-menu-item>
+      <ui-menu-item click.trigger="openNewTab('upload')">Uploads</ui-menu-item>
+      <ui-menu-item click.trigger="openNewTab('download')">Downloads</ui-menu-item>
+    </ui-menu>
+
+    <ui-tab-panel bg-light active-tab.bind="activeTab" active.bind="tabActiveId">
+      <ui-tabbar-start>
+        <ui-dropdown value="asia" width="8em">
+          <ui-list-item value="asia">Asia</ui-list-item>
+          <ui-list-item value="europe">Europe</ui-list-item>
+          <ui-list-item value="america">Americas</ui-list-item>
+      </ui-tabbar-start>
+      <ui-tabbar-end>
+        <ui-button small glyph="glyph-icon-no" disabled.bind="!tabs.length">Close All</ui-button>
+      </ui-tabbar-end>
+
+      <ui-tabbar-toggle dropdown.bind="tabMenu" class="tab-menu"></ui-tabbar-toggle>
+
+      <ui-tab glyph="icon-moon-home" class="tab-home" view="./home.html"></ui-tab>
+
+      <ui-tab repeat.for="tab of tabs" id.bind="tab.id" view.bind="tab.view" closeable close.trigger="removeTab($event.detail.id)">${tab.title}</ui-tab>
+
+      <compose view.bind="activeTab.view" view-model.bind="activeTab.viewModel"></compose>
+    </ui-tab-panel>
+  </ui-viewport>
+</template>

@@ -1,0 +1,21 @@
+.x-tabbed-layout .ui-tabbar .tab-home {
+  min-width: 3em; }
+  .x-tabbed-layout .ui-tabbar .tab-home .ui-label {
+    display: none; }
+
+.x-tabbed-layout .ui-tabbar {
+  background: #FFFEFC; }
+
+.ui-table {
+  table-layout: fixed;
+  width: 100%; }
+  .ui-table thead {
+    background: rgba(236, 240, 241, 0.25);
+    font-weight: 600; }
+  .ui-table td,
+  .ui-table th {
+    padding: 0.5em 0.75em; }
+  .ui-table tr:nth-child(even) {
+    background: #fffcf7; }
+  .ui-table tbody td {
+    font-size: 0.9em; }
