@@ -146,7 +146,7 @@
 // Headers
 @mixin header-theme($theme, $bg, $color: $white) {
   .ui-header.ui-#{$theme} {
-    background: lighten($bg, 10%);
+    background: lighten($bg, 5%);
     color     : $color;
 
     .ui-drawer-toggle {
@@ -182,7 +182,7 @@
 
     .ui-header-button {
       color     : rgba($color, .7);
-      background: lighten($bg, 20%);
+      background: darken($bg, 1%);
       border    : 1px solid rgba(darken($bg, 20%), .25);
 
       &:hover {

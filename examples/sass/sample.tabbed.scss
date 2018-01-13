@@ -1,0 +1,44 @@
+//
+// @description :
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+
+@import "sass/colors";
+
+.x-tabbed-layout {
+  .ui-tabbar .tab-home {
+    min-width: 3em;
+
+    .ui-label {
+      display: none;
+    }
+  }
+
+  .ui-tabbar {
+    background: $white;
+  }
+}
+
+.ui-table {
+  table-layout: fixed;
+  width       : 100%;
+
+  thead {
+    background : rgba($light, .25);
+    font-weight: 600;
+  }
+
+  td,
+  th {
+    padding: 0.5em 0.75em;
+  }
+
+  tr:nth-child(even) {
+    background: darken($white, 1%);
+  }
+
+  tbody td {
+    font-size: 0.9em;
+  }
+}

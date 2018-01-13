@@ -1,0 +1,287 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
+-->
+<template>
+  <ui-page animated>
+    <ui-statsbar>
+      <ui-stat glyph="icon-moon-user" label="Users" text-primary>99</ui-stat>
+      <ui-stat glyph="icon-moon-shield" label="Sessions" text-secondary>128</ui-stat>
+      <ui-stat glyph="icon-moon-eye" label="Views" theme="teal">3.8K</ui-stat>
+      <ui-stat glyph="icon-moon-cloud-download" label="Downloads" theme="blue">1.8K</ui-stat>
+      <ui-stat glyph="icon-moon-cloud-upload" label="Uploads" theme="purple">2.7K</ui-stat>
+    </ui-statsbar>
+
+    <ui-content padded scroll>
+      <ui-row stretch>
+        <ui-column size="lg-9 md-7 sm-12">
+          <ui-panel minheight="18em" height="100%">
+            <ui-header theme="blue">
+              <ui-header-title glyph="icon-moon-cloud-download" icon-hilight>Recent Downloads</ui-header-title>
+              <ui-header-tool dark glyph="glyph-chevron-double-right"></ui-header-tool>
+            </ui-header>
+            <ui-panel-body padded>
+              <img src="examples/images/wireframes/paragraph.png" height="80px" width="100%" />
+              <img src="examples/images/wireframes/paragraph.png" height="80px" width="100%" />
+              <!-- <table class="ui-table">
+                <colgroup>
+                  <col width="60px" />
+                  <col width="150px" />
+                  <col width="250px" />
+                  <col/>
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Date/Time</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <a href="javascript:;" class="ui-link ui-font-big ui-text-indigo">
+                        <ui-glyph glyph="icon-moon-eye"></ui-glyph>
+                      </a>
+                      <span>&nbsp;&nbsp;&nbsp;</span>
+                      <a href="javascript:;" class="ui-link ui-font-big ui-text-blue">
+                        <ui-glyph glyph="icon-moon-download3"></ui-glyph>
+                      </a>
+                    </td>
+                    <td>8/12/2017 09:09:09</td>
+                    <td>Filename something.mp4</td>
+                    <td>A sample video descrioption line</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <a href="javascript:;" class="ui-link ui-font-big ui-text-indigo">
+                        <ui-glyph glyph="icon-moon-eye"></ui-glyph>
+                      </a>
+                      <span>&nbsp;&nbsp;&nbsp;</span>
+                      <a href="javascript:;" class="ui-link ui-font-big ui-text-blue">
+                        <ui-glyph glyph="icon-moon-download3"></ui-glyph>
+                      </a>
+                    </td>
+                    <td>8/12/2017 09:09:09</td>
+                    <td>Filename something.mp4</td>
+                    <td>A sample video descrioption line</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <a href="javascript:;" class="ui-link ui-font-big ui-text-indigo">
+                        <ui-glyph glyph="icon-moon-eye"></ui-glyph>
+                      </a>
+                      <span>&nbsp;&nbsp;&nbsp;</span>
+                      <a href="javascript:;" class="ui-link ui-font-big ui-text-blue">
+                        <ui-glyph glyph="icon-moon-download3"></ui-glyph>
+                      </a>
+                    </td>
+                    <td>8/12/2017 09:09:09</td>
+                    <td>Filename something.mp4</td>
+                    <td>A sample video descrioption line</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <a href="javascript:;" class="ui-link ui-font-big ui-text-indigo">
+                        <ui-glyph glyph="icon-moon-eye"></ui-glyph>
+                      </a>
+                      <span>&nbsp;&nbsp;&nbsp;</span>
+                      <a href="javascript:;" class="ui-link ui-font-big ui-text-blue">
+                        <ui-glyph glyph="icon-moon-download3"></ui-glyph>
+                      </a>
+                    </td>
+                    <td>8/12/2017 09:09:09</td>
+                    <td>Filename something.mp4</td>
+                    <td>A sample video descrioption line</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <a href="javascript:;" class="ui-link ui-font-big ui-text-indigo">
+                        <ui-glyph glyph="icon-moon-eye"></ui-glyph>
+                      </a>
+                      <span>&nbsp;&nbsp;&nbsp;</span>
+                      <a href="javascript:;" class="ui-link ui-font-big ui-text-blue">
+                        <ui-glyph glyph="icon-moon-download3"></ui-glyph>
+                      </a>
+                    </td>
+                    <td>8/12/2017 09:09:09</td>
+                    <td>Filename something.mp4</td>
+                    <td>A sample video descrioption line</td>
+                  </tr>
+                </tbody>
+              </table> -->
+            </ui-panel-body>
+          </ui-panel>
+        </ui-column>
+        <ui-column size="lg-3 md-5 sm-12">
+          <ui-panel minheight="10em" height="100%">
+            <ui-header dark>
+              <ui-header-title glyph="icon-moon-users" icon-hilight>Most Active Users</ui-header-title>
+              <ui-header-tool glyph="glyph-chevron-double-right"></ui-header-tool>
+            </ui-header>
+            <ui-panel-body padded>
+              <img src="examples/images/wireframes/paragraph.png" height="80px" width="100%" />
+              <img src="examples/images/wireframes/paragraph.png" height="80px" width="100%" />
+              <!-- <table class="ui-table">
+                <colgroup>
+                  <col />
+                  <col width="50px" align="right"/>
+                  <col width="50px" align="right"/>
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th><ui-glyph tooltip="Uploads" glyph="icon-moon-upload3"></ui-glyph></th>
+                    <th><ui-glyph tooltip="Downloads" glyph="icon-moon-download3"></ui-glyph></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Some user</td><td>9K</td><td>128</td></tr>
+                  <tr><td>Some user</td><td>9K</td><td>128</td></tr>
+                  <tr><td>Some user</td><td>9K</td><td>128</td></tr>
+                  <tr><td>Some user</td><td>9K</td><td>128</td></tr>
+                  <tr><td>Some user</td><td>9K</td><td>128</td></tr>
+                </tbody>
+              </table> -->
+            </ui-panel-body>
+          </ui-panel>
+        </ui-column>
+        <ui-column size="lg-9 md-7 sm-12">
+          <ui-panel minheight="18em" height="100%">
+            <ui-header theme="blue">
+              <ui-header-title glyph="icon-moon-cloud-upload" icon-hilight>Recent Uploads</ui-header-title>
+              <ui-header-tool glyph="glyph-chevron-double-right"></ui-header-tool>
+            </ui-header>
+            <ui-panel-body padded>
+              <img src="examples/images/wireframes/paragraph.png" height="80px" width="100%" />
+              <img src="examples/images/wireframes/paragraph.png" height="80px" width="100%" />
+              <!-- <table class="ui-table">
+                <colgroup>
+                  <col width="60px" />
+                  <col width="150px" />
+                  <col width="250px" />
+                  <col/>
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Date/Time</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <a href="javascript:;" class="ui-link ui-font-big ui-text-indigo">
+                        <ui-glyph glyph="icon-moon-eye"></ui-glyph>
+                      </a>
+                      <span>&nbsp;&nbsp;&nbsp;</span>
+                      <a href="javascript:;" class="ui-link ui-font-big ui-text-blue">
+                        <ui-glyph glyph="icon-moon-download3"></ui-glyph>
+                      </a>
+                    </td>
+                    <td>8/12/2017 09:09:09</td>
+                    <td>Filename something.mp4</td>
+                    <td>A sample video descrioption line</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <a href="javascript:;" class="ui-link ui-font-big ui-text-indigo">
+                        <ui-glyph glyph="icon-moon-eye"></ui-glyph>
+                      </a>
+                      <span>&nbsp;&nbsp;&nbsp;</span>
+                      <a href="javascript:;" class="ui-link ui-font-big ui-text-blue">
+                        <ui-glyph glyph="icon-moon-download3"></ui-glyph>
+                      </a>
+                    </td>
+                    <td>8/12/2017 09:09:09</td>
+                    <td>Filename something.mp4</td>
+                    <td>A sample video descrioption line</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <a href="javascript:;" class="ui-link ui-font-big ui-text-indigo">
+                        <ui-glyph glyph="icon-moon-eye"></ui-glyph>
+                      </a>
+                      <span>&nbsp;&nbsp;&nbsp;</span>
+                      <a href="javascript:;" class="ui-link ui-font-big ui-text-blue">
+                        <ui-glyph glyph="icon-moon-download3"></ui-glyph>
+                      </a>
+                    </td>
+                    <td>8/12/2017 09:09:09</td>
+                    <td>Filename something.mp4</td>
+                    <td>A sample video descrioption line</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <a href="javascript:;" class="ui-link ui-font-big ui-text-indigo">
+                        <ui-glyph glyph="icon-moon-eye"></ui-glyph>
+                      </a>
+                      <span>&nbsp;&nbsp;&nbsp;</span>
+                      <a href="javascript:;" class="ui-link ui-font-big ui-text-blue">
+                        <ui-glyph glyph="icon-moon-download3"></ui-glyph>
+                      </a>
+                    </td>
+                    <td>8/12/2017 09:09:09</td>
+                    <td>Filename something.mp4</td>
+                    <td>A sample video descrioption line</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <a href="javascript:;" class="ui-link ui-font-big ui-text-indigo">
+                        <ui-glyph glyph="icon-moon-eye"></ui-glyph>
+                      </a>
+                      <span>&nbsp;&nbsp;&nbsp;</span>
+                      <a href="javascript:;" class="ui-link ui-font-big ui-text-blue">
+                        <ui-glyph glyph="icon-moon-download3"></ui-glyph>
+                      </a>
+                    </td>
+                    <td>8/12/2017 09:09:09</td>
+                    <td>Filename something.mp4</td>
+                    <td>A sample video descrioption line</td>
+                  </tr>
+                </tbody>
+              </table> -->
+            </ui-panel-body>
+          </ui-panel>
+        </ui-column>
+        <ui-column size="lg-3 md-5 sm-12">
+          <ui-panel minheight="10em" height="100%">
+            <ui-header dark>
+              <ui-header-title glyph="icon-moon-eye" icon-hilight>Most Viewed</ui-header-title>
+              <ui-header-tool glyph="glyph-chevron-double-right"></ui-header-tool>
+            </ui-header>
+            <ui-panel-body padded>
+              <img src="examples/images/wireframes/paragraph.png" height="80px" width="100%" />
+              <img src="examples/images/wireframes/paragraph.png" height="80px" width="100%" />
+              <!-- <table class="ui-table">
+                <colgroup>
+                  <col />
+                  <col width="50px" align="right"/>
+                  <col width="50px" align="right"/>
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th><ui-glyph tooltip="Views" glyph="icon-moon-eye"></ui-glyph></th>
+                    <th><ui-glyph tooltip="Downloads" glyph="icon-moon-download3"></ui-glyph></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Some filename.mp4</td><td>9K</td><td>128</td></tr>
+                  <tr><td>Some filename.mp4</td><td>9K</td><td>128</td></tr>
+                  <tr><td>Some filename.mp4</td><td>9K</td><td>128</td></tr>
+                  <tr><td>Some filename.mp4</td><td>9K</td><td>128</td></tr>
+                  <tr><td>Some filename.mp4</td><td>9K</td><td>128</td></tr>
+                </tbody>
+              </table> -->
+            </ui-panel-body>
+          </ui-panel>
+        </ui-column>
+      </ui-row>
+    </ui-content>
+  </ui-page>
+</template>

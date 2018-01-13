@@ -86,7 +86,7 @@
   border-color: #fc0d00; }
 
 .ui-header.ui-red {
-  background: #ff6b63;
+  background: #ff534a;
   color: #FFFEFC; }
   .ui-header.ui-red .ui-drawer-toggle {
     color: #FFFEFC !important; }
@@ -105,7 +105,7 @@
       background: #ff3b30; }
   .ui-header.ui-red .ui-header-button {
     color: rgba(255, 254, 252, 0.7);
-    background: #ff9c96;
+    background: #ff362b;
     border: 1px solid rgba(201, 11, 0, 0.25); }
     .ui-header.ui-red .ui-header-button:hover {
       color: rgba(255, 254, 252, 0.9);
@@ -498,7 +498,7 @@
   border-color: #c1134e; }
 
 .ui-header.ui-pink {
-  background: #ee4c83;
+  background: #eb3573;
   color: #FFFEFC; }
   .ui-header.ui-pink .ui-drawer-toggle {
     color: #FFFEFC !important; }
@@ -517,7 +517,7 @@
       background: #e91e63; }
   .ui-header.ui-pink .ui-header-button {
     color: rgba(255, 254, 252, 0.7);
-    background: #f27ba3;
+    background: #e91960;
     border: 1px solid rgba(147, 14, 59, 0.25); }
     .ui-header.ui-pink .ui-header-button:hover {
       color: rgba(255, 254, 252, 0.9);
@@ -910,7 +910,7 @@
   border-color: #771e86; }
 
 .ui-header.ui-violet {
-  background: #bc37d3;
+  background: #af2cc5;
   color: #FFFEFC; }
   .ui-header.ui-violet .ui-drawer-toggle {
     color: #FFFEFC !important; }
@@ -929,7 +929,7 @@
       background: #9c27b0; }
   .ui-header.ui-violet .ui-header-button {
     color: rgba(255, 254, 252, 0.7);
-    background: #ca61dc;
+    background: #9826ac;
     border: 1px solid rgba(82, 20, 93, 0.25); }
     .ui-header.ui-violet .ui-header-button:hover {
       color: rgba(255, 254, 252, 0.9);
@@ -1322,7 +1322,7 @@
   border-color: #512e90; }
 
 .ui-header.ui-purple {
-  background: #8259cb;
+  background: #7446c4;
   color: #FFFEFC; }
   .ui-header.ui-purple .ui-drawer-toggle {
     color: #FFFEFC !important; }
@@ -1341,7 +1341,7 @@
       background: #673ab7; }
   .ui-header.ui-purple .ui-header-button {
     color: rgba(255, 254, 252, 0.7);
-    background: #9f80d7;
+    background: #6539b3;
     border: 1px solid rgba(59, 33, 106, 0.25); }
     .ui-header.ui-purple .ui-header-button:hover {
       color: rgba(255, 254, 252, 0.9);
@@ -1734,7 +1734,7 @@
   border-color: #32408f; }
 
 .ui-header.ui-indigo {
-  background: #606fc7;
+  background: #4d5ec1;
   color: #FFFEFC; }
   .ui-header.ui-indigo .ui-drawer-toggle {
     color: #FFFEFC !important; }
@@ -1753,7 +1753,7 @@
       background: #3f51b5; }
   .ui-header.ui-indigo .ui-header-button {
     color: rgba(255, 254, 252, 0.7);
-    background: #8591d5;
+    background: #3e4fb1;
     border: 1px solid rgba(37, 47, 105, 0.25); }
     .ui-header.ui-indigo .ui-header-button:hover {
       color: rgba(255, 254, 252, 0.9);
@@ -2146,7 +2146,7 @@
   border-color: #0c7cd5; }
 
 .ui-header.ui-blue {
-  background: #51adf6;
+  background: #39a1f4;
   color: #FFFEFC; }
   .ui-header.ui-blue .ui-drawer-toggle {
     color: #FFFEFC !important; }
@@ -2165,7 +2165,7 @@
       background: #2196f3; }
   .ui-header.ui-blue .ui-header-button {
     color: rgba(255, 254, 252, 0.7);
-    background: #82c4f8;
+    background: #1c94f3;
     border: 1px solid rgba(9, 96, 165, 0.25); }
     .ui-header.ui-blue .ui-header-button:hover {
       color: rgba(255, 254, 252, 0.9);
@@ -2558,7 +2558,7 @@
   border-color: #008fa1; }
 
 .ui-header.ui-cyan {
-  background: #08e3ff;
+  background: #00d3ee;
   color: #FFFEFC; }
   .ui-header.ui-cyan .ui-drawer-toggle {
     color: #FFFEFC !important; }
@@ -2577,7 +2577,7 @@
       background: #00bcd4; }
   .ui-header.ui-cyan .ui-header-button {
     color: rgba(255, 254, 252, 0.7);
-    background: #3be9ff;
+    background: #00b7cf;
     border: 1px solid rgba(0, 98, 110, 0.25); }
     .ui-header.ui-cyan .ui-header-button:hover {
       color: rgba(255, 254, 252, 0.9);
@@ -2970,7 +2970,7 @@
   border-color: #00635a; }
 
 .ui-header.ui-teal {
-  background: #00c9b6;
+  background: #00b09f;
   color: #FFFEFC; }
   .ui-header.ui-teal .ui-drawer-toggle {
     color: #FFFEFC !important; }
@@ -2989,7 +2989,7 @@
       background: #009688; }
   .ui-header.ui-teal .ui-header-button {
     color: rgba(255, 254, 252, 0.7);
-    background: #00fce4;
+    background: #009183;
     border: 1px solid rgba(0, 48, 44, 0.25); }
     .ui-header.ui-teal .ui-header-button:hover {
       color: rgba(255, 254, 252, 0.9);
@@ -3382,7 +3382,7 @@
   border-color: #3d8b40; }
 
 .ui-header.ui-green {
-  background: #6ec071;
+  background: #5cb860;
   color: #FFFEFC; }
   .ui-header.ui-green .ui-drawer-toggle {
     color: #FFFEFC !important; }
@@ -3401,7 +3401,7 @@
       background: #4caf50; }
   .ui-header.ui-green .ui-header-button {
     color: rgba(255, 254, 252, 0.7);
-    background: #92cf94;
+    background: #4aab4e;
     border: 1px solid rgba(45, 104, 47, 0.25); }
     .ui-header.ui-green .ui-header-button:hover {
       color: rgba(255, 254, 252, 0.9);
@@ -3794,7 +3794,7 @@
   border-color: #b2c022; }
 
 .ui-header.ui-lime {
-  background: #d8e464;
+  background: #d2e04f;
   color: #34495e; }
   .ui-header.ui-lime .ui-drawer-toggle {
     color: #34495e !important; }
@@ -3813,7 +3813,7 @@
       background: #cddc39; }
   .ui-header.ui-lime .ui-header-button {
     color: rgba(52, 73, 94, 0.7);
-    background: #e3eb90;
+    background: #ccdb35;
     border: 1px solid rgba(137, 149, 26, 0.25); }
     .ui-header.ui-lime .ui-header-button:hover {
       color: rgba(52, 73, 94, 0.9);
@@ -4206,7 +4206,7 @@
   border-color: #ffe608; }
 
 .ui-header.ui-yellow {
-  background: #fff06e;
+  background: #ffee55;
   color: #34495e; }
   .ui-header.ui-yellow .ui-drawer-toggle {
     color: #34495e !important; }
@@ -4225,7 +4225,7 @@
       background: #ffeb3b; }
   .ui-header.ui-yellow .ui-header-button {
     color: rgba(52, 73, 94, 0.7);
-    background: #fff5a1;
+    background: #ffea36;
     border: 1px solid rgba(212, 190, 0, 0.25); }
     .ui-header.ui-yellow .ui-header-button:hover {
       color: rgba(52, 73, 94, 0.9);
@@ -4618,7 +4618,7 @@
   border-color: #d39e00; }
 
 .ui-header.ui-amber {
-  background: #ffce3a;
+  background: #ffc721;
   color: #34495e; }
   .ui-header.ui-amber .ui-drawer-toggle {
     color: #34495e !important; }
@@ -4637,7 +4637,7 @@
       background: #ffc107; }
   .ui-header.ui-amber .ui-header-button {
     color: rgba(52, 73, 94, 0.7);
-    background: #ffdb6d;
+    background: #ffc002;
     border: 1px solid rgba(160, 120, 0, 0.25); }
     .ui-header.ui-amber .ui-header-button:hover {
       color: rgba(52, 73, 94, 0.9);
@@ -5030,7 +5030,7 @@
   border-color: #ee3900; }
 
 .ui-header.ui-orange {
-  background: #ff7e55;
+  background: #ff6a3c;
   color: #FFFEFC; }
   .ui-header.ui-orange .ui-drawer-toggle {
     color: #FFFEFC !important; }
@@ -5049,7 +5049,7 @@
       background: #ff5722; }
   .ui-header.ui-orange .ui-header-button {
     color: rgba(255, 254, 252, 0.7);
-    background: #ffa588;
+    background: #ff531d;
     border: 1px solid rgba(187, 45, 0, 0.25); }
     .ui-header.ui-orange .ui-header-button:hover {
       color: rgba(255, 254, 252, 0.9);
@@ -5442,7 +5442,7 @@
   border-color: #593f35; }
 
 .ui-header.ui-brown {
-  background: #996b5b;
+  background: #896052;
   color: #FFFEFC; }
   .ui-header.ui-brown .ui-drawer-toggle {
     color: #FFFEFC !important; }
@@ -5461,7 +5461,7 @@
       background: #795548; }
   .ui-header.ui-brown .ui-header-button {
     color: rgba(255, 254, 252, 0.7);
-    background: #af8778;
+    background: #765346;
     border: 1px solid rgba(57, 40, 34, 0.25); }
     .ui-header.ui-brown .ui-header-button:hover {
       color: rgba(255, 254, 252, 0.9);
@@ -5854,7 +5854,7 @@
   border-color: #a1aab0; }
 
 .ui-header.ui-lightGray {
-  background: #d9dcde;
+  background: #cbd0d3;
   color: #34495e; }
   .ui-header.ui-lightGray .ui-drawer-toggle {
     color: #34495e !important; }
@@ -5873,7 +5873,7 @@
       background: #bdc3c7; }
   .ui-header.ui-lightGray .ui-header-button {
     color: rgba(52, 73, 94, 0.7);
-    background: #f4f5f6;
+    background: #bac0c5;
     border: 1px solid rgba(134, 145, 152, 0.25); }
     .ui-header.ui-lightGray .ui-header-button:hover {
       color: rgba(52, 73, 94, 0.9);
@@ -6266,7 +6266,7 @@
   border-color: #667273; }
 
 .ui-header.ui-darkGray {
-  background: #9aa4a5;
+  background: #8c9899;
   color: #FFFEFC; }
   .ui-header.ui-darkGray .ui-drawer-toggle {
     color: #FFFEFC !important; }
@@ -6285,7 +6285,7 @@
       background: #7f8c8d; }
   .ui-header.ui-darkGray .ui-header-button {
     color: rgba(255, 254, 252, 0.7);
-    background: #b5bcbd;
+    background: #7c8a8b;
     border: 1px solid rgba(78, 87, 88, 0.25); }
     .ui-header.ui-darkGray .ui-header-button:hover {
       color: rgba(255, 254, 252, 0.9);

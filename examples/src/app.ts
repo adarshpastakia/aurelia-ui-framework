@@ -35,6 +35,8 @@ export class App {
       }, {
         route: 'examples:desktop', moduleId: './samples/desktop/view', title: 'Desktop Example', nav: false, auth: false, name: 'examples:desktop', settings: { section: '' }
       }, {
+        route: 'examples:tabbed', moduleId: './samples/tabbed/view', title: 'Tabbed Example', nav: false, auth: false, name: 'examples:tabbed', settings: { section: '' }
+      }, {
         route: 'styles/*path', moduleId: './styles/view', title: 'Styling', nav: false, auth: false, name: 'styles'
       }, {
         route: 'styles:home', redirect: 'styles/home', title: 'Overview', nav: true, auth: false, settings: { section: 'Styling' }, name: 'styles:home'
