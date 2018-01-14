@@ -174,3 +174,27 @@ strong {
 .ui-text-justify {
   text-align: justify;
 }
+
+
+.ui-table {
+  table-layout: fixed;
+  width       : 100%;
+
+  thead {
+    background : rgba($light, .25);
+    font-weight: 600;
+  }
+
+  td,
+  th {
+    padding: 0.5em 0.75em;
+  }
+
+  tr:nth-child(even) {
+    background: darken($white, 1%);
+  }
+
+  tbody td {
+    font-size: 0.9em;
+  }
+}
