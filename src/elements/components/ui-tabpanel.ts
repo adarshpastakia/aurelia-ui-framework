@@ -18,13 +18,16 @@ export class UITabbarStart { }
 @inlineView(`<template><div slot="ui-tabbar-end" class="ui-tabbar-links"><slot></slot></div></template>`)
 export class UITabbarEnd { }
 
+@containerless()
 @customElement('ui-tabbar-toggle')
-@inlineView(`<template class="ui-tabbar-toggle ui-tab-button \${disabled?'ui-disabled':''}" click.trigger="toggleDropdown($event)"><slot></slot></template>`)
+@inlineView(`<template><div ref="buttonEl" slot="tab-button" class="ui-tabbar-toggle ui-tab-button \${disabled?'ui-disabled':''} \${class}" click.trigger="toggleDropdown($event)"><slot><ui-glyph glyph="glyph-icon-plus"></ui-glyph></slot></div></template>`)
 export class UITabbarToggle {
+  @bindable() class = '';
   @bindable() dropdown;
   @bindable() disabled = false;
 
   private tether;
+  private buttonEl;
   private obMouseup;
   isDisabled = false;
 
@@ -33,13 +36,13 @@ export class UITabbarToggle {
   attached() {
     if (this.dropdown) {
       this.obMouseup = UIEvent.subscribe('mouseclick', (evt) => {
-        if (getParentByClass(evt.target, 'ui-button') == this.element) return;
-        this.element.classList.remove('ui-open');
+        if (getParentByClass(evt.target, 'ui-tab-button') == this.buttonEl) return;
+        this.buttonEl.classList.remove('ui-open');
         this.dropdown.classList.remove('ui-open');
       });
-      this.element.classList.add('ui-btn-dropdown');
+      this.buttonEl.classList.add('ui-btn-dropdown');
       this.dropdown.classList.add('ui-floating');
-      this.tether = UIUtils.tether(this.element, this.dropdown);
+      this.tether = UIUtils.tether(this.buttonEl, this.dropdown);
     }
   }
   detached() {
@@ -54,14 +57,14 @@ export class UITabbarToggle {
       evt.preventDefault();
       evt.stopPropagation();
       evt.cancelBubble = true;
-      if (this.element.classList.contains('ui-open')) {
+      if (this.buttonEl.classList.contains('ui-open')) {
         UIEvent.fireEvent('menuhide', this.element);
-        this.element.classList.remove('ui-open');
+        this.buttonEl.classList.remove('ui-open');
         this.dropdown.classList.remove('ui-open');
       }
       else {
-        if (UIEvent.fireEvent('menuopen', this.element) !== false) {
-          this.element.classList.add('ui-open');
+        if (UIEvent.fireEvent('menuopen', this.buttonEl) !== false) {
+          this.buttonEl.classList.add('ui-open');
           this.dropdown.classList.add('ui-open');
           this.tether.position();
         }
@@ -213,7 +216,7 @@ export class UITabPanel {
 
 @autoinject()
 @containerless()
-@inlineView(`<template><a ref="buttonEl" slot="tab-button" click.trigger="fireTabChange()" href.bind="href" class="ui-tab-button \${active?'ui-active':''} \${disabled?'ui-disabled':''}">
+@inlineView(`<template><a ref="buttonEl" slot="tab-button" click.trigger="fireTabChange()" href.bind="href" class="ui-tab-button \${active?'ui-active':''} \${disabled?'ui-disabled':''} \${class}">
   <div><ui-glyph if.bind="glyph" class="ui-tab-icon \${glyphClass}" glyph.bind="glyph"></ui-glyph>
   <span class="ui-label"><slot></slot></span></div>
   <span if.bind="closeable" class="ui-close" click.trigger="fireTabClose($event)">&nbsp;&times;</span>
@@ -234,6 +237,7 @@ export class UITab {
   }
 
   @bindable() id = '';
+  @bindable() class = '';
   @bindable() glyph = '';
   @bindable() glyphClass = '';
   @bindable() disabled = false;
@@ -248,8 +252,8 @@ export class UITab {
   private buttonEl;
 
   close() {
-    DOM.removeNode(this.buttonEl);
-    UIEvent.fireEvent('closed', this.buttonEl, this);
+    UIEvent.fireEvent('close', this.element, this);
+    UIEvent.queueTask(() => DOM.removeNode(this.buttonEl));
   }
 
   activeChanged(newValue) {
