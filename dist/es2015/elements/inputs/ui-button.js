@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { autoinject, customElement, bindable, bindingMode, children, inlineView, DOM } from 'aurelia-framework';
+import { autoinject, customElement, bindable, bindingMode, children, inlineView } from 'aurelia-framework';
 import { UIEvent } from "../../utils/ui-event";
 import { UIUtils } from "../../utils/ui-utils";
 import * as _ from "lodash";
@@ -68,8 +68,6 @@ let UIButton = class UIButton {
             this.tether.dispose();
         if (this.obMouseup)
             this.obMouseup.dispose();
-        if (this.dropdown)
-            DOM.removeNode(this.dropdown);
     }
     disable(b) {
         this.element.classList[(this.isDisabled = (b || this.disabled)) ? 'add' : 'remove']('ui-disabled');

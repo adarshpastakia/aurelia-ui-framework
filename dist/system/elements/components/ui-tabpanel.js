@@ -52,6 +52,7 @@ System.register(["aurelia-framework", "../../utils/ui-utils", "../../utils/ui-ev
             UITabbarToggle = (function () {
                 function UITabbarToggle(element) {
                     this.element = element;
+                    this.class = '';
                     this.disabled = false;
                     this.isDisabled = false;
                 }
@@ -59,14 +60,14 @@ System.register(["aurelia-framework", "../../utils/ui-utils", "../../utils/ui-ev
                     var _this = this;
                     if (this.dropdown) {
                         this.obMouseup = ui_event_1.UIEvent.subscribe('mouseclick', function (evt) {
-                            if (getParentByClass(evt.target, 'ui-button') == _this.element)
+                            if (getParentByClass(evt.target, 'ui-tab-button') == _this.buttonEl)
                                 return;
-                            _this.element.classList.remove('ui-open');
+                            _this.buttonEl.classList.remove('ui-open');
                             _this.dropdown.classList.remove('ui-open');
                         });
-                        this.element.classList.add('ui-btn-dropdown');
+                        this.buttonEl.classList.add('ui-btn-dropdown');
                         this.dropdown.classList.add('ui-floating');
-                        this.tether = ui_utils_1.UIUtils.tether(this.element, this.dropdown);
+                        this.tether = ui_utils_1.UIUtils.tether(this.buttonEl, this.dropdown);
                     }
                 };
                 UITabbarToggle.prototype.detached = function () {
@@ -84,14 +85,14 @@ System.register(["aurelia-framework", "../../utils/ui-utils", "../../utils/ui-ev
                         evt.preventDefault();
                         evt.stopPropagation();
                         evt.cancelBubble = true;
-                        if (this.element.classList.contains('ui-open')) {
+                        if (this.buttonEl.classList.contains('ui-open')) {
                             ui_event_1.UIEvent.fireEvent('menuhide', this.element);
-                            this.element.classList.remove('ui-open');
+                            this.buttonEl.classList.remove('ui-open');
                             this.dropdown.classList.remove('ui-open');
                         }
                         else {
-                            if (ui_event_1.UIEvent.fireEvent('menuopen', this.element) !== false) {
-                                this.element.classList.add('ui-open');
+                            if (ui_event_1.UIEvent.fireEvent('menuopen', this.buttonEl) !== false) {
+                                this.buttonEl.classList.add('ui-open');
                                 this.dropdown.classList.add('ui-open');
                                 this.tether.position();
                             }
@@ -103,14 +104,19 @@ System.register(["aurelia-framework", "../../utils/ui-utils", "../../utils/ui-ev
                 __decorate([
                     aurelia_framework_1.bindable(),
                     __metadata("design:type", Object)
+                ], UITabbarToggle.prototype, "class", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
                 ], UITabbarToggle.prototype, "dropdown", void 0);
                 __decorate([
                     aurelia_framework_1.bindable(),
                     __metadata("design:type", Object)
                 ], UITabbarToggle.prototype, "disabled", void 0);
                 UITabbarToggle = __decorate([
+                    aurelia_framework_1.containerless(),
                     aurelia_framework_1.customElement('ui-tabbar-toggle'),
-                    aurelia_framework_1.inlineView("<template class=\"ui-tabbar-toggle ui-tab-button ${disabled?'ui-disabled':''}\" click.trigger=\"toggleDropdown($event)\"><slot></slot></template>"),
+                    aurelia_framework_1.inlineView("<template><div ref=\"buttonEl\" slot=\"tab-button\" class=\"ui-tabbar-toggle ui-tab-button ${disabled?'ui-disabled':''} ${class}\" click.trigger=\"toggleDropdown($event)\"><slot><ui-glyph glyph=\"glyph-icon-plus\"></ui-glyph></slot></div></template>"),
                     __metadata("design:paramtypes", [Element])
                 ], UITabbarToggle);
                 return UITabbarToggle;
@@ -256,6 +262,7 @@ System.register(["aurelia-framework", "../../utils/ui-utils", "../../utils/ui-ev
                 function UITab(element) {
                     this.element = element;
                     this.id = '';
+                    this.class = '';
                     this.glyph = '';
                     this.glyphClass = '';
                     this.disabled = false;
@@ -276,8 +283,9 @@ System.register(["aurelia-framework", "../../utils/ui-utils", "../../utils/ui-ev
                     this.buttonEl.viewModel = this;
                 };
                 UITab.prototype.close = function () {
-                    aurelia_framework_1.DOM.removeNode(this.buttonEl);
-                    ui_event_1.UIEvent.fireEvent('closed', this.buttonEl, this);
+                    var _this = this;
+                    ui_event_1.UIEvent.fireEvent('close', this.element, this);
+                    ui_event_1.UIEvent.queueTask(function () { return aurelia_framework_1.DOM.removeNode(_this.buttonEl); });
                 };
                 UITab.prototype.activeChanged = function (newValue) {
                     if (!!newValue && this.href !== 'javascript:;')
@@ -299,6 +307,10 @@ System.register(["aurelia-framework", "../../utils/ui-utils", "../../utils/ui-ev
                     aurelia_framework_1.bindable(),
                     __metadata("design:type", Object)
                 ], UITab.prototype, "id", void 0);
+                __decorate([
+                    aurelia_framework_1.bindable(),
+                    __metadata("design:type", Object)
+                ], UITab.prototype, "class", void 0);
                 __decorate([
                     aurelia_framework_1.bindable(),
                     __metadata("design:type", Object)
@@ -338,7 +350,7 @@ System.register(["aurelia-framework", "../../utils/ui-utils", "../../utils/ui-ev
                 UITab = UITab_1 = __decorate([
                     aurelia_framework_1.autoinject(),
                     aurelia_framework_1.containerless(),
-                    aurelia_framework_1.inlineView("<template><a ref=\"buttonEl\" slot=\"tab-button\" click.trigger=\"fireTabChange()\" href.bind=\"href\" class=\"ui-tab-button ${active?'ui-active':''} ${disabled?'ui-disabled':''}\">\n  <div><ui-glyph if.bind=\"glyph\" class=\"ui-tab-icon ${glyphClass}\" glyph.bind=\"glyph\"></ui-glyph>\n  <span class=\"ui-label\"><slot></slot></span></div>\n  <span if.bind=\"closeable\" class=\"ui-close\" click.trigger=\"fireTabClose($event)\">&nbsp;&times;</span>\n</a></template>"),
+                    aurelia_framework_1.inlineView("<template><a ref=\"buttonEl\" slot=\"tab-button\" click.trigger=\"fireTabChange()\" href.bind=\"href\" class=\"ui-tab-button ${active?'ui-active':''} ${disabled?'ui-disabled':''} ${class}\">\n  <div><ui-glyph if.bind=\"glyph\" class=\"ui-tab-icon ${glyphClass}\" glyph.bind=\"glyph\"></ui-glyph>\n  <span class=\"ui-label\"><slot></slot></span></div>\n  <span if.bind=\"closeable\" class=\"ui-close\" click.trigger=\"fireTabClose($event)\">&nbsp;&times;</span>\n</a></template>"),
                     aurelia_framework_1.customElement('ui-tab'),
                     __metadata("design:paramtypes", [Element])
                 ], UITab);

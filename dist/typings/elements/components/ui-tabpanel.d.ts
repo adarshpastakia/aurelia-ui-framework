@@ -4,9 +4,11 @@ export declare class UITabbarEnd {
 }
 export declare class UITabbarToggle {
     element: Element;
+    class: string;
     dropdown: any;
     disabled: boolean;
     private tether;
+    private buttonEl;
     private obMouseup;
     isDisabled: boolean;
     constructor(element: Element);
@@ -47,6 +49,7 @@ export declare class UITab {
     bind(bindingContext: Object, overrideContext: Object): void;
     attached(): void;
     id: string;
+    class: string;
     glyph: string;
     glyphClass: string;
     disabled: boolean;

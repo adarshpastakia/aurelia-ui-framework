@@ -3,6 +3,7 @@ import { EventAggregator } from "aurelia-event-aggregator";
 import { UIUtils } from "./ui-utils";
 export var UIEvent;
 (function (UIEvent) {
+    UIEvent.I18N_CHANGE_EVENT = 'i18n:locale:changed';
     function fireEvent(event, element, data) {
         let e = DOM.createCustomEvent(event, { bubbles: true, cancelable: true, detail: data });
         return element.dispatchEvent(e);

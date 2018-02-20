@@ -94,7 +94,7 @@ var BaseList = (function () {
     BaseList.prototype.valueChanged = function (newValue, oldValue) {
         var _this = this;
         if (!this.isTagInput && !this.multiSelect) {
-            var item = _['findChildren'](this.filtered = this.original, 'items', 'value', newValue === null ? '' : newValue);
+            var item = _['findChildren'](this.filtered = _.cloneDeep(this.original), 'items', 'value', newValue === null ? '' : newValue);
             this.elValue = item.text;
             if (!this.forceSelect && !this.elValue)
                 this.elValue = newValue === null ? '' : newValue;
@@ -105,7 +105,7 @@ var BaseList = (function () {
         else {
             this.elValue = '';
             var v = (newValue || '').split(',');
-            _.forEach(v, function (n) { return _['findChildren'](_this.filtered = _this.original, 'items', 'value', n).disabled = true; });
+            _.forEach(v, function (n) { return _['findChildren'](_this.filtered = _.cloneDeep(_this.original), 'items', 'value', n).selected = true; });
         }
         ui_event_1.UIEvent.queueTask(function () {
             _this.hilight = _this.dropdown.querySelector('.ui-selected');
@@ -141,7 +141,7 @@ var BaseList = (function () {
             });
             this.allowSearch = !this.forceSelect || count_1 > 10;
         }
-        this.original = this.filtered = groups;
+        this.original = _.cloneDeep(this.filtered = groups);
     };
     BaseList.prototype.hilightItem = function (evt) {
         var h = this.dropdown.querySelector('.ui-list-item.ui-hilight');
@@ -319,14 +319,21 @@ var BaseList = (function () {
         ui_event_1.UIEvent.queueTask(function () { return _this.filtered = groups; });
         ;
     };
-    BaseList.prototype.fireSelect = function (model) {
+    BaseList.prototype.fireSelect = function (model, evt) {
+        if (evt === void 0) { evt = {}; }
         if (this.readonly || this.disabled)
             return;
-        this.filtered = this.original;
+        this.filtered = _.cloneDeep(this.original);
         this.unhilightItem(null);
         this.inputEl.focus();
-        if (!this.isTagInput && model) {
+        if (!this.isTagInput && !(this.multiSelect && evt.shiftKey) && model) {
             this.value = model[this.valueProperty] == null ? model : model[this.valueProperty];
+            ui_event_1.UIEvent.fireEvent('select', this.element, this.model = model);
+            this.fireChange();
+        }
+        else if ((this.isTagInput || this.multiSelect) && model) {
+            var val = model ? (model[this.valueProperty] == null ? model : model[this.valueProperty]) : '';
+            this.addValue(this.forceSelect ? val : (val || this.elValue));
             ui_event_1.UIEvent.fireEvent('select', this.element, this.model = model);
             this.fireChange();
         }
@@ -336,11 +343,39 @@ var BaseList = (function () {
         ui_event_1.UIEvent.fireEvent('change', this.element, this.value);
     };
     BaseList.prototype.addValue = function (val) {
-        this.model = null;
-        this.value = val;
-        this.fireChange();
+        var _this = this;
+        if (!val)
+            return;
+        var v = [];
+        if (this.value)
+            v = this.value.split(',');
+        if (v.indexOf(val) == -1) {
+            v.push(val);
+            _['findChildren'](this.filtered = this.original, 'items', 'value', val).selected = true;
+        }
+        this.value = v.join(',');
+        this.elValue = '';
+        var h = this.dropdown.querySelector('.ui-list-item.ui-hilight');
+        if (h)
+            h.classList.remove('ui-hilight');
+        ui_event_1.UIEvent.queueTask(function () { return _this.tether.position(); });
     };
-    BaseList.prototype.removeValue = function (val) { };
+    BaseList.prototype.removeValue = function (val) {
+        var _this = this;
+        var v = [];
+        if (this.value)
+            v = this.value.split(',');
+        if (!val)
+            _['findChildren'](this.filtered = this.original, 'items', 'value', v.pop()).selected = false;
+        else {
+            _['findChildren'](this.filtered = this.original, 'items', 'value', val).selected = false;
+            if (v.indexOf(val) != -1)
+                v.splice(v.indexOf(val), 1);
+        }
+        this.value = v.join(',');
+        this.elValue = '';
+        ui_event_1.UIEvent.queueTask(function () { return _this.tether.position(); });
+    };
     return BaseList;
 }());
 exports.BaseList = BaseList;
@@ -470,45 +505,6 @@ var UITags = (function (_super) {
     UITags.prototype.getTagText = function (tag) {
         return _['findChildren'](this.original, 'items', 'value', tag).text || tag;
     };
-    UITags.prototype.addValue = function (val) {
-        var _this = this;
-        if (!val)
-            return;
-        var v = [];
-        if (this.value)
-            v = this.value.split(',');
-        if (v.indexOf(val) == -1) {
-            v.push(val);
-            _['findChildren'](this.filtered = this.original, 'items', 'value', val).disabled = true;
-        }
-        this.value = v.join(',');
-        this.elValue = '';
-        var h = this.dropdown.querySelector('.ui-list-item.ui-hilight');
-        if (h)
-            h.classList.remove('ui-hilight');
-        ui_event_1.UIEvent.queueTask(function () { return _this.tether.position(); });
-    };
-    UITags.prototype.removeValue = function (val) {
-        var _this = this;
-        var v = [];
-        if (this.value)
-            v = this.value.split(',');
-        if (!val)
-            _['findChildren'](this.filtered = this.original, 'items', 'value', v.pop()).disabled = false;
-        else {
-            _['findChildren'](this.filtered = this.original, 'items', 'value', val).disabled = false;
-            if (v.indexOf(val) != -1)
-                v.splice(v.indexOf(val), 1);
-        }
-        this.value = v.join(',');
-        this.elValue = '';
-        ui_event_1.UIEvent.queueTask(function () { return _this.tether.position(); });
-    };
-    UITags.prototype.fireSelect = function (model) {
-        var val = model ? (model[this.valueProperty] == null ? model : model[this.valueProperty]) : '';
-        this.addValue(this.forceSelect ? val : (val || this.elValue));
-        _super.prototype.fireSelect.call(this, model);
-    };
     __decorate([
         aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
         __metadata("design:type", Object)
@@ -571,7 +567,7 @@ var UITags = (function (_super) {
     ], UITags.prototype, "forceSelect", void 0);
     UITags = __decorate([
         aurelia_framework_1.autoinject(),
-        aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper ui-input-list ui-tags\" css.bind=\"{width: width}\"><div role=\"input\" class=\"ui-input-control\" dir.bind=\"dir\"><slot></slot>\n  <span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"glyph-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <div class=\"ui-tag-item\" repeat.for=\"tag of value | split\" if.bind=\"tag!=''\"><span innerhtml.bind=\"getTagText(tag)\"></span><i class=\"ui-clear\" click.trigger=\"removeValue(tag)\">&times;</i></div>\n  <input ref=\"inputEl\" value.bind=\"elValue\" autocomplete=\"off\" size=\"1\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\" select.trigger=\"$event.stopPropagation()\"\n    input.trigger=\"search() & debounce:200\" change.trigger=\"fireEvent($event)\"\n    keydown.trigger=\"keyDown($event)\" placeholder.bind=\"placeholder\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"!allowSearch || readonly\"/></div>\n  <div class=\"ui-input-info\" if.bind=\"helpText\" innerhtml.bind=\"helpText\"></div>\n\n  <div class=\"ui-list-container ui-floating\" ref=\"dropdown\" dir.bind=\"dir\">\n    <div if.bind=\"filtered.length==0\" class=\"ui-text-muted ui-pad-h\">${emptyText}</div>\n    <template repeat.for=\"group of filtered\"><div if.bind=\"group.label\" class=\"ui-list-group\">${group.label}</div>\n    <div class=\"ui-list-item ${item.disabled?'ui-disabled':''}\" repeat.for=\"item of group.items\"\n      mouseover.trigger=\"hilightItem($event)\" click.trigger=\"fireSelect(item.model)\">\n      <span class=\"${iconClass} ${item.icon}\" if.bind=\"item.icon\"></span>&nbsp;<span innerhtml.bind=\"item.display\"></span></div>\n    </template>\n  </div>\n</template>"),
+        aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper ui-input-list ui-tags\" css.bind=\"{width: width}\"><div role=\"input\" class=\"ui-input-control\" dir.bind=\"dir\"><slot></slot>\n  <span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"glyph-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <div class=\"ui-tag-item\" repeat.for=\"tag of value | split\" if.bind=\"tag!=''\"><span innerhtml.bind=\"getTagText(tag)\"></span><i class=\"ui-clear\" click.trigger=\"removeValue(tag)\">&times;</i></div>\n  <input ref=\"inputEl\" value.bind=\"elValue\" autocomplete=\"off\" size=\"1\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\" select.trigger=\"$event.stopPropagation()\"\n    input.trigger=\"search() & debounce:200\" change.trigger=\"fireEvent($event)\"\n    keydown.trigger=\"keyDown($event)\" placeholder.bind=\"placeholder\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"!allowSearch || readonly\"/></div>\n  <div class=\"ui-input-info\" if.bind=\"helpText\" innerhtml.bind=\"helpText\"></div>\n\n  <div class=\"ui-list-container ui-floating\" ref=\"dropdown\" dir.bind=\"dir\">\n    <div if.bind=\"filtered.length==0\" class=\"ui-text-muted ui-pad-h\">${emptyText}</div>\n    <template repeat.for=\"group of filtered\"><div if.bind=\"group.label\" class=\"ui-list-group\">${group.label}</div>\n    <div class=\"ui-list-item ${item.disabled||item.selected?'ui-disabled':''}\" repeat.for=\"item of group.items\"\n      mouseover.trigger=\"hilightItem($event)\" click.trigger=\"fireSelect(item.model)\">\n      <span class=\"${iconClass} ${item.icon}\" if.bind=\"item.icon\"></span>&nbsp;<span innerhtml.bind=\"item.display\"></span></div>\n    </template>\n  </div>\n</template>"),
         aurelia_framework_1.customElement('ui-tags'),
         __metadata("design:paramtypes", [Element])
     ], UITags);
@@ -674,7 +670,7 @@ var UIList = (function (_super) {
     ], UIList.prototype, "forceSelect", void 0);
     UIList = __decorate([
         aurelia_framework_1.autoinject(),
-        aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper ui-input-list ui-listbox\" css.bind=\"{width: width}\"><div role=\"input\" class=\"ui-input-control\">\n  <span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"glyph-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <input ref=\"inputEl\" value.bind=\"elValue\" class=\"ui-input ui-remove\" autocomplete=\"off\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\" size=\"1\"\n    input.trigger=\"search() & debounce:200\" change.trigger=\"fireEvent($event)\"\n    keydown.trigger=\"keyDown($event)\" placeholder.bind=\"placeholder\" select.trigger=\"$event.stopPropagation()\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"true\"/>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span>\n\n  <div class=\"ui-list-container\" ref=\"dropdown\" mouseout.trigger=\"unhilightItem()\" dir.bind=\"dir\">\n    <div if.bind=\"filtered.length==0\" class=\"ui-text-muted ui-pad-h\">${emptyText}</div>\n    <template repeat.for=\"group of filtered\"><div if.bind=\"group.label\" class=\"ui-list-group\">${group.label}</div>\n    <div class=\"ui-list-item ${item.value==value?'ui-selected':''} ${item.disabled?'ui-disabled':''}\" repeat.for=\"item of group.items\"\n      mouseover.trigger=\"hilightItem($event)\" click.trigger=\"fireSelect(item.model)\">\n      <span class=\"${iconClass} ${item.icon}\" if.bind=\"item.icon\"></span>&nbsp;<span innerhtml.bind=\"getDisplay(item)\"></span></div>\n    </template>\n  </div></div>\n  <div class=\"ui-input-info\" if.bind=\"helpText\" innerhtml.bind=\"helpText\"></div>\n</template>"),
+        aurelia_framework_1.inlineView("<template class=\"ui-input-wrapper ui-input-list ui-listbox\" css.bind=\"{width: width}\"><div role=\"input\" class=\"ui-input-control\">\n  <span class=\"ui-error\" if.bind=\"errors\"><ui-glyph glyph=\"glyph-invalid\"></ui-glyph><ul class=\"ui-error-list\"><li repeat.for=\"err of errors\" innerhtml.bind=\"err\"></li></ul></span>\n  <input ref=\"inputEl\" value.bind=\"elValue\" class=\"ui-input ui-remove\" autocomplete=\"off\"\n    focus.trigger=\"fireEvent($event)\" blur.trigger=\"fireEvent($event)\" size=\"1\"\n    input.trigger=\"search() & debounce:200\" change.trigger=\"fireEvent($event)\"\n    keydown.trigger=\"keyDown($event)\" placeholder.bind=\"placeholder\" select.trigger=\"$event.stopPropagation()\"\n    disabled.bind=\"isDisabled\" readonly.bind=\"true\"/>\n  <span class=\"ui-clear\" if.bind=\"clear && value\" click.trigger=\"clearInput()\">&times;</span>\n\n  <div class=\"ui-list-container\" ref=\"dropdown\" mouseout.trigger=\"unhilightItem()\" dir.bind=\"dir\">\n    <div if.bind=\"filtered.length==0\" class=\"ui-text-muted ui-pad-h\">${emptyText}</div>\n    <template repeat.for=\"group of filtered\"><div if.bind=\"group.label\" class=\"ui-list-group\">${group.label}</div>\n    <div class=\"ui-list-item ${item.value==value||item.selected?'ui-selected':''} ${item.disabled?'ui-disabled':''}\" repeat.for=\"item of group.items\"\n      mouseover.trigger=\"hilightItem($event)\" click.trigger=\"fireSelect(item.model, $event)\">\n      <span class=\"${iconClass} ${item.icon}\" if.bind=\"item.icon\"></span>&nbsp;<span innerhtml.bind=\"getDisplay(item)\"></span></div>\n    </template>\n  </div></div>\n  <div class=\"ui-input-info\" if.bind=\"helpText\" innerhtml.bind=\"helpText\"></div>\n</template>"),
         aurelia_framework_1.customElement('ui-list'),
         __metadata("design:paramtypes", [Element])
     ], UIList);
