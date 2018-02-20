@@ -42,7 +42,7 @@
         <ui-column fill padded>
           <ui-input-group>
             <ui-input-label>List</ui-input-label>
-            <ui-list value.bind="ctr" options.bind="countries" display-property="name" value-property="iso3" icon-property="iso3" icon-class="ui-flag" tpl="\${name}<br/><small>\${fullname}</small>">
+            <ui-list multi value.bind="ctr2" options.bind="countries" display-property="name" value-property="iso3" icon-property="iso3" icon-class="ui-flag" tpl="\${name}<br/><small>\${fullname}</small>">
               <ui-input-addon glyph-class="ui-flag" glyph.bind="ctr"></ui-input-addon>
             </ui-list>
           </ui-input-group>
