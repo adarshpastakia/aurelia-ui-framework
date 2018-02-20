@@ -58,7 +58,8 @@ export class UIButton {
   detached() {
     if (this.tether) this.tether.dispose();
     if (this.obMouseup) this.obMouseup.dispose();
-    if (this.dropdown) DOM.removeNode(this.dropdown);
+    // NO NEED TO REMOVE THE BOUND DROPDOWN OBJECT
+    // if (this.dropdown) DOM.removeNode(this.dropdown);
   }
 
   @bindable() glyph = '';
