@@ -30,7 +30,6 @@ $tree-hover-text: $white;
 
       &.last-info-line {
         padding      : 0 0.25em;
-        margin-bottom: 0.5em;
       }
     }
 
@@ -103,7 +102,7 @@ $tree-hover-text: $white;
       content: '\2514';
     }
 
-    .ui-node-children .ui-node-label-row > .ui-node-line.parent:before {
+    .ui-tree-children .ui-node-label-row > .ui-node-line.parent:before {
       content: '\2502';
     }
 

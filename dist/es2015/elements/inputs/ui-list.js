@@ -80,7 +80,7 @@ export class BaseList {
     }
     valueChanged(newValue, oldValue) {
         if (!this.isTagInput && !this.multiSelect) {
-            let item = _['findChildren'](this.filtered = this.original, 'items', 'value', newValue === null ? '' : newValue);
+            let item = _['findChildren'](this.filtered = _.cloneDeep(this.original), 'items', 'value', newValue === null ? '' : newValue);
             this.elValue = item.text;
             if (!this.forceSelect && !this.elValue)
                 this.elValue = newValue === null ? '' : newValue;
@@ -91,7 +91,7 @@ export class BaseList {
         else {
             this.elValue = '';
             let v = (newValue || '').split(',');
-            _.forEach(v, n => _['findChildren'](this.filtered = this.original, 'items', 'value', n).disabled = true);
+            _.forEach(v, n => _['findChildren'](this.filtered = _.cloneDeep(this.original), 'items', 'value', n).selected = true);
         }
         UIEvent.queueTask(() => {
             this.hilight = this.dropdown.querySelector('.ui-selected');
@@ -126,7 +126,7 @@ export class BaseList {
             });
             this.allowSearch = !this.forceSelect || count > 10;
         }
-        this.original = this.filtered = groups;
+        this.original = _.cloneDeep(this.filtered = groups);
     }
     hilightItem(evt) {
         let h = this.dropdown.querySelector('.ui-list-item.ui-hilight');
@@ -301,14 +301,20 @@ export class BaseList {
         UIEvent.queueTask(() => this.filtered = groups);
         ;
     }
-    fireSelect(model) {
+    fireSelect(model, evt = {}) {
         if (this.readonly || this.disabled)
             return;
-        this.filtered = this.original;
+        this.filtered = _.cloneDeep(this.original);
         this.unhilightItem(null);
         this.inputEl.focus();
-        if (!this.isTagInput && model) {
+        if (!this.isTagInput && !(this.multiSelect && evt.shiftKey) && model) {
             this.value = model[this.valueProperty] == null ? model : model[this.valueProperty];
+            UIEvent.fireEvent('select', this.element, this.model = model);
+            this.fireChange();
+        }
+        else if ((this.isTagInput || this.multiSelect) && model) {
+            let val = model ? (model[this.valueProperty] == null ? model : model[this.valueProperty]) : '';
+            this.addValue(this.forceSelect ? val : (val || this.elValue));
             UIEvent.fireEvent('select', this.element, this.model = model);
             this.fireChange();
         }
@@ -318,11 +324,37 @@ export class BaseList {
         UIEvent.fireEvent('change', this.element, this.value);
     }
     addValue(val) {
-        this.model = null;
-        this.value = val;
-        this.fireChange();
+        if (!val)
+            return;
+        let v = [];
+        if (this.value)
+            v = this.value.split(',');
+        if (v.indexOf(val) == -1) {
+            v.push(val);
+            _['findChildren'](this.filtered = this.original, 'items', 'value', val).selected = true;
+        }
+        this.value = v.join(',');
+        this.elValue = '';
+        let h = this.dropdown.querySelector('.ui-list-item.ui-hilight');
+        if (h)
+            h.classList.remove('ui-hilight');
+        UIEvent.queueTask(() => this.tether.position());
     }
-    removeValue(val) { }
+    removeValue(val) {
+        let v = [];
+        if (this.value)
+            v = this.value.split(',');
+        if (!val)
+            _['findChildren'](this.filtered = this.original, 'items', 'value', v.pop()).selected = false;
+        else {
+            _['findChildren'](this.filtered = this.original, 'items', 'value', val).selected = false;
+            if (v.indexOf(val) != -1)
+                v.splice(v.indexOf(val), 1);
+        }
+        this.value = v.join(',');
+        this.elValue = '';
+        UIEvent.queueTask(() => this.tether.position());
+    }
 }
 let UICombo = class UICombo extends BaseList {
     constructor(element) {
@@ -463,43 +495,6 @@ let UITags = class UITags extends BaseList {
     getTagText(tag) {
         return _['findChildren'](this.original, 'items', 'value', tag).text || tag;
     }
-    addValue(val) {
-        if (!val)
-            return;
-        let v = [];
-        if (this.value)
-            v = this.value.split(',');
-        if (v.indexOf(val) == -1) {
-            v.push(val);
-            _['findChildren'](this.filtered = this.original, 'items', 'value', val).disabled = true;
-        }
-        this.value = v.join(',');
-        this.elValue = '';
-        let h = this.dropdown.querySelector('.ui-list-item.ui-hilight');
-        if (h)
-            h.classList.remove('ui-hilight');
-        UIEvent.queueTask(() => this.tether.position());
-    }
-    removeValue(val) {
-        let v = [];
-        if (this.value)
-            v = this.value.split(',');
-        if (!val)
-            _['findChildren'](this.filtered = this.original, 'items', 'value', v.pop()).disabled = false;
-        else {
-            _['findChildren'](this.filtered = this.original, 'items', 'value', val).disabled = false;
-            if (v.indexOf(val) != -1)
-                v.splice(v.indexOf(val), 1);
-        }
-        this.value = v.join(',');
-        this.elValue = '';
-        UIEvent.queueTask(() => this.tether.position());
-    }
-    fireSelect(model) {
-        let val = model ? (model[this.valueProperty] == null ? model : model[this.valueProperty]) : '';
-        this.addValue(this.forceSelect ? val : (val || this.elValue));
-        super.fireSelect(model);
-    }
 };
 __decorate([
     bindable({ defaultBindingMode: bindingMode.twoWay }),
@@ -576,7 +571,7 @@ UITags = __decorate([
   <div class="ui-list-container ui-floating" ref="dropdown" dir.bind="dir">
     <div if.bind="filtered.length==0" class="ui-text-muted ui-pad-h">\${emptyText}</div>
     <template repeat.for="group of filtered"><div if.bind="group.label" class="ui-list-group">\${group.label}</div>
-    <div class="ui-list-item \${item.disabled?'ui-disabled':''}" repeat.for="item of group.items"
+    <div class="ui-list-item \${item.disabled||item.selected?'ui-disabled':''}" repeat.for="item of group.items"
       mouseover.trigger="hilightItem($event)" click.trigger="fireSelect(item.model)">
       <span class="\${iconClass} \${item.icon}" if.bind="item.icon"></span>&nbsp;<span innerhtml.bind="item.display"></span></div>
     </template>
@@ -693,8 +688,8 @@ UIList = __decorate([
   <div class="ui-list-container" ref="dropdown" mouseout.trigger="unhilightItem()" dir.bind="dir">
     <div if.bind="filtered.length==0" class="ui-text-muted ui-pad-h">\${emptyText}</div>
     <template repeat.for="group of filtered"><div if.bind="group.label" class="ui-list-group">\${group.label}</div>
-    <div class="ui-list-item \${item.value==value?'ui-selected':''} \${item.disabled?'ui-disabled':''}" repeat.for="item of group.items"
-      mouseover.trigger="hilightItem($event)" click.trigger="fireSelect(item.model)">
+    <div class="ui-list-item \${item.value==value||item.selected?'ui-selected':''} \${item.disabled?'ui-disabled':''}" repeat.for="item of group.items"
+      mouseover.trigger="hilightItem($event)" click.trigger="fireSelect(item.model, $event)">
       <span class="\${iconClass} \${item.icon}" if.bind="item.icon"></span>&nbsp;<span innerhtml.bind="getDisplay(item)"></span></div>
     </template>
   </div></div>

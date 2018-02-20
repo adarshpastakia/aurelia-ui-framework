@@ -155,7 +155,7 @@ export class BodyRow {
     <div class="ui-dg-cell last-cell"><div class="ui-dg-cell-content">&nbsp;</div></div>
   </div>
 </div>
-<div class="ui-dg-body \${rowSelect?'ui-row-hilight':''}" scroll.trigger="scrollLeft = $event.target.scrollLeft">
+<div class="ui-dg-body \${rowSelect?'ui-row-hilight':''}" scroll.trigger="scrollLeft = $event.target.scrollLeft" ref="elDgBody">
   <body-row repeat.for="record of dataSource.data" record.bind="record" if.bind="!virtual" click.trigger="fireSelect($event, record)"></body-row>
   <div class="ui-dg-row ui-last-row">
     <div class="ui-dg-lock-group" css.bind="{transform: 'translateX('+(scrollLeft)+'px)'}">
@@ -188,10 +188,13 @@ export class UIDatagrid {
     UIEvent.queueTask(() => {
       this.columnsChanged(this.columns);
     });
+
+    this.obLocaleChange = UIEvent.subscribe(UIEvent.I18N_CHANGE_EVENT, () => this['elDgBody'].scrollLeft = this['elDgBody'].scrollLeft * -1);
   }
 
   detached() {
     if (this.obPageChange) this.obPageChange.dispose();
+    if (this.obLocaleChange) this.obLocaleChange.dispose();
   }
 
   @children('ui-dg-column-group,ui-dg-column,ui-dg-button,ui-dg-link,ui-dg-glyph') columns;
@@ -215,6 +218,7 @@ export class UIDatagrid {
   private rowExpander = false;
 
   private obPageChange;
+  private obLocaleChange;
 
   columnsChanged(columns) {
     this.colHead = _.sortBy(columns, 'locked');
@@ -223,6 +227,7 @@ export class UIDatagrid {
   }
 
   dataSourceChanged(newValue) {
+    if (this.obPageChange) this.obPageChange.dispose();
     if (_.isArray(newValue)) {
       const ds = new UIDataSource();
       ds.load(newValue);

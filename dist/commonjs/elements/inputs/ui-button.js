@@ -71,8 +71,6 @@ var UIButton = (function () {
             this.tether.dispose();
         if (this.obMouseup)
             this.obMouseup.dispose();
-        if (this.dropdown)
-            aurelia_framework_1.DOM.removeNode(this.dropdown);
     };
     UIButton.prototype.disable = function (b) {
         this.element.classList[(this.isDisabled = (b || this.disabled)) ? 'add' : 'remove']('ui-disabled');

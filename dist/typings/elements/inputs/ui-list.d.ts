@@ -45,7 +45,7 @@ export declare class BaseList {
     fireEvent(evt: any): void;
     keyDown(evt: any): any;
     search(): void;
-    fireSelect(model?: any): void;
+    fireSelect(model?: any, evt?: any): void;
     fireChange(): void;
     addValue(val: any): void;
     removeValue(val: any): void;
@@ -90,9 +90,6 @@ export declare class UITags extends BaseList {
     iconProperty: string;
     forceSelect: boolean;
     getTagText(tag: any): any;
-    addValue(val: any): void;
-    removeValue(val: any): void;
-    fireSelect(model?: any): void;
 }
 export declare class UIList extends BaseList {
     element: Element;

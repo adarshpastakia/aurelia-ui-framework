@@ -30,20 +30,21 @@ export { UITabbarEnd };
 let UITabbarToggle = class UITabbarToggle {
     constructor(element) {
         this.element = element;
+        this.class = '';
         this.disabled = false;
         this.isDisabled = false;
     }
     attached() {
         if (this.dropdown) {
             this.obMouseup = UIEvent.subscribe('mouseclick', (evt) => {
-                if (getParentByClass(evt.target, 'ui-button') == this.element)
+                if (getParentByClass(evt.target, 'ui-tab-button') == this.buttonEl)
                     return;
-                this.element.classList.remove('ui-open');
+                this.buttonEl.classList.remove('ui-open');
                 this.dropdown.classList.remove('ui-open');
             });
-            this.element.classList.add('ui-btn-dropdown');
+            this.buttonEl.classList.add('ui-btn-dropdown');
             this.dropdown.classList.add('ui-floating');
-            this.tether = UIUtils.tether(this.element, this.dropdown);
+            this.tether = UIUtils.tether(this.buttonEl, this.dropdown);
         }
     }
     detached() {
@@ -61,14 +62,14 @@ let UITabbarToggle = class UITabbarToggle {
             evt.preventDefault();
             evt.stopPropagation();
             evt.cancelBubble = true;
-            if (this.element.classList.contains('ui-open')) {
+            if (this.buttonEl.classList.contains('ui-open')) {
                 UIEvent.fireEvent('menuhide', this.element);
-                this.element.classList.remove('ui-open');
+                this.buttonEl.classList.remove('ui-open');
                 this.dropdown.classList.remove('ui-open');
             }
             else {
-                if (UIEvent.fireEvent('menuopen', this.element) !== false) {
-                    this.element.classList.add('ui-open');
+                if (UIEvent.fireEvent('menuopen', this.buttonEl) !== false) {
+                    this.buttonEl.classList.add('ui-open');
                     this.dropdown.classList.add('ui-open');
                     this.tether.position();
                 }
@@ -81,14 +82,19 @@ let UITabbarToggle = class UITabbarToggle {
 __decorate([
     bindable(),
     __metadata("design:type", Object)
+], UITabbarToggle.prototype, "class", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
 ], UITabbarToggle.prototype, "dropdown", void 0);
 __decorate([
     bindable(),
     __metadata("design:type", Object)
 ], UITabbarToggle.prototype, "disabled", void 0);
 UITabbarToggle = __decorate([
+    containerless(),
     customElement('ui-tabbar-toggle'),
-    inlineView(`<template class="ui-tabbar-toggle ui-tab-button \${disabled?'ui-disabled':''}" click.trigger="toggleDropdown($event)"><slot></slot></template>`),
+    inlineView(`<template><div ref="buttonEl" slot="tab-button" class="ui-tabbar-toggle ui-tab-button \${disabled?'ui-disabled':''} \${class}" click.trigger="toggleDropdown($event)"><slot><ui-glyph glyph="glyph-icon-plus"></ui-glyph></slot></div></template>`),
     __metadata("design:paramtypes", [Element])
 ], UITabbarToggle);
 export { UITabbarToggle };
@@ -237,6 +243,7 @@ let UITab = UITab_1 = class UITab {
     constructor(element) {
         this.element = element;
         this.id = '';
+        this.class = '';
         this.glyph = '';
         this.glyphClass = '';
         this.disabled = false;
@@ -256,8 +263,8 @@ let UITab = UITab_1 = class UITab {
         this.buttonEl.viewModel = this;
     }
     close() {
-        DOM.removeNode(this.buttonEl);
-        UIEvent.fireEvent('closed', this.buttonEl, this);
+        UIEvent.fireEvent('close', this.element, this);
+        UIEvent.queueTask(() => DOM.removeNode(this.buttonEl));
     }
     activeChanged(newValue) {
         if (!!newValue && this.href !== 'javascript:;')
@@ -280,6 +287,10 @@ __decorate([
     bindable(),
     __metadata("design:type", Object)
 ], UITab.prototype, "id", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UITab.prototype, "class", void 0);
 __decorate([
     bindable(),
     __metadata("design:type", Object)
@@ -319,7 +330,7 @@ __decorate([
 UITab = UITab_1 = __decorate([
     autoinject(),
     containerless(),
-    inlineView(`<template><a ref="buttonEl" slot="tab-button" click.trigger="fireTabChange()" href.bind="href" class="ui-tab-button \${active?'ui-active':''} \${disabled?'ui-disabled':''}">
+    inlineView(`<template><a ref="buttonEl" slot="tab-button" click.trigger="fireTabChange()" href.bind="href" class="ui-tab-button \${active?'ui-active':''} \${disabled?'ui-disabled':''} \${class}">
   <div><ui-glyph if.bind="glyph" class="ui-tab-icon \${glyphClass}" glyph.bind="glyph"></ui-glyph>
   <span class="ui-label"><slot></slot></span></div>
   <span if.bind="closeable" class="ui-close" click.trigger="fireTabClose($event)">&nbsp;&times;</span>

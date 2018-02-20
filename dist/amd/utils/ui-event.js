@@ -3,6 +3,7 @@ define(["require", "exports", "aurelia-framework", "aurelia-event-aggregator", "
     Object.defineProperty(exports, "__esModule", { value: true });
     var UIEvent;
     (function (UIEvent) {
+        UIEvent.I18N_CHANGE_EVENT = 'i18n:locale:changed';
         function fireEvent(event, element, data) {
             var e = aurelia_framework_1.DOM.createCustomEvent(event, { bubbles: true, cancelable: true, detail: data });
             return element.dispatchEvent(e);

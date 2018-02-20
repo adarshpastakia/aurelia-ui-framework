@@ -5,6 +5,7 @@ var aurelia_event_aggregator_1 = require("aurelia-event-aggregator");
 var ui_utils_1 = require("./ui-utils");
 var UIEvent;
 (function (UIEvent) {
+    UIEvent.I18N_CHANGE_EVENT = 'i18n:locale:changed';
     function fireEvent(event, element, data) {
         var e = aurelia_framework_1.DOM.createCustomEvent(event, { bubbles: true, cancelable: true, detail: data });
         return element.dispatchEvent(e);

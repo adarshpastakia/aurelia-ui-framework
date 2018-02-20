@@ -47,6 +47,7 @@ export declare class UIDatagrid {
     private rowCounter;
     private rowExpander;
     private obPageChange;
+    private obLocaleChange;
     columnsChanged(columns: any): void;
     dataSourceChanged(newValue: any): void;
     toggleRecordCheck($event: any, record: any): void;

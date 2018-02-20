@@ -7,9 +7,11 @@
 
 import { BindingEngine, PropertyObserver, DOM, TaskQueue } from "aurelia-framework";
 import { EventAggregator, Subscription } from "aurelia-event-aggregator";
-import {UIUtils} from "./ui-utils";
+import { UIUtils } from "./ui-utils";
 
 export module UIEvent {
+  export const I18N_CHANGE_EVENT = 'i18n:locale:changed';
+
   export function fireEvent(event: string,
     element: EventTarget,
     data?: any): any {

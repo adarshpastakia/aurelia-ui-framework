@@ -5,9 +5,12 @@
 // @license     : MIT
 
 .ui-datagrid {
-  position: relative;
+  position : relative;
   @include flex-fill(1em);
   @include flexbox($direction: column, $wrap: false, $align: stretch);
+
+  // Fix for firefox extending the grid wrapper outside container
+  max-width: 100%;
 
   &.ui-auto-size > .ui-dg-body {
     overflow: hidden;

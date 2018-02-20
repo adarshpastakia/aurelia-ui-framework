@@ -15,11 +15,7 @@ export class TreePanel {
   }
 
   makeTeeModel() {
-    var ct = [{
-      id: 'noleafs', text: 'Node with no childs',
-      icon: 'glyph-icon-folder-open',
-      closedIcon: 'glyph-icon-folder-closed', children: []
-    }];
+    var ct = [];
     _.forEach(_.chain(window.Countries.list).sortBy('continent').groupBy('continent').value(), (v: any, k: string) => {
       let c = {
         id: _.camelCase(k),
@@ -39,7 +35,16 @@ export class TreePanel {
       });
       ct.push(c);
     });
-    this.treeModel = new UITreeModel(ct);
+    var tm = [{
+      id: 'ctries', text: 'Countries',
+      icon: 'glyph-icon-folder-open',
+      closedIcon: 'glyph-icon-folder-closed', children: ct
+    }, {
+      id: 'noleafs', text: 'Node with no childs',
+      icon: 'glyph-icon-folder-open',
+      closedIcon: 'glyph-icon-folder-closed', children: []
+    }];
+    this.treeModel = new UITreeModel(tm);
   }
 
 }
