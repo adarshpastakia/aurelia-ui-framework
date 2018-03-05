@@ -1,3 +1,10 @@
+<a name="4.0.0-Beta.12"></a>
+# 4.0.0-Beta.12 (2018-03-05)
+
+* Bug Fixes #110
+* Added Material style ripple effect for buttons
+
+
 <a name="4.0.0-Beta.11"></a>
 # 4.0.0-Beta.11 (2018-02-20)
 
