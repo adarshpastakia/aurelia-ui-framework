@@ -39,6 +39,9 @@ Button input
   * `success`
   * `warning`
 
+> CSS: Add `class="ui-effect-ripple"` for Material style ripple effect
+> CSS: Add `class="ui-effect-shadow"` for shadowed press effect
+
 ---
 
 #### `ui-button-group`
