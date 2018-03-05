@@ -1,5 +1,8 @@
-// @author: Adarsh Pastakia
-// Copyright © 2017, Innominds Software
+//
+// @description :
+// @author      : Adarsh Pastakia
+// @copyright   : 2017
+// @license     : MIT
 
 .ui-button {
   @include flexbox($direction: row, $display:inline-flex, $align: stretch);
@@ -7,12 +10,69 @@
   line-height: 1;
   margin     : 0.25em;
   position   : relative;
+  
+  &.ui-effect-ripple .ui-button-el {
+    position: relative;
+
+    &:before {
+      content: '';
+      position: absolute;
+      background-repeat: no-repeat;
+      background-position: center;
+      transition: background 0.8s, opacity 0.5s 0.3s;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      opacity: 0;
+      pointer-events: none;
+      background: radial-gradient(circle, rgba(255, 255, 255, .5) 1%, transparent 1%) center/10000%;
+    }
+
+    &:active:before {
+      opacity: 1;
+      background-size: 0;
+      transition: background 0s, opacity 0s 0s;
+    }
+  }
+
+  &.ui-effect-shadow .ui-button-el {
+    position: relative;
+
+    &:before {
+      content: '';
+      position: absolute;
+      pointer-events: none;
+      transition: box-shadow 0.8s;
+
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      box-shadow: 0 0 0 0 var(--color-muted-dark) inset;
+    }
+
+    &:active:before {
+      box-shadow: 0 0 4px 0 var(--color-muted-dark) inset;
+      transition: box-shadow 0s;
+    }
+  }
+
+  
+  &:not(.ui-effect-ripple) {
+    .ui-button-el:active {
+      color     : $button-default-active-text;
+      background: $button-default-active-bg;
+      box-shadow: 0 0 3px 0 darken($button-default-active-bg, 5%) inset;
+    }
+  }
 
   .ui-button-el {
     position  : relative;
     min-height: 100%;
     color     : $button-default-text;
     background: $button-default-bg;
+    transition: background 0.8s;
     border    : 1px solid darken($button-default-bg, 10%);
     @include flexbox($direction: row, $wrap: false, $align: center, $justify: center);
 
@@ -26,9 +86,7 @@
     }
 
     &:active {
-      color     : $button-default-active-text;
-      background: $button-default-active-bg;
-      box-shadow: 0 0 3px 0 darken($button-default-active-bg, 5%) inset;
+      transition: background 0;
     }
 
     .ui-button-icon {

@@ -106,7 +106,7 @@ export class BodyCell {
   <div class="ui-dg-cell ui-row-head" css.bind="{width: parent.counterWidth+'px'}" if.bind="parent.rowCounter">
     <div class="ui-dg-cell-content ui-text-center">\${(index+1) + (parent.dataSource.recordsPerPage * parent.dataSource.page)}</div>
   </div>
-  <div class="ui-dg-cell ui-cell-checkbox" click.trigger="parent.toggleRecordCheck($event,record)">
+  <div class="ui-dg-cell ui-cell-checkbox" click.trigger="parent.toggleRecordCheck($event,record)" if.bind="parent.rowCheckbox">
     <ui-glyph glyph.bind="record.__selected__?'glyph-tree-check-on':'glyph-tree-check-off'"></ui-glyph>
   </div>
   <body-cell repeat.for="column of parent.colLocked" record.bind="record" column.bind="column"></body-cell>

@@ -8,11 +8,11 @@
     <x-container source.bind="source" wiki.bind="wiki" page-title="Buttons" need-rtl="true">
       <h4 class="x-title">Themes</h4>
       <ui-row class="ui-titlecase">
-        <ui-button width="8em" repeat.for="c of themes" theme.bind="c">${c}</ui-button>
+        <ui-button width="8em" repeat.for="c of themes" theme.bind="c" class="ui-effect-ripple">${c}</ui-button>
       </ui-row>
       <h6 class="x-title">Extras</h6>
       <ui-row class="ui-titlecase">
-        <ui-button width="8em" repeat.for="c of colors" theme.bind="c">${c}</ui-button>
+        <ui-button width="8em" repeat.for="c of colors" theme.bind="c" class="ui-effect-shadow">${c}</ui-button>
       </ui-row>
 
       <hr/>

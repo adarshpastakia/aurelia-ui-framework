@@ -2335,11 +2335,50 @@ strong {
   line-height: 1;
   margin: 0.25em;
   position: relative; }
+  .ui-button.ui-effect-ripple .ui-button-el {
+    position: relative; }
+    .ui-button.ui-effect-ripple .ui-button-el:before {
+      content: '';
+      position: absolute;
+      background-repeat: no-repeat;
+      background-position: center;
+      transition: background 0.8s, opacity 0.5s 0.3s;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      opacity: 0;
+      pointer-events: none;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 1%, transparent 1%) center/10000%; }
+    .ui-button.ui-effect-ripple .ui-button-el:active:before {
+      opacity: 1;
+      background-size: 0;
+      transition: background 0s, opacity 0s 0s; }
+  .ui-button.ui-effect-shadow .ui-button-el {
+    position: relative; }
+    .ui-button.ui-effect-shadow .ui-button-el:before {
+      content: '';
+      position: absolute;
+      pointer-events: none;
+      transition: box-shadow 0.8s;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      box-shadow: 0 0 0 0 var(--color-muted-dark) inset; }
+    .ui-button.ui-effect-shadow .ui-button-el:active:before {
+      box-shadow: 0 0 4px 0 var(--color-muted-dark) inset;
+      transition: box-shadow 0s; }
+  .ui-button:not(.ui-effect-ripple) .ui-button-el:active {
+    color: #2c3e50;
+    background: white;
+    box-shadow: 0 0 3px 0 #ffe6e6 inset; }
   .ui-button .ui-button-el {
     position: relative;
     min-height: 100%;
     color: #2c3e50;
     background: #fbfcfc;
+    transition: background 0.8s;
     border: 1px solid #dde4e6;
     display: flex;
     -webkit-flex-direction: row;
@@ -2372,9 +2411,7 @@ strong {
       color: #2c3e50;
       background: #dde4e6; }
     .ui-button .ui-button-el:active {
-      color: #2c3e50;
-      background: white;
-      box-shadow: 0 0 3px 0 #ffe6e6 inset; }
+      transition: background 0; }
     .ui-button .ui-button-el .ui-button-icon {
       align-self: stretch;
       padding: 0.5em;
