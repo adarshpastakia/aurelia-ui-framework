@@ -35,6 +35,7 @@ export class UIButton {
 
     this.split = this.element.hasAttribute('split');
     this.hideCaret = this.element.hasAttribute('hide-caret');
+    this.hideOnClick = !isFalse(this.element.getAttribute('hide-on-click'));
   }
 
   bind(bindingContext: Object, overrideContext: Object) {
@@ -43,11 +44,10 @@ export class UIButton {
   attached() {
     this.hasLabel = !!(this.label || this.labelEl.childNodes[0].length);
 
-    if (this.panel) this.dropdown = this.panel;
     if (this.dropdown) {
       this.obMouseup = UIEvent.subscribe('mouseclick', (evt) => {
         if (getParentByClass(evt.target, 'ui-button') == this.element) return;
-        if (this.panel && getParentByClass(evt.target, 'ui-floating') == this.dropdown) return;
+        if (!this.hideOnClick && getParentByClass(evt.target, 'ui-floating') == this.dropdown) return;
         this.hideDropdown();
       });
       this.element.classList.add('ui-btn-dropdown');
@@ -58,8 +58,6 @@ export class UIButton {
   detached() {
     if (this.tether) this.tether.dispose();
     if (this.obMouseup) this.obMouseup.dispose();
-    // NO NEED TO REMOVE THE BOUND DROPDOWN OBJECT
-    // if (this.dropdown) DOM.removeNode(this.dropdown);
   }
 
   @bindable() glyph = '';
@@ -69,7 +67,6 @@ export class UIButton {
   @bindable() splitTheme = '';
   @bindable() splitGlyph = 'glyph-caret-down';
   @bindable() dropdown;
-  @bindable() panel;
   @bindable() busy = false;
   @bindable() disabled = false;
 
@@ -79,6 +76,7 @@ export class UIButton {
 
   private tether;
   private obMouseup;
+  private hideOnClick = true;
 
   split = false;
   isDisabled = false;
@@ -112,7 +110,6 @@ export class UIButton {
         if (UIEvent.fireEvent('menuopen', this.element) !== false) {
           this.element.classList.add('ui-open');
           this.dropdown.classList.add('ui-open');
-          if (this.panel && this.panel.focus) this.panel.focus();
           this.tether.position();
         }
       }

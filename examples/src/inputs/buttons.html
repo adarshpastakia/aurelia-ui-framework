@@ -96,7 +96,7 @@
           <p>dropdown</p>
         </ui-column>
         <ui-column auto>
-          <ui-button width="10em" glyph="glyph-icon-page" icon-hilight theme="info" panel.bind="btnForm">Click</ui-button>
+          <ui-button width="10em" glyph="glyph-icon-page" icon-hilight theme="info" dropdown.bind="btnForm" hide-on-click="false">Click</ui-button>
           <p>dropdown panel</p>
         </ui-column>
         <ui-column auto>
@@ -113,6 +113,8 @@
         </ui-column>
         <ui-column auto>
           <ui-button width="7em" busy.bind="isBusy" glyph="glyph-icon-page" icon-hilight theme="info">Click</ui-button>
+          <ui-button width="9em" busy.bind="isBusy" glyph="glyph-icon-page">Click</ui-button>
+          <ui-button width="9em" busy.bind="isBusy" glyph="glyph-icon-page" icon-end>Click</ui-button>
           <ui-button width="7em" busy.bind="isBusy" glyph="glyph-icon-page" icon-end icon-hilight theme="info">Click</ui-button>
           <ui-switch theme="info" on-label="busy" checked.bind="isBusy"></ui-switch>
           <p>busy</p>
