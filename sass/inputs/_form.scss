@@ -8,28 +8,6 @@
   .ui-col-form .ui-input-group {
     min-width: 18em;
   }
-
-  &.ui-floating {
-    max-height      : 50vh;
-    background-color: $menu-dropdown-bg;
-    border-radius   : $base-border-radius;
-    position        : fixed;
-    display         : none;
-    z-index         : $z-index-floating;
-    box-shadow      : 0 0 2px 0 $base-shadow-color;
-
-    &.ui-tether-top {
-      box-shadow: 0 1px 2px 0 $base-shadow-color;
-    }
-
-    &.ui-tether-bottom {
-      box-shadow: 0 -1px 2px 0 $base-shadow-color;
-    }
-
-    &.ui-open {
-      display: block;
-    }
-  }
 }
 
 .ui-fieldset {

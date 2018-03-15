@@ -201,40 +201,10 @@ a.ui-menu-item {
   &.ui-floating {
     max-height      : 20rem;
     background-color: $menu-dropdown-bg;
-    border-radius   : $base-border-radius;
-    position        : fixed;
-    display         : none;
-    z-index         : $z-index-floating;
-    @include scroll();
-    @include box-shadow(0 0 4px 0 $base-shadow-color);
-
-    &.ui-tether-top {
-      border-top: 1px solid rgab($base-border-color, .25);
-      box-shadow: 0 1px 4px 0 $base-shadow-color;
-    }
-
-    &.ui-tether-bottom {
-      border-bottom: 1px solid rgab($base-border-color, .25);
-      box-shadow   : 0 -1px 4px 0 $base-shadow-color;
-    }
-
-    &.ui-open {
-      display: block;
-    }
 
     .ui-menu-item {
       line-height: 2em;
       font-size  : 0.9em;
-    }
-
-    &.ui-tether-top {
-      border-top-left-radius : 0;
-      border-top-right-radius: 0;
-    }
-
-    &.ui-tether-bottom {
-      border-bottom-left-radius : 0;
-      border-bottom-right-radius: 0;
     }
   }
 
@@ -285,9 +255,9 @@ a.ui-menu-item {
     }
   }
 
-  > .ui-menu-section:not(:first-child) > .ui-menu-section-title:before,
+  > .ui-menu-section-title:not(:first-child):before,
   .ui-column > .ui-menu-section-title:not(:first-child):before,
-  > .ui-menu-section-title:not(:first-child):before {
+  > .ui-menu-section:not(:first-child) > .ui-menu-section-title:before {
     content: '';
     display: block;
     border : {
