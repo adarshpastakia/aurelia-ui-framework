@@ -15,6 +15,8 @@ var UIToolbar = (function () {
         this.element = element;
         if (element.hasAttribute('start'))
             element.classList.add('ui-start');
+        if (element.hasAttribute('compact'))
+            element.classList.add('ui-compact');
     }
     UIToolbar = __decorate([
         aurelia_framework_1.autoinject(),

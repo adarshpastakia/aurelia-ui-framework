@@ -70,9 +70,9 @@ var UIDialogService = (function () {
             var childSlot = new aurelia_framework_2.ViewSlot(view['fragment'].querySelector('.ui-dialog'), true);
             childSlot.add(controller.view);
             childSlot.viewModel = controller.viewModel;
-            var slot = new aurelia_framework_2.ViewSlot(ui_utils_1.UIUtils.dialogContainer, true);
-            slot.add(view);
-            (controller.viewModel['controller'] = controller).attached();
+            ui_utils_1.UIUtils.getDialogContainerSlot().add(view);
+            controller.viewModel['__view'] = view;
+            (controller.viewModel['__controller'] = controller).attached();
             _this.initializeDialog(controller.viewModel);
         });
     };
@@ -116,9 +116,9 @@ var UIDialogService = (function () {
         this.invokeLifecycle(dialog, 'canDeactivate', force)
             .then(function (canDeactivate) {
             if (force || canDeactivate !== false) {
-                dialog.controller.detached();
-                dialog.controller.unbind();
-                aurelia_framework_1.DOM.removeNode(dialog.dialogWrapperEl);
+                ui_utils_1.UIUtils.getDialogContainerSlot().remove(dialog['__view']);
+                dialog['__controller'].detached();
+                dialog['__controller'].unbind();
                 _.remove(_this.windows, ['uniqId', dialog.uniqId]);
                 if (!dialog.modal) {
                     aurelia_framework_1.DOM.removeNode(dialog.taskButtonEl);

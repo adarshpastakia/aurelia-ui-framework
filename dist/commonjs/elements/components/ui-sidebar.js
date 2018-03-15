@@ -49,6 +49,8 @@ var UISidebar = (function () {
             this.bodyClass += ' ui-row ui-row-v ui-align-stretch ui-nowrap';
         if (this.element.hasAttribute('padded'))
             this.bodyClass += ' ui-pad-all';
+        if (this.element.hasAttribute('compact'))
+            this.bodyClass += ' ui-compact';
         if (this.width)
             this.element['style'].flexBasis = this.width;
     };

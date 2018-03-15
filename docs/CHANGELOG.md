@@ -1,3 +1,11 @@
+<a name="4.0.0-Beta.13"></a>
+# 4.0.0-Beta.13 (2018-03-15)
+
+* [UIButton]: Added floating style to allow panel as dropdown
+* [UIDialog]: Fixed open/close animation
+* Added compact padding style
+
+
 <a name="4.0.0-Beta.12"></a>
 # 4.0.0-Beta.12 (2018-03-05)
 

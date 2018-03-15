@@ -2,6 +2,7 @@ export declare class UIPanel {
     element: Element;
     constructor(element: Element);
     bind(bindingContext: Object, overrideContext: Object): void;
+    width: string;
     height: string;
     minheight: string;
     maxheight: string;

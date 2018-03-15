@@ -70,6 +70,15 @@ function lodashMixins() {
 exports.lodashMixins = lodashMixins;
 var UIUtils;
 (function (UIUtils) {
+    var dialogContainerSlot;
+    function getDialogContainerSlot() {
+        if (!dialogContainerSlot) {
+            dialogContainerSlot = new aurelia_framework_1.ViewSlot(UIUtils.dialogContainer, true);
+            dialogContainerSlot.attached();
+        }
+        return dialogContainerSlot;
+    }
+    UIUtils.getDialogContainerSlot = getDialogContainerSlot;
     function lazy(T) {
         if (!this.auContainer) {
             throw new Error('UIUtils.Lazy::Container not set');

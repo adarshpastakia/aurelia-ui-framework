@@ -74,6 +74,8 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
                         element.classList.add('ui-pad-all');
                     if (element.hasAttribute('scroll'))
                         element.classList.add('ui-scroll');
+                    if (element.hasAttribute('compact'))
+                        element.classList.add('ui-compact');
                 }
                 UIContent = __decorate([
                     aurelia_framework_1.autoinject(),

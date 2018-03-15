@@ -11,7 +11,6 @@ export declare class UIButton {
     splitTheme: string;
     splitGlyph: string;
     dropdown: any;
-    form: any;
     busy: boolean;
     disabled: boolean;
     buttonEl: any;
@@ -19,6 +18,7 @@ export declare class UIButton {
     private hasLabel;
     private tether;
     private obMouseup;
+    private hideOnClick;
     split: boolean;
     isDisabled: boolean;
     hideCaret: boolean;

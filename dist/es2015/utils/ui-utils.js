@@ -67,6 +67,15 @@ export function lodashMixins() {
 }
 export var UIUtils;
 (function (UIUtils) {
+    var dialogContainerSlot;
+    function getDialogContainerSlot() {
+        if (!dialogContainerSlot) {
+            dialogContainerSlot = new ViewSlot(UIUtils.dialogContainer, true);
+            dialogContainerSlot.attached();
+        }
+        return dialogContainerSlot;
+    }
+    UIUtils.getDialogContainerSlot = getDialogContainerSlot;
     function lazy(T) {
         if (!this.auContainer) {
             throw new Error('UIUtils.Lazy::Container not set');

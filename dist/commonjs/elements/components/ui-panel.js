@@ -16,6 +16,7 @@ var _ = require("lodash");
 var UIPanel = (function () {
     function UIPanel(element) {
         this.element = element;
+        this.width = 'auto';
         this.height = 'auto';
         this.minheight = 'auto';
         this.maxheight = 'auto';
@@ -63,6 +64,10 @@ var UIPanel = (function () {
     __decorate([
         aurelia_framework_1.bindable(),
         __metadata("design:type", Object)
+    ], UIPanel.prototype, "width", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
     ], UIPanel.prototype, "height", void 0);
     __decorate([
         aurelia_framework_1.bindable(),
@@ -86,7 +91,7 @@ var UIPanel = (function () {
     ], UIPanel.prototype, "beforeclose", void 0);
     UIPanel = __decorate([
         aurelia_framework_1.autoinject(),
-        aurelia_framework_1.inlineView("<template class=\"ui-panel ${collapsed?'ui-collapse':''} ${expanded?'ui-expand':''}\" css.bind=\"{'max-height': maxheight,'min-height': minheight,'height':height}\" collapse.trigger=\"toggleCollapse()\" expand.trigger=\"expand()\" restore.trigger=\"expand()\" close.trigger=\"close()\"><slot></slot></template>"),
+        aurelia_framework_1.inlineView("<template class=\"ui-panel ${collapsed?'ui-collapse':''} ${expanded?'ui-expand':''}\" css.bind=\"{'max-height': maxheight,'min-height': minheight,'height':height, 'width': width}\" collapse.trigger=\"toggleCollapse()\" expand.trigger=\"expand()\" restore.trigger=\"expand()\" close.trigger=\"close()\"><slot></slot></template>"),
         aurelia_framework_1.customElement('ui-panel'),
         __metadata("design:paramtypes", [Element])
     ], UIPanel);
@@ -102,6 +107,8 @@ var UIPanelBody = (function () {
             element.classList.add('ui-scroll');
         if (element.hasAttribute('padded'))
             element.classList.add('ui-pad-all');
+        if (element.hasAttribute('compact'))
+            element.classList.add('ui-compact');
     }
     UIPanelBody = __decorate([
         aurelia_framework_1.autoinject(),

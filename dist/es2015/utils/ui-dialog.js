@@ -66,9 +66,9 @@ let UIDialogService = class UIDialogService {
             let childSlot = new ViewSlot(view['fragment'].querySelector('.ui-dialog'), true);
             childSlot.add(controller.view);
             childSlot.viewModel = controller.viewModel;
-            let slot = new ViewSlot(UIUtils.dialogContainer, true);
-            slot.add(view);
-            (controller.viewModel['controller'] = controller).attached();
+            UIUtils.getDialogContainerSlot().add(view);
+            controller.viewModel['__view'] = view;
+            (controller.viewModel['__controller'] = controller).attached();
             this.initializeDialog(controller.viewModel);
         });
     }
@@ -118,9 +118,9 @@ let UIDialogService = class UIDialogService {
         this.invokeLifecycle(dialog, 'canDeactivate', force)
             .then(canDeactivate => {
             if (force || canDeactivate !== false) {
-                dialog.controller.detached();
-                dialog.controller.unbind();
-                DOM.removeNode(dialog.dialogWrapperEl);
+                UIUtils.getDialogContainerSlot().remove(dialog['__view']);
+                dialog['__controller'].detached();
+                dialog['__controller'].unbind();
                 _.remove(this.windows, ['uniqId', dialog.uniqId]);
                 if (!dialog.modal) {
                     DOM.removeNode(dialog.taskButtonEl);

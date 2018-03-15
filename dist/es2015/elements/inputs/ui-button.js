@@ -23,6 +23,7 @@ let UIButton = class UIButton {
         this.busy = false;
         this.disabled = false;
         this.hasLabel = true;
+        this.hideOnClick = true;
         this.split = false;
         this.isDisabled = false;
         this.hideCaret = false;
@@ -42,10 +43,9 @@ let UIButton = class UIButton {
             this.element.classList.add('ui-size-sm');
         this.split = this.element.hasAttribute('split');
         this.hideCaret = this.element.hasAttribute('hide-caret');
+        this.hideOnClick = !isFalse(this.element.getAttribute('hide-on-click'));
     }
     bind(bindingContext, overrideContext) {
-        if (this.form)
-            this.dropdown = this.form;
         this.disabledChanged(this.disabled);
     }
     attached() {
@@ -54,7 +54,7 @@ let UIButton = class UIButton {
             this.obMouseup = UIEvent.subscribe('mouseclick', (evt) => {
                 if (getParentByClass(evt.target, 'ui-button') == this.element)
                     return;
-                if (this.form && getParentByClass(evt.target, 'ui-floating') == this.dropdown)
+                if (!this.hideOnClick && getParentByClass(evt.target, 'ui-floating') == this.dropdown)
                     return;
                 this.hideDropdown();
             });
@@ -97,8 +97,6 @@ let UIButton = class UIButton {
                 if (UIEvent.fireEvent('menuopen', this.element) !== false) {
                     this.element.classList.add('ui-open');
                     this.dropdown.classList.add('ui-open');
-                    if (this.form && this.form.focus)
-                        this.form.focus();
                     this.tether.position();
                 }
             }
@@ -135,10 +133,6 @@ __decorate([
     bindable(),
     __metadata("design:type", Object)
 ], UIButton.prototype, "dropdown", void 0);
-__decorate([
-    bindable(),
-    __metadata("design:type", Object)
-], UIButton.prototype, "form", void 0);
 __decorate([
     bindable(),
     __metadata("design:type", Object)

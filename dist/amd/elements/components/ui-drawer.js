@@ -37,6 +37,8 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event"], func
                 this.bodyClass += ' ui-scroll';
             if (this.element.hasAttribute('padded'))
                 this.bodyClass += ' ui-pad-all';
+            if (this.element.hasAttribute('compact'))
+                this.bodyClass += 'ui-compact';
             if (this.position == 'end' && this.closeGlyph === 'glyph-arrow-left')
                 this.closeGlyph = 'glyph-arrow-right';
             if (this.width)

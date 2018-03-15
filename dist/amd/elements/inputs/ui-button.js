@@ -22,6 +22,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
             this.busy = false;
             this.disabled = false;
             this.hasLabel = true;
+            this.hideOnClick = true;
             this.split = false;
             this.isDisabled = false;
             this.hideCaret = false;
@@ -41,10 +42,9 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
                 this.element.classList.add('ui-size-sm');
             this.split = this.element.hasAttribute('split');
             this.hideCaret = this.element.hasAttribute('hide-caret');
+            this.hideOnClick = !isFalse(this.element.getAttribute('hide-on-click'));
         }
         UIButton.prototype.bind = function (bindingContext, overrideContext) {
-            if (this.form)
-                this.dropdown = this.form;
             this.disabledChanged(this.disabled);
         };
         UIButton.prototype.attached = function () {
@@ -54,7 +54,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
                 this.obMouseup = ui_event_1.UIEvent.subscribe('mouseclick', function (evt) {
                     if (getParentByClass(evt.target, 'ui-button') == _this.element)
                         return;
-                    if (_this.form && getParentByClass(evt.target, 'ui-floating') == _this.dropdown)
+                    if (!_this.hideOnClick && getParentByClass(evt.target, 'ui-floating') == _this.dropdown)
                         return;
                     _this.hideDropdown();
                 });
@@ -97,8 +97,6 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
                     if (ui_event_1.UIEvent.fireEvent('menuopen', this.element) !== false) {
                         this.element.classList.add('ui-open');
                         this.dropdown.classList.add('ui-open');
-                        if (this.form && this.form.focus)
-                            this.form.focus();
                         this.tether.position();
                     }
                 }
@@ -134,10 +132,6 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-event", "../.
             aurelia_framework_1.bindable(),
             __metadata("design:type", Object)
         ], UIButton.prototype, "dropdown", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(),
-            __metadata("design:type", Object)
-        ], UIButton.prototype, "form", void 0);
         __decorate([
             aurelia_framework_1.bindable(),
             __metadata("design:type", Object)

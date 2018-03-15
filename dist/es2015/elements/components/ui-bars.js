@@ -13,6 +13,8 @@ let UIToolbar = class UIToolbar {
         this.element = element;
         if (element.hasAttribute('start'))
             element.classList.add('ui-start');
+        if (element.hasAttribute('compact'))
+            element.classList.add('ui-compact');
     }
 };
 UIToolbar = __decorate([
