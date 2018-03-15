@@ -38,16 +38,16 @@ export class UIButton {
   }
 
   bind(bindingContext: Object, overrideContext: Object) {
-    if (this.form) this.dropdown = this.form;
     this.disabledChanged(this.disabled);
   }
   attached() {
     this.hasLabel = !!(this.label || this.labelEl.childNodes[0].length);
 
+    if (this.panel) this.dropdown = this.panel;
     if (this.dropdown) {
       this.obMouseup = UIEvent.subscribe('mouseclick', (evt) => {
         if (getParentByClass(evt.target, 'ui-button') == this.element) return;
-        if (this.form && getParentByClass(evt.target, 'ui-floating') == this.dropdown) return;
+        if (this.panel && getParentByClass(evt.target, 'ui-floating') == this.dropdown) return;
         this.hideDropdown();
       });
       this.element.classList.add('ui-btn-dropdown');
@@ -69,7 +69,7 @@ export class UIButton {
   @bindable() splitTheme = '';
   @bindable() splitGlyph = 'glyph-caret-down';
   @bindable() dropdown;
-  @bindable() form;
+  @bindable() panel;
   @bindable() busy = false;
   @bindable() disabled = false;
 
@@ -112,7 +112,7 @@ export class UIButton {
         if (UIEvent.fireEvent('menuopen', this.element) !== false) {
           this.element.classList.add('ui-open');
           this.dropdown.classList.add('ui-open');
-          if (this.form && this.form.focus) this.form.focus();
+          if (this.panel && this.panel.focus) this.panel.focus();
           this.tether.position();
         }
       }

@@ -96,6 +96,10 @@
           <p>dropdown</p>
         </ui-column>
         <ui-column auto>
+          <ui-button width="10em" glyph="glyph-icon-page" icon-hilight theme="info" form.bind="btnForm">Click</ui-button>
+          <p>dropdown panel</p>
+        </ui-column>
+        <ui-column auto>
           <ui-button width="10em" glyph="glyph-icon-page" split theme="success" split-theme="green" dropdown.bind="btnMenuColumned">Click</ui-button>
           <p>split</p>
         </ui-column>
@@ -120,6 +124,36 @@
           <strong>NOTE</strong>
           For button-group with separator use equal width buttons</blockquote>
       </div>
+
+      <ui-panel ref="btnForm" width="30em">
+        <ui-panel-body padded>
+          <ui-form>
+            <ui-input-group>
+              <ui-input-label required>Username</ui-input-label>
+              <ui-input placeholder="Username...">
+                <ui-input-addon>
+                  <small class="ui-strong" text-info>User</small>
+                </ui-input-addon>
+              </ui-input>
+              <ui-button secondary glyph="glyph-arrow-right"></ui-button>
+            </ui-input-group>
+            <ui-input-group>
+              <ui-input-label>Password</ui-input-label>
+              <ui-input password placeholder="Password...">
+                <ui-input-addon>
+                  <small class="ui-strong" text-success>Strong</small>
+                </ui-input-addon>
+              </ui-input>
+            </ui-input-group>
+          </ui-form>
+        </ui-panel-body>
+        <ui-toolbar>
+          <ui-button-group small>
+            <ui-button muted width="6em">Save</ui-button>
+            <ui-button light width="6em">Cancel</ui-button>
+          </ui-button-group>
+        </ui-toolbar>
+      </ui-panel>
 
       <ui-menu ref="btnMenu">
         <ui-menu-section>Actions</ui-menu-section>
@@ -193,5 +227,5 @@
         </ui-column>
       </ui-row>
     </x-container>
-  </x-page>
+    </x-page>
 </template>
