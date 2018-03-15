@@ -47,13 +47,15 @@
     font-size  : 0.85em;
     color      : rgba($input-label-text, .8);
     line-height: 2.5;
-    text-align : right;
-    text-align : end;
+    text-align : if($input-label-align == start, left, right);
+    text-align : $input-label-align;
     @include flexbox($justify: flex-end, $align: center, $wrap: false);
     @include flex(0 0 8em);
 
     > span {
+      flex       : 1;
       line-height: 1;
+      @include ellipsis();
     }
 
     &:after {
@@ -70,6 +72,10 @@
     &.ui-align-top {
       flex-basis: 100%;
       @include justify-content(flex-start);
+
+      > span {
+        flex: 0;
+      }
     }
   }
 

@@ -117,6 +117,7 @@ $list-selected-text          : $white !default;
 $input-bg                    : relative-color($base-bg, darken($dark, 10%), lighten($light,10%)) !default;
 $input-text                  : $base-text !default;
 $input-label-text            : $base-text !default;
+$input-label-align           : start !default;
 
 $input-focus-border          : $secondary !default;
 $input-invalid-border        : $danger !default;
