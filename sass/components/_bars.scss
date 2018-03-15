@@ -9,12 +9,16 @@
   background-color: $toolbar-bg;
   border          : 1px solid rgba($base-border-color, .25);
   border-width    : 1px 0;
-  padding         : 0.2em 0.5em;
+  @extend .ui-pad-all;
   @include flex-auto();
   @include flexbox($direction: row, $align:center, $justify:flex-end, $wrap:false);
 
   &.ui-start {
     justify-content: flex-start;
+  }
+
+  &.ui-compact {
+    @extend .ui-pad-all.ui-compact;
   }
 
   &:first-child {
