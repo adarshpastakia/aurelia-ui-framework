@@ -11,6 +11,7 @@ import { autoinject, customElement, bindable, inlineView } from 'aurelia-framewo
 export class UIToolbar {
   constructor(public element: Element) {
     if (element.hasAttribute('start')) element.classList.add('ui-start');
+    if (element.hasAttribute('compact')) element.classList.add('ui-compact');
   }
 }
 

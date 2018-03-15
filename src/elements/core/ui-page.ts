@@ -44,6 +44,7 @@ export class UIContent {
     if (element.hasAttribute('animate')) element.classList.add('au-animate');
     if (element.hasAttribute('padded')) element.classList.add('ui-pad-all');
     if (element.hasAttribute('scroll')) element.classList.add('ui-scroll');
+    if (element.hasAttribute('compact')) element.classList.add('ui-compact');
   }
 }
 

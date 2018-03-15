@@ -120,6 +120,10 @@
 
 .ui-pad-all {
   padding: $base-padding;
+
+  &.ui-compact {
+    padding: nth($base-padding,1)/2 nth($base-padding,2)/2;
+  }
 }
 
 .ui-pad-v {

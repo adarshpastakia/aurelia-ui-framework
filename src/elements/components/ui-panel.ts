@@ -9,7 +9,7 @@ import { UIUtils } from "../../utils/ui-utils";
 import * as _ from "lodash";
 
 @autoinject()
-@inlineView(`<template class="ui-panel \${collapsed?'ui-collapse':''} \${expanded?'ui-expand':''}" css.bind="{'max-height': maxheight,'min-height': minheight,'height':height}" collapse.trigger="toggleCollapse()" expand.trigger="expand()" restore.trigger="expand()" close.trigger="close()"><slot></slot></template>`)
+@inlineView(`<template class="ui-panel \${collapsed?'ui-collapse':''} \${expanded?'ui-expand':''}" css.bind="{'max-height': maxheight,'min-height': minheight,'height':height, 'width': width}" collapse.trigger="toggleCollapse()" expand.trigger="expand()" restore.trigger="expand()" close.trigger="close()"><slot></slot></template>`)
 @customElement('ui-panel')
 export class UIPanel {
   constructor(public element: Element) { }
@@ -18,6 +18,7 @@ export class UIPanel {
     this.collapsed = !!(this.collapsed) || this.element.hasAttribute('collapsed');
   }
 
+  @bindable() width = 'auto';
   @bindable() height = 'auto';
   @bindable() minheight = 'auto';
   @bindable() maxheight = 'auto';
@@ -70,6 +71,7 @@ export class UIPanelBody {
     if (element.hasAttribute('flex')) element.classList.add('ui-flexed');
     if (element.hasAttribute('scroll')) element.classList.add('ui-scroll');
     if (element.hasAttribute('padded')) element.classList.add('ui-pad-all');
+    if (element.hasAttribute('compact')) element.classList.add('ui-compact');
   }
 }
 
