@@ -669,19 +669,31 @@
   -o-animation: viewLeave 0.3s ease-in both;
   animation: viewLeave 0.3s ease-in both; }
 
-.au-enter-active.ui-dialog-wrapper .ui-dialog {
-  -webkit-animation: dialogEnter 0.5s ease-out both;
-  -moz-animation: dialogEnter 0.5s ease-out both;
-  -ms-animation: dialogEnter 0.5s ease-out both;
-  -o-animation: dialogEnter 0.5s ease-out both;
-  animation: dialogEnter 0.5s ease-out both; }
+.au-enter-active.ui-dialog-wrapper {
+  -webkit-animation: dialogWrapper 0.3s ease-in both;
+  -moz-animation: dialogWrapper 0.3s ease-in both;
+  -ms-animation: dialogWrapper 0.3s ease-in both;
+  -o-animation: dialogWrapper 0.3s ease-in both;
+  animation: dialogWrapper 0.3s ease-in both; }
+  .au-enter-active.ui-dialog-wrapper .ui-dialog {
+    -webkit-animation: dialogEnter 0.3s ease-out both;
+    -moz-animation: dialogEnter 0.3s ease-out both;
+    -ms-animation: dialogEnter 0.3s ease-out both;
+    -o-animation: dialogEnter 0.3s ease-out both;
+    animation: dialogEnter 0.3s ease-out both; }
 
-.au-leave-active.ui-dialog-wrapper .ui-dialog {
-  -webkit-animation: dialogLeave 0.5s ease-in both;
-  -moz-animation: dialogLeave 0.5s ease-in both;
-  -ms-animation: dialogLeave 0.5s ease-in both;
-  -o-animation: dialogLeave 0.5s ease-in both;
-  animation: dialogLeave 0.5s ease-in both; }
+.au-leave-active.ui-dialog-wrapper {
+  -webkit-animation: dialogWrapper 0.3s ease-in both;
+  -moz-animation: dialogWrapper 0.3s ease-in both;
+  -ms-animation: dialogWrapper 0.3s ease-in both;
+  -o-animation: dialogWrapper 0.3s ease-in both;
+  animation: dialogWrapper 0.3s ease-in both; }
+  .au-leave-active.ui-dialog-wrapper .ui-dialog {
+    -webkit-animation: dialogLeave 0.3s ease-in both;
+    -moz-animation: dialogLeave 0.3s ease-in both;
+    -ms-animation: dialogLeave 0.3s ease-in both;
+    -o-animation: dialogLeave 0.3s ease-in both;
+    animation: dialogLeave 0.3s ease-in both; }
 
 .au-stagger {
   /* 50ms will be applied between each successive enter operation */
@@ -869,6 +881,36 @@
     -ms-transform: scale(0.7);
     -o-transform: scale(0.7);
     transform: scale(0.7); } }
+
+@-moz-keyframes dialogWrapper {
+  from {
+    opacity: 1; }
+  to {
+    opacity: 1; } }
+
+@-webkit-keyframes dialogWrapper {
+  from {
+    opacity: 1; }
+  to {
+    opacity: 1; } }
+
+@-o-keyframes dialogWrapper {
+  from {
+    opacity: 1; }
+  to {
+    opacity: 1; } }
+
+@-ms-keyframes dialogWrapper {
+  from {
+    opacity: 1; }
+  to {
+    opacity: 1; } }
+
+@keyframes dialogWrapper {
+  from {
+    opacity: 1; }
+  to {
+    opacity: 1; } }
 
 body,
 html {
@@ -1146,8 +1188,10 @@ th {
 .ui-pad-none {
   padding: 0 !important; }
 
-.ui-pad-all {
+.ui-pad-all, .ui-toolbar {
   padding: 0.5rem 1rem; }
+  .ui-pad-all.ui-compact, .ui-compact.ui-toolbar {
+    padding: 0.25rem 0.5rem; }
 
 .ui-pad-v {
   padding: 0.5rem 0; }
@@ -3172,21 +3216,6 @@ strong {
 .ui-form .ui-col-form .ui-input-group {
   min-width: 18em; }
 
-.ui-form.ui-floating {
-  max-height: 50vh;
-  background-color: #fbfcfc;
-  border-radius: 2px;
-  position: fixed;
-  display: none;
-  z-index: 100;
-  box-shadow: 0 0 2px 0 rgba(149, 165, 166, 0.5); }
-  .ui-form.ui-floating.ui-tether-top {
-    box-shadow: 0 1px 2px 0 rgba(149, 165, 166, 0.5); }
-  .ui-form.ui-floating.ui-tether-bottom {
-    box-shadow: 0 -1px 2px 0 rgba(149, 165, 166, 0.5); }
-  .ui-form.ui-floating.ui-open {
-    display: block; }
-
 .ui-fieldset {
   margin: 0.25em 0.5em;
   padding: 0;
@@ -3238,8 +3267,8 @@ strong {
     font-size: 0.85em;
     color: rgba(44, 62, 80, 0.8);
     line-height: 2.5;
-    text-align: right;
-    text-align: end;
+    text-align: left;
+    text-align: start;
     display: flex;
     -webkit-flex-direction: row;
     -moz-flex-direction: row;
@@ -3267,7 +3296,12 @@ strong {
     -o-flex: 0 0 8em;
     flex: 0 0 8em; }
     .ui-input-group .ui-input-label > span {
-      line-height: 1; }
+      flex: 1;
+      line-height: 1;
+      cursor: default;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden; }
     .ui-input-group .ui-input-label:after {
       content: '*';
       color: transparent;
@@ -3282,6 +3316,8 @@ strong {
       -ms-justify-content: flex-start;
       -o-justify-content: flex-start;
       justify-content: flex-start; }
+      .ui-input-group .ui-input-label.ui-align-top > span {
+        flex: 0; }
   .ui-input-group.ui-focus .ui-input-label {
     font-weight: 400; }
   .ui-input-group .ui-input-info {
@@ -4604,7 +4640,6 @@ strong {
   background-color: #fbfcfc;
   border: 1px solid rgba(189, 195, 199, 0.25);
   border-width: 1px 0;
-  padding: 0.2em 0.5em;
   -webkit-flex: 0 0 auto;
   -moz-flex: 0 0 auto;
   -ms-flex: 0 0 auto;
@@ -6060,6 +6095,27 @@ strong {
       left: 0;
       background: rgba(251, 252, 252, 0.5); }
 
+.ui-floating {
+  background-color: #FFFEFC;
+  color: #2c3e50;
+  border-radius: 2px;
+  position: fixed;
+  z-index: 100;
+  border: 1px solid rgba(189, 195, 199, 0.25);
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  box-shadow: 0 0 8px 0 rgba(149, 165, 166, 0.5); }
+  .ui-floating.ui-tether-top {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    box-shadow: 0 8px 16px 0 rgba(149, 165, 166, 0.5); }
+  .ui-floating.ui-tether-bottom {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    box-shadow: 0 -8px 16px 0 rgba(149, 165, 166, 0.5); }
+  .ui-floating:not(.ui-open) {
+    display: none; }
+
 .ui-list-container {
   max-height: 20rem;
   overflow: auto;
@@ -6068,16 +6124,6 @@ strong {
   list-style: none;
   padding: 0;
   margin: 0; }
-  .ui-list-container.ui-floating {
-    position: fixed;
-    display: none;
-    z-index: 100; }
-    .ui-list-container.ui-floating.ui-tether-top {
-      box-shadow: 0 1px 2px 0 rgba(149, 165, 166, 0.5); }
-    .ui-list-container.ui-floating.ui-tether-bottom {
-      box-shadow: 0 -1px 2px 0 rgba(149, 165, 166, 0.5); }
-  .ui-list-container.ui-open {
-    display: block; }
   .ui-list-container .ui-list-group {
     color: #95a5a6;
     display: list-item;
@@ -8669,31 +8715,10 @@ a.ui-menu-item {
 
 .ui-menu.ui-floating {
   max-height: 20rem;
-  background-color: #fbfcfc;
-  border-radius: 2px;
-  position: fixed;
-  display: none;
-  z-index: 100;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-  box-shadow: 0 0 4px 0 rgba(149, 165, 166, 0.5); }
-  .ui-menu.ui-floating.ui-tether-top {
-    border-top: 1px solid rgab(rgba(189, 195, 199, 0.5), 0.25);
-    box-shadow: 0 1px 4px 0 rgba(149, 165, 166, 0.5); }
-  .ui-menu.ui-floating.ui-tether-bottom {
-    border-bottom: 1px solid rgab(rgba(189, 195, 199, 0.5), 0.25);
-    box-shadow: 0 -1px 4px 0 rgba(149, 165, 166, 0.5); }
-  .ui-menu.ui-floating.ui-open {
-    display: block; }
+  background-color: #fbfcfc; }
   .ui-menu.ui-floating .ui-menu-item {
     line-height: 2em;
     font-size: 0.9em; }
-  .ui-menu.ui-floating.ui-tether-top {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0; }
-  .ui-menu.ui-floating.ui-tether-bottom {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0; }
 
 .ui-menu .ui-menu-section {
   display: block;
@@ -8735,9 +8760,9 @@ a.ui-menu-item {
   .ui-menu .ui-menu-section.ui-collapsible.ui-collapsed .ui-menu-section-body {
     max-height: 0; }
 
-.ui-menu > .ui-menu-section:not(:first-child) > .ui-menu-section-title:before,
+.ui-menu > .ui-menu-section-title:not(:first-child):before,
 .ui-menu .ui-column > .ui-menu-section-title:not(:first-child):before,
-.ui-menu > .ui-menu-section-title:not(:first-child):before {
+.ui-menu > .ui-menu-section:not(:first-child) > .ui-menu-section-title:before {
   content: '';
   display: block;
   border-top: 1px solid rgba(52, 73, 94, 0.5);

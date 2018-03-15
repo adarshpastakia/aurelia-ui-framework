@@ -171,7 +171,7 @@
 
     &:before {
       border-color: $secondary;
-      @include animation-delay(.75s);
+      @include animation-delay(0.75s);
     }
 
     &:after {
@@ -183,19 +183,26 @@
 // Page animations
 /* animate page transitions */
 .au-enter-active:not(.ui-dialog-wrapper) {
-  @include animation(viewEnter .3s ease-out both);
+  @include animation(viewEnter 0.3s ease-out both);
 }
 
 .au-leave-active:not(.ui-dialog-wrapper) {
-  @include animation(viewLeave .3s ease-in both);
+  @include animation(viewLeave 0.3s ease-in both);
 }
 
-.au-enter-active.ui-dialog-wrapper .ui-dialog {
-  @include animation(dialogEnter .5s ease-out both);
+$dialog-anim-time: .3s;
+.au-enter-active.ui-dialog-wrapper {
+  @include animation(dialogWrapper $dialog-anim-time ease-in both);
+  .ui-dialog {
+    @include animation(dialogEnter $dialog-anim-time ease-out both);
+  }
 }
 
-.au-leave-active.ui-dialog-wrapper .ui-dialog {
-  @include animation(dialogLeave .5s ease-in both);
+.au-leave-active.ui-dialog-wrapper {
+  @include animation(dialogWrapper $dialog-anim-time ease-in both);
+  .ui-dialog {
+    @include animation(dialogLeave $dialog-anim-time ease-in both);
+  }
 }
 
 .au-stagger {
@@ -232,5 +239,13 @@
     opacity: 0;
     @include transform(scale(.7));
     // @include transform(dialogLeave(-50%, 0, 0));
+  }
+}
+@include keyframes(dialogWrapper) {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
   }
 }

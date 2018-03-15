@@ -22,6 +22,7 @@ export class CompDialogs {
   }
 
   printConsole(tag, event) {
+    if (!this.evtConsole) return;
     this.evtConsole.innerHTML = `<div><span class="time">${new Date().toLocaleString()}</span>:<span class="tag">${tag}</span> - <span class="event">${event}</span></div>${this.evtConsole.innerHTML}`
   }
 

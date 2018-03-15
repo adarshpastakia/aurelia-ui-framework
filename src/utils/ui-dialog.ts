@@ -79,10 +79,10 @@ export class UIDialogService {
         childSlot.add(controller.view);
         childSlot.viewModel = controller.viewModel;
 
-        let slot = new ViewSlot(UIUtils.dialogContainer, true);
-        slot.add(view);
+        UIUtils.getDialogContainerSlot().add(view);
 
-        (controller.viewModel['controller'] = controller).attached();
+        controller.viewModel['__view'] = view;
+        (controller.viewModel['__controller'] = controller).attached();
 
         this.initializeDialog(controller.viewModel);
       });
@@ -137,10 +137,10 @@ export class UIDialogService {
     this.invokeLifecycle(dialog, 'canDeactivate', force)
       .then(canDeactivate => {
         if (force || canDeactivate !== false) {
-          dialog.controller.detached();
-          dialog.controller.unbind();
+          UIUtils.getDialogContainerSlot().remove(dialog['__view']);
 
-          DOM.removeNode(dialog.dialogWrapperEl);
+          dialog['__controller'].detached();
+          dialog['__controller'].unbind();
 
           _.remove(this.windows, ['uniqId', dialog.uniqId]);
           if (!dialog.modal) {

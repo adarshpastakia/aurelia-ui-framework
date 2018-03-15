@@ -41,7 +41,10 @@
         </ui-column>
 
         <ui-column fill padded>
-          <div class="ui-text-primary">Lifecycle Console</div>
+          <ui-row>
+            <ui-column fill class="ui-text-primary ui-font-big">Lifecycle Console</ui-column>
+            <ui-column auto><a class="ui-link ui-font-small" click.trigger="evtConsole.innerHTML = ''">Clear</a></ui-column>
+          </ui-row>
           <div class="event-console" ref="evtConsole"></div>
         </ui-column>
       </ui-row>

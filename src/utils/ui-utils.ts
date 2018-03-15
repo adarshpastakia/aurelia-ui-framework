@@ -79,6 +79,15 @@ export module UIUtils {
   export var overlayContainer: Element;
   export var taskbarContainer: Element;
 
+  var dialogContainerSlot: ViewSlot;
+  export function getDialogContainerSlot() {
+    if (!dialogContainerSlot) {
+      dialogContainerSlot = new ViewSlot(dialogContainer, true);
+      dialogContainerSlot.attached();
+    }
+    return dialogContainerSlot;
+  }
+
   export function lazy(T): any {
     if (!this.auContainer) {
       throw new Error('UIUtils.Lazy::Container not set');
