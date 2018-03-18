@@ -181,7 +181,7 @@
   .ui-dg-body {
     @include scroll();
     @include flex-fill();
-    @include flexbox($direction: column, $wrap: false, $align: stretch);
+    @include flexbox($direction: column, $wrap: false, $align: flex-start);
 
     &.ui-row-hilight .ui-dg-row:hover .ui-dg-cell {
       background-color: $datagrid-row-hilight-bg;
