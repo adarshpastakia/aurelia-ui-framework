@@ -4,7 +4,7 @@
 // @copyright   : 2017
 // @license     : MIT
 
-import { autoinject, customElement, bindable, bindingMode, children, inlineView, noView, DOM, TemplatingEngine, computedFrom } from 'aurelia-framework';
+import { autoinject, customElement, bindable, processContent, bindingMode, children, inlineView, noView, DOM, TemplatingEngine, computedFrom } from 'aurelia-framework';
 import { UIEvent } from "../../utils/ui-event";
 import { UIUtils } from "../../utils/ui-utils";
 import { UIFormat } from "../../utils/ui-format";
@@ -19,7 +19,7 @@ export class UIDGColumnGroup {
   }
 
   @bindable() label;
-  @children('ui-dg-column,ui-dg-button,ui-dg-link,ui-dg-glyph') columns;
+  @children('ui-dg-column,ui-dg-button,ui-dg-link,ui-dg-glyph,ui-dg-tpl') columns;
 
   locked = 1;
   isGroup = true;
@@ -44,12 +44,13 @@ export class UIDataColumn {
     else if (element.hasAttribute('percent')) this.dataType = 'percent';
     else if (element.hasAttribute('exrate')) this.dataType = 'exrate';
 
-    this.headTitle = element['innerText'];
+    if (this.headerTitle === undefined) this.headerTitle = element['innerText'];
   }
 
   dataId;
   value;
   display;
+  tpl;
 
   width: any = '120px';
   minWidth = '40px';
@@ -60,7 +61,7 @@ export class UIDataColumn {
   symbol = '$';
   summary = '';
 
-  headTitle = '';
+  headerTitle = undefined;
   locked = 1;
   sortable = false;
   resizeable = false;
@@ -104,6 +105,34 @@ export class UIDataColumn {
 
 @noView()
 @autoinject()
+@processContent(false)
+@customElement('ui-dg-tpl')
+export class UIDgTplColumn extends UIDataColumn {
+  type = "normal";
+  constructor(public element: Element) {
+    super(element);
+    this.tpl = this.element.innerHTML;
+    this.element.innerHTML = "";
+  }
+
+  @bindable() dataId;
+  @bindable() headerTitle = '';
+
+  @bindable() width: any = '120px';
+  @bindable() minWidth = '40px';
+
+  @bindable() class = '';
+  @bindable() summary = '';
+
+  $parent;
+
+  bind(bindingContext) {
+    this.$parent = bindingContext;
+  }
+}
+
+@noView()
+@autoinject()
 @customElement('ui-dg-column')
 export class UIDgColumn extends UIDataColumn {
   type = "normal";
@@ -135,6 +164,7 @@ export class UIDGGlyph extends UIDataColumn {
   @bindable() minWidth;
 
   @bindable() class = '';
+  @bindable() label;
   @bindable() glyph;
   @bindable() tooltip;
 
@@ -166,6 +196,7 @@ export class UIDGLink extends UIDataColumn {
 
   @bindable() glyph;
   @bindable() label;
+  @bindable() headerTitle;
   @bindable() class = '';
   @bindable() show = null;
   @bindable() disabled = null;
@@ -217,6 +248,7 @@ export class UIDGButton extends UIDataColumn {
 
   @bindable() glyph;
   @bindable() label;
+  @bindable() headerTitle;
   @bindable() dropdown;
   @bindable() buttonWidth: any = 'auto';
   @bindable() buttonTheme: any = 'default';

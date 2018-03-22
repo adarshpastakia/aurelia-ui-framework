@@ -15,7 +15,7 @@ const logger = getLogger('UIDatagrid');
 
 @autoinject()
 @inlineView(`<template class="ui-dg-cell" css.bind="{width: column.columnWidth+'px', minWidth: column.columnMinWidth+'px'}" click.delegate="doSort()">
-  <div class="ui-dg-cell-content">\${column.headTitle}</div>
+  <div class="ui-dg-cell-content">\${column.headerTitle}</div>
   <div class="ui-dg-cell-icon ui-sort \${sortOrder}" if.bind="column.sortable">
     <ui-glyph glyph="glyph-caret-up"></ui-glyph>
     <ui-glyph glyph="glyph-caret-down"></ui-glyph>
@@ -67,10 +67,17 @@ export class BodyCell {
   private slot;
   private elContent;
 
+  private viewModel;
+
   attached() {
     if (this.elContent.innerHTML) return;
     let template = '';
-    if (this.column.type == 'normal')
+    if (this.column.tpl) {
+      template = this.column.tpl;
+      this.viewModel = this.column.$parent;
+      if (this.column.class) this.element.classList.add(this.column.class);
+    }
+    else if (this.column.type == 'normal')
       template = `<span class="\${column.class}" innerhtml.bind='column.getValue(record[column.dataId],record)'></span>`;
     else if (this.column.type == 'glyph')
       template = `<div title.bind="column.getTooltip(record[column.dataId],record)">
@@ -89,7 +96,7 @@ export class BodyCell {
 
     let viewFactory = this.compiler.compile(`<template>${template}</template>`);
     let view = viewFactory.create(this.container);
-    view.bind(this);
+    view.bind({ record: this.record, column: this.column, viewModel: this.viewModel });
     // DOM.appendNode(div, this.element);
     this.slot = new ViewSlot(this.elContent, true);
     this.slot.add(view);
@@ -173,7 +180,7 @@ export class BodyRow {
 export class UIDatagrid {
   constructor(public element: Element, private engine: TemplatingEngine) {
     this.virtual = element.hasAttribute('virtual');
-    this.rowSelect = element.hasAttribute('rowselect.trigger');
+    this.rowSelect = element.hasAttribute('row-select') || element.hasAttribute('row-select.trigger');
     this.rowCheckbox = element.hasAttribute('row-checkbox');
     this.rowCounter = element.hasAttribute('row-counter');
     this.rowExpander = element.hasAttribute('row-expander');
@@ -197,11 +204,9 @@ export class UIDatagrid {
     if (this.obLocaleChange) this.obLocaleChange.dispose();
   }
 
-  @children('ui-dg-column-group,ui-dg-column,ui-dg-button,ui-dg-link,ui-dg-glyph') columns;
+  @children('ui-dg-column-group,ui-dg-column,ui-dg-button,ui-dg-link,ui-dg-glyph,ui-dg-tpl') columns;
 
   @bindable() dataSource;
-
-  @bindable() viewTpl;
 
   @bindable({ defaultBindingMode: bindingMode.fromView }) selectedRows = [];
 
@@ -244,11 +249,11 @@ export class UIDatagrid {
   }
 
   private fireSelect($event, record) {
-    $event.stopPropagation();
-    $event.preventDefault();
+    // $event.stopPropagation();
+    // $event.preventDefault();
     if (!this.rowSelect) return;
     UIEvent.fireEvent('rowselect', this.element, ({ record }));
-    return false;
+    // return false;
   }
 
   private _X = 0;
