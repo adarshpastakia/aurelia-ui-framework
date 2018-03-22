@@ -10,7 +10,7 @@ export module UIConstants {
   export var SubTitle = '';
   export var Version = '4.0.0';
 
-  export var Http = {
+  export var Http: { BaseUrl: string, Headers: any, AuthorizationHeader: any } = {
     BaseUrl: './',
     Headers: {},
     AuthorizationHeader: false
