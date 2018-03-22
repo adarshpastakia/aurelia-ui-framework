@@ -55,6 +55,7 @@
 
     .ui-dg-lock-group {
       background: white;
+      z-index   : 1;
       @include flex-auto();
       @include flexbox($wrap:false, $align:stretch);
     }
@@ -66,13 +67,13 @@
       @include border(end, 1px solid rgba($lightGray, .5));
 
       > .ui-dg-cell-content {
-        padding: 0.25em 0.5em;
+        padding: .25em .5em;
         @include ellipsis();
         @include flex-fill();
       }
 
       &.btn-fix > .ui-dg-cell-content {
-        padding: 0 0.25em;
+        padding: 0 .25em;
       }
 
       &.last-cell {
@@ -82,7 +83,7 @@
 
       &.ui-cell-checkbox {
         width  : 2em;
-        padding: 0.35em;
+        padding: .35em;
         color  : $muted;
 
         &:hover {
@@ -91,7 +92,7 @@
       }
 
       &.ui-row-head {
-        font-size : 0.8em;
+        font-size : .8em;
         background: $datagrid-row-head-bg !important;
         color     : $datagrid-row-head-text;
       }
@@ -112,7 +113,7 @@
 
       > .ui-dg-col-group-title {
         text-align   : center;
-        padding      : 0.25em 0.1em;
+        padding      : .25em .1em;
         background   : $datagrid-header-bg;
         color        : $datagrid-header-text;
         border-bottom: 1px dotted rgba($lightGray, .75);
@@ -130,7 +131,7 @@
       color     : $datagrid-header-text;
 
       > .ui-dg-cell-icon {
-        padding: 0.25em 0.1em;
+        padding: .25em .1em;
         @include flex-auto();
 
         &.ui-filter {
@@ -151,7 +152,7 @@
 
           .ui-icon {
             position: absolute;
-            height  : 0.75em;
+            height  : .75em;
 
             &:first-child {
               top: 0;

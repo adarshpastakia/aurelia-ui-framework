@@ -58,7 +58,7 @@
 
       small {
         display  : block;
-        font-size: 0.9rem;
+        font-size: .9rem;
       }
     }
 
@@ -68,7 +68,7 @@
   }
 
   .ui-viewport-footer {
-    font-size : 0.7em;
+    font-size : .7em;
     background: $app-footer-bg;
     color     : $app-footer-text;
     padding   : 0 nth($base-padding, 2);
@@ -93,7 +93,7 @@
   }
 
   .ui-overlay-container {
-    overflow      : hidden;
+    overflow      : visible;
     padding       : 3em 0 1em;
     pointer-events: none;
     z-index       : $z-index-toast;
@@ -101,7 +101,7 @@
 
     .ui-toast {
       max-width : 24rem;
-      box-shadow: 0 0 0.5em 0 rgba(0,0,0,0.25);
+      box-shadow: 0 0 .5em 0 rgba(0,0,0,0.25);
     }
   }
 }
