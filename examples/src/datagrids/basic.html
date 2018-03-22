@@ -21,13 +21,18 @@
         </ui-toolbar>
       </div>
       <div css.bind="{height: '70vh'}" class="ui-row ui-row-v ui-nooverflow ui-align-stretch">
-        <ui-datagrid class="ui-border-all" row-counter row-checkbox data-source.bind="ds" scroll selected-rows.bind="rows" rowselect.trigger="rowClick($event.detail.record)">
+        <ui-datagrid class="ui-border-all" row-counter row-checkbox data-source.bind="ds" scroll selected-rows.bind="rows" row-select.trigger="rowClick($event.detail.record)">
           <ui-dg-glyph locked resizeable sortable width="64px" center data-id="iso2" class="ui-flag">Flag</ui-dg-glyph>
           <ui-dg-column-group label="Codes" locked>
-            <ui-dg-link center data-id="iso2" width="64px" click.trigger="linkClick($event)">ISO2</ui-dg-link>
-            <ui-dg-button center sortable data-id="iso3" button-theme="cyan" button-width="42px" width="64px" click.trigger="btnClick($event)">ISO3</ui-dg-button>
+            <ui-dg-link center data-id="iso2" width="64px" click.trigger="linkClick($event.detail.value)">ISO2</ui-dg-link>
+            <ui-dg-button center sortable data-id="iso3" button-theme="cyan" button-width="42px" width="64px" click.trigger="btnClick($event.detail.value)">ISO3</ui-dg-button>
           </ui-dg-column-group>
-          <ui-dg-column width="250px" data-id="name" locked sortable>Name</ui-dg-column>
+          <ui-dg-tpl width="250px" data-id="name" locked sortable header-title="Name">
+            <ui-glyph class="ui-flag ${record.iso3}"></ui-glyph> ${record.name}
+          </ui-dg-tpl>
+          <ui-dg-tpl><ui-button small square click.trigger="viewModel.btnClick(record.name)">${record.iso3}</ui-button></ui-dg-tpl>
+          <ui-dg-tpl><ui-checkbox checked.bind="record.switchValue" change.trigger="viewModel.linkClick('Check-'+record.switchValue)">Check</ui-checkbox></ui-dg-tpl>
+          <ui-dg-tpl><ui-switch checked.bind="record.switchValue" change.trigger="viewModel.linkClick('Toggle-'+record.switchValue)">Toggle</ui-switch></ui-dg-tpl>
           <ui-dg-column width="150px" data-id="capital">Capital</ui-dg-column>
           <ui-dg-column width="550px" data-id="fullname">Fullname</ui-dg-column>
         </ui-datagrid>
