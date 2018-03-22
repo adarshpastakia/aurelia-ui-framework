@@ -328,7 +328,8 @@ export class UIDataModel {
       });
   }
   private doDelete() {
-    //TODO: call dispose after fetchthis.busy = true;
+    //TODO: call dispose after fetch
+    this.busy = true;
     return this.httpClient.delete(this.apiSlug + this._id)
       .then(json => {
         this.busy = false;
