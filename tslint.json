@@ -1,5 +1,5 @@
 {
-  "rules": {
-
-  }
+  "tslint": "recommended",
+  "rules":
+  {}
 }
