@@ -297,7 +297,7 @@ UIDatagrid = __decorate([
     <div class="ui-dg-col-group" if.bind="column.isGroup">
       <div class="ui-dg-col-group-title">\${column.label}</div>
       <div class="ui-dg-col-group-cells">
-        <header-cell column.bind="inColumn" repeat.for="inColumn of column.columns"></header-cell>
+        <header-cell column.bind="inColumn" ds.bind="dataSource" repeat.for="inColumn of column.columns"></header-cell>
       </div>
     </div>
     </template>
