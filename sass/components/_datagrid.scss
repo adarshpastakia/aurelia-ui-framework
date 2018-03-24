@@ -41,7 +41,7 @@
     }
 
     &.ui-last-row {
-      min-height: 0;
+      min-height: 10px;
       @include flex-fill(0);
 
       .ui-dg-cell {

@@ -162,8 +162,11 @@ export class BodyRow {
     <div class="ui-dg-cell last-cell"><div class="ui-dg-cell-content">&nbsp;</div></div>
   </div>
 </div>
-<div class="ui-dg-body \${rowSelect?'ui-row-hilight':''}" scroll.trigger="scrollLeft = $event.target.scrollLeft" ref="elDgBody">
-  <body-row repeat.for="record of dataSource.data" record.bind="record" if.bind="!virtual" click.trigger="fireSelect($event, record)"></body-row>
+<div class="ui-dg-body \${rowSelect?'ui-row-hilight':''}" scroll.trigger="scrollLeft = $event.target.scrollLeft" ref="elDgBody" if.bind="virtual">
+  <body-row virtual-repeat.for="record of dataSource.data" record.bind="record" click.trigger="fireSelect($event, record)"></body-row>
+</div>
+<div class="ui-dg-body \${rowSelect?'ui-row-hilight':''}" scroll.trigger="scrollLeft = $event.target.scrollLeft" ref="elDgBody" if.bind="!virtual">
+  <body-row repeat.for="record of dataSource.data" record.bind="record" click.trigger="fireSelect($event, record)"></body-row>
   <div class="ui-dg-row ui-last-row">
     <div class="ui-dg-lock-group" css.bind="{transform: 'translateX('+(scrollLeft)+'px)'}">
       <div class="ui-dg-cell ui-row-head" css.bind="{width: counterWidth+'px'}" if.bind="rowCounter"></div>
@@ -180,7 +183,7 @@ export class BodyRow {
 export class UIDatagrid {
   constructor(public element: Element, private engine: TemplatingEngine) {
     this.virtual = element.hasAttribute('virtual');
-    this.rowSelect = element.hasAttribute('row-select') || element.hasAttribute('row-select.trigger');
+    this.rowSelect = element.hasAttribute('rowselect') || element.hasAttribute('rowselect.trigger');
     this.rowCheckbox = element.hasAttribute('row-checkbox');
     this.rowCounter = element.hasAttribute('row-counter');
     this.rowExpander = element.hasAttribute('row-expander');
