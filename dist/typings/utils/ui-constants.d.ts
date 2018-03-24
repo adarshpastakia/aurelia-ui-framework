@@ -5,8 +5,8 @@ export declare module UIConstants {
     var Version: string;
     var Http: {
         BaseUrl: string;
-        Headers: {};
-        AuthorizationHeader: boolean;
+        Headers: any;
+        AuthorizationHeader: any;
     };
     var Languages: ({
         id: string;
@@ -15,5 +15,6 @@ export declare module UIConstants {
     } | {
         id: string;
         name: string;
+        rtl?: undefined;
     })[];
 }

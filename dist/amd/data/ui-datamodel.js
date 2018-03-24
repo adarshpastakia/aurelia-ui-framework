@@ -276,6 +276,7 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "aurelia-m
         };
         UIDataModel.prototype.doDelete = function () {
             var _this = this;
+            this.busy = true;
             return this.httpClient.delete(this.apiSlug + this._id)
                 .then(function (json) {
                 _this.busy = false;

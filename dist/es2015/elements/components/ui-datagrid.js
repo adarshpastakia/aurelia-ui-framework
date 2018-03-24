@@ -54,7 +54,7 @@ __decorate([
 HeaderCell = __decorate([
     autoinject(),
     inlineView(`<template class="ui-dg-cell" css.bind="{width: column.columnWidth+'px', minWidth: column.columnMinWidth+'px'}" click.delegate="doSort()">
-  <div class="ui-dg-cell-content">\${column.headTitle}</div>
+  <div class="ui-dg-cell-content">\${column.headerTitle}</div>
   <div class="ui-dg-cell-icon ui-sort \${sortOrder}" if.bind="column.sortable">
     <ui-glyph glyph="glyph-caret-up"></ui-glyph>
     <ui-glyph glyph="glyph-caret-down"></ui-glyph>
@@ -77,7 +77,13 @@ let BodyCell = class BodyCell {
         if (this.elContent.innerHTML)
             return;
         let template = '';
-        if (this.column.type == 'normal')
+        if (this.column.tpl) {
+            template = this.column.tpl;
+            this.viewModel = this.column.$parent;
+            if (this.column.class)
+                this.element.classList.add(this.column.class);
+        }
+        else if (this.column.type == 'normal')
             template = `<span class="\${column.class}" innerhtml.bind='column.getValue(record[column.dataId],record)'></span>`;
         else if (this.column.type == 'glyph')
             template = `<div title.bind="column.getTooltip(record[column.dataId],record)">
@@ -95,7 +101,7 @@ let BodyCell = class BodyCell {
         }
         let viewFactory = this.compiler.compile(`<template>${template}</template>`);
         let view = viewFactory.create(this.container);
-        view.bind(this);
+        view.bind({ record: this.record, column: this.column, viewModel: this.viewModel });
         this.slot = new ViewSlot(this.elContent, true);
         this.slot.add(view);
         this.slot.attached();
@@ -168,7 +174,7 @@ let UIDatagrid = class UIDatagrid {
         this._X = 0;
         this._resizing = true;
         this.virtual = element.hasAttribute('virtual');
-        this.rowSelect = element.hasAttribute('rowselect.trigger');
+        this.rowSelect = element.hasAttribute('rowselect') || element.hasAttribute('rowselect.trigger');
         this.rowCheckbox = element.hasAttribute('row-checkbox');
         this.rowCounter = element.hasAttribute('row-counter');
         this.rowExpander = element.hasAttribute('row-expander');
@@ -212,12 +218,9 @@ let UIDatagrid = class UIDatagrid {
         this.selectedRows = _.filter(this.dataSource.data, ['__selected__', true]);
     }
     fireSelect($event, record) {
-        $event.stopPropagation();
-        $event.preventDefault();
         if (!this.rowSelect)
             return;
         UIEvent.fireEvent('rowselect', this.element, ({ record }));
-        return false;
     }
     startResize(evt) {
         evt.preventDefault();
@@ -259,17 +262,13 @@ let UIDatagrid = class UIDatagrid {
     }
 };
 __decorate([
-    children('ui-dg-column-group,ui-dg-column,ui-dg-button,ui-dg-link,ui-dg-glyph'),
+    children('ui-dg-column-group,ui-dg-column,ui-dg-button,ui-dg-link,ui-dg-glyph,ui-dg-tpl'),
     __metadata("design:type", Object)
 ], UIDatagrid.prototype, "columns", void 0);
 __decorate([
     bindable(),
     __metadata("design:type", Object)
 ], UIDatagrid.prototype, "dataSource", void 0);
-__decorate([
-    bindable(),
-    __metadata("design:type", Object)
-], UIDatagrid.prototype, "viewTpl", void 0);
 __decorate([
     bindable({ defaultBindingMode: bindingMode.fromView }),
     __metadata("design:type", Object)
@@ -305,8 +304,11 @@ UIDatagrid = __decorate([
     <div class="ui-dg-cell last-cell"><div class="ui-dg-cell-content">&nbsp;</div></div>
   </div>
 </div>
-<div class="ui-dg-body \${rowSelect?'ui-row-hilight':''}" scroll.trigger="scrollLeft = $event.target.scrollLeft" ref="elDgBody">
-  <body-row repeat.for="record of dataSource.data" record.bind="record" if.bind="!virtual" click.trigger="fireSelect($event, record)"></body-row>
+<div class="ui-dg-body \${rowSelect?'ui-row-hilight':''}" scroll.trigger="scrollLeft = $event.target.scrollLeft" ref="elDgBody" if.bind="virtual">
+  <body-row virtual-repeat.for="record of dataSource.data" record.bind="record" click.trigger="fireSelect($event, record)"></body-row>
+</div>
+<div class="ui-dg-body \${rowSelect?'ui-row-hilight':''}" scroll.trigger="scrollLeft = $event.target.scrollLeft" ref="elDgBody" if.bind="!virtual">
+  <body-row repeat.for="record of dataSource.data" record.bind="record" click.trigger="fireSelect($event, record)"></body-row>
   <div class="ui-dg-row ui-last-row">
     <div class="ui-dg-lock-group" css.bind="{transform: 'translateX('+(scrollLeft)+'px)'}">
       <div class="ui-dg-cell ui-row-head" css.bind="{width: counterWidth+'px'}" if.bind="rowCounter"></div>

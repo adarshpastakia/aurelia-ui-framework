@@ -1,3 +1,9 @@
+<a name="4.0.0-Beta.14"></a>
+# 4.0.0-Beta.13 (2018-03-24)
+
+* [UIDatagrid]: Added `ui-dg-tpl` for templated column
+
+
 <a name="4.0.0-Beta.13"></a>
 # 4.0.0-Beta.13 (2018-03-15)
 

@@ -17,6 +17,7 @@ export declare class BodyCell {
     record: any;
     private slot;
     private elContent;
+    private viewModel;
     attached(): void;
     detached(): void;
 }
@@ -35,7 +36,6 @@ export declare class UIDatagrid {
     detached(): void;
     columns: any;
     dataSource: any;
-    viewTpl: any;
     selectedRows: any[];
     cols: any[];
     colHead: any[];

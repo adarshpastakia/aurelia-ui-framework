@@ -261,6 +261,7 @@ export class UIDataModel {
         });
     }
     doDelete() {
+        this.busy = true;
         return this.httpClient.delete(this.apiSlug + this._id)
             .then(json => {
             this.busy = false;

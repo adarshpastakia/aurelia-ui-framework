@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { autoinject, customElement, bindable, children, inlineView, noView, computedFrom } from 'aurelia-framework';
+import { autoinject, customElement, bindable, processContent, children, inlineView, noView, computedFrom } from 'aurelia-framework';
 import { UIEvent } from "../../utils/ui-event";
 import { UIFormat } from "../../utils/ui-format";
 let UIDGColumnGroup = class UIDGColumnGroup {
@@ -23,7 +23,7 @@ __decorate([
     __metadata("design:type", Object)
 ], UIDGColumnGroup.prototype, "label", void 0);
 __decorate([
-    children('ui-dg-column,ui-dg-button,ui-dg-link,ui-dg-glyph'),
+    children('ui-dg-column,ui-dg-button,ui-dg-link,ui-dg-glyph,ui-dg-tpl'),
     __metadata("design:type", Object)
 ], UIDGColumnGroup.prototype, "columns", void 0);
 UIDGColumnGroup = __decorate([
@@ -43,7 +43,7 @@ export class UIDataColumn {
         this.format = '';
         this.symbol = '$';
         this.summary = '';
-        this.headTitle = '';
+        this.headerTitle = undefined;
         this.locked = 1;
         this.sortable = false;
         this.resizeable = false;
@@ -73,7 +73,8 @@ export class UIDataColumn {
             this.dataType = 'percent';
         else if (element.hasAttribute('exrate'))
             this.dataType = 'exrate';
-        this.headTitle = element['innerText'];
+        if (this.headerTitle === undefined)
+            this.headerTitle = element['innerText'];
     }
     get columnWidth() {
         return convertToPx(this.width || this.minWidth || 250);
@@ -137,6 +138,55 @@ __decorate([
     __metadata("design:type", Object),
     __metadata("design:paramtypes", [])
 ], UIDataColumn.prototype, "columnMinWidth", null);
+let UIDgTplColumn = class UIDgTplColumn extends UIDataColumn {
+    constructor(element) {
+        super(element);
+        this.element = element;
+        this.type = "normal";
+        this.headerTitle = '';
+        this.width = '120px';
+        this.minWidth = '40px';
+        this.class = '';
+        this.summary = '';
+        this.tpl = this.element.innerHTML;
+        this.element.innerHTML = "";
+    }
+    bind(bindingContext) {
+        this.$parent = bindingContext;
+    }
+};
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIDgTplColumn.prototype, "dataId", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIDgTplColumn.prototype, "headerTitle", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIDgTplColumn.prototype, "width", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIDgTplColumn.prototype, "minWidth", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIDgTplColumn.prototype, "class", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIDgTplColumn.prototype, "summary", void 0);
+UIDgTplColumn = __decorate([
+    noView(),
+    autoinject(),
+    processContent(false),
+    customElement('ui-dg-tpl'),
+    __metadata("design:paramtypes", [Element])
+], UIDgTplColumn);
+export { UIDgTplColumn };
 let UIDgColumn = class UIDgColumn extends UIDataColumn {
     constructor(element) {
         super(element);
@@ -240,6 +290,10 @@ __decorate([
 __decorate([
     bindable(),
     __metadata("design:type", Object)
+], UIDGGlyph.prototype, "label", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
 ], UIDGGlyph.prototype, "glyph", void 0);
 __decorate([
     bindable(),
@@ -322,6 +376,10 @@ __decorate([
     bindable(),
     __metadata("design:type", Object)
 ], UIDGLink.prototype, "label", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIDGLink.prototype, "headerTitle", void 0);
 __decorate([
     bindable(),
     __metadata("design:type", Object)
@@ -414,6 +472,10 @@ __decorate([
     bindable(),
     __metadata("design:type", Object)
 ], UIDGButton.prototype, "label", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Object)
+], UIDGButton.prototype, "headerTitle", void 0);
 __decorate([
     bindable(),
     __metadata("design:type", Object)

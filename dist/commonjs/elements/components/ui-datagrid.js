@@ -58,7 +58,7 @@ var HeaderCell = (function () {
     ], HeaderCell.prototype, "sortOrder", null);
     HeaderCell = __decorate([
         aurelia_framework_1.autoinject(),
-        aurelia_framework_1.inlineView("<template class=\"ui-dg-cell\" css.bind=\"{width: column.columnWidth+'px', minWidth: column.columnMinWidth+'px'}\" click.delegate=\"doSort()\">\n  <div class=\"ui-dg-cell-content\">${column.headTitle}</div>\n  <div class=\"ui-dg-cell-icon ui-sort ${sortOrder}\" if.bind=\"column.sortable\">\n    <ui-glyph glyph=\"glyph-caret-up\"></ui-glyph>\n    <ui-glyph glyph=\"glyph-caret-down\"></ui-glyph>\n  </div>\n  <div class=\"ui-dg-cell-icon ui-filter\" if.bind=\"column.filter\">\n    <ui-glyph glyph=\"glyph-funnel\"></ui-glyph>\n  </div>\n  <div class=\"ui-dg-cell-resize\" if.bind=\"column.resizeable\" mousedown.trigger=\"fireResize($event)\" click.trigger=\"$event.stopPropagation() && false\"></div>\n</template>"),
+        aurelia_framework_1.inlineView("<template class=\"ui-dg-cell\" css.bind=\"{width: column.columnWidth+'px', minWidth: column.columnMinWidth+'px'}\" click.delegate=\"doSort()\">\n  <div class=\"ui-dg-cell-content\">${column.headerTitle}</div>\n  <div class=\"ui-dg-cell-icon ui-sort ${sortOrder}\" if.bind=\"column.sortable\">\n    <ui-glyph glyph=\"glyph-caret-up\"></ui-glyph>\n    <ui-glyph glyph=\"glyph-caret-down\"></ui-glyph>\n  </div>\n  <div class=\"ui-dg-cell-icon ui-filter\" if.bind=\"column.filter\">\n    <ui-glyph glyph=\"glyph-funnel\"></ui-glyph>\n  </div>\n  <div class=\"ui-dg-cell-resize\" if.bind=\"column.resizeable\" mousedown.trigger=\"fireResize($event)\" click.trigger=\"$event.stopPropagation() && false\"></div>\n</template>"),
         __metadata("design:paramtypes", [Element])
     ], HeaderCell);
     return HeaderCell;
@@ -74,7 +74,13 @@ var BodyCell = (function () {
         if (this.elContent.innerHTML)
             return;
         var template = '';
-        if (this.column.type == 'normal')
+        if (this.column.tpl) {
+            template = this.column.tpl;
+            this.viewModel = this.column.$parent;
+            if (this.column.class)
+                this.element.classList.add(this.column.class);
+        }
+        else if (this.column.type == 'normal')
             template = "<span class=\"${column.class}\" innerhtml.bind='column.getValue(record[column.dataId],record)'></span>";
         else if (this.column.type == 'glyph')
             template = "<div title.bind=\"column.getTooltip(record[column.dataId],record)\">\n      <ui-glyph class=\"${column.class}\" glyph.bind=\"column.getGlyph(record[column.dataId],record)\"></ui-glyph>\n      </div>";
@@ -86,7 +92,7 @@ var BodyCell = (function () {
         }
         var viewFactory = this.compiler.compile("<template>" + template + "</template>");
         var view = viewFactory.create(this.container);
-        view.bind(this);
+        view.bind({ record: this.record, column: this.column, viewModel: this.viewModel });
         this.slot = new aurelia_framework_1.ViewSlot(this.elContent, true);
         this.slot.add(view);
         this.slot.attached();
@@ -147,7 +153,7 @@ var UIDatagrid = (function () {
         this._X = 0;
         this._resizing = true;
         this.virtual = element.hasAttribute('virtual');
-        this.rowSelect = element.hasAttribute('rowselect.trigger');
+        this.rowSelect = element.hasAttribute('rowselect') || element.hasAttribute('rowselect.trigger');
         this.rowCheckbox = element.hasAttribute('row-checkbox');
         this.rowCounter = element.hasAttribute('row-counter');
         this.rowExpander = element.hasAttribute('row-expander');
@@ -193,12 +199,9 @@ var UIDatagrid = (function () {
         this.selectedRows = _.filter(this.dataSource.data, ['__selected__', true]);
     };
     UIDatagrid.prototype.fireSelect = function ($event, record) {
-        $event.stopPropagation();
-        $event.preventDefault();
         if (!this.rowSelect)
             return;
         ui_event_1.UIEvent.fireEvent('rowselect', this.element, ({ record: record }));
-        return false;
     };
     UIDatagrid.prototype.startResize = function (evt) {
         var _this = this;
@@ -240,7 +243,7 @@ var UIDatagrid = (function () {
         return false;
     };
     __decorate([
-        aurelia_framework_1.children('ui-dg-column-group,ui-dg-column,ui-dg-button,ui-dg-link,ui-dg-glyph'),
+        aurelia_framework_1.children('ui-dg-column-group,ui-dg-column,ui-dg-button,ui-dg-link,ui-dg-glyph,ui-dg-tpl'),
         __metadata("design:type", Object)
     ], UIDatagrid.prototype, "columns", void 0);
     __decorate([
@@ -248,16 +251,12 @@ var UIDatagrid = (function () {
         __metadata("design:type", Object)
     ], UIDatagrid.prototype, "dataSource", void 0);
     __decorate([
-        aurelia_framework_1.bindable(),
-        __metadata("design:type", Object)
-    ], UIDatagrid.prototype, "viewTpl", void 0);
-    __decorate([
         aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.fromView }),
         __metadata("design:type", Object)
     ], UIDatagrid.prototype, "selectedRows", void 0);
     UIDatagrid = __decorate([
         aurelia_framework_1.autoinject(),
-        aurelia_framework_1.inlineView("<template class=\"ui-datagrid\"><div class=\"ui-hide\"><slot></slot></div>\n<div class=\"ui-dg-ghost\" ref=\"ghostEl\" css.bind=\"{height: element.offsetHeight+'px'}\"></div>\n<div class=\"ui-dg-head\" resize.trigger=\"startResize($event)\">\n  <div class=\"ui-dg-row\" css.bind=\"{transform: 'translateX('+(scrollLeft*-1)+'px)'}\">\n    <div class=\"ui-dg-lock-group\" css.bind=\"{transform: 'translateX('+(scrollLeft)+'px)'}\">\n      <div class=\"ui-dg-cell ui-row-head\" css.bind=\"{width: counterWidth+'px'}\" if.bind=\"rowCounter\"></div>\n      <div class=\"ui-dg-cell ui-cell-checkbox\" if.bind=\"rowCheckbox\"></div>\n      <template repeat.for=\"column of colHead | filter:'locked':0\">\n      <header-cell column.bind=\"column\" ds.bind=\"dataSource\" if.bind=\"!column.isGroup\"></header-cell>\n      <div class=\"ui-dg-col-group\" if.bind=\"column.isGroup\">\n        <div class=\"ui-dg-col-group-title\">${column.label}</div>\n        <div class=\"ui-dg-col-group-cells\">\n          <header-cell column.bind=\"inColumn\" ds.bind=\"dataSource\" repeat.for=\"inColumn of column.columns\"></header-cell>\n        </div>\n      </div>\n      </template>\n    </div>\n    <template repeat.for=\"column of colHead | filter:'locked':1\">\n    <header-cell column.bind=\"column\" ds.bind=\"dataSource\" if.bind=\"!column.isGroup\"></header-cell>\n    <div class=\"ui-dg-col-group\" if.bind=\"column.isGroup\">\n      <div class=\"ui-dg-col-group-title\">${column.label}</div>\n      <div class=\"ui-dg-col-group-cells\">\n        <header-cell column.bind=\"inColumn\" repeat.for=\"inColumn of column.columns\"></header-cell>\n      </div>\n    </div>\n    </template>\n    <div class=\"ui-dg-cell last-cell\"><div class=\"ui-dg-cell-content\">&nbsp;</div></div>\n  </div>\n</div>\n<div class=\"ui-dg-body ${rowSelect?'ui-row-hilight':''}\" scroll.trigger=\"scrollLeft = $event.target.scrollLeft\" ref=\"elDgBody\">\n  <body-row repeat.for=\"record of dataSource.data\" record.bind=\"record\" if.bind=\"!virtual\" click.trigger=\"fireSelect($event, record)\"></body-row>\n  <div class=\"ui-dg-row ui-last-row\">\n    <div class=\"ui-dg-lock-group\" css.bind=\"{transform: 'translateX('+(scrollLeft)+'px)'}\">\n      <div class=\"ui-dg-cell ui-row-head\" css.bind=\"{width: counterWidth+'px'}\" if.bind=\"rowCounter\"></div>\n      <div class=\"ui-dg-cell ui-cell-checkbox\" if.bind=\"rowCheckbox\"></div>\n      <div repeat.for=\"column of colLocked\" class=\"ui-dg-cell\" css.bind=\"{width: column.columnWidth+'px', minWidth: column.columnMinWidth+'px'}\"></div>\n    </div>\n    <div repeat.for=\"column of cols\" class=\"ui-dg-cell\" css.bind=\"{width: column.columnWidth+'px', minWidth: column.columnMinWidth+'px'}\"></div>\n    <div class=\"ui-dg-cell last-cell\"></div>\n  </div>\n</div>\n<div class=\"ui-dg-foot\"></div>\n</template>"),
+        aurelia_framework_1.inlineView("<template class=\"ui-datagrid\"><div class=\"ui-hide\"><slot></slot></div>\n<div class=\"ui-dg-ghost\" ref=\"ghostEl\" css.bind=\"{height: element.offsetHeight+'px'}\"></div>\n<div class=\"ui-dg-head\" resize.trigger=\"startResize($event)\">\n  <div class=\"ui-dg-row\" css.bind=\"{transform: 'translateX('+(scrollLeft*-1)+'px)'}\">\n    <div class=\"ui-dg-lock-group\" css.bind=\"{transform: 'translateX('+(scrollLeft)+'px)'}\">\n      <div class=\"ui-dg-cell ui-row-head\" css.bind=\"{width: counterWidth+'px'}\" if.bind=\"rowCounter\"></div>\n      <div class=\"ui-dg-cell ui-cell-checkbox\" if.bind=\"rowCheckbox\"></div>\n      <template repeat.for=\"column of colHead | filter:'locked':0\">\n      <header-cell column.bind=\"column\" ds.bind=\"dataSource\" if.bind=\"!column.isGroup\"></header-cell>\n      <div class=\"ui-dg-col-group\" if.bind=\"column.isGroup\">\n        <div class=\"ui-dg-col-group-title\">${column.label}</div>\n        <div class=\"ui-dg-col-group-cells\">\n          <header-cell column.bind=\"inColumn\" ds.bind=\"dataSource\" repeat.for=\"inColumn of column.columns\"></header-cell>\n        </div>\n      </div>\n      </template>\n    </div>\n    <template repeat.for=\"column of colHead | filter:'locked':1\">\n    <header-cell column.bind=\"column\" ds.bind=\"dataSource\" if.bind=\"!column.isGroup\"></header-cell>\n    <div class=\"ui-dg-col-group\" if.bind=\"column.isGroup\">\n      <div class=\"ui-dg-col-group-title\">${column.label}</div>\n      <div class=\"ui-dg-col-group-cells\">\n        <header-cell column.bind=\"inColumn\" repeat.for=\"inColumn of column.columns\"></header-cell>\n      </div>\n    </div>\n    </template>\n    <div class=\"ui-dg-cell last-cell\"><div class=\"ui-dg-cell-content\">&nbsp;</div></div>\n  </div>\n</div>\n<div class=\"ui-dg-body ${rowSelect?'ui-row-hilight':''}\" scroll.trigger=\"scrollLeft = $event.target.scrollLeft\" ref=\"elDgBody\" if.bind=\"virtual\">\n  <body-row virtual-repeat.for=\"record of dataSource.data\" record.bind=\"record\" click.trigger=\"fireSelect($event, record)\"></body-row>\n</div>\n<div class=\"ui-dg-body ${rowSelect?'ui-row-hilight':''}\" scroll.trigger=\"scrollLeft = $event.target.scrollLeft\" ref=\"elDgBody\" if.bind=\"!virtual\">\n  <body-row repeat.for=\"record of dataSource.data\" record.bind=\"record\" click.trigger=\"fireSelect($event, record)\"></body-row>\n  <div class=\"ui-dg-row ui-last-row\">\n    <div class=\"ui-dg-lock-group\" css.bind=\"{transform: 'translateX('+(scrollLeft)+'px)'}\">\n      <div class=\"ui-dg-cell ui-row-head\" css.bind=\"{width: counterWidth+'px'}\" if.bind=\"rowCounter\"></div>\n      <div class=\"ui-dg-cell ui-cell-checkbox\" if.bind=\"rowCheckbox\"></div>\n      <div repeat.for=\"column of colLocked\" class=\"ui-dg-cell\" css.bind=\"{width: column.columnWidth+'px', minWidth: column.columnMinWidth+'px'}\"></div>\n    </div>\n    <div repeat.for=\"column of cols\" class=\"ui-dg-cell\" css.bind=\"{width: column.columnWidth+'px', minWidth: column.columnMinWidth+'px'}\"></div>\n    <div class=\"ui-dg-cell last-cell\"></div>\n  </div>\n</div>\n<div class=\"ui-dg-foot\"></div>\n</template>"),
         aurelia_framework_1.customElement('ui-datagrid'),
         __metadata("design:paramtypes", [Element, aurelia_framework_1.TemplatingEngine])
     ], UIDatagrid);

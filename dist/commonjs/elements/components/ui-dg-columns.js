@@ -34,7 +34,7 @@ var UIDGColumnGroup = (function () {
         __metadata("design:type", Object)
     ], UIDGColumnGroup.prototype, "label", void 0);
     __decorate([
-        aurelia_framework_1.children('ui-dg-column,ui-dg-button,ui-dg-link,ui-dg-glyph'),
+        aurelia_framework_1.children('ui-dg-column,ui-dg-button,ui-dg-link,ui-dg-glyph,ui-dg-tpl'),
         __metadata("design:type", Object)
     ], UIDGColumnGroup.prototype, "columns", void 0);
     UIDGColumnGroup = __decorate([
@@ -56,7 +56,7 @@ var UIDataColumn = (function () {
         this.format = '';
         this.symbol = '$';
         this.summary = '';
-        this.headTitle = '';
+        this.headerTitle = undefined;
         this.locked = 1;
         this.sortable = false;
         this.resizeable = false;
@@ -86,7 +86,8 @@ var UIDataColumn = (function () {
             this.dataType = 'percent';
         else if (element.hasAttribute('exrate'))
             this.dataType = 'exrate';
-        this.headTitle = element['innerText'];
+        if (this.headerTitle === undefined)
+            this.headerTitle = element['innerText'];
     }
     Object.defineProperty(UIDataColumn.prototype, "columnWidth", {
         get: function () {
@@ -160,6 +161,58 @@ var UIDataColumn = (function () {
     return UIDataColumn;
 }());
 exports.UIDataColumn = UIDataColumn;
+var UIDgTplColumn = (function (_super) {
+    __extends(UIDgTplColumn, _super);
+    function UIDgTplColumn(element) {
+        var _this = _super.call(this, element) || this;
+        _this.element = element;
+        _this.type = "normal";
+        _this.headerTitle = '';
+        _this.width = '120px';
+        _this.minWidth = '40px';
+        _this.class = '';
+        _this.summary = '';
+        _this.tpl = _this.element.innerHTML;
+        _this.element.innerHTML = "";
+        return _this;
+    }
+    UIDgTplColumn.prototype.bind = function (bindingContext) {
+        this.$parent = bindingContext;
+    };
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDgTplColumn.prototype, "dataId", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDgTplColumn.prototype, "headerTitle", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDgTplColumn.prototype, "width", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDgTplColumn.prototype, "minWidth", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDgTplColumn.prototype, "class", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDgTplColumn.prototype, "summary", void 0);
+    UIDgTplColumn = __decorate([
+        aurelia_framework_1.noView(),
+        aurelia_framework_1.autoinject(),
+        aurelia_framework_1.processContent(false),
+        aurelia_framework_1.customElement('ui-dg-tpl'),
+        __metadata("design:paramtypes", [Element])
+    ], UIDgTplColumn);
+    return UIDgTplColumn;
+}(UIDataColumn));
+exports.UIDgTplColumn = UIDgTplColumn;
 var UIDgColumn = (function (_super) {
     __extends(UIDgColumn, _super);
     function UIDgColumn(element) {
@@ -267,6 +320,10 @@ var UIDGGlyph = (function (_super) {
     __decorate([
         aurelia_framework_1.bindable(),
         __metadata("design:type", Object)
+    ], UIDGGlyph.prototype, "label", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
     ], UIDGGlyph.prototype, "glyph", void 0);
     __decorate([
         aurelia_framework_1.bindable(),
@@ -352,6 +409,10 @@ var UIDGLink = (function (_super) {
         aurelia_framework_1.bindable(),
         __metadata("design:type", Object)
     ], UIDGLink.prototype, "label", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDGLink.prototype, "headerTitle", void 0);
     __decorate([
         aurelia_framework_1.bindable(),
         __metadata("design:type", Object)
@@ -447,6 +508,10 @@ var UIDGButton = (function (_super) {
         aurelia_framework_1.bindable(),
         __metadata("design:type", Object)
     ], UIDGButton.prototype, "label", void 0);
+    __decorate([
+        aurelia_framework_1.bindable(),
+        __metadata("design:type", Object)
+    ], UIDGButton.prototype, "headerTitle", void 0);
     __decorate([
         aurelia_framework_1.bindable(),
         __metadata("design:type", Object)

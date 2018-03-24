@@ -12,6 +12,7 @@ export declare class UIDataColumn {
     dataId: any;
     value: any;
     display: any;
+    tpl: any;
     width: any;
     minWidth: string;
     dataType: string;
@@ -19,7 +20,7 @@ export declare class UIDataColumn {
     format: string;
     symbol: string;
     summary: string;
-    headTitle: string;
+    headerTitle: any;
     locked: number;
     sortable: boolean;
     resizeable: boolean;
@@ -28,6 +29,19 @@ export declare class UIDataColumn {
     readonly columnMinWidth: number;
     getValue(value: any, record: any): string;
     processValue(value: any, record: any): string;
+}
+export declare class UIDgTplColumn extends UIDataColumn {
+    element: Element;
+    type: string;
+    constructor(element: Element);
+    dataId: any;
+    headerTitle: string;
+    width: any;
+    minWidth: string;
+    class: string;
+    summary: string;
+    $parent: any;
+    bind(bindingContext: any): void;
 }
 export declare class UIDgColumn extends UIDataColumn {
     element: Element;
@@ -52,6 +66,7 @@ export declare class UIDGGlyph extends UIDataColumn {
     width: number;
     minWidth: any;
     class: string;
+    label: any;
     glyph: any;
     tooltip: any;
     glyphMap: any;
@@ -68,6 +83,7 @@ export declare class UIDGLink extends UIDataColumn {
     minWidth: any;
     glyph: any;
     label: any;
+    headerTitle: any;
     class: string;
     show: any;
     disabled: any;
@@ -86,6 +102,7 @@ export declare class UIDGButton extends UIDataColumn {
     minWidth: any;
     glyph: any;
     label: any;
+    headerTitle: any;
     dropdown: any;
     buttonWidth: any;
     buttonTheme: any;

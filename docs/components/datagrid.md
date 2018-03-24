@@ -12,6 +12,24 @@ Datagrid
   * `rowselect.trigger`
 
 ---
+#### `ui-dg-tpl`
+Datagrid template column
+
+* Bindings
+  * `record`
+  * `viewModel`
+
+* Attributes
+  * `data-id = ''`: Record property id
+  * `class`: Style class for cell content
+  * `width`
+  * `min-width`
+  * `locked`: Lock column
+  * `sortable`
+  * `resizeable`
+
+  * Use: `<ui-dg-tpl><a click.trigger="viewModel.click(record)">${record.property}</a></ui-dg-tpl>`
+
 
 #### `ui-dg-column`
 Datagrid column
