@@ -3,6 +3,10 @@
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
+
+//Set to false to disable loading external resources (like google Fonts) - you will have to handle them yourself
+//$importExternalResources: false;
+
 @import "sass/framework";
 @import "./hljs";
 

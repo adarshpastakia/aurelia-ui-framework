@@ -14,6 +14,9 @@ $base-comp-bg-alt            : relative-color($base-bg, darken($dark, 10%), $whi
 $base-border-color           : rgba(relative-color($base-bg, $darkGray, $lightGray), .5) !default;
 $base-shadow-color           : rgba(relative-color($base-bg, $black, $muted), .5) !default;
 
+//External Resources (like google Fonts)
+$importExternalResources: true !default;
+
 // Typography
 $base-font-family            : 'Open Sans', sans-serif !default;
 $base-font-family-display    : 'Raleway', sans-serif !default;
