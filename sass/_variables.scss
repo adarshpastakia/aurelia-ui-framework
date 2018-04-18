@@ -17,6 +17,9 @@ $base-shadow-color           : rgba(relative-color($base-bg, $black, $muted), .5
 //External Resources (like google Fonts)
 $importExternalResources: true !default;
 
+//default user-select behaviour
+$disableUserSelection: true !default;
+
 // Typography
 $base-font-family            : 'Open Sans', sans-serif !default;
 $base-font-family-display    : 'Raleway', sans-serif !default;

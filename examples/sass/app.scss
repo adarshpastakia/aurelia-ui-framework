@@ -7,6 +7,9 @@
 //Set to false to disable loading external resources (like google Fonts) - you will have to handle them yourself
 //$importExternalResources: false;
 
+//set to false to enable user selection
+//$disableUserSelection: false;
+
 @import "sass/framework";
 @import "./hljs";
 

@@ -3,31 +3,35 @@
 // @author      : Adarsh Pastakia
 // @copyright   : 2017
 // @license     : MIT
-
 body,
 html {
-  height          : 100%;
-  width           : 100%;
-  padding         : 0;
-  margin          : 0;
-  line-height     : 1.5;
-  overflow        : hidden;
-  @include user-select(none);
-  color           : $base-text;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  line-height: 1.5;
+  overflow: hidden;
+  @if($disableUserSelection) {
+    @include user-select(none);
+  }
+  color: $base-text;
   background-color: $base-bg;
-  font            : {
+  font: {
     family: $base-font-family;
-    size  : $base-font-size;
+    size: $base-font-size;
     weight: $base-font-weight;
   }
-
   .ui-selectable {
     @include user-select(text);
   }
+  .ui-unselectable {
+    @include user-select(none);
+  }
 }
+
 @include selection {
   background: $selection-bg;
-  color     : $selection-text;
+  color: $selection-text;
 }
 
 *,
@@ -112,41 +116,38 @@ img {
 }
 
 hr {
-  background  : none;
-  margin      : 0.25em;
-  border      : 1px solid transparent;
+  background: none;
+  margin: 0.25em;
+  border: 1px solid transparent;
   border-width: 1px 0;
   border-color: rgba(#373737, .3) rgba(#373737, .3) #F7F9F0 #F7F9F0;
-  transform   : scaleY(.5);
+  transform: scaleY(.5);
 }
 
 a,
 button {
-  cursor     : pointer;
-  outline    : none;
+  cursor: pointer;
+  outline: none;
   font-weight: 400;
 }
 
 a {
   text-decoration: none;
-  color          : $link-text;
-
+  color: $link-text;
   &:hover {
     color: $link-hover-text;
   }
-
   &.ui-external:after {
-    content       : '\21F1';
-    font-size     : 0.7em;
-    color         : $muted;
-    display       : inline-block;
+    content: '\21F1';
+    font-size: 0.7em;
+    color: $muted;
+    display: inline-block;
     vertical-align: super;
     @include transform(scaleX(-1));
   }
-
   &.ui-disabled,
   &[disabled] {
-    color         : $lightGray;
+    color: $lightGray;
     pointer-events: none;
   }
 }
@@ -157,9 +158,9 @@ textarea {
 
 input,
 textarea {
-  font-size  : 1em;
+  font-size: 1em;
   line-height: 1;
-  outline    : none !important;
+  outline: none !important;
   font-family: $base-font-family-input;
   @include placeholder {
     color: $placeholder-text;
@@ -167,14 +168,14 @@ textarea {
 }
 
 table {
-  table-layout   : fixed;
-  border-spacing : 0;
+  table-layout: fixed;
+  border-spacing: 0;
   border-collapse: collapse;
 }
 
 caption,
 td,
 th {
-  padding   : 0;
+  padding: 0;
   text-align: start;
 }
