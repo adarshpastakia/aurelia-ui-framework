@@ -14,11 +14,18 @@ $base-comp-bg-alt            : relative-color($base-bg, darken($dark, 10%), $whi
 $base-border-color           : rgba(relative-color($base-bg, $darkGray, $lightGray), .5) !default;
 $base-shadow-color           : rgba(relative-color($base-bg, $black, $muted), .5) !default;
 
-//External Resources (like google Fonts)
-$importExternalResources: true !default;
+// to change fonts to local update the path 
+// eg. '../fonts/----.css';
+//     '~node-module/----.css';
+// to disable font loading set to false
+$font-path-sans-serif        : '//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i' !default;
+$font-path-serif             : '//fonts.googleapis.com/css?family=Rokkitt:300,300i,400,400i,600,600i' !default;
+$font-path-monospace         : '//fonts.googleapis.com/css?family=Roboto+Mono:300,300i,400,400i' !default;
+$font-path-display           : '//fonts.googleapis.com/css?family=Raleway:300,400' !default;
+$font-path-input             : '//fonts.googleapis.com/css?family=Lato:300,400' !default;
 
-//default user-select behaviour
-$disableUserSelection: true !default;
+// default user-select behaviour
+$disable-user-select         : false !default;
 
 // Typography
 $base-font-family            : 'Open Sans', sans-serif !default;

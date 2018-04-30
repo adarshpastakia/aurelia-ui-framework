@@ -5,21 +5,32 @@
 // @license     : MIT
 
 
-
 // Framework imports
 @import "./mixins";
 @import "./variables";
 
+@if $font-path-sans-serif {
+  @import url($font-path-sans-serif);
+}
+@if $font-path-serif {
+  @import url($font-path-serif);
+}
+@if $font-path-monospace {
+  @import url($font-path-monospace);
+}
+@if $font-path-display {
+  @import url($font-path-display);
+}
+@if $font-path-input {
+  @import url($font-path-input);
+}
+
 @if $importExternalResources {
   // Base Font
-  @import url('//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i');
-  // Display Font
-  @import url('//fonts.googleapis.com/css?family=Raleway:300,400');
-  // Input Font
-  @import url('//fonts.googleapis.com/css?family=Lato:300,400');
-  // Serif Font
-  @import url('//fonts.googleapis.com/css?family=Rokkitt:300,300i,400,400i,600,600i');
-  // Source Code Font
+  @import url('//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i'); // Display Font
+  @import url('//fonts.googleapis.com/css?family=Raleway:300,400'); // Input Font
+  @import url('//fonts.googleapis.com/css?family=Lato:300,400'); // Serif Font
+  @import url('//fonts.googleapis.com/css?family=Rokkitt:300,300i,400,400i,600,600i'); // Source Code Font
   @import url('//fonts.googleapis.com/css?family=Roboto+Mono:300,300i,400,400i');
 }
 
