@@ -25,15 +25,6 @@
   @import url($font-path-input);
 }
 
-@if $importExternalResources {
-  // Base Font
-  @import url('//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i'); // Display Font
-  @import url('//fonts.googleapis.com/css?family=Raleway:300,400'); // Input Font
-  @import url('//fonts.googleapis.com/css?family=Lato:300,400'); // Serif Font
-  @import url('//fonts.googleapis.com/css?family=Rokkitt:300,300i,400,400i,600,600i'); // Source Code Font
-  @import url('//fonts.googleapis.com/css?family=Roboto+Mono:300,300i,400,400i');
-}
-
 // utils
 @import "./utils/themes";
 @import "./utils/animations";
