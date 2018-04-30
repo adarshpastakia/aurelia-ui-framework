@@ -10,6 +10,7 @@
   line-height: 1;
   margin     : 0.25em;
   position   : relative;
+  @extend .ui-unselectable;
   
   &.ui-effect-ripple .ui-button-el {
     position: relative;

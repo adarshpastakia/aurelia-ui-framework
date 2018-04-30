@@ -31,6 +31,7 @@
       @include flexbox($wrap: false, $align:center);
       padding    : 0.5em;
       line-height: 1.25;
+      @extend .ui-unselectable;
 
       small {
         color: $muted;
@@ -75,6 +76,7 @@
     margin       : 0.4em 0.2em;
     @include flexbox($wrap:false, $align: center);
     @include flex-auto();
+    @extend .ui-unselectable;
 
     > span {
       @include flex(1 1 auto);
@@ -120,6 +122,7 @@
   }
 
   &.ui-reorder {
+    @extend .ui-unselectable;
     .ui-list-container {
       background: none;
       position  : relative;

@@ -8,6 +8,7 @@
   display      : inline-block;
   border-radius: $base-border-radius;
   border       : 1px solid $base-border-color;
+  @extend .ui-unselectable;
 
   &.floating {
     background : $input-bg;

@@ -107,6 +107,7 @@
     overflow   : hidden;
     font-weight: $font-weight-medium;
     @include flex-auto();
+    @extend .ui-unselectable;
 
     > .ui-dg-row .ui-dg-col-group {
       @include flex-auto();

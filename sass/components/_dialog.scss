@@ -87,6 +87,7 @@
         z-index                : 5;
         border-top-left-radius : $base-border-radius;
         border-top-right-radius: $base-border-radius;
+        @extend .ui-unselectable;
 
         .ui-header-button {
           font-size: 0.8rem;

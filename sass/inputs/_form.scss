@@ -51,6 +51,7 @@
     text-align : $input-label-align;
     @include flexbox($justify: flex-end, $align: center, $wrap: false);
     @include flex(0 0 8em);
+    @extend .ui-unselectable;
 
     > span {
       flex       : 1;

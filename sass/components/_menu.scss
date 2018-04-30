@@ -17,6 +17,7 @@ a.ui-menu-item {
   @include flexbox($direction: row, $display: inline-flex, $wrap: false, $align: center);
   @include ellipsis(false);
   @include transition(background-color 0.2s);
+  @extend .ui-unselectable;
 
   .ui-menu-label {
     line-height: 1.25;

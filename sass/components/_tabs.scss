@@ -26,6 +26,7 @@
     min-height: 2em;
     @include flex-auto();
     @include flexbox($direction: row,$align:stretch, $wrap:false);
+    @extend .ui-unselectable;
 
     > .ui-tabbar-overflow {
       display: none;
