@@ -1,0 +1,204 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2018
+// @license   : MIT
+
+.ui-menu {
+  align-items: stretch;
+  @extend %ui-flex;
+  @extend %ui-flex--vertical;
+
+  $base: #{&};
+
+  &__group {
+    border: 0;
+    flex: 1 1 auto;
+    margin: 0;
+    padding: 0;
+    position: relative;
+
+    &__container {
+      align-items: stretch;
+      display: flex;
+      flex-flow: column nowrap;
+
+      > #{$base}__item {
+        border: 0;
+      }
+    }
+
+    &__label {
+      color: var(--color-muted);
+      font-size: 0.95em;
+      margin: 0 0.5rem;
+    }
+
+    &--collapsible &__label {
+      width: calc(100% - 1rem);
+    }
+    &--collapsible &__label::after {
+      content: "\25BE";
+      float: right;
+    }
+
+    &--collapsible[data-collapsed="true"] &__container {
+      margin-top: 0.5em;
+      max-height: 0;
+      overflow: hidden;
+    }
+    &--collapsible[data-collapsed="true"] &__label::after {
+      content: "\25B8";
+    }
+
+    &::after {
+      content: "";
+      @include position(absolute, null 0 0);
+      @extend %hr;
+    }
+
+    &:last-child::after {
+      display: none;
+    }
+  }
+
+  &__item {
+    border: 1px solid transparent;
+    border-width: 1px 0;
+    display: grid;
+    flex: 1 1 auto;
+    grid-template-areas: "link caret";
+    grid-template-columns: 1fr auto;
+
+    &:hover {
+      box-shadow: 0 0 1px 0 var(--menu-item-active-bg) inset;
+    }
+
+    &__link {
+      align-items: center;
+      display: grid;
+      grid-area: link;
+      grid-gap: 4px;
+      grid-template-areas: "icon label caret";
+      grid-template-columns: auto 1fr auto;
+      padding: 0 0.5rem;
+
+      &:hover {
+        background-color: var(--menu-item-hover-bg);
+        color: var(--menu-item-hover-color);
+      }
+
+      &[data-open="true"],
+      &:active {
+        background-color: var(--menu-item-active-bg);
+        transition: background-color 0.5s;
+      }
+
+      &[data-active="true"] {
+        background-color: var(--menu-item-active-bg);
+        box-shadow: 4px 0 0 0 var(--menu-item-active-color) inset;
+        color: var(--menu-item-active-color);
+      }
+    }
+
+    &__label {
+      grid-area: label;
+      padding: 0.5rem 0;
+    }
+
+    &__icon {
+      font-size: 1.25em;
+      grid-area: icon;
+    }
+
+    &__caret {
+      grid-area: caret;
+
+      &--split {
+        padding: 0.5rem;
+
+        .ui-icon {
+          vertical-align: middle;
+        }
+
+        &:hover {
+          background-color: var(--menu-item-hover-bg);
+          color: var(--menu-item-hover-color);
+        }
+
+        &[data-open="true"],
+        &:active {
+          background-color: var(--menu-item-active-bg);
+          transition: background-color 0.5s;
+        }
+      }
+    }
+  }
+
+  &__overflow {
+    align-self: flex-end;
+  }
+
+  .ui-divider {
+    align-self: stretch;
+    margin: 4px 0;
+    @extend %hr;
+  }
+
+  &__bar {
+    align-content: spaced;
+    background-color: var(--menubar-bg);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    position: relative;
+
+    &::after {
+      content: "";
+      @extend %hr;
+      @include position(absolute, null 0 0);
+    }
+
+    &__wrapper {
+      align-items: flex-end;
+      flex-flow: row nowrap;
+      line-height: 1;
+      overflow: hidden;
+      @extend %ui-flex;
+
+      .ui-divider {
+        align-self: stretch;
+        @extend %vr;
+      }
+
+      #{$base}__item__link[data-active="true"] {
+        box-shadow: 0 -4px 0 0 var(--menu-item-active-color) inset;
+      }
+
+      #{$base}__group {
+        border: 1px solid rgba($gray, 0.25);
+
+        &::after {
+          display: none;
+        }
+
+        &__label {
+          font-size: 0.85rem;
+          line-height: 1;
+          pointer-events: none;
+
+          .ui-icon {
+            display: none;
+          }
+        }
+
+        &__container {
+          flex-flow: row nowrap;
+
+          > .ui-divider {
+            font-size: 0.8em;
+            margin: -0.5em 0 0;
+          }
+        }
+      }
+    }
+  }
+}

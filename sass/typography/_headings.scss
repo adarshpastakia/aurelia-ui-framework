@@ -1,0 +1,25 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2018
+// @license   : MIT
+
+@each $heading, $size in $font-size-headings {
+  #{$heading},
+  .ui-font--#{$heading} {
+    font-size: $size;
+  }
+}
+
+.ui-subheading {
+  color: $gray;
+  font-size: 0.8em;
+  font-weight: $font-weight-normal;
+}
+
+@for $i from 1 through 6 {
+  .ui-display--#{$i},
+  .ui-font--d#{$i} {
+    font-size: nth(nth($font-size-headings, $i), 2) * 2.5;
+    font-weight: 200;
+  }
+}

@@ -1,0 +1,67 @@
+<template>
+  <ui-container ui-padding>
+    <ui-grid size="lg">
+      <ui-panel collapsible height="30rem">
+        <ui-header label="Panel Title">
+          <ui-header-icon icon="mdi mdi-file-document-box" ui-bg="primary" ui-color="white"></ui-header-icon>
+          <ui-header-actions>
+            <ui-button type="tool" icon="mdi mdi-account"></ui-button>
+            <!-- <ui-button type="tool" icon="mdi mdi-dots-horizontal" ui-theme="info" no-caret>
+              <ui-drop close-on-click="false" anchor="br" position="tr">
+                <div ui-scroll ui-padding style="width: 30em">
+                  <ui-select options.bind="countries" placeholder="Select a country" label-property="name"
+                    value-property="iso2" group-property="continent" clear value.bind="sCode" attach-to-viewport="true">
+                    <ui-input-addon>
+                      <ui-flag code.bind="sCode"></ui-flag>
+                    </ui-input-addon>
+                    <template>
+                      <ui-flag size="md" code.bind="iso2"></ui-flag>&nbsp;
+                      <span innerhtml.bind="$label"></span>
+                      <span class="ui-badge">
+                        <span class="ui-badge__value" innerhtml.bind="iso2"></span>
+                      </span>
+                    </template>
+                  </ui-select>
+                </div>
+              </ui-drop>
+            </ui-button> -->
+          </ui-header-actions>
+        </ui-header>
+        <ui-content ui-padding ui-scroll>
+          <h4>Scrolling panel content</h4>
+          <p repeat.for="i of 9">
+            <lipsum-para></lipsum-para>
+          </p>
+        </ui-content>
+      </ui-panel>
+      <ui-panel closable height="30rem" beforeclose.call="panelBeforeClose()">
+        <ui-header icon="mdi mdi-file-document-box" label="Panel Title"></ui-header>
+        <ui-content ui-padding ui-scroll>
+          <h4>Scrolling panel content</h4>
+          <p repeat.for="i of 9">
+            <lipsum-para></lipsum-para>
+          </p>
+        </ui-content>
+      </ui-panel>
+      <ui-panel-group with.bind="{themes:['muted','primary','secondary','info','danger','success','warning']}">
+        <template repeat.for="theme of themes">
+          <ui-panel height="30rem" ui-theme.bind="theme" collapsible collapsed.one-time="true">
+            <ui-header>
+              <ui-header-icon ui-bg.bind="theme" ui-color="white" icon="mdi mdi-account"></ui-header-icon>
+              <ui-header-title>Panel Header</ui-header-title>
+              <ui-header-actions>
+                <ui-button type="tool" icon="mdi mdi-account"></ui-button>
+              </ui-header-actions>
+            </ui-header>
+            <ui-content ui-padding ui-scroll>
+              <h4>Scrolling panel content</h4>
+              <p repeat.for="i of 9">
+                <lipsum-para></lipsum-para>
+              </p>
+            </ui-content>
+          </ui-panel>
+        </template>
+      </ui-panel-group>
+    </ui-grid>
+  </ui-container>
+</template>

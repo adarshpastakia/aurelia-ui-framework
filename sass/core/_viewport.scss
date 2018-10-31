@@ -1,0 +1,143 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2018
+// @license   : MIT
+
+.ui-viewport {
+  display: grid;
+  grid-template-areas: "app-header" "app-menu" "app-body" "app-taskbar" "app-footer";
+  grid-template-rows: auto auto 1fr auto auto;
+  height: 100vh;
+  overflow: hidden;
+  width: 100vw;
+
+  &__header {
+    grid-area: app-header;
+  }
+
+  &__body {
+    display: grid;
+    grid-area: app-body;
+    grid-template-areas: "content";
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    overflow: hidden;
+    position: relative;
+  }
+
+  &__footer {
+    grid-area: app-footer;
+  }
+
+  &__taskbar {
+    display: grid;
+    grid-area: app-taskbar;
+    grid-template-columns: auto 1fr auto;
+
+    &__wrapper {
+      display: grid;
+      grid-auto-columns: minmax(2rem, 8rem);
+      grid-auto-flow: column;
+      overflow: hidden;
+    }
+  }
+
+  &__alert-container,
+  &__toast-container,
+  &__dialog-container {
+    @include position(absolute, $base-spacing/2);
+    pointer-events: none;
+    z-index: 100;
+
+    > .ui-toast,
+    > .ui-dialog__shim {
+      pointer-events: all;
+    }
+  }
+
+  &__alert-container {
+    align-items: center;
+    display: flex;
+    flex-flow: column-reverse nowrap;
+    justify-content: flex-end;
+  }
+
+  &__toast-container {
+    align-items: flex-end;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-end;
+  }
+
+  &__floating-container {
+    @include enable-gpu();
+    @include position(fixed, 0);
+    background-color: initial;
+    color: initial;
+    pointer-events: none;
+    z-index: 200;
+
+    > div {
+      height: 100vh;
+      pointer-events: all;
+      width: 100vw;
+    }
+
+    > .ui-drop {
+      @include position(absolute, 0);
+    }
+  }
+}
+
+.ui-router-view {
+  display: grid;
+  grid-area: content;
+  grid-template-areas: "content";
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  overflow: hidden;
+}
+
+.ui-icon {
+  box-sizing: content-box;
+  display: inline-block;
+  fill: currentColor;
+  font-size: 1em;
+  height: 1em;
+  line-height: 1;
+  pointer-events: none;
+  text-align: center;
+  width: 1em;
+
+  path,
+  ::before {
+    @include transform-origin(50% 50% 0);
+  }
+}
+
+.ui-dropdown {
+  display: none;
+
+  &__body {
+    @include position(fixed, 0 null null 0);
+    background-color: var(--base-component);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 0 0 1px var(--base-shadow);
+    cursor: default;
+    max-height: 40vh;
+    max-width: 50vw;
+    min-width: 4rem;
+    overflow: auto;
+    pointer-events: all;
+    transform: translate(0, 0);
+    will-change: transform;
+    z-index: 500;
+
+    &[data-show="false"] {
+      visibility: hidden;
+    }
+  }
+
+  &[data-open="true"] {
+    display: block;
+  }
+}

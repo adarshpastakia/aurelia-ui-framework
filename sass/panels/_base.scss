@@ -1,0 +1,82 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2018
+// @license   : MIT
+
+.ui-panel-base {
+  background-color: var(--base-component);
+  display: grid;
+  grid-template-areas: "header" "body" "footer";
+  grid-template-rows: auto 1fr auto;
+  max-height: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.ui-header {
+  align-items: center;
+  display: grid;
+  font-size: 1rem;
+  grid-area: header;
+  grid-template-areas: "drag-handle icon title actions";
+  grid-template-columns: auto auto 1fr auto;
+  position: relative;
+
+  &.ui-drag-handle {
+    grid-area: drag-handle;
+  }
+
+  &__title {
+    grid-area: title;
+    padding: ($base-spacing / 2);
+    @include ellipsis();
+
+    &:first-child {
+      @include property-prefix(padding-start, $base-spacing);
+    }
+
+    &:last-child {
+      @include property-prefix(padding-end, $base-spacing);
+    }
+  }
+
+  &__icon {
+    align-self: stretch;
+    font-size: 1.5em;
+    grid-area: icon;
+    padding: ($base-spacing / 6) ($base-spacing / 2);
+  }
+
+  &__actions {
+    align-items: center;
+    display: grid;
+    grid-area: actions;
+    grid-auto-flow: column;
+    grid-gap: 0;
+    padding: 0 0.5em;
+
+    > .ui-divider {
+      margin: 0 4px;
+      @extend %vr;
+    }
+  }
+
+  &::after {
+    @include position(absolute, null 0 0);
+    content: "";
+    @extend %hr;
+  }
+}
+
+.ui-footer {
+  color: $gray;
+  grid-area: footer;
+  position: relative;
+
+  &::after {
+    content: "";
+    @include position(absolute, 0 0 null);
+    @extend %hr;
+  }
+}

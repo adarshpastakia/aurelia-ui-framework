@@ -1,0 +1,149 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2018
+// @license   : MIT
+
+.ui-option {
+  --toggle-bg: var(--color-muted-light);
+  --toggle-color: var(--color-muted-dark);
+  --toggle-on-bg: var(--color-muted-shade);
+
+  &__group {
+    align-items: center;
+    display: grid;
+    grid-auto-rows: 2rem;
+    grid-column: 1;
+    grid-column-gap: 4px;
+    grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+    justify-items: start;
+  }
+
+  &__toggle {
+    cursor: pointer;
+    direction: ltr;
+    font-size: 1.2rem;
+    margin: 0 4px;
+    position: relative;
+    width: 2em;
+
+    &::before {
+      background-color: var(--toggle-bg);
+      border-radius: 1em;
+      box-shadow: 0 0 0 2px var(--toggle-bg);
+      color: var(--toggle-color);
+      content: "\2758\00A0\00A0O";
+      display: block;
+      height: 1em;
+      margin: auto;
+      opacity: 0.75;
+      position: absolute;
+      text-align: right;
+      width: 2em;
+    }
+
+    &::after {
+      background-color: var(--color-white);
+      border-radius: 1em;
+      // box-shadow: 0 0 0 1px var(--base-border);
+      content: "";
+      display: block;
+      height: 1em;
+      transform: translateX(0);
+      transition: transform 0.2s;
+      width: 1em;
+    }
+  }
+
+  &__control {
+    align-items: center;
+    display: grid;
+    grid-column-gap: 2px;
+    grid-template-columns: auto 1fr;
+    position: relative;
+
+    > span {
+      color: inherit;
+      font-size: 0.95em;
+      line-height: 1.5rem;
+      white-space: nowrap;
+      @include ellipsis();
+
+      &:empty {
+        display: none;
+      }
+    }
+
+    > .ui-icon {
+      font-size: 1.25rem;
+    }
+
+    > input {
+      @include position(absolute, 0);
+      cursor: pointer;
+      opacity: 0;
+      z-index: 2;
+
+      ~ .ui-icon:first-of-type {
+        display: block;
+      }
+      ~ .ui-icon:last-of-type {
+        display: none;
+      }
+
+      &:checked {
+        ~ .ui-icon:first-of-type {
+          display: none;
+        }
+        ~ .ui-icon:last-of-type {
+          display: block;
+        }
+
+        ~ .ui-option__toggle {
+          &::before {
+            --toggle-bg: var(--toggle-on-bg);
+            --toggle-color: var(--color-muted-tint);
+          }
+          &::after {
+            transform: translateX(100%);
+          }
+        }
+      }
+
+      &:hover ~ .ui-icon,
+      &:focus ~ .ui-icon {
+        color: var(--color-primary);
+      }
+    }
+  }
+
+  &[data-disabled="true"] {
+    cursor: not-allowed;
+
+    label {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+  }
+
+  &.ui-theme--muted {
+    --toggle-on-bg: #{map-get($muted, base)};
+  }
+  &.ui-theme--primary {
+    --toggle-on-bg: #{map-get($primary, base)};
+  }
+  &.ui-theme--secondary {
+    --toggle-on-bg: #{map-get($secondary, base)};
+  }
+  &.ui-theme--info {
+    --toggle-on-bg: #{map-get($info, base)};
+  }
+  &.ui-theme--danger {
+    --toggle-on-bg: #{map-get($danger, base)};
+  }
+  &.ui-theme--success {
+    --toggle-on-bg: #{map-get($success, base)};
+  }
+  &.ui-theme--warning {
+    --toggle-on-bg: #{map-get($warning, base)};
+  }
+}

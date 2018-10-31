@@ -1,0 +1,126 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2018
+// @license   : MIT
+
+.ui-field {
+  align-content: start;
+  display: grid;
+  flex: 1 1 12rem;
+  grid-auto-flow: row;
+  line-height: 1;
+  margin: var(--gutter);
+  min-width: 12rem;
+
+  &:focus-within &__label {
+    font-weight: $font-weight-medium;
+  }
+
+  $base: #{&};
+  &--inline {
+    @include min-breakpoint(md) {
+      --min-width: 15rem;
+      grid-template-columns: minmax(6rem, max-content) minmax(var(--min-width), 1fr);
+
+      #{$base}__label {
+        justify-self: end;
+        padding: 0.75rem 0.25rem 0.25rem;
+      }
+
+      .ui-input,
+      .ui-input__info,
+      #{$base}__wrapper {
+        grid-column: 2;
+      }
+    }
+  }
+
+  &--required &__label::after {
+    content: "\2749";
+  }
+
+  &--nolabel &__label {
+    display: none;
+  }
+
+  &__label {
+    @include ellipsis();
+    font-size: 0.8rem;
+    grid-column: 1;
+    justify-self: start;
+    padding: 0.25rem;
+    position: relative;
+
+    &::after {
+      color: var(--color-danger);
+      content: " ";
+      display: inline-block;
+      font-family: serif;
+      font-size: 0.75em;
+      font-weight: 100;
+      min-width: 1rem;
+      padding: 0 4px;
+      vertical-align: middle;
+    }
+  }
+
+  &__wrapper {
+    background-color: var(--base-component);
+    border-radius: $base-border-radius;
+    box-shadow: 0 0 0 1px var(--input-border) inset;
+    display: flex;
+    flex-flow: row nowrap;
+    grid-column: 1;
+    min-height: 2rem;
+    position: relative;
+    transition: width 0.5s;
+
+    > .ui-btn__wrapper {
+      align-self: stretch;
+      font-size: 0.8em;
+      margin: 0;
+
+      &:first-child .ui-btn {
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+      }
+
+      &:last-child .ui-btn {
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+      }
+    }
+
+    .ui-input {
+      &:not(:last-child) {
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+      }
+
+      &:not(:first-child) {
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+      }
+    }
+  }
+
+  &__wrapper--plain,
+  &--plain &__wrapper,
+  &--plain {
+    background-color: transparent;
+    box-shadow: none;
+
+    .ui-input {
+      background-color: transparent;
+      border-color: transparent;
+      box-shadow: none;
+    }
+  }
+
+  & > &__wrapper + &__wrapper,
+  & > &__wrapper + .ui-input,
+  & > .ui-input + &__wrapper,
+  & > .ui-input + .ui-input {
+    margin-top: 1px;
+  }
+}

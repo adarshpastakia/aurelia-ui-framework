@@ -1,0 +1,54 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2018
+// @license   : MIT
+
+.ui-form {
+  display: block;
+  padding: var(--gutter);
+  @extend .ui-container;
+
+  hr {
+    margin: var(--gutter) 0;
+  }
+
+  .ui-row + .ui-row {
+    margin-top: var(--gutter);
+  }
+
+  .ui-row > .ui-col {
+    flex: 1 1 18rem;
+  }
+
+  > .ui-field,
+  > .ui-fieldset {
+    margin: calc(0.25 * var(--gutter)) calc(0.5 * var(--gutter));
+  }
+}
+
+.ui-fieldset {
+  background-color: var(--base-component);
+  border: 1px solid var(--input-border);
+  border-radius: $base-border-radius;
+  display: block;
+  flex: 1 1 12rem;
+  margin: var(--gutter);
+  padding: 0;
+
+  legend {
+    font-size: 0.8rem;
+    margin: 0 0.5rem;
+
+    .ui-option__control .ui-icon {
+      font-size: 0.9rem;
+    }
+  }
+
+  &[data-open="false"] &__body {
+    display: none;
+  }
+
+  &__body > .ui-row {
+    margin: 0;
+  }
+}

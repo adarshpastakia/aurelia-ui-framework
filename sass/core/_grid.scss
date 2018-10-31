@@ -1,0 +1,30 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2018
+// @license   : MIT
+
+.ui-grid {
+  --gutter: #{$gutter};
+
+  display: grid;
+  grid-auto-flow: row;
+  grid-auto-rows: auto;
+  grid-gap: var(--gutter);
+  grid-template-columns: repeat(auto-fill, minmax(12em, 1fr));
+
+  &--xs {
+    grid-template-columns: repeat(auto-fill, minmax(4em, 1fr));
+  }
+  &--sm {
+    grid-template-columns: repeat(auto-fill, minmax(8em, 1fr));
+  }
+  &--md {
+    grid-template-columns: repeat(auto-fill, minmax(16em, 1fr));
+  }
+  &--lg {
+    grid-template-columns: repeat(auto-fill, minmax(24em, 1fr));
+  }
+  &--xl {
+    grid-template-columns: repeat(auto-fill, minmax(32em, 1fr));
+  }
+}

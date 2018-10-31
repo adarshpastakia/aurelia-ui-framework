@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "esnext",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "downlevelIteration": true,
+    "moduleResolution": "node",
+    "sourceMap": false,
+    "baseUrl": ".",
+    "skipLibCheck": true,
+    "lib": ["es2017", "dom"]
+  },
+  "include": ["src", "typings"],
+  "exclude": [".vscode", "dist", "doc", "node_modules", "test"]
+}

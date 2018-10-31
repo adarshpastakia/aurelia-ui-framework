@@ -1,0 +1,122 @@
+<template>
+  <ui-container ui-padding>
+    <template repeat.for="style of ['normal','link','outline','solid']">
+      <h6 ui-color="muted">ui-button--${style}</h6>
+      <ui-fieldset>
+        <template repeat.for="theme of themes">
+          <ui-button ui-theme.bind="theme" type.bind="style" icon="mdi mdi-account"></ui-button>
+        </template>
+      </ui-fieldset>
+      <ui-fieldset>
+        <template repeat.for="theme of themes">
+          <ui-button ui-theme.bind="theme" type.bind="style">Click</ui-button>
+        </template>
+      </ui-fieldset>
+      <ui-fieldset>
+        <template repeat.for="theme of themes">
+          <ui-button ui-theme.bind="theme" type.bind="style" icon="mdi mdi-account">Click</ui-button>
+        </template>
+      </ui-fieldset>
+      <ui-fieldset>
+        <template repeat.for="theme of themes">
+          <ui-button ui-theme.bind="theme" type.bind="style" icon="mdi mdi-account" icon-end>Click</ui-button>
+        </template>
+      </ui-fieldset>
+      <ui-fieldset>
+        <template repeat.for="theme of themes">
+          <ui-button ui-theme.bind="theme" type.bind="style" icon="mdi mdi-account" icon-hilight>Click</ui-button>
+        </template>
+      </ui-fieldset>
+      <ui-fieldset>
+        <template repeat.for="theme of themes">
+          <ui-button ui-theme.bind="theme" type.bind="style" icon="mdi mdi-account" icon-end icon-hilight>Click</ui-button>
+        </template>
+      </ui-fieldset>
+      <ui-fieldset>
+        <template repeat.for="theme of themes">
+          <ui-button ui-theme.bind="theme" type.bind="style" icon="mdi mdi-account" label="Click">
+            <ui-dropdown close-on-click>
+              <ui-menu>
+                <ui-menu-item>List option</ui-menu-item>
+                <ui-menu-item>List option</ui-menu-item>
+                <ui-menu-item>List option</ui-menu-item>
+                <ui-menu-item>List option</ui-menu-item>
+              </ui-menu>
+            </ui-dropdown>
+          </ui-button>
+        </template>
+      </ui-fieldset>
+      <ui-fieldset>
+        <template repeat.for="theme of themes">
+          <ui-button ui-theme.bind="theme" type.bind="style" icon="mdi mdi-account" label="Click" split>
+            <ui-dropdown>
+              <ui-menu>
+                <ui-menu-item>List option</ui-menu-item>
+                <ui-menu-item>List option</ui-menu-item>
+                <ui-menu-item>List option</ui-menu-item>
+                <ui-menu-item>List option</ui-menu-item>
+              </ui-menu>
+            </ui-dropdown>
+          </ui-button>
+        </template>
+      </ui-fieldset>
+      <ui-fieldset>
+        <template repeat.for="theme of themes">
+          <ui-button ui-theme.bind="theme" type.bind="style" icon="mdi mdi-account" busy="true">Click</ui-button>
+        </template>
+      </ui-fieldset>
+      <ui-fieldset>
+        <template repeat.for="theme of themes">
+          <ui-button ui-theme.bind="theme" type.bind="style" icon="mdi mdi-account" active="true">Click</ui-button>
+        </template>
+      </ui-fieldset>
+      <ui-fieldset>
+        <template repeat.for="theme of themes">
+          <ui-button ui-theme.bind="theme" type.bind="style" icon="mdi mdi-account" disabled="true">Click</ui-button>
+        </template>
+      </ui-fieldset>
+      <ui-fieldset>
+        <template repeat.for="theme of themes">
+          <ui-button ui-theme.bind="theme" type.bind="style" icon="mdi mdi-account" block>Click</ui-button>
+        </template>
+      </ui-fieldset>
+    </template>
+    <hr />
+    <h4>Sizes</h4>
+    <ui-button icon="mdi mdi-account" size="sm">Click</ui-button>
+    <ui-button icon="mdi mdi-account" size="">Click</ui-button>
+    <ui-button icon="mdi mdi-account" size="md" ui-hover="orange">Click
+      <div class="ui-badge ui-theme--danger">
+        <span class="ui-badge__label">9</span>
+      </div>
+    </ui-button>
+    <ui-button icon="mdi mdi-account" size="lg">Click</ui-button>
+    <ui-button icon="mdi mdi-account" icon-top>Click</ui-button>
+    <ui-button icon="mdi mdi-account" type="solid" icon-top icon-hilight>Click</ui-button>
+    <hr />
+    <h4>Button Group</h4>
+    <ui-button-group>
+      <ui-button icon="mdi mdi-account" type="outline">Click</ui-button>
+      <ui-button icon="mdi mdi-account" type="outline">Click</ui-button>
+      <ui-button icon="mdi mdi-account" type="outline">Click</ui-button>
+    </ui-button-group>
+    <ui-button-group>
+      <ui-button icon="mdi mdi-account" type="solid" ui-theme="info">Click</ui-button>
+      <ui-button icon="mdi mdi-account" type="solid" ui-theme="danger">Click</ui-button>
+      <ui-button icon="mdi mdi-account" type="solid" ui-theme="success">Click</ui-button>
+      <ui-button icon="mdi mdi-account" type="solid" ui-theme="warning">Click</ui-button>
+    </ui-button-group>
+    <ui-button-group>
+      <ui-button icon="mdi mdi-rewind" ui-theme="muted" icon-hilight>Prev</ui-button>
+      <ui-button icon="mdi mdi-play" ui-theme="success">Play</ui-button>
+      <ui-button icon="mdi mdi-stop" ui-theme="danger" icon-end>Stop</ui-button>
+      <ui-button icon="mdi mdi-fast-forward" ui-theme="muted" icon-end icon-hilight>Next</ui-button>
+    </ui-button-group>
+    <br />
+    <ui-button-group vertical toggle value="3">
+      <ui-button icon="mdi mdi-account" value="1">Click</ui-button>
+      <ui-button icon="mdi mdi-account" value="2" active="true">Click</ui-button>
+      <ui-button icon="mdi mdi-account" value="3">Click</ui-button>
+    </ui-button-group>
+  </ui-container>
+</template>

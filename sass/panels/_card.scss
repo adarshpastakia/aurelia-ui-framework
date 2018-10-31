@@ -1,0 +1,96 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2018
+// @license   : MIT
+
+.ui-card {
+  @extend .ui-paper;
+
+  &__body {
+    display: flex;
+    flex-flow: column nowrap;
+    grid-area: body;
+    overflow: hidden;
+  }
+
+  $base: #{&};
+  $inner-padding: ($base-spacing / 2) $base-spacing;
+
+  &__title {
+    font-size: 1.5em;
+    font-weight: $font-weight-light;
+    padding: $inner-padding;
+  }
+
+  &__meta {
+    color: $gray;
+    display: flex;
+    flex-flow: row nowrap;
+    font-size: 0.8em;
+    justify-content: space-between;
+
+    span {
+      padding: $inner-padding;
+    }
+  }
+
+  &__content {
+    padding: $inner-padding;
+
+    &--fill {
+      flex: 1;
+      overflow: auto;
+    }
+
+    > .ui-scroll {
+      border: 2px solid var(--base-component);
+    }
+  }
+
+  &__list {
+    ul,
+    ol {
+      margin: 0;
+      padding: $inner-padding;
+    }
+  }
+
+  &__media {
+    position: relative;
+
+    img {
+      max-width: 100%;
+      min-width: 100%;
+    }
+
+    > .ui-btn__group {
+      box-shadow: none;
+      position: absolute;
+      right: 0;
+      top: $base-spacing / 4;
+      z-index: 2;
+    }
+
+    > #{$base}__title {
+      background-color: rgba($black, 0.7);
+      bottom: 0.5em;
+      color: $white;
+      font-size: 1.5em;
+      left: 0;
+      padding: $inner-padding;
+      position: absolute;
+      right: 0;
+      z-index: 1;
+    }
+
+    &--top #{$base}__title {
+      bottom: auto;
+      top: 0;
+    }
+  }
+
+  .ui-divider {
+    @extend %hr;
+    opacity: 0.15;
+  }
+}

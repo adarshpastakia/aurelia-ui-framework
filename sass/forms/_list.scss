@@ -1,0 +1,57 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2018
+// @license   : MIT
+
+.ui-list {
+  @extend .ui-scroll;
+
+  &__title {
+    color: var(--color-muted);
+    font-size: 0.9rem;
+    padding: (0.5 * $base-spacing) $base-spacing;
+  }
+
+  &__item {
+    cursor: pointer;
+    padding: (0.5 * $base-spacing) $base-spacing;
+
+    u {
+      color: var(--color-secondary);
+    }
+
+    > .ui-badge {
+      float: right;
+      margin: 0;
+    }
+
+    &:hover:not(&--selected):not(&--disabled) {
+      background-color: var(--list-hover-bg);
+      color: var(--list-hover-color);
+      u {
+        color: inherit;
+      }
+    }
+
+    &--selected {
+      background-color: var(--list-selected-bg);
+      color: var(--list-selected-color);
+      cursor: default;
+      pointer-events: none;
+
+      u {
+        color: inherit;
+      }
+    }
+
+    &--disabled {
+      cursor: default;
+      opacity: 0.5;
+      pointer-events: none;
+
+      u {
+        color: inherit;
+      }
+    }
+  }
+}

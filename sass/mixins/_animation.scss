@@ -1,0 +1,53 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2018
+// @license   : MIT
+@mixin transform-origin($val...) {
+  @include property-prefix(transform-origin, $val);
+}
+
+@mixin transform($val...) {
+  @include enable-gpu();
+  @include property-prefix(transform, $val);
+}
+
+@mixin enable-gpu {
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+@mixin transition-delay($val...) {
+  @include property-prefix(transition-delay, $val);
+}
+
+@mixin transition($val...) {
+  @include property-prefix(transition, $val);
+}
+
+@mixin animation($val...) {
+  @include property-prefix(backface-visibility, hidden);
+  @include property-prefix(perspective, 1000);
+  @include property-prefix(animation, $val);
+}
+
+@mixin animation-delay($val...) {
+  @include property-prefix(animation-delay, $val);
+}
+
+@mixin keyframes($name) {
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+  @-o-keyframes #{$name} {
+    @content;
+  }
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  }
+}

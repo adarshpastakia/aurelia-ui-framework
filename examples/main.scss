@@ -1,0 +1,13 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2018
+// @license   : MIT
+@import "sass/framework";
+
+.x-title {
+  transition: transform 0.5s;
+
+  &--hide {
+    transform: translateY(-100%);
+  }
+}

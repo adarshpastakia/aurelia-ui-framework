@@ -1,0 +1,66 @@
+<template>
+  <div class="ui-datagrid">
+    <div class="ui-datagrid__head">
+      <div class="ui-datagrid__row">
+        <div class="ui-datagrid__row__locked">
+          <div class="ui-datagrid__cell__counter"></div>
+          <div class="ui-datagrid__cell ui-datagrid__cell--sort-asc" style="width: 128px" repeat.for="j of 3">
+            <div class="ui-datagrid__cell__wrapper">Cell</div>
+            <div class="ui-datagrid__cell__sorter">
+              <i></i>
+              <i></i>
+            </div>
+            <div class="ui-datagrid__cell__resizer"></div>
+          </div>
+        </div>
+        <div class="ui-datagrid__row__scrolling" css.bind="{transform: 'translateX('+ (-1 * dgBody.scrollLeft) +'px)'}">
+          <div class="ui-datagrid__cell" style="width: 128px" repeat.for="j of 9">
+            <div class="ui-datagrid__cell__wrapper">Cell</div>
+            <div class="ui-datagrid__cell__sorter">
+              <i></i>
+              <i></i>
+            </div>
+            <div class="ui-datagrid__cell__resizer"></div>
+          </div>
+        </div>
+        <div class="ui-datagrid__cell"></div>
+      </div>
+    </div>
+    <div class="ui-datagrid__body ui-scroll" ref="dgBody">
+      <template repeat.for="i of countries">
+        <div class="ui-datagrid__row ${$even ? 'ui-datagrid__row__even':'ui-datagrid__row__odd'}">
+          <div class="ui-datagrid__row__locked">
+            <div class="ui-datagrid__cell__counter">${$index + 1}</div>
+            <div class="ui-datagrid__cell" style="width: 128px">
+              <div class="ui-datagrid__cell__wrapper">
+                <ui-flag code.bind="i.iso2"></ui-flag>&nbsp;${i.iso2}/${i.iso3}</div>
+            </div>
+            <div class="ui-datagrid__cell" style="width: 128px" repeat.for="j of 2">
+              <div class="ui-datagrid__cell__wrapper">${i[['name','capital'][j]]}</div>
+            </div>
+          </div>
+          <div class="ui-datagrid__cell" style="width: 128px" repeat.for="j of 9">
+            <div class="ui-datagrid__cell__wrapper">Cell</div>
+          </div>
+          <div class="ui-datagrid__cell"></div>
+        </div>
+      </template>
+    </div>
+    <div class="ui-datagrid__foot">
+      <div class="ui-datagrid__row">
+        <div class="ui-datagrid__row__locked">
+          <div class="ui-datagrid__cell__counter"></div>
+          <div class="ui-datagrid__cell" style="width: 128px" repeat.for="j of 3">
+            <div class="ui-datagrid__cell__wrapper">Foot</div>
+          </div>
+        </div>
+        <div class="ui-datagrid__row__scrolling" css.bind="{transform: 'translateX('+ (-1 * dgBody.scrollLeft) +'px)'}">
+          <div class="ui-datagrid__cell" style="width: 128px" repeat.for="j of 9">
+            <div class="ui-datagrid__cell__wrapper">Foot</div>
+          </div>
+        </div>
+        <div class="ui-datagrid__cell"></div>
+      </div>
+    </div>
+  </div>
+</template>

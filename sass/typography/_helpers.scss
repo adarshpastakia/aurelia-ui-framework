@@ -1,0 +1,146 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2018
+// @license   : MIT
+
+.ui-font {
+  &--normal {
+    font-size: $base-font-size;
+  }
+
+  @each $label, $size in $font-sizes {
+    &--#{$label} {
+      font-size: $size;
+    }
+  }
+
+  &--sans-serif {
+    font-family: $font-family-sans-serif;
+  }
+
+  &--serif {
+    font-family: $font-family-serif;
+  }
+
+  &--mono {
+    font-family: $font-family-mono;
+  }
+}
+
+.ui-text {
+  &--upper {
+    text-transform: uppercase;
+  }
+
+  &--lower {
+    text-transform: lowercase;
+  }
+
+  &--title {
+    text-transform: capitalize;
+  }
+
+  &--small-caps {
+    font-variant: small-caps;
+  }
+
+  &--underline {
+    text-decoration: underline;
+  }
+
+  &--drop-caps {
+    &::first-letter {
+      float: left;
+      font-size: 3.8em;
+      font-weight: $font-weight-medium;
+      line-height: 1;
+      padding-right: 0.25em;
+    }
+
+    @at-root [dir="rtl"] &::first-letter {
+      float: right;
+      padding-left: 0.25em;
+    }
+  }
+}
+
+// alignments
+.ui-align {
+  &--start {
+    text-align: start;
+  }
+
+  &--center {
+    text-align: center;
+  }
+
+  &--end {
+    text-align: end;
+  }
+
+  &--justify {
+    text-align: justify;
+  }
+}
+
+// font weights
+.ui-weight {
+  &--bolder {
+    font-weight: $font-weight-bolder;
+  }
+
+  &--bold {
+    font-weight: $font-weight-bold;
+  }
+
+  &--medium {
+    font-weight: $font-weight-medium;
+  }
+
+  &--normal {
+    font-weight: $font-weight-normal;
+  }
+
+  &--light {
+    font-weight: $font-weight-light;
+  }
+}
+
+// indentation
+@for $i from 1 through 4 {
+  .ui-text--indent-#{$i} {
+    text-indent: $base-font-size * $i;
+
+    &.ui-text--dropcaps {
+      text-indent: 0;
+
+      &::first-letter {
+        @include property-prefix(margin-start, $base-font-size * $i);
+      }
+    }
+  }
+}
+
+.ui-link {
+  color: var(--color-secondary);
+  cursor: pointer;
+  position: relative;
+
+  &::before {
+    @include transition(width 0.25s);
+    background: var(--color-secondary);
+    bottom: 0;
+    content: "";
+    display: block;
+    height: 1px;
+    left: 0;
+    margin: 0 auto;
+    position: absolute;
+    right: 0;
+    width: 0;
+  }
+
+  &:hover::before {
+    width: 100%;
+  }
+}

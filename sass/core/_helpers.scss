@@ -1,0 +1,334 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2018
+// @license   : MIT
+
+$colors: (
+  white: $white,
+  black: $black,
+  teal: $teal,
+  teal-dark: $teal-dark,
+  green: $green,
+  green-dark: $green-dark,
+  cyan: $cyan,
+  cyan-dark: $cyan-dark,
+  blue: $blue,
+  blue-dark: $blue-dark,
+  indigo: $indigo,
+  indigo-dark: $indigo-dark,
+  violet: $violet,
+  violet-dark: $violet-dark,
+  purple: $purple,
+  purple-dark: $purple-dark,
+  yellow: $yellow,
+  yellow-dark: $yellow-dark,
+  orange: $orange,
+  orange-dark: $orange-dark,
+  red: $red,
+  red-dark: $red-dark,
+  pink: $pink,
+  pink-dark: $pink-dark,
+  primary: map-get($primary, base),
+  secondary: map-get($secondary, base),
+  muted: map-get($muted, base),
+  info: map-get($info, base),
+  danger: map-get($danger, base),
+  success: map-get($success, base),
+  warning: map-get($warning, base)
+);
+@each $label in (dark, light, tint, shade) {
+  $colors: map-merge($colors, (primary-#{$label}: map-get($primary, $label)));
+  $colors: map-merge($colors, (secondary-#{$label}: map-get($secondary, $label)));
+  $colors: map-merge($colors, (muted-#{$label}: map-get($muted, $label)));
+  $colors: map-merge($colors, (info-#{$label}: map-get($info, $label)));
+  $colors: map-merge($colors, (danger-#{$label}: map-get($danger, $label)));
+  $colors: map-merge($colors, (success-#{$label}: map-get($success, $label)));
+  $colors: map-merge($colors, (warning-#{$label}: map-get($warning, $label)));
+}
+
+html:root {
+  @each $label, $color in $colors {
+    --color-#{$label}: #{$color};
+  }
+}
+
+.ui {
+  &-block {
+    display: block;
+  }
+
+  &-inline {
+    display: inline;
+  }
+
+  &-inline-block {
+    display: inline-block;
+  }
+
+  &-hide {
+    display: none;
+  }
+
+  &-hidden {
+    visibility: hidden;
+  }
+
+  &-selectable {
+    @include text-select();
+  }
+
+  &-fade-in {
+    opacity: 0.05;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &-float--left {
+    float: left;
+  }
+
+  &-float--right {
+    float: right;
+  }
+
+  &-ellipsis {
+    @include ellipsis();
+  }
+
+  &-clearfix {
+    @include clearfix();
+  }
+
+  &-clip {
+    @include clip();
+  }
+
+  &-sticky {
+    @include sticky();
+
+    &--top {
+      top: 0;
+    }
+
+    &--bottom {
+      bottom: 0;
+    }
+  }
+
+  &-scroll {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    @include enable-gpu();
+
+    &--y {
+      -webkit-overflow-scrolling: touch;
+      overflow-y: auto;
+      @include enable-gpu();
+    }
+
+    &--no {
+      overflow: hidden;
+    }
+  }
+
+  &-bg {
+    &--white {
+      background-color: $white;
+    }
+    &--black {
+      background-color: $black;
+    }
+    &--muted {
+      background-color: $gray;
+    }
+
+    @each $label, $color in $colors {
+      &--#{$label} {
+        background-color: $color;
+      }
+    }
+  }
+
+  &-color {
+    &--white {
+      color: $white;
+    }
+    &--black {
+      color: $black;
+    }
+    &--muted {
+      color: $gray;
+    }
+
+    @each $label, $color in $colors {
+      &--#{$label} {
+        color: $color;
+      }
+    }
+  }
+
+  &-border {
+    &,
+    &--xy {
+      border: 1px solid var(--base-border);
+    }
+
+    &--x {
+      @include property-prefix(border-start, 1px solid var(--base-border), border-left);
+      @include property-prefix(border-end, 1px solid var(--base-border), border-right);
+
+      &--0 {
+        @include property-prefix(border-start, 0, border-left);
+        @include property-prefix(border-end, 0, border-right);
+      }
+    }
+
+    &--s {
+      @include property-prefix(border-start, 1px solid var(--base-border), border-left);
+
+      &--0 {
+        @include property-prefix(border-start, 0, border-left);
+      }
+    }
+
+    &--e {
+      @include property-prefix(border-end, 1px solid var(--base-border), border-right);
+
+      &--0 {
+        @include property-prefix(border-end, 0, border-right);
+      }
+    }
+
+    &--y {
+      border-bottom: 1px solid var(--base-border);
+      border-top: 1px solid var(--base-border);
+
+      &--0 {
+        border-bottom: 0;
+        border-top: 0;
+      }
+    }
+
+    &--t {
+      border-top: 1px solid var(--base-border);
+
+      &--0 {
+        border-top: 0;
+      }
+    }
+
+    &--b {
+      border-bottom: 1px solid var(--base-border);
+
+      &--0 {
+        border-bottom: 0;
+      }
+    }
+
+    &--0 {
+      border: 0;
+    }
+
+    &--sm {
+      border-width: 2px;
+    }
+
+    &--md {
+      border-width: 4px;
+    }
+
+    &--lg {
+      border-width: 6px;
+    }
+
+    &--xl {
+      border-width: 8px;
+    }
+
+    &--white {
+      border-color: $white;
+    }
+    &--black {
+      border-color: $black;
+    }
+    &--muted {
+      border-color: $gray;
+    }
+
+    @each $label, $color in $colors {
+      &--#{$label} {
+        border-color: $color;
+      }
+    }
+  }
+}
+
+@mixin make-spacing($property, $space, $size: null, $bp: null) {
+  .ui-#{$property} {
+    &#{$size}#{$bp} {
+      #{$property}: $space;
+    }
+
+    &--x#{$size}#{$bp} {
+      #{$property}-left: $space;
+      #{$property}-right: $space;
+    }
+
+    &--s#{$size}#{$bp} {
+      @include property-prefix(#{$property}-start, $space, #{$property}-left);
+    }
+
+    &--e#{$size}#{$bp} {
+      @include property-prefix(#{$property}-end, $space, #{$property}-right);
+    }
+
+    &--y#{$size}#{$bp} {
+      #{$property}-top: $space;
+      #{$property}-bottom: $space;
+    }
+
+    &--t#{$size}#{$bp} {
+      #{$property}-top: $space;
+    }
+
+    &--b#{$size}#{$bp} {
+      #{$property}-bottom: $space;
+    }
+  }
+}
+
+@include make-spacing(margin, 0, "--0");
+@include make-spacing(margin, $base-spacing);
+@include make-spacing(margin, $base-spacing * 0.5, --xs);
+@include make-spacing(margin, $base-spacing * 0.75, --sm);
+@include make-spacing(margin, $base-spacing * 1.5, --md);
+@include make-spacing(margin, $base-spacing * 2, --lg);
+@include make-spacing(margin, $base-spacing * 3, --xl);
+@include make-spacing(padding, 0, "--0");
+@include make-spacing(padding, $base-spacing);
+@include make-spacing(padding, $base-spacing * 0.5, --xs);
+@include make-spacing(padding, $base-spacing * 0.75, --sm);
+@include make-spacing(padding, $base-spacing * 1.5, --md);
+@include make-spacing(padding, $base-spacing * 2, --lg);
+@include make-spacing(padding, $base-spacing * 3, --xl);
+@each $prefix, $size in $breakpoints {
+  @media only screen and (max-width: $size) {
+    @include make-spacing(margin, 0, "--0", \@#{$prefix});
+    @include make-spacing(margin, $base-spacing, \@#{$prefix});
+    @include make-spacing(margin, $base-spacing * 0.5, --xs, \@#{$prefix});
+    @include make-spacing(margin, $base-spacing * 0.75, --sm, \@#{$prefix});
+    @include make-spacing(margin, $base-spacing * 1.5, --md, \@#{$prefix});
+    @include make-spacing(margin, $base-spacing * 2, --lg, \@#{$prefix});
+    @include make-spacing(margin, $base-spacing * 3, --xl, \@#{$prefix});
+    @include make-spacing(padding, 0, "--0", \@#{$prefix});
+    @include make-spacing(padding, $base-spacing, \@#{$prefix});
+    @include make-spacing(padding, $base-spacing * 0.5, --xs, \@#{$prefix});
+    @include make-spacing(padding, $base-spacing * 0.75, --sm, \@#{$prefix});
+    @include make-spacing(padding, $base-spacing * 1.5, --md, \@#{$prefix});
+    @include make-spacing(padding, $base-spacing * 2, --lg, \@#{$prefix});
+    @include make-spacing(padding, $base-spacing * 3, --xl, \@#{$prefix});
+  }
+}

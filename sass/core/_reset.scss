@@ -1,0 +1,218 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2018
+// @license   : MIT
+@if $google-font-sans-serif {
+  @import url($google-font-sans-serif);
+}
+@if $google-font-serif {
+  @import url($google-font-serif);
+}
+@if $google-font-mono {
+  @import url($google-font-mono);
+}
+
+@if $local-font-sans-serif {
+  @import url($local-font-sans-serif);
+}
+@if $local-font-serif {
+  @import url($local-font-serif);
+}
+@if $local-font-mono {
+  @import url($local-font-mono);
+}
+
+html {
+  box-sizing: border-box;
+  height: 100vh;
+  width: 100%;
+
+  *,
+  *::after,
+  *::before {
+    box-sizing: inherit;
+  }
+
+  &:root {
+    font-size: $base-font-size;
+    --gutter: #{0px};
+
+    --base-bg: #{map-get($light-theme, base)};
+    --base-component: #{map-get($light-theme, component)};
+    --base-border: #{map-get($light-theme, border)};
+    --base-shadow: #{map-get($light-theme, shadow)};
+    --base-color: #{map-get($light-theme, color)};
+
+    --page-title-bg: #{map-get($secondary, base)};
+    --page-title-color: #{$white};
+
+    --table-head-bg: #{map-get($primary, light)};
+    --table-head-color: #{$white};
+
+    --menubar-bg: var(--base-bg);
+    --toolbar-bg: var(--base-bg);
+
+    --list-hover-bg: #{map-get($secondary, tint)};
+    --list-hover-color: #{map-get($secondary, shade)};
+    --list-selected-bg: #{map-get($secondary, light)};
+    --list-selected-color: #{$white};
+
+    --menu-item-hover-bg: #{map-get($secondary, tint)};
+    --menu-item-hover-color: #{map-get($secondary, shade)};
+    --menu-item-active-bg: #{map-get($secondary, light)};
+    --menu-item-active-color: #{map-get($secondary, shade)};
+
+    --dlg-header-active-bg: #{map-get($primary, tint)};
+    --dlg-header-active-color: #{map-get($primary, dark)};
+    --dlg-header-inactive-bg: #{map-get($muted, tint)};
+    --dlg-header-inactive-tool: #{map-get($muted, light)};
+    --dlg-header-inactive-color: #{map-get($muted, dark)};
+
+    --input-bg: #{$white};
+    --input-border: #{map-get($muted, tint)};
+    --input-focus-border: #{map-get($primary, light)};
+    --input-invalid-border: #{map-get($danger, light)};
+    --input-invalid-bg: var(--color-warning-tint);
+  }
+
+  &.theme-dark:root {
+    --base-bg: #{map-get($dark-theme, base)};
+    --base-component: #{map-get($dark-theme, component)};
+    --base-border: #{map-get($dark-theme, border)};
+    --base-shadow: #{map-get($dark-theme, shadow)};
+    --base-color: #{map-get($dark-theme, color)};
+
+    --page-title-bg: #{map-get($secondary, dark)};
+    --page-title-color: #{$white};
+
+    --table-head-bg: #{map-get($primary, dark)};
+    --table-head-color: #{$white};
+
+    --menubar-bg: var(--base-bg);
+    --toolbar-bg: var(--base-bg);
+
+    --list-hover-bg: #{map-get($secondary, shade)};
+    --list-hover-color: #{map-get($secondary, tint)};
+    --list-selected-bg: #{map-get($secondary, dark)};
+    --list-selected-color: #{$white};
+
+    --menu-item-hover-bg: #{map-get($secondary, shade)};
+    --menu-item-hover-color: #{map-get($secondary, tint)};
+    --menu-item-active-bg: #{map-get($secondary, dark)};
+    --menu-item-active-color: #{map-get($secondary, tint)};
+
+    --dlg-header-active-bg: #{map-get($primary, shade)};
+    --dlg-header-active-color: #{map-get($primary, light)};
+    --dlg-header-inactive-bg: #{map-get($muted, shade)};
+    --dlg-header-inactive-tool: #{map-get($muted, dark)};
+    --dlg-header-inactive-color: #{map-get($muted, light)};
+
+    --input-bg: #{$black};
+    --input-border: #{map-get($muted, dark)};
+    --input-focus-border: #{map-get($primary, dark)};
+    --input-invalid-border: #{map-get($danger, dark)};
+    --input-invalid-bg: var(--color-danger-shade);
+  }
+}
+
+body {
+  background-color: var(--base-bg);
+  color: var(--base-color);
+  cursor: default;
+  height: 100vh;
+  line-height: $base-line-height;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  width: 100%;
+
+  font: {
+    family: $base-font-family;
+    size: 1rem;
+    weight: $base-font-weight;
+  }
+}
+
+%hr {
+  border-bottom: 1px solid var(--base-color);
+  border-top: 1px solid var(--base-border);
+  height: 0;
+  opacity: 0.25;
+  transform: scaleY(0.5);
+}
+%vr {
+  border-left: 1px solid var(--base-border);
+  border-right: 1px solid var(--base-color);
+  min-height: 100%;
+  opacity: 0.25;
+  transform: scaleX(0.5);
+}
+
+hr {
+  @extend %hr;
+  margin: 0.5rem 0;
+}
+
+::-moz-selection {
+  background: var(--color-secondary);
+  color: $white;
+}
+
+::selection {
+  background: var(--color-secondary);
+  color: $white;
+}
+
+::-webkit-scrollbar {
+  height: 5px;
+  width: 5px;
+
+  &-thumb {
+    background: $gray;
+
+    &:hover {
+      background: $gray;
+    }
+  }
+
+  &-track {
+    box-shadow: 1px 0 2px 0 var(--base-shadow) inset;
+  }
+}
+
+::-webkit-input-placeholder {
+  color: $gray;
+}
+
+::-moz-placeholder {
+  color: $gray;
+}
+
+::-ms-input-placeholder {
+  color: $gray;
+}
+
+:-ms-input-placeholder {
+  color: $gray;
+}
+
+::-o-placeholder {
+  color: $gray;
+}
+
+::placeholder {
+  color: $gray;
+}
+
+input::-ms-clear,
+select::-ms-clear,
+textarea::-ms-clear {
+  display: none;
+}
+
+input:-webkit-autofill,
+select:-webkit-autofill,
+textarea:-webkit-autofill {
+  // stylelint-disable-next-line declaration-no-important
+  background-color: transparent !important;
+}

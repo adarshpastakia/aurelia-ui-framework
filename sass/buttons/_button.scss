@@ -1,0 +1,369 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2018
+// @license   : MIT
+
+.ui-btn {
+  align-items: center;
+  display: grid;
+  grid-template-areas: "busy icon label caret";
+  grid-template-columns: auto auto auto auto;
+  justify-content: center;
+  position: relative;
+
+  $base: #{&};
+
+  &:hover::before {
+    box-shadow: 0 -3px 0 0 var(--btn-hover) inset;
+  }
+
+  &[data-open="true"],
+  &:active {
+    box-shadow: 0 0 4px 0 var(--btn-active) inset;
+  }
+
+  &[data-active="true"] {
+    background-color: var(--btn-active);
+    color: var(--btn-inverse);
+    --btn-ripple: var(--btn-inverse);
+  }
+
+  &::before {
+    content: "";
+    pointer-events: none;
+    z-index: 2;
+    @include position(absolute, 0);
+  }
+
+  &__inner {
+    background-color: var(--btn-bg);
+    border: 1px solid var(--base-border);
+    border-radius: $base-border-radius;
+    box-shadow: 1px 1px 2px 0 var(--base-shadow);
+    color: var(--btn-color);
+    display: grid;
+    grid-template-areas: "button divider caret";
+    grid-template-columns: 1fr auto auto;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  &__wrapper {
+    display: inline-block;
+    margin: 2px;
+    max-width: 12em;
+    vertical-align: middle;
+    --btn-ripple: var(--btn-color);
+    --btn-hilight: var(--btn-color);
+
+    &[data-active="true"] {
+      cursor: default;
+
+      #{$base} {
+        pointer-events: none;
+      }
+    }
+
+    &[data-busy="true"] {
+      cursor: wait;
+
+      #{$base} {
+        pointer-events: none;
+      }
+    }
+
+    &[data-type="solid"] {
+      --btn-ripple: #{$white};
+      --btn-hilight: rgba(0, 0, 0, 0.5);
+
+      #{$base}__inner {
+        background-color: var(--btn-color);
+        border-color: var(--btn-color);
+        color: var(--btn-inverse);
+      }
+      #{$base}[data-open="true"],
+      #{$base}:active {
+        background-color: var(--btn-active);
+      }
+    }
+
+    &[data-type="outline"] #{$base}__inner {
+      border-color: var(--btn-color);
+    }
+
+    &[data-type="link"],
+    &[data-type="tool"] {
+      #{$base}__inner {
+        background-color: transparent;
+        border-color: transparent;
+        box-shadow: none;
+      }
+      #{$base}[data-open="true"],
+      #{$base}:active {
+        box-shadow: 0 0 4px 0 var(--btn-active) inset;
+        color: var(--btn-active);
+      }
+    }
+
+    &[data-type="tool"] #{$base} {
+      color: $gray;
+      opacity: 0.8;
+
+      &:hover {
+        color: var(--btn-color);
+        opacity: 1;
+        &::before {
+          display: none;
+        }
+      }
+    }
+
+    &[data-disabled="true"] {
+      background-color: rgba(0, 0, 0, 0.1);
+      cursor: not-allowed;
+
+      #{$base} {
+        opacity: 0.5;
+        pointer-events: none;
+
+        &__inner {
+          border-color: var(--base-border);
+        }
+      }
+    }
+
+    &[data-size="sm"] {
+      font-size: map-get($font-sizes, sm);
+    }
+
+    &[data-size="md"] {
+      font-size: map-get($font-sizes, md);
+    }
+
+    &[data-size="lg"] {
+      font-size: map-get($font-sizes, lg);
+    }
+
+    // themes
+    &,
+    &.ui-theme--primary {
+      --btn-color: var(--color-primary);
+      --btn-hover: var(--color-primary-light);
+      --btn-active: var(--color-primary-dark);
+      --btn-inverse: #{$white};
+    }
+
+    &.ui-theme--secondary {
+      --btn-color: var(--color-secondary);
+      --btn-hover: var(--color-secondary-light);
+      --btn-active: var(--color-secondary-dark);
+      --btn-inverse: #{$white};
+    }
+
+    &.ui-theme--muted {
+      --btn-color: var(--color-muted);
+      --btn-hover: var(--color-muted-light);
+      --btn-active: var(--color-muted-dark);
+      --btn-inverse: #{$white};
+    }
+
+    &.ui-theme--info {
+      --btn-color: var(--color-info);
+      --btn-hover: var(--color-info-light);
+      --btn-active: var(--color-info-dark);
+      --btn-inverse: #{$white};
+    }
+
+    &.ui-theme--danger {
+      --btn-color: var(--color-danger);
+      --btn-hover: var(--color-danger-light);
+      --btn-active: var(--color-danger-dark);
+      --btn-inverse: #{$white};
+    }
+
+    &.ui-theme--success {
+      --btn-color: var(--color-success);
+      --btn-hover: var(--color-success-light);
+      --btn-active: var(--color-success-dark);
+      --btn-inverse: #{$white};
+    }
+
+    &.ui-theme--warning {
+      --btn-color: var(--color-warning);
+      --btn-hover: var(--color-warning-light);
+      --btn-active: var(--color-warning-dark);
+      --btn-inverse: #{$white};
+    }
+
+    &.ui-theme--inverse #{$base} {
+      --btn-ripple: #{$white};
+      &,
+      &:hover {
+        color: $white;
+      }
+
+      &:active {
+        box-shadow: 0 0 4px 0 $gray inset;
+      }
+    }
+  }
+
+  &__busy,
+  &__icon,
+  &__caret {
+    line-height: 0.5;
+    padding: 0.25em;
+
+    .ui-icon {
+      font-size: 1.5em;
+    }
+  }
+
+  &__busy {
+    grid-area: busy;
+  }
+
+  &__icon {
+    grid-area: icon;
+  }
+
+  &__label {
+    grid-area: label;
+    line-height: 2;
+    padding: 0 0.5em;
+    text-align: center;
+    @include ellipsis();
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  &__caret {
+    grid-area: caret;
+  }
+
+  &__split {
+    grid-area: caret;
+  }
+
+  &__caret--hide &__caret {
+    display: none;
+  }
+
+  &__divider {
+    background-color: rgba(0, 0, 0, 0.2);
+    grid-area: divider;
+    margin: 4px 0;
+    width: 1px;
+  }
+
+  &--block {
+    max-width: none;
+    width: 100%;
+  }
+
+  &__icon--end & {
+    grid-template-areas: "busy label caret icon";
+  }
+
+  &__icon--top & {
+    grid-template-areas: "icon caret" "label caret";
+
+    &__icon {
+      justify-self: stretch;
+      margin: 0;
+      text-align: center;
+    }
+
+    &__label {
+      @include property-prefix(padding-start, 1em, padding-left);
+      @include property-prefix(padding-end, 1em, padding-right);
+    }
+  }
+  &__icon--hilight #{$base}__icon {
+    background-color: var(--btn-hilight);
+    color: var(--btn-inverse);
+  }
+
+  .ui-badge {
+    float: right;
+    line-height: 1.2em;
+    margin: 0;
+    transform: translateX(50%);
+  }
+
+  // Button group
+  &__group {
+    box-shadow: 1px 1px 2px 0 var(--base-shadow);
+    display: inline-grid;
+    margin: 2px;
+    vertical-align: middle;
+
+    #{$base}__wrapper {
+      margin: 0;
+
+      &:not(:first-child) {
+        margin-left: -1px;
+      }
+    }
+
+    #{$base}__inner {
+      box-shadow: none;
+    }
+
+    &--equal {
+      grid-auto-columns: 1fr;
+      grid-auto-rows: 1fr;
+    }
+
+    &:not(&--vertical) {
+      grid-auto-flow: column;
+
+      #{$base}__wrapper:not(:first-child) #{$base}__inner {
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+      }
+
+      #{$base}__wrapper:not(:last-child) #{$base}__inner {
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+      }
+    }
+
+    &--vertical {
+      grid-auto-flow: row;
+
+      #{$base}__wrapper:not(:first-child) #{$base}__inner {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+      }
+
+      #{$base}__wrapper:not(:last-child) #{$base}__inner {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+    }
+  }
+
+  // Ripple effect
+  @if ($button-ripple) {
+    &::after {
+      @include position(absolute, 0);
+      background: radial-gradient(circle, var(--btn-ripple) 1%, transparent 1%) center;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 10000% 10000%;
+      content: "";
+      opacity: 0;
+      transition: background-size 0.5s, opacity 0.1s 0.4s;
+      z-index: 5;
+    }
+    &:active::after {
+      background-size: 0 0;
+      content: "";
+      opacity: 0.4;
+      transition: background-size 0s, opacity 0s 0s;
+    }
+  }
+}

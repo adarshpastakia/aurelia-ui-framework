@@ -1,0 +1,59 @@
+//
+// fonts
+$google-font-sans-serif: "https://fonts.googleapis.com/css?family=Montserrat:200,200i,300,300i,400,400i,500,500i,600,600i,700,700i" !default;
+$google-font-serif: "https://fonts.googleapis.com/css?family=Trirong:200,200i,300,300i,400,400i,500,500i,600,600i,700,700i" !default;
+$google-font-mono: "https://fonts.googleapis.com/css?family=Source+Code+Pro:300,400,500,600,700" !default;
+
+$local-font-sans-serif: false !default;
+$local-font-serif: false !default;
+$local-font-mono: false !default;
+
+$font-family-sans-serif: Montserrat, "Helvetica Neue", Arial, sans-serif !default;
+$font-family-serif: Trirong, Palatino, Georgia, serif !default;
+$font-family-mono: "Source Code Pro", mono !default;
+
+$font-weight-light: 300 !default;
+$font-weight-normal: 400 !default;
+$font-weight-medium: 500 !default;
+$font-weight-bold: 600 !default;
+$font-weight-bolder: 700 !default;
+
+// base style properties
+$base-border-radius: 2px !default;
+
+$base-font-family: $font-family-sans-serif !default;
+$base-font-weight: $font-weight-normal !default;
+$base-font-size: 14px !default;
+$base-line-height: 1.5 !default;
+$base-spacing: 1rem !default;
+
+// typography
+$font-size-headings: (
+  h1: 2.5em,
+  h2: 2.2em,
+  h3: 1.8em,
+  h4: 1.5em,
+  h5: 1.2em,
+  h6: 0.9em
+) !default;
+
+$font-sizes: (
+  xs: 0.6em,
+  sm: 0.8em,
+  md: 1.15em,
+  lg: 1.5em,
+  xl: 1.8em
+) !default;
+
+// responsive brekpoints
+$breakpoints: (
+  xs: 320px,
+  sm: 480px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1280px,
+  xxl: 1536px
+) !default;
+$gutter: 8px !default;
+
+$button-ripple: true !default;

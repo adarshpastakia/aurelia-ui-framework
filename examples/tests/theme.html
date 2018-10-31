@@ -1,0 +1,40 @@
+<template>
+  <div class="ui-container ui-container--fluid" with.bind="{shades:['-tint','-light','','-dark','-shade']}">
+    <template repeat.for="t of ['primary','secondary','muted','info','danger','success','warning']">
+      <h4 class="ui-row ui-gutter">
+        <span class="ui-col ui-col--2" ui-color="${t}" ui-text="title" ui-padding="x">${t}</span>
+      </h4>
+      <h4 class="ui-row ui-gutter" style="line-height: 3rem;">
+        <span class="ui-col ui-col--fill" ui-bg="${t}${c}" ui-color.bind="$index>1?'white':'black'" ui-font="sm" ui-text="title" ui-padding="x"
+          repeat.for="c of shades">${c}</span>
+      </h4>
+    </template>
+
+    <hr/>
+
+    <h4 class="ui-row ui-gutter">
+      <span class="ui-col ui-col--fill" ui-bg="pink" ui-color="white" ui-padding="x">&nbsp;</span>
+      <span class="ui-col ui-col--fill" ui-bg="pink-dark" ui-color="white" ui-padding="x">&nbsp;</span>
+      <span class="ui-col ui-col--fill" ui-bg="violet" ui-color="white" ui-padding="x">&nbsp;</span>
+      <span class="ui-col ui-col--fill" ui-bg="violet-dark" ui-color="white" ui-padding="x">&nbsp;</span>
+      <span class="ui-col ui-col--fill" ui-bg="purple" ui-color="white" ui-padding="x">&nbsp;</span>
+      <span class="ui-col ui-col--fill" ui-bg="purple-dark" ui-color="white" ui-padding="x">&nbsp;</span>
+      <span class="ui-col ui-col--fill" ui-bg="indigo" ui-color="white" ui-padding="x">&nbsp;</span>
+      <span class="ui-col ui-col--fill" ui-bg="indigo-dark" ui-color="white" ui-padding="x">&nbsp;</span>
+      <span class="ui-col ui-col--fill" ui-bg="blue" ui-color="white" ui-padding="x">&nbsp;</span>
+      <span class="ui-col ui-col--fill" ui-bg="blue-dark" ui-color="white" ui-padding="x">&nbsp;</span>
+      <span class="ui-col ui-col--fill" ui-bg="cyan" ui-color="white" ui-padding="x">&nbsp;</span>
+      <span class="ui-col ui-col--fill" ui-bg="cyan-dark" ui-color="white" ui-padding="x">&nbsp;</span>
+      <span class="ui-col ui-col--fill" ui-bg="green" ui-color="white" ui-padding="x">&nbsp;</span>
+      <span class="ui-col ui-col--fill" ui-bg="green-dark" ui-color="white" ui-padding="x">&nbsp;</span>
+      <span class="ui-col ui-col--fill" ui-bg="teal" ui-color="white" ui-padding="x">&nbsp;</span>
+      <span class="ui-col ui-col--fill" ui-bg="teal-dark" ui-color="white" ui-padding="x">&nbsp;</span>
+      <span class="ui-col ui-col--fill" ui-bg="yellow" ui-color="white" ui-padding="x">&nbsp;</span>
+      <span class="ui-col ui-col--fill" ui-bg="yellow-dark" ui-color="white" ui-padding="x">&nbsp;</span>
+      <span class="ui-col ui-col--fill" ui-bg="orange" ui-color="white" ui-padding="x">&nbsp;</span>
+      <span class="ui-col ui-col--fill" ui-bg="orange-dark" ui-color="white" ui-padding="x">&nbsp;</span>
+      <span class="ui-col ui-col--fill" ui-bg="red" ui-color="white" ui-padding="x">&nbsp;</span>
+      <span class="ui-col ui-col--fill" ui-bg="red-dark" ui-color="white" ui-padding="x">&nbsp;</span>
+    </h4>
+  </div>
+</template>

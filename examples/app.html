@@ -1,0 +1,37 @@
+<template>
+  <ui-viewport>
+    <ui-viewport-header ui-bg="primary-dark" ui-color="white">
+      <ui-row valign="middle" halign="spaced">
+        <a href="/" as-element="ui-row" ui-padding="x" valign="middle" ui-gutter>
+          <ui-col size="auto">
+            <ui-icon icon="mdi mdi-television-guide" size="d6"></ui-icon>
+          </ui-col>
+          <ui-col size="auto" class="x-title ${hideTitle?'x-title--hide':''}">
+            <div ui-weight="light" ui-font="xl">${app.config.AppTitle}</div>
+            <div ui-color="primary-light">${app.config.AppSubtitle}</div>
+          </ui-col>
+        </a>
+        <ui-filler></ui-filler>
+        <ui-row valign="stretch" ui-gutter="xs" css.bind="{width: '2.7rem', height: '1.8rem'}">
+          <ui-col size="4" ui-bg="primary"></ui-col>
+          <ui-col size="4" ui-bg="info"></ui-col>
+          <ui-col size="4" ui-bg="danger"></ui-col>
+          <ui-col size="4" ui-bg="secondary"></ui-col>
+          <ui-col size="4" ui-bg="success"></ui-col>
+          <ui-col size="4" ui-bg="warning"></ui-col>
+        </ui-row>
+        <a ui-margin="x" ui-font="xl" click.trigger="toggleTheme()">
+          <ui-icon icon="mdi mdi-circle-slice-4"></ui-icon>
+        </a>
+      </ui-row>
+    </ui-viewport-header>
+
+    <ui-router-view></ui-router-view>
+
+    <ui-viewport-footer ui-align="end" ui-padding="x" ui-color="muted" ui-font="sm">
+      <span>Copyright &copy; 2018,</span>
+      <span>Adarsh Pastakia | Version ${app.config.AppVersion} | </span>
+      <a class="ui-link" href="/tester">Tester</a>
+    </ui-viewport-footer>
+  </ui-viewport>
+</template>

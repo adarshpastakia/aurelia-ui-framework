@@ -1,0 +1,80 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2018
+// @license   : MIT
+
+%ui-section {
+  display: grid;
+  grid-template-areas: "head head head" "side-start content side-end" "foot foot foot";
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto 1fr auto;
+  max-height: 100%;
+  overflow: hidden;
+  @include enable-gpu();
+}
+
+.ui-page {
+  display: grid;
+  grid-area: content;
+  grid-template-areas: "title" "body";
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr;
+  max-height: 100%;
+  overflow: hidden;
+
+  &__title {
+    background-color: var(--page-title-bg);
+    color: var(--page-title-color);
+    font-size: calc(0.8 * 1rem);
+    grid-area: title;
+    padding: 0 $base-spacing;
+    text-align: center;
+    text-transform: capitalize;
+    z-index: 10;
+  }
+
+  &__body {
+    display: grid;
+    grid-area: body;
+    grid-template-areas: "content";
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    overflow: hidden;
+    @include enable-gpu();
+
+    > .ui-scroll {
+      border: 2px solid var(--base-component);
+    }
+  }
+}
+
+.ui-section {
+  grid-area: content;
+  @extend %ui-section;
+  @include enable-gpu();
+
+  &__head {
+    grid-area: head;
+  }
+
+  &__foot {
+    grid-area: foot;
+  }
+
+  &__content {
+    grid-area: content;
+    position: relative;
+  }
+
+  &--centered {
+    grid-template-areas: "content";
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    place-content: center;
+  }
+}
+
+.ui-paper {
+  border-radius: $base-border-radius;
+  box-shadow: 1px 1px 8px 0 var(--base-shadow);
+}

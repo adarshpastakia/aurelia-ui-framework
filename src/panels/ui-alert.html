@@ -1,0 +1,14 @@
+<template class="ui-alert ui-alert--inline ui-alert--show">
+  <div if.bind="icon" class="ui-alert__icon">
+    <ui-icon icon.bind="icon"></ui-icon>
+  </div>
+  <div if.bind="alertTitle" class="ui-alert__title" innerhtml.bind="alertTitle"></div>
+  <div class="ui-alert__body"><slot></slot></div>
+  <div class="ui-alert__close" click.trigger="close(false)">
+    <ui-svg-icon icon="cross"></ui-svg-icon>
+  </div>
+  <div class="ui-alert__footer" if.bind="type==='confirm'">
+    <a click.trigger="close(true)">${okLabel}</a>
+    <a click.trigger="close(false)">${cancelLabel}</a>
+  </div>
+</template>

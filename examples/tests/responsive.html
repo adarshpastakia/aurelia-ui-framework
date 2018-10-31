@@ -1,0 +1,182 @@
+<template>
+  <ui-container ui-padding>
+    <ui-container ui-border>
+      <ui-row>
+        <ui-col size="3" ui-bg="muted-light">&nbsp;</ui-col>
+        <ui-col size="3" ui-bg="muted-light">&nbsp;</ui-col>
+        <ui-col size="3" ui-bg="muted-light">&nbsp;</ui-col>
+        <ui-col size="3" ui-bg="muted-light">&nbsp;</ui-col>
+        <ui-col size="3" ui-bg="base">
+          <ui-row>
+            <ui-col size="12" ui-bg="muted-light">&nbsp;</ui-col>
+            <ui-col size="12" ui-bg="muted-light">&nbsp;</ui-col>
+          </ui-row>
+        </ui-col>
+        <ui-col size="6 ui-col--stretch" ui-bg="base">
+          <ui-row valign="stretch">
+            <ui-col size="3" ui-bg="muted-light">&nbsp;</ui-col>
+            <ui-col size="3" ui-bg="muted-light">&nbsp;</ui-col>
+            <ui-col size="3" ui-bg="muted-light">&nbsp;</ui-col>
+            <ui-col size="3" ui-bg="muted-light">&nbsp;</ui-col>
+          </ui-row>
+        </ui-col>
+        <ui-col size="3" ui-bg="muted-light">&nbsp;</ui-col>
+      </ui-row>
+      <ui-row valign="stretch">
+        <ui-col size="3" ui-bg="muted-light">&nbsp;</ui-col>
+        <ui-col size="3" ui-bg="muted-light">&nbsp;</ui-col>
+        <ui-col size="3" ui-bg="muted-light">&nbsp;</ui-col>
+        <ui-col size="3" ui-bg="muted-light">&nbsp;</ui-col>
+      </ui-row>
+    </ui-container>
+
+    <p>Responsive columns</p>
+    <ui-container ui-border>
+      <ui-row valign="stretch">
+        <ui-col size="1@xxl,2@xl,3@lg,4@md,6@sm" ui-bg="muted-light" ui-weight="medium">
+          <div ui-hide="down@xxl">col--1@xxl</div>
+          <div ui-hide="down@xl,up@xxl">col--2@xl</div>
+          <div ui-hide="down@lg,up@xl">col--3@lg</div>
+          <div ui-hide="down@md,up@lg">col--4@md</div>
+          <div ui-hide="down@sm,up@md">col--6@sm</div>
+        </ui-col>
+        <ui-col size="1@xxl, 2@xl, 3@lg, 4@md, 6@sm" ui-bg="muted-light">&nbsp;</ui-col>
+        <ui-col size="1@xxl, 2@xl, 3@lg, 4@md, 6@sm" ui-bg="muted-light">&nbsp;</ui-col>
+        <ui-col size="1@xxl, 2@xl, 3@lg, 4@md, 6@sm" ui-bg="muted-light">&nbsp;</ui-col>
+        <ui-col size="1@xxl, 2@xl, 3@lg, 4@md, 6@sm" ui-bg="muted-light">&nbsp;</ui-col>
+        <ui-col size="1@xxl, 2@xl, 3@lg, 4@md, 6@sm" ui-bg="muted-light">&nbsp;</ui-col>
+        <ui-col size="1@xxl, 2@xl, 3@lg, 4@md, 6@sm" ui-bg="muted-light">&nbsp;</ui-col>
+        <ui-col size="1@xxl, 2@xl, 3@lg, 4@md, 6@sm" ui-bg="muted-light">&nbsp;</ui-col>
+        <ui-col size="1@xxl, 2@xl, 3@lg, 4@md, 6@sm" ui-bg="muted-light">&nbsp;</ui-col>
+        <ui-col size="1@xxl, 2@xl, 3@lg, 4@md, 6@sm" ui-bg="muted-light">&nbsp;</ui-col>
+        <ui-col size="1@xxl, 2@xl, 3@lg, 4@md, 6@sm" ui-bg="muted-light">&nbsp;</ui-col>
+        <ui-col size="1@xxl, 2@xl, 3@lg, 4@md, 6@sm" ui-bg="muted-light">&nbsp;</ui-col>
+      </ui-row>
+    </ui-container>
+
+    <p>Row align start</p>
+    <ui-container ui-border>
+      <ui-row halign="start">
+        <ui-col size="3" ui-bg="muted-light">&nbsp;</ui-col>
+        <ui-col size="3" ui-bg="muted-light">&nbsp;</ui-col>
+      </ui-row>
+    </ui-container>
+
+    <p>Row align center</p>
+    <ui-container ui-border>
+      <ui-row halign="center">
+        <ui-col size="3" ui-bg="muted-light">&nbsp;</ui-col>
+        <ui-col size="3" ui-bg="muted-light">&nbsp;</ui-col>
+      </ui-row>
+    </ui-container>
+
+    <p>Row align end</p>
+    <ui-container ui-border>
+      <ui-row halign="end">
+        <ui-col size="3" ui-bg="muted-light">&nbsp;</ui-col>
+        <ui-col size="3" ui-bg="muted-light">&nbsp;</ui-col>
+      </ui-row>
+    </ui-container>
+
+    <p>Row space between</p>
+    <ui-container ui-border>
+      <ui-row halign="spaced">
+        <ui-col size="3" ui-bg="muted-light">&nbsp;</ui-col>
+        <ui-col size="3" ui-bg="muted-light">&nbsp;</ui-col>
+      </ui-row>
+    </ui-container>
+
+    <p>Row space even</p>
+    <ui-container ui-border>
+      <ui-row halign="even">
+        <ui-col size="3" ui-bg="muted-light">&nbsp;</ui-col>
+        <ui-col size="3" ui-bg="muted-light">&nbsp;</ui-col>
+      </ui-row>
+    </ui-container>
+
+    <p>Row valign top</p>
+    <ui-container ui-border>
+      <ui-row valign="top">
+        <ui-col size="3" ui-bg="muted-light" style="height: 4em">&nbsp;</ui-col>
+        <ui-col size="3" ui-bg="muted-light">&nbsp;</ui-col>
+      </ui-row>
+    </ui-container>
+
+    <p>Row valign middle</p>
+    <ui-container ui-border>
+      <ui-row valign="middle">
+        <ui-col size="3" ui-bg="muted-light" style="height: 4em">&nbsp;</ui-col>
+        <ui-col size="3" ui-bg="muted-light">&nbsp;</ui-col>
+      </ui-row>
+    </ui-container>
+
+    <p>Row valign bottom</p>
+    <ui-container ui-border>
+      <ui-row valign="bottom">
+        <ui-col size="3" ui-bg="muted-light" style="height: 4em">&nbsp;</ui-col>
+        <ui-col size="3" ui-bg="muted-light">&nbsp;</ui-col>
+      </ui-row>
+    </ui-container>
+
+    <p>Row valign stretch</p>
+    <ui-container ui-border>
+      <ui-row valign="stretch">
+        <ui-col size="3" ui-bg="muted-light" style="height: 4em">&nbsp;</ui-col>
+        <ui-col size="3" ui-bg="muted-light">&nbsp;</ui-col>
+      </ui-row>
+    </ui-container>
+
+    <p>Column self align</p>
+    <ui-container ui-border>
+      <ui-row>
+        <ui-col size="3" ui-bg="muted-light" style="height: 4em">&nbsp;</ui-col>
+        <ui-col size="2 ui-col--top" ui-bg="muted-light">&nbsp;</ui-col>
+        <ui-col size="2 ui-col--middle" ui-bg="muted-light">&nbsp;</ui-col>
+        <ui-col size="2 ui-col--bottom" ui-bg="muted-light">&nbsp;</ui-col>
+        <ui-col size="3 ui-col--stretch" ui-bg="muted-light">&nbsp;</ui-col>
+      </ui-row>
+    </ui-container>
+
+    <hr />
+
+    <p>Gutter 0</p>
+    <ui-container ui-gutter="0" ui-border>
+      <ui-row>
+        <ui-col size="3" ui-bg="info">&nbsp;</ui-col>
+        <ui-col size="3" ui-bg="danger">&nbsp;</ui-col>
+        <ui-col size="3" ui-bg="success">&nbsp;</ui-col>
+        <ui-col size="3" ui-bg="warning">&nbsp;</ui-col>
+      </ui-row>
+    </ui-container>
+
+    <p>Gutter sm</p>
+    <ui-container ui-gutter="sm" ui-border>
+      <ui-row>
+        <ui-col size="3" ui-bg="info">&nbsp;</ui-col>
+        <ui-col size="3" ui-bg="danger">&nbsp;</ui-col>
+        <ui-col size="3" ui-bg="success">&nbsp;</ui-col>
+        <ui-col size="3" ui-bg="warning">&nbsp;</ui-col>
+      </ui-row>
+    </ui-container>
+
+    <p>Gutter md</p>
+    <ui-container ui-gutter="md" ui-border>
+      <ui-row>
+        <ui-col size="3" ui-bg="info">&nbsp;</ui-col>
+        <ui-col size="3" ui-bg="danger">&nbsp;</ui-col>
+        <ui-col size="3" ui-bg="success">&nbsp;</ui-col>
+        <ui-col size="3" ui-bg="warning">&nbsp;</ui-col>
+      </ui-row>
+    </ui-container>
+
+    <p>Gutter lg</p>
+    <ui-container ui-gutter="lg" ui-border>
+      <ui-row>
+        <ui-col size="3" ui-bg="info">&nbsp;</ui-col>
+        <ui-col size="3" ui-bg="danger">&nbsp;</ui-col>
+        <ui-col size="3" ui-bg="success">&nbsp;</ui-col>
+        <ui-col size="3" ui-bg="warning">&nbsp;</ui-col>
+      </ui-row>
+    </ui-container>
+  </ui-container>
+</template>

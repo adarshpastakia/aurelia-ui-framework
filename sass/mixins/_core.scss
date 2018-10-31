@@ -1,0 +1,120 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2018
+// @license   : MIT
+
+// append browser prefixes for css property
+// @param $property - property name
+// @param $val      - property value
+// @param $fallback - include fallback property
+@mixin property-prefix($property, $val, $fallback: false) {
+  -webkit-#{$property}: $val;
+  -moz-#{$property}: $val;
+  -ms-#{$property}: $val;
+  -o-#{$property}: $val;
+  #{$property}: $val;
+
+  @if $fallback {
+    #{$fallback}: $val;
+  }
+}
+
+// position sticky
+@mixin sticky {
+  position: -webkit-sticky;
+  position: -moz-sticky;
+  position: -ms-sticky;
+  position: sticky;
+}
+
+// @function ellipsis
+// @desc clip long text with ellipsis
+@mixin ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// @function clip
+// @desc clip long text
+@mixin clip($lines: 2, $line-height: $base-line-height) {
+  --line-clamp: #{$lines};
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  -webkit-line-clamp: var(--line-clamp);
+  line-height: $line-height;
+  max-height: calc(var(--line-clamp) * #{$line-height} * 1em);
+  overflow: hidden;
+  padding: 0;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+// disable user selection
+@mixin noselect {
+  @include property-prefix(user-select, none);
+  cursor: default;
+}
+
+@mixin text-select {
+  @include property-prefix(user-select, text);
+  cursor: text;
+}
+
+// add clearfix
+@mixin clearfix {
+  &::after,
+  &::before {
+    clear: both;
+    content: "";
+    display: table;
+  }
+}
+
+// create min-width breakpoint
+// @param $breakpoint - breakpoint name ['xs','sm','md','lg','xl','xxl']
+@mixin min-breakpoint($breakpoint) {
+  @media screen and (min-width: map-get($breakpoints, $breakpoint) - 2px) {
+    @content;
+  }
+}
+
+// create max-width breakpoint
+// @param $breakpoint - breakpoint name ['xs','sm','md','lg','xl','xxl']
+@mixin max-breakpoint($breakpoint) {
+  @media screen and (max-width: map-get($breakpoints, $breakpoint) - 2px) {
+    @content;
+  }
+}
+
+// position helper
+// @param $position - ['absolute', 'fixed']
+// @param $coords   - coordinate shortcut [all, vertical horizontal, top horizontal bottom, top right bottom left]
+@mixin position($position: absolute, $coords: auto) {
+  position: $position;
+
+  @if length($list: $coords) == 1 {
+    bottom: $coords;
+    left: $coords;
+    right: $coords;
+    top: $coords;
+  }
+  @if length($list: $coords) == 2 {
+    bottom: nth($coords, 1);
+    left: nth($coords, 2);
+    right: nth($coords, 2);
+    top: nth($coords, 1);
+  }
+  @if length($list: $coords) == 3 {
+    bottom: nth($coords, 3);
+    left: nth($coords, 2);
+    right: nth($coords, 2);
+    top: nth($coords, 1);
+  }
+  @if length($list: $coords) == 4 {
+    bottom: nth($coords, 3);
+    left: nth($coords, 4);
+    right: nth($coords, 2);
+    top: nth($coords, 1);
+  }
+}

@@ -1,0 +1,227 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2018
+// @license   : MIT
+%ui-flex {
+  display: -ms-flexbox;
+  display: -moz-box;
+  display: flex;
+  flex-flow: row wrap;
+
+  &--inline {
+    display: -ms-inline-flexbox;
+    display: -moz-inline-box;
+    display: inline-flex;
+  }
+
+  &--vertical {
+    flex-flow: column wrap;
+  }
+}
+
+.ui-flex {
+  @extend %ui-flex;
+  align-items: stretch;
+  justify-content: stretch;
+
+  &--inline {
+    @extend %ui-flex--inline;
+  }
+
+  &--vertical {
+    @extend %ui-flex--vertical;
+  }
+}
+
+.ui-container {
+  --gutter: #{$gutter};
+  @include clearfix();
+  display: block;
+
+  &--fluid {
+    max-width: none;
+    padding: var(--gutter);
+  }
+
+  &:not(&--fluid) {
+    margin: 0 auto;
+  }
+}
+
+.ui-row {
+  @extend %ui-flex;
+  margin: calc(-0.5 * var(--gutter));
+
+  & + & {
+    margin-top: calc(0.5 * var(--gutter));
+  }
+
+  &--reverse {
+    flex-direction: row-reverse;
+  }
+
+  &--vertical {
+    @extend %ui-flex--vertical;
+
+    &--reverse {
+      flex-direction: column-reverse;
+    }
+  }
+
+  &--nowrap {
+    flex-wrap: nowrap;
+  }
+
+  // valign
+  &--stretch {
+    align-items: stretch;
+  }
+  &--top {
+    align-items: flex-start;
+  }
+  &--bottom {
+    align-items: flex-end;
+  }
+  &--middle {
+    align-items: center;
+  }
+
+  // halign
+  &--start {
+    justify-content: flex-start;
+  }
+  &--end {
+    justify-content: flex-end;
+  }
+  &--center {
+    justify-content: center;
+  }
+  &--spaced {
+    justify-content: space-between;
+  }
+  &--even {
+    justify-content: space-evenly;
+  }
+}
+
+.ui-col {
+  flex: 0 0 calc(100% - var(--gutter));
+  margin: calc(0.5 * var(--gutter));
+
+  &--auto {
+    flex: 0 0 auto;
+  }
+
+  &--fill {
+    flex: 1 1 1rem;
+  }
+
+  &--auto-fill {
+    flex: 1 0 auto;
+  }
+
+  &--stretch {
+    align-self: stretch;
+  }
+
+  &--top {
+    align-self: flex-start;
+  }
+
+  &--bottom {
+    align-self: flex-end;
+  }
+
+  &--middle {
+    align-self: center;
+  }
+
+  .ui-content--stretch {
+    height: calc(100% + var(--gutter));
+  }
+
+  @for $i from 1 through 12 {
+    &--#{$i} {
+      flex: 0 0 calc(#{($i/12) * 100%} - var(--gutter));
+    }
+  }
+}
+
+.ui-gutter {
+  --gutter: #{$gutter};
+
+  &--0 {
+    --gutter: #{$gutter * 0};
+  }
+
+  &--xs {
+    --gutter: #{$gutter * 0.25};
+  }
+
+  &--sm {
+    --gutter: #{$gutter * 0.5};
+  }
+
+  &--md {
+    --gutter: #{$gutter * 2};
+  }
+
+  &--lg {
+    --gutter: #{$gutter * 3};
+  }
+}
+
+@each $prefix, $size in $breakpoints {
+  @media only screen and (min-width: $size) {
+    .ui-container:not(.ui-container--fluid) {
+      max-width: if($prefix==xs, 100%, $size - 32px);
+    }
+
+    @for $i from 1 through 12 {
+      .ui-col--#{$i}\@#{$prefix} {
+        flex: 0 0 calc(#{($i/12) * 100%} - var(--gutter));
+      }
+    }
+
+    .ui-col--auto\@#{$prefix} {
+      flex: 0 0 auto;
+    }
+
+    .ui-col--fill\@#{$prefix} {
+      flex: 1 1 1rem;
+    }
+
+    .ui-col--stretch\@#{$prefix} {
+      align-self: stretch;
+    }
+
+    .ui-col--top\@#{$prefix} {
+      align-self: flex-start;
+    }
+
+    .ui-col--bottom\@#{$prefix} {
+      align-self: flex-end;
+    }
+
+    .ui-col--middle\@#{$prefix} {
+      align-self: center;
+    }
+
+    .ui-hide--up\@#{$prefix} {
+      display: none;
+    }
+
+    .ui-show--down\@#{$prefix} {
+      display: none;
+    }
+  }
+  @media only screen and (max-width: $size) {
+    .ui-hide--down\@#{$prefix} {
+      display: none;
+    }
+
+    .ui-show--up\@#{$prefix} {
+      display: none;
+    }
+  }
+}

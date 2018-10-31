@@ -1,0 +1,102 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2018
+// @license   : MIT
+
+$white: #fefefe !default;
+$black: #090909 !default;
+$gray: #787878 !default;
+
+$light-theme: (
+  base: #f9f9f9,
+  component: #fcfcfc,
+  border: #c5c5c5,
+  shadow: #d5d5d5,
+  color: #212121
+);
+$dark-theme: (
+  base: #212121,
+  component: #151515,
+  border: #303030,
+  shadow: #020202,
+  color: #f9f9f9
+);
+
+$primary: (
+  base: #2b64a9,
+  dark: #04386d,
+  light: #72a8e1,
+  tint: #eaf0f6,
+  shade: #0f233b
+);
+
+$secondary: (
+  base: #bb3385,
+  dark: #7b0d48,
+  light: #f185be,
+  tint: #f8ebf3,
+  shade: #380f28
+);
+
+$muted: (
+  base: #787878,
+  dark: #424242,
+  light: #c2c2c2,
+  tint: #eaeaea,
+  shade: #0c0c0c
+);
+
+$info: (
+  base: #4392bc,
+  dark: #175484,
+  light: #9cd9e8,
+  tint: #edf6fa,
+  shade: #173342
+);
+
+$danger: (
+  base: #cc2e20,
+  dark: #970e0a,
+  light: #eb8d87,
+  tint: #faeae9,
+  shade: #330c08
+);
+
+$success: (
+  base: #4da656,
+  dark: #1b5b1e,
+  light: #b9f2ba,
+  tint: #edf6ee,
+  shade: #0c190d
+);
+
+$warning: (
+  base: #e68a00,
+  dark: #d14400,
+  light: #fec991,
+  tint: #fef9f2,
+  shade: #3a2200
+);
+
+$teal: #1abc9c;
+$teal-dark: #16a085;
+$green: #2ecc71;
+$green-dark: #27ae60;
+$cyan: #17a2b8;
+$cyan-dark: #367989;
+$blue: #3498db;
+$blue-dark: #2980b9;
+$indigo: #3f51b5;
+$indigo-dark: #314092;
+$violet: #9b59b6;
+$violet-dark: #8e44ad;
+$purple: #673ab7;
+$purple-dark: #502e8b;
+$yellow: #f1c40f;
+$yellow-dark: #f39c12;
+$orange: #e67e22;
+$orange-dark: #d35400;
+$red: #e74c3c;
+$red-dark: #c0392b;
+$pink: #e83e8c;
+$pink-dark: #bc4378;

@@ -1,0 +1,114 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2018
+// @license   : MIT
+
+.ui-sidebar {
+  background-color: var(--base-bg);
+  display: grid;
+  grid-area: side-start;
+  grid-template-areas: "titlebar" "body";
+  grid-template-rows: auto 1fr;
+  max-width: 50vw;
+  overflow: hidden;
+  position: relative;
+  text-align: start;
+  transition: max-width 0.5s;
+  z-index: 25;
+  @include enable-gpu();
+
+  &__titlebar {
+    display: grid;
+    grid-area: titlebar;
+    grid-template-areas: "title toggler";
+    grid-template-columns: 1fr auto;
+    position: relative;
+
+    &::after {
+      content: "";
+      @include position(absolute, null 0 0);
+      @extend %hr;
+    }
+  }
+
+  &__body {
+    display: grid;
+    grid-area: body;
+    grid-template-areas: "head" "content" "foot";
+    grid-template-rows: auto 1fr auto;
+    overflow: hidden;
+  }
+
+  $base: #{&};
+  &[data-align="start"] {
+    @extend .ui-border--e;
+  }
+
+  &[data-align="end"] {
+    grid-area: side-end;
+    @extend .ui-border--s;
+
+    #{$base}__head {
+      grid-template-areas: "toggler title";
+      grid-template-columns: auto 1fr;
+    }
+  }
+
+  &__title {
+    grid-area: title;
+    padding: 0.5rem 1rem;
+  }
+
+  &__toggler {
+    align-self: center;
+    cursor: pointer;
+    grid-area: toggler;
+    line-height: 1;
+    padding: 0.5rem;
+
+    &:hover {
+      color: var(--color-primary);
+    }
+  }
+
+  &[data-collapsed="true"] {
+    max-width: 2rem;
+    overflow: visible;
+
+    #{$base}__title {
+      left: 0;
+      line-height: 1;
+      position: absolute;
+      top: 0;
+      transform: rotate(90deg);
+      transform-origin: 0 100% 0;
+    }
+
+    #{$base}__body {
+      @include position(fixed, 0 null);
+      background: inherit;
+      grid-area: unset;
+      left: 2rem;
+      transform: translateX(calc(-100% - 2rem));
+      @extend .ui-border--e;
+    }
+
+    &[data-align="end"] {
+      #{$base}__body {
+        left: auto;
+        right: 2rem;
+        transform: translateX(calc(100% + 2rem));
+        @extend .ui-border--s;
+      }
+    }
+
+    &[data-peek="true"] {
+      #{$base}__body {
+        box-shadow: 0 0 10px 0 var(--base-shadow);
+        transform: translateX(0);
+        transition: transform 0.5s;
+        z-index: 24;
+      }
+    }
+  }
+}

@@ -1,0 +1,120 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2018
+// @license   : MIT
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: $font-weight-medium;
+  margin: 0;
+}
+
+p {
+  margin: 0.5rem 0;
+  @include text-select();
+}
+
+q {
+  quotes: "\275d" "\275e";
+}
+
+a {
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+b {
+  font-weight: $font-weight-bold;
+}
+
+strong {
+  font-weight: $font-weight-medium;
+}
+
+small {
+  font-size: map-get($font-sizes, sm);
+}
+
+mark {
+  background: var(--color-secondary-tint);
+}
+
+img {
+  border: 0;
+}
+
+code {
+  background: var(--color-danger-tint);
+  font-family: $font-family-mono;
+  padding: 0 0.1em;
+}
+
+abbr[title] {
+  border-bottom: 1px dashed var(--base-border);
+  cursor: help;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style-position: inside;
+  padding: 0;
+
+  li {
+    padding: 0.25em 0.5em;
+  }
+}
+
+.ui-li--circle {
+  list-style-type: circle;
+}
+
+.ui-li--square {
+  list-style-type: square;
+}
+
+table {
+  border-spacing: 2px;
+  table-layout: fixed;
+  width: 100%;
+
+  th {
+    font-weight: $font-weight-medium;
+    padding: ($base-spacing / 4) ($base-spacing / 2);
+    text-align: left;
+  }
+
+  thead th {
+    background: var(--table-head-bg);
+    color: var(--table-head-color);
+  }
+
+  td {
+    padding: ($base-spacing / 4) ($base-spacing / 2);
+  }
+
+  tr:nth-child(even) {
+    background-color: var(--base-bg);
+  }
+
+  tr:nth-child(odd) {
+    background-color: var(--base-component);
+  }
+
+  @include max-breakpoint(sm) {
+    &,
+    tbody,
+    thead,
+    tfoot,
+    tr,
+    td,
+    th {
+      display: block;
+    }
+  }
+}

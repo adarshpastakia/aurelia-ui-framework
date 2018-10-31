@@ -1,0 +1,22 @@
+{
+  "rules": {
+    "interface-name": false,
+    "max-classes-per-file": false,
+    "no-any": true,
+    "no-implicit-dependencies": [ false, "optional" ],
+    "no-namespace": false,
+    "no-submodule-imports": [true, "examples"],
+    "callable-types": true,
+    "arrow-return-shorthand": true
+  },
+  "extends": [
+    "tslint:latest",
+    "tslint-eslint-rules",
+    "tslint-config-prettier"
+  ],
+  "linterOptions": {
+    "exclude": [
+      "**/*.d.ts"
+    ]
+  }
+}

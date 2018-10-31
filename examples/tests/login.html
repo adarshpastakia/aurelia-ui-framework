@@ -1,0 +1,66 @@
+<template>
+  <!-- <div style="height:100%;" ui-padding ui-scroll> -->
+  <ui-section centered style="height:100%;">
+    <ui-section>
+      <ui-sidebar width="32rem" css.bind="{gridArea: 'side-start'}">
+        <ui-content ui-align="end" ui-padding="x">
+          <h3>
+            <ui-icon icon="mdi mdi-television-guide"></ui-icon>
+            <span>Terms of Use</span>
+          </h3>
+          <p>
+            <lipsum-line></lipsum-line>
+          </p>
+          <p>
+            <lipsum-line></lipsum-line>
+          </p>
+          <br/>
+          <p>
+            <lipsum-line></lipsum-line>
+          </p>
+          <p>
+            <lipsum-line></lipsum-line>
+          </p>
+        </ui-content>
+        <!-- <ui-section-foot ui-padding="y--sm,x">
+          <ui-row halign="end">
+            <ui-checkbox>I Agree to the terms</ui-checkbox>
+          </ui-row>
+        </ui-section-foot> -->
+      </ui-sidebar>
+      <ui-content ui-padding="x,y--sm">
+        <ui-panel min-width="24rem">
+          <ui-header ui-border="b,sm,primary">
+            <ui-header-icon ui-color="primary" icon="mdi mdi-key"></ui-header-icon>
+            <ui-header-title>Login</ui-header-title>
+            <ui-header-actions>
+              <ui-button type="tool" icon="mdi mdi-question"></ui-button>
+            </ui-header-actions>
+          </ui-header>
+          <ui-content ui-padding="y">
+            <ui-form disabled.bind="termsAgree">
+              <ui-row>
+                <ui-field label="Username">
+                  <ui-input autofocus autocomplete="username" />
+                </ui-field>
+              </ui-row>
+              <ui-row>
+                <ui-field label="Password">
+                  <ui-input type="password" autocomplete="current-password" />
+                </ui-field>
+              </ui-row>
+            </ui-form>
+          </ui-content>
+          <ui-footer>
+            <div class="ui-toolbar" ui-padding="x">
+              <ui-checkbox checked.bind="termsAgree">I Agree to the terms</ui-checkbox>
+              <ui-filler></ui-filler>
+              <ui-button type="outline" ui-theme="primary" disabled.bind="!termsAgree" busy.bind="termsAgree">Login</ui-button>
+            </div>
+          </ui-footer>
+        </ui-panel>
+      </ui-content>
+    </ui-section>
+  </ui-section>
+  <!-- </div> -->
+</template>

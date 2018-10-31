@@ -1,0 +1,97 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2018
+// @license   : MIT
+
+// Page animations
+
+/* animate page transitions */
+.au-enter-active:not(.ui-dialog-wrapper) {
+  @include position(absolute, 0);
+  @include animation(viewEnter 0.3s ease-out both);
+}
+
+.au-leave-active:not(.ui-dialog-wrapper) {
+  @include position(absolute, 0);
+  @include animation(viewLeave 0.3s ease-in both);
+}
+
+$dialog-anim-time: 0.3s;
+.au-enter-active.ui-dialog-wrapper {
+  @include animation(dialogWrapper $dialog-anim-time ease-in both);
+  .ui-dialog {
+    @include animation(dialogEnter $dialog-anim-time ease-out both);
+  }
+}
+
+.au-leave-active.ui-dialog-wrapper {
+  @include animation(dialogWrapper $dialog-anim-time ease-in both);
+  .ui-dialog {
+    @include animation(dialogLeave $dialog-anim-time ease-in both);
+  }
+}
+
+.au-stagger {
+  // 50ms will be applied between each successive enter operation
+  -webkit-animation-delay: 50ms;
+  animation-delay: 50ms;
+}
+
+.ui-anim--spin::before,
+.ui-anim--spin path {
+  @include animation(spinner 2s linear infinite);
+}
+
+.ui-anim--loader::before,
+.ui-anim--loader path {
+  @include animation(spinner 1s cubic-bezier(1, -0.5, 1, 0.5) infinite);
+}
+
+/* animation definitions */
+@include keyframes(viewEnter) {
+  from {
+    @include transform(translate3d(100%, 0, 0));
+    opacity: 0;
+    // @include transform(scale(.7));
+  }
+}
+@include keyframes(viewLeave) {
+  to {
+    @include transform(translate3d(-100%, 0, 0));
+    opacity: 0;
+    // @include transform(scale(.7));
+  }
+}
+
+/* animation definitions */
+@include keyframes(dialogEnter) {
+  from {
+    @include transform(scale(0.7));
+    opacity: 0;
+    // @include transform(translate3d(50%, 0, 0));
+  }
+}
+@include keyframes(dialogLeave) {
+  to {
+    @include transform(scale(0.7));
+    opacity: 0;
+    // @include transform(dialogLeave(-50%, 0, 0));
+  }
+}
+@include keyframes(dialogWrapper) {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@include keyframes(spinner) {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

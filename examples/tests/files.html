@@ -1,0 +1,12 @@
+<template>
+  <ui-container fluid>
+    <ui-row valign="stretch" halign="center">
+      <template repeat.for="[key, value] of fileTypes | objectMap">
+        <ui-col size="auto" width="10em" ui-align="center" ui-bg="component" ui-padding="xs" ui-paper>
+          <p ui-font="sm" ui-weight="bold">${value}</p>
+          <p ui-font="sm" class="ui-ellipsis">${key}</p>
+        </ui-col>
+      </template>
+    </ui-row>
+  </ui-container>
+</template>

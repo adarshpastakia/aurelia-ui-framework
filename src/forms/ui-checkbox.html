@@ -1,0 +1,9 @@
+<template class="ui-option" data-disabled.bind="disabled || isDisabled"><label class="ui-option__control">
+    <input size="1" type="checkbox" checked.bind="checked" model.bind="model" matcher.bind="matcher" disabled.bind="disabled"
+      change.trigger="checkChanged($event)" />
+    <ui-svg-icon icon="check-off"></ui-svg-icon>
+    <ui-svg-icon icon="check-on"></ui-svg-icon>
+    <span>
+      <slot></slot>
+    </span>
+  </label></template>

@@ -1,0 +1,31 @@
+<template class="ui-dialog__wrapper" data-modal.bind="modal" data-minimized.bind="minimized" data-active.bind="active" mousedown.trigger="activate()">
+  <div class="ui-panel-base ui-dialog" css.bind="css" ref="dialogEl">
+    <div class="ui-panel__header" mousedown.delegate="startDrag($event)">
+      <slot name="panel-header">
+        <ui-header>
+          <ui-header-icon icon.bind="icon" if.bind="icon"></ui-header-icon>
+          <ui-header-title if.bind="label" innerhtml.bind="label"></ui-header-title>
+        </ui-header>
+      </slot>
+      <div class="ui-panel__header__actions" if.bind="!hideToolbox" mousedown.delegate="false">
+        <ui-divider></ui-divider>
+        <ui-button if.bind="help" class="ui-dlg--tool" ui-theme="info" type="tool">
+          <ui-svg-icon ui-color="info" icon="dlg-help"></ui-svg-icon>
+        </ui-button>
+        <ui-button disabled.bind="!maximizable" class="ui-dlg--tool" ui-theme="success" type="tool" click.trigger="maximized = !maximized">
+          <ui-svg-icon ui-color="success" icon.bind="maximized?'dlg-collapse':'dlg-expand'"></ui-svg-icon>
+        </ui-button>
+        <ui-button disabled.bind="modal || !minimizable" class="ui-dlg--tool" ui-theme="warning" type="tool" click.trigger="minimize()">
+          <ui-svg-icon ui-color="warning" icon="dlg-minimize"></ui-svg-icon>
+        </ui-button>
+        <ui-button disabled.bind="!closable" class="ui-dlg--tool" ui-theme="danger" type="tool" click.trigger="close()">
+          <ui-svg-icon ui-color="danger" icon="dlg-close"></ui-svg-icon>
+        </ui-button>
+      </div>
+    </div>
+    <div class="ui-panel__body" ref="vmElement">
+      <slot></slot>
+    </div>
+    <slot name="panel-footer"></slot>
+  </div>
+</template>

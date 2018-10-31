@@ -1,0 +1,262 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2018
+// @license   : MIT
+
+.ui-input {
+  --input-border-current: var(--input-border);
+  background-color: var(--input-bg);
+  border-radius: $base-border-radius;
+  box-shadow: 0 0 0 1px var(--input-border-current) inset, 0 1px 2px 0 var(--base-shadow) inset;
+  color: var(--color-muted);
+  display: grid;
+  flex: 1 1 1rem;
+  grid-column: 1;
+  grid-template-areas: "addon-start error input counter clear addon-end drop-handle";
+  grid-template-columns: auto auto 1fr auto auto auto auto;
+  line-height: 1;
+  overflow: hidden;
+  position: relative;
+
+  $base: #{&};
+
+  &--textarea {
+    grid-template-areas: "addon-start error input clear addon-end" "counter . . . .";
+    #{$base}__counter {
+      border-top: 1px dashed var(--input-border-current);
+      grid-column: span 5;
+      place-content: start;
+    }
+
+    #{$base}__error {
+      align-self: start;
+    }
+    #{$base}__clear {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+
+    textarea {
+      @include property-prefix(padding-end, 1.5rem);
+    }
+  }
+
+  &::before {
+    @include position(absolute, 0);
+    opacity: 0.5;
+  }
+
+  &::after {
+    background-color: var(--color-primary);
+    bottom: 0;
+    content: "";
+    height: 2px;
+    left: 0;
+    margin: 0 auto;
+    opacity: 0.75;
+    position: absolute;
+    right: 0;
+    width: 0;
+  }
+
+  &:focus-within {
+    --input-border-current: var(--input-focus-border);
+    &::after {
+      transition: width 0.4s;
+      width: 100%;
+    }
+  }
+
+  // stylelint-disable-next-line
+  > tpl {
+    display: none;
+  }
+
+  &--invalid {
+    background-color: var(--input-invalid-bg);
+    &:focus-within {
+      --input-border-current: var(--input-invalid-border);
+    }
+    &::after {
+      background-color: var(--color-danger);
+    }
+  }
+
+  &--readonly {
+    background: none;
+    border-color: transparent;
+
+    &::after {
+      display: none;
+    }
+  }
+
+  &--disabled::before {
+    background-color: rgba($gray, 0.25);
+    content: "";
+    cursor: not-allowed;
+  }
+
+  &__addon {
+    display: grid;
+    font-size: map-get($font-sizes, sm);
+    grid-area: addon-start;
+    min-width: 2rem;
+    padding: 0.25rem;
+    place-content: center;
+
+    .ui-icon {
+      font-size: 1.25rem;
+    }
+
+    .ui-flag {
+      font-size: 1rem;
+    }
+
+    .ui-option {
+      color: var(--base-color);
+    }
+
+    & + &,
+    &--end {
+      grid-area: addon-end;
+    }
+  }
+
+  > .ui-btn__wrapper {
+    align-self: stretch;
+    font-size: 0.8em;
+    grid-area: addon-end;
+    margin: 0;
+  }
+
+  &__info {
+    background-color: var(--base-component);
+    box-shadow: 0 -1px 0 1px var(--input-border) inset;
+    grid-column: 1;
+    padding: 0.25rem 0.5rem;
+  }
+
+  &__drop-handle,
+  &__counter,
+  &__error,
+  &__clear {
+    color: var(--color-muted);
+    display: grid;
+    opacity: 0.5;
+    padding: 0.25rem;
+    place-content: center;
+  }
+
+  &__drop-handle {
+    box-shadow: 0 0 1px 0 var(--color-muted);
+    color: var(--color-muted);
+    cursor: pointer;
+    font-size: 1.5em;
+    grid-area: drop-handle;
+
+    &:hover {
+      color: var(--color-primary);
+      opacity: 1;
+    }
+  }
+
+  &__clear {
+    cursor: pointer;
+    grid-area: clear;
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &__error {
+    color: var(--color-danger);
+    grid-area: error;
+    opacity: 1;
+
+    > ul {
+      background: var(--color-danger);
+      color: var(--color-white);
+      display: none;
+      font-size: 0.9rem;
+      list-style: none;
+      padding: 0.5em 1em;
+      position: fixed;
+      transform: translateY(calc(1rem));
+      white-space: nowrap;
+      z-index: 10;
+    }
+
+    &:hover > ul {
+      display: block;
+    }
+  }
+
+  &__counter {
+    font-size: 0.8rem;
+    grid-area: counter;
+  }
+
+  input,
+  textarea {
+    background: none;
+    border: 0;
+    color: var(--base-color);
+    font-size: 1rem;
+    font-weight: $font-weight-light;
+    grid-area: input;
+    letter-spacing: 0.01em;
+    line-height: 2rem;
+    outline: none;
+    padding: 0 0.5rem;
+    @include text-select();
+  }
+
+  textarea {
+    line-height: 1.5rem;
+    min-height: 1.5rem * 4;
+    resize: vertical;
+  }
+
+  &__tags {
+    align-items: stretch;
+    display: flex;
+    flex-flow: row wrap;
+    grid-area: input;
+
+    .ui-tag {
+      align-items: center;
+      background-color: rgba($gray, 0.1);
+      border-radius: 2px;
+      box-shadow: 0 0 1px 0 var(--color-muted);
+      display: grid;
+      font-size: 0.8rem;
+      grid-gap: 4px;
+      grid-template-columns: auto auto;
+      line-height: 1.5rem;
+      margin: 0.25rem;
+      overflow: hidden;
+      padding: 0 0.25rem;
+
+      .ui-badge {
+        float: right;
+      }
+
+      &__close {
+        cursor: pointer;
+        font-size: 1rem;
+        line-height: 1.1;
+        opacity: 0.5;
+
+        &:hover {
+          opacity: 0.9;
+        }
+      }
+    }
+
+    input {
+      flex: 1 1 4em;
+    }
+  }
+}

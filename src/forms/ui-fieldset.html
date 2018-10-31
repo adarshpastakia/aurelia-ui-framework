@@ -1,0 +1,10 @@
+<template>
+  <fieldset class="ui-fieldset ${class}" data-open.bind="!optional || checked" ref="vmElement">
+    <legend if.bind="label">
+      <ui-checkbox if.bind="optional" checked.bind="checked">${label}</ui-checkbox>
+      <span if.bind="!optional">${label}</span>
+    </legend>
+    <div class="ui-fieldset__body">
+      <slot></slot>
+    </div>
+</template>

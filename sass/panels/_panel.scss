@@ -1,0 +1,140 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2018
+// @license   : MIT
+
+.ui-panel {
+  align-self: start;
+  border-radius: $base-border-radius;
+  box-shadow: 0 0 0 1px var(--base-border);
+  display: grid;
+  grid-template-areas: "header" "body" "footer";
+  grid-template-rows: auto 1fr auto;
+  max-height: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  position: relative;
+
+  $base: #{&};
+  &__group {
+    > #{$base} {
+      border-radius: 0;
+
+      &:first-child {
+        border-top-left-radius: $base-border-radius;
+        border-top-right-radius: $base-border-radius;
+      }
+      &:last-child {
+        border-bottom-left-radius: $base-border-radius;
+        border-bottom-right-radius: $base-border-radius;
+      }
+    }
+  }
+
+  &__body {
+    display: grid;
+    grid-area: body;
+    grid-template-areas: "content";
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    overflow: hidden;
+    position: relative;
+
+    > .ui-scroll {
+      border: 2px solid var(--base-component);
+    }
+  }
+
+  &__header {
+    align-items: center;
+    background-color: var(--panel-header-bg);
+    color: var(--panel-header-color);
+    display: grid;
+    grid-area: header;
+    grid-template-areas: "header actions";
+    grid-template-columns: 1fr auto;
+    position: relative;
+
+    .ui-header {
+      position: static;
+    }
+
+    &__actions {
+      align-items: center;
+      align-self: stretch;
+      display: grid;
+      grid-area: actions;
+      grid-auto-flow: column;
+      grid-gap: 2px;
+
+      > .ui-divider {
+        margin: 0 4px;
+        @extend %vr;
+      }
+
+      &:not(:empty) {
+        @include property-prefix(margin-start, -1em);
+        padding: 0 0.5em;
+      }
+    }
+  }
+
+  &[data-collapsed="true"] &__body {
+    // stylelint-disable-next-line declaration-no-important
+    max-height: 0 !important;
+    min-height: 0;
+  }
+
+  &[class*="ui-theme--"] &__header {
+    .ui-btn__wrapper[data-type="tool"] .ui-btn {
+      &,
+      &:hover,
+      &:active {
+        --btn-ripple: var(--panel-header-tool);
+        --btn-color: var(--panel-header-tool);
+        --btn-active: var(--panel-header-tool);
+        color: var(--panel-header-tool);
+      }
+
+      &:active {
+        box-shadow: 0 0 4px 0 var(--panel-header-tool) inset;
+      }
+    }
+  }
+
+  &.ui-theme--primary {
+    --panel-header-bg: var(--color-primary-light);
+    --panel-header-tool: var(--color-primary-dark);
+    --panel-header-color: var(--color-primary-shade);
+  }
+  &.ui-theme--secondary {
+    --panel-header-bg: var(--color-secondary-light);
+    --panel-header-tool: var(--color-secondary-dark);
+    --panel-header-color: var(--color-secondary-shade);
+  }
+  &.ui-theme--muted {
+    --panel-header-bg: var(--color-muted-light);
+    --panel-header-tool: var(--color-muted-dark);
+    --panel-header-color: var(--color-muted-shade);
+  }
+  &.ui-theme--info {
+    --panel-header-bg: var(--color-info-light);
+    --panel-header-tool: var(--color-info-dark);
+    --panel-header-color: var(--color-info-shade);
+  }
+  &.ui-theme--danger {
+    --panel-header-bg: var(--color-danger-light);
+    --panel-header-tool: var(--color-danger-dark);
+    --panel-header-color: var(--color-danger-shade);
+  }
+  &.ui-theme--success {
+    --panel-header-bg: var(--color-success-light);
+    --panel-header-tool: var(--color-success-dark);
+    --panel-header-color: var(--color-success-shade);
+  }
+  &.ui-theme--warning {
+    --panel-header-bg: var(--color-warning-light);
+    --panel-header-tool: var(--color-warning-dark);
+    --panel-header-color: var(--color-warning-shade);
+  }
+}

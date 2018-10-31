@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>
+    <%- htmlWebpackPlugin.options.metadata.title %>
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base href="<%- htmlWebpackPlugin.options.metadata.baseUrl %>">
+  <!-- imported CSS are concatenated and added automatically -->
+  <link rel="stylesheet" href="/styles/splash.css" />
+</head>
+
+<body>
+  <div class="ui-splash">
+    <div class="ui-anim"></div>
+    <div class="ui-title">
+      <div>Aurelia UI Framework</div>
+      <div class="ui-subtitle">for business applications</div>
+    </div>
+  </div>
+  <div aurelia-app="main"></div>
+  <% if (htmlWebpackPlugin.options.metadata.server) { %>
+  <!-- Webpack Dev Server reload -->
+  <script src="/webpack-dev-server.js"></script>
+  <% } %>
+</body>
+
+</html>
