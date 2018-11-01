@@ -77,9 +77,8 @@
       align-items: center;
       display: grid;
       grid-area: link;
-      grid-gap: 4px;
-      grid-template-areas: "icon label caret";
-      grid-template-columns: auto 1fr auto;
+      grid-template-areas: "icon label badge caret";
+      grid-template-columns: auto 1fr auto auto;
       padding: 0 0.5rem;
 
       &:hover {
@@ -100,9 +99,14 @@
       }
     }
 
+    .ui-badge {
+      grid-area: badge;
+      line-height: 1.2em;
+    }
+
     &__label {
       grid-area: label;
-      padding: 0.5rem 0;
+      padding: 0.5rem 0.25rem;
     }
 
     &__icon {

@@ -37,7 +37,7 @@
           <ui-button ui-theme.bind="theme" type.bind="style" icon="mdi mdi-account" label="Click">
             <ui-dropdown close-on-click>
               <ui-menu>
-                <ui-menu-item>List option</ui-menu-item>
+                <ui-menu-item ui-badge="9">List option</ui-menu-item>
                 <ui-menu-item>List option</ui-menu-item>
                 <ui-menu-item>List option</ui-menu-item>
                 <ui-menu-item>List option</ui-menu-item>
@@ -85,11 +85,7 @@
     <h4>Sizes</h4>
     <ui-button icon="mdi mdi-account" size="sm">Click</ui-button>
     <ui-button icon="mdi mdi-account" size="">Click</ui-button>
-    <ui-button icon="mdi mdi-account" size="md" ui-hover="orange">Click
-      <div class="ui-badge ui-theme--danger">
-        <span class="ui-badge__label">9</span>
-      </div>
-    </ui-button>
+    <ui-button icon="mdi mdi-account" size="md" ui-badge="value:9;theme:danger">Click</ui-button>
     <ui-button icon="mdi mdi-account" size="lg">Click</ui-button>
     <ui-button icon="mdi mdi-account" icon-top>Click</ui-button>
     <ui-button icon="mdi mdi-account" type="solid" icon-top icon-hilight>Click</ui-button>

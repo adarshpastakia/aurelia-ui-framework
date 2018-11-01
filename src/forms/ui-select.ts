@@ -18,6 +18,7 @@ import { UIInternal } from "../utils/ui-internal";
 import { BaseInput } from "./base";
 import { InputWrapper } from "./input-wrapper";
 
+// TODO: missing funtionality
 /**
  * 1. When drop opens check for selected to scrollTo
  * 2. When drop closes check if reset query to selected label or blank
@@ -175,10 +176,13 @@ export class UISelect extends BaseInput {
 
   protected listClass(option): string {
     const classes = ["ui-list__item"];
-    if ((option[this.valueProperty] || option) === this.value) {
+    if (!this.multiple && (option[this.valueProperty] || option) === this.value) {
       classes.push("ui-list__item--selected");
-    }
-    if (this.multiple && this.value && this.value.includes(option[this.valueProperty] || option)) {
+    } else if (
+      this.multiple &&
+      this.value &&
+      this.value.includes(option[this.valueProperty] || option)
+    ) {
       classes.push("ui-list__item--disabled");
     }
     return classes.join(" ");
@@ -250,6 +254,12 @@ export class UISelect extends BaseInput {
         ? optionsClone.sortBy([this.groupProperty, this.labelProperty]).groupBy(this.groupProperty)
         : [...optionsClone];
       this.isLoaded = true;
+      UIInternal.queueTask(() => {
+        const selected = this.dropEl.vmElement.querySelector(".ui-list__item--selected");
+        if (selected) {
+          selected.scrollIntoView({ inline: "nearest" });
+        }
+      });
       UIInternal.queueTask(() => this.dropEl.updatePosition());
     });
   }
@@ -303,8 +313,8 @@ export class UISelect extends BaseInput {
     } else if (this.dropEl.isOpen && $event.keyCode === ENTER) {
       $event.stopEvent();
     } else if (this.multiple && $event.keyCode === BACKSPACE) {
-      $event.stopEvent();
-      if (this.model.length > 0) {
+      if (this.model.length > 0 && this.query.length === 0) {
+        $event.stopEvent();
         this.removeValue(this.model.last());
       }
     } else {

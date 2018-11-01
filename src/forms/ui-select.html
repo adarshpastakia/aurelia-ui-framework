@@ -20,8 +20,10 @@
     <template if.bind="innerOptions && isGrouped">
       <template repeat.for="[key, options] of innerOptions">
         <div class="ui-list__title">${key}</div>
-        <div class.bind="listClass(option, value)" with.bind="{option}" repeat.for="option of options" ref="__el"
-          show.one-time="buildOption(option, __el)" click.trigger="selectOption(option)" data-model.bind="option"></div>
+        <template repeat.for="option of options">
+          <div class.bind="listClass(option, value)" with.bind="{option}" ref="__el" show.one-time="buildOption(option, __el)"
+            click.trigger="selectOption(option)" data-model.bind="option"></div>
+        </template>
       </template>
     </template>
     <div if.bind="isLoading" ui-padding ui-align="center" ui-font="lg" ui-color="muted">

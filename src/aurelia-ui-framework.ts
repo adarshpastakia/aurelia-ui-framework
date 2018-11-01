@@ -53,6 +53,8 @@ export class UIFrameworkConfig {
     buttons: () => {
       this.loadFromModule(PLATFORM.moduleName("./buttons/ui-button"));
       this.loadFromModule(PLATFORM.moduleName("./buttons/ui-button-group"));
+      this.loadFromModule(PLATFORM.moduleName("./buttons/ui-badge"));
+      this.loadFromModule(PLATFORM.moduleName("./attributes/ui-badge"));
       return this.use;
     },
 

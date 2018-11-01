@@ -1,5 +1,5 @@
 <template class="ui-menu__item">
-  <a data-active.bind="active" disabled.bind="disabled" href.bind="href" click.trigger="fireClick($event)" class="ui-menu__item__link" data-open.bind="!split && dropEl.isOpen">
+  <a data-active.bind="active" disabled.bind="disabled" href.bind="href" ref="badgeEl" click.trigger="fireClick($event)" class="ui-menu__item__link" data-open.bind="!split && dropEl.isOpen">
     <ui-icon class="ui-menu__item__icon" icon.bind="icon" if.bind="icon"></ui-icon>
     <span class="ui-menu__item__label">
       <slot>${label}</slot>

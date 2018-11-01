@@ -5,7 +5,7 @@
  * @license   : MIT
  */
 
-import { autoinject, bindable, bindingMode, customElement, inlineView } from "aurelia-framework";
+import { autoinject, bindable, bindingMode, customElement } from "aurelia-framework";
 import { UIInternal } from "../utils/ui-internal";
 
 @autoinject()

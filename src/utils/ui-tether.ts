@@ -83,14 +83,14 @@ export namespace UITether {
     if (anchorY === "t") {
       y = anchorRect.top;
     } else if (anchorY === "b") {
-      y = anchorRect.bottom + 1;
+      y = anchorRect.bottom;
     }
 
     if (posX === "r") {
       x -= dropdownRect.width;
     }
     if (posY === "b") {
-      y -= dropdownRect.height + 1;
+      y -= dropdownRect.height;
     }
 
     if (x + dropdownRect.width > clientWidth) {
@@ -101,9 +101,7 @@ export namespace UITether {
 
     if (y + dropdownRect.height > clientHeight) {
       y =
-        posY === "t" && anchorY === "b"
-          ? anchorRect.top - (dropdownRect.height + 1)
-          : anchorRect.bottom + 1;
+        posY === "t" && anchorY === "b" ? anchorRect.top - dropdownRect.height : anchorRect.bottom;
     } else if (y < clientY) {
       y =
         posY === "b" && anchorY === "t" ? anchorRect.bottom - dropdownRect.height : anchorRect.top;
@@ -113,6 +111,8 @@ export namespace UITether {
       const scrollerRect = scrollerEl.getBoundingClientRect();
       x -= scrollerRect.left - scrollerEl.scrollLeft;
       y -= scrollerRect.top - scrollerEl.scrollTop;
+      x -= 1;
+      y -= 1;
     }
     dropdownEl.style.transform = `translate(${x}px, ${y}px)`;
   }

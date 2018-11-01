@@ -6,10 +6,16 @@
 .ui-btn {
   align-items: center;
   display: grid;
-  grid-template-areas: "busy icon label caret";
-  grid-template-columns: auto auto auto auto;
+  grid-template-areas: "busy icon label badge caret";
+  grid-template-columns: auto auto auto auto auto;
   justify-content: center;
   position: relative;
+
+  .ui-badge {
+    align-self: center;
+    grid-area: badge;
+    line-height: 1.2em;
+  }
 
   $base: #{&};
 
@@ -264,11 +270,11 @@
   }
 
   &__icon--end & {
-    grid-template-areas: "busy label caret icon";
+    grid-template-areas: "busy label badge caret icon";
   }
 
   &__icon--top & {
-    grid-template-areas: "icon caret" "label caret";
+    grid-template-areas: "icon badge caret" "label badge caret";
 
     &__icon {
       justify-self: stretch;
@@ -284,13 +290,6 @@
   &__icon--hilight #{$base}__icon {
     background-color: var(--btn-hilight);
     color: var(--btn-inverse);
-  }
-
-  .ui-badge {
-    float: right;
-    line-height: 1.2em;
-    margin: 0;
-    transform: translateX(50%);
   }
 
   // Button group

@@ -100,3 +100,50 @@ $red: #e74c3c;
 $red-dark: #c0392b;
 $pink: #e83e8c;
 $pink-dark: #bc4378;
+
+$extra-colors: (
+  teal: $teal,
+  teal-dark: $teal-dark,
+  green: $green,
+  green-dark: $green-dark,
+  cyan: $cyan,
+  cyan-dark: $cyan-dark,
+  blue: $blue,
+  blue-dark: $blue-dark,
+  indigo: $indigo,
+  indigo-dark: $indigo-dark,
+  violet: $violet,
+  violet-dark: $violet-dark,
+  purple: $purple,
+  purple-dark: $purple-dark,
+  yellow: $yellow,
+  yellow-dark: $yellow-dark,
+  orange: $orange,
+  orange-dark: $orange-dark,
+  red: $red,
+  red-dark: $red-dark,
+  pink: $pink,
+  pink-dark: $pink-dark
+);
+
+$colors: (
+  white: $white,
+  black: $black,
+  primary: map-get($primary, base),
+  secondary: map-get($secondary, base),
+  muted: map-get($muted, base),
+  info: map-get($info, base),
+  danger: map-get($danger, base),
+  success: map-get($success, base),
+  warning: map-get($warning, base)
+);
+$colors: map-merge($colors, $extra-colors);
+@each $label in (dark, light, tint, shade) {
+  $colors: map-merge($colors, (primary-#{$label}: map-get($primary, $label)));
+  $colors: map-merge($colors, (secondary-#{$label}: map-get($secondary, $label)));
+  $colors: map-merge($colors, (muted-#{$label}: map-get($muted, $label)));
+  $colors: map-merge($colors, (info-#{$label}: map-get($info, $label)));
+  $colors: map-merge($colors, (danger-#{$label}: map-get($danger, $label)));
+  $colors: map-merge($colors, (success-#{$label}: map-get($success, $label)));
+  $colors: map-merge($colors, (warning-#{$label}: map-get($warning, $label)));
+}

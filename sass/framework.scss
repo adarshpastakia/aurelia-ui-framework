@@ -22,7 +22,6 @@ $mdi-font-size-base: 1em;
 
 @import "typography/reset";
 @import "typography/lists";
-@import "typography/helpers";
 @import "typography/headings";
 
 @import "panels/base";
@@ -32,6 +31,7 @@ $mdi-font-size-base: 1em;
 @import "panels/alert";
 
 @import "buttons/button";
+@import "buttons/badge";
 
 @import "forms/form";
 @import "forms/field";
@@ -47,3 +47,4 @@ $mdi-font-size-base: 1em;
 @import "appbars/toolbar";
 
 @import "core/helpers";
+@import "typography/helpers";

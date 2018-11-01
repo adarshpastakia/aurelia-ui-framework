@@ -90,8 +90,8 @@
         <ui-field label="Label">
           <ui-field-wrapper>
             <ui-input-addon width="6em">Single</ui-input-addon>
-            <ui-select options.bind="countries" placeholder="Select a country" label-property="name" value-property="iso2"
-              group-property="continent" clear value.bind="sCode">
+            <ui-select options.bind="countries" placeholder="Select a country" label-property="name"
+              value-property="iso2" group-property="continent" clear value.bind="sCode">
               <ui-input-addon>
                 <ui-flag code.bind="sCode"></ui-flag>
               </ui-input-addon>
@@ -107,13 +107,16 @@
           <ui-field-wrapper>
             <ui-input-addon width="6em">Multiple</ui-input-addon>
             <ui-select multiple query.call="selectLoader(query)" placeholder="Select countries" label-property="name"
-              value-property="iso2" clear model.bind="mCode">
+              value-property="iso2" clear value.bind="mCode">
               <template>
                 <ui-flag size="md" code.bind="iso2"></ui-flag>&nbsp;
                 <span innerhtml.bind="$label"></span>
-                <span class="ui-badge"><span class="ui-badge__value" innerhtml.bind="iso2"></span></span>
+                <span class="ui-badge ui-badge--solid"><span class="ui-badge__value" innerhtml.bind="iso2"></span></span>
               </template>
             </ui-select>
+          </ui-field-wrapper>
+          <ui-field-wrapper plain="true">
+            <ui-input readonly value.to-view="mCode"></ui-input>
           </ui-field-wrapper>
         </ui-field>
       </ui-row>
