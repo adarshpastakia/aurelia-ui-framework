@@ -124,9 +124,9 @@
     --alert-bg: var(--color-secondary-tint);
     --alert-color: var(--color-secondary-dark);
   }
-  &.ui-theme--muted {
-    --alert-bg: var(--color-muted-tint);
-    --alert-color: var(--color-muted-dark);
+  &.ui-theme--gray {
+    --alert-bg: var(--color-gray-tint);
+    --alert-color: var(--color-gray-dark);
   }
   &.ui-theme--info {
     --alert-bg: var(--color-info-tint);

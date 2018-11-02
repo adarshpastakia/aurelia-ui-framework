@@ -25,10 +25,10 @@
           </template>
         </template>
       </template>
-      <div if.bind="isLoading" ui-padding ui-align="center" ui-font="lg" ui-color="muted">
+      <div if.bind="isLoading" ui-padding ui-align="center" ui-font="lg" ui-color="gray">
         <ui-svg-icon icon="busy" class="ui-anim--spin"></ui-svg-icon>
       </div>
-      <div if.bind="isLoaded && innerOptions.length === 0" ui-padding ui-color="muted" ui-font="sm">${noOptionsText}</div>
+      <div if.bind="isLoaded && innerOptions.length === 0" ui-padding ui-color="gray" ui-font="sm">${noOptionsText}</div>
     </div>
   </input-wrapper>
 </template>

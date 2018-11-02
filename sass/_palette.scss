@@ -5,7 +5,6 @@
 
 $white: #fefefe !default;
 $black: #090909 !default;
-$gray: #787878 !default;
 
 $light-theme: (
   base: #f9f9f9,
@@ -38,10 +37,10 @@ $secondary: (
   shade: #381424
 );
 
-$muted: (
+$gray: (
   base: #787878,
-  dark: #424242,
-  light: #c2c2c2,
+  dark: #363636,
+  light: #cecece,
   tint: #eaeaea,
   shade: #0c0c0c
 );
@@ -131,7 +130,7 @@ $colors: (
   black: $black,
   primary: map-get($primary, base),
   secondary: map-get($secondary, base),
-  muted: map-get($muted, base),
+  gray: map-get($gray, base),
   info: map-get($info, base),
   danger: map-get($danger, base),
   success: map-get($success, base),
@@ -141,7 +140,7 @@ $colors: map-merge($colors, $extra-colors);
 @each $label in (dark, light, tint, shade) {
   $colors: map-merge($colors, (primary-#{$label}: map-get($primary, $label)));
   $colors: map-merge($colors, (secondary-#{$label}: map-get($secondary, $label)));
-  $colors: map-merge($colors, (muted-#{$label}: map-get($muted, $label)));
+  $colors: map-merge($colors, (gray-#{$label}: map-get($gray, $label)));
   $colors: map-merge($colors, (info-#{$label}: map-get($info, $label)));
   $colors: map-merge($colors, (danger-#{$label}: map-get($danger, $label)));
   $colors: map-merge($colors, (success-#{$label}: map-get($success, $label)));

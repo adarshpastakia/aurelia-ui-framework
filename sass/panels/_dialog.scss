@@ -5,7 +5,7 @@
 
 .ui-dialog {
   border-radius: $base-border-radius;
-  box-shadow: 2px 2px 20px 4px rgba(map-get($muted, dark), 0.75);
+  box-shadow: 2px 2px 20px 4px rgba(map-get($gray, dark), 0.75);
   pointer-events: all;
   position: absolute;
   z-index: 102;
@@ -67,7 +67,7 @@
     }
 
     &[data-active="false"] .ui-dialog {
-      box-shadow: 2px 2px 8px 1px rgba(map-get($muted, dark), 0.25);
+      box-shadow: 2px 2px 8px 1px rgba(map-get($gray, dark), 0.25);
       z-index: 101;
 
       .ui-panel__header {

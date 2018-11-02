@@ -23,7 +23,7 @@
   }
 
   &__meta {
-    color: $gray;
+    color: var(--color-gray);
     display: flex;
     flex-flow: row nowrap;
     font-size: 0.8em;

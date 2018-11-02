@@ -64,7 +64,7 @@ export class Tester {
 
   protected themes = [
     "default",
-    "muted",
+    "gray",
     "primary",
     "secondary",
     "info",

@@ -19,7 +19,7 @@ export interface UIAlertConfig {
   okLabel?: string;
   cancelLabel?: string;
   type?: "alert" | "confirm" | "prompt";
-  theme?: "primary" | "secondary" | "muted" | "info" | "danger" | "success" | "warning";
+  theme?: "primary" | "secondary" | "gray" | "info" | "danger" | "success" | "warning";
 }
 
 @singleton()

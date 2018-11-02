@@ -6,8 +6,8 @@
 .ui-badge {
   // background-color: var(--base-bg);
   border-radius: 1em;
-  box-shadow: 0 0 0 1px var(--color-muted-light);
-  color: var(--color-muted);
+  box-shadow: 0 0 0 1px var(--color-gray-light);
+  color: var(--color-gray);
   display: inline-grid;
   font-size: 0.8em;
   grid-template-areas: "avatar label value close";
@@ -23,7 +23,7 @@
   }
 
   &__icon {
-    background-color: var(--color-muted);
+    background-color: var(--color-gray);
     border-radius: 1em;
     color: var(--color-white);
     grid-area: avatar;
@@ -42,7 +42,7 @@
     }
 
     .ui-icon {
-      background-color: var(--color-muted);
+      background-color: var(--color-gray);
       border-radius: 1em;
       overflow: hidden;
       padding: 0.275em;
@@ -72,14 +72,14 @@
   }
 
   &__label:not(:empty) + &__icon {
-    background-color: var(--color-muted-light);
+    background-color: var(--color-gray-light);
     border-radius: 0;
   }
 
   &--solid,
   &__label {
-    background-color: var(--color-muted-light);
-    color: var(--color-muted-dark);
+    background-color: var(--color-gray-light);
+    color: var(--color-gray-dark);
   }
 
   &__close {
@@ -136,7 +136,7 @@
 
   @include make-badge(primary, var(--color-primary), var(--color-primary-dark));
   @include make-badge(secondary, var(--color-secondary), var(--color-secondary-dark));
-  @include make-badge(muted, var(--color-muted), var(--color-muted));
+  @include make-badge(gray, var(--color-gray), var(--color-gray));
   @include make-badge(info, var(--color-info), var(--color-info-dark));
   @include make-badge(danger, var(--color-danger), var(--color-danger-dark));
   @include make-badge(success, var(--color-success), var(--color-success-dark));

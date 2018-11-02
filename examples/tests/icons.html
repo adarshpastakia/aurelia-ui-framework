@@ -40,7 +40,7 @@
       <input style="position:fixed; top: -1000%" ref="elCopy" />
       <div class="ui-grid ui-grid--sm">
         <template repeat.for="icon of icons | filter:query & debounce">
-          <div class="ui-card icon-card" ui-align="center" ui-bg="component" ui-padding="xs" ui-paper ui-color="muted" ui-hover="secondary"
+          <div class="ui-card icon-card" ui-align="center" ui-bg="component" ui-padding="xs" ui-paper ui-color="gray" ui-hover="secondary"
             click.trigger="copy($event.currentTarget, `mdi mdi-${icon}`)">
             <div class="icon-copy-text">Copied!</div>
             <div style="font-size: 3em">

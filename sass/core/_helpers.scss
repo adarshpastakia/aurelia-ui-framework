@@ -98,8 +98,8 @@ html:root {
     &--black {
       background-color: $black;
     }
-    &--muted {
-      background-color: $gray;
+    &--gray {
+      background-color: var(--color-gray);
     }
 
     @each $label, $color in $colors {
@@ -116,8 +116,8 @@ html:root {
     &--black {
       color: $black;
     }
-    &--muted {
-      color: $gray;
+    &--gray {
+      color: var(--color-gray);
     }
 
     @each $label, $color in $colors {
@@ -225,8 +225,8 @@ html:root {
     &--black {
       border-color: $black;
     }
-    &--muted {
-      border-color: $gray;
+    &--gray {
+      border-color: var(--color-gray);
     }
 
     @each $label, $color in $colors {

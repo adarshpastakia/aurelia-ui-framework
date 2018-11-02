@@ -113,7 +113,7 @@
     }
 
     &[data-type="tool"] #{$base} {
-      color: $gray;
+      color: var(--color-gray);
       opacity: 0.8;
 
       &:hover {
@@ -175,15 +175,15 @@
       --menu-item-active-color: var(--color-secondary-shade);
     }
 
-    &.ui-theme--muted {
-      --btn-color: var(--color-muted);
-      --btn-hover: var(--color-muted-light);
-      --btn-active: var(--color-muted-dark);
+    &.ui-theme--gray {
+      --btn-color: var(--color-gray);
+      --btn-hover: var(--color-gray-light);
+      --btn-active: var(--color-gray-dark);
       --btn-inverse: #{$white};
-      --menu-item-hover-bg: var(--color-muted-tint);
-      --menu-item-hover-color: var(--color-muted-shade);
-      --menu-item-active-bg: var(--color-muted-light);
-      --menu-item-active-color: var(--color-muted-shade);
+      --menu-item-hover-bg: var(--color-gray-tint);
+      --menu-item-hover-color: var(--color-gray-shade);
+      --menu-item-active-bg: var(--color-gray-light);
+      --menu-item-active-color: var(--color-gray-shade);
     }
 
     &.ui-theme--info {
@@ -238,7 +238,7 @@
       }
 
       &:active {
-        box-shadow: 0 0 4px 0 $gray inset;
+        box-shadow: 0 0 4px 0 var(--color-gray) inset;
       }
     }
   }
@@ -391,7 +391,7 @@
         &::after {
           background-color: var(--base-bg);
           border-radius: 1em;
-          box-shadow: 0 0 2px 0 var(--color-muted);
+          box-shadow: 0 0 2px 0 var(--color-gray);
           content: attr(data-separator);
           font-size: 0.8em;
           font-variant: small-caps;

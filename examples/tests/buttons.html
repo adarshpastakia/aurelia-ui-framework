@@ -1,7 +1,7 @@
 <template>
   <ui-container ui-padding>
     <template repeat.for="style of ['normal','link','outline','solid']">
-      <h6 ui-color="muted">ui-button--${style}</h6>
+      <h6 ui-color="gray">ui-button--${style}</h6>
       <ui-fieldset>
         <template repeat.for="theme of themes">
           <ui-button ui-theme.bind="theme" type.bind="style" icon="mdi mdi-account"></ui-button>
@@ -103,10 +103,10 @@
       <ui-button icon="mdi mdi-account" type="solid" ui-theme="warning">Click</ui-button>
     </ui-button-group>
     <ui-button-group>
-      <ui-button icon="mdi mdi-rewind" ui-theme="muted" icon-hilight>Prev</ui-button>
+      <ui-button icon="mdi mdi-rewind" ui-theme="gray" icon-hilight>Prev</ui-button>
       <ui-button icon="mdi mdi-play" ui-theme="success">Play</ui-button>
       <ui-button icon="mdi mdi-stop" ui-theme="danger" icon-end>Stop</ui-button>
-      <ui-button icon="mdi mdi-fast-forward" ui-theme="muted" icon-end icon-hilight>Next</ui-button>
+      <ui-button icon="mdi mdi-fast-forward" ui-theme="gray" icon-end icon-hilight>Next</ui-button>
     </ui-button-group>
     <br />
     <ui-button-group vertical toggle value="3">

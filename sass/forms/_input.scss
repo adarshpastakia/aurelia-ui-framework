@@ -8,7 +8,7 @@
   background-color: var(--input-bg);
   border-radius: $base-border-radius;
   box-shadow: 0 0 0 1px var(--input-border-current) inset, 0 1px 2px 0 var(--base-shadow) inset;
-  color: var(--color-muted);
+  color: var(--color-gray);
   display: grid;
   flex: 1 1 1rem;
   grid-column: 1;
@@ -56,7 +56,7 @@
   }
 
   &::after {
-    background-color: var(--color-primary);
+    background-color: var(--input-focus-underline);
     bottom: 0;
     content: "";
     height: 2px;
@@ -87,7 +87,7 @@
       --input-border-current: var(--input-invalid-border);
     }
     &::after {
-      background-color: var(--color-danger);
+      background-color: var(--input-invalid-underline);
     }
   }
 
@@ -100,10 +100,16 @@
     }
   }
 
-  &--disabled::before {
-    background-color: rgba($gray, 0.25);
-    content: "";
-    cursor: not-allowed;
+  &--disabled {
+    .ui-input__drop-handle {
+      pointer-events: none;
+    }
+
+    &::before {
+      background-color: rgba(map-get($gray, base), 0.25);
+      content: "";
+      cursor: not-allowed;
+    }
   }
 
   &__addon {
@@ -150,7 +156,7 @@
   &__counter,
   &__error,
   &__clear {
-    color: var(--color-muted);
+    color: var(--color-gray);
     display: grid;
     opacity: 0.5;
     padding: 0.25rem;
@@ -158,8 +164,8 @@
   }
 
   &__drop-handle {
-    box-shadow: 0 0 1px 0 var(--color-muted);
-    color: var(--color-muted);
+    box-shadow: 0 0 1px 0 var(--color-gray);
+    color: var(--color-gray);
     cursor: pointer;
     font-size: 1.5em;
     grid-area: drop-handle;
@@ -235,9 +241,9 @@
 
     .ui-tag {
       align-items: center;
-      background-color: rgba($gray, 0.1);
+      background-color: rgba(map-get($gray, base), 0.1);
       border-radius: 2px;
-      box-shadow: 0 0 1px 0 var(--color-muted);
+      box-shadow: 0 0 1px 0 var(--color-gray);
       display: grid;
       font-size: 0.8rem;
       grid-gap: 4px;

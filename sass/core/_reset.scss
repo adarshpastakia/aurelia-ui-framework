@@ -64,15 +64,17 @@ html {
 
     --dlg-header-active-bg: #{map-get($primary, tint)};
     --dlg-header-active-color: #{map-get($primary, dark)};
-    --dlg-header-inactive-bg: #{map-get($muted, tint)};
-    --dlg-header-inactive-tool: #{map-get($muted, light)};
-    --dlg-header-inactive-color: #{map-get($muted, dark)};
+    --dlg-header-inactive-bg: #{map-get($gray, tint)};
+    --dlg-header-inactive-tool: #{map-get($gray, light)};
+    --dlg-header-inactive-color: #{map-get($gray, dark)};
 
     --input-bg: #{$white};
-    --input-border: #{map-get($muted, tint)};
+    --input-border: #{map-get($gray, tint)};
     --input-focus-border: #{map-get($primary, light)};
     --input-invalid-border: #{map-get($danger, light)};
     --input-invalid-bg: var(--color-warning-tint);
+    --input-focus-underline: #{map-get($primary, base)};
+    --input-invalid-underline: #{map-get($danger, base)};
   }
 
   &.theme-dark:root {
@@ -103,12 +105,12 @@ html {
 
     --dlg-header-active-bg: #{map-get($primary, shade)};
     --dlg-header-active-color: #{map-get($primary, light)};
-    --dlg-header-inactive-bg: #{map-get($muted, shade)};
-    --dlg-header-inactive-tool: #{map-get($muted, dark)};
-    --dlg-header-inactive-color: #{map-get($muted, light)};
+    --dlg-header-inactive-bg: #{map-get($gray, shade)};
+    --dlg-header-inactive-tool: #{map-get($gray, dark)};
+    --dlg-header-inactive-color: #{map-get($gray, light)};
 
     --input-bg: #{$black};
-    --input-border: #{map-get($muted, dark)};
+    --input-border: #{map-get($gray, dark)};
     --input-focus-border: #{map-get($primary, dark)};
     --input-invalid-border: #{map-get($danger, dark)};
     --input-invalid-bg: var(--color-danger-shade);
@@ -168,10 +170,10 @@ hr {
   width: 5px;
 
   &-thumb {
-    background: $gray;
+    background: var(--color-gray);
 
     &:hover {
-      background: $gray;
+      background: var(--color-gray);
     }
   }
 
@@ -181,27 +183,27 @@ hr {
 }
 
 ::-webkit-input-placeholder {
-  color: $gray;
+  color: var(--color-gray);
 }
 
 ::-moz-placeholder {
-  color: $gray;
+  color: var(--color-gray);
 }
 
 ::-ms-input-placeholder {
-  color: $gray;
+  color: var(--color-gray);
 }
 
 :-ms-input-placeholder {
-  color: $gray;
+  color: var(--color-gray);
 }
 
 ::-o-placeholder {
-  color: $gray;
+  color: var(--color-gray);
 }
 
 ::placeholder {
-  color: $gray;
+  color: var(--color-gray);
 }
 
 input::-ms-clear,

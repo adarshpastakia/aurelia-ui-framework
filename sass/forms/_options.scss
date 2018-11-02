@@ -4,9 +4,9 @@
 // @license   : MIT
 
 .ui-option {
-  --toggle-bg: var(--color-muted-light);
-  --toggle-color: var(--color-muted-dark);
-  --toggle-on-bg: var(--color-muted-shade);
+  --toggle-bg: var(--color-gray-light);
+  --toggle-color: var(--color-gray-dark);
+  --toggle-on-bg: var(--color-gray-shade);
 
   &__group {
     align-items: center;
@@ -90,6 +90,12 @@
         display: none;
       }
 
+      &:focus ~ .ui-option__toggle {
+        border-radius: 1em;
+        box-shadow: 0 0 3px 2px var(--input-focus-underline);
+        overflow: hidden;
+      }
+
       &:checked {
         ~ .ui-icon:first-of-type {
           display: none;
@@ -101,7 +107,7 @@
         ~ .ui-option__toggle {
           &::before {
             --toggle-bg: var(--toggle-on-bg);
-            --toggle-color: var(--color-muted-tint);
+            --toggle-color: var(--color-gray-tint);
           }
           &::after {
             transform: translateX(100%);
@@ -111,7 +117,7 @@
 
       &:hover ~ .ui-icon,
       &:focus ~ .ui-icon {
-        color: var(--color-primary);
+        color: var(--input-focus-underline);
       }
     }
   }
@@ -125,25 +131,25 @@
     }
   }
 
-  &.ui-theme--muted {
-    --toggle-on-bg: #{map-get($muted, base)};
+  &.ui-theme--gray {
+    --toggle-on-bg: var(--color-gray);
   }
   &.ui-theme--primary {
-    --toggle-on-bg: #{map-get($primary, base)};
+    --toggle-on-bg: var(--color-primary);
   }
   &.ui-theme--secondary {
-    --toggle-on-bg: #{map-get($secondary, base)};
+    --toggle-on-bg: var(--color-secondary);
   }
   &.ui-theme--info {
-    --toggle-on-bg: #{map-get($info, base)};
+    --toggle-on-bg: var(--color-info);
   }
   &.ui-theme--danger {
-    --toggle-on-bg: #{map-get($danger, base)};
+    --toggle-on-bg: var(--color-danger);
   }
   &.ui-theme--success {
-    --toggle-on-bg: #{map-get($success, base)};
+    --toggle-on-bg: var(--color-success);
   }
   &.ui-theme--warning {
-    --toggle-on-bg: #{map-get($warning, base)};
+    --toggle-on-bg: var(--color-warning);
   }
 }

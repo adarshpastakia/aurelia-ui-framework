@@ -13,6 +13,7 @@
   min-width: 12rem;
 
   &:focus-within &__label {
+    color: var(--color-primary);
     font-weight: $font-weight-medium;
   }
 

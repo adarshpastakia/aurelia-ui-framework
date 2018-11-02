@@ -2,7 +2,7 @@
   <ui-section>
     <div class="ui-sidebar" css.bind="{gridArea:'side-start'}">Sidebar</div>
     <ui-page ui-paper ui-margin="xs" page-title="Page Title">
-      <ui-content ui-padding ui-scroll with.bind="{themes:['default','muted','primary','secondary','info','danger','success','warning'], styles:['default','solid','link','outline']}">
+      <ui-content ui-padding ui-scroll with.bind="{themes:['default','gray','primary','secondary','info','danger','success','warning'], styles:['default','solid','link','outline']}">
         <div>Test statement with <a href="." class="ui-link">link</a></div>
         <div repeat.for="style of styles">
           <ui-button icon="mdi mdi-circle" icon-end icon-hilight type.bind="style" repeat.for="theme of themes"
@@ -209,9 +209,9 @@
                 <lipsum-para></lipsum-para>
               </ui-content>
             </ui-panel>
-            <ui-panel collapsible closable ui-theme="muted" collapsed="true">
+            <ui-panel collapsible closable ui-theme="gray" collapsed="true">
               <ui-header>
-                <ui-header-icon ui-bg="muted" ui-color="white" icon="mdi mdi-account"></ui-header-icon>
+                <ui-header-icon ui-bg="gray" ui-color="white" icon="mdi mdi-account"></ui-header-icon>
                 <ui-header-title>Panel Header</ui-header-title>
                 <ui-header-actions>
                   <ui-button type="tool" size="sm">Test</ui-button>

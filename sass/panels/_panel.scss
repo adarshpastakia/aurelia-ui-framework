@@ -112,10 +112,10 @@
     --panel-header-tool: var(--color-secondary-dark);
     --panel-header-color: var(--color-secondary-shade);
   }
-  &.ui-theme--muted {
-    --panel-header-bg: var(--color-muted-light);
-    --panel-header-tool: var(--color-muted-dark);
-    --panel-header-color: var(--color-muted-shade);
+  &.ui-theme--gray {
+    --panel-header-bg: var(--color-gray-light);
+    --panel-header-tool: var(--color-gray-dark);
+    --panel-header-color: var(--color-gray-shade);
   }
   &.ui-theme--info {
     --panel-header-bg: var(--color-info-light);

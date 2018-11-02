@@ -28,7 +28,7 @@
     }
 
     &__label {
-      color: var(--color-muted);
+      color: var(--color-gray);
       font-size: 0.95em;
       margin: 0 0.5rem;
     }
@@ -186,7 +186,7 @@
       }
 
       #{$base}__group {
-        border: 1px solid rgba($gray, 0.25);
+        border: 1px solid rgba(map-get($gray, base), 0.25);
 
         &::after {
           display: none;
@@ -209,6 +209,43 @@
             font-size: 0.8em;
             margin: -0.5em 0 0;
           }
+        }
+      }
+    }
+  }
+
+  &,
+  &__bar {
+    &.ui-theme--light {
+      background-color: var(--color-gray-light);
+
+      &,
+      & > #{$base}__bar__wrapper {
+        > #{$base}__group > div > #{$base}__item,
+        > #{$base}__item {
+          > #{$base}__item__link,
+          > #{$base}__item__caret {
+            color: var(--color-gray-shade);
+            --menu-item-hover-bg: #{map-get($secondary, tint)};
+            --menu-item-hover-color: #{map-get($secondary, shade)};
+            --menu-item-active-bg: #{map-get($secondary, light)};
+            --menu-item-active-color: #{map-get($secondary, shade)};
+          }
+        }
+      }
+    }
+    &.ui-theme--dark {
+      background-color: var(--color-gray-dark);
+
+      > #{$base}__group > div > #{$base}__item,
+      > #{$base}__item {
+        > #{$base}__item__link,
+        > #{$base}__item__caret {
+          color: var(--color-gray-tint);
+          --menu-item-hover-bg: #{map-get($secondary, shade)};
+          --menu-item-hover-color: #{map-get($secondary, tint)};
+          --menu-item-active-bg: #{map-get($secondary, dark)};
+          --menu-item-active-color: #{map-get($secondary, tint)};
         }
       }
     }

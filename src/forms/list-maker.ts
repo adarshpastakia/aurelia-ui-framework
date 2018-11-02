@@ -34,7 +34,7 @@ export class ListMaker extends BaseInput {
   public valueProperty: string = "";
   public groupProperty: string = "";
   public query: ({ query }) => AnyObject[];
-  public options: AnyObject[];
+  public options: AnyObject[] = [];
 
   public readonly: boolean = false;
   public disabled: boolean = false;

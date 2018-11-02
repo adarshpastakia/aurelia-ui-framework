@@ -81,11 +81,17 @@
         </ui-fieldset>
         <ui-fieldset label="Multi choice">
           <ui-field label="Label" nolabel with.bind="{cInput:[1]}">
-            <ui-field-wrapper repeat.for="i of 3">
+            <ui-field-wrapper repeat.for="i of 2">
               <ui-input-addon>
                 <ui-checkbox model.bind="i" checked.bind="cInput"></ui-checkbox>
               </ui-input-addon>
               <ui-input disabled.bind="!(cInput.length && cInput.includes(i))" placeholder="This is a multiple optional input"></ui-input>
+            </ui-field-wrapper>
+            <ui-field-wrapper>
+              <ui-input-addon>
+                <ui-checkbox model.bind="3" checked.bind="cInput"></ui-checkbox>
+              </ui-input-addon>
+              <ui-select disabled.bind="!(cInput.length && cInput.includes(3))" placeholder="This is a multiple optional input"></ui-select>
             </ui-field-wrapper>
           </ui-field>
         </ui-fieldset>
