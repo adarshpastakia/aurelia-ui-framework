@@ -11,13 +11,13 @@ import { UITether } from "../utils/ui-tether";
 
 @autoinject()
 @containerless()
-@customElement("ui-dropdown")
+@customElement("ui-drop")
 @inlineView(
-  `<template><div slot="ui-dropdown" class="ui-dropdown" click.trigger="closeDrop()" data-open.bind="isOpen">
-  <div ref="vmElement" class="ui-dropdown__body \${class}" click.trigger="close($event)"><slot></slot></div>
+  `<template><div slot="ui-drop" class="ui-drop" click.trigger="closeDrop()" data-open.bind="isOpen">
+  <div ref="vmElement" class="ui-drop__body \${class}" click.trigger="close($event)"><slot></slot></div>
   </div></template>`
 )
-export class UIDropdown {
+export class UIDrop {
   @bindable()
   public class: string = "";
 

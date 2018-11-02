@@ -13,7 +13,7 @@ import {
   customElement,
   inlineView
 } from "aurelia-framework";
-import { UIDropdown } from "../core/ui-dropdown";
+import { UIDrop } from "../core/ui-drop";
 import { UIInternal } from "../utils/ui-internal";
 
 @autoinject()
@@ -66,11 +66,11 @@ export class UIMenuItem {
 
   protected split: boolean;
 
-  @child("div.ui-dropdown")
+  @child("div.ui-drop")
   protected elDropdown: Element;
 
   protected hasDrop: boolean = false;
-  protected dropEl: UIDropdown;
+  protected dropEl: UIDrop;
 
   constructor(private element: Element) {
     this.split = element.hasAttribute("split");
@@ -79,7 +79,7 @@ export class UIMenuItem {
   protected attached() {
     this.hasDrop = !!this.elDropdown;
     if (this.hasDrop) {
-      this.dropEl = getSlotViewModel(this.elDropdown) as UIDropdown;
+      this.dropEl = getSlotViewModel(this.elDropdown) as UIDrop;
       this.dropEl.tether(this.element);
     }
   }

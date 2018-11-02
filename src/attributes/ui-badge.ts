@@ -23,7 +23,7 @@ export class UIBadge {
     const vm = getViewModel(this.element);
     const view = UIInternal.compileTemplate(
       `<template><div class="ui-badge" ui-theme.bind="theme">
-        <div class="ui-badge__value"><ui-icon icon.bind="icon" if.bind="icon"></ui-icon>\${value}</div>
+        <div class="ui-badge__label"><ui-icon icon.bind="icon" if.bind="icon"></ui-icon>\${value}</div>
       </div></template>`,
       this
     );

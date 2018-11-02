@@ -144,4 +144,6 @@ export class Tester {
         .then(result => this.logger.info("Dlg Closed", result));
     }
   }
+
+  protected listMatcher = ({ model, value }) => model.iso2 === value.iso2;
 }

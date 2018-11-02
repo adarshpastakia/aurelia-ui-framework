@@ -1,4 +1,4 @@
-<template class="ui-input ${classes}" aria-disabled.bind="disabled || isDisabled" aria-readonly.bind="readonly">
+<template class="ui-input ui-list ${classes}" aria-disabled.bind="disabled || isDisabled" aria-readonly.bind="readonly">
   <input-wrapper model.bind="$this">
     <slot></slot>
     <div class="ui-input__tags" click.trigger="inputEl.focus()">
@@ -8,15 +8,13 @@
           <span class="ui-tag__close" click.trigger="removeValue(m)">&#x00D7;</span></div>
       </template>
       <input ref="inputEl" role="combo" size="1" placeholder.bind="placeholder" disabled.bind="disabled || isDisabled || isPlain"
-        readonly.bind="readonly" value.two-way="inputValue" focus.trigger="toggleDrop(true)" blur.trigger="canToggleDrop($event)"
-        input.trigger="filterOptions() & debounce" keydown.trigger="checkKeyEvent($event)" change.trigger="false" />
+        readonly.bind="readonly" value.two-way="inputValue" input.trigger="filterOptions() & debounce" keydown.trigger="checkKeyEvent($event)"
+        change.trigger="false" />
     </div>
-  </input-wrapper>
-  <ui-drop view-model.ref="dropEl" class="ui-list" close.trigger="resetQuery()">
-    <div ref="listContainer" class="ui-list__container">
+    <div class="ui-list__container" ref="listContainer" css.bind="{height}">
       <template if.bind="innerOptions && !isGrouped">
         <div class.bind="listClass(option, value)" with.bind="{option}" repeat.for="option of innerOptions" ref="__el"
-          show.one-time="buildOption(option, __el, !!value)" click.trigger="selectOption(option, __el)" data-model.bind="option"></div>
+          show.one-time="buildOption(option, __el, !!value)" click.trigger="selectOption(option)" data-model.bind="option"></div>
       </template>
       <template if.bind="innerOptions && isGrouped">
         <template repeat.for="[key, options] of innerOptions">
@@ -27,10 +25,10 @@
           </template>
         </template>
       </template>
+      <div if.bind="isLoading" ui-padding ui-align="center" ui-font="lg" ui-color="muted">
+        <ui-svg-icon icon="busy" class="ui-anim--spin"></ui-svg-icon>
+      </div>
+      <div if.bind="isLoaded && innerOptions.length === 0" ui-padding ui-color="muted" ui-font="sm">${noOptionsText}</div>
     </div>
-    <div if.bind="isLoading" ui-padding ui-align="center" ui-font="lg" ui-color="muted">
-      <ui-svg-icon icon="busy" class="ui-anim--spin"></ui-svg-icon>
-    </div>
-    <div if.bind="isLoaded && innerOptions.length === 0" ui-padding ui-color="muted" ui-font="sm">${noOptionsText}</div>
-  </ui-drop>
+  </input-wrapper>
 </template>

@@ -58,6 +58,7 @@
     display: inline-block;
     margin: 2px;
     max-width: 12em;
+    position: relative;
     vertical-align: middle;
     --btn-ripple: var(--btn-color);
     --btn-hilight: var(--btn-color);
@@ -236,12 +237,19 @@
   &__label {
     grid-area: label;
     line-height: 2;
-    padding: 0 0.5em;
     text-align: center;
     @include ellipsis();
 
     &:empty {
       display: none;
+    }
+
+    &:first-child {
+      @include property-prefix(padding-start, 0.5em);
+    }
+
+    &:last-child {
+      @include property-prefix(padding-end, 0.5em);
     }
   }
 
@@ -271,6 +279,18 @@
 
   &__icon--end & {
     grid-template-areas: "busy label badge caret icon";
+
+    &__label {
+      padding: 0;
+
+      &:first-child {
+        @include property-prefix(padding-end, 0.5em);
+      }
+
+      &:last-child {
+        @include property-prefix(padding-start, 0.5em);
+      }
+    }
   }
 
   &__icon--top & {
@@ -287,9 +307,14 @@
       @include property-prefix(padding-end, 1em, padding-right);
     }
   }
-  &__icon--hilight #{$base}__icon {
-    background-color: var(--btn-hilight);
-    color: var(--btn-inverse);
+  &__icon--hilight & {
+    &__icon {
+      background-color: var(--btn-hilight);
+      color: var(--btn-inverse);
+    }
+    &__label {
+      padding: 0 0.5em;
+    }
   }
 
   // Button group
@@ -327,6 +352,27 @@
       #{$base}__wrapper:not(:last-child) #{$base}__inner {
         border-bottom-right-radius: 0;
         border-top-right-radius: 0;
+      }
+
+      &#{$base}__group--with-separator #{$base}__wrapper:not(:last-child) {
+        #{$base}__inner {
+          @include property-prefix(padding-end, 0.5em);
+        }
+
+        &::after {
+          background-color: var(--base-bg);
+          border-radius: 1em;
+          box-shadow: 0 0 2px 0 var(--color-muted);
+          content: attr(data-separator);
+          font-size: 0.8em;
+          font-variant: small-caps;
+          line-height: 1.25;
+          padding: 0.15em;
+          position: absolute;
+          right: -0.5em;
+          top: 0.6em;
+          z-index: 5;
+        }
       }
     }
 

@@ -17,12 +17,18 @@
   }
 
   .ui-row > .ui-col {
-    flex: 1 1 18rem;
+    flex: 1 1 12rem;
+    margin: var(--gutter);
+
+    > .ui-field,
+    > .ui-fieldset {
+      margin: 0 0 calc(0.5 * var(--gutter));
+    }
   }
 
   > .ui-field,
   > .ui-fieldset {
-    margin: calc(0.25 * var(--gutter)) calc(0.5 * var(--gutter));
+    margin: calc(0.5 * var(--gutter));
   }
 }
 

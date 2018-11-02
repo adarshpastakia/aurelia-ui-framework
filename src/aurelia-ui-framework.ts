@@ -65,6 +65,7 @@ export class UIFrameworkConfig {
       this.loadFromModule(PLATFORM.moduleName("./forms/ui-input"));
       this.loadFromModule(PLATFORM.moduleName("./forms/ui-textarea"));
       this.loadFromModule(PLATFORM.moduleName("./forms/ui-select"));
+      this.loadFromModule(PLATFORM.moduleName("./forms/ui-list"));
       this.loadFromModule(PLATFORM.moduleName("./forms/ui-checkbox"));
       this.loadFromModule(PLATFORM.moduleName("./forms/ui-radio"));
       this.loadFromModule(PLATFORM.moduleName("./forms/ui-toggle"));
@@ -86,6 +87,7 @@ export class UIFrameworkConfig {
     menus: () => {
       this.loadFromModule(PLATFORM.moduleName("./menu/ui-menu"));
       this.loadFromModule(PLATFORM.moduleName("./menu/ui-menubar"));
+      this.loadFromModule(PLATFORM.moduleName("./menu/ui-dropdown"));
       return this.use;
     },
 
@@ -101,7 +103,7 @@ export class UIFrameworkConfig {
     this.loadFromModule(PLATFORM.moduleName("./core/ui-responsive"));
     this.loadFromModule(PLATFORM.moduleName("./core/ui-page"));
     this.loadFromModule(PLATFORM.moduleName("./core/ui-icon"));
-    this.loadFromModule(PLATFORM.moduleName("./core/ui-dropdown"));
+    this.loadFromModule(PLATFORM.moduleName("./core/ui-drop"));
 
     this.loadFromModule(PLATFORM.moduleName("./attributes/ui-helpers"));
 

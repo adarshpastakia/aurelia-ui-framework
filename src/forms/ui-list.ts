@@ -9,9 +9,9 @@ import { InputWrapper } from "./input-wrapper";
 import { ListMaker } from "./list-maker";
 
 @autoinject()
-@customElement("ui-select")
+@customElement("ui-list")
 @viewResources(InputWrapper)
-export class UISelect extends ListMaker {
+export class UIList extends ListMaker {
   @bindable({ defaultBindingMode: bindingMode.twoWay })
   public value: AnyObject = undefined;
   @bindable({ defaultBindingMode: bindingMode.twoWay })
@@ -22,6 +22,8 @@ export class UISelect extends ListMaker {
 
   @bindable()
   public name: string = "";
+  @bindable()
+  public height: string = "20em";
   @bindable()
   public placeholder: string = "";
 
@@ -49,16 +51,9 @@ export class UISelect extends ListMaker {
 
   constructor(protected element: Element) {
     super(element);
-    this.dropHandle = "caret";
     this.multiple = element.hasAttribute("multiple");
 
     this.template = this.element.querySelector("template");
-  }
-
-  protected attached(): void {
-    this.dropEl.attachToViewport = isTrue(this.element.getAttribute("attach-to-viewport"));
-    this.dropEl.closeOnClick = !this.multiple;
-    this.dropEl.tether(this.element);
   }
 
   protected bind(): void {
@@ -71,5 +66,9 @@ export class UISelect extends ListMaker {
     }
     this.isGrouped = !!this.groupProperty;
     this.valueChanged();
+  }
+
+  protected attached():void {
+    this.loadOptions();
   }
 }

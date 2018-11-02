@@ -7,7 +7,7 @@
         <ui-button type="link" ui-theme="info" click.trigger="vmDlg.close('Done')">Test</ui-button>
         <ui-divider></ui-divider>
         <ui-button type="tool" icon="mdi mdi-dots-horizontal" ui-theme="info" no-caret>
-          <ui-dropdown close-on-click="false" anchor="br" position="tr">
+          <ui-drop close-on-click="false" anchor="br" position="tr">
             <div ui-padding style="width: 30em">
               <ui-select options.bind="countries" placeholder="Select a country" label-property="name" value-property="iso2" group-property="continent"
                 clear value.bind="sCode" attach-to-viewport="true">
@@ -23,7 +23,7 @@
                 </template>
               </ui-select>
             </div>
-          </ui-dropdown>
+          </ui-drop>
         </ui-button>
       </ui-header-actions>
     </ui-header>

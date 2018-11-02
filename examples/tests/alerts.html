@@ -1,16 +1,16 @@
 <template>
   <ui-container fluid ref="parentel" ui-padding>
     <h4>Toast</h4>
-    <ui-fieldset with.bind="{config:{title:'Title', message:'Toast message', icon:'mdi mdi-account', theme:'primary'}}">
+    <ui-fieldset with.bind="{config:{title:'Title', message:'Toast message', icon:'mdi mdi-bell', theme:'primary', autoClose: true, type:'alert'}}">
       <ui-row>
-        <ui-col size="8">
+        <ui-col size="4">
           <ui-field label="Theme">
             <ui-select options.bind="themes" value.bind="config.theme"></ui-select>
           </ui-field>
         </ui-col>
         <ui-col size="4">
           <ui-field label="Icon">
-            <ui-select options.bind="['', 'mdi mdi-account', 'mdi mdi-comment-question', 'mdi mdi-alert-circle-outline']"
+            <ui-select options.bind="['none', 'mdi mdi-bell', 'mdi mdi-account', 'mdi mdi-comment-question', 'mdi mdi-alert-circle-outline']"
               value.bind="config.icon">
               <template>
                 <div>
@@ -18,6 +18,14 @@
                 </div>
               </template>
             </ui-select>
+          </ui-field>
+        </ui-col>
+        <ui-col size="4">
+          <ui-field>
+            <ui-option-group>
+              <ui-radio checked.bind="config.type" model="alert">Auto Close</ui-radio>
+              <ui-radio checked.bind="config.type" model="confirm">Confirm</ui-radio>
+            </ui-option-group>
           </ui-field>
         </ui-col>
       </ui-row>
@@ -39,7 +47,9 @@
       <template repeat.for="theme of themes">
         <ui-col size="12">
           <ui-alert ui-theme.bind="theme" icon="mdi mdi-comment-question" alert-title="Alert ${theme}" type="confirm">
-            <span><lipsum-line></lipsum-line>&nbsp;</span>
+            <span>
+              <lipsum-line></lipsum-line>&nbsp;
+            </span>
             <a href="#/tester/alerts.html">Click here</a> to continue.
           </ui-alert>
         </ui-col>

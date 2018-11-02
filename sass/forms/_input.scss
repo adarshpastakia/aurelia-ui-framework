@@ -18,6 +18,14 @@
   overflow: hidden;
   position: relative;
 
+  &.ui-list {
+    grid-template-areas: "addon-start error input counter clear addon-end drop-handle" "list-container . . . . . .";
+
+    .ui-list__container {
+      border-top: 1px solid var(--input-border);
+    }
+  }
+
   $base: #{&};
 
   &--textarea {
@@ -103,8 +111,12 @@
     font-size: map-get($font-sizes, sm);
     grid-area: addon-start;
     min-width: 2rem;
-    padding: 0.25rem;
+    padding: 0;
     place-content: center;
+
+    .ui-dropdown {
+      border: 0;
+    }
 
     .ui-icon {
       font-size: 1.25rem;

@@ -13,7 +13,7 @@ import {
   inlineView,
   viewResources
 } from "aurelia-framework";
-import { BaseInput } from "./base";
+import { BaseInput } from "./base-input";
 import { InputWrapper } from "./input-wrapper";
 
 @autoinject()

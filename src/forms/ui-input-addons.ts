@@ -5,7 +5,7 @@
  * @license   : MIT
  */
 import { autoinject, bindable, customElement, inlineView } from "aurelia-framework";
-import { BaseInput } from "./base";
+import { BaseInput } from "./base-input";
 
 @autoinject()
 @customElement("ui-input-addon")

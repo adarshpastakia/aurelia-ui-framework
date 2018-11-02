@@ -33,13 +33,13 @@ $mdi-font-size-base: 1em;
 @import "buttons/button";
 @import "buttons/badge";
 
+@import "menus/menu";
+
 @import "forms/form";
 @import "forms/field";
 @import "forms/input";
 @import "forms/list";
 @import "forms/options";
-
-@import "menus/menu";
 
 @import "datagrid/datagrid";
 

@@ -6,7 +6,7 @@
  */
 
 import { bindable, child, computedFrom, customElement } from "aurelia-framework";
-import { UIDropdown } from "../core/ui-dropdown";
+import { UIDrop } from "../core/ui-drop";
 import { UIInternal } from "../utils/ui-internal";
 
 @customElement("ui-button")
@@ -31,16 +31,16 @@ export class UIButton {
   @bindable()
   public disabled: boolean = false;
 
-  @child("div.ui-dropdown")
+  @child("div.ui-drop")
   protected elDropdown: Element;
   protected hasDrop: boolean = false;
-  protected dropEl: UIDropdown;
+  protected dropEl: UIDrop;
 
   protected split: boolean = false;
 
   private elDisabled: boolean = false;
 
-  constructor(protected element: Element) {
+  constructor(public element: Element) {
     if (element.hasAttribute("icon-hilight")) {
       element.classList.add("ui-btn__icon--hilight");
     }
@@ -72,7 +72,7 @@ export class UIButton {
     UIInternal.queueTask(() => {
       this.hasDrop = !!this.elDropdown;
       if (this.hasDrop) {
-        this.dropEl = getSlotViewModel(this.elDropdown) as UIDropdown;
+        this.dropEl = getSlotViewModel(this.elDropdown) as UIDrop;
         this.dropEl.tether(this.element);
       }
     });

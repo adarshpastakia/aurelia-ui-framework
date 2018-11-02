@@ -12,7 +12,7 @@
 
   &__group {
     border: 0;
-    flex: 1 1 auto;
+    flex: 0 0 auto;
     margin: 0;
     padding: 0;
     position: relative;
@@ -62,10 +62,9 @@
   }
 
   &__item {
-    border: 1px solid transparent;
     border-width: 1px 0;
     display: grid;
-    flex: 1 1 auto;
+    flex: 0 0 auto;
     grid-template-areas: "link caret";
     grid-template-columns: 1fr auto;
 
@@ -134,6 +133,15 @@
           background-color: var(--menu-item-active-bg);
           transition: background-color 0.5s;
         }
+      }
+    }
+
+    &.ui-dropdown {
+      border: 1px solid var(--base-border);
+
+      .ui-menu__item__link {
+        grid-template-areas: "icon error label badge caret";
+        grid-template-columns: auto auto 1fr auto auto;
       }
     }
   }

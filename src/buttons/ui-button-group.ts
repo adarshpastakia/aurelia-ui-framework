@@ -25,6 +25,8 @@ import { UIButton } from "./ui-button";
 export class UIButtonGroup {
   @bindable({ bindingMode: bindingMode.twoWay })
   public value: string = "";
+  @bindable()
+  public separator: string = "";
 
   @child("ui-button[data-active='true']")
   private currentSelected: UIButton;
@@ -44,9 +46,16 @@ export class UIButtonGroup {
   }
 
   protected attached(): void {
+    if (this.separator) {
+      this.element.classList.add("ui-btn__group--with-separator");
+    }
     if (this.toggle) {
       UIInternal.queueTask(() => this.valueChanged(this.value, ""));
     }
+  }
+
+  protected buttonsChanged(): void {
+    this.buttons.forEach(b => ((b.element as HTMLElement).dataset.separator = this.separator));
   }
 
   protected valueChanged(newValue, oldValue): void {

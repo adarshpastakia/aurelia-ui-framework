@@ -4,7 +4,12 @@
 // @license   : MIT
 
 .ui-list {
-  @extend .ui-scroll;
+  &__container {
+    grid-area: list-container;
+    grid-column-end: 7;
+    max-height: 20rem;
+    @extend .ui-scroll;
+  }
 
   &__title {
     color: var(--color-muted);

@@ -128,9 +128,8 @@
         background-color: if($hilight, $hilight, rgba(0, 0, 0, 0.5));
       }
 
-      .ui-badge__value .ui-icon {
+      .ui-badge__label .ui-icon {
         background-color: transparent;
-        color: if($hilight, $hilight, $color);
       }
     }
   }

@@ -35,28 +35,28 @@
       <ui-fieldset>
         <template repeat.for="theme of themes">
           <ui-button ui-theme.bind="theme" type.bind="style" icon="mdi mdi-account" label="Click">
-            <ui-dropdown close-on-click>
+            <ui-drop close-on-click>
               <ui-menu>
                 <ui-menu-item ui-badge="9">List option</ui-menu-item>
                 <ui-menu-item>List option</ui-menu-item>
                 <ui-menu-item>List option</ui-menu-item>
                 <ui-menu-item>List option</ui-menu-item>
               </ui-menu>
-            </ui-dropdown>
+            </ui-drop>
           </ui-button>
         </template>
       </ui-fieldset>
       <ui-fieldset>
         <template repeat.for="theme of themes">
           <ui-button ui-theme.bind="theme" type.bind="style" icon="mdi mdi-account" label="Click" split>
-            <ui-dropdown>
+            <ui-drop>
               <ui-menu>
                 <ui-menu-item>List option</ui-menu-item>
                 <ui-menu-item>List option</ui-menu-item>
                 <ui-menu-item>List option</ui-menu-item>
                 <ui-menu-item>List option</ui-menu-item>
               </ui-menu>
-            </ui-dropdown>
+            </ui-drop>
           </ui-button>
         </template>
       </ui-fieldset>
@@ -96,7 +96,7 @@
       <ui-button icon="mdi mdi-account" type="outline">Click</ui-button>
       <ui-button icon="mdi mdi-account" type="outline">Click</ui-button>
     </ui-button-group>
-    <ui-button-group>
+    <ui-button-group separator="or">
       <ui-button icon="mdi mdi-account" type="solid" ui-theme="info">Click</ui-button>
       <ui-button icon="mdi mdi-account" type="solid" ui-theme="danger">Click</ui-button>
       <ui-button icon="mdi mdi-account" type="solid" ui-theme="success">Click</ui-button>
