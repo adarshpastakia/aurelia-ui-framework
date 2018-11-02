@@ -23,7 +23,7 @@
     </ui-menu-group>
     <template repeat.for="i of 20">
       <ui-divider if.bind="i % 3 == 2"></ui-divider>
-      <ui-menu-item label="Test" active.one-time="i % 20 === 9">
+      <ui-menu-item label="Test ${i}" active.one-time="i % 20 === 9">
         <!-- <ui-drop close-on-click>
           <ui-menu-item icon="mdi mdi-account">Test</ui-menu-item>
           <ui-menu-item icon="blank">Test</ui-menu-item>

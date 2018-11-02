@@ -31,7 +31,7 @@ export class UIMenubar {
   }
 
   protected attached(): void {
-    this.calculateOverflow();
+    setTimeout(() => this.calculateOverflow(), 500);
   }
 
   protected detached(): void {
@@ -40,12 +40,15 @@ export class UIMenubar {
 
   protected calculateOverflow(): void {
     this.resetOverflow();
-    this.elWrapper.children.forEach(item => {
-      if (item.offsetLeft + item.offsetWidth + 50 >= this.elWrapper.offsetWidth) {
-        this.elOverflow.appendChild(item);
+    const overflowItems = [];
+    // @ts-ignore
+    [...this.elWrapper.children].reverse().forEach(item => {
+      if (item.offsetLeft + item.offsetWidth + 30 >= this.element.offsetWidth) {
+        overflowItems.splice(0, 0, item);
         this.hasOverflow = true;
       }
     });
+    this.elOverflow.append(...overflowItems);
   }
 
   protected resetOverflow(): void {

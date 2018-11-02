@@ -3,31 +3,10 @@
     <ui-sidebar width="12em" class="ui-sidebar" ui-margin="b--xs" ui-paper>
       <ui-content ui-padding="y--xs" ui-scroll>
         <ui-menu>
-          <ui-menu-group label="Overview" collapsible>
-            <ui-menu-item icon="mdi mdi-palette-advanced" active.bind="src === 'theme.html'" href="/tester/theme.html">Themes</ui-menu-item>
-            <ui-menu-item icon="mdi mdi-format-text" active.bind="src === 'typo.html'" href="/tester/typo.html">Typography</ui-menu-item>
-            <ui-menu-item icon="mdi mdi-format-list-bulleted" active.bind="src === 'lists.html'" href="/tester/lists.html">Lists</ui-menu-item>
-            <ui-menu-item icon="mdi mdi-blur-radial" active.bind="src === 'icons.html'" href="/tester/icons.html">Icons</ui-menu-item>
-            <ui-menu-item icon="mdi mdi-border-none" active.bind="src === 'responsive.html'" href="/tester/responsive.html">Responsive</ui-menu-item>
-            <ui-menu-item icon="mdi mdi-earth" active.bind="src === 'countries.html'" href="/tester/countries.html">Countries</ui-menu-item>
-            <ui-menu-item icon="mdi mdi-cash" active.bind="src === 'currencies.html'" href="/tester/currencies.html">Currencies</ui-menu-item>
-            <ui-menu-item icon="mdi mdi-file-alert-outline" active.bind="src === 'files.html'" href="/tester/files.html">File Types</ui-menu-item>
-            <ui-menu-item icon="mdi mdi-phone" active.bind="src === 'phonelib.html'" href="/tester/phonelib.html">PhoneLib</ui-menu-item>
+          <ui-menu-group repeat.for="[group,menus] of menus" label.bind="group.label" collapsible>
+            <ui-menu-item repeat.for="menu of menus" ui-badge="theme.bind:menu.badge.theme;icon.bind:menu.badge.icon;tooltip.bind:menu.badge.tooltip"
+              icon="mdi mdi-${menu.icon}" active.bind="src === menu.src" href="/tester/${menu.src}">${menu.label}</ui-menu-item>
           </ui-menu-group>
-          <ui-menu-item icon="mdi mdi-format-page-break" active.bind="src === 'page.html'" href="/tester/page.html" ui-badge="icon:mdi mdi-check;theme:pink-dark">Page</ui-menu-item>
-          <ui-menu-item icon="mdi mdi-keyboard-outline" active.bind="src === 'forms.html'" href="/tester/forms.html">Forms</ui-menu-item>
-          <ui-menu-item icon="mdi mdi-card-text-outline" active.bind="src === 'login.html'" href="/tester/login.html">Login</ui-menu-item>
-          <ui-menu-item icon="mdi mdi-auto-fix" active.bind="src === 'wizard.html'" href="/tester/wizard.html">Wizard</ui-menu-item>
-          <ui-divider></ui-divider>
-          <ui-menu-item icon="mdi mdi-dns" active.bind="src === 'buttons.html'" href="/tester/buttons.html">Buttons</ui-menu-item>
-          <ui-menu-item icon="mdi mdi-menu" active.bind="src === 'menu.html'" href="/tester/menu.html">Menu</ui-menu-item>
-          <ui-divider></ui-divider>
-          <ui-menu-item icon="mdi mdi-cards-variant" active.bind="src === 'cards.html'" href="/tester/cards.html">Cards</ui-menu-item>
-          <ui-menu-item icon="mdi mdi-window-restore" active.bind="src === 'dialog.html'" href="/tester/dialog.html">Dialog</ui-menu-item>
-          <ui-menu-item icon="mdi mdi-application" active.bind="src === 'panels.html'" href="/tester/panels.html">Panels</ui-menu-item>
-          <ui-menu-item icon="mdi mdi-bell-outline" active.bind="src === 'alerts.html'" href="/tester/alerts.html">Alerts</ui-menu-item>
-          <ui-divider></ui-divider>
-          <ui-menu-item icon="mdi mdi-grid" active.bind="src === 'datagrid.html'" href="/tester/datagrid.html" ui-badge="icon:mdi mdi-alert;theme:yellow-dark">Datagrid</ui-menu-item>
         </ui-menu>
       </ui-content>
     </ui-sidebar>

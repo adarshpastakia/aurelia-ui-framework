@@ -16,17 +16,22 @@ export class UIBadge {
   protected icon: string = "";
   @bindable()
   protected theme: string = "";
+  @bindable()
+  protected tooltip: string = "";
 
   constructor(protected element: Element) {}
 
   protected attached(): void {
-    const vm = getViewModel(this.element);
-    const view = UIInternal.compileTemplate(
-      `<template><div class="ui-badge" ui-theme.bind="theme">
+    if (this.value || this.icon) {
+      const vm = getViewModel(this.element);
+      const view = UIInternal.compileTemplate(
+        `<template><div class="ui-badge" ui-theme.bind="theme" ui-tooltip.bind="tooltip">
         <div class="ui-badge__label"><ui-icon icon.bind="icon" if.bind="icon"></ui-icon>\${value}</div>
       </div></template>`,
-      this
-    );
-    (vm && vm.badgeEl ? vm.badgeEl : this.element).appendChild(view.fragment);
+        this
+      );
+      (vm && vm.badgeEl ? vm.badgeEl : vm.vmElement || this.element).appendChild(view.fragment);
+      view.attached();
+    }
   }
 }

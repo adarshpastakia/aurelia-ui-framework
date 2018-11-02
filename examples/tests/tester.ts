@@ -74,6 +74,69 @@ export class Tester {
     "warning"
   ];
 
+  protected menus = new Map([
+    [
+      { label: "Overview" },
+      [
+        { icon: "palette-advanced", src: "theme.html", label: "Themes" },
+        { icon: "format-text", src: "typo.html", label: "Typography" },
+        { icon: "format-list-bulleted", src: "lists.html", label: "Lists" },
+        { icon: "blur-radial", src: "icons.html", label: "Icons" },
+        { icon: "border-none", src: "responsive.html", label: "Responsive" },
+        { icon: "earth", src: "countries.html", label: "Countries" },
+        { icon: "cash", src: "currencies.html", label: "Currencies" },
+        { icon: "file-alert-outline", src: "files.html", label: "File Types" },
+        { icon: "phone", src: "phonelib.html", label: "PhoneLib" }
+      ]
+    ],
+    [
+      { label: "" },
+      [
+        {
+          badge: { theme: "pink-dark", icon: "mdi mdi-check", tooltip:"Tested" },
+          icon: "format-page-break",
+          label: "Page",
+          src: "page.html"
+        },
+        { icon: "keyboard-outline", src: "forms.html", label: "Forms" },
+        { icon: "card-text-outline", src: "login.html", label: "Login" },
+        {
+          badge: { theme: "yellow-dark", icon: "mdi mdi-alert", tooltip:"Under Development" },
+          icon: "auto-fix",
+          label: "Wizard",
+          src: "wizard.html"
+        }
+      ]
+    ],
+    [
+      { label: "" },
+      [
+        { icon: "dns", src: "buttons.html", label: "Buttons" },
+        { icon: "menu", src: "menu.html", label: "Menus" }
+      ]
+    ],
+    [
+      { label: "" },
+      [
+        { icon: "mdi mdi-cards-variant", src: "cards.html", label: "Cards" },
+        { icon: "mdi mdi-window-restore", src: "dialog.html", label: "Dialogs" },
+        { icon: "mdi mdi-application", src: "panels.html", label: "Panels" },
+        { icon: "mdi mdi-bell-outline", src: "alerts.html", label: "Alerts" }
+      ]
+    ],
+    [
+      { label: "" },
+      [
+        {
+          badge: { theme: "yellow-dark", icon: "mdi mdi-alert", tooltip:"Under Development" },
+          icon: "grid",
+          label: "Datagrid",
+          src: "datagrid.html"
+        }
+      ]
+    ]
+  ]);
+
   constructor(protected toastService: UIAlertService, private dialogService: UIDialogService) {}
 
   protected activate(param) {

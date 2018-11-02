@@ -77,7 +77,7 @@
     pointer-events: none;
     z-index: 200;
 
-    > div {
+    > div:not(.ui-tooltip) {
       height: 100vh;
       pointer-events: all;
       width: 100vw;

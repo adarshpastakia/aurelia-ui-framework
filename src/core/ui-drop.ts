@@ -27,8 +27,8 @@ export class UIDrop {
   public closeOnClick: boolean = true;
   public attachToViewport: boolean = false;
 
-  private position: UITether.TetherPosition;
-  private anchorPosition: UITether.TetherPosition;
+  private position: UITether.Position;
+  private anchorPosition: UITether.Position;
   private tetherObj: UITether.Tether;
 
   private anchorEl: Element;
@@ -36,8 +36,8 @@ export class UIDrop {
   private obResize: Subscription;
 
   constructor(private element: Element) {
-    this.position = (element.getAttribute("position") as UITether.TetherPosition) || "tl";
-    this.anchorPosition = (element.getAttribute("anchor") as UITether.TetherPosition) || "bl";
+    this.position = (element.getAttribute("position") as UITether.Position) || "tl";
+    this.anchorPosition = (element.getAttribute("anchor") as UITether.Position) || "bl";
     this.closeOnClick = !isFalse(element.getAttribute("close-on-click"));
     this.attachToViewport = isTrue(element.getAttribute("attach-to-viewport"));
   }

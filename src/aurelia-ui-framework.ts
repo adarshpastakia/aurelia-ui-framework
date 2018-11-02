@@ -55,6 +55,7 @@ export class UIFrameworkConfig {
       this.loadFromModule(PLATFORM.moduleName("./buttons/ui-button-group"));
       this.loadFromModule(PLATFORM.moduleName("./buttons/ui-badge"));
       this.loadFromModule(PLATFORM.moduleName("./attributes/ui-badge"));
+      this.loadFromModule(PLATFORM.moduleName("./attributes/ui-tooltip"));
       return this.use;
     },
 

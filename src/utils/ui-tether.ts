@@ -9,29 +9,31 @@ import { getLogger } from "aurelia-logging";
 import { UIAppConfig } from "../utils/ui-app-config";
 
 export namespace UITether {
-  export type TetherPosition = "tl" | "tr" | "bl" | "br";
+  export type Position = "tl" | "tr" | "bl" | "br" | "tc" | "bc";
   export interface Tether {
     dispose(): void;
     updatePosition(): void;
   }
   export interface TetherConfig {
+    resize?: boolean;
     attachToViewport?: boolean;
-    position?: TetherPosition;
-    anchorPosition?: TetherPosition;
+    position?: Position;
+    anchorPosition?: Position;
   }
   export function tether(
     anchorEl: Element,
     dropdownEl: HTMLDivElement,
     config: TetherConfig = Config
   ) {
-    return attach(anchorEl, dropdownEl, config);
+    return attach(anchorEl, dropdownEl, { ...Config, ...config });
   }
 
   // Tether config
   const Config: TetherConfig = {
     anchorPosition: "bl",
     attachToViewport: false,
-    position: "tl"
+    position: "tl",
+    resize: false
   };
 
   // Tether functionality
@@ -46,7 +48,9 @@ export namespace UITether {
     const anchorRect = anchorEl.getBoundingClientRect();
     const dropdownRect = dropdownEl.getBoundingClientRect();
 
-    dropdownEl.style.minWidth = anchorRect.width + "px";
+    if (config.resize) {
+      dropdownEl.style.minWidth = anchorRect.width + "px";
+    }
 
     const [posY, posX] = config.position.split("");
     const [anchorY, anchorX] = config.anchorPosition.split("");
@@ -78,6 +82,8 @@ export namespace UITether {
       x = anchorRect.left;
     } else if (anchorX === "r") {
       x = anchorRect.right;
+    } else if (anchorX === "c") {
+      x = anchorRect.left + anchorRect.width / 2;
     }
     if (anchorY === "t") {
       y = anchorRect.top;
@@ -88,10 +94,14 @@ export namespace UITether {
     if (posX === "r") {
       x -= dropdownRect.width;
     }
+    if (posX === "c") {
+      x -= dropdownRect.width / 2;
+    }
     if (posY === "b") {
       y -= dropdownRect.height;
     }
 
+    // TODO: Test it, i have no idea wtf i wrote
     if (x + dropdownRect.width > clientWidth) {
       x = posX === "l" && anchorX === "r" ? anchorRect.left : anchorRect.right - dropdownRect.width;
     } else if (x < clientX) {

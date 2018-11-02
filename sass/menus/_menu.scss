@@ -13,8 +13,8 @@
   &__group {
     border: 0;
     flex: 0 0 auto;
-    margin: 0;
-    padding: 0;
+    margin: 0 0 4px;
+    padding: 0 0 4px;
     position: relative;
 
     &__container {
@@ -157,7 +157,7 @@
   }
 
   &__bar {
-    align-content: spaced;
+    align-content: space-between;
     background-color: var(--menubar-bg);
     display: grid;
     grid-template-columns: 1fr auto;
@@ -187,6 +187,8 @@
 
       #{$base}__group {
         border: 1px solid rgba(map-get($gray, base), 0.25);
+        margin: 0;
+        padding: 0;
 
         &::after {
           display: none;
