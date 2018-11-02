@@ -22,9 +22,10 @@
     display: flex;
     flex-flow: column nowrap;
     grid-area: body;
+    z-index: 1;
 
     #{$base}__cell__counter {
-      background-color: var(--base-bg);
+      background-color: var(--color-gray-tint);
     }
 
     > div:not(#{$base}__row):first-child,
@@ -34,20 +35,26 @@
   }
 
   &__head {
+    @include sticky();
     background-color: var(--table-head-bg);
     color: var(--table-head-color);
     grid-area: head;
-    overflow: hidden;
+    // overflow: hidden;
     padding-bottom: 1px;
+    top: 0;
+    z-index: 2;
     #{--row-bg}: var(--table-head-bg);
   }
 
   &__foot {
+    @include sticky();
     background-color: var(--base-bg);
     border-top: 1px solid var(--base-border);
+    bottom: 0;
     grid-area: foot;
-    overflow: hidden;
+    // overflow: hidden;
     padding-top: 1px;
+    z-index: 2;
     #{--row-bg}: var(--base-bg);
 
     #{$base}__row {
@@ -56,10 +63,13 @@
   }
 
   &__row {
-    @extend %grid-row;
     flex: 0 0 auto;
     height: calc(2rem + 2px);
     min-width: 100%;
+
+    &__wrapper {
+      @extend %grid-row;
+    }
 
     &__even {
       #{--row-bg}: var(--base-bg);
@@ -87,6 +97,19 @@
 
       #{$base}__cell:last-child {
         @include property-prefix(border-end, 1px solid var(--base-border));
+      }
+    }
+
+    &__locked--end {
+      @extend %grid-row;
+      @include sticky();
+      background-color: var(--row-bg);
+      flex: 0 0 auto;
+      right: 0;
+      z-index: 2;
+
+      #{$base}__cell:first-child {
+        @include property-prefix(border-start, 1px solid var(--base-border));
       }
     }
 

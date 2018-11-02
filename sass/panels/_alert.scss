@@ -80,22 +80,33 @@
     height: 4px;
     left: 0;
     position: absolute;
-    transition-delay: 100ms;
     transition-property: width;
-    transition-timing-function: linear;
+    transition-timing-function: ease-in;
     visibility: hidden;
     width: 0;
   }
 
-  &.ui-toast {
+  &.ui-notification {
+    grid-template-areas: "icon title footer close" "icon body footer close";
+    grid-template-columns: auto 1fr auto auto;
+    min-width: 18rem;
     transform: translate(100%, 0);
     transition: transform 0.5s;
+    transition-delay: 10ms;
+
+    .ui-alert__title {
+      padding: 0.5rem 0 0;
+    }
+    .ui-alert__body {
+      padding: 0 0 0.5rem;
+    }
   }
 
-  &:not(.ui-toast) {
+  &.ui-toast {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.5s;
+    transition-delay: 10ms;
   }
 
   &.ui-alert--inline {

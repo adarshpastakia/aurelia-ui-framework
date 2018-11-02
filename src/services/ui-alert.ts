@@ -84,7 +84,7 @@ export class UIAlertService {
     return config;
   }
 
-  private createToast(config, forToast?: boolean): Promise<boolean> {
+  private createToast(config, forNotification?: boolean): Promise<boolean> {
     return new Promise(resolve => {
       const cfg = {
         autoClose: true,
@@ -97,7 +97,7 @@ export class UIAlertService {
       };
       cfg.autoClose = cfg.type !== "confirm" && cfg.autoClose;
       const tpl = `<template><div class="${
-        forToast ? "ui-toast" : ""
+        forNotification ? "ui-notification" : ""
       } ui-alert" ui-theme.bind="theme" ref="__el">
         <div if.bind="icon" class="ui-alert__icon"><ui-icon icon.bind="icon"></ui-icon></div>
         <div if.bind="title" class="ui-alert__title" innerhtml.bind="title"></div>
@@ -119,15 +119,17 @@ export class UIAlertService {
         }, 500);
       };
       view.bind({ ...cfg });
-      view.appendNodesTo(forToast ? this.appConfig.ToastContainer : this.appConfig.AlertContainer);
-
-      UIInternal.queueTask(() =>
-        (view as View & { firstChild: Element }).firstChild.classList.add("ui-alert--show")
+      view.appendNodesTo(
+        forNotification ? this.appConfig.ToastContainer : this.appConfig.AlertContainer
       );
 
       if (cfg.autoClose) {
         setTimeout(cfg.__close, cfg.timeout);
       }
+
+      UIInternal.queueTask(() =>
+        (view as View & { firstChild: Element }).firstChild.classList.add("ui-alert--show")
+      );
     });
   }
 

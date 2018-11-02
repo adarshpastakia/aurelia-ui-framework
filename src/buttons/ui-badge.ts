@@ -19,7 +19,7 @@ import { UIInternal } from "../utils/ui-internal";
 // @containerless()
 @customElement("ui-badge")
 @inlineView(
-  `<template><a href.bind="href" class="ui-badge ui-badge--\${style} ui-badge--\${size}" click.trigger="fireClick($event)" ref="vmElement">
+  `<template><a class="ui-badge ui-badge--\${style} ui-badge--\${size}" click.trigger="fireClick($event)" ref="vmElement">
     <div class="ui-badge__label"><slot></slot></div>
     <div class="ui-badge__icon"><slot name="avatar"><ui-icon if.bind="icon" icon.bind="icon"></ui-icon></slot></div>
     <div class="ui-badge__value">\${value}</div>
@@ -36,6 +36,8 @@ export class UIBadge {
   @bindable()
   public size: string = "nm";
 
+  protected vmElement: HTMLAnchorElement;
+
   private style: string = "normal";
   private closeable: boolean = false;
 
@@ -44,10 +46,22 @@ export class UIBadge {
       this.style = "solid";
     }
     this.closeable = element.hasAttribute("closeable");
+
+    this.hrefChanged();
   }
 
   public close(): void {
     UIInternal.fireCallbackEvent(this, "beforeclose").then(b => (b ? this.remove() : undefined));
+  }
+
+  protected hrefChanged(): void {
+    if (this.vmElement) {
+      if (this.href) {
+        this.vmElement.href = this.href;
+      } else if (this.vmElement.attributes.getNamedItem("href")) {
+        this.vmElement.attributes.removeNamedItem("href");
+      }
+    }
   }
 
   protected fireClick($event: MouseEvent): boolean {
