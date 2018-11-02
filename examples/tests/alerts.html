@@ -2,7 +2,7 @@
   <ui-container fluid ref="parentel" ui-padding>
     <h4>Toast</h4>
     <ui-fieldset with.bind="{config:{title:'Title', message:'Toast message', icon:'mdi mdi-bell', theme:'primary', autoClose: true, type:'alert'}}">
-      <ui-row>
+      <!-- <ui-row>
         <ui-col size="4">
           <ui-field label="Theme">
             <ui-select options.bind="themes" value.bind="config.theme"></ui-select>
@@ -28,10 +28,27 @@
             </ui-option-group>
           </ui-field>
         </ui-col>
+      </ui-row> -->
+      <ui-row>
+        <ui-col size="fill">
+          <ui-field label="Title">
+            <ui-field-wrapper>
+              <ui-dropdown options.bind="themes" value.bind="config.theme"></ui-dropdown>
+              <ui-dropdown options.bind="['none', 'mdi mdi-bell', 'mdi mdi-account', 'mdi mdi-comment-question', 'mdi mdi-alert-circle-outline']"
+                value.bind="config.icon" icon-property="none"></ui-dropdown>
+              <ui-input value.bind="config.title"></ui-input>
+            </ui-field-wrapper>
+          </ui-field>
+        </ui-col>
+        <ui-col size="auto" width="24rem">
+          <ui-field>
+            <ui-option-group>
+              <ui-radio checked.bind="config.type" model="alert">Auto Close</ui-radio>
+              <ui-radio checked.bind="config.type" model="confirm">Confirm</ui-radio>
+            </ui-option-group>
+          </ui-field>
+        </ui-col>
       </ui-row>
-      <ui-field label="Title">
-        <ui-input value.bind="config.title"></ui-input>
-      </ui-field>
       <ui-field label="Message">
         <ui-textarea value.bind="config.message"></ui-textarea>
       </ui-field>

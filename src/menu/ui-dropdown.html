@@ -1,7 +1,7 @@
 <template class="ui-menu__item ui-dropdown">
   <a data-active.bind="active" disabled.bind="disabled" click.trigger="toggleDrop($event)" class="ui-menu__item__link"
     data-open.bind="dropEl.isOpen">
-    <ui-icon class="ui-menu__item__icon" icon.bind="model[iconProperty]" if.bind="iconProperty"></ui-icon>
+    <ui-icon class="ui-menu__item__icon" icon.bind="model[iconProperty] || model" if.bind="iconProperty"></ui-icon>
     <div class="ui-input__error" if.bind="errors && errors.length">
       <ui-svg-icon icon="alert"></ui-svg-icon>
       <ul>
@@ -13,10 +13,10 @@
   </a>
   <ui-drop view-model.ref="dropEl">
     <ui-menu click.trigger="select($event)">
-      <slot>
-        <ui-menu-item repeat.for="option of options" value.bind="option" label.bind="option[valueProperty] || option"
-          icon.bind="option[iconProperty]"></ui-menu-item>
-      </slot>
+      <template repeat.for="option of options">
+        <ui-menu-item value.bind="option" label.bind="option[labelProperty] || option" icon.bind="iconProperty ? option[iconProperty] || option : ''"
+          active.bind="(option[valueProperty] || option) === value"></ui-menu-item>
+      </template>
     </ui-menu>
   </ui-drop>
 </template>

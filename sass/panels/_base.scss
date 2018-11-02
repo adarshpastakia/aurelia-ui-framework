@@ -60,6 +60,10 @@
       margin: 0 4px;
       @extend %vr;
     }
+
+    > .ui-dropdown > .ui-menu__item__link {
+      line-height: 50%;
+    }
   }
 
   &::after {

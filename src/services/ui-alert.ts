@@ -103,8 +103,10 @@ export class UIAlertService {
         <div if.bind="title" class="ui-alert__title" innerhtml.bind="title"></div>
         <div class="ui-alert__body" innerhtml.bind="message"></div>
         <div class="ui-alert__close" click.trigger="__close(false)"><ui-svg-icon icon="cross"></ui-svg-icon></div>
-        <div class="ui-alert__footer" if.bind="type==='confirm'"><a click.trigger="__close(true)">\${okLabel}</a>
-          <a click.trigger="__close(false)">\${cancelLabel}</a></div>
+        <div class="ui-alert__footer" if.bind="type==='confirm'">
+        <a click.trigger="__close(false)">\${cancelLabel}</a>
+        <a click.trigger="__close(true)" ui-weight="bold">\${okLabel}</a>
+        </div>
         <div if.bind="autoClose" class="ui-alert__progress" css.bind="{transitionDuration: timeout+'ms'}"></div>
         </div></template>`;
       const viewFactory = this.compiler.compile(tpl);
@@ -151,8 +153,8 @@ export class UIAlertService {
             </ui-row>
           </div>
           <div class="ui-footer" ui-padding="y--sm" ui-align="center">
-            <ui-button click.trigger="__close(true)" ui-theme.bind="theme" type="solid" size="sm" css.bind="{minWidth:'4rem'}">\${okLabel}</ui-button>
-            <ui-button if.bind="type!=='alert'" click.trigger="__close(false)" ui-theme.bind="theme" type="outline" size="sm" css.bind="{minWidth:'4rem'}">\${cancelLabel}</ui-button>
+          <ui-button if.bind="type!=='alert'" click.trigger="__close(false)" ui-theme.bind="theme" type="outline" size="sm" css.bind="{minWidth:'4rem'}">\${cancelLabel}</ui-button>
+          <ui-button click.trigger="__close(true)" ui-theme.bind="theme" type="solid" size="sm" css.bind="{minWidth:'4rem'}">\${okLabel}</ui-button>
           </div>  
         </div>    
         </div></template>`;

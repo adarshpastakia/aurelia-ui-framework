@@ -34,7 +34,7 @@ export class UIDialogElement {
   @bindable({ defaultBindingMode: bindingMode.oneTime })
   public modal: boolean = false;
   @bindable({ defaultBindingMode: bindingMode.oneWay })
-  public closable: boolean = true;
+  public closeable: boolean = true;
   @bindable({ defaultBindingMode: bindingMode.oneWay })
   public maximizable: boolean = true;
   @bindable({ defaultBindingMode: bindingMode.oneWay })

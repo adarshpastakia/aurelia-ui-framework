@@ -14,7 +14,7 @@
           <p>
             <lipsum-line></lipsum-line>
           </p>
-          <br/>
+          <br />
           <p>
             <lipsum-line></lipsum-line>
           </p>
@@ -30,25 +30,25 @@
       </ui-sidebar>
       <ui-content ui-padding="x,y--sm">
         <ui-panel min-width="24rem">
-          <ui-header ui-border="b,sm,primary">
+          <ui-header ui-border="b,sm,primary" ui-bg="primary-tint" ui-color="primary-dark" ui-weight="medium">
             <ui-header-icon ui-color="primary" icon="mdi mdi-key"></ui-header-icon>
             <ui-header-title>Login</ui-header-title>
             <ui-header-actions>
               <ui-button type="tool" icon="mdi mdi-question"></ui-button>
             </ui-header-actions>
           </ui-header>
-          <ui-content ui-padding="y">
+          <ui-content>
+            <ui-loader busy.bind="termsAgree"></ui-loader>
             <ui-form disabled.bind="termsAgree">
-              <ui-row>
+              <div ui-margin="b">
+                <ui-alert ui-theme="danger" ui-weight="medium" ui-align="center">Session Expired!</ui-alert>
+              </div>
                 <ui-field label="Username">
                   <ui-input autofocus autocomplete="username" />
                 </ui-field>
-              </ui-row>
-              <ui-row>
                 <ui-field label="Password">
                   <ui-input type="password" autocomplete="current-password" />
                 </ui-field>
-              </ui-row>
             </ui-form>
           </ui-content>
           <ui-footer>

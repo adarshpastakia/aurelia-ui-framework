@@ -18,7 +18,7 @@
         <ui-button disabled.bind="modal || !minimizable" class="ui-dlg--tool" ui-theme="warning" type="tool" click.trigger="minimize()">
           <ui-svg-icon ui-color="warning" icon="dlg-minimize"></ui-svg-icon>
         </ui-button>
-        <ui-button disabled.bind="!closable" class="ui-dlg--tool" ui-theme="danger" type="tool" click.trigger="close()">
+        <ui-button disabled.bind="!closeable" class="ui-dlg--tool" ui-theme="danger" type="tool" click.trigger="close()">
           <ui-svg-icon ui-color="danger" icon="dlg-close"></ui-svg-icon>
         </ui-button>
       </div>

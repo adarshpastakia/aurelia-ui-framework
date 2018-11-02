@@ -14,7 +14,7 @@
     grid-auto-rows: 2rem;
     grid-column: 1;
     grid-column-gap: 4px;
-    grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
     justify-items: start;
   }
 

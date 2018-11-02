@@ -115,6 +115,28 @@
   }
 }
 
+.ui-loader {
+  background-color: rgba($white, 0.1);
+  cursor: wait;
+  display: block;
+  z-index: 99999;
+  @include position(absolute, 0);
+
+  > div {
+    background-color: var(--base-component);
+    border-radius: 2px;
+    box-shadow: 0 0 20px 0 var(--base-shadow);
+    color: var(--color-primary);
+    font-size: 2rem;
+    height: 3rem;
+    line-height: 1;
+    margin: auto;
+    padding: 0.5rem;
+    width: 3rem;
+    @include position(absolute, 0);
+  }
+}
+
 .ui-drop {
   display: none;
 

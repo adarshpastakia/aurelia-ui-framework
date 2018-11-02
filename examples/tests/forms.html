@@ -54,11 +54,7 @@
           <ui-field label="Test" required>
             <ui-field-wrapper>
               <ui-input-addon>
-                <ui-dropdown value-property="value" label-property="label" value="two">
-                  <ui-menu-item value.bind="{value:'one', label: 'Option One'}">Option One</ui-menu-item>
-                  <ui-menu-item value.bind="{value:'two', label: 'Option Two'}">Option Two</ui-menu-item>
-                  <ui-menu-item value.bind="{value:'three', label: 'Option Three'}">Option Three</ui-menu-item>
-                </ui-dropdown>
+                <ui-dropdown value-property="value" label-property="label" value="two" options.bind="[{value:'one', label: 'Option One'},{value:'two', label: 'Option Two'},{value:'three', label: 'Option Three'}]"></ui-dropdown>
               </ui-input-addon>
               <ui-input></ui-input>
             </ui-field-wrapper>

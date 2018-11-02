@@ -22,7 +22,11 @@ export class UIAlert {
   @bindable()
   public type: "alert" | "confirm" = "alert";
 
-  constructor(private element: Element) {}
+  protected closeable: boolean = false;
+
+  constructor(private element: Element) {
+    this.closeable = element.hasAttribute("closable");
+  }
 
   protected close(result: boolean): void {
     if (this.element.dispatchEvent(UIInternal.createEvent("close", result)) !== false) {

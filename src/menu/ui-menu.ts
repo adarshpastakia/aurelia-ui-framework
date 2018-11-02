@@ -68,9 +68,10 @@ export class UIMenuItem {
 
   @child("div.ui-drop")
   protected elDropdown: Element;
-
   protected hasDrop: boolean = false;
   protected dropEl: UIDrop;
+
+  protected badgeEl: HTMLAnchorElement;
 
   constructor(private element: Element) {
     this.split = element.hasAttribute("split");
@@ -81,6 +82,17 @@ export class UIMenuItem {
     if (this.hasDrop) {
       this.dropEl = getSlotViewModel(this.elDropdown) as UIDrop;
       this.dropEl.tether(this.element);
+    }
+    this.hrefChanged();
+  }
+
+  protected hrefChanged(): void {
+    if (this.badgeEl) {
+      if (this.href) {
+        this.badgeEl.href = this.href;
+      } else if (this.badgeEl.attributes.getNamedItem("href")) {
+        this.badgeEl.attributes.removeNamedItem("href");
+      }
     }
   }
 

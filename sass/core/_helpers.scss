@@ -127,6 +127,20 @@ html:root {
     }
   }
 
+  &-hover {
+    @each $label, $color in $extra-colors {
+      &--#{$label}[data-type="tool"] {
+        --btn-hover: #{$color};
+        --btn-active: #{$color};
+        --btn-ripple: #{$color};
+
+        &:hover {
+          --btn-color: #{$color};
+        }
+      }
+    }
+  }
+
   &-border {
     &,
     &--xy {

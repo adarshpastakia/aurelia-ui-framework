@@ -46,14 +46,7 @@ export class UIDropdown {
 
   protected valueChanged(): void {
     if (this.options) {
-      this.model = this.options.find(o => o[this.valueProperty] || o === this.value);
-    } else {
-      this.element
-        .querySelectorAll(".ui-drop .ui-menu__item")
-        .forEach(
-          (o: AnyObject) =>
-            (o.value[this.valueProperty] || o.value) === this.value ? (this.model = o.value) : ""
-        );
+      this.model = this.options.find(o => (o[this.valueProperty] || o) === this.value);
     }
   }
 

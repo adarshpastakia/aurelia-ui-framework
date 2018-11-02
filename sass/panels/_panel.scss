@@ -73,7 +73,7 @@
       }
 
       &:not(:empty) {
-        @include property-prefix(margin-start, -1em);
+        @include property-prefix(margin-start, -0.5em);
         padding: 0 0.5em;
       }
     }

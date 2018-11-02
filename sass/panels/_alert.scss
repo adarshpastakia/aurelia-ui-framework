@@ -13,6 +13,7 @@
   grid-gap: 0.5rem;
   grid-template-areas: "icon title body footer close";
   grid-template-columns: auto auto 1fr auto auto;
+  line-height: 1;
   margin: 0.25rem;
   max-width: 80vw;
   pointer-events: all;
@@ -22,7 +23,7 @@
     align-self: stretch;
     background-color: var(--alert-color);
     color: var(--alert-bg);
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     grid-area: icon;
     line-height: 1;
     padding: 0.5rem;
@@ -55,6 +56,10 @@
       cursor: pointer;
       font-weight: $font-weight-medium;
       margin: 0 0.5rem;
+
+      &:last-child {
+        font-weight: $font-weight-bold;
+      }
     }
   }
 

@@ -42,11 +42,11 @@ export class UIPanel {
   @bindable()
   public beforeclose: () => Promise<boolean> | boolean;
 
-  protected closable: boolean = false;
+  protected closeable: boolean = false;
   protected collapsible: boolean = false;
 
   constructor(protected element: Element) {
-    this.closable = element.hasAttribute("closable");
+    this.closeable = element.hasAttribute("closable");
     this.collapsible = element.hasAttribute("collapsible");
   }
 

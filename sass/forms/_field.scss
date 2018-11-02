@@ -102,6 +102,10 @@
         border-top-left-radius: 0;
       }
     }
+
+    .ui-dropdown {
+      border-color: var(--input-border);
+    }
   }
 
   &__wrapper--plain,

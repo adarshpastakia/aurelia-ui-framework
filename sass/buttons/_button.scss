@@ -158,6 +158,10 @@
       --btn-hover: var(--color-primary-light);
       --btn-active: var(--color-primary-dark);
       --btn-inverse: #{$white};
+      --menu-item-hover-bg: var(--color-primary-tint);
+      --menu-item-hover-color: var(--color-primary-shade);
+      --menu-item-active-bg: var(--color-primary-light);
+      --menu-item-active-color: var(--color-primary-shade);
     }
 
     &.ui-theme--secondary {
@@ -165,6 +169,10 @@
       --btn-hover: var(--color-secondary-light);
       --btn-active: var(--color-secondary-dark);
       --btn-inverse: #{$white};
+      --menu-item-hover-bg: var(--color-secondary-tint);
+      --menu-item-hover-color: var(--color-secondary-shade);
+      --menu-item-active-bg: var(--color-secondary-light);
+      --menu-item-active-color: var(--color-secondary-shade);
     }
 
     &.ui-theme--muted {
@@ -172,6 +180,10 @@
       --btn-hover: var(--color-muted-light);
       --btn-active: var(--color-muted-dark);
       --btn-inverse: #{$white};
+      --menu-item-hover-bg: var(--color-muted-tint);
+      --menu-item-hover-color: var(--color-muted-shade);
+      --menu-item-active-bg: var(--color-muted-light);
+      --menu-item-active-color: var(--color-muted-shade);
     }
 
     &.ui-theme--info {
@@ -179,6 +191,10 @@
       --btn-hover: var(--color-info-light);
       --btn-active: var(--color-info-dark);
       --btn-inverse: #{$white};
+      --menu-item-hover-bg: var(--color-info-tint);
+      --menu-item-hover-color: var(--color-info-shade);
+      --menu-item-active-bg: var(--color-info-light);
+      --menu-item-active-color: var(--color-info-shade);
     }
 
     &.ui-theme--danger {
@@ -186,6 +202,10 @@
       --btn-hover: var(--color-danger-light);
       --btn-active: var(--color-danger-dark);
       --btn-inverse: #{$white};
+      --menu-item-hover-bg: var(--color-danger-tint);
+      --menu-item-hover-color: var(--color-danger-shade);
+      --menu-item-active-bg: var(--color-danger-light);
+      --menu-item-active-color: var(--color-danger-shade);
     }
 
     &.ui-theme--success {
@@ -193,6 +213,10 @@
       --btn-hover: var(--color-success-light);
       --btn-active: var(--color-success-dark);
       --btn-inverse: #{$white};
+      --menu-item-hover-bg: var(--color-success-tint);
+      --menu-item-hover-color: var(--color-success-shade);
+      --menu-item-active-bg: var(--color-success-light);
+      --menu-item-active-color: var(--color-success-shade);
     }
 
     &.ui-theme--warning {
@@ -200,6 +224,10 @@
       --btn-hover: var(--color-warning-light);
       --btn-active: var(--color-warning-dark);
       --btn-inverse: #{$white};
+      --menu-item-hover-bg: var(--color-warning-tint);
+      --menu-item-hover-color: var(--color-warning-shade);
+      --menu-item-active-bg: var(--color-warning-light);
+      --menu-item-active-color: var(--color-warning-shade);
     }
 
     &.ui-theme--inverse #{$base} {
@@ -235,6 +263,7 @@
   }
 
   &__label {
+    font-weight: $font-weight-medium;
     grid-area: label;
     line-height: 2;
     text-align: center;

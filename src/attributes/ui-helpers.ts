@@ -65,6 +65,12 @@ export class UIColor extends BaseAttribute {
 }
 
 @autoinject()
+@customAttribute("ui-hover")
+export class UIHover extends BaseAttribute {
+  protected prefix = "ui-hover";
+}
+
+@autoinject()
 @customAttribute("ui-padding")
 export class UIPadding extends BaseAttribute {
   protected prefix = "ui-padding";

@@ -63,7 +63,7 @@ export class ListMaker extends BaseInput {
       return;
     }
     if (!this.valueProperty) {
-      this.model = this.value;
+      this.inputValue = this.model = this.value;
       return;
     }
     if (this.options && !isNull(this.value)) {
@@ -109,7 +109,7 @@ export class ListMaker extends BaseInput {
     } else {
       const query = this.inputValue.ascii().toLowerCase();
       const options = this.options.filter(o =>
-        o[this.labelProperty]
+        (o[this.labelProperty] || o)
           .toString()
           .ascii()
           .toLowerCase()
@@ -129,7 +129,9 @@ export class ListMaker extends BaseInput {
       this.inputEl.focus();
       this.inputEl.select();
     } else {
-      model.$label = model[this.labelProperty] || model;
+      if (this.labelProperty) {
+        model.$label = model[this.labelProperty] || model;
+      }
       this.value = model[this.valueProperty] || model;
       this.model = model;
       this.resetQuery();

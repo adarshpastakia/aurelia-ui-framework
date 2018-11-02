@@ -36,6 +36,8 @@ export class UIButton {
   protected hasDrop: boolean = false;
   protected dropEl: UIDrop;
 
+  protected badgeEl: HTMLAnchorElement;
+
   protected split: boolean = false;
 
   private elDisabled: boolean = false;
@@ -76,6 +78,18 @@ export class UIButton {
         this.dropEl.tether(this.element);
       }
     });
+
+    this.hrefChanged();
+  }
+
+  protected hrefChanged(): void {
+    if (this.badgeEl) {
+      if (this.href) {
+        this.badgeEl.href = this.href;
+      } else if (this.badgeEl.attributes.getNamedItem("href")) {
+        this.badgeEl.attributes.removeNamedItem("href");
+      }
+    }
   }
 
   protected fireClick($event: MouseEvent): boolean {
