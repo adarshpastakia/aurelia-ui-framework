@@ -94,12 +94,12 @@ export class UIButton {
 
   protected fireClick($event: MouseEvent): boolean {
     if (!this.href) {
-      $event.stopEvent();
-
       if (this.hasDrop && !this.split) {
         this.toggleDrop();
+      } else {
+        return this.element.dispatchEvent(UIInternal.createEvent("click", this.value));
       }
-      return this.element.dispatchEvent(UIInternal.createEvent("click", this.value));
+      return false;
     }
   }
 

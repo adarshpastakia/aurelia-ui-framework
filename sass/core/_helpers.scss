@@ -35,10 +35,16 @@ html:root {
   }
 
   &-fade-in {
-    opacity: 0.05;
+    opacity: 0;
     transition: opacity 0.2s;
 
-    &:hover {
+    &--50 {
+      opacity: 0.5;
+      transition: opacity 0.2s;
+    }
+
+    &:hover,
+    &--50:hover {
       opacity: 1;
     }
   }

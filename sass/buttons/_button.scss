@@ -9,6 +9,7 @@
   grid-template-areas: "busy icon label badge caret";
   grid-template-columns: auto auto auto auto auto;
   justify-content: center;
+  pointer-events: all;
   position: relative;
 
   .ui-badge {
@@ -58,24 +59,31 @@
     display: inline-block;
     margin: 2px;
     max-width: 12em;
+    pointer-events: none;
     position: relative;
     vertical-align: middle;
     --btn-ripple: var(--btn-color);
     --btn-hilight: var(--btn-color);
 
     &[data-active="true"] {
-      cursor: default;
-
       #{$base} {
         pointer-events: none;
+
+        &__inner {
+          cursor: default;
+          pointer-events: all;
+        }
       }
     }
 
     &[data-busy="true"] {
-      cursor: wait;
-
       #{$base} {
         pointer-events: none;
+
+        &__inner {
+          cursor: wait;
+          pointer-events: all;
+        }
       }
     }
 
@@ -127,7 +135,6 @@
 
     &[data-disabled="true"] {
       background-color: rgba(0, 0, 0, 0.1);
-      cursor: not-allowed;
 
       #{$base} {
         opacity: 0.5;
@@ -135,6 +142,8 @@
 
         &__inner {
           border-color: var(--base-border);
+          cursor: not-allowed;
+          pointer-events: all;
         }
       }
     }

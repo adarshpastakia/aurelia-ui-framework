@@ -1,6 +1,6 @@
 <template class="ui-btn__wrapper" data-disabled.bind="isDisabled" data-busy.bind="busy" data-type.bind="type"
   data-size.bind="size" data-active.bind="active">
-  <div class="ui-btn__inner">
+  <div class="ui-btn__inner" click.trigger="$event.stopEvent()">
     <a ref="badgeEl" class="ui-btn" click.trigger="fireClick($event)" data-active.bind="active" data-open.bind="!split && dropEl.isOpen">
       <div class="ui-btn__busy" if.bind="busy">
         <ui-svg-icon icon="busy" class="ui-anim--spin"></ui-svg-icon>

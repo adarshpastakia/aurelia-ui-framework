@@ -16,7 +16,7 @@ import {
 import { UIInternal } from "../utils/ui-internal";
 
 @autoinject()
-// @containerless()
+@containerless()
 @customElement("ui-badge")
 @inlineView(
   `<template><a class="ui-badge ui-badge--\${style} ui-badge--\${size}" click.trigger="fireClick($event)" ref="vmElement">
@@ -73,6 +73,6 @@ export class UIBadge {
 
   private remove(): void {
     this.element.dispatchEvent(UIInternal.createEvent("close"));
-    UIInternal.queueTask(() => DOM.removeNode(this.element));
+    UIInternal.queueTask(() => DOM.removeNode(this.vmElement));
   }
 }

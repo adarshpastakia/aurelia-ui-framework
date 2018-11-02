@@ -97,7 +97,7 @@ export class UIAlertService {
       };
       cfg.autoClose = cfg.type !== "confirm" && cfg.autoClose;
       const tpl = `<template><div class="${
-        forNotification ? "ui-notification" : ""
+        forNotification ? "ui-notification" : "ui-toast"
       } ui-alert" ui-theme.bind="theme" ref="__el">
         <div if.bind="icon" class="ui-alert__icon"><ui-icon icon.bind="icon"></ui-icon></div>
         <div if.bind="title" class="ui-alert__title" innerhtml.bind="title"></div>

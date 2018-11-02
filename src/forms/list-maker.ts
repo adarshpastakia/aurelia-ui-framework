@@ -63,7 +63,10 @@ export class ListMaker extends BaseInput {
       return;
     }
     if (!this.valueProperty) {
-      this.inputValue = this.model = this.value;
+      this.model = this.value;
+      if (!this.multiple) {
+        this.inputValue = this.value;
+      }
       return;
     }
     if (this.options && !isNull(this.value)) {

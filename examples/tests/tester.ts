@@ -34,6 +34,7 @@ PLATFORM.moduleName("./datagrid.html");
 PLATFORM.moduleName("./alerts.html");
 PLATFORM.moduleName("./login.html");
 PLATFORM.moduleName("./menu.html");
+PLATFORM.moduleName("./wizard.html");
 
 @autoinject()
 export class Tester {
