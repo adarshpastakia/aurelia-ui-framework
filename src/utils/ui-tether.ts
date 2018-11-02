@@ -48,7 +48,6 @@ export namespace UITether {
 
     dropdownEl.style.minWidth = anchorRect.width + "px";
 
-    // TODO: check config position
     const [posY, posX] = config.position.split("");
     const [anchorY, anchorX] = config.anchorPosition.split("");
     let x = 0;

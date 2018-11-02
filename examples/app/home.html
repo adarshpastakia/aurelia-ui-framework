@@ -1,8 +1,53 @@
 <template>
-  <ui-content ui-scroll scroll.trigger="hideTitle(container.scrollTop<48)">
+  <ui-content ref="container" ui-scroll scroll.trigger="hideTitle(container.scrollTop<48)">
     <div ui-bg="primary" ui-color="white" ui-align="center">
       <div ui-font="d4">${app.config.AppTitle}</div>
       <div ui-font="h3" ui-weight="light">${app.config.AppSubtitle}</div>
     </div>
+    <div ui-bg="primary-light" ui-color="muted-dark">
+      <ui-container ui-gutter="0">
+        <ui-row valign="middle" halign="center">
+          <ui-col size="4@lg 5@md 8@sm">
+            <ui-row valign="middle">
+              <ui-col ui-padding size="auto"><img align="left" src="/images/feature-layout.svg" width="64" /></ui-col>
+              <ui-col ui-padding size="fill">Layout elements for creating pages with drawers, sidebars, tabs</ui-col>
+            </ui-row>
+          </ui-col>
+          <ui-col size="4@lg 5@md 8@sm">
+            <ui-row valign="middle">
+              <ui-col ui-padding size="auto"><img align="left" src="/images/feature-input.svg" width="64" /></ui-col>
+              <ui-col ui-padding size="fill">Custom input elements for dates, phone numbers and markdown content</ui-col>
+            </ui-row>
+          </ui-col>
+        </ui-row>
+        <ui-row valign="middle" halign="center">
+          <ui-col size="4@lg 5@md 8@sm">
+            <ui-row valign="middle">
+              <ui-col ui-padding size="auto"><img align="left" src="/images/feature-grid.svg" width="64" /></ui-col>
+              <ui-col ui-padding size="fill">Functional datagrid with sorting, locking and resizeable column</ui-col>
+            </ui-row>
+          </ui-col>
+          <ui-col size="4@lg 5@md 8@sm">
+            <ui-row valign="middle">
+              <ui-col ui-padding size="auto"><img align="left" src="/images/feature-theme.svg" width="64" /></ui-col>
+              <ui-col ui-padding size="fill">Completely themeable</ui-col>
+            </ui-row>
+          </ui-col>
+        </ui-row>
+      </ui-container>
+    </div>
+    <ui-container fluid ui-bg="primary-tint" ui-gutter="lg">
+      <ui-row halign="center">
+        <ui-col size="auto" width="18rem">
+          <ui-button block size="lg" type="outline">Getting Started</ui-button>
+        </ui-col>
+        <ui-col size="auto" width="18rem">
+          <ui-button block size="lg" type="outline" href="/tester">Kitchensink</ui-button>
+        </ui-col>
+        <ui-col size="auto" width="18rem">
+          <ui-button block size="lg" type="outline">Sample Applications</ui-button>
+        </ui-col>
+      </ui-row>
+    </ui-container>
   </ui-content>
 </template>

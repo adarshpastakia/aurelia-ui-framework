@@ -5,10 +5,10 @@
       <ui-grid size="md">
         <template repeat.for="c of items">
           <ui-card>
-            <ui-header ui-border="s,md,${colors[key]}">
+            <ui-header ui-border="s md ${colors[key]}">
               <ui-header-title>${c.name}</ui-header-title>
               <ui-header-actions>
-                <ui-flag code.bind="c.iso2" size="lg" ui-border="xy,gray-50"></ui-flag>
+                <ui-flag code.bind="c.iso2" size="lg" ui-border="xy gray-50"></ui-flag>
               </ui-header-actions>
             </ui-header>
             <ui-card-title>${c.fullname}</ui-card-title>

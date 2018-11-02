@@ -41,6 +41,6 @@
 
 - Attributes
   - `align`: top | bottom | middle | stretch
-  - `size`: comma separated sizes with breakpoint
+  - `size`: space separated sizes with breakpoint
     - values: auto | fill | 1-12 
     - breakpoints: ?@[xs | sm | md | lg | xl | xxl]

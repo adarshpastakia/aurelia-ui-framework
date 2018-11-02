@@ -32,13 +32,13 @@ class BaseAttribute {
     }
     if (el.classList) {
       if (this.oldValue && !this.singular) {
-        this.oldValue.split(",").forEach(p => el.classList.remove(`${this.prefix}--${p.trim()}`));
+        this.oldValue.split(" ").forEach(p => el.classList.remove(`${this.prefix}--${p.trim()}`));
       } else {
         el.classList.remove(`${this.prefix}`);
       }
       this.oldValue = this.value;
       if (this.value && !this.singular) {
-        this.value.split(",").forEach(p => el.classList.add(`${this.prefix}--${p.trim()}`));
+        this.value.split(" ").forEach(p => el.classList.add(`${this.prefix}--${p.trim()}`));
       } else if (!isFalse(this.value)) {
         el.classList.add(`${this.prefix}`);
       }

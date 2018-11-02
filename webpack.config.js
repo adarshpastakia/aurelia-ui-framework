@@ -1,5 +1,5 @@
 const path = require("path");
-const webpack = require('webpack');
+const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -186,6 +186,10 @@ module.exports = ({ production, server, extractCss, coverage, analyze } = {}) =>
       {
         from: "docs",
         to: "docs"
+      },
+      {
+        from: "images",
+        to: "images"
       },
       {
         from: "styles",

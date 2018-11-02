@@ -38,7 +38,6 @@ export class UIMenubar {
     this.obResize.dispose();
   }
 
-  // TODO: add overflow functionality
   protected calculateOverflow(): void {
     this.resetOverflow();
     this.elWrapper.children.forEach(item => {

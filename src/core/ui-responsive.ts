@@ -85,7 +85,7 @@ export class UIColumn {
 
   get sizes(): string {
     return this.size
-      .split(",")
+      .split(" ")
       .map(s => `ui-col--${s.trim()}`)
       .join(" ");
   }
