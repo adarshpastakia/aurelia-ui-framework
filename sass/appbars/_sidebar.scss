@@ -134,7 +134,7 @@
           left: 0;
         }
         #{$base}__body {
-          left: 2rem;
+          left: calc(2rem - 2px);
           right: auto;
           transform: translateX(calc(-100% - 2rem));
         }

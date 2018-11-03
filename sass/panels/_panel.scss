@@ -15,6 +15,10 @@
   overflow: hidden;
   position: relative;
 
+  &.ui-paper {
+    box-shadow: 1px 1px 8px 0 var(--base-shadow), 0 0 0 1px var(--base-border);
+  }
+
   $base: #{&};
   &__group {
     > #{$base} {

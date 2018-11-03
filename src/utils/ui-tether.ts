@@ -47,6 +47,7 @@ export namespace UITether {
   ) {
     const anchorRect = anchorEl.getBoundingClientRect();
     const dropdownRect = dropdownEl.getBoundingClientRect();
+    const scrollerRect = scrollerEl.getBoundingClientRect();
 
     if (config.resize !== false) {
       dropdownEl.style.minWidth = anchorRect.width + "px";
@@ -71,7 +72,6 @@ export namespace UITether {
     });
 
     if (!config.attachToViewport) {
-      const scrollerRect = scrollerEl.getBoundingClientRect();
       clientHeight = scrollerRect.bottom;
       clientWidth = scrollerRect.right;
       clientX = scrollerRect.left;
@@ -117,11 +117,17 @@ export namespace UITether {
     }
 
     if (!config.attachToViewport) {
-      const scrollerRect = scrollerEl.getBoundingClientRect();
       x -= scrollerRect.left - scrollerEl.scrollLeft;
       y -= scrollerRect.top - scrollerEl.scrollTop;
       x -= 1;
       y -= 1;
+
+      if (
+        getComputedStyle(scrollerEl).direction === "rtl" &&
+        scrollerEl.scrollHeight > scrollerEl.offsetHeight
+      ) {
+        x -= 5;
+      }
     }
     dropdownEl.style.transform = `translate(${x}px, ${y}px)`;
   }

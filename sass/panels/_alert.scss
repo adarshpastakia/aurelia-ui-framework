@@ -84,6 +84,11 @@
     transition-timing-function: ease-in;
     visibility: hidden;
     width: 0;
+
+    @at-root [dir="rtl"] & {
+      left: auto;
+      right: 0;
+    }
   }
 
   &.ui-notification {
@@ -99,6 +104,10 @@
     }
     .ui-alert__body {
       padding: 0 0 0.5rem;
+    }
+
+    @at-root [dir="rtl"] & {
+      transform: translate(-100%, 0);
     }
   }
 
@@ -116,7 +125,11 @@
 
   &.ui-alert--show {
     max-height: 10rem;
-    transform: translate(0, 0);
+
+    @at-root [dir="rtl"] &,
+      & {
+      transform: translate(0, 0);
+    }
 
     .ui-alert__progress {
       visibility: visible;

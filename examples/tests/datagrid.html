@@ -24,7 +24,7 @@
               <div class="ui-datagrid__cell__resizer"></div>
             </div>
           </div>
-          <div class="ui-datagrid__cell"></div>
+          <div class="ui-datagrid__cell ui-datagrid__cell--filler"></div>
           <div class="ui-datagrid__row__locked--end">
             <div class="ui-datagrid__cell" style="width: 64px"></div>
           </div>
@@ -32,7 +32,7 @@
       </div>
     </div>
     <div class="ui-datagrid__body" ref="dgBody">
-      <div virtual-repeat.for="i of countries" class="ui-datagrid__row ${$even ? 'ui-datagrid__row__even':'ui-datagrid__row__odd'}">
+      <div virtual-repeat.for="i of countries" class="ui-datagrid__row ${$even ? 'ui-datagrid__row--even':'ui-datagrid__row--odd'}">
         <div class="ui-datagrid__row__wrapper">
           <div class="ui-datagrid__row__locked">
             <div class="ui-datagrid__cell__counter">${$index + 1}</div>
@@ -48,16 +48,36 @@
           <div class="ui-datagrid__cell" style="width: 128px" repeat.for="j of 9">
             <div class="ui-datagrid__cell__wrapper">Cell</div>
           </div>
-          <div class="ui-datagrid__cell"></div>
+          <div class="ui-datagrid__cell ui-datagrid__cell--filler"></div>
           <div class="ui-datagrid__row__locked--end">
             <div class="ui-datagrid__cell" style="width: 64px">
-              <div class="ui-datagrid__cell__wrapper" ui-padding="0">
+              <div class="ui-datagrid__cell__wrapper" ui-padding="0" ui-align="center">
                 <ui-button-group>
                   <ui-button type="link" size="sm" ui-theme="success" icon="mdi mdi-pencil"></ui-button>
                   <ui-button type="link" size="sm" ui-theme="danger" icon="mdi mdi-delete"></ui-button>
                 </ui-button-group>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ui-datagrid__row ui-datagrid__row--filler">
+        <div class="ui-datagrid__row__wrapper">
+          <div class="ui-datagrid__row__locked">
+            <div class="ui-datagrid__cell__counter"></div>
+            <div class="ui-datagrid__cell" style="width: 128px" repeat.for="j of 3">
+              <div class="ui-datagrid__cell__wrapper"></div>
+            </div>
+          </div>
+          <div class="ui-datagrid__row__scrolling">
+            <div class="ui-datagrid__cell" style="width: 128px" repeat.for="j of 9">
+              <div class="ui-datagrid__cell__wrapper"></div>
+            </div>
+          </div>
+          <div class="ui-datagrid__cell ui-datagrid__cell--filler"></div>
+          <div class="ui-datagrid__row__locked--end">
+            <div class="ui-datagrid__cell" style="width: 64px"></div>
           </div>
         </div>
       </div>
@@ -76,7 +96,7 @@
               <div class="ui-datagrid__cell__wrapper">Foot</div>
             </div>
           </div>
-          <div class="ui-datagrid__cell"></div>
+          <div class="ui-datagrid__cell ui-datagrid__cell--filler"></div>
           <div class="ui-datagrid__row__locked--end">
             <div class="ui-datagrid__cell" style="width: 64px"></div>
           </div>

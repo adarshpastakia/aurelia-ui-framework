@@ -410,6 +410,11 @@
           top: 0.6em;
           z-index: 5;
         }
+
+        @at-root [dir="rtl"] &::after {
+          left: -0.5em;
+          right: auto;
+        }
       }
     }
 

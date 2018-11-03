@@ -13,10 +13,10 @@
   min-width: 2em;
   opacity: 0;
   padding: 0.5em 1rem;
-  position: fixed;
   visibility: hidden;
   white-space: nowrap;
   z-index: 5000;
+  @include position(fixed, 0 null null 0);
   @include transition(opacity 500ms);
 
   &::after {
