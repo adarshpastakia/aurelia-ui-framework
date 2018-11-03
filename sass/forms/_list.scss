@@ -28,6 +28,10 @@
     > .ui-badge {
       float: right;
       margin: 0;
+
+      @at-root [dir="rtl"] & {
+        float: left;
+      }
     }
 
     &:hover:not(&--selected):not(&--disabled) {

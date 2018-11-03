@@ -113,6 +113,10 @@
   ::before {
     @include transform-origin(50% 50% 0);
   }
+
+  @at-root [dir="rtl"] & {
+    transform: scaleX(-1);
+  }
 }
 
 .ui-loader {

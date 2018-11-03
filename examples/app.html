@@ -20,9 +20,14 @@
           <ui-col size="4" ui-bg="success"></ui-col>
           <ui-col size="4" ui-bg="warning"></ui-col>
         </ui-row>
-        <a ui-margin="x" ui-font="xl" click.trigger="toggleTheme()">
-          <ui-icon icon="mdi mdi-circle-slice-4"></ui-icon>
-        </a>
+        <ui-row ui-gutter ui-margin="x">
+          <a ui-font="xl" click.trigger="toggleDir()">
+            <ui-icon icon="mdi mdi mdi-format-textdirection-${isRtl?'l-to-r':'r-to-l'}"></ui-icon>
+          </a>
+          <a ui-font="xl" click.trigger="toggleTheme()">
+            <ui-icon icon="mdi mdi-circle-slice-4"></ui-icon>
+          </a>
+        </ui-row>
       </ui-row>
     </ui-viewport-header>
 

@@ -21,7 +21,7 @@
   $base: #{&};
 
   &:hover::before {
-    box-shadow: 0 -3px 0 0 var(--btn-hover) inset;
+    box-shadow: -1px -1px 3px 0 var(--btn-hover) inset;
   }
 
   &[data-open="true"],
@@ -44,7 +44,7 @@
 
   &__inner {
     background-color: var(--btn-bg);
-    border: 1px solid var(--base-border);
+    border: 1px solid var(--input-border);
     border-radius: $base-border-radius;
     box-shadow: 1px 1px 2px 0 var(--base-shadow);
     color: var(--btn-color);
@@ -392,7 +392,7 @@
       }
 
       &#{$base}__group--with-separator #{$base}__wrapper:not(:last-child) {
-        #{$base}__inner {
+        #{$base}__inner #{$base} {
           @include property-prefix(padding-end, 0.5em);
         }
 

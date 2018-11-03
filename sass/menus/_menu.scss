@@ -96,6 +96,10 @@
         box-shadow: 4px 0 0 0 var(--menu-item-active-color) inset;
         color: var(--menu-item-active-color);
       }
+
+      @at-root [dir="rtl"] &[data-active="true"] {
+        box-shadow: -4px 0 0 0 var(--menu-item-active-color) inset;
+      }
     }
 
     .ui-badge {
@@ -182,7 +186,7 @@
       }
 
       #{$base}__item__link[data-active="true"] {
-        box-shadow: 0 -4px 0 0 var(--menu-item-active-color) inset;
+        box-shadow: 0 -2px 0 0 var(--menu-item-active-color) inset;
       }
 
       #{$base}__group {

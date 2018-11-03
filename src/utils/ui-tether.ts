@@ -33,7 +33,7 @@ export namespace UITether {
     anchorPosition: "bl",
     attachToViewport: false,
     position: "tl",
-    resize: false
+    resize: true
   };
 
   // Tether functionality
@@ -48,7 +48,7 @@ export namespace UITether {
     const anchorRect = anchorEl.getBoundingClientRect();
     const dropdownRect = dropdownEl.getBoundingClientRect();
 
-    if (config.resize) {
+    if (config.resize !== false) {
       dropdownEl.style.minWidth = anchorRect.width + "px";
     }
 

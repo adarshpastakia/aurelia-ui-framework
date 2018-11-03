@@ -102,6 +102,7 @@ export class UIMenuItem {
 
       if (this.hasDrop && !this.split) {
         this.toggleDrop();
+        return false;
       }
       return this.element.dispatchEvent(UIInternal.createEvent("click", this.value));
     }

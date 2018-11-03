@@ -31,7 +31,7 @@ export class UIMenubar {
   }
 
   protected attached(): void {
-    setTimeout(() => this.calculateOverflow(), 500);
+    setTimeout(() => this.calculateOverflow(), 200);
   }
 
   protected detached(): void {

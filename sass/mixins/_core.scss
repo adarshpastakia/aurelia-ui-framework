@@ -14,9 +14,9 @@
   -o-#{$property}: $val;
   #{$property}: $val;
 
-  @if $fallback {
-    #{$fallback}: $val;
-  }
+  // @if $fallback {
+  //   #{$fallback}: $val;
+  // }
 }
 
 // position sticky

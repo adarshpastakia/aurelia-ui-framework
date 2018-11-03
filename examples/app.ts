@@ -12,6 +12,7 @@ import { UIApplication } from "aurelia-ui-framework";
 export class App {
   private router: Router;
   private hideTitle: boolean = false;
+  private isRtl: boolean = false;
   private darkTheme: boolean = false;
 
   constructor(private app: UIApplication) {}
@@ -39,6 +40,11 @@ export class App {
 
   protected activate() {
     this.app.subscribe("hidetitle", b => (this.hideTitle = b));
+  }
+
+  protected toggleDir(): void {
+    this.isRtl = !this.isRtl;
+    document.documentElement.dir = this.isRtl ? "rtl" : "ltr";
   }
 
   protected toggleTheme(): void {
