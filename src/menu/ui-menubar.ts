@@ -43,7 +43,7 @@ export class UIMenubar {
     const overflowItems = [];
     // @ts-ignore
     [...this.elWrapper.children].reverse().forEach(item => {
-      if (item.offsetLeft + item.offsetWidth + 30 >= this.element.offsetWidth) {
+      if (item.offsetLeft + item.offsetWidth >= this.elWrapper.offsetWidth) {
         overflowItems.splice(0, 0, item);
         this.hasOverflow = true;
       }

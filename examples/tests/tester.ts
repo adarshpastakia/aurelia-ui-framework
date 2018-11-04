@@ -35,6 +35,8 @@ PLATFORM.moduleName("./alerts.html");
 PLATFORM.moduleName("./login.html");
 PLATFORM.moduleName("./menu.html");
 PLATFORM.moduleName("./wizard.html");
+PLATFORM.moduleName("./tabs.html");
+PLATFORM.moduleName("./tab-test.html");
 
 @autoinject()
 export class Tester {
@@ -100,12 +102,7 @@ export class Tester {
         },
         { icon: "keyboard-outline", src: "forms.html", label: "Forms" },
         { icon: "card-text-outline", src: "login.html", label: "Login" },
-        {
-          badge: { theme: "yellow-dark", icon: "mdi mdi-alert", tooltip:"Under Development" },
-          icon: "auto-fix",
-          label: "Wizard",
-          src: "wizard.html"
-        }
+        
       ]
     ],
     [
@@ -116,12 +113,24 @@ export class Tester {
       ]
     ],
     [
-      { label: "" },
+      { label: "Panels" },
       [
         { icon: "mdi mdi-cards-variant", src: "cards.html", label: "Cards" },
         { icon: "mdi mdi-window-restore", src: "dialog.html", label: "Dialogs" },
         { icon: "mdi mdi-application", src: "panels.html", label: "Panels" },
-        { icon: "mdi mdi-bell-outline", src: "alerts.html", label: "Alerts" }
+        {
+          badge: { theme: "yellow-dark", icon: "mdi mdi-alert", tooltip:"Under Development" },
+          icon: "tab",
+          label: "Tabs",
+          src: "tabs.html"
+        },
+        { icon: "mdi mdi-bell-outline", src: "alerts.html", label: "Alerts" },
+        {
+          badge: { theme: "yellow-dark", icon: "mdi mdi-alert", tooltip:"Under Development" },
+          icon: "auto-fix",
+          label: "Wizard",
+          src: "wizard.html"
+        }
       ]
     ],
     [

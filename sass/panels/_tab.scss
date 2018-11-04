@@ -1,0 +1,151 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2018
+// @license   : MIT
+
+.ui-tab {
+  height: 100%;
+  @extend %ui-section;
+
+  &[data-active="false"] {
+    display: none;
+  }
+
+  &__panel {
+    display: grid;
+    grid-area: content;
+    grid-template-areas: "tabbar" "body";
+    grid-template-rows: auto 1fr;
+
+    &--noborder {
+      .ui-tab__body {
+        border-color: transparent;
+      }
+    }
+
+    &:not([data-position="bottom"]) {
+      .ui-tab__body {
+        border-top-color: var(--color-secondary);
+      }
+    }
+
+    &[data-position="bottom"] {
+      grid-template-areas: "body" "tabbar";
+      grid-template-rows: 1fr auto;
+
+      .ui-tab__bar {
+        margin: -2px 0 0;
+      }
+
+      .ui-tab__button {
+        margin: 0 2px 3px;
+
+        &[data-active="true"] {
+          box-shadow: 0 1px 0 0 var(--base-component) inset, 0 3px 0 0 var(--color-secondary),
+            0 0 0 1px var(--base-border) inset;
+        }
+      }
+
+      .ui-tab__body {
+        border-bottom-color: var(--color-secondary);
+      }
+    }
+  }
+
+  &__bar {
+    align-items: center;
+    display: grid;
+    grid-area: tabbar;
+    grid-template-columns: auto 1fr auto auto;
+    justify-content: start;
+    margin-bottom: -2px;
+
+    &__wrapper {
+      align-items: flex-end;
+      display: flex;
+      flex-flow: row nowrap;
+    }
+
+    &__start,
+    &__end {
+      padding: 0 0.25em;
+
+      &:empty {
+        display: none;
+      }
+    }
+  }
+
+  &__button {
+    align-items: center;
+    background-color: var(--base-bg);
+    border-radius: $base-border-radius;
+    box-shadow: 0 0 0 1px var(--base-border) inset;
+    cursor: pointer;
+    display: grid;
+    grid-template-areas: "icon label close";
+    grid-template-columns: auto auto auto;
+    line-height: 1;
+    margin: 3px 2px 0;
+    position: relative;
+
+    &__label {
+      padding: 0.5em;
+    }
+
+    &__icon {
+      padding: 0.5em;
+    }
+
+    &__close {
+      font-size: 0.8rem;
+      margin: 0 0.5em;
+      opacity: 0.5;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    &[data-active="true"] {
+      background-color: var(--base-component);
+      box-shadow: 0 -1px 0 0 var(--base-component) inset, 0 -3px 0 0 var(--color-secondary),
+        0 0 0 1px var(--base-border) inset;
+      font-weight: 500;
+      z-index: 2;
+    }
+
+    &[data-disabled="true"] {
+      color: var(--base-border);
+      pointer-events: none;
+
+      &::before {
+        background-color: var(--base-shadow);
+        content: "";
+        cursor: not-allowed;
+        opacity: 0.25;
+        @include position(absolute, 0);
+      }
+    }
+  }
+
+  &__body {
+    background-color: var(--base-component);
+    border: 1px solid var(--base-border);
+    grid-area: body;
+    position: relative;
+    z-index: 1;
+
+    > .ui-section,
+    > .ui-section__content,
+    > .ui-router-view {
+      background-color: var(--base-component);
+      z-index: 5;
+      @include position(absolute, 0);
+
+      &:empty {
+        display: none;
+      }
+    }
+  }
+}

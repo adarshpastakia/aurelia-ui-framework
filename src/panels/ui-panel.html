@@ -6,7 +6,7 @@
         <ui-header-title if.bind="label">${label}</ui-header-title>
       </ui-header>
     </slot>
-    <div class="ui-panel__header__actions" if.bind="collapsible || closable">
+    <div class="ui-panel__header__actions" if.bind="collapsible || closeable">
       <template if.bind="collapsible">
         <ui-button type="tool" click.trigger="toggleExpand(false)" if.bind="!collapsed">
           <ui-svg-icon icon="minus"></ui-svg-icon>

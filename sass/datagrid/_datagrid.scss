@@ -5,10 +5,9 @@
 
 .ui-datagrid {
   display: grid;
-  grid-area: body;
+  grid-area: content;
   grid-template-areas: "head" "body" "foot";
   grid-template-rows: auto 1fr auto;
-  height: 100%;
 
   $base: #{&};
   %grid-row {

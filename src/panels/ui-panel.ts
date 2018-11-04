@@ -19,9 +19,9 @@ import { UIInternal } from "../utils/ui-internal";
 @customElement("ui-panel")
 export class UIPanel {
   @bindable()
-  public label = "";
+  public label: string = "";
   @bindable()
-  public icon = "";
+  public icon: string = "";
 
   @bindable({ defaultBindingMode: bindingMode.twoWay })
   public collapsed: boolean = false;
@@ -46,21 +46,24 @@ export class UIPanel {
   protected collapsible: boolean = false;
 
   constructor(protected element: Element) {
-    this.closeable = element.hasAttribute("closable");
+    this.closeable = element.hasAttribute("closeable");
     this.collapsible = element.hasAttribute("collapsible");
   }
 
-  public close(): void {
-    UIInternal.fireCallbackEvent(this, "beforeclose").then(b => (b ? this.remove() : undefined));
+  public close(): Promise<boolean> {
+    return UIInternal.fireCallbackEvent(this, "beforeclose").then(
+      b => (b ? this.remove() : false)
+    );
   }
 
   protected toggleExpand(expand: boolean): void {
     this.collapsed = !expand;
   }
 
-  private remove(): void {
+  private remove(): boolean {
     this.element.dispatchEvent(UIInternal.createEvent("close"));
     UIInternal.queueTask(() => DOM.removeNode(this.element));
+    return true;
   }
 }
 

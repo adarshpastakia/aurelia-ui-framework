@@ -79,6 +79,7 @@ export class UIFrameworkConfig {
       this.loadFromModule(PLATFORM.moduleName("./panels/ui-base"));
       this.loadFromModule(PLATFORM.moduleName("./panels/ui-panel"));
       this.loadFromModule(PLATFORM.moduleName("./panels/ui-card"));
+      this.loadFromModule(PLATFORM.moduleName("./panels/ui-tab-panel"));
       this.loadFromModule(PLATFORM.moduleName("./panels/ui-card-body"));
       this.loadFromModule(PLATFORM.moduleName("./panels/ui-alert"));
       this.loadFromModule(PLATFORM.moduleName("./panels/ui-dialog"));
