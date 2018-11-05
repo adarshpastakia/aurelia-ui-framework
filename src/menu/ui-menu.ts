@@ -19,7 +19,16 @@ import { UIInternal } from "../utils/ui-internal";
 @autoinject()
 @customElement("ui-menu")
 @inlineView(`<template class="ui-menu"><slot></slot></template>`)
-export class UIMenu {}
+export class UIMenu {
+  constructor(private element: Element) {}
+
+  protected attached(): void {
+    const active = this.element.querySelector(".ui-menu__item__link[data-active='true']");
+    if (active) {
+      active.scrollIntoView({ block: "center", inline: "nearest" });
+    }
+  }
+}
 
 @autoinject()
 @containerless()

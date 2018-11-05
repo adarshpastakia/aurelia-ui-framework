@@ -10,6 +10,7 @@ import {
   bindable,
   bindingMode,
   children,
+  containerless,
   customElement,
   DOM,
   inlineView
@@ -22,6 +23,7 @@ export interface UITabConfig {
   id: string;
   icon?: string;
   label?: string;
+  tooltip?: string;
   active?: boolean;
   disabled?: boolean;
   closeable?: boolean;
@@ -56,13 +58,16 @@ export class UITabPanel {
   }
 
   public activateTab(id: string): Promise<boolean> {
-    return UIInternal.fireCallbackEvent(this, "beforechange").then(
-      b => (b ? this.activate(id) : undefined)
-    );
+    const tab = this.tabs.find(t => t.id === id);
+    return UIInternal.fireCallbackEvent(this, "beforechange", {
+      active: this.activeTab,
+      tab
+    }).then(b => (b ? this.activate(id) : undefined));
   }
 
   public closeTab(id: string): Promise<boolean> {
-    return UIInternal.fireCallbackEvent(this, "beforeclose").then(
+    const tab = this.tabs.find(t => t.id === id);
+    return UIInternal.fireCallbackEvent(this, "beforeclose", { tab }).then(
       b => (b ? this.remove(id) : false)
     );
   }
@@ -141,4 +146,20 @@ export class UITab {
     this.id = `tab__${tabSeed++}`;
     this.closeable = element.hasAttribute("closeable");
   }
+}
+
+@autoinject()
+@containerless()
+@customElement("ui-tabbar-start")
+@inlineView(`<template><div slot="tabbar-start"><slot></slot></div></template>`)
+export class UITabbarStart {
+  constructor(public element: Element) {}
+}
+
+@autoinject()
+@containerless()
+@customElement("ui-tabbar-end")
+@inlineView(`<template><div slot="tabbar-end"><slot></slot></div></template>`)
+export class UITabbarEnd {
+  constructor(public element: Element) {}
 }

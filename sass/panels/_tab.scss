@@ -4,7 +4,6 @@
 // @license   : MIT
 
 .ui-tab {
-  height: 100%;
   @extend %ui-section;
 
   &[data-active="false"] {
@@ -99,6 +98,7 @@
 
     &__close {
       font-size: 0.8rem;
+      line-height: 1;
       margin: 0 0.5em;
       opacity: 0.5;
 
@@ -132,7 +132,13 @@
   &__body {
     background-color: var(--base-component);
     border: 1px solid var(--base-border);
+    display: grid;
     grid-area: body;
+    grid-template-areas: "content";
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    overflow: hidden;
+    position: relative;
     position: relative;
     z-index: 1;
 
@@ -141,7 +147,6 @@
     > .ui-router-view {
       background-color: var(--base-component);
       z-index: 5;
-      @include position(absolute, 0);
 
       &:empty {
         display: none;
