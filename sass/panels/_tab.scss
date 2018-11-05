@@ -86,14 +86,17 @@
     grid-template-columns: auto auto auto;
     line-height: 1;
     margin: 3px 2px 0;
+    max-width: 10rem;
+    padding: 0.5em 0.75em;
     position: relative;
 
     &__label {
-      padding: 0.5em;
+      @include ellipsis();
     }
 
-    &__icon {
-      padding: 0.5em;
+    &__icon::after {
+      content: "\0020";
+      display: inline-block;
     }
 
     &__close {

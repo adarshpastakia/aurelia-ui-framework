@@ -5,8 +5,8 @@
 
 .ui-option {
   --toggle-bg: var(--color-gray-light);
-  --toggle-color: var(--color-gray-dark);
-  --toggle-on-bg: var(--color-gray-shade);
+  --toggle-color: var(--color-gray);
+  --toggle-on-bg: var(--color-gray-dark);
 
   &__group {
     align-items: center;
@@ -19,37 +19,42 @@
   }
 
   &__toggle {
+    border: 2px solid var(--toggle-bg);
+    border-radius: 1em;
     cursor: pointer;
     direction: ltr;
     font-size: 1.2rem;
     margin: 0 4px;
+    opacity: 0.9;
+    overflow: hidden;
     position: relative;
-    width: 2em;
+    width: 2.25em;
+    --toggle-on: "\2758";
+    --toggle-off: "O";
 
     &::before {
       background-color: var(--toggle-bg);
-      border-radius: 1em;
-      box-shadow: 0 0 0 2px var(--toggle-bg);
       color: var(--toggle-color);
-      content: "\2758\00A0\00A0O";
+      content: var(--toggle-off);
       display: block;
       height: 1em;
+      line-height: 1;
       margin: auto;
-      opacity: 0.75;
+      padding: 0 2px 0 8px;
       position: absolute;
       text-align: right;
-      width: 2em;
+      width: 100%;
     }
 
     &::after {
       background-color: var(--color-white);
       border-radius: 1em;
-      // box-shadow: 0 0 0 1px var(--base-border);
       content: "";
       display: block;
       height: 1em;
-      transform: translateX(0);
-      transition: transform 0.2s;
+      left: 0;
+      position: relative;
+      transition: left 0.2s;
       width: 1em;
     }
   }
@@ -105,12 +110,15 @@
         }
 
         ~ .ui-option__toggle {
+          --toggle-bg: var(--toggle-on-bg);
+          --toggle-color: var(--color-gray-tint);
+
           &::before {
-            --toggle-bg: var(--toggle-on-bg);
-            --toggle-color: var(--color-gray-tint);
+            content: var(--toggle-on);
+            text-align: left;
           }
           &::after {
-            transform: translateX(100%);
+            left: calc(100% - 1em);
           }
         }
       }

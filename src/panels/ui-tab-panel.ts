@@ -20,7 +20,7 @@ import { UIInternal } from "../utils/ui-internal";
 let tabSeed = 0;
 
 export interface UITabConfig {
-  id: string;
+  id?: string;
   icon?: string;
   label?: string;
   tooltip?: string;
@@ -51,6 +51,8 @@ export class UITabPanel {
   @bindable({ bindingMode: bindingMode.toView })
   protected activeTab: UITabConfig;
 
+  private composeEl: Element;
+
   constructor(protected element: Element) {
     if (element.hasAttribute("no-border")) {
       element.classList.add("ui-tab__panel--noborder");
@@ -60,16 +62,22 @@ export class UITabPanel {
   public activateTab(id: string): Promise<boolean> {
     const tab = this.tabs.find(t => t.id === id);
     return UIInternal.fireCallbackEvent(this, "beforechange", {
-      active: this.activeTab,
-      tab
+      activeTab: this.activeTab.id,
+      activeViewModel: getComposeViewModel(this.composeEl),
+      newTab: id
     }).then(b => (b ? this.activate(id) : undefined));
   }
 
   public closeTab(id: string): Promise<boolean> {
     const tab = this.tabs.find(t => t.id === id);
-    return UIInternal.fireCallbackEvent(this, "beforeclose", { tab }).then(
-      b => (b ? this.remove(id) : false)
-    );
+    return UIInternal.fireCallbackEvent(this, "beforeclose", {
+      activaTab: tab.id,
+      activeViewModel: getComposeViewModel(this.composeEl)
+    }).then(b => (b ? this.remove(id) : false));
+  }
+
+  protected attached(): void {
+    this.composeEl = this.element.querySelector(".ui-tab__body > compose");
   }
 
   protected innerTabsChanged(): void {
@@ -78,9 +86,9 @@ export class UITabPanel {
   }
 
   protected tabsChanged(): void {
-    this.tabs.forEach(tab => (this.active = tab.active ? tab.id : undefined));
+    this.active = (this.tabs.find(tab => tab.active) || {}).id;
     if (!this.active) {
-      this.activeTab = this.tabs[0];
+      this.activeTab = this.tabs.find(tab => !tab.disabled) || {};
       this.active = this.activeTab.id;
       this.activeTab.active = true;
     }

@@ -5,7 +5,7 @@
       <!-- repeat tabs -->
       <template repeat.for="tab of tabs">
         <div class="ui-tab__button" data-id.bind="tab.id" data-active.bind="tab.active" data-disabled.bind="tab.disabled"
-          click.trigger="activateTab(tab.id)">
+          click.trigger="activateTab(tab.id)" ui-tooltip.bind="tab.label">
           <span class="ui-tab__button__icon" if.bind="tab.icon">
             <ui-icon icon.bind="tab.icon"></ui-icon>
           </span>

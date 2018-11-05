@@ -13,6 +13,7 @@ import {
   UIAlertService,
   UIDialogService
 } from "aurelia-ui-framework";
+import { DlgTest } from "./dlg-test";
 import Icons from "./icons.json";
 
 PLATFORM.moduleName("./theme.html");
@@ -37,6 +38,7 @@ PLATFORM.moduleName("./menu.html");
 PLATFORM.moduleName("./wizard.html");
 PLATFORM.moduleName("./tabs.html");
 PLATFORM.moduleName("./tab-test.html");
+PLATFORM.moduleName("./calendar.html");
 
 @autoinject()
 export class Tester {
@@ -95,14 +97,19 @@ export class Tester {
       { label: "" },
       [
         {
-          badge: { theme: "pink-dark", icon: "mdi mdi-check", tooltip:"Tested" },
+          badge: { theme: "pink-dark", icon: "mdi mdi-check", tooltip: "Tested" },
           icon: "format-page-break",
           label: "Page",
           src: "page.html"
         },
         { icon: "keyboard-outline", src: "forms.html", label: "Forms" },
         { icon: "card-text-outline", src: "login.html", label: "Login" },
-        
+        {
+          badge: { theme: "yellow-dark", icon: "mdi mdi-alert", tooltip: "Under Development" },
+          icon: "calendar",
+          label: "Calendar",
+          src: "calendar.html"
+        }
       ]
     ],
     [
@@ -119,14 +126,14 @@ export class Tester {
         { icon: "mdi mdi-window-restore", src: "dialog.html", label: "Dialogs" },
         { icon: "mdi mdi-application", src: "panels.html", label: "Panels" },
         {
-          badge: { theme: "yellow-dark", icon: "mdi mdi-alert", tooltip:"Under Development" },
+          badge: { theme: "yellow-dark", icon: "mdi mdi-alert", tooltip: "Under Development" },
           icon: "tab",
           label: "Tabs",
           src: "tabs.html"
         },
         { icon: "mdi mdi-bell-outline", src: "alerts.html", label: "Alerts" },
         {
-          badge: { theme: "yellow-dark", icon: "mdi mdi-alert", tooltip:"Under Development" },
+          badge: { theme: "yellow-dark", icon: "mdi mdi-alert", tooltip: "Under Development" },
           icon: "auto-fix",
           label: "Wizard",
           src: "wizard.html"
@@ -137,7 +144,7 @@ export class Tester {
       { label: "" },
       [
         {
-          badge: { theme: "yellow-dark", icon: "mdi mdi-alert", tooltip:"Under Development" },
+          badge: { theme: "yellow-dark", icon: "mdi mdi-alert", tooltip: "Under Development" },
           icon: "grid",
           label: "Datagrid",
           src: "datagrid.html"

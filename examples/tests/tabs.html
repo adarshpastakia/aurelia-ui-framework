@@ -8,7 +8,7 @@
         <ui-button size="sm">Close all</ui-button>
       </ui-tabbar-end>
 
-      <ui-tab icon="mdi mdi-account" label="Inline" closeable>
+      <ui-tab icon="mdi mdi-account" label="Inline">
         <ui-content ui-padding>
           <h4>Inline Content</h4>
           <ul>
@@ -18,7 +18,8 @@
           </ul>
         </ui-content>
       </ui-tab>
-      <ui-tab icon="mdi mdi-account" label="Composed" closeable view="./tab-test.html"></ui-tab>
+      <ui-tab icon="mdi mdi-account" label="Composed View" closeable view="./tab-test.html"></ui-tab>
+      <ui-tab icon="mdi mdi-account" label="Composed VM" closeable view-model="./dlg-test" model.bind="{}"></ui-tab>
       <ui-tab icon="mdi mdi-account" label="Disabled" disabled="true" closeable>Tab3</ui-tab>
 
       <compose class="ui-section" view.bind="activeTab.view" model.bind="activeTab.model" view-model.bind="activeTab.viewModel"></compose>

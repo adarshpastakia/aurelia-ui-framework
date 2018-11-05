@@ -24,6 +24,7 @@ function fn(): void;
 function getView(el: Element | HTMLElement): AnyObject;
 function getViewModel(el: Element | HTMLElement): AnyObject;
 function getSlotViewModel(el: Element | HTMLElement): AnyObject;
+function getComposeViewModel(el: Element | HTMLElement): AnyObject;
 
 function isTrue(b: any): arg is true;
 function isFalse(b: any): arg is false;

@@ -59,6 +59,7 @@ fn = () => null;
 getView = el => (el.au && el.au.controller ? el.au.controller.view : null);
 getViewModel = el => (el.au && el.au.controller ? el.au.controller.viewModel : null);
 getSlotViewModel = el => el.au["au-slot"].container.parent.viewModel;
+getComposeViewModel = el => (el.au && el.au.controller ? el.au.controller.viewModel.currentViewModel : null);
 
 isRtl = function(el) {
   rtl = false;
