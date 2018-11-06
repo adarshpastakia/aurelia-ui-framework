@@ -1,0 +1,101 @@
+<template class="ui-date__wrapper">
+  <div class="ui-date__calendar" data-page.bind="currentView">
+    <div class="ui-date__page ui-date__page--date">
+      <div class="ui-date__header">
+        <a ui-tooltip="Previous Year" class="ui-date__pg-down" click.trigger="previous('year')">
+          <ui-svg-icon icon="page-first"></ui-svg-icon>
+        </a>
+        <a ui-tooltip="Previous Month" class="ui-date__prev" click.trigger="previous('month')">
+          <ui-svg-icon icon="page-previous"></ui-svg-icon>
+        </a>
+        <a class="ui-date__title" click.trigger="currentView = 'month'">${currentMonth | date:"MMMM"}, ${currentMonth |
+          date:"YYYY"}</a>
+        <a ui-tooltip="Next Month" class="ui-date__next" click.trigger="next('month')">
+          <ui-svg-icon icon="page-next"></ui-svg-icon>
+        </a>
+        <a ui-tooltip="Next Year" class="ui-date__pg-up" click.trigger="next('year')">
+          <ui-svg-icon icon="page-last"></ui-svg-icon>
+        </a>
+      </div>
+      <div class="ui-date__grid--date" innerhtml.bind="datePage" click.delegate="selectDate($event)">
+      </div>
+      <div class="ui-date__foot">
+        <ui-svg-icon icon="clock"></ui-svg-icon>
+        <div class="ui-date__time--input">
+          <input size="3" value="hh" type="number" min="1" max="12" placeholder="HH" />
+          <a>
+            <ui-svg-icon icon="plus"></ui-svg-icon>
+          </a>
+          <a>
+            <ui-svg-icon icon="minus"></ui-svg-icon>
+          </a>
+        </div>
+        <span>:</span>
+        <div class="ui-date__time--input">
+          <input size="3" value="mm" type="number" min="0" max="60" placeholder="MM" />
+          <a>
+            <ui-svg-icon icon="plus"></ui-svg-icon>
+          </a>
+          <a>
+            <ui-svg-icon icon="minus"></ui-svg-icon>
+          </a>
+        </div>
+        <span>:</span>
+        <div class="ui-date__time--input">
+          <input size="3" value="ss" type="number" min="0" max="60" placeholder="SS" />
+          <a>
+            <ui-svg-icon icon="plus"></ui-svg-icon>
+          </a>
+          <a>
+            <ui-svg-icon icon="minus"></ui-svg-icon>
+          </a>
+        </div>
+        <ui-toggle></ui-toggle>
+      </div>
+    </div>
+    <div class="ui-date__page ui-date__page--month">
+      <div class="ui-date__header">
+        <a ui-tooltip="Previous Year" class="ui-date__prev" click.trigger="previous('year')">
+          <ui-svg-icon icon="page-previous"></ui-svg-icon>
+        </a>
+        <a class="ui-date__title" click.trigger="currentView = 'year'">${currentMonth | date:"YYYY"}</a>
+        <a ui-tooltip="Next Year" class="ui-date__next" click.trigger="next('year')">
+          <ui-svg-icon icon="page-next"></ui-svg-icon>
+        </a>
+      </div>
+      <div class="ui-date__grid--month">
+        <span class="ui-date__cell ui-date__cell--month" data-month="0">JAN</span>
+        <span class="ui-date__cell ui-date__cell--month" data-month="1">FEB</span>
+        <span class="ui-date__cell ui-date__cell--month" data-month="2">MAR</span>
+        <span class="ui-date__cell ui-date__cell--month" data-month="3">APR</span>
+        <span class="ui-date__cell ui-date__cell--month" data-month="4">MAY</span>
+        <span class="ui-date__cell ui-date__cell--month" data-month="5">JUN</span>
+        <span class="ui-date__cell ui-date__cell--month" data-month="6">JUL</span>
+        <span class="ui-date__cell ui-date__cell--month" data-month="7">AUG</span>
+        <span class="ui-date__cell ui-date__cell--month" data-month="8">SEP</span>
+        <span class="ui-date__cell ui-date__cell--month" data-month="9">OCT</span>
+        <span class="ui-date__cell ui-date__cell--month" data-month="10">NOV</span>
+        <span class="ui-date__cell ui-date__cell--month" data-month="11">DEC</span>
+      </div>
+      <div class="ui-date__foot">
+        <a class="ui-date__title" ui-color="secondary-light" click.trigger="currentView = 'date'">Cancel</a>
+      </div>
+    </div>
+    <div class="ui-date__page ui-date__page--year">
+      <div class="ui-date__header">
+        <a ui-tooltip="Previous Decade" class="ui-date__prev" click.trigger="previous('decade')">
+          <ui-svg-icon icon="page-previous"></ui-svg-icon>
+        </a>
+        <span class="ui-date__title">${decadeStart} - ${decadeStart + 20}</span>
+        <a ui-tooltip="Next Decade" class="ui-date__next" click.trigger="next('decade')">
+          <ui-svg-icon icon="page-next"></ui-svg-icon>
+        </a>
+      </div>
+      <div class="ui-date__grid--year" innerhtml.bind="yearPage">
+      </div>
+      <div class="ui-date__foot">
+        <a class="ui-date__title" ui-color="secondary-light" click.trigger="currentView = 'month'">Cancel</a>
+      </div>
+    </div>
+  </div>
+</template>

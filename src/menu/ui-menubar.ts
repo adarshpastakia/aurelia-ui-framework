@@ -5,24 +5,24 @@
  * @license   : MIT
  */
 import { Subscription } from "aurelia-event-aggregator";
-import { autoinject, children, customElement, inlineView } from "aurelia-framework";
+import { autoinject, customElement, inlineView } from "aurelia-framework";
 import { UIInternal } from "../utils/ui-internal";
 
 @autoinject()
 @customElement("ui-menubar")
 @inlineView(`<template class="ui-menu__bar">
-  <div class="ui-menu__bar__wrapper" ref="elWrapper"><slot></slot></div>
+  <div class="ui-menu__bar__wrapper" ref="wrapperEl"><slot></slot></div>
   <ui-button type="link" no-caret class="ui-menu__overflow" ui-theme="secondary" show.bind="hasOverflow">
     <ui-svg-icon class="ui-btn__icon" icon="overflow"></ui-svg-icon>
-    <ui-drop><ui-menu ref="elOverflow"></ui-menu></ui-drop>
+    <ui-drop><ui-menu ref="overflowEl"></ui-menu></ui-drop>
   </ui-button>
 </template>`)
 export class UIMenubar {
-  protected elWrapper: Element;
-  protected elOverflow: Element;
+  private wrapperEl: Element;
+  private overflowEl: Element;
 
-  protected hasOverflow: boolean = false;
-  protected obResize: Subscription;
+  private hasOverflow: boolean = false;
+  private obResize: Subscription;
 
   constructor(private element: Element) {
     this.obResize = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_RESIZE, t =>
@@ -41,20 +41,24 @@ export class UIMenubar {
   protected calculateOverflow(): void {
     this.resetOverflow();
     const overflowItems = [];
+    const isRtl = getComputedStyle(this.wrapperEl).direction === "rtl";
     // @ts-ignore
-    [...this.elWrapper.children].reverse().forEach(item => {
-      if (item.offsetLeft + item.offsetWidth + 30 >= this.elWrapper.offsetWidth) {
+    [...this.wrapperEl.children].reverse().forEach(item => {
+      if (
+        (!isRtl && this.wrapperEl.offsetWidth - (item.offsetLeft + item.offsetWidth) <= 30) ||
+        (isRtl && this.wrapperEl.offsetWidth - item.offsetLeft >= this.wrapperEl.offsetWidth - 30)
+      ) {
         overflowItems.splice(0, 0, item);
         this.hasOverflow = true;
       }
     });
-    this.elOverflow.append(...overflowItems);
+    this.overflowEl.append(...overflowItems);
   }
 
   protected resetOverflow(): void {
     this.hasOverflow = false;
-    this.elOverflow.children.forEach(child => {
-      this.elWrapper.appendChild(child);
+    this.overflowEl.children.forEach(child => {
+      this.wrapperEl.appendChild(child);
     });
   }
 }

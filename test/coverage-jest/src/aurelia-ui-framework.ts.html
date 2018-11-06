@@ -22,7 +22,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>78/78</span>
+        <span class='fraction'>98/98</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -37,7 +37,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>73/73</span>
+        <span class='fraction'>93/93</span>
       </div>
     </div>
   </div>
@@ -193,7 +193,16 @@
 148
 149
 150
-151</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -249,24 +258,20 @@
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
@@ -279,6 +284,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -289,6 +300,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
@@ -324,7 +342,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">209x</span>
+<span class="cline-any cline-yes">429x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -398,21 +416,27 @@ export class UIFrameworkConfig {
     buttons: () =&gt; {
       this.loadFromModule(PLATFORM.moduleName("./buttons/ui-button"));
       this.loadFromModule(PLATFORM.moduleName("./buttons/ui-button-group"));
+      this.loadFromModule(PLATFORM.moduleName("./buttons/ui-badge"));
+      this.loadFromModule(PLATFORM.moduleName("./attributes/ui-badge"));
+      this.loadFromModule(PLATFORM.moduleName("./attributes/ui-tooltip"));
       return this.use;
     },
 &nbsp;
     forms: () =&gt; {
-      // this.loadFromModule(PLATFORM.moduleName("./forms/ui-form"));
-      // this.loadFromModule(PLATFORM.moduleName("./forms/ui-field"));
-      // this.loadFromModule(PLATFORM.moduleName("./forms/ui-fieldset"));
-      // this.loadFromModule(PLATFORM.moduleName("./forms/ui-input"));
-      // this.loadFromModule(PLATFORM.moduleName("./forms/ui-textarea"));
-      // this.loadFromModule(PLATFORM.moduleName("./forms/ui-select"));
-      // this.loadFromModule(PLATFORM.moduleName("./forms/ui-checkbox"));
-      // this.loadFromModule(PLATFORM.moduleName("./forms/ui-radio"));
-      // this.loadFromModule(PLATFORM.moduleName("./forms/ui-toggle"));
-      // this.loadFromModule(PLATFORM.moduleName("./forms/ui-option-group"));
-      // this.loadFromModule(PLATFORM.moduleName("./forms/ui-input-addons"));
+      this.loadFromModule(PLATFORM.moduleName("./forms/ui-form"));
+      this.loadFromModule(PLATFORM.moduleName("./forms/ui-field"));
+      this.loadFromModule(PLATFORM.moduleName("./forms/ui-fieldset"));
+      this.loadFromModule(PLATFORM.moduleName("./forms/ui-input"));
+      this.loadFromModule(PLATFORM.moduleName("./forms/ui-textarea"));
+      this.loadFromModule(PLATFORM.moduleName("./forms/ui-select"));
+      this.loadFromModule(PLATFORM.moduleName("./forms/ui-list"));
+      this.loadFromModule(PLATFORM.moduleName("./forms/ui-checkbox"));
+      this.loadFromModule(PLATFORM.moduleName("./forms/ui-radio"));
+      this.loadFromModule(PLATFORM.moduleName("./forms/ui-toggle"));
+      this.loadFromModule(PLATFORM.moduleName("./forms/ui-date"));
+      this.loadFromModule(PLATFORM.moduleName("./forms/ui-date-range"));
+      this.loadFromModule(PLATFORM.moduleName("./forms/ui-option-group"));
+      this.loadFromModule(PLATFORM.moduleName("./forms/ui-input-addons"));
       return this.use;
     },
 &nbsp;
@@ -420,6 +444,7 @@ export class UIFrameworkConfig {
       this.loadFromModule(PLATFORM.moduleName("./panels/ui-base"));
       this.loadFromModule(PLATFORM.moduleName("./panels/ui-panel"));
       this.loadFromModule(PLATFORM.moduleName("./panels/ui-card"));
+      this.loadFromModule(PLATFORM.moduleName("./panels/ui-tab-panel"));
       this.loadFromModule(PLATFORM.moduleName("./panels/ui-card-body"));
       this.loadFromModule(PLATFORM.moduleName("./panels/ui-alert"));
       this.loadFromModule(PLATFORM.moduleName("./panels/ui-dialog"));
@@ -428,13 +453,14 @@ export class UIFrameworkConfig {
 &nbsp;
     menus: () =&gt; {
       this.loadFromModule(PLATFORM.moduleName("./menu/ui-menu"));
+      this.loadFromModule(PLATFORM.moduleName("./menu/ui-menubar"));
+      this.loadFromModule(PLATFORM.moduleName("./menu/ui-dropdown"));
       return this.use;
     },
 &nbsp;
     appbars: () =&gt; {
       this.loadFromModule(PLATFORM.moduleName("./appbars/ui-toolbar"));
       this.loadFromModule(PLATFORM.moduleName("./appbars/ui-sidebar"));
-      this.loadFromModule(PLATFORM.moduleName("./appbars/ui-menubar"));
       return this.use;
     }
   };
@@ -444,6 +470,7 @@ export class UIFrameworkConfig {
     this.loadFromModule(PLATFORM.moduleName("./core/ui-responsive"));
     this.loadFromModule(PLATFORM.moduleName("./core/ui-page"));
     this.loadFromModule(PLATFORM.moduleName("./core/ui-icon"));
+    this.loadFromModule(PLATFORM.moduleName("./core/ui-drop"));
 &nbsp;
     this.loadFromModule(PLATFORM.moduleName("./attributes/ui-helpers"));
 &nbsp;
@@ -499,7 +526,7 @@ export function configure(
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Oct 30 2018 14:04:26 GMT+0400 (Gulf Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Nov 07 2018 00:45:18 GMT+0400 (Gulf Standard Time)
 </div>
 </div>
 <script src="../prettify.js"></script>

@@ -48,7 +48,7 @@ export class UIDialogService {
     return new Promise(resolve => {
       this.getViewModel(instruction)
         .then(newInstruction =>
-          this.invokeLifecycle(newInstruction.viewModel, "canActivate", model)
+          UIInternal.invokeLifecycle(newInstruction.viewModel, "canActivate", model)
         )
         .then(canActivate => {
           return canActivate !== false
@@ -157,10 +157,10 @@ export class UIDialogService {
   private closeDialog(detail): void {
     if (detail && detail.dialog) {
       const { dialog, result } = detail;
-      this.invokeLifecycle(dialog.viewController.viewModel, "canDeactivate", result).then(
+      UIInternal.invokeLifecycle(dialog.viewController.viewModel, "canDeactivate", result).then(
         canDeactivate => {
           if (canDeactivate !== false) {
-            this.invokeLifecycle(dialog.viewController.viewModel, "deactivate");
+            UIInternal.invokeLifecycle(dialog.viewController.viewModel, "deactivate");
             this.appConfig.DialogContainer.remove(dialog.viewController.view);
             if (dialog.taskButton) {
               this.appConfig.TaskbarContainer.remove(dialog.taskButton);
@@ -192,19 +192,5 @@ export class UIDialogService {
       return this.compositionEngine.ensureViewModel(instruction);
     }
     return Promise.resolve(instruction);
-  }
-
-  private invokeLifecycle(instance, name, model?): Promise<AnyObject> {
-    if (instance && typeof instance[name] === "function") {
-      const result = instance[name](model);
-      if (result instanceof Promise) {
-        return result;
-      }
-      if (result !== null && result !== undefined) {
-        return Promise.resolve(result);
-      }
-      return Promise.resolve(true);
-    }
-    return Promise.resolve(true);
   }
 }

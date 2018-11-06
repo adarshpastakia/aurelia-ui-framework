@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">75% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>32/32</span>
+        <span class='fraction'>24/32</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -30,18 +30,18 @@
         <span class='fraction'>0/0</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">50% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>10/10</span>
+        <span class='fraction'>5/10</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">73.68% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>19/19</span>
+        <span class='fraction'>14/19</span>
       </div>
     </div>
   </div>
-  <div class='status-line high'></div>
+  <div class='status-line medium'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -130,7 +130,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -142,7 +142,7 @@
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -152,14 +152,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -169,7 +169,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
  * @author    : Adarsh Pastakia
@@ -183,18 +183,18 @@ import { autoinject, bindable, containerless, customElement, inlineView } from "
 @containerless()
 @customElement("ui-header")
 @inlineView(`&lt;template&gt;&lt;div class="ui-header" slot="panel-header" ref="vmElement"&gt;
-  &lt;div class="ui-drag-handle" ui-color="muted" if.bind="draggable"&gt;&lt;ui-svg-icon icon="drag"&gt;&lt;/ui-svg-icon&gt;&lt;/div&gt;
+  &lt;div class="ui-drag-handle" ui-color="gray" if.bind="draggable"&gt;&lt;ui-svg-icon icon="drag"&gt;&lt;/ui-svg-icon&gt;&lt;/div&gt;
   &lt;slot name="header-icon"&gt;&lt;div class="ui-header__icon" if.bind="icon"&gt;&lt;ui-icon icon.bind="icon"&gt;&lt;/ui-icon&gt;&lt;/div&gt;&lt;/slot&gt;
   &lt;slot name="header-title"&gt;&lt;div class="ui-header__title" if.bind="label" innerhtml.bind="label"&gt;&lt;/div&gt;&lt;/slot&gt;
   &lt;slot&gt;&lt;/slot&gt;
   &lt;/div&gt;&lt;/template&gt;`)
 export class UIHeader {
   @bindable()
-  public label = "";
+  public <span class="cstat-no" title="statement not covered" >label = "";</span>
   @bindable()
-  public icon = "";
+  public <span class="cstat-no" title="statement not covered" >icon = "";</span>
 &nbsp;
-  constructor(private element: Element) {}
+<span class="fstat-no" title="function not covered" >  constructor(private <span class="cstat-no" title="statement not covered" ></span>element: Element)</span> {}
 }
 &nbsp;
 @autoinject()
@@ -205,8 +205,8 @@ export class UIHeader {
 )
 export class UIHeaderIcon {
   @bindable()
-  public icon: string = "";
-  constructor(private element: Element) {}
+  public <span class="cstat-no" title="statement not covered" >icon: string = "";</span>
+<span class="fstat-no" title="function not covered" >  constructor(private <span class="cstat-no" title="statement not covered" ></span>element: Element)</span> {}
 }
 &nbsp;
 @autoinject()
@@ -216,14 +216,14 @@ export class UIHeaderIcon {
   `&lt;template&gt;&lt;div ref="vmElement" slot="header-title" class='ui-header__title'&gt;&lt;slot&gt;&lt;/slot&gt;&lt;/div&gt;&lt;/template&gt;`
 )
 export class UIHeaderTitle {
-  constructor(private element: Element) {}
+<span class="fstat-no" title="function not covered" >  constructor(private <span class="cstat-no" title="statement not covered" ></span>element: Element)</span> {}
 }
 &nbsp;
 @autoinject()
 @customElement("ui-header-actions")
 @inlineView(`&lt;template class="ui-header__actions"&gt;&lt;slot&gt;&lt;/slot&gt;&lt;/template&gt;`)
 export class UIHeaderActions {
-  constructor(private element: Element) {}
+<span class="fstat-no" title="function not covered" >  constructor(private <span class="cstat-no" title="statement not covered" ></span>element: Element)</span> {}
 }
 &nbsp;
 @autoinject()
@@ -233,7 +233,7 @@ export class UIHeaderActions {
   `&lt;template&gt;&lt;div class="ui-footer" slot="panel-footer" ref="vmElement"&gt;&lt;slot&gt;&lt;/slot&gt;&lt;/template&gt;`
 )
 export class UIFooter {
-  constructor(private element: Element) {}
+<span class="fstat-no" title="function not covered" >  constructor(private <span class="cstat-no" title="statement not covered" ></span>element: Element)</span> {}
 }
 &nbsp;</pre></td></tr>
 </table></pre>
@@ -241,7 +241,7 @@ export class UIFooter {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Oct 30 2018 14:04:26 GMT+0400 (Gulf Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Nov 07 2018 00:45:18 GMT+0400 (Gulf Standard Time)
 </div>
 </div>
 <script src="../../prettify.js"></script>

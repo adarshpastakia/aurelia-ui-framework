@@ -30,4 +30,5 @@ node_modules
 # Compiled files
 /scripts
 /build
+/test/coverage-*
 /aurelia-project

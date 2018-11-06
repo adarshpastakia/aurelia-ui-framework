@@ -4,13 +4,19 @@
 // @license   : MIT
 
 .ui-date {
+  &__wrapper {
+    display: inline-block;
+    vertical-align: top;
+  }
+
   &__view {
     background-color: var(--input-bg);
     border: 1px solid var(--input-border);
     border-radius: $base-border-radius;
     display: grid;
-    grid-template-columns: 10em auto 1px auto;
-    height: 20em;
+    grid-gap: 1px;
+    grid-template-columns: 10em auto auto;
+    grid-template-rows: 20em;
     overflow: hidden;
 
     .ui-divider {
@@ -53,22 +59,32 @@
   }
 
   &__calendar {
+    background-color: var(--input-bg);
+    border-radius: $base-border-radius;
+    box-shadow: 0 0 0 1px var(--input-border);
+    display: inline-block;
+    height: 20em;
+    overflow: hidden;
     text-align: center;
+    width: 21em;
 
-    .ui-date__page--date,
-    .ui-date__page--month,
-    .ui-date__page--year {
+    &:not([data-page="date"]) .ui-date__page--date {
       display: none;
     }
-    &[data-page="date"] .ui-date__page--date {
-      display: block;
+    &:not([data-page="month"]) .ui-date__page--month {
+      display: none;
     }
-    &[data-page="month"] .ui-date__page--month {
-      display: block;
+    &:not([data-page="year"]) .ui-date__page--year {
+      display: none;
     }
-    &[data-page="year"] .ui-date__page--year {
-      display: block;
-    }
+  }
+
+  &__page {
+    align-items: center;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    height: 100%;
+    justify-items: center;
   }
 
   &__header {
@@ -76,6 +92,8 @@
     color: var(--color-white);
     display: grid;
     grid-template-areas: "pg-down prev title next pg-up";
+    grid-template-columns: auto auto 1fr auto auto;
+    justify-self: stretch;
   }
 
   &__pg-down,
@@ -88,24 +106,24 @@
   }
 
   &__pg-down {
-    grid-area: "pg-down";
+    grid-area: pg-down;
   }
   &__pg-up {
-    grid-area: "pg-up";
+    grid-area: pg-up;
   }
   &__prev {
-    grid-area: "prev";
+    grid-area: prev;
   }
   &__next {
-    grid-area: "next";
+    grid-area: next;
   }
   &__title {
     align-self: center;
-    grid-area: "title";
+    grid-area: title;
     padding: 0 0.5em;
   }
 
-  &__grid {
+  &__grid--date {
     display: grid;
     grid-auto-flow: row;
     grid-auto-rows: 2rem;
@@ -119,6 +137,36 @@
     }
   }
 
+  &__grid--month {
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-rows: 3rem;
+    grid-gap: 2px;
+    grid-template-columns: repeat(3, 6rem);
+
+    > span {
+      line-height: 2.5em;
+      padding: 0.25em 0.5em;
+      position: relative;
+      text-align: center;
+    }
+  }
+
+  &__grid--year {
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-rows: 2.5rem;
+    grid-gap: 2px;
+    grid-template-columns: repeat(4, 5rem);
+
+    > span {
+      line-height: 2em;
+      padding: 0.25em 0.5em;
+      position: relative;
+      text-align: center;
+    }
+  }
+
   &__head {
     background-color: var(--color-primary-light);
     color: var(--color-white);
@@ -126,39 +174,49 @@
   }
 
   &__cell {
+    color: var(--base-color);
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+
+    &[data-muted="true"] {
+      color: var(--color-gray);
+    }
+
+    &:hover {
+      background-color: var(--color-secondary-tint);
+    }
+
+    &[data-disabled="true"] {
+      background-color: var(--base-bg);
+      color: var(--color-gray-light);
+      pointer-events: none;
+
+      &::after {
+        border-left: 1px solid var(--color-gray-light);
+        content: "";
+        height: 2em;
+        left: 50%;
+        position: absolute;
+        top: 0;
+        transform: rotate(45deg);
+      }
+    }
+
+    &[data-selected="true"] {
+      background-color: var(--color-secondary-light);
+      color: var(--color-white);
+      pointer-events: none;
+    }
+
     &--week {
       color: var(--color-secondary-light);
       font-weight: $font-weight-medium;
+      overflow: hidden;
+      pointer-events: none;
     }
+
     &--date {
-      color: var(--base-color);
-      cursor: pointer;
-      position: relative;
-
-      &[data-muted="true"] {
-        color: var(--color-gray);
-      }
-
-      &:hover {
-        background-color: var(--color-secondary-tint);
-      }
-
-      &[data-disabled="true"] {
-        background-color: var(--base-bg);
-        color: var(--color-gray-light);
-        pointer-events: none;
-
-        &::after {
-          border-left: 1px solid var(--color-gray-light);
-          content: "";
-          height: 2em;
-          left: 50%;
-          position: absolute;
-          top: 0;
-          transform: rotate(45deg);
-        }
-      }
-
       &[data-today="true"] {
         &::after {
           border: 4px solid transparent;
@@ -171,12 +229,6 @@
           right: 0;
           width: 4px;
         }
-      }
-
-      &[data-selected="true"] {
-        background-color: var(--color-secondary-light);
-        color: var(--color-white);
-        pointer-events: none;
       }
 
       &[data-selected="start"] {
@@ -206,6 +258,7 @@
     grid-gap: 0.5em;
     grid-template-columns: auto 1fr auto 1fr auto 1fr auto;
     justify-content: center;
+    justify-self: stretch;
     padding: 0.5em 0.25em;
 
     > .ui-icon {

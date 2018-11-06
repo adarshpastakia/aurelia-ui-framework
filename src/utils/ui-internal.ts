@@ -61,6 +61,20 @@ export namespace UIInternal {
     }
   }
 
+  export function invokeLifecycle(instance, name, model?): Promise<AnyObject> {
+    if (instance && typeof instance[name] === "function") {
+      const result = instance[name](model);
+      if (result instanceof Promise) {
+        return result;
+      }
+      if (result !== null && result !== undefined) {
+        return Promise.resolve(result);
+      }
+      return Promise.resolve(true);
+    }
+    return Promise.resolve(true);
+  }
+
   export function compileTemplate(tpl: string, viewModel: AnyObject = {}): View {
     const viewFactory = Container.instance
       .get(ViewCompiler)

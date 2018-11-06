@@ -126,7 +126,6 @@ export class Tester {
         { icon: "mdi mdi-window-restore", src: "dialog.html", label: "Dialogs" },
         { icon: "mdi mdi-application", src: "panels.html", label: "Panels" },
         {
-          badge: { theme: "yellow-dark", icon: "mdi mdi-alert", tooltip: "Under Development" },
           icon: "tab",
           label: "Tabs",
           src: "tabs.html"

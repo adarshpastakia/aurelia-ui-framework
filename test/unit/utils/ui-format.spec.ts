@@ -9,7 +9,7 @@ import { UIFormat } from "aurelia-ui-framework";
 
 describe("ui-format", () => {
   it("should format date", done => {
-    expect(UIFormat.date("2018-01-01T00:00:00.000Z", "DD MM YYYY")).toBe("01 01 2018");
+    expect(UIFormat.date("2018-01-01T00:00:00.000Z", "dd MM yyyy")).toBe("01 01 2018");
     expect(UIFormat.date("Invalid")).toBeNull();
     done();
   });

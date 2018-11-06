@@ -8,21 +8,19 @@
         <ui-button size="sm">Close all</ui-button>
       </ui-tabbar-end>
 
-      <ui-tab icon="mdi mdi-account" label="Inline">
+      <ui-tab icon="mdi mdi-account" label="Inline" repeat.for="i of 1">
         <ui-content ui-padding>
           <h4>Inline Content</h4>
           <ul>
-            <li>Test beforeclose</li>
-            <li>Implement overflow</li>
-            <li>Call canDeactivate when using compose</li>
+            <li data-style="check">Test beforeclose</li>
+            <li data-style="cross">Implement overflow</li>
+            <li data-style="check">Call canDeactivate when using compose</li>
           </ul>
         </ui-content>
       </ui-tab>
-      <ui-tab icon="mdi mdi-account" label="Composed View" closeable view="./tab-test.html"></ui-tab>
+      <ui-tab icon="mdi mdi-account" label="Composed View" closeable view="./tab-test.html">testing</ui-tab>
       <ui-tab icon="mdi mdi-account" label="Composed VM" closeable view-model="./dlg-test" model.bind="{}"></ui-tab>
       <ui-tab icon="mdi mdi-account" label="Disabled" disabled="true" closeable>Tab3</ui-tab>
-
-      <compose class="ui-section" view.bind="activeTab.view" model.bind="activeTab.model" view-model.bind="activeTab.viewModel"></compose>
 
     </ui-tab-panel>
   </ui-section>

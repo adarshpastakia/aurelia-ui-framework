@@ -6,7 +6,8 @@
 .ui-tab {
   @extend %ui-section;
 
-  &[data-active="false"] {
+  &[data-active="false"],
+  &[data-hide="true"] {
     display: none;
   }
 
@@ -63,6 +64,7 @@
       align-items: flex-end;
       display: flex;
       flex-flow: row nowrap;
+      overflow: hidden;
     }
 
     &__start,
@@ -82,26 +84,47 @@
     box-shadow: 0 0 0 1px var(--base-border) inset;
     cursor: pointer;
     display: grid;
+    flex: 0 0 auto;
     grid-template-areas: "icon label close";
     grid-template-columns: auto auto auto;
     line-height: 1;
     margin: 3px 2px 0;
     max-width: 10rem;
-    padding: 0.5em 0.75em;
+    padding: 0.5em 0;
     position: relative;
 
     &__label {
       @include ellipsis();
+
+      &:first-child {
+        @include property-prefix(padding-start, 0.75em);
+      }
+
+      &:last-child {
+        @include property-prefix(padding-end, 0.75em);
+      }
     }
 
-    &__icon::after {
-      content: "\0020";
-      display: inline-block;
+    &__icon {
+      &:first-child {
+        @include property-prefix(padding-start, 0.75em);
+      }
+
+      &:last-child {
+        @include property-prefix(padding-end, 0.75em);
+      }
+
+      &:not(:last-child) {
+        &::after {
+          content: "\0020";
+          display: inline-block;
+        }
+      }
     }
 
     &__close {
       font-size: 0.8rem;
-      line-height: 1;
+      line-height: 0.1;
       margin: 0 0.5em;
       opacity: 0.5;
 
@@ -116,6 +139,11 @@
         0 0 0 1px var(--base-border) inset;
       font-weight: 500;
       z-index: 2;
+
+      @at-root .ui-menu > & {
+        box-shadow: 0 -3px 0 0 var(--color-secondary) inset, 0 3px 0 0 var(--color-secondary) inset,
+          0 -1px 0 0 var(--base-component) inset, 0 0 0 1px var(--base-border) inset;
+      }
     }
 
     &[data-disabled="true"] {

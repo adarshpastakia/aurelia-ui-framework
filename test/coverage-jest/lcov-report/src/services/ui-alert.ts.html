@@ -216,7 +216,11 @@
 171
 172
 173
-174</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+174
+175
+176
+177
+178</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -325,6 +329,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -336,6 +342,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -410,7 +418,7 @@ export interface UIAlertConfig {
   okLabel?: string;
   cancelLabel?: string;
   type?: "alert" | "confirm" | "prompt";
-  theme?: "primary" | "secondary" | "muted" | "info" | "danger" | "success" | "warning";
+  theme?: "primary" | "secondary" | "gray" | "info" | "danger" | "success" | "warning";
 }
 &nbsp;
 @singleton()
@@ -475,7 +483,7 @@ export class UIAlertService {
 <span class="cstat-no" title="statement not covered" >    return config;</span>
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  private createToast(</span>config, forToast?: boolean): Promise&lt;boolean&gt; {</span>
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  private createToast(</span>config, forNotification?: boolean): Promise&lt;boolean&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    return new Promise(<span class="fstat-no" title="function not covered" >resolve =&gt; {</span></span>
       const cfg<span class="cstat-no" title="statement not covered" > = {</span>
         autoClose: true,
@@ -488,14 +496,16 @@ export class UIAlertService {
       };
 <span class="cstat-no" title="statement not covered" >      cfg.autoClose = cfg.type !== "confirm" &amp;&amp; cfg.autoClose;</span>
       const tpl = <span class="cstat-no" title="statement not covered" >`&lt;template&gt;&lt;div class="${</span>
-        forToast ? "ui-toast" : ""
+        forNotification ? "ui-notification" : "ui-toast"
       } ui-alert" ui-theme.bind="theme" ref="__el"&gt;
         &lt;div if.bind="icon" class="ui-alert__icon"&gt;&lt;ui-icon icon.bind="icon"&gt;&lt;/ui-icon&gt;&lt;/div&gt;
         &lt;div if.bind="title" class="ui-alert__title" innerhtml.bind="title"&gt;&lt;/div&gt;
         &lt;div class="ui-alert__body" innerhtml.bind="message"&gt;&lt;/div&gt;
         &lt;div class="ui-alert__close" click.trigger="__close(false)"&gt;&lt;ui-svg-icon icon="cross"&gt;&lt;/ui-svg-icon&gt;&lt;/div&gt;
-        &lt;div class="ui-alert__footer" if.bind="type==='confirm'"&gt;&lt;a click.trigger="__close(true)"&gt;\${okLabel}&lt;/a&gt;
-          &lt;a click.trigger="__close(false)"&gt;\${cancelLabel}&lt;/a&gt;&lt;/div&gt;
+        &lt;div class="ui-alert__footer" if.bind="type==='confirm'"&gt;
+        &lt;a click.trigger="__close(false)"&gt;\${cancelLabel}&lt;/a&gt;
+        &lt;a click.trigger="__close(true)" ui-weight="bold"&gt;\${okLabel}&lt;/a&gt;
+        &lt;/div&gt;
         &lt;div if.bind="autoClose" class="ui-alert__progress" css.bind="{transitionDuration: timeout+'ms'}"&gt;&lt;/div&gt;
         &lt;/div&gt;&lt;/template&gt;`;
       const viewFactory = <span class="cstat-no" title="statement not covered" >this.compiler.compile(tpl);</span>
@@ -508,15 +518,17 @@ export class UIAlertService {
         }, 500);
       };
 <span class="cstat-no" title="statement not covered" >      view.bind({ ...cfg });</span>
-<span class="cstat-no" title="statement not covered" >      view.appendNodesTo(forToast ? this.appConfig.ToastContainer : this.appConfig.AlertContainer);</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >      UIInternal.queueTask(<span class="fstat-no" title="function not covered" >() =&gt;</span></span>
-<span class="cstat-no" title="statement not covered" >        (view as View &amp; { firstChild: Element }).firstChild.classList.add("ui-alert--show")</span>
+<span class="cstat-no" title="statement not covered" >      view.appendNodesTo(</span>
+        forNotification ? this.appConfig.ToastContainer : this.appConfig.AlertContainer
       );
 &nbsp;
 <span class="cstat-no" title="statement not covered" >      if (cfg.autoClose) {</span>
 <span class="cstat-no" title="statement not covered" >        setTimeout(cfg.__close, cfg.timeout);</span>
       }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      UIInternal.queueTask(<span class="fstat-no" title="function not covered" >() =&gt;</span></span>
+<span class="cstat-no" title="statement not covered" >        (view as View &amp; { firstChild: Element }).firstChild.classList.add("ui-alert--show")</span>
+      );
     });
   }
 &nbsp;
@@ -531,7 +543,7 @@ export class UIAlertService {
       };
       const tpl = <span class="cstat-no" title="statement not covered" >`&lt;template&gt;&lt;div class="ui-dialog__wrapper" data-modal.bind="true" ref="__el" keydown.delegate="__close($event.keyCode===13 || type==='alert')"&gt;</span>
         &lt;input blur.trigger="$event.target.focus()" readonly.one-time="true" tabindex="0" css.bind="{opacity:0}" ref="keyEl"/&gt;
-        &lt;div class="ui-panel-base ui-dialog" ui-border="xy,\${theme}" data-active.bind="true" css.bind="{minWidth: '18rem'}"&gt;
+        &lt;div class="ui-panel-base ui-dialog" ui-border="xy,\${theme}" data-active.bind="true" css.bind="{minWidth: '18rem', boxShadow:'0 0 12px 0 var(--color-'+theme+')'}"&gt;
           &lt;div class="ui-panel__body" ref="vmElement"&gt;
             &lt;ui-row ui-color.bind="theme"&gt;
               &lt;ui-col ui-padding="sm" size="auto" if.bind="icon" ui-font="xl"&gt;&lt;ui-icon icon.bind="icon"&gt;&lt;/ui-icon&gt;&lt;/ui-col&gt;
@@ -542,8 +554,8 @@ export class UIAlertService {
             &lt;/ui-row&gt;
           &lt;/div&gt;
           &lt;div class="ui-footer" ui-padding="y--sm" ui-align="center"&gt;
-            &lt;ui-button click.trigger="__close(true)" ui-theme.bind="theme" type="solid" size="sm" css.bind="{minWidth:'4rem'}"&gt;\${okLabel}&lt;/ui-button&gt;
-            &lt;ui-button if.bind="type!=='alert'" click.trigger="__close(false)" ui-theme.bind="theme" type="outline" size="sm" css.bind="{minWidth:'4rem'}"&gt;\${cancelLabel}&lt;/ui-button&gt;
+          &lt;ui-button if.bind="type!=='alert'" click.trigger="__close(false)" ui-theme.bind="theme" type="outline" size="sm" css.bind="{minWidth:'4rem'}"&gt;\${cancelLabel}&lt;/ui-button&gt;
+          &lt;ui-button click.trigger="__close(true)" ui-theme.bind="theme" type="solid" size="sm" css.bind="{minWidth:'4rem'}"&gt;\${okLabel}&lt;/ui-button&gt;
           &lt;/div&gt;  
         &lt;/div&gt;    
         &lt;/div&gt;&lt;/template&gt;`;
@@ -568,7 +580,7 @@ export class UIAlertService {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Oct 30 2018 14:04:26 GMT+0400 (Gulf Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Nov 07 2018 00:45:18 GMT+0400 (Gulf Standard Time)
 </div>
 </div>
 <script src="../../prettify.js"></script>

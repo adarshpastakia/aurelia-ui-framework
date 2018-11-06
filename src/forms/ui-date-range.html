@@ -1,0 +1,28 @@
+<template class="ui-date__wrapper">
+  <div class="ui-date__view">
+    <div class="ui-date__list">
+      <ul>
+        <li data-active="true">Today</li>
+        <li>Yesterday</li>
+        <li>This Week</li>
+        <li>Last Week</li>
+        <li>This Month</li>
+        <li>Last Month</li>
+        <li>This Year</li>
+        <li>Last Year</li>
+        <hr />
+        <li>Last 7 Days</li>
+        <li>Last 15 Days</li>
+        <li>Last 30 Days</li>
+        <li>Last 60 Days</li>
+        <li>Last 90 Days</li>
+        <hr />
+        <li>Custom Range</li>
+      </ul>
+    </div>
+    <ui-date date-range.bind="[dateStart,dateEnd]" min-date.bind="minDate" max-date.bind="maxDate" disabled-days.bind="disabledDays"
+      disabled-dates.bind="disabledDates" current-month.bind="startMonth" month-changed.call="startMonthChanged($event)"></ui-date>
+    <ui-date date-range.bind="[dateStart,dateEnd]" min-date.bind="minDate" max-date.bind="maxDate" disabled-days.bind="disabledDays"
+      disabled-dates.bind="disabledDates" current-month.bind="endMonth" month-changed.call="endMonthChanged($event)"></ui-date>
+  </div>
+</template>

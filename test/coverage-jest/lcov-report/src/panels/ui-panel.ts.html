@@ -20,28 +20,28 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">50% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>45/45</span>
+        <span class='fraction'>23/46</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">0% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>2/2</span>
+        <span class='fraction'>0/2</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">25% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>8/8</span>
+        <span class='fraction'>2/8</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">63.33% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>28/28</span>
+        <span class='fraction'>19/30</span>
       </div>
     </div>
   </div>
-  <div class='status-line high'></div>
+  <div class='status-line medium'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -115,7 +115,10 @@
 70
 71
 72
-73</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+73
+74
+75
+76</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -159,25 +162,28 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -208,48 +214,51 @@ import { UIInternal } from "../utils/ui-internal";
 @customElement("ui-panel")
 export class UIPanel {
   @bindable()
-  public label = "";
+  public <span class="cstat-no" title="statement not covered" >label: string = "";</span>
   @bindable()
-  public icon = "";
+  public <span class="cstat-no" title="statement not covered" >icon: string = "";</span>
 &nbsp;
   @bindable({ defaultBindingMode: bindingMode.twoWay })
-  public collapsed: boolean = false;
+  public <span class="cstat-no" title="statement not covered" >collapsed: boolean = false;</span>
 &nbsp;
   @bindable()
-  public width: string = "auto";
+  public <span class="cstat-no" title="statement not covered" >width: string = "auto";</span>
   @bindable()
-  public minWidth: string = "16rem";
+  public <span class="cstat-no" title="statement not covered" >minWidth: string = "16rem";</span>
   @bindable()
-  public maxWidth: string = "100vw";
+  public <span class="cstat-no" title="statement not covered" >maxWidth: string = "100vw";</span>
   @bindable()
-  public height: string = "auto";
+  public <span class="cstat-no" title="statement not covered" >height: string = "auto";</span>
   @bindable()
-  public minHeight: string = "none";
+  public <span class="cstat-no" title="statement not covered" >minHeight: string = "none";</span>
   @bindable()
-  public maxHeight: string = "100vh";
+  public <span class="cstat-no" title="statement not covered" >maxHeight: string = "100vh";</span>
 &nbsp;
   @bindable()
   public beforeclose: () =&gt; Promise&lt;boolean&gt; | boolean;
 &nbsp;
-  protected closable: boolean = false;
-  protected collapsible: boolean = false;
+  protected <span class="cstat-no" title="statement not covered" >closeable: boolean = false;</span>
+  protected <span class="cstat-no" title="statement not covered" >collapsible: boolean = false;</span>
 &nbsp;
-  constructor(protected element: Element) {
-    this.closable = element.hasAttribute("closable");
-    this.collapsible = element.hasAttribute("collapsible");
+<span class="fstat-no" title="function not covered" >  constructor(protected <span class="cstat-no" title="statement not covered" ></span>element: Element)</span> {
+<span class="cstat-no" title="statement not covered" >    this.closeable = element.hasAttribute("closeable");</span>
+<span class="cstat-no" title="statement not covered" >    this.collapsible = element.hasAttribute("collapsible");</span>
   }
 &nbsp;
-  public close(): void {
-    UIInternal.fireCallbackEvent(this, "beforeclose").then(b =&gt; (b ? this.remove() : undefined));
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  public close(): Promise&lt;boolean&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >    return UIInternal.fireCallbackEvent(this, "beforeclose").then(</span>
+<span class="fstat-no" title="function not covered" >      b =&gt; <span class="cstat-no" title="statement not covered" >(b ? this.remove() : false)</span></span>
+    );
   }
 &nbsp;
-  protected toggleExpand(expand: boolean): void {
-    this.collapsed = !expand;
+<span class="fstat-no" title="function not covered" >  protected toggleExpand(</span>expand: boolean): void {
+<span class="cstat-no" title="statement not covered" >    this.collapsed = !expand;</span>
   }
 &nbsp;
-  private remove(): void {
-    this.element.dispatchEvent(UIInternal.createEvent("close"));
-    UIInternal.queueTask(() =&gt; DOM.removeNode(this.element));
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  private remove(): boolean {</span></span>
+<span class="cstat-no" title="statement not covered" >    this.element.dispatchEvent(UIInternal.createEvent("close"));</span>
+<span class="cstat-no" title="statement not covered" >    UIInternal.queueTask(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" ></span>DOM.removeNode(this.element))</span>;</span>
+<span class="cstat-no" title="statement not covered" >    return true;</span>
   }
 }
 &nbsp;
@@ -265,7 +274,7 @@ export class UIPanelGroup {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Oct 30 2018 14:04:26 GMT+0400 (Gulf Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Nov 07 2018 00:45:18 GMT+0400 (Gulf Standard Time)
 </div>
 </div>
 <script src="../../prettify.js"></script>

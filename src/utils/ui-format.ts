@@ -4,13 +4,9 @@
 // @copyright   : 2016
 // @license   : MIT
 
+import { format, formatDistance, formatDistanceStrict, isValid, toDate } from "date-fns";
 import kramed from "kramed";
-import moment from "moment";
 import numeral from "numeral";
-
-(moment as typeof moment & {
-  suppressDeprecationWarnings: boolean;
-}).suppressDeprecationWarnings = true;
 
 export namespace UIFormat {
   export function toHTML(md): string {
@@ -18,39 +14,36 @@ export namespace UIFormat {
   }
 
   // Dates
-  export function date(dt: AnyObject, ft: string = "DD MMM YYYY"): string {
-    let x;
-    return !dt || !(x = moment(dt)).isValid() ? null : x.format(ft);
+  export function date(dt: AnyObject, ft: string = "dd MMM yyyy"): string {
+    return !dt || !isValid(dt) ? null : format(dt, ft, { awareOfUnicodeTokens: true });
   }
 
   export function time(dt: AnyObject, ft: string = "hh:mm A"): string {
-    let x;
-    return !dt || !(x = moment(dt)).isValid() ? null : x.format(ft);
+    return !dt || !isValid(dt) ? null : format(dt, ft, { awareOfUnicodeTokens: true });
   }
 
-  export function datetime(dt: AnyObject, ft: string = "DD MMM YYYY hh:mm A"): string {
-    let x;
-    return !dt || !(x = moment(dt)).isValid() ? null : x.format(ft);
+  export function datetime(dt: AnyObject, ft: string = "dd MMM yyyy hh:mm A"): string {
+    return !dt || !isValid(dt) ? null : format(dt, ft, { awareOfUnicodeTokens: true });
   }
 
   export function dateToISO(dt): string {
-    let x;
-    return !dt || !(x = moment(dt)).isValid() ? null : x.toISOString();
+    return !dt || !isValid(dt)
+      ? null
+      : format(dt, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", { awareOfUnicodeTokens: true });
   }
 
   export function utcDate(dt): string {
-    let x;
-    return !dt || !(x = moment(dt)).isValid() ? null : x.utc();
+    return !dt || !isValid(dt)
+      ? null
+      : format(toDate(dt).toUTCString(), "yyyy-MM-dd'T'HH:mm:ss.SSS", { awareOfUnicodeTokens: true });
   }
 
   export function age(dt: AnyObject): string {
-    let x;
-    return !dt || !(x = moment(dt)).isValid() ? "" : x.fromNow(true);
+    return !dt || !isValid(dt) ? "" : formatDistanceStrict(new Date(), dt);
   }
 
   export function fromNow(dt: AnyObject): string {
-    let x;
-    return !dt || !(x = moment(dt)).isValid() ? "" : x.fromNow(false);
+    return !dt || !isValid(dt) ? "" : formatDistance(new Date(), dt);
   }
 
   // Numbers

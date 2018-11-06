@@ -4,7 +4,7 @@
  * @copyright : 2018
  * @license   : MIT
  */
-
+import { Subscription } from "aurelia-event-aggregator";
 import {
   autoinject,
   bindable,
@@ -13,7 +13,8 @@ import {
   containerless,
   customElement,
   DOM,
-  inlineView
+  inlineView,
+  View
 } from "aurelia-framework";
 import { UIInternal } from "../utils/ui-internal";
 
@@ -51,33 +52,72 @@ export class UITabPanel {
   @bindable({ bindingMode: bindingMode.toView })
   protected activeTab: UITabConfig;
 
-  private composeEl: Element;
+  private owningView: AnyObject;
+  private composeVm: AnyObject;
+
+  private wrapperEl: Element;
+  private overflowEl: Element;
+
+  private hasOverflow: boolean = false;
+  private obResize: Subscription;
 
   constructor(protected element: Element) {
     if (element.hasAttribute("no-border")) {
       element.classList.add("ui-tab__panel--noborder");
     }
+    this.obResize = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_RESIZE, t =>
+      this.calculateOverflow()
+    );
   }
 
-  public activateTab(id: string): Promise<boolean> {
+  public async activateTab(id: string): Promise<boolean> {
     const tab = this.tabs.find(t => t.id === id);
-    return UIInternal.fireCallbackEvent(this, "beforechange", {
-      activeTab: this.activeTab.id,
-      activeViewModel: getComposeViewModel(this.composeEl),
-      newTab: id
-    }).then(b => (b ? this.activate(id) : undefined));
+
+    let result = true;
+    if (this.composeVm.currentViewModel) {
+      result = await UIInternal.invokeLifecycle(this.composeVm.currentViewModel, "canDeactivate");
+    }
+    if (result) {
+      return UIInternal.fireCallbackEvent(this, "beforechange", {
+        activeTab: this.activeTab.id,
+        activeViewModel: this.composeVm.currentViewModel,
+        newTab: id
+      }).then(b => (b ? this.activate(id) : undefined));
+    } else {
+      return Promise.resolve(false);
+    }
   }
 
-  public closeTab(id: string): Promise<boolean> {
+  public async closeTab(id: string): Promise<boolean> {
     const tab = this.tabs.find(t => t.id === id);
-    return UIInternal.fireCallbackEvent(this, "beforeclose", {
-      activaTab: tab.id,
-      activeViewModel: getComposeViewModel(this.composeEl)
-    }).then(b => (b ? this.remove(id) : false));
+
+    let result = true;
+    if (this.activeTab.id === id && this.composeVm.currentViewModel) {
+      result = await UIInternal.invokeLifecycle(this.composeVm.currentViewModel, "canDeactivate");
+    }
+    if (result) {
+      return UIInternal.fireCallbackEvent(this, "beforeclose", {
+        activaTab: tab.id
+      }).then(b => (b ? this.remove(id) : false));
+    } else {
+      return Promise.resolve(false);
+    }
   }
 
+  // Set current owningView
+  protected created(owningView: View) {
+    this.owningView = owningView;
+  }
+
+  // Update compose owningView and viewResource to current owningView
   protected attached(): void {
-    this.composeEl = this.element.querySelector(".ui-tab__body > compose");
+    this.composeVm.owningView = this.owningView;
+    this.composeVm.viewResources = this.owningView.resources;
+    setTimeout(() => this.calculateOverflow(), 200);
+  }
+
+  protected detached(): void {
+    this.obResize.dispose();
   }
 
   protected innerTabsChanged(): void {
@@ -119,11 +159,37 @@ export class UITabPanel {
     }
     return true;
   }
+
+  protected calculateOverflow(): void {
+    this.resetOverflow();
+    const overflowItems = [];
+    const isRtl = getComputedStyle(this.wrapperEl).direction === "rtl";
+    // @ts-ignore
+    [...this.wrapperEl.children].reverse().forEach(item => {
+      if (
+        (!isRtl && this.wrapperEl.offsetWidth - (item.offsetLeft + item.offsetWidth) <= 30) ||
+        (isRtl && this.wrapperEl.offsetWidth - item.offsetLeft >= this.wrapperEl.offsetWidth - 30)
+      ) {
+        overflowItems.splice(0, 0, item);
+        this.hasOverflow = true;
+      }
+    });
+    this.overflowEl.append(...overflowItems);
+  }
+
+  protected resetOverflow(): void {
+    this.hasOverflow = false;
+    this.overflowEl.children.forEach(child => {
+      this.wrapperEl.appendChild(child);
+    });
+  }
 }
 
 @autoinject()
 @customElement("ui-tab")
-@inlineView(`<template class="ui-tab" data-active.bind="active"><slot></slot></template>`)
+@inlineView(
+  `<template class="ui-tab" data-active.bind="active" data-hide.bind="!!view || !!viewModel"><slot></slot></template>`
+)
 export class UITab {
   @bindable()
   public id: string = "";
@@ -136,8 +202,6 @@ export class UITab {
   @bindable()
   public disabled: boolean = false;
 
-  @bindable()
-  public href: string;
   @bindable()
   public view: AnyObject;
   @bindable()
