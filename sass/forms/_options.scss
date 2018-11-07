@@ -20,16 +20,16 @@
 
   &__toggle {
     border: 2px solid var(--toggle-bg);
-    border-radius: 1em;
+    border-radius: 1rem;
     cursor: pointer;
     direction: ltr;
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin: 0 4px;
     opacity: 0.9;
     overflow: hidden;
     position: relative;
-    width: 2.25em;
-    --toggle-on: "\2758";
+    width: 2.5em;
+    --toggle-on: "\00A0\2758";
     --toggle-off: "O";
 
     &::before {
@@ -37,10 +37,10 @@
       color: var(--toggle-color);
       content: var(--toggle-off);
       display: block;
-      height: 1em;
+      height: 1rem;
       line-height: 1;
       margin: auto;
-      padding: 0 2px 0 8px;
+      padding: 0 2px;
       position: absolute;
       text-align: right;
       width: 100%;
@@ -48,14 +48,14 @@
 
     &::after {
       background-color: var(--color-white);
-      border-radius: 1em;
+      border-radius: 1rem;
       content: "";
       display: block;
       height: 1em;
       left: 0;
       position: relative;
       transition: left 0.2s;
-      width: 1em;
+      width: 1rem;
     }
   }
 

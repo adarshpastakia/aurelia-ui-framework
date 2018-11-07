@@ -18,32 +18,32 @@ export namespace UIFormat {
     return !dt || !isValid(dt) ? null : format(dt, ft, { awareOfUnicodeTokens: true });
   }
 
-  export function time(dt: AnyObject, ft: string = "hh:mm A"): string {
+  export function time(dt: AnyObject, ft: string = "hh:mm a"): string {
     return !dt || !isValid(dt) ? null : format(dt, ft, { awareOfUnicodeTokens: true });
   }
 
-  export function datetime(dt: AnyObject, ft: string = "dd MMM yyyy hh:mm A"): string {
+  export function datetime(dt: AnyObject, ft: string = "dd MMM yyyy hh:mm a"): string {
     return !dt || !isValid(dt) ? null : format(dt, ft, { awareOfUnicodeTokens: true });
   }
 
   export function dateToISO(dt): string {
-    return !dt || !isValid(dt)
-      ? null
-      : format(dt, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", { awareOfUnicodeTokens: true });
+    return !dt || !isValid(dt) ? null : toDate(dt).toISOString();
   }
 
   export function utcDate(dt): string {
     return !dt || !isValid(dt)
       ? null
-      : format(toDate(dt).toUTCString(), "yyyy-MM-dd'T'HH:mm:ss.SSS", { awareOfUnicodeTokens: true });
+      : format(dt, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", {
+          awareOfUnicodeTokens: true
+        });
   }
 
   export function age(dt: AnyObject): string {
-    return !dt || !isValid(dt) ? "" : formatDistanceStrict(new Date(), dt);
+    return !dt || !isValid(dt) ? "" : formatDistanceStrict(dt, new Date());
   }
 
   export function fromNow(dt: AnyObject): string {
-    return !dt || !isValid(dt) ? "" : formatDistance(new Date(), dt);
+    return !dt || !isValid(dt) ? "" : formatDistance(dt, new Date(), { addSuffix: true });
   }
 
   // Numbers

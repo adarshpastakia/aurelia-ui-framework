@@ -127,7 +127,7 @@ describe("valueConverter/ui-text", () => {
       expect(el[2].innerHTML).toBe("01 Jan 2018 12:00 AM");
       expect(el[3].innerHTML).not.toBeNull();
       expect(el[4].innerHTML).toBe("2 hours");
-      expect(el[5].innerHTML).toBe("2 hours ago");
+      expect(el[5].innerHTML).toBe("about 2 hours ago");
       done();
     });
   });

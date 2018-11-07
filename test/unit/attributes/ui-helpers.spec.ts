@@ -22,8 +22,8 @@ describe("ui-helpers", () => {
       .inView(
         `<ui-viewport view-model.ref="viewport">
           <ui-viewport-header ui-bg="primary"></ui-viewport-header>
-          <div id="el" ui-theme.bind="theme" ui-bg="primary" ui-color="primary" ui-padding="x,sm@md" ui-margin="x,sm@md"
-            ui-border="sm,primary" ui-font="lg" ui-weight="bold" ui-align="center" ui-text="upper"
+          <div id="el" ui-theme.bind="theme" ui-bg="primary" ui-color="primary" ui-padding="x sm@md" ui-margin="x sm@md"
+            ui-border="sm primary" ui-font="lg" ui-weight="bold" ui-align="center" ui-text="upper" ui-hover="green"
             ui-gutter="sm" ui-hide="down@md" ui-show="up@xl" ui-clip="4" ui-scroll ui-paper.bind="paper"></div>
         </ui-viewport>`
       )
@@ -62,6 +62,13 @@ describe("ui-helpers", () => {
   it("should apply color", done => {
     component.waitForElement("#el").then(el => {
       expect(el.className).toContain("ui-color--primary");
+      done();
+    });
+  });
+
+  it("should apply hover", done => {
+    component.waitForElement("#el").then(el => {
+      expect(el.className).toContain("ui-hover--green");
       done();
     });
   });

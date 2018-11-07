@@ -20,9 +20,11 @@
         <li>Custom Range</li>
       </ul>
     </div>
-    <ui-date date-range.bind="[dateStart,dateEnd]" min-date.bind="minDate" max-date.bind="maxDate" disabled-days.bind="disabledDays"
-      disabled-dates.bind="disabledDates" current-month.bind="startMonth" month-changed.call="startMonthChanged($event)"></ui-date>
-    <ui-date date-range.bind="[dateStart,dateEnd]" min-date.bind="minDate" max-date.bind="maxDate" disabled-days.bind="disabledDays"
-      disabled-dates.bind="disabledDates" current-month.bind="endMonth" month-changed.call="endMonthChanged($event)"></ui-date>
+    <ui-date date.to-view="start" date-range.to-view="{start,end}" min-date.bind="minDate" max-date.bind="maxDate" disabled-days.bind="disabledDays"
+      view-model.ref="startVm" disabled-dates.bind="disabledDates" change.trigger="setRange($event.detail)"
+      mouseover.delegate="hilightDate($event)"></ui-date>
+    <ui-date date.to-view="end" date-range.to-view="{start,end}" min-date.bind="minDate" max-date.bind="maxDate" disabled-days.bind="disabledDays"
+      view-model.ref="endVm" disabled-dates.bind="disabledDates" change.trigger="setRange($event.detail)"
+      mouseover.delegate="hilightDate($event)"></ui-date>
   </div>
 </template>

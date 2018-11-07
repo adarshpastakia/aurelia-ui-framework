@@ -20,28 +20,28 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">50% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>23/46</span>
+        <span class='fraction'>46/46</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/2</span>
+        <span class='fraction'>2/2</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">25% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>2/8</span>
+        <span class='fraction'>8/8</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">63.33% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>19/30</span>
+        <span class='fraction'>30/30</span>
       </div>
     </div>
   </div>
-  <div class='status-line medium'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -162,28 +162,28 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -214,51 +214,51 @@ import { UIInternal } from "../utils/ui-internal";
 @customElement("ui-panel")
 export class UIPanel {
   @bindable()
-  public <span class="cstat-no" title="statement not covered" >label: string = "";</span>
+  public label: string = "";
   @bindable()
-  public <span class="cstat-no" title="statement not covered" >icon: string = "";</span>
+  public icon: string = "";
 &nbsp;
   @bindable({ defaultBindingMode: bindingMode.twoWay })
-  public <span class="cstat-no" title="statement not covered" >collapsed: boolean = false;</span>
+  public collapsed: boolean = false;
 &nbsp;
   @bindable()
-  public <span class="cstat-no" title="statement not covered" >width: string = "auto";</span>
+  public width: string = "auto";
   @bindable()
-  public <span class="cstat-no" title="statement not covered" >minWidth: string = "16rem";</span>
+  public minWidth: string = "16rem";
   @bindable()
-  public <span class="cstat-no" title="statement not covered" >maxWidth: string = "100vw";</span>
+  public maxWidth: string = "100vw";
   @bindable()
-  public <span class="cstat-no" title="statement not covered" >height: string = "auto";</span>
+  public height: string = "auto";
   @bindable()
-  public <span class="cstat-no" title="statement not covered" >minHeight: string = "none";</span>
+  public minHeight: string = "none";
   @bindable()
-  public <span class="cstat-no" title="statement not covered" >maxHeight: string = "100vh";</span>
+  public maxHeight: string = "100vh";
 &nbsp;
   @bindable()
   public beforeclose: () =&gt; Promise&lt;boolean&gt; | boolean;
 &nbsp;
-  protected <span class="cstat-no" title="statement not covered" >closeable: boolean = false;</span>
-  protected <span class="cstat-no" title="statement not covered" >collapsible: boolean = false;</span>
+  protected closeable: boolean = false;
+  protected collapsible: boolean = false;
 &nbsp;
-<span class="fstat-no" title="function not covered" >  constructor(protected <span class="cstat-no" title="statement not covered" ></span>element: Element)</span> {
-<span class="cstat-no" title="statement not covered" >    this.closeable = element.hasAttribute("closeable");</span>
-<span class="cstat-no" title="statement not covered" >    this.collapsible = element.hasAttribute("collapsible");</span>
+  constructor(protected element: Element) {
+    this.closeable = element.hasAttribute("closeable");
+    this.collapsible = element.hasAttribute("collapsible");
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  public close(): Promise&lt;boolean&gt; {</span></span>
-<span class="cstat-no" title="statement not covered" >    return UIInternal.fireCallbackEvent(this, "beforeclose").then(</span>
-<span class="fstat-no" title="function not covered" >      b =&gt; <span class="cstat-no" title="statement not covered" >(b ? this.remove() : false)</span></span>
+  public close(): Promise&lt;boolean&gt; {
+    return UIInternal.fireCallbackEvent(this, "beforeclose").then(
+      b =&gt; (b ? this.remove() : false)
     );
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  protected toggleExpand(</span>expand: boolean): void {
-<span class="cstat-no" title="statement not covered" >    this.collapsed = !expand;</span>
+  protected toggleExpand(expand: boolean): void {
+    this.collapsed = !expand;
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  private remove(): boolean {</span></span>
-<span class="cstat-no" title="statement not covered" >    this.element.dispatchEvent(UIInternal.createEvent("close"));</span>
-<span class="cstat-no" title="statement not covered" >    UIInternal.queueTask(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" ></span>DOM.removeNode(this.element))</span>;</span>
-<span class="cstat-no" title="statement not covered" >    return true;</span>
+  private remove(): boolean {
+    this.element.dispatchEvent(UIInternal.createEvent("close"));
+    UIInternal.queueTask(() =&gt; DOM.removeNode(this.element));
+    return true;
   }
 }
 &nbsp;
@@ -274,7 +274,7 @@ export class UIPanelGroup {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Nov 07 2018 00:45:18 GMT+0400 (Gulf Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Nov 07 2018 23:13:12 GMT+0400 (Gulf Standard Time)
 </div>
 </div>
 <script src="../../prettify.js"></script>

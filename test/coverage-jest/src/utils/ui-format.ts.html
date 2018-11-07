@@ -25,9 +25,9 @@
         <span class='fraction'>32/32</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">89.29% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>50/56</span>
+        <span class='fraction'>56/56</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -120,8 +120,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
@@ -129,48 +141,36 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">//
@@ -193,32 +193,32 @@ export namespace UIFormat {
     return !dt || !isValid(dt) ? null : format(dt, ft, { awareOfUnicodeTokens: true });
   }
 &nbsp;
-  export function time(dt: AnyObject, <span class="missing-if-branch" title="else path not taken" >E</span>ft: string = "hh:mm A"): string {
-    return !dt || !isValid(dt) ? <span class="branch-0 cbranch-no" title="branch not covered" >null </span>: format(dt, ft, { awareOfUnicodeTokens: true });
+  export function time(dt: AnyObject, ft: string = "hh:mm a"): string {
+    return !dt || !isValid(dt) ? null : format(dt, ft, { awareOfUnicodeTokens: true });
   }
 &nbsp;
-  export function datetime(dt: AnyObject, <span class="missing-if-branch" title="else path not taken" >E</span>ft: string = "dd MMM yyyy hh:mm A"): string {
-    return !dt || !isValid(dt) ? <span class="branch-0 cbranch-no" title="branch not covered" >null </span>: format(dt, ft, { awareOfUnicodeTokens: true });
+  export function datetime(dt: AnyObject, ft: string = "dd MMM yyyy hh:mm a"): string {
+    return !dt || !isValid(dt) ? null : format(dt, ft, { awareOfUnicodeTokens: true });
   }
 &nbsp;
   export function dateToISO(dt): string {
-    return !dt || !isValid(dt)
-      ? <span class="branch-0 cbranch-no" title="branch not covered" >null</span>
-      : format(dt, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", { awareOfUnicodeTokens: true });
+    return !dt || !isValid(dt) ? null : toDate(dt).toISOString();
   }
 &nbsp;
   export function utcDate(dt): string {
     return !dt || !isValid(dt)
       ? null
-      : format(toDate(dt).toUTCString(), "yyyy-MM-dd'T'HH:mm:ss.SSS", { awareOfUnicodeTokens: true });
+      : format(dt, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", {
+          awareOfUnicodeTokens: true
+        });
   }
 &nbsp;
   export function age(dt: AnyObject): string {
-    return !dt || !isValid(dt) ? "" : formatDistanceStrict(new Date(), dt);
+    return !dt || !isValid(dt) ? "" : formatDistanceStrict(dt, new Date());
   }
 &nbsp;
   export function fromNow(dt: AnyObject): string {
-    return !dt || !isValid(dt) ? <span class="branch-0 cbranch-no" title="branch not covered" >"" </span>: formatDistance(new Date(), dt);
+    return !dt || !isValid(dt) ? "" : formatDistance(dt, new Date(), { addSuffix: true });
   }
 &nbsp;
   // Numbers
@@ -244,7 +244,7 @@ export namespace UIFormat {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Nov 07 2018 00:45:18 GMT+0400 (Gulf Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Nov 07 2018 23:13:12 GMT+0400 (Gulf Standard Time)
 </div>
 </div>
 <script src="../../prettify.js"></script>

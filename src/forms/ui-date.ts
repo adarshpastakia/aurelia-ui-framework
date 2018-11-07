@@ -5,22 +5,38 @@
  * @license   : MIT
  */
 
-import { autoinject, bindable, bindingMode, computedFrom, customElement } from "aurelia-framework";
+import {
+  autoinject,
+  bindable,
+  bindingMode,
+  computedFrom,
+  customElement,
+  observable
+} from "aurelia-framework";
 import {
   addDays,
+  addHours,
+  addMinutes,
   addMonths,
-  addYears,
+  addSeconds,
+  addWeeks,
   format,
   getDay,
+  getHours,
+  getYear,
+  isAfter,
   isSameDay,
   isSameMonth,
+  isWithinInterval,
   startOfMonth,
   startOfWeek,
   subDays,
   subMonths,
-  subYears,
   toDate
 } from "date-fns";
+import { UIInternal } from "../utils/ui-internal";
+
+const FORMAT_NO_TIMEZONE = "yyyy-MM-dd'T'HH:mm:ss.000";
 
 @autoinject()
 @customElement("ui-date")
@@ -28,7 +44,7 @@ export class UIDate {
   @bindable({ defaultBindingMode: bindingMode.twoWay })
   public date: Date | string = new Date();
   @bindable()
-  public dateRange: Array<Date | string>;
+  public dateRange: { start: Date | string; end: Date | string };
 
   @bindable()
   public minDate: string;
@@ -42,100 +58,160 @@ export class UIDate {
   @bindable()
   public disabled: boolean = false;
 
-  @bindable()
-  public monthChanged: (month: Date) => void;
-  @bindable()
+  @observable()
   protected currentMonth = startOfMonth(new Date());
+  protected monthChanged: (month: Date) => void;
 
+  protected time;
+  protected hilight;
+  protected currentYear = getYear(new Date());
   protected decadeStart = 0;
-  protected currentView = "date";
+  protected currentView: "date" | "month" | "year" = "date";
 
   constructor(private element: Element) {
     this.resetDecade();
+  }
+
+  protected dateChanged(date): void {
+    if (date) {
+      this.time = toDate(this.date);
+      this.currentYear = getYear(this.date);
+
+      if (
+        !this.dateRange &&
+        !isSameMonth(
+          format(this.currentMonth, FORMAT_NO_TIMEZONE),
+          format(this.date, FORMAT_NO_TIMEZONE)
+        )
+      ) {
+        this.currentMonth = startOfMonth(this.date);
+      }
+    }
+  }
+
+  @computedFrom("time")
+  get hour() {
+    return this.time ? format(this.time, "hh") : "";
+  }
+  set hour(h) {
+    this.time = addHours(this.time, parseInt(h, 10));
+    this.date = toDate(format(this.date, "yyyy-MM-dd") + "T" + format(this.time, "HH:mm:ss.000"));
+  }
+  @computedFrom("time")
+  get minute() {
+    return this.time ? format(this.time, "mm") : "";
+  }
+  set minute(m) {
+    this.time = addMinutes(this.time, parseInt(m, 10));
+    this.date = toDate(format(this.date, "yyyy-MM-dd") + "T" + format(this.time, "HH:mm:ss.000"));
+  }
+  @computedFrom("time")
+  get second() {
+    return this.time ? format(this.time, "ss") : "";
+  }
+  set second(s) {
+    this.time = addSeconds(this.time, parseInt(s, 10));
+    this.date = toDate(format(this.date, "yyyy-MM-dd") + "T" + format(this.time, "HH:mm:ss.000"));
+  }
+  @computedFrom("time")
+  get ampm() {
+    return getHours(this.time) >= 12;
+  }
+  set ampm(pm) {
+    this.time = addHours(this.time, pm ? 12 : -12);
+    this.date = toDate(format(this.date, "yyyy-MM-dd") + "T" + format(this.time, "HH:mm:ss.000"));
   }
 
   @computedFrom(
     "currentMonth",
     "currentView",
     "date",
+    "hilight",
     "dateRange",
     "minDate",
     "maxDate",
     "disabledDays",
     "disabledDates"
   )
-  get datePage(): string {
-    let page = `
-    <span class="ui-date__head">#</span>
-    <span class="ui-date__head">Su</span>
-    <span class="ui-date__head">Mo</span>
-    <span class="ui-date__head">Tu</span>
-    <span class="ui-date__head">We</span>
-    <span class="ui-date__head">Th</span>
-    <span class="ui-date__head">Fr</span>
-    <span class="ui-date__head">Sa</span>`;
-
+  get pageStart(): Date {
     let pageStart = startOfWeek(this.currentMonth);
     if (getDay(this.currentMonth) < 3) {
       pageStart = subDays(pageStart, 7);
     }
+    return pageStart;
+  }
 
-    for (let row = 0; row < 6; row++) {
-      page += `<span class="ui-date__cell--week">${format(
-        addDays(pageStart, row * 7),
-        "ww"
-      )}</span>`;
-      for (let col = 0; col < 7; col++) {
-        const dt = addDays(pageStart, col + row * 7);
-        page += `<span class="ui-date__cell ui-date__cell--date" data-muted="${!isSameMonth(
-          dt,
-          this.currentMonth
-        )}"  data-selected="${this.getDateSelection(dt)}" data-today="${isSameDay(
-          dt,
-          new Date()
-        )}" data-date="${format(dt, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")}">${format(dt, "dd")}</span>`;
+  protected getWeek(date, week): string {
+    return format(addWeeks(date, week), "ww");
+  }
+  protected getDay(date, week, day): string {
+    const dt = addDays(addWeeks(date, week), day);
+    return format(dt, "dd");
+  }
+  protected getDate(date, week, day): string {
+    const dt = addDays(addWeeks(date, week), day);
+    return format(dt, "yyyy-MM-dd");
+  }
+  protected getClasses(date, week, day): string {
+    const dt = addDays(addWeeks(date, week), day);
+    const classes = ["ui-date__cell", "ui-date__cell--date"];
+    if (!isSameMonth(dt, this.currentMonth)) {
+      classes.push("ui-date__cell--date--muted");
+    }
+    if (isSameDay(dt, new Date())) {
+      classes.push("ui-date__cell--date--today");
+    }
+    if (this.dateRange) {
+      if (this.dateRange.start && isSameDay(dt, this.dateRange.start)) {
+        classes.push("ui-date__cell--date--start");
       }
+      if (this.dateRange.end && isSameDay(dt, this.dateRange.end)) {
+        classes.push("ui-date__cell--date--end");
+      }
+      if (
+        this.dateRange.start &&
+        !this.dateRange.end &&
+        this.hilight &&
+        isAfter(this.hilight, this.dateRange.start) &&
+        isWithinInterval(dt, { ...this.dateRange, end: this.hilight })
+      ) {
+        classes.push("ui-date__cell--date--hilight");
+      }
+      if (this.dateRange.start && this.dateRange.end && isWithinInterval(dt, this.dateRange)) {
+        classes.push("ui-date__cell--date--hilight");
+      }
+    } else if (isSameDay(dt, this.date)) {
+      classes.push("ui-date__cell--date--selected");
     }
-    return page;
+    return classes.join(" ");
   }
 
-  @computedFrom("currentView", "decadeStart")
-  get yearPage(): string {
-    let page = ``;
-
-    for (let row = 0; row < 20; row++) {
-      page += `<span class="ui-date__cell ui-date__cell--year" data-year="${this.decadeStart +
-        row}">${this.decadeStart + row}</span>`;
-    }
-    return page;
-  }
-
-  protected previous(factor): void {
-    if (factor === "year") {
-      this.currentMonth = subYears(this.currentMonth, 1);
-      this.resetDecade();
-    } else if (factor === "month") {
+  protected previous(unit): void {
+    if (unit === "month") {
       this.currentMonth = subMonths(this.currentMonth, 1);
       this.resetDecade();
-    } else if (factor === "decade") {
+    } else if (unit === "year") {
+      this.currentYear--;
+      this.resetDecade();
+    } else if (unit === "decade") {
       this.decadeStart -= 20;
     }
   }
 
-  protected next(factor): void {
-    if (factor === "year") {
-      this.currentMonth = addYears(this.currentMonth, 1);
-      this.resetDecade();
-    } else if (factor === "month") {
+  protected next(unit): void {
+    if (unit === "month") {
       this.currentMonth = addMonths(this.currentMonth, 1);
       this.resetDecade();
-    } else if (factor === "decade") {
+    } else if (unit === "year") {
+      this.currentYear++;
+      this.resetDecade();
+    } else if (unit === "decade") {
       this.decadeStart += 20;
     }
   }
 
   protected resetDecade(): void {
-    const startYear = this.currentMonth.getFullYear();
+    const startYear = this.currentYear;
     this.decadeStart = startYear - (startYear % 20) + 1;
   }
 
@@ -145,17 +221,47 @@ export class UIDate {
     }
   }
 
-  protected getDateSelection(dt): string {
-    if (this.dateRange) {
-      //
-    } else {
-      return isSameDay(dt, this.date).toString();
+  protected setCurrentMonth($event: UIEvent): void {
+    if (($event.target as HTMLElement).dataset.date) {
+      this.currentMonth = toDate(($event.target as HTMLElement).dataset.date);
+      this.currentView = "date";
     }
+  }
+
+  protected getMonthDate(year, month) {
+    return format(new Date(year, month, 1), "yyyy-MM-dd");
+  }
+
+  protected getMonthName(year, month) {
+    return format(new Date(year, month, 1), "MMM");
+  }
+
+  protected setCurrentYear($event: UIEvent): void {
+    if (($event.target as HTMLElement).dataset.year) {
+      this.currentYear = parseInt(($event.target as HTMLElement).dataset.year, 10);
+      this.currentView = "month";
+    }
+  }
+
+  protected selectToday(): void {
+    this.date = new Date();
+    this.element.dispatchEvent(UIInternal.createEvent("change", this.date));
   }
 
   protected selectDate($event: UIEvent): void {
     if (($event.target as HTMLElement).dataset.date) {
-      this.date = toDate(($event.target as HTMLElement).dataset.date);
+      this.date = toDate(
+        format(($event.target as HTMLElement).dataset.date, "yyyy-MM-dd") +
+          "T" +
+          format(this.time, "HH:mm:ss.000")
+      );
+      this.element.dispatchEvent(UIInternal.createEvent("change", this.date));
+    }
+  }
+
+  protected hilightDate($event: UIEvent): void {
+    if (($event.target as HTMLElement).dataset.date) {
+      this.hilight = toDate(($event.target as HTMLElement).dataset.date);
     }
   }
 }

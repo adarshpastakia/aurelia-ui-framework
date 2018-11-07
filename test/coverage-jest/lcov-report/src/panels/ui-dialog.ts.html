@@ -20,28 +20,28 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">69.44% </span>
+        <span class="strong">84.72% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>50/72</span>
+        <span class='fraction'>61/72</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">7.14% </span>
+        <span class="strong">35.71% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>1/14</span>
+        <span class='fraction'>5/14</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">30% </span>
+        <span class="strong">50% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>3/10</span>
+        <span class='fraction'>5/10</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">60.71% </span>
+        <span class="strong">80.36% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>34/56</span>
+        <span class='fraction'>45/56</span>
       </div>
     </div>
   </div>
-  <div class='status-line medium'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -287,16 +287,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -325,22 +325,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
@@ -436,17 +436,17 @@ export class UIDialogElement {
     }
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  protected attached(): void {</span>
-<span class="cstat-no" title="statement not covered" >    if (!this.modal) {</span>
-      const iconEl = <span class="cstat-no" title="statement not covered" >this.element.querySelector(".ui-header__icon .ui-icon");</span>
-      const labelEl = <span class="cstat-no" title="statement not covered" >this.element.querySelector(".ui-header__title") as HTMLElement;</span>
-<span class="cstat-no" title="statement not covered" >      if (iconEl) {</span>
-<span class="cstat-no" title="statement not covered" >        this.icon = iconEl.au.controller.viewModel.icon;</span>
+  protected attached(): void {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (!this.modal) {
+      const iconEl = this.element.querySelector(".ui-header__icon .ui-icon");
+      const labelEl = this.element.querySelector(".ui-header__title") as HTMLElement;
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (iconEl) {
+        this.icon = iconEl.au.controller.viewModel.icon;
       }
-<span class="cstat-no" title="statement not covered" >      if (labelEl) {</span>
-<span class="cstat-no" title="statement not covered" >        this.label = labelEl.innerText;</span>
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (labelEl) {
+        this.label = labelEl.innerText;
       }
-<span class="cstat-no" title="statement not covered" >      this.taskButton = UIInternal.compileTemplate(</span>
+      this.taskButton = UIInternal.compileTemplate(
         `&lt;template&gt;&lt;ui-button size="sm" ui-theme="primary" type.bind="active?'solid':'default'" label.bind="label" icon.bind="icon"&gt;&lt;/ui-button&gt;&lt;/template&gt;`,
         this
       );
@@ -474,8 +474,8 @@ export class UIDialogElement {
     "position.left",
     "position.top"
   )
-<span class="fstat-no" title="function not covered" >  get css() {</span>
-    const pos<span class="cstat-no" title="statement not covered" > = {</span>
+  get css() {
+    const pos = {
       height: this.height,
       maxHeight: this.maxHeight,
       maxWidth: this.maxWidth,
@@ -485,12 +485,12 @@ export class UIDialogElement {
       ...this.position
     };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (this.maximized) {</span>
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (this.maximized) {
 <span class="cstat-no" title="statement not covered" >      pos.top = pos.left = pos.right = pos.bottom = "0";</span>
 <span class="cstat-no" title="statement not covered" >      pos.width = pos.height = "auto";</span>
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return pos;</span>
+    return pos;
   }
 }
 &nbsp;</pre></td></tr>
@@ -499,7 +499,7 @@ export class UIDialogElement {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Nov 07 2018 00:45:18 GMT+0400 (Gulf Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Nov 07 2018 23:13:12 GMT+0400 (Gulf Standard Time)
 </div>
 </div>
 <script src="../../prettify.js"></script>

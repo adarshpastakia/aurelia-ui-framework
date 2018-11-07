@@ -20,14 +20,14 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">44.44% </span>
+        <span class="strong">50% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>48/108</span>
+        <span class='fraction'>54/108</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">7.27% </span>
+        <span class="strong">10.91% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>4/55</span>
+        <span class='fraction'>6/55</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">38.46% </span>
@@ -35,13 +35,13 @@
         <span class='fraction'>10/26</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">46.81% </span>
+        <span class="strong">53.19% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>44/94</span>
+        <span class='fraction'>50/94</span>
       </div>
     </div>
   </div>
-  <div class='status-line low'></div>
+  <div class='status-line medium'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -304,15 +304,15 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -329,7 +329,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -500,15 +500,15 @@ export class UIDialogService {
           dialog.viewModel.viewController = controller;
           dialog.viewModel.returnPromise = resolve;
           this.appConfig.DialogContainer.add(controller.view);
-<span class="cstat-no" title="statement not covered" >          if (dialog.viewModel.taskButton) {</span>
-<span class="cstat-no" title="statement not covered" >            this.appConfig.TaskbarContainer.add(dialog.viewModel.taskButton);</span>
+          <span class="missing-if-branch" title="else path not taken" >E</span>if (dialog.viewModel.taskButton) {
+            this.appConfig.TaskbarContainer.add(dialog.viewModel.taskButton);
           }
-<span class="cstat-no" title="statement not covered" >          controller.attached();</span>
+          controller.attached();
 &nbsp;
-<span class="cstat-no" title="statement not covered" >          if (this.activeWin) {</span>
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (this.activeWin) {
 <span class="cstat-no" title="statement not covered" >            this.activeWin.active = false;</span>
           }
-<span class="cstat-no" title="statement not covered" >          this.windows.unshift((this.activeWin = dialog.viewModel));</span>
+          this.windows.unshift((this.activeWin = dialog.viewModel));
         });
     });
   }
@@ -524,8 +524,8 @@ export class UIDialogService {
       document.addEventListener("mousemove", <span class="fstat-no" title="function not covered" >e =&gt; <span class="cstat-no" title="statement not covered" >this.drag(e))</span>;</span>
       document.addEventListener("mouseup", <span class="fstat-no" title="function not covered" >e =&gt; <span class="cstat-no" title="statement not covered" >this.stopDrag(e))</span>;</span>
 &nbsp;
-      <span class="missing-if-branch" title="if path not taken" >I</span>if (this.appConfig.TaskbarContainer) {
-<span class="cstat-no" title="statement not covered" >        this.appConfig.TaskbarContainer.anchor.addEventListener("click", <span class="fstat-no" title="function not covered" >(</span>e: AnyObject) =&gt; {</span>
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (this.appConfig.TaskbarContainer) {
+        this.appConfig.TaskbarContainer.anchor.addEventListener("click", <span class="fstat-no" title="function not covered" >(</span>e: AnyObject) =&gt; {
 <span class="cstat-no" title="statement not covered" >          try {</span>
             const dialog = <span class="cstat-no" title="statement not covered" >e.target.au.controller.scope.bindingContext;</span>
 <span class="cstat-no" title="statement not covered" >            if (dialog.minimized || dialog.active) {</span>
@@ -637,7 +637,7 @@ export class UIDialogService {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Nov 07 2018 00:45:18 GMT+0400 (Gulf Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Nov 07 2018 23:13:12 GMT+0400 (Gulf Standard Time)
 </div>
 </div>
 <script src="../../prettify.js"></script>

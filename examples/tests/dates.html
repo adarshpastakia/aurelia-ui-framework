@@ -1,7 +1,18 @@
 <template>
-  <ui-date></ui-date>
+  <div>
+    <h6>TODO</h6>
+    <ul>
+      <li>Min/Max date</li>
+      <li>Disabled days</li>
+      <li>Disabled dates array</li>
+      <li>Disabled dates callback</li>
+    </ul>
+  </div>
+  <ui-date date.bind="date"></ui-date>
+  <div>${date}</div>
   <br />
-  <ui-date-range></ui-date-range>
+  <ui-date-range start.bind="start" end.bind="end"></ui-date-range>
+  <div>${start} - ${end}</div>
   <!-- <div ui-padding class="ui-inline-block">
     <div class="ui-date__view">
       <div class="ui-date__list">

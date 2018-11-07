@@ -20,28 +20,28 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">72.97% </span>
+        <span class="strong">83.78% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>27/37</span>
+        <span class='fraction'>31/37</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">33.33% </span>
+        <span class="strong">61.11% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>6/18</span>
+        <span class='fraction'>11/18</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">90% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>9/10</span>
+        <span class='fraction'>10/10</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">72.22% </span>
+        <span class="strong">83.33% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>26/36</span>
+        <span class='fraction'>30/36</span>
       </div>
     </div>
   </div>
-  <div class='status-line medium'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -152,7 +152,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -160,7 +160,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">5x</span>
@@ -170,7 +170,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -182,13 +182,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -207,12 +207,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
@@ -255,8 +255,8 @@ export namespace UIInternal {
     return Container.instance.get(EventAggregator).subscribeOnce(name, callback);
   }
 &nbsp;
-  export function <span class="fstat-no" title="function not covered" >createEvent&lt;</span>T = {}&gt;(name: string, data?: T): CustomEvent {
-<span class="cstat-no" title="statement not covered" >    return DOM.createCustomEvent(name, {</span>
+  export function createEvent&lt;T = {}&gt;(name: string, data?: T): CustomEvent {
+    return DOM.createCustomEvent(name, {
       bubbles: true,
       cancelable: true,
       detail: data
@@ -271,10 +271,10 @@ export namespace UIInternal {
     const ret = isFunction(vm[event])
       ? vm[event](data)
       : vm.element.dispatchEvent(UIInternal.createEvent(event, data));
-<span class="cstat-no" title="statement not covered" >    if (ret instanceof Promise) {</span>
-<span class="cstat-no" title="statement not covered" >      return ret;</span>
+    if (ret instanceof Promise) {
+      return ret;
     } else {
-<span class="cstat-no" title="statement not covered" >      return Promise.resolve(ret !== false);</span>
+      return Promise.resolve(ret !== false);
     }
   }
 &nbsp;
@@ -292,7 +292,7 @@ export namespace UIInternal {
     return Promise.resolve(true);
   }
 &nbsp;
-  export function compileTemplate(tpl: string, <span class="missing-if-branch" title="if path not taken" >I</span>viewModel: AnyObject = {}): View {
+  export function compileTemplate(tpl: string, viewModel: AnyObject = {}): View {
     const viewFactory = Container.instance
       .get(ViewCompiler)
       .compile(tpl, Container.instance.get(ViewResources));
@@ -307,7 +307,7 @@ export namespace UIInternal {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Nov 07 2018 00:45:18 GMT+0400 (Gulf Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Nov 07 2018 23:13:12 GMT+0400 (Gulf Standard Time)
 </div>
 </div>
 <script src="../../prettify.js"></script>

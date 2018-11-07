@@ -11,14 +11,14 @@ import {
   computedFrom,
   customElement,
   inlineView,
+  PLATFORM,
   viewResources
 } from "aurelia-framework";
 import { BaseInput } from "./base-input";
-import { InputWrapper } from "./input-wrapper";
 
 @autoinject()
 @customElement("ui-textarea")
-@viewResources(InputWrapper)
+@viewResources(PLATFORM.moduleName("./input-wrapper"))
 @inlineView(`<template class="ui-input ui-input--textarea \${classes}" aria-disabled.bind="disabled || isDisabled" aria-readonly.bind="readonly">
   <input-wrapper>
     <slot></slot>

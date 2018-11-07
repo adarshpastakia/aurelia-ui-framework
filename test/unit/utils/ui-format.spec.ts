@@ -51,9 +51,9 @@ describe("ui-format", () => {
   it("should format date from", done => {
     const dt = new Date();
     dt.setHours(dt.getHours() + 2);
-    expect(UIFormat.fromNow(dt)).toBe("in 2 hours");
+    expect(UIFormat.fromNow(dt)).toBe("in about 2 hours");
     dt.setHours(dt.getHours() - 4);
-    expect(UIFormat.fromNow(dt)).toBe("2 hours ago");
+    expect(UIFormat.fromNow(dt)).toBe("about 2 hours ago");
     expect(UIFormat.fromNow("Invalid")).toBe("");
     done();
   });

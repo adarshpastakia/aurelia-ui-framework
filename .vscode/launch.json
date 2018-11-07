@@ -9,8 +9,7 @@
       "request": "launch",
       "name": "Launch via Yarn",
       "runtimeExecutable": "yarn",
-      "runtimeArgs": ["test"],
-      "port": 9229
+      "runtimeArgs": ["test"]
     }
   ]
 }

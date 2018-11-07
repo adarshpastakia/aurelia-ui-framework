@@ -38,7 +38,7 @@ PLATFORM.moduleName("./menu.html");
 PLATFORM.moduleName("./wizard.html");
 PLATFORM.moduleName("./tabs.html");
 PLATFORM.moduleName("./tab-test.html");
-PLATFORM.moduleName("./calendar.html");
+PLATFORM.moduleName("./dates.html");
 
 @autoinject()
 export class Tester {
@@ -107,8 +107,8 @@ export class Tester {
         {
           badge: { theme: "yellow-dark", icon: "mdi mdi-alert", tooltip: "Under Development" },
           icon: "calendar",
-          label: "Calendar",
-          src: "calendar.html"
+          label: "Date Inputs",
+          src: "dates.html"
         }
       ]
     ],
@@ -212,7 +212,7 @@ export class Tester {
   protected openDialog(isModal = false) {
     if (isModal) {
       this.dialogService
-        .open(PLATFORM.moduleName("tests/dlg-test"), { isModal })
+        .open(DlgTest, { isModal })
         .then(result => this.logger.info("Dlg Closed", result));
     } else {
       this.dialogService

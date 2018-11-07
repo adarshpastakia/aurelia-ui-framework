@@ -20,28 +20,28 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">71.43% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>35/49</span>
+        <span class='fraction'>49/49</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/2</span>
+        <span class='fraction'>2/2</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">53.85% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>7/13</span>
+        <span class='fraction'>13/13</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">64% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>16/25</span>
+        <span class='fraction'>25/25</span>
       </div>
     </div>
   </div>
-  <div class='status-line medium'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -154,22 +154,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
@@ -241,22 +241,22 @@ export class UIViewport {
   private dialogContainer;
   private taskbarContainer;
 &nbsp;
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  constructor(private <span class="cstat-no" title="statement not covered" ></span>appConfig: UIAppConfig,</span> protected <span class="cstat-no" title="statement not covered" >router: AppRouter)</span> {</span>
-<span class="cstat-no" title="statement not covered" >    window.addEventListener("resize", <span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" ></span>UIInternal.broadcast(UIInternal.EVT_VIEWPORT_RESIZE))</span>;</span>
-<span class="cstat-no" title="statement not covered" >    document.addEventListener("mouseup", <span class="fstat-no" title="function not covered" >$event =&gt; <span class="cstat-no" title="statement not covered" >this.broadcastEvent($event))</span>;</span></span>
+  constructor(private appConfig: UIAppConfig, protected router: AppRouter) {
+    window.addEventListener("resize", () =&gt; UIInternal.broadcast(UIInternal.EVT_VIEWPORT_RESIZE));
+    document.addEventListener("mouseup", $event =&gt; this.broadcastEvent($event));
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  protected attached(): void {</span>
-<span class="cstat-no" title="statement not covered" >    this.appConfig.DialogContainer = new ViewSlot(this.dialogContainer, true);</span>
-<span class="cstat-no" title="statement not covered" >    this.appConfig.TaskbarContainer = new ViewSlot(this.taskbarContainer, true);</span>
+  protected attached(): void {
+    this.appConfig.DialogContainer = new ViewSlot(this.dialogContainer, true);
+    this.appConfig.TaskbarContainer = new ViewSlot(this.taskbarContainer, true);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    this.appConfig.DialogContainer.attached();</span>
-<span class="cstat-no" title="statement not covered" >    this.appConfig.TaskbarContainer.attached();</span>
+    this.appConfig.DialogContainer.attached();
+    this.appConfig.TaskbarContainer.attached();
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  protected broadcastEvent(</span>$event: MouseEvent): void {
-<span class="cstat-no" title="statement not covered" >    if (!hasParent($event.target as HTMLElement, this.appConfig.FloatingContainer)) {</span>
-<span class="cstat-no" title="statement not covered" >      UIInternal.broadcast(UIInternal.EVT_VIEWPORT_CLICK, $event.target);</span>
+  protected broadcastEvent($event: MouseEvent): void {
+    if (!hasParent($event.target as HTMLElement, this.appConfig.FloatingContainer)) {
+      UIInternal.broadcast(UIInternal.EVT_VIEWPORT_CLICK, $event.target);
     }
   }
 }
@@ -295,14 +295,14 @@ export class UIDivider {}
 @inlineView("&lt;template class='ui-col ui-col--fill'&gt;&lt;/template&gt;")
 export class UIFiller {}
 &nbsp;
-<span class="fstat-no" title="function not covered" >@autoinject()</span>
+@autoinject()
 @customElement("ui-loader")
 @inlineView(`&lt;template&gt;&lt;div ref="vmElement" class="ui-loader" if.bind="busy"&gt;
   &lt;div&gt;&lt;ui-svg-icon icon="loader" class="ui-anim--spin"&gt;&lt;/ui-svg-icon&gt;&lt;/div&gt;
 &lt;/div&gt;&lt;/template&gt;`)
 export class UILoader {
   @bindable()
-  public <span class="cstat-no" title="statement not covered" >busy: boolean = false;</span>
+  public busy: boolean = false;
 }
 &nbsp;</pre></td></tr>
 </table></pre>
@@ -310,7 +310,7 @@ export class UILoader {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Nov 07 2018 00:45:18 GMT+0400 (Gulf Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Nov 07 2018 23:13:12 GMT+0400 (Gulf Standard Time)
 </div>
 </div>
 <script src="../../prettify.js"></script>

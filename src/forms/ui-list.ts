@@ -4,13 +4,19 @@
  * @copyright : 2018
  * @license   : MIT
  */
-import { autoinject, bindable, bindingMode, customElement, viewResources } from "aurelia-framework";
-import { InputWrapper } from "./input-wrapper";
+import {
+  autoinject,
+  bindable,
+  bindingMode,
+  customElement,
+  PLATFORM,
+  viewResources
+} from "aurelia-framework";
 import { ListMaker } from "./list-maker";
 
 @autoinject()
 @customElement("ui-list")
-@viewResources(InputWrapper)
+@viewResources(PLATFORM.moduleName("./input-wrapper"))
 export class UIList extends ListMaker {
   @bindable({ defaultBindingMode: bindingMode.twoWay })
   public value: AnyObject = undefined;
@@ -68,7 +74,7 @@ export class UIList extends ListMaker {
     this.valueChanged();
   }
 
-  protected attached():void {
+  protected attached(): void {
     this.loadOptions();
   }
 }

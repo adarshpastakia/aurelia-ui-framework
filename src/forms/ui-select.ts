@@ -4,13 +4,19 @@
  * @copyright : 2018
  * @license   : MIT
  */
-import { autoinject, bindable, bindingMode, customElement, viewResources } from "aurelia-framework";
-import { InputWrapper } from "./input-wrapper";
+import {
+  autoinject,
+  bindable,
+  bindingMode,
+  customElement,
+  PLATFORM,
+  viewResources
+} from "aurelia-framework";
 import { ListMaker } from "./list-maker";
 
 @autoinject()
 @customElement("ui-select")
-@viewResources(InputWrapper)
+@viewResources(PLATFORM.moduleName("./input-wrapper"))
 export class UISelect extends ListMaker {
   @bindable({ defaultBindingMode: bindingMode.twoWay })
   public value: AnyObject = undefined;
