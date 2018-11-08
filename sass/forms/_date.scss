@@ -26,7 +26,13 @@
 
   &__list {
     background-color: var(--base-bg);
+    display: grid;
     overflow: auto;
+
+    > a {
+      align-self: center;
+      justify-self: center;
+    }
 
     ul {
       list-style: none;
@@ -121,6 +127,10 @@
     align-self: center;
     grid-area: title;
     padding: 0 0.5em;
+
+    .ui-icon {
+      vertical-align: middle;
+    }
   }
 
   &__grid--date {
@@ -183,7 +193,6 @@
       color: var(--color-secondary-light);
       font-weight: $font-weight-medium;
       overflow: hidden;
-      pointer-events: none;
     }
 
     &--date {

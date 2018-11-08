@@ -1,30 +1,19 @@
 <template class="ui-date__wrapper">
   <div class="ui-date__view">
     <div class="ui-date__list">
-      <ul>
-        <li data-active="true">Today</li>
-        <li>Yesterday</li>
-        <li>This Week</li>
-        <li>Last Week</li>
-        <li>This Month</li>
-        <li>Last Month</li>
-        <li>This Year</li>
-        <li>Last Year</li>
-        <hr />
-        <li>Last 7 Days</li>
-        <li>Last 15 Days</li>
-        <li>Last 30 Days</li>
-        <li>Last 60 Days</li>
-        <li>Last 90 Days</li>
+      <ul if.bind="!selectStarted">
+        <template repeat.for="key of rangeSelectors">
+          <li if.bind="key !== '-'" data-key.bind="key">${DateRangeLabels[key]}</li>
+          <hr else />
+        </template>
         <hr />
         <li>Custom Range</li>
       </ul>
+      <a if.bind="selectStarted" click.trigger="cancelSelection()" ui-color="secondary">Cancel</a>
     </div>
-    <ui-date date.to-view="start" date-range.to-view="{start,end}" min-date.bind="minDate" max-date.bind="maxDate" disabled-days.bind="disabledDays"
-      view-model.ref="startVm" disabled-dates.bind="disabledDates" change.trigger="setRange($event.detail)"
-      mouseover.delegate="hilightDate($event)"></ui-date>
-    <ui-date date.to-view="end" date-range.to-view="{start,end}" min-date.bind="minDate" max-date.bind="maxDate" disabled-days.bind="disabledDays"
-      view-model.ref="endVm" disabled-dates.bind="disabledDates" change.trigger="setRange($event.detail)"
-      mouseover.delegate="hilightDate($event)"></ui-date>
+    <ui-date date.to-view="start" date-range.to-view="range" min-date.bind="minDate" max-date.bind="maxDate"
+      disabled-days.bind="disabledDays" view-model.ref="startVm" disabled-dates.bind="disabledDates" mouseover.delegate="hilightDate($event)"></ui-date>
+    <ui-date date.to-view="end" date-range.to-view="range" min-date.bind="minDate" max-date.bind="maxDate"
+      disabled-days.bind="disabledDays" view-model.ref="endVm" disabled-dates.bind="disabledDates" mouseover.delegate="hilightDate($event)"></ui-date>
   </div>
 </template>

@@ -32,7 +32,7 @@
     @include position(absolute, null 0);
   }
 
-  @at-root span[data-open="true"] & {
+  &[data-open="true"] {
     opacity: 1;
     visibility: visible;
   }

@@ -66,38 +66,31 @@ ol {
   padding: 0;
 
   li {
-    list-style: none;
     padding: 0.25em 0.5em;
 
     &::before {
-      content: "\25CE";
       display: inline-block;
       font-size: 0.8em;
-      text-align: center;
       width: 1.5em;
     }
   }
 }
 
 [data-style="circle"] {
-  &::before,
-  li::before {
-    content: "\25C9";
-  }
+  list-style-type: circle;
 }
 [data-style="square"] {
-  &::before,
-  li::before {
-    content: "\25FE";
-  }
+  list-style-type: square;
 }
 [data-style="check"] {
+  list-style: none;
   &::before,
   li::before {
     content: "\2713";
   }
 }
 [data-style="cross"] {
+  list-style: none;
   &::before,
   li::before {
     content: "\2715";

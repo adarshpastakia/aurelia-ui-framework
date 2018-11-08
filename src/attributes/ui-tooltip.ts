@@ -7,6 +7,8 @@
 import { autoinject, bindable, customAttribute } from "aurelia-framework";
 import { UITether } from "../utils/ui-tether";
 
+let TooltipEl: HTMLDivElement & { tether?: UITether.Tether };
+
 @autoinject()
 @customAttribute("ui-tooltip")
 export class UITooltip {
@@ -19,8 +21,6 @@ export class UITooltip {
 
   private timer;
   private parentEl: Element | HTMLElement;
-  private tooltipEl: HTMLElement;
-  private tether: UITether.Tether;
 
   constructor(private element: Element) {}
 
@@ -32,20 +32,16 @@ export class UITooltip {
       this.parentEl = this.element.previousElementSibling;
     }
 
-    this.tooltipEl = document.createElement("span");
-    this.tooltipEl.innerHTML = `<div class='ui-tooltip ui-theme--${this.theme}'>${
-      this.value
-    }</div>`;
-    this.tether = UITether.tether(
-      this.parentEl,
-      this.tooltipEl.firstElementChild as HTMLDivElement,
-      {
+    if (!TooltipEl) {
+      TooltipEl = document.createElement("div");
+      TooltipEl.className = "ui-tooltip";
+      TooltipEl.tether = UITether.tether(this.parentEl, TooltipEl, {
         anchorPosition: "tc",
         attachToViewport: true,
         position: "bc",
         resize: false
-      }
-    );
+      });
+    }
 
     this.parentEl.addEventListener("mouseenter", this.showFn);
     this.parentEl.addEventListener("mouseleave", this.hideFn);
@@ -55,23 +51,21 @@ export class UITooltip {
     this.hide();
     this.parentEl.removeEventListener("mouseenter", this.showFn);
     this.parentEl.removeEventListener("mouseleave", this.hideFn);
-    if (this.tether) {
-      this.tether.dispose();
-    }
-    this.tether = null;
   }
 
   protected show(): void {
     if (isEmpty(this.value)) {
       return;
     }
-    this.tether.updatePosition();
-    this.timer = setTimeout(() => (this.tooltipEl.dataset.open = "true"), 700);
+    TooltipEl.className = `ui-tooltip ui-theme--${this.theme}`;
+    TooltipEl.innerHTML = this.value;
+    TooltipEl.tether.updatePosition(this.parentEl);
+    this.timer = setTimeout(() => (TooltipEl.dataset.open = "true"), 700);
   }
 
   protected hide() {
     clearTimeout(this.timer);
-    this.tooltipEl.dataset.open = "false";
+    TooltipEl.dataset.open = "false";
   }
 
   private showFn = () => this.show();

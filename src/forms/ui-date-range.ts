@@ -5,8 +5,62 @@
  * @license   : MIT
  */
 
-import { autoinject, bindable, bindingMode, customElement } from "aurelia-framework";
-import { addMonths, isAfter, isSameMonth, startOfMonth, subMonths, toDate } from "date-fns";
+import { autoinject, bindable, bindingMode, computedFrom, customElement } from "aurelia-framework";
+import { addMonths, endOfWeek, isAfter, startOfMonth, subMonths, toDate } from "date-fns";
+
+export enum UIDateRangeKeys {
+  TODAY = "TODAY",
+  YESTERDAY = "YESTERDAY",
+  THIS_WEEK = "THIS_WEEK",
+  LAST_WEEK = "LAST_WEEK",
+  NEXT_WEEK = "NEXT_WEEK",
+  THIS_MONTH = "THIS_MONTH",
+  LAST_MONTH = "LAST_MONTH",
+  NEXT_MONTH = "NEXT_MONTH",
+  THIS_QUARTER = "THIS_QUARTER",
+  LAST_QUARTER = "LAST_QUARTER",
+  NEXT_QUARTER = "NEXT_QUARTER",
+  THIS_YEAR = "THIS_YEAR",
+  LAST_YEAR = "LAST_YEAR",
+  NEXT_YEAR = "NEXT_YEAR",
+  LAST_7 = "LAST_7",
+  NEXT_7 = "NEXT_7",
+  LAST_15 = "LAST_15",
+  NEXT_15 = "NEXT_15",
+  LAST_30 = "LAST_30",
+  NEXT_30 = "NEXT_30",
+  LAST_60 = "LAST_60",
+  NEXT_60 = "NEXT_60",
+  LAST_90 = "LAST_90",
+  NEXT_90 = "NEXT_90",
+  DIVIDER = "-"
+}
+enum UIDateRangeLabels {
+  TODAY = "Today",
+  YESTERDAY = "Yesterday",
+  THIS_WEEK = "This Week",
+  LAST_WEEK = "Last Week",
+  NEXT_WEEK = "Next Week",
+  THIS_MONTH = "This Month",
+  LAST_MONTH = "Last Month",
+  NEXT_MONTH = "Next Month",
+  THIS_QUARTER = "This Quarter",
+  LAST_QUARTER = "Last Quarter",
+  NEXT_QUARTER = "Next Quarter",
+  THIS_YEAR = "This Year",
+  LAST_YEAR = "Last Year",
+  NEXT_YEAR = "Next Year",
+  LAST_7 = "Last 7 Days",
+  NEXT_7 = "Next 7 Days",
+  LAST_15 = "Last 15 Days",
+  NEXT_15 = "Next 15 Days",
+  LAST_30 = "Last 30 Days",
+  NEXT_30 = "Next 30 Days",
+  LAST_60 = "Last 60 Days",
+  NEXT_60 = "Next 60 Days",
+  LAST_90 = "Last 90 Days",
+  NEXT_90 = "Next 90 Days"
+}
 
 @autoinject()
 @customElement("ui-date-range")
@@ -28,8 +82,33 @@ export class UIDateRange {
   @bindable()
   public disabled: boolean = false;
 
+  @bindable()
+  public rangeSelectors: UIDateRangeKeys[] = [
+    UIDateRangeKeys.TODAY,
+    UIDateRangeKeys.YESTERDAY,
+    UIDateRangeKeys.LAST_WEEK,
+    UIDateRangeKeys.THIS_WEEK,
+    UIDateRangeKeys.NEXT_WEEK,
+    UIDateRangeKeys.LAST_MONTH,
+    UIDateRangeKeys.THIS_MONTH,
+    UIDateRangeKeys.NEXT_MONTH,
+    UIDateRangeKeys.DIVIDER,
+    UIDateRangeKeys.LAST_7,
+    UIDateRangeKeys.NEXT_7,
+    UIDateRangeKeys.LAST_15,
+    UIDateRangeKeys.NEXT_15,
+    UIDateRangeKeys.LAST_30,
+    UIDateRangeKeys.NEXT_30
+  ];
+
+  protected tempStart;
+
+  protected DateRangeLabels = UIDateRangeLabels;
+
   protected startVm;
   protected endVm;
+
+  protected selectStarted = false;
 
   protected startMonth = startOfMonth(new Date());
   protected endMonth = addMonths(startOfMonth(new Date()), 1);
@@ -40,13 +119,43 @@ export class UIDateRange {
     this.startVm.monthChanged = month => this.startMonthChanged(month);
     this.endVm.monthChanged = month => this.endMonthChanged(month);
 
+    this.startVm.weekChanged = week => this.weekChanged(week);
+    this.endVm.weekChanged = week => this.weekChanged(week);
+
+    this.startVm.internalDateChanged = (date, timeChange) =>
+      timeChange
+        ? isAfter(this.end, date)
+          ? (this.start = date)
+          : (this.start = this.end = date)
+        : this.setRange(date, timeChange);
+    this.endVm.internalDateChanged = (date, timeChange) =>
+      timeChange
+        ? isAfter(date, this.start)
+          ? (this.end = date)
+          : (this.start = this.end = date)
+        : this.setRange(date, timeChange);
+
     this.startVm.currentMonth = this.startMonth;
     this.endVm.currentMonth = this.endMonth;
   }
 
+  @computedFrom("selectStarted", "tempStart", "start", "end")
+  get range() {
+    return this.selectStarted
+      ? { start: this.tempStart, end: undefined }
+      : { start: this.start, end: this.end };
+  }
+
+  protected weekChanged(week) {
+    this.start = week;
+    this.end = endOfWeek(week);
+    this.startVm.currentMonth = startOfMonth(this.start);
+    this.endVm.currentMonth = startOfMonth(this.end);
+  }
+
   protected startMonthChanged(month) {
     this.startMonth = month;
-    if (isSameMonth(this.startMonth, this.endMonth) || isAfter(this.startMonth, this.endMonth)) {
+    if (isAfter(this.startMonth, this.endMonth)) {
       this.endMonth = addMonths(this.startMonth, 1);
     }
 
@@ -55,7 +164,7 @@ export class UIDateRange {
   }
   protected endMonthChanged(month) {
     this.endMonth = month;
-    if (isSameMonth(this.startMonth, this.endMonth) || isAfter(this.startMonth, this.endMonth)) {
+    if (isAfter(this.startMonth, this.endMonth)) {
       this.startMonth = subMonths(this.endMonth, 1);
     }
 
@@ -63,22 +172,36 @@ export class UIDateRange {
     this.endVm.currentMonth = this.endMonth;
   }
 
-  protected setRange(date): void {
-    if (!this.start || this.end) {
-      this.end = undefined;
-      this.start = date;
-      this.startVm.currentMonth = startOfMonth(this.start);
-    } else {
-      if (isAfter(this.start, date)) {
-        this.start = date;
-        this.startVm.currentMonth = startOfMonth(this.start);
+  protected setRange(date, timeChange): void {
+    if (!timeChange) {
+      if (!this.selectStarted) {
+        this.tempStart = date;
+        this.selectStarted = true;
+        this.startVm.currentMonth = startOfMonth(this.tempStart);
       } else {
-        this.end = date;
-        if (!isSameMonth(this.start, this.end)) {
+        if (isAfter(this.tempStart, date)) {
+          this.tempStart = date;
+          this.startVm.currentMonth = startOfMonth(this.tempStart);
+        } else {
+          this.start = this.tempStart;
+          this.end = date;
+          this.startVm.currentMonth = startOfMonth(this.tempStart);
           this.endVm.currentMonth = startOfMonth(this.end);
+
+          this.tempStart = undefined;
+          this.selectStarted = false;
+          // fire change
         }
       }
     }
+  }
+
+  protected cancelSelection(): void {
+    this.selectStarted = false;
+    this.tempStart = false;
+
+    this.start = toDate(this.start);
+    this.end = toDate(this.end);
   }
 
   protected hilightDate($event: UIEvent): void {

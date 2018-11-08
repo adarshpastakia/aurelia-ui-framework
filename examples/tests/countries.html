@@ -17,16 +17,20 @@
               <span>${c.iso3}</span>
             </ui-card-meta>
             <ui-card-meta>
-              <span>Capital</span>
+              <span ui-weight="medium">Capital</span>
               <span ui-align="end">${c.capital}</span>
             </ui-card-meta>
             <ui-card-meta>
-              <span>${c.currency}</span>
-              <span ui-align="end">${c.currency in currencies ? currencies[c.currency] : '-'}</span>
+              <span ui-weight="medium">Currency</span>
+              <span ui-align="end">
+                <bdi>${c.currency in currencies ? currencies[c.currency] : '-'} (${c.currency})</bdi>
+              </span>
             </ui-card-meta>
             <ui-card-meta>
-              <span>${c.phone}</span>
-              <span>${c.tld}</span>
+            </ui-card-meta>
+            <ui-card-meta>
+              <span><bdi>${c.phone}</bdi></span>
+              <span><bdi>${c.tld}</bdi></span>
             </ui-card-meta>
           </ui-card>
         </template>

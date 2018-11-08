@@ -12,7 +12,7 @@ export namespace UITether {
   export type Position = "tl" | "tr" | "bl" | "br" | "tc" | "bc";
   export interface Tether {
     dispose(): void;
-    updatePosition(): void;
+    updatePosition(newAnchor?: Element): void;
   }
   export interface TetherConfig {
     resize?: boolean;
@@ -170,15 +170,20 @@ export namespace UITether {
     }
 
     const container = Container.instance.get(UIAppConfig).FloatingContainer;
-    config.attachToViewport ? container.appendChild(dropdownEl.parentElement) : fn();
+    config.attachToViewport ? container.appendChild(dropdownEl.parentElement || dropdownEl) : fn();
     scroller.scrollCallbacks.add(scrollCallback);
 
     return {
       dispose: () => {
         scroller.scrollCallbacks.delete(scrollCallback);
-        DOM.removeNode(dropdownEl.parentElement);
+        if (dropdownEl.parentElement === Container.instance.get(UIAppConfig).FloatingContainer) {
+          DOM.removeNode(dropdownEl);
+        } else {
+          DOM.removeNode(dropdownEl.parentElement);
+        }
       },
-      updatePosition: () => {
+      updatePosition: (newAnchorEl?: Element) => {
+        anchorEl = newAnchorEl || anchorEl;
         updatePosition(anchorEl, dropdownEl, scroller, config);
       }
     };

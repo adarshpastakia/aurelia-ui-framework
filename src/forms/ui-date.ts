@@ -61,6 +61,8 @@ export class UIDate {
   @observable()
   protected currentMonth = startOfMonth(new Date());
   protected monthChanged: (month: Date) => void;
+  protected weekChanged: (week: Date) => void;
+  protected internalDateChanged: (date: Date, timeChange: boolean) => void;
 
   protected time;
   protected hilight;
@@ -95,7 +97,10 @@ export class UIDate {
   }
   set hour(h) {
     this.time = addHours(this.time, parseInt(h, 10));
-    this.date = toDate(format(this.date, "yyyy-MM-dd") + "T" + format(this.time, "HH:mm:ss.000"));
+    this.date = toDate(
+      format(this.date || new Date(), "yyyy-MM-dd") + "T" + format(this.time, "HH:mm:ss.000")
+    );
+    this.fireChange(true);
   }
   @computedFrom("time")
   get minute() {
@@ -103,15 +108,10 @@ export class UIDate {
   }
   set minute(m) {
     this.time = addMinutes(this.time, parseInt(m, 10));
-    this.date = toDate(format(this.date, "yyyy-MM-dd") + "T" + format(this.time, "HH:mm:ss.000"));
-  }
-  @computedFrom("time")
-  get second() {
-    return this.time ? format(this.time, "ss") : "";
-  }
-  set second(s) {
-    this.time = addSeconds(this.time, parseInt(s, 10));
-    this.date = toDate(format(this.date, "yyyy-MM-dd") + "T" + format(this.time, "HH:mm:ss.000"));
+    this.date = toDate(
+      format(this.date || new Date(), "yyyy-MM-dd") + "T" + format(this.time, "HH:mm:ss.000")
+    );
+    this.fireChange(true);
   }
   @computedFrom("time")
   get ampm() {
@@ -119,7 +119,10 @@ export class UIDate {
   }
   set ampm(pm) {
     this.time = addHours(this.time, pm ? 12 : -12);
-    this.date = toDate(format(this.date, "yyyy-MM-dd") + "T" + format(this.time, "HH:mm:ss.000"));
+    this.date = toDate(
+      format(this.date || new Date(), "yyyy-MM-dd") + "T" + format(this.time, "HH:mm:ss.000")
+    );
+    this.fireChange(true);
   }
 
   @computedFrom(
@@ -245,7 +248,7 @@ export class UIDate {
 
   protected selectToday(): void {
     this.date = new Date();
-    this.element.dispatchEvent(UIInternal.createEvent("change", this.date));
+    this.fireChange();
   }
 
   protected selectDate($event: UIEvent): void {
@@ -255,7 +258,12 @@ export class UIDate {
           "T" +
           format(this.time, "HH:mm:ss.000")
       );
-      this.element.dispatchEvent(UIInternal.createEvent("change", this.date));
+      this.fireChange();
+    }
+    if (($event.target as HTMLElement).dataset.week) {
+      if (typeof this.weekChanged === "function") {
+        this.weekChanged(toDate(($event.target as HTMLElement).dataset.week));
+      }
     }
   }
 
@@ -263,5 +271,12 @@ export class UIDate {
     if (($event.target as HTMLElement).dataset.date) {
       this.hilight = toDate(($event.target as HTMLElement).dataset.date);
     }
+  }
+
+  protected fireChange(timeChange = false) {
+    if (typeof this.internalDateChanged === "function") {
+      this.internalDateChanged(toDate(this.date), timeChange);
+    }
+    this.element.dispatchEvent(UIInternal.createEvent("change", this.date));
   }
 }

@@ -1,12 +1,24 @@
 <template>
   <div>
-    <h6>TODO</h6>
-    <ul>
-      <li>Min/Max date</li>
-      <li>Disabled days</li>
-      <li>Disabled dates array</li>
-      <li>Disabled dates callback</li>
-    </ul>
+    <ui-row>
+      <ui-col size="auto">
+        <h6>Features</h6>
+        <ul>
+          <li>Select date/time</li>
+          <li>Set custom range</li>
+          <li>Set range via week number</li>
+        </ul>
+      </ui-col>
+      <ui-col size="auto">
+        <h6>TODO</h6>
+        <ul>
+          <li>Min/Max date</li>
+          <li>Disabled days</li>
+          <li>Disabled dates array</li>
+          <li>Disabled dates callback</li>
+        </ul>
+      </ui-col>
+    </ui-row>
   </div>
   <ui-date date.bind="date"></ui-date>
   <div>${date}</div>
