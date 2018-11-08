@@ -45,7 +45,6 @@ export class ListMaker extends BaseInput {
   protected innerOptions;
 
   protected multiple: boolean = false;
-  protected dropEl: UIDrop;
   protected listContainer: Element;
 
   protected valueEl: Element;
@@ -176,29 +175,15 @@ export class ListMaker extends BaseInput {
     return classes.join(" ");
   }
 
-  protected canToggleDrop(evt: FocusEvent): void {
-    if (evt.relatedTarget && evt.relatedTarget !== this.inputEl) {
-      this.toggleDrop(false);
-    }
-  }
-
-  protected toggleDrop(open?: boolean): void {
+  protected toggleDrop(open?: boolean): boolean {
     if (open === true && this.dropEl.isOpen) {
       UIInternal.queueMicroTask(() => this.dropEl.updatePosition());
       return;
     }
-    const beforeEvent = this.dropEl.isOpen && !open ? "beforeclose" : "beforeopen";
-    const afterEvent = this.dropEl.isOpen && !open ? "close" : "open";
-    if (this.element.dispatchEvent(UIInternal.createEvent(beforeEvent)) !== false) {
-      this.dropEl.toggleDrop(open);
-      if (this.dropEl.isOpen) {
-        this.isLoading = true;
-        this.inputEl.select();
-        this.loadOptions();
-      } else {
-        this.resetQuery();
-      }
-      this.element.dispatchEvent(UIInternal.createEvent(afterEvent));
+    if(super.toggleDrop(open)) {
+      this.loadOptions();
+    } else {
+      this.resetQuery();
     }
   }
 

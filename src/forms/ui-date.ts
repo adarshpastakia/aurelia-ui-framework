@@ -18,7 +18,6 @@ import {
   addHours,
   addMinutes,
   addMonths,
-  addSeconds,
   addWeeks,
   format,
   getDay,
@@ -43,8 +42,6 @@ const FORMAT_NO_TIMEZONE = "yyyy-MM-dd'T'HH:mm:ss.000";
 export class UIDate {
   @bindable({ defaultBindingMode: bindingMode.twoWay })
   public date: Date | string = new Date();
-  @bindable()
-  public dateRange: { start: Date | string; end: Date | string };
 
   @bindable()
   public minDate: string;
@@ -60,6 +57,9 @@ export class UIDate {
 
   @observable()
   protected currentMonth = startOfMonth(new Date());
+  @observable()
+  protected dateRange: { start: Date | string; end: Date | string };
+
   protected monthChanged: (month: Date) => void;
   protected weekChanged: (week: Date) => void;
   protected internalDateChanged: (date: Date, timeChange: boolean) => void;

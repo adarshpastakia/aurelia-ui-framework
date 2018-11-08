@@ -59,7 +59,8 @@ fn = () => null;
 getView = el => (el.au && el.au.controller ? el.au.controller.view : null);
 getViewModel = el => (el.au && el.au.controller ? el.au.controller.viewModel : null);
 getSlotViewModel = el => el.au["au-slot"].container.parent.viewModel;
-getComposeViewModel = el => (el.au && el.au.controller ? el.au.controller.viewModel.currentViewModel : null);
+getComposeViewModel = el =>
+  el.au && el.au.controller ? el.au.controller.viewModel.currentViewModel : null;
 
 isRtl = function(el) {
   rtl = false;
@@ -118,14 +119,18 @@ convertToPx = function(size, context) {
   return parseFloat(size) * parseFloat(baseSize);
 };
 
-window.Event.prototype.stopEvent = function() {
-  this.preventDefault();
+window.Event.prototype.stopEvent = function(preventDefault = true) {
+  if (preventDefault) {
+    this.preventDefault();
+  }
   this.stopPropagation();
   this.stopImmediatePropagation();
 };
 
-window.CustomEvent.prototype.stopEvent = function() {
-  this.preventDefault();
+window.CustomEvent.prototype.stopEvent = function(preventDefault = true) {
+  if (preventDefault) {
+    this.preventDefault();
+  }
   this.stopPropagation();
   this.stopImmediatePropagation();
 };

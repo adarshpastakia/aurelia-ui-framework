@@ -68,11 +68,11 @@ module "*.json" {
 }
 
 interface Event {
-  stopEvent(): void;
+  stopEvent(preventDefault?): void;
 }
 
 interface CustomEvent {
-  stopEvent(): void;
+  stopEvent(preventDefault?): void;
 }
 
 interface Element {

@@ -105,8 +105,8 @@ export class UIDateRange {
 
   protected DateRangeLabels = UIDateRangeLabels;
 
-  protected startVm;
-  protected endVm;
+  protected startVm: AnyObject = {};
+  protected endVm: AnyObject = {};
 
   protected selectStarted = false;
 
@@ -141,9 +141,9 @@ export class UIDateRange {
 
   @computedFrom("selectStarted", "tempStart", "start", "end")
   get range() {
-    return this.selectStarted
+    return (this.startVm.dateRange = this.endVm.dateRange = this.selectStarted
       ? { start: this.tempStart, end: undefined }
-      : { start: this.start, end: this.end };
+      : { start: this.start, end: this.end });
   }
 
   protected weekChanged(week) {

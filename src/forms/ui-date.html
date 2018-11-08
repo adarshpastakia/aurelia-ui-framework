@@ -38,7 +38,7 @@
         <ui-svg-icon icon="clock"></ui-svg-icon>
         <div class="ui-date__time--input">
           <input size="3" value="hh" type="number" min="1" max="12" placeholder="HH" value.bind="hour" />
-          <a click.trigger="hour = 1">
+          <a click.trigger="[hour = 1]">
             <ui-svg-icon icon="plus"></ui-svg-icon>
           </a>
           <a click.trigger="hour = -1">

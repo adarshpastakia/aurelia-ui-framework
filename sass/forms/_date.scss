@@ -6,6 +6,7 @@
 .ui-date {
   &__wrapper {
     display: inline-block;
+    line-height: initial;
     vertical-align: top;
   }
 
@@ -69,7 +70,6 @@
     border-radius: $base-border-radius;
     box-shadow: 0 0 0 1px var(--input-border);
     display: inline-block;
-    height: 20em;
     overflow: hidden;
     text-align: center;
     width: 21em;
@@ -89,7 +89,7 @@
     align-items: center;
     display: grid;
     grid-template-rows: auto 1fr auto;
-    height: 100%;
+    height: 20em;
     justify-items: center;
   }
 
@@ -306,6 +306,7 @@
         border: none;
         font-size: 1rem;
         grid-area: input;
+        line-height: initial;
         outline: none;
         padding: 0.25em 0;
         text-align: center;

@@ -5,6 +5,7 @@
  * @license   : MIT
  */
 import { computedFrom } from "aurelia-framework";
+import { UIDrop } from "../core/ui-drop";
 import { UIInternal } from "../utils/ui-internal";
 
 export class BaseInput {
@@ -22,6 +23,7 @@ export class BaseInput {
   protected isDisabled: string | boolean = false;
 
   protected dropHandle: string;
+  protected dropEl: UIDrop;
 
   constructor(protected element: Element) {
     this.allowClear = element.hasAttribute("clear");
@@ -67,6 +69,31 @@ export class BaseInput {
       this.element.dispatchEvent(UIInternal.createEvent("enterpressed", this.value));
     }
     return true;
+  }
+
+  protected canToggleDrop(evt: FocusEvent): void {
+    if (evt.relatedTarget && evt.relatedTarget !== this.inputEl) {
+      this.toggleDrop(false);
+    }
+  }
+
+  protected toggleDrop(open?: boolean): boolean {
+    if (open === true && this.dropEl.isOpen) {
+      UIInternal.queueMicroTask(() => this.dropEl.updatePosition());
+      return;
+    }
+    const beforeEvent = this.dropEl.isOpen && !open ? "beforeclose" : "beforeopen";
+    const afterEvent = this.dropEl.isOpen && !open ? "close" : "open";
+    if (this.element.dispatchEvent(UIInternal.createEvent(beforeEvent)) !== false) {
+      this.dropEl.toggleDrop(open);
+      this.element.dispatchEvent(UIInternal.createEvent(afterEvent));
+      if (this.dropEl.isOpen) {
+        this.inputEl.select();
+        return true;
+      } else {
+        return false;
+      }
+    }
   }
 
   private isTrue(prop: string): boolean {

@@ -102,6 +102,19 @@
           <ui-field label="Label">
             <ui-field-wrapper>
               <ui-input-addon width="6em">Single</ui-input-addon>
+              <ui-date-input></ui-date-input>
+            </ui-field-wrapper>
+          </ui-field>
+        </ui-col>
+        <ui-col></ui-col>
+        <ui-col></ui-col>
+      </ui-row>
+
+      <ui-row>
+        <ui-col>
+          <ui-field label="Label">
+            <ui-field-wrapper>
+              <ui-input-addon width="6em">Single</ui-input-addon>
               <ui-select options.bind="countries" placeholder="Select a country" label-property="name" value-property="iso2"
                 group-property="continent" clear value.bind="sCode">
                 <ui-input-addon>

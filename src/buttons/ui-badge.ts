@@ -19,7 +19,7 @@ import { UIInternal } from "../utils/ui-internal";
 @containerless()
 @customElement("ui-badge")
 @inlineView(
-  `<template><a class="ui-badge ui-badge--\${style} ui-badge--\${size}" click.trigger="fireClick($event)" ref="vmElement">
+  `<template><a class="ui-badge ui-badge--\${style} ui-badge--\${size}" click.delegate="fireClick($event)" ref="vmElement">
     <div class="ui-badge__label"><slot></slot></div>
     <div class="ui-badge__icon"><slot name="avatar"><ui-icon if.bind="icon" icon.bind="icon"></ui-icon></slot></div>
     <div class="ui-badge__value">\${value}</div>

@@ -13,8 +13,8 @@ import { UITether } from "../utils/ui-tether";
 @containerless()
 @customElement("ui-drop")
 @inlineView(
-  `<template><div slot="ui-drop" class="ui-drop" click.trigger="closeDrop()" data-open.bind="isOpen">
-  <div ref="vmElement" class="ui-drop__body \${class}" click.trigger="close($event)"><slot></slot></div>
+  `<template><div slot="ui-drop" class="ui-drop" mouseup.delegate="closeDrop()" data-open.bind="isOpen">
+  <div ref="vmElement" class="ui-drop__body \${class}" mouseup.delegate="close($event)"><slot></slot></div>
   </div></template>`
 )
 export class UIDrop {
@@ -24,6 +24,7 @@ export class UIDrop {
   public vmElement: HTMLDivElement;
 
   public isOpen: boolean = false;
+  public stretch: boolean = true;
   public closeOnClick: boolean = true;
   public attachToViewport: boolean = false;
 
@@ -46,7 +47,8 @@ export class UIDrop {
     this.tetherObj = UITether.tether((this.anchorEl = anchorEl), this.vmElement, {
       anchorPosition: this.anchorPosition,
       attachToViewport: this.attachToViewport,
-      position: this.position
+      position: this.position,
+      resize: this.stretch
     });
   }
 
@@ -71,9 +73,11 @@ export class UIDrop {
   }
 
   public closeDrop() {
-    this.isOpen = false;
-    this.disposeListeners();
-    this.element.dispatchEvent(UIInternal.createEvent("close"));
+    UIInternal.queueTask(() => {
+      this.isOpen = false;
+      this.disposeListeners();
+      this.element.dispatchEvent(UIInternal.createEvent("close"));
+    });
   }
 
   protected disposeListeners(): void {
@@ -100,7 +104,6 @@ export class UIDrop {
 
   private close($event: UIEvent) {
     $event.stopEvent();
-
     if (this.closeOnClick) {
       this.closeDrop();
     }
