@@ -23,7 +23,7 @@ describe("ui-viewport", () => {
             <ui-viewport-header></ui-viewport-header>
             <ui-viewport-footer></ui-viewport-footer>
             <ui-section>
-              <ui-section-head>Head</ui-section-head>
+              <ui-section-head><ui-menubar></ui-menubar></ui-section-head>
               <ui-section-foot><ui-toolbar></ui-toolbar></ui-section-foot>
               <ui-svg-icon icon="cross2" class="temp-icon"></ui-svg-icon>
               <ui-svg-icon icon="cross" class="temp-icon"></ui-svg-icon>

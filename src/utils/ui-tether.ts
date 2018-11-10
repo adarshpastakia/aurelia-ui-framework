@@ -123,7 +123,7 @@ export namespace UITether {
       y -= 1;
 
       if (
-        getComputedStyle(scrollerEl).direction === "rtl" &&
+        window.getComputedStyle(scrollerEl).direction === "rtl" &&
         scrollerEl.scrollHeight > scrollerEl.offsetHeight
       ) {
         x -= 5;
@@ -140,7 +140,7 @@ export namespace UITether {
     const styles = ["scroll", "auto"];
     el = el.parentElement;
     do {
-      const style = getComputedStyle(el);
+      const style = window.getComputedStyle(el);
       if (
         styles.includes(style.overflow) ||
         styles.includes(style.overflowX) ||

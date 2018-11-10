@@ -31,7 +31,7 @@ export class UIMenubar {
   }
 
   protected attached(): void {
-    setTimeout(() => this.calculateOverflow(), 200);
+    UIInternal.queueTask(() => this.calculateOverflow());
   }
 
   protected detached(): void {
@@ -41,7 +41,7 @@ export class UIMenubar {
   protected calculateOverflow(): void {
     this.resetOverflow();
     const overflowItems = [];
-    const isRtl = getComputedStyle(this.wrapperEl).direction === "rtl";
+    const isRtl = window.getComputedStyle(this.wrapperEl).direction === "rtl";
     // @ts-ignore
     [...this.wrapperEl.children].reverse().forEach(item => {
       if (

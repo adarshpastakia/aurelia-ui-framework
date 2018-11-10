@@ -39,6 +39,7 @@ PLATFORM.moduleName("./wizard.html");
 PLATFORM.moduleName("./tabs.html");
 PLATFORM.moduleName("./tab-test.html");
 PLATFORM.moduleName("./dates.html");
+PLATFORM.moduleName("./tree.html");
 
 @autoinject()
 export class Tester {
@@ -86,7 +87,12 @@ export class Tester {
         { icon: "format-text", src: "typo.html", label: "Typography" },
         { icon: "format-list-bulleted", src: "lists.html", label: "Lists" },
         { icon: "blur-radial", src: "icons.html", label: "Icons" },
-        { icon: "border-none", src: "responsive.html", label: "Responsive" },
+        {
+          badge: { theme: "teal-dark", icon: "mdi mdi-check", tooltip: "Tested" },
+          icon: "border-none",
+          label: "Responsive",
+          src: "responsive.html"
+        },
         { icon: "earth", src: "countries.html", label: "Countries" },
         { icon: "cash", src: "currencies.html", label: "Currencies" },
         { icon: "file-alert-outline", src: "files.html", label: "File Types" },
@@ -97,7 +103,7 @@ export class Tester {
       { label: "" },
       [
         {
-          badge: { theme: "pink-dark", icon: "mdi mdi-check", tooltip: "Tested" },
+          badge: { theme: "teal-dark", icon: "mdi mdi-check", tooltip: "Tested" },
           icon: "format-page-break",
           label: "Page",
           src: "page.html"
@@ -122,9 +128,19 @@ export class Tester {
     [
       { label: "Panels" },
       [
-        { icon: "mdi mdi-cards-variant", src: "cards.html", label: "Cards" },
+        {
+          badge: { theme: "teal-dark", icon: "mdi mdi-check", tooltip: "Tested" },
+          icon: "mdi mdi-cards-variant",
+          label: "Cards",
+          src: "cards.html"
+        },
         { icon: "mdi mdi-window-restore", src: "dialog.html", label: "Dialogs" },
-        { icon: "mdi mdi-application", src: "panels.html", label: "Panels" },
+        {
+          badge: { theme: "teal-dark", icon: "mdi mdi-check", tooltip: "Tested" },
+          icon: "mdi mdi-application",
+          label: "Panels",
+          src: "panels.html"
+        },
         {
           icon: "tab",
           label: "Tabs",
@@ -147,6 +163,12 @@ export class Tester {
           icon: "grid",
           label: "Datagrid",
           src: "datagrid.html"
+        },
+        {
+          badge: { theme: "yellow-dark", icon: "mdi mdi-alert", tooltip: "Under Development" },
+          icon: "file-tree",
+          label: "Tree Panel",
+          src: "tree.html"
         }
       ]
     ]

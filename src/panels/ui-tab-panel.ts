@@ -163,7 +163,7 @@ export class UITabPanel {
   protected calculateOverflow(): void {
     this.resetOverflow();
     const overflowItems = [];
-    const isRtl = getComputedStyle(this.wrapperEl).direction === "rtl";
+    const isRtl = window.getComputedStyle(this.wrapperEl).direction === "rtl";
     // @ts-ignore
     [...this.wrapperEl.children].reverse().forEach(item => {
       if (

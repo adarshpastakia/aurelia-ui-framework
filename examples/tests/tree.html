@@ -1,0 +1,49 @@
+<template>
+  <div class="ui-tree__panel">
+    <template
+      repeat.for="[key, items] of countries | sort:['continent','name'] | group:'continent'"
+    >
+      <div class="ui-tree__node" with.bind="{expanded:false, key, items}">
+        <div class="ui-tree__row">
+          <div class="ui-tree__expander" click.trigger="expanded = !expanded">
+              <ui-svg-icon icon.bind="expanded ? 'tree-collapse' : 'tree-expand'"></ui-svg-icon>
+          </div>
+          <div class="ui-tree__checkbox"><ui-svg-icon icon="check-intermediate"></ui-svg-icon></div>
+          <div class="ui-tree__icon"><ui-svg-icon icon.bind="expanded ? 'folder-open' : 'folder-empty'"></ui-svg-icon></div>
+          <div class="ui-tree__label">${key}</div>
+        </div>
+        <div class="ui-tree__content" if.bind="expanded">
+          <template repeat.for="[alpha, ctries] of items | group:'name[0]'">
+            <div class="ui-tree__node" with.bind="{expanded:false, key: alpha}">
+              <div class="ui-tree__row">
+                <div class="ui-tree__expander" click.trigger="expanded = !expanded">
+                  <ui-svg-icon icon.bind="expanded ? 'tree-collapse' : 'tree-expand'"></ui-svg-icon>
+                </div>
+                <div class="ui-tree__checkbox"><ui-svg-icon icon="check-off"></ui-svg-icon></div>
+                <div class="ui-tree__icon"><ui-svg-icon icon.bind="expanded ? 'folder-open' : 'folder-empty'"></ui-svg-icon></div>
+                <div class="ui-tree__label">${key}</div>
+              </div>
+              <div class="ui-tree__content" if.bind="expanded">
+                <template repeat.for="c of ctries">
+                  <div class="ui-tree__node">
+                    <div class="ui-tree__row">
+                      <div class="ui-tree__expander"><ui-svg-icon icon="none"></ui-svg-icon></div>
+                      <div class="ui-tree__checkbox">
+                        <ui-svg-icon icon="check-off"></ui-svg-icon>
+                      </div>
+                      <div class="ui-tree__icon">
+                        <ui-flag code.bind="c.iso2" size="sm"></ui-flag>
+                      </div>
+                      <div class="ui-tree__label">${c.name}</div>
+                      <div class="ui-tree__content"></div>
+                    </div>
+                  </div>
+                </template>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+    </template>
+  </div>
+</template>

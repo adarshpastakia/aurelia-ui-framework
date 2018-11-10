@@ -1,0 +1,59 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2018
+// @license   : MIT
+
+.ui-tree {
+  &__panel {
+    line-height: 1;
+    padding: 0.5em 0;
+  }
+
+  &__row {
+    align-items: center;
+    display: grid;
+    grid-auto-flow: column;
+    grid-gap: 0.25em;
+    place-content: start;
+  }
+
+  &__content {
+    @include property-prefix(padding-start, 1em);
+  }
+
+  &__expander {
+    color: var(--color-gray);
+    cursor: pointer;
+    opacity: 0.5;
+    padding: 0.25em 0;
+
+    &:hover {
+      color: var(--color-secondary);
+    }
+  }
+
+  &__checkbox {
+    color: var(--color-gray);
+    cursor: pointer;
+    opacity: 0.85;
+    padding: 0.25em 0;
+
+    &:hover {
+      color: var(--color-secondary);
+    }
+  }
+
+  &__icon {
+    padding: 0.25em 0;
+  }
+
+  &__label {
+    cursor: pointer;
+    padding: 0.25em;
+
+    &:hover {
+      background-color: var(--color-secondary-tint);
+      color: var(--color-secondary);
+    }
+  }
+}

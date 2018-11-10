@@ -33,14 +33,14 @@ Object.defineProperty(Array.prototype, "remove", {
 Object.defineProperty(Array.prototype, "groupBy", {
   writable: true,
   value: function(property) {
-    if (!isString(property)) {
+    if (isEmpty(property)) {
       throw new Error("Missing property to groupBy");
     }
     if (isEmpty(this)) {
       return new Map();
     }
     return this.reduce((a, b) => {
-      const key = b[property];
+      const key = eval(`ev = ${JSON.stringify(b)}.${property}`);
       if (!a.has(key)) {
         a.set(key, []);
       }
