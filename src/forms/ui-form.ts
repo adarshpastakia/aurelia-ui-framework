@@ -20,7 +20,7 @@ export class UIForm {
 
   private vmElement;
 
-  constructor(private element: Element) {}
+  constructor(protected element: Element) {}
 
   protected attached(): void {
     UIInternal.queueTask(() => {

@@ -63,7 +63,7 @@ export class UIDialogElement {
   private taskButton;
   private previousPosition;
 
-  constructor(private element: Element) {
+  constructor(protected element: Element) {
     this.help = element.hasAttribute("help.trigger");
   }
 

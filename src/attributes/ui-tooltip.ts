@@ -22,7 +22,7 @@ export class UITooltip {
   private timer;
   private parentEl: Element | HTMLElement;
 
-  constructor(private element: Element) {}
+  constructor(protected element: Element) {}
 
   protected attached(): void {
     if (this.element.nodeType === Node.ELEMENT_NODE) {

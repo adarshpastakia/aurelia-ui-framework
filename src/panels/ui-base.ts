@@ -21,7 +21,7 @@ export class UIHeader {
   @bindable()
   public icon = "";
 
-  constructor(private element: Element) {}
+  constructor(protected element: Element) {}
 }
 
 @autoinject()
@@ -33,7 +33,7 @@ export class UIHeader {
 export class UIHeaderIcon {
   @bindable()
   public icon: string = "";
-  constructor(private element: Element) {}
+  constructor(protected element: Element) {}
 }
 
 @autoinject()
@@ -43,14 +43,14 @@ export class UIHeaderIcon {
   `<template><div ref="vmElement" slot="header-title" class='ui-header__title'><slot></slot></div></template>`
 )
 export class UIHeaderTitle {
-  constructor(private element: Element) {}
+  constructor(protected element: Element) {}
 }
 
 @autoinject()
 @customElement("ui-header-actions")
 @inlineView(`<template class="ui-header__actions"><slot></slot></template>`)
 export class UIHeaderActions {
-  constructor(private element: Element) {}
+  constructor(protected element: Element) {}
 }
 
 @autoinject()
@@ -60,5 +60,5 @@ export class UIHeaderActions {
   `<template><div class="ui-footer" slot="panel-footer" ref="vmElement"><slot></slot></template>`
 )
 export class UIFooter {
-  constructor(private element: Element) {}
+  constructor(protected element: Element) {}
 }

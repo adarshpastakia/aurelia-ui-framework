@@ -214,7 +214,7 @@ export class UITab {
 
   protected closeable: boolean = false;
 
-  constructor(public element: Element) {
+  constructor(protected element: Element) {
     this.id = `tab__${tabSeed++}`;
     this.closeable = element.hasAttribute("closeable");
   }
@@ -225,7 +225,7 @@ export class UITab {
 @customElement("ui-tabbar-start")
 @inlineView(`<template><div slot="tabbar-start"><slot></slot></div></template>`)
 export class UITabbarStart {
-  constructor(public element: Element) {}
+  constructor(protected element: Element) {}
 }
 
 @autoinject()
@@ -233,5 +233,5 @@ export class UITabbarStart {
 @customElement("ui-tabbar-end")
 @inlineView(`<template><div slot="tabbar-end"><slot></slot></div></template>`)
 export class UITabbarEnd {
-  constructor(public element: Element) {}
+  constructor(protected element: Element) {}
 }

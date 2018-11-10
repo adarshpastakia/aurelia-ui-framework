@@ -70,7 +70,7 @@ export class UIDate {
   protected decadeStart = 0;
   protected currentView: "date" | "month" | "year" = "date";
 
-  constructor(private element: Element) {
+  constructor(protected element: Element) {
     this.resetDecade();
   }
 

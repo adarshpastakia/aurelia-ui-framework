@@ -15,6 +15,7 @@ import { UIAppConfig } from "./utils/ui-app-config";
 export { Countries } from "./libs/countries";
 export { Currencies } from "./libs/currencies";
 export { FileTypes } from "./libs/filetypes";
+export * from "./model/ui-tree-model";
 export * from "./services/ui-application";
 export * from "./services/ui-dialog";
 export * from "./services/ui-alert";
@@ -46,6 +47,7 @@ export class UIFrameworkConfig {
         .buttons()
         .forms()
         .menus()
+        .data()
         .panels()
         .appbars();
     },
@@ -93,6 +95,11 @@ export class UIFrameworkConfig {
       this.loadFromModule(PLATFORM.moduleName("./menu/ui-menu"));
       this.loadFromModule(PLATFORM.moduleName("./menu/ui-menubar"));
       this.loadFromModule(PLATFORM.moduleName("./menu/ui-dropdown"));
+      return this.use;
+    },
+
+    data: () => {
+      this.loadFromModule(PLATFORM.moduleName("./data/ui-tree-panel"));
       return this.use;
     },
 

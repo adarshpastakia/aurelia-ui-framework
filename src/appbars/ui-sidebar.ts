@@ -42,7 +42,7 @@ export class UISidebar {
 
   private obClick;
 
-  constructor(private element: Element) {
+  constructor(protected element: Element) {
     this.collapsible = element.hasAttribute("collapsible");
 
     this.obClick = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_CLICK, () => (this.peek = false));

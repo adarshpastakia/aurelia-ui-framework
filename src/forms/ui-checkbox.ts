@@ -23,7 +23,7 @@ export class UICheckbox {
 
   protected isDisabled: boolean = false;
 
-  constructor(private element: Element) {}
+  constructor(protected element: Element) {}
 
   public disable(b: boolean): void {
     this.isDisabled = b;

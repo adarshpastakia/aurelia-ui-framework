@@ -20,7 +20,7 @@ import { UIInternal } from "../utils/ui-internal";
 @customElement("ui-menu")
 @inlineView(`<template class="ui-menu"><slot></slot></template>`)
 export class UIMenu {
-  constructor(private element: Element) {}
+  constructor(protected element: Element) {}
 
   protected attached(): void {
     const active = this.element.querySelector(".ui-menu__item__link[data-active='true']");
@@ -47,7 +47,7 @@ export class UIMenuGroup {
 
   private vmElement: Element;
 
-  constructor(private element: Element) {}
+  constructor(protected element: Element) {}
 
   protected attached(): void {
     if (this.element.hasAttribute("collapsible")) {
@@ -82,7 +82,7 @@ export class UIMenuItem {
 
   protected badgeEl: HTMLAnchorElement;
 
-  constructor(private element: Element) {
+  constructor(protected element: Element) {
     this.split = element.hasAttribute("split");
   }
 

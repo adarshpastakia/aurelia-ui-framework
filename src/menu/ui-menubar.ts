@@ -24,7 +24,7 @@ export class UIMenubar {
   private hasOverflow: boolean = false;
   private obResize: Subscription;
 
-  constructor(private element: Element) {
+  constructor(protected element: Element) {
     this.obResize = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_RESIZE, t =>
       this.calculateOverflow()
     );

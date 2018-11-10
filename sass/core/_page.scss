@@ -33,12 +33,8 @@
   }
 
   &__body {
-    display: grid;
     grid-area: body;
-    grid-template-areas: "content";
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
-    overflow: hidden;
+    @extend %ui-section;
 
     > .ui-scroll {
       border: 2px solid var(--base-component);

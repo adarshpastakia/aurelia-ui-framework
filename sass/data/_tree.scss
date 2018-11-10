@@ -22,7 +22,6 @@
   }
 
   &__expander {
-    color: var(--color-gray);
     cursor: pointer;
     opacity: 0.5;
     padding: 0.25em 0;
@@ -33,18 +32,13 @@
   }
 
   &__checkbox {
-    color: var(--color-gray);
     cursor: pointer;
-    opacity: 0.85;
+    opacity: 0.95;
     padding: 0.25em 0;
 
     &:hover {
       color: var(--color-secondary);
     }
-  }
-
-  &__icon {
-    padding: 0.25em 0;
   }
 
   &__label {

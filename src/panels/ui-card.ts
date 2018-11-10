@@ -21,5 +21,5 @@ export class UICard {
   @bindable()
   public maxWidth: string = "100vw";
 
-  constructor(private element: Element) {}
+  constructor(protected element: Element) {}
 }

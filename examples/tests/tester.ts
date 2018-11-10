@@ -43,10 +43,11 @@ PLATFORM.moduleName("./tree.html");
 
 @autoinject()
 export class Tester {
-  protected countries = Countries.list;
+  protected countries: ICountryItem[] = Countries.list;
   protected countryNames = Countries.list.map(o => o.name);
   protected currencies = Currencies;
   protected fileTypes = FileTypes;
+  protected countryTree = [];
 
   protected icons = Icons;
 
@@ -174,7 +175,27 @@ export class Tester {
     ]
   ]);
 
-  constructor(protected toastService: UIAlertService, private dialogService: UIDialogService) {}
+  constructor(protected toastService: UIAlertService, private dialogService: UIDialogService) {
+    this.countryTree.push({
+      children: [],
+      iconClosed: "mdi mdi-folder-outline",
+      iconOpen: "mdi mdi-folder-open",
+      label: "No Items"
+    });
+    this.countries.groupBy("continent").forEach((v, k) => {
+      this.countryTree.push({
+        children: v.map(c => ({
+          icon: `ui-flag ${c.iso2}`,
+          id: c.iso2,
+          label: c.name,
+          leaf: true
+        })),
+        iconClosed: "mdi mdi-folder-outline",
+        iconOpen: "mdi mdi-folder-open",
+        label: k
+      });
+    });
+  }
 
   protected activate(param) {
     this.src = param.test || "theme.html";

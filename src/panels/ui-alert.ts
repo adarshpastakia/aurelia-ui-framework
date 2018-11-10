@@ -24,7 +24,7 @@ export class UIAlert {
 
   protected closeable: boolean = false;
 
-  constructor(private element: Element) {
+  constructor(protected element: Element) {
     this.closeable = element.hasAttribute("closeable");
   }
 

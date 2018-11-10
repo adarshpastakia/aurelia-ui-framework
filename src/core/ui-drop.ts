@@ -36,7 +36,7 @@ export class UIDrop {
   private obClick: Subscription;
   private obResize: Subscription;
 
-  constructor(private element: Element) {
+  constructor(protected element: Element) {
     this.position = (element.getAttribute("position") as UITether.Position) || "tl";
     this.anchorPosition = (element.getAttribute("anchor") as UITether.Position) || "bl";
     this.closeOnClick = !isFalse(element.getAttribute("close-on-click"));

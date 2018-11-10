@@ -11,5 +11,5 @@ import { autoinject, customElement, inlineView } from "aurelia-framework";
 @customElement("ui-toolbar")
 @inlineView(`<template class="ui-toolbar"><slot></slot></template>`)
 export class UIToolbar {
-  constructor(private element: Element) {}
+  constructor(protected element: Element) {}
 }

@@ -58,6 +58,7 @@
   &__title {
     grid-area: title;
     padding: 0.5rem 1rem;
+    @include ellipsis();
   }
 
   &__toggler {

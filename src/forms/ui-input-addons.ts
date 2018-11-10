@@ -16,7 +16,7 @@ export class UIInputAddon {
   @bindable()
   protected width: string = "auto";
 
-  constructor(private element: Element) {
+  constructor(protected element: Element) {
     if (element.hasAttribute("align-end")) {
       element.classList.add("ui-input__addon--end");
     }

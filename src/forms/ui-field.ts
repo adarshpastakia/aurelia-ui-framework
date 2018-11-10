@@ -26,7 +26,7 @@ export class UIField {
   @bindable()
   public width: string = "auto";
 
-  constructor(private element: Element) {
+  constructor(protected element: Element) {
     if (element.hasAttribute("nolabel")) {
       element.classList.add("ui-field--nolabel");
     }

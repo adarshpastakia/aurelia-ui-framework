@@ -113,7 +113,7 @@ export class UIDateRange {
   protected startMonth = startOfMonth(new Date());
   protected endMonth = addMonths(startOfMonth(new Date()), 1);
 
-  constructor(private element: Element) {}
+  constructor(protected element: Element) {}
 
   protected attached(): void {
     this.startVm.monthChanged = month => this.startMonthChanged(month);
