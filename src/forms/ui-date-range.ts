@@ -71,15 +71,6 @@ export class UIDateRange {
   public end: Date | string = new Date();
 
   @bindable()
-  public minDate: string;
-  @bindable()
-  public maxDate: string;
-  @bindable()
-  public disabledDays: number[];
-  @bindable()
-  public disabledDates: (({ date }) => boolean) | string[];
-
-  @bindable()
   public disabled: boolean = false;
 
   @bindable()

@@ -13,6 +13,7 @@ import {
   UIAlertService,
   UIDialogService
 } from "aurelia-ui-framework";
+import { getDate } from "date-fns";
 import { DlgTest } from "./dlg-test";
 import Icons from "./icons.json";
 
@@ -89,7 +90,6 @@ export class Tester {
         { icon: "format-list-bulleted", src: "lists.html", label: "Lists" },
         { icon: "blur-radial", src: "icons.html", label: "Icons" },
         {
-          badge: { theme: "teal-dark", icon: "mdi mdi-check", tooltip: "Tested" },
           icon: "border-none",
           label: "Responsive",
           src: "responsive.html"
@@ -104,7 +104,6 @@ export class Tester {
       { label: "" },
       [
         {
-          badge: { theme: "teal-dark", icon: "mdi mdi-check", tooltip: "Tested" },
           icon: "format-page-break",
           label: "Page",
           src: "page.html"
@@ -112,7 +111,6 @@ export class Tester {
         { icon: "keyboard-outline", src: "forms.html", label: "Forms" },
         { icon: "card-text-outline", src: "login.html", label: "Login" },
         {
-          badge: { theme: "yellow-dark", icon: "mdi mdi-alert", tooltip: "Under Development" },
           icon: "calendar",
           label: "Date Inputs",
           src: "dates.html"
@@ -130,14 +128,12 @@ export class Tester {
       { label: "Panels" },
       [
         {
-          badge: { theme: "teal-dark", icon: "mdi mdi-check", tooltip: "Tested" },
           icon: "mdi mdi-cards-variant",
           label: "Cards",
           src: "cards.html"
         },
         { icon: "mdi mdi-window-restore", src: "dialog.html", label: "Dialogs" },
         {
-          badge: { theme: "teal-dark", icon: "mdi mdi-check", tooltip: "Tested" },
           icon: "mdi mdi-application",
           label: "Panels",
           src: "panels.html"
@@ -265,6 +261,10 @@ export class Tester {
         .open(PLATFORM.moduleName("tests/dlg-test"), { isModal })
         .then(result => this.logger.info("Dlg Closed", result));
     }
+  }
+
+  protected isDateDisabled(date): boolean {
+    return getDate(date) === 15;
   }
 
   protected listMatcher = ({ model, value }) => model.iso2 === value.iso2;

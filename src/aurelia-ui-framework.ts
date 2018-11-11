@@ -157,7 +157,7 @@ export function configure(
   Container.instance = auConfig.container;
 
   const config = new UIFrameworkConfig(auConfig);
-  if (typeof configCallback === "function") {
+  if (isFunction(configCallback)) {
     configCallback(config);
   } else {
     config.use.all();

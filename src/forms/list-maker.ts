@@ -180,7 +180,7 @@ export class ListMaker extends BaseInput {
       UIInternal.queueMicroTask(() => this.dropEl.updatePosition());
       return;
     }
-    if(super.toggleDrop(open)) {
+    if (super.toggleDrop(open)) {
       this.loadOptions();
     } else {
       this.resetQuery();
@@ -273,7 +273,7 @@ export class ListMaker extends BaseInput {
         $model: option,
         $value: option[this.labelProperty] || option
       };
-      if (typeof option === "object") {
+      if (isObject(option)) {
         Object.assign(model, option);
       }
       const view = UIInternal.compileTemplate(tpl, model);

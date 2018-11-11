@@ -11,9 +11,7 @@
       </ul>
       <a if.bind="selectStarted" click.trigger="cancelSelection()" ui-color="secondary">Cancel</a>
     </div>
-    <ui-date date.to-view="start" min-date.bind="minDate" max-date.bind="maxDate"
-      disabled-days.bind="disabledDays" view-model.ref="startVm" disabled-dates.bind="disabledDates" mouseover.delegate="hilightDate($event)"></ui-date>
-    <ui-date date.to-view="end" min-date.bind="minDate" max-date.bind="maxDate"
-      disabled-days.bind="disabledDays" view-model.ref="endVm" disabled-dates.bind="disabledDates" mouseover.delegate="hilightDate($event)"></ui-date>
+    <ui-date date.to-view="start" view-model.ref="startVm" mouseover.delegate="hilightDate($event)"></ui-date>
+    <ui-date date.to-view="end" view-model.ref="endVm" mouseover.delegate="hilightDate($event)"></ui-date>
   </div>
 </template>

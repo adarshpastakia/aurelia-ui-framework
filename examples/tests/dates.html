@@ -21,8 +21,18 @@
     </ui-row>
   </div>
 
-  <ui-date date.bind="date"></ui-date>
-  <div>${date}</div>
+  <ui-row>
+    <ui-col size="4">Min Date</ui-col>
+    <ui-col size="4">Max Date</ui-col>
+    <ui-col size="4">Date Test</ui-col>
+    <ui-col size="4"> <ui-date date.bind="mindate" max-date="maxdate"></ui-date> </ui-col>
+    <ui-col size="4"> <ui-date date.bind="maxdate" min-date.bind="mindate"></ui-date> </ui-col>
+    <ui-col size="4"> <ui-date date.bind="date" min-date.bind="mindate" max-date.bind="maxdate" disabled-days.bind="[5,6]" disabled-dates.call="isDateDisabled($event)"></ui-date> </ui-col>
+    <ui-col size="4">${mindate | utc}</ui-col>
+    <ui-col size="4">${maxdate | utc}</ui-col>
+    <ui-col size="4">${date | utc}</ui-col>
+  </ui-row>
+
   <br />
   <ui-date-range start.bind="start" end.bind="end"></ui-date-range>
   <div>${start} - ${end}</div>

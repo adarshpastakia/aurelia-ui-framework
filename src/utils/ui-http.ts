@@ -196,10 +196,7 @@ export class UIHttpService {
       "?" +
       Object.keys(query)
         .map(
-          k =>
-            escape(k) +
-            "=" +
-            escape(typeof query[k] === "object" ? JSON.stringify(query[k]) : query[k])
+          k => escape(k) + "=" + escape(isObject(query[k]) ? JSON.stringify(query[k]) : query[k])
         )
         .join("&")
     );
@@ -258,14 +255,14 @@ export class UIHttpService {
     Object.assign(headers, this.appConfig.ApiHeaders || {});
 
     if (override !== false) {
-      if (typeof this.appConfig.AuthorizationHeader === "function") {
+      if (isFunction(this.appConfig.AuthorizationHeader)) {
         Object.assign(headers, this.appConfig.AuthorizationHeader() || {});
       }
-      if (typeof this.appConfig.AuthorizationHeader === "object") {
+      if (isObject(this.appConfig.AuthorizationHeader)) {
         Object.assign(headers, this.appConfig.AuthorizationHeader || {});
       }
     }
-    if (typeof override === "object") {
+    if (isObject(override)) {
       Object.assign(headers, override || {});
     }
     return headers;

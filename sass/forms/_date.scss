@@ -28,7 +28,7 @@
   &__list {
     background-color: var(--base-bg);
     display: grid;
-    overflow: auto;
+    overflow: auto hidden;
 
     > a {
       align-self: center;
@@ -51,15 +51,23 @@
         padding: 0.25em 0.75em;
 
         &:hover {
-          background-color: var(--color-secondary-tint);
-          box-shadow: 4px 0 0 0 var(--color-secondary-light) inset;
+          background-color: var(--date-hover-bg);
+          box-shadow: 4px 0 0 0 var(--date-active-bg) inset;
+
+          @at-root [dir="rtl"] & {
+            box-shadow: -4px 0 0 0 var(--date-active-bg) inset;
+          }
         }
 
         &[data-active="true"] {
-          background-color: var(--color-secondary-light);
-          box-shadow: 4px 0 0 0 var(--color-secondary) inset;
+          background-color: var(--date-active-bg);
+          box-shadow: 4px 0 0 0 var(--date-hover-bg) inset;
           color: var(--color-white);
           cursor: default;
+
+          @at-root [dir="rtl"] & {
+            box-shadow: -4px 0 0 0 var(--date-hover-bg) inset;
+          }
         }
       }
     }
@@ -190,7 +198,7 @@
     position: relative;
 
     &:hover {
-      background-color: var(--color-secondary-tint);
+      background-color: var(--date-hover-bg);
     }
 
     &--week {
@@ -216,29 +224,34 @@
 
       &--hilight {
         // stylelint-disable-next-line
-        background-color: var(--color-secondary-tint) !important;
+        background-color: var(--date-hover-bg) !important;
         color: var(--color-secondary);
       }
       &--start {
         // stylelint-disable-next-line
-        background-color: var(--color-secondary-light) !important;
+        background-color: var(--date-active-bg) !important;
         box-shadow: 4px 0 0 0 var(--color-secondary) inset;
         color: var(--color-white);
+
+        @at-root [dir="rtl"] & {
+          box-shadow: -4px 0 0 0 var(--color-secondary) inset;
+        }
       }
       &--end {
         // stylelint-disable-next-line
-        background-color: var(--color-secondary-light) !important;
+        background-color: var(--date-active-bg) !important;
         box-shadow: -4px 0 0 0 var(--color-secondary) inset;
         color: var(--color-white);
+
+        @at-root [dir="rtl"] & {
+          box-shadow: 4px 0 0 0 var(--color-secondary) inset;
+        }
       }
 
       @debug selector-append(&, --start, &, --end);
 
       &#{selector-append(&, --start, &, --end)} {
-        // stylelint-disable-next-line
-        background-color: var(--color-secondary-light) !important;
         box-shadow: 4px 0 0 0 var(--color-secondary) inset, -4px 0 0 0 var(--color-secondary) inset;
-        color: var(--color-white);
       }
 
       &--muted {
@@ -252,7 +265,7 @@
 
       &--selected {
         // stylelint-disable-next-line
-        background-color: var(--color-secondary-light) !important;
+        background-color: var(--date-active-bg) !important;
         color: var(--color-white);
         pointer-events: none;
       }
@@ -262,7 +275,7 @@
         color: var(--color-gray-light);
         pointer-events: none;
 
-        &::after {
+        &::before {
           border-left: 1px solid var(--color-gray-light);
           content: "";
           height: 2em;
@@ -304,6 +317,7 @@
       > input {
         background-color: transparent;
         border: none;
+        color: var(--base-color);
         font-size: 1rem;
         grid-area: input;
         line-height: initial;

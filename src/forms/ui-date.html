@@ -55,7 +55,7 @@
             <ui-svg-icon icon="minus"></ui-svg-icon>
           </a>
         </div>
-        <ui-toggle checked.bind="ampm"></ui-toggle>
+        <ui-toggle checked.bind="ampm & debounce"></ui-toggle>
         <a t="AUF.date.today" class="ui-date__title" ui-color="secondary" click.trigger="selectToday()" if.bind="!dateRange">Today</a>
       </div>
     </div>

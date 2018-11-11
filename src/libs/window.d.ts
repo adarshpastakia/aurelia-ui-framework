@@ -35,7 +35,7 @@ function isString(a: any): arg is String;
 function isNumber(a: any): arg is number;
 function isDecimal(a: any): arg is number;
 function isObject(a: any): arg is AnyObject;
-function isFunction(a: any): arg is AnyObject;
+function isFunction(a: any): arg is Function;
 
 function isRtl(el: Element | HTMLElement): boolean;
 

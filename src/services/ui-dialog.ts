@@ -188,7 +188,7 @@ export class UIDialogService {
   }
 
   private getViewModel(instruction): Promise<AnyObject> {
-    if (typeof instruction.viewModel === "string") {
+    if (isString(instruction.viewModel)) {
       return this.compositionEngine.ensureViewModel(instruction);
     }
     return Promise.resolve(instruction);

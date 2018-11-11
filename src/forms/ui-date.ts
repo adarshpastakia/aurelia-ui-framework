@@ -24,6 +24,7 @@ import {
   getHours,
   getYear,
   isAfter,
+  isBefore,
   isSameDay,
   isSameMonth,
   isWithinInterval,
@@ -35,6 +36,7 @@ import {
 } from "date-fns";
 import { UIInternal } from "../utils/ui-internal";
 
+const FORMAT_NO_TIME = "yyyy-MM-dd'T'00:00:00.000";
 const FORMAT_NO_TIMEZONE = "yyyy-MM-dd'T'HH:mm:ss.000";
 
 @autoinject()
@@ -48,9 +50,9 @@ export class UIDate {
   @bindable()
   public maxDate: string;
   @bindable()
-  public disabledDays: number[];
+  public disabledDays: number[] = [];
   @bindable()
-  public disabledDates: (({ date }) => boolean) | string[];
+  public disabledDates: ((date) => boolean) | string[];
 
   @bindable()
   public disabled: boolean = false;
@@ -100,6 +102,12 @@ export class UIDate {
     this.date = toDate(
       format(this.date || new Date(), "yyyy-MM-dd") + "T" + format(this.time, "HH:mm:ss.000")
     );
+    if (isBefore(this.date, this.minDate)) {
+      this.date = toDate(this.minDate);
+    }
+    if (isAfter(this.date, this.maxDate)) {
+      this.date = toDate(this.maxDate);
+    }
     this.fireChange(true);
   }
   @computedFrom("time")
@@ -111,6 +119,12 @@ export class UIDate {
     this.date = toDate(
       format(this.date || new Date(), "yyyy-MM-dd") + "T" + format(this.time, "HH:mm:ss.000")
     );
+    if (isBefore(this.date, this.minDate)) {
+      this.date = toDate(this.minDate);
+    }
+    if (isAfter(this.date, this.maxDate)) {
+      this.date = toDate(this.maxDate);
+    }
     this.fireChange(true);
   }
   @computedFrom("time")
@@ -122,6 +136,12 @@ export class UIDate {
     this.date = toDate(
       format(this.date || new Date(), "yyyy-MM-dd") + "T" + format(this.time, "HH:mm:ss.000")
     );
+    if (isBefore(this.date, this.minDate)) {
+      this.date = toDate(this.minDate);
+    }
+    if (isAfter(this.date, this.maxDate)) {
+      this.date = toDate(this.maxDate);
+    }
     this.fireChange(true);
   }
 
@@ -158,12 +178,18 @@ export class UIDate {
   protected getClasses(date, week, day): string {
     const dt = addDays(addWeeks(date, week), day);
     const classes = ["ui-date__cell", "ui-date__cell--date"];
-    if (!isSameMonth(dt, this.currentMonth)) {
-      classes.push("ui-date__cell--date--muted");
-    }
     if (isSameDay(dt, new Date())) {
       classes.push("ui-date__cell--date--today");
     }
+
+    // Check disabled dates
+    if (this.isDateDisabled(dt)) {
+      classes.push("ui-date__cell--date--disabled");
+    } else if (!isSameMonth(dt, this.currentMonth)) {
+      classes.push("ui-date__cell--date--muted");
+    }
+
+    // Check for date range
     if (this.dateRange) {
       if (this.dateRange.start && isSameDay(dt, this.dateRange.start)) {
         classes.push("ui-date__cell--date--start");
@@ -187,6 +213,16 @@ export class UIDate {
       classes.push("ui-date__cell--date--selected");
     }
     return classes.join(" ");
+  }
+
+  protected isDateDisabled(dt = new Date()): boolean {
+    return (
+      isBefore(dt, format(this.minDate, FORMAT_NO_TIME)) ||
+      isAfter(dt, format(this.maxDate, FORMAT_NO_TIME)) ||
+      (this.disabledDays && this.disabledDays.includes(getDay(dt))) ||
+      (isArray(this.disabledDates) && this.disabledDates.includes(dt.toISOString())) ||
+      (typeof this.disabledDates === "function" && this.disabledDates(dt))
+    );
   }
 
   protected previous(unit): void {
@@ -219,7 +255,7 @@ export class UIDate {
   }
 
   protected currentMonthChanged(): void {
-    if (typeof this.monthChanged === "function") {
+    if (isFunction(this.monthChanged)) {
       this.monthChanged(this.currentMonth);
     }
   }
@@ -247,8 +283,10 @@ export class UIDate {
   }
 
   protected selectToday(): void {
-    this.date = new Date();
-    this.fireChange();
+    if (!this.isDateDisabled()) {
+      this.date = new Date();
+      this.fireChange();
+    }
   }
 
   protected selectDate($event: UIEvent): void {
@@ -258,10 +296,16 @@ export class UIDate {
           "T" +
           format(this.time, "HH:mm:ss.000")
       );
+      if (isBefore(this.date, this.minDate)) {
+        this.date = toDate(this.minDate);
+      }
+      if (isAfter(this.date, this.maxDate)) {
+        this.date = toDate(this.maxDate);
+      }
       this.fireChange();
     }
     if (($event.target as HTMLElement).dataset.week) {
-      if (typeof this.weekChanged === "function") {
+      if (isFunction(this.weekChanged)) {
         this.weekChanged(toDate(($event.target as HTMLElement).dataset.week));
       }
     }
@@ -274,7 +318,7 @@ export class UIDate {
   }
 
   protected fireChange(timeChange = false) {
-    if (typeof this.internalDateChanged === "function") {
+    if (isFunction(this.internalDateChanged)) {
       this.internalDateChanged(toDate(this.date), timeChange);
     }
     this.element.dispatchEvent(UIInternal.createEvent("change", this.date));
