@@ -10,7 +10,7 @@ import * as _ from "lodash";
 
 @autoinject()
 @customElement('ui-form')
-@inlineView(`<template class="ui-form"><form ref="formEl" validation-renderer="ui-validator" enterpressed.trigger="fireSubmit()" submit.trigger="return false"><slot></slot></form></template>`)
+@inlineView(`<template class="ui-form"><form ref="formEl" validation-renderer="ui-validator" enterpressed.trigger="fireSubmit()" submit.trigger="false"><slot></slot></form></template>`)
 export class UIForm {
   constructor(public element: Element) { }
 
