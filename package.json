@@ -120,6 +120,7 @@
     "start": "nps",
     "test": "nps test",
     "build": "nps build",
+    "heroku-postbuild": "nps build",
     "bump-version": "npm --no-git-tag-version version",
     "dist": "nps dist.build",
     "test.watch": "nps test.karma.watch",
