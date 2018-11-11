@@ -2,18 +2,18 @@
   <div class="ui-date__calendar" data-page.bind="currentView">
     <div class="ui-date__page ui-date__page--date">
       <div class="ui-date__header">
-        <a ui-tooltip="Previous Year" class="ui-date__pg-down" click.trigger="previous('year')">
+        <a t="[ui-tooltip]AUF.date.previousYear" ui-tooltip="Previous Year" class="ui-date__pg-down" click.trigger="previous('year')">
           <ui-svg-icon icon="page-first"></ui-svg-icon>
         </a>
-        <a ui-tooltip="Previous Month" class="ui-date__prev" click.trigger="previous('month')">
+        <a t="[ui-tooltip]AUF.date.previousMonth" ui-tooltip="Previous Month" class="ui-date__prev" click.trigger="previous('month')">
           <ui-svg-icon icon="page-previous"></ui-svg-icon>
         </a>
         <a class="ui-date__title" click.trigger="currentView = 'month'">${currentMonth | date:"MMMM"}, ${currentMonth |
           date:"YYYY"} <ui-svg-icon icon="caret"></ui-svg-icon></a>
-        <a ui-tooltip="Next Month" class="ui-date__next" click.trigger="next('month')">
+        <a t="[ui-tooltip]AUF.date.nextMonth" ui-tooltip="Next Month" class="ui-date__next" click.trigger="next('month')">
           <ui-svg-icon icon="page-next"></ui-svg-icon>
         </a>
-        <a ui-tooltip="Next Year" class="ui-date__pg-up" click.trigger="next('year')">
+        <a t="[ui-tooltip]AUF.date.nextYear" ui-tooltip="Next Year" class="ui-date__pg-up" click.trigger="next('year')">
           <ui-svg-icon icon="page-last"></ui-svg-icon>
         </a>
       </div>
@@ -37,7 +37,7 @@
       <div class="ui-date__foot">
         <ui-svg-icon icon="clock"></ui-svg-icon>
         <div class="ui-date__time--input">
-          <input size="3" value="hh" type="number" min="1" max="12" placeholder="HH" value.bind="hour" />
+          <input size="3" type="number" min="1" max="12" placeholder="HH" value.bind="hour" />
           <a click.trigger="[hour = 1]">
             <ui-svg-icon icon="plus"></ui-svg-icon>
           </a>
@@ -47,7 +47,7 @@
         </div>
         <span>:</span>
         <div class="ui-date__time--input">
-          <input size="3" value="mm" type="number" min="0" max="60" placeholder="MM" value.bind="minute" />
+          <input size="3" type="number" min="0" max="60" placeholder="MM" value.bind="minute" />
           <a click.trigger="minute = 1">
             <ui-svg-icon icon="plus"></ui-svg-icon>
           </a>
@@ -56,18 +56,18 @@
           </a>
         </div>
         <ui-toggle checked.bind="ampm"></ui-toggle>
-        <a class="ui-date__title" ui-color="secondary" click.trigger="selectToday()" if.bind="!dateRange">Today</a>
+        <a t="AUF.date.today" class="ui-date__title" ui-color="secondary" click.trigger="selectToday()" if.bind="!dateRange">Today</a>
       </div>
     </div>
 
     <!-- month page -->
     <div class="ui-date__page ui-date__page--month">
       <div class="ui-date__header">
-        <a ui-tooltip="Previous Year" class="ui-date__prev" click.trigger="previous('year')">
+        <a t="[ui-tooltip]AUF.date.previousYear" ui-tooltip="Previous Year" class="ui-date__prev" click.trigger="previous('year')">
           <ui-svg-icon icon="page-previous"></ui-svg-icon>
         </a>
         <a class="ui-date__title" click.trigger="currentView = 'year'">${currentYear} <ui-svg-icon icon="caret"></ui-svg-icon></a>
-        <a ui-tooltip="Next Year" class="ui-date__next" click.trigger="next('year')">
+        <a t="[ui-tooltip]AUF.date.nextYear" ui-tooltip="Next Year" class="ui-date__next" click.trigger="next('year')">
           <ui-svg-icon icon="page-next"></ui-svg-icon>
         </a>
       </div>
@@ -83,11 +83,11 @@
     <!-- year page -->
     <div class="ui-date__page ui-date__page--year">
       <div class="ui-date__header">
-        <a ui-tooltip="Previous Decade" class="ui-date__prev" click.trigger="previous('decade')">
+        <a t="[ui-tooltip]AUF.data.previousDecade" ui-tooltip="Previous Decade" class="ui-date__prev" click.trigger="previous('decade')">
           <ui-svg-icon icon="page-previous"></ui-svg-icon>
         </a>
         <span class="ui-date__title">${decadeStart} - ${decadeStart + 20}</span>
-        <a ui-tooltip="Next Decade" class="ui-date__next" click.trigger="next('decade')">
+        <a t="[ui-tooltip]AUF.data.nextDecade" ui-tooltip="Next Decade" class="ui-date__next" click.trigger="next('decade')">
           <ui-svg-icon icon="page-next"></ui-svg-icon>
         </a>
       </div>

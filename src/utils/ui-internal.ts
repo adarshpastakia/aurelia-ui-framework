@@ -6,6 +6,7 @@
  */
 import { EventAggregator, Subscription } from "aurelia-event-aggregator";
 import {
+  BindingEngine,
   Container,
   DOM,
   Task,
@@ -36,6 +37,12 @@ export namespace UIInternal {
   }
   export function subscribeOnce(name: string, callback: AnyObject): Subscription {
     return Container.instance.get(EventAggregator).subscribeOnce(name, callback);
+  }
+  export function observe(data: AnyObject, property: string, callback: AnyObject): Subscription {
+    return Container.instance
+      .get(BindingEngine)
+      .observe(data, property)
+      .subscribe(callback);
   }
 
   export function createEvent<T = {}>(name: string, data?: T): CustomEvent {

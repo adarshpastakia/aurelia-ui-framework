@@ -189,6 +189,10 @@
     overflow: hidden;
     position: relative;
 
+    &:hover {
+      background-color: var(--color-secondary-tint);
+    }
+
     &--week {
       color: var(--color-secondary-light);
       font-weight: $font-weight-medium;
@@ -196,10 +200,6 @@
     }
 
     &--date {
-      &:hover {
-        background-color: var(--color-secondary-tint);
-      }
-
       &--today {
         &::after {
           border: 4px solid transparent;

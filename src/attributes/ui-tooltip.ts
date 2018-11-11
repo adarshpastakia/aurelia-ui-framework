@@ -60,7 +60,7 @@ export class UITooltip {
     TooltipEl.className = `ui-tooltip ui-theme--${this.theme}`;
     TooltipEl.innerHTML = this.value;
     TooltipEl.tether.updatePosition(this.parentEl);
-    this.timer = setTimeout(() => (TooltipEl.dataset.open = "true"), 700);
+    this.timer = setTimeout(() => (TooltipEl.dataset.open = "true"), 500);
   }
 
   protected hide() {

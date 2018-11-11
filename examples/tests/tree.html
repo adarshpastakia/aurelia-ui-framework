@@ -2,16 +2,15 @@
   <div style="height:100%;" ui-padding>
     <ui-page css.bind="{height:'100%'}" ui-paper>
       <ui-sidebar label="Tree Panel" collapsible>
-        <ui-content ui-scroll>
-          <ui-tree-panel data-source.bind="countryTree"></ui-tree-panel
-        ></ui-content>
+        <ui-tree-panel max-nodes="9" data-source.bind="countryTree"></ui-tree-panel>
       </ui-sidebar>
       <ui-content ui-padding>
         <h6>TODO</h6>
         <ul>
-          <li>Max nodes to display</li>
-          <li>Lazy load nodes on expand</li>
+          <li>Filter tree</li>
           <li>Disable nodes</li>
+          <li data-style="check">Max nodes to display</li>
+          <li>Lazy load nodes on expand</li>
           <li>Checkable tree, and checkable level</li>
         </ul>
       </ui-content>

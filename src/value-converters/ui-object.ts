@@ -28,6 +28,12 @@ export class GroupValueConverter {
   }
 }
 
+export class SliceValueConverter {
+  public toView(array: AnyObject[], end: number = 0): AnyObject[] {
+    return end === 0 ? array : array.slice(0, end);
+  }
+}
+
 // TODO: rethink filter predicate to perform smart search, ignore case, ignore latin and take care of non string
 export class FilterValueConverter {
   public toView(
@@ -53,11 +59,10 @@ export class FilterValueConverter {
       });
       return map;
     } else {
-      return array.filter(
-        o =>
-          property
-            ? o[property].toString().includes(value.toString())
-            : o.toString().includes(value.toString())
+      return array.filter(o =>
+        property
+          ? o[property].toString().includes(value.toString())
+          : o.toString().includes(value.toString())
       );
     }
   }
