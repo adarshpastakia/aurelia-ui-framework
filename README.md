@@ -20,7 +20,7 @@
 ---
 
 - #### Package Dependencies
-  - moment
+  - date-fns
   - numeral
   - kramed
   - @mdi/font
