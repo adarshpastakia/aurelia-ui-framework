@@ -24,7 +24,7 @@ export declare class UIDropdown {
     disabledChanged(newValue: any): void;
     disable(b: any): void;
     select(evt: any): void;
-    private doChange(params);
+    private doChange;
     toggleDropdown(evt: any): void;
 }
 export declare class UIListGroup {

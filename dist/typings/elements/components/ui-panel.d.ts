@@ -10,7 +10,7 @@ export declare class UIPanel {
     collapse(): void;
     expand(): void;
     restore(): void;
-    private toggleCollapse();
+    private toggleCollapse;
 }
 export declare class UIPanelBody {
     element: Element;
@@ -25,7 +25,7 @@ export declare class UIPanelGroup {
     attached(): void;
     panels: any;
     private allowtoggle;
-    private uncollapse();
+    private uncollapse;
 }
 export declare class UIHeader {
     element: Element;
@@ -44,7 +44,7 @@ export declare class UIHeaderTool {
     private tether;
     private obMouseup;
     private type;
-    private fireEvent(evt);
+    private fireEvent;
 }
 export declare class UIHeaderTitle {
     element: Element;

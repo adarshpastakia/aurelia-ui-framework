@@ -57,5 +57,5 @@ export declare class UISwitch {
     checkedChanged(newValue: any): void;
     valueChanged(newValue: any): void;
     disable(b: any): void;
-    private fireChange($event);
+    private fireChange;
 }

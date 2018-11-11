@@ -36,5 +36,5 @@ export declare class UIMenuItem {
     active: boolean;
     disabled: boolean;
     href: string;
-    private click(evt);
+    private click;
 }

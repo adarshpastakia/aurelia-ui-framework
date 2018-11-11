@@ -59,7 +59,7 @@ var UIForm = (function () {
     UIForm = __decorate([
         aurelia_framework_1.autoinject(),
         aurelia_framework_1.customElement('ui-form'),
-        aurelia_framework_1.inlineView("<template class=\"ui-form\"><form ref=\"formEl\" validation-renderer=\"ui-validator\" enterpressed.trigger=\"fireSubmit()\" submit.trigger=\"return false\"><slot></slot></form></template>"),
+        aurelia_framework_1.inlineView("<template class=\"ui-form\"><form ref=\"formEl\" validation-renderer=\"ui-validator\" enterpressed.trigger=\"fireSubmit()\" submit.trigger=\"false\"><slot></slot></form></template>"),
         __metadata("design:paramtypes", [Element])
     ], UIForm);
     return UIForm;
@@ -212,6 +212,7 @@ var UIInputLabel = (function () {
             }
         }
     };
+    var UIInputLabel_1;
     UIInputLabel.seed = 1;
     __decorate([
         aurelia_framework_1.bindable(),
@@ -233,6 +234,5 @@ var UIInputLabel = (function () {
         __metadata("design:paramtypes", [Element])
     ], UIInputLabel);
     return UIInputLabel;
-    var UIInputLabel_1;
 }());
 exports.UIInputLabel = UIInputLabel;

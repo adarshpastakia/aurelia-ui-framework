@@ -9,8 +9,8 @@ System.register(["aurelia-framework", "../utils/ui-utils"], function (exports_1,
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var __moduleName = context_1 && context_1.id;
     var aurelia_framework_1, ui_utils_1, UITooltip;
+    var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (aurelia_framework_1_1) {
@@ -56,6 +56,7 @@ System.register(["aurelia-framework", "../utils/ui-utils"], function (exports_1,
                     UITooltip_1.tooltipEl.className = 'ui-tooltip';
                     this.tether = null;
                 };
+                var UITooltip_1;
                 __decorate([
                     aurelia_framework_1.bindable(),
                     __metadata("design:type", Object)
@@ -70,7 +71,6 @@ System.register(["aurelia-framework", "../utils/ui-utils"], function (exports_1,
                     __metadata("design:paramtypes", [Element])
                 ], UITooltip);
                 return UITooltip;
-                var UITooltip_1;
             }());
             exports_1("UITooltip", UITooltip);
         }

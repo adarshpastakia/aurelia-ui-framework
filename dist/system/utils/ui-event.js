@@ -1,7 +1,7 @@
 System.register(["./ui-utils", "aurelia-framework", "aurelia-event-aggregator"], function (exports_1, context_1) {
     "use strict";
-    var __moduleName = context_1 && context_1.id;
     var ui_utils_1, aurelia_framework_1, aurelia_event_aggregator_1, UIEvent;
+    var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (ui_utils_1_1) {

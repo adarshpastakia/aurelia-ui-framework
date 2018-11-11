@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var UIModel_1;
 import { autoinject, transient } from 'aurelia-framework';
 import { getLogger } from "aurelia-logging";
 import { UIHttpService } from "./ui-http";
@@ -154,4 +155,3 @@ UIModel = UIModel_1 = __decorate([
     __metadata("design:paramtypes", [])
 ], UIModel);
 export { UIModel };
-var UIModel_1;

@@ -9,19 +9,19 @@ export declare class UIDialogService {
     private windows;
     private initialized;
     constructor(compiler: ViewCompiler, container: Container, resources: ViewResources, compositionEngine: CompositionEngine, templatingEngine: TemplatingEngine);
-    private initialize();
+    private initialize;
     makeActive(id: any): boolean;
     show(vm: any, model?: any): Promise<void>;
     close(id: any, force?: any): boolean;
     closeAll(): void;
-    private createDialog(vm);
-    private initializeDialog(dialog);
-    private closeDialog(dialog, force?);
-    private getViewModel(instruction);
-    private invokeLifecycle(instance, name, model);
-    private changeActive(dialog);
-    private taskClick(dialog, forceMin?);
-    private nextActive();
+    private createDialog;
+    private initializeDialog;
+    private closeDialog;
+    private getViewModel;
+    private invokeLifecycle;
+    private changeActive;
+    private taskClick;
+    private nextActive;
     /**
        * dialog move
        */
@@ -31,9 +31,9 @@ export declare class UIDialogService {
     private __startY;
     private __dialog;
     private __isRtl;
-    private moveStart($event);
-    private moveEnd();
-    private move($event);
+    private moveStart;
+    private moveEnd;
+    private move;
 }
 export declare class UIDialog {
     bind(bindingContext?: Object, overrideContext?: Object): void;

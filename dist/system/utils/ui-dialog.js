@@ -9,8 +9,8 @@ System.register(["aurelia-framework", "./ui-event", "./ui-utils", "lodash", "aur
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var __moduleName = context_1 && context_1.id;
     var aurelia_framework_1, ui_event_1, ui_utils_1, _, aurelia_metadata_1, aurelia_framework_2, UIDialogService, UIDialog;
+    var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (aurelia_framework_1_1) {
@@ -406,6 +406,7 @@ System.register(["aurelia-framework", "./ui-event", "./ui-utils", "lodash", "aur
                     config.container = this.dialogEl.querySelector('ui-dialog-body');
                     ui_utils_1.UIUtils.toast(config);
                 };
+                var UIDialog_1;
                 UIDialog.seed = 0;
                 UIDialog.seedX = 0;
                 UIDialog.posX = 0;
@@ -414,7 +415,6 @@ System.register(["aurelia-framework", "./ui-event", "./ui-utils", "lodash", "aur
                     aurelia_framework_1.autoinject()
                 ], UIDialog);
                 return UIDialog;
-                var UIDialog_1;
             }());
             exports_1("UIDialog", UIDialog);
         }

@@ -385,6 +385,7 @@ define(["require", "exports", "aurelia-framework", "./ui-event", "./ui-utils", "
             config.container = this.dialogEl.querySelector('ui-dialog-body');
             ui_utils_1.UIUtils.toast(config);
         };
+        var UIDialog_1;
         UIDialog.seed = 0;
         UIDialog.seedX = 0;
         UIDialog.posX = 0;
@@ -393,7 +394,6 @@ define(["require", "exports", "aurelia-framework", "./ui-event", "./ui-utils", "
             aurelia_framework_1.autoinject()
         ], UIDialog);
         return UIDialog;
-        var UIDialog_1;
     }());
     exports.UIDialog = UIDialog;
 });

@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var UITooltip_1;
 import { autoinject, customAttribute, bindable } from 'aurelia-framework';
 import { UIUtils } from "../utils/ui-utils";
 let UITooltip = UITooltip_1 = class UITooltip {
@@ -57,4 +58,3 @@ UITooltip = UITooltip_1 = __decorate([
     __metadata("design:paramtypes", [Element])
 ], UITooltip);
 export { UITooltip };
-var UITooltip_1;

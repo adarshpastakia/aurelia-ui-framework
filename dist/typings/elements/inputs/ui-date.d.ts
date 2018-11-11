@@ -29,14 +29,14 @@ export declare class UIDateView {
     dateChanged(newValue: any): void;
     minDateChanged(newValue: any): void;
     maxDateChanged(newValue: any): void;
-    private refresh();
-    private dateClass(dt);
-    private monthClass(mn);
-    private yearClass(yr);
-    private hourClass(hr);
-    private minuteClass(mn);
-    private buildDatePage(newLocale?);
-    private clicked(evt);
+    private refresh;
+    private dateClass;
+    private monthClass;
+    private yearClass;
+    private hourClass;
+    private minuteClass;
+    private buildDatePage;
+    private clicked;
 }
 export declare class UIDateInput extends UIBaseInput {
     element: Element;
@@ -69,5 +69,5 @@ export declare class UIDateInput extends UIBaseInput {
     closeDropdown(): void;
     toggleDropdown(evt: any, forceClose?: boolean): void;
     fireEvent(evt: any): void;
-    private keyDown(evt);
+    private keyDown;
 }

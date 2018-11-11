@@ -4,7 +4,7 @@ export declare class UIToast {
     bind(bindingContext: Object, overrideContext: Object): void;
     glyph: string;
     timeout: number;
-    private startClose(force?);
+    private startClose;
 }
 export declare class UIAlert {
     element: Element;

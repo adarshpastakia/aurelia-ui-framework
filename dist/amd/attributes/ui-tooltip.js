@@ -45,6 +45,7 @@ define(["require", "exports", "aurelia-framework", "../utils/ui-utils"], functio
             UITooltip_1.tooltipEl.className = 'ui-tooltip';
             this.tether = null;
         };
+        var UITooltip_1;
         __decorate([
             aurelia_framework_1.bindable(),
             __metadata("design:type", Object)
@@ -59,7 +60,6 @@ define(["require", "exports", "aurelia-framework", "../utils/ui-utils"], functio
             __metadata("design:paramtypes", [Element])
         ], UITooltip);
         return UITooltip;
-        var UITooltip_1;
     }());
     exports.UITooltip = UITooltip;
 });

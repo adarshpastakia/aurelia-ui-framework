@@ -18,7 +18,7 @@ export declare class UIHttpService {
     delete(slug: string, headers?: any): Promise<any | string | void>;
     upload(slug: string, form: HTMLFormElement, headers?: any): Promise<any | string | void>;
     reupload(slug: string, form: HTMLFormElement, headers?: any): Promise<any | string | void>;
-    private __upload(method, slug, form, headers?);
-    private __getResponse(response);
-    private __getHeaders(override?);
+    private __upload;
+    private __getResponse;
+    private __getHeaders;
 }

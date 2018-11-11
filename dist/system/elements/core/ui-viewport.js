@@ -9,8 +9,8 @@ System.register(["aurelia-framework", "aurelia-router", "aurelia-fetch-client", 
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var __moduleName = context_1 && context_1.id;
     var aurelia_framework_1, aurelia_router_1, aurelia_fetch_client_1, ui_application_1, ui_utils_1, ui_event_1, UIViewport, UIRouterView, UIAppHeader, UIAppFooter, UIAppQuickLinks, UIAppTitle;
+    var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (aurelia_framework_1_1) {

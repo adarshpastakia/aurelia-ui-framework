@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var UIOptionGroup_1, UICheckbox_1, UIRadio_1, UISwitch_1;
 import { autoinject, customElement, bindable, bindingMode, inlineView } from 'aurelia-framework';
 import { UIEvent } from "../../utils/ui-event";
 let UIOptionGroup = UIOptionGroup_1 = class UIOptionGroup {
@@ -255,4 +256,3 @@ UISwitch = UISwitch_1 = __decorate([
     __metadata("design:paramtypes", [Element])
 ], UISwitch);
 export { UISwitch };
-var UIOptionGroup_1, UICheckbox_1, UIRadio_1, UISwitch_1;

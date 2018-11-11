@@ -1,7 +1,7 @@
 System.register(["kramed", "moment", "numeral"], function (exports_1, context_1) {
     "use strict";
-    var __moduleName = context_1 && context_1.id;
     var kramed, moment, numeral, UIFormat;
+    var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (kramed_1) {

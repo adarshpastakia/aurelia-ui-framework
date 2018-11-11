@@ -1,7 +1,7 @@
 System.register(["lodash"], function (exports_1, context_1) {
     "use strict";
-    var __moduleName = context_1 && context_1.id;
     var _, SplitValueConverter, KeysValueConverter, GroupValueConverter, SortValueConverter;
+    var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (_1) {

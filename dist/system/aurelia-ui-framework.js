@@ -1,5 +1,6 @@
 System.register(["aurelia-pal", "aurelia-validation", "./utils/ui-validation", "./utils/ui-constants", "./utils/ui-utils", "lodash", "moment", "numeral", "./libs/countries", "./libs/currencies", "./libs/filetypes", "./libs/phonelib", "./libs/window", "kramed", "./utils/ui-application", "./utils/ui-dialog", "./utils/ui-event", "./utils/ui-format", "./utils/ui-http", "./utils/ui-model", "./utils/ui-tree-model", "./elements/core/ui-grid", "./elements/core/ui-page", "./elements/core/ui-viewport", "./elements/inputs/ui-button", "./elements/inputs/ui-date", "./elements/inputs/ui-form", "./elements/inputs/ui-input", "./elements/inputs/ui-lists", "./elements/inputs/ui-markdown", "./elements/inputs/ui-options", "./elements/inputs/ui-phone", "./elements/inputs/ui-textarea", "./elements/components/ui-alerts", "./elements/components/ui-bars", "./elements/components/ui-breadcrumb", "./elements/components/ui-datagrid", "./elements/components/ui-dg-columns", "./elements/components/ui-drawer", "./elements/components/ui-dropdown", "./elements/components/ui-menu", "./elements/components/ui-panel", "./elements/components/ui-sidebar", "./elements/components/ui-tab", "./elements/components/ui-tree", "./attributes/ui-badge", "./attributes/ui-ribbon", "./attributes/ui-tooltip", "./attributes/md-view", "./value-converters/ui-lodash", "./value-converters/ui-text", "text!./ui-glyphs.html"], function (exports_1, context_1) {
     "use strict";
+    var aurelia_pal_1, aurelia_validation_1, ui_validation_1, ui_constants_1, ui_utils_1, ld, km, mm, nm, _, kramed, moment, numeral;
     var __moduleName = context_1 && context_1.id;
     function configure(config, configCallback) {
         ui_utils_1.UIUtils.auContainer = config.container;
@@ -139,7 +140,6 @@ System.register(["aurelia-pal", "aurelia-validation", "./utils/ui-validation", "
         });
     }
     exports_1("configure", configure);
-    var aurelia_pal_1, aurelia_validation_1, ui_validation_1, ui_constants_1, ui_utils_1, ld, km, mm, nm, _, kramed, moment, numeral;
     var exportedNames_1 = {
         "_": true,
         "kramed": true,

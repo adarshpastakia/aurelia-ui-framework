@@ -9,8 +9,8 @@ System.register(["aurelia-framework", "../../utils/ui-event", "lodash"], functio
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var __moduleName = context_1 && context_1.id;
     var aurelia_framework_1, ui_event_1, _, UIForm, UIFieldset, UIInputGroup, UIInputInfo, UIInputAddon, UIInputLabel;
+    var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (aurelia_framework_1_1) {
@@ -71,7 +71,7 @@ System.register(["aurelia-framework", "../../utils/ui-event", "lodash"], functio
                 UIForm = __decorate([
                     aurelia_framework_1.autoinject(),
                     aurelia_framework_1.customElement('ui-form'),
-                    aurelia_framework_1.inlineView("<template class=\"ui-form\"><form ref=\"formEl\" validation-renderer=\"ui-validator\" enterpressed.trigger=\"fireSubmit()\" submit.trigger=\"return false\"><slot></slot></form></template>"),
+                    aurelia_framework_1.inlineView("<template class=\"ui-form\"><form ref=\"formEl\" validation-renderer=\"ui-validator\" enterpressed.trigger=\"fireSubmit()\" submit.trigger=\"false\"><slot></slot></form></template>"),
                     __metadata("design:paramtypes", [Element])
                 ], UIForm);
                 return UIForm;
@@ -224,6 +224,7 @@ System.register(["aurelia-framework", "../../utils/ui-event", "lodash"], functio
                         }
                     }
                 };
+                var UIInputLabel_1;
                 UIInputLabel.seed = 1;
                 __decorate([
                     aurelia_framework_1.bindable(),
@@ -245,7 +246,6 @@ System.register(["aurelia-framework", "../../utils/ui-event", "lodash"], functio
                     __metadata("design:paramtypes", [Element])
                 ], UIInputLabel);
                 return UIInputLabel;
-                var UIInputLabel_1;
             }());
             exports_1("UIInputLabel", UIInputLabel);
         }

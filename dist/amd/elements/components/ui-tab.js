@@ -304,6 +304,7 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-utils", "../.
             enumerable: true,
             configurable: true
         });
+        var UITab_1;
         UITab.seed = 0;
         __decorate([
             aurelia_framework_1.bindable(),
@@ -336,7 +337,6 @@ define(["require", "exports", "aurelia-framework", "../../utils/ui-utils", "../.
             __metadata("design:paramtypes", [Element])
         ], UITab);
         return UITab;
-        var UITab_1;
     }());
     exports.UITab = UITab;
 });

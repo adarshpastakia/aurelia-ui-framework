@@ -58,10 +58,10 @@ export declare class UIDatagrid {
     obPageChange: any;
     columnsChanged(c?: any): void;
     dataChanged(newValue: any): void;
-    private filter();
-    private makePage();
-    private doSort(col);
-    private fireSelect(record);
+    private filter;
+    private makePage;
+    private doSort;
+    private fireSelect;
     isRtl: boolean;
     move: any;
     stop: any;

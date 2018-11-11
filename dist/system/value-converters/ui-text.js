@@ -1,7 +1,7 @@
 System.register(["../utils/ui-format"], function (exports_1, context_1) {
     "use strict";
-    var __moduleName = context_1 && context_1.id;
     var ui_format_1, JsonValueConverter, MarkdownValueConverter, PhoneValueConverter, DateValueConverter, TimeValueConverter, DatetimeValueConverter, FromNowValueConverter, UtcValueConverter, NumberValueConverter, CurrencyValueConverter, PercentValueConverter;
+    var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (ui_format_1_1) {

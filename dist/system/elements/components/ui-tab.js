@@ -9,8 +9,8 @@ System.register(["aurelia-framework", "../../utils/ui-utils", "../../utils/ui-ev
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var __moduleName = context_1 && context_1.id;
     var aurelia_framework_1, ui_utils_1, ui_event_1, _, UITabbarStart, UITabbarEnd, UITabbarToggle, UITabPanel, UITab;
+    var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (aurelia_framework_1_1) {
@@ -321,6 +321,7 @@ System.register(["aurelia-framework", "../../utils/ui-utils", "../../utils/ui-ev
                     enumerable: true,
                     configurable: true
                 });
+                var UITab_1;
                 UITab.seed = 0;
                 __decorate([
                     aurelia_framework_1.bindable(),
@@ -353,7 +354,6 @@ System.register(["aurelia-framework", "../../utils/ui-utils", "../../utils/ui-ev
                     __metadata("design:paramtypes", [Element])
                 ], UITab);
                 return UITab;
-                var UITab_1;
             }());
             exports_1("UITab", UITab);
         }

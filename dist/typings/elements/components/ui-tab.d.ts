@@ -31,15 +31,15 @@ export declare class UITabPanel {
     activeTab: any;
     private noTabs;
     private activeTabEl;
-    private tabsChanged();
-    private activeTabChanged(newValue);
+    private tabsChanged;
+    private activeTabChanged;
     close(id: any, force?: boolean): void;
-    private closeTab(tab);
-    private doClose(tab);
-    private activateTab(newTab);
+    private closeTab;
+    private doClose;
+    private activateTab;
     canActivate(id: any): boolean;
-    private arrange();
-    private showOverflow(evt);
+    private arrange;
+    private showOverflow;
 }
 export declare class UITab {
     element: Element;

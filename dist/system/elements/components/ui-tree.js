@@ -9,8 +9,8 @@ System.register(["aurelia-framework", "../../utils/ui-tree-model", "../../utils/
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var __moduleName = context_1 && context_1.id;
     var aurelia_framework_1, ui_tree_model_1, ui_event_1, _, UITree, TreeNode;
+    var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (aurelia_framework_1_1) {

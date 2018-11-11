@@ -23,5 +23,5 @@ export declare class UIModel {
     saveChanges(): void;
     discardChanges(): void;
     isDirty(): any;
-    private checkDirty(o, t);
+    private checkDirty;
 }

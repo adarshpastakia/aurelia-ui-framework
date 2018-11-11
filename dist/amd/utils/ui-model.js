@@ -166,13 +166,13 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "./ui-http
                 return t.hasOwnProperty(key) && (t[key] === o[key]);
             });
         };
+        var UIModel_1;
         UIModel = UIModel_1 = __decorate([
             aurelia_framework_1.autoinject(),
             aurelia_framework_1.transient(),
             __metadata("design:paramtypes", [])
         ], UIModel);
         return UIModel;
-        var UIModel_1;
     }());
     exports.UIModel = UIModel;
 });

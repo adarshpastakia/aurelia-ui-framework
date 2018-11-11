@@ -41,6 +41,7 @@ var UIOptionGroup = (function () {
     UIOptionGroup.prototype.changed = function ($event) {
         this.value = $event.detail;
     };
+    var UIOptionGroup_1;
     UIOptionGroup.seed = 1;
     __decorate([
         aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
@@ -61,7 +62,6 @@ var UIOptionGroup = (function () {
         __metadata("design:paramtypes", [Element])
     ], UIOptionGroup);
     return UIOptionGroup;
-    var UIOptionGroup_1;
 }());
 exports.UIOptionGroup = UIOptionGroup;
 var UICheckbox = (function () {
@@ -84,6 +84,7 @@ var UICheckbox = (function () {
     UICheckbox.prototype.disable = function (b) {
         this.element.classList[(this.isDisabled = (b || this.disabled)) ? 'add' : 'remove']('ui-disabled');
     };
+    var UICheckbox_1;
     UICheckbox.seed = 1;
     __decorate([
         aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
@@ -100,7 +101,6 @@ var UICheckbox = (function () {
         __metadata("design:paramtypes", [Element])
     ], UICheckbox);
     return UICheckbox;
-    var UICheckbox_1;
 }());
 exports.UICheckbox = UICheckbox;
 var UIRadio = (function () {
@@ -129,6 +129,7 @@ var UIRadio = (function () {
         $event.stopPropagation();
         return ui_event_1.UIEvent.fireEvent('change', this.element, this.value);
     };
+    var UIRadio_1;
     UIRadio.seed = 1;
     __decorate([
         aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
@@ -153,7 +154,6 @@ var UIRadio = (function () {
         __metadata("design:paramtypes", [Element])
     ], UIRadio);
     return UIRadio;
-    var UIRadio_1;
 }());
 exports.UIRadio = UIRadio;
 var UISwitch = (function () {
@@ -208,6 +208,7 @@ var UISwitch = (function () {
         this.value = this.checked ? this.onValue : this.offValue;
         return ui_event_1.UIEvent.fireEvent('change', this.element, this.value);
     };
+    var UISwitch_1;
     UISwitch.seed = 1;
     __decorate([
         aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }),
@@ -256,6 +257,5 @@ var UISwitch = (function () {
         __metadata("design:paramtypes", [Element])
     ], UISwitch);
     return UISwitch;
-    var UISwitch_1;
 }());
 exports.UISwitch = UISwitch;

@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var UIDialog_1;
 import { autoinject, DOM } from 'aurelia-framework';
 import { UIEvent } from "./ui-event";
 import { UIUtils } from "./ui-utils";
@@ -394,4 +395,3 @@ UIDialog = UIDialog_1 = __decorate([
     autoinject()
 ], UIDialog);
 export { UIDialog };
-var UIDialog_1;
