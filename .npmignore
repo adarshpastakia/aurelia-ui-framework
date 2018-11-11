@@ -1,6 +1,7 @@
 # Dependency directories
 /aurelia_project
 /build
+/coverage
 /custom_typings
 /docs
 /favicons
