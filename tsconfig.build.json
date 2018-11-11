@@ -4,6 +4,7 @@
     "module": "esnext",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
     "downlevelIteration": true,
     "moduleResolution": "node",
     "sourceMap": false,
@@ -11,6 +12,6 @@
     "skipLibCheck": true,
     "lib": ["es2017", "dom"]
   },
-  "include": ["src", "typings"],
+  "include": ["./src/**/*.ts", "./typings/**/*.d.ts"],
   "exclude": [".vscode", "dist", "doc", "node_modules", "test"]
 }

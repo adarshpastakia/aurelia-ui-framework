@@ -1,0 +1,17 @@
+<template class="ui-viewport" role="main">
+  <slot name="ui-viewport__header"></slot>
+  <div class="ui-viewport__body">
+    <slot></slot>
+    <div class="ui-viewport__dialog-container" ref="dialogContainer"></div>
+    <div class="ui-viewport__alert-container" ref="appConfig.AlertContainer"></div>
+    <div class="ui-viewport__toast-container" ref="appConfig.ToastContainer"></div>
+  </div>
+  <section role="tablist" class="ui-viewport__taskbar">
+    <div class="ui-viewport__taskbar--start"><slot name="taskbar-start"></slot></div>
+    <div class="ui-viewport__taskbar__wrapper" ref="taskbarContainer"></div>
+    <div class="ui-viewport__taskbar--end"><slot name="taskbar-links"></slot></div>
+  </section>
+  <slot name="ui-viewport__footer"></slot>
+  <div class="ui-viewport__floating-container" ref="appConfig.FloatingContainer"></div>
+  <ui-loader busy.bind="router.isNavigating"></ui-loader>
+</template>
