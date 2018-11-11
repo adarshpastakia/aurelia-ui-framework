@@ -1,0 +1,22 @@
+# Dependency directories
+/api
+/aurelia_project
+/build
+/custom_typings
+/docs
+/examples
+/images
+/locales
+/test
+
+.sass-cache
+
+.DS_Store
+
+/.editorconfig
+/.gitattributes
+/.gitignore
+/.travis.yml
+/express.js
+/index.ejs
+/webpack.config.js

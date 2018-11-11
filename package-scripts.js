@@ -22,12 +22,11 @@ module.exports = {
     },
     dist: {
       default: "nps dist.build",
+      release: series("npm --no-git-tag-version version prerelease --preid=beta", "nps dist.build"),
       build: series(
         rimraf("dist/"),
         rimraf("typings/"),
-        crossEnv(
-          "copyfiles --up 1 src/**/*.html src/**/*.json src/**/*.js dist"
-        ),
+        crossEnv("copyfiles --up 1 src/**/*.html src/**/*.json src/**/*.js dist"),
         crossEnv("copyfiles --up 1 src/**/*.d.ts typings"),
         crossEnv("tsc --project tsconfig.build.json --outDir dist --allowJs"),
         crossEnv(
@@ -43,24 +42,17 @@ module.exports = {
         default: "nps webpack.build.production",
         development: {
           default: series("nps webpack.build.before", "webpack --progress -d"),
-          extractCss: series(
-            "nps webpack.build.before",
-            "webpack --progress -d --env.extractCss"
-          ),
+          extractCss: series("nps webpack.build.before", "webpack --progress -d --env.extractCss"),
           serve: series.nps("webpack.build.development", "serve")
         },
         production: {
           inlineCss: series(
             "nps webpack.build.before",
-            crossEnv(
-              "NODE_ENV=production webpack --progress -p --env.production"
-            )
+            crossEnv("NODE_ENV=production webpack --progress -p --env.production")
           ),
           default: series(
             "nps webpack.build.before",
-            crossEnv(
-              "NODE_ENV=production webpack --progress -p --env.production --env.extractCss"
-            )
+            crossEnv("NODE_ENV=production webpack --progress -p --env.production --env.extractCss")
           ),
           serve: series.nps("webpack.build.production", "serve")
         }

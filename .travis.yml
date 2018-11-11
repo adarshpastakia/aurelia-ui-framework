@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+  - "node"
+sudo: false
+
+install:
+  - npm install -g yarn
+  - yarn
+script:
+  - yarn dist
