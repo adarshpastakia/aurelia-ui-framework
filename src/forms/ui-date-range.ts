@@ -6,7 +6,16 @@
  */
 
 import { autoinject, bindable, bindingMode, computedFrom, customElement } from "aurelia-framework";
-import { addMonths, endOfWeek, isAfter, startOfMonth, subMonths, toDate } from "date-fns";
+import {
+  addMonths,
+  endOfWeek,
+  isAfter,
+  isBefore,
+  isWithinInterval,
+  startOfMonth,
+  subMonths,
+  toDate
+} from "date-fns";
 
 export enum UIDateRangeKeys {
   TODAY = "TODAY",
@@ -33,6 +42,7 @@ export enum UIDateRangeKeys {
   NEXT_60 = "NEXT_60",
   LAST_90 = "LAST_90",
   NEXT_90 = "NEXT_90",
+  CUSTOM = "CUSTOM",
   DIVIDER = "-"
 }
 enum UIDateRangeLabels {
@@ -59,7 +69,8 @@ enum UIDateRangeLabels {
   LAST_60 = "Last 60 Days",
   NEXT_60 = "Next 60 Days",
   LAST_90 = "Last 90 Days",
-  NEXT_90 = "Next 90 Days"
+  NEXT_90 = "Next 90 Days",
+  CUSTOM = "Custom Range"
 }
 
 @autoinject()
@@ -69,6 +80,11 @@ export class UIDateRange {
   public start: Date | string = new Date();
   @bindable({ defaultBindingMode: bindingMode.twoWay })
   public end: Date | string = new Date();
+
+  @bindable()
+  public minDate: string;
+  @bindable()
+  public maxDate: string;
 
   @bindable()
   public disabled: boolean = false;
@@ -98,6 +114,7 @@ export class UIDateRange {
 
   protected startVm: AnyObject = {};
   protected endVm: AnyObject = {};
+  protected active: string = UIDateRangeKeys.CUSTOM;
 
   protected selectStarted = false;
 
@@ -112,6 +129,8 @@ export class UIDateRange {
 
     this.startVm.weekChanged = week => this.weekChanged(week);
     this.endVm.weekChanged = week => this.weekChanged(week);
+
+    this.startVm.withTime = this.endVm.withTime = !this.element.hasAttribute("no-time");
 
     this.startVm.internalDateChanged = (date, timeChange) =>
       timeChange
@@ -130,6 +149,18 @@ export class UIDateRange {
     this.endVm.currentMonth = this.endMonth;
   }
 
+  protected minDateChanged(): void {
+    if (isBefore(this.start, this.minDate)) {
+      this.start = this.end = undefined;
+    }
+  }
+
+  protected maxDateChanged(): void {
+    if (isAfter(this.end, this.maxDate)) {
+      this.start = this.end = undefined;
+    }
+  }
+
   @computedFrom("selectStarted", "tempStart", "start", "end")
   get range() {
     return (this.startVm.dateRange = this.endVm.dateRange = this.selectStarted
@@ -138,10 +169,15 @@ export class UIDateRange {
   }
 
   protected weekChanged(week) {
-    this.start = week;
-    this.end = endOfWeek(week);
-    this.startVm.currentMonth = startOfMonth(this.start);
-    this.endVm.currentMonth = startOfMonth(this.end);
+    if (
+      isWithinInterval(week, { start: this.minDate, end: this.maxDate }) ||
+      isWithinInterval(endOfWeek(week), { start: this.minDate, end: this.maxDate })
+    ) {
+      this.start = isBefore(week, this.minDate) ? this.minDate : week;
+      this.end = isAfter(endOfWeek(week), this.maxDate) ? this.maxDate : endOfWeek(week);
+      this.startVm.currentMonth = startOfMonth(this.start);
+      this.endVm.currentMonth = startOfMonth(this.end);
+    }
   }
 
   protected startMonthChanged(month) {

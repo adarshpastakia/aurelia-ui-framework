@@ -2,101 +2,160 @@
   <div class="ui-date__calendar" data-page.bind="currentView">
     <div class="ui-date__page ui-date__page--date">
       <div class="ui-date__header">
-        <a t="[ui-tooltip]AUF.date.previousYear" ui-tooltip="Previous Year" class="ui-date__pg-down" click.trigger="previous('year')">
+        <a
+          t="[ui-tooltip]AUF.date.previousYear"
+          ui-tooltip="Previous Year"
+          class="ui-date__pg-down"
+          click.trigger="previous('year')"
+        >
           <ui-svg-icon icon="page-first"></ui-svg-icon>
         </a>
-        <a t="[ui-tooltip]AUF.date.previousMonth" ui-tooltip="Previous Month" class="ui-date__prev" click.trigger="previous('month')">
+        <a
+          t="[ui-tooltip]AUF.date.previousMonth"
+          ui-tooltip="Previous Month"
+          class="ui-date__prev"
+          click.trigger="previous('month')"
+        >
           <ui-svg-icon icon="page-previous"></ui-svg-icon>
         </a>
-        <a class="ui-date__title" click.trigger="currentView = 'month'">${currentMonth | date:"MMMM"}, ${currentMonth |
-          date:"YYYY"} <ui-svg-icon icon="caret"></ui-svg-icon></a>
-        <a t="[ui-tooltip]AUF.date.nextMonth" ui-tooltip="Next Month" class="ui-date__next" click.trigger="next('month')">
+        <a class="ui-date__title" click.trigger="currentView = 'month'"
+          >${currentMonth | date:"MMMM"}, ${currentMonth | date:"YYYY"}
+          <ui-svg-icon icon="caret"></ui-svg-icon
+        ></a>
+        <a
+          t="[ui-tooltip]AUF.date.nextMonth"
+          ui-tooltip="Next Month"
+          class="ui-date__next"
+          click.trigger="next('month')"
+        >
           <ui-svg-icon icon="page-next"></ui-svg-icon>
         </a>
-        <a t="[ui-tooltip]AUF.date.nextYear" ui-tooltip="Next Year" class="ui-date__pg-up" click.trigger="next('year')">
+        <a
+          t="[ui-tooltip]AUF.date.nextYear"
+          ui-tooltip="Next Year"
+          class="ui-date__pg-up"
+          click.trigger="next('year')"
+        >
           <ui-svg-icon icon="page-last"></ui-svg-icon>
         </a>
       </div>
       <div class="ui-date__grid--date" click.delegate="selectDate($event)">
-        <span class="ui-date__head">#</span>
-        <span class="ui-date__head">Su</span>
-        <span class="ui-date__head">Mo</span>
-        <span class="ui-date__head">Tu</span>
-        <span class="ui-date__head">We</span>
-        <span class="ui-date__head">Th</span>
-        <span class="ui-date__head">Fr</span>
-        <span class="ui-date__head">Sa</span>
+        <span class="ui-date__head">#</span> <span class="ui-date__head">Su</span>
+        <span class="ui-date__head">Mo</span> <span class="ui-date__head">Tu</span>
+        <span class="ui-date__head">We</span> <span class="ui-date__head">Th</span>
+        <span class="ui-date__head">Fr</span> <span class="ui-date__head">Sa</span>
         <template repeat.for="week of 6">
-          <span class="ui-date__cell--week" data-week.bind="getDate(pageStart, week, 0)">${getWeek(pageStart, week)}</span>
+          <span class="ui-date__cell--week" data-week.bind="getDate(pageStart, week, 0)"
+            >${getWeek(pageStart, week)}</span
+          >
           <template repeat.for="day of 7">
-            <span class.bind="getClasses(pageStart, week, day)" data-date.bind="getDate(pageStart, week, day)">${getDay(pageStart,
-              week, day)}</span>
+            <span
+              class.bind="getClasses(pageStart, week, day)"
+              data-date.bind="getDate(pageStart, week, day)"
+              >${getDay(pageStart, week, day)}</span
+            >
           </template>
         </template>
       </div>
       <div class="ui-date__foot">
-        <ui-svg-icon icon="clock"></ui-svg-icon>
-        <div class="ui-date__time--input">
-          <input size="3" type="number" min="1" max="12" placeholder="HH" value.bind="hour" />
-          <a click.trigger="[hour = 1]">
-            <ui-svg-icon icon="plus"></ui-svg-icon>
-          </a>
-          <a click.trigger="hour = -1">
-            <ui-svg-icon icon="minus"></ui-svg-icon>
-          </a>
-        </div>
-        <span>:</span>
-        <div class="ui-date__time--input">
-          <input size="3" type="number" min="0" max="60" placeholder="MM" value.bind="minute" />
-          <a click.trigger="minute = 1">
-            <ui-svg-icon icon="plus"></ui-svg-icon>
-          </a>
-          <a click.trigger="minute = -1">
-            <ui-svg-icon icon="minus"></ui-svg-icon>
-          </a>
-        </div>
-        <ui-toggle checked.bind="ampm & debounce"></ui-toggle>
-        <a t="AUF.date.today" class="ui-date__title" ui-color="secondary" click.trigger="selectToday()" if.bind="!dateRange">Today</a>
+        <template if.bind="withTime">
+          <ui-svg-icon icon="clock"></ui-svg-icon>
+          <div class="ui-date__time--input">
+            <input size="3" type="number" min="1" max="12" placeholder="HH" value.bind="hour" />
+            <a click.trigger="[hour = 1]"> <ui-svg-icon icon="plus"></ui-svg-icon> </a>
+            <a click.trigger="hour = -1"> <ui-svg-icon icon="minus"></ui-svg-icon> </a>
+          </div>
+          <span>:</span>
+          <div class="ui-date__time--input">
+            <input size="3" type="number" min="0" max="60" placeholder="MM" value.bind="minute" />
+            <a click.trigger="minute = 1"> <ui-svg-icon icon="plus"></ui-svg-icon> </a>
+            <a click.trigger="minute = -1"> <ui-svg-icon icon="minus"></ui-svg-icon> </a>
+          </div>
+          <ui-toggle checked.bind="ampm & debounce"></ui-toggle>
+        </template>
+        <a
+          t="AUF.date.today"
+          class="ui-date__title"
+          ui-color="secondary"
+          click.trigger="selectToday()"
+          if.bind="!dateRange"
+          >Today</a
+        >
       </div>
     </div>
 
     <!-- month page -->
     <div class="ui-date__page ui-date__page--month">
       <div class="ui-date__header">
-        <a t="[ui-tooltip]AUF.date.previousYear" ui-tooltip="Previous Year" class="ui-date__prev" click.trigger="previous('year')">
+        <a
+          t="[ui-tooltip]AUF.date.previousYear"
+          ui-tooltip="Previous Year"
+          class="ui-date__prev"
+          click.trigger="previous('year')"
+        >
           <ui-svg-icon icon="page-previous"></ui-svg-icon>
         </a>
-        <a class="ui-date__title" click.trigger="currentView = 'year'">${currentYear} <ui-svg-icon icon="caret"></ui-svg-icon></a>
-        <a t="[ui-tooltip]AUF.date.nextYear" ui-tooltip="Next Year" class="ui-date__next" click.trigger="next('year')">
+        <a class="ui-date__title" click.trigger="currentView = 'year'"
+          >${currentYear} <ui-svg-icon icon="caret"></ui-svg-icon
+        ></a>
+        <a
+          t="[ui-tooltip]AUF.date.nextYear"
+          ui-tooltip="Next Year"
+          class="ui-date__next"
+          click.trigger="next('year')"
+        >
           <ui-svg-icon icon="page-next"></ui-svg-icon>
         </a>
       </div>
       <div class="ui-date__grid--month" click.delegate="setCurrentMonth($event)">
-        <span repeat.for="i of 12" class="ui-date__cell ui-date__cell--month" data-date.bind="getMonthDate(currentYear, i)">
-          ${getMonthName(currentYear, i)}</span>
+        <span
+          repeat.for="i of 12"
+          class="ui-date__cell ui-date__cell--month"
+          data-date.bind="getMonthDate(currentYear, i)"
+        >
+          ${getMonthName(currentYear, i)}</span
+        >
       </div>
       <div class="ui-date__foot">
-        <a class="ui-date__title" ui-color="secondary" click.trigger="currentView = 'date'">Cancel</a>
+        <a class="ui-date__title" ui-color="secondary" click.trigger="currentView = 'date'"
+          >Cancel</a
+        >
       </div>
     </div>
 
     <!-- year page -->
     <div class="ui-date__page ui-date__page--year">
       <div class="ui-date__header">
-        <a t="[ui-tooltip]AUF.data.previousDecade" ui-tooltip="Previous Decade" class="ui-date__prev" click.trigger="previous('decade')">
+        <a
+          t="[ui-tooltip]AUF.data.previousDecade"
+          ui-tooltip="Previous Decade"
+          class="ui-date__prev"
+          click.trigger="previous('decade')"
+        >
           <ui-svg-icon icon="page-previous"></ui-svg-icon>
         </a>
         <span class="ui-date__title">${decadeStart} - ${decadeStart + 20}</span>
-        <a t="[ui-tooltip]AUF.data.nextDecade" ui-tooltip="Next Decade" class="ui-date__next" click.trigger="next('decade')">
+        <a
+          t="[ui-tooltip]AUF.data.nextDecade"
+          ui-tooltip="Next Decade"
+          class="ui-date__next"
+          click.trigger="next('decade')"
+        >
           <ui-svg-icon icon="page-next"></ui-svg-icon>
         </a>
       </div>
       <div class="ui-date__grid--year" click.delegate="setCurrentYear($event)">
-        <span repeat.for="row of 20" class="ui-date__cell ui-date__cell--year" data-year.bind="decadeStart+row">${decadeStart
-          + row}</span>
+        <span
+          repeat.for="row of 20"
+          class="ui-date__cell ui-date__cell--year"
+          data-year.bind="decadeStart+row"
+          >${decadeStart + row}</span
+        >
       </div>
       <div class="ui-date__foot">
-        <a class="ui-date__title" ui-color="secondary" click.trigger="currentView = 'month'">Cancel</a>
+        <a class="ui-date__title" ui-color="secondary" click.trigger="currentView = 'month'"
+          >Cancel</a
+        >
       </div>
     </div>
   </div>

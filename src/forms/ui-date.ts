@@ -19,6 +19,7 @@ import {
   addMinutes,
   addMonths,
   addWeeks,
+  addYears,
   format,
   getDay,
   getHours,
@@ -32,6 +33,7 @@ import {
   startOfWeek,
   subDays,
   subMonths,
+  subYears,
   toDate
 } from "date-fns";
 import { UIInternal } from "../utils/ui-internal";
@@ -72,8 +74,11 @@ export class UIDate {
   protected decadeStart = 0;
   protected currentView: "date" | "month" | "year" = "date";
 
+  protected withTime: boolean = true;
+
   constructor(protected element: Element) {
     this.resetDecade();
+    this.withTime = !element.hasAttribute("no-time");
   }
 
   protected dateChanged(date): void {
@@ -90,6 +95,18 @@ export class UIDate {
       ) {
         this.currentMonth = startOfMonth(this.date);
       }
+    }
+  }
+
+  protected minDateChanged(): void {
+    if (isBefore(this.date, this.minDate)) {
+      this.date = toDate(this.minDate);
+    }
+  }
+
+  protected maxDateChanged(): void {
+    if (isAfter(this.date, this.maxDate)) {
+      this.date = toDate(this.maxDate);
     }
   }
 
@@ -206,8 +223,12 @@ export class UIDate {
       ) {
         classes.push("ui-date__cell--date--hilight");
       }
-      if (this.dateRange.start && this.dateRange.end && isWithinInterval(dt, this.dateRange)) {
-        classes.push("ui-date__cell--date--hilight");
+      try {
+        if (this.dateRange.start && this.dateRange.end && isWithinInterval(dt, this.dateRange)) {
+          classes.push("ui-date__cell--date--hilight");
+        }
+      } catch (e) {
+        //
       }
     } else if (isSameDay(dt, this.date)) {
       classes.push("ui-date__cell--date--selected");
@@ -230,6 +251,7 @@ export class UIDate {
       this.currentMonth = subMonths(this.currentMonth, 1);
       this.resetDecade();
     } else if (unit === "year") {
+      this.currentMonth = subYears(this.currentMonth, 1);
       this.currentYear--;
       this.resetDecade();
     } else if (unit === "decade") {
@@ -242,6 +264,7 @@ export class UIDate {
       this.currentMonth = addMonths(this.currentMonth, 1);
       this.resetDecade();
     } else if (unit === "year") {
+      this.currentMonth = addYears(this.currentMonth, 1);
       this.currentYear++;
       this.resetDecade();
     } else if (unit === "decade") {

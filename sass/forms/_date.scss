@@ -17,7 +17,7 @@
     display: grid;
     grid-gap: 1px;
     grid-template-columns: 10em auto auto;
-    grid-template-rows: 20em;
+    grid-template-rows: auto;
     overflow: hidden;
 
     .ui-divider {
@@ -28,7 +28,8 @@
   &__list {
     background-color: var(--base-bg);
     display: grid;
-    overflow: auto hidden;
+    max-height: 20em;
+    overflow: auto;
 
     > a {
       align-self: center;
@@ -97,7 +98,6 @@
     align-items: center;
     display: grid;
     grid-template-rows: auto 1fr auto;
-    height: 20em;
     justify-items: center;
   }
 
