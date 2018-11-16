@@ -11,7 +11,7 @@
       </ul>
       <a if.bind="selectStarted" click.trigger="cancelSelection()" ui-color="secondary">Cancel</a>
     </div>
-    <ui-date ${withTime ? 'no-time':''} date.to-view="start" min-date.bind="minDate" max-date.bind="maxDate" view-model.ref="startVm" mouseover.delegate="hilightDate($event)"></ui-date>
-    <ui-date ${withTime ? 'no-time':''} date.to-view="end" min-date.bind="minDate" max-date.bind="maxDate" view-model.ref="endVm" mouseover.delegate="hilightDate($event)"></ui-date>
+    <ui-date data-notime.one-time="withTime" date.to-view="start" min-date.bind="minDate" max-date.bind="maxDate" view-model.ref="startVm" mouseover.delegate="hilightDate($event)"></ui-date>
+    <ui-date data-notime.one-time="withTime" date.to-view="end" min-date.bind="minDate" max-date.bind="maxDate" view-model.ref="endVm" mouseover.delegate="hilightDate($event)"></ui-date>
   </div>
 </template>

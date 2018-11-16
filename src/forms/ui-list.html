@@ -9,7 +9,7 @@
       </template>
       <input ref="inputEl" role="combo" size="1" placeholder.bind="placeholder" disabled.bind="disabled || isDisabled || isPlain"
         readonly.bind="readonly" value.two-way="inputValue" input.trigger="filterOptions() & debounce" keydown.trigger="checkKeyEvent($event)"
-        change.trigger="false" />
+        change.trigger="false" blur.trigger="resetQuery()" />
     </div>
     <div class="ui-list__container" ref="listContainer" css.bind="{height}">
       <template if.bind="innerOptions && !isGrouped">

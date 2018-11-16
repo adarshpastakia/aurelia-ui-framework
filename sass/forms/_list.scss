@@ -18,6 +18,7 @@
   }
 
   &__item {
+    color: var(--base-color);
     cursor: pointer;
     padding: (0.5 * $base-spacing) $base-spacing;
 
@@ -49,6 +50,10 @@
       pointer-events: none;
 
       u {
+        color: inherit;
+      }
+
+      > .ui-badge {
         color: inherit;
       }
     }

@@ -121,7 +121,14 @@ export class UIDateRange {
   protected startMonth = startOfMonth(new Date());
   protected endMonth = addMonths(startOfMonth(new Date()), 1);
 
-  constructor(protected element: Element) {}
+  protected withTime: boolean = true;
+
+  constructor(protected element: Element) {
+    this.withTime = !element.hasAttribute("no-time");
+    if ((element as HTMLElement).dataset.notime) {
+      this.withTime = !(element as HTMLElement).dataset.notime;
+    }
+  }
 
   protected attached(): void {
     this.startVm.monthChanged = month => this.startMonthChanged(month);

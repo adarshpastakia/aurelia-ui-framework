@@ -43,7 +43,7 @@ html {
     --base-shadow: #{map-get($light-theme, shadow)};
     --base-color: #{map-get($light-theme, color)};
 
-    --page-title-bg: #{map-get($secondary, base)};
+    --page-title-bg: #{map-get($secondary, light)};
     --page-title-color: #{$white};
 
     --table-head-bg: #{map-get($primary, light)};
@@ -58,9 +58,10 @@ html {
     --list-selected-color: #{$white};
 
     --menu-item-hover-bg: #{map-get($secondary, tint)};
-    --menu-item-hover-color: #{map-get($secondary, shade)};
+    --menu-item-hover-color: #{map-get($secondary, dark)};
     --menu-item-active-bg: #{map-get($secondary, light)};
-    --menu-item-active-color: #{map-get($secondary, shade)};
+    --menu-item-active-color: #{map-get($secondary, tint)};
+    --menu-item-active-border: #{map-get($secondary, dark)};
 
     --dlg-header-active-bg: #{map-get($primary, tint)};
     --dlg-header-active-color: #{map-get($primary, dark)};
@@ -105,6 +106,7 @@ html {
     --menu-item-hover-color: #{map-get($secondary, tint)};
     --menu-item-active-bg: #{map-get($secondary, dark)};
     --menu-item-active-color: #{map-get($secondary, tint)};
+    --menu-item-active-border: #{map-get($secondary, light)};
 
     --dlg-header-active-bg: #{map-get($primary, shade)};
     --dlg-header-active-color: #{map-get($primary, light)};

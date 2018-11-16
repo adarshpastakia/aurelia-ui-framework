@@ -81,6 +81,9 @@
     max-width: 2rem;
     overflow: visible;
 
+    #{$base}__titlebar {
+      max-width: 2rem;
+    }
     #{$base}__title {
       left: 0;
       line-height: 1;

@@ -4,7 +4,7 @@
 // @license   : MIT
 
 .ui-option {
-  --toggle-bg: var(--color-gray-light);
+  --toggle-bg: var(--color-gray-tint);
   --toggle-color: var(--color-gray);
   --toggle-on-bg: var(--color-gray-dark);
 
@@ -49,6 +49,7 @@
     &::after {
       background-color: var(--color-white);
       border-radius: 1rem;
+      box-shadow: 0 0 1px 0 var(--color-gray) inset;
       content: "";
       display: block;
       height: 1em;

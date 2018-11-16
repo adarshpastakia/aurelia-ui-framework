@@ -1,12 +1,12 @@
 <template class="ui-sidebar" click.delegate="peek = true" data-peek.bind="peek" data-collapsed.bind="collapsed"
   data-align.bind="align">
   <div class="ui-sidebar__titlebar" ui-bg.bind="titleBg" ui-color.bind="titleColor" ui-weight.bind="titleWeight">
-    <slot name="sidebar-title">
-      <div class="ui-sidebar__title" if.bind="label">${label}</div>
-    </slot>
     <div class="ui-sidebar__toggler" if.bind="collapsible" click.trigger="[collapsed = !collapsed, $event.stopEvent()]">
       <ui-svg-icon icon.bind="toggleIcon"></ui-svg-icon>
     </div>
+    <slot name="sidebar-title">
+      <div class="ui-sidebar__title" if.bind="label">${label}</div>
+    </slot>
   </div>
   <div class="ui-sidebar__body" css.bind="{width, maxWidth}">
     <slot></slot>

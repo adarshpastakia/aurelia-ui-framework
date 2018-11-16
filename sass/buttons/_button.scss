@@ -21,7 +21,7 @@
   $base: #{&};
 
   &:hover::before {
-    box-shadow: -1px -1px 3px 0 var(--btn-hover) inset;
+    box-shadow: -1px -1px 1px 0 var(--btn-hover) inset;
   }
 
   &[data-open="true"],

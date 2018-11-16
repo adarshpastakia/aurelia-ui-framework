@@ -102,7 +102,7 @@ export class ListMaker extends BaseInput {
     this.value = null;
     this.inputValue = "";
     this.inputEl.focus();
-    // this.loadOptions();
+    this.loadOptions();
   }
 
   protected filterOptions(): void {

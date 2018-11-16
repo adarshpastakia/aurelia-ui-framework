@@ -93,12 +93,12 @@
 
       &[data-active="true"] {
         background-color: var(--menu-item-active-bg);
-        box-shadow: 4px 0 0 0 var(--menu-item-active-color) inset;
+        box-shadow: 4px 0 0 0 var(--menu-item-active-border) inset;
         color: var(--menu-item-active-color);
       }
 
       @at-root [dir="rtl"] &[data-active="true"] {
-        box-shadow: -4px 0 0 0 var(--menu-item-active-color) inset;
+        box-shadow: -4px 0 0 0 var(--menu-item-active-border) inset;
       }
     }
 
