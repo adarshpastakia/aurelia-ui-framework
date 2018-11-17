@@ -72,9 +72,9 @@
         <div class="ui-wizard__form" ui-bg="component"></div>
         <ui-toolbar class="ui-wizard__footer" ui-border="t gray-tint">
           <ui-filler></ui-filler>
-          <ui-button icon="mdi mdi-chevron-left" type="" ui-theme="info" click.trigger="active = active - 1"
+          <ui-button icon="mdi mdi-chevron-left flip-on-rtl" type="" ui-theme="info" click.trigger="active = active - 1"
             disabled.bind="active==1">Back</ui-button>
-          <ui-button icon="mdi mdi-chevron-right" icon-end type="" ui-theme="info" click.trigger="active = active + 1"
+          <ui-button icon="mdi mdi-chevron-right flip-on-rtl" icon-end type="" ui-theme="info" click.trigger="active = active + 1"
             disabled.bind="active==4">Next</ui-button>
           <ui-divider></ui-divider>
           <ui-button type="solid" ui-theme="success" disabled.bind="active!=4">Finish</ui-button>

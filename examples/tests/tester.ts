@@ -267,5 +267,5 @@ export class Tester {
     return getDate(date) === 15;
   }
 
-  protected listMatcher = ({ model, value }) => model.iso2 === value.iso2;
+  protected listMatcher = ({ option, value }) => option.iso2 === (value || {}).iso2;
 }

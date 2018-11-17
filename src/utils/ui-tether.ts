@@ -103,9 +103,9 @@ export namespace UITether {
 
     // TODO: Test it, i have no idea wtf i wrote
     if (x + dropdownRect.width > clientWidth) {
-      x = posX === "l" && anchorX === "r" ? anchorRect.left : anchorRect.right - dropdownRect.width;
+      x = anchorRect.right - dropdownRect.width;
     } else if (x < clientX) {
-      x = posX === "r" && anchorX === "l" ? anchorRect.right : anchorRect.left - dropdownRect.width;
+      x = anchorRect.left;
     }
 
     if (y + dropdownRect.height > clientHeight) {

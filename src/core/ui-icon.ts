@@ -15,7 +15,11 @@ export class UIIcon {
   @bindable()
   public size: string = "nm";
 
-  constructor(protected element: Element) {}
+  constructor(protected element: Element) {
+    if (element.hasAttribute("flip-on-rtl")) {
+      element.classList.add("flip-on-rtl");
+    }
+  }
 }
 
 @customElement("ui-flag")

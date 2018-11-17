@@ -9,6 +9,7 @@ import {
   bindable,
   bindingMode,
   customElement,
+  inlineView,
   PLATFORM,
   viewResources
 } from "aurelia-framework";
@@ -16,7 +17,22 @@ import { ListMaker } from "./list-maker";
 
 @autoinject()
 @customElement("ui-select")
-@viewResources(PLATFORM.moduleName("./input-wrapper"))
+@viewResources(
+  PLATFORM.moduleName("./input-wrapper"),
+  PLATFORM.moduleName("./list-input"),
+  PLATFORM.moduleName("./list-container")
+)
+@inlineView(`<template class="ui-input \${classes}" aria-disabled.bind="disabled || isDisabled" aria-readonly.bind="readonly">
+<input-wrapper>
+  <slot></slot>
+  <list-input></list-input>
+</input-wrapper>
+<ui-drop view-model.ref="dropEl" class="ui-list" close.trigger="resetQuery()">
+  <div ref="listContainer" class="ui-list__container">
+    <list-container></list-container>
+  </div>
+</ui-drop>
+</template>`)
 export class UISelect extends ListMaker {
   @bindable({ defaultBindingMode: bindingMode.twoWay })
   public value: AnyObject = undefined;
@@ -51,7 +67,7 @@ export class UISelect extends ListMaker {
   public noOptionsText: string = "No Options";
 
   @bindable()
-  public matcher: ({ model, value }) => boolean;
+  public matcher: ({ option, value }) => boolean;
 
   constructor(protected element: Element) {
     super(element);

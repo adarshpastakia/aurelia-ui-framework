@@ -114,6 +114,12 @@
   ::before {
     @include transform-origin(50% 50% 0);
   }
+
+  &.flip-on-rtl {
+    @at-root [dir="rtl"] & {
+      transform: scaleX(-1);
+    }
+  }
 }
 
 .ui-loader {

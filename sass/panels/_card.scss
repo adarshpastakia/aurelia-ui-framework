@@ -69,6 +69,11 @@
       right: 0;
       top: $base-spacing / 4;
       z-index: 2;
+
+      @at-root [dir="rtl"] & {
+        left: 0;
+        right: auto;
+      }
     }
 
     > #{$base}__title {
