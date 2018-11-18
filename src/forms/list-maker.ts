@@ -9,13 +9,6 @@ import { UIDrop } from "../core/ui-drop";
 import { UIInternal } from "../utils/ui-internal";
 import { BaseInput } from "./base-input";
 
-// TODO: missing funtionality
-/**
- * 1. When drop opens check for selected to scrollTo
- * 2. When drop closes check if reset query to selected label or blank
- * 3. Add key events
- */
-
 const KEY_DOWN = 40;
 const KEY_UP = 38;
 const BACKSPACE = 8;
@@ -188,6 +181,7 @@ export class ListMaker extends BaseInput {
   }
 
   protected loadOptions(): void {
+    // TODO: Provide callback for fetching existing selected models
     if (this.query) {
       this.fetchOptions();
     } else {
@@ -203,7 +197,7 @@ export class ListMaker extends BaseInput {
         ? (this.model[this.labelProperty] || this.model).replace("<u>", "").replace("</u>", "")
         : "";
     }
-    this.buildOptions(this.options, true);
+    // TODO: Reset options for filtered lists only
   }
 
   private async fetchOptions(query?: string) {
@@ -290,6 +284,7 @@ export class ListMaker extends BaseInput {
 
   private checkKeyEvent($event: KeyboardEvent): boolean {
     if ([KEY_DOWN, KEY_UP].includes($event.keyCode)) {
+      // TODO: Add hilight and select functionality
       $event.stopEvent();
     } else if (this.dropEl && this.dropEl.isOpen && $event.keyCode === ENTER) {
       $event.stopEvent();
