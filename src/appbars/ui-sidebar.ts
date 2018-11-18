@@ -34,6 +34,9 @@ export class UISidebar {
   @bindable()
   public titleWeight: string;
 
+  @bindable()
+  public toggleCollapse: boolean = false;
+
   @bindable({ defaultBindingMode: bindingMode.twoWay })
   public collapsed: boolean = false;
 
@@ -45,7 +48,9 @@ export class UISidebar {
   constructor(protected element: Element) {
     this.collapsible = element.hasAttribute("collapsible");
 
-    this.obClick = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_CLICK, () => (this.peek = false));
+    this.obClick = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_CLICK, target =>
+      getParentByClass(target, "ui-sidebar__body") ? undefined : (this.peek = false)
+    );
   }
 
   protected detached(): void {

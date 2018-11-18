@@ -1,4 +1,4 @@
-<template class="ui-sidebar" click.delegate="peek = true" data-peek.bind="peek" data-collapsed.bind="collapsed"
+<template class="ui-sidebar" click.delegate="toggleCollapse ? collapsed = false : peek = true" data-peek.bind="peek" data-collapsed.bind="collapsed"
   data-align.bind="align">
   <div class="ui-sidebar__titlebar" ui-bg.bind="titleBg" ui-color.bind="titleColor" ui-weight.bind="titleWeight">
     <div class="ui-sidebar__toggler" if.bind="collapsible" click.trigger="[collapsed = !collapsed, $event.stopEvent()]">
