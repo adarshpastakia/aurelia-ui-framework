@@ -57,7 +57,7 @@
           </template>
         </template>
       </div>
-      <div class="ui-date__foot">
+      <div class="ui-date__foot" if.bind="withTime || !dateRange">
         <template if.bind="withTime">
           <ui-svg-icon icon="clock"></ui-svg-icon>
           <div class="ui-date__time--input">
