@@ -106,6 +106,7 @@ export class UIFrameworkConfig {
     appbars: () => {
       this.loadFromModule(PLATFORM.moduleName("./appbars/ui-toolbar"));
       this.loadFromModule(PLATFORM.moduleName("./appbars/ui-sidebar"));
+      this.loadFromModule(PLATFORM.moduleName("./appbars/ui-drawer"));
       return this.use;
     }
   };

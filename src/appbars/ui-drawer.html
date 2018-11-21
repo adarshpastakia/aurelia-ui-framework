@@ -1,0 +1,7 @@
+<template class="ui-drawer" data-peek.bind="peek" data-align.bind="align">
+  <a class="ui-drawer__toggler" click.delegate="peek = !peek"><ui-svg-icon icon="menu"></ui-svg-icon></a>
+  <div class="ui-drawer__shim"></div>
+  <div class="ui-drawer__body" css.bind="{width, maxWidth}">
+    <slot></slot>
+  </div>
+</template>

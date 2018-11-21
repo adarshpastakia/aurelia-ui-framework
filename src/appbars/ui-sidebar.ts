@@ -42,14 +42,16 @@ export class UISidebar {
 
   protected peek: boolean = false;
   protected collapsible: boolean = false;
+  protected closeOnClick: boolean = false;
 
   private obClick;
 
   constructor(protected element: Element) {
     this.collapsible = element.hasAttribute("collapsible");
+    this.closeOnClick = element.hasAttribute("close-on-click") && !isFalse(element.getAttribute("close-on-click"));
 
     this.obClick = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_CLICK, target =>
-      getParentByClass(target, "ui-sidebar__body") ? undefined : (this.peek = false)
+      !this.closeOnClick && getParentByClass(target, "ui-sidebar__body") ? undefined : (this.peek = false)
     );
   }
 
