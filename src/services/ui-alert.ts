@@ -142,7 +142,7 @@ export class UIAlertService {
         type: "alert",
         ...config
       };
-      const tpl = `<template><div class="ui-dialog__wrapper" data-modal.bind="true" ref="__el" keydown.delegate="__close($event.keyCode===13 || type==='alert')">
+      const tpl = `<template><div class="ui-dialog__wrapper" data-modal.bind="true" ref="__el" keydown.delegate="__keyCheck($event.keyCode)">
         <input blur.trigger="$event.target.focus()" readonly.one-time="true" tabindex="0" css.bind="{opacity:0}" ref="keyEl"/>
         <div class="ui-panel-base ui-dialog" ui-border="xy,\${theme}" data-active.bind="true" css.bind="{minWidth: '18rem', boxShadow:'0 0 12px 0 var(--color-'+theme+')'}">
           <div class="ui-panel__body" ref="vmElement">
@@ -162,6 +162,13 @@ export class UIAlertService {
         </div></template>`;
       const viewFactory = this.compiler.compile(tpl);
       const view = viewFactory.create(this.container);
+      cfg.__keyCheck = key => {
+        if (key === 13 || (key === 27 && cfg.type === "alert")) {
+          cfg.__close(true);
+        } else if (key === 27) {
+          cfg.__close(false);
+        }
+      };
       cfg.__close = b => {
         (view as View & { firstChild: Element }).firstChild.classList.remove("ui-alert--show");
         resolve(b !== false);
