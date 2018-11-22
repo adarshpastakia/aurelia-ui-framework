@@ -19,6 +19,28 @@ Object.defineProperty(Array.prototype, "last", {
   }
 });
 
+Object.defineProperty(Array.prototype, "index", {
+  writable: true,
+  value: function(matcher) {
+    let index = -1;
+    [...this].reverse().forEach((o,i) => {
+      if(matcher(o)) index = i;
+    });
+    return this.length - index - 1;;
+  }
+});
+
+Object.defineProperty(Array.prototype, "lastIndex", {
+  writable: true,
+  value: function(matcher) {
+    let index = -1;
+    this.forEach((o,i) => {
+      if(matcher(o)) index = i;
+    });
+    return index;
+  }
+});
+
 Object.defineProperty(Array.prototype, "remove", {
   writable: true,
   value: function(obj) {
