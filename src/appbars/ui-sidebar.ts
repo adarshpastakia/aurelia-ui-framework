@@ -48,10 +48,17 @@ export class UISidebar {
 
   constructor(protected element: Element) {
     this.collapsible = element.hasAttribute("collapsible");
-    this.closeOnClick = element.hasAttribute("close-on-click") && !isFalse(element.getAttribute("close-on-click"));
+    this.closeOnClick =
+      element.hasAttribute("close-on-click") && !isFalse(element.getAttribute("close-on-click"));
+
+    if (element.hasAttribute("toggle-bottom")) {
+      element.classList.add("ui-sidebar--bottom");
+    }
 
     this.obClick = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_CLICK, target =>
-      !this.closeOnClick && getParentByClass(target, "ui-sidebar__body") ? undefined : (this.peek = false)
+      !this.closeOnClick && getParentByClass(target, "ui-sidebar__body")
+        ? undefined
+        : (this.peek = false)
     );
   }
 

@@ -88,9 +88,9 @@
       left: 0;
       line-height: 1;
       position: absolute;
-      top: 0;
-      transform: rotate(90deg);
-      transform-origin: 0 100% 0;
+      top: 2em;
+      transform: rotate(-90deg) translateX(-100%);
+      transform-origin: 0 0 0;
     }
 
     #{$base}__body {
@@ -104,7 +104,7 @@
 
     &[data-align="end"] {
       #{$base}__title {
-        left: -2em;
+        transform: rotate(90deg);
       }
       #{$base}__body {
         left: auto;
@@ -147,6 +147,29 @@
       &[data-peek="true"] {
         #{$base}__body {
           transform: translateX(0);
+        }
+      }
+    }
+  }
+
+  &--bottom {
+    grid-template-areas: "body" "titlebar";
+    grid-template-rows: 1fr auto;
+
+    #{$base}__titlebar::after {
+      bottom: auto;
+      top: 0;
+    }
+
+    &[data-collapsed="true"] {
+      #{$base}__title {
+        top: 0;
+        transform: rotate(-90deg);
+      }
+
+      &[data-align="end"] {
+        #{$base}__title {
+          transform: rotate(90deg) translateX(-100%);
         }
       }
     }
