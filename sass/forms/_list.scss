@@ -35,13 +35,13 @@
       }
     }
 
-    &:hover:not(&--selected):not(&--disabled) {
-      background-color: var(--list-hover-bg);
-      color: var(--list-hover-color);
-      u {
-        color: inherit;
-      }
-    }
+    // &:hover:not(&--selected):not(&--disabled) {
+    //   background-color: var(--list-hover-bg);
+    //   color: var(--list-hover-color);
+    //   u {
+    //     color: inherit;
+    //   }
+    // }
 
     &--selected {
       background-color: var(--list-selected-bg);
@@ -66,6 +66,11 @@
       u {
         color: inherit;
       }
+    }
+
+    &--hilight {
+      background-color: var(--list-hover-bg);
+      color: var(--list-hover-color);
     }
   }
 }

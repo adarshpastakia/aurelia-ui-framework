@@ -4,8 +4,6 @@
  * @copyright : 2018
  * @license   : MIT
  */
-import { transient } from "aurelia-framework";
-import { UIDrop } from "../core/ui-drop";
 import { UIInternal } from "../utils/ui-internal";
 import { BaseInput } from "./base-input";
 
@@ -47,6 +45,8 @@ export class ListMaker extends BaseInput {
   protected isLoading = false;
   protected isGrouped = false;
   protected ignoreChange = false;
+
+  protected hilightIndex = -1;
 
   protected matcher: ({ option, value }) => boolean;
 
@@ -116,6 +116,7 @@ export class ListMaker extends BaseInput {
 
   protected selectOption(model: AnyObject): void {
     this.ignoreChange = true;
+    this.hilightIndex = -1;
     if (this.multiple) {
       this.value = this.value
         ? [...this.value, model[this.valueProperty] || model]
@@ -134,6 +135,9 @@ export class ListMaker extends BaseInput {
     if (!this.dropEl && this.query) {
       this.loadOptions();
     }
+    if (this.dropEl) {
+      this.dropEl.closeDrop();
+    }
     this.element.dispatchEvent(UIInternal.createEvent("change", this.value));
     this.element.dispatchEvent(UIInternal.createEvent("select", this.model));
     setTimeout(() => (this.ignoreChange = false), 500);
@@ -146,24 +150,34 @@ export class ListMaker extends BaseInput {
     setTimeout(() => (this.ignoreChange = false), 500);
   }
 
-  protected listClass(option): string {
+  protected listClass(option, index): string {
     const classes = ["ui-list__item"];
+    option.__selected = false;
     if (!this.multiple) {
       if (this.matcher) {
-        this.matcher({ option, value: this.value })
-          ? classes.push("ui-list__item--selected")
-          : fn();
+        if (this.matcher({ option, value: this.value })) {
+          option.__selected = true;
+          classes.push("ui-list__item--selected");
+        }
       } else if ((option[this.valueProperty] || option) === this.value) {
+        option.__selected = true;
         classes.push("ui-list__item--selected");
       }
     } else if (this.multiple && this.value) {
       if (this.matcher) {
         this.value.forEach(value => {
-          this.matcher({ option, value }) ? classes.push("ui-list__item--disabled") : fn();
+          if (this.matcher({ option, value })) {
+            option.__selected = true;
+            classes.push("ui-list__item--disabled");
+          }
         });
       } else if (this.value.includes(option[this.valueProperty] || option)) {
+        option.__selected = true;
         classes.push("ui-list__item--disabled");
       }
+    }
+    if (this.hilightIndex === index) {
+      classes.push("ui-list__item--hilight");
     }
     return classes.join(" ");
   }
@@ -190,6 +204,7 @@ export class ListMaker extends BaseInput {
   }
 
   private resetQuery(): void {
+    this.hilightIndex = -1;
     if (this.multiple) {
       this.inputValue = "";
     } else {
@@ -225,9 +240,17 @@ export class ListMaker extends BaseInput {
     const optionsClone = options.map(o => (isString(o) ? `${o}` : { ...o }));
     UIInternal.queueTask(() => {
       this.isLoading = false;
-      this.innerOptions = this.groupProperty
-        ? optionsClone.sortBy([this.groupProperty, this.labelProperty]).groupBy(this.groupProperty)
-        : [...optionsClone];
+
+      if (this.groupProperty) {
+        const groups = optionsClone
+          .sortBy([this.groupProperty, this.labelProperty])
+          .groupBy(this.groupProperty);
+        groups.forEach((items, label) =>
+          this.innerOptions.push({ __type: "group", label }, ...items)
+        );
+      } else {
+        this.innerOptions = optionsClone.sortBy(this.labelProperty);
+      }
       this.isLoaded = true;
       UIInternal.queueTask(() => {
         const selected = this.listContainer.querySelector(".ui-list__item--selected");
@@ -284,12 +307,53 @@ export class ListMaker extends BaseInput {
 
   private checkKeyEvent($event: KeyboardEvent): boolean {
     if ([KEY_DOWN, KEY_UP].includes($event.keyCode)) {
-      // TODO: Add hilight and select functionality
+      if (this.dropEl && !this.dropEl.isOpen) {
+        this.dropEl.toggleDrop();
+      }
+      if ($event.keyCode === KEY_DOWN) {
+        let d = 1;
+        while (
+          this.hilightIndex + d !== this.innerOptions.length &&
+          (this.innerOptions[this.hilightIndex + d].__type === "group" ||
+            this.innerOptions[this.hilightIndex + d].__selected ||
+            this.innerOptions[this.hilightIndex + d].__disabled)
+        ) {
+          d++;
+        }
+        this.hilightIndex =
+          this.hilightIndex + d < this.innerOptions.length ? this.hilightIndex + d : -1;
+      }
+      if ($event.keyCode === KEY_UP) {
+        let d = 1;
+        while (
+          this.hilightIndex - d > 0 &&
+          (this.innerOptions[this.hilightIndex - d].__type === "group" ||
+            this.innerOptions[this.hilightIndex - d].__selected ||
+            this.innerOptions[this.hilightIndex - d].__disabled)
+        ) {
+          d++;
+        }
+        if (
+          this.hilightIndex > 0 &&
+          !(this.innerOptions[this.hilightIndex - d].__type === "group" ||
+            this.innerOptions[this.hilightIndex - d].__selected ||
+            this.innerOptions[this.hilightIndex - d].__disabled)
+        ) {
+          this.hilightIndex = this.hilightIndex - d;
+        }
+      }
+      UIInternal.queueTask(() => {
+        const selected = this.listContainer.querySelector(".ui-list__item--hilight");
+        if (selected) {
+          selected.scrollIntoView({ block: "nearest" });
+        }
+      });
       $event.stopEvent();
-    } else if (this.dropEl && this.dropEl.isOpen && $event.keyCode === ENTER) {
+    } else if (this.hilightIndex !== -1 && $event.keyCode === ENTER) {
+      this.selectOption(this.innerOptions[this.hilightIndex]);
       $event.stopEvent();
     } else if (this.multiple && $event.keyCode === BACKSPACE) {
-      if (this.model.length > 0 && this.query.length === 0) {
+      if (this.model.length > 0 && this.inputValue.length === 0) {
         $event.stopEvent();
         this.removeValue(this.model.last());
       }
