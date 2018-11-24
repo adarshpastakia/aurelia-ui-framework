@@ -1,6 +1,6 @@
 <template class="ui-date__wrapper">
   <div class="ui-date__view" with.bind="{range}">
-    <div class="ui-date__list">
+    <div class="ui-date__list ${withTime ? 'ui-date--has-time':''}">
       <ul if.bind="!selectStarted">
         <template repeat.for="key of rangeSelectors">
           <li if.bind="key !== '-'" data-key.bind="key" data-active.bind="active === key">${DateRangeLabels[key]}</li>

@@ -28,7 +28,7 @@
   &__list {
     background-color: var(--base-bg);
     display: grid;
-    max-height: 20em;
+    max-height: 17em;
     overflow: auto;
 
     > a {
@@ -72,6 +72,10 @@
         }
       }
     }
+  }
+
+  &--has-time {
+    max-height: 20em;
   }
 
   &__calendar {

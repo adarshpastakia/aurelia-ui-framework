@@ -128,6 +128,10 @@ export class UIDateRange {
     if ((element as HTMLElement).dataset.notime) {
       this.withTime = !(element as HTMLElement).dataset.notime;
     }
+
+    if(this.withTime) {
+      element.classList.add("ui-date--has-time");
+    }
   }
 
   protected attached(): void {
