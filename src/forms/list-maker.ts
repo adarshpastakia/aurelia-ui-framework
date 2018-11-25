@@ -328,7 +328,7 @@ export class ListMaker extends BaseInput {
         this.hilightIndex =
           this.hilightIndex === -1 && this.model
             ? this.innerOptions.indexOf(this.model)
-            : this.hilightIndex >= this.innerOptions.length
+            : this.hilightIndex >= this.innerOptions.length || this.hilightIndex < -1
             ? -1
             : this.hilightIndex;
         while (
