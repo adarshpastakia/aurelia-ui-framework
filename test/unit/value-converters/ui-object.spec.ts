@@ -20,6 +20,9 @@ describe("valueConverter/ui-object", () => {
         <div repeat.for="i of '1,2,3' | split" class="split">split</div>
         <div repeat.for="i of '1|2|3' | split:'|'" class="splitPipe">split</div>
 
+        <div repeat.for="i of [1,2,3,4,5] | slice" class="slice">slice</div>
+        <div repeat.for="i of [1,2,3,4,5] | slice:2" class="slice">slice</div>
+
         <div repeat.for="[i,key] of {} | objectMap" class="objectBlank">object</div>
         <div repeat.for="[i,key] of {a:1,b:2,c:3} | objectMap" class="objectMap">object</div>
 
@@ -66,6 +69,13 @@ describe("valueConverter/ui-object", () => {
   it("should repeat using split |", done => {
     component.waitForElements(".splitPipe").then(el => {
       expect(el).toHaveLength(3);
+      done();
+    });
+  });
+
+  it("should repeat using slice", done => {
+    component.waitForElements(".slice").then(el => {
+      expect(el).toHaveLength(7);
       done();
     });
   });
