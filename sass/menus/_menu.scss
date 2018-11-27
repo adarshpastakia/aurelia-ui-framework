@@ -176,7 +176,6 @@
     &__wrapper {
       align-items: flex-end;
       flex-flow: row nowrap;
-      line-height: 1;
       overflow: hidden;
       @extend %ui-flex;
 
@@ -185,8 +184,16 @@
         @extend %vr;
       }
 
-      #{$base}__item__link[data-active="true"] {
-        box-shadow: 0 -2px 0 0 var(--menu-item-active-color) inset;
+      #{$base}__item {
+        &__link[data-active="true"] {
+          box-shadow: 0 -2px 0 0 var(--menu-item-active-color) inset;
+        }
+        &__label {
+          padding: 0.25rem;
+        }
+        &__caret--split {
+          padding: 0.25rem 0.5rem;
+        }
       }
 
       #{$base}__group {
