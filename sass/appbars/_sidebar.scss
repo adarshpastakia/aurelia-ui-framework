@@ -135,7 +135,7 @@
 
       &[data-align="end"] {
         #{$base}__title {
-          left: 0;
+          left: 2em;
         }
         #{$base}__body {
           left: calc(2rem - 2px);

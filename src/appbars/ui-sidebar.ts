@@ -62,6 +62,12 @@ export class UISidebar {
     );
   }
 
+  protected bind(): void {
+    if (this.element.hasAttribute("toggle-collapse")) {
+      this.toggleCollapse = true;
+    }
+  }
+
   protected detached(): void {
     if (this.obClick) {
       this.obClick.dispose();
