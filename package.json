@@ -127,5 +127,6 @@
     "modules": "webpack --display-modules",
     "analyze": "webpack --env.analyze --env.production"
   },
+  "typings": "typings/aurelia-ui-framework.d.ts",
   "main": "dist/aurelia-ui-framework.js"
 }
