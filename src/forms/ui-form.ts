@@ -5,7 +5,7 @@
  * @license   : MIT
  */
 
-import { autoinject, bindable, containerless, customElement, inlineView } from "aurelia-framework";
+import { autoinject, bindable, customElement, inlineView } from "aurelia-framework";
 import { UIInternal } from "../utils/ui-internal";
 
 @autoinject()
@@ -15,8 +15,6 @@ import { UIInternal } from "../utils/ui-internal";
 export class UIForm {
   @bindable()
   public disabled: boolean = false;
-
-  protected fields: Element[] = [];
 
   private vmElement;
 
@@ -30,15 +28,17 @@ export class UIForm {
       if (el !== null) {
         el.focus();
       }
-      this.fields = this.vmElement.querySelectorAll(
-        "ui-input,ui-textarea,ui-button,ui-checkbox,ui-radio,ui-toggle"
-      );
       this.disabledChanged();
     });
   }
 
   protected disabledChanged(): void {
-    this.fields.forEach(el => el.au.controller.viewModel.disable(!!this.disabled));
+    if (this.vmElement) {
+      const fields = this.vmElement.querySelectorAll(
+        "ui-input,ui-textarea,ui-button,ui-checkbox,ui-radio,ui-toggle,ui-select,ui-list,ui-date,ui-date-input,ui-date-range"
+      );
+      fields.forEach(el => el.au.controller.viewModel.disable(!!this.disabled));
+    }
   }
 
   protected fireSubmit(): void {
