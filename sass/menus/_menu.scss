@@ -248,7 +248,10 @@
       }
     }
     &.ui-theme--dark {
-      background-color: var(--color-gray-dark);
+      &, .ui-drop__Body {
+        background-color: var(--color-gray-dark);
+        color: var(--color--white);
+      }
 
       > #{$base}__group > div > #{$base}__item,
       > #{$base}__item {

@@ -26,7 +26,7 @@
 
   &[data-open="true"],
   &:active {
-    box-shadow: 0 0 4px 0 var(--btn-active) inset;
+    box-shadow: 0 0 1px 0 var(--btn-active) inset;
   }
 
   &[data-active="true"] {
@@ -100,6 +100,10 @@
       #{$base}:active {
         background-color: var(--btn-active);
       }
+
+      #{$base}__divider {
+        background-color: rgba(255, 255, 255, 0.5);
+      }
     }
 
     &[data-type="outline"] #{$base}__inner {
@@ -115,7 +119,7 @@
       }
       #{$base}[data-open="true"],
       #{$base}:active {
-        box-shadow: 0 0 4px 0 var(--btn-active) inset;
+        box-shadow: 0 0 1px 0 var(--btn-active) inset;
         color: var(--btn-active);
       }
     }
@@ -246,7 +250,8 @@
       }
 
       &:active {
-        box-shadow: 0 0 4px 0 var(--color-gray) inset;
+        box-shadow: 0 0 1px 0 var(--color-gray) inset;
+        color: $white;
       }
     }
   }
