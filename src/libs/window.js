@@ -116,6 +116,8 @@ convertToPx = function(size, context) {
     baseSize = getComputedStyle(context || document.documentElement).fontSize;
   if ((size + "").indexOf("rem") > -1)
     baseSize = getComputedStyle(document.documentElement).fontSize;
+  if ((size + "").indexOf("vw") > -1 || (size + "").indexOf("%") > -1)
+    baseSize = window.innerWidth / 100;
   return parseFloat(size) * parseFloat(baseSize);
 };
 

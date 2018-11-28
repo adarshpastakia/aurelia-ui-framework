@@ -26,6 +26,8 @@ export class UISidebar {
   public width: string = "24rem";
   @bindable()
   public maxWidth: string = "40vw";
+  @bindable()
+  public minWidth: string = "4rem";
 
   @bindable()
   public titleBg: string;
@@ -41,12 +43,17 @@ export class UISidebar {
   public collapsed: boolean = false;
 
   protected peek: boolean = false;
+  protected resizable: boolean = false;
   protected collapsible: boolean = false;
   protected closeOnClick: boolean = false;
 
   private obClick;
+  private bodyEl;
+  private startX: number = 0;
+  private isResizing: boolean = false;
 
   constructor(protected element: Element) {
+    this.resizable = element.hasAttribute("resizable");
     this.collapsible = element.hasAttribute("collapsible");
     this.closeOnClick =
       element.hasAttribute("close-on-click") && !isFalse(element.getAttribute("close-on-click"));
@@ -78,4 +85,41 @@ export class UISidebar {
   get toggleIcon() {
     return `${this.collapsed ? "expand" : "collapse"}-${this.align}`;
   }
+
+  protected startResize($event: MouseEvent): void {
+    if (!this.isResizing) {
+      this.startX = $event.x || $event.clientX;
+      this.isResizing = true;
+
+      document.addEventListener("mousemove", this.doResize);
+      document.addEventListener("mouseup", this.endResize);
+      $event.stopEvent();
+    }
+  }
+
+  protected resize($event: MouseEvent): void {
+    if (this.isResizing) {
+      let diff = ($event.x || $event.clientX) - this.startX;
+      if (this.align === "end") {
+        diff = -1 * diff;
+      }
+      if (isRtl(this.element)) {
+        diff = -1 * diff;
+      }
+      const newWidth = this.bodyEl.offsetWidth + diff;
+      if (newWidth <= convertToPx(this.maxWidth) && newWidth >= convertToPx(this.minWidth)) {
+        this.width = newWidth + "px";
+        this.startX = $event.x || $event.clientX;
+      }
+      $event.stopEvent();
+    }
+  }
+
+  protected stopResize(): void {
+    this.isResizing = false;
+    document.removeEventListener("mousemove", this.doResize);
+    document.removeEventListener("mouseup", this.endResize);
+  }
+  private doResize = e => this.resize(e);
+  private endResize = () => this.stopResize();
 }
