@@ -25,6 +25,15 @@
       border-top: 1px solid var(--input-border);
     }
   }
+  &.ui-phone {
+    grid-template-areas: "addon-start error flag input counter clear addon-end drop-handle";
+    grid-template-columns: auto auto auto 1fr auto auto auto auto;
+
+    > .ui-flag {
+      align-self: center;
+      grid-area: flag;
+    }
+  }
 
   $base: #{&};
 

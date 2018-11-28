@@ -74,6 +74,7 @@ export class UIFrameworkConfig {
       this.loadFromModule(PLATFORM.moduleName("./forms/ui-checkbox"));
       this.loadFromModule(PLATFORM.moduleName("./forms/ui-radio"));
       this.loadFromModule(PLATFORM.moduleName("./forms/ui-toggle"));
+      this.loadFromModule(PLATFORM.moduleName("./forms/ui-phone"));
       this.loadFromModule(PLATFORM.moduleName("./forms/ui-date"));
       this.loadFromModule(PLATFORM.moduleName("./forms/ui-date-input"));
       this.loadFromModule(PLATFORM.moduleName("./forms/ui-date-range"));

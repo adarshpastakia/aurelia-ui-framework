@@ -70,6 +70,7 @@ html {
     --dlg-header-inactive-color: #{map-get($gray, dark)};
 
     --input-bg: #{$white};
+    --input-placeholder: #{map-get($gray, light)};
     --input-border: #{map-get($gray, tint)};
     --input-focus-border: #{map-get($primary, light)};
     --input-invalid-border: #{map-get($danger, light)};
@@ -115,6 +116,7 @@ html {
     --dlg-header-inactive-color: #{map-get($gray, light)};
 
     --input-bg: #{$black};
+    --input-placeholder: #{map-get($gray, dark)};
     --input-border: #{map-get($gray, dark)};
     --input-focus-border: #{map-get($primary, dark)};
     --input-invalid-border: #{map-get($danger, dark)};
@@ -191,27 +193,27 @@ hr {
 }
 
 ::-webkit-input-placeholder {
-  color: var(--color-gray);
+  color: var(--input-placeholder);
 }
 
 ::-moz-placeholder {
-  color: var(--color-gray);
+  color: var(--input-placeholder);
 }
 
 ::-ms-input-placeholder {
-  color: var(--color-gray);
+  color: var(--input-placeholder);
 }
 
 :-ms-input-placeholder {
-  color: var(--color-gray);
+  color: var(--input-placeholder);
 }
 
 ::-o-placeholder {
-  color: var(--color-gray);
+  color: var(--input-placeholder);
 }
 
 ::placeholder {
-  color: var(--color-gray);
+  color: var(--input-placeholder);
 }
 
 input::-ms-clear,
