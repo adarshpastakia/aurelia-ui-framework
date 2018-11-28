@@ -11,7 +11,7 @@ import { autoinject, containerless, inlineView, processContent } from "aurelia-f
 @inlineView(`<template>
   <div class="ui-input__error" if.bind="errors && errors.length">
     <ui-svg-icon icon="alert"></ui-svg-icon>
-    <ul><li repeat.for="err of errors">\${err}</li></ul>
+    <ul><li repeat.for="err of errors">\${err.message || err}</li></ul>
   </div>
   <div class="ui-input__counter" if.bind="showCounter && (value.length > 0 || maxlength > 0)">\${counter}</div>
   <div class="ui-input__clear" if.bind="allowClear && value.length > 0" click.trigger="clear()">

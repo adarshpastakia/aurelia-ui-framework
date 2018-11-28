@@ -1,11 +1,11 @@
 <template>
   <ui-container fluid>
-    <ui-form role="te">
+    <ui-form role="te" submit.trigger="validate()">
       <ui-row>
         <ui-field label="Label">
           <ui-field-wrapper>
             <ui-input-addon ui-color="success" ui-weight="bold" width="4em">Valid</ui-input-addon>
-            <ui-input clear counter placeholder="Text..." autofocus>
+            <ui-input clear counter placeholder="Text..." autofocus value.bind="testValidation & validate">
               <ui-input-addon>
                 <ui-icon icon="mdi mdi-account"></ui-icon>
               </ui-input-addon>

@@ -38,7 +38,7 @@ export class BaseInput {
     this.isDisabled = b;
   }
 
-  @computedFrom("isDisabled", "disabled", "readonly", "errors")
+  @computedFrom("isDisabled", "disabled", "readonly", "errors", "errors.length")
   get classes(): string {
     const classes = [];
     if (this.errors && this.errors.length > 0) {

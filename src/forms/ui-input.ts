@@ -14,6 +14,7 @@ import {
   PLATFORM,
   viewResources
 } from "aurelia-framework";
+import { UIInternal } from "../utils/ui-internal";
 import { BaseInput } from "./base-input";
 
 @autoinject()
@@ -50,6 +51,8 @@ export class UIInput extends BaseInput {
   @bindable()
   public disabled: string | boolean = false;
 
+  private ignoreChange: boolean = false;
+
   constructor(element: Element) {
     super(element);
     if (element.hasAttribute("number") || element.hasAttribute("number.bind")) {
@@ -59,6 +62,22 @@ export class UIInput extends BaseInput {
 
   protected attached(): void {
     this.maxlengthChanged();
+  }
+
+  protected valueChanged(): void {
+    if (!this.ignoreChange && this.type === "number") {
+      this.ignoreChange = true;
+      this.number = parseFloat(this.value);
+      UIInternal.queueTask(() => (this.ignoreChange = false));
+    }
+  }
+
+  protected numberChanged(): void {
+    if (!this.ignoreChange && this.type === "number") {
+      this.ignoreChange = true;
+      this.value = this.number.toString();
+      UIInternal.queueTask(() => (this.ignoreChange = false));
+    }
   }
 
   @computedFrom("value", "maxlength")

@@ -11,7 +11,7 @@ import { UIInternal } from "../utils/ui-internal";
 @autoinject()
 @customElement("ui-form")
 @inlineView(`<template><form ref="vmElement" role="form" aria-disabled.bind="disabled" class="ui-form"
-   enterpressed.delegate="fireSubmit($event)"><slot></slot></form></template>`)
+   enterpressed.delegate="fireSubmit($event)" validation-renderer="ui-validator"><slot></slot></form></template>`)
 export class UIForm {
   @bindable()
   public disabled: boolean = false;
@@ -35,7 +35,7 @@ export class UIForm {
   protected disabledChanged(): void {
     if (this.vmElement) {
       const fields = this.vmElement.querySelectorAll(
-        "ui-input,ui-textarea,ui-button,ui-checkbox,ui-radio,ui-toggle,ui-select,ui-list,ui-date,ui-date-input,ui-date-range"
+        "ui-input,ui-textarea,ui-button,ui-checkbox,ui-radio,ui-toggle,ui-select,ui-list,ui-date-input"
       );
       fields.forEach(el => el.au.controller.viewModel.disable(!!this.disabled));
     }

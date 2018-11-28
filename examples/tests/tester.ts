@@ -10,9 +10,11 @@ import {
   Countries,
   Currencies,
   FileTypes,
+  getValidationController,
   UIAlertService,
   UIDialogService
 } from "aurelia-ui-framework";
+import { ValidationController, ValidationRules } from "aurelia-validation";
 import { getDate } from "date-fns";
 import { DlgTest } from "./dlg-test";
 import Icons from "./icons.json";
@@ -171,6 +173,9 @@ export class Tester {
     ]
   ]);
 
+  protected testValidation = "";
+  protected validationController: ValidationController;
+
   constructor(protected toastService: UIAlertService, private dialogService: UIDialogService) {
     this.countryTree.push({
       children: [],
@@ -191,6 +196,11 @@ export class Tester {
         label: k
       });
     });
+
+    this.validationController = getValidationController();
+    ValidationRules.ensure("testValidation")
+      .required()
+      .on(this);
   }
 
   protected activate(param) {
@@ -199,6 +209,10 @@ export class Tester {
     if (this.elScroller) {
       this.elScroller.scrollTop = 0;
     }
+  }
+
+  protected validate() {
+    this.validationController.validate();
   }
 
   protected phoneInput(_, value) {
