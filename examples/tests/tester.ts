@@ -191,6 +191,7 @@ export class Tester {
           label: c.name,
           leaf: true
         })),
+        expanded: k === "Asia",
         iconClosed: "mdi mdi-folder-outline",
         iconOpen: "mdi mdi-folder-open",
         label: k

@@ -19,25 +19,53 @@ Object.defineProperty(Array.prototype, "last", {
   }
 });
 
+/**
+ * @param matcher: value or matcher function
+ * @param prop: property to use for getting indexOf
+ */
 Object.defineProperty(Array.prototype, "index", {
   writable: true,
-  value: function(matcher) {
-    let index = -1;
-    [...this].reverse().forEach((o,i) => {
-      if(matcher(o)) index = i;
-    });
-    return this.length - index - 1;;
+  value: function(matcher, prop) {
+    if (prop) {
+      const flatMap = this.map(o => o[prop]);
+      return flatMap.indexOf(matcher);
+    } else if (isFunction(matcher)) {
+      let index = -1;
+      for (let i = 0; i < this.length; i--) {
+        if (matcher(this[i])) {
+          index = i;
+          break;
+        }
+      }
+      return index;
+    } else {
+      return this.indexOf(matcher);
+    }
   }
 });
 
+/**
+ * @param matcher: value or matcher function
+ * @param prop: property to use for getting lastIndexOf
+ */
 Object.defineProperty(Array.prototype, "lastIndex", {
   writable: true,
-  value: function(matcher) {
-    let index = -1;
-    this.forEach((o,i) => {
-      if(matcher(o)) index = i;
-    });
-    return index;
+  value: function(matcher, prop) {
+    if (prop) {
+      const flatMap = this.map(o => o[prop]);
+      return flatMap.lastIndexOf(matcher);
+    } else if (isFunction(matcher)) {
+      let index = -1;
+      for (let i = this.length - 1; i >= 0; i--) {
+        if (matcher(this[i])) {
+          index = i;
+          break;
+        }
+      }
+      return index;
+    } else {
+      return this.lastIndexOf(matcher);
+    }
   }
 });
 
@@ -80,13 +108,19 @@ Object.defineProperty(Array.prototype, "sortBy", {
     let sorter = (a, b) => ((a < b && isAscending) || (a > b && !isAscending) ? -1 : 1);
     if (typeof property === "string") {
       sorter = (a, b) =>
-        a[property].toString().localeCompare(b[property].toString()) * (isAscending ? 1 : -1) === -1 ? -1 : 1;
+        (a[property] || "").toString().localeCompare((b[property] || "").toString()) *
+          (isAscending ? 1 : -1) ===
+        -1
+          ? -1
+          : 1;
     } else if (isArray(property)) {
       sorter = (a, b) => {
         for (const p of property) {
           if (a[p] !== undefined && b[p] !== undefined) {
             if (a[p].toString().localeCompare(b[p].toString()) !== 0) {
-              return a[p].toString().localeCompare(b[p].toString()) * (isAscending ? 1 : -1) === -1 ? -1 : 1;
+              return a[p].toString().localeCompare(b[p].toString()) * (isAscending ? 1 : -1) === -1
+                ? -1
+                : 1;
             }
           }
         }

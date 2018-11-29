@@ -9,7 +9,92 @@ import { computedFrom } from "aurelia-framework";
 let NODE_ID = 0;
 
 export class UITreeModel {
+  public children: UITreeNode[] = [];
+  public nodes: UITreeNode[] = [];
 
+  constructor(children: KeyValue[], private maxNodes = 0) {
+    this.children = children.map(child => new UITreeNode(child));
+    this.nodes = this.getExpandedTree(this.children.sortBy("label"));
+  }
+
+  public toggleExpand(index: number): void {
+    const node = this.nodes[index] as UITreeNode;
+    node.expanded = !node.expanded;
+
+    if (node.expanded) {
+      let injectedChildren = node.children.sortBy("label");
+      if (injectedChildren.length === 0) {
+        injectedChildren.push(new UITreeNode({ id: "node-empty", leaf: true }, node));
+      }
+      if (this.maxNodes > 0 && injectedChildren.length > this.maxNodes) {
+        injectedChildren = [
+          ...injectedChildren.slice(0, this.maxNodes),
+          new UITreeNode({ id: "node-more", leaf: true }, node)
+        ];
+      }
+      this.nodes = [
+        ...this.nodes.slice(0, index + 1),
+        ...injectedChildren,
+        ...this.nodes.slice(index + 1)
+      ];
+    } else {
+      const lastIndex = this.nodes.lastIndex(node.id, "parentId");
+      this.nodes = [...this.nodes.slice(0, index + 1), ...this.nodes.slice(lastIndex + 1)];
+    }
+  }
+
+  public toggleMore(index: number): void {
+    const node = this.nodes[index] as UITreeNode;
+    node.showingMore = !node.showingMore;
+
+    const parentIndex = this.nodes.index(node.parentId, "id");
+    let injectedChildren = this.nodes[parentIndex].children.sortBy("label");
+    if (!node.showingMore) {
+      if (injectedChildren.length === 0) {
+        injectedChildren.push(new UITreeNode({ id: "node-empty", leaf: true }, node));
+      }
+      if (this.maxNodes > 0 && injectedChildren.length > this.maxNodes) {
+        injectedChildren = [...injectedChildren.slice(0, this.maxNodes)];
+      }
+      this.nodes = [
+        ...this.nodes.slice(0, parentIndex + 1),
+        ...injectedChildren,
+        this.nodes[index],
+        ...this.nodes.slice(index + 1)
+      ];
+    } else {
+      this.nodes = [
+        ...this.nodes.slice(0, parentIndex + 1),
+        ...injectedChildren,
+        this.nodes[index],
+        ...this.nodes.slice(index + 1)
+      ];
+    }
+  }
+
+  private getExpandedTree(children) {
+    const nodes = [];
+    children.forEach(child => {
+      nodes.push(child);
+      if (child.expanded) {
+        let injectedChildren = child.children.sortBy("label");
+        if (injectedChildren.length === 0) {
+          injectedChildren.push(new UITreeNode({ id: "node-empty", leaf: true }, child));
+        }
+        if (this.maxNodes > 0 && injectedChildren.length > this.maxNodes) {
+          injectedChildren = [
+            ...injectedChildren.slice(0, this.maxNodes),
+            new UITreeNode({ id: "node-more", leaf: true }, child)
+          ];
+        }
+        nodes.push(...injectedChildren);
+      }
+    });
+    return nodes;
+  }
+}
+
+class UITreeNode {
   @computedFrom("leaf", "icon", "expanded", "iconOpen", "iconClosed")
   get nodeIcon() {
     return (this.leaf ? this.icon : this.expanded ? this.iconOpen : this.iconClosed) || this.icon;
@@ -32,37 +117,48 @@ export class UITreeModel {
   public id: string;
   public icon: string;
   public label: string;
+  public model: KeyValue;
 
   public iconOpen: string;
   public iconClosed: string;
 
-  public children: UITreeModel[] = [];
+  public children: UITreeNode[] = [];
 
   public leaf: boolean;
+  public parentId: string;
+  public level: number = 0;
   public checked: number = 0;
   public expanded: boolean;
   public selected: boolean;
   public disabled: boolean;
+  public showingMore: boolean;
 
-  constructor(model: AnyObject, private parent?: UITreeModel) {
-    this.id = model.id || `node__${NODE_ID++}`;
-    this.label = model.label;
+  constructor(node: KeyValue, private parent?: UITreeNode) {
+    this.id = node.id || `node__${NODE_ID++}`;
+    this.label = node.label;
+    this.model = node.model;
 
-    this.icon = model.icon;
-    this.iconOpen = model.iconOpen;
-    this.iconClosed = model.iconClosed;
+    this.icon = node.icon;
+    this.iconOpen = node.iconOpen;
+    this.iconClosed = node.iconClosed;
 
-    this.leaf = model.leaf;
-    this.disabled = model.disabled;
+    this.leaf = node.leaf;
+    this.expanded = node.expanded;
+    this.disabled = node.disabled;
 
-    if (model.children) {
-      this.children = model.children.map(child => new UITreeModel(child, this));
+    if (parent) {
+      this.level = parent.level + 1;
+      this.parentId = parent.id;
+    }
+
+    if (node.children) {
+      this.children = node.children.map(child => new UITreeNode(child, this));
     }
   }
 
   protected toggleCheck() {
     this.checked = this.checked ? 0 : 1;
-    this.children.forEach((c: UITreeModel) => {
+    this.children.forEach((c: UITreeNode) => {
       c.updateChild("checked", this.checked);
     });
     if (this.parent && this.parent.updatePartial) {
@@ -82,7 +178,7 @@ export class UITreeModel {
 
   private updateChild(prop, v) {
     this[prop] = v;
-    this.children.forEach((c: UITreeModel) => {
+    this.children.forEach((c: UITreeNode) => {
       c.updateChild(prop, v);
     });
   }

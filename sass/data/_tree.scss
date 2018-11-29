@@ -18,7 +18,7 @@
     @extend .ui-scroll;
   }
 
-  &__row {
+  &__node {
     align-items: center;
     display: grid;
     grid-auto-flow: column;
@@ -28,6 +28,10 @@
 
   &__content {
     @include property-prefix(padding-start, 1rem);
+  }
+
+  &__spacer {
+    padding: 0 0.5rem;
   }
 
   &__expander {

@@ -12,7 +12,8 @@ import { UITreePanel } from "./ui-tree-panel";
 export class TreeNode {
   @bindable()
   public node: UITreeModel;
-
+  @bindable()
+  public index: number;
   @bindable()
   protected tree: UITreePanel;
 }
