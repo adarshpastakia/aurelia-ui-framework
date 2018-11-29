@@ -531,6 +531,15 @@ ajv-keywords@^3.1.0:
   resolved "https://registry.yarnpkg.com/ajv-keywords/-/ajv-keywords-3.2.0.tgz#e86b819c602cf8821ad637413698f1dec021847a"
   integrity sha1-6GuBnGAs+IIa1jdBNpjx3sAhhHo=
 
+ajv@6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.1.0.tgz#adc4b3dd64b2d8740d13c5b38e4596115970e59d"
+  integrity sha1-rcSz3WSy2HQNE8WzjkWWEVlw5Z0=
+  dependencies:
+    fast-deep-equal "^1.0.0"
+    fast-json-stable-stringify "^2.0.0"
+    json-schema-traverse "^0.3.0"
+
 ajv@^5.0.0:
   version "5.5.2"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-5.5.2.tgz#73b5eeca3fab653e3d3f9422b341ad42205dc965"

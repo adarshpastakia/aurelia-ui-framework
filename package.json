@@ -24,6 +24,7 @@
     "@types/lodash": "^4.14.117",
     "@types/node": "^10.11.6",
     "@types/webpack": "^4.4.15",
+    "ajv": "6.1.0",
     "aurelia-animator-css": "^1.0.4",
     "aurelia-cli": "^1.0.0-beta.2",
     "aurelia-loader-nodejs": "^1.0.1",
