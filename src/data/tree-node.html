@@ -1,17 +1,17 @@
-<template class="ui-tree__node">
+<template class="ui-tree__node ${isSelected ? 'ui-tree--selected':''}">
   <div class="ui-tree__spacer" repeat.for="i of node.level"></div>
   <template if.bind="node.id !== 'node-more' && node.id !== 'node-empty'">
     <div class="ui-tree__expander" click.trigger="tree.toggleExpand(index)" if.bind="!node.leaf">
       <ui-svg-icon icon.bind="node.expandIcon"></ui-svg-icon>
     </div>
-    <div class="ui-tree__checkbox" click.trigger="node.toggleCheck()">
+    <div class="ui-tree__checkbox" click.trigger="tree.toggleCheck(node)" if.bind="tree.checkable !== false && node.level >= tree.checkable">
       <ui-svg-icon icon.bind="node.checkIcon"></ui-svg-icon>
     </div>
     <div class="ui-tree__icon">
       <ui-svg-icon if.bind="node.loading" icon="busy" class="ui-anim--spin"></ui-svg-icon>
       <ui-icon else class.bind="node.nodeIcon"></ui-icon>
     </div>
-    <div class="ui-tree__label">${node.label}</div>
+    <div class="ui-tree__label" click.trigger="tree.select(node)">${node.label}</div>
   </template>
   <template if.bind="node.id === 'node-more'">
     <a

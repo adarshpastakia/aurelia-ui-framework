@@ -38,7 +38,10 @@ export class UITreeModel {
         ...this.nodes.slice(index + 1)
       ];
     } else {
-      const lastIndex = this.nodes.lastIndex(node.id, "parentId");
+      let lastIndex = this.nodes.lastIndex(node.id, "parentId");
+      while (this.nodes[lastIndex].expanded) {
+        lastIndex = this.nodes.lastIndex(this.nodes[lastIndex].id, "parentId");
+      }
       this.nodes = [...this.nodes.slice(0, index + 1), ...this.nodes.slice(lastIndex + 1)];
     }
   }
@@ -72,6 +75,23 @@ export class UITreeModel {
     }
   }
 
+  public getChecked(): UITreeNode[] {
+    const checked = [];
+    this.getCheckedNodes(this.children, checked);
+    return checked;
+  }
+
+  private getCheckedNodes(nodes, checked) {
+    nodes.forEach(node => {
+      if (node.checked === 1) {
+        checked.push(node);
+      }
+      if (node.children) {
+        this.getCheckedNodes(node.children, checked);
+      }
+    });
+  }
+
   private getExpandedTree(children) {
     const nodes = [];
     children.forEach(child => {
@@ -94,7 +114,7 @@ export class UITreeModel {
   }
 }
 
-class UITreeNode {
+export class UITreeNode {
   @computedFrom("leaf", "icon", "expanded", "iconOpen", "iconClosed")
   get nodeIcon() {
     return (this.leaf ? this.icon : this.expanded ? this.iconOpen : this.iconClosed) || this.icon;
@@ -156,7 +176,7 @@ class UITreeNode {
     }
   }
 
-  protected toggleCheck() {
+  public toggleCheck() {
     this.checked = this.checked ? 0 : 1;
     this.children.forEach((c: UITreeNode) => {
       c.updateChild("checked", this.checked);

@@ -77,4 +77,10 @@
     font-weight: $font-weight-medium;
     padding: 0.25rem;
   }
+
+  &--selected &__label {
+    background-color: var(--color-secondary);
+    color: var(--color-white);
+    pointer-events: none;
+  }
 }

@@ -4,16 +4,21 @@
  * @copyright : 2018
  * @license   : MIT
  */
-import { autoinject, bindable } from "aurelia-framework";
-import { UITreeModel } from "../model/ui-tree-model";
+import { autoinject, bindable, computedFrom } from "aurelia-framework";
+import { UITreeNode } from "../model/ui-tree-model";
 import { UITreePanel } from "./ui-tree-panel";
 
 @autoinject()
 export class TreeNode {
   @bindable()
-  public node: UITreeModel;
+  public node: UITreeNode;
   @bindable()
   public index: number;
   @bindable()
   protected tree: UITreePanel;
+
+  @computedFrom("tree.value", "node.id")
+  get isSelected(): boolean {
+    return this.tree.value === this.node.id;
+  }
 }
