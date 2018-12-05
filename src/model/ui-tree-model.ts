@@ -107,7 +107,7 @@ export class UITreeModel {
             new UITreeNode({ id: "node-more", leaf: true }, child)
           ];
         }
-        nodes.push(...injectedChildren);
+        nodes.push(...this.getExpandedTree(injectedChildren));
       }
     });
     return nodes;

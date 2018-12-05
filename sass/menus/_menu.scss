@@ -248,9 +248,9 @@
       }
     }
     &.ui-theme--dark {
-      &, .ui-drop__Body {
+      &, .ui-drop__body {
         background-color: var(--color-gray-dark);
-        color: var(--color--white);
+        color: var(--color-white);
       }
 
       > #{$base}__group > div > #{$base}__item,
