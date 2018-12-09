@@ -58,14 +58,16 @@ export class UITreePanel {
   }
 
   public select(node: UITreeNode) {
-    if (this.checkable !== false && node.level >= this.checkable) {
-      node.toggleCheck();
-      this.getCheckedValues();
-      this.element.dispatchEvent(UIInternal.createEvent("checked", this.value));
+    if (this.checkable !== false) {
+      if (node.level >= this.checkable) {
+        node.toggleCheck();
+        this.getCheckedValues();
+        this.element.dispatchEvent(UIInternal.createEvent("checked", this.value));
+      }
     } else {
-      this.value = node.id;
-      this.model = node.model;
-      this.element.dispatchEvent(UIInternal.createEvent("select", this.value));
+      return UIInternal.fireCallbackEvent(this, "beforeselect").then(b =>
+        b ? this.changeSelection(node) : false
+      );
     }
   }
 
@@ -100,5 +102,11 @@ export class UITreePanel {
         this.model.push(checkedNode.model);
       }
     });
+  }
+
+  private changeSelection(node) {
+    this.value = node.id;
+    this.model = node.model;
+    this.element.dispatchEvent(UIInternal.createEvent("select", this.value));
   }
 }

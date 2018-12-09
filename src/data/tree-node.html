@@ -25,18 +25,4 @@
   <template if.bind="node.id === 'node-empty'">
     <div class="ui-tree__no-children" ui-color="gray" t="AUF.tree.empty">${tree.labelEmpty}</div>
   </template>
-  <!--
-    <div class="ui-tree__content" if.bind="!node.leaf && node.expanded" with.bind="{showMore: false}">
-      <tree-node
-        repeat.for="child of node.children | sort:'label' | slice:showMore?0:tree.maxNodes"
-        node.bind="child"
-        tree.bind="tree"
-      ></tree-node>
-      <a class="ui-tree__show-more" if.bind="tree.maxNodes && node.children > tree.maxNodes" click.trigger="showMore = !showMore">
-        <span if.bind="showMore" t="AUF.tree.less">${tree.labelLess}</span>
-        <span else t="AUF.tree.more">${tree.labelMore}</span>
-      </a>
-      <div class="ui-tree__no-children" ui-color="gray" if.bind="!node.loading && node.children.length === 0" t="AUF.tree.empty">${tree.labelEmpty}</div>
-    </div>
-  -->
 </template>
