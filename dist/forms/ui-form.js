@@ -19,7 +19,6 @@ var UIForm = /** @class */ (function () {
     function UIForm(element) {
         this.element = element;
         this.disabled = false;
-        this.fields = [];
     }
     UIForm.prototype.attached = function () {
         var _this = this;
@@ -28,13 +27,15 @@ var UIForm = /** @class */ (function () {
             if (el !== null) {
                 el.focus();
             }
-            _this.fields = _this.vmElement.querySelectorAll("ui-input,ui-textarea,ui-button,ui-checkbox,ui-radio,ui-toggle");
             _this.disabledChanged();
         });
     };
     UIForm.prototype.disabledChanged = function () {
         var _this = this;
-        this.fields.forEach(function (el) { return el.au.controller.viewModel.disable(!!_this.disabled); });
+        if (this.vmElement) {
+            var fields = this.vmElement.querySelectorAll("ui-input,ui-textarea,ui-button,ui-checkbox,ui-radio,ui-toggle,ui-select,ui-list,ui-date-input");
+            fields.forEach(function (el) { return el.au.controller.viewModel.disable(!!_this.disabled); });
+        }
     };
     UIForm.prototype.fireSubmit = function () {
         this.element.dispatchEvent(UIInternal.createEvent("submit"));
@@ -46,7 +47,7 @@ var UIForm = /** @class */ (function () {
     UIForm = __decorate([
         autoinject(),
         customElement("ui-form"),
-        inlineView("<template><form ref=\"vmElement\" role=\"form\" aria-disabled.bind=\"disabled\" class=\"ui-form\"\n   enterpressed.delegate=\"fireSubmit($event)\"><slot></slot></form></template>"),
+        inlineView("<template><form ref=\"vmElement\" role=\"form\" aria-disabled.bind=\"disabled\" class=\"ui-form\"\n   enterpressed.delegate=\"fireSubmit($event)\" validation-renderer=\"ui-validator\"><slot></slot></form></template>"),
         __metadata("design:paramtypes", [Element])
     ], UIForm);
     return UIForm;

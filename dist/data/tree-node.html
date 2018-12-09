@@ -1,27 +1,28 @@
-<template class="ui-tree__node">
-  <div class="ui-tree__row">
-    <div class="ui-tree__expander" click.trigger="node.expanded = !node.expanded">
-      <ui-svg-icon if.bind="!node.leaf" icon.bind="node.expandIcon"></ui-svg-icon>
+<template class="ui-tree__node ${isSelected ? 'ui-tree--selected':''}">
+  <div class="ui-tree__spacer" repeat.for="i of node.level"></div>
+  <template if.bind="node.id !== 'node-more' && node.id !== 'node-empty'">
+    <div class="ui-tree__expander" click.trigger="tree.toggleExpand(index)" if.bind="!node.leaf">
+      <ui-svg-icon icon.bind="node.expandIcon"></ui-svg-icon>
     </div>
-    <div class="ui-tree__checkbox" click.trigger="node.toggleCheck()">
+    <div class="ui-tree__checkbox" click.trigger="tree.toggleCheck(node)" if.bind="tree.checkable !== false && node.level >= tree.checkable">
       <ui-svg-icon icon.bind="node.checkIcon"></ui-svg-icon>
     </div>
     <div class="ui-tree__icon">
       <ui-svg-icon if.bind="node.loading" icon="busy" class="ui-anim--spin"></ui-svg-icon>
       <ui-icon else class.bind="node.nodeIcon"></ui-icon>
     </div>
-    <div class="ui-tree__label">${node.label}</div>
-  </div>
-  <div class="ui-tree__content" if.bind="!node.leaf && node.expanded" with.bind="{showMore: false}">
-    <tree-node
-      repeat.for="child of node.children | sort:'label' | slice:showMore?0:tree.maxNodes"
-      node.bind="child"
-      tree.bind="tree"
-    ></tree-node>
-    <a class="ui-tree__show-more" if.bind="tree.maxNodes && node.children > tree.maxNodes" click.trigger="showMore = !showMore">
-      <span if.bind="showMore" t="AUF.tree.less">${tree.labelLess}</span>
+    <div class="ui-tree__label" click.trigger="tree.select(node)">${node.label}</div>
+  </template>
+  <template if.bind="node.id === 'node-more'">
+    <a
+      class="ui-tree__show-more"
+      click.trigger="tree.toggleMore(index)"
+    >
+      <span if.bind="node.showingMore" t="AUF.tree.less">${tree.labelLess}</span>
       <span else t="AUF.tree.more">${tree.labelMore}</span>
     </a>
-    <div class="ui-tree__no-children" ui-color="gray" if.bind="!node.loading && node.children.length === 0" t="AUF.tree.empty">${tree.labelEmpty}</div>
-  </div>
+  </template>
+  <template if.bind="node.id === 'node-empty'">
+    <div class="ui-tree__no-children" ui-color="gray" t="AUF.tree.empty">${tree.labelEmpty}</div>
+  </template>
 </template>

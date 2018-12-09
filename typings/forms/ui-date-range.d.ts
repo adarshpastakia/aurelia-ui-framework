@@ -29,6 +29,7 @@ export declare enum UIDateRangeKeys {
     NEXT_60 = "NEXT_60",
     LAST_90 = "LAST_90",
     NEXT_90 = "NEXT_90",
+    CUSTOM = "CUSTOM",
     DIVIDER = "-"
 }
 declare enum UIDateRangeLabels {
@@ -55,23 +56,30 @@ declare enum UIDateRangeLabels {
     LAST_60 = "Last 60 Days",
     NEXT_60 = "Next 60 Days",
     LAST_90 = "Last 90 Days",
-    NEXT_90 = "Next 90 Days"
+    NEXT_90 = "Next 90 Days",
+    CUSTOM = "Custom Range"
 }
 export declare class UIDateRange {
     protected element: Element;
     start: Date | string;
     end: Date | string;
+    minDate: string;
+    maxDate: string;
     disabled: boolean;
     rangeSelectors: UIDateRangeKeys[];
     protected tempStart: any;
     protected DateRangeLabels: typeof UIDateRangeLabels;
     protected startVm: AnyObject;
     protected endVm: AnyObject;
+    protected active: string;
     protected selectStarted: boolean;
     protected startMonth: Date;
     protected endMonth: Date;
+    protected withTime: boolean;
     constructor(element: Element);
     protected attached(): void;
+    protected minDateChanged(): void;
+    protected maxDateChanged(): void;
     readonly range: {
         start: any;
         end: any;

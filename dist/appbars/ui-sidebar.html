@@ -1,14 +1,16 @@
-<template class="ui-sidebar" click.delegate="peek = true" data-peek.bind="peek" data-collapsed.bind="collapsed"
+<template class="ui-sidebar" click.delegate="toggleCollapse ? collapsed = false : peek = true" data-peek.bind="peek" data-collapsed.bind="collapsed"
   data-align.bind="align">
-  <div class="ui-sidebar__titlebar" ui-bg.bind="titleBg" ui-color.bind="titleColor" ui-weight.bind="titleWeight">
+  <div class="ui-sidebar__titlebar" ui-bg.bind="titleBg" ui-color.bind="titleColor" ui-weight.bind="titleWeight" 
+    click.trigger="[collapsed = collapsible && !collapsed, $event.stopEvent()]" css.bind="{width}">
+    <div class="ui-sidebar__toggler" if.bind="collapsible">
+      <ui-svg-icon icon.bind="toggleIcon"></ui-svg-icon>
+    </div>
     <slot name="sidebar-title">
       <div class="ui-sidebar__title" if.bind="label">${label}</div>
     </slot>
-    <div class="ui-sidebar__toggler" if.bind="collapsible" click.trigger="[collapsed = !collapsed, $event.stopEvent()]">
-      <ui-svg-icon icon.bind="toggleIcon"></ui-svg-icon>
-    </div>
   </div>
-  <div class="ui-sidebar__body" css.bind="{width, maxWidth}">
+  <div class="ui-sidebar__body" css.bind="{width, maxWidth, minWidth}" ref="bodyEl">
     <slot></slot>
   </div>
+  <div class="ui-sidebar__resizer" if.bind="resizable" data-resizing.bind="isResizing" mousedown.trigger="startResize($event)"></div>
 </template>

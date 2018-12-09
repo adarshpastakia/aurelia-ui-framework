@@ -25,7 +25,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { autoinject, bindable, bindingMode, computedFrom, customElement, observable } from "aurelia-framework";
-import { addDays, addHours, addMinutes, addMonths, addWeeks, format, getDay, getHours, getYear, isAfter, isBefore, isSameDay, isSameMonth, isWithinInterval, startOfMonth, startOfWeek, subDays, subMonths, toDate } from "date-fns";
+import { addDays, addHours, addMinutes, addMonths, addWeeks, addYears, format, getDay, getHours, getYear, isAfter, isBefore, isSameDay, isSameMonth, isWithinInterval, startOfMonth, startOfWeek, subDays, subMonths, subYears, toDate } from "date-fns";
 import { UIInternal } from "../utils/ui-internal";
 var FORMAT_NO_TIME = "yyyy-MM-dd'T'00:00:00.000";
 var FORMAT_NO_TIMEZONE = "yyyy-MM-dd'T'HH:mm:ss.000";
@@ -39,7 +39,9 @@ var UIDate = /** @class */ (function () {
         this.currentYear = getYear(new Date());
         this.decadeStart = 0;
         this.currentView = "date";
+        this.withTime = true;
         this.resetDecade();
+        this.withTime = !element.hasAttribute("no-time");
     }
     UIDate.prototype.dateChanged = function (date) {
         if (date) {
@@ -49,6 +51,16 @@ var UIDate = /** @class */ (function () {
                 !isSameMonth(format(this.currentMonth, FORMAT_NO_TIMEZONE), format(this.date, FORMAT_NO_TIMEZONE))) {
                 this.currentMonth = startOfMonth(this.date);
             }
+        }
+    };
+    UIDate.prototype.minDateChanged = function () {
+        if (isBefore(this.date, this.minDate)) {
+            this.date = toDate(this.minDate);
+        }
+    };
+    UIDate.prototype.maxDateChanged = function () {
+        if (isAfter(this.date, this.maxDate)) {
+            this.date = toDate(this.maxDate);
         }
     };
     Object.defineProperty(UIDate.prototype, "hour", {
@@ -155,8 +167,13 @@ var UIDate = /** @class */ (function () {
                 isWithinInterval(dt, __assign({}, this.dateRange, { end: this.hilight }))) {
                 classes.push("ui-date__cell--date--hilight");
             }
-            if (this.dateRange.start && this.dateRange.end && isWithinInterval(dt, this.dateRange)) {
-                classes.push("ui-date__cell--date--hilight");
+            try {
+                if (this.dateRange.start && this.dateRange.end && isWithinInterval(dt, this.dateRange)) {
+                    classes.push("ui-date__cell--date--hilight");
+                }
+            }
+            catch (e) {
+                //
             }
         }
         else if (isSameDay(dt, this.date)) {
@@ -178,6 +195,7 @@ var UIDate = /** @class */ (function () {
             this.resetDecade();
         }
         else if (unit === "year") {
+            this.currentMonth = subYears(this.currentMonth, 1);
             this.currentYear--;
             this.resetDecade();
         }
@@ -191,6 +209,7 @@ var UIDate = /** @class */ (function () {
             this.resetDecade();
         }
         else if (unit === "year") {
+            this.currentMonth = addYears(this.currentMonth, 1);
             this.currentYear++;
             this.resetDecade();
         }

@@ -24,23 +24,25 @@ export declare class ListMaker extends BaseInput {
     protected isLoaded: boolean;
     protected isLoading: boolean;
     protected isGrouped: boolean;
+    protected isFiltered: boolean;
     protected ignoreChange: boolean;
-    protected matcher: ({ model, value }: {
-        model: any;
+    protected hilightIndex: number;
+    protected matcher: ({ option, value }: {
+        option: any;
         value: any;
     }) => boolean;
     protected valueChanged(): void;
-    protected clear(): void;
-    protected filterOptions(): void;
-    protected selectOption(model: AnyObject): void;
-    protected removeValue(model: AnyObject): void;
-    protected listClass(option: any): string;
     protected toggleDrop(open?: boolean): boolean;
     protected loadOptions(): void;
-    private resetQuery;
+    protected filterOptions(): void;
+    protected selectOption(model: any): void;
+    protected removeOption(model: any): void;
+    protected resetQuery(clearFilter?: boolean): void;
+    protected clear(): void;
     private fetchOptions;
     private showLoading;
     private buildOptions;
+    private listClass;
     private markOption;
     private buildOption;
     private checkKeyEvent;

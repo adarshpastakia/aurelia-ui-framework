@@ -20,6 +20,9 @@ var UIIcon = /** @class */ (function () {
         this.element = element;
         this.icon = "";
         this.size = "nm";
+        if (element.hasAttribute("flip-on-rtl")) {
+            element.classList.add("flip-on-rtl");
+        }
     }
     __decorate([
         bindable(),

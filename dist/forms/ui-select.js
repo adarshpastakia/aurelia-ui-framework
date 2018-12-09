@@ -26,7 +26,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * @copyright : 2018
  * @license   : MIT
  */
-import { autoinject, bindable, bindingMode, customElement, PLATFORM, viewResources } from "aurelia-framework";
+import { autoinject, bindable, bindingMode, customElement, inlineView, PLATFORM, viewResources } from "aurelia-framework";
 import { ListMaker } from "./list-maker";
 var UISelect = /** @class */ (function (_super) {
     __extends(UISelect, _super);
@@ -124,7 +124,8 @@ var UISelect = /** @class */ (function (_super) {
     UISelect = __decorate([
         autoinject(),
         customElement("ui-select"),
-        viewResources(PLATFORM.moduleName("./input-wrapper")),
+        viewResources(PLATFORM.moduleName("./input-wrapper"), PLATFORM.moduleName("./list-input"), PLATFORM.moduleName("./list-container")),
+        inlineView("<template class=\"ui-input ${classes}\" aria-disabled.bind=\"disabled || isDisabled\" aria-readonly.bind=\"readonly\">\n<input-wrapper>\n  <slot></slot>\n  <list-input></list-input>\n</input-wrapper>\n<ui-drop view-model.ref=\"dropEl\" class=\"ui-list\" close.trigger=\"resetQuery()\">\n  <div ref=\"listContainer\" class=\"ui-list__container\">\n    <list-container></list-container>\n  </div>\n</ui-drop>\n</template>"),
         __metadata("design:paramtypes", [Element])
     ], UISelect);
     return UISelect;

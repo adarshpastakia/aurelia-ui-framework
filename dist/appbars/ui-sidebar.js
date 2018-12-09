@@ -22,12 +22,35 @@ var UISidebar = /** @class */ (function () {
         this.align = "start";
         this.width = "24rem";
         this.maxWidth = "40vw";
+        this.minWidth = "4rem";
+        this.toggleCollapse = false;
         this.collapsed = false;
         this.peek = false;
+        this.resizable = false;
         this.collapsible = false;
+        this.closeOnClick = false;
+        this.startX = 0;
+        this.isResizing = false;
+        this.doResize = function (e) { return _this.resize(e); };
+        this.endResize = function () { return _this.stopResize(); };
+        this.resizable = element.hasAttribute("resizable");
         this.collapsible = element.hasAttribute("collapsible");
-        this.obClick = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_CLICK, function () { return (_this.peek = false); });
+        this.closeOnClick =
+            element.hasAttribute("close-on-click") && !isFalse(element.getAttribute("close-on-click"));
+        if (element.hasAttribute("toggle-bottom")) {
+            element.classList.add("ui-sidebar--bottom");
+        }
+        this.obClick = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_CLICK, function (target) {
+            return !_this.closeOnClick && getParentByClass(target, "ui-sidebar__body")
+                ? undefined
+                : (_this.peek = false);
+        });
     }
+    UISidebar.prototype.bind = function () {
+        if (this.element.hasAttribute("toggle-collapse")) {
+            this.toggleCollapse = true;
+        }
+    };
     UISidebar.prototype.detached = function () {
         if (this.obClick) {
             this.obClick.dispose();
@@ -40,6 +63,37 @@ var UISidebar = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    UISidebar.prototype.startResize = function ($event) {
+        if (!this.isResizing) {
+            this.startX = $event.x || $event.clientX;
+            this.isResizing = true;
+            document.addEventListener("mousemove", this.doResize);
+            document.addEventListener("mouseup", this.endResize);
+            $event.stopEvent();
+        }
+    };
+    UISidebar.prototype.resize = function ($event) {
+        if (this.isResizing) {
+            var diff = ($event.x || $event.clientX) - this.startX;
+            if (this.align === "end") {
+                diff = -1 * diff;
+            }
+            if (isRtl(this.element)) {
+                diff = -1 * diff;
+            }
+            var newWidth = this.bodyEl.offsetWidth + diff;
+            if (newWidth <= convertToPx(this.maxWidth) && newWidth >= convertToPx(this.minWidth)) {
+                this.width = newWidth + "px";
+                this.startX = $event.x || $event.clientX;
+            }
+            $event.stopEvent();
+        }
+    };
+    UISidebar.prototype.stopResize = function () {
+        this.isResizing = false;
+        document.removeEventListener("mousemove", this.doResize);
+        document.removeEventListener("mouseup", this.endResize);
+    };
     __decorate([
         bindable(),
         __metadata("design:type", String)
@@ -59,6 +113,10 @@ var UISidebar = /** @class */ (function () {
     __decorate([
         bindable(),
         __metadata("design:type", String)
+    ], UISidebar.prototype, "minWidth", void 0);
+    __decorate([
+        bindable(),
+        __metadata("design:type", String)
     ], UISidebar.prototype, "titleBg", void 0);
     __decorate([
         bindable(),
@@ -68,6 +126,10 @@ var UISidebar = /** @class */ (function () {
         bindable(),
         __metadata("design:type", String)
     ], UISidebar.prototype, "titleWeight", void 0);
+    __decorate([
+        bindable(),
+        __metadata("design:type", Boolean)
+    ], UISidebar.prototype, "toggleCollapse", void 0);
     __decorate([
         bindable({ defaultBindingMode: bindingMode.twoWay }),
         __metadata("design:type", Boolean)

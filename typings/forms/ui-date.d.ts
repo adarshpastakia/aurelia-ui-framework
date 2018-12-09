@@ -25,8 +25,11 @@ export declare class UIDate {
     protected currentYear: number;
     protected decadeStart: number;
     protected currentView: "date" | "month" | "year";
+    protected withTime: boolean;
     constructor(element: Element);
     protected dateChanged(date: any): void;
+    protected minDateChanged(): void;
+    protected maxDateChanged(): void;
     hour: string;
     minute: string;
     ampm: boolean;

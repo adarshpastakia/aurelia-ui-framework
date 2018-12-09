@@ -26,7 +26,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * @copyright : 2018
  * @license   : MIT
  */
-import { autoinject, bindable, bindingMode, computedFrom, customElement, inlineView, PLATFORM, viewResources } from "aurelia-framework";
+import { autoinject, bindable, bindingMode, customElement, inlineView, observable, PLATFORM, viewResources } from "aurelia-framework";
 import { UIInternal } from "../utils/ui-internal";
 import { BaseInput } from "./base-input";
 var UIInput = /** @class */ (function (_super) {
@@ -34,56 +34,42 @@ var UIInput = /** @class */ (function (_super) {
     function UIInput(element) {
         var _this = _super.call(this, element) || this;
         _this.value = "";
-        _this.number = null;
-        _this.type = "text";
-        _this.placeholder = "";
-        _this.autocomplete = "";
-        _this.maxlength = 0;
+        _this.country = "";
         _this.readonly = false;
         _this.disabled = false;
+        _this.inputValue = "";
+        _this.inputCountry = "";
+        _this.placeholder = "";
         _this.ignoreChange = false;
-        if (element.hasAttribute("number") || element.hasAttribute("number.bind")) {
-            _this.type = "number";
-        }
         return _this;
     }
     UIInput.prototype.attached = function () {
-        this.maxlengthChanged();
+        this.countryChanged();
     };
     UIInput.prototype.valueChanged = function () {
         var _this = this;
-        if (!this.ignoreChange && this.type === "number") {
+        if (!this.ignoreChange) {
             this.ignoreChange = true;
-            this.number = parseFloat(this.value);
+            this.inputValue = PhoneLib.formatInput(this.value, this.country);
             UIInternal.queueTask(function () { return (_this.ignoreChange = false); });
         }
     };
-    UIInput.prototype.numberChanged = function () {
+    UIInput.prototype.countryChanged = function () {
+        this.inputCountry = this.country;
+        this.placeholder = PhoneLib.getExample(this.country || "ae", PhoneLib.TYPE.FIXED_LINE_OR_MOBILE, !!this.country);
+    };
+    UIInput.prototype.inputValueChanged = function () {
         var _this = this;
-        if (!this.ignoreChange && this.type === "number") {
+        if (!this.ignoreChange) {
             this.ignoreChange = true;
-            this.value = this.number.toString();
+            var val = "" + this.inputValue;
+            if (!this.country && val !== "" && !val.startsWith("+")) {
+                val = "+" + val;
+            }
+            this.inputValue = PhoneLib.formatInput(val, this.country);
+            this.inputCountry = PhoneLib.getIso2Code(val, this.country);
+            this.value = PhoneLib.format(val, this.country, PhoneLib.FORMAT.FULL);
             UIInternal.queueTask(function () { return (_this.ignoreChange = false); });
-        }
-    };
-    Object.defineProperty(UIInput.prototype, "counter", {
-        get: function () {
-            if (this.maxlength) {
-                return "" + (this.maxlength - this.value.length);
-            }
-            else {
-                return "" + this.value.length;
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    UIInput.prototype.maxlengthChanged = function () {
-        if (this.inputEl) {
-            this.inputEl.removeAttribute("maxLength");
-            if (this.maxlength > 0) {
-                this.inputEl.maxLength = this.maxlength;
-            }
         }
     };
     __decorate([
@@ -91,25 +77,9 @@ var UIInput = /** @class */ (function (_super) {
         __metadata("design:type", String)
     ], UIInput.prototype, "value", void 0);
     __decorate([
-        bindable({ defaultBindingMode: bindingMode.twoWay }),
-        __metadata("design:type", Number)
-    ], UIInput.prototype, "number", void 0);
-    __decorate([
         bindable(),
         __metadata("design:type", String)
-    ], UIInput.prototype, "type", void 0);
-    __decorate([
-        bindable(),
-        __metadata("design:type", String)
-    ], UIInput.prototype, "placeholder", void 0);
-    __decorate([
-        bindable(),
-        __metadata("design:type", String)
-    ], UIInput.prototype, "autocomplete", void 0);
-    __decorate([
-        bindable(),
-        __metadata("design:type", Number)
-    ], UIInput.prototype, "maxlength", void 0);
+    ], UIInput.prototype, "country", void 0);
     __decorate([
         bindable(),
         __metadata("design:type", Object)
@@ -123,15 +93,14 @@ var UIInput = /** @class */ (function (_super) {
         __metadata("design:type", Object)
     ], UIInput.prototype, "disabled", void 0);
     __decorate([
-        computedFrom("value", "maxlength"),
-        __metadata("design:type", Object),
-        __metadata("design:paramtypes", [])
-    ], UIInput.prototype, "counter", null);
+        observable(),
+        __metadata("design:type", Object)
+    ], UIInput.prototype, "inputValue", void 0);
     UIInput = __decorate([
         autoinject(),
-        customElement("ui-input"),
+        customElement("ui-phone"),
         viewResources(PLATFORM.moduleName("./input-wrapper")),
-        inlineView("<template class=\"ui-input ${classes}\" aria-disabled.bind=\"disabled || isDisabled\" aria-readonly.bind=\"readonly\">\n  <input-wrapper>\n    <slot></slot>\n    <input ref=\"inputEl\" role=\"textbox\" size=\"1\" placeholder.bind=\"placeholder\" disabled.bind=\"disabled || isDisabled || isPlain\"\n      readonly.bind=\"readonly\" value.two-way=\"value\" type.one-time=\"type\" autocomplete.bind=\"autocomplete\"\n      keypress.trigger=\"fireEnter($event)\"/>\n  </input-wrapper>\n</template>"),
+        inlineView("<template class=\"ui-input ui-phone ${classes}\" aria-disabled.bind=\"disabled || isDisabled\" aria-readonly.bind=\"readonly\">\n  <input-wrapper>\n    <slot></slot>\n    <ui-flag code.bind=\"inputCountry\"></ui-flag>\n    <input ref=\"inputEl\" role=\"textbox\" size=\"1\" placeholder.bind=\"placeholder\" disabled.bind=\"disabled || isDisabled || isPlain\"\n      readonly.bind=\"readonly\" value.two-way=\"inputValue\" type.one-time=\"type\" autocomplete.bind=\"autocomplete\"\n      keypress.trigger=\"fireEnter($event)\"/>\n  </input-wrapper>\n</template>"),
         __metadata("design:paramtypes", [Element])
     ], UIInput);
     return UIInput;

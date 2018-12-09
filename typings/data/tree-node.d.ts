@@ -1,6 +1,8 @@
-import { UITreeModel } from "../model/ui-tree-model";
+import { UITreeNode } from "../model/ui-tree-model";
 import { UITreePanel } from "./ui-tree-panel";
 export declare class TreeNode {
-    node: UITreeModel;
+    node: UITreeNode;
+    index: number;
     protected tree: UITreePanel;
+    readonly isSelected: boolean;
 }

@@ -26,7 +26,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * @copyright : 2018
  * @license   : MIT
  */
-import { autoinject, bindable, bindingMode, customElement, PLATFORM, viewResources } from "aurelia-framework";
+import { autoinject, bindable, bindingMode, customElement, inlineView, PLATFORM, viewResources } from "aurelia-framework";
 import { ListMaker } from "./list-maker";
 var UIList = /** @class */ (function (_super) {
     __extends(UIList, _super);
@@ -126,7 +126,8 @@ var UIList = /** @class */ (function (_super) {
     UIList = __decorate([
         autoinject(),
         customElement("ui-list"),
-        viewResources(PLATFORM.moduleName("./input-wrapper")),
+        viewResources(PLATFORM.moduleName("./input-wrapper"), PLATFORM.moduleName("./list-input"), PLATFORM.moduleName("./list-container")),
+        inlineView("<template class=\"ui-input ui-list ${classes}\" aria-disabled.bind=\"disabled || isDisabled\" aria-readonly.bind=\"readonly\">\n<input-wrapper model.bind=\"$this\">\n  <slot></slot>\n  <list-input></list-input>\n  <div class=\"ui-list__container\" ref=\"listContainer\" css.bind=\"{height}\">\n    <list-container></list-container>\n  </div>\n</input-wrapper>\n</template>"),
         __metadata("design:paramtypes", [Element])
     ], UIList);
     return UIList;

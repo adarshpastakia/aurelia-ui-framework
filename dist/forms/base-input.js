@@ -94,7 +94,7 @@ var BaseInput = /** @class */ (function () {
         return this[prop] === "" || this[prop] === prop || isTrue(this[prop]);
     };
     __decorate([
-        computedFrom("isDisabled", "disabled", "readonly", "errors"),
+        computedFrom("isDisabled", "disabled", "readonly", "errors", "errors.length"),
         __metadata("design:type", String),
         __metadata("design:paramtypes", [])
     ], BaseInput.prototype, "classes", null);

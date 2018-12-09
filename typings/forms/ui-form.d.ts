@@ -7,7 +7,6 @@
 export declare class UIForm {
     protected element: Element;
     disabled: boolean;
-    protected fields: Element[];
     private vmElement;
     constructor(element: Element);
     protected attached(): void;

@@ -1,19 +1,17 @@
 import { BaseInput } from "./base-input";
 export declare class UIInput extends BaseInput {
     value: string;
-    number: number;
-    type: "text" | "number" | "url" | "email";
-    placeholder: string;
-    autocomplete: string;
-    maxlength: number;
+    country: string;
     errors: string | string[];
     readonly: string | boolean;
     disabled: string | boolean;
+    protected inputValue: string;
+    protected inputCountry: string;
+    protected placeholder: string;
     private ignoreChange;
     constructor(element: Element);
     protected attached(): void;
     protected valueChanged(): void;
-    protected numberChanged(): void;
-    readonly counter: string;
-    protected maxlengthChanged(): void;
+    protected countryChanged(): void;
+    protected inputValueChanged(): void;
 }

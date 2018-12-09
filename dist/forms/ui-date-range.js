@@ -14,7 +14,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { autoinject, bindable, bindingMode, computedFrom, customElement } from "aurelia-framework";
-import { addMonths, endOfWeek, isAfter, startOfMonth, subMonths, toDate } from "date-fns";
+import { addMonths, endOfWeek, isAfter, isBefore, isWithinInterval, startOfMonth, subMonths, toDate } from "date-fns";
 export var UIDateRangeKeys;
 (function (UIDateRangeKeys) {
     UIDateRangeKeys["TODAY"] = "TODAY";
@@ -41,6 +41,7 @@ export var UIDateRangeKeys;
     UIDateRangeKeys["NEXT_60"] = "NEXT_60";
     UIDateRangeKeys["LAST_90"] = "LAST_90";
     UIDateRangeKeys["NEXT_90"] = "NEXT_90";
+    UIDateRangeKeys["CUSTOM"] = "CUSTOM";
     UIDateRangeKeys["DIVIDER"] = "-";
 })(UIDateRangeKeys || (UIDateRangeKeys = {}));
 var UIDateRangeLabels;
@@ -69,6 +70,7 @@ var UIDateRangeLabels;
     UIDateRangeLabels["NEXT_60"] = "Next 60 Days";
     UIDateRangeLabels["LAST_90"] = "Last 90 Days";
     UIDateRangeLabels["NEXT_90"] = "Next 90 Days";
+    UIDateRangeLabels["CUSTOM"] = "Custom Range";
 })(UIDateRangeLabels || (UIDateRangeLabels = {}));
 var UIDateRange = /** @class */ (function () {
     function UIDateRange(element) {
@@ -96,9 +98,18 @@ var UIDateRange = /** @class */ (function () {
         this.DateRangeLabels = UIDateRangeLabels;
         this.startVm = {};
         this.endVm = {};
+        this.active = UIDateRangeKeys.CUSTOM;
         this.selectStarted = false;
         this.startMonth = startOfMonth(new Date());
         this.endMonth = addMonths(startOfMonth(new Date()), 1);
+        this.withTime = true;
+        this.withTime = !element.hasAttribute("no-time");
+        if (element.dataset.notime) {
+            this.withTime = !element.dataset.notime;
+        }
+        if (this.withTime) {
+            element.classList.add("ui-date--has-time");
+        }
     }
     UIDateRange.prototype.attached = function () {
         var _this = this;
@@ -106,6 +117,7 @@ var UIDateRange = /** @class */ (function () {
         this.endVm.monthChanged = function (month) { return _this.endMonthChanged(month); };
         this.startVm.weekChanged = function (week) { return _this.weekChanged(week); };
         this.endVm.weekChanged = function (week) { return _this.weekChanged(week); };
+        this.startVm.withTime = this.endVm.withTime = !this.element.hasAttribute("no-time");
         this.startVm.internalDateChanged = function (date, timeChange) {
             return timeChange
                 ? isAfter(_this.end, date)
@@ -123,6 +135,16 @@ var UIDateRange = /** @class */ (function () {
         this.startVm.currentMonth = this.startMonth;
         this.endVm.currentMonth = this.endMonth;
     };
+    UIDateRange.prototype.minDateChanged = function () {
+        if (isBefore(this.start, this.minDate)) {
+            this.start = this.end = undefined;
+        }
+    };
+    UIDateRange.prototype.maxDateChanged = function () {
+        if (isAfter(this.end, this.maxDate)) {
+            this.start = this.end = undefined;
+        }
+    };
     Object.defineProperty(UIDateRange.prototype, "range", {
         get: function () {
             return (this.startVm.dateRange = this.endVm.dateRange = this.selectStarted
@@ -133,10 +155,13 @@ var UIDateRange = /** @class */ (function () {
         configurable: true
     });
     UIDateRange.prototype.weekChanged = function (week) {
-        this.start = week;
-        this.end = endOfWeek(week);
-        this.startVm.currentMonth = startOfMonth(this.start);
-        this.endVm.currentMonth = startOfMonth(this.end);
+        if (isWithinInterval(week, { start: this.minDate, end: this.maxDate }) ||
+            isWithinInterval(endOfWeek(week), { start: this.minDate, end: this.maxDate })) {
+            this.start = isBefore(week, this.minDate) ? this.minDate : week;
+            this.end = isAfter(endOfWeek(week), this.maxDate) ? this.maxDate : endOfWeek(week);
+            this.startVm.currentMonth = startOfMonth(this.start);
+            this.endVm.currentMonth = startOfMonth(this.end);
+        }
     };
     UIDateRange.prototype.startMonthChanged = function (month) {
         this.startMonth = month;
@@ -198,6 +223,14 @@ var UIDateRange = /** @class */ (function () {
         bindable({ defaultBindingMode: bindingMode.twoWay }),
         __metadata("design:type", Object)
     ], UIDateRange.prototype, "end", void 0);
+    __decorate([
+        bindable(),
+        __metadata("design:type", String)
+    ], UIDateRange.prototype, "minDate", void 0);
+    __decorate([
+        bindable(),
+        __metadata("design:type", String)
+    ], UIDateRange.prototype, "maxDate", void 0);
     __decorate([
         bindable(),
         __metadata("design:type", Boolean)

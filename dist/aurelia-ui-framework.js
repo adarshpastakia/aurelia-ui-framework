@@ -5,18 +5,20 @@
  * @license   : MIT
  */
 import { Container, PLATFORM } from "aurelia-framework";
+import { registerValidators, UIValidationRenderer } from "./forms/ui-validation";
 import "./libs/array";
 import "./libs/phonelib";
 import "./libs/string";
 import "./libs/window";
 import { UIAppConfig } from "./utils/ui-app-config";
+export { getValidationController } from "./forms/ui-validation";
 export { Countries } from "./libs/countries";
 export { Currencies } from "./libs/currencies";
 export { FileTypes } from "./libs/filetypes";
 export * from "./model/ui-tree-model";
+export * from "./services/ui-alert";
 export * from "./services/ui-application";
 export * from "./services/ui-dialog";
-export * from "./services/ui-alert";
 export * from "./utils/ui-format";
 export * from "./utils/ui-http";
 var AppConfig = function () {
@@ -69,6 +71,7 @@ var UIFrameworkConfig = /** @class */ (function () {
                 _this.loadFromModule(PLATFORM.moduleName("./forms/ui-checkbox"));
                 _this.loadFromModule(PLATFORM.moduleName("./forms/ui-radio"));
                 _this.loadFromModule(PLATFORM.moduleName("./forms/ui-toggle"));
+                _this.loadFromModule(PLATFORM.moduleName("./forms/ui-phone"));
                 _this.loadFromModule(PLATFORM.moduleName("./forms/ui-date"));
                 _this.loadFromModule(PLATFORM.moduleName("./forms/ui-date-input"));
                 _this.loadFromModule(PLATFORM.moduleName("./forms/ui-date-range"));
@@ -99,6 +102,7 @@ var UIFrameworkConfig = /** @class */ (function () {
             appbars: function () {
                 _this.loadFromModule(PLATFORM.moduleName("./appbars/ui-toolbar"));
                 _this.loadFromModule(PLATFORM.moduleName("./appbars/ui-sidebar"));
+                _this.loadFromModule(PLATFORM.moduleName("./appbars/ui-drawer"));
                 return _this.use;
             }
         };
@@ -139,6 +143,10 @@ var UIFrameworkConfig = /** @class */ (function () {
 export { UIFrameworkConfig };
 export function configure(auConfig, configCallback) {
     Container.instance = auConfig.container;
+    auConfig.container.registerHandler("ui-validator", function (container) {
+        return container.get(UIValidationRenderer);
+    });
+    registerValidators(auConfig.container);
     var config = new UIFrameworkConfig(auConfig);
     if (isFunction(configCallback)) {
         configCallback(config);

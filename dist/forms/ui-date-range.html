@@ -1,17 +1,17 @@
 <template class="ui-date__wrapper">
   <div class="ui-date__view" with.bind="{range}">
-    <div class="ui-date__list">
+    <div class="ui-date__list ${withTime ? 'ui-date--has-time':''}">
       <ul if.bind="!selectStarted">
         <template repeat.for="key of rangeSelectors">
-          <li if.bind="key !== '-'" data-key.bind="key">${DateRangeLabels[key]}</li>
+          <li if.bind="key !== '-'" data-key.bind="key" data-active.bind="active === key">${DateRangeLabels[key]}</li>
           <hr else />
         </template>
         <hr />
-        <li>Custom Range</li>
+        <li data-active.bind="active === 'CUSTOM'">Custom Range</li>
       </ul>
       <a if.bind="selectStarted" click.trigger="cancelSelection()" ui-color="secondary">Cancel</a>
     </div>
-    <ui-date date.to-view="start" view-model.ref="startVm" mouseover.delegate="hilightDate($event)"></ui-date>
-    <ui-date date.to-view="end" view-model.ref="endVm" mouseover.delegate="hilightDate($event)"></ui-date>
+    <ui-date data-notime.one-time="withTime" date.to-view="start" min-date.bind="minDate" max-date.bind="maxDate" view-model.ref="startVm" mouseover.delegate="hilightDate($event)"></ui-date>
+    <ui-date data-notime.one-time="withTime" date.to-view="end" min-date.bind="minDate" max-date.bind="maxDate" view-model.ref="endVm" mouseover.delegate="hilightDate($event)"></ui-date>
   </div>
 </template>

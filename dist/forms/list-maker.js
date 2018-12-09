@@ -77,14 +77,14 @@ var __spread = (this && this.__spread) || function () {
     for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
     return ar;
 };
+/**
+ * @author    : Adarsh Pastakia
+ * @version   : 5.0.0
+ * @copyright : 2018
+ * @license   : MIT
+ */
 import { UIInternal } from "../utils/ui-internal";
 import { BaseInput } from "./base-input";
-// TODO: missing funtionality
-/**
- * 1. When drop opens check for selected to scrollTo
- * 2. When drop closes check if reset query to selected label or blank
- * 3. Add key events
- */
 var KEY_DOWN = 40;
 var KEY_UP = 38;
 var BACKSPACE = 8;
@@ -109,7 +109,9 @@ var ListMaker = /** @class */ (function (_super) {
         _this.isLoaded = false;
         _this.isLoading = false;
         _this.isGrouped = false;
+        _this.isFiltered = false;
         _this.ignoreChange = false;
+        _this.hilightIndex = -1;
         return _this;
     }
     ListMaker.prototype.valueChanged = function () {
@@ -120,7 +122,7 @@ var ListMaker = /** @class */ (function (_super) {
         if (!this.valueProperty) {
             this.model = this.value;
             if (!this.multiple) {
-                this.inputValue = this.value;
+                this.inputValue = this.value ? this.value[this.labelProperty] || this.value : "";
             }
             return;
         }
@@ -128,8 +130,8 @@ var ListMaker = /** @class */ (function (_super) {
             if (this.multiple) {
                 this.model = this.options.filter(function (o) {
                     if (_this.matcher) {
-                        return _this.value.some(function (model) {
-                            return _this.matcher({ model: model, value: o });
+                        return _this.value.some(function (value) {
+                            return _this.matcher({ option: o, value: value });
                         });
                     }
                     else {
@@ -140,31 +142,51 @@ var ListMaker = /** @class */ (function (_super) {
             else {
                 this.model = this.options.find(function (o) {
                     if (_this.matcher) {
-                        return _this.matcher({ model: _this.model, value: o });
+                        return _this.matcher({ option: o, value: _this.value });
                     }
                     else {
-                        return _this.value.includes(o[_this.valueProperty] || o);
+                        return _this.value === (o[_this.valueProperty] || o);
                     }
                 });
-                this.resetQuery();
             }
         }
         else {
+            this.model = null;
             this.inputValue = "";
-            if (!this.dropEl) {
+        }
+        if (!this.dropEl) {
+            UIInternal.queueTask(function () {
+                var selected = _this.listContainer.querySelector(".ui-list__item--selected");
+                if (selected) {
+                    selected.scrollIntoView({ block: "nearest" });
+                }
+            });
+        }
+        this.resetQuery();
+    };
+    ListMaker.prototype.toggleDrop = function (open) {
+        var _this = this;
+        if (this.dropEl) {
+            if (open === true && this.dropEl.isOpen) {
+                UIInternal.queueMicroTask(function () { return _this.dropEl.updatePosition(); });
+                return;
+            }
+            if (_super.prototype.toggleDrop.call(this, open)) {
                 this.loadOptions();
             }
         }
     };
-    ListMaker.prototype.clear = function () {
-        this.model = null;
-        this.value = null;
-        this.inputValue = "";
-        this.inputEl.focus();
-        // this.loadOptions();
+    ListMaker.prototype.loadOptions = function () {
+        if (this.query) {
+            this.fetchOptions();
+        }
+        else {
+            this.buildOptions(this.options);
+        }
     };
     ListMaker.prototype.filterOptions = function () {
         var _this = this;
+        this.isFiltered = !!this.inputValue;
         if (this.query) {
             this.fetchOptions(this.inputValue);
         }
@@ -183,6 +205,7 @@ var ListMaker = /** @class */ (function (_super) {
     ListMaker.prototype.selectOption = function (model) {
         var _this = this;
         this.ignoreChange = true;
+        this.hilightIndex = -1;
         if (this.multiple) {
             this.value = this.value
                 ? __spread(this.value, [model[this.valueProperty] || model]) : [model[this.valueProperty] || model];
@@ -198,67 +221,26 @@ var ListMaker = /** @class */ (function (_super) {
             this.model = model;
             this.resetQuery();
         }
-        if (!this.dropEl && this.query) {
+        if (this.dropEl) {
+            this.dropEl.closeDrop();
+        }
+        if (this.isFiltered) {
+            this.isFiltered = false;
             this.loadOptions();
         }
         this.element.dispatchEvent(UIInternal.createEvent("change", this.value));
         this.element.dispatchEvent(UIInternal.createEvent("select", this.model));
         setTimeout(function () { return (_this.ignoreChange = false); }, 500);
     };
-    ListMaker.prototype.removeValue = function (model) {
+    ListMaker.prototype.removeOption = function (model) {
         var _this = this;
         this.ignoreChange = true;
         this.model = __spread(this.model.filter(function (m) { return m !== model; }));
         this.value = this.value.filter(function (m) { return m !== (model[_this.valueProperty] || model); });
         setTimeout(function () { return (_this.ignoreChange = false); }, 500);
     };
-    ListMaker.prototype.listClass = function (option) {
-        var _this = this;
-        var classes = ["ui-list__item"];
-        if (!this.multiple) {
-            if (this.matcher) {
-                this.matcher({ model: this.value, value: option })
-                    ? classes.push("ui-list__item--selected")
-                    : fn();
-            }
-            else if ((option[this.valueProperty] || option) === this.value) {
-                classes.push("ui-list__item--selected");
-            }
-        }
-        else if (this.multiple && this.value) {
-            if (this.matcher) {
-                this.value.forEach(function (model) {
-                    _this.matcher({ model: model, value: option }) ? classes.push("ui-list__item--disabled") : fn();
-                });
-            }
-            else if (this.value.includes(option[this.valueProperty] || option)) {
-                classes.push("ui-list__item--disabled");
-            }
-        }
-        return classes.join(" ");
-    };
-    ListMaker.prototype.toggleDrop = function (open) {
-        var _this = this;
-        if (open === true && this.dropEl.isOpen) {
-            UIInternal.queueMicroTask(function () { return _this.dropEl.updatePosition(); });
-            return;
-        }
-        if (_super.prototype.toggleDrop.call(this, open)) {
-            this.loadOptions();
-        }
-        else {
-            this.resetQuery();
-        }
-    };
-    ListMaker.prototype.loadOptions = function () {
-        if (this.query) {
-            this.fetchOptions();
-        }
-        else {
-            this.buildOptions(this.options);
-        }
-    };
-    ListMaker.prototype.resetQuery = function () {
+    ListMaker.prototype.resetQuery = function (clearFilter) {
+        this.hilightIndex = -1;
         if (this.multiple) {
             this.inputValue = "";
         }
@@ -266,6 +248,19 @@ var ListMaker = /** @class */ (function (_super) {
             this.inputValue = this.model
                 ? (this.model[this.labelProperty] || this.model).replace("<u>", "").replace("</u>", "")
                 : "";
+        }
+        if (clearFilter && this.isFiltered) {
+            this.isFiltered = false;
+            this.loadOptions();
+        }
+    };
+    ListMaker.prototype.clear = function () {
+        this.model = null;
+        this.value = null;
+        this.inputValue = "";
+        this.inputEl.focus();
+        if (this.isFiltered) {
+            this.loadOptions();
         }
     };
     ListMaker.prototype.fetchOptions = function (query) {
@@ -278,6 +273,9 @@ var ListMaker = /** @class */ (function (_super) {
                         return [4 /*yield*/, this.query({ query: query })];
                     case 1:
                         result = _a.sent();
+                        if (!this.options) {
+                            this.options = result;
+                        }
                         this.buildOptions(result || []);
                         return [2 /*return*/];
                 }
@@ -293,15 +291,27 @@ var ListMaker = /** @class */ (function (_super) {
             UIInternal.queueMicroTask(function () { return _this.dropEl.updatePosition(); });
         }
     };
-    ListMaker.prototype.buildOptions = function (options) {
+    ListMaker.prototype.buildOptions = function (options, silent) {
         var _this = this;
-        this.showLoading();
+        if (silent === void 0) { silent = false; }
+        if (!silent) {
+            this.showLoading();
+        }
         var optionsClone = options.map(function (o) { return (isString(o) ? "" + o : __assign({}, o)); });
         UIInternal.queueTask(function () {
             _this.isLoading = false;
-            _this.innerOptions = _this.groupProperty
-                ? optionsClone.sortBy([_this.groupProperty, _this.labelProperty]).groupBy(_this.groupProperty)
-                : __spread(optionsClone);
+            if (_this.groupProperty) {
+                var groups = optionsClone
+                    .sortBy([_this.groupProperty, _this.labelProperty])
+                    .groupBy(_this.groupProperty);
+                groups.forEach(function (items, label) {
+                    var _a;
+                    return (_a = _this.innerOptions).push.apply(_a, __spread([{ __type: "group", label: label }], items));
+                });
+            }
+            else {
+                _this.innerOptions = optionsClone.sortBy(_this.labelProperty);
+            }
             _this.isLoaded = true;
             UIInternal.queueTask(function () {
                 var selected = _this.listContainer.querySelector(".ui-list__item--selected");
@@ -314,12 +324,46 @@ var ListMaker = /** @class */ (function (_super) {
             }
         });
     };
+    ListMaker.prototype.listClass = function (option, index) {
+        var _this = this;
+        var classes = ["ui-list__item"];
+        option.__selected = false;
+        if (!this.multiple) {
+            if (this.matcher) {
+                if (this.matcher({ option: option, value: this.value })) {
+                    option.__selected = true;
+                    classes.push("ui-list__item--selected");
+                }
+            }
+            else if ((option[this.valueProperty] || option) === this.value) {
+                option.__selected = true;
+                classes.push("ui-list__item--selected");
+            }
+        }
+        else if (this.multiple && this.value) {
+            if (this.matcher) {
+                this.value.forEach(function (value) {
+                    if (_this.matcher({ option: option, value: value })) {
+                        option.__selected = true;
+                        classes.push("ui-list__item--disabled");
+                    }
+                });
+            }
+            else if (this.value.includes(option[this.valueProperty] || option)) {
+                option.__selected = true;
+                classes.push("ui-list__item--disabled");
+            }
+        }
+        if (this.hilightIndex === index) {
+            classes.push("ui-list__item--hilight");
+        }
+        return classes.join(" ");
+    };
     ListMaker.prototype.markOption = function (option) {
         var lbl = option[this.labelProperty] || "" + option;
         if (isEmpty(this.inputValue)) {
             return lbl;
         }
-        // options.forEach(o => {
         var rx = new RegExp(this.inputValue, "i");
         var asc = lbl.toString().ascii();
         if (rx.test(asc)) {
@@ -331,7 +375,6 @@ var ListMaker = /** @class */ (function (_super) {
                     "</u>" +
                     lbl.substr(start + this.inputValue.length);
         }
-        // });
         return lbl;
     };
     ListMaker.prototype.buildOption = function (option, el, unmark) {
@@ -342,7 +385,9 @@ var ListMaker = /** @class */ (function (_super) {
                 ? this.template.outerHTML
                 : "<template><div innerhtml.bind=\"$label\"></div></template>";
             var model = {
-                $label: unmark ? option[this.labelProperty] || option : this.markOption(option),
+                $label: this.isFiltered && !unmark
+                    ? this.markOption(option)
+                    : option[this.labelProperty] || option,
                 $model: option,
                 $value: option[this.labelProperty] || option
             };
@@ -355,16 +400,57 @@ var ListMaker = /** @class */ (function (_super) {
         return true;
     };
     ListMaker.prototype.checkKeyEvent = function ($event) {
+        var _this = this;
         if ([KEY_DOWN, KEY_UP].includes($event.keyCode)) {
+            if (this.dropEl && !this.dropEl.isOpen) {
+                this.dropEl.toggleDrop();
+            }
+            if ($event.keyCode === KEY_DOWN) {
+                this.hilightIndex =
+                    this.hilightIndex === -1 && this.model
+                        ? this.innerOptions.indexOf(this.model)
+                        : this.hilightIndex >= this.innerOptions.length || this.hilightIndex < -1
+                            ? -1
+                            : this.hilightIndex;
+                while (this.hilightIndex + 1 !== this.innerOptions.length &&
+                    (this.innerOptions[this.hilightIndex + 1].__type === "group" ||
+                        this.innerOptions[this.hilightIndex + 1].__selected ||
+                        this.innerOptions[this.hilightIndex + 1].__disabled)) {
+                    this.hilightIndex++;
+                }
+                this.hilightIndex = this.hilightIndex + 1;
+            }
+            if ($event.keyCode === KEY_UP) {
+                this.hilightIndex =
+                    this.hilightIndex === -1 && this.model
+                        ? this.innerOptions.indexOf(this.model)
+                        : this.hilightIndex === -1
+                            ? this.innerOptions.length
+                            : this.hilightIndex;
+                while (this.hilightIndex - 1 > 0 &&
+                    (this.innerOptions[this.hilightIndex - 1].__type === "group" ||
+                        this.innerOptions[this.hilightIndex - 1].__selected ||
+                        this.innerOptions[this.hilightIndex - 1].__disabled)) {
+                    this.hilightIndex--;
+                }
+                this.hilightIndex = this.hilightIndex - 1;
+            }
+            UIInternal.queueTask(function () {
+                var selected = _this.listContainer.querySelector(".ui-list__item--hilight");
+                if (selected) {
+                    selected.scrollIntoView({ block: "nearest" });
+                }
+            });
             $event.stopEvent();
         }
-        else if (this.dropEl && this.dropEl.isOpen && $event.keyCode === ENTER) {
+        else if (this.hilightIndex !== -1 && $event.keyCode === ENTER) {
+            this.selectOption(this.innerOptions[this.hilightIndex]);
             $event.stopEvent();
         }
         else if (this.multiple && $event.keyCode === BACKSPACE) {
-            if (this.model.length > 0 && this.query.length === 0) {
+            if (this.model.length > 0 && this.inputValue.length === 0) {
                 $event.stopEvent();
-                this.removeValue(this.model.last());
+                this.removeOption(this.model.last());
             }
         }
         else {

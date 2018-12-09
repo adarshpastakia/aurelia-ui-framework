@@ -9,13 +9,14 @@ import "./libs/array";
 import "./libs/phonelib";
 import "./libs/string";
 import "./libs/window";
+export { getValidationController } from "./forms/ui-validation";
 export { Countries } from "./libs/countries";
 export { Currencies } from "./libs/currencies";
 export { FileTypes } from "./libs/filetypes";
 export * from "./model/ui-tree-model";
+export * from "./services/ui-alert";
 export * from "./services/ui-application";
 export * from "./services/ui-dialog";
-export * from "./services/ui-alert";
 export * from "./utils/ui-format";
 export * from "./utils/ui-http";
 /**

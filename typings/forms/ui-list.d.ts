@@ -17,8 +17,8 @@ export declare class UIList extends ListMaker {
     readonly: boolean;
     disabled: boolean;
     noOptionsText: string;
-    matcher: ({ model, value }: {
-        model: any;
+    matcher: ({ option, value }: {
+        option: any;
         value: any;
     }) => boolean;
     constructor(element: Element);
