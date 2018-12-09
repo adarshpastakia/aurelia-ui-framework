@@ -17,6 +17,11 @@ export class UITreeModel {
     this.nodes = this.getExpandedTree(this.children.sortBy("label"));
   }
 
+  public filter(query: string) {
+    const filtered = this.filterNodes(this.children, query);
+    this.nodes = this.getExpandedTree(filtered.sortBy("label"));
+  }
+
   public toggleExpand(index: number): void {
     const node = this.nodes[index] as UITreeNode;
     node.expanded = !node.expanded;
@@ -87,7 +92,7 @@ export class UITreeModel {
         checked.push(node);
       }
       if (node.children) {
-        this.getCheckedNodes(node.children, checked);
+        this.getCheckedNodes(node.childNodes, checked);
       }
     });
   }
@@ -111,6 +116,22 @@ export class UITreeModel {
       }
     });
     return nodes;
+  }
+
+  private filterNodes(nodes, query) {
+    return nodes.filter(child => {
+      let retVal =
+        !query ||
+        child.label
+          .ascii()
+          .toLocaleLowerCase()
+          .includes(query.ascii().toLocaleLowerCase());
+      if (!child.leaf) {
+        child.filtered = this.filterNodes(child.childNodes, query);
+        retVal = retVal || child.filtered.length > 0;
+      }
+      return retVal;
+    });
   }
 }
 
@@ -142,7 +163,8 @@ export class UITreeNode {
   public iconOpen: string;
   public iconClosed: string;
 
-  public children: UITreeNode[] = [];
+  public childNodes: UITreeNode[] = [];
+  public filtered: UITreeNode[] = null;
 
   public leaf: boolean;
   public parentId: string;
@@ -162,7 +184,7 @@ export class UITreeNode {
     this.iconOpen = node.iconOpen;
     this.iconClosed = node.iconClosed;
 
-    this.leaf = node.leaf;
+    this.leaf = !!node.leaf;
     this.expanded = node.expanded;
     this.disabled = node.disabled;
 
@@ -172,8 +194,12 @@ export class UITreeNode {
     }
 
     if (node.children) {
-      this.children = node.children.map(child => new UITreeNode(child, this));
+      this.childNodes = node.children.map(child => new UITreeNode(child, this));
     }
+  }
+
+  get children() {
+    return this.filtered || this.childNodes;
   }
 
   public toggleCheck() {

@@ -3,6 +3,7 @@
     <ui-page css.bind="{height:'100%'}" ui-paper>
       <ui-sidebar label="Tree Panel" collapsible>
         <ui-tree-panel
+          searchable.one-time="true"
           max-nodes="9"
           data-source.bind="countryTree"
           checkable.one-time="1"

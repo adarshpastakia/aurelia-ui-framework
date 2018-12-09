@@ -20,7 +20,8 @@ import { UIInternal } from "../utils/ui-internal";
 @customElement("ui-tree-panel")
 @viewResources(PLATFORM.moduleName("./tree-node"))
 @inlineView(`<template class="ui-tree__panel"><ui-field plain nolabel class="ui-tree__search" if.bind="searchable">
-  <ui-input type="search" t="[placeholder]AUF.tree.search" placeholder="\${labelSearch}" clear value.bind="searchText" input.trigger="searchTextChanged(searchText) & debounce:200">
+  <ui-input type="search" t="[placeholder]AUF.tree.search" placeholder="\${labelSearch}" value.bind="searchText" 
+  clear.trigger="searchTextChanged()" input.trigger="searchTextChanged(searchText) & debounce:200">
     <ui-input-addon class="ui-text-muted"><ui-icon icon="mdi mdi-magnify"></ui-icon></ui-input-addon></ui-input></ui-field>
   <div class="ui-tree__container" nodeclick.delegate="itemClicked($event.detail)" nodeover.delegate="itemOver($event.detail)" nodeout.delegate="itemOut($event.detail)">
     <tree-node virtual-repeat.for="child of rootNode.nodes" node.bind="child" tree.bind="$parent" index.bind="$index"></tree-node>
@@ -102,6 +103,10 @@ export class UITreePanel {
         this.model.push(checkedNode.model);
       }
     });
+  }
+
+  protected searchTextChanged(query) {
+    this.rootNode.filter(query);
   }
 
   private changeSelection(node) {

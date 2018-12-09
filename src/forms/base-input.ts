@@ -26,7 +26,7 @@ export class BaseInput {
   protected dropEl: UIDrop;
 
   constructor(protected element: Element) {
-    this.allowClear = element.hasAttribute("clear");
+    this.allowClear = element.hasAttribute("clear") || element.hasAttribute("clear.trigger");
     this.showCounter = element.hasAttribute("counter");
   }
 
@@ -61,6 +61,8 @@ export class BaseInput {
   protected clear(): void {
     this.value = "";
     this.inputEl.focus();
+    this.element.dispatchEvent(UIInternal.createEvent("clear"));
+    this.element.dispatchEvent(UIInternal.createEvent("change"));
   }
 
   protected fireEnter($event: KeyboardEvent): boolean {

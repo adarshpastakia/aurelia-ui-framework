@@ -216,6 +216,10 @@ hr {
   color: var(--input-placeholder);
 }
 
+input[type="search"]::-webkit-search-cancel-button {
+  display: none;
+}
+
 input::-ms-clear,
 select::-ms-clear,
 textarea::-ms-clear {
