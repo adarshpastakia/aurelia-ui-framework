@@ -307,7 +307,10 @@ export class UIDate {
 
   protected selectToday(): void {
     if (!this.isDateDisabled()) {
-      this.date = new Date();
+      const date = new Date();
+      this.date = toDate(
+        format(date, this.withTime ? "yyyy-MM-dd'T'HH:mm:ss.000" : "yyyy-MM-dd")
+      );
       this.fireChange();
     }
   }
