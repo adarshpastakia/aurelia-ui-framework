@@ -30,6 +30,12 @@ export class App {
         title: "Home"
       },
       {
+        moduleId: PLATFORM.moduleName("./cheatsheet/cheatsheet"),
+        name: "cheatsheet",
+        route: "cheatsheet",
+        title: "Cheatsheet"
+      },
+      {
         moduleId: PLATFORM.moduleName("./tests/tester"),
         name: "tester",
         route: ["tester", "tester/:test?"],

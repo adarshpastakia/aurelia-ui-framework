@@ -17,7 +17,7 @@ export class UICard {
   @bindable()
   public width: string = "auto";
   @bindable()
-  public minWidth: string = "16rem";
+  public minWidth: string = "8rem";
   @bindable()
   public maxWidth: string = "100vw";
 

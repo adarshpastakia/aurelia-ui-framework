@@ -11,3 +11,19 @@
     transform: translateY(-100%);
   }
 }
+
+.x-link {
+  &--big {
+    background-color: rgba(map-get($primary, light), 0.25);
+    color: map-get($primary, dark);
+    display: block;
+    font-size: 1.5rem;
+    padding: 0.5rem 2rem;
+    text-align: center;
+
+    &:hover {
+      background-color: rgba(map-get($primary, base), 0.75);
+      color: var(--color-white);
+    }
+  }
+}

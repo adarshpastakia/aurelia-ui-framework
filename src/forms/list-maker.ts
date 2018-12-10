@@ -46,6 +46,7 @@ export class ListMaker extends BaseInput {
   protected isGrouped = false;
   protected isFiltered = false;
   protected ignoreChange = false;
+  protected allowAny = false;
 
   protected hilightIndex = -1;
 
@@ -138,10 +139,13 @@ export class ListMaker extends BaseInput {
     this.ignoreChange = true;
     this.hilightIndex = -1;
     if (this.multiple) {
-      this.value = this.value
-        ? [...this.value, model[this.valueProperty] || model]
-        : [model[this.valueProperty] || model];
-      this.model = this.model ? [...this.model, model] : [model];
+      if (!(this.value || []).includes(model[this.valueProperty] || model)) {
+        this.value = this.value
+          ? [...this.value, model[this.valueProperty] || model]
+          : [model[this.valueProperty] || model];
+        this.model = this.model ? [...this.model, model] : [model];
+      }
+      this.inputValue = "";
       this.inputEl.focus();
       this.inputEl.select();
     } else {
@@ -151,9 +155,9 @@ export class ListMaker extends BaseInput {
       this.value = model[this.valueProperty] || model;
       this.model = model;
       this.resetQuery();
-    }
-    if (this.dropEl) {
-      this.dropEl.closeDrop();
+      if (this.dropEl) {
+        this.dropEl.closeDrop();
+      }
     }
     if (this.isFiltered) {
       this.isFiltered = false;
@@ -368,6 +372,9 @@ export class ListMaker extends BaseInput {
       $event.stopEvent();
     } else if (this.hilightIndex !== -1 && $event.keyCode === ENTER) {
       this.selectOption(this.innerOptions[this.hilightIndex]);
+      $event.stopEvent();
+    } else if (this.allowAny && !!this.inputValue.trim() && $event.keyCode === ENTER) {
+      this.selectOption(this.inputValue);
       $event.stopEvent();
     } else if (this.multiple && $event.keyCode === BACKSPACE) {
       if (this.model.length > 0 && this.inputValue.length === 0) {

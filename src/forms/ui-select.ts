@@ -73,6 +73,7 @@ export class UISelect extends ListMaker {
     super(element);
     this.dropHandle = "caret";
     this.multiple = element.hasAttribute("multiple");
+    this.allowAny = element.hasAttribute("allow-any");
 
     this.template = this.element.querySelector("template");
   }

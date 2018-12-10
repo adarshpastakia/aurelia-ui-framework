@@ -72,6 +72,7 @@ export class UIList extends ListMaker {
   constructor(protected element: Element) {
     super(element);
     this.multiple = element.hasAttribute("multiple");
+    this.allowAny = element.hasAttribute("allow-any");
 
     this.template = this.element.querySelector("template");
   }

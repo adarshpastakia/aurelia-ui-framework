@@ -114,7 +114,16 @@
             </ui-field-wrapper>
           </ui-field>
         </ui-col>
-        <ui-col></ui-col>
+        <ui-col>
+          <ui-field label="Label">
+            <ui-field-wrapper>
+              <ui-input-addon width="6em">Multiple</ui-input-addon>
+              <ui-select multiple allow-any options.bind="countries" placeholder="Select a country" label-property="name" value-property="iso2"
+              group-property="continent" clear>
+              </ui-select>
+            </ui-field-wrapper>
+          </ui-field>
+        </ui-col>
       </ui-row>
 
       <ui-row>
