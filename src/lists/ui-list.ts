@@ -18,7 +18,7 @@ import { ListMaker } from "./list-maker";
 @autoinject()
 @customElement("ui-list")
 @viewResources(
-  PLATFORM.moduleName("./input-wrapper"),
+  PLATFORM.moduleName("../forms/input-wrapper"),
   PLATFORM.moduleName("./list-input"),
   PLATFORM.moduleName("./list-container")
 )

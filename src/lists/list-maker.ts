@@ -4,8 +4,8 @@
  * @copyright : 2018
  * @license   : MIT
  */
+import { BaseInput } from "../forms/base-input";
 import { UIInternal } from "../utils/ui-internal";
-import { BaseInput } from "./base-input";
 
 const KEY_DOWN = 40;
 const KEY_UP = 38;
