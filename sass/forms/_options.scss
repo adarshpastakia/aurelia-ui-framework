@@ -7,6 +7,7 @@
   --toggle-bg: var(--color-gray-tint);
   --toggle-color: var(--color-gray);
   --toggle-on-bg: var(--color-gray-dark);
+  display: inline-block;
 
   &__group {
     align-items: center;
@@ -20,7 +21,7 @@
 
   &__toggle {
     border: 2px solid var(--toggle-bg);
-    border-radius: 1rem;
+    border-radius: 1em;
     cursor: pointer;
     direction: ltr;
     font-size: 1rem;
@@ -37,7 +38,7 @@
       color: var(--toggle-color);
       content: var(--toggle-off);
       display: block;
-      height: 1rem;
+      height: 2em;
       line-height: 1;
       margin: auto;
       padding: 0 2px;
@@ -48,7 +49,7 @@
 
     &::after {
       background-color: var(--color-white);
-      border-radius: 1rem;
+      border-radius: 1em;
       box-shadow: 0 0 1px 0 var(--color-gray) inset;
       content: "";
       display: block;
@@ -56,7 +57,7 @@
       left: 0;
       position: relative;
       transition: left 0.2s;
-      width: 1rem;
+      width: 1em;
     }
   }
 

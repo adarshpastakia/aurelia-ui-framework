@@ -1,22 +1,15 @@
-/**
- * @author    : Adarsh Pastakia
- * @version   : 5.0.0
- * @copyright : 2018
- * @license   : MIT
- */
-
 import {
   autoinject,
   bindable,
   bindingMode,
   computedFrom,
   customElement,
-  observable
+  observable,
+  PLATFORM
 } from "aurelia-framework";
 import {
   addDays,
   addHours,
-  addMinutes,
   addMonths,
   addWeeks,
   addYears,
@@ -29,6 +22,8 @@ import {
   isSameDay,
   isSameMonth,
   isWithinInterval,
+  setHours,
+  setMinutes,
   startOfMonth,
   startOfWeek,
   subDays,
@@ -37,6 +32,9 @@ import {
   toDate
 } from "date-fns";
 import { UIInternal } from "../utils/ui-internal";
+
+PLATFORM.moduleName("./page-date.html");
+PLATFORM.moduleName("./page-month.html");
 
 const FORMAT_NO_TIME = "yyyy-MM-dd'T'00:00:00.000";
 const FORMAT_NO_TIMEZONE = "yyyy-MM-dd'T'HH:mm:ss.000";
@@ -112,10 +110,10 @@ export class UIDate {
 
   @computedFrom("time")
   get hour() {
-    return this.time ? format(this.time, "hh") : "";
+    return this.time ? format(this.time, "hh") : "00";
   }
   set hour(h) {
-    this.time = addHours(this.time, parseInt(h, 10));
+    this.time = setHours(this.time, parseInt(h, 10) + (getHours(this.time) < 12 ? 0 : 12));
     this.date = toDate(
       format(this.date || new Date(), "yyyy-MM-dd") + "T" + format(this.time, "HH:mm:ss.000")
     );
@@ -129,10 +127,10 @@ export class UIDate {
   }
   @computedFrom("time")
   get minute() {
-    return this.time ? format(this.time, "mm") : "";
+    return this.time ? format(this.time, "mm") : "00";
   }
   set minute(m) {
-    this.time = addMinutes(this.time, parseInt(m, 10));
+    this.time = setMinutes(this.time, parseInt(m, 10));
     this.date = toDate(
       format(this.date || new Date(), "yyyy-MM-dd") + "T" + format(this.time, "HH:mm:ss.000")
     );
@@ -308,9 +306,7 @@ export class UIDate {
   protected selectToday(): void {
     if (!this.isDateDisabled()) {
       const date = new Date();
-      this.date = toDate(
-        format(date, this.withTime ? "yyyy-MM-dd'T'HH:mm:ss.000" : "yyyy-MM-dd")
-      );
+      this.date = toDate(format(date, this.withTime ? "yyyy-MM-dd'T'HH:mm:ss.000" : "yyyy-MM-dd"));
       this.fireChange();
     }
   }

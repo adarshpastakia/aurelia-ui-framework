@@ -3,99 +3,17 @@
 // @copyright : 2018
 // @license   : MIT
 
-.ui-date {
+.ui-calendar {
+  background-color: var(--input-bg);
+  border-radius: $base-border-radius;
+  box-shadow: 0 0 0 1px var(--input-border);
+  display: inline-block;
+  overflow: hidden;
+  text-align: center;
+
   &__wrapper {
-    display: inline-block;
-    line-height: initial;
-    vertical-align: top;
-  }
-
-  &__view {
-    background-color: var(--input-bg);
-    border: 1px solid var(--input-border);
-    border-radius: $base-border-radius;
     display: grid;
-    grid-gap: 1px;
-    grid-template-columns: 10em auto auto;
-    grid-template-rows: auto;
-    overflow: hidden;
-
-    .ui-divider {
-      @extend %vr;
-    }
-  }
-
-  &__list {
-    background-color: var(--base-bg);
-    display: grid;
-    max-height: 17em;
-    overflow: auto;
-
-    > a {
-      align-self: center;
-      justify-self: center;
-    }
-
-    ul {
-      list-style: none;
-      margin: 0;
-      padding: 0.25em 0;
-
-      hr {
-        margin: 2px 0;
-      }
-
-      li {
-        color: var(--color-secondary);
-        cursor: pointer;
-        font-size: 0.9em;
-        padding: 0.25em 0.75em;
-
-        &:hover {
-          background-color: var(--date-hover-bg);
-          box-shadow: 4px 0 0 0 var(--date-active-bg) inset;
-
-          @at-root [dir="rtl"] & {
-            box-shadow: -4px 0 0 0 var(--date-active-bg) inset;
-          }
-        }
-
-        &[data-active="true"] {
-          background-color: var(--date-active-bg);
-          box-shadow: 4px 0 0 0 var(--date-hover-bg) inset;
-          color: var(--color-white);
-          cursor: default;
-
-          @at-root [dir="rtl"] & {
-            box-shadow: -4px 0 0 0 var(--date-hover-bg) inset;
-          }
-        }
-      }
-    }
-  }
-
-  &--has-time {
-    max-height: 20em;
-  }
-
-  &__calendar {
-    background-color: var(--input-bg);
-    border-radius: $base-border-radius;
-    box-shadow: 0 0 0 1px var(--input-border);
-    display: inline-block;
-    overflow: hidden;
-    text-align: center;
-    width: 21em;
-
-    &:not([data-page="date"]) .ui-date__page--date {
-      display: none;
-    }
-    &:not([data-page="month"]) .ui-date__page--month {
-      display: none;
-    }
-    &:not([data-page="year"]) .ui-date__page--year {
-      display: none;
-    }
+    grid-template-columns: auto auto;
   }
 
   &__page {
@@ -103,6 +21,24 @@
     display: grid;
     grid-template-rows: auto 1fr auto;
     justify-items: center;
+
+    &__wrapper {
+      display: block;
+    }
+  }
+  &:not([data-page="date"]) &__page[data-page="date"] {
+    display: none;
+  }
+  &:not([data-page="month"]) &__page[data-page="month"] {
+    display: none;
+  }
+  &:not([data-page="year"]) &__page[data-page="year"] {
+    display: none;
+  }
+
+  &__time {
+    display: grid;
+    @include property-prefix(border-start, 1px solid var(--base-shadow));
   }
 
   &__header {
@@ -145,7 +81,7 @@
     }
   }
 
-  &__grid--date {
+  &__grid {
     display: grid;
     grid-auto-flow: row;
     grid-auto-rows: 2rem;
@@ -159,36 +95,30 @@
     }
   }
 
-  &__grid--month {
-    display: grid;
-    grid-auto-flow: row;
+  &__page[data-page="month"] &__grid {
     grid-auto-rows: 3rem;
-    grid-gap: 2px;
     grid-template-columns: repeat(3, 6rem);
 
     > span {
       line-height: 2.5em;
-      padding: 0.25em 0.5em;
-      position: relative;
-      text-align: center;
     }
   }
 
-  &__grid--year {
-    display: grid;
-    grid-auto-flow: row;
+  &__page[data-page="year"] &__grid {
     grid-auto-rows: 2.5rem;
-    grid-gap: 2px;
     grid-template-columns: repeat(4, 5rem);
 
     > span {
       line-height: 2em;
-      padding: 0.25em 0.5em;
-      position: relative;
-      text-align: center;
     }
   }
 
+  &__foot {
+    padding: 0.5em 0.25em;
+  }
+}
+
+.ui-date {
   &__head {
     background-color: var(--color-primary-light);
     color: var(--color-white);
@@ -289,71 +219,19 @@
       }
     }
   }
+}
 
-  &__foot {
-    align-items: center;
-    background-color: var(--base-component);
-    border-top: 1px solid var(--input-border);
-    display: grid;
-    grid-gap: 0.5em;
-    grid-template-areas: ". . . . . title";
-    grid-template-columns: auto 1fr auto 1fr auto 1fr;
-    justify-content: center;
-    justify-self: stretch;
-    padding: 0.5em 0.25em;
-
-    > .ui-icon {
-      color: var(--color-gray);
-      font-size: 1.5em;
-    }
-
-    .ui-date__time--input {
-      border: 1px solid var(--input-border);
-      border-radius: $base-border-radius;
-      color: var(--color-gray);
-      display: grid;
-      grid-template-areas: "input spin-up" "input spin-down";
-      line-height: 1;
-      text-align: center;
-
-      > input {
-        background-color: transparent;
-        border: none;
-        color: var(--base-color);
-        font-size: 1rem;
-        grid-area: input;
-        line-height: initial;
-        outline: none;
-        padding: 0.25em 0;
-        text-align: center;
-      }
-
-      > a {
-        color: var(--color-primary);
-        font-size: 0.7rem;
-
-        &:first-of-type {
-          grid-area: spin-up;
-        }
-        &:last-of-type {
-          grid-area: spin-down;
-        }
-
-        &:hover {
-          background-color: var(--color-gray-tint);
-        }
-      }
-    }
-    > span {
-      font-weight: $font-weight-bold;
-    }
+.ui-time {
+  &__wrapper {
+    align-self: center;
 
     .ui-option {
       &__toggle {
         // stylelint-disable-next-line
         box-shadow: none !important;
+        font-size: 1.25rem;
         opacity: 1;
-        width: 2.75rem;
+        width: 3.25em;
 
         --toggle-on: "PM";
         --toggle-off: "AM";
@@ -361,8 +239,6 @@
         --toggle-color: var(--color-gray-shade);
 
         &::before {
-          font-size: 0.6rem;
-          line-height: 1rem;
           padding: 0 3px;
         }
       }
@@ -374,4 +250,386 @@
       }
     }
   }
+
+  &__row {
+    font-size: 2em;
+    padding: 0.25rem 0.5rem;
+  }
+  &__hour-up,
+  &__minute-up {
+    transform: scaleY(-1);
+  }
 }
+
+// .ui-date {
+//   &__wrapper {
+//     display: inline-block;
+//     line-height: initial;
+//     vertical-align: top;
+//   }
+
+//   &__view {
+//     background-color: var(--input-bg);
+//     border: 1px solid var(--input-border);
+//     border-radius: $base-border-radius;
+//     display: grid;
+//     grid-gap: 1px;
+//     grid-template-columns: 10em auto auto;
+//     grid-template-rows: auto;
+//     overflow: hidden;
+
+//     .ui-divider {
+//       @extend %vr;
+//     }
+//   }
+
+//   &__list {
+//     background-color: var(--base-bg);
+//     display: grid;
+//     max-height: 17em;
+//     overflow: auto;
+
+//     > a {
+//       align-self: center;
+//       justify-self: center;
+//     }
+
+//     ul {
+//       list-style: none;
+//       margin: 0;
+//       padding: 0.25em 0;
+
+//       hr {
+//         margin: 2px 0;
+//       }
+
+//       li {
+//         color: var(--color-secondary);
+//         cursor: pointer;
+//         font-size: 0.9em;
+//         padding: 0.25em 0.75em;
+
+//         &:hover {
+//           background-color: var(--date-hover-bg);
+//           box-shadow: 4px 0 0 0 var(--date-active-bg) inset;
+
+//           @at-root [dir="rtl"] & {
+//             box-shadow: -4px 0 0 0 var(--date-active-bg) inset;
+//           }
+//         }
+
+//         &[data-active="true"] {
+//           background-color: var(--date-active-bg);
+//           box-shadow: 4px 0 0 0 var(--date-hover-bg) inset;
+//           color: var(--color-white);
+//           cursor: default;
+
+//           @at-root [dir="rtl"] & {
+//             box-shadow: -4px 0 0 0 var(--date-hover-bg) inset;
+//           }
+//         }
+//       }
+//     }
+//   }
+
+//   &--has-time {
+//     max-height: 20em;
+//   }
+
+//   &__calendar {
+//     background-color: var(--input-bg);
+//     border-radius: $base-border-radius;
+//     box-shadow: 0 0 0 1px var(--input-border);
+//     display: inline-block;
+//     overflow: hidden;
+//     text-align: center;
+//     width: 21em;
+
+//     &:not([data-page="date"]) .ui-calendar__page--date {
+//       display: none;
+//     }
+//     &:not([data-page="month"]) .ui-calendar__page--month {
+//       display: none;
+//     }
+//     &:not([data-page="year"]) .ui-calendar__page--year {
+//       display: none;
+//     }
+//   }
+
+//   &__page {
+//     align-items: center;
+//     display: grid;
+//     grid-template-rows: auto 1fr auto;
+//     justify-items: center;
+//   }
+
+//   &__header {
+//     background-color: var(--color-primary);
+//     color: var(--color-white);
+//     display: grid;
+//     grid-template-areas: "pg-down prev title next pg-up";
+//     grid-template-columns: auto auto 1fr auto auto;
+//     justify-self: stretch;
+//   }
+
+//   &__pg-down,
+//   &__pg-up,
+//   &__prev,
+//   &__next {
+//     font-size: 1.5em;
+//     line-height: 1;
+//     margin: 0.25rem;
+//   }
+
+//   &__pg-down {
+//     grid-area: pg-down;
+//   }
+//   &__pg-up {
+//     grid-area: pg-up;
+//   }
+//   &__prev {
+//     grid-area: prev;
+//   }
+//   &__next {
+//     grid-area: next;
+//   }
+//   &__title {
+//     align-self: center;
+//     grid-area: title;
+//     padding: 0 0.5em;
+
+//     .ui-icon {
+//       vertical-align: middle;
+//     }
+//   }
+
+//   &__grid--date {
+//     display: grid;
+//     grid-auto-flow: row;
+//     grid-auto-rows: 2rem;
+//     grid-gap: 2px;
+//     grid-template-columns: repeat(8, 2.5rem);
+
+//     > span {
+//       padding: 0.25em 0.5em;
+//       position: relative;
+//       text-align: center;
+//     }
+//   }
+
+//   &__grid--month {
+//     display: grid;
+//     grid-auto-flow: row;
+//     grid-auto-rows: 3rem;
+//     grid-gap: 2px;
+//     grid-template-columns: repeat(3, 6rem);
+
+//     > span {
+//       line-height: 2.5em;
+//       padding: 0.25em 0.5em;
+//       position: relative;
+//       text-align: center;
+//     }
+//   }
+
+//   &__grid--year {
+//     display: grid;
+//     grid-auto-flow: row;
+//     grid-auto-rows: 2.5rem;
+//     grid-gap: 2px;
+//     grid-template-columns: repeat(4, 5rem);
+
+//     > span {
+//       line-height: 2em;
+//       padding: 0.25em 0.5em;
+//       position: relative;
+//       text-align: center;
+//     }
+//   }
+
+//   &__head {
+//     background-color: var(--color-primary-light);
+//     color: var(--color-white);
+//     font-weight: $font-weight-medium;
+//   }
+
+//   &__cell {
+//     color: var(--base-color);
+//     cursor: pointer;
+//     overflow: hidden;
+//     position: relative;
+
+//     &:hover {
+//       background-color: var(--date-hover-bg);
+//     }
+
+//     &--week {
+//       color: var(--color-secondary-light);
+//       font-weight: $font-weight-medium;
+//       overflow: hidden;
+//     }
+
+//     &--date {
+//       &--today {
+//         &::after {
+//           border: 4px solid transparent;
+//           border-color: transparent var(--color-secondary) var(--color-secondary) transparent;
+//           bottom: 0;
+//           content: "";
+//           display: block;
+//           height: 4px;
+//           position: absolute;
+//           right: 0;
+//           width: 4px;
+//         }
+//       }
+
+//       &--hilight {
+//         // stylelint-disable-next-line
+//         background-color: var(--date-hover-bg) !important;
+//         color: var(--color-secondary);
+//       }
+//       &--start {
+//         // stylelint-disable-next-line
+//         background-color: var(--date-active-bg) !important;
+//         box-shadow: 4px 0 0 0 var(--color-secondary) inset;
+//         color: var(--color-white);
+
+//         @at-root [dir="rtl"] & {
+//           box-shadow: -4px 0 0 0 var(--color-secondary) inset;
+//         }
+//       }
+//       &--end {
+//         // stylelint-disable-next-line
+//         background-color: var(--date-active-bg) !important;
+//         box-shadow: -4px 0 0 0 var(--color-secondary) inset;
+//         color: var(--color-white);
+
+//         @at-root [dir="rtl"] & {
+//           box-shadow: 4px 0 0 0 var(--color-secondary) inset;
+//         }
+//       }
+
+//       &#{selector-append(&, --start, &, --end)} {
+//         box-shadow: 4px 0 0 0 var(--color-secondary) inset, -4px 0 0 0 var(--color-secondary) inset;
+//       }
+
+//       &--muted {
+//         // stylelint-disable-next-line
+//         background-color: transparent !important;
+//         // stylelint-disable-next-line
+//         box-shadow: none !important;
+//         // stylelint-disable-next-line
+//         color: var(--color-gray) !important;
+//       }
+
+//       &--selected {
+//         // stylelint-disable-next-line
+//         background-color: var(--date-active-bg) !important;
+//         color: var(--color-white);
+//         pointer-events: none;
+//       }
+
+//       &--disabled {
+//         background-color: var(--base-bg);
+//         color: var(--color-gray-light);
+//         pointer-events: none;
+
+//         &::before {
+//           border-left: 1px solid var(--color-gray-light);
+//           content: "";
+//           height: 2em;
+//           left: 50%;
+//           position: absolute;
+//           top: 0;
+//           transform: rotate(45deg);
+//         }
+//       }
+//     }
+//   }
+
+//   &__foot {
+//     align-items: center;
+//     background-color: var(--base-component);
+//     border-top: 1px solid var(--input-border);
+//     display: grid;
+//     grid-gap: 0.5em;
+//     grid-template-areas: ". . . . . title";
+//     grid-template-columns: auto 1fr auto 1fr auto 1fr;
+//     justify-content: center;
+//     justify-self: stretch;
+//     padding: 0.5em 0.25em;
+
+//     > .ui-icon {
+//       color: var(--color-gray);
+//       font-size: 1.5em;
+//     }
+
+//     .ui-date__time--input {
+//       border: 1px solid var(--input-border);
+//       border-radius: $base-border-radius;
+//       color: var(--color-gray);
+//       display: grid;
+//       grid-template-areas: "input spin-up" "input spin-down";
+//       line-height: 1;
+//       text-align: center;
+
+//       > input {
+//         background-color: transparent;
+//         border: none;
+//         color: var(--base-color);
+//         font-size: 1rem;
+//         grid-area: input;
+//         line-height: initial;
+//         outline: none;
+//         padding: 0.25em 0;
+//         text-align: center;
+//       }
+
+//       > a {
+//         color: var(--color-primary);
+//         font-size: 0.7rem;
+
+//         &:first-of-type {
+//           grid-area: spin-up;
+//         }
+//         &:last-of-type {
+//           grid-area: spin-down;
+//         }
+
+//         &:hover {
+//           background-color: var(--color-gray-tint);
+//         }
+//       }
+//     }
+//     > span {
+//       font-weight: $font-weight-bold;
+//     }
+
+//     .ui-option {
+//       &__toggle {
+//         // stylelint-disable-next-line
+//         box-shadow: none !important;
+//         opacity: 1;
+//         width: 2.75rem;
+
+//         --toggle-on: "PM";
+//         --toggle-off: "AM";
+//         --toggle-bg: var(--color-yellow-dark);
+//         --toggle-color: var(--color-gray-shade);
+
+//         &::before {
+//           font-size: 0.6rem;
+//           line-height: 1rem;
+//           padding: 0 3px;
+//         }
+//       }
+//       &__control > input:checked {
+//         ~ .ui-option__toggle {
+//           --toggle-bg: var(--color-gray-dark);
+//           --toggle-color: var(--color-gray-tint);
+//         }
+//       }
+//     }
+//   }
+// }

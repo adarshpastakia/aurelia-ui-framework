@@ -22,15 +22,15 @@
   </div>
 
   <ui-row>
-    <ui-col size="4">Min Date</ui-col>
-    <ui-col size="4">Max Date</ui-col>
-    <ui-col size="4">Date Test</ui-col>
-    <ui-col size="4"> <ui-date date.bind="mindate" max-date="maxdate" no-time></ui-date> </ui-col>
-    <ui-col size="4"> <ui-date date.bind="maxdate" min-date.bind="mindate" no-time></ui-date> </ui-col>
-    <ui-col size="4"> <ui-date date.bind="date" min-date.bind="mindate" max-date.bind="maxdate" disabled-days.bind="[5,6]" disabled-dates.call="isDateDisabled($event)"></ui-date> </ui-col>
-    <ui-col size="4">${mindate | utc}</ui-col>
-    <ui-col size="4">${maxdate | utc}</ui-col>
-    <ui-col size="4">${date | utc}</ui-col>
+    <ui-col size="6">Min Date</ui-col>
+    <ui-col size="6">Max Date</ui-col>
+    <ui-col size="6"> <ui-date date.bind="mindate" max-date="maxdate" no-time></ui-date> </ui-col>
+    <ui-col size="6"> <ui-date date.bind="maxdate" min-date.bind="mindate" no-time></ui-date> </ui-col>
+    <ui-col size="6">${mindate | utc}</ui-col>
+    <ui-col size="6">${maxdate | utc}</ui-col>
+    <ui-col size="12">Date Test</ui-col>
+    <ui-col size="12"> <ui-date date.bind="date" min-date.bind="mindate" max-date.bind="maxdate" disabled-days.bind="[5,6]" disabled-dates.call="isDateDisabled($event)"></ui-date> </ui-col>
+    <ui-col size="12">${date | utc}</ui-col>
   </ui-row>
 
   <br />
