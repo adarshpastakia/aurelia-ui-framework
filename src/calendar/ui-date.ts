@@ -57,17 +57,11 @@ export class UIDate {
   @bindable()
   public disabled: boolean = false;
 
-  @observable()
   protected currentMonth = startOfMonth(new Date());
-  @observable()
-  protected dateRange: { start: Date | string; end: Date | string };
-
-  protected monthChanged: (month: Date) => void;
-  protected weekChanged: (week: Date) => void;
-  protected internalDateChanged: (date: Date, timeChange: boolean) => void;
 
   protected time;
   protected hilight;
+  protected ignoreChange;
   protected currentYear = getYear(new Date());
   protected decadeStart = 0;
   protected currentView: "date" | "month" | "year" = "date";
@@ -77,22 +71,33 @@ export class UIDate {
   constructor(protected element: Element) {
     this.resetDecade();
     this.withTime = !element.hasAttribute("no-time");
+    this.time = toDate(this.time || "2000-01-01T00:00:00.000");
   }
 
   protected dateChanged(date): void {
-    if (date) {
-      this.time = toDate(this.date);
-      this.currentYear = getYear(this.date);
-
-      if (
-        !this.dateRange &&
-        !isSameMonth(
-          format(this.currentMonth, FORMAT_NO_TIMEZONE),
-          format(this.date, FORMAT_NO_TIMEZONE)
-        )
-      ) {
-        this.currentMonth = startOfMonth(this.date);
+    if (date && !this.ignoreChange) {
+      this.ignoreChange = true;
+      if (isBefore(date, this.minDate)) {
+        date = toDate(this.minDate);
       }
+      if (isAfter(date, this.maxDate)) {
+        date = toDate(this.maxDate);
+      }
+      if (!this.isDateDisabled(date)) {
+        this.date = toDate(date);
+        this.time = toDate(this.date);
+        this.currentYear = getYear(this.date);
+
+        if (
+          !isSameMonth(
+            format(this.currentMonth, FORMAT_NO_TIMEZONE),
+            format(this.date, FORMAT_NO_TIMEZONE)
+          )
+        ) {
+          this.currentMonth = startOfMonth(this.date);
+        }
+      }
+      UIInternal.queueTask(() => this.ignoreChange = false);
     }
   }
 
@@ -114,15 +119,11 @@ export class UIDate {
   }
   set hour(h) {
     this.time = setHours(this.time, parseInt(h, 10) + (getHours(this.time) < 12 ? 0 : 12));
-    this.date = toDate(
-      format(this.date || new Date(), "yyyy-MM-dd") + "T" + format(this.time, "HH:mm:ss.000")
+    this.dateChanged(
+      toDate(
+        format(this.date || new Date(), "yyyy-MM-dd") + "T" + format(this.time, "HH:mm:ss.000")
+      )
     );
-    if (isBefore(this.date, this.minDate)) {
-      this.date = toDate(this.minDate);
-    }
-    if (isAfter(this.date, this.maxDate)) {
-      this.date = toDate(this.maxDate);
-    }
     this.fireChange(true);
   }
   @computedFrom("time")
@@ -131,15 +132,11 @@ export class UIDate {
   }
   set minute(m) {
     this.time = setMinutes(this.time, parseInt(m, 10));
-    this.date = toDate(
-      format(this.date || new Date(), "yyyy-MM-dd") + "T" + format(this.time, "HH:mm:ss.000")
+    this.dateChanged(
+      toDate(
+        format(this.date || new Date(), "yyyy-MM-dd") + "T" + format(this.time, "HH:mm:ss.000")
+      )
     );
-    if (isBefore(this.date, this.minDate)) {
-      this.date = toDate(this.minDate);
-    }
-    if (isAfter(this.date, this.maxDate)) {
-      this.date = toDate(this.maxDate);
-    }
     this.fireChange(true);
   }
   @computedFrom("time")
@@ -148,15 +145,11 @@ export class UIDate {
   }
   set ampm(pm) {
     this.time = addHours(this.time, pm ? 12 : -12);
-    this.date = toDate(
-      format(this.date || new Date(), "yyyy-MM-dd") + "T" + format(this.time, "HH:mm:ss.000")
+    this.dateChanged(
+      toDate(
+        format(this.date || new Date(), "yyyy-MM-dd") + "T" + format(this.time, "HH:mm:ss.000")
+      )
     );
-    if (isBefore(this.date, this.minDate)) {
-      this.date = toDate(this.minDate);
-    }
-    if (isAfter(this.date, this.maxDate)) {
-      this.date = toDate(this.maxDate);
-    }
     this.fireChange(true);
   }
 
@@ -204,31 +197,7 @@ export class UIDate {
       classes.push("ui-date__cell--date--muted");
     }
 
-    // Check for date range
-    if (this.dateRange) {
-      if (this.dateRange.start && isSameDay(dt, this.dateRange.start)) {
-        classes.push("ui-date__cell--date--start");
-      }
-      if (this.dateRange.end && isSameDay(dt, this.dateRange.end)) {
-        classes.push("ui-date__cell--date--end");
-      }
-      if (
-        this.dateRange.start &&
-        !this.dateRange.end &&
-        this.hilight &&
-        isAfter(this.hilight, this.dateRange.start) &&
-        isWithinInterval(dt, { ...this.dateRange, end: this.hilight })
-      ) {
-        classes.push("ui-date__cell--date--hilight");
-      }
-      try {
-        if (this.dateRange.start && this.dateRange.end && isWithinInterval(dt, this.dateRange)) {
-          classes.push("ui-date__cell--date--hilight");
-        }
-      } catch (e) {
-        //
-      }
-    } else if (isSameDay(dt, this.date)) {
+    if (isSameDay(dt, this.date)) {
       classes.push("ui-date__cell--date--selected");
     }
     return classes.join(" ");
@@ -275,12 +244,6 @@ export class UIDate {
     this.decadeStart = startYear - (startYear % 20) + 1;
   }
 
-  protected currentMonthChanged(): void {
-    if (isFunction(this.monthChanged)) {
-      this.monthChanged(this.currentMonth);
-    }
-  }
-
   protected setCurrentMonth($event: UIEvent): void {
     if (($event.target as HTMLElement).dataset.date) {
       this.currentMonth = toDate(($event.target as HTMLElement).dataset.date);
@@ -306,30 +269,21 @@ export class UIDate {
   protected selectToday(): void {
     if (!this.isDateDisabled()) {
       const date = new Date();
-      this.date = toDate(format(date, this.withTime ? "yyyy-MM-dd'T'HH:mm:ss.000" : "yyyy-MM-dd"));
+      this.dateChanged(toDate(format(date, this.withTime ? "yyyy-MM-dd'T'HH:mm:ss.000" : "yyyy-MM-dd")));
       this.fireChange();
     }
   }
 
   protected selectDate($event: UIEvent): void {
     if (($event.target as HTMLElement).dataset.date) {
-      this.date = toDate(
-        format(($event.target as HTMLElement).dataset.date, "yyyy-MM-dd") +
-          "T" +
-          format(this.time, "HH:mm:ss.000")
+      this.dateChanged(
+        toDate(
+          format(($event.target as HTMLElement).dataset.date, "yyyy-MM-dd") +
+            "T" +
+            format(this.time, "HH:mm:ss.000")
+        )
       );
-      if (isBefore(this.date, this.minDate)) {
-        this.date = toDate(this.minDate);
-      }
-      if (isAfter(this.date, this.maxDate)) {
-        this.date = toDate(this.maxDate);
-      }
       this.fireChange();
-    }
-    if (($event.target as HTMLElement).dataset.week) {
-      if (isFunction(this.weekChanged)) {
-        this.weekChanged(toDate(($event.target as HTMLElement).dataset.week));
-      }
     }
   }
 
@@ -340,9 +294,6 @@ export class UIDate {
   }
 
   protected fireChange(timeChange = false) {
-    if (isFunction(this.internalDateChanged)) {
-      this.internalDateChanged(toDate(this.date), timeChange);
-    }
     this.element.dispatchEvent(UIInternal.createEvent("change", this.date));
   }
 }

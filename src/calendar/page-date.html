@@ -76,9 +76,9 @@
   <div class="ui-calendar__time" if.bind="withTime">
     <div class="ui-time__wrapper">
       <span class="ui-time__row"><ui-svg-icon icon="clock"></ui-svg-icon></span>
-      <div class="ui-time__row"><input type="range" min="0" max="11" value.bind="hour & debounce"/></div>
+      <div class="ui-time__row"><input type="range" min="0" max="11" value.bind="hour & debounce:10"/></div>
       <span class="ui-time__row">${hour || 12} : ${minute}</span>
-      <div class="ui-time__row"><input type="range" min="0" max="59" value.bind="minute & debounce"/></div>
+      <div class="ui-time__row"><input type="range" min="0" max="59" value.bind="minute & debounce:10"/></div>
       <span class="ui-time__row">
           <ui-toggle checked.bind="ampm & debounce"></ui-toggle>
       </span>

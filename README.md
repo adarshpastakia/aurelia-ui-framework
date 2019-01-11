@@ -1,5 +1,6 @@
 # Aurelia UI Framework
 
+Current test site https://aurelia-ui-framework.herokuapp.com
 
 * Running examples
 
