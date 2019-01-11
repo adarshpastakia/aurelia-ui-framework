@@ -44,6 +44,10 @@ var UITreeModel = /** @class */ (function () {
         this.children = children.map(function (child) { return new UITreeNode(child); });
         this.nodes = this.getExpandedTree(this.children.sortBy("label"));
     }
+    UITreeModel.prototype.filter = function (query) {
+        var filtered = this.filterNodes(this.children, query);
+        this.nodes = this.getExpandedTree(filtered.sortBy("label"));
+    };
     UITreeModel.prototype.toggleExpand = function (index) {
         var node = this.nodes[index];
         node.expanded = !node.expanded;
@@ -101,7 +105,7 @@ var UITreeModel = /** @class */ (function () {
                 checked.push(node);
             }
             if (node.children) {
-                _this.getCheckedNodes(node.children, checked);
+                _this.getCheckedNodes(node.childNodes, checked);
             }
         });
     };
@@ -120,10 +124,25 @@ var UITreeModel = /** @class */ (function () {
                         new UITreeNode({ id: "node-more", leaf: true }, child)
                     ]);
                 }
-                nodes.push.apply(nodes, __spread(injectedChildren));
+                nodes.push.apply(nodes, __spread(_this.getExpandedTree(injectedChildren)));
             }
         });
         return nodes;
+    };
+    UITreeModel.prototype.filterNodes = function (nodes, query) {
+        var _this = this;
+        return nodes.filter(function (child) {
+            var retVal = !query ||
+                child.label
+                    .ascii()
+                    .toLocaleLowerCase()
+                    .includes(query.ascii().toLocaleLowerCase());
+            if (!child.leaf) {
+                child.filtered = _this.filterNodes(child.childNodes, query);
+                retVal = retVal || child.filtered.length > 0;
+            }
+            return retVal;
+        });
     };
     return UITreeModel;
 }());
@@ -132,7 +151,8 @@ var UITreeNode = /** @class */ (function () {
     function UITreeNode(node, parent) {
         var _this = this;
         this.parent = parent;
-        this.children = [];
+        this.childNodes = [];
+        this.filtered = null;
         this.level = 0;
         this.checked = 0;
         this.id = node.id || "node__" + NODE_ID++;
@@ -141,7 +161,7 @@ var UITreeNode = /** @class */ (function () {
         this.icon = node.icon;
         this.iconOpen = node.iconOpen;
         this.iconClosed = node.iconClosed;
-        this.leaf = node.leaf;
+        this.leaf = !!node.leaf;
         this.expanded = node.expanded;
         this.disabled = node.disabled;
         if (parent) {
@@ -149,7 +169,7 @@ var UITreeNode = /** @class */ (function () {
             this.parentId = parent.id;
         }
         if (node.children) {
-            this.children = node.children.map(function (child) { return new UITreeNode(child, _this); });
+            this.childNodes = node.children.map(function (child) { return new UITreeNode(child, _this); });
         }
     }
     Object.defineProperty(UITreeNode.prototype, "nodeIcon", {
@@ -173,6 +193,13 @@ var UITreeNode = /** @class */ (function () {
     Object.defineProperty(UITreeNode.prototype, "expandIcon", {
         get: function () {
             return this.expanded ? "tree-collapse" : "tree-expand";
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(UITreeNode.prototype, "children", {
+        get: function () {
+            return this.filtered || this.childNodes;
         },
         enumerable: true,
         configurable: true

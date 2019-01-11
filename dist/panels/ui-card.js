@@ -18,7 +18,7 @@ var UICard = /** @class */ (function () {
     function UICard(element) {
         this.element = element;
         this.width = "auto";
-        this.minWidth = "16rem";
+        this.minWidth = "8rem";
         this.maxWidth = "100vw";
     }
     __decorate([

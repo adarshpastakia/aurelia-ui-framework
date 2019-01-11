@@ -45,6 +45,7 @@ var UIList = /** @class */ (function (_super) {
         _this.disabled = false;
         _this.noOptionsText = "No Options";
         _this.multiple = element.hasAttribute("multiple");
+        _this.allowAny = element.hasAttribute("allow-any");
         _this.template = _this.element.querySelector("template");
         return _this;
     }
@@ -126,7 +127,7 @@ var UIList = /** @class */ (function (_super) {
     UIList = __decorate([
         autoinject(),
         customElement("ui-list"),
-        viewResources(PLATFORM.moduleName("./input-wrapper"), PLATFORM.moduleName("./list-input"), PLATFORM.moduleName("./list-container")),
+        viewResources(PLATFORM.moduleName("../forms/input-wrapper"), PLATFORM.moduleName("./list-input"), PLATFORM.moduleName("./list-container")),
         inlineView("<template class=\"ui-input ui-list ${classes}\" aria-disabled.bind=\"disabled || isDisabled\" aria-readonly.bind=\"readonly\">\n<input-wrapper model.bind=\"$this\">\n  <slot></slot>\n  <list-input></list-input>\n  <div class=\"ui-list__container\" ref=\"listContainer\" css.bind=\"{height}\">\n    <list-container></list-container>\n  </div>\n</input-wrapper>\n</template>"),
         __metadata("design:paramtypes", [Element])
     ], UIList);

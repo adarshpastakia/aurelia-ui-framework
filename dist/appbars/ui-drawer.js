@@ -13,7 +13,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { autoinject, bindable, customElement } from "aurelia-framework";
+import { autoinject, bindable, customElement, inlineView } from "aurelia-framework";
 import { UIInternal } from "../utils/ui-internal";
 var UIDrawer = /** @class */ (function () {
     function UIDrawer(element) {
@@ -22,16 +22,33 @@ var UIDrawer = /** @class */ (function () {
         this.align = "start";
         this.width = "24rem";
         this.maxWidth = "40vw";
-        this.peek = false;
+        this.push = false;
         this.closeOnClick = false;
-        this.closeOnClick = element.hasAttribute("close-on-click") && !isFalse(element.getAttribute("close-on-click"));
+        this.isAttached = false;
+        this.push = element.hasAttribute("push");
+        this.closeOnClick =
+            element.hasAttribute("close-on-click") && !isFalse(element.getAttribute("close-on-click"));
         this.obClick = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_CLICK, function (target) {
-            return !_this.closeOnClick && getParentByClass(target, "ui-drawer__body") ? undefined : (_this.peek = false);
+            return !_this.closeOnClick && getParentByClass(target, "ui-drawer__body")
+                ? undefined
+                : (element.dataset.peek = "false");
         });
     }
+    UIDrawer.prototype.attached = function () {
+        var _this = this;
+        UIInternal.queueTask(function () {
+            return _this.element.nextElementSibling.style.setProperty("--drawer-width", _this.width);
+        });
+        this.isAttached = true;
+    };
     UIDrawer.prototype.detached = function () {
         if (this.obClick) {
             this.obClick.dispose();
+        }
+    };
+    UIDrawer.prototype.widthChanged = function () {
+        if (this.isAttached) {
+            this.element.nextElementSibling.style.setProperty("--drawer-width", this.width);
         }
     };
     __decorate([
@@ -54,3 +71,21 @@ var UIDrawer = /** @class */ (function () {
     return UIDrawer;
 }());
 export { UIDrawer };
+var UIDrawerToggle = /** @class */ (function () {
+    function UIDrawerToggle() {
+    }
+    UIDrawerToggle.prototype.toggleOpen = function () {
+        this.drawer.dataset.peek = "" + !isTrue(this.drawer.dataset.peek);
+    };
+    __decorate([
+        bindable(),
+        __metadata("design:type", HTMLElement)
+    ], UIDrawerToggle.prototype, "drawer", void 0);
+    UIDrawerToggle = __decorate([
+        autoinject(),
+        customElement("ui-drawer-toggle"),
+        inlineView("<template class='ui-drawer__toggler' click.trigger='toggleOpen()'><slot><ui-svg-icon icon='menu'></ui-svg-icon></slot></template>")
+    ], UIDrawerToggle);
+    return UIDrawerToggle;
+}());
+export { UIDrawerToggle };

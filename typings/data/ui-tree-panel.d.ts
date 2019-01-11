@@ -20,5 +20,6 @@ export declare class UITreePanel {
     protected toggleMore(index: any): void;
     protected toggleCheck(node: any): void;
     protected getCheckedValues(): void;
+    protected searchTextChanged(query: any): void;
     private changeSelection;
 }

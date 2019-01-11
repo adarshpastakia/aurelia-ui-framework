@@ -45,6 +45,7 @@ var UISelect = /** @class */ (function (_super) {
         _this.noOptionsText = "No Options";
         _this.dropHandle = "caret";
         _this.multiple = element.hasAttribute("multiple");
+        _this.allowAny = element.hasAttribute("allow-any");
         _this.template = _this.element.querySelector("template");
         return _this;
     }
@@ -124,7 +125,7 @@ var UISelect = /** @class */ (function (_super) {
     UISelect = __decorate([
         autoinject(),
         customElement("ui-select"),
-        viewResources(PLATFORM.moduleName("./input-wrapper"), PLATFORM.moduleName("./list-input"), PLATFORM.moduleName("./list-container")),
+        viewResources(PLATFORM.moduleName("../forms/input-wrapper"), PLATFORM.moduleName("./list-input"), PLATFORM.moduleName("./list-container")),
         inlineView("<template class=\"ui-input ${classes}\" aria-disabled.bind=\"disabled || isDisabled\" aria-readonly.bind=\"readonly\">\n<input-wrapper>\n  <slot></slot>\n  <list-input></list-input>\n</input-wrapper>\n<ui-drop view-model.ref=\"dropEl\" class=\"ui-list\" close.trigger=\"resetQuery()\">\n  <div ref=\"listContainer\" class=\"ui-list__container\">\n    <list-container></list-container>\n  </div>\n</ui-drop>\n</template>"),
         __metadata("design:paramtypes", [Element])
     ], UISelect);

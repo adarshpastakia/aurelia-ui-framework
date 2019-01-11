@@ -1,4 +1,10 @@
-import { BaseInput } from "./base-input";
+/**
+ * @author    : Adarsh Pastakia
+ * @version   : 5.0.0
+ * @copyright : 2018
+ * @license   : MIT
+ */
+import { BaseInput } from "../forms/base-input";
 export declare class ListMaker extends BaseInput {
     value: AnyObject;
     model: AnyObject;
@@ -26,6 +32,7 @@ export declare class ListMaker extends BaseInput {
     protected isGrouped: boolean;
     protected isFiltered: boolean;
     protected ignoreChange: boolean;
+    protected allowAny: boolean;
     protected hilightIndex: number;
     protected matcher: ({ option, value }: {
         option: any;

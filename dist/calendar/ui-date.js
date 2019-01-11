@@ -1,20 +1,3 @@
-/**
- * @author    : Adarsh Pastakia
- * @version   : 5.0.0
- * @copyright : 2018
- * @license   : MIT
- */
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -24,9 +7,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { autoinject, bindable, bindingMode, computedFrom, customElement, observable } from "aurelia-framework";
-import { addDays, addHours, addMinutes, addMonths, addWeeks, addYears, format, getDay, getHours, getYear, isAfter, isBefore, isSameDay, isSameMonth, isWithinInterval, startOfMonth, startOfWeek, subDays, subMonths, subYears, toDate } from "date-fns";
+import { autoinject, bindable, bindingMode, computedFrom, customElement, PLATFORM } from "aurelia-framework";
+import { addDays, addHours, addMonths, addWeeks, addYears, format, getDay, getHours, getYear, isAfter, isBefore, isSameDay, isSameMonth, setHours, setMinutes, startOfMonth, startOfWeek, subDays, subMonths, subYears, toDate } from "date-fns";
 import { UIInternal } from "../utils/ui-internal";
+PLATFORM.moduleName("./page-date.html");
+PLATFORM.moduleName("./page-month.html");
 var FORMAT_NO_TIME = "yyyy-MM-dd'T'00:00:00.000";
 var FORMAT_NO_TIMEZONE = "yyyy-MM-dd'T'HH:mm:ss.000";
 var UIDate = /** @class */ (function () {
@@ -42,15 +27,27 @@ var UIDate = /** @class */ (function () {
         this.withTime = true;
         this.resetDecade();
         this.withTime = !element.hasAttribute("no-time");
+        this.time = toDate(this.time || "2000-01-01T00:00:00.000");
     }
     UIDate.prototype.dateChanged = function (date) {
-        if (date) {
-            this.time = toDate(this.date);
-            this.currentYear = getYear(this.date);
-            if (!this.dateRange &&
-                !isSameMonth(format(this.currentMonth, FORMAT_NO_TIMEZONE), format(this.date, FORMAT_NO_TIMEZONE))) {
-                this.currentMonth = startOfMonth(this.date);
+        var _this = this;
+        if (date && !this.ignoreChange) {
+            this.ignoreChange = true;
+            if (isBefore(date, this.minDate)) {
+                date = toDate(this.minDate);
             }
+            if (isAfter(date, this.maxDate)) {
+                date = toDate(this.maxDate);
+            }
+            if (!this.isDateDisabled(date)) {
+                this.date = toDate(date);
+                this.time = toDate(this.date);
+                this.currentYear = getYear(this.date);
+                if (!isSameMonth(format(this.currentMonth, FORMAT_NO_TIMEZONE), format(this.date, FORMAT_NO_TIMEZONE))) {
+                    this.currentMonth = startOfMonth(this.date);
+                }
+            }
+            UIInternal.queueTask(function () { return _this.ignoreChange = false; });
         }
     };
     UIDate.prototype.minDateChanged = function () {
@@ -65,17 +62,11 @@ var UIDate = /** @class */ (function () {
     };
     Object.defineProperty(UIDate.prototype, "hour", {
         get: function () {
-            return this.time ? format(this.time, "hh") : "";
+            return this.time ? format(this.time, "hh") : "00";
         },
         set: function (h) {
-            this.time = addHours(this.time, parseInt(h, 10));
-            this.date = toDate(format(this.date || new Date(), "yyyy-MM-dd") + "T" + format(this.time, "HH:mm:ss.000"));
-            if (isBefore(this.date, this.minDate)) {
-                this.date = toDate(this.minDate);
-            }
-            if (isAfter(this.date, this.maxDate)) {
-                this.date = toDate(this.maxDate);
-            }
+            this.time = setHours(this.time, parseInt(h, 10) + (getHours(this.time) < 12 ? 0 : 12));
+            this.dateChanged(toDate(format(this.date || new Date(), "yyyy-MM-dd") + "T" + format(this.time, "HH:mm:ss.000")));
             this.fireChange(true);
         },
         enumerable: true,
@@ -83,17 +74,11 @@ var UIDate = /** @class */ (function () {
     });
     Object.defineProperty(UIDate.prototype, "minute", {
         get: function () {
-            return this.time ? format(this.time, "mm") : "";
+            return this.time ? format(this.time, "mm") : "00";
         },
         set: function (m) {
-            this.time = addMinutes(this.time, parseInt(m, 10));
-            this.date = toDate(format(this.date || new Date(), "yyyy-MM-dd") + "T" + format(this.time, "HH:mm:ss.000"));
-            if (isBefore(this.date, this.minDate)) {
-                this.date = toDate(this.minDate);
-            }
-            if (isAfter(this.date, this.maxDate)) {
-                this.date = toDate(this.maxDate);
-            }
+            this.time = setMinutes(this.time, parseInt(m, 10));
+            this.dateChanged(toDate(format(this.date || new Date(), "yyyy-MM-dd") + "T" + format(this.time, "HH:mm:ss.000")));
             this.fireChange(true);
         },
         enumerable: true,
@@ -105,13 +90,7 @@ var UIDate = /** @class */ (function () {
         },
         set: function (pm) {
             this.time = addHours(this.time, pm ? 12 : -12);
-            this.date = toDate(format(this.date || new Date(), "yyyy-MM-dd") + "T" + format(this.time, "HH:mm:ss.000"));
-            if (isBefore(this.date, this.minDate)) {
-                this.date = toDate(this.minDate);
-            }
-            if (isAfter(this.date, this.maxDate)) {
-                this.date = toDate(this.maxDate);
-            }
+            this.dateChanged(toDate(format(this.date || new Date(), "yyyy-MM-dd") + "T" + format(this.time, "HH:mm:ss.000")));
             this.fireChange(true);
         },
         enumerable: true,
@@ -152,31 +131,7 @@ var UIDate = /** @class */ (function () {
         else if (!isSameMonth(dt, this.currentMonth)) {
             classes.push("ui-date__cell--date--muted");
         }
-        // Check for date range
-        if (this.dateRange) {
-            if (this.dateRange.start && isSameDay(dt, this.dateRange.start)) {
-                classes.push("ui-date__cell--date--start");
-            }
-            if (this.dateRange.end && isSameDay(dt, this.dateRange.end)) {
-                classes.push("ui-date__cell--date--end");
-            }
-            if (this.dateRange.start &&
-                !this.dateRange.end &&
-                this.hilight &&
-                isAfter(this.hilight, this.dateRange.start) &&
-                isWithinInterval(dt, __assign({}, this.dateRange, { end: this.hilight }))) {
-                classes.push("ui-date__cell--date--hilight");
-            }
-            try {
-                if (this.dateRange.start && this.dateRange.end && isWithinInterval(dt, this.dateRange)) {
-                    classes.push("ui-date__cell--date--hilight");
-                }
-            }
-            catch (e) {
-                //
-            }
-        }
-        else if (isSameDay(dt, this.date)) {
+        if (isSameDay(dt, this.date)) {
             classes.push("ui-date__cell--date--selected");
         }
         return classes.join(" ");
@@ -221,11 +176,6 @@ var UIDate = /** @class */ (function () {
         var startYear = this.currentYear;
         this.decadeStart = startYear - (startYear % 20) + 1;
     };
-    UIDate.prototype.currentMonthChanged = function () {
-        if (isFunction(this.monthChanged)) {
-            this.monthChanged(this.currentMonth);
-        }
-    };
     UIDate.prototype.setCurrentMonth = function ($event) {
         if ($event.target.dataset.date) {
             this.currentMonth = toDate($event.target.dataset.date);
@@ -246,27 +196,17 @@ var UIDate = /** @class */ (function () {
     };
     UIDate.prototype.selectToday = function () {
         if (!this.isDateDisabled()) {
-            this.date = new Date();
+            var date = new Date();
+            this.dateChanged(toDate(format(date, this.withTime ? "yyyy-MM-dd'T'HH:mm:ss.000" : "yyyy-MM-dd")));
             this.fireChange();
         }
     };
     UIDate.prototype.selectDate = function ($event) {
         if ($event.target.dataset.date) {
-            this.date = toDate(format($event.target.dataset.date, "yyyy-MM-dd") +
+            this.dateChanged(toDate(format($event.target.dataset.date, "yyyy-MM-dd") +
                 "T" +
-                format(this.time, "HH:mm:ss.000"));
-            if (isBefore(this.date, this.minDate)) {
-                this.date = toDate(this.minDate);
-            }
-            if (isAfter(this.date, this.maxDate)) {
-                this.date = toDate(this.maxDate);
-            }
+                format(this.time, "HH:mm:ss.000")));
             this.fireChange();
-        }
-        if ($event.target.dataset.week) {
-            if (isFunction(this.weekChanged)) {
-                this.weekChanged(toDate($event.target.dataset.week));
-            }
         }
     };
     UIDate.prototype.hilightDate = function ($event) {
@@ -276,9 +216,6 @@ var UIDate = /** @class */ (function () {
     };
     UIDate.prototype.fireChange = function (timeChange) {
         if (timeChange === void 0) { timeChange = false; }
-        if (isFunction(this.internalDateChanged)) {
-            this.internalDateChanged(toDate(this.date), timeChange);
-        }
         this.element.dispatchEvent(UIInternal.createEvent("change", this.date));
     };
     __decorate([
@@ -305,14 +242,6 @@ var UIDate = /** @class */ (function () {
         bindable(),
         __metadata("design:type", Boolean)
     ], UIDate.prototype, "disabled", void 0);
-    __decorate([
-        observable(),
-        __metadata("design:type", Object)
-    ], UIDate.prototype, "currentMonth", void 0);
-    __decorate([
-        observable(),
-        __metadata("design:type", Object)
-    ], UIDate.prototype, "dateRange", void 0);
     __decorate([
         computedFrom("time"),
         __metadata("design:type", Object),

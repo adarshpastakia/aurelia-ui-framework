@@ -83,8 +83,8 @@ var __spread = (this && this.__spread) || function () {
  * @copyright : 2018
  * @license   : MIT
  */
+import { BaseInput } from "../forms/base-input";
 import { UIInternal } from "../utils/ui-internal";
-import { BaseInput } from "./base-input";
 var KEY_DOWN = 40;
 var KEY_UP = 38;
 var BACKSPACE = 8;
@@ -111,6 +111,7 @@ var ListMaker = /** @class */ (function (_super) {
         _this.isGrouped = false;
         _this.isFiltered = false;
         _this.ignoreChange = false;
+        _this.allowAny = false;
         _this.hilightIndex = -1;
         return _this;
     }
@@ -207,9 +208,12 @@ var ListMaker = /** @class */ (function (_super) {
         this.ignoreChange = true;
         this.hilightIndex = -1;
         if (this.multiple) {
-            this.value = this.value
-                ? __spread(this.value, [model[this.valueProperty] || model]) : [model[this.valueProperty] || model];
-            this.model = this.model ? __spread(this.model, [model]) : [model];
+            if (!(this.value || []).includes(model[this.valueProperty] || model)) {
+                this.value = this.value
+                    ? __spread(this.value, [model[this.valueProperty] || model]) : [model[this.valueProperty] || model];
+                this.model = this.model ? __spread(this.model, [model]) : [model];
+            }
+            this.inputValue = "";
             this.inputEl.focus();
             this.inputEl.select();
         }
@@ -220,9 +224,9 @@ var ListMaker = /** @class */ (function (_super) {
             this.value = model[this.valueProperty] || model;
             this.model = model;
             this.resetQuery();
-        }
-        if (this.dropEl) {
-            this.dropEl.closeDrop();
+            if (this.dropEl) {
+                this.dropEl.closeDrop();
+            }
         }
         if (this.isFiltered) {
             this.isFiltered = false;
@@ -445,6 +449,10 @@ var ListMaker = /** @class */ (function (_super) {
         }
         else if (this.hilightIndex !== -1 && $event.keyCode === ENTER) {
             this.selectOption(this.innerOptions[this.hilightIndex]);
+            $event.stopEvent();
+        }
+        else if (this.allowAny && !!this.inputValue.trim() && $event.keyCode === ENTER) {
+            this.selectOption(this.inputValue);
             $event.stopEvent();
         }
         else if (this.multiple && $event.keyCode === BACKSPACE) {

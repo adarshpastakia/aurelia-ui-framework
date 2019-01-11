@@ -24,7 +24,7 @@ var BaseInput = /** @class */ (function () {
         this.readonly = false;
         this.disabled = false;
         this.isDisabled = false;
-        this.allowClear = element.hasAttribute("clear");
+        this.allowClear = element.hasAttribute("clear") || element.hasAttribute("clear.trigger");
         this.showCounter = element.hasAttribute("counter");
     }
     BaseInput.prototype.focus = function () {
@@ -57,6 +57,8 @@ var BaseInput = /** @class */ (function () {
     BaseInput.prototype.clear = function () {
         this.value = "";
         this.inputEl.focus();
+        this.element.dispatchEvent(UIInternal.createEvent("clear"));
+        this.element.dispatchEvent(UIInternal.createEvent("change"));
     };
     BaseInput.prototype.fireEnter = function ($event) {
         if ($event.keyCode === 13) {

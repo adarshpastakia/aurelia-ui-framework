@@ -73,6 +73,9 @@ var UITreePanel = /** @class */ (function () {
             }
         });
     };
+    UITreePanel.prototype.searchTextChanged = function (query) {
+        this.rootNode.filter(query);
+    };
     UITreePanel.prototype.changeSelection = function (node) {
         this.value = node.id;
         this.model = node.model;
@@ -122,7 +125,7 @@ var UITreePanel = /** @class */ (function () {
         autoinject(),
         customElement("ui-tree-panel"),
         viewResources(PLATFORM.moduleName("./tree-node")),
-        inlineView("<template class=\"ui-tree__panel\"><ui-field plain nolabel class=\"ui-tree__search\" if.bind=\"searchable\">\n  <ui-input type=\"search\" t=\"[placeholder]AUF.tree.search\" placeholder=\"${labelSearch}\" clear value.bind=\"searchText\" input.trigger=\"searchTextChanged(searchText) & debounce:200\">\n    <ui-input-addon class=\"ui-text-muted\"><ui-icon icon=\"mdi mdi-magnify\"></ui-icon></ui-input-addon></ui-input></ui-field>\n  <div class=\"ui-tree__container\" nodeclick.delegate=\"itemClicked($event.detail)\" nodeover.delegate=\"itemOver($event.detail)\" nodeout.delegate=\"itemOut($event.detail)\">\n    <tree-node virtual-repeat.for=\"child of rootNode.nodes\" node.bind=\"child\" tree.bind=\"$parent\" index.bind=\"$index\"></tree-node>\n  </div></template>"),
+        inlineView("<template class=\"ui-tree__panel\"><ui-field plain nolabel class=\"ui-tree__search\" if.bind=\"searchable\">\n  <ui-input type=\"search\" t=\"[placeholder]AUF.tree.search\" placeholder=\"${labelSearch}\" value.bind=\"searchText\" \n  clear.trigger=\"searchTextChanged()\" input.trigger=\"searchTextChanged(searchText) & debounce:200\">\n    <ui-input-addon class=\"ui-text-muted\"><ui-icon icon=\"mdi mdi-magnify\"></ui-icon></ui-input-addon></ui-input></ui-field>\n  <div class=\"ui-tree__container\" nodeclick.delegate=\"itemClicked($event.detail)\" nodeover.delegate=\"itemOver($event.detail)\" nodeout.delegate=\"itemOut($event.detail)\">\n    <tree-node virtual-repeat.for=\"child of rootNode.nodes\" node.bind=\"child\" tree.bind=\"$parent\" index.bind=\"$index\"></tree-node>\n  </div></template>"),
         __metadata("design:paramtypes", [Element])
     ], UITreePanel);
     return UITreePanel;

@@ -3,11 +3,13 @@ export declare class UITreeModel {
     children: UITreeNode[];
     nodes: UITreeNode[];
     constructor(children: KeyValue[], maxNodes?: number);
+    filter(query: string): void;
     toggleExpand(index: number): void;
     toggleMore(index: number): void;
     getChecked(): UITreeNode[];
     private getCheckedNodes;
     private getExpandedTree;
+    private filterNodes;
 }
 export declare class UITreeNode {
     private parent?;
@@ -20,7 +22,8 @@ export declare class UITreeNode {
     model: KeyValue;
     iconOpen: string;
     iconClosed: string;
-    children: UITreeNode[];
+    childNodes: UITreeNode[];
+    filtered: UITreeNode[];
     leaf: boolean;
     parentId: string;
     level: number;
@@ -30,6 +33,7 @@ export declare class UITreeNode {
     disabled: boolean;
     showingMore: boolean;
     constructor(node: KeyValue, parent?: UITreeNode);
+    readonly children: UITreeNode[];
     toggleCheck(): void;
     private updatePartial;
     private updateChild;

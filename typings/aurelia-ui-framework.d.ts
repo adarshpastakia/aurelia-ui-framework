@@ -34,6 +34,7 @@ export declare class UIFrameworkConfig {
         all: () => any;
         buttons: () => any;
         forms: () => any;
+        lists: () => any;
         panels: () => any;
         menus: () => any;
         data: () => any;

@@ -1,9 +1,3 @@
-/**
- * @author    : Adarsh Pastakia
- * @version   : 5.0.0
- * @copyright : 2018
- * @license   : MIT
- */
 export declare class UIDate {
     protected element: Element;
     date: Date | string;
@@ -13,15 +7,9 @@ export declare class UIDate {
     disabledDates: ((date: any) => boolean) | string[];
     disabled: boolean;
     protected currentMonth: Date;
-    protected dateRange: {
-        start: Date | string;
-        end: Date | string;
-    };
-    protected monthChanged: (month: Date) => void;
-    protected weekChanged: (week: Date) => void;
-    protected internalDateChanged: (date: Date, timeChange: boolean) => void;
     protected time: any;
     protected hilight: any;
+    protected ignoreChange: any;
     protected currentYear: number;
     protected decadeStart: number;
     protected currentView: "date" | "month" | "year";
@@ -42,7 +30,6 @@ export declare class UIDate {
     protected previous(unit: any): void;
     protected next(unit: any): void;
     protected resetDecade(): void;
-    protected currentMonthChanged(): void;
     protected setCurrentMonth($event: UIEvent): void;
     protected getMonthDate(year: any, month: any): string;
     protected getMonthName(year: any, month: any): string;

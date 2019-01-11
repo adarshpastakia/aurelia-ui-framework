@@ -47,6 +47,7 @@ var UIFrameworkConfig = /** @class */ (function () {
                 return _this.use
                     .buttons()
                     .forms()
+                    .lists()
                     .menus()
                     .data()
                     .panels()
@@ -66,17 +67,21 @@ var UIFrameworkConfig = /** @class */ (function () {
                 _this.loadFromModule(PLATFORM.moduleName("./forms/ui-fieldset"));
                 _this.loadFromModule(PLATFORM.moduleName("./forms/ui-input"));
                 _this.loadFromModule(PLATFORM.moduleName("./forms/ui-textarea"));
-                _this.loadFromModule(PLATFORM.moduleName("./forms/ui-select"));
-                _this.loadFromModule(PLATFORM.moduleName("./forms/ui-list"));
                 _this.loadFromModule(PLATFORM.moduleName("./forms/ui-checkbox"));
                 _this.loadFromModule(PLATFORM.moduleName("./forms/ui-radio"));
                 _this.loadFromModule(PLATFORM.moduleName("./forms/ui-toggle"));
                 _this.loadFromModule(PLATFORM.moduleName("./forms/ui-phone"));
-                _this.loadFromModule(PLATFORM.moduleName("./forms/ui-date"));
                 _this.loadFromModule(PLATFORM.moduleName("./forms/ui-date-input"));
                 _this.loadFromModule(PLATFORM.moduleName("./forms/ui-date-range"));
                 _this.loadFromModule(PLATFORM.moduleName("./forms/ui-option-group"));
                 _this.loadFromModule(PLATFORM.moduleName("./forms/ui-input-addons"));
+                _this.loadFromModule(PLATFORM.moduleName("./calendar/ui-date"));
+                return _this.use;
+            },
+            lists: function () {
+                _this.loadFromModule(PLATFORM.moduleName("./lists/ui-select"));
+                _this.loadFromModule(PLATFORM.moduleName("./lists/ui-list"));
+                _this.loadFromModule(PLATFORM.moduleName("./lists/ui-dropdown"));
                 return _this.use;
             },
             panels: function () {
@@ -92,7 +97,6 @@ var UIFrameworkConfig = /** @class */ (function () {
             menus: function () {
                 _this.loadFromModule(PLATFORM.moduleName("./menu/ui-menu"));
                 _this.loadFromModule(PLATFORM.moduleName("./menu/ui-menubar"));
-                _this.loadFromModule(PLATFORM.moduleName("./menu/ui-dropdown"));
                 return _this.use;
             },
             data: function () {

@@ -1,0 +1,39 @@
+<template>
+  <div class="ui-calendar__page" data-page="month">
+    <div class="ui-calendar__header">
+      <a
+        t="[ui-tooltip]AUF.date.previousYear"
+        ui-tooltip="Previous Year"
+        class="ui-calendar__prev"
+        click.trigger="previous('year')"
+      >
+        <ui-svg-icon icon="page-previous"></ui-svg-icon>
+      </a>
+      <a class="ui-calendar__title" click.trigger="currentView = 'year'"
+        >${currentYear} <ui-svg-icon icon="caret"></ui-svg-icon
+      ></a>
+      <a
+        t="[ui-tooltip]AUF.date.nextYear"
+        ui-tooltip="Next Year"
+        class="ui-calendar__next"
+        click.trigger="next('year')"
+      >
+        <ui-svg-icon icon="page-next"></ui-svg-icon>
+      </a>
+    </div>
+    <div class="ui-calendar__grid" click.delegate="setCurrentMonth($event)">
+      <span
+        repeat.for="i of 12"
+        class="ui-date__cell ui-date__cell--month"
+        data-date.bind="getMonthDate(currentYear, i)"
+      >
+        ${getMonthName(currentYear, i)}</span
+      >
+    </div>
+    <div class="ui-calendar__foot">
+      <a class="ui-calendar__title" ui-color="secondary" click.trigger="currentView = 'date'"
+        >Cancel</a
+      >
+    </div>
+  </div>
+</template>
