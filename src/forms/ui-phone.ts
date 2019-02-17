@@ -11,15 +11,15 @@ import {
   customElement,
   inlineView,
   observable,
-  PLATFORM,
   viewResources
 } from "aurelia-framework";
 import { UIInternal } from "../utils/ui-internal";
 import { BaseInput } from "./base-input";
+import { InputWrapper } from "./input-wrapper";
 
 @autoinject()
 @customElement("ui-phone")
-@viewResources(PLATFORM.moduleName("./input-wrapper"))
+@viewResources(InputWrapper)
 @inlineView(`<template class="ui-input ui-phone \${classes}" aria-disabled.bind="disabled || isDisabled" aria-readonly.bind="readonly">
   <input-wrapper>
     <slot></slot>
@@ -29,7 +29,7 @@ import { BaseInput } from "./base-input";
       keypress.trigger="fireEnter($event)"/>
   </input-wrapper>
 </template>`)
-export class UIInput extends BaseInput {
+export class UIPhone extends BaseInput {
   @bindable({ defaultBindingMode: bindingMode.twoWay })
   public value: string = "";
 

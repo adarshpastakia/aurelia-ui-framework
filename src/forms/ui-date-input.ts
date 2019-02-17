@@ -8,17 +8,17 @@ import {
   autoinject,
   bindable,
   bindingMode,
-  computedFrom,
   customElement,
   inlineView,
-  PLATFORM,
   viewResources
 } from "aurelia-framework";
+import { UIDate } from "./../calendar/ui-date";
 import { BaseInput } from "./base-input";
+import { InputWrapper } from "./input-wrapper";
 
 @autoinject()
 @customElement("ui-date-input")
-@viewResources(PLATFORM.moduleName("./input-wrapper"))
+@viewResources(InputWrapper, UIDate)
 @inlineView(`<template class="ui-input \${classes}" aria-disabled.bind="disabled || isDisabled" aria-readonly.bind="readonly">
   <input-wrapper>
     <slot></slot>
@@ -32,7 +32,7 @@ import { BaseInput } from "./base-input";
       disabled-days.bind="disabledDays" disabled-dates.bind="disabledDates"></ui-date>
   </ui-drop>
 </template>`)
-export class UIInput extends BaseInput {
+export class UIDateInput extends BaseInput {
   @bindable({ defaultBindingMode: bindingMode.twoWay })
   public date: Date | string = new Date();
 

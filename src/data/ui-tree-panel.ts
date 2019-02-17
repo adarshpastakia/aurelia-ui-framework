@@ -10,15 +10,15 @@ import {
   bindingMode,
   customElement,
   inlineView,
-  PLATFORM,
   viewResources
 } from "aurelia-framework";
 import { UITreeModel, UITreeNode } from "../model/ui-tree-model";
 import { UIInternal } from "../utils/ui-internal";
+import { TreeNode } from "./tree-node";
 
 @autoinject()
 @customElement("ui-tree-panel")
-@viewResources(PLATFORM.moduleName("./tree-node"))
+@viewResources(TreeNode)
 @inlineView(`<template class="ui-tree__panel"><ui-field plain nolabel class="ui-tree__search" if.bind="searchable">
   <ui-input type="search" t="[placeholder]AUF.tree.search" placeholder="\${labelSearch}" value.bind="searchText" 
   clear.trigger="searchTextChanged()" input.trigger="searchTextChanged(searchText) & debounce:200">

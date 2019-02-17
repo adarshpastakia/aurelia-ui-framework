@@ -1,15 +1,19 @@
 <template>
+  <ui-drawer ref="drawerEl" close-on-click push>
+    <ui-content ui-padding ui-scroll>
+      <p repeat.for="i of 9"><lipsum-para></lipsum-para></p>
+    </ui-content>
+  </ui-drawer>
   <ui-viewport>
     <ui-viewport-header ui-bg="primary-dark" ui-color="white">
       <ui-row valign="middle" halign="spaced">
-        <a href="/" as-element="ui-row" ui-padding="x" valign="middle" ui-gutter>
-          <ui-col size="auto">
-            <ui-icon icon="mdi mdi-television-guide" size="d6"></ui-icon>
-          </ui-col>
-          <ui-col size="auto" class="x-title ${hideTitle?'x-title--hide':''}">
-            <div ui-weight="light" ui-font="xl">${app.config.AppTitle}</div>
-            <div ui-color="primary-light">${app.config.AppSubtitle}</div>
-          </ui-col>
+        <ui-drawer-toggle drawer.bind="drawerEl" ui-color="white" ui-hover="light-blue">
+          <ui-icon icon="mdi mdi-television-guide" size="h4"></ui-icon>
+        </ui-drawer-toggle>
+
+        <a href="/" ui-padding="x" valign="middle">
+          <div ui-weight="light" ui-font="xl">${app.config.AppTitle}</div>
+          <div ui-color="primary-light">${app.config.AppSubtitle}</div>
         </a>
         <ui-filler></ui-filler>
         <ui-row valign="stretch" ui-gutter="xs" css.bind="{width: '2.7rem', height: '1.8rem'}">

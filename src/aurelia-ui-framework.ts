@@ -4,14 +4,23 @@
  * @copyright : 2018
  * @license   : MIT
  */
-
-import { Container, FrameworkConfiguration, PLATFORM } from "aurelia-framework";
+import { Container, FrameworkConfiguration } from "aurelia-framework";
+import AppBars from "./appbars";
+import Helpers from "./attributes";
+import Buttons from "./buttons";
+import Core from "./core";
+import Tree from "./data";
+import Forms from "./forms";
 import { registerValidators, UIValidationRenderer } from "./forms/ui-validation";
 import "./libs/array";
 import "./libs/phonelib";
 import "./libs/string";
 import "./libs/window";
+import Lists from "./lists";
+import Menus from "./menu";
+import Panels from "./panels";
 import { UIAppConfig } from "./utils/ui-app-config";
+import ValueConverters from "./value-converters";
 
 export { getValidationController } from "./forms/ui-validation";
 export { Countries } from "./libs/countries";
@@ -56,80 +65,45 @@ export class UIFrameworkConfig {
     },
 
     buttons: () => {
-      this.loadFromModule(PLATFORM.moduleName("./buttons/ui-button"));
-      this.loadFromModule(PLATFORM.moduleName("./buttons/ui-button-group"));
-      this.loadFromModule(PLATFORM.moduleName("./buttons/ui-badge"));
-      this.loadFromModule(PLATFORM.moduleName("./attributes/ui-badge"));
-      this.loadFromModule(PLATFORM.moduleName("./attributes/ui-tooltip"));
+      this.loadFromModule(Buttons);
       return this.use;
     },
 
     forms: () => {
-      this.loadFromModule(PLATFORM.moduleName("./forms/ui-form"));
-      this.loadFromModule(PLATFORM.moduleName("./forms/ui-field"));
-      this.loadFromModule(PLATFORM.moduleName("./forms/ui-fieldset"));
-      this.loadFromModule(PLATFORM.moduleName("./forms/ui-input"));
-      this.loadFromModule(PLATFORM.moduleName("./forms/ui-textarea"));
-      this.loadFromModule(PLATFORM.moduleName("./forms/ui-checkbox"));
-      this.loadFromModule(PLATFORM.moduleName("./forms/ui-radio"));
-      this.loadFromModule(PLATFORM.moduleName("./forms/ui-toggle"));
-      this.loadFromModule(PLATFORM.moduleName("./forms/ui-phone"));
-      this.loadFromModule(PLATFORM.moduleName("./forms/ui-date-input"));
-      this.loadFromModule(PLATFORM.moduleName("./forms/ui-date-range"));
-      this.loadFromModule(PLATFORM.moduleName("./forms/ui-option-group"));
-      this.loadFromModule(PLATFORM.moduleName("./forms/ui-input-addons"));
-      this.loadFromModule(PLATFORM.moduleName("./calendar/ui-date"));
+      this.loadFromModule(Forms);
       return this.use;
     },
 
     lists: () => {
-      this.loadFromModule(PLATFORM.moduleName("./lists/ui-select"));
-      this.loadFromModule(PLATFORM.moduleName("./lists/ui-list"));
-      this.loadFromModule(PLATFORM.moduleName("./lists/ui-dropdown"));
+      this.loadFromModule(Lists);
       return this.use;
     },
 
     panels: () => {
-      this.loadFromModule(PLATFORM.moduleName("./panels/ui-base"));
-      this.loadFromModule(PLATFORM.moduleName("./panels/ui-panel"));
-      this.loadFromModule(PLATFORM.moduleName("./panels/ui-card"));
-      this.loadFromModule(PLATFORM.moduleName("./panels/ui-tab-panel"));
-      this.loadFromModule(PLATFORM.moduleName("./panels/ui-card-body"));
-      this.loadFromModule(PLATFORM.moduleName("./panels/ui-alert"));
-      this.loadFromModule(PLATFORM.moduleName("./panels/ui-dialog"));
+      this.loadFromModule(Panels);
       return this.use;
     },
 
     menus: () => {
-      this.loadFromModule(PLATFORM.moduleName("./menu/ui-menu"));
-      this.loadFromModule(PLATFORM.moduleName("./menu/ui-menubar"));
+      this.loadFromModule(Menus);
       return this.use;
     },
 
     data: () => {
-      this.loadFromModule(PLATFORM.moduleName("./data/ui-tree-panel"));
+      this.loadFromModule(Tree);
       return this.use;
     },
 
     appbars: () => {
-      this.loadFromModule(PLATFORM.moduleName("./appbars/ui-toolbar"));
-      this.loadFromModule(PLATFORM.moduleName("./appbars/ui-sidebar"));
-      this.loadFromModule(PLATFORM.moduleName("./appbars/ui-drawer"));
+      this.loadFromModule(AppBars);
       return this.use;
     }
   };
 
   constructor(private auConfig: FrameworkConfiguration) {
-    this.loadFromModule(PLATFORM.moduleName("./core/ui-viewport"));
-    this.loadFromModule(PLATFORM.moduleName("./core/ui-responsive"));
-    this.loadFromModule(PLATFORM.moduleName("./core/ui-page"));
-    this.loadFromModule(PLATFORM.moduleName("./core/ui-icon"));
-    this.loadFromModule(PLATFORM.moduleName("./core/ui-drop"));
-
-    this.loadFromModule(PLATFORM.moduleName("./attributes/ui-helpers"));
-
-    this.loadFromModule(PLATFORM.moduleName("./value-converters/ui-object"));
-    this.loadFromModule(PLATFORM.moduleName("./value-converters/ui-text"));
+    this.loadFromModule(Core);
+    this.loadFromModule(Helpers);
+    this.loadFromModule(ValueConverters);
   }
 
   public setTitle(v: string): UIFrameworkConfig {

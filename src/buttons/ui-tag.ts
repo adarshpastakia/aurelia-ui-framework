@@ -17,7 +17,7 @@ import { UIInternal } from "../utils/ui-internal";
 
 @autoinject()
 @containerless()
-@customElement("ui-badge")
+@customElement("ui-tag")
 @inlineView(
   `<template><a class="ui-badge ui-badge--\${style} ui-badge--\${size}" click.delegate="fireClick($event)" ref="vmElement">
     <div class="ui-badge__label"><slot></slot></div>
@@ -26,7 +26,7 @@ import { UIInternal } from "../utils/ui-internal";
     <div class="ui-badge__close" if.bind="closeable" click.trigger="[$event.stopEvent(), close()]">&times;</div>
   </a></template>`
 )
-export class UIBadge {
+export class UITag {
   @bindable()
   public value: string = "";
   @bindable()

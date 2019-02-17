@@ -10,18 +10,16 @@ import {
   bindingMode,
   customElement,
   inlineView,
-  PLATFORM,
   viewResources
 } from "aurelia-framework";
+import { InputWrapper } from "../forms/input-wrapper";
+import { ListContainer } from "./list-container";
+import { ListInput } from "./list-input";
 import { ListMaker } from "./list-maker";
 
 @autoinject()
 @customElement("ui-list")
-@viewResources(
-  PLATFORM.moduleName("../forms/input-wrapper"),
-  PLATFORM.moduleName("./list-input"),
-  PLATFORM.moduleName("./list-container")
-)
+@viewResources(InputWrapper, ListInput, ListContainer)
 @inlineView(`<template class="ui-input ui-list \${classes}" aria-disabled.bind="disabled || isDisabled" aria-readonly.bind="readonly">
 <input-wrapper model.bind="$this">
   <slot></slot>
