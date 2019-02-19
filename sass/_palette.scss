@@ -4,22 +4,7 @@
 // @license   : MIT
 
 $white: #fefefe !default;
-$black: #090909 !default;
-
-$light-theme: (
-  base: #f9f9f9,
-  component: #fcfcfc,
-  border: #c5c5c5,
-  shadow: #d5d5d5,
-  color: #212121
-);
-$dark-theme: (
-  base: #212121,
-  component: #151515,
-  border: #303030,
-  shadow: #020202,
-  color: #f9f9f9
-);
+$black: #202b33 !default;
 
 $primary: (
   base: #2b64a9,
@@ -38,11 +23,11 @@ $secondary: (
 );
 
 $gray: (
-  base: #757e8a,
-  dark: #3a4858,
-  light: #b0b5bc,
-  tint: #ebecee,
-  shade: #0b0e11
+  base: #8a9ba8,
+  dark: #30404d,
+  light: #ced9e0,
+  tint: #f5f8fa,
+  shade: #182026
 );
 
 $info: (
@@ -75,6 +60,20 @@ $warning: (
   light: #f8c77a,
   tint: #fef7ec,
   shade: #31230d
+);
+
+$light-theme: (
+  base: #f5f8fa,
+  component: #ffffff,
+  border: #bfccd6,
+  shadow: #d8e1e8,
+  color: #202b33
+);
+$dark-theme: (
+  base: #30404d,
+  border: #394b59,
+  shadow: #202b33,
+  color: #ffffff
 );
 
 $teal: #1abc9c;
