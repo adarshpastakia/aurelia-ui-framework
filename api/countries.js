@@ -12,6 +12,12 @@ router.get("/", (req, res) => {
   res.status(200).json(countries);
 });
 
+router.get("/list/:id", (req, res) => {
+  const {id} = req.params;
+  const filtered = countries.map(c => c.continent === id);
+  res.status(200).json(filtered);
+});
+
 router.get("/:id", (req, res) => {
   const {id} = req.params;
   const country = countries.find(c => c.iso2 === id || c.iso3 === id);
