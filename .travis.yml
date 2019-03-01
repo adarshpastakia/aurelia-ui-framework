@@ -4,11 +4,10 @@ node_js:
 sudo: false
 
 install:
-  - npm
-script:
-  - npm install codecov -g
-  - npm run dist
   - npm install
+  - npm install -g codecov
+
+script:
   - npm run test
 after_success:
   - codecov
