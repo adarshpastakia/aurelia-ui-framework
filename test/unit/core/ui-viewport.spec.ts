@@ -26,9 +26,11 @@ describe("ui-viewport", () => {
               <ui-section-head><ui-menubar></ui-menubar></ui-section-head>
               <ui-section-foot><ui-toolbar></ui-toolbar></ui-section-foot>
               <ui-icon icon="mdi-account" flip-on-rtl></ui-icon>
+              <ui-icon icon="mdi-account" round></ui-icon>
               <ui-svg-icon icon="cross2" class="temp-icon"></ui-svg-icon>
               <ui-svg-icon icon="cross" class="temp-icon"></ui-svg-icon>
               <ui-flag icon="AE" size="md"></ui-flag>
+              <ui-flag icon="AE" size="md" round></ui-flag>
             </ui-section>
           </ui-viewport>
         </div>`

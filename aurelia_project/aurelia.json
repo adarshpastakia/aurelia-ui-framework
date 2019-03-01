@@ -1,5 +1,5 @@
 {
-  "name": "version5",
+  "name": "aurelia-ui-framework",
   "type": "project:application",
   "bundler": {
     "id": "webpack",
@@ -62,7 +62,7 @@
     "displayName": "None"
   },
   "paths": {
-    "root": "src",
+    "root": "examples",
     "resources": "resources",
     "elements": "resources/elements",
     "attributes": "resources/attributes",

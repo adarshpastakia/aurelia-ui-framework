@@ -24,11 +24,11 @@ describe("ui-responsive", () => {
               <ui-col size="4 2@md"></ui-col>
             </ui-row>
             <ui-row reverse>
-              <ui-col></ui-col>
+              <ui-col content-stretch></ui-col>
             </ui-row>
           </ui-container>
           <ui-container id="containerFluid" fluid>
-            <ui-row halign="center" valign="middle" vertical>
+            <ui-row halign="center" valign="middle" vertical auto>
               <ui-col></ui-col>
             </ui-row>
             <ui-row halign="center" valign="middle" vertical reverse>

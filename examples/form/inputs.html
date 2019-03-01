@@ -134,11 +134,11 @@
             </div>
             <div ui-margin="b">
               Local phone:
-              <div ui-font="sm mono">${model.local | phone}</div>
+              <div ui-font="sm mono" innerhtml.bind="model.local | phoneLocal:ctry"></div>
             </div>
             <div ui-margin="b">
               International phone:
-              <div ui-font="sm mono">${model.intphone | phone}</div>
+              <div ui-font="sm mono" innerhtml.bind="model.intphone | phoneHtml:ctry"></div>
             </div>
             <div ui-margin="b">
               Search Text:

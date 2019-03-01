@@ -30,7 +30,12 @@ describe("ui-panel", () => {
               <ui-header-actions><button>Click</button></ui-header-actions>
             </ui-header>
             <ui-content>Panel Content</ui-content>
-            <ui-footer><button>Test</button></ui-footer>
+            <ui-footer>
+              <ui-toolbar align-end>
+                <ui-text>Text</ui-text>
+                <button>Test</button>
+              </ui-toolbar>
+            </ui-footer>
           </ui-panel>
           <ui-panel id="panelWithActions" collapsible closable collapsed.bind="collapsed">
             <ui-content>Panel Content</ui-content>

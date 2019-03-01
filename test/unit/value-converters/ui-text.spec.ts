@@ -20,8 +20,8 @@ describe("valueConverter/ui-text", () => {
       .inView(
         `<ui-viewport view-model.ref="viewport">
         <div id="json">\${{ a: "a" } | json}</div>
-        <div id="markdownBlank" innerhtml.bind='"" | markdown'></div>
-        <div id="markdown" innerhtml.bind='"# Hello" | markdown'></div>
+        <div id="markdownBlank" innerhtml.bind='"" | md'></div>
+        <div id="markdown" innerhtml.bind='"# Hello" | md'></div>
         <div id="phoneBlank">\${"" | phone}</div>
         <div id="phone">\${phone | phone}</div>
         <div id="phoneCountry">\${phoneLocal | phone:phoneCountry}</div>
@@ -39,7 +39,7 @@ describe("valueConverter/ui-text", () => {
         <div id="datetime">\${"2018-01-01T00:00:00.000" | datetime}</div>
         <div id="utc">\${"2018-01-01T00:00:00.000" | utc}</div>
         <div id="age">\${date | age}</div>
-        <div id="fromNow">\${date | fromNow}</div>
+        <div id="fromNow">\${date | fromnow}</div>
         <div id="number">\${91824 | number}</div>
         <div id="currency">\${91824 | currency}</div>
         <div id="percent">\${92.4 | percent}</div>

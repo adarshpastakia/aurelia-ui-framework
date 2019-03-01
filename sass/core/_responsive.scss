@@ -71,7 +71,7 @@
     }
   }
 
-  &--auto .ui-col {
+  &--auto > .ui-col {
     @extend .ui-col--auto;
   }
 

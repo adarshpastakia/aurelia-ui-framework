@@ -124,8 +124,8 @@
   },
   "scripts": {
     "start": "au run --watch",
-    "test": "jest",
-    "test-watch": "au test --watch",
+    "test": "jest --detectOpenHandles",
+    "test-watch": "jest --watch",
     "build": "au build --env prod",
     "heroku-postbuild": "au build --env dev",
     "bump-version": "npm --no-git-tag-version version",

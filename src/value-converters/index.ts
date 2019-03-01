@@ -19,6 +19,7 @@ export const ValueConverters = [
   TextConverters.PercentValueConverter,
   TextConverters.PhoneHtmlValueConverter,
   TextConverters.PhoneLocalHtmlValueConverter,
+  TextConverters.PhoneLocalValueConverter,
   TextConverters.PhoneValueConverter,
   TextConverters.TimeValueConverter,
   TextConverters.UtcValueConverter
