@@ -10,4 +10,5 @@ install:
 jobs:
   include:
     - script: npm run test
-    - if: branch = master codecov
+    - if: branch = master 
+      script: codecov
