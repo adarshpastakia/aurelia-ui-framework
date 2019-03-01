@@ -64,6 +64,7 @@ describe("valueConverter/ui-text", () => {
   });
 
   it("should format json", done => {
+    console.log(component)
     component.waitForElement("#json").then(el => {
       expect(el.innerHTML).toBe('{"a":"a"}');
       done();
