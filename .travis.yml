@@ -7,8 +7,8 @@ install:
   - npm install
   - npm install -g codecov
 
-script:
-  - npm run test
-after_success:
-  - if: branch = master
-  codecov
+jobs:
+  include:
+    - npm run test
+    - if: branch = master
+    codecov
