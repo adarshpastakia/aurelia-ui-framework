@@ -1,0 +1,92 @@
+<template>
+  <ui-page page-title="Basic Inputs">
+    <ui-content ui-scroll ui-padding>
+      <ui-container>
+        <p class="x-page-title">Input elements for lists and tagged inputs</p>
+
+        <div class="x-section-title">Examples</div>
+        <div
+          class="x-example-block"
+          with.bind="{model:{},ctry:'AE',theme:'default', isEditing:true, disabled:false}"
+        >
+          <div class="x-example-display">
+            <ui-form>
+              <h5>Simple Select</h5>
+              <ui-row>
+                <ui-col>
+                  <ui-field label="Single select">
+                    <ui-select
+                      clear
+                      placeholder="Select a single value..."
+                      options.bind="countries"
+                      value.bind="model.single"
+                      value-property="iso2"
+                      label-property="name"
+                      group-property="continent"
+                      disabled.bind="formDisabled"
+                      readonly.bind="formReadonly"
+                    >
+                      <ui-input-addon>
+                        <ui-flag code.bind="model.single"></ui-flag>
+                      </ui-input-addon>
+                      <template>
+                        <ui-flag size="md" code.bind="$value"></ui-flag>&nbsp;
+                        <span innerhtml.bind="$label"></span>
+                        <ui-badge value.bind="$value"></ui-badge>
+                      </template>
+                    </ui-select>
+                  </ui-field>
+                </ui-col>
+                <ui-col>
+                  <ui-field label="Multiple select">
+                    <ui-select
+                      clear
+                      multiple
+                      placeholder="Select a multiple values..."
+                      options.bind="countries"
+                      value.bind="model.multi"
+                      value-property="iso2"
+                      label-property="name"
+                      group-property="continent"
+                      disabled.bind="formDisabled"
+                      readonly.bind="formReadonly"
+                    >
+                      <template>
+                        <ui-flag size="md" code.bind="$value"></ui-flag>&nbsp;
+                        <span innerhtml.bind="$label"></span>
+                        <ui-badge value.bind="$value"></ui-badge>
+                      </template>
+                    </ui-select>
+                  </ui-field>
+                </ui-col>
+              </ui-row>
+            </ui-form>
+          </div>
+
+          <div class="x-example-options">
+            <h5>Values</h5>
+            <div ui-margin="b">
+              Single select:
+              <div ui-font="sm mono">${model.single}</div>
+            </div>
+            <div ui-margin="b">
+              Multi select:
+              <div ui-font="sm mono">${model.multi}</div>
+            </div>
+            <hr />
+            <h5>Options</h5>
+            <ui-toggle checked.bind="formDisabled">Disabled</ui-toggle>
+            <ui-toggle checked.bind="formReadonly">Readonly</ui-toggle>
+          </div>
+        </div>
+
+        <div class="x-section-title">Using the Inputs</div>
+        <x-code-block lang="html" page="app.html" code.bind="listHtml"></x-code-block>
+
+        <div class="x-section-title">Properties</div>
+        <x-blockquote>Attributes marked with value <b>none</b> do not require a value</x-blockquote>
+        <x-code-table code-template.bind="selectAttrs"></x-code-table>
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>

@@ -1,6 +1,12 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2019
+// @license   : MIT
+@import "colors";
+
 //
 // fonts
-$google-font-sans-serif: "https://fonts.googleapis.com/css?family=Open+Sans:200,200i,300,300i,400,400i,500,500i,600,600i,700,700i" !default;
+$google-font-sans-serif: "https://fonts.googleapis.com/css?family=Montserrat:200,200i,300,300i,400,400i,500,500i,600,600i,700,700i" !default;
 $google-font-serif: "https://fonts.googleapis.com/css?family=Trirong:200,200i,300,300i,400,400i,500,500i,600,600i,700,700i" !default;
 $google-font-mono: "https://fonts.googleapis.com/css?family=Source+Code+Pro:300,400,500,600,700" !default;
 
@@ -8,10 +14,11 @@ $local-font-sans-serif: false !default;
 $local-font-serif: false !default;
 $local-font-mono: false !default;
 
-$font-family-sans-serif: "Open Sans", "Helvetica Neue", Arial, sans-serif !default;
+$font-family-sans-serif: "Montserrat", "Helvetica Neue", Arial, sans-serif !default;
 $font-family-serif: Trirong, Palatino, Georgia, serif !default;
 $font-family-mono: "Source Code Pro", mono !default;
 
+$font-weight-lighter: 200 !default;
 $font-weight-light: 300 !default;
 $font-weight-normal: 400 !default;
 $font-weight-medium: 500 !default;
@@ -56,4 +63,95 @@ $breakpoints: (
 ) !default;
 $gutter: 8px !default;
 
+// control variables
 $button-ripple: true !default;
+
+// Framework colors
+$primary: $indigo !default;
+$secondary: $pink !default;
+
+$info: $blue !default;
+$danger: $red !default;
+$success: $green !default;
+$warning: $orange !default;
+
+$base-theme: $white !default;
+$base-invert: $black !default;
+
+$base-bg: mix($gray, $base-theme, 15%) !default;
+$base-color: mix($gray, $base-invert, 15%) !default;
+$base-muted: mix($base-invert, $base-theme, 65%) !default;
+$base-component-bg: mix($gray, $base-theme, 5%) !default;
+
+$base-border-color: mix($gray, $base-theme, 30%) !default;
+$base-shadow-color: rgba($shadow, 0.2) !default;
+
+// Dividers
+$divider-bg: rgba($gray, 0.5) !default;
+$divider-hilight: rgba($gray-dark, 0.75) !default;
+
+// Page
+$page-title-bg: mix($secondary, $base-invert, 80%) !default;
+$page-title-color: $white !default;
+
+// Table/List
+$table-head-bg: mix($primary, $base-theme, 40%) !default;
+$table-head-color: $base-invert !default;
+$row-odd-bg: mix($gray, $base-theme, 5%) !default;
+$row-even-bg: mix($gray, $base-theme, 9%) !default;
+
+// Drawer/Sidebar
+$sidebar-bg: $base-component-bg !default;
+$sidebar-resizer: mix($primary, $base-theme, 70%) !default;
+$sidebar-shim: rgba($shadow, 0.2) !default;
+
+// Tab Panel
+$tab-active-color: $secondary !default;
+
+// Menu
+$menu-hover-bg: mix($secondary, $base-theme, 50%) !default;
+$menu-hover-color: $white !default;
+$menu-active-bg: $secondary !default;
+$menu-active-color: $white !default;
+$menu-active-border-color: mix($secondary, $base-color, 50%) !default;
+$menubar-bg: mix($gray, $base-theme, 5%) !default;
+
+// Tooltip
+$tooltip-bg: $gray-dark !default;
+$tooltip-color: $white !default;
+
+// Badge
+$badge-bg: $gray-dark !default;
+$badge-color: $white !default;
+
+// Dialog
+$dlg-header-active-bg: mix($primary, $base-invert, 90%) !default;
+$dlg-header-active-color: $white;
+$dlg-header-inactive-bg: mix($gray, $black, 90%) !default;
+$dlg-header-inactive-color: $gray;
+
+// Form Controls
+$input-bg: $base-theme !default;
+$input-color: $gray-dark !default;
+$input-placeholder: $gray !default;
+$input-focus-color: $primary !default;
+$input-error-bg: mix($danger, $base-theme, 4%) !default;
+$input-error-color: $danger !default;
+
+// List
+$list-item-hover-bg: mix($secondary, $base-theme, 50%) !default;
+$list-item-hover-color: $gray-light !default;
+$list-item-active-bg: mix($secondary, $base-invert, 50%) !default;
+$list-item-active-color: $white !default;
+
+// Toggle
+$toggle-bg: mix($gray, $base-theme, 40%) !default;
+$toggle-color: $base-color !default;
+$toggle-on-bg: $gray-dark !default;
+$toggle-on-color: $gray-light !default;
+
+// Toolbar
+$toolbar-bg: mix($gray, $base-theme, 9%) !default;
+
+// Inputs
+$input-placeholder: mix($gray, $base-theme, 50%);

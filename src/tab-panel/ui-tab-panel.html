@@ -1,0 +1,52 @@
+<template class="ui-tab__panel" data-align.bind="align">
+  <div class="ui-tab__bar">
+    <div class="ui-tab__bar__start">
+      <slot name="tabbar-start"></slot>
+    </div>
+    <div class="ui-tab__bar__wrapper" ref="wrapperEl">
+      <!-- repeat tabs -->
+      <template repeat.for="tab of tabs">
+        <div
+          class="ui-tab__button"
+          data-id.bind="tab.id"
+          data-active.bind="tab.active"
+          data-disabled.bind="tab.disabled"
+          click.trigger="activateTab(tab.id)"
+          ui-tooltip.bind="tab.label"
+        >
+          <span class="ui-tab__button__icon" if.bind="tab.icon">
+            <ui-icon icon.bind="tab.icon"></ui-icon>
+          </span>
+          <span class="ui-tab__button__label" innerhtml.bind="tab.label"></span>
+          <span
+            class="ui-tab__button__close"
+            if.bind="tab.closeable"
+            click.trigger="[closeTab(tab.id), $event.stopEvent()]"
+          >
+            <ui-svg-icon icon="cross"></ui-svg-icon>
+          </span>
+        </div>
+      </template>
+    </div>
+    <div class="ui-tab__bar__end">
+      <slot name="tabbar-end"></slot>
+    </div>
+    <div class="ui-tab__bar__overflow" show.bind="hasOverflow">
+      <ui-button no-caret type="link" ui-theme="secondary">
+        <ui-svg-icon class="ui-btn__icon" icon="overflow"></ui-svg-icon>
+        <ui-drop><ui-menu ref="overflowEl"></ui-menu></ui-drop>
+      </ui-button>
+    </div>
+  </div>
+  <div class="ui-tab__body">
+    <slot></slot>
+
+    <compose
+      view-model.ref="composeVm"
+      class="ui-section"
+      view.bind="activeTab.view"
+      model.bind="activeTab.model"
+      view-model.bind="activeTab.viewModel"
+    ></compose>
+  </div>
+</template>

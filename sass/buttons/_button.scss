@@ -4,9 +4,17 @@
 // @license   : MIT
 
 .ui-btn {
+  $btn-shadow: 0 0 0 1px rgba($shadow, 0.2), 0 1px 1px rgba($shadow, 0.2);
+  $btn-hover-shadow: inset 0 0 1px rgba($shadow, 0.2);
+  $btn-active-shadow: inset 0 1px 2px rgba($shadow, 0.2);
+  $btn-gloss: linear-gradient(180deg, rgba(#ffffff, 0.1), rgba(#ffffff, 0));
+
+  $btn-bg: mix($base-theme, $base-invert, 99%);
+  $btn-color: mix($btn-bg, $base-color, 15%);
+
   align-items: center;
   display: grid;
-  grid-template-areas: "busy icon label badge caret";
+  grid-template-areas: "icon label badge caret";
   grid-template-columns: auto auto auto auto auto;
   justify-content: center;
   pointer-events: all;
@@ -15,27 +23,24 @@
   .ui-badge {
     align-self: center;
     grid-area: badge;
-    line-height: 1.2em;
   }
 
   $base: #{&};
 
-  &:hover::before {
-    box-shadow: -1px -1px 1px 0 var(--btn-hover) inset;
+  &:hover {
+    background-color: mix($btn-bg, $white, 85%);
+    box-shadow: $btn-hover-shadow;
   }
 
+  &[data-active="true"],
   &[data-open="true"],
   &:active {
-    box-shadow: 0 0 1px 0 var(--btn-active) inset;
-  }
-
-  &[data-active="true"] {
-    background-color: var(--btn-active);
-    color: var(--btn-inverse);
-    --btn-ripple: var(--btn-inverse);
+    background-color: mix($btn-bg, $black, 85%);
+    box-shadow: $btn-active-shadow;
   }
 
   &::before {
+    background-image: $btn-gloss;
     content: "";
     pointer-events: none;
     z-index: 2;
@@ -43,11 +48,10 @@
   }
 
   &__inner {
-    background-color: var(--btn-bg);
-    border: 1px solid var(--input-border);
+    background-color: $btn-bg;
     border-radius: $base-border-radius;
-    box-shadow: 1px 1px 2px 0 var(--base-shadow);
-    color: var(--btn-color);
+    box-shadow: $btn-shadow;
+    color: $btn-color;
     display: grid;
     grid-template-areas: "button divider caret";
     grid-template-columns: 1fr auto auto;
@@ -56,23 +60,18 @@
   }
 
   &__wrapper {
+    --btn-ripple: #{$btn-color};
+
     display: inline-block;
     margin: 2px;
     max-width: 12em;
     pointer-events: none;
     position: relative;
     vertical-align: middle;
-    --btn-ripple: var(--btn-color);
-    --btn-hilight: var(--btn-color);
 
     &[data-active="true"] {
       #{$base} {
         pointer-events: none;
-
-        &__inner {
-          cursor: default;
-          pointer-events: all;
-        }
       }
     }
 
@@ -87,56 +86,6 @@
       }
     }
 
-    &[data-type="solid"] {
-      --btn-ripple: #{$white};
-      --btn-hilight: rgba(0, 0, 0, 0.5);
-
-      #{$base}__inner {
-        background-color: var(--btn-color);
-        border-color: var(--btn-color);
-        color: var(--btn-inverse);
-      }
-      #{$base}[data-open="true"],
-      #{$base}:active {
-        background-color: var(--btn-active);
-      }
-
-      #{$base}__divider {
-        background-color: rgba(255, 255, 255, 0.5);
-      }
-    }
-
-    &[data-type="outline"] #{$base}__inner {
-      border-color: var(--btn-color);
-    }
-
-    &[data-type="link"],
-    &[data-type="tool"] {
-      #{$base}__inner {
-        background-color: transparent;
-        border-color: transparent;
-        box-shadow: none;
-      }
-      #{$base}[data-open="true"],
-      #{$base}:active {
-        box-shadow: 0 0 1px 0 var(--btn-active) inset;
-        color: var(--btn-active);
-      }
-    }
-
-    &[data-type="tool"] #{$base} {
-      color: var(--color-gray);
-      opacity: 0.8;
-
-      &:hover {
-        color: var(--btn-color);
-        opacity: 1;
-        &::before {
-          display: none;
-        }
-      }
-    }
-
     &[data-disabled="true"] {
       background-color: rgba(0, 0, 0, 0.05);
 
@@ -144,8 +93,9 @@
         pointer-events: none;
 
         &__inner {
+          box-shadow: none;
           cursor: not-allowed;
-          opacity: 0.25;
+          opacity: 0.5;
           pointer-events: all;
         }
       }
@@ -163,112 +113,70 @@
       font-size: map-get($font-sizes, lg);
     }
 
-    // themes
-    &,
-    &.ui-theme--primary {
-      --btn-color: var(--color-primary);
-      --btn-hover: var(--color-primary-light);
-      --btn-active: var(--color-primary-dark);
-      --btn-inverse: #{$white};
-      --menu-item-hover-bg: var(--color-primary-tint);
-      --menu-item-hover-color: var(--color-primary-shade);
-      --menu-item-active-bg: var(--color-primary-light);
-      --menu-item-active-color: var(--color-primary-shade);
+    &[data-type="outline"] {
+      #{$base} {
+        &__inner {
+          box-shadow: 0 0 0 1px rgba($btn-color, 0.75), 0 1px 1px rgba($btn-color, 0.25);
+        }
+      }
     }
 
-    &.ui-theme--secondary {
-      --btn-color: var(--color-secondary);
-      --btn-hover: var(--color-secondary-light);
-      --btn-active: var(--color-secondary-dark);
-      --btn-inverse: #{$white};
-      --menu-item-hover-bg: var(--color-secondary-tint);
-      --menu-item-hover-color: var(--color-secondary-shade);
-      --menu-item-active-bg: var(--color-secondary-light);
-      --menu-item-active-color: var(--color-secondary-shade);
-    }
-
-    &.ui-theme--gray {
-      --btn-color: var(--color-gray);
-      --btn-hover: var(--color-gray-light);
-      --btn-active: var(--color-gray-dark);
-      --btn-inverse: #{$white};
-      --menu-item-hover-bg: var(--color-gray-tint);
-      --menu-item-hover-color: var(--color-gray-shade);
-      --menu-item-active-bg: var(--color-gray-light);
-      --menu-item-active-color: var(--color-gray-shade);
-    }
-
-    &.ui-theme--info {
-      --btn-color: var(--color-info);
-      --btn-hover: var(--color-info-light);
-      --btn-active: var(--color-info-dark);
-      --btn-inverse: #{$white};
-      --menu-item-hover-bg: var(--color-info-tint);
-      --menu-item-hover-color: var(--color-info-shade);
-      --menu-item-active-bg: var(--color-info-light);
-      --menu-item-active-color: var(--color-info-shade);
-    }
-
-    &.ui-theme--danger {
-      --btn-color: var(--color-danger);
-      --btn-hover: var(--color-danger-light);
-      --btn-active: var(--color-danger-dark);
-      --btn-inverse: #{$white};
-      --menu-item-hover-bg: var(--color-danger-tint);
-      --menu-item-hover-color: var(--color-danger-shade);
-      --menu-item-active-bg: var(--color-danger-light);
-      --menu-item-active-color: var(--color-danger-shade);
-    }
-
-    &.ui-theme--success {
-      --btn-color: var(--color-success);
-      --btn-hover: var(--color-success-light);
-      --btn-active: var(--color-success-dark);
-      --btn-inverse: #{$white};
-      --menu-item-hover-bg: var(--color-success-tint);
-      --menu-item-hover-color: var(--color-success-shade);
-      --menu-item-active-bg: var(--color-success-light);
-      --menu-item-active-color: var(--color-success-shade);
-    }
-
-    &.ui-theme--warning {
-      --btn-color: var(--color-warning);
-      --btn-hover: var(--color-warning-light);
-      --btn-active: var(--color-warning-dark);
-      --btn-inverse: #{$white};
-      --menu-item-hover-bg: var(--color-warning-tint);
-      --menu-item-hover-color: var(--color-warning-shade);
-      --menu-item-active-bg: var(--color-warning-light);
-      --menu-item-active-color: var(--color-warning-shade);
-    }
-
-    &.ui-theme--inverse #{$base} {
+    &[data-type="solid"] {
       --btn-ripple: #{$white};
-      &,
-      &:hover {
+      #{$base} {
+        &:hover {
+          background-color: mix($btn-color, $white, 85%);
+        }
+
+        &[data-active="true"],
+        &[data-open="true"],
+        &:active {
+          background-color: mix($btn-color, $black, 85%);
+        }
+        &__inner {
+          background-color: $btn-color;
+          color: $btn-bg;
+        }
+      }
+      &#{$base}__icon--hilight #{$base}__icon {
+        background-color: mix($btn-color, $black, 30%);
         color: $white;
       }
 
-      &:active {
-        box-shadow: 0 0 1px 0 var(--color-gray) inset;
-        color: $white;
+      #{$base}__divider {
+        background-color: rgba($white, 0.2);
+      }
+    }
+
+    &[data-type="tool"] {
+      #{$base}__inner {
+        background-color: transparent;
+        border-color: transparent;
+        box-shadow: 0 0 0 1px rgba($base-invert, 0.05);
+      }
+
+      #{$base}::before {
+        background-image: none;
+      }
+
+      #{$base}:hover {
+        background-color: rgba(mix($gray, $base-theme, 30%), 0.25);
+      }
+
+      &.ui-theme--inverse #{$base}__inner {
+        color: $gray-light;
       }
     }
   }
 
-  &__busy,
   &__icon,
   &__caret {
-    line-height: 0.5;
+    line-height: 0.75;
     padding: 0.25em;
 
     .ui-icon {
       font-size: 1.5em;
     }
-  }
-
-  &__busy {
-    grid-area: busy;
   }
 
   &__icon {
@@ -307,20 +215,13 @@
     display: none;
   }
 
-  &__divider {
-    background-color: rgba(0, 0, 0, 0.2);
-    grid-area: divider;
-    margin: 4px 0;
-    width: 1px;
-  }
-
   &--block {
     max-width: none;
     width: 100%;
   }
 
   &__icon--end & {
-    grid-template-areas: "busy label badge caret icon";
+    grid-template-areas: "label badge caret icon";
 
     &__label {
       padding: 0;
@@ -334,9 +235,17 @@
       }
     }
   }
-
+  &__icon--hilight & {
+    &__icon {
+      background-color: $btn-color;
+      color: $btn-bg;
+    }
+    &__label {
+      padding: 0 0.5em;
+    }
+  }
   &__icon--top & {
-    grid-template-areas: "icon badge caret" "label badge caret";
+    grid-template-areas: "icon icon caret" "label badge caret";
 
     &__icon {
       justify-self: stretch;
@@ -346,96 +255,18 @@
 
     &__label {
       @include property-prefix(padding-start, 1em, padding-left);
-      @include property-prefix(padding-end, 1em, padding-right);
-    }
-  }
-  &__icon--hilight & {
-    &__icon {
-      background-color: var(--btn-hilight);
-      color: var(--btn-inverse);
-    }
-    &__label {
-      padding: 0 0.5em;
+
+      &:last-child {
+        @include property-prefix(padding-end, 1em, padding-right);
+      }
     }
   }
 
-  // Button group
-  &__group {
-    box-shadow: 1px 1px 2px 0 var(--base-shadow);
-    display: inline-grid;
-    margin: 2px;
-    vertical-align: middle;
-
-    #{$base}__wrapper {
-      margin: 0;
-
-      &:not(:first-child) {
-        margin-left: -1px;
-      }
-    }
-
-    #{$base}__inner {
-      box-shadow: none;
-    }
-
-    &--equal {
-      grid-auto-columns: 1fr;
-      grid-auto-rows: 1fr;
-    }
-
-    &:not(&--vertical) {
-      grid-auto-flow: column;
-
-      #{$base}__wrapper:not(:first-child) #{$base}__inner {
-        border-bottom-left-radius: 0;
-        border-top-left-radius: 0;
-      }
-
-      #{$base}__wrapper:not(:last-child) #{$base}__inner {
-        border-bottom-right-radius: 0;
-        border-top-right-radius: 0;
-      }
-
-      &#{$base}__group--with-separator #{$base}__wrapper:not(:last-child) {
-        #{$base}__inner #{$base} {
-          @include property-prefix(padding-end, 0.5em);
-        }
-
-        &::after {
-          background-color: var(--base-bg);
-          border-radius: 1em;
-          box-shadow: 0 0 2px 0 var(--color-gray);
-          content: attr(data-separator);
-          font-size: 0.8em;
-          font-variant: small-caps;
-          line-height: 1.25;
-          padding: 0.15em;
-          position: absolute;
-          right: -0.5em;
-          top: 0.6em;
-          z-index: 5;
-        }
-
-        @at-root [dir="rtl"] &::after {
-          left: -0.5em;
-          right: auto;
-        }
-      }
-    }
-
-    &--vertical {
-      grid-auto-flow: row;
-
-      #{$base}__wrapper:not(:first-child) #{$base}__inner {
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-      }
-
-      #{$base}__wrapper:not(:last-child) #{$base}__inner {
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
-      }
-    }
+  &__divider {
+    background-color: rgba($black, 0.2);
+    grid-area: divider;
+    margin: 4px 0;
+    width: 1px;
   }
 
   // Ripple effect
@@ -448,14 +279,57 @@
       background-size: 10000% 10000%;
       content: "";
       opacity: 0;
-      transition: background-size 0.5s, opacity 0.1s 0.4s;
+      transition: background-size 0.4s, opacity 0.2s 0.2s;
       z-index: 5;
     }
     &:active::after {
       background-size: 0 0;
       content: "";
-      opacity: 0.4;
+      opacity: 0.3;
       transition: background-size 0s, opacity 0s 0s;
     }
+  }
+
+  @mixin make-button($theme, $theme-color) {
+    &__wrapper.ui-theme--#{$theme} {
+      #{$base}__inner {
+        color: $theme-color;
+      }
+      &[data-type="outline"] {
+        #{$base}__inner {
+          box-shadow: 0 0 0 1px rgba($theme-color, 0.75), 0 1px 1px rgba($theme-color, 0.5);
+        }
+      }
+
+      &[data-type="solid"] {
+        #{$base} {
+          &:hover {
+            background-color: mix($theme-color, $white, 85%);
+          }
+
+          &[data-active="true"],
+          &[data-open="true"],
+          &:active {
+            background-color: mix($theme-color, $black, 85%);
+          }
+          &__inner {
+            background-color: $theme-color;
+            color: $white;
+          }
+        }
+        &#{$base}__icon--hilight #{$base}__icon {
+          background-color: mix($theme-color, $black, 50%);
+          color: $white;
+        }
+      }
+
+      &#{$base}__icon--hilight #{$base}__icon {
+        background-color: mix($theme-color, $black, 90%);
+      }
+    }
+  }
+
+  @each $label, $color in $base-colors {
+    @include make-button($label, $color);
   }
 }

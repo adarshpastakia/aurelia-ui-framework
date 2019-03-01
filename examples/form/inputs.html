@@ -1,0 +1,171 @@
+<template>
+  <ui-page page-title="Basic Inputs">
+    <ui-content ui-scroll ui-padding>
+      <ui-container>
+        <p class="x-page-title">Input elements for text, numbers and phone</p>
+
+        <div class="x-section-title">Examples</div>
+        <div
+          class="x-example-block"
+          with.bind="{model:{},ctry:'AE',theme:'default', isEditing:true, disabled:false}"
+        >
+          <div class="x-example-display">
+            <ui-form>
+              <h5>Simple Inputs</h5>
+              <ui-row>
+                <ui-col>
+                  <ui-field label="Text input">
+                    <ui-input
+                      clear
+                      counter
+                      autofocus
+                      value.bind="model.anyText"
+                      disabled.bind="formDisabled"
+                      readonly.bind="formReadonly"
+                      placeholder="Any text..."
+                    >
+                    </ui-input>
+                  </ui-field>
+                </ui-col>
+                <ui-col>
+                  <ui-field label="Number input">
+                    <ui-input
+                      clear
+                      number.bind="model.anyNumber"
+                      disabled.bind="formDisabled"
+                      readonly.bind="formReadonly"
+                      placeholder="Any number..."
+                    >
+                    </ui-input>
+                  </ui-field>
+                </ui-col>
+              </ui-row>
+              <ui-row>
+                <ui-col>
+                  <ui-field label="National phone">
+                    <ui-field-wrapper>
+                      <ui-dropdown
+                        ui-font="sm"
+                        icon-prefix="ui-flag"
+                        value.bind="ctry"
+                        value-property="iso2"
+                        label-property="phone"
+                        icon-property="iso2"
+                        options.bind="countries"
+                        disabled.bind="formDisabled || formReadonly"
+                      ></ui-dropdown>
+                      <ui-phone
+                        clear
+                        country.bind="ctry"
+                        value.bind="model.local"
+                        disabled.bind="formDisabled"
+                        readonly.bind="formReadonly"
+                      >
+                      </ui-phone>
+                    </ui-field-wrapper>
+                  </ui-field>
+                </ui-col>
+                <ui-col>
+                  <ui-field label="International phone">
+                    <ui-phone
+                      clear
+                      value.bind="model.intphone"
+                      disabled.bind="formDisabled"
+                      readonly.bind="formReadonly"
+                    >
+                    </ui-phone>
+                  </ui-field>
+                </ui-col>
+              </ui-row>
+              <hr />
+              <h5>Input with Addons</h5>
+              <ui-row>
+                <ui-col>
+                  <ui-field label="Search input">
+                    <ui-field-wrapper>
+                      <ui-input-addon icon="mdi mdi-magnify" ui-color="blue"></ui-input-addon>
+                      <ui-input
+                        clear
+                        counter
+                        autofocus
+                        value.bind="model.searchText"
+                        disabled.bind="formDisabled"
+                        readonly.bind="formReadonly"
+                        placeholder="Search text..."
+                      >
+                      </ui-input>
+                      <ui-button ui-theme="info" type="solid">Search</ui-button>
+                    </ui-field-wrapper>
+                  </ui-field>
+                </ui-col>
+                <ui-col>
+                  <ui-field label="Password input">
+                    <ui-input
+                      value.bind="model.password"
+                      type.bind="showPassword ? 'text' : 'password'"
+                      placeholder="Password..."
+                    >
+                      <ui-input-addon icon="mdi mdi-key" ui-color="gray"></ui-input-addon>
+                      <ui-input-addon align-end>
+                        <ui-button
+                          type="tool"
+                          ui-tooltip.bind="showPassword ? 'Hide Password' : 'Show Password'"
+                          ui-theme="warning"
+                          click.trigger="showPassword = !showPassword"
+                          icon="mdi ${showPassword ? 'mdi-eye-off' : 'mdi-eye'}"
+                        ></ui-button>
+                      </ui-input-addon>
+                    </ui-input>
+                  </ui-field>
+                </ui-col>
+              </ui-row>
+            </ui-form>
+          </div>
+
+          <div class="x-example-options">
+            <h5>Values</h5>
+            <div ui-margin="b">
+              Any Text:
+              <div ui-font="sm mono">${model.anyText}</div>
+            </div>
+            <div ui-margin="b">
+              Any Number:
+              <div ui-font="sm mono">${model.anyNumber}</div>
+            </div>
+            <div ui-margin="b">
+              Local phone:
+              <div ui-font="sm mono">${model.local | phone}</div>
+            </div>
+            <div ui-margin="b">
+              International phone:
+              <div ui-font="sm mono">${model.intphone | phone}</div>
+            </div>
+            <div ui-margin="b">
+              Search Text:
+              <div ui-font="sm mono">${model.searchText}</div>
+            </div>
+            <div ui-margin="b">
+              Password:
+              <div ui-font="sm mono">${model.password}</div>
+            </div>
+            <hr />
+            <h5>Options</h5>
+            <ui-toggle checked.bind="formDisabled">Disabled</ui-toggle>
+            <ui-toggle checked.bind="formReadonly">Readonly</ui-toggle>
+          </div>
+        </div>
+
+        <div class="x-section-title">Using the Inputs</div>
+        <x-code-block lang="html" page="app.html" code.bind="inputHtml"></x-code-block>
+
+        <div class="x-section-title">Properties</div>
+        <x-blockquote>Attributes marked with value <b>none</b> do not require a value</x-blockquote>
+        <x-code-table code-template.bind="inputAttrs"></x-code-table>
+        <hr />
+        <x-code-table code-template.bind="phoneAttrs"></x-code-table>
+        <hr />
+        <x-code-table code-template.bind="addonAttrs"></x-code-table>
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>

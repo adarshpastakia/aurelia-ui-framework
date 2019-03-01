@@ -1,10 +1,10 @@
 /**
  * @author    : Adarsh Pastakia
  * @version   : 5.0.0
- * @copyright : 2018
+ * @copyright : 2019
  * @license   : MIT
  */
-
+// tslint:disable
 import { autoinject, customAttribute } from "aurelia-framework";
 
 @autoinject()
@@ -68,6 +68,12 @@ export class UIColor extends BaseAttribute {
 @customAttribute("ui-hover")
 export class UIHover extends BaseAttribute {
   protected prefix = "ui-hover";
+}
+
+@autoinject()
+@customAttribute("ui-shadow")
+export class UIShadow extends BaseAttribute {
+  protected prefix = "ui-shadow";
 }
 
 @autoinject()
@@ -147,9 +153,32 @@ export class UIClip extends BaseAttribute {
 }
 
 @autoinject()
+@customAttribute("ui-line")
+export class UILine extends BaseAttribute {
+  protected prefix = "ui-line";
+  protected singular = true;
+
+  protected bind(): void {
+    super.bind();
+    this.valueChanged();
+  }
+
+  protected valueChanged(): void {
+    (this.element as HTMLElement).style.cssText = `line-height: ${this.value};`;
+  }
+}
+
+@autoinject()
 @customAttribute("ui-paper")
 export class UIPaper extends BaseAttribute {
   protected prefix = "ui-paper";
+  protected singular = true;
+}
+
+@autoinject()
+@customAttribute("ui-link")
+export class UILink extends BaseAttribute {
+  protected prefix = "ui-link";
   protected singular = true;
 }
 

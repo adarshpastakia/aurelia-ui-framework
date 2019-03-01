@@ -1,11 +1,11 @@
 /**
  * @author    : Adarsh Pastakia
- * @version   : 1.0.0
- * @copyright : 2018
+ * @version   : 5.0.0
+ * @copyright : 2019
  * @license   : MIT
  */
+
 import {
-  autoinject,
   bindable,
   bindingMode,
   customElement,
@@ -16,19 +16,11 @@ import {
 import { UIInternal } from "../utils/ui-internal";
 import { BaseInput } from "./base-input";
 import { InputWrapper } from "./input-wrapper";
+import view from "./ui-phone.html";
 
-@autoinject()
 @customElement("ui-phone")
 @viewResources(InputWrapper)
-@inlineView(`<template class="ui-input ui-phone \${classes}" aria-disabled.bind="disabled || isDisabled" aria-readonly.bind="readonly">
-  <input-wrapper>
-    <slot></slot>
-    <ui-flag code.bind="inputCountry"></ui-flag>
-    <input ref="inputEl" role="textbox" size="1" placeholder.bind="placeholder" disabled.bind="disabled || isDisabled || isPlain"
-      readonly.bind="readonly" value.two-way="inputValue" type.one-time="type" autocomplete.bind="autocomplete"
-      keypress.trigger="fireEnter($event)"/>
-  </input-wrapper>
-</template>`)
+@inlineView(view)
 export class UIPhone extends BaseInput {
   @bindable({ defaultBindingMode: bindingMode.twoWay })
   public value: string = "";
@@ -54,6 +46,7 @@ export class UIPhone extends BaseInput {
 
   constructor(element: Element) {
     super(element);
+    this.showCounter = false;
   }
 
   protected attached(): void {
@@ -71,7 +64,7 @@ export class UIPhone extends BaseInput {
   protected countryChanged(): void {
     this.inputCountry = this.country;
     this.placeholder = PhoneLib.getExample(
-      this.country || "ae",
+      this.country || "us",
       PhoneLib.TYPE.FIXED_LINE_OR_MOBILE,
       !!this.country
     );
@@ -86,7 +79,7 @@ export class UIPhone extends BaseInput {
         val = `+${val}`;
       }
       this.inputValue = PhoneLib.formatInput(val, this.country);
-      this.inputCountry = PhoneLib.getIso2Code(val, this.country);
+      this.inputCountry = this.country || PhoneLib.getIso2Code(val, this.country);
       this.value = PhoneLib.format(val, this.country, PhoneLib.FORMAT.FULL);
       UIInternal.queueTask(() => (this.ignoreChange = false));
     }

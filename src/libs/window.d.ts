@@ -1,4 +1,5 @@
 /**
+import default from "../../aurelia_project/environments/dev";
  * @author    : Adarsh Pastakia
  * @version   : 5.0.0
  * @copyright : 2018
@@ -12,15 +13,13 @@ const UA_SAFARI;
 const UA_FIREFOX;
 const UA_UNKNOWN;
 
-var Countries: ICountry;
-var Currencies: KeyValue;
-var FileTypes: KeyValue;
 var FileData: any;
 
 function browserAgent(): string;
 function browserVersion(): string;
 
 function fn(): void;
+function isNaN(value: string): boolean;
 function getView(el: Element | HTMLElement): AnyObject;
 function getViewModel(el: Element | HTMLElement): AnyObject;
 function getSlotViewModel(el: Element | HTMLElement): AnyObject;
@@ -66,12 +65,22 @@ module "*.json" {
   const value: KeyValue;
   export default value;
 }
+module "*.png" {
+  export default value;
+}
+module "*.svg" {
+  export default value;
+}
+module "*.html" {
+  export default value;
+}
 
 interface Event {
   stopEvent(preventDefault?): void;
 }
 
 interface CustomEvent {
+  detail: AnyObject;
   stopEvent(preventDefault?): void;
 }
 

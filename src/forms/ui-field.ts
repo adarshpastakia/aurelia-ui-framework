@@ -5,9 +5,8 @@
  * @license   : MIT
  */
 
-import { autoinject, bindable, computedFrom, customElement, inlineView } from "aurelia-framework";
+import { bindable, computedFrom, customElement, inlineView } from "aurelia-framework";
 
-@autoinject()
 @customElement("ui-field")
 @inlineView(`<template aria-required.bind="required" aria-disabled.bind="disabled" class="ui-field \${classes}" css.bind="{width}">
 <label class="ui-field__label" role="text" click.trigger="focus()">\${label}</label>
@@ -50,25 +49,6 @@ export class UIField {
     }
     if (this.required === "" || this.required === "required" || isTrue(this.required)) {
       classes.push("ui-field--required");
-    }
-    return classes.join(" ");
-  }
-}
-
-@autoinject()
-@customElement("ui-field-wrapper")
-@inlineView(`<template class="ui-field__wrapper \${classes}">
-  <slot></slot>
-  </template>`)
-export class UIFieldWrapper {
-  @bindable()
-  public plain: string | boolean = false;
-
-  @computedFrom("plain")
-  get classes(): string {
-    const classes = [];
-    if (this.plain === "" || this.plain === "plain" || isTrue(this.plain)) {
-      classes.push("ui-field__wrapper--plain");
     }
     return classes.join(" ");
   }

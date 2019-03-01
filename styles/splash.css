@@ -1,17 +1,17 @@
 @-webkit-keyframes ripple {
   0% {
-    border-color: #4169e1;
+    border-color: var(--color-light);
     opacity: 0.1;
     transform: scale(0.1);
   }
 
   50% {
-    border-color: #4169e1;
+    border-color: var(--color-light);
     opacity: 0.75;
   }
 
   100% {
-    border-color: #000080;
+    border-color: var(--color-dark);
     opacity: 0.1;
     transform: scale(2);
   }
@@ -19,18 +19,18 @@
 
 @-moz-keyframes ripple {
   0% {
-    border-color: #4169e1;
+    border-color: var(--color-light);
     opacity: 0.1;
     transform: scale(0.1);
   }
 
   50% {
-    border-color: #4169e1;
+    border-color: var(--color-light);
     opacity: 0.75;
   }
 
   100% {
-    border-color: #000080;
+    border-color: var(--color-dark);
     opacity: 0.1;
     transform: scale(2);
   }
@@ -38,18 +38,18 @@
 
 @-ms-keyframes ripple {
   0% {
-    border-color: #4169e1;
+    border-color: var(--color-light);
     opacity: 0.1;
     transform: scale(0.1);
   }
 
   50% {
-    border-color: #4169e1;
+    border-color: var(--color-light);
     opacity: 0.75;
   }
 
   100% {
-    border-color: #000080;
+    border-color: var(--color-dark);
     opacity: 0.1;
     transform: scale(2);
   }
@@ -57,18 +57,18 @@
 
 @keyframes ripple {
   0% {
-    border-color: #4169e1;
+    border-color: var(--color-light);
     opacity: 0.1;
     transform: scale(0.1);
   }
 
   50% {
-    border-color: #4169e1;
+    border-color: var(--color-light);
     opacity: 0.75;
   }
 
   100% {
-    border-color: #000080;
+    border-color: var(--color-dark);
     opacity: 0.1;
     transform: scale(2);
   }
@@ -79,7 +79,7 @@
   background: #ffffff;
   bottom: 0;
   display: flex;
-  flex-flow: row;
+  flex-flow: column;
   justify-content: center;
   left: 0;
   line-height: 1;
@@ -87,24 +87,36 @@
   right: 0;
   top: 0;
   z-index: 10000;
+  --color-dark: #1f4b99;
+  --color-light: #137cbd;
 }
 
 .ui-splash .ui-title {
+  align-items: center;
+  color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  flex-flow: row;
   font-family: sans-serif;
   font-size: 32px;
   font-weight: 300;
-  padding: 0 24px;
+  justify-content: center;
+  line-height: 1.2;
+  padding: 24px;
+}
+
+.ui-splash .ui-logo {
+  line-height: 0;
 }
 
 .ui-splash .ui-title .ui-subtitle {
   color: #888888;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 .ui-splash .ui-anim {
-  height: 24px;
+  height: 32px;
   position: relative;
-  width: 24px;
+  width: 32px;
 }
 
 .ui-splash .ui-anim::after,
@@ -124,7 +136,4 @@
 
 .ui-splash .ui-anim::before {
   animation-delay: 0.75s;
-}
-
-.ui-splash .ui-anim::after {
 }

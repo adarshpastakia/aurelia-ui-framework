@@ -1,0 +1,54 @@
+<template>
+  <ui-page page-title="Message Panel">
+    <ui-alert alert-title="Success" closeable open.bind="pageAlert">
+      Simple alert message
+    </ui-alert>
+    <ui-content ui-scroll ui-padding>
+      <ui-container>
+        <p class="x-page-title">Alert message</p>
+
+        <div class="x-section-title">Examples</div>
+        <div class="x-example-block" with.bind="{type:'alert',theme:'default'}">
+          <div class="x-example-display">
+            <ui-alert
+              ui-theme="success"
+              icon="mdi mdi-information"
+              alert-title="Success"
+              closeable
+              open="true"
+            >
+              Action performed successfully
+            </ui-alert>
+
+            <ui-alert
+              ui-theme="danger"
+              type="confirm"
+              icon="mdi mdi-delete"
+              alert-title="Error"
+              ok-label="Try Again"
+              closeable
+              open="true"
+            >
+              Unable to delete the file. Check permissions.
+            </ui-alert>
+          </div>
+
+          <div class="x-example-options">
+            <h5>Options</h5>
+            <!-- <ui-field label="Type">
+              <ui-dropdown value.bind="type" options.bind="['alert','confirm']"></ui-dropdown>
+            </ui-field> -->
+            <ui-toggle checked.bind="pageAlert">Show Page Message</ui-toggle>
+          </div>
+        </div>
+
+        <div class="x-section-title">Using the Tags</div>
+        <x-code-block lang="html" page="app.html" code.bind="alertHtml"></x-code-block>
+
+        <div class="x-section-title">Properties</div>
+        <x-blockquote>Attributes marked with value <b>none</b> do not require a value</x-blockquote>
+        <x-code-table code-template.bind="alertAttrs"></x-code-table>
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>

@@ -4,7 +4,7 @@
 // @license   : MIT
 
 .ui-panel-base {
-  background-color: var(--base-component);
+  background-color: $base-theme;
   display: grid;
   grid-template-areas: "header" "body" "footer";
   grid-template-rows: auto 1fr auto;
@@ -46,6 +46,11 @@
     font-size: 1.5em;
     grid-area: icon;
     padding: ($base-spacing / 6) ($base-spacing / 2);
+
+    > img,
+    > svg {
+      vertical-align: middle;
+    }
   }
 
   &__actions {
@@ -57,12 +62,8 @@
     padding: 0 0.5em;
 
     > .ui-divider {
-      margin: 0 4px;
+      margin: 2px 4px;
       @extend %vr;
-    }
-
-    > .ui-dropdown > .ui-menu__item__link {
-      line-height: 50%;
     }
   }
 
@@ -74,7 +75,7 @@
 }
 
 .ui-footer {
-  color: var(--color-gray);
+  color: $gray;
   grid-area: footer;
   position: relative;
 

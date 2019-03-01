@@ -4,9 +4,8 @@
 // @license   : MIT
 
 .ui-menu {
-  align-items: stretch;
-  @extend %ui-flex;
-  @extend %ui-flex--vertical;
+  display: block;
+  min-width: 4rem;
 
   $base: #{&};
 
@@ -18,19 +17,16 @@
     position: relative;
 
     &__container {
-      align-items: stretch;
-      display: flex;
-      flex-flow: column nowrap;
-
       > #{$base}__item {
         border: 0;
       }
     }
 
     &__label {
-      color: var(--color-gray);
+      color: $base-muted;
       font-size: 0.95em;
       margin: 0 0.5rem;
+      padding: 4px 0;
     }
 
     &--collapsible &__label {
@@ -39,6 +35,10 @@
     &--collapsible &__label::after {
       content: "\25BE";
       float: right;
+
+      @at-root [dir="rtl"] & {
+        float: left;
+      }
     }
 
     &--collapsible[data-collapsed="true"] &__container {
@@ -67,9 +67,12 @@
     flex: 0 0 auto;
     grid-template-areas: "link caret";
     grid-template-columns: 1fr auto;
+    max-width: 18rem;
+    min-width: 4rem;
+    overflow: hidden;
 
     &:hover {
-      box-shadow: 0 0 1px 0 var(--menu-item-active-bg) inset;
+      box-shadow: 0 0 1px 0 $menu-active-bg inset;
     }
 
     &__link {
@@ -81,24 +84,25 @@
       padding: 0 0.5rem;
 
       &:hover {
-        background-color: var(--menu-item-hover-bg);
-        color: var(--menu-item-hover-color);
+        background-color: $menu-hover-bg;
+        color: $menu-hover-color;
       }
 
       &[data-open="true"],
       &:active {
-        background-color: var(--menu-item-active-bg);
+        background-color: $menu-active-bg;
+        color: $menu-active-color;
         transition: background-color 0.5s;
       }
 
       &[data-active="true"] {
-        background-color: var(--menu-item-active-bg);
-        box-shadow: 4px 0 0 0 var(--menu-item-active-border) inset;
-        color: var(--menu-item-active-color);
+        background-color: $menu-active-bg;
+        box-shadow: 4px 0 0 0 $menu-active-border-color inset;
+        color: $menu-active-color;
       }
 
       @at-root [dir="rtl"] &[data-active="true"] {
-        box-shadow: -4px 0 0 0 var(--menu-item-active-border) inset;
+        box-shadow: -4px 0 0 0 $menu-active-border-color inset;
       }
     }
 
@@ -110,6 +114,7 @@
     &__label {
       grid-area: label;
       padding: 0.5rem 0.25rem;
+      @include ellipsis();
     }
 
     &__icon {
@@ -128,24 +133,20 @@
         }
 
         &:hover {
-          background-color: var(--menu-item-hover-bg);
-          color: var(--menu-item-hover-color);
+          background-color: $menu-hover-bg;
+          color: $menu-hover-color;
         }
 
         &[data-open="true"],
         &:active {
-          background-color: var(--menu-item-active-bg);
+          background-color: $menu-active-bg;
+          color: $menu-active-color;
           transition: background-color 0.5s;
         }
       }
-    }
 
-    &.ui-dropdown {
-      border: 1px solid var(--base-border);
-
-      .ui-menu__item__link {
-        grid-template-areas: "icon error label badge caret";
-        grid-template-columns: auto auto 1fr auto auto;
+      @at-root [dir="rtl"] & {
+        transform: scaleX(-1);
       }
     }
   }
@@ -162,7 +163,7 @@
 
   &__bar {
     align-content: space-between;
-    background-color: var(--menubar-bg);
+    background-color: $menubar-bg;
     display: grid;
     grid-template-columns: 1fr auto;
     position: relative;
@@ -186,7 +187,7 @@
 
       #{$base}__item {
         &__link[data-active="true"] {
-          box-shadow: 0 -2px 0 0 var(--menu-item-active-color) inset;
+          box-shadow: 0 -2px 0 0 $menu-active-color inset;
         }
         &__label {
           padding: 0.25rem;
@@ -197,7 +198,8 @@
       }
 
       #{$base}__group {
-        border: 1px solid rgba(map-get($gray, base), 0.25);
+        align-items: stretch;
+        border: 1px solid rgba($base-border-color, 0.5);
         margin: 0;
         padding: 0;
 
@@ -216,52 +218,13 @@
         }
 
         &__container {
+          @extend %ui-flex;
           flex-flow: row nowrap;
 
           > .ui-divider {
             font-size: 0.8em;
             margin: -0.5em 0 0;
           }
-        }
-      }
-    }
-  }
-
-  &,
-  &__bar {
-    &.ui-theme--light {
-      background-color: var(--color-gray-light);
-
-      &,
-      & > #{$base}__bar__wrapper {
-        > #{$base}__group > div > #{$base}__item,
-        > #{$base}__item {
-          > #{$base}__item__link,
-          > #{$base}__item__caret {
-            color: var(--color-gray-shade);
-            --menu-item-hover-bg: #{map-get($secondary, tint)};
-            --menu-item-hover-color: #{map-get($secondary, shade)};
-            --menu-item-active-bg: #{map-get($secondary, light)};
-            --menu-item-active-color: #{map-get($secondary, shade)};
-          }
-        }
-      }
-    }
-    &.ui-theme--dark {
-      &, .ui-drop__body {
-        background-color: var(--color-gray-dark);
-        color: var(--color-white);
-      }
-
-      > #{$base}__group > div > #{$base}__item,
-      > #{$base}__item {
-        > #{$base}__item__link,
-        > #{$base}__item__caret {
-          color: var(--color-gray-tint);
-          --menu-item-hover-bg: #{map-get($secondary, shade)};
-          --menu-item-hover-color: #{map-get($secondary, tint)};
-          --menu-item-active-bg: #{map-get($secondary, dark)};
-          --menu-item-active-color: #{map-get($secondary, tint)};
         }
       }
     }

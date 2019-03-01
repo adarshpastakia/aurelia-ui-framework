@@ -5,11 +5,13 @@
  * @license   : MIT
  */
 
-import { bindable, child, computedFrom, customElement } from "aurelia-framework";
-import { UIDrop } from "../core/ui-drop";
+import { bindable, child, computedFrom, customElement, inlineView } from "aurelia-framework";
+import { UIDrop } from "../shared/ui-drop";
 import { UIInternal } from "../utils/ui-internal";
+import view from "./ui-button.html";
 
 @customElement("ui-button")
+@inlineView(view)
 export class UIButton {
   @bindable()
   public icon: string = "";
@@ -18,11 +20,11 @@ export class UIButton {
   @bindable()
   public label: string = "";
   @bindable()
-  public size: string = "nm";
+  public size: "nm" | "sm" | "md" | "lg" = "nm";
   @bindable()
-  public type: string = "default";
+  public type: "default" | "solid" | "link" = "default";
   @bindable()
-  public value: string = "";
+  public id: string = "";
 
   @bindable()
   public busy: boolean = false;
@@ -97,7 +99,7 @@ export class UIButton {
       if (this.hasDrop && !this.split) {
         this.toggleDrop();
       } else {
-        return this.element.dispatchEvent(UIInternal.createEvent("click", this.value));
+        return this.element.dispatchEvent(UIInternal.createEvent("click", this.id));
       }
       return false;
     }

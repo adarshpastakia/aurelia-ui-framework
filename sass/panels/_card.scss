@@ -14,6 +14,18 @@
   }
 
   $base: #{&};
+  @at-root a {
+    &:hover > #{$base} {
+      box-shadow: $shadow-level3;
+    }
+    &[data-disabled="true"] > #{$base} {
+      box-shadow: $shadow-level0;
+      cursor: default;
+      opacity: 0.5;
+    }
+  }
+
+  $base: #{&};
   $inner-padding: ($base-spacing / 2) $base-spacing;
 
   &__title {
@@ -23,7 +35,7 @@
   }
 
   &__meta {
-    color: var(--color-gray);
+    color: $gray;
     display: flex;
     flex-flow: row nowrap;
     font-size: 0.8em;
@@ -43,7 +55,7 @@
     }
 
     > .ui-scroll {
-      border: 2px solid var(--base-component);
+      border: 2px solid $base-component-bg;
     }
   }
 

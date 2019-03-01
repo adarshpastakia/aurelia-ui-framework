@@ -1,23 +1,16 @@
 /**
  * @author    : Adarsh Pastakia
  * @version   : 5.0.0
- * @copyright : 2018
+ * @copyright : 2019
  * @license   : MIT
  */
-import {
-  autoinject,
-  bindable,
-  bindingMode,
-  children,
-  customElement,
-  inlineView
-} from "aurelia-framework";
+
+import { bindable, bindingMode, children, customElement, inlineView } from "aurelia-framework";
 import { UIInternal } from "../utils/ui-internal";
 import { UICheckbox } from "./ui-checkbox";
 import { UIRadio } from "./ui-radio";
 import { UIToggle } from "./ui-toggle";
 
-@autoinject()
 @customElement("ui-option-group")
 @inlineView(
   `<template class="ui-option__group \${disabled ? 'ui-option--disabled' : ''}" change.trigger="checkChanged($event)"><slot></slot></template>`
@@ -48,12 +41,16 @@ export class UIOptionGroup {
     }
   }
 
-  private checkChanged($event) {
+  protected checkChanged($event) {
     if (this.value !== false) {
       UIInternal.queueTask(() => {
         this.value = $event.detail.checked;
       });
     }
+  }
+
+  protected disabledChanged(): void {
+    this.options.forEach(el => el.disable(!!this.disabled));
   }
 
   private valueChanged() {

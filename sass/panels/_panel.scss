@@ -1,12 +1,12 @@
 // @author    : Adarsh Pastakia
 // @version   : 5.0.0
-// @copyright : 2018
+// @copyright : 2019
 // @license   : MIT
 
 .ui-panel {
   align-self: start;
   border-radius: $base-border-radius;
-  box-shadow: 0 0 0 1px var(--base-border);
+  box-shadow: $shadow-level0;
   display: grid;
   grid-template-areas: "header" "body" "footer";
   grid-template-rows: auto 1fr auto;
@@ -16,7 +16,7 @@
   position: relative;
 
   &.ui-paper {
-    box-shadow: 1px 1px 8px 0 var(--base-shadow), 0 0 0 1px var(--base-border);
+    box-shadow: $shadow-level2;
   }
 
   $base: #{&};
@@ -45,14 +45,12 @@
     position: relative;
 
     > .ui-scroll {
-      border: 2px solid var(--base-component);
+      border: 2px solid $base-component-bg;
     }
   }
 
   &__header {
     align-items: center;
-    background-color: var(--panel-header-bg);
-    color: var(--panel-header-color);
     display: grid;
     grid-area: header;
     grid-template-areas: "header actions";
@@ -61,6 +59,10 @@
 
     .ui-header {
       position: static;
+
+      .ui-btn__wrapper {
+        font-size: 0.75em;
+      }
     }
 
     &__actions {
@@ -72,73 +74,47 @@
       grid-gap: 2px;
 
       > .ui-divider {
-        margin: 0 4px;
+        margin: 4px;
         @extend %vr;
       }
 
+      .ui-btn__wrapper {
+        // font-size: 0.75em;
+      }
+
       &:not(:empty) {
-        @include property-prefix(margin-start, -0.5em);
+        @include property-prefix(margin-start, -1em);
         padding: 0 0.5em;
       }
     }
   }
 
-  &[data-collapsed="true"] &__body {
-    // stylelint-disable-next-line declaration-no-important
-    max-height: 0 !important;
-    min-height: 0;
-  }
-
-  &[class*="ui-theme--"] &__header {
-    .ui-btn__wrapper[data-type="tool"] .ui-btn {
-      &,
-      &:hover,
-      &:active {
-        --btn-ripple: var(--panel-header-tool);
-        --btn-color: var(--panel-header-tool);
-        --btn-active: var(--panel-header-tool);
-        color: var(--panel-header-tool);
-      }
-
-      &:active {
-        box-shadow: 0 0 4px 0 var(--panel-header-tool) inset;
-      }
+  &[data-collapsed="true"] {
+    .ui-footer,
+    .ui-panel__body {
+      // stylelint-disable-next-line declaration-no-important
+      max-height: 0 !important;
+      min-height: 0;
     }
   }
 
-  &.ui-theme--primary {
-    --panel-header-bg: var(--color-primary-light);
-    --panel-header-tool: var(--color-primary-dark);
-    --panel-header-color: var(--color-primary-shade);
+  @mixin make-panel($theme, $theme-color, $tool-color) {
+    &.ui-theme--#{$theme} {
+      #{$base}__header {
+        background-color: $theme-color;
+        color: $gray-light;
+
+        .ui-divider {
+          @extend %vr-dark;
+        }
+        .ui-btn__wrapper[data-type="tool"] {
+          background-color: $tool-color;
+        }
+      }
+    }
   }
-  &.ui-theme--secondary {
-    --panel-header-bg: var(--color-secondary-light);
-    --panel-header-tool: var(--color-secondary-dark);
-    --panel-header-color: var(--color-secondary-shade);
+  @each $label, $color in $base-colors {
+    @include make-panel($label, mix($color, $gray, 85%), mix($color, $gray-light, 40%));
   }
-  &.ui-theme--gray {
-    --panel-header-bg: var(--color-gray-light);
-    --panel-header-tool: var(--color-gray-dark);
-    --panel-header-color: var(--color-gray-shade);
-  }
-  &.ui-theme--info {
-    --panel-header-bg: var(--color-info-light);
-    --panel-header-tool: var(--color-info-dark);
-    --panel-header-color: var(--color-info-shade);
-  }
-  &.ui-theme--danger {
-    --panel-header-bg: var(--color-danger-light);
-    --panel-header-tool: var(--color-danger-dark);
-    --panel-header-color: var(--color-danger-shade);
-  }
-  &.ui-theme--success {
-    --panel-header-bg: var(--color-success-light);
-    --panel-header-tool: var(--color-success-dark);
-    --panel-header-color: var(--color-success-shade);
-  }
-  &.ui-theme--warning {
-    --panel-header-bg: var(--color-warning-light);
-    --panel-header-tool: var(--color-warning-dark);
-    --panel-header-color: var(--color-warning-shade);
-  }
+  @include make-panel(dark, $gray-dark, mix($gray-dark, $gray-light, 40%));
 }

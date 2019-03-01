@@ -1,0 +1,93 @@
+<template>
+  <ui-page page-title="Typography">
+    <ui-content ui-padding ui-scroll>
+      <ui-container>
+        <div class="x-section-title">Headings</div>
+        <h1>
+          Heading 1
+          <div class="ui-subheading">Subheading</div>
+        </h1>
+        <h2>
+          Heading 2
+          <div class="ui-subheading">Subheading</div>
+        </h2>
+        <h3>
+          Heading 3
+          <div class="ui-subheading">Subheading</div>
+        </h3>
+        <h4>
+          Heading 4
+          <div class="ui-subheading">Subheading</div>
+        </h4>
+        <h5>
+          Heading 5
+          <div class="ui-subheading">Subheading</div>
+        </h5>
+        <h6>
+          Heading 6
+          <div class="ui-subheading">Subheading</div>
+        </h6>
+        <hr />
+        <div class="ui-display--1">Display 1</div>
+        <div class="ui-display--2">Display 2</div>
+        <div class="ui-display--3">Display 3</div>
+        <div class="ui-display--4">Display 4</div>
+        <div class="ui-display--5">Display 5</div>
+        <div class="ui-display--6">Display 6</div>
+
+        <div class="x-section-title">Font Sizes</div>
+        <p ui-font="xs">Size xs</p>
+        <p ui-font="sm">Size sm</p>
+        <p ui-font="md">Size md</p>
+        <p ui-font="lg">Size lg</p>
+        <p ui-font="xl">Size xl</p>
+
+        <div class="x-section-title">Font Weights</div>
+        <div ui-font="lg">
+          <p ui-weight="light">Weight light</p>
+          <p ui-weight="medium">Weight medium</p>
+          <p ui-weight="bold">Weight bold</p>
+          <p ui-weight="bolder">Weight bolder</p>
+        </div>
+
+        <div class="x-section-title">Font Variations</div>
+        <div ui-font="lg">
+          <p ui-text="upper">Uppercase</p>
+          <p ui-text="lower">Lowercase</p>
+          <p ui-text="title">Titlecase</p>
+          <p ui-text="small-caps">Small Caps</p>
+          <p>
+            <a class="ui-link">Link</a>
+          </p>
+          <p><span ui-bg="secondary" ui-color="white">Selected Text</span></p>
+          <p><span ui-color="muted">Muted Text</span></p>
+        </div>
+
+        <div class="x-section-title">Font Families</div>
+        <div class="x-section-subtitle">Regular font</div>
+        <article>
+          <p ui-font="sans-serif">
+            <lipsum-para></lipsum-para>
+          </p>
+        </article>
+        <div class="x-section-subtitle">Serif font</div>
+        <article>
+          <p ui-font="serif">
+            <lipsum-para></lipsum-para>
+          </p>
+        </article>
+        <div class="x-section-subtitle">Monospace font</div>
+        <article ui-font="mono">
+          <p>ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
+          <p>abcdefghijklmnopqrstuvwxyz</p>
+          <p>1234567890()[]{}!@#$%^&amp;?</p>
+        </article>
+
+        <div class="x-section-title">Helper Classes</div>
+        <x-blockquote>These classes can be assigned using helper attributes</x-blockquote>
+        <x-code-table code-template.bind="typoClasses"></x-code-table>
+
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>

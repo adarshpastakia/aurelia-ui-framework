@@ -1,0 +1,90 @@
+<template>
+  <ui-page page-title="Colors">
+    <ui-content ui-scroll ui-padding>
+      <ui-container>
+        <div class="x-section-title">Grayscale</div>
+        <ui-row ui-gutter>
+          <ui-col
+            ui-shadow
+            size="auto"
+            width="8rem"
+            repeat.for="c of grayscale"
+            ui-bg.bind="c.bg"
+            ui-color.bind="c.color"
+            ui-padding="xs"
+            ui-font="sm"
+            ui-align="center"
+            ui-text="title"
+            >${c.bg}</ui-col
+          >
+        </ui-row>
+
+        <div class="x-section-title">Base Colors</div>
+        <ui-row ui-gutter repeat.for="c of baseColors">
+          <ui-col size="auto" width="8rem" ui-paper>
+            <div ui-bg.bind="c" ui-padding="xs"></div>
+            <div
+              ui-color.bind="c"
+              ui-padding="xxs"
+              ui-font="sm"
+              ui-weight="bold"
+              ui-align="center"
+              ui-text="title"
+            >
+              ${c}
+            </div>
+          </ui-col>
+          <ui-col size="auto" width="8rem" ui-paper repeat.for="s of colorscale">
+            <div ui-bg="${c}-${s}" ui-padding="xs"></div>
+            <div
+              ui-color="${c}-${s}"
+              ui-padding="xxs"
+              ui-font="sm"
+              ui-weight="bold"
+              ui-align="center"
+              ui-text="title"
+            >
+              ${s}
+            </div>
+          </ui-col>
+        </ui-row>
+
+        <div class="x-section-title">Extra Colors</div>
+        <ui-row ui-gutter>
+          <ui-col size="auto" width="8rem" ui-paper repeat.for="c of extraColors.light">
+            <div ui-bg.bind="c" ui-padding="xs"></div>
+            <div
+              ui-color.bind="c"
+              ui-padding="xxs"
+              ui-font="sm"
+              ui-weight="bold"
+              ui-align="center"
+              ui-text="title"
+            >
+              ${c}
+            </div>
+          </ui-col>
+        </ui-row>
+        <ui-row ui-gutter>
+          <ui-col size="auto" width="8rem" ui-paper repeat.for="c of extraColors.dark">
+            <div ui-bg.bind="c" ui-padding="xs"></div>
+            <div
+              ui-color.bind="c"
+              ui-padding="xs"
+              ui-font="sm"
+              ui-weight="bold"
+              ui-align="center"
+              ui-text="title"
+            >
+              ${c}
+            </div>
+          </ui-col>
+        </ui-row>
+
+        <div class="x-section-title">Helper Classes</div>
+        <x-blockquote>These classes can be assigned using helper attributes</x-blockquote>
+        <x-code-table code-template.bind="colorClasses"></x-code-table>
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>

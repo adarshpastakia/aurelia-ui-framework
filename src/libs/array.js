@@ -90,7 +90,8 @@ Object.defineProperty(Array.prototype, "groupBy", {
       return new Map();
     }
     return this.reduce((a, b) => {
-      const key = eval(`ev = ${JSON.stringify(b)}.${property}`);
+      let key = b;
+      for(i of property.split('.')) key = key[i];
       if (!a.has(key)) {
         a.set(key, []);
       }

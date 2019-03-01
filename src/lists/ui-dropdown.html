@@ -1,22 +1,37 @@
-<template class="ui-menu__item ui-dropdown">
-  <a data-active.bind="active" disabled.bind="disabled" click.trigger="toggleDrop($event)" class="ui-menu__item__link"
-    data-open.bind="dropEl.isOpen">
-    <ui-icon class="ui-menu__item__icon" icon.bind="model[iconProperty] || model" if.bind="iconProperty"></ui-icon>
+<template class="ui-dropdown">
+  <a
+    data-active.bind="active"
+    disabled.bind="disabled"
+    click.trigger="toggleDrop($event)"
+    class="ui-dropdown__link"
+    data-open.bind="dropEl.isOpen"
+    data-disabled.bind="disabled"
+  >
+    <ui-icon
+      class="ui-dropdown__icon"
+      icon="${iconPrefix} ${model[iconProperty]}"
+      if.bind="iconProperty"
+    ></ui-icon>
     <div class="ui-input__error" if.bind="errors && errors.length">
       <ui-svg-icon icon="alert"></ui-svg-icon>
       <ul>
         <li repeat.for="err of errors">${err}</li>
       </ul>
     </div>
-    <span class="ui-menu__item__label">${model[labelProperty] || model || placeholder}</span>
-    <ui-svg-icon class="ui-menu__item__caret" icon="caret"></ui-svg-icon>
+    <span class="ui-dropdown__label">${model[labelProperty] || model || placeholder}</span>
+    <ui-svg-icon class="ui-dropdown__caret" icon="caret"></ui-svg-icon>
   </a>
   <ui-drop view-model.ref="dropEl">
-    <ui-menu click.trigger="select($event)">
+    <div>
       <template repeat.for="option of options">
-        <ui-menu-item value.bind="option" label.bind="option[labelProperty] || option" icon.bind="iconProperty ? option[iconProperty] || option : ''"
-          active.bind="(option[valueProperty] || option) === value"></ui-menu-item>
+        <div
+          class="ui-list__item ${(option[valueProperty] || option) === value?'ui-list__item--selected':''}"
+          click.trigger="select(option)"
+        >
+          <ui-icon if.bind="iconProperty" icon="${iconPrefix} ${option[iconProperty]}"></ui-icon>
+          ${option[labelProperty] || option}
+        </div>
       </template>
-    </ui-menu>
+    </div>
   </ui-drop>
 </template>

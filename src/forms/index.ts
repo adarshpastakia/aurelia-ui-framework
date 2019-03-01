@@ -1,20 +1,26 @@
-import { UIDate } from "../calendar/ui-date";
+/**
+ * @author    : Adarsh Pastakia
+ * @version   : 5.0.0
+ * @copyright : 2019
+ * @license   : MIT
+ */
+
 import { UICheckbox } from "./ui-checkbox";
-import { UIDateInput } from "./ui-date-input";
-import { UIField, UIFieldWrapper } from "./ui-field";
+import { UIField } from "./ui-field";
+import { UIFieldWrapper } from "./ui-field-wrapper";
 import { UIFieldset } from "./ui-fieldset";
 import { UIForm } from "./ui-form";
 import { UIInput } from "./ui-input";
-import { UIInputAddon, UIInputInfo } from "./ui-input-addons";
+import { UIInputAddon } from "./ui-input-addons";
+import { UIInputInfo } from "./ui-input-info";
 import { UIOptionGroup } from "./ui-option-group";
 import { UIPhone } from "./ui-phone";
 import { UIRadio } from "./ui-radio";
 import { UITextarea } from "./ui-textarea";
 import { UIToggle } from "./ui-toggle";
 
-export default [
+export const Forms = [
   UICheckbox,
-  UIDateInput,
   UIField,
   UIFieldWrapper,
   UIFieldset,
@@ -26,6 +32,5 @@ export default [
   UIPhone,
   UIRadio,
   UITextarea,
-  UIToggle,
-  UIDate
+  UIToggle
 ];

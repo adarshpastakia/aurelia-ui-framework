@@ -1,22 +1,16 @@
 /**
  * @author    : Adarsh Pastakia
  * @version   : 5.0.0
- * @copyright : 2018
+ * @copyright : 2019
  * @license   : MIT
  */
 
-import {
-  autoinject,
-  bindable,
-  bindingMode,
-  customElement,
-  DOM,
-  inlineView
-} from "aurelia-framework";
+import { bindable, bindingMode, customElement, DOM, inlineView } from "aurelia-framework";
 import { UIInternal } from "../utils/ui-internal";
+import view from "./ui-panel.html";
 
-@autoinject()
 @customElement("ui-panel")
+@inlineView(view)
 export class UIPanel {
   @bindable()
   public label: string = "";
@@ -27,15 +21,15 @@ export class UIPanel {
   public collapsed: boolean = false;
 
   @bindable()
-  public width: string = "auto";
+  public width: string = "";
   @bindable()
   public minWidth: string = "16rem";
   @bindable()
   public maxWidth: string = "100vw";
   @bindable()
-  public height: string = "auto";
+  public height: string = "";
   @bindable()
-  public minHeight: string = "none";
+  public minHeight: string = "unset";
   @bindable()
   public maxHeight: string = "100vh";
 
@@ -51,9 +45,7 @@ export class UIPanel {
   }
 
   public close(): Promise<boolean> {
-    return UIInternal.fireCallbackEvent(this, "beforeclose").then(
-      b => (b ? this.remove() : false)
-    );
+    return UIInternal.fireCallbackEvent(this, "beforeclose").then(b => (b ? this.remove() : false));
   }
 
   protected toggleExpand(expand: boolean): void {
@@ -65,11 +57,4 @@ export class UIPanel {
     UIInternal.queueTask(() => DOM.removeNode(this.element));
     return true;
   }
-}
-
-@autoinject()
-@customElement("ui-panel-group")
-@inlineView(`<template class="ui-panel__group"><slot></slot></template>`)
-export class UIPanelGroup {
-  // TODO: add toggle to create accordion style
 }

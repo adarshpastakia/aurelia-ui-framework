@@ -1,0 +1,43 @@
+<template>
+  <ui-page page-title="Pages & Sections">
+    <ui-content ui-scroll ui-padding>
+      <ui-container>
+        <p class="x-page-title">Page provides basic layout for route pages</p>
+        <div>
+          <table>
+            <tr>
+              <td width="150px"><code>ui-page</code></td>
+              <td>Page wrapper with sections</td>
+            </tr>
+            <tr>
+              <td><code>ui-content</code></td>
+              <td>Content wrapper for page body</td>
+            </tr>
+            <tr>
+              <td><code>ui-section</code></td>
+              <td>Adds a section as page body</td>
+            </tr>
+            <tr>
+              <td><code>ui-section-head</code></td>
+              <td>Header section</td>
+            </tr>
+            <tr>
+              <td><code>ui-section-foot</code></td>
+              <td>Footer section</td>
+            </tr>
+            <tr>
+              <td><code>ui-sidebar</code></td>
+              <td><a class="ui-link">Sidebars</a></td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="x-section-title">Simple page</div>
+        <x-code-block lang="html" page="page.html" code.bind="simplePage"></x-code-block>
+
+        <div class="x-section-title">Complex page</div>
+        <x-code-block lang="html" page="page.html" code.bind="complexPage"></x-code-block>
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>

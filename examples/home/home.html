@@ -1,0 +1,208 @@
+<template>
+  <ui-content ui-scroll scroll.trigger="hideTitle(container.scrollTop<64)" ref="container">
+    <div ui-bg="primary-dark" ui-color="white">
+      <ui-row ui-padding="x--md" halign="center" valign="middle">
+        <ui-col size="auto"><img src.bind="app.config.logo" height="162"/></ui-col>
+        <ui-col size="auto">
+          <div ui-font="d3">${app.config.title}</div>
+          <div ui-font="h3" ui-weight="lighter">${app.config.subtitle}</div>
+        </ui-col>
+      </ui-row>
+    </div>
+    <div
+      ui-bg="secondary"
+      css.bind="{height: '3px', transform: 'scaleY(0.5)'}"
+      ui-margin="b--md t--xs"
+    ></div>
+    <ui-container>
+      <ui-row ui-gutter="lg" ui-weight="light" ui-font="lg" halign="center" ui-margin="b--lg">
+        <a
+          as-element="ui-col"
+          size="auto"
+          width="10em"
+          class="x-home-link"
+          href="/docs/get-started"
+        >
+          <div><i class="mdi mdi-star"></i></div>
+          <span>Get Started</span>
+        </a>
+        <a as-element="ui-col" size="auto" width="10em" class="x-home-link" href="/docs">
+          <div><i class="mdi mdi-package-variant"></i></div>
+          <span>Components</span>
+        </a>
+        <a as-element="ui-col" size="auto" width="10em" class="x-home-link">
+          <div><i class="mdi mdi-monitor-dashboard"></i></div>
+          <span>Examples</span>
+        </a>
+      </ui-row>
+
+      <hr />
+
+      <ui-row ui-gutter="lg" halign="center" margin="b--lg">
+        <ui-col size="6@md" max-width="45rem" content-stretch ui-padding>
+          <ui-card>
+            <ui-header>
+              <ui-header-icon>
+                <img width="45px" src.bind="images.layout" ui-paper ui-margin="y--xxs" />
+              </ui-header-icon>
+              <ui-header-title ui-font="h3">Layout Elements</ui-header-title>
+            </ui-header>
+            <ui-card-title ui-font="serif" ui-color="muted" ui-text="title"
+              >Flexible page layouts</ui-card-title
+            >
+            <ui-card-content ui-font="md" ui-line="2" ui-weight="light">
+              <p>
+                Create flexible application layouts using the specially desgined layout elements for
+                constructing pages
+              </p>
+            </ui-card-content>
+          </ui-card>
+        </ui-col>
+        <ui-col size="6@md" max-width="45rem" content-stretch ui-padding>
+          <ui-card>
+            <ui-header>
+              <ui-header-icon>
+                <img width="45px" src.bind="images.theme" ui-paper ui-margin="y--xxs" />
+              </ui-header-icon>
+              <ui-header-title ui-font="h3">Themeable</ui-header-title>
+            </ui-header>
+            <ui-card-title ui-font="serif" ui-color="muted" ui-text="title"
+              >Easy themeing using sass</ui-card-title
+            >
+            <ui-card-content ui-font="md" ui-line="2" ui-weight="light">
+              <p>
+                Make light/dark theme easily via the base-theme color usign sass color mix function
+              </p>
+            </ui-card-content>
+          </ui-card>
+        </ui-col>
+        <ui-col size="6@md" max-width="45rem" content-stretch ui-padding>
+          <ui-card>
+            <ui-header>
+              <ui-header-icon>
+                <img width="45px" src.bind="images.input" ui-paper ui-margin="y--xxs" />
+              </ui-header-icon>
+              <ui-header-title ui-font="h3">Functional Inputs</ui-header-title>
+            </ui-header>
+            <ui-card-title ui-font="serif" ui-color="muted" ui-text="title"
+              >Extensive input elements</ui-card-title
+            >
+            <ui-card-content ui-font="md" ui-line="2" ui-weight="light">
+              <p>
+                Functional input elments for text, lists &amp; tags, date/time, phone numbers
+              </p>
+            </ui-card-content>
+          </ui-card>
+        </ui-col>
+        <ui-col size="6@md" max-width="45rem" content-stretch ui-padding>
+          <ui-card>
+            <ui-header>
+              <ui-header-icon>
+                <img width="45px" src.bind="images.grid" ui-paper ui-margin="y--xxs" />
+              </ui-header-icon>
+              <ui-header-title ui-font="h3">Datagrid &amp; Tree</ui-header-title>
+            </ui-header>
+            <ui-card-title ui-font="serif" ui-color="muted" ui-text="title"
+              >Data respresentation elements</ui-card-title
+            >
+            <ui-card-content ui-font="md" ui-line="2" ui-weight="light">
+              <p>
+                Datagrids with resizeable, locked and sortable columns.
+              </p>
+              <p>Tree with checkable and filterbale nodes</p>
+            </ui-card-content>
+          </ui-card>
+        </ui-col>
+      </ui-row>
+
+      <ui-text-divider ui-color="muted" ui-font="lg">Built On</ui-text-divider>
+
+      <ui-row
+        ui-gutter="lg"
+        ui-weight="light"
+        ui-color="muted"
+        ui-font="md"
+        ui-align="center"
+        halign="center"
+        ui-margin="b--lg"
+      >
+        <ui-col size="auto" ui-padding="x--lg">
+          <a href="//aurelia.io" target="_blank" class="img-dev">
+            <img src.bind="images.aurelia" height="96" />
+          </a>
+          <p>Aurelia</p>
+        </ui-col>
+        <ui-col size="auto" ui-padding="x--lg">
+          <a href="//typescriptlang.org" target="_blank" class="img-dev">
+            <img src.bind="images.ts" height="96" />
+          </a>
+          <p>TypeScript</p>
+        </ui-col>
+        <ui-col size="auto" ui-padding="x--lg">
+          <a href="//sass-lang.com" target="_blank" class="img-dev">
+            <img src.bind="images.sass" height="96" />
+          </a>
+          <p>Sass</p>
+        </ui-col>
+      </ui-row>
+
+      <ui-text-divider ui-color="muted" ui-font="lg">Repo</ui-text-divider>
+      <ui-row
+        ui-gutter="lg"
+        ui-weight="light"
+        ui-color="muted"
+        ui-font="md"
+        valign="middle"
+        halign="center"
+        ui-margin="b--lg"
+      >
+        <ui-col size="auto">
+          <a
+            href="//github.com/adarshpastakia/aurelia-ui-framework"
+            target="_blank"
+            class="img-dev"
+          >
+            <img src.bind="images.git" height="96" />
+          </a>
+        </ui-col>
+        <ui-col size="auto">
+          <img
+            height="24"
+            alt="GitHub Stars"
+            src="https://img.shields.io/github/stars/adarshpastakia/aurelia-ui-framework.svg?color=blue&style=social"
+          />
+          <span>&nbsp;</span>
+          <img
+            height="24"
+            alt="GitHub Forks"
+            src="https://img.shields.io/github/forks/adarshpastakia/aurelia-ui-framework.svg?color=blue&style=social"
+          />
+          <span>&nbsp;</span>
+          <img
+            height="24"
+            alt="License"
+            src="https://img.shields.io/badge/license-MIT-blue.svg?color=blue&style=social&logo=github"
+          />
+          <br />
+          <img
+            height="42"
+            alt="Travis Build"
+            src="https://img.shields.io/travis/adarshpastakia/aurelia-ui-framework/master.svg?style=popout-square&logo=travis&label="
+          />
+          <span>&nbsp;</span>
+          <img
+            height="42"
+            alt="Code Climate coverage"
+            src="https://img.shields.io/codecov/c/gihub/adarshpastakia/aurelia-ui-framework.svg?style=popout-square&logo=codecov&label="
+          />
+          <span>&nbsp;</span>
+          <img
+            height="42"
+            alt="Latest Version"
+            src="https://img.shields.io/npm/v/aurelia-ui-framework/next.svg?style=popout-square&logo=npm&label="
+          />
+        </ui-col>
+      </ui-row>
+    </ui-container>
+  </ui-content>
+</template>

@@ -1,0 +1,55 @@
+<template>
+  <ui-page page-title="Tab Panel">
+    <ui-content ui-scroll ui-padding>
+      <ui-container>
+        <p class="x-page-title">Tabbed panel layout</p>
+
+        <div class="x-section-title">Examples</div>
+        <div class="x-example-block" with.bind="{align:'top'}">
+          <div class="x-example-display">
+            <ui-tab-panel
+              active-tab.from-view="activeTab"
+              align.bind="align"
+              css.bind="{height: '400px'}"
+            >
+              <ui-tabbar-start>
+                <ui-button icon="mdi mdi-plus" type="tool"></ui-button>
+              </ui-tabbar-start>
+              <ui-tabbar-end>
+                <ui-button size="sm">Close all</ui-button>
+              </ui-tabbar-end>
+
+              <ui-tab icon="mdi mdi-account" label="Inline ${i}" repeat.for="i of 3">
+                <ui-content ui-padding>
+                  <h4>Inline Content - Tab ${i}</h4>
+                  <ul>
+                    <li data-style="check">Test beforeclose</li>
+                    <li data-style="check">Implement overflow</li>
+                    <li data-style="check">Call canDeactivate when using compose</li>
+                  </ul>
+                </ui-content>
+              </ui-tab>
+              <ui-tab icon="mdi mdi-account" label="Disabled" disabled="true" closeable>
+                Tab3
+              </ui-tab>
+            </ui-tab-panel>
+          </div>
+
+          <div class="x-example-options">
+            <h5>Options</h5>
+            <ui-field label="Align">
+              <ui-dropdown value.bind="align" options.bind="['top','bottom']"></ui-dropdown>
+            </ui-field>
+          </div>
+        </div>
+
+        <div class="x-section-title">Using the Tab Panel</div>
+        <x-code-block lang="html" page="app.html" code.bind="tabHtml"></x-code-block>
+
+        <div class="x-section-title">Properties</div>
+        <x-blockquote>Attributes marked with value <b>none</b> do not require a value</x-blockquote>
+        <x-code-table code-template.bind="tabAttrs"></x-code-table>
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>

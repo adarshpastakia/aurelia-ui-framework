@@ -1,0 +1,43 @@
+<template>
+  <ui-page page-title="Theming">
+    <ui-content ui-scroll ui-padding>
+      <ui-container>
+        <div
+          class="ui-row ui-gutter"
+          with.bind="{colors:['primary','secondary','info','danger','success','warning']}"
+        >
+          <span
+            repeat.for="c of colors"
+            class="ui-col ui-col--fill"
+            ui-bg.bind="c"
+            ui-color="white"
+            ui-padding="md"
+            ui-font="lg"
+            ui-align="center"
+            ui-text="title"
+            ></span
+          >
+        </div>
+        <div
+          class="ui-row ui-gutter"
+          with.bind="{colors:['pink','pink-dark','violet','violet-dark','purple','purple-dark','indigo','indigo-dark','blue','blue-dark','cyan','cyan-dark','green','green-dark','teal','teal-dark','yellow','yellow-dark','orange','orange-dark','red','red-dark']}"
+        >
+          <span
+            repeat.for="c of colors"
+            class="ui-col ui-col--fill"
+            ui-bg.bind="c"
+            ui-color="white"
+            >&nbsp;</span
+          >
+        </div>
+
+        <div class="x-section-title">Theming with Sass</div>
+        <p>
+          Background and text colors are auto calculated with <code>$base-theme</code> color using
+          the Sass mix function
+        </p>
+        <x-code-block lang="scss" code.bind="theming" page="styles.scss"></x-code-block>
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>

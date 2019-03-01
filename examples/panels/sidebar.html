@@ -1,0 +1,60 @@
+<template>
+  <ui-page page-title="Sidebar">
+    <ui-content ui-scroll ui-padding>
+      <ui-container>
+        <p class="x-page-title">Collapsible and resizeable sidebars</p>
+
+        <div class="x-section-title">Examples</div>
+        <div
+          class="x-example-block"
+          with.bind="{position:'start',align:'top',trigger:'peek', width:'280px'}"
+        >
+          <div class="x-example-display">
+            <ui-page css.bind="{height: '400px'}">
+              <ui-sidebar
+                collapsible
+                resizeable
+                title-bg="blue"
+                title-color="white"
+                align.bind="align"
+                position.bind="position"
+                head-trigger.bind="trigger"
+                label="Sidebar"
+                width.bind="width"
+                min-width="120px"
+                max-width="320px"
+              >
+                <ui-content ui-padding ui-scroll>
+                  <lipsum-para></lipsum-para>
+                </ui-content>
+              </ui-sidebar>
+            </ui-page>
+          </div>
+
+          <div class="x-example-options">
+            <h5>Options</h5>
+            <ui-field label="Position">
+              <ui-dropdown value.bind="position" options.bind="['start','end']"></ui-dropdown>
+            </ui-field>
+            <ui-field label="Align">
+              <ui-dropdown value.bind="align" options.bind="['top','bottom']"></ui-dropdown>
+            </ui-field>
+            <ui-field label="Head Trigger">
+              <ui-dropdown value.bind="trigger" options.bind="['peek','toggle']"></ui-dropdown>
+            </ui-field>
+            <ui-field label="Width">
+              <ui-dropdown value.bind="width" options.bind="['280px','18rem']"></ui-dropdown>
+            </ui-field>
+          </div>
+        </div>
+
+        <div class="x-section-title">Using the Sidebar</div>
+        <x-code-block lang="html" page="app.html" code.bind="sidebarHtml"></x-code-block>
+
+        <div class="x-section-title">Properties</div>
+        <x-blockquote>Attributes marked with value <b>none</b> do not require a value</x-blockquote>
+        <x-code-table code-template.bind="sidebarAttrs"></x-code-table>
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>

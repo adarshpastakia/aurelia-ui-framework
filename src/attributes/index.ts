@@ -1,21 +1,12 @@
-import * as Helpers from "./ui-helpers";
+/**
+ * @author    : Adarsh Pastakia
+ * @version   : 5.0.0
+ * @copyright : 2019
+ * @license   : MIT
+ */
 
-export default [
-  Helpers.UIAlign,
-  Helpers.UIBg,
-  Helpers.UIBorder,
-  Helpers.UIClip,
-  Helpers.UIColor,
-  Helpers.UIFont,
-  Helpers.UIGutter,
-  Helpers.UIHide,
-  Helpers.UIHover,
-  Helpers.UIMargin,
-  Helpers.UIPadding,
-  Helpers.UIPaper,
-  Helpers.UIScroll,
-  Helpers.UIShow,
-  Helpers.UIText,
-  Helpers.UITheme,
-  Helpers.UIWeight
-];
+import { UIBadge } from "./ui-badge";
+import * as Helpers from "./ui-helpers";
+import { UITooltip } from "./ui-tooltip";
+
+export const Attributes = [UIBadge, UITooltip, ...Object.keys(Helpers).map(k => Helpers[k])];

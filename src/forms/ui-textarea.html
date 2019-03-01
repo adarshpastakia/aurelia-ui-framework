@@ -1,0 +1,19 @@
+<template
+  class="ui-input ui-input--textarea ${classes}"
+  aria-disabled.bind="disabled || isDisabled"
+  aria-readonly.bind="readonly"
+>
+  <input-wrapper>
+    <slot></slot>
+    <textarea
+      class="ui-input__control"
+      ref="inputEl"
+      role="textbox"
+      rows.bind="rows"
+      placeholder.bind="placeholder"
+      disabled.bind="disabled || isDisabled || isPlain"
+      readonly.bind="readonly"
+      value.two-way="value"
+    ></textarea>
+  </input-wrapper>
+</template>

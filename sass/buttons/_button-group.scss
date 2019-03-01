@@ -1,0 +1,93 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2019
+// @license   : MIT
+
+.ui-btn__group {
+  box-shadow: $shadow-level1;
+  display: inline-grid;
+  margin: 2px;
+  vertical-align: middle;
+
+  $base: unquote(".ui-btn");
+
+  #{$base}__wrapper {
+    margin: 0;
+
+    &:not(:first-child) {
+      margin-left: -1px;
+    }
+  }
+
+  #{$base}__inner {
+    box-shadow: none;
+  }
+
+  &--equal {
+    grid-auto-columns: 1fr;
+    grid-auto-rows: 1fr;
+  }
+
+  &:not(&--vertical) {
+    grid-auto-flow: column;
+
+    #{$base}__wrapper:not(:first-child) #{$base}__inner {
+      border-bottom-left-radius: 0;
+      border-top-left-radius: 0;
+    }
+
+    #{$base}__wrapper:not(:last-child) #{$base}__inner {
+      border-bottom-right-radius: 0;
+      border-top-right-radius: 0;
+    }
+
+    &#{$base}__group--with-separator {
+      #{$base}__wrapper:not(:first-child) {
+        #{$base}__inner #{$base} {
+          @include property-prefix(padding-start, 0.5em);
+        }
+      }
+      #{$base}__wrapper:not(:last-child) {
+        #{$base}__inner #{$base} {
+          @include property-prefix(padding-end, 0.5em);
+        }
+
+        &::after {
+          background-color: $base-bg;
+          border-radius: 1em;
+          box-shadow: 0 0 2px 0 $gray inset;
+          content: attr(data-separator);
+          font-size: 0.8em;
+          font-variant: small-caps;
+          line-height: 1.1;
+          padding: 0.15em;
+          position: absolute;
+          right: 0;
+          top: 0.6em;
+          transform: translateX(50%);
+          z-index: 5;
+        }
+
+        @at-root [dir="rtl"] &::after {
+          left: 0;
+          right: unset;
+          transform: translateX(-50%);
+        }
+      }
+    }
+  }
+
+  &--vertical {
+    grid-auto-flow: row;
+
+    #{$base}__wrapper:not(:first-child) #{$base}__inner {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+
+    #{$base}__wrapper:not(:last-child) #{$base}__inner {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+}

@@ -1,14 +1,18 @@
-<template class="ui-alert ui-alert--inline ui-alert--show">
-  <div if.bind="icon" class="ui-alert__icon">
-    <ui-icon icon.bind="icon"></ui-icon>
-  </div>
-  <div if.bind="alertTitle" class="ui-alert__title" innerhtml.bind="alertTitle"></div>
-  <div class="ui-alert__body"><slot></slot></div>
-  <div class="ui-alert__close" click.trigger="close(false)" if.bind="closeable">
-    <ui-svg-icon icon="cross"></ui-svg-icon>
-  </div>
-  <div class="ui-alert__footer" if.bind="type==='confirm'">
-    <a click.trigger="close(false)">${cancelLabel}</a>
-    <a click.trigger="close(true)" ui-weight="bold">${okLabel}</a>
+<template>
+  <div ref="vmElement" slot="page-alert" class="ui-alert ui-alert--inline" data-open.bind="open">
+    <div class="ui-alert__wrapper">
+      <div if.bind="icon" class="ui-alert__icon">
+        <ui-icon icon.bind="icon"></ui-icon>
+      </div>
+      <div if.bind="alertTitle" class="ui-alert__title" innerhtml.bind="alertTitle"></div>
+      <div class="ui-alert__body"><slot></slot></div>
+      <div class="ui-alert__close" click.trigger="close(false)" if.bind="closeable">
+        <ui-svg-icon icon="cross"></ui-svg-icon>
+      </div>
+      <div class="ui-alert__footer" if.bind="type==='confirm'">
+        <a click.trigger="close(false)">${cancelLabel}</a>
+        <a click.trigger="close(true)" ui-weight="bold">${okLabel}</a>
+      </div>
+    </div>
   </div>
 </template>

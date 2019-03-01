@@ -1,11 +1,11 @@
 /**
  * @author    : Adarsh Pastakia
- * @version   : 1.0.0
- * @copyright : 2018
+ * @version   : 5.0.0
+ * @copyright : 2019
  * @license   : MIT
  */
+
 import {
-  autoinject,
   bindable,
   bindingMode,
   computedFrom,
@@ -15,17 +15,11 @@ import {
 } from "aurelia-framework";
 import { BaseInput } from "./base-input";
 import { InputWrapper } from "./input-wrapper";
+import view from "./ui-textarea.html";
 
-@autoinject()
 @customElement("ui-textarea")
 @viewResources(InputWrapper)
-@inlineView(`<template class="ui-input ui-input--textarea \${classes}" aria-disabled.bind="disabled || isDisabled" aria-readonly.bind="readonly">
-  <input-wrapper>
-    <slot></slot>
-    <textarea class="ui-input__control" ref="inputEl" role="textbox" rows.bind="rows" placeholder.bind="placeholder"
-      disabled.bind="disabled || isDisabled || isPlain" readonly.bind="readonly" value.two-way="value"></textarea>
-  </input-wrapper>
-</template>`)
+@inlineView(view)
 export class UITextarea extends BaseInput {
   @bindable({ defaultBindingMode: bindingMode.twoWay })
   public value: string = "";
@@ -54,9 +48,9 @@ export class UITextarea extends BaseInput {
   @computedFrom("value", "maxlength")
   get counter() {
     if (this.maxlength) {
-      return `${this.value.length} of ${this.maxlength}`;
+      return `${this.value ? this.value.length : 0} of ${this.maxlength}`;
     } else {
-      return `${this.value.length}`;
+      return `${this.value ? this.value.length : 0}`;
     }
   }
 }

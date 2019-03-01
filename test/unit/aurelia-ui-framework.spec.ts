@@ -13,9 +13,6 @@ import { UIApplication, UIFrameworkConfig } from "aurelia-ui-framework";
 describe("aurelia-ui-framework test", () => {
   let component;
 
-  const AppTitle = "Application Title";
-  const AppSubtitle = "Application Subtitle";
-  const AppVersion = "5.0.0";
   const AppBaseUrl = "/api";
   const AppHeaders = { "API-KEY": "KEY" };
 
@@ -29,11 +26,9 @@ describe("aurelia-ui-framework test", () => {
         .standardConfiguration()
         .plugin(PLATFORM.moduleName("aurelia-ui-framework"), (config: UIFrameworkConfig) => {
           config
-            .setTitle(AppTitle)
-            .setSubtitle(AppSubtitle)
-            .setVersion(AppVersion)
             .setApiBaseUrl(AppBaseUrl)
             .setApiHeaders(AppHeaders)
+            .setKeyValue("title", "Test Title")
             .use.all();
         });
     });
@@ -62,24 +57,6 @@ describe("aurelia-ui-framework test", () => {
     const app = Container.instance.get(UIApplication);
     app.debug("Log Test", 99);
     expect(app.debug).not.toBeNull();
-    done();
-  });
-
-  it("application config title", done => {
-    const app: UIApplication = Container.instance.get(UIApplication);
-    expect(app.config.AppTitle).toBe(AppTitle);
-    done();
-  });
-
-  it("application config subtitle", done => {
-    const app: UIApplication = Container.instance.get(UIApplication);
-    expect(app.config.AppSubtitle).toBe(AppSubtitle);
-    done();
-  });
-
-  it("application config version", done => {
-    const app: UIApplication = Container.instance.get(UIApplication);
-    expect(app.config.AppVersion).toBe(AppVersion);
     done();
   });
 

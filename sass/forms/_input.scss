@@ -1,14 +1,14 @@
 // @author    : Adarsh Pastakia
 // @version   : 5.0.0
-// @copyright : 2018
+// @copyright : 2019
 // @license   : MIT
 
 .ui-input {
-  --input-border-current: var(--input-border);
-  background-color: var(--input-bg);
+  $input-bevel: 0 1px 2px 0 rgba($black, 0.25) inset;
+  background-color: $input-bg;
   border-radius: $base-border-radius;
-  box-shadow: 0 0 0 1px var(--input-border-current) inset, 0 1px 2px 0 var(--base-shadow) inset;
-  color: var(--color-gray);
+  box-shadow: 0 0 0 1px rgba($base-border-color, 0.5) inset, $input-bevel;
+  color: $input-color;
   display: grid;
   flex: 1 1 1rem;
   grid-column: 1;
@@ -22,7 +22,7 @@
     grid-template-areas: "addon-start error input counter clear addon-end drop-handle" "list-container . . . . . .";
 
     .ui-list__container {
-      border-top: 1px solid var(--input-border);
+      border-top: 1px solid $base-border-color;
     }
   }
   &.ui-phone {
@@ -40,7 +40,7 @@
   &--textarea {
     grid-template-areas: "addon-start error input clear addon-end" "counter . . . .";
     #{$base}__counter {
-      border-top: 1px dashed var(--input-border-current);
+      border-top: 1px dashed $base-border-color;
       grid-column: span 5;
       place-content: start;
     }
@@ -65,7 +65,7 @@
   }
 
   &::after {
-    background-color: var(--input-focus-underline);
+    background-color: $input-focus-color;
     bottom: 0;
     content: "";
     height: 2px;
@@ -78,7 +78,7 @@
   }
 
   &:focus-within {
-    --input-border-current: var(--input-focus-border);
+    box-shadow: 0 0 0 1px rgba($input-focus-color, 0.5) inset, $input-bevel;
     &::after {
       transition: width 0.4s;
       width: 100%;
@@ -91,21 +91,28 @@
   }
 
   &--invalid {
-    background-color: var(--input-invalid-bg);
+    background-color: $input-error-bg;
+    box-shadow: 0 0 0 1px rgba($input-error-color, 0.25) inset, $input-bevel;
     &:focus-within {
-      --input-border-current: var(--input-invalid-border);
+      box-shadow: 0 0 0 1px rgba($input-error-color, 0.5) inset, $input-bevel;
     }
     &::after {
-      background-color: var(--input-invalid-underline);
+      background-color: $input-error-color;
     }
   }
 
   &--readonly {
-    background: none;
-    border-color: transparent;
+    background-color: $input-bg;
+    box-shadow: 0 0 0 1px rgba($base-border-color, 0.25) inset, $input-bevel;
 
     &::after {
       display: none;
+    }
+
+    &::before {
+      background-color: rgba($gray, 0.05);
+      content: "";
+      cursor: default;
     }
   }
 
@@ -115,7 +122,7 @@
     }
 
     &::before {
-      background-color: rgba(map-get($gray, base), 0.25);
+      background-color: rgba($gray, 0.25);
       content: "";
       cursor: not-allowed;
     }
@@ -130,7 +137,7 @@
     place-content: center;
 
     .ui-icon {
-      font-size: 1.25rem;
+      font-size: 1.3rem;
     }
 
     .ui-flag {
@@ -138,7 +145,7 @@
     }
 
     .ui-option {
-      color: var(--base-color);
+      color: $base-color;
     }
 
     & + &,
@@ -155,17 +162,21 @@
   }
 
   &__info {
-    background-color: var(--base-component);
-    box-shadow: 0 -1px 0 1px var(--input-border) inset;
+    background-color: $base-component-bg;
+    box-shadow: 0 1px 0 0 $base-component-bg inset, 0 0 0 1px $base-border-color inset;
     grid-column: 1;
     padding: 0.25rem 0.5rem;
+
+    .ui-row {
+      --gutter: 0;
+    }
   }
 
   &__drop-handle,
   &__counter,
   &__error,
   &__clear {
-    color: var(--color-gray);
+    color: $gray;
     display: grid;
     opacity: 0.5;
     padding: 0.25rem;
@@ -173,14 +184,14 @@
   }
 
   &__drop-handle {
-    box-shadow: 0 0 1px 0 var(--color-gray);
-    color: var(--color-gray);
+    box-shadow: 0 0 1px 0 $gray;
+    color: $gray;
     cursor: pointer;
     font-size: 1.5em;
     grid-area: drop-handle;
 
     &:hover {
-      color: var(--color-primary);
+      color: $primary;
       opacity: 1;
     }
   }
@@ -194,13 +205,14 @@
   }
 
   &__error {
-    color: var(--color-danger);
+    color: $input-error-color;
     grid-area: error;
     opacity: 1;
+    z-index: 5;
 
     > ul {
-      background: var(--color-danger);
-      color: var(--color-white);
+      background: $input-error-color;
+      color: $white;
       display: none;
       font-size: 0.9rem;
       list-style: none;
@@ -225,12 +237,13 @@
   textarea {
     background: none;
     border: 0;
-    color: var(--base-color);
+    color: $input-color;
     font-size: 1rem;
     font-weight: $font-weight-light;
     grid-area: input;
     letter-spacing: 0.01em;
     line-height: 2rem;
+    margin: 0;
     outline: none;
     padding: 0 0.5rem;
     @include text-select();
@@ -238,7 +251,7 @@
 
   textarea {
     line-height: 1.5rem;
-    min-height: 1.5rem * 4;
+    min-height: 1.5rem * 2;
     resize: vertical;
   }
 
@@ -250,9 +263,9 @@
 
     .ui-tag {
       align-items: center;
-      background-color: rgba(map-get($gray, base), 0.1);
+      background-color: rgba($gray, 0.1);
       border-radius: 2px;
-      box-shadow: 0 0 1px 0 var(--color-gray);
+      box-shadow: 0 0 1px 0 $gray;
       display: grid;
       font-size: 0.8rem;
       grid-gap: 4px;

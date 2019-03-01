@@ -1,6 +1,6 @@
 // @author    : Adarsh Pastakia
 // @version   : 5.0.0
-// @copyright : 2018
+// @copyright : 2019
 // @license   : MIT
 @if $google-font-sans-serif {
   @import url($google-font-sans-serif);
@@ -25,7 +25,8 @@
 html {
   box-sizing: border-box;
   height: 100vh;
-  width: 100%;
+  overflow: hidden;
+  width: 100vw;
 
   *,
   *::after,
@@ -36,107 +37,20 @@ html {
   &:root {
     font-size: $base-font-size;
     --gutter: #{0px};
-
-    --base-bg: #{map-get($light-theme, base)};
-    --base-component: #{map-get($light-theme, component)};
-    --base-border: #{map-get($light-theme, border)};
-    --base-shadow: #{map-get($light-theme, shadow)};
-    --base-color: #{map-get($light-theme, color)};
-
-    --page-title-bg: #{map-get($secondary, light)};
-    --page-title-color: #{$white};
-
-    --table-head-bg: #{map-get($primary, light)};
-    --table-head-color: #{$white};
-
-    --menubar-bg: var(--base-bg);
-    --toolbar-bg: var(--base-bg);
-
-    --list-hover-bg: #{map-get($secondary, tint)};
-    --list-hover-color: #{map-get($secondary, shade)};
-    --list-selected-bg: #{map-get($secondary, light)};
-    --list-selected-color: #{$white};
-
-    --menu-item-hover-bg: #{map-get($secondary, tint)};
-    --menu-item-hover-color: #{map-get($secondary, dark)};
-    --menu-item-active-bg: #{map-get($secondary, light)};
-    --menu-item-active-color: #{map-get($secondary, tint)};
-    --menu-item-active-border: #{map-get($secondary, dark)};
-
-    --dlg-header-active-bg: #{map-get($primary, tint)};
-    --dlg-header-active-color: #{map-get($primary, dark)};
-    --dlg-header-inactive-bg: #{map-get($gray, tint)};
-    --dlg-header-inactive-tool: #{map-get($gray, light)};
-    --dlg-header-inactive-color: #{map-get($gray, dark)};
-
-    --input-bg: #{$white};
-    --input-placeholder: #{map-get($gray, light)};
-    --input-border: #{map-get($gray, tint)};
-    --input-focus-border: #{map-get($primary, light)};
-    --input-invalid-border: #{map-get($danger, light)};
-    --input-invalid-bg: var(--color-warning-tint);
-    --input-focus-underline: #{map-get($primary, base)};
-    --input-invalid-underline: #{map-get($danger, base)};
-
-    --date-hover-bg: #{map-get($secondary, tint)};
-    --date-active-bg: #{map-get($secondary, light)};
-  }
-
-  &.theme-dark:root {
-    --base-bg: #{map-get($dark-theme, base)};
-    --base-component: #{map-get($dark-theme, component)};
-    --base-border: #{map-get($dark-theme, border)};
-    --base-shadow: #{map-get($dark-theme, shadow)};
-    --base-color: #{map-get($dark-theme, color)};
-
-    --page-title-bg: #{map-get($secondary, dark)};
-    --page-title-color: #{$white};
-
-    --table-head-bg: #{map-get($primary, dark)};
-    --table-head-color: #{$white};
-
-    --menubar-bg: var(--base-bg);
-    --toolbar-bg: var(--base-bg);
-
-    --list-hover-bg: #{map-get($secondary, shade)};
-    --list-hover-color: #{map-get($secondary, tint)};
-    --list-selected-bg: #{map-get($secondary, dark)};
-    --list-selected-color: #{$white};
-
-    --menu-item-hover-bg: #{map-get($secondary, shade)};
-    --menu-item-hover-color: #{map-get($secondary, tint)};
-    --menu-item-active-bg: #{map-get($secondary, dark)};
-    --menu-item-active-color: #{map-get($secondary, tint)};
-    --menu-item-active-border: #{map-get($secondary, light)};
-
-    --dlg-header-active-bg: #{map-get($primary, shade)};
-    --dlg-header-active-color: #{map-get($primary, light)};
-    --dlg-header-inactive-bg: #{map-get($gray, shade)};
-    --dlg-header-inactive-tool: #{map-get($gray, dark)};
-    --dlg-header-inactive-color: #{map-get($gray, light)};
-
-    --input-bg: #{$black};
-    --input-placeholder: #{map-get($gray, dark)};
-    --input-border: #{map-get($gray, dark)};
-    --input-focus-border: #{map-get($primary, dark)};
-    --input-invalid-border: #{map-get($danger, dark)};
-    --input-invalid-bg: var(--color-danger-shade);
-
-    --date-hover-bg: #{map-get($secondary, shade)};
-    --date-active-bg: #{map-get($secondary, dark)};
   }
 }
 
 body {
-  background-color: var(--base-bg);
-  color: var(--base-color);
+  background-color: $base-bg;
+  color: $base-color;
   cursor: default;
   height: 100vh;
   line-height: $base-line-height;
   margin: 0;
+  overflow: hidden;
   padding: 0;
   user-select: none;
-  width: 100%;
+  width: 100vw;
 
   font: {
     family: $base-font-family;
@@ -146,18 +60,22 @@ body {
 }
 
 %hr {
-  border-bottom: 1px solid var(--base-color);
-  border-top: 1px solid var(--base-border);
+  border-bottom: 1px solid $divider-hilight;
+  border-top: 1px solid $divider-bg;
   height: 0;
   opacity: 0.25;
   transform: scaleY(0.5);
 }
 %vr {
-  border-left: 1px solid var(--base-border);
-  border-right: 1px solid var(--base-color);
-  min-height: 100%;
+  align-self: stretch;
+  border-left: 1px solid $divider-bg;
+  border-right: 1px solid $divider-hilight;
   opacity: 0.25;
   transform: scaleX(0.5);
+}
+%vr-dark {
+  border-left-color: $shadow;
+  border-right-color: $white;
 }
 
 hr {
@@ -166,12 +84,12 @@ hr {
 }
 
 ::-moz-selection {
-  background: var(--color-secondary);
+  background: rgba($secondary, 0.75);
   color: $white;
 }
 
 ::selection {
-  background: var(--color-secondary);
+  background: rgba($secondary, 0.75);
   color: $white;
 }
 
@@ -180,40 +98,41 @@ hr {
   width: 5px;
 
   &-thumb {
-    background: var(--color-gray);
+    background: rgba($gray, 0.75);
 
     &:hover {
-      background: var(--color-gray);
+      background: $gray;
     }
   }
 
   &-track {
-    box-shadow: 1px 0 2px 0 var(--base-shadow) inset;
+    background: rgba($gray, 0.05);
+    box-shadow: 1px 1px 2px 0 $base-shadow-color inset, -1px -1px 2px 0 $base-shadow-color inset;
   }
 }
 
 ::-webkit-input-placeholder {
-  color: var(--input-placeholder);
+  color: $input-placeholder;
 }
 
 ::-moz-placeholder {
-  color: var(--input-placeholder);
+  color: $input-placeholder;
 }
 
 ::-ms-input-placeholder {
-  color: var(--input-placeholder);
+  color: $input-placeholder;
 }
 
 :-ms-input-placeholder {
-  color: var(--input-placeholder);
+  color: $input-placeholder;
 }
 
 ::-o-placeholder {
-  color: var(--input-placeholder);
+  color: $input-placeholder;
 }
 
 ::placeholder {
-  color: var(--input-placeholder);
+  color: $input-placeholder;
 }
 
 input[type="search"]::-webkit-search-cancel-button {
@@ -228,7 +147,13 @@ textarea::-ms-clear {
 
 input:-webkit-autofill,
 select:-webkit-autofill,
-textarea:-webkit-autofill {
+textarea:-webkit-autofill,
+input:-internal-autofill-previewed,
+input:-internal-autofill-selected,
+textarea:-internal-autofill-previewed,
+textarea:-internal-autofill-selected,
+select:-internal-autofill-previewed,
+select:-internal-autofill-selected {
   // stylelint-disable-next-line declaration-no-important
   background-color: transparent !important;
 }

@@ -7,7 +7,7 @@
 
 import { bootstrap } from "aurelia-bootstrapper";
 import { PLATFORM } from "aurelia-framework";
-import { StageComponent } from "aurelia-testing";
+import { ComponentTester, StageComponent } from "aurelia-testing";
 
 describe("ui-responsive", () => {
   let component;
@@ -16,25 +16,25 @@ describe("ui-responsive", () => {
     component = StageComponent.withResources()
       .inView(
         `<div>
-        <ui-grid size="md"></ui-grid>
-        <ui-container id="container">
-        <ui-row halign="center" valign="middle" nowrap>
-          <ui-col size="auto" align="start"></ui-col>
-          <ui-col size="2"></ui-col>
-          <ui-col size="4 2@md"></ui-col>
-        </ui-row>
-        <ui-row reverse>
-          <ui-col></ui-col>
-        </ui-row>
-        </ui-container>
-        <ui-container id="containerFluid" fluid>
-        <ui-row halign="center" valign="middle" vertical>
-          <ui-col></ui-col>
-        </ui-row>
-        <ui-row halign="center" valign="middle" vertical reverse>
-          <ui-col></ui-col>
-        </ui-row>
-        </ui-container>
+          <ui-grid size="md"></ui-grid>
+          <ui-container id="container">
+            <ui-row halign="center" valign="middle" nowrap>
+              <ui-col size="auto" align="start"></ui-col>
+              <ui-col size="2"></ui-col>
+              <ui-col size="4 2@md"></ui-col>
+            </ui-row>
+            <ui-row reverse>
+              <ui-col></ui-col>
+            </ui-row>
+          </ui-container>
+          <ui-container id="containerFluid" fluid>
+            <ui-row halign="center" valign="middle" vertical>
+              <ui-col></ui-col>
+            </ui-row>
+            <ui-row halign="center" valign="middle" vertical reverse>
+              <ui-col></ui-col>
+            </ui-row>
+          </ui-container>
         </div>`
       )
       .boundTo({});

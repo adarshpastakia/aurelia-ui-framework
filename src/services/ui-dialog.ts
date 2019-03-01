@@ -7,7 +7,7 @@
 import { autoinject, CompositionEngine, Container, singleton, View } from "aurelia-framework";
 import { UIAppConfig } from "../utils/ui-app-config";
 import { UIInternal } from "../utils/ui-internal";
-import { UIDialogElement } from "./../panels/ui-dialog";
+// import { UIDialogElement } from "./../panels/ui-dialog";
 
 @autoinject()
 @singleton()
@@ -58,7 +58,7 @@ export class UIDialogService {
         .then(controller => {
           controller.automate();
           const dialog = (controller.view as View & { controllers: AnyObject[] }).controllers.find(
-            c => c.viewModel instanceof UIDialogElement
+            c => c.viewModel
           );
           dialog.viewModel.viewController = controller;
           dialog.viewModel.returnPromise = resolve;

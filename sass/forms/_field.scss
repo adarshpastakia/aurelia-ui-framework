@@ -1,6 +1,6 @@
 // @author    : Adarsh Pastakia
 // @version   : 5.0.0
-// @copyright : 2018
+// @copyright : 2019
 // @license   : MIT
 
 .ui-field {
@@ -13,7 +13,7 @@
   min-width: 12rem;
 
   &:focus-within &__label {
-    color: var(--color-primary);
+    color: $input-focus-color;
     font-weight: $font-weight-medium;
   }
 
@@ -53,7 +53,7 @@
     position: relative;
 
     &::after {
-      color: var(--color-danger);
+      color: $secondary;
       content: " ";
       display: inline-block;
       font-family: serif;
@@ -66,9 +66,9 @@
   }
 
   &__wrapper {
-    background-color: var(--base-component);
+    background-color: $base-component-bg;
     border-radius: $base-border-radius;
-    box-shadow: 0 0 0 1px var(--input-border) inset;
+    box-shadow: 0 0 0 1px $base-border-color inset;
     display: flex;
     flex-flow: row nowrap;
     grid-column: 1;
@@ -103,13 +103,8 @@
         border-top-left-radius: 0;
       }
     }
-
-    .ui-dropdown {
-      border-color: var(--input-border);
-    }
   }
 
-  &__wrapper--plain,
   &--plain &__wrapper,
   &--plain {
     background-color: transparent;
@@ -119,6 +114,33 @@
       background-color: transparent;
       border-color: transparent;
       box-shadow: none;
+      input,
+      textarea {
+        cursor: default;
+        height: auto;
+        resize: none;
+      }
+      &::after {
+        display: none;
+      }
+      &__info {
+        background: none;
+        box-shadow: none;
+      }
+      &__drop-handle,
+      &__counter,
+      &__error,
+      &__clear {
+        display: none;
+      }
+    }
+    .ui-dropdown {
+      background: none;
+      box-shadow: none;
+
+      .ui-menu__item__caret {
+        visibility: hidden;
+      }
     }
   }
 

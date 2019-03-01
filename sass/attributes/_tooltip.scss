@@ -1,0 +1,39 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2019
+// @license   : MIT
+
+.ui-tooltip {
+  background-color: $tooltip-bg;
+  border-radius: $base-border-radius;
+  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.5);
+  color: $tooltip-color;
+  font-size: 0.8em;
+  margin-top: -0.5em;
+  min-width: 2em;
+  opacity: 0;
+  padding: 0.5em 1rem;
+  visibility: hidden;
+  white-space: nowrap;
+  z-index: 5000;
+  @include position(fixed, 0 null null 0);
+  @include transition(opacity 500ms);
+
+  &::after {
+    border: 0 solid transparent;
+    border-top-color: currentcolor;
+    border-width: 1em 1em 0;
+    color: $tooltip-bg;
+    content: "";
+    display: block;
+    height: 1em;
+    margin: 0 auto;
+    width: 1em;
+    @include position(absolute, null 0);
+  }
+
+  &[data-open="true"] {
+    opacity: 1;
+    visibility: visible;
+  }
+}

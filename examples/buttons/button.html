@@ -1,0 +1,202 @@
+<template>
+  <ui-page page-title="Buttons">
+    <ui-content ui-scroll ui-padding>
+      <ui-container>
+        <p class="x-page-title">Action Buttons</p>
+
+        <div class="x-section-title">Examples</div>
+        <div
+          class="x-example-block"
+          with.bind="{type:'normal',theme:'default', busy:false, disabled:false}"
+        >
+          <div class="x-example-display">
+            <h5>Standard Button</h5>
+            <ui-button
+              disabled.bind="disabled"
+              busy.bind="busy"
+              type.bind="type"
+              ui-theme.bind="theme"
+              icon="mdi mdi-account"
+            ></ui-button>
+            <ui-button
+              disabled.bind="disabled"
+              busy.bind="busy"
+              type.bind="type"
+              ui-theme.bind="theme"
+              >Only Text</ui-button
+            >
+            <ui-button
+              disabled.bind="disabled"
+              busy.bind="busy"
+              type.bind="type"
+              ui-theme.bind="theme"
+              icon="mdi mdi-account"
+            >
+              With Icon
+            </ui-button>
+            <ui-button
+              disabled.bind="disabled"
+              busy.bind="busy"
+              type.bind="type"
+              ui-theme.bind="theme"
+              icon="mdi mdi-account"
+              label="Dropdown"
+            >
+              <ui-drop>
+                <div ui-padding>I'm the<br />dropdown :)</div>
+              </ui-drop>
+            </ui-button>
+            <ui-button
+              disabled.bind="disabled"
+              busy.bind="busy"
+              type.bind="type"
+              ui-theme.bind="theme"
+              icon="mdi mdi-account"
+              split
+              label="Split Dropdown"
+            >
+              <ui-drop>
+                <div ui-padding>I'm the<br />dropdown :)</div>
+              </ui-drop>
+            </ui-button>
+
+            <hr />
+            <h5>Sizes</h5>
+            <ui-button
+              disabled.bind="disabled"
+              busy.bind="busy"
+              size="sm"
+              type.bind="type"
+              ui-theme.bind="theme"
+              icon="mdi mdi-account"
+            >
+              Small
+            </ui-button>
+            <ui-button
+              disabled.bind="disabled"
+              busy.bind="busy"
+              size="nm"
+              type.bind="type"
+              ui-theme.bind="theme"
+              icon="mdi mdi-account"
+            >
+              Normal
+            </ui-button>
+            <ui-button
+              disabled.bind="disabled"
+              busy.bind="busy"
+              size="md"
+              type.bind="type"
+              ui-theme.bind="theme"
+              icon="mdi mdi-account"
+            >
+              Medium
+            </ui-button>
+            <ui-button
+              disabled.bind="disabled"
+              busy.bind="busy"
+              size="lg"
+              type.bind="type"
+              ui-theme.bind="theme"
+              icon="mdi mdi-account"
+            >
+              Large
+            </ui-button>
+
+            <div css.bind="{width: '420px', marginTop: '24px'}">
+              <ui-button
+                disabled.bind="disabled"
+                busy.bind="busy"
+                block
+                icon-hlilight
+                type.bind="type"
+                ui-theme.bind="theme"
+                icon="mdi mdi-account"
+              >
+                Block
+              </ui-button>
+            </div>
+
+            <hr />
+            <h5>Variants</h5>
+            <ui-button
+              disabled.bind="disabled"
+              busy.bind="busy"
+              type.bind="type"
+              ui-theme.bind="theme"
+              icon="mdi mdi-account"
+              icon-hilight
+            >
+              Icon Hilight
+            </ui-button>
+            <ui-button
+              disabled.bind="disabled"
+              busy.bind="busy"
+              type.bind="type"
+              ui-theme.bind="theme"
+              icon="mdi mdi-account"
+              icon-end
+              >Icon End</ui-button
+            >
+            <ui-button
+              disabled.bind="disabled"
+              busy.bind="busy"
+              type.bind="type"
+              ui-theme.bind="theme"
+              icon="mdi mdi-account"
+              icon-end
+              icon-hilight
+              >Icon End Hilight</ui-button
+            >
+            <ui-button
+              disabled.bind="disabled"
+              busy.bind="busy"
+              type.bind="type"
+              ui-theme.bind="theme"
+              icon="mdi mdi-account"
+              icon-top
+              >Icon Top</ui-button
+            >
+            <ui-button
+              disabled.bind="disabled"
+              busy.bind="busy"
+              type.bind="type"
+              ui-theme.bind="theme"
+              icon="mdi mdi-account"
+              icon-top
+              icon-hilight
+            >
+              With Icon Hilight
+            </ui-button>
+          </div>
+
+          <div class="x-example-options">
+            <h5>Options</h5>
+            <ui-field label="Type">
+              <ui-dropdown value.bind="type" options.bind="['normal','tool','outline','solid']">
+              </ui-dropdown>
+            </ui-field>
+            <ui-field label="Theme">
+              <ui-dropdown value.bind="theme" options.bind="colors"></ui-dropdown>
+            </ui-field>
+            <ui-field>
+              <ui-option-group>
+                <ui-toggle ui-theme="gray" checked.bind="disabled">Disabled</ui-toggle>
+                <ui-toggle ui-theme="blue" checked.bind="busy">Busy</ui-toggle>
+              </ui-option-group>
+            </ui-field>
+          </div>
+        </div>
+
+        <div class="x-section-title">Using the Button</div>
+        <x-code-block lang="html" page="app.html" code.bind="buttonHtml"></x-code-block>
+
+        <div class="x-section-title">Properties</div>
+        <x-blockquote>Attributes marked with value <b>none</b> do not require a value</x-blockquote>
+        <x-code-table code-template.bind="buttonAttrs"></x-code-table>
+        <hr />
+        <x-code-table code-template.bind="dropAttrs"></x-code-table>
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>

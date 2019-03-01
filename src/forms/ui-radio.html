@@ -1,9 +1,19 @@
-<template class="ui-option" data-disabled.bind="isDisabled || disabled"><label class="ui-option__control">
-    <input size="1" type="radio" name.bind="name" checked.bind="checked" model.bind="model" matcher.bind="matcher"
-      disabled.bind="disabled" change.trigger="checkChanged($event)" />
+<template class="ui-option" data-disabled.bind="isDisabled || disabled">
+  <label class="ui-option__control">
+    <input
+      size="1"
+      type="radio"
+      name.bind="name"
+      checked.bind="checked"
+      model.bind="model"
+      matcher.bind="matcher"
+      disabled.bind="disabled"
+      change.trigger="checkChanged($event)"
+    />
     <ui-svg-icon icon="radio-off"></ui-svg-icon>
     <ui-svg-icon icon="radio-on"></ui-svg-icon>
     <span>
       <slot></slot>
     </span>
-  </label></template>
+  </label>
+</template>

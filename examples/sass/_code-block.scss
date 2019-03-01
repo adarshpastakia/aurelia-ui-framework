@@ -1,0 +1,115 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2019
+// @license   : MIT
+
+.x-code-block {
+  background-color: rgba($base-theme, 0.95);
+  border: 1px solid rgba($gray, 0.25);
+  border-radius: 8px;
+  cursor: text;
+  display: block;
+  padding-top: 1.25em;
+  position: relative;
+  user-select: text;
+
+  pre {
+    margin: 0;
+    max-height: 32rem;
+    overflow: auto;
+    padding: 0.5rem 2rem 1rem;
+  }
+
+  .token.property,
+  .token.tag,
+  .token.boolean,
+  .token.number,
+  .token.function-name,
+  .token.constant,
+  .token.symbol,
+  .token.deleted {
+    color: #2b95d6;
+  }
+  .token.selector,
+  .token.attr-name,
+  .token.char,
+  .token.function,
+  .token.builtin,
+  .token.inserted {
+    color: #f5498b;
+  }
+  .token.atrule,
+  .token.attr-value,
+  .token.string,
+  .token.keyword,
+  .token.class-name {
+    color: #00b3a4;
+  }
+  .token.keyword,
+  .token.class-name {
+    color: #106ba3;
+  }
+  .token.operator,
+  .token.entity,
+  .token.url,
+  .token.variable {
+    background: none;
+    color: #c99765;
+  }
+  .token.punctuation {
+    color: #5c7080;
+  }
+  .token.comment,
+  .token.prolog,
+  .token.doctype,
+  .token.cdata {
+    color: #8a9ba8;
+  }
+
+  &::after {
+    border-radius: 0 8px;
+    color: $white;
+    display: block;
+    font-size: 0.9rem;
+    padding: 0 8px;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  &::before {
+    background-color: $base-theme;
+    border-radius: 8px 0;
+    box-shadow: 0 0 2px 0 mix($gray, $base-theme, 50%), 0 0 0 1px mix($gray, $base-theme, 50%) inset;
+    content: attr(data-page);
+    display: block;
+    font-size: 0.9rem;
+    left: 0;
+    padding: 0 8px;
+    position: absolute;
+    top: 0;
+  }
+
+  &.shell::after {
+    background-color: #2d3538;
+    content: "Shell";
+  }
+  &.ts::after {
+    background-color: #294e80;
+    content: "Typescript";
+  }
+  &.html::after {
+    background-color: #d55736;
+    content: "HTML";
+  }
+  &.scss::after {
+    background-color: #cc6699;
+    content: "SCSS";
+  }
+}
+
+.x-code-table {
+  caption {
+    white-space: nowrap;
+  }
+}

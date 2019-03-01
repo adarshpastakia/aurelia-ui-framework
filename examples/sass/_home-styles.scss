@@ -1,0 +1,52 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2019
+// @license   : MIT
+
+.x-title {
+  transition: transform 0.25s;
+
+  &--hide {
+    transform: translateY(-100%);
+  }
+}
+
+.x-home-link {
+  background-color: $base-theme;
+  border: 1px solid rgba($base-border-color, 0.95);
+  color: $white;
+  padding: 0 0 1em;
+  text-align: center;
+
+  &:hover {
+    box-shadow: $shadow-level3;
+    > div {
+      color: mix($primary, $base-bg, 80%);
+    }
+    > span {
+      text-decoration: underline;
+    }
+  }
+
+  > div {
+    color: rgba($base-color, 0.65);
+    font-size: 4rem;
+  }
+  > span {
+    color: mix($primary, $base-color, 70%);
+    font-weight: 600;
+  }
+}
+
+.img-dev {
+  background-color: $base-component-bg;
+  border-radius: 50px;
+  display: block;
+  height: 100px;
+  overflow: hidden;
+  padding: 2px;
+
+  &:hover {
+    box-shadow: 0 0 8px 1px rgba($shadow, 0.2);
+  }
+}

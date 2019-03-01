@@ -1,6 +1,6 @@
 // @author    : Adarsh Pastakia
 // @version   : 5.0.0
-// @copyright : 2018
+// @copyright : 2019
 // @license   : MIT
 
 %ui-section {
@@ -13,19 +13,20 @@
 }
 
 .ui-page {
+  background-color: $base-component-bg;
   display: grid;
   grid-area: content;
-  grid-template-areas: "title" "body";
+  grid-template-areas: "title" "alert" "body";
   grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto auto 1fr;
   max-height: 100%;
   overflow: hidden;
   @include enable-gpu();
 
   &__title {
-    background-color: var(--page-title-bg);
-    color: var(--page-title-color);
-    font-size: calc(0.8 * 1rem);
+    background-color: $page-title-bg;
+    color: $page-title-color;
+    font-size: calc(0.9 * 1rem);
     grid-area: title;
     padding: 0 $base-spacing;
     text-align: center;
@@ -38,7 +39,7 @@
     @extend %ui-section;
 
     > .ui-scroll {
-      border: 2px solid var(--base-component);
+      border: 2px solid $base-component-bg;
     }
   }
 }
@@ -66,9 +67,4 @@
     grid-template-rows: auto;
     place-content: center;
   }
-}
-
-.ui-paper {
-  border-radius: $base-border-radius;
-  box-shadow: 1px 1px 8px 0 var(--base-shadow);
 }

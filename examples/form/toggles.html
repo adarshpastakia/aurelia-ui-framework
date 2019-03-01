@@ -1,0 +1,78 @@
+<template>
+  <ui-page page-title="Basic Inputs">
+    <ui-content ui-scroll ui-padding>
+      <ui-container>
+        <p class="x-page-title">Checkboxes, radios and toggle switches</p>
+
+        <div class="x-section-title">Examples</div>
+        <div
+          class="x-example-block"
+          with.bind="{chkboxes:[], radio:'', toggles:[], disabled:false}"
+        >
+          <div class="x-example-display">
+            <ui-field label="Checkboxes">
+              <ui-option-group disabled.bind="disabled" value.bind="chkboxes">
+                <ui-checkbox model="1">Option 1</ui-checkbox>
+                <ui-checkbox model="2">Option 2</ui-checkbox>
+                <ui-checkbox model="3">Option 3</ui-checkbox>
+                <ui-checkbox model="4">Option 4</ui-checkbox>
+              </ui-option-group></ui-field
+            >
+
+            <hr />
+            <ui-field label="Radios">
+              <ui-option-group disabled.bind="disabled" value.bind="radio">
+                <ui-radio model="1">Option 1</ui-radio>
+                <ui-radio model="2">Option 2</ui-radio>
+                <ui-radio model="3">Option 3</ui-radio>
+                <ui-radio model="4">Option 4</ui-radio>
+              </ui-option-group></ui-field
+            >
+
+            <hr />
+            <ui-field label="Toggles">
+              <ui-option-group disabled.bind="disabled" value.bind="toggles">
+                <ui-toggle model="1">Option 1</ui-toggle>
+                <ui-toggle model="2">Option 2</ui-toggle>
+                <ui-toggle model="3">Option 3</ui-toggle>
+                <ui-toggle model="4">Option 4</ui-toggle>
+              </ui-option-group></ui-field
+            >
+          </div>
+
+          <div class="x-example-options">
+            <h5>Values</h5>
+            <div ui-margin="b">
+              Checkbox:
+              <div ui-font="sm mono">${chkboxes}</div>
+            </div>
+            <div ui-margin="b">
+              Radio:
+              <div ui-font="sm mono">${radio}</div>
+            </div>
+            <div ui-margin="b">
+              Toggle:
+              <div ui-font="sm mono">${toggles}</div>
+            </div>
+            <hr />
+            <h5>Options</h5>
+            <ui-toggle checked.bind="disabled">Disabled</ui-toggle>
+          </div>
+        </div>
+
+        <div class="x-section-title">Using the Inputs</div>
+        <x-code-block lang="html" page="app.html" code.bind="toggleHtml"></x-code-block>
+
+        <div class="x-section-title">Properties</div>
+        <x-blockquote>Attributes marked with value <b>none</b> do not require a value</x-blockquote>
+        <x-code-table code-template.bind="groupAttrs"></x-code-table>
+        <hr />
+        <x-code-table code-template.bind="checkboxAttrs"></x-code-table>
+        <hr />
+        <x-code-table code-template.bind="radioAttrs"></x-code-table>
+        <hr />
+        <x-code-table code-template.bind="toggleAttrs"></x-code-table>
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>

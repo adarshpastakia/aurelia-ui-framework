@@ -1,16 +1,17 @@
 /**
  * @author    : Adarsh Pastakia
  * @version   : 5.0.0
- * @copyright : 2018
+ * @copyright : 2019
  * @license   : MIT
  */
 
-import { autoinject, bindable, bindingMode, containerless, customElement } from "aurelia-framework";
+import { bindable, bindingMode, containerless, customElement, inlineView } from "aurelia-framework";
 import { UIInternal } from "../utils/ui-internal";
+import view from "./ui-fieldset.html";
 
-@autoinject()
 @containerless()
 @customElement("ui-fieldset")
+@inlineView(view)
 export class UIFieldset {
   @bindable({ defaultBindingMode: bindingMode.twoWay })
   public checked: boolean = false;

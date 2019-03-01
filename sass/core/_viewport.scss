@@ -1,6 +1,6 @@
 // @author    : Adarsh Pastakia
 // @version   : 5.0.0
-// @copyright : 2018
+// @copyright : 2019
 // @license   : MIT
 
 .ui-viewport {
@@ -27,6 +27,7 @@
 
   &__footer {
     grid-area: app-footer;
+    margin-top: $base-spacing * -0.5;
   }
 
   &__taskbar {
@@ -108,12 +109,27 @@
   line-height: 1;
   pointer-events: none;
   text-align: center;
-  vertical-align: middle;
   width: 1em;
+
+  img {
+    background-size: contain;
+    height: 1em;
+    overflow: hidden;
+    width: 1em;
+  }
 
   path,
   ::before {
     @include transform-origin(50% 50% 0);
+  }
+
+  &--round {
+    border-radius: 1em;
+    height: 1em;
+    max-height: 1em;
+    overflow: hidden;
+    width: 1em;
+    @extend .ui-shadow;
   }
 
   &.flip-on-rtl {
@@ -131,13 +147,13 @@
   @include position(absolute, 0);
 
   > div {
-    background-color: var(--base-component);
+    background-color: $base-component-bg;
     border-radius: 2px;
-    box-shadow: 0 0 20px 0 var(--base-shadow);
-    color: var(--color-primary);
+    box-shadow: $shadow-level3;
+    color: $primary;
     font-size: 2rem;
     height: 3rem;
-    line-height: 1;
+    line-height: 0;
     margin: auto;
     padding: 0.5rem;
     width: 3rem;
@@ -150,8 +166,8 @@
 
   &__body {
     @include position(fixed, 0 null null 0);
-    background-color: var(--base-component);
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 0 0 1px var(--base-shadow);
+    background-color: $base-component-bg;
+    box-shadow: $shadow-level3;
     cursor: default;
     max-height: 40vh;
     max-width: 50vw;

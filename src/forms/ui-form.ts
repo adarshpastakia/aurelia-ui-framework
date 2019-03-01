@@ -1,16 +1,15 @@
 /**
  * @author    : Adarsh Pastakia
  * @version   : 5.0.0
- * @copyright : 2018
+ * @copyright : 2019
  * @license   : MIT
  */
 
-import { autoinject, bindable, customElement, inlineView } from "aurelia-framework";
+import { bindable, customElement, inlineView } from "aurelia-framework";
 import { UIInternal } from "../utils/ui-internal";
 
-@autoinject()
 @customElement("ui-form")
-@inlineView(`<template><form ref="vmElement" role="form" aria-disabled.bind="disabled" class="ui-form"
+@inlineView(`<template class="ui-block"><form ref="vmElement" role="form" aria-disabled.bind="disabled" class="ui-form"
    enterpressed.delegate="fireSubmit($event)" validation-renderer="ui-validator"><slot></slot></form></template>`)
 export class UIForm {
   @bindable()

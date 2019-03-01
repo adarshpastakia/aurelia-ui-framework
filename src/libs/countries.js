@@ -2226,7 +2226,7 @@ exports.Countries = {
       "capital": "El-Aaiún",
       "tld": ".eh",
       "currency": "MAD",
-      "phone": ""
+      "phone": "+212"
     }, {
       "continent": "Asia",
       "iso2": "YE",

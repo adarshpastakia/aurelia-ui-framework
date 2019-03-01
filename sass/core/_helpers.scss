@@ -1,11 +1,41 @@
 // @author    : Adarsh Pastakia
 // @version   : 5.0.0
-// @copyright : 2018
+// @copyright : 2019
 // @license   : MIT
 
-html:root {
-  @each $label, $color in $colors {
-    --color-#{$label}: #{$color};
+@each $label, $color in $colors {
+  .ui {
+    &-bg--#{$label} {
+      &#{&}#{&} {
+        background-color: $color;
+      }
+    }
+    &-color--#{$label} {
+      &#{&}#{&} {
+        color: $color;
+      }
+    }
+    &-border--#{$label} {
+      &#{&}#{&} {
+        border-color: $color;
+      }
+    }
+    &-hover--#{$label} {
+      @at-root a#{&}#{&}:hover {
+        color: $color;
+      }
+      @at-root &[data-type="tool"] .ui-btn:hover {
+        color: $color;
+      }
+    }
+    &-hover--bg-#{$label} {
+      @at-root a#{&}#{&}:hover {
+        background-color: $color;
+      }
+      @at-root &[data-type="tool"] .ui-btn:hover {
+        background-color: $color;
+      }
+    }
   }
 }
 
@@ -69,6 +99,22 @@ html:root {
     @include clip();
   }
 
+  &-paper {
+    border-radius: $base-border-radius;
+    @extend .ui-shadow--1;
+  }
+
+  &-text-divider {
+    border: 1px solid $base-border-color;
+    border-width: 1px 0 0;
+    margin: 2rem 0;
+    padding: 0;
+    legend {
+      padding: 0 1em;
+      text-align: center;
+    }
+  }
+
   &-sticky {
     @include sticky();
 
@@ -97,65 +143,15 @@ html:root {
     }
   }
 
-  &-bg {
-    &--white {
-      background-color: $white;
-    }
-    &--black {
-      background-color: $black;
-    }
-    &--gray {
-      background-color: var(--color-gray);
-    }
-
-    @each $label, $color in $colors {
-      &--#{$label} {
-        background-color: $color;
-      }
-    }
-  }
-
-  &-color {
-    &--white {
-      color: $white;
-    }
-    &--black {
-      color: $black;
-    }
-    &--gray {
-      color: var(--color-gray);
-    }
-
-    @each $label, $color in $colors {
-      &--#{$label} {
-        color: $color;
-      }
-    }
-  }
-
-  &-hover {
-    @each $label, $color in $extra-colors {
-      &--#{$label}[data-type="tool"] {
-        --btn-hover: #{$color};
-        --btn-active: #{$color};
-        --btn-ripple: #{$color};
-
-        &:hover {
-          --btn-color: #{$color};
-        }
-      }
-    }
-  }
-
   &-border {
     &,
     &--xy {
-      border: 1px solid var(--base-border);
+      border: 1px solid $base-border-color;
     }
 
     &--x {
-      @include property-prefix(border-start, 1px solid var(--base-border), border-left);
-      @include property-prefix(border-end, 1px solid var(--base-border), border-right);
+      @include property-prefix(border-start, 1px solid $base-border-color, border-left);
+      @include property-prefix(border-end, 1px solid $base-border-color, border-right);
 
       &--0 {
         @include property-prefix(border-start, 0, border-left);
@@ -164,7 +160,7 @@ html:root {
     }
 
     &--s {
-      @include property-prefix(border-start, 1px solid var(--base-border), border-left);
+      @include property-prefix(border-start, 1px solid $base-border-color, border-left);
 
       &--0 {
         @include property-prefix(border-start, 0, border-left);
@@ -172,7 +168,7 @@ html:root {
     }
 
     &--e {
-      @include property-prefix(border-end, 1px solid var(--base-border), border-right);
+      @include property-prefix(border-end, 1px solid $base-border-color, border-right);
 
       &--0 {
         @include property-prefix(border-end, 0, border-right);
@@ -180,8 +176,8 @@ html:root {
     }
 
     &--y {
-      border-bottom: 1px solid var(--base-border);
-      border-top: 1px solid var(--base-border);
+      border-bottom: 1px solid $base-border-color;
+      border-top: 1px solid $base-border-color;
 
       &--0 {
         border-bottom: 0;
@@ -190,7 +186,7 @@ html:root {
     }
 
     &--t {
-      border-top: 1px solid var(--base-border);
+      border-top: 1px solid $base-border-color;
 
       &--0 {
         border-top: 0;
@@ -198,7 +194,7 @@ html:root {
     }
 
     &--b {
-      border-bottom: 1px solid var(--base-border);
+      border-bottom: 1px solid $base-border-color;
 
       &--0 {
         border-bottom: 0;
@@ -224,61 +220,77 @@ html:root {
     &--xl {
       border-width: 8px;
     }
+  }
 
-    &--white {
-      border-color: $white;
-    }
-    &--black {
-      border-color: $black;
-    }
-    &--gray {
-      border-color: var(--color-gray);
-    }
-
-    @each $label, $color in $colors {
-      &--#{$label} {
-        border-color: $color;
-      }
-    }
+  &-shadow,
+  &-shwdow--0 {
+    box-shadow: $shadow-level0;
+  }
+  &-shadow--1 {
+    box-shadow: $shadow-level1;
+  }
+  &-shadow--2 {
+    box-shadow: $shadow-level2;
+  }
+  &-shadow--3 {
+    box-shadow: $shadow-level3;
+  }
+  &-shadow--4 {
+    box-shadow: $shadow-level4;
   }
 }
 
 @mixin make-spacing($property, $space, $size: null, $bp: null) {
   .ui-#{$property} {
     &#{$size}#{$bp} {
-      #{$property}: $space;
+      &#{&}#{&} {
+        #{$property}: $space;
+      }
     }
 
     &--x#{$size}#{$bp} {
-      #{$property}-left: $space;
-      #{$property}-right: $space;
+      &#{&}#{&} {
+        #{$property}-left: $space;
+        #{$property}-right: $space;
+      }
     }
 
     &--s#{$size}#{$bp} {
-      @include property-prefix(#{$property}-start, $space, #{$property}-left);
+      &#{&}#{&} {
+        @include property-prefix(#{$property}-start, $space, #{$property}-left);
+      }
     }
 
     &--e#{$size}#{$bp} {
-      @include property-prefix(#{$property}-end, $space, #{$property}-right);
+      &#{&}#{&} {
+        @include property-prefix(#{$property}-end, $space, #{$property}-right);
+      }
     }
 
     &--y#{$size}#{$bp} {
-      #{$property}-top: $space;
-      #{$property}-bottom: $space;
+      &#{&}#{&} {
+        #{$property}-top: $space;
+        #{$property}-bottom: $space;
+      }
     }
 
     &--t#{$size}#{$bp} {
-      #{$property}-top: $space;
+      &#{&}#{&} {
+        #{$property}-top: $space;
+      }
     }
 
     &--b#{$size}#{$bp} {
-      #{$property}-bottom: $space;
+      &#{&}#{&} {
+        #{$property}-bottom: $space;
+      }
     }
   }
 }
 
 @include make-spacing(margin, 0, "--0");
 @include make-spacing(margin, $base-spacing);
+@include make-spacing(margin, $base-spacing * 0.25, --xxs);
 @include make-spacing(margin, $base-spacing * 0.5, --xs);
 @include make-spacing(margin, $base-spacing * 0.75, --sm);
 @include make-spacing(margin, $base-spacing * 1.5, --md);
@@ -286,6 +298,7 @@ html:root {
 @include make-spacing(margin, $base-spacing * 3, --xl);
 @include make-spacing(padding, 0, "--0");
 @include make-spacing(padding, $base-spacing);
+@include make-spacing(padding, $base-spacing * 0.25, --xxs);
 @include make-spacing(padding, $base-spacing * 0.5, --xs);
 @include make-spacing(padding, $base-spacing * 0.75, --sm);
 @include make-spacing(padding, $base-spacing * 1.5, --md);
@@ -295,6 +308,7 @@ html:root {
   @media only screen and (max-width: $size) {
     @include make-spacing(margin, 0, "--0", \@#{$prefix});
     @include make-spacing(margin, $base-spacing, \@#{$prefix});
+    @include make-spacing(margin, $base-spacing * 0.25, --xxs, \@#{$prefix});
     @include make-spacing(margin, $base-spacing * 0.5, --xs, \@#{$prefix});
     @include make-spacing(margin, $base-spacing * 0.75, --sm, \@#{$prefix});
     @include make-spacing(margin, $base-spacing * 1.5, --md, \@#{$prefix});
@@ -302,6 +316,7 @@ html:root {
     @include make-spacing(margin, $base-spacing * 3, --xl, \@#{$prefix});
     @include make-spacing(padding, 0, "--0", \@#{$prefix});
     @include make-spacing(padding, $base-spacing, \@#{$prefix});
+    @include make-spacing(padding, $base-spacing * 0.25, --xxs, \@#{$prefix});
     @include make-spacing(padding, $base-spacing * 0.5, --xs, \@#{$prefix});
     @include make-spacing(padding, $base-spacing * 0.75, --sm, \@#{$prefix});
     @include make-spacing(padding, $base-spacing * 1.5, --md, \@#{$prefix});

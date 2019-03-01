@@ -1,16 +1,20 @@
 /**
  * @author    : Adarsh Pastakia
  * @version   : 5.0.0
- * @copyright : 2018
+ * @copyright : 2019
  * @license   : MIT
  */
 
-import { autoinject, bindable, containerless, customElement, DOM } from "aurelia-framework";
+import { bindable, bindingMode, containerless, customElement, inlineView } from "aurelia-framework";
 import { UIInternal } from "../utils/ui-internal";
+import view from "./ui-alert.html";
 
-@autoinject()
+@containerless()
 @customElement("ui-alert")
+@inlineView(view)
 export class UIAlert {
+  @bindable({ defaultBindingMode: bindingMode.twoWay })
+  public open = false;
   @bindable()
   public icon = "";
   @bindable()
@@ -30,10 +34,7 @@ export class UIAlert {
 
   protected close(result: boolean): void {
     if (this.element.dispatchEvent(UIInternal.createEvent("close", result)) !== false) {
-      this.element.classList.remove("ui-alert--show");
-      setTimeout(() => {
-        DOM.removeNode(this.element);
-      }, 500);
+      this.open = false;
     }
   }
 }

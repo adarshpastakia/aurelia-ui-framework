@@ -1,11 +1,11 @@
 /**
  * @author    : Adarsh Pastakia
- * @version   : 1.0.0
- * @copyright : 2018
+ * @version   : 5.0.0
+ * @copyright : 2019
  * @license   : MIT
  */
+
 import {
-  autoinject,
   bindable,
   bindingMode,
   computedFrom,
@@ -16,18 +16,11 @@ import {
 import { UIInternal } from "../utils/ui-internal";
 import { BaseInput } from "./base-input";
 import { InputWrapper } from "./input-wrapper";
+import view from "./ui-input.html";
 
-@autoinject()
 @customElement("ui-input")
 @viewResources(InputWrapper)
-@inlineView(`<template class="ui-input \${classes}" aria-disabled.bind="disabled || isDisabled" aria-readonly.bind="readonly">
-  <input-wrapper>
-    <slot></slot>
-    <input ref="inputEl" role="textbox" size="1" placeholder.bind="placeholder" disabled.bind="disabled || isDisabled || isPlain"
-      readonly.bind="readonly" value.two-way="value" type.one-time="type" autocomplete.bind="autocomplete"
-      keypress.trigger="fireEnter($event)"/>
-  </input-wrapper>
-</template>`)
+@inlineView(view)
 export class UIInput extends BaseInput {
   @bindable({ defaultBindingMode: bindingMode.twoWay })
   public value: string = "";
@@ -35,7 +28,7 @@ export class UIInput extends BaseInput {
   public number: number = null;
 
   @bindable()
-  public type: "text" | "number" | "url" | "email" = "text";
+  public type: "text" | "number" | "url" | "email" | "password" = "text";
   @bindable()
   public placeholder: string = "";
   @bindable()
@@ -67,7 +60,7 @@ export class UIInput extends BaseInput {
   protected valueChanged(): void {
     if (!this.ignoreChange && this.type === "number") {
       this.ignoreChange = true;
-      this.number = parseFloat(this.value);
+      this.number = isNaN(this.value) ? null : parseFloat(this.value);
       UIInternal.queueTask(() => (this.ignoreChange = false));
     }
   }
@@ -83,9 +76,9 @@ export class UIInput extends BaseInput {
   @computedFrom("value", "maxlength")
   get counter() {
     if (this.maxlength) {
-      return `${this.maxlength - this.value.length}`;
+      return `${this.maxlength - (this.value ? this.value.length : 0)}`;
     } else {
-      return `${this.value.length}`;
+      return `${this.value ? this.value.length : 0}`;
     }
   }
 

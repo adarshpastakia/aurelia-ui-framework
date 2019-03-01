@@ -1,6 +1,6 @@
 // @author    : Adarsh Pastakia
 // @version   : 5.0.0
-// @copyright : 2018
+// @copyright : 2019
 // @license   : MIT
 
 .ui-list {
@@ -12,18 +12,18 @@
   }
 
   &__title {
-    color: var(--color-gray);
+    color: $base-muted;
     font-size: 0.9rem;
     padding: (0.5 * $base-spacing) $base-spacing;
   }
 
   &__item {
-    color: var(--base-color);
+    color: $base-color;
     cursor: pointer;
     padding: (0.5 * $base-spacing) $base-spacing;
 
     u {
-      color: var(--color-secondary);
+      color: $list-item-active-bg;
     }
 
     > .ui-badge {
@@ -44,8 +44,8 @@
     // }
 
     &--selected {
-      background-color: var(--list-selected-bg);
-      color: var(--list-selected-color);
+      background-color: $list-item-active-bg;
+      color: $list-item-active-color;
       cursor: default;
       pointer-events: none;
 
@@ -68,9 +68,52 @@
       }
     }
 
+    &:hover,
     &--hilight {
-      background-color: var(--list-hover-bg);
-      color: var(--list-hover-color);
+      background-color: $list-item-hover-bg;
+      color: $list-item-hover-color;
     }
+  }
+}
+
+.ui-dropdown {
+  background-color: $base-component-bg;
+  box-shadow: 0 0 0 1px $base-border-color inset;
+  display: grid;
+
+  &__link {
+    align-items: center;
+    display: grid;
+    grid-template-areas: "error icon label caret";
+    grid-template-columns: auto auto 1fr auto;
+    padding: 0 0.5rem;
+
+    &[data-open="true"],
+    &:active {
+      background-color: $menu-active-bg;
+      color: $menu-active-color;
+      transition: background-color 0.5s;
+    }
+
+    &[data-disabled="true"] {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  }
+
+  &__icon {
+    font-size: 1.25em;
+    grid-area: icon;
+  }
+
+  &__label {
+    grid-area: label;
+    line-height: 1;
+    padding: 0.5rem 0.25rem;
+    @include property-prefix(margin-end, 0.5rem);
+  }
+
+  &__caret {
+    grid-area: caret;
   }
 }

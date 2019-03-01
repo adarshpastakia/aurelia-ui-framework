@@ -1,12 +1,9 @@
 // @author    : Adarsh Pastakia
 // @version   : 5.0.0
-// @copyright : 2018
+// @copyright : 2019
 // @license   : MIT
 
 .ui-option {
-  --toggle-bg: var(--color-gray-tint);
-  --toggle-color: var(--color-gray);
-  --toggle-on-bg: var(--color-gray-dark);
   display: inline-block;
 
   &__group {
@@ -20,8 +17,9 @@
   }
 
   &__toggle {
-    border: 2px solid var(--toggle-bg);
+    background-color: $toggle-bg;
     border-radius: 1em;
+    box-shadow: $shadow-level1 inset;
     cursor: pointer;
     direction: ltr;
     font-size: 1rem;
@@ -29,35 +27,35 @@
     opacity: 0.9;
     overflow: hidden;
     position: relative;
-    width: 2.5em;
+    width: 2em;
     --toggle-on: "\00A0\2758";
     --toggle-off: "O";
 
     &::before {
-      background-color: var(--toggle-bg);
-      color: var(--toggle-color);
+      color: $toggle-color;
       content: var(--toggle-off);
       display: block;
-      height: 2em;
+      font-size: 0.8em;
       line-height: 1;
       margin: auto;
-      padding: 0 2px;
+      padding: 2px;
       position: absolute;
       text-align: right;
       width: 100%;
     }
 
     &::after {
-      background-color: var(--color-white);
+      background-color: $base-theme;
       border-radius: 1em;
-      box-shadow: 0 0 1px 0 var(--color-gray) inset;
+      box-shadow: 0 0 1px 0 $gray inset;
       content: "";
       display: block;
-      height: 1em;
+      height: calc(1em - 2px);
       left: 0;
+      margin: 1px;
       position: relative;
       transition: left 0.2s;
-      width: 1em;
+      width: calc(1em - 2px);
     }
   }
 
@@ -99,7 +97,7 @@
 
       &:focus ~ .ui-option__toggle {
         border-radius: 1em;
-        box-shadow: 0 0 3px 2px var(--input-focus-underline);
+        box-shadow: 0 0 3px 2px $input-focus-color;
         overflow: hidden;
       }
 
@@ -112,10 +110,9 @@
         }
 
         ~ .ui-option__toggle {
-          --toggle-bg: var(--toggle-on-bg);
-          --toggle-color: var(--color-gray-tint);
-
+          background-color: $toggle-on-bg;
           &::before {
+            color: $toggle-on-color;
             content: var(--toggle-on);
             text-align: left;
           }
@@ -127,7 +124,7 @@
 
       &:hover ~ .ui-icon,
       &:focus ~ .ui-icon {
-        color: var(--input-focus-underline);
+        color: $input-focus-color;
       }
     }
   }
@@ -141,25 +138,24 @@
     }
   }
 
-  &.ui-theme--gray {
-    --toggle-on-bg: var(--color-gray);
+  @mixin make-toggle($theme, $theme-color) {
+    &.ui-theme--#{$theme} {
+      input:checked {
+        ~ .ui-option__toggle {
+          &::before {
+            background-color: $theme-color;
+            color: $white;
+          }
+        }
+      }
+    }
   }
-  &.ui-theme--primary {
-    --toggle-on-bg: var(--color-primary);
+
+  @each $label, $color in $base-colors {
+    @include make-toggle($label, $color);
   }
-  &.ui-theme--secondary {
-    --toggle-on-bg: var(--color-secondary);
-  }
-  &.ui-theme--info {
-    --toggle-on-bg: var(--color-info);
-  }
-  &.ui-theme--danger {
-    --toggle-on-bg: var(--color-danger);
-  }
-  &.ui-theme--success {
-    --toggle-on-bg: var(--color-success);
-  }
-  &.ui-theme--warning {
-    --toggle-on-bg: var(--color-warning);
+
+  @each $label, $color in $color-list {
+    @include make-toggle($label, $color);
   }
 }

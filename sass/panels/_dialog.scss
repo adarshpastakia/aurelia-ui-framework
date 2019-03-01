@@ -5,14 +5,14 @@
 
 .ui-dialog {
   border-radius: $base-border-radius;
-  box-shadow: 2px 2px 20px 4px rgba(map-get($gray, dark), 0.75);
+  box-shadow: $shadow-level3;
   pointer-events: all;
   position: absolute;
   z-index: 102;
 
   .ui-panel__header {
-    background-color: var(--dlg-header-active-bg);
-    color: var(--dlg-header-active-color);
+    background-color: $dlg-header-active-bg;
+    color: $dlg-header-active-color;
 
     &__actions {
       .ui-dlg--tool {
@@ -24,11 +24,6 @@
           font-size: 18px;
           opacity: 0.7;
           overflow: hidden;
-
-          &:hover {
-            background-color: var(--base-bg);
-            opacity: 1;
-          }
         }
 
         .ui-icon {
@@ -37,7 +32,7 @@
 
         &[data-disabled="true"] {
           .ui-icon {
-            color: var(--dlg-header-inactive-tool);
+            color: $dlg-header-inactive-color;
             opacity: 0.5;
           }
         }
@@ -67,17 +62,17 @@
     }
 
     &[data-active="false"] .ui-dialog {
-      box-shadow: 2px 2px 8px 1px rgba(map-get($gray, dark), 0.25);
+      box-shadow: $shadow-level0;
       z-index: 101;
 
       .ui-panel__header {
-        background-color: var(--dlg-header-inactive-bg);
-        color: var(--dlg-header-inactive-color);
+        background-color: $dlg-header-inactive-bg;
+        color: $dlg-header-inactive-color;
 
         .ui-dlg--tool:not(:hover) {
           background-color: transparent;
           .ui-icon {
-            color: var(--dlg-header-inactive-tool);
+            color: $dlg-header-inactive-color;
           }
         }
       }

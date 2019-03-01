@@ -1,9 +1,13 @@
 {
-  "name": "source",
+  "name": "version5",
   "type": "project:application",
   "bundler": {
     "id": "webpack",
     "displayName": "Webpack"
+  },
+  "httpProtocol": {
+    "id": "http2",
+    "displayName": "HTTP/2"
   },
   "build": {
     "options": {
@@ -39,16 +43,20 @@
     "displayName": "Sass",
     "fileExtension": ".scss"
   },
+  "jsonProcessor": {
+    "id": "none",
+    "displayName": "None",
+    "fileExtension": ".json"
+  },
   "editor": {
     "id": "vscode",
     "displayName": "Visual Studio Code"
   },
-  "unitTestRunners": [
-    {
-      "id": "jest",
-      "displayName": "Jest"
-    }
-  ],
+  "features": {},
+  "unitTestRunner": {
+    "id": "jest",
+    "displayName": "Jest"
+  },
   "integrationTestRunner": {
     "id": "none",
     "displayName": "None"
@@ -65,5 +73,5 @@
     "id": "jasmine",
     "displayName": "Jasmine"
   },
-  "packageManager": "yarn"
+  "packageManager": "npm"
 }

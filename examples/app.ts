@@ -1,66 +1,56 @@
 /**
  * @author    : Adarsh Pastakia
  * @version   : 5.0.0
- * @copyright : 2018
+ * @copyright : 2019
  * @license   : MIT
  */
+
 import { autoinject, PLATFORM } from "aurelia-framework";
 import { Router, RouterConfiguration } from "aurelia-router";
-import { UIApplication } from "aurelia-ui-framework";
+import { subscribe, UIApplication } from "aurelia-ui-framework";
 
 @autoinject()
 export class App {
-  private router: Router;
-  private hideTitle: boolean = false;
-  private isRtl: boolean = false;
-  private darkTheme: boolean = false;
+  protected router: Router;
+  protected hideTitle: boolean = false;
+
+  private darkTheme = false;
 
   constructor(private app: UIApplication) {}
 
   protected configureRouter(config: RouterConfiguration, router: Router): void {
     this.router = router;
-    config.options.root = "/";
+    config.options.root = ".";
     config.options.pushState = true;
-    config.title = this.app.config.AppTitle;
+    config.title = this.app.config.title;
     config.map([
       {
-        moduleId: PLATFORM.moduleName("./app/home"),
+        moduleId: PLATFORM.moduleName("./home/home"),
         name: "home",
         route: ["", "home"],
-        title: "Home"
+        title: "Home",
+        nav: false
       },
       {
-        moduleId: PLATFORM.moduleName("./cheatsheet/cheatsheet"),
-        name: "cheatsheet",
-        route: "cheatsheet",
-        title: "Cheatsheet"
-      },
-      {
-        moduleId: PLATFORM.moduleName("./tests/tester"),
-        name: "tester",
-        route: ["tester", "tester/:test?"],
-        title: "Tester"
+        moduleId: PLATFORM.moduleName("./home/docs"),
+        name: "docs",
+        route: "docs",
+        title: "Documentation",
+        nav: false
       }
     ]);
   }
 
   protected activate() {
-    this.app.subscribe("hidetitle", b => (this.hideTitle = b));
-  }
-
-  protected toggleDir(): void {
-    this.isRtl = !this.isRtl;
-    document.documentElement.dir = this.isRtl ? "rtl" : "ltr";
+    subscribe("hidetitle", b => (this.hideTitle = b));
   }
 
   protected toggleTheme(): void {
     this.darkTheme = !this.darkTheme;
     if (this.darkTheme) {
-      document.documentElement.classList.add("theme-dark");
-      document.documentElement.classList.remove("theme-light");
+      document.documentElement.classList.add("ui-theme-dark");
     } else {
-      document.documentElement.classList.add("theme-light");
-      document.documentElement.classList.remove("theme-dark");
+      document.documentElement.classList.remove("ui-theme-dark");
     }
   }
 }

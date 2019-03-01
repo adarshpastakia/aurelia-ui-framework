@@ -6,7 +6,7 @@
  */
 
 import { bootstrap } from "aurelia-bootstrapper";
-import { Container, DOM, PLATFORM } from "aurelia-framework";
+import { Container, PLATFORM } from "aurelia-framework";
 import { StageComponent } from "aurelia-testing";
 import { UIApplication } from "aurelia-ui-framework";
 // tslint:disable-next-line

@@ -1,0 +1,160 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2018
+// @license   : MIT
+
+.ui-tag {
+  $tag-bg: mix($base-theme, $base-invert, 95%);
+  $tag-color: mix($tag-bg, $base-color, 35%);
+
+  align-items: center;
+  background-color: $tag-bg;
+  border-radius: 1.5em;
+  box-shadow: 0 0 0 1px rgba($tag-color, 0.25);
+  color: $tag-color;
+  display: inline-grid;
+  font-size: 0.8em;
+  grid-template-areas: "avatar label value close";
+  line-height: 1.5em;
+  margin: 0.25rem;
+  overflow: hidden;
+  vertical-align: middle;
+
+  &__icon,
+  &__label,
+  &__avatar {
+    vertical-align: middle;
+  }
+
+  &__icon {
+    background-color: $tag-color;
+    border-radius: 1em;
+    color: $tag-bg;
+    grid-area: avatar;
+    height: 1.75em;
+    width: 1.75em;
+
+    &:empty {
+      display: none;
+    }
+
+    img {
+      border-radius: 50%;
+      height: 1.5em;
+      margin: 0.125em;
+      overflow: hidden;
+      width: 1.5em;
+    }
+
+    .ui-icon {
+      border-radius: 1em;
+      font-size: 1.5em;
+      margin: 0;
+      overflow: hidden;
+      padding: 0.075em;
+    }
+    .ui-flag {
+      border-radius: 1em;
+      box-shadow: none;
+      font-size: 1.5em;
+      height: 1em;
+      margin: 0.075em;
+      max-height: 1em;
+      overflow: hidden;
+      width: 1em;
+    }
+  }
+
+  &__label {
+    background-color: $tag-color;
+    color: $tag-bg;
+    grid-area: label;
+    padding: 0 0.5em;
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  &__value {
+    grid-area: value;
+    padding: 0 1em;
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  &__label:not(:empty) ~ &__value {
+    padding: 0 0.5em;
+    @include property-prefix(border-start, 1px solid rgba($white, 0.3));
+  }
+
+  &__label:not(:empty) + &__icon {
+    border-radius: 0;
+  }
+
+  &--solid {
+    background-color: $tag-color;
+    color: $tag-bg;
+
+    .ui-tag__icon,
+    .ui-tag__label {
+      background-color: rgba(0, 0, 0, 0.4);
+      color: $gray-light;
+    }
+  }
+
+  &__close {
+    align-self: center;
+    cursor: pointer;
+    font-size: 1.5em;
+    font-weight: $font-weight-light;
+    grid-area: close;
+    line-height: 1;
+    opacity: 0.75;
+    padding: 0 0.2em;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+
+  &--md {
+    font-size: 1em;
+  }
+  &--lg {
+    font-size: 1.2em;
+  }
+
+  @mixin make-tag($theme, $theme-color) {
+    &.ui-theme--#{$theme} {
+      box-shadow: 0 0 0 1px $theme-color;
+      color: $theme-color;
+
+      &.ui-tag--solid {
+        background-color: $theme-color;
+        color: $gray-light;
+
+        .ui-tag__icon,
+        .ui-tag__label {
+          background-color: rgba(0, 0, 0, 0.2);
+        }
+      }
+
+      .ui-tag__icon,
+      .ui-tag__label {
+        background-color: $theme-color;
+        color: $gray-light;
+      }
+    }
+  }
+
+  @each $label, $color in $base-colors {
+    @include make-tag($label, mix($color, $gray, 75%));
+  }
+
+  @each $label, $color in $color-list {
+    @include make-tag($label, mix($color, $gray, 75%));
+  }
+}

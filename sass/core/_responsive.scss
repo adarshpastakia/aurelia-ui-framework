@@ -1,7 +1,9 @@
 // @author    : Adarsh Pastakia
 // @version   : 5.0.0
-// @copyright : 2018
+// @copyright : 2019
 // @license   : MIT
+@import "./grid";
+
 %ui-flex {
   display: -ms-flexbox;
   display: -moz-box;
@@ -44,7 +46,8 @@
   }
 
   &:not(&--fluid) {
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
@@ -66,6 +69,10 @@
     &--reverse {
       flex-direction: column-reverse;
     }
+  }
+
+  &--auto .ui-col {
+    @extend .ui-col--auto;
   }
 
   &--nowrap {
@@ -136,8 +143,8 @@
     align-self: center;
   }
 
-  .ui-content--stretch {
-    height: calc(100% + var(--gutter));
+  &.content-stretch > :first-child {
+    height: calc(100%);
   }
 
   @for $i from 1 through 12 {

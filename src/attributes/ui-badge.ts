@@ -1,9 +1,10 @@
 /**
  * @author    : Adarsh Pastakia
  * @version   : 5.0.0
- * @copyright : 2018
+ * @copyright : 2019
  * @license   : MIT
  */
+
 import { autoinject, bindable, customAttribute } from "aurelia-framework";
 import { UIInternal } from "../utils/ui-internal";
 
@@ -26,11 +27,11 @@ export class UIBadge {
       const vm = getViewModel(this.element);
       const view = UIInternal.compileTemplate(
         `<template><div class="ui-badge" ui-theme.bind="theme" ui-tooltip.bind="tooltip">
-        <div class="ui-badge__label"><ui-icon icon.bind="icon" if.bind="icon"></ui-icon>\${value}</div>
+        <ui-icon icon.bind="icon" if.bind="icon"></ui-icon>\${value}
       </div></template>`,
         this
       );
-      (vm && vm.badgeEl ? vm.badgeEl : vm.vmElement || this.element).appendChild(view.fragment);
+      (vm ? (vm.badgeEl ? vm.badgeEl : vm.vmElement) : this.element).appendChild(view.fragment);
       view.attached();
     }
   }

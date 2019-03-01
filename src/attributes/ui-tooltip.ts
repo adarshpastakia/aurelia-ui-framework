@@ -1,9 +1,10 @@
 /**
  * @author    : Adarsh Pastakia
  * @version   : 5.0.0
- * @copyright : 2018
+ * @copyright : 2019
  * @license   : MIT
  */
+
 import { autoinject, bindable, customAttribute } from "aurelia-framework";
 import { UITether } from "../utils/ui-tether";
 
@@ -66,6 +67,12 @@ export class UITooltip {
   protected hide() {
     clearTimeout(this.timer);
     TooltipEl.dataset.open = "false";
+  }
+
+  protected valueChanged() {
+    if (TooltipEl) {
+      this.show();
+    }
   }
 
   private showFn = () => this.show();

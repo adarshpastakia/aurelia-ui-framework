@@ -1,7 +1,7 @@
 import * as ObjectConverters from "./ui-object";
 import * as TextConverters from "./ui-text";
 
-export default [
+export const ValueConverters = [
   ObjectConverters.FilterValueConverter,
   ObjectConverters.GroupValueConverter,
   ObjectConverters.ObjectMapValueConverter,

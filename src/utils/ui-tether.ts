@@ -1,9 +1,10 @@
 /**
  * @author    : Adarsh Pastakia
  * @version   : 5.0.0
- * @copyright : 2018
+ * @copyright : 2019
  * @license   : MIT
  */
+
 import { Container, DOM } from "aurelia-framework";
 import { getLogger } from "aurelia-logging";
 import { UIAppConfig } from "../utils/ui-app-config";
@@ -55,6 +56,7 @@ export namespace UITether {
 
     const [posY, posX] = config.position.split("");
     const [anchorY, anchorX] = config.anchorPosition.split("");
+    const isRtl = window.getComputedStyle(scrollerEl).direction === "rtl";
     let x = 0;
     let y = 0;
     let clientHeight = document.body.clientHeight;
@@ -78,9 +80,9 @@ export namespace UITether {
       clientY = scrollerRect.top;
     }
 
-    if (anchorX === "l") {
+    if (anchorX === (isRtl ? "r" : "l")) {
       x = anchorRect.left;
-    } else if (anchorX === "r") {
+    } else if (anchorX === (isRtl ? "l" : "r")) {
       x = anchorRect.right;
     } else if (anchorX === "c") {
       x = anchorRect.left + anchorRect.width / 2;
@@ -91,7 +93,7 @@ export namespace UITether {
       y = anchorRect.bottom;
     }
 
-    if (posX === "r") {
+    if (posX === (isRtl ? "l" : "r")) {
       x -= dropdownRect.width;
     }
     if (posX === "c") {
@@ -122,10 +124,7 @@ export namespace UITether {
       x -= 1;
       y -= 1;
 
-      if (
-        window.getComputedStyle(scrollerEl).direction === "rtl" &&
-        scrollerEl.scrollHeight > scrollerEl.offsetHeight
-      ) {
+      if (isRtl && scrollerEl.scrollHeight > scrollerEl.offsetHeight) {
         x -= 5;
       }
     }

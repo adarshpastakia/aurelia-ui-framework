@@ -1,12 +1,17 @@
-<template class="ui-panel-base ui-panel" css.bind="{width, minWidth, maxWidth}" data-collapsed.bind="collapsed">
+<template
+  class="ui-panel-base ui-panel"
+  css.bind="{width, minWidth, maxWidth}"
+  data-collapsed.bind="collapsed"
+>
   <div class="ui-panel__header">
     <slot name="panel-header">
       <ui-header>
         <ui-header-icon if.bind="icon" icon.bind="icon"></ui-header-icon>
-        <ui-header-title if.bind="label">${label}</ui-header-title>
+        <ui-header-title if.bind="label">\${label}</ui-header-title>
       </ui-header>
     </slot>
     <div class="ui-panel__header__actions" if.bind="collapsible || closeable">
+      <ui-divider></ui-divider>
       <template if.bind="collapsible">
         <ui-button type="tool" click.trigger="toggleExpand(false)" if.bind="!collapsed">
           <ui-svg-icon icon="minus"></ui-svg-icon>

@@ -1,9 +1,10 @@
 /**
  * @author    : Adarsh Pastakia
  * @version   : 5.0.0
- * @copyright : 2018
+ * @copyright : 2019
  * @license   : MIT
  */
+
 import { EventAggregator, Subscription } from "aurelia-event-aggregator";
 import {
   BindingEngine,

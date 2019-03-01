@@ -1,0 +1,166 @@
+<template>
+  <ui-page page-title="Sidebar">
+    <ui-content ui-scroll ui-padding>
+      <ui-container>
+        <p class="x-page-title">Card layout</p>
+
+        <div class="x-section-title">Examples</div>
+        <div
+          class="x-example-block"
+          with.bind="{align:'start',halign:'top',trigger:'peek', width:'280px'}"
+        >
+          <div class="x-example-display">
+            <ui-row ui-gutter="md">
+              <ui-col size="6@lg">
+                <ui-card>
+                  <ui-header label="Card Header" icon="mdi mdi-account-circle">
+                    <ui-header-actions>
+                      <ui-button
+                        type="tool"
+                        ui-theme="primary"
+                        icon="mdi mdi-dots-vertical"
+                        no-caret
+                      >
+                        <ui-drop close-on-click="false" anchor="br" position="tr">
+                          <div ui-font="sm">
+                            <div ui-padding="xs">Action</div>
+                            <div ui-padding="xs">Action</div>
+                            <hr ui-margin="y--xxs" />
+                            <div ui-padding="xs">Action</div>
+                          </div>
+                        </ui-drop>
+                      </ui-button>
+                    </ui-header-actions>
+                  </ui-header>
+                  <ui-card-title>Card Title</ui-card-title>
+                  <ui-card-media>
+                    <ui-card-title>Card Media with Title</ui-card-title>
+                    <img src="http://picsum.photos/400/200?image=13" />
+                  </ui-card-media>
+                  <ui-card-meta>
+                    <span>Author</span>
+                    <span>
+                      <i class="ui-icon mdi mdi-clock"></i> ${'2018-03-02T18:42:36.981Z' |
+                      datetime}</span
+                    >
+                  </ui-card-meta>
+                  <ui-divider></ui-divider>
+                  <ui-card-list>
+                    <ol>
+                      <li>Card List</li>
+                      <li>Card List</li>
+                      <li>Card List</li>
+                    </ol>
+                  </ui-card-list>
+                  <ui-divider></ui-divider>
+                  <ui-card-content fill>
+                    <p ui-clip="5">
+                      <lipsum-para></lipsum-para>
+                    </p>
+                  </ui-card-content>
+                  <ui-footer ui-font="md">
+                    <ui-toolbar>
+                      <div class="ui-btn-group">
+                        <ui-button type="tool" ui-hover="red" icon="mdi mdi-heart"></ui-button>
+                        <ui-button type="tool" ui-hover="blue" icon="mdi mdi-share"></ui-button>
+                        <ui-button
+                          type="tool"
+                          ui-hover="violet"
+                          icon="mdi mdi-github-circle"
+                        ></ui-button>
+                        <ui-button
+                          type="tool"
+                          ui-hover="orange"
+                          icon="mdi mdi-source-fork"
+                        ></ui-button>
+                      </div>
+                      <ui-filler></ui-filler>
+                      <ui-button
+                        type="tool"
+                        ui-hover="green"
+                        icon="mdi mdi-checkbox-blank-circle-outline"
+                      ></ui-button>
+                    </ui-toolbar>
+                  </ui-footer>
+                </ui-card>
+              </ui-col>
+
+              <ui-col size="6@lg" content-stretch>
+                <ui-card>
+                  <ui-card-media top>
+                    <ui-card-title>Card Media with Title</ui-card-title>
+                    <img src="http://picsum.photos/400/200?image=18" />
+                    <ui-button-group>
+                      <ui-button
+                        type="tool"
+                        ui-theme="inverse"
+                        icon="mdi mdi-dots-vertical"
+                      ></ui-button>
+                    </ui-button-group>
+                  </ui-card-media>
+                  <ui-card-title>Card Title</ui-card-title>
+                  <ui-card-meta>
+                    <span>Author</span>
+                    <span>
+                      <i class="ui-icon mdi mdi-clock"></i> ${'2018-05-18T18:42:36.981Z' |
+                      datetime}</span
+                    >
+                  </ui-card-meta>
+                  <ui-card-content>
+                    <ui-tag ui-theme="info" icon="mdi mdi-account" href="/"></ui-tag>
+                    <ui-tag ui-theme="primary" icon="mdi mdi-account" value="Test"></ui-tag>
+                    <ui-tag ui-theme="secondary" icon="mdi mdi-account">Test</ui-tag>
+                    <ui-tag ui-theme="warning" icon="mdi mdi-account" value="99">Test</ui-tag>
+                    <ui-tag ui-theme="success" solid closeable icon="mdi mdi-account" value="99"
+                      >Test</ui-tag
+                    >
+                  </ui-card-content>
+                  <ui-card-content fill>
+                    <p ui-clip="8">
+                      <lipsum-para></lipsum-para>
+                    </p>
+                  </ui-card-content>
+                  <ui-footer ui-font="md">
+                    <ui-toolbar>
+                      <div class="ui-btn-group">
+                        <ui-button type="tool" ui-hover="red" icon="mdi mdi-heart"></ui-button>
+                        <ui-button type="tool" ui-hover="blue" icon="mdi mdi-share"></ui-button>
+                        <ui-button
+                          type="tool"
+                          ui-hover="violet"
+                          icon="mdi mdi-github-circle"
+                        ></ui-button>
+                        <ui-button
+                          type="tool"
+                          ui-hover="orange"
+                          icon="mdi mdi-source-fork"
+                        ></ui-button>
+                      </div>
+                      <ui-filler></ui-filler>
+                      <ui-button
+                        type="tool"
+                        ui-hover="green-dark"
+                        icon="mdi mdi-checkbox-marked-circle-outline"
+                      ></ui-button>
+                    </ui-toolbar>
+                  </ui-footer>
+                </ui-card>
+              </ui-col>
+            </ui-row>
+          </div>
+
+          <div class="x-example-options">
+            <h5>Options</h5>
+          </div>
+        </div>
+
+        <div class="x-section-title">Using the Card</div>
+        <x-code-block lang="html" page="app.html" code.bind="cardHtml"></x-code-block>
+
+        <div class="x-section-title">Properties</div>
+        <x-blockquote>Attributes marked with value <b>none</b> do not require a value</x-blockquote>
+        <x-code-table code-template.bind="cardAttrs"></x-code-table>
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>

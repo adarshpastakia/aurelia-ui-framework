@@ -1,0 +1,21 @@
+<template
+  class="ui-input ${classes}"
+  aria-disabled.bind="disabled || isDisabled"
+  aria-readonly.bind="readonly"
+>
+  <input-wrapper>
+    <slot></slot>
+    <input
+      ref="inputEl"
+      role="textbox"
+      size="1"
+      placeholder.bind="placeholder"
+      disabled.bind="disabled || isDisabled || isPlain"
+      readonly.bind="readonly"
+      value.two-way="value"
+      type.bind="type"
+      autocomplete.bind="autocomplete"
+      keypress.trigger="fireEnter($event)"
+    />
+  </input-wrapper>
+</template>

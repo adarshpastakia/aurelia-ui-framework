@@ -4,26 +4,28 @@
 // @license   : MIT
 
 .ui-alert {
-  @extend .ui-paper;
-  align-items: start;
-  background-color: var(--alert-bg);
-  border: 1px solid var(--alert-color);
-  color: var(--alert-color);
   display: grid;
-  grid-gap: 0.5rem;
-  grid-template-areas: "icon title body footer close";
-  grid-template-columns: auto auto 1fr auto auto;
-  line-height: 1;
-  margin: 0.25rem;
-  max-width: 80vw;
-  pointer-events: all;
-  position: relative;
+  justify-content: center;
+
+  &__wrapper {
+    align-items: center;
+    background-color: $base-color;
+    box-shadow: $shadow-level2;
+    color: $base-bg;
+    display: grid;
+    grid-gap: 0.5rem;
+    grid-template-areas: "icon title body footer close";
+    grid-template-columns: auto auto 1fr auto auto;
+    line-height: 1;
+    margin: 0.25rem;
+    max-width: 80vw;
+    pointer-events: all;
+    position: relative;
+  }
 
   &__icon {
     align-self: stretch;
-    background-color: var(--alert-color);
-    color: var(--alert-bg);
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     grid-area: icon;
     line-height: 1;
     padding: 0.5rem;
@@ -47,6 +49,7 @@
   }
 
   &__footer {
+    align-self: end;
     grid-area: footer;
     line-height: 1.25;
     padding: 0.5rem;
@@ -75,10 +78,11 @@
   }
 
   &__progress {
-    background-color: var(--alert-color);
+    background-color: currentColor;
     bottom: -1px;
     height: 4px;
     left: 0;
+    opacity: 0.5;
     position: absolute;
     transition-property: width;
     transition-timing-function: ease-in;
@@ -91,19 +95,37 @@
     }
   }
 
-  &.ui-notification {
-    grid-template-areas: "icon title footer close" "icon body footer close";
-    grid-template-columns: auto 1fr auto auto;
+  &.ui-toast {
     min-width: 18rem;
     transform: translate(100%, 0);
     transition: transform 0.5s;
     transition-delay: 10ms;
 
+    .ui-alert__wrapper {
+      background-color: $base-theme;
+      box-shadow: $shadow-level3;
+      color: $base-color;
+      grid-template-areas: "icon title close" "icon body close" "icon footer close";
+      grid-template-columns: auto 1fr auto;
+    }
+
     .ui-alert__title {
       padding: 0.5rem 0 0;
     }
+
     .ui-alert__body {
       padding: 0 0 0.5rem;
+    }
+
+    .ui-alert__footer {
+      justify-self: end;
+      padding: 0.5rem 0;
+    }
+
+    .ui-alert__icon {
+      background-color: $base-color;
+      color: $white;
+      font-size: 2rem;
     }
 
     @at-root [dir="rtl"] & {
@@ -111,7 +133,7 @@
     }
   }
 
-  &.ui-toast {
+  &.ui-message {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.5s;
@@ -119,11 +141,19 @@
   }
 
   &.ui-alert--inline {
-    margin: 0.25rem auto;
+    grid-area: alert;
+    max-height: 0;
     max-width: 100%;
+    overflow: hidden;
+    transition: max-height 0.5s;
+    transition-delay: 10ms;
+    @include clearfix();
+    .ui-alert__wrapper {
+      margin: 0.5rem auto;
+    }
   }
 
-  &.ui-alert--show {
+  &[data-open="true"] {
     max-height: 10rem;
 
     @at-root [dir="rtl"] &,
@@ -137,35 +167,24 @@
     }
   }
 
-  --alert-bg: var(--base-bg);
-  --alert-color: var(--base-color);
+  @mixin make-alert($theme, $theme-color) {
+    &.ui-theme--#{$theme} {
+      .ui-alert__wrapper {
+        background-color: $theme-color;
+        color: $white;
+      }
+      &.ui-toast .ui-alert__wrapper {
+        background-color: $base-theme;
+        color: $theme-color;
+        .ui-alert__icon {
+          background-color: $theme-color;
+          color: $white;
+        }
+      }
+    }
+  }
 
-  &.ui-theme--primary {
-    --alert-bg: var(--color-primary-tint);
-    --alert-color: var(--color-primary-dark);
-  }
-  &.ui-theme--secondary {
-    --alert-bg: var(--color-secondary-tint);
-    --alert-color: var(--color-secondary-dark);
-  }
-  &.ui-theme--gray {
-    --alert-bg: var(--color-gray-tint);
-    --alert-color: var(--color-gray-dark);
-  }
-  &.ui-theme--info {
-    --alert-bg: var(--color-info-tint);
-    --alert-color: var(--color-info-dark);
-  }
-  &.ui-theme--danger {
-    --alert-bg: var(--color-danger-tint);
-    --alert-color: var(--color-danger-dark);
-  }
-  &.ui-theme--success {
-    --alert-bg: var(--color-success-tint);
-    --alert-color: var(--color-success-dark);
-  }
-  &.ui-theme--warning {
-    --alert-bg: var(--color-warning-tint);
-    --alert-color: var(--color-warning-dark);
+  @each $label, $color in $base-colors {
+    @include make-alert($label, $color);
   }
 }

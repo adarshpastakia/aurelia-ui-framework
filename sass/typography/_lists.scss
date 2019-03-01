@@ -29,25 +29,23 @@ dl {
   }
 
   &.ui-dl--inline {
-    display: grid;
-    grid-auto-flow: row;
-    grid-template-columns: 30% 70%;
-
-    &--sm {
-      grid-template-columns: 15% 85%;
-    }
-
     @media screen and (min-width: map_get($breakpoints, md)) {
+      display: grid;
+      grid-auto-flow: row;
+      grid-template-columns: 30% 70%;
+
+      &--sm {
+        grid-template-columns: 15% 85%;
+      }
+
       dt {
         display: inline-block;
         text-align: end;
-        width: var(--left-width);
       }
 
       dd {
         @include property-prefix(padding-start, $base-spacing);
         display: inline-block;
-        width: var(--right-width);
       }
     }
   }
@@ -55,12 +53,12 @@ dl {
   &.ui-dl--striped {
     dt:nth-child(2n + 1),
     dt:nth-child(2n + 1) + dd {
-      background-color: var(--base-bg);
+      background-color: $row-odd-bg;
     }
 
     dt:nth-child(4n + 1),
     dt:nth-child(4n + 1) + dd {
-      background-color: var(--base-component);
+      background-color: $row-even-bg;
     }
   }
 }

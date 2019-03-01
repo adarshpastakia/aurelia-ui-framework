@@ -1,0 +1,34 @@
+<template
+  class="ui-sidebar"
+  click.delegate="headTrigger === 'toggle' ? collapsed = false : peek = true"
+  data-peek.bind="peek"
+  data-collapsed.bind="collapsed"
+  data-position.bind="position"
+  data-align.bind="align"
+>
+  <div
+    class="ui-sidebar__titlebar"
+    ui-bg.bind="titleBg"
+    ui-color.bind="titleColor"
+    ui-weight.bind="titleWeight"
+    if.bind="collapsible || label"
+    click.trigger="[collapsed = collapsible && !collapsed, $event.stopEvent()]"
+    css.bind="{width}"
+  >
+    <div class="ui-sidebar__toggler" if.bind="collapsible">
+      <ui-svg-icon icon.bind="toggleIcon"></ui-svg-icon>
+    </div>
+    <div class="ui-sidebar__title" ui-color.bind="collapsed ? titleBg : ''">
+      <slot name="sidebar-title"><span if.bind="label" innerhtml.bind="label"></span></slot>
+    </div>
+  </div>
+  <div class="ui-sidebar__body" css.bind="{width, maxWidth, minWidth}" ref="bodyEl">
+    <slot></slot>
+  </div>
+  <div
+    class="ui-sidebar__resizer"
+    if.bind="resizeable"
+    data-resizing.bind="isResizing"
+    mousedown.trigger="startResize($event)"
+  ></div>
+</template>

@@ -1,29 +1,39 @@
 // @author    : Adarsh Pastakia
 // @version   : 5.0.0
-// @copyright : 2018
+// @copyright : 2019
 // @license   : MIT
 
 .ui-font {
   &--normal {
-    font-size: $base-font-size;
+    &#{&}#{&} {
+      font-size: $base-font-size;
+    }
   }
 
   @each $label, $size in $font-sizes {
     &--#{$label} {
-      font-size: $size;
+      &#{&}#{&} {
+        font-size: $size;
+      }
     }
   }
 
   &--sans-serif {
-    font-family: $font-family-sans-serif;
+    &#{&}#{&} {
+      font-family: $font-family-sans-serif;
+    }
   }
 
   &--serif {
-    font-family: $font-family-serif;
+    &#{&}#{&} {
+      font-family: $font-family-serif;
+    }
   }
 
   &--mono {
-    font-family: $font-family-mono;
+    &#{&}#{&} {
+      font-family: $font-family-mono;
+    }
   }
 }
 
@@ -67,42 +77,66 @@
 // alignments
 .ui-align {
   &--start {
-    text-align: start;
+    &#{&}#{&} {
+      text-align: start;
+    }
   }
 
   &--center {
-    text-align: center;
+    &#{&}#{&} {
+      text-align: center;
+    }
   }
 
   &--end {
-    text-align: end;
+    &#{&}#{&} {
+      text-align: end;
+    }
   }
 
   &--justify {
-    text-align: justify;
+    &#{&}#{&} {
+      text-align: justify;
+    }
   }
 }
 
 // font weights
 .ui-weight {
   &--bolder {
-    font-weight: $font-weight-bolder;
+    &#{&}#{&} {
+      font-weight: $font-weight-bolder;
+    }
   }
 
   &--bold {
-    font-weight: $font-weight-bold;
+    &#{&}#{&} {
+      font-weight: $font-weight-bold;
+    }
   }
 
   &--medium {
-    font-weight: $font-weight-medium;
+    &#{&}#{&} {
+      font-weight: $font-weight-medium;
+    }
   }
 
   &--normal {
-    font-weight: $font-weight-normal;
+    &#{&}#{&} {
+      font-weight: $font-weight-normal;
+    }
   }
 
   &--light {
-    font-weight: $font-weight-light;
+    &#{&}#{&} {
+      font-weight: $font-weight-light;
+    }
+  }
+
+  &--thin {
+    &#{&}#{&} {
+      font-weight: $font-weight-lighter;
+    }
   }
 }
 
@@ -122,13 +156,13 @@
 }
 
 .ui-link {
-  color: var(--color-secondary);
+  color: $secondary;
   cursor: pointer;
   position: relative;
 
   &::before {
     @include transition(width 0.25s);
-    background: var(--color-secondary);
+    background: $secondary;
     bottom: 0;
     content: "";
     display: block;

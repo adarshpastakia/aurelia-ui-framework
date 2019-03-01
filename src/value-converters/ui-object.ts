@@ -4,13 +4,17 @@
  * @copyright : 2018
  * @license   : MIT
  */
+import { valueConverter } from "aurelia-framework";
 
+// tslint:disable
+@valueConverter("split")
 export class SplitValueConverter {
   public toView(object: string, char = ","): string[] {
     return (object || "").split(new RegExp(`[${char}]`));
   }
 }
 
+@valueConverter("objectMap")
 export class ObjectMapValueConverter {
   public toView(object: AnyObject): Map<string, KeyValue> {
     if (isEmpty(object)) {
@@ -22,12 +26,14 @@ export class ObjectMapValueConverter {
   }
 }
 
+@valueConverter("group")
 export class GroupValueConverter {
   public toView(array: AnyObject[], property: string): Map<string, KeyValue> {
     return array.groupBy(property);
   }
 }
 
+@valueConverter("slice")
 export class SliceValueConverter {
   public toView(array: AnyObject[], end: number = 0): AnyObject[] {
     return end === 0 ? array : array.slice(0, end);
@@ -35,6 +41,7 @@ export class SliceValueConverter {
 }
 
 // TODO: rethink filter predicate to perform smart search, ignore case, ignore latin and take care of non string
+@valueConverter("filter")
 export class FilterValueConverter {
   public toView(
     array: Array<string | AnyObject> | Map<string, AnyObject>,
@@ -68,6 +75,7 @@ export class FilterValueConverter {
   }
 }
 
+@valueConverter("sort")
 export class SortValueConverter {
   public toView(
     array: AnyObject,

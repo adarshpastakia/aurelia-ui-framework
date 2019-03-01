@@ -14,9 +14,9 @@
     "skipLibCheck": true,
     "lib": ["es2017", "dom"],
     "paths": {
-      "examples/*": ["./examples/*"],
+      "aurelia-ui-framework": ["./src/aurelia-ui-framework"],
       "aurelia-ui-framework/*": ["./src/*"],
-      "aurelia-ui-framework": ["./src/aurelia-ui-framework"]
+      "@images/*": ["./images/*"]
     }
   },
   "include": [

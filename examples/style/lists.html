@@ -1,0 +1,175 @@
+<template>
+  <ui-page page-title="List Styling">
+    <ui-content ui-padding ui-scroll>
+      <ui-container>
+        <div class="x-section-title">HTML Lists</div>
+        <ui-row>
+          <ui-col size="4">
+            <ul>
+              <li>
+                <lipsum-title></lipsum-title>
+              </li>
+              <li data-style="circle">
+                <lipsum-title></lipsum-title>
+              </li>
+              <li data-style="square">
+                <lipsum-title></lipsum-title>
+              </li>
+              <li data-style="check">
+                <lipsum-title></lipsum-title>
+              </li>
+              <li data-style="cross">
+                <lipsum-title></lipsum-title>
+              </li>
+            </ul>
+          </ui-col>
+          <ui-col size="4">
+            <ol>
+              <li>
+                <lipsum-title></lipsum-title>
+              </li>
+              <li>
+                <lipsum-title></lipsum-title>
+              </li>
+              <li>
+                <lipsum-title></lipsum-title>
+              </li>
+              <li>
+                <lipsum-title></lipsum-title>
+              </li>
+              <li>
+                <lipsum-title></lipsum-title>
+              </li>
+            </ol>
+          </ui-col>
+        </ui-row>
+
+        <div class="x-section-title">HTML Definition Lists</div>
+        <ui-row>
+          <ui-col size="4">
+            <div class="x-section-subtitle">Normal</div>
+            <dl>
+              <dt>
+                <lipsum-title></lipsum-title>
+              </dt>
+              <dd>
+                <lipsum-line></lipsum-line>
+              </dd>
+              <dt>
+                <lipsum-title></lipsum-title>
+              </dt>
+              <dd>
+                <lipsum-line></lipsum-line>
+              </dd>
+              <dt>
+                <lipsum-title></lipsum-title>
+              </dt>
+              <dd>
+                <lipsum-line></lipsum-line>
+              </dd>
+              <dt>
+                <lipsum-title></lipsum-title>
+              </dt>
+              <dd>
+                <lipsum-line></lipsum-line>
+              </dd>
+            </dl>
+          </ui-col>
+          <ui-col size="4">
+            <div class="x-section-subtitle">Striped</div>
+            <dl class="ui-dl--striped">
+              <dt>
+                <lipsum-title></lipsum-title>
+              </dt>
+              <dd>
+                <lipsum-line></lipsum-line>
+              </dd>
+              <dt>
+                <lipsum-title></lipsum-title>
+              </dt>
+              <dd>
+                <lipsum-line></lipsum-line>
+              </dd>
+              <dt>
+                <lipsum-title></lipsum-title>
+              </dt>
+              <dd>
+                <lipsum-line></lipsum-line>
+              </dd>
+              <dt>
+                <lipsum-title></lipsum-title>
+              </dt>
+              <dd>
+                <lipsum-line></lipsum-line>
+              </dd>
+            </dl>
+          </ui-col>
+          <ui-col size="4">
+            <div class="x-section-subtitle">Inline Striped</div>
+            <dl class="ui-dl--striped ui-dl--inline">
+              <dt>
+                <lipsum-title></lipsum-title>
+              </dt>
+              <dd>
+                <lipsum-line></lipsum-line>
+              </dd>
+              <dt>
+                <lipsum-title></lipsum-title>
+              </dt>
+              <dd>
+                <lipsum-line></lipsum-line>
+              </dd>
+              <dt>
+                <lipsum-title></lipsum-title>
+              </dt>
+              <dd>
+                <lipsum-line></lipsum-line>
+              </dd>
+              <dt>
+                <lipsum-title></lipsum-title>
+              </dt>
+              <dd>
+                <lipsum-line></lipsum-line>
+              </dd>
+            </dl>
+          </ui-col>
+        </ui-row>
+
+        <div class="x-section-title">HTML Table</div>
+        <table class="ui-table">
+          <colgroup>
+            <col width="38px" />
+            <col width="48px" />
+            <col />
+            <col />
+            <col />
+            <col width="64px" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Code</th>
+              <th>Name</th>
+              <th>Fullname</th>
+              <th>Capital</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr repeat.for="ctry of countries.slice(0, 20)">
+              <td ui-font="md">
+                <ui-flag code.bind="ctry.iso3"></ui-flag>
+              </td>
+              <td>${ctry.iso3}</td>
+              <td>${ctry.name}</td>
+              <td>${ctry.fullname}</td>
+              <td>${ctry.capital}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="x-section-title">Helper Classes</div>
+        <x-code-table code-template.bind="listClasses"></x-code-table>
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>

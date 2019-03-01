@@ -1,34 +1,20 @@
 /**
  * @author    : Adarsh Pastakia
  * @version   : 5.0.0
- * @copyright : 2018
+ * @copyright : 2019
  * @license   : MIT
  */
-import {
-  autoinject,
-  bindable,
-  bindingMode,
-  customElement,
-  inlineView,
-  viewResources
-} from "aurelia-framework";
+
+import { bindable, bindingMode, customElement, inlineView, viewResources } from "aurelia-framework";
 import { InputWrapper } from "../forms/input-wrapper";
 import { ListContainer } from "./list-container";
 import { ListInput } from "./list-input";
 import { ListMaker } from "./list-maker";
+import view from "./ui-list.html";
 
-@autoinject()
 @customElement("ui-list")
 @viewResources(InputWrapper, ListInput, ListContainer)
-@inlineView(`<template class="ui-input ui-list \${classes}" aria-disabled.bind="disabled || isDisabled" aria-readonly.bind="readonly">
-<input-wrapper model.bind="$this">
-  <slot></slot>
-  <list-input></list-input>
-  <div class="ui-list__container" ref="listContainer" css.bind="{height}">
-    <list-container></list-container>
-  </div>
-</input-wrapper>
-</template>`)
+@inlineView(view)
 export class UIList extends ListMaker {
   @bindable({ defaultBindingMode: bindingMode.twoWay })
   public value: AnyObject = undefined;

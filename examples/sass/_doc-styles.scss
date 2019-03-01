@@ -1,0 +1,83 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2019
+// @license   : MIT
+
+.x-page-title {
+  color: $base-muted;
+  font-size: 1.4rem;
+}
+
+.x-section-title {
+  border-bottom: 1px solid rgba($base-border-color, 0.5);
+  color: $secondary;
+  font-size: 1.5rem;
+  font-weight: $font-weight-light;
+  margin: 4rem 0 1rem;
+  @extend .ui-text--title;
+
+  &:first-of-type {
+    margin-top: 1rem;
+  }
+}
+.x-section-subtitle {
+  color: rgba($base-color, 0.5);
+  font-size: 1.2rem;
+  margin: 2rem 0 1rem;
+  @extend .ui-text--title;
+}
+
+.x-nav-link {
+  border-right: 4px solid transparent;
+  list-style: none;
+
+  a {
+    display: block;
+    padding: 0.5rem 1rem;
+  }
+
+  &:hover {
+    background-color: mix($secondary, $base-theme, 30%);
+  }
+
+  &.active {
+    border-color: $secondary;
+    color: $secondary;
+    font-weight: 600;
+    pointer-events: none;
+  }
+}
+
+.x-example-block {
+  display: grid;
+  grid-gap: 8px;
+  grid-template-columns: 1fr min-content;
+
+  .x-example-display {
+    background-color: rgba($base-theme, 0.95);
+    border: 1px solid rgba($gray, 0.25);
+    border-radius: 8px;
+    padding: 1rem 2rem;
+  }
+
+  .x-example-options {
+    background-color: rgba($base-bg, 0.75);
+    border: 1px solid rgba($gray, 0.25);
+    border-radius: 8px;
+    padding: 1rem;
+    width: 320px;
+  }
+
+  h5 {
+    margin: 0 0 1em;
+    opacity: 0.8;
+  }
+  hr {
+    margin: 1rem 0;
+  }
+}
+
+.ui-page {
+  @extend .ui-paper;
+  @extend .ui-margin--xs;
+}

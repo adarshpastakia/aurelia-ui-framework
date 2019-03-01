@@ -1,0 +1,281 @@
+<template>
+  <ui-page page-title="Form Elements">
+    <ui-content ui-scroll ui-padding>
+      <ui-container>
+        <p class="x-page-title">Form and field layout elements</p>
+
+        <div class="x-section-title">Examples</div>
+        <div
+          class="x-example-block"
+          with.bind="{type:'normal',theme:'default', isEditing:true, disabled:false}"
+        >
+          <div class="x-example-display">
+            <ui-form ui-border disabled.bind="formDisabled" submit.trigger="validate()">
+              <ui-row>
+                <ui-col>
+                  <ui-field plain.bind="!isEditing" label="Username" required>
+                    <ui-input value.bind="model.username & validate" placeholder="Username...">
+                      <ui-input-addon icon="mdi mdi-account"></ui-input-addon>
+                    </ui-input>
+                  </ui-field>
+                </ui-col>
+                <ui-col>
+                  <ui-field plain.bind="!isEditing" label="Password" required>
+                    <ui-field-wrapper>
+                      <ui-input
+                        value.bind="model.password & validate"
+                        type.bind="showPassword ? 'text' : 'password'"
+                        placeholder="Password..."
+                      >
+                        <ui-input-addon icon="mdi mdi-key"></ui-input-addon>
+                        <ui-input-addon align-end>
+                          <ui-button
+                            type="tool"
+                            size="sm"
+                            ui-tooltip.bind="showPassword ? 'Hide Password' : 'Show Password'"
+                            ui-theme="warning"
+                            click.trigger="showPassword = !showPassword"
+                            icon="mdi ${showPassword ? 'mdi-eye-off' : 'mdi-eye'}"
+                          ></ui-button>
+                        </ui-input-addon>
+                      </ui-input>
+                    </ui-field-wrapper>
+                  </ui-field>
+                </ui-col>
+              </ui-row>
+              <hr />
+              <ui-row>
+                <ui-col>
+                  <ui-field plain.bind="!isEditing" label="First Name">
+                    <ui-field-wrapper>
+                      <ui-dropdown
+                        value.bind="model.salutation & validate"
+                        options.bind="['Mr.','Miss','Mrs.','Dr.']"
+                      ></ui-dropdown>
+                      <ui-input
+                        autofocus
+                        value.bind="model.firstName & validate"
+                        placeholder="First name..."
+                        counter
+                        clear
+                      ></ui-input>
+                    </ui-field-wrapper>
+                  </ui-field>
+                </ui-col>
+                <ui-col>
+                  <ui-field plain.bind="!isEditing" label="Last Name">
+                    <ui-input
+                      value.bind="model.lastName & validate"
+                      placeholder="Last name..."
+                      clear
+                      counter
+                    ></ui-input>
+                  </ui-field>
+                </ui-col>
+              </ui-row>
+              <ui-row>
+                <ui-col>
+                  <ui-field plain.bind="!isEditing" label="Address">
+                    <ui-textarea
+                      placeholder="Address...."
+                      rows="3"
+                      counter
+                      maxlength="999"
+                      value.bind="model.address & validate"
+                    ></ui-textarea>
+                    <ui-input-info ui-color="muted" ui-font="sm">Shipping address</ui-input-info>
+                  </ui-field>
+                  <ui-field plain.bind="!isEditing" label="Country">
+                    <ui-select
+                      placeholder="Select a country..."
+                      options.bind="countries"
+                      value.bind="model.country & validate"
+                      value-property="iso2"
+                      label-property="name"
+                      group-property="continent"
+                    >
+                      <ui-input-addon>
+                        <ui-flag code.bind="model.country"></ui-flag>
+                      </ui-input-addon>
+                      <template>
+                        <ui-flag size="md" code.bind="$value"></ui-flag>&nbsp;
+                        <span innerhtml.bind="$label"></span>
+                        <ui-badge value.bind="$value"></ui-badge>
+                      </template>
+                    </ui-select>
+                  </ui-field>
+                </ui-col>
+                <ui-col>
+                  <ui-field plain.bind="!isEditing" label="Email">
+                    <ui-input
+                      type="email"
+                      value.bind="model.email & validate"
+                      placeholder="email@domain.com"
+                    >
+                      <ui-input-addon icon="mdi mdi-email"></ui-input-addon>
+                    </ui-input>
+                  </ui-field>
+                  <ui-field plain.bind="!isEditing" label="Phone">
+                    <ui-field-wrapper>
+                      <ui-phone
+                        type="mobile"
+                        value.bind="model.phoneMobile & validate"
+                        disabled.bind="!model.country"
+                        country.bind="model.country"
+                      ></ui-phone>
+                      <ui-phone
+                        type="local"
+                        value.bind="model.phoneLocal & validate"
+                        disabled.bind="!model.country"
+                        country.bind="model.country"
+                      ></ui-phone>
+                    </ui-field-wrapper>
+                    <ui-input-info ui-font="sm" ui-align="center">
+                      <ui-row><ui-col>Mobile</ui-col><ui-col>Work</ui-col></ui-row>
+                    </ui-input-info>
+                  </ui-field>
+                  <ui-field plain.bind="!isEditing" label="Gender">
+                    <ui-option-group value="m">
+                      <ui-radio model="m"><img src.bind="images.male" height="18" /> Male</ui-radio>
+                      <ui-radio model="f">
+                        <img src.bind="images.female" height="18" /> Female
+                      </ui-radio>
+                    </ui-option-group>
+                  </ui-field>
+                </ui-col>
+              </ui-row>
+              <hr />
+              <ui-row>
+                <ui-col>
+                  <ui-fieldset label="Repo URL" with.bind="{rInput:1}">
+                    <ui-field plain.bind="!isEditing" label="Github">
+                      <ui-field-wrapper>
+                        <ui-input-addon>
+                          <ui-radio name="radio" model.bind="1" checked.bind="rInput"></ui-radio>
+                        </ui-input-addon>
+                        <ui-input
+                          disabled.bind="rInput !== 1"
+                          placeholder="Github account..."
+                        ></ui-input>
+                      </ui-field-wrapper>
+                    </ui-field>
+                    <ui-field plain.bind="!isEditing" label="Gitlab">
+                      <ui-field-wrapper>
+                        <ui-input-addon>
+                          <ui-radio name="radio" model.bind="2" checked.bind="rInput"></ui-radio>
+                        </ui-input-addon>
+                        <ui-input
+                          disabled.bind="rInput !== 2"
+                          placeholder="Gitlab account..."
+                        ></ui-input>
+                      </ui-field-wrapper>
+                    </ui-field>
+                    <ui-field plain.bind="!isEditing" label="VS Team Services">
+                      <ui-field-wrapper>
+                        <ui-input-addon>
+                          <ui-radio name="radio" model.bind="3" checked.bind="rInput"></ui-radio>
+                        </ui-input-addon>
+                        <ui-input
+                          disabled.bind="rInput !== 3"
+                          placeholder="VS Team Services account..."
+                        ></ui-input>
+                      </ui-field-wrapper>
+                    </ui-field>
+                  </ui-fieldset>
+                </ui-col>
+                <ui-col>
+                  <ui-fieldset label="Social Media" with.bind="{cInput:[]}">
+                    <ui-field plain.bind="!isEditing" label="Twitter">
+                      <ui-field-wrapper>
+                        <ui-input-addon>
+                          <ui-checkbox model.bind="1" checked.bind="cInput"></ui-checkbox>
+                        </ui-input-addon>
+                        <ui-input
+                          disabled.bind="!(cInput.length && cInput.includes(1))"
+                          placeholder="Twitter handle..."
+                        ></ui-input>
+                      </ui-field-wrapper>
+                    </ui-field>
+                    <ui-field plain.bind="!isEditing" label="Facebook">
+                      <ui-field-wrapper>
+                        <ui-input-addon>
+                          <ui-checkbox model.bind="2" checked.bind="cInput"></ui-checkbox>
+                        </ui-input-addon>
+                        <ui-input
+                          disabled.bind="!(cInput.length && cInput.includes(2))"
+                          placeholder="Facebook account..."
+                        ></ui-input>
+                      </ui-field-wrapper>
+                    </ui-field>
+                    <ui-field plain.bind="!isEditing" label="Google+">
+                      <ui-field-wrapper>
+                        <ui-input-addon>
+                          <ui-checkbox model.bind="3" checked.bind="cInput"></ui-checkbox>
+                        </ui-input-addon>
+                        <ui-input
+                          disabled.bind="!(cInput.length && cInput.includes(3))"
+                          placeholder="Google+ account..."
+                        ></ui-input>
+                      </ui-field-wrapper>
+                    </ui-field>
+                  </ui-fieldset>
+                </ui-col>
+              </ui-row>
+              <hr />
+              <div>
+                <ui-toggle ui-theme="secondary" label-off="'No'" label-on="'Yes'" width="3rem"
+                  >Receive Newsletter</ui-toggle
+                >
+              </div>
+              <div>
+                <ui-toggle ui-theme="danger" label-off="'No'" label-on="'Yes'" width="3rem"
+                  >Show Premium Offers</ui-toggle
+                >
+              </div>
+              <div>
+                <ui-toggle ui-theme="info" width="3rem">Some Other Options</ui-toggle>
+              </div>
+              <ui-toolbar ui-padding="x--sm y--xs" ui-margin="t--md">
+                <ui-checkbox checked.bind="agree"
+                  >I Agree to the <a ui-link>Terms &amp; Conditions</a></ui-checkbox
+                >
+                <ui-filler></ui-filler>
+                <ui-button type="" ui-theme="danger" click.trigger="reset()">Cancel</ui-button>
+                <ui-button
+                  type="solid"
+                  ui-theme="success"
+                  disabled.bind="!agree"
+                  click.trigger="validate()"
+                  >Submit</ui-button
+                >
+              </ui-toolbar>
+            </ui-form>
+          </div>
+
+          <div class="x-example-options">
+            <h5>Options</h5>
+            <ui-toggle checked.bind="formDisabled">Disabled</ui-toggle>
+
+            <ui-button block width="8rem" ui-theme="success" click.trigger="validate()"
+              >Validate</ui-button
+            >
+            <ui-button block width="8rem" ui-theme="danger" click.trigger="reset()"
+              >Reset</ui-button
+            >
+          </div>
+        </div>
+
+        <div class="x-section-title">Using the Form</div>
+        <x-code-block lang="html" page="app.html" code.bind="formHtml"></x-code-block>
+
+        <div class="x-section-title">Properties</div>
+        <x-blockquote>Attributes marked with value <b>none</b> do not require a value</x-blockquote>
+        <x-code-table code-template.bind="formAttrs"></x-code-table>
+        <hr />
+        <x-code-table code-template.bind="fieldsetAttrs"></x-code-table>
+        <hr />
+        <x-code-table code-template.bind="fieldAttrs"></x-code-table>
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>

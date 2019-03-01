@@ -19,7 +19,7 @@ p {
 }
 
 q {
-  quotes: "\275d" "\275e";
+  quotes: "\275d""\275e";
 }
 
 a {
@@ -41,21 +41,32 @@ small {
 }
 
 mark {
-  background: var(--color-secondary-tint);
+  background: mix($secondary, $white, 10%);
 }
 
 img {
   border: 0;
 }
 
+pre {
+  font-family: $font-family-mono;
+  font-weight: $font-weight-normal;
+}
+
 code {
-  background: var(--color-danger-tint);
+  background: rgba($gray, 0.1);
+  color: rgba($danger, 0.75);
   font-family: $font-family-mono;
   padding: 0 0.1em;
 }
 
+article {
+  font-size: 1.2rem;
+  line-height: 2.2;
+}
+
 abbr[title] {
-  border-bottom: 1px dashed var(--base-border);
+  border-bottom: 1px dashed rgba($base-color, 0.75);
   cursor: help;
   text-decoration: none;
 }
@@ -76,11 +87,21 @@ ol {
   }
 }
 
+[data-style="none"] {
+  list-style-type: none;
+}
 [data-style="circle"] {
   list-style-type: circle;
 }
 [data-style="square"] {
   list-style-type: square;
+}
+[data-style="blank"] {
+  list-style: none;
+  &::before,
+  li::before {
+    content: "\00A0";
+  }
 }
 [data-style="check"] {
   list-style: none;
@@ -96,6 +117,13 @@ ol {
     content: "\2715";
   }
 }
+[data-style="arrow"] {
+  list-style: none;
+  &::before,
+  li::before {
+    content: "\2192";
+  }
+}
 
 table {
   border-spacing: 2px;
@@ -109,8 +137,8 @@ table {
   }
 
   thead th {
-    background: var(--table-head-bg);
-    color: var(--table-head-color);
+    background: $table-head-bg;
+    color: $table-head-color;
   }
 
   td {
@@ -118,11 +146,11 @@ table {
   }
 
   tr:nth-child(even) {
-    background-color: var(--base-bg);
+    background-color: $row-even-bg;
   }
 
   tr:nth-child(odd) {
-    background-color: var(--base-component);
+    background-color: $row-odd-bg;
   }
 
   @include max-breakpoint(sm) {

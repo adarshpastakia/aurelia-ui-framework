@@ -1,15 +1,17 @@
 /**
  * @author    : Adarsh Pastakia
  * @version   : 5.0.0
- * @copyright : 2018
+ * @copyright : 2019
  * @license   : MIT
  */
-import { autoinject, bindable, bindingMode, children, customElement } from "aurelia-framework";
-import { UIDrop } from "../core/ui-drop";
-import { UIInternal } from "../utils/ui-internal";
 
-@autoinject()
+import { bindable, bindingMode, customElement, inlineView } from "aurelia-framework";
+import { UIDrop } from "../shared/ui-drop";
+import { UIInternal } from "../utils/ui-internal";
+import view from "./ui-dropdown.html";
+
 @customElement("ui-dropdown")
+@inlineView(view)
 export class UIDropdown {
   @bindable({ defaultBindingMode: bindingMode.twoWay })
   public value: AnyObject = undefined;
@@ -28,6 +30,8 @@ export class UIDropdown {
   public valueProperty: string = "";
   @bindable()
   public iconProperty: string = "";
+  @bindable()
+  public iconPrefix: string = "";
   @bindable()
   public options: AnyObject[];
 
@@ -50,11 +54,9 @@ export class UIDropdown {
     }
   }
 
-  protected select($event: UIEvent): void {
-    if ($event.detail) {
-      this.model = $event.detail;
-      this.value = this.model[this.valueProperty] || this.model;
-    }
+  protected select(model: AnyObject): void {
+    this.model = model;
+    this.value = this.model[this.valueProperty] || this.model;
   }
 
   private toggleDrop($event: Event): void {

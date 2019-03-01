@@ -1,11 +1,12 @@
 /**
  * @author    : Adarsh Pastakia
- * @version   : 1.0.0
- * @copyright : 2018
+ * @version   : 5.0.0
+ * @copyright : 2019
  * @license   : MIT
  */
+
 import { computedFrom } from "aurelia-framework";
-import { UIDrop } from "../core/ui-drop";
+import { UIDrop } from "../shared/ui-drop";
 import { UIInternal } from "../utils/ui-internal";
 
 export class BaseInput {

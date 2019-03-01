@@ -1,0 +1,17 @@
+<template>
+  <ui-menu>
+    <template repeat.for="[key, routes] of router.navigation | group:'config.group'">
+      <ui-menu-group label.bind="key" collapsible ui-border="0">
+        <template repeat.for="route of routes">
+          <ui-menu-item
+            if.bind="route.nav !== false"
+            href.bind="route.href"
+            active.bind="route.isActive"
+          >
+            ${route.title}
+          </ui-menu>
+        </template>
+      </ui-menu-group>
+    </template>
+  </ui-menu>
+</template>

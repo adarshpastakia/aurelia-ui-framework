@@ -1,0 +1,51 @@
+<template>
+  <ui-page page-title="Icons">
+    <ui-content ui-scroll ui-padding>
+      <div class="x-section-title">Examples</div>
+      <div
+        class="x-example-block"
+        with.bind="{type:'normal',theme:'default', busy:false, disabled:false}"
+      >
+        <div class="x-example-display">
+          <h5>Simple Icons</h5>
+          <ui-row auto ui-font="xl" ui-gutter="lg">
+            <ui-icon class="ui-col" ui-color.bind="theme" icon="mdi mdi-home"></ui-icon>
+            <ui-icon class="ui-col" ui-color.bind="theme" icon="mdi mdi-account-circle"></ui-icon>
+            <ui-icon round class="ui-col" ui-color.bind="theme" icon="mdi mdi-tune"></ui-icon>
+          </ui-row>
+
+          <hr />
+          <h5>Image Icons</h5>
+          <ui-row auto ui-font="xl" ui-gutter="lg" valign="middle">
+            <ui-icon round class="ui-col" size="lg"><img src.bind="images.female"/></ui-icon>
+            <ui-icon round class="ui-col" size="md"><img src.bind="images.male"/></ui-icon>
+          </ui-row>
+
+          <hr />
+          <h5>Flag Icons</h5>
+          <ui-row auto ui-font="xl" ui-gutter="lg" valign="middle">
+            <ui-flag class="ui-col" code="gb"></ui-flag>
+            <ui-flag class="ui-col" code="au"></ui-flag>
+            <ui-flag round class="ui-col" size="md" code="in"></ui-flag>
+            <ui-flag round class="ui-col" size="md" code="ae"></ui-flag>
+          </ui-row>
+        </div>
+
+        <div class="x-example-options">
+          <h5>Options</h5>
+          <ui-field label="Color">
+            <ui-dropdown value.bind="theme" options.bind="colors"></ui-dropdown>
+          </ui-field>
+        </div>
+      </div>
+
+      <div class="x-section-title">Using the Icons</div>
+      <x-code-block lang="html" page="app.html" code.bind="iconHtml"></x-code-block>
+
+      <div class="x-section-title">Properties</div>
+      <x-code-table code-template.bind="iconAttrs"></x-code-table>
+      <hr />
+      <x-code-table code-template.bind="flagAttrs"></x-code-table>
+    </ui-content>
+  </ui-page>
+</template>

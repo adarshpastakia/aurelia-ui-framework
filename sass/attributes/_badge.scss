@@ -1,0 +1,40 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2018
+// @license   : MIT
+
+.ui-badge {
+  background-color: rgba($base-invert, 0.95);
+  border-radius: 1em;
+  box-shadow: 0 0 0 1px rgba($base-color, 0.25) inset;
+  color: $base-theme;
+  display: inline-grid;
+  font-size: 0.8em;
+  line-height: 1.5em;
+  margin: 0.25rem;
+  overflow: hidden;
+  padding: 0 0.5em;
+  vertical-align: middle;
+
+  &--md {
+    font-size: 1em;
+  }
+  &--lg {
+    font-size: 1.2em;
+  }
+
+  @mixin make-badge($theme, $theme-color) {
+    &.ui-theme--#{$theme} {
+      background-color: rgba($theme-color, 0.95);
+      color: $white;
+    }
+  }
+
+  @each $label, $color in $base-colors {
+    @include make-badge($label, mix($color, $gray, 75%));
+  }
+
+  @each $label, $color in $color-list {
+    @include make-badge($label, mix($color, $gray, 75%));
+  }
+}

@@ -60,7 +60,7 @@ export class UIButtonGroup {
 
   protected valueChanged(newValue, oldValue): void {
     if (this.buttons) {
-      const btn = this.buttons.find(b => b.value === newValue);
+      const btn = this.buttons.find(b => b.id === newValue);
       if (btn) {
         if (this.currentSelected) {
           this.currentSelected.active = false;
@@ -72,7 +72,7 @@ export class UIButtonGroup {
     }
   }
 
-  private buttonClicked($event: CustomEvent): void {
+  protected buttonClicked($event: CustomEvent): void {
     $event.stopEvent();
     if ($event.detail && this.toggle) {
       this.value = $event.detail;

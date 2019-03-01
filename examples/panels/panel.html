@@ -1,0 +1,116 @@
+<template>
+  <ui-page page-title="Sidebar">
+    <ui-content ui-scroll ui-padding>
+      <ui-container>
+        <p class="x-page-title">Collapsible and closeable panels</p>
+
+        <div class="x-section-title">Examples</div>
+        <div
+          class="x-example-block"
+          with.bind="{align:'start',halign:'top',trigger:'peek', width:'280px'}"
+        >
+          <div class="x-example-display">
+            <ui-row ui-gutter="md">
+              <ui-col size="6@lg">
+                <ui-panel
+                  label="Simple Panel"
+                  icon="mdi mdi-account-circle"
+                  max-height="20em"
+                  beforeclose.trigger="false"
+                  collapsible
+                  ui-paper
+                >
+                  <ui-content ui-padding ui-scroll>
+                    <p><lipsum-para></lipsum-para></p>
+                    <p><lipsum-para></lipsum-para></p>
+                    <p><lipsum-para></lipsum-para></p>
+                  </ui-content>
+                </ui-panel>
+              </ui-col>
+
+              <ui-col size="6@lg">
+                <ui-panel
+                  label="Collapsing Panel"
+                  icon="mdi mdi-account-circle"
+                  max-height="20em"
+                  beforeclose.trigger="false"
+                  closeable
+                  collapsible
+                >
+                  <ui-content ui-padding ui-scroll>
+                    <p><lipsum-para></lipsum-para></p>
+                    <p><lipsum-para></lipsum-para></p>
+                    <p><lipsum-para></lipsum-para></p>
+                  </ui-content>
+                </ui-panel>
+              </ui-col>
+
+              <ui-col size="6@lg">
+                <ui-panel
+                  ui-theme="info"
+                  max-height="20em"
+                  beforeclose.trigger="false"
+                  closeable
+                  collapsible
+                >
+                  <ui-header label="Header Actions" icon="mdi mdi-account-circle">
+                    <ui-header-actions>
+                      <ui-button type="tool" icon="mdi mdi-settings"></ui-button>
+                    </ui-header-actions>
+                  </ui-header>
+                  <ui-content ui-padding ui-scroll>
+                    <p><lipsum-para></lipsum-para></p>
+                    <p><lipsum-para></lipsum-para></p>
+                    <p><lipsum-para></lipsum-para></p>
+                  </ui-content>
+                  <ui-footer>
+                    <ui-toolbar align-end>
+                      <ui-button size="sm" type="outline" ui-theme="danger">Cancel</ui-button>
+                      <ui-button size="sm" type="solid" ui-theme="success">Save</ui-button>
+                    </ui-toolbar>
+                  </ui-footer>
+                </ui-panel>
+              </ui-col>
+
+              <ui-col size="6@lg">
+                <ui-panel
+                  ui-theme="dark"
+                  max-height="20em"
+                  beforeclose.trigger="false"
+                  closeable
+                  collapsible
+                >
+                  <ui-header label="Header Actions">
+                    <ui-header-icon ui-bg="red-dark" icon="mdi mdi-account-circle"></ui-header-icon>
+                  </ui-header>
+                  <ui-content ui-padding ui-scroll>
+                    <p><lipsum-para></lipsum-para></p>
+                    <p><lipsum-para></lipsum-para></p>
+                    <p><lipsum-para></lipsum-para></p>
+                  </ui-content>
+                  <ui-footer>
+                    <ui-toolbar align-end>
+                      <ui-button size="sm" type="outline" ui-theme="danger">Cancel</ui-button>
+                      <ui-button size="sm" type="solid" ui-theme="success">Save</ui-button>
+                    </ui-toolbar>
+                  </ui-footer>
+                </ui-panel>
+              </ui-col>
+            </ui-row>
+          </div>
+
+          <div class="x-example-options">
+            <h5>Options</h5>
+          </div>
+        </div>
+
+        <div class="x-section-title">Using the Panel</div>
+        <x-code-block lang="html" page="app.html" code.bind="panelHtml"></x-code-block>
+
+        <div class="x-section-title">Properties</div>
+        <x-blockquote>Attributes marked with value <b>none</b> do not require a value</x-blockquote>
+        <x-code-table code-template.bind="panelAttrs"></x-code-table>
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>

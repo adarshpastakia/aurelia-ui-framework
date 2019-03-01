@@ -1,0 +1,13 @@
+<template
+  class="ui-input ui-list ${classes}"
+  aria-disabled.bind="disabled || isDisabled"
+  aria-readonly.bind="readonly"
+>
+  <input-wrapper model.bind="$this">
+    <slot></slot>
+    <list-input></list-input>
+    <div class="ui-list__container" ref="listContainer" css.bind="{height}">
+      <list-container></list-container>
+    </div>
+  </input-wrapper>
+</template>

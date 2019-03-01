@@ -1,0 +1,46 @@
+<template>
+  <ui-page page-title="Countries">
+    <ui-content ui-padding ui-scroll>
+      <div
+        with.bind="{colors:{'Africa':'green','Asia':'red','Europe':'indigo','Oceania':'blue','North America':'teal-dark','South America':'orange'}}"
+      >
+        <template repeat.for="[key, items] of countries">
+          <p ui-weight="bold">${key}</p>
+          <ui-grid size="md">
+            <template repeat.for="c of items">
+              <ui-card>
+                <ui-header ui-border="s md ${colors[key]}">
+                  <ui-header-title>${c.name}</ui-header-title>
+                  <ui-header-actions>
+                    <ui-flag round code.bind="c.iso2" size="lg"></ui-flag>
+                  </ui-header-actions>
+                </ui-header>
+                <ui-card-title>${c.fullname}</ui-card-title>
+                <ui-card-meta>
+                  <span>${c.iso2}</span>
+                  <span>${c.iso3}</span>
+                </ui-card-meta>
+                <ui-card-meta>
+                  <span ui-weight="medium">Capital</span>
+                  <span ui-align="end">${c.capital}</span>
+                </ui-card-meta>
+                <ui-card-meta>
+                  <span ui-weight="medium">Currency</span>
+                  <span ui-align="end">
+                    <bdi>${c.currency}</bdi>
+                  </span>
+                </ui-card-meta>
+                <ui-card-meta> </ui-card-meta>
+                <ui-card-meta>
+                  <span><bdi>${c.phone}</bdi></span>
+                  <span><bdi>${c.tld}</bdi></span>
+                </ui-card-meta>
+              </ui-card>
+            </template>
+          </ui-grid>
+          <hr if.bind="!$last" />
+        </template>
+      </div>
+    </ui-content>
+  </ui-page>
+</template>

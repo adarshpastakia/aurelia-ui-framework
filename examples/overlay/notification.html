@@ -1,0 +1,29 @@
+<template>
+  <ui-page page-title="Notification Service">
+    <ui-content ui-scroll ui-padding>
+      <ui-container>
+        <p class="x-page-title">Service to render overlay alerts, messages and toast notifications</p>
+
+        <div class="x-section-title">Examples</div>
+        <div
+          class="x-example-block"
+          with.bind="{type:'normal',theme:'default', busy:false, disabled:false}"
+        >
+          <div class="x-example-display">
+            <ui-button click.trigger="openAlertbox()">Alertbox</ui-button>
+            <ui-button click.trigger="openConfirmation()">Confirmation</ui-button>
+            <ui-button click.trigger="showMessage()">Message</ui-button>
+            <ui-button click.trigger="showNotification()">Notification</ui-button>
+          </div>
+
+          <div class="x-example-options">
+            <h5>Options</h5>
+          </div>
+        </div>
+
+        <div class="x-section-title">Using the Service</div>
+        <x-code-block lang="ts" page="page.ts" code.bind="notifJs"></x-code-block>
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>

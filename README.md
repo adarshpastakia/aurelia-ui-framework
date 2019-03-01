@@ -4,17 +4,17 @@ Current test site https://aurelia-ui-framework.herokuapp.com
 
 * Running examples
 
-  `yarn start`
+  `npm start`
 
 * Building the plugin
 
-  `yarn dist`
+  `npm dist`
 
 * Using plugin as local link
 
-  `aurelia-ui-framework$> yarn link`
+  `aurelia-ui-framework$> npm link`
 
-  `project$> yarn link aurelia-ui-framework`
+  `project$> npm link aurelia-ui-framework`
 
   > webpack.config `resolve.symlinks = false`
 

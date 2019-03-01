@@ -1,0 +1,24 @@
+<template>
+  <ui-page page-title="Getting Started">
+    <ui-content ui-scroll ui-padding>
+      <ui-container>
+        <x-blockquote>
+          Pre-required knowledge of building aurelia applications. If you havent used aurelia before
+          <a ui-link href="//aurelia.io" target="_blank">click here</a> to learn
+        </x-blockquote>
+
+        <div class="x-section-title">Installing the plugin</div>
+        <x-code-block lang="shell" code.bind="install"></x-code-block>
+
+        <div class="x-section-title">Configuring the plugin</div>
+        <x-blockquote type="alert">
+          PLATFORM.moduleName is only required if you are using Webpack.
+        </x-blockquote>
+        <x-code-block lang="ts" page="main.ts" code.bind="configure"></x-code-block>
+
+        <div class="x-section-title">Using the config callback</div>
+        <x-code-table code-template.bind="configProps"></x-code-table>
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>

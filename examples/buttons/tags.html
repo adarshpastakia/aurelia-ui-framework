@@ -1,0 +1,67 @@
+<template>
+  <ui-page page-title="Tags">
+    <ui-content ui-scroll ui-padding>
+      <ui-container>
+        <p class="x-page-title">Tag Labels</p>
+
+        <div class="x-section-title">Examples</div>
+        <div
+          class="x-example-block"
+          with.bind="{type:'normal',theme:'default', busy:false, disabled:false}"
+        >
+          <div class="x-example-display">
+            <h5>Simple Tags</h5>
+            <ui-tag ui-theme.bind="theme">Label</ui-tag>
+            <ui-tag ui-theme.bind="theme" label="Label">Value</ui-tag>
+            <ui-tag ui-theme.bind="theme" label="Label" closeable beforeclose.trigger="false"
+              >Value</ui-tag
+            >
+
+            <hr />
+            <h5>Icon Tags</h5>
+            <ui-tag ui-theme.bind="theme" icon="mdi mdi-account" size="sm">Label</ui-tag>
+            <ui-tag ui-theme.bind="theme" size="md">
+              <img slot="avatar" src.bind="images.female" />
+              Value
+            </ui-tag>
+            <ui-tag ui-theme.bind="theme" size="md">
+              <img slot="avatar" src.bind="images.male" />
+              Value
+            </ui-tag>
+            <ui-tag ui-theme.bind="theme" size="lg">
+              <ui-flag slot="avatar" code="IN"></ui-flag>
+              Value
+            </ui-tag>
+
+            <hr />
+            <h5>Solid Tags</h5>
+            <ui-tag type="solid" ui-theme.bind="theme">Label</ui-tag>
+            <ui-tag type="solid" ui-theme.bind="theme" label="Label">Value</ui-tag>
+            <ui-tag type="solid" ui-theme.bind="theme" label="Label" closeable>Value</ui-tag>
+            <ui-tag type="solid" ui-theme.bind="theme" icon="mdi mdi-account" size="md"
+              >Label</ui-tag
+            >
+            <ui-tag type="solid" ui-theme.bind="theme" size="lg">
+              <ui-flag slot="avatar" code="AE"></ui-flag>
+              Value
+            </ui-tag>
+          </div>
+
+          <div class="x-example-options">
+            <h5>Options</h5>
+            <ui-field label="Theme">
+              <ui-dropdown value.bind="theme" options.bind="colors"></ui-dropdown>
+            </ui-field>
+          </div>
+        </div>
+
+        <div class="x-section-title">Using the Tags</div>
+        <x-code-block lang="html" page="app.html" code.bind="tagHtml"></x-code-block>
+
+        <div class="x-section-title">Properties</div>
+        <x-blockquote>Attributes marked with value <b>none</b> do not require a value</x-blockquote>
+        <x-code-table code-template.bind="tagAttrs"></x-code-table>
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>

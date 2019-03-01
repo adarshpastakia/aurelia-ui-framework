@@ -1,0 +1,51 @@
+<div
+  class="ui-dialog__wrapper"
+  data-modal.bind="true"
+  ref="__el"
+  keydown.delegate="__keyCheck($event.keyCode)"
+>
+  <input
+    blur.trigger="$event.target.focus()"
+    readonly.one-time="true"
+    tabindex="0"
+    css.bind="{opacity:0}"
+    ref="keyEl"
+  />
+  <div
+    class="ui-panel-base ui-dialog"
+    ui-border="xy ${theme}"
+    data-active.bind="true"
+    css.bind="{minWidth: '18rem'}"
+  >
+    <div class="ui-panel__body" ref="vmElement">
+      <ui-row ui-color.bind="theme">
+        <ui-col ui-padding="sm" size="auto" if.bind="icon" ui-font="xl">
+          <ui-icon icon.bind="icon"></ui-icon>
+        </ui-col>
+        <ui-col ui-padding="sm" size="fill">
+          <div if.bind="title" ui-weight="medium" innerhtml.bind="title"></div>
+          <div innerhtml.bind="message"></div>
+        </ui-col>
+      </ui-row>
+    </div>
+    <div class="ui-footer" ui-padding="y--sm" ui-align="center">
+      <ui-button
+        if.bind="type!=='alert'"
+        click.trigger="__close(false)"
+        ui-theme.bind="theme"
+        type="outline"
+        size="sm"
+        css.bind="{minWidth:'4rem'}"
+        >${cancelLabel}</ui-button
+      >
+      <ui-button
+        click.trigger="__close(true)"
+        ui-theme.bind="theme"
+        type="solid"
+        size="sm"
+        css.bind="{minWidth:'4rem'}"
+        >${okLabel}</ui-button
+      >
+    </div>
+  </div>
+</div>

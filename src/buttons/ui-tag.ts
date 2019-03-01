@@ -5,53 +5,48 @@
  * @license   : MIT
  */
 
-import {
-  autoinject,
-  bindable,
-  containerless,
-  customElement,
-  DOM,
-  inlineView
-} from "aurelia-framework";
+import { bindable, containerless, customElement, DOM, inlineView } from "aurelia-framework";
 import { UIInternal } from "../utils/ui-internal";
 
-@autoinject()
 @containerless()
 @customElement("ui-tag")
 @inlineView(
-  `<template><a class="ui-badge ui-badge--\${style} ui-badge--\${size}" click.delegate="fireClick($event)" ref="vmElement">
-    <div class="ui-badge__label"><slot></slot></div>
-    <div class="ui-badge__icon"><slot name="avatar"><ui-icon if.bind="icon" icon.bind="icon"></ui-icon></slot></div>
-    <div class="ui-badge__value">\${value}</div>
-    <div class="ui-badge__close" if.bind="closeable" click.trigger="[$event.stopEvent(), close()]">&times;</div>
+  `<template><a class="ui-tag ui-tag--\${type} ui-tag--\${size}" click.delegate="fireClick($event)" ref="vmElement">
+    <div class="ui-tag__label">\${label}</div>
+    <div class="ui-tag__icon"><slot name="avatar"><ui-icon if.bind="icon" icon.bind="icon"></ui-icon></slot></div>
+    <div class="ui-tag__value"><slot></slot></div>
+    <div class="ui-tag__close" if.bind="closeable" click.trigger="[$event.stopEvent(), close()]">&times;</div>
   </a></template>`
 )
 export class UITag {
   @bindable()
-  public value: string = "";
+  public id: string = "";
+  @bindable()
+  public label: string = "";
   @bindable()
   public icon: string = "";
   @bindable()
   public href: string = "";
   @bindable()
-  public size: string = "nm";
+  public size: "nm" | "md" | "lg" = "nm";
+  @bindable()
+  public type: "normal" | "solid" = "normal";
 
   protected vmElement: HTMLAnchorElement;
 
-  private style: string = "normal";
-  private closeable: boolean = false;
+  protected style: string = "normal";
+  protected closeable: boolean = false;
 
   constructor(protected element: Element) {
-    if (element.hasAttribute("solid")) {
-      this.style = "solid";
-    }
     this.closeable = element.hasAttribute("closeable");
 
     this.hrefChanged();
   }
 
   public close(): void {
-    UIInternal.fireCallbackEvent(this, "beforeclose").then(b => (b ? this.remove() : undefined));
+    UIInternal.fireCallbackEvent(this, "beforeclose", this.id).then(b =>
+      b ? this.remove() : undefined
+    );
   }
 
   protected hrefChanged(): void {
@@ -67,12 +62,12 @@ export class UITag {
   protected fireClick($event: MouseEvent): boolean {
     if (!this.href) {
       $event.stopEvent();
-      return this.element.dispatchEvent(UIInternal.createEvent("click", this.value));
+      return this.element.dispatchEvent(UIInternal.createEvent("click", this.id));
     }
   }
 
   private remove(): void {
-    this.element.dispatchEvent(UIInternal.createEvent("close"));
+    this.element.dispatchEvent(UIInternal.createEvent("close", this.id));
     UIInternal.queueTask(() => DOM.removeNode(this.vmElement));
   }
 }

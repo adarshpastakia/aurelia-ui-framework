@@ -1,20 +1,22 @@
 /**
  * @author    : Adarsh Pastakia
  * @version   : 5.0.0
- * @copyright : 2018
+ * @copyright : 2019
  * @license   : MIT
  */
-import { autoinject, bindable, customElement, inlineView } from "aurelia-framework";
+
+import { bindable, customElement, inlineView } from "aurelia-framework";
 import { BaseInput } from "./base-input";
 
-@autoinject()
 @customElement("ui-input-addon")
 @inlineView(
-  `<template class="ui-input__addon" click.trigger="focusInput() & debounce:10" css.bind="{width}"><slot></slot></template>`
+  `<template class="ui-input__addon" click.trigger="focusInput() & debounce:10" css.bind="{width}"><slot><ui-icon icon.bind="icon"></ui-icon></slot></template>`
 )
 export class UIInputAddon {
   @bindable()
   protected width: string = "auto";
+  @bindable()
+  protected icon: string = "";
 
   constructor(protected element: Element) {
     if (element.hasAttribute("align-end")) {
@@ -38,11 +40,4 @@ export class UIInputAddon {
       //
     }
   }
-}
-
-@autoinject()
-@customElement("ui-input-info")
-@inlineView(`<template class="ui-input__info"><slot></slot></template>`)
-export class UIInputInfo {
-  constructor(protected element: Element) {}
 }

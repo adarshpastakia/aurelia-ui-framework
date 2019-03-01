@@ -48,7 +48,7 @@ isDecimal = function(a) {
   return typeof a === "number";
 };
 isObject = function(a) {
-  return typeof a === "object";
+  return a && typeof a === "object";
 };
 
 isFunction = function(a) {

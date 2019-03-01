@@ -1,15 +1,16 @@
 /**
  * @author    : Adarsh Pastakia
  * @version   : 5.0.0
- * @copyright : 2018
+ * @copyright : 2019
  * @license   : MIT
  */
 
-import { autoinject, bindable, bindingMode, computedFrom, customElement } from "aurelia-framework";
+import { bindable, bindingMode, computedFrom, customElement, inlineView } from "aurelia-framework";
 import { UIInternal } from "../utils/ui-internal";
+import view from "./ui-dialog.html";
 
-@autoinject()
 @customElement("ui-dialog")
+@inlineView(view)
 export class UIDialogElement {
   @bindable()
   public label = "";

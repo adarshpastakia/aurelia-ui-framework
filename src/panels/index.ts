@@ -1,27 +1,34 @@
-import { UIAlert } from "./ui-alert";
-import { UIFooter, UIHeader, UIHeaderActions, UIHeaderIcon, UIHeaderTitle } from "./ui-base";
-import { UICard } from "./ui-card";
-import { UICardContent, UICardList, UICardMedia, UICardMeta, UICardTitle } from "./ui-card-body";
-import { UIDialogElement } from "./ui-dialog";
-import { UIPanel, UIPanelGroup } from "./ui-panel";
-import { UITab, UITabPanel } from "./ui-tab-panel";
+/**
+ * @author    : Adarsh Pastakia
+ * @version   : 5.0.0
+ * @copyright : 2019
+ * @license   : MIT
+ */
 
-export default [
-  UIAlert,
-  UICard,
-  UICardContent,
-  UICardList,
-  UICardMedia,
-  UICardMeta,
-  UICardTitle,
-  UIDialogElement,
-  UIPanel,
-  UIPanelGroup,
-  UITab,
-  UITabPanel,
+import { UIAlert } from "./ui-alert";
+import { UIDialogElement } from "./ui-dialog";
+import { UIDrawer } from "./ui-drawer";
+import { UIDrawerToggle } from "./ui-drawer-toggle";
+import { UIFooter } from "./ui-footer";
+import { UIHeader } from "./ui-header";
+import { UIHeaderActions } from "./ui-header-actions";
+import { UIHeaderIcon } from "./ui-header-icon";
+import { UIHeaderTitle } from "./ui-header-title";
+import { UIPanel } from "./ui-panel";
+import { UISidebar } from "./ui-sidebar";
+import { UIToolbar } from "./ui-toolbar";
+
+export const Panels = [
   UIHeader,
-  UIHeaderActions,
   UIHeaderIcon,
   UIHeaderTitle,
-  UIFooter
+  UIHeaderActions,
+  UIFooter,
+  UIDrawer,
+  UIDrawerToggle,
+  UISidebar,
+  UIToolbar,
+  UIPanel,
+  UIDialogElement,
+  UIAlert
 ];

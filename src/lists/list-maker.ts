@@ -1,9 +1,10 @@
 /**
  * @author    : Adarsh Pastakia
  * @version   : 5.0.0
- * @copyright : 2018
+ * @copyright : 2019
  * @license   : MIT
  */
+
 import { BaseInput } from "../forms/base-input";
 import { UIInternal } from "../utils/ui-internal";
 
@@ -312,11 +313,11 @@ export class ListMaker extends BaseInput {
             ? this.markOption(option)
             : option[this.labelProperty] || option,
         $model: option,
-        $value: option[this.labelProperty] || option
+        $value: option[this.valueProperty] || option
       };
-      if (isObject(option)) {
-        Object.assign(model, option);
-      }
+      // if (isObject(option)) {
+      //   Object.assign(model, option);
+      // }
       const view = UIInternal.compileTemplate(tpl, model);
       view.appendNodesTo(el);
     }

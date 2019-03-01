@@ -1,0 +1,68 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2019
+// @license   : MIT
+
+$shadow: #10161a;
+
+$black: #182026 !default;
+$gray-dark: #394b59 !default;
+$gray: #8a9ba8 !default;
+$gray-light: #d8e1e8 !default;
+$white: #f8fbfd !default;
+
+$teal: #00b3a4;
+$teal-dark: #008075;
+$green: #0f9960;
+$green-dark: #0a6640;
+$cyan: #17a2b8;
+$cyan-dark: #367989;
+$blue: #137cbd;
+$blue-dark: #0e5a8a;
+$indigo: #2b64a9;
+$indigo-dark: #1e4676;
+$violet: #8f398f;
+$violet-dark: #5c255c;
+$purple: #7157d9;
+$purple-dark: #5642a6;
+$yellow: #ffc940;
+$yellow-dark: #d99e0b;
+$orange: #d9822b;
+$orange-dark: #a66321;
+$red: #db3737;
+$red-dark: #a82a2a;
+$pink: #b6246b;
+$pink-dark: #a82255;
+
+$color-list: (
+  "teal": $teal,
+  "teal-dark": $teal-dark,
+  "green": $green,
+  "green-dark": $green-dark,
+  "cyan": $cyan,
+  "cyan-dark": $cyan-dark,
+  "blue": $blue,
+  "blue-dark": $blue-dark,
+  "indigo": $indigo,
+  "indigo-dark": $indigo-dark,
+  "violet": $violet,
+  "violet-dark": $violet-dark,
+  "purple": $purple,
+  "purple-dark": $purple-dark,
+  "yellow": $yellow,
+  "yellow-dark": $yellow-dark,
+  "orange": $orange,
+  "orange-dark": $orange-dark,
+  "red": $red,
+  "red-dark": $red-dark,
+  "pink": $pink,
+  "pink-dark": $pink-dark
+);
+
+$gray-list: (
+  "white": $white,
+  "black": $black,
+  gray-dark: $gray-dark,
+  gray: $gray,
+  gray-light: $gray-light
+);

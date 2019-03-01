@@ -7,16 +7,10 @@
 import { autoinject, singleton } from "aurelia-framework";
 import { getLogger } from "aurelia-logging";
 import { UIAppConfig } from "../utils/ui-app-config";
-import { UIInternal } from "../utils/ui-internal";
 
 @singleton()
 @autoinject()
 export class UIApplication {
-  // broadcasters
-  public broadcast = UIInternal.broadcast;
-  public subscribe = UIInternal.subscribe;
-  public subscribeOnce = UIInternal.subscribeOnce;
-
   private logger = getLogger("UIApplication");
 
   constructor(public config: UIAppConfig) {}

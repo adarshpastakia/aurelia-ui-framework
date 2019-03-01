@@ -1,15 +1,16 @@
 /**
  * @author    : Adarsh Pastakia
  * @version   : 5.0.0
- * @copyright : 2018
+ * @copyright : 2019
  * @license   : MIT
  */
 
-import { autoinject, bindable, bindingMode, customElement } from "aurelia-framework";
+import { bindable, bindingMode, customElement, inlineView } from "aurelia-framework";
 import { UIInternal } from "../utils/ui-internal";
+import view from "./ui-checkbox.html";
 
-@autoinject()
 @customElement("ui-checkbox")
+@inlineView(view)
 export class UICheckbox {
   @bindable({ defaultBindingMode: bindingMode.twoWay })
   public checked: AnyObject;
