@@ -12,3 +12,4 @@ script:
   - npm run test
 after_success:
   - codecov
+  if: branch = master
