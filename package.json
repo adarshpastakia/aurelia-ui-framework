@@ -124,7 +124,7 @@
   },
   "scripts": {
     "start": "au run --watch",
-    "test": "jest --verbose --runInBand --detectOpenHandles",
+    "test": "jest --runInBand",
     "test-watch": "jest --watch",
     "build": "au build --env prod",
     "heroku-postbuild": "au build --env dev",
