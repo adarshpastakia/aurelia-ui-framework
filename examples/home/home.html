@@ -156,32 +156,17 @@
         halign="center"
         ui-margin="b--lg"
       >
-        <ui-col size="auto">
-          <a
-            href="//github.com/adarshpastakia/aurelia-ui-framework"
-            target="_blank"
-            class="img-dev"
-          >
-            <img src.bind="images.git" height="96" />
-          </a>
-        </ui-col>
-        <ui-col size="auto">
+        <ui-col size="fill" ui-align="end">
           <img
             height="24"
             alt="GitHub Stars"
-            src="https://img.shields.io/github/stars/adarshpastakia/aurelia-ui-framework.svg?color=blue&style=social"
+            src="https://img.shields.io/github/stars/adarshpastakia/aurelia-ui-framework.svg?color=blue&style=flat&logo=github"
           />
           <span>&nbsp;</span>
           <img
             height="24"
             alt="GitHub Forks"
-            src="https://img.shields.io/github/forks/adarshpastakia/aurelia-ui-framework.svg?color=blue&style=social"
-          />
-          <span>&nbsp;</span>
-          <img
-            height="24"
-            alt="License"
-            src="https://img.shields.io/badge/license-MIT-blue.svg?color=blue&style=social&logo=github"
+            src="https://img.shields.io/github/forks/adarshpastakia/aurelia-ui-framework.svg?color=blue&style=flat&logo=github"
           />
           <br />
           <img
@@ -195,7 +180,23 @@
             alt="Code Climate coverage"
             src="https://img.shields.io/codecov/c/gihub/adarshpastakia/aurelia-ui-framework.svg?style=popout-square&logo=codecov&label="
           />
-          <span>&nbsp;</span>
+        </ui-col>
+        <ui-col size="auto">
+          <a
+            href="//github.com/adarshpastakia/aurelia-ui-framework"
+            target="_blank"
+            class="img-dev"
+          >
+            <img src.bind="images.git" height="96" />
+          </a>
+        </ui-col>
+        <ui-col size="fill">
+          <img
+            height="24"
+            alt="License"
+            src="https://img.shields.io/badge/license-MIT-blue.svg?color=blue&style=flat&logo=github"
+          />
+          <br />
           <img
             height="42"
             alt="Latest Version"

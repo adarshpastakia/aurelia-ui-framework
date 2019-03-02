@@ -124,7 +124,7 @@
   },
   "scripts": {
     "start": "au run --watch",
-    "test": "jest --updateSnapshot --maxWorkers=1",
+    "test": "jest --updateSnapshot --runInBand --forceExit",
     "test-watch": "jest --watch",
     "build": "au build --env prod",
     "heroku-postbuild": "au build --env dev",
