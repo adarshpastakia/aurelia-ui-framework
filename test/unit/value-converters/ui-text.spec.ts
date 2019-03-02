@@ -9,8 +9,6 @@ import { bootstrap } from "aurelia-bootstrapper";
 import { PLATFORM } from "aurelia-framework";
 import { StageComponent } from "aurelia-testing";
 
-jest.setTimeout(10000);
-
 describe("valueConverter/ui-text", () => {
   let component;
 
