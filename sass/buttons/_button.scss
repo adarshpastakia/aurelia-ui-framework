@@ -101,15 +101,15 @@
       }
     }
 
-    &[data-size="sm"] {
+    &[data-size="sm"] &__inner {
       font-size: map-get($font-sizes, sm);
     }
 
-    &[data-size="md"] {
+    &[data-size="md"] &__inner {
       font-size: map-get($font-sizes, md);
     }
 
-    &[data-size="lg"] {
+    &[data-size="lg"] &__inner {
       font-size: map-get($font-sizes, lg);
     }
 

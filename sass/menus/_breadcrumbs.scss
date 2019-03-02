@@ -1,0 +1,54 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2019
+// @license   : MIT
+
+.ui-breadcrumbs {
+  align-items: center;
+  color: $secondary;
+  flex-flow: row nowrap;
+  overflow: hidden;
+  white-space: nowrap;
+  @extend %ui-flex;
+
+  &__wrapper {
+    align-items: center;
+    color: $secondary;
+    flex-flow: row nowrap;
+    @extend %ui-flex;
+  }
+
+  &__label,
+  &__link {
+    padding: 0.25em 0;
+  }
+
+  &__link,
+  &__overflow {
+    &::after {
+      color: $base-muted;
+      content: "\25B8";
+      padding: 0 0.5em;
+      pointer-events: none;
+      vertical-align: middle;
+    }
+  }
+
+  &__label {
+    color: $base-muted;
+  }
+
+  .ui-btn__wrapper {
+    margin: 0;
+  }
+
+  .ui-menu &__link {
+    display: block;
+    padding: 0.25em 0.5em;
+    @extend .ui-menu__item__link;
+
+    &::after {
+      display: none;
+    }
+  }
+}

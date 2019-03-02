@@ -69,6 +69,7 @@ export class ComponentPage {
           image: TAG
         },
         {
+          href: "docs/breadcrumbs",
           title: "Breadcrumbs",
           description: "Breadcrumb navigation",
           image: BREADCRUMBS

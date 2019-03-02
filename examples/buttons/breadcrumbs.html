@@ -1,0 +1,30 @@
+<template>
+  <ui-page page-title="Breadcrumbs">
+    <ui-content ui-scroll ui-padding>
+      <ui-container>
+        <p class="x-page-title">Breadcrumb navigation</p>
+
+        <div class="x-section-title">Examples</div>
+        <div
+          class="x-example-block"
+          with.bind="{type:'normal',theme:'default', busy:false, disabled:false}"
+        >
+          <div class="x-example-display">
+            <ui-breadcrumbs css.bind="{width: '360px'}" items.bind="crumbs"></ui-breadcrumbs>
+          </div>
+
+          <div class="x-example-options">
+            <h5>Options</h5>
+          </div>
+        </div>
+
+        <div class="x-section-title">Using the Breadcrumbs</div>
+        <x-code-block lang="html" page="app.html" code.bind="breadcrumbHtml"></x-code-block>
+
+        <div class="x-section-title">Properties</div>
+        <x-blockquote>Attributes marked with value <b>none</b> do not require a value</x-blockquote>
+        <x-code-table code-template.bind="breadcrumbAttrs"></x-code-table>
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>
