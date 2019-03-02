@@ -68,7 +68,7 @@ describe("valueConverter/ui-text", () => {
       expect(el.innerHTML).toBe('{"a":"a"}');
       done();
     });
-  });
+  }, 30000);
 
   it("should format markdown", done => {
     component.waitForElements("#markdownBlank, #markdown h1").then(el => {
@@ -76,7 +76,7 @@ describe("valueConverter/ui-text", () => {
       expect(el[1].innerHTML).toBe("Hello");
       done();
     });
-  });
+  }, 30000);
 
   it("should format phone", done => {
     component.waitForElements("#phoneBlank, #phone, #phoneCountry").then(el => {
@@ -85,7 +85,7 @@ describe("valueConverter/ui-text", () => {
       expect(el[1].innerHTML).toBe("+971 50 318 2424");
       done();
     });
-  });
+  }, 30000);
 
   it("should format phone local", done => {
     component.waitForElements("#phoneLocalBlank, #phoneLocal, #phoneLocalCountry").then(el => {
@@ -94,7 +94,7 @@ describe("valueConverter/ui-text", () => {
       expect(el[1].innerHTML).toBe("050 318 2424");
       done();
     });
-  });
+  }, 30000);
 
   it("should format phone HTML", done => {
     component
@@ -130,7 +130,7 @@ describe("valueConverter/ui-text", () => {
       expect(el[5].innerHTML).toBe("about 2 hours ago");
       done();
     });
-  });
+  }, 30000);
 
   it("should format numbers", done => {
     component.waitForElements("#number, #currency, #percent").then(el => {
@@ -139,5 +139,5 @@ describe("valueConverter/ui-text", () => {
       expect(el[2].innerHTML).toBe("92.40%");
       done();
     });
-  });
+  }, 30000);
 });

@@ -3,5 +3,4 @@ import { globalize } from "aurelia-pal-nodejs";
 import "aurelia-polyfills";
 import * as path from "path";
 Options.relativeToDir = path.join(__dirname, "unit");
-jest.setTimeout(30000);
 globalize();
