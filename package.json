@@ -124,7 +124,7 @@
   },
   "scripts": {
     "start": "au run --watch",
-    "test": "jest --runInBand --forceExit --verbose --detectOpenHandles",
+    "test": " jest --coverage=false ./test/unit/ignore.test.spec.ts && jest --runInBand --verbose --detectOpenHandles",
     "test-watch": "jest --watch",
     "build": "au build --env prod",
     "heroku-postbuild": "au build --env dev",
