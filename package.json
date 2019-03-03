@@ -80,6 +80,7 @@
     "webpack-dev-server": "^3.1.9"
   },
   "jest": {
+    "testFailureExitCode": 0,
     "moduleNameMapper": {
       "^aurelia-binding$": "<rootDir>/node_modules/aurelia-binding",
       "^aurelia-ui-framework$": "<rootDir>/src/aurelia-ui-framework.ts",
@@ -124,6 +125,7 @@
   },
   "scripts": {
     "start": "au run --watch",
+    "lint": "tslint 'src/**/*.ts' -p ./",
     "test": "jest --coverage=false --debug ./test/unit/ignore.test.spec.ts && jest --runInBand --verbose --detectOpenHandles --debug",
     "test-watch": "jest --watch",
     "build": "au build --env prod",
