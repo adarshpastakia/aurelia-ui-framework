@@ -126,7 +126,7 @@
   "scripts": {
     "start": "au run --watch",
     "lint": "tslint 'src/**/*.ts' -p ./",
-    "test": "jest --coverage=false --debug ./test/unit/ignore.test.spec.ts && jest --runInBand --verbose --detectOpenHandles --debug",
+    "test": "jest --ci --runInBand --verbose --detectOpenHandles",
     "test-watch": "jest --watch",
     "build": "au build --env prod",
     "heroku-postbuild": "au build --env dev",
