@@ -8,20 +8,14 @@ Demo Site: [https://aurelia-ui-framework.herokuapp.com](https://aurelia-ui-frame
 ---
 
 ![Stars](https://img.shields.io/github/stars/adarshpastakia/aurelia-ui-framework.svg?logoColor=blue&style=social&logo=github "GitHub Stars")
-
 ![Forks](https://img.shields.io/github/forks/adarshpastakia/aurelia-ui-framework.svg?logoColor=blue&style=social&logo=github "GitHub Forks")
-
 ![Issues](https://img.shields.io/github/issues/adarshpastakia/aurelia-ui-framework.svg?logoColor=blue&style=social&logo=github "GitHub Issues")
 
 ![Build](https://img.shields.io/travis/adarshpastakia/aurelia-ui-framework/master.svg?style=popout-square&logo=travis&label= "Travis Build")
-
 ![Coverage](https://img.shields.io/codecov/c/github/adarshpastakia/aurelia-ui-framework/master.svg?style=popout-square&logo=codecov&label= "Code Coverage")
-
 ![NPM Release](https://img.shields.io/npm/v/aurelia-ui-framework/next.svg?style=popout-square&logo=npm&label= "NPM Release")
 
 ---
-
-Current test site https://aurelia-ui-framework.herokuapp.com
 
 * Running examples
 
