@@ -103,6 +103,10 @@
         border-top-left-radius: 0;
       }
     }
+
+    .ui-dropdown:last-child {
+      flex: 1 1 2em;
+    }
   }
 
   &--plain &__wrapper,

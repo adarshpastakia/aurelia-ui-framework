@@ -9,6 +9,7 @@ import { Container, FrameworkConfiguration } from "aurelia-framework";
 import { Attributes } from "./attributes";
 import { Buttons } from "./buttons";
 import { Card } from "./card";
+import { DataPanels } from "./data";
 import { Forms } from "./forms";
 import { registerValidators, UIValidationRenderer } from "./forms/ui-validation";
 import { Icons } from "./icons";
@@ -68,6 +69,7 @@ export class UIFrameworkConfig {
       this.loadFromModule(Forms);
       this.loadFromModule(Lists);
       this.loadFromModule(TabPanel);
+      this.loadFromModule(DataPanels);
     }
   };
 

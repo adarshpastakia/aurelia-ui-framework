@@ -23,8 +23,8 @@ export const StyleRoutes = [
   },
   {
     moduleId: "style/lists",
-    name: "lists",
-    route: "lists",
+    name: "list-styles",
+    route: "list-styles",
     title: "Lists",
     group,
     nav: true

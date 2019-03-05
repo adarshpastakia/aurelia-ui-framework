@@ -8,10 +8,19 @@
 import { PLATFORM } from "aurelia-pal";
 
 PLATFORM.moduleName("./notification");
+PLATFORM.moduleName("./dialog");
 
 const group = "Overlays";
 
 export const OverlayRoutes = [
+  {
+    moduleId: "overlay/dialog",
+    name: "dialog",
+    route: "dialog",
+    title: "Dialog Service",
+    group,
+    nav: true
+  },
   {
     moduleId: "overlay/notification",
     name: "notification",

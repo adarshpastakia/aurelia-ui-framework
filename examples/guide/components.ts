@@ -154,10 +154,12 @@ export class ComponentPage {
       title: "Data Components",
       items: [
         {
+          href: "/docs/datagrid",
           title: "Data Grid",
           description: "Functional datagrid with resizeable, sortable columns"
         },
         {
+          href: "/docs/datatree",
           title: "Data Tree",
           description: "Functional tree with checkable nodes, filtering, lazy loading"
         },
@@ -171,6 +173,7 @@ export class ComponentPage {
       title: "Overlays",
       items: [
         {
+          href: "docs/dialog",
           title: "Dialogs",
           description: "Service to render overlay dialogs",
           image: DIALOG

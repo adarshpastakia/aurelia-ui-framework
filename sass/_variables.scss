@@ -116,6 +116,22 @@ $menu-active-color: $white !default;
 $menu-active-border-color: mix($secondary, $base-color, 50%) !default;
 $menubar-bg: mix($gray, $base-theme, 5%) !default;
 
+// Tree
+$tree-hover-bg: mix($secondary, $base-theme, 50%) !default;
+$tree-hover-color: $white !default;
+$tree-active-bg: $secondary !default;
+$tree-active-color: $white !default;
+
+// Datagrid
+$datagrid-head-column-bg: mix($base-theme, $base-invert, 90%) !default;
+$datagrid-head-column-color: $base-color !default;
+$datagrid-head-bg: mix($primary, $base-theme, 70%) !default;
+$datagrid-head-color: $base-theme !default;
+$datagrid-row-odd-bg: mix($gray, $base-theme, 2%) !default;
+$datagrid-row-even-bg: mix($gray, $base-theme, 5%) !default;
+$datagrid-foot-bg: mix($gray, $base-theme, 9%) !default;
+$datagrid-foot-color: $base-invert !default;
+
 // Tooltip
 $tooltip-bg: $gray-dark !default;
 $tooltip-color: $white !default;
@@ -125,9 +141,9 @@ $badge-bg: $gray-dark !default;
 $badge-color: $white !default;
 
 // Dialog
-$dlg-header-active-bg: mix($primary, $base-invert, 90%) !default;
-$dlg-header-active-color: $white;
-$dlg-header-inactive-bg: mix($gray, $black, 90%) !default;
+$dlg-header-active-bg: mix($primary, $base-theme, 50%) !default;
+$dlg-header-active-color: $base-theme;
+$dlg-header-inactive-bg: mix($gray, $base-theme, 25%) !default;
 $dlg-header-inactive-color: $gray;
 
 // Form Controls

@@ -1,0 +1,151 @@
+<template>
+  <ui-page page-title="Data Grid">
+    <ui-content ui-scroll ui-padding>
+      <ui-container>
+        <p class="x-page-title">Functional datagrid with resizeable, sortable columns</p>
+
+        <div class="x-section-title">Examples</div>
+        <div
+          class="x-example-block"
+          with.bind="{type:'normal',theme:'default', busy:false, disabled:false}"
+        >
+          <div class="x-example-display">
+            <ui-page css.bind="{height: '400px'}">
+              <div class="ui-datagrid ui-scroll">
+                <div class="ui-datagrid__head">
+                  <div class="ui-datagrid__row">
+                    <div class="ui-datagrid__row__wrapper">
+                      <div class="ui-datagrid__row__locked">
+                        <div class="ui-datagrid__cell__counter"></div>
+                        <div
+                          class="ui-datagrid__cell ui-datagrid__cell--sort-asc"
+                          style="width: 128px"
+                          repeat.for="j of 3"
+                        >
+                          <div class="ui-datagrid__cell__wrapper">Cell</div>
+                          <div class="ui-datagrid__cell__sorter">
+                            <i></i>
+                            <i></i>
+                          </div>
+                          <div class="ui-datagrid__cell__resizer"></div>
+                        </div>
+                      </div>
+                      <div class="ui-datagrid__row__scrolling">
+                        <div class="ui-datagrid__cell" style="width: 128px" repeat.for="j of 9">
+                          <div class="ui-datagrid__cell__wrapper">Cell</div>
+                          <div class="ui-datagrid__cell__sorter">
+                            <i></i>
+                            <i></i>
+                          </div>
+                          <div class="ui-datagrid__cell__resizer"></div>
+                        </div>
+                      </div>
+                      <div class="ui-datagrid__cell ui-datagrid__cell--filler"></div>
+                      <div class="ui-datagrid__row__locked--end">
+                        <div class="ui-datagrid__cell" style="width: 72px"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="ui-datagrid__body" ref="dgBody">
+                  <div
+                    virtual-repeat.for="i of countries"
+                    class="ui-datagrid__row ${$even ? 'ui-datagrid__row--even':'ui-datagrid__row--odd'}"
+                  >
+                    <div class="ui-datagrid__row__wrapper">
+                      <div class="ui-datagrid__row__locked">
+                        <div class="ui-datagrid__cell__counter">${$index + 1}</div>
+                        <div class="ui-datagrid__cell" style="width: 128px">
+                          <div class="ui-datagrid__cell__wrapper">
+                            <ui-flag code.bind="i.iso2"></ui-flag>&nbsp;${i.iso2}/${i.iso3}
+                          </div>
+                        </div>
+                        <div class="ui-datagrid__cell" style="width: 128px" repeat.for="j of 2">
+                          <div class="ui-datagrid__cell__wrapper">${i[['name','capital'][j]]}</div>
+                        </div>
+                      </div>
+                      <div class="ui-datagrid__cell" style="width: 128px" repeat.for="j of 9">
+                        <div class="ui-datagrid__cell__wrapper">Cell</div>
+                      </div>
+                      <div class="ui-datagrid__cell ui-datagrid__cell--filler"></div>
+                      <div class="ui-datagrid__row__locked--end">
+                        <div class="ui-datagrid__cell" style="width: 72px">
+                          <div class="ui-datagrid__cell__wrapper" ui-padding="0" ui-align="center">
+                            <ui-button
+                              type="tool"
+                              size="sm"
+                              ui-theme="success"
+                              icon="mdi mdi-pencil"
+                            ></ui-button>
+                            <ui-button
+                              type="tool"
+                              size="sm"
+                              ui-theme="danger"
+                              icon="mdi mdi-delete"
+                            ></ui-button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="ui-datagrid__row ui-datagrid__row--filler">
+                    <div class="ui-datagrid__row__wrapper">
+                      <div class="ui-datagrid__row__locked">
+                        <div class="ui-datagrid__cell__counter"></div>
+                        <div class="ui-datagrid__cell" style="width: 128px" repeat.for="j of 3">
+                          <div class="ui-datagrid__cell__wrapper"></div>
+                        </div>
+                      </div>
+                      <div class="ui-datagrid__row__scrolling">
+                        <div class="ui-datagrid__cell" style="width: 128px" repeat.for="j of 9">
+                          <div class="ui-datagrid__cell__wrapper"></div>
+                        </div>
+                      </div>
+                      <div class="ui-datagrid__cell ui-datagrid__cell--filler"></div>
+                      <div class="ui-datagrid__row__locked--end">
+                        <div class="ui-datagrid__cell" style="width: 72px"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="ui-datagrid__foot">
+                  <div class="ui-datagrid__row">
+                    <div class="ui-datagrid__row__wrapper">
+                      <div class="ui-datagrid__row__locked">
+                        <div class="ui-datagrid__cell__counter"></div>
+                        <div class="ui-datagrid__cell" style="width: 128px" repeat.for="j of 3">
+                          <div class="ui-datagrid__cell__wrapper">Foot</div>
+                        </div>
+                      </div>
+                      <div class="ui-datagrid__row__scrolling">
+                        <div class="ui-datagrid__cell" style="width: 128px" repeat.for="j of 9">
+                          <div class="ui-datagrid__cell__wrapper">Foot</div>
+                        </div>
+                      </div>
+                      <div class="ui-datagrid__cell ui-datagrid__cell--filler"></div>
+                      <div class="ui-datagrid__row__locked--end">
+                        <div class="ui-datagrid__cell" style="width: 72px"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ui-page>
+          </div>
+
+          <!-- <div class="x-example-options">
+            <h5>Options</h5>
+          </div> -->
+        </div>
+
+        <div class="x-section-title">Using the Tree Panel</div>
+        <x-code-block lang="html" page="app.html" code.bind="treeHtml"></x-code-block>
+
+        <div class="x-section-title">Properties</div>
+        <x-blockquote>Attributes marked with value <b>none</b> do not require a value</x-blockquote>
+        <x-code-table code-template.bind="treeAttrs"></x-code-table>
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>

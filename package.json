@@ -1,12 +1,22 @@
 {
   "name": "aurelia-ui-framework",
-  "description": "An Aurelia client application.",
+  "description": "An Aurelia UI/UX framework",
   "version": "5.0.0-beta.2",
-  "repository": {
-    "type": "???",
-    "url": "???"
+  "keywords": [
+    "ui-framework",
+    "desktop-framework",
+    "aurelia-ui-framework"
+  ],
+  "homepage": "https://aurelia-ui-framework.herokuapp.com",
+  "bugs": {
+    "url": "https://github.com/adarshpastakia/aurelia-ui-framework/issues"
   },
   "license": "MIT",
+  "author": "Adarsh Pastakia <adarshpastakia@outlook.com> (http://adarshpastakia.github.io/)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adarshpastakia/aurelia-ui-framework"
+  },
   "dependencies": {
     "aurelia-animator-css": "^1.0.4",
     "aurelia-binding": "^2.2.0",

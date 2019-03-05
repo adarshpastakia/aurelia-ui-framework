@@ -5,7 +5,7 @@
  * @license   : MIT
  */
 
-import { bindable, bindingMode, customElement, inlineView } from "aurelia-framework";
+import { bindable, bindingMode, computedFrom, customElement, inlineView } from "aurelia-framework";
 import { UIDrop } from "../shared/ui-drop";
 import { UIInternal } from "../utils/ui-internal";
 import view from "./ui-dropdown.html";
@@ -57,6 +57,11 @@ export class UIDropdown {
   protected select(model: AnyObject): void {
     this.model = model;
     this.value = this.model[this.valueProperty] || this.model;
+  }
+
+  @computedFrom("model")
+  get selectedLabel() {
+    return !isNull(this.model) ? this.model[this.labelProperty] || this.model : this.placeholder;
   }
 
   private toggleDrop($event: Event): void {

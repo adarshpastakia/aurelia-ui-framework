@@ -1,0 +1,51 @@
+<template>
+  <ui-page page-title="Tree Panel">
+    <ui-content ui-scroll ui-padding>
+      <ui-container>
+        <p class="x-page-title">Functional tree with checkable nodes, filtering, lazy loading</p>
+
+        <div class="x-section-title">Examples</div>
+        <div
+          class="x-example-block"
+          with.bind="{checkLevel:0,allowCheckable:false, disabled:false}"
+        >
+          <div class="x-example-display">
+            <ui-page css.bind="{height: '400px'}">
+              <ui-sidebar collapsible resizeable label="Tree Panel" width="30em">
+                <ui-tree-panel
+                  searchable.one-time="true"
+                  max-nodes="9"
+                  data-source.bind="countryTree"
+                  checkable.bind="allowCheckable ? checkLevel : false"
+                  value.bind="treeValue"
+                ></ui-tree-panel>
+              </ui-sidebar>
+              <ui-content ui-padding ui-scroll>
+                ${treeValue}
+              </ui-content>
+            </ui-page>
+          </div>
+
+          <div class="x-example-options">
+            <h5>Options</h5>
+            <ui-field label="Checkable">
+              <ui-field-wrapper>
+                <ui-input-addon>
+                  <ui-checkbox checked.bind="allowCheckable"></ui-checkbox>
+                </ui-input-addon>
+                <ui-dropdown disabled.bind="!allowCheckable" options.bind="[0,1,2]" value.bind="checkLevel"></ui-dropdown>
+              </ui-field-wrapper>
+            </ui-field>
+          </div>
+        </div>
+
+        <div class="x-section-title">Using the Tree Panel</div>
+        <x-code-block lang="html" page="app.html" code.bind="treeHtml"></x-code-block>
+
+        <div class="x-section-title">Properties</div>
+        <x-blockquote>Attributes marked with value <b>none</b> do not require a value</x-blockquote>
+        <x-code-table code-template.bind="treeAttrs"></x-code-table>
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>

@@ -10,7 +10,7 @@
       <slot name="panel-header">
         <ui-header>
           <ui-header-icon icon.bind="icon" if.bind="icon"></ui-header-icon>
-          <ui-header-title if.bind="label" innerhtml.bind="label"></ui-header-title>
+          <ui-header-title>${label}</ui-header-title>
         </ui-header>
       </slot>
       <div class="ui-panel__header__actions" if.bind="!hideToolbox" mousedown.delegate="false">

@@ -36,6 +36,14 @@ export class UIDialogService {
   ) {}
 
   public open(viewModel, model?) {
+    this.openDialog(viewModel, model);
+  }
+
+  public openModal(viewModel, model?) {
+    this.openDialog(viewModel, model, true);
+  }
+
+  private openDialog(viewModel, model, modal = false) {
     this.initialize();
 
     const instruction: AnyObject = {
@@ -60,6 +68,7 @@ export class UIDialogService {
           const dialog = (controller.view as View & { controllers: AnyObject[] }).controllers.find(
             c => c.viewModel
           );
+          dialog.viewModel.modal = modal;
           dialog.viewModel.viewController = controller;
           dialog.viewModel.returnPromise = resolve;
           this.appConfig.DialogContainer.add(controller.view);

@@ -10,6 +10,7 @@ import { Router, RouterConfiguration } from "aurelia-router";
 import { UIApplication } from "aurelia-ui-framework";
 import { ButtonRoutes } from "../buttons/routes";
 import { CoreRoutes } from "../core/routes";
+import { DataRoutes } from "../data/routes";
 import { FormRoutes } from "../form/routes";
 import { GuideRoutes } from "../guide/routes";
 import { LibRoutes } from "../libs/routes";
@@ -33,6 +34,7 @@ export class DocsPage {
       ...ButtonRoutes,
       ...FormRoutes,
       ...PanelRoutes,
+      ...DataRoutes,
       ...OverlayRoutes
     ]);
   }

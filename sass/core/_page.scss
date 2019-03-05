@@ -57,6 +57,7 @@
   }
 
   &__content {
+    background-color: $base-theme;
     grid-area: content;
     position: relative;
   }

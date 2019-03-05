@@ -1,0 +1,207 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2019
+// @license   : MIT
+
+.ui-datagrid {
+  display: grid;
+  grid-area: content;
+  grid-template-areas: "head" "body" "foot";
+  grid-template-rows: auto 1fr auto;
+
+  $base: #{&};
+  %grid-row {
+    display: flex;
+    flex-flow: row nowrap;
+  }
+
+  &__body {
+    display: flex;
+    flex-flow: column nowrap;
+    grid-area: body;
+    z-index: 1;
+
+    #{$base}__cell__counter {
+      background-color: $datagrid-head-column-bg;
+      color: $datagrid-head-column-color;
+    }
+
+    > div:not(#{$base}__row):first-child,
+    > div:not(#{$base}__row):last-child {
+      flex: 0 0 auto;
+    }
+  }
+
+  &__head {
+    @include sticky();
+    grid-area: head;
+    padding-bottom: 1px;
+    top: 0;
+    z-index: 2;
+
+    #{$base}__cell {
+      &,
+      &__counter {
+        background-color: $datagrid-head-bg;
+        color: $datagrid-head-color;
+      }
+    }
+  }
+
+  &__foot {
+    @include sticky();
+    bottom: 0;
+    grid-area: foot;
+    padding-top: 1px;
+    z-index: 2;
+
+    #{$base}__cell {
+      &,
+      &__counter {
+        background-color: $datagrid-foot-bg;
+        border-top: 1px solid $base-border-color;
+        color: $datagrid-foot-color;
+      }
+    }
+  }
+
+  &__row {
+    flex: 0 0 auto;
+    height: calc(2rem + 2px);
+    min-width: 100%;
+
+    &__wrapper {
+      @extend %grid-row;
+      height: 100%;
+    }
+
+    &--even #{$base}__cell {
+      background-color: $datagrid-row-even-bg;
+    }
+
+    &--odd #{$base}__cell {
+      background-color: $datagrid-row-odd-bg;
+    }
+
+    &:hover:not(:last-child) {
+      background-color: rgba($secondary, 0.2);
+    }
+
+    &--filler {
+      flex: 1 1 0;
+      td > div {
+        background-color: $base-bg;
+      }
+    }
+
+    &__locked {
+      @extend %grid-row;
+      @include sticky();
+      flex: 0 0 auto;
+      left: 0;
+      z-index: 2;
+
+      #{$base}__cell:last-child {
+        @include property-prefix(border-end, 1px solid $base-border-color);
+      }
+
+      @at-root [dir="rtl"] & {
+        left: auto;
+        right: 0;
+      }
+    }
+
+    &__locked--end {
+      @extend %grid-row;
+      @include sticky();
+      flex: 0 0 auto;
+      right: 0;
+      z-index: 2;
+
+      #{$base}__cell:first-child {
+        @include property-prefix(border-start, 1px solid $base-border-color);
+      }
+
+      @at-root [dir="rtl"] & {
+        left: 0;
+        right: auto;
+      }
+    }
+
+    &__scrolling {
+      @extend %grid-row;
+      flex: 0 0 auto;
+      will-change: transform;
+      z-index: 1;
+    }
+  }
+
+  &__cell {
+    @include property-prefix(border-end, 1px dotted $base-shadow-color);
+    display: grid;
+    flex: 0 0 auto;
+    grid-template-columns: 1fr auto auto;
+
+    &__counter {
+      color: var(--color-gray);
+      flex: 0 0 auto;
+      padding: 0.5rem;
+      width: 2.5rem;
+    }
+
+    &__wrapper {
+      @include ellipsis();
+      padding: 0.5rem 0.75rem;
+    }
+
+    &__resizer {
+      @include property-prefix(border-start, 1px solid $base-border-color);
+      cursor: col-resize;
+      width: 2px;
+    }
+
+    &__sorter {
+      align-content: center;
+      display: grid;
+      grid-gap: 1px;
+      grid-template-columns: 10px;
+      justify-content: start;
+      margin: 0 3px;
+
+      i {
+        background-position: center;
+        border: 4px solid transparent;
+        border-color: $datagrid-head-color transparent;
+        display: block;
+        opacity: 0.25;
+        width: 4px;
+      }
+      i:first-child {
+        border-top: 0;
+      }
+      i:last-child {
+        border-bottom: 0;
+      }
+    }
+
+    &--filler {
+      flex: 1 1 1rem;
+    }
+
+    &--sortable {
+      cursor: pointer;
+    }
+
+    &--sort-asc &__sorter {
+      i:first-child {
+        opacity: 0.8;
+      }
+    }
+
+    &--sort-desc &__sorter {
+      i:last-child {
+        opacity: 0.6;
+      }
+    }
+  }
+}

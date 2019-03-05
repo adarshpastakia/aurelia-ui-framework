@@ -36,6 +36,7 @@
   }
 
   &__body {
+    background-color: $base-theme;
     display: grid;
     grid-area: body;
     grid-template-areas: "head" "content" "foot";

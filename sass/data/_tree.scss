@@ -1,0 +1,96 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2019
+// @license   : MIT
+
+.ui-tree {
+  &__panel {
+    display: grid;
+    grid-area: content;
+    grid-template-rows: auto 1fr;
+    line-height: 1;
+    overflow: hidden;
+  }
+
+  &__container {
+    border-top: 1px solid $base-border-color;
+    padding: 0.25rem;
+    @extend .ui-scroll;
+  }
+
+  &__node {
+    align-items: center;
+    display: grid;
+    grid-auto-flow: column;
+    grid-gap: 0.25rem;
+    place-content: start;
+  }
+
+  &__search {
+    margin: 0;
+    min-width: unset;
+
+    .ui-input {
+      box-shadow: none;
+    }
+  }
+
+  &__content {
+    @include property-prefix(padding-start, 1rem);
+  }
+
+  &__spacer {
+    padding: 0 0.5rem;
+  }
+
+  &__expander {
+    cursor: pointer;
+    opacity: 0.5;
+    padding: 0.25rem 0;
+
+    &:hover {
+      color: $tree-active-bg;
+    }
+  }
+
+  &__checkbox {
+    cursor: pointer;
+    opacity: 0.95;
+    padding: 0.25rem 0;
+
+    &:hover {
+      color: $tree-active-bg;
+    }
+  }
+
+  &__label {
+    cursor: pointer;
+    padding: 0.25rem;
+    white-space: nowrap;
+
+    &:hover {
+      background-color: $tree-hover-bg;
+      color: $tree-hover-color;
+    }
+  }
+
+  &__show-more {
+    color: $secondary;
+    font-size: 0.8rem;
+    font-weight: $font-weight-medium;
+    padding: 0.25rem;
+  }
+
+  &__no-children {
+    color: var(--color-gray);
+    font-size: 0.9rem;
+    font-weight: $font-weight-medium;
+    padding: 0.25rem;
+  }
+
+  &--selected &__label {
+    background-color: $tree-active-bg;
+    color: $tree-active-color;
+    pointer-events: none;
+  }
+}

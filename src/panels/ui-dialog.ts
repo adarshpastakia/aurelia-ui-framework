@@ -13,18 +13,18 @@ import view from "./ui-dialog.html";
 @inlineView(view)
 export class UIDialogElement {
   @bindable()
-  public label = "";
+  public label = "Dialog";
   @bindable()
   public icon = "";
 
   @bindable()
-  public width: string = "auto";
+  public width: string = "50vw";
   @bindable()
   public minWidth: string = "36rem";
   @bindable()
   public maxWidth: string = "100%";
   @bindable()
-  public height: string = "auto";
+  public height: string = "50vh";
   @bindable()
   public minHeight: string = "32rem";
   @bindable()
@@ -99,9 +99,9 @@ export class UIDialogElement {
       if (iconEl) {
         this.icon = iconEl.au.controller.viewModel.icon;
       }
-      if (labelEl) {
-        this.label = labelEl.innerText;
-      }
+      // if (labelEl) {
+      //   this.label = labelEl.innerText;
+      // }
       this.taskButton = UIInternal.compileTemplate(
         `<template><ui-button size="sm" ui-theme="primary" type.bind="active?'solid':'default'" label.bind="label" icon.bind="icon"></ui-button></template>`,
         this

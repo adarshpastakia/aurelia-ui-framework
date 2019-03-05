@@ -8,7 +8,7 @@ import { autoinject } from "aurelia-framework";
 import { UINotificationService } from "aurelia-ui-framework";
 
 @autoinject()
-export class TagPage {
+export class NotificationPage {
   protected notifJs = `import { UINotificationService } from "aurelia-ui-framework";
   
 @autoinject()
