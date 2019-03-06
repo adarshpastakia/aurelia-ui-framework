@@ -32,7 +32,8 @@
   "optionalDependencies": {
     "@mdi/font": "^3.4.93",
     "highlightjs": "^9.12.0",
-    "prismjs": "^1.15.0"
+    "prismjs": "^1.15.0",
+    "zxcvbn": "^4.4.2"
   },
   "peerDependencies": {},
   "devDependencies": {

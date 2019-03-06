@@ -70,7 +70,7 @@ export class UITooltip {
   }
 
   protected valueChanged() {
-    if (TooltipEl) {
+    if (TooltipEl && TooltipEl.dataset.open === "true") {
       this.show();
     }
   }

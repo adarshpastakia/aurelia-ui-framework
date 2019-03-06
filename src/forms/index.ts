@@ -14,6 +14,7 @@ import { UIInput } from "./ui-input";
 import { UIInputAddon } from "./ui-input-addons";
 import { UIInputInfo } from "./ui-input-info";
 import { UIOptionGroup } from "./ui-option-group";
+import { UIPasswordMeter } from "./ui-password-meter";
 import { UIPhone } from "./ui-phone";
 import { UIRadio } from "./ui-radio";
 import { UITextarea } from "./ui-textarea";
@@ -32,5 +33,6 @@ export const Forms = [
   UIPhone,
   UIRadio,
   UITextarea,
-  UIToggle
+  UIToggle,
+  UIPasswordMeter
 ];

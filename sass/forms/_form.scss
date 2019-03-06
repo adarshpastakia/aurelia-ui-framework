@@ -57,3 +57,31 @@
     margin: 0;
   }
 }
+
+.ui-password-meter {
+  border-radius: 2px;
+  display: block;
+  margin: 1px 0;
+  overflow: hidden;
+  position: relative;
+
+  &::before {
+    background-image: -webkit-linear-gradient(left, $red, $yellow, $green);
+    background-size: 100% 8px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25) inset;
+    content: "";
+    display: block;
+    height: 4px;
+  }
+
+  &::after {
+    background-color: $base-bg;
+    bottom: 0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25) inset;
+    content: "";
+    left: var(--password-strength);
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}

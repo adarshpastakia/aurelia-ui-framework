@@ -31,6 +31,7 @@ module.exports = ({ production, server, extractCss, coverage, analyze, karma } =
     // Enforce single aurelia-binding, to avoid v1/v2 duplication due to
     // out-of-date dependencies on 3rd party aurelia plugins
     alias: {
+      "zxcvbnm": path.resolve(__dirname, "node_modules/zxcvbnm"),
       "aurelia-binding": path.resolve(__dirname, "node_modules/aurelia-binding"),
       sass: sassDir,
       "@images": imagesDir,

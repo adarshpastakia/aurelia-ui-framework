@@ -7,6 +7,7 @@
 import AVATAR_F from "@images/avatar-female.svg";
 import AVATAR_M from "@images/avatar-male.svg";
 import { Countries } from "aurelia-ui-framework";
+import zxcvbn from "zxcvbn";
 
 export class InputPage {
   protected images = {
@@ -15,6 +16,7 @@ export class InputPage {
   };
 
   protected countries = Countries.list;
+  protected calculateStrength = zxcvbn;
 
   protected inputHtml = `<template>
   

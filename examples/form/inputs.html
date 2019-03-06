@@ -99,9 +99,14 @@
                   </ui-field>
                 </ui-col>
                 <ui-col>
-                  <ui-field label="Password input">
+                  <ui-field
+                    label="Password input"
+                    with.bind="calculateStrength(model.password || '')"
+                  >
                     <ui-input
-                      value.bind="model.password"
+                      clear
+                      counter
+                      value.bind="model.password & debounce"
                       type.bind="showPassword ? 'text' : 'password'"
                       placeholder="Password..."
                     >
@@ -116,6 +121,11 @@
                         ></ui-button>
                       </ui-input-addon>
                     </ui-input>
+                    <ui-password-meter
+                      score.bind="score"
+                      tooltip.bind="feedback.warning"
+                      has-password.bind="!!model.password"
+                    ></ui-password-meter>
                   </ui-field>
                 </ui-col>
               </ui-row>
