@@ -132,6 +132,10 @@ $datagrid-row-even-bg: mix($gray, $base-theme, 5%) !default;
 $datagrid-foot-bg: mix($gray, $base-theme, 9%) !default;
 $datagrid-foot-color: $base-invert !default;
 
+// Calendar
+$calendar-head-bg: mix($primary, $base-theme, 70%) !default;
+$calendar-head-color: $base-theme !default;
+
 // Tooltip
 $tooltip-bg: $gray-dark !default;
 $tooltip-color: $white !default;

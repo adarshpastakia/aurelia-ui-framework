@@ -1,6 +1,18 @@
-<template class="ui-calendar__page" data-page="days">
-  <div class="ui-calendar__page__head">
-    <span>#</span>
-    <span repeat.for="w of 7">${w}</span>
-  </div>
+<template data-page="days" class="ui-calendar__page">
+  <template if.bind="isAttached">
+    <div class="ui-calendar__page__row">
+      <span class="ui-calendar__page__head">#</span>
+      <span class="ui-calendar__page__head" repeat.for="w of 7">${weekTitle(w)}</span>
+    </div>
+    <div class="ui-calendar__page__row" repeat.for="w of 6">
+      <span class="ui-calendar__page__cell week">${weekNumber(w, month)}</span>
+      <a
+        repeat.for="d of 7"
+        with.bind="getDate(w, d, month, config)"
+        data-date.bind="date"
+        class="ui-calendar__page__cell date ${classes}"
+        >${label}
+      </a>
+    </div>
+  </template>
 </template>

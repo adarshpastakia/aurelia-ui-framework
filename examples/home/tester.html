@@ -1,0 +1,18 @@
+<template>
+  <ui-content ui-margin ui-paper ui-padding with.bind="{dt:'2019-03-02T00:00:00.000'}">
+    <ui-date-picker
+      date.bind="dt"
+      min-date="2019-03-02T00:00:00.000Z"
+      max-date="2019-03-29T00:00:00.000Z"
+    ></ui-date-picker>
+    <span>&nbsp;</span>
+    <ui-date-range start.bind="start" end.bind="end"></ui-date-range>
+
+    <div>
+      ${dt | datetime}
+      <span>&nbsp;</span>
+      ${start | date} ~ ${end| date}
+    </div>
+
+  </ui-content>
+</template>

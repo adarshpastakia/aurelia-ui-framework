@@ -11,6 +11,7 @@ PLATFORM.moduleName("./form");
 PLATFORM.moduleName("./inputs");
 PLATFORM.moduleName("./lists");
 PLATFORM.moduleName("./toggles");
+PLATFORM.moduleName("./date");
 
 const group = "Form Controls";
 
@@ -36,6 +37,14 @@ export const FormRoutes = [
     name: "lists",
     route: "lists",
     title: "List Inputs",
+    group,
+    nav: true
+  },
+  {
+    moduleId: "form/date",
+    name: "date",
+    route: "date",
+    title: "Date/Time",
     group,
     nav: true
   },

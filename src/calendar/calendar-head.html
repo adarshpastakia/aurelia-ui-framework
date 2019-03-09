@@ -1,7 +1,23 @@
 <template class="ui-calendar__header">
-  <a class="ui-calendar__tool"><ui-svg-icon icon="page-first"></ui-svg-icon></a>
-  <a class="ui-calendar__tool"><ui-svg-icon icon="page-previous"></ui-svg-icon></a>
-  <a class="ui-calendar__title">{currentTitle}</a>
-  <a class="ui-calendar__tool"><ui-svg-icon icon="page-next"></ui-svg-icon></a>
-  <a class="ui-calendar__tool"><ui-svg-icon icon="page-last"></ui-svg-icon></a>
+  <a
+    class="ui-calendar__tool first"
+    data-tool="first"
+    if.bind="showFirstLast"
+    data-disabled.bind="disableFirst"
+    ><ui-svg-icon icon="page-first"></ui-svg-icon
+  ></a>
+  <a class="ui-calendar__tool prev" data-tool="prev" data-disabled.bind="disablePrev"
+    ><ui-svg-icon icon="page-previous"></ui-svg-icon
+  ></a>
+  <a class="ui-calendar__title" data-tool="title"><slot></slot></a>
+  <a class="ui-calendar__tool next" data-tool="next" data-disabled.bind="disableNext"
+    ><ui-svg-icon icon="page-next"></ui-svg-icon
+  ></a>
+  <a
+    class="ui-calendar__tool last"
+    data-tool="last"
+    if.bind="showFirstLast"
+    data-disabled.bind="disableLast"
+    ><ui-svg-icon icon="page-last"></ui-svg-icon
+  ></a>
 </template>

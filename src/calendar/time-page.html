@@ -1,0 +1,18 @@
+<template data-page="time" class="ui-calendar__clock">
+  <ui-slider
+    min="1"
+    max="12"
+    value.one-way="hour"
+    change.trigger="hour = $event.target.value & debounce"
+  ></ui-slider>
+  <ui-slider
+    min="0"
+    max="59"
+    value.one-way="minute"
+    change.trigger="minute = $event.target.value & debounce"
+  ></ui-slider>
+
+  <div class="ui-calendar__clock__ampm" data-value.bind="ampm" click.trigger="switchAmpm()">
+    <div></div>
+  </div>
+</template>

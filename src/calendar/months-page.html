@@ -1,0 +1,13 @@
+<template data-page="months" class="ui-calendar__page">
+  <template if.bind="isAttached">
+    <div class="ui-calendar__page__row">
+      <a
+        repeat.for="d of 12"
+        with.bind="getMonth(d, month, config)"
+        data-date.bind="date"
+        class="ui-calendar__page__cell month ${classes}"
+        >${label}
+      </a>
+    </div>
+  </template>
+</template>

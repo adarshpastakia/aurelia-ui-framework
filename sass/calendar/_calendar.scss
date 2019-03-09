@@ -1,0 +1,250 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2019
+// @license   : MIT
+
+.ui-calendar {
+  border: 1px solid $base-border-color;
+  border-radius: $base-border-radius;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+
+  &__range {
+    display: grid;
+    grid-template-columns: auto 2px auto;
+
+    .ui-divider {
+      @extend %vr;
+      transform: none;
+      width: 2px;
+    }
+  }
+
+  &__header {
+    align-items: center;
+    background-color: $base-component-bg;
+    display: grid;
+    grid-gap: 2px;
+    grid-template-areas: "first prev title next last";
+    grid-template-columns: auto auto 1fr auto auto;
+    text-align: center;
+  }
+
+  &__footer {
+    @extend %ui-flex;
+    background-color: $base-component-bg;
+  }
+
+  &__tag {
+    background-color: rgba($primary, 0.05);
+    border: 1px solid rgba($primary, 0.5);
+    border-radius: 2px;
+    color: $primary;
+    font-size: 0.8em;
+    margin: 2px 4px;
+    padding: 0 0.25em;
+
+    &:hover {
+      background-color: rgba($primary, 0.5);
+      color: $base-bg;
+    }
+
+    &.cancel {
+      border-color: rgba($danger, 0.5);
+      color: $danger;
+
+      &:hover {
+        background-color: rgba($danger, 0.5);
+        color: $base-bg;
+      }
+    }
+  }
+
+  &__title {
+    color: $primary;
+    font-weight: $font-weight-medium;
+    grid-area: title;
+    padding: 0.25em;
+  }
+
+  &__tool {
+    border: 1px dotted transparent;
+    color: $primary;
+    font-size: 1.5em;
+    line-height: 1;
+
+    &.first {
+      grid-area: first;
+    }
+    &.last {
+      grid-area: last;
+    }
+    &.prev {
+      grid-area: prev;
+    }
+    &.next {
+      grid-area: next;
+    }
+
+    &:hover {
+      border-color: rgba($base-border-color, 0.75);
+    }
+
+    &[data-disabled="true"] {
+      color: rgba($gray, 0.5);
+      pointer-events: none;
+    }
+  }
+
+  &__clock {
+    border-top: 1px solid rgba($base-border-color, 0.75);
+    display: grid;
+    grid-gap: 4px;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    padding: 0 4px 4px;
+
+    &__ampm {
+      background: $gray;
+      border: 1px solid $base-border-color;
+      border-radius: 1rem;
+      cursor: pointer;
+      font-size: 0.8em;
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      margin: 8px 0;
+      overflow: hidden;
+      position: relative;
+      text-align: center;
+      width: 2rem;
+
+      > div {
+        background-color: $base-theme;
+        border: 1px solid rgba($shadow, 0.5);
+        box-shadow: 0 0 2px 0 rgba($shadow, 0.25) inset;
+        height: 2rem;
+        left: 0;
+        position: relative;
+        position: absolute;
+        right: 0;
+        transition: top 0.2s, border-radius 0.2s;
+      }
+
+      &[data-value="am"] > div {
+        border-radius: 0 0 1rem 1rem;
+        top: 50%;
+      }
+      &[data-value="pm"] > div {
+        border-radius: 1rem 1rem 0 0;
+        top: 0%;
+      }
+
+      &::before,
+      &::after {
+        display: block;
+        font-size: 1rem;
+        height: 2rem;
+        line-height: 1;
+        padding: 0.5em 0;
+      }
+
+      &::before {
+        background-color: $yellow;
+        color: $gray-dark;
+        content: "\2600";
+      }
+      &::after {
+        background-color: $gray-dark;
+        color: $white;
+        content: "\263D";
+      }
+    }
+  }
+
+  &__page {
+    display: block;
+    width: 20rem;
+
+    &__row {
+      display: grid;
+      grid-auto-flow: row;
+      grid-gap: 2px;
+      grid-template-columns: repeat(8, 1fr);
+      margin: 2px 0;
+      text-align: center;
+    }
+
+    &[data-page="months"] &__row,
+    &[data-page="years"] &__row {
+      grid-gap: 1em;
+      grid-template-columns: repeat(3, 1fr);
+      line-height: 2em;
+      margin: 1em 2px;
+    }
+
+    &__head {
+      background-color: $calendar-head-bg;
+      color: $calendar-head-color;
+    }
+
+    &__cell {
+      border-radius: 2px;
+      cursor: pointer;
+      padding: 0.25em;
+      position: relative;
+
+      &:hover {
+        background-color: rgba($primary, 0.15);
+      }
+
+      &.selected {
+        background-color: rgba($primary, 0.15);
+        box-shadow: 0 0 0 1px $primary inset;
+        color: $primary;
+      }
+
+      &.week {
+        background-color: rgba($base-color, 0.05);
+        color: $gray;
+      }
+
+      &.date-other {
+        color: rgba($base-color, 0.65);
+      }
+      &.date-today {
+        font-weight: $font-weight-medium;
+
+        &::before {
+          @include position(absolute, 4px null null 4px);
+          border: 3px solid transparent;
+          border-color: currentColor transparent transparent currentColor;
+          color: $secondary;
+          content: "";
+          height: 6px;
+          width: 6px;
+        }
+      }
+
+      &.select-start,
+      &.select-end {
+        background-color: rgba($primary, 0.5);
+        color: $white;
+
+        &::before {
+          color: $white;
+        }
+      }
+      &.select-hilight {
+        background-color: rgba($primary, 0.15);
+        color: $primary;
+      }
+
+      &.disabled {
+        background-color: rgba($gray, 0.05);
+        color: rgba($gray, 0.5);
+        pointer-events: none;
+      }
+    }
+  }
+}

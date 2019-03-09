@@ -98,6 +98,12 @@ export class UtcValueConverter {
     return UIFormat.utcDate(value);
   }
 }
+@valueConverter("iso")
+export class IsoValueConverter {
+  public toView(value: string): string {
+    return UIFormat.dateToISO(value);
+  }
+}
 
 // Numbers
 @valueConverter("number")

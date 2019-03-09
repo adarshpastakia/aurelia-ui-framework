@@ -1,0 +1,76 @@
+<template class="ui-calendar">
+  <div class="ui-calendar__range">
+    <div>
+      <calendar-head
+        click.delegate="startHeaderClicked($event)"
+        disable-prev.bind="isStartPrevDisabled"
+        disable-next.bind="isStartNextDisabled"
+        disable-first.bind="isStartFirstDisabled"
+        disable-last.bind="isStartLastDisabled"
+        show-first-last.bind="startPage === VIEWS.DAYS"
+        >${startTitle}
+      </calendar-head>
+      <days-page
+        if.bind="startPage === VIEWS.DAYS"
+        month.bind="startMonth"
+        config.to-view="config"
+        mouseover.delegate="hilightDate($event)"
+        click.delegate="selectDate($event)"
+      ></days-page>
+      <months-page
+        if.bind="startPage === VIEWS.MONTHS"
+        month.bind="startMonth"
+        config.to-view="config"
+        click.delegate="selectStartMonth($event)"
+      ></months-page>
+      <years-page
+        if.bind="startPage === VIEWS.YEARS"
+        month.bind="startMonth"
+        config.to-view="config"
+        click.delegate="selectStartMonth($event)"
+      ></years-page>
+    </div>
+    <ui-divider></ui-divider>
+    <div>
+      <calendar-head
+        click.delegate="endHeaderClicked($event)"
+        disable-prev.bind="isEndPrevDisabled"
+        disable-next.bind="isEndNextDisabled"
+        disable-first.bind="isEndFirstDisabled"
+        disable-last.bind="isEndLastDisabled"
+        show-first-last.bind="endPage === VIEWS.DAYS"
+        >${endTitle}
+      </calendar-head>
+      <days-page
+        if.bind="endPage === VIEWS.DAYS"
+        month.bind="endMonth"
+        config.to-view="config"
+        mouseover.delegate="hilightDate($event)"
+        click.delegate="selectDate($event)"
+      ></days-page>
+      <months-page
+        if.bind="endPage === VIEWS.MONTHS"
+        month.bind="endMonth"
+        config.to-view="config"
+        click.delegate="selectEndMonth($event)"
+      ></months-page>
+      <years-page
+        if.bind="endPage === VIEWS.YEARS"
+        month.bind="endMonth"
+        config.to-view="config"
+        click.delegate="selectEndMonth($event)"
+      ></years-page>
+    </div>
+  </div>
+  <div class="ui-calendar__footer">
+    <a class="ui-calendar__tag" click.trigger="selectPreset('week')">This Week</a>
+    <a class="ui-calendar__tag" click.trigger="selectPreset('-7')">Last 7 Days</a>
+    <ui-filler></ui-filler>
+    <a
+      if.bind="selecting || currentPage !== VIEWS.DAYS"
+      class="ui-calendar__tag cancel"
+      click.trigger="cancelSelection()"
+      >Cancel</a
+    >
+  </div>
+</template>

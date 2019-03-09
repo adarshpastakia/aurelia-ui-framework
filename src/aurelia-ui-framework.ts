@@ -8,6 +8,7 @@ import { Container, FrameworkConfiguration } from "aurelia-framework";
 // Modules
 import { Attributes } from "./attributes";
 import { Buttons } from "./buttons";
+import { Calendar } from "./calendar";
 import { Card } from "./card";
 import { DataPanels } from "./data";
 import { Forms } from "./forms";
@@ -70,6 +71,7 @@ export class UIFrameworkConfig {
       this.loadFromModule(Lists);
       this.loadFromModule(TabPanel);
       this.loadFromModule(DataPanels);
+      this.loadFromModule(Calendar);
     }
   };
 

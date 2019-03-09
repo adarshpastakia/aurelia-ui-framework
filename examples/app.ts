@@ -32,6 +32,13 @@ export class App {
         nav: false
       },
       {
+        moduleId: PLATFORM.moduleName("./home/tester"),
+        name: "tester",
+        route: "tester",
+        title: "Tester",
+        nav: false
+      },
+      {
         moduleId: PLATFORM.moduleName("./home/docs"),
         name: "docs",
         route: "docs",

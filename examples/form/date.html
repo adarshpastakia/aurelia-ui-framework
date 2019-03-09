@@ -1,0 +1,34 @@
+<template>
+  <ui-page page-title="Toggle Inputs">
+    <ui-content ui-scroll ui-padding>
+      <ui-container>
+        <p class="x-page-title">Checkboxes, radios and toggle switches</p>
+
+        <div class="x-section-title">Examples</div>
+        <div
+          class="x-example-block"
+          with.bind="{chkboxes:[], radio:'', toggles:[], disabled:false}"
+        >
+          <div class="x-example-display">
+            <ui-date-picker
+              date.bind="dt"
+            ></ui-date-picker>
+            <span>&nbsp;</span>
+            <ui-date-range start.bind="start" end.bind="end"></ui-date-range>
+          </div>
+
+          <div class="x-example-options">
+            <h5>Values</h5>
+            <p>${dt | datetime}</p>
+          </div>
+        </div>
+
+        <div class="x-section-title">Using the Date Picker</div>
+        <x-code-block lang="html" page="app.html" code.bind="dateHtml"></x-code-block>
+
+        <div class="x-section-title">Properties</div>
+        <x-blockquote>Attributes marked with value <b>none</b> do not require a value</x-blockquote>
+      </ui-container>
+    </ui-content>
+  </ui-page>
+</template>

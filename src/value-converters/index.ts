@@ -22,5 +22,6 @@ export const ValueConverters = [
   TextConverters.PhoneLocalValueConverter,
   TextConverters.PhoneValueConverter,
   TextConverters.TimeValueConverter,
-  TextConverters.UtcValueConverter
+  TextConverters.UtcValueConverter,
+  TextConverters.IsoValueConverter
 ];

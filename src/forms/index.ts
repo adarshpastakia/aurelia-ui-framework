@@ -17,6 +17,7 @@ import { UIOptionGroup } from "./ui-option-group";
 import { UIPasswordMeter } from "./ui-password-meter";
 import { UIPhone } from "./ui-phone";
 import { UIRadio } from "./ui-radio";
+import { UISlider } from "./ui-slider";
 import { UITextarea } from "./ui-textarea";
 import { UIToggle } from "./ui-toggle";
 
@@ -34,5 +35,6 @@ export const Forms = [
   UIRadio,
   UITextarea,
   UIToggle,
-  UIPasswordMeter
+  UIPasswordMeter,
+  UISlider
 ];
