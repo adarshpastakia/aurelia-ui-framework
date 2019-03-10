@@ -176,7 +176,6 @@
     overflow: auto;
     pointer-events: all;
     transform: translate(0, 0);
-    will-change: transform;
     z-index: 500;
 
     &[data-show="false"] {
