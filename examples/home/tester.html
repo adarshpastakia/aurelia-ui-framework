@@ -1,18 +1,40 @@
 <template>
-  <ui-content ui-margin ui-paper ui-padding with.bind="{dt:'2019-03-02T00:00:00.000'}">
-    <ui-date-picker
-      date.bind="dt"
-      min-date="2019-03-02T00:00:00.000Z"
-      max-date="2019-03-29T00:00:00.000Z"
-    ></ui-date-picker>
-    <span>&nbsp;</span>
-    <ui-date-range start.bind="start" end.bind="end"></ui-date-range>
-
-    <div>
-      ${dt | datetime}
-      <span>&nbsp;</span>
-      ${start | date} ~ ${end| date}
+  <div class="ui-datalist" ui-margin ui-paper ui-padding>
+    <div class="ui-datalist__wrapper">
+      <a repeat.for="i of 9">
+        <div class="ui-datalist__item">
+          <div class="ui-datalist__avatar ui-datalist__avatar--round" ui-bg="blue" ui-color="white">
+            <ui-icon icon="mdi mdi-music"></ui-icon>
+          </div>
+          <div class="ui-datalist__titlebar">
+            <div class="ui-datalist__title">Track Title</div>
+            <div class="ui-datalist__meta">Track Artist</div>
+          </div>
+          <div class="ui-datalist__data">
+            <div>
+              <div class="ui-datalist__data__label">Duration</div>
+              <div class="ui-datalist__data__value">3:15</div>
+            </div>
+            <div>
+              <div class="ui-datalist__data__label">Genre</div>
+              <div class="ui-datalist__data__value">Psychadelic Rock</div>
+            </div>
+            <div>
+              <div class="ui-datalist__data__label">Year</div>
+              <div class="ui-datalist__data__value">1972</div>
+            </div>
+          </div>
+          <div class="ui-datalist__toolbox">
+            <ui-button-group>
+              <ui-button type="tool" ui-theme="success" icon="mdi mdi-play"></ui-button>
+              <ui-button type="tool" ui-theme="info" icon="mdi mdi-pause"></ui-button>
+            </ui-button-group>
+            <ui-button type="tool">
+              <ui-svg-icon icon="overflow"></ui-svg-icon>
+            </ui-button>
+          </div>
+        </div>
+      </a>
     </div>
-
-  </ui-content>
+  </div>
 </template>

@@ -101,15 +101,15 @@
       }
     }
 
-    &[data-size="sm"] &__inner {
+    &[data-size="sm"] #{$base}__inner {
       font-size: map-get($font-sizes, sm);
     }
 
-    &[data-size="md"] &__inner {
+    &[data-size="md"] #{$base}__inner {
       font-size: map-get($font-sizes, md);
     }
 
-    &[data-size="lg"] &__inner {
+    &[data-size="lg"] #{$base}__inner {
       font-size: map-get($font-sizes, lg);
     }
 
@@ -177,6 +177,10 @@
     .ui-icon {
       font-size: 1.5em;
     }
+  }
+
+  .ui-svg-icon {
+    font-size: 1.5em;
   }
 
   &__icon {
