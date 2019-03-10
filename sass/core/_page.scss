@@ -49,15 +49,18 @@
   @extend %ui-section;
 
   &__head {
+    display: block;
     grid-area: head;
   }
 
   &__foot {
+    display: block;
     grid-area: foot;
   }
 
   &__content {
     background-color: $base-theme;
+    display: block;
     grid-area: content;
     position: relative;
   }

@@ -16,8 +16,30 @@
 
   &__item {
     box-shadow: $shadow-level0;
-    display: grid;
-    grid-template-columns: auto minmax(10rem, max-content) 1fr auto;
+
+    &__head {
+      display: grid;
+      grid-template-columns: auto minmax(10rem, max-content) 1fr auto;
+    }
+
+    &__body {
+      max-height: 0;
+      overflow: hidden;
+      position: relative;
+      transition: max-height 0.5s;
+
+      &::before {
+        @include position(absolute, 0 0 null);
+        content: "";
+        z-index: 1;
+        @extend %hr;
+      }
+    }
+
+    &[data-open="true"] &__body {
+      max-height: 30rem;
+      overflow: auto;
+    }
   }
 
   a > &__item {

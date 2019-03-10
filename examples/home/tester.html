@@ -1,42 +1,53 @@
 <template>
-  <div class="ui-datalist" ui-margin ui-paper ui-padding>
-    <div class="ui-datalist__wrapper">
+  <div class="ui-datalist" ui-margin="xs" ui-paper ui-padding>
+    <div class="ui-datalist__wrapper" with.bind="{isOpen:{}}">
       <a repeat.for="i of 9">
-        <div class="ui-datalist__item">
-          <div class="ui-datalist__avatar ui-datalist__avatar--round" ui-bg="blue" ui-color="white">
-            <ui-icon icon="mdi mdi-music"></ui-icon>
-          </div>
-          <div class="ui-datalist__titlebar">
-            <div class="ui-datalist__title">Track Title</div>
-            <div class="ui-datalist__meta">Track Artist</div>
-          </div>
-          <div class="ui-datalist__data">
-            <div>
-              <div class="ui-datalist__data__label">Duration</div>
-              <div class="ui-datalist__data__value">3:15</div>
+        <div class="ui-datalist__item" data-open.bind="isOpen[i]">
+          <div class="ui-datalist__item__head">
+            <div
+              class="ui-datalist__avatar ${i % 3 ? '' : 'ui-datalist__avatar--round'}"
+              ui-bg="blue"
+              ui-color="white"
+            >
+              <ui-icon icon="mdi mdi-music"></ui-icon>
             </div>
-            <div>
-              <div class="ui-datalist__data__label">Genre</div>
-              <div class="ui-datalist__data__value">Psychadelic Rock</div>
+            <div class="ui-datalist__titlebar">
+              <div class="ui-datalist__title">Track Title</div>
+              <div class="ui-datalist__meta">Track Artist</div>
             </div>
-            <div>
-              <div class="ui-datalist__data__label">Year</div>
-              <div class="ui-datalist__data__value">1972</div>
+            <div class="ui-datalist__data">
+              <div>
+                <div class="ui-datalist__data__label">Duration</div>
+                <div class="ui-datalist__data__value">3:15</div>
+              </div>
+              <div>
+                <div class="ui-datalist__data__label">Genre</div>
+                <div class="ui-datalist__data__value">Psychadelic Rock</div>
+              </div>
+              <div>
+                <div class="ui-datalist__data__label">Year</div>
+                <div class="ui-datalist__data__value">1972</div>
+              </div>
+            </div>
+            <div class="ui-datalist__toolbox">
+              <ui-button-group type="tool">
+                <ui-button ui-theme="success" icon="mdi mdi-play"></ui-button>
+                <ui-button ui-theme="info" icon="mdi mdi-pause"></ui-button>
+              </ui-button-group>
+              <ui-button-group vertical>
+                <ui-button type="tool" menu-items.bind="actions" no-caret>
+                  <ui-svg-icon icon="overflow"></ui-svg-icon>
+                </ui-button>
+                <ui-button type="tool" click.trigger="isOpen[i] = !isOpen[i]">
+                  <ui-svg-icon icon="caret"></ui-svg-icon>
+                </ui-button>
+              </ui-button-group>
             </div>
           </div>
-          <div class="ui-datalist__toolbox">
-            <ui-button-group type="tool">
-              <ui-button ui-theme="success" icon="mdi mdi-play"></ui-button>
-              <ui-button ui-theme="info" icon="mdi mdi-pause"></ui-button>
-            </ui-button-group>
-            <ui-button-group vertical>
-              <ui-button type="tool" menu-items.bind="actions" no-caret>
-                <ui-svg-icon icon="overflow"></ui-svg-icon>
-              </ui-button>
-              <ui-button type="tool">
-                <ui-svg-icon icon="caret"></ui-svg-icon>
-              </ui-button>
-            </ui-button-group>
+          <div class="ui-datalist__item__body">
+            <ui-content ui-padding>
+              <lipsum-para></lipsum-para>
+            </ui-content>
           </div>
         </div>
       </a>
