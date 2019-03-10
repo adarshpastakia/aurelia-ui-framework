@@ -104,6 +104,7 @@ export class ComponentPage {
           image: TOGGLES
         },
         {
+          href: "/docs/date",
           title: "Date/Time",
           description: "Date/time input",
           image: DATE
