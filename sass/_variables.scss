@@ -145,7 +145,7 @@ $badge-bg: $gray-dark !default;
 $badge-color: $white !default;
 
 // Dialog
-$dlg-header-active-bg: mix($primary, $base-theme, 50%) !default;
+$dlg-header-active-bg: mix($primary, $base-theme, 80%) !default;
 $dlg-header-active-color: $base-theme;
 $dlg-header-inactive-bg: mix($gray, $base-theme, 25%) !default;
 $dlg-header-inactive-color: $gray;

@@ -4,7 +4,7 @@
 // @license   : MIT
 
 .ui-tag {
-  $tag-bg: mix($base-theme, $base-invert, 95%);
+  $tag-bg: $base-theme;
   $tag-color: mix($tag-bg, $base-color, 35%);
 
   align-items: center;
@@ -15,7 +15,7 @@
   display: inline-grid;
   font-size: 0.8em;
   grid-template-areas: "avatar label value close";
-  line-height: 1.5em;
+  line-height: 1;
   margin: 0.25rem;
   overflow: hidden;
   vertical-align: middle;
@@ -31,8 +31,8 @@
     border-radius: 1em;
     color: $tag-bg;
     grid-area: avatar;
-    height: 1.75em;
-    width: 1.75em;
+    height: 1.85em;
+    width: 1.9em;
 
     &:empty {
       display: none;
@@ -41,7 +41,7 @@
     img {
       border-radius: 50%;
       height: 1.5em;
-      margin: 0.125em;
+      margin: 0.15em;
       overflow: hidden;
       width: 1.5em;
     }
@@ -51,14 +51,14 @@
       font-size: 1.5em;
       margin: 0;
       overflow: hidden;
-      padding: 0.075em;
+      padding: 0.125em;
     }
     .ui-flag {
       border-radius: 1em;
       box-shadow: none;
       font-size: 1.5em;
       height: 1em;
-      margin: 0.075em;
+      margin: 0.125em;
       max-height: 1em;
       overflow: hidden;
       width: 1em;
@@ -69,7 +69,7 @@
     background-color: $tag-color;
     color: $tag-bg;
     grid-area: label;
-    padding: 0.125em 0.5em;
+    padding: 0.42em 0.5em;
 
     &:empty {
       display: none;
@@ -78,7 +78,7 @@
 
   &__value {
     grid-area: value;
-    padding: 0.1em 1em;
+    padding: 0.42em 1em;
 
     &:empty {
       display: none;
@@ -86,7 +86,7 @@
   }
 
   &__label:not(:empty) ~ &__value {
-    padding: 0 0.5em;
+    padding: 0.42em 0.5em;
     @include property-prefix(border-start, 1px solid rgba($white, 0.3));
   }
 
@@ -134,7 +134,7 @@
 
       &.ui-tag--solid {
         background-color: $theme-color;
-        color: $gray-light;
+        color: $white;
 
         .ui-tag__icon,
         .ui-tag__label {
@@ -145,7 +145,7 @@
       .ui-tag__icon,
       .ui-tag__label {
         background-color: $theme-color;
-        color: $gray-light;
+        color: $white;
       }
     }
   }

@@ -16,37 +16,35 @@
       <div class="ui-panel__header__actions" if.bind="!hideToolbox" mousedown.delegate="false">
         <ui-divider></ui-divider>
         <ui-button if.bind="help" class="ui-dlg--tool" ui-theme="info" type="tool">
-          <ui-svg-icon ui-color="info" icon="dlg-help"></ui-svg-icon>
+          <ui-svg-icon ui-color="blue" view-box="2 2 20 20" icon="dlg-help"></ui-svg-icon>
         </ui-button>
         <ui-button
           disabled.bind="!maximizable"
           class="ui-dlg--tool"
-          ui-theme="success"
           type="tool"
           click.trigger="maximized = !maximized"
         >
           <ui-svg-icon
-            ui-color="success"
+            ui-color="teal"
+            view-box="2 2 20 20"
             icon.bind="maximized?'dlg-collapse':'dlg-expand'"
           ></ui-svg-icon>
         </ui-button>
         <ui-button
           disabled.bind="modal || !minimizable"
           class="ui-dlg--tool"
-          ui-theme="warning"
           type="tool"
           click.trigger="minimize()"
         >
-          <ui-svg-icon ui-color="warning" icon="dlg-minimize"></ui-svg-icon>
+          <ui-svg-icon ui-color="yellow" view-box="2 2 20 20" icon="dlg-minimize"></ui-svg-icon>
         </ui-button>
         <ui-button
           disabled.bind="!closeable"
           class="ui-dlg--tool"
-          ui-theme="danger"
           type="tool"
           click.trigger="close()"
         >
-          <ui-svg-icon ui-color="danger" icon="dlg-close"></ui-svg-icon>
+          <ui-svg-icon ui-color="red" view-box="2 2 20 20" icon="dlg-close"></ui-svg-icon>
         </ui-button>
       </div>
     </div>

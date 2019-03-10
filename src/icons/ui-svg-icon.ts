@@ -10,13 +10,16 @@ import Icons from "./ui-icons.json";
 @containerless()
 @customElement("ui-svg-icon")
 @inlineView(
-  `<template><svg ref="vmElement" slot="svg-icon" class="ui-icon ui-svg-icon \${class}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="0 0 24 24"><path d.bind="iconPath" /></svg></template>`
+  `<template><svg ref="vmElement" slot="svg-icon" class="ui-icon ui-svg-icon \${class}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="\${viewBox}"><path d.bind="iconPath" /></svg></template>`
 )
 export class UISvgIcon {
   @bindable()
   public icon: string = "";
   @bindable()
   public class: string = "";
+
+  @bindable()
+  public viewBox = "0 0 24 24";
 
   private iconPath: string = "";
 

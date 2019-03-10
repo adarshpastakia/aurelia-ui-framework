@@ -44,10 +44,10 @@ export class UIButtonGroup {
 
   constructor(protected element: Element) {
     if (element.hasAttribute("equal")) {
-      element.classList.add("ui-btn-group--equal");
+      element.classList.add("ui-btn__group--equal");
     }
     if (element.hasAttribute("vertical")) {
-      element.classList.add("ui-btn-group--vertical");
+      element.classList.add("ui-btn__group--vertical");
     }
     this.toggle = element.hasAttribute("toggle");
   }

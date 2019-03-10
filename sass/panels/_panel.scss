@@ -59,10 +59,10 @@
 
     .ui-header {
       position: static;
+    }
 
-      .ui-btn__wrapper {
-        font-size: 0.75em;
-      }
+    .ui-btn__wrapper {
+      font-size: 0.75em;
     }
 
     &__actions {
@@ -76,10 +76,6 @@
       > .ui-divider {
         margin: 4px;
         @extend %vr;
-      }
-
-      .ui-btn__wrapper {
-        // font-size: 0.75em;
       }
 
       &:not(:empty) {
@@ -102,19 +98,20 @@
     &.ui-theme--#{$theme} {
       #{$base}__header {
         background-color: $theme-color;
-        color: $gray-light;
+        color: $white;
 
         .ui-divider {
           @extend %vr-dark;
         }
-        .ui-btn__wrapper[data-type="tool"] {
+        .ui-btn__wrapper[data-type="tool"] .ui-btn__inner {
           background-color: $tool-color;
+          color: $white;
         }
       }
     }
   }
   @each $label, $color in $base-colors {
-    @include make-panel($label, mix($color, $gray, 85%), mix($color, $gray-light, 40%));
+    @include make-panel($label, mix($color, $gray, 85%), rgba($color, 0.95));
   }
-  @include make-panel(dark, $gray-dark, mix($gray-dark, $gray-light, 40%));
+  @include make-panel(dark, $gray-dark, rgba($black, 0.15));
 }

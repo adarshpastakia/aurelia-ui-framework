@@ -18,19 +18,24 @@
 
     &__actions {
       .ui-dlg--tool {
-        border-radius: 50%;
-        margin: 0;
+        border-radius: 1rem;
+        margin: 0 1px;
         overflow: hidden;
 
         .ui-btn {
-          background-color: $white;
-          font-size: 18px;
-          opacity: 0.7;
+          font-size: 0.75rem;
           overflow: hidden;
-        }
 
-        .ui-icon {
-          margin: -1px;
+          .ui-icon {
+            background-color: $white;
+            border: 0.05em solid $gray;
+            border-radius: 1rem;
+            margin: 0;
+          }
+
+          &:hover .ui-icon {
+            background-color: $gray-light;
+          }
         }
 
         &[data-disabled="true"] {
@@ -76,6 +81,7 @@
           background-color: transparent;
           .ui-icon {
             color: $dlg-header-inactive-color;
+            opacity: 0.5;
           }
         }
       }
