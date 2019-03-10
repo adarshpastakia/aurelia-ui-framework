@@ -5,7 +5,7 @@
 
 .ui-menu {
   display: block;
-  min-width: 4rem;
+  min-width: 4em;
 
   $base: #{&};
 
@@ -24,13 +24,13 @@
 
     &__label {
       color: $gray;
-      font-size: 0.85rem;
-      margin: 0 0.5rem;
+      font-size: 0.85em;
+      margin: 0 0.5em;
       padding: 4px 0;
     }
 
     &--collapsible &__label {
-      width: calc(100% - 1rem);
+      width: calc(100% - 1em);
     }
     &--collapsible &__label::after {
       content: "\25BE";
@@ -67,8 +67,8 @@
     flex: 0 0 auto;
     grid-template-areas: "link caret";
     grid-template-columns: 1fr auto;
-    max-width: 18rem;
-    min-width: 4rem;
+    max-width: 18em;
+    min-width: 4em;
     overflow: hidden;
 
     &__link {
@@ -77,7 +77,7 @@
       grid-area: link;
       grid-template-areas: "icon label badge caret";
       grid-template-columns: auto 1fr auto auto;
-      padding: 0 0.5rem;
+      padding: 0 0.5em;
 
       &:hover {
         background-color: $menu-hover-bg;
@@ -118,14 +118,14 @@
     }
 
     &__label {
-      font-size: 0.95rem;
+      font-size: 0.95em;
       grid-area: label;
-      padding: 0.35rem 0.25rem;
+      padding: 0.5em 0.25em;
       @include ellipsis();
     }
 
     &__icon {
-      font-size: 1.25rem;
+      font-size: 1.25em;
       grid-area: icon;
     }
 
@@ -133,7 +133,7 @@
       grid-area: caret;
 
       &--split {
-        padding: 0.35rem 0.5rem;
+        padding: 0.35em 0.5em;
 
         .ui-icon {
           vertical-align: middle;
@@ -197,10 +197,10 @@
           box-shadow: 0 -2px 0 0 $menu-active-color inset;
         }
         &__label {
-          padding: 0.25rem;
+          padding: 0.25em;
         }
         &__caret--split {
-          padding: 0.25rem 0.5rem;
+          padding: 0.25em 0.5em;
         }
       }
 

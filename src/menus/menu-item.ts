@@ -16,7 +16,8 @@ import { IMenuItems } from "./index";
     </ui-menu-group>
   </template>
   <template if.bind="item.label">
-    <ui-menu-item label.bind="item.label" icon.bind="item.icon" icon-color.bind="item.iconColor" href.bind="item.href"
+    <ui-menu-item label.bind="item.label" href.bind="item.href"
+    icon.bind="item.icon" icon-color.bind="item.iconColor" ui-badge="value.bind:item.badge; theme.bind:item.badgeTheme;"
     disabled.bind="typeof item.disabled === 'function' ? item.disabled() : item.disabled"
     active.bind="typeof item.active === 'function' ? item.active() : item.active"
     hide.bind="typeof item.hidden === 'function' ? item.hidden() : item.hidden"

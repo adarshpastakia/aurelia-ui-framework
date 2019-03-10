@@ -14,7 +14,7 @@ export class MenuPage {
         { label: "Menu Item", icon: "mdi mdi-music" }
       ]
     },
-    { label: "Menu Item", icon: "mdi mdi-music", disabled: true },
+    { label: "Menu Item", icon: "mdi mdi-music", badge: "0", badgeTheme: "danger", disabled: true },
     { label: "Menu Item", icon: "mdi mdi-music", disabled: () => true },
     "-",
     {

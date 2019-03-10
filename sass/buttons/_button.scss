@@ -297,6 +297,18 @@
     }
   }
 
+  &__wrapper.ui-theme--inverse {
+    #{$base} {
+      &__inner {
+        background-color: transparent;
+        color: $white;
+      }
+      &:hover {
+        background-color: rgba($black, 0.85);
+      }
+    }
+  }
+
   @mixin make-button($theme, $theme-color) {
     &__wrapper.ui-theme--#{$theme} {
       #{$base}__inner {

@@ -1,5 +1,5 @@
 <template>
-  <ui-menu>
+  <ui-menu ui-font="md">
     <template repeat.for="[key, routes] of router.navigation | group:'config.group'">
       <ui-menu-group label.bind="key" collapsible ui-border="0">
         <template repeat.for="route of routes">

@@ -15,6 +15,7 @@ export interface IMenuItem {
   id: string;
   label: string;
   href: string;
+  badge: string;
   icon: string;
   iconColor: string;
   active: () => boolean | boolean;
