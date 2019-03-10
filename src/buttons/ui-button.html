@@ -22,11 +22,11 @@
         <ui-icon icon.bind="icon"></ui-icon>
       </div>
       <div class="ui-btn__label"><slot>${label}</slot></div>
-      <div class="ui-btn__caret" if.bind="elDropdown && !split">
+      <div class="ui-btn__caret" if.bind="hasDrop && !split">
         <ui-svg-icon icon="caret"></ui-svg-icon>
       </div>
     </a>
-    <template if.bind="elDropdown && split">
+    <template if.bind="hasDrop && split">
       <div class="ui-btn__divider"></div>
       <a
         class="ui-btn ui-btn__caret ui-btn__caret--split"
