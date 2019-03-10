@@ -6,8 +6,8 @@
  */
 import { Countries } from "aurelia-ui-framework";
 
-export class TreePage {
-  protected treeHtml = `<template>
+export class DatagridPage {
+  protected datagridHtml = `<template>
 
   <!-- TODO -->
 

@@ -6,6 +6,7 @@
 .ui-datalist {
   @extend .ui-section__content;
   grid-area: content;
+  padding: $base-spacing;
 
   &__wrapper {
     display: grid;
@@ -51,14 +52,18 @@
   &__avatar {
     font-size: 2rem;
     .ui-icon {
-      padding: 0.5rem;
+      padding: 0.5em;
     }
 
     &--round {
       align-self: start;
-      border-radius: 2rem;
-      margin: 0.5em;
+      border-radius: 2em;
+      margin: 0.25em;
       overflow: hidden;
+
+      .ui-icon {
+        padding: 0.25em;
+      }
     }
   }
 
@@ -76,7 +81,7 @@
   &__data {
     display: grid;
     grid-auto-flow: row;
-    grid-gap: 1em;
+    grid-gap: 0.5em 1em;
     grid-template-columns: repeat(auto-fill, minmax(8rem, max-content));
     padding: 1em;
 

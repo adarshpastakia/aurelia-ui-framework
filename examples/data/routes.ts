@@ -7,24 +7,33 @@
 import { PLATFORM } from "aurelia-pal";
 
 PLATFORM.moduleName("./tree");
-PLATFORM.moduleName("./datagrid");
+PLATFORM.moduleName("./grid");
+PLATFORM.moduleName("./list");
 
 const group = "Data Panels";
 
 export const DataRoutes = [
   {
-    moduleId: "data/tree",
-    name: "datatree",
-    route: "datatree",
-    title: "Tree Panel",
+    moduleId: "data/grid",
+    name: "datagrid",
+    route: "datagrid",
+    title: "Datagrid Panel",
     group,
     nav: true
   },
   {
-    moduleId: "data/datagrid",
-    name: "datagrid",
-    route: "datagrid",
-    title: "Datagrid Panel",
+    moduleId: "data/list",
+    name: "datalist",
+    route: "datalist",
+    title: "Datalist Panel",
+    group,
+    nav: true
+  },
+  {
+    moduleId: "data/tree",
+    name: "datatree",
+    route: "datatree",
+    title: "Tree Panel",
     group,
     nav: true
   }

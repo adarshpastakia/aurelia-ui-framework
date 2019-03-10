@@ -18,7 +18,7 @@ interface IBreadcrumbItem {
 @customElement("ui-breadcrumbs")
 @inlineView(`<template class="ui-breadcrumbs">
   <div class="ui-breadcrumbs__overflow" show.bind="hasOverflow">
-  <ui-button type="tool" size="sm" no-caret ui-theme="secondary">
+  <ui-button type="tool" size="xs" no-caret ui-theme="secondary">
     <ui-svg-icon class="ui-btn__icon" icon="ellipsis"></ui-svg-icon>
     <ui-drop close-on-click="false"><ui-menu ref="overflowEl"></ui-menu></ui-drop>
   </ui-button>

@@ -160,13 +160,14 @@ export class ComponentPage {
           description: "Functional datagrid with resizeable, sortable columns"
         },
         {
+          href: "/docs/datalist",
+          title: "Data List",
+          description: "Card like data list with filtering and lazy loading"
+        },
+        {
           href: "/docs/datatree",
           title: "Data Tree",
           description: "Functional tree with checkable nodes, filtering, lazy loading"
-        },
-        {
-          title: "Data List",
-          description: "Card like data list with filtering and lazy loading"
         }
       ]
     },

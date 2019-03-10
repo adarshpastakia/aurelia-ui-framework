@@ -12,7 +12,7 @@ import { UIInternal } from "../utils/ui-internal";
 @customElement("ui-menubar")
 @inlineView(`<template class="ui-menu__bar">
   <div class="ui-menu__bar__wrapper" ref="wrapperEl"><slot></slot></div>
-  <ui-button type="tool" size="sm" no-caret class="ui-menu__overflow" ui-theme="secondary" show.bind="hasOverflow">
+  <ui-button type="tool" size="xs" no-caret class="ui-menu__overflow" ui-theme="secondary" show.bind="hasOverflow">
     <ui-svg-icon class="ui-btn__icon" icon="overflow"></ui-svg-icon>
     <ui-drop close-on-click="false"><ui-menu ref="overflowEl"></ui-menu></ui-drop>
   </ui-button>

@@ -103,6 +103,10 @@
         }
       }
 
+      &[data-size="xs"] #{$base}__inner {
+        font-size: map-get($font-sizes, xs);
+      }
+
       &[data-size="sm"] #{$base}__inner {
         font-size: map-get($font-sizes, sm);
       }
@@ -172,8 +176,8 @@
     }
   }
 
-  &__icon,
-  &__caret {
+  &__icon {
+    grid-area: icon;
     line-height: 0.75;
     padding: 0.25em;
 
@@ -185,10 +189,6 @@
   .ui-svg-icon {
     font-size: 1.5em;
     margin: 0.15em;
-  }
-
-  &__icon {
-    grid-area: icon;
   }
 
   &__label {
