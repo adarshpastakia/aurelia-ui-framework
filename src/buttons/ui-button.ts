@@ -6,6 +6,7 @@
  */
 
 import { bindable, child, computedFrom, customElement, inlineView } from "aurelia-framework";
+import { IMenuItems } from "../menus";
 import { UIDrop } from "../shared/ui-drop";
 import { UIInternal } from "../utils/ui-internal";
 import view from "./ui-button.html";
@@ -32,6 +33,9 @@ export class UIButton {
   public active: boolean = false;
   @bindable()
   public disabled: boolean = false;
+
+  @bindable()
+  public menuItems: IMenuItems[];
 
   @child("div.ui-drop")
   protected elDropdown: Element;
@@ -74,9 +78,11 @@ export class UIButton {
 
   protected attached() {
     UIInternal.queueTask(() => {
-      this.hasDrop = !!this.elDropdown;
+      this.hasDrop = !!this.elDropdown || !!this.dropEl;
       if (this.hasDrop) {
-        this.dropEl = getSlotViewModel(this.elDropdown) as UIDrop;
+        if (!this.dropEl) {
+          this.dropEl = getSlotViewModel(this.elDropdown) as UIDrop;
+        }
         this.dropEl.tether(this.element);
       }
     });

@@ -37,5 +37,5 @@
       </a>
     </template>
   </div>
-  <slot name="ui-drop"></slot>
+  <slot name="ui-drop"><ui-drop view-model.ref="dropEl" if.bind="menuItems"><ui-menu menu-items.bind="menuItems"></ui-menu></ui-drop></slot>
 </template>

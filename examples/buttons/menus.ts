@@ -6,6 +6,28 @@
  */
 
 export class MenuPage {
+  protected actionItems = [
+    {
+      group: "Group",
+      items: [
+        { label: "Menu Item", icon: "mdi mdi-music" },
+        { label: "Menu Item", icon: "mdi mdi-music" }
+      ]
+    },
+    { label: "Menu Item", icon: "mdi mdi-music", disabled: true },
+    { label: "Menu Item", icon: "mdi mdi-music", disabled: () => true },
+    "-",
+    {
+      label: "Menu Item",
+      icon: "mdi mdi-music",
+      items: [
+        { label: "Menu Item", icon: "mdi mdi-music" },
+        { label: "Menu Item", icon: "mdi mdi-music" },
+        { label: "Menu Item", icon: "mdi mdi-music" }
+      ]
+    }
+  ];
+
   protected menuHtml = `<template>
 
   <ui-menu></ui-menu>

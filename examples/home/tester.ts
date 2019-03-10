@@ -5,4 +5,11 @@
  * @license   : MIT
  */
 
-export class Tester {}
+export class Tester {
+  protected actions = [
+    { icon: "mdi mdi-pencil", label: "Edit" },
+    { icon: "mdi mdi-delete", iconColor: "red", label: "Delete" },
+    "-",
+    { icon: "mdi mdi-settings", iconColor: "gray", label: "Settings" }
+  ];
+}

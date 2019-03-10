@@ -20,6 +20,8 @@ export class UIMenuItem {
   @bindable()
   public icon: string = "";
   @bindable()
+  public iconColor: string = "";
+  @bindable()
   public id: string;
 
   @bindable()

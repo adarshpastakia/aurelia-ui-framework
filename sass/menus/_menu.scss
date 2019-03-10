@@ -23,8 +23,8 @@
     }
 
     &__label {
-      color: $base-muted;
-      font-size: 0.95em;
+      color: $gray;
+      font-size: 0.85rem;
       margin: 0 0.5rem;
       padding: 4px 0;
     }
@@ -71,10 +71,6 @@
     min-width: 4rem;
     overflow: hidden;
 
-    &:hover {
-      box-shadow: 0 0 1px 0 $menu-active-bg inset;
-    }
-
     &__link {
       align-items: center;
       display: grid;
@@ -85,7 +81,12 @@
 
       &:hover {
         background-color: $menu-hover-bg;
+        box-shadow: 0 0 1px 0 $menu-active-bg inset;
         color: $menu-hover-color;
+
+        .ui-icon {
+          color: inherit;
+        }
       }
 
       &[data-open="true"],
@@ -101,6 +102,11 @@
         color: $menu-active-color;
       }
 
+      &[data-disabled="true"] {
+        color: $gray;
+        pointer-events: none;
+      }
+
       @at-root [dir="rtl"] &[data-active="true"] {
         box-shadow: -4px 0 0 0 $menu-active-border-color inset;
       }
@@ -112,13 +118,14 @@
     }
 
     &__label {
+      font-size: 0.95rem;
       grid-area: label;
-      padding: 0.5rem 0.25rem;
+      padding: 0.35rem 0.25rem;
       @include ellipsis();
     }
 
     &__icon {
-      font-size: 1.25em;
+      font-size: 1.25rem;
       grid-area: icon;
     }
 
@@ -126,7 +133,7 @@
       grid-area: caret;
 
       &--split {
-        padding: 0.5rem;
+        padding: 0.35rem 0.5rem;
 
         .ui-icon {
           vertical-align: middle;
@@ -156,7 +163,7 @@
   }
 
   .ui-divider {
-    align-self: stretch;
+    display: block;
     margin: 4px 0;
     @extend %hr;
   }
@@ -208,7 +215,6 @@
         }
 
         &__label {
-          font-size: 0.85rem;
           line-height: 1;
           pointer-events: none;
 

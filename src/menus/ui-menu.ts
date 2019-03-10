@@ -5,11 +5,21 @@
  * @license   : MIT
  */
 
-import { customElement, inlineView } from "aurelia-framework";
+import { bindable, customElement, inlineView, viewResources } from "aurelia-framework";
+import { IMenuItems } from "./index";
+import { MenuItem } from "./menu-item";
 
 @customElement("ui-menu")
-@inlineView(`<template class="ui-menu"><slot></slot></template>`)
+@viewResources(MenuItem)
+@inlineView(`<template class="ui-menu"><slot>
+  <template if.bind="menuItems">
+    <menu-item repeat.for="item of menuItems" item.bind="item"></menu-item>
+  </template>
+</slot></template>`)
 export class UIMenu {
+  @bindable()
+  public menuItems: IMenuItems[];
+
   constructor(protected element: Element) {}
 
   protected attached(): void {

@@ -1,13 +1,13 @@
 <template class="ui-menu__item" value.bind="value">
   <a
-    data-active.bind="active"
-    disabled.bind="disabled"
     ref="badgeEl"
+    data-active.bind="active"
+    data-disabled.bind="disabled"
     click.trigger="fireClick($event)"
     class="ui-menu__item__link"
     data-open.bind="!split && dropEl.isOpen"
   >
-    <ui-icon class="ui-menu__item__icon" icon.bind="icon" if.bind="icon"></ui-icon>
+    <ui-icon class="ui-menu__item__icon" icon.bind="icon" if.bind="icon" ui-color.bind="iconColor"></ui-icon>
     <span class="ui-menu__item__label">
       <slot>${label}</slot>
     </span>

@@ -69,7 +69,7 @@
     background-color: $tag-color;
     color: $tag-bg;
     grid-area: label;
-    padding: 0 0.5em;
+    padding: 0.125em 0.5em;
 
     &:empty {
       display: none;
@@ -78,7 +78,7 @@
 
   &__value {
     grid-area: value;
-    padding: 0 1em;
+    padding: 0.1em 1em;
 
     &:empty {
       display: none;
