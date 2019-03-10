@@ -110,12 +110,14 @@ export class UIDialogElement {
   }
 
   protected startDrag($event: MouseEvent): void {
-    $event.stopEvent();
-    UIInternal.broadcast("dlg:drag", {
-      dialog: this,
-      startX: $event.x || $event.clientX,
-      startY: $event.y || $event.clientY
-    });
+    if ($event.button === 0) {
+      $event.stopEvent();
+      UIInternal.broadcast("dlg:drag", {
+        dialog: this,
+        startX: $event.x || $event.clientX,
+        startY: $event.y || $event.clientY
+      });
+    }
   }
 
   @computedFrom(
