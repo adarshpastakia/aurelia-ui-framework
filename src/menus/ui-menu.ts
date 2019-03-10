@@ -5,9 +5,8 @@
  * @license   : MIT
  */
 
-import { autoinject, customElement, inlineView } from "aurelia-framework";
+import { customElement, inlineView } from "aurelia-framework";
 
-@autoinject()
 @customElement("ui-menu")
 @inlineView(`<template class="ui-menu"><slot></slot></template>`)
 export class UIMenu {

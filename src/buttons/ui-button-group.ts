@@ -20,13 +20,20 @@ import { UIButton } from "./ui-button";
 @autoinject()
 @customElement("ui-button-group")
 @inlineView(
-  `<template class="ui-btn__group" click.delegate="buttonClicked($event)"><slot></slot></template>`
+  `<template class="ui-btn__group" click.delegate="buttonClicked($event)" data-disabled.bind="isDisabled" data-size.bind="size"><slot></slot></template>`
 )
 export class UIButtonGroup {
   @bindable({ bindingMode: bindingMode.twoWay })
   public value: string = "";
   @bindable()
   public separator: string = "";
+
+  @bindable()
+  public size: "nm" | "sm" | "md" | "lg" = "nm";
+  @bindable()
+  public type: "default" | "solid" | "link" = "default";
+  @bindable()
+  public disabled: boolean = false;
 
   @child("ui-button[data-active='true']")
   private currentSelected: UIButton;
@@ -55,7 +62,10 @@ export class UIButtonGroup {
   }
 
   protected buttonsChanged(): void {
-    this.buttons.forEach(b => ((b.element as HTMLElement).dataset.separator = this.separator));
+    this.buttons.forEach(b => {
+      (b.element as HTMLElement).dataset.separator = this.separator;
+      (b.element as HTMLElement).au.controller.viewModel.type = this.type;
+    });
   }
 
   protected valueChanged(newValue, oldValue): void {

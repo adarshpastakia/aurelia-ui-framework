@@ -86,31 +86,34 @@
       }
     }
 
-    &[data-disabled="true"] {
-      background-color: rgba(0, 0, 0, 0.05);
+    @at-root #{$base}__group,
+      & {
+      &[data-disabled="true"] {
+        background-color: rgba(0, 0, 0, 0.05);
 
-      #{$base} {
-        pointer-events: none;
+        #{$base} {
+          pointer-events: none;
 
-        &__inner {
-          box-shadow: none;
-          cursor: not-allowed;
-          opacity: 0.5;
-          pointer-events: all;
+          &__inner {
+            box-shadow: none;
+            cursor: not-allowed;
+            opacity: 0.5;
+            pointer-events: all;
+          }
         }
       }
-    }
 
-    &[data-size="sm"] #{$base}__inner {
-      font-size: map-get($font-sizes, sm);
-    }
+      &[data-size="sm"] #{$base}__inner {
+        font-size: map-get($font-sizes, sm);
+      }
 
-    &[data-size="md"] #{$base}__inner {
-      font-size: map-get($font-sizes, md);
-    }
+      &[data-size="md"] #{$base}__inner {
+        font-size: map-get($font-sizes, md);
+      }
 
-    &[data-size="lg"] #{$base}__inner {
-      font-size: map-get($font-sizes, lg);
+      &[data-size="lg"] #{$base}__inner {
+        font-size: map-get($font-sizes, lg);
+      }
     }
 
     &[data-type="outline"] {
