@@ -26,6 +26,8 @@ export class UIPhone extends BaseInput {
   public value: string = "";
 
   @bindable()
+  public type: "mobile" | "fixed" | "any" = "any";
+  @bindable()
   public country: string = "";
 
   @bindable()
@@ -65,7 +67,7 @@ export class UIPhone extends BaseInput {
     this.inputCountry = this.country;
     this.placeholder = PhoneLib.getExample(
       this.country || "us",
-      PhoneLib.TYPE.FIXED_LINE_OR_MOBILE,
+      this.type === "mobile" ? PhoneLib.TYPE.MOBILE : PhoneLib.TYPE.FIXED_LINE_OR_MOBILE,
       !!this.country
     );
   }
