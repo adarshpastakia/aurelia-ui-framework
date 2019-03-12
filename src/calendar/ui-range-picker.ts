@@ -13,7 +13,6 @@ import {
   viewResources
 } from "aurelia-framework";
 import {
-  addDays,
   addMonths,
   endOfDay,
   endOfWeek,
@@ -28,11 +27,12 @@ import {
 } from "date-fns";
 import { CalendarHead } from "./calendar-head";
 import {
+  buildHeaderConfig,
   CALENDAR_VIEWS,
   changeMonth,
   getTitle,
-  isAfterMax,
-  isBeforeMin,
+  IDateDisabled,
+  IHeaderConfig,
   parseDate
 } from "./calendar-utils";
 import { DaysPage } from "./days-page";
@@ -54,7 +54,7 @@ export class UIRangePicker {
   public maxDate: string | undefined;
 
   @bindable()
-  public disabledDates: Array<Date | string> | ((dt: Date) => boolean) | undefined;
+  public disabledDates: IDateDisabled;
 
   protected startMonth = startOfMonth(new Date());
   protected endMonth = startOfMonth(addMonths(new Date(), 1));
@@ -83,7 +83,7 @@ export class UIRangePicker {
       end: this.selecting ? this.hilight : parseISO(this.end),
       minDate: parseISO(this.minDate),
       maxDate: parseISO(this.maxDate),
-      disabled: this.disabledDates
+      disabled: this.disabledDatesList
     };
   }
 
@@ -97,47 +97,23 @@ export class UIRangePicker {
     return getTitle(this.endMonth, this.endPage);
   }
 
-  @computedFrom("startMonth", "startPage", "minDate")
-  get isStartPrevDisabled(): boolean {
-    return isBeforeMin(this.startMonth, this.minDate, -1);
+  @computedFrom("startMonth", "startPage", "minDate", "maxDate")
+  get startHeaderOptions(): IHeaderConfig {
+    return buildHeaderConfig(this.startMonth, this.startPage, this.config);
   }
   @computedFrom("startMonth", "startPage", "minDate")
-  get isStartFirstDisabled(): boolean {
-    return isBeforeMin(this.startMonth, this.minDate, -12);
-  }
-  @computedFrom("startMonth", "startPage", "maxDate")
-  get isStartNextDisabled(): boolean {
-    return isAfterMax(this.startMonth, this.maxDate, 1);
-  }
-  @computedFrom("startMonth", "startPage", "maxDate")
-  get isStartLastDisabled(): boolean {
-    return isAfterMax(this.startMonth, this.maxDate, 12);
+  get endHeaderOptions(): IHeaderConfig {
+    return buildHeaderConfig(this.endMonth, this.endPage, this.config);
   }
 
-  @computedFrom("endMonth", "endPage", "minDate")
-  get isEndPrevDisabled(): boolean {
-    return isBeforeMin(this.endMonth, this.minDate, -1);
-  }
-  @computedFrom("endMonth", "endPage", "minDate")
-  get isEndFirstDisabled(): boolean {
-    return isBeforeMin(this.endMonth, this.minDate, -12);
-  }
-  @computedFrom("endMonth", "endPage", "maxDate")
-  get isEndNextDisabled(): boolean {
-    return isAfterMax(this.endMonth, this.maxDate, 1);
-  }
-  @computedFrom("endMonth", "endPage", "maxDate")
-  get isEndLastDisabled(): boolean {
-    return isAfterMax(this.endMonth, this.maxDate, 12);
-  }
-
-  protected disabledDatesChanged(value) {
-    if (isArray(value)) {
-      this.disabledDates = value.map(d => {
+  get disabledDatesList() {
+    if (isArray(this.disabledDates)) {
+      return this.disabledDates.map(d => {
         const dt = parseDate(d);
-        return dt ? startOfDay(dt) : null;
+        return dt ? startOfDay(dt).toISOString() : null;
       });
     }
+    return this.disabledDates;
   }
 
   protected startHeaderClicked($event: MouseEvent) {
@@ -234,13 +210,9 @@ export class UIRangePicker {
   protected selectPreset(preset) {
     this.selecting = null;
     switch (preset) {
-      case "week":
+      case "$week":
         this.start = startOfWeek(new Date()).toISOString();
         this.end = endOfWeek(new Date()).toISOString();
-        break;
-      case "-7":
-        this.start = addDays(new Date(), -6).toISOString();
-        this.end = endOfDay(new Date()).toISOString();
         break;
     }
   }

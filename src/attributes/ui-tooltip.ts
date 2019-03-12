@@ -10,6 +10,8 @@ import { UITether } from "../utils/ui-tether";
 
 let TooltipEl: HTMLDivElement & { tether?: UITether.Tether };
 
+let seed = 0;
+
 @autoinject()
 @customAttribute("ui-tooltip")
 export class UITooltip {
@@ -19,6 +21,8 @@ export class UITooltip {
   public theme = "";
   @bindable()
   public position = "";
+
+  private id = `tooltip-${seed++}`;
 
   private timer;
   private parentEl: Element | HTMLElement;
@@ -60,6 +64,7 @@ export class UITooltip {
     }
     TooltipEl.className = `ui-tooltip ui-theme--${this.theme}`;
     TooltipEl.innerHTML = this.value;
+    TooltipEl.dataset.id = this.id;
     TooltipEl.tether.updatePosition(this.parentEl);
     this.timer = setTimeout(() => (TooltipEl.dataset.open = "true"), 500);
   }
@@ -70,7 +75,7 @@ export class UITooltip {
   }
 
   protected valueChanged() {
-    if (TooltipEl && TooltipEl.dataset.open === "true") {
+    if (TooltipEl && TooltipEl.dataset.open === "true" && TooltipEl.dataset.id === this.id) {
       this.show();
     }
   }

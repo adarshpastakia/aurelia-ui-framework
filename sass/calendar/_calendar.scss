@@ -88,6 +88,7 @@
     }
 
     &:hover {
+      background-color: rgba($primary, 0.15);
       border-color: rgba($base-border-color, 0.75);
     }
 

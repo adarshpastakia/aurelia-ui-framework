@@ -4,13 +4,22 @@
     data-tool="first"
     if.bind="showFirstLast"
     data-disabled.bind="disableFirst"
+    ui-tooltip.bind="config.firstTooltip"
     ><ui-svg-icon icon="page-first"></ui-svg-icon
   ></a>
-  <a class="ui-calendar__tool prev" data-tool="prev" data-disabled.bind="disablePrev"
+  <a
+    class="ui-calendar__tool prev"
+    data-tool="prev"
+    data-disabled.bind="disablePrev"
+    ui-tooltip.bind="config.prevTooltip"
     ><ui-svg-icon icon="page-previous"></ui-svg-icon
   ></a>
   <a class="ui-calendar__title" data-tool="title"><slot></slot></a>
-  <a class="ui-calendar__tool next" data-tool="next" data-disabled.bind="disableNext"
+  <a
+    class="ui-calendar__tool next"
+    data-tool="next"
+    data-disabled.bind="disableNext"
+    ui-tooltip.bind="config.nextTooltip"
     ><ui-svg-icon icon="page-next"></ui-svg-icon
   ></a>
   <a
@@ -18,6 +27,7 @@
     data-tool="last"
     if.bind="showFirstLast"
     data-disabled.bind="disableLast"
+    ui-tooltip.bind="config.lastTooltip"
     ><ui-svg-icon icon="page-last"></ui-svg-icon
   ></a>
 </template>

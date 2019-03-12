@@ -7,6 +7,7 @@
 
 import { bindable, customElement, inlineView } from "aurelia-framework";
 import view from "./calendar-head.html";
+import { IHeaderConfig } from "./calendar-utils";
 
 @customElement("calendar-head")
 @inlineView(view)
@@ -16,11 +17,5 @@ export class CalendarHead {
   @bindable()
   public showFirstLast: boolean = false;
   @bindable()
-  public disablePrev: boolean = false;
-  @bindable()
-  public disableNext: boolean = false;
-  @bindable()
-  public disableFirst: boolean = false;
-  @bindable()
-  public disableLast: boolean = false;
+  public config: IHeaderConfig = {};
 }

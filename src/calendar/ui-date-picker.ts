@@ -5,23 +5,10 @@
  * @license   : MIT
  */
 
-import {
-  bindable,
-  bindingMode,
-  computedFrom,
-  customElement,
-  viewResources
-} from "aurelia-framework";
+import { bindable, bindingMode, computedFrom, customElement, viewResources } from "aurelia-framework";
 import { parseISO, startOfDay, startOfMonth } from "date-fns";
 import { CalendarHead } from "./calendar-head";
-import {
-  CALENDAR_VIEWS,
-  changeMonth,
-  getTitle,
-  isAfterMax,
-  isBeforeMin,
-  parseDate
-} from "./calendar-utils";
+import { buildHeaderConfig, CALENDAR_VIEWS, changeMonth, getTitle, IDateConfig, IDateDisabled, IHeaderConfig, parseDate } from "./calendar-utils";
 import { DaysPage } from "./days-page";
 import { MonthsPage } from "./months-page";
 import { TimePage } from "./time-page";
@@ -39,7 +26,7 @@ export class UIDatePicker {
   public maxDate: string | undefined;
 
   @bindable()
-  public disabledDates: string[] | ((dt: Date) => boolean) | undefined;
+  public disabledDates: IDateDisabled;
 
   protected currentPage = CALENDAR_VIEWS.DAYS;
   protected month: Date = startOfMonth(new Date());
@@ -54,7 +41,7 @@ export class UIDatePicker {
   }
 
   @computedFrom("date", "minDate", "maxDate", "disabledDates")
-  get config() {
+  get config(): IDateConfig {
     return {
       date: parseISO(this.date),
       minDate: parseISO(this.minDate),
@@ -68,21 +55,9 @@ export class UIDatePicker {
     return getTitle(this.month, this.currentPage);
   }
 
-  @computedFrom("month", "currentPage", "minDate")
-  get isPrevDisabled(): boolean {
-    return isBeforeMin(this.month, this.minDate, -1);
-  }
-  @computedFrom("month", "currentPage", "minDate")
-  get isFirstDisabled(): boolean {
-    return isBeforeMin(this.month, this.minDate, -12);
-  }
-  @computedFrom("month", "currentPage", "maxDate")
-  get isNextDisabled(): boolean {
-    return isAfterMax(this.month, this.maxDate, 1);
-  }
-  @computedFrom("month", "currentPage", "maxDate")
-  get isLastDisabled(): boolean {
-    return isAfterMax(this.month, this.maxDate, 12);
+  @computedFrom("month", "currentPage", "minDate", "maxDate")
+  get headerOptions(): IHeaderConfig {
+    return buildHeaderConfig(this.month, this.currentPage, this.config);
   }
 
   get disabledDatesList() {
@@ -131,9 +106,12 @@ export class UIDatePicker {
     this.currentPage = CALENDAR_VIEWS.DAYS;
   }
 
-  protected selectToday() {
-    this.date = new Date().toISOString();
-    this.currentPage = CALENDAR_VIEWS.DAYS;
+  protected selectPreset(preset) {
+    switch (preset) {
+      case "$day":
+        this.date = new Date().toISOString();
+        break;
+    }
   }
 
   private updateDate(dt: Date, tm: Date = this.time) {

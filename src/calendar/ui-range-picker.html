@@ -3,10 +3,7 @@
     <div>
       <calendar-head
         click.delegate="startHeaderClicked($event)"
-        disable-prev.bind="isStartPrevDisabled"
-        disable-next.bind="isStartNextDisabled"
-        disable-first.bind="isStartFirstDisabled"
-        disable-last.bind="isStartLastDisabled"
+        config.bind="startHeaderOptions"
         show-first-last.bind="startPage === VIEWS.DAYS"
         >${startTitle}
       </calendar-head>
@@ -34,10 +31,7 @@
     <div>
       <calendar-head
         click.delegate="endHeaderClicked($event)"
-        disable-prev.bind="isEndPrevDisabled"
-        disable-next.bind="isEndNextDisabled"
-        disable-first.bind="isEndFirstDisabled"
-        disable-last.bind="isEndLastDisabled"
+        config.bind="endHeaderOptions"
         show-first-last.bind="endPage === VIEWS.DAYS"
         >${endTitle}
       </calendar-head>
@@ -63,8 +57,7 @@
     </div>
   </div>
   <div class="ui-calendar__footer">
-    <a class="ui-calendar__tag" click.trigger="selectPreset('week')">This Week</a>
-    <a class="ui-calendar__tag" click.trigger="selectPreset('-7')">Last 7 Days</a>
+    <a class="ui-calendar__tag" click.trigger="selectPreset('$week')">This Week</a>
     <ui-filler></ui-filler>
     <a
       if.bind="selecting || startPage !== VIEWS.DAYS || endPage !== VIEWS.DAYS"

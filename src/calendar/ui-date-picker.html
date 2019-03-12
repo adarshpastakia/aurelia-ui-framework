@@ -1,11 +1,7 @@
 <template class="ui-calendar">
   <calendar-head
     click.delegate="headerClicked($event)"
-    disable-prev.bind="isPrevDisabled"
-    disable-next.bind="isNextDisabled"
-    disable-first.bind="isFirstDisabled"
-    disable-last.bind="isLastDisabled"
-    show-next-prev.bind="currentPage !== VIEWS.DECADES"
+    config.bind="headerOptions"
     show-first-last.bind="currentPage === VIEWS.DAYS"
     >${title}
   </calendar-head>
@@ -29,7 +25,7 @@
   ></years-page>
   <time-page time.bind="time" change.trigger="timeChanged($event.detail)"></time-page>
   <div class="ui-calendar__footer">
-    <a class="ui-calendar__tag" click.trigger="selectToday()">Today</a>
+    <a class="ui-calendar__tag" click.trigger="selectPreset('$day')">Today</a>
     <ui-filler></ui-filler>
     <a
       if.bind="selecting || currentPage !== VIEWS.DAYS"
