@@ -10,12 +10,18 @@ import {
   bindingMode,
   computedFrom,
   customElement,
-  observable,
   viewResources
 } from "aurelia-framework";
 import { parseISO, startOfDay, startOfMonth } from "date-fns";
 import { CalendarHead } from "./calendar-head";
-import { CALENDAR_VIEWS, changeMonth, getTitle, isAfterMax, isBeforeMin } from "./calendar-utils";
+import {
+  CALENDAR_VIEWS,
+  changeMonth,
+  getTitle,
+  isAfterMax,
+  isBeforeMin,
+  parseDate
+} from "./calendar-utils";
 import { DaysPage } from "./days-page";
 import { MonthsPage } from "./months-page";
 import { TimePage } from "./time-page";
@@ -33,7 +39,7 @@ export class UIDatePicker {
   public maxDate: string | undefined;
 
   @bindable()
-  public disabledDates: Date[] | ((dt: Date) => boolean) | undefined;
+  public disabledDates: string[] | ((dt: Date) => boolean) | undefined;
 
   protected currentPage = CALENDAR_VIEWS.DAYS;
   protected month: Date = startOfMonth(new Date());
@@ -53,7 +59,7 @@ export class UIDatePicker {
       date: parseISO(this.date),
       minDate: parseISO(this.minDate),
       maxDate: parseISO(this.maxDate),
-      disbaled: this.disabledDates
+      disabled: this.disabledDatesList
     };
   }
 
@@ -77,6 +83,16 @@ export class UIDatePicker {
   @computedFrom("month", "currentPage", "maxDate")
   get isLastDisabled(): boolean {
     return isAfterMax(this.month, this.maxDate, 12);
+  }
+
+  get disabledDatesList() {
+    if (isArray(this.disabledDates)) {
+      return this.disabledDates.map(d => {
+        const dt = parseDate(d);
+        return dt ? startOfDay(dt).toISOString() : null;
+      });
+    }
+    return this.disabledDates;
   }
 
   protected headerClicked($event: MouseEvent) {

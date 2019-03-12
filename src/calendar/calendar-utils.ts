@@ -7,12 +7,14 @@
 import {
   addMonths,
   addYears,
+  endOfDay,
   endOfDecade,
   endOfMonth,
   format,
   isAfter,
   isBefore,
   parseISO,
+  startOfDay,
   startOfDecade,
   startOfMonth
 } from "date-fns";
@@ -39,7 +41,7 @@ export interface IDateConfig {
   minDate: Date | undefined;
   maxDate: Date | undefined;
 
-  disabledDates: Date[] | ((dt: Date) => boolean) | undefined;
+  disabled: Array<string | Date> | (({ date: Date }) => boolean) | undefined;
 }
 
 export const getTitle = (month: Date, view: CALENDAR_VIEWS) => {
@@ -93,4 +95,26 @@ export const isBeforeMin = (month: Date, minDate: string, n: number) => {
 
 export const isAfterMax = (month: Date, maxDate: string, n: number) => {
   return maxDate ? isAfter(addMonths(month, n), endOfMonth(parseISO(maxDate))) : false;
+};
+
+export const parseDate = (date: Date | string | undefined): Date => {
+  return date ? (isString(date) ? parseISO(date.toString()) : (date as Date)) : null;
+};
+
+export const isDisabled = (config: IDateConfig, date: Date): boolean => {
+  if (config.minDate && isBefore(date, startOfDay(config.minDate))) {
+    return true;
+  }
+  if (config.maxDate && isAfter(date, endOfDay(config.maxDate))) {
+    return true;
+  }
+  if (config.disabled) {
+    const { disabled } = config;
+    if (isArray(disabled)) {
+      return disabled.includes(startOfDay(date).toISOString());
+    } else if (isFunction(disabled)) {
+      return disabled({ date });
+    }
+  }
+  return false;
 };

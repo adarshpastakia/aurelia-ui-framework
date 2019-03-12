@@ -12,7 +12,7 @@ import { TreeNode } from "./tree-node";
 @customElement("ui-tree-panel")
 @viewResources(TreeNode)
 @inlineView(`<template class="ui-tree__panel"><ui-field nolabel class="ui-tree__search" if.bind="searchable">
-  <ui-input type="search" t="[placeholder]AUF.tree.search" placeholder="\${labelSearch}" value.bind="searchText" 
+  <ui-input type="search" placeholder="\${labelSearch}" value.bind="searchText" 
   clear.trigger="searchTextChanged()" input.trigger="searchTextChanged(searchText) & debounce:200">
     <ui-input-addon class="ui-text-muted"><ui-icon icon="mdi mdi-magnify"></ui-icon></ui-input-addon></ui-input></ui-field>
   <div class="ui-tree__container" nodeclick.delegate="itemClicked($event.detail)" nodeover.delegate="itemOver($event.detail)" nodeout.delegate="itemOut($event.detail)">

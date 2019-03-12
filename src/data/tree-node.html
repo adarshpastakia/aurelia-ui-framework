@@ -19,11 +19,11 @@
   </template>
   <template if.bind="node.id === 'node-more'">
     <a class="ui-tree__show-more" click.trigger="tree.toggleMore(index)">
-      <span if.bind="node.showingMore" t="AUF.tree.less">${tree.labelLess}</span>
-      <span else t="AUF.tree.more">${tree.labelMore}</span>
+      <span if.bind="node.showingMore">${tree.labelLess}</span>
+      <span else>${tree.labelMore}</span>
     </a>
   </template>
   <template if.bind="node.id === 'node-empty'">
-    <div class="ui-tree__no-children" ui-color="gray" t="AUF.tree.empty">${tree.labelEmpty}</div>
+    <div class="ui-tree__no-children" ui-color="gray">${tree.labelEmpty}</div>
   </template>
 </template>

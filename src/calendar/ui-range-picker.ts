@@ -27,15 +27,22 @@ import {
   startOfWeek
 } from "date-fns";
 import { CalendarHead } from "./calendar-head";
-import { CALENDAR_VIEWS, changeMonth, getTitle, isAfterMax, isBeforeMin } from "./calendar-utils";
+import {
+  CALENDAR_VIEWS,
+  changeMonth,
+  getTitle,
+  isAfterMax,
+  isBeforeMin,
+  parseDate
+} from "./calendar-utils";
 import { DaysPage } from "./days-page";
 import { MonthsPage } from "./months-page";
 import { TimePage } from "./time-page";
 import { YearsPage } from "./years-page";
 
-@customElement("ui-date-range")
+@customElement("ui-range-picker")
 @viewResources(CalendarHead, DaysPage, MonthsPage, YearsPage, TimePage)
-export class UIDateRange {
+export class UIRangePicker {
   @bindable({ defaultBindingMode: bindingMode.twoWay })
   public start: string | undefined;
   @bindable({ defaultBindingMode: bindingMode.twoWay })
@@ -47,7 +54,7 @@ export class UIDateRange {
   public maxDate: string | undefined;
 
   @bindable()
-  public disabledDates: string[] | ((dt: Date) => boolean) | undefined;
+  public disabledDates: Array<Date | string> | ((dt: Date) => boolean) | undefined;
 
   protected startMonth = startOfMonth(new Date());
   protected endMonth = startOfMonth(addMonths(new Date(), 1));
@@ -76,7 +83,7 @@ export class UIDateRange {
       end: this.selecting ? this.hilight : parseISO(this.end),
       minDate: parseISO(this.minDate),
       maxDate: parseISO(this.maxDate),
-      disbaled: this.disabledDates
+      disabled: this.disabledDates
     };
   }
 
@@ -122,6 +129,15 @@ export class UIDateRange {
   @computedFrom("endMonth", "endPage", "maxDate")
   get isEndLastDisabled(): boolean {
     return isAfterMax(this.endMonth, this.maxDate, 12);
+  }
+
+  protected disabledDatesChanged(value) {
+    if (isArray(value)) {
+      this.disabledDates = value.map(d => {
+        const dt = parseDate(d);
+        return dt ? startOfDay(dt) : null;
+      });
+    }
   }
 
   protected startHeaderClicked($event: MouseEvent) {

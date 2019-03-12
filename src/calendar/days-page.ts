@@ -21,7 +21,7 @@ import {
   startOfMonth,
   startOfWeek
 } from "date-fns";
-import { IDateConfig } from "./calendar-utils";
+import { IDateConfig, isDisabled } from "./calendar-utils";
 import view from "./days-page.html";
 
 @customElement("days-page")
@@ -84,21 +84,11 @@ export class DaysPage {
         classes.push("selected");
       }
 
-      if (this.isDisabled(date)) {
+      if (isDisabled(this.config, date)) {
         classes.push("disabled");
       }
     }
 
     return { date, label: format(date, "dd"), classes: classes.join(" ") };
-  }
-
-  private isDisabled(date: Date): boolean {
-    if (this.config.minDate && isBefore(date, startOfDay(this.config.minDate))) {
-      return true;
-    }
-    if (this.config.maxDate && isAfter(date, endOfDay(this.config.maxDate))) {
-      return true;
-    }
-    return false;
   }
 }

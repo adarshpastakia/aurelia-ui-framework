@@ -67,7 +67,7 @@
     <a class="ui-calendar__tag" click.trigger="selectPreset('-7')">Last 7 Days</a>
     <ui-filler></ui-filler>
     <a
-      if.bind="selecting || currentPage !== VIEWS.DAYS"
+      if.bind="selecting || startPage !== VIEWS.DAYS || endPage !== VIEWS.DAYS"
       class="ui-calendar__tag cancel"
       click.trigger="cancelSelection()"
       >Cancel</a
