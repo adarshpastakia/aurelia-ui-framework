@@ -3,14 +3,14 @@
     class="ui-calendar__tool first"
     data-tool="first"
     if.bind="showFirstLast"
-    data-disabled.bind="disableFirst"
+    data-disabled.bind="config.firstDisabled"
     ui-tooltip.bind="config.firstTooltip"
     ><ui-svg-icon icon="page-first"></ui-svg-icon
   ></a>
   <a
     class="ui-calendar__tool prev"
     data-tool="prev"
-    data-disabled.bind="disablePrev"
+    data-disabled.bind="config.prevDisabled"
     ui-tooltip.bind="config.prevTooltip"
     ><ui-svg-icon icon="page-previous"></ui-svg-icon
   ></a>
@@ -18,7 +18,7 @@
   <a
     class="ui-calendar__tool next"
     data-tool="next"
-    data-disabled.bind="disableNext"
+    data-disabled.bind="config.nextDisabled"
     ui-tooltip.bind="config.nextTooltip"
     ><ui-svg-icon icon="page-next"></ui-svg-icon
   ></a>
@@ -26,7 +26,7 @@
     class="ui-calendar__tool last"
     data-tool="last"
     if.bind="showFirstLast"
-    data-disabled.bind="disableLast"
+    data-disabled.bind="config.lastDisabled"
     ui-tooltip.bind="config.lastTooltip"
     ><ui-svg-icon icon="page-last"></ui-svg-icon
   ></a>

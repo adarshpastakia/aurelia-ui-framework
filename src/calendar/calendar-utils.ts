@@ -5,18 +5,21 @@
  * @license   : MIT
  */
 import {
+  addDays,
   addMonths,
+  addWeeks,
   addYears,
-  endOfDay,
   endOfDecade,
   endOfMonth,
   format,
   isAfter,
   isBefore,
+  isValid,
   parseISO,
   startOfDay,
   startOfDecade,
-  startOfMonth
+  startOfMonth,
+  startOfYear
 } from "date-fns";
 
 export enum CALENDAR_VIEWS {
@@ -42,6 +45,11 @@ export enum CALENDAR_GRAIN {
 
 export type IDateDisabled = string[] | (({ date: Date }) => boolean) | undefined;
 
+export interface IDatePreset {
+  preset: string;
+  label: string;
+}
+
 export interface IDateConfig {
   date?: Date | undefined;
   start?: Date | undefined;
@@ -51,6 +59,8 @@ export interface IDateConfig {
   maxDate: Date | undefined;
 
   disabled: IDateDisabled;
+
+  page: CALENDAR_VIEWS;
 }
 
 export interface IHeaderConfig {
@@ -64,6 +74,25 @@ export interface IHeaderConfig {
   prevTooltip?: string;
   nextTooltip?: string;
 }
+
+export const parseDate = (date: Date | string | undefined): Date => {
+  if (isString(date)) {
+    if (date.startsWith(CALENDAR_GRAIN.DAY)) {
+      return addDays(new Date(), parseInt(date.replace(CALENDAR_GRAIN.DAY, "") || "0", 10));
+    } else if (date.startsWith(CALENDAR_GRAIN.WEEK)) {
+      return addWeeks(new Date(), parseInt(date.replace(CALENDAR_GRAIN.WEEK, "") || "0", 10));
+    } else if (date.startsWith(CALENDAR_GRAIN.MONTH)) {
+      return addMonths(new Date(), parseInt(date.replace(CALENDAR_GRAIN.MONTH, "") || "0", 10));
+    } else if (date.startsWith(CALENDAR_GRAIN.YEAR)) {
+      return addYears(new Date(), parseInt(date.replace(CALENDAR_GRAIN.YEAR, "") || "0", 10));
+    } else {
+      return parseISO(date);
+    }
+  } else if (date) {
+    return date as Date;
+  }
+  return null;
+};
 
 export const getTitle = (month: Date, view: CALENDAR_VIEWS) => {
   if (view === CALENDAR_VIEWS.DAYS) {
@@ -138,32 +167,39 @@ export const buildHeaderConfig = (month: Date, view: CALENDAR_VIEWS, config: IDa
     return {
       prevDisabled: isBeforeMin(month, config.minDate, -120),
       nextDisabled: isAfterMax(month, config.maxDate, 120),
-      prevTooltip: format(addYears(start, -10), "yyyy")+"-"+format(addYears(start, -1), "yyyy"),
-      nextTooltip: format(addYears(end, 1), "yyyy")+"-"+format(addYears(end, 10), "yyyy")
+      prevTooltip: format(addYears(start, -10), "yyyy") + "-" + format(addYears(start, -1), "yyyy"),
+      nextTooltip: format(addYears(end, 1), "yyyy") + "-" + format(addYears(end, 10), "yyyy")
     };
   }
 };
 
-export const isBeforeMin = (month: Date, minDate: Date, n: number) => {
-  return minDate ? isBefore(addMonths(month, n), startOfMonth(minDate)) : false;
+export const isBeforeMin = (month: Date, minDate: Date, n: number = 0) => {
+  return isValid(minDate) ? isBefore(addMonths(startOfDay(month), n), startOfDay(minDate)) : false;
 };
 
-export const isAfterMax = (month: Date, maxDate: Date, n: number) => {
-  return maxDate ? isAfter(addMonths(month, n), endOfMonth(maxDate)) : false;
-};
-
-export const parseDate = (date: Date | string | undefined): Date => {
-  return date ? (isString(date) ? parseISO(date.toString()) : (date as Date)) : null;
+export const isAfterMax = (month: Date, maxDate: Date, n: number = 0) => {
+  return isValid(maxDate) ? isAfter(addMonths(startOfDay(month), n), startOfDay(maxDate)) : false;
 };
 
 export const isDisabled = (config: IDateConfig, date: Date): boolean => {
-  if (config.minDate && isBefore(date, startOfDay(config.minDate))) {
+  let min = config.minDate;
+  let max = config.maxDate;
+
+  if (config.page === CALENDAR_VIEWS.MONTHS) {
+    min = startOfMonth(startOfDay(min));
+    max = endOfMonth(startOfDay(max));
+  }
+  if (config.page === CALENDAR_VIEWS.YEARS) {
+    min = startOfYear(startOfDay(min));
+    max = startOfYear(startOfDay(max));
+  }
+  if (isBefore(date, min)) {
     return true;
   }
-  if (config.maxDate && isAfter(date, endOfDay(config.maxDate))) {
+  if (isAfter(date, max)) {
     return true;
   }
-  if (config.disabled) {
+  if (config.page === CALENDAR_VIEWS.DAYS && config.disabled) {
     const { disabled } = config;
     if (isArray(disabled)) {
       return disabled.includes(startOfDay(date).toISOString());

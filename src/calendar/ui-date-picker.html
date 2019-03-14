@@ -25,7 +25,9 @@
   ></years-page>
   <time-page time.bind="time" change.trigger="timeChanged($event.detail)"></time-page>
   <div class="ui-calendar__footer">
-    <a class="ui-calendar__tag" click.trigger="selectPreset('$day')">Today</a>
+    <template repeat.for="preset of datePresets">
+      <a class="ui-calendar__tag" click.trigger="selectPreset(preset.preset)">${preset.label}</a>
+    </template>
     <ui-filler></ui-filler>
     <a
       if.bind="selecting || currentPage !== VIEWS.DAYS"

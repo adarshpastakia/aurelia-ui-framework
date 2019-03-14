@@ -25,16 +25,16 @@ function getViewModel(el: Element | HTMLElement): AnyObject;
 function getSlotViewModel(el: Element | HTMLElement): AnyObject;
 function getComposeViewModel(el: Element | HTMLElement): AnyObject;
 
-function isTrue(b: any): arg is true;
-function isFalse(b: any): arg is false;
-function isNull(a: any): arg is null;
-function isEmpty(a: any): arg is undefined;
-const isArray = Array.isArray;
-function isString(a: any): arg is String;
-function isNumber(a: any): arg is number;
-function isDecimal(a: any): arg is number;
-function isObject(a: any): arg is AnyObject;
-function isFunction(a: any): arg is Function;
+function isTrue(arg: any): arg is true;
+function isFalse(arg: any): arg is false;
+function isNull(arg: any): boolean;
+function isEmpty(arg: any): boolean;
+function isArray(arg: any): arg is Array<any>;
+function isString(arg: any): arg is String;
+function isNumber(arg: any): arg is number;
+function isDecimal(arg: any): arg is number;
+function isObject(arg: any): arg is AnyObject;
+function isFunction(arg: any): arg is Function;
 
 function isRtl(el: Element | HTMLElement): boolean;
 

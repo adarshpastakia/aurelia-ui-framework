@@ -42,11 +42,11 @@ export class UIDataModel {
     return pojo;
   }
 
-  public static serializeProperty(p) {
-    if (isObject(p)) {
-      return this.serializeObject(p);
-    } else if (isArray(p)) {
+  public static serializeProperty(p: AnyObject) {
+    if (isArray(p)) {
       return p.join(",");
+    } else if (isObject(p)) {
+      return this.serializeObject(p);
     } else {
       return isEmpty(p) ? null : p;
     }

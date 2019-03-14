@@ -99,11 +99,14 @@ export class UIRangePicker {
 
   @computedFrom("startMonth", "startPage", "minDate", "maxDate")
   get startHeaderOptions(): IHeaderConfig {
-    return buildHeaderConfig(this.startMonth, this.startPage, this.config);
+    return buildHeaderConfig(this.startMonth, this.startPage, {
+      ...this.config,
+      page: this.startPage
+    });
   }
-  @computedFrom("startMonth", "startPage", "minDate")
+  @computedFrom("endMonth", "endPage", "minDate", "maxDate")
   get endHeaderOptions(): IHeaderConfig {
-    return buildHeaderConfig(this.endMonth, this.endPage, this.config);
+    return buildHeaderConfig(this.endMonth, this.endPage, { ...this.config, page: this.endPage });
   }
 
   get disabledDatesList() {

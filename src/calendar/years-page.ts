@@ -7,7 +7,7 @@
 
 import { bindable, customElement, inlineView } from "aurelia-framework";
 import { addYears, format, isSameYear, setYear, startOfDecade } from "date-fns";
-import { IDateConfig } from "./calendar-utils";
+import { IDateConfig, isDisabled } from "./calendar-utils";
 import view from "./years-page.html";
 
 @customElement("years-page")
@@ -41,6 +41,10 @@ export class YearsPage {
     if (this.config) {
       if (isSameYear(date, this.config.date)) {
         classes.push("selected");
+      }
+
+      if (isDisabled({ disabled: [], ...this.config }, date)) {
+        classes.push("disabled");
       }
     }
 

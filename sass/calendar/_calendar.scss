@@ -33,6 +33,7 @@
 
   &__footer {
     @extend %ui-flex;
+    --gutter: 0;
     background-color: $base-component-bg;
   }
 
@@ -181,7 +182,7 @@
       grid-gap: 1em;
       grid-template-columns: repeat(3, 1fr);
       line-height: 2em;
-      margin: 1em 2px;
+      margin: 0.8em 2px;
     }
 
     &__head {

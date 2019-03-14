@@ -7,12 +7,15 @@
         <div class="x-section-title">Examples</div>
         <div
           class="x-example-block"
-          with.bind="{chkboxes:[], radio:'', toggles:[], disabled:false}"
+          with.bind="{chkboxes:[], radio:'', toggles:[], disabled:false, dt:'2019-03-02'}"
         >
           <div class="x-example-display">
-            <ui-date-picker date.bind="dt"></ui-date-picker>
+            <ui-date-picker
+              date.bind="dt"
+              date-presets.bind="[{preset:'$day', label:'Today'},{preset:'$day-1', label:'Yesterday'},{preset:'$day-7', label:'Last Week'}]"
+            ></ui-date-picker>
             <span>&nbsp;</span>
-            <ui-date-picker disabled-dates.bind="['2019-03-18', dt]"></ui-date-picker>
+            <ui-date-picker min-date.bind="dt" disabled-dates.bind="['2019-03-18', '$day-7', '$day+7', dt]"></ui-date-picker>
             <span>&nbsp;</span>
             <ui-date-picker disabled-dates.call="disableDays(date)"></ui-date-picker>
 
@@ -26,6 +29,7 @@
           </div>
         </div>
 
+        <hr />
         <div class="x-section-title">Using the Date Picker</div>
         <x-code-block lang="html" page="app.html" code.bind="dateHtml"></x-code-block>
 

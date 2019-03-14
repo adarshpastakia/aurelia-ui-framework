@@ -7,7 +7,7 @@
 
 import { bindable, customElement, inlineView } from "aurelia-framework";
 import { format, isSameMonth, setMonth } from "date-fns";
-import { IDateConfig } from "./calendar-utils";
+import { IDateConfig, isDisabled } from "./calendar-utils";
 import view from "./months-page.html";
 
 @customElement("months-page")
@@ -32,6 +32,10 @@ export class MonthsPage {
     if (this.config) {
       if (isSameMonth(date, this.config.date)) {
         classes.push("selected");
+      }
+
+      if (isDisabled({ disabled: [], ...this.config }, date)) {
+        classes.push("disabled");
       }
     }
 

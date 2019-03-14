@@ -5,10 +5,27 @@
  * @license   : MIT
  */
 
-import { bindable, bindingMode, computedFrom, customElement, viewResources } from "aurelia-framework";
+import {
+  bindable,
+  bindingMode,
+  computedFrom,
+  customElement,
+  viewResources
+} from "aurelia-framework";
+import { getLogger } from "aurelia-logging";
 import { parseISO, startOfDay, startOfMonth } from "date-fns";
 import { CalendarHead } from "./calendar-head";
-import { buildHeaderConfig, CALENDAR_VIEWS, changeMonth, getTitle, IDateConfig, IDateDisabled, IHeaderConfig, parseDate } from "./calendar-utils";
+import {
+  buildHeaderConfig,
+  CALENDAR_VIEWS,
+  changeMonth,
+  getTitle,
+  IDateConfig,
+  IDateDisabled,
+  IDatePreset,
+  IHeaderConfig,
+  parseDate
+} from "./calendar-utils";
 import { DaysPage } from "./days-page";
 import { MonthsPage } from "./months-page";
 import { TimePage } from "./time-page";
@@ -28,6 +45,9 @@ export class UIDatePicker {
   @bindable()
   public disabledDates: IDateDisabled;
 
+  @bindable()
+  public datePresets: IDatePreset[];
+
   protected currentPage = CALENDAR_VIEWS.DAYS;
   protected month: Date = startOfMonth(new Date());
 
@@ -35,17 +55,21 @@ export class UIDatePicker {
 
   protected VIEWS = CALENDAR_VIEWS;
 
+  private selectedDate: Date;
+
   protected dateChanged() {
-    this.time = parseISO(this.date);
-    this.month = startOfMonth(parseISO(this.date));
+    this.selectedDate = parseDate(this.date);
+    this.time = new Date(this.selectedDate);
+    this.month = startOfMonth(this.selectedDate);
   }
 
   @computedFrom("date", "minDate", "maxDate", "disabledDates")
   get config(): IDateConfig {
     return {
-      date: parseISO(this.date),
-      minDate: parseISO(this.minDate),
-      maxDate: parseISO(this.maxDate),
+      date: this.selectedDate,
+      page: this.currentPage,
+      minDate: parseDate(this.minDate),
+      maxDate: parseDate(this.maxDate),
       disabled: this.disabledDatesList
     };
   }
@@ -107,11 +131,8 @@ export class UIDatePicker {
   }
 
   protected selectPreset(preset) {
-    switch (preset) {
-      case "$day":
-        this.date = new Date().toISOString();
-        break;
-    }
+    const parsed = parseDate(preset);
+    this.date = parsed ? parsed.toISOString() : "";
   }
 
   private updateDate(dt: Date, tm: Date = this.time) {
