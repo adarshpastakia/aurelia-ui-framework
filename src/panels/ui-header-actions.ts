@@ -5,10 +5,13 @@
  * @license   : MIT
  */
 
-import { customElement, inlineView } from "aurelia-framework";
+import { containerless, customElement, inlineView } from "aurelia-framework";
 
+@containerless()
 @customElement("ui-header-actions")
-@inlineView(`<template class="ui-header__actions"><slot></slot></template>`)
+@inlineView(
+  `<template><div ref="vmElement" slot="header-actions" class="ui-header__actions"><slot></slot></div></template>`
+)
 export class UIHeaderActions {
   constructor(protected element: Element) {}
 }

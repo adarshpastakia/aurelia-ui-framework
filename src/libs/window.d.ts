@@ -79,6 +79,10 @@ interface Event {
   stopEvent(preventDefault?): void;
 }
 
+interface MouseEvent {
+  target: HTMLElement;
+}
+
 interface CustomEvent {
   detail: AnyObject;
   stopEvent(preventDefault?): void;

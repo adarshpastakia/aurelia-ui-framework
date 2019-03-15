@@ -36,20 +36,41 @@ export class UIPanel {
   @bindable()
   public beforeclose: () => Promise<boolean> | boolean;
 
+  @bindable()
+  protected allowDrag: boolean = false;
+  @bindable()
   protected closeable: boolean = false;
+  @bindable()
   protected collapsible: boolean = false;
 
-  constructor(protected element: Element) {
-    this.closeable = element.hasAttribute("closeable");
-    this.collapsible = element.hasAttribute("collapsible");
-  }
+  constructor(protected element: Element) {}
 
   public close(): Promise<boolean> {
     return UIInternal.fireCallbackEvent(this, "beforeclose").then(b => (b ? this.remove() : false));
   }
 
+  protected bind() {
+    this.allowDrag = !isFalse(this.allowDrag);
+    this.closeable = !isFalse(this.closeable);
+    this.collapsible = !isFalse(this.collapsible);
+  }
+
   protected toggleExpand(expand: boolean): void {
     this.collapsed = !expand;
+  }
+
+  protected startDrag($event: DragEvent) {
+    this.element.setAttribute("draggable", "true");
+    if ($event.dataTransfer) {
+      $event.dataTransfer.setData("text/plain", "drag");
+    }
+    this.element.dispatchEvent(UIInternal.createEvent("startdrag"));
+    return true;
+  }
+  protected stopDrag($event: DragEvent) {
+    this.element.setAttribute("draggable", "false");
+    this.element.dispatchEvent(UIInternal.createEvent("enddrag"));
+    return true;
   }
 
   private remove(): boolean {

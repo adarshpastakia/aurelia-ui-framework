@@ -13,7 +13,7 @@
 
 @mixin enable-gpu {
   transform: translate3d(0, 0, 0);
-  will-change: transform;
+  // will-change: transform;
 }
 
 @mixin transition-delay($val...) {

@@ -75,6 +75,21 @@ export class FilterValueConverter {
   }
 }
 
+@valueConverter("orderBy")
+export class OrderByValueConverter {
+  public toView(array: AnyObject, property: string, isAscending: boolean = true): AnyObject {
+    if (isEmpty(array)) {
+      return [];
+    }
+    if (array instanceof Map) {
+      return new Map<string, AnyObject>(
+        [...array].sort((a, b) => (a[property] > b[property] ? 1 : -1))
+      );
+    }
+    return [...array].sort((a, b) => (a[property] > b[property] ? 1 : -1));
+  }
+}
+
 @valueConverter("sort")
 export class SortValueConverter {
   public toView(

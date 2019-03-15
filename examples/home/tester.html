@@ -1,56 +1,39 @@
 <template>
-  <div class="ui-datalist" ui-margin="xs" ui-paper ui-padding>
-    <div class="ui-datalist__wrapper" with.bind="{isOpen:{}}">
-      <a repeat.for="i of 9">
-        <div class="ui-datalist__item" data-open.bind="isOpen[i]">
-          <div class="ui-datalist__item__head">
-            <div
-              class="ui-datalist__avatar ${i % 3 ? '' : 'ui-datalist__avatar--round'}"
-              ui-bg="blue"
-              ui-color="white"
-            >
-              <ui-icon icon="mdi mdi-music"></ui-icon>
-            </div>
-            <div class="ui-datalist__titlebar">
-              <div class="ui-datalist__title">Track Title</div>
-              <div class="ui-datalist__meta">Track Artist</div>
-            </div>
-            <div class="ui-datalist__data">
-              <div>
-                <div class="ui-datalist__data__label">Duration</div>
-                <div class="ui-datalist__data__value">3:15</div>
-              </div>
-              <div>
-                <div class="ui-datalist__data__label">Genre</div>
-                <div class="ui-datalist__data__value">Psychadelic Rock</div>
-              </div>
-              <div>
-                <div class="ui-datalist__data__label">Year</div>
-                <div class="ui-datalist__data__value">1972</div>
-              </div>
-            </div>
-            <div class="ui-datalist__toolbox">
-              <ui-button-group type="tool">
-                <ui-button ui-theme="success" icon="mdi mdi-play"></ui-button>
-                <ui-button ui-theme="info" icon="mdi mdi-pause"></ui-button>
-              </ui-button-group>
-              <ui-button-group vertical>
-                <ui-button type="tool" menu-items.bind="actions" no-caret>
-                  <ui-svg-icon icon="overflow"></ui-svg-icon>
-                </ui-button>
-                <ui-button type="tool" click.trigger="isOpen[i] = !isOpen[i]">
-                  <ui-svg-icon icon="caret"></ui-svg-icon>
-                </ui-button>
-              </ui-button-group>
-            </div>
-          </div>
-          <div class="ui-datalist__item__body">
-            <ui-content ui-padding>
-              <lipsum-para></lipsum-para>
-            </ui-content>
-          </div>
-        </div>
-      </a>
+  <ui-page page-title="Gridder Test" ui-margin="xs">
+    <div class="ui-gridder" ref="gridder">
+      <div class="ui-gridder__container">
+        <!-- <div class="ui-gridder__move"><ui-icon icon="mdi mdi-cursor-move"></ui-icon></div> -->
+
+        <ui-panel
+          class="ui-gridder__cell"
+          repeat.for="i of colDefs | orderBy:'order' & oneTime"
+          min-width="50px"
+          data-index.bind="i.order"
+          label.bind="!i.fixed ? `Panel ${i.order+1}` : ''"
+          closeable="${!i.fixed}"
+          allow-drag="${!i.fixed}"
+          data-allow-drop.bind="!i.fixed"
+          dragenter.trigger="tempMove($event)"
+          startdrag.delegate="startMove($event)"
+          enddrag.trigger="finishMove($event)"
+        >
+          <ui-header-actions if.bind="!i.fixed">
+            <ui-button type="tool" icon="mdi mdi-tune"></ui-button>
+            <ui-button type="tool" icon="mdi mdi-refresh"></ui-button>
+          </ui-header-actions>
+          <ui-content ui-padding="xs">
+            <div ui-font="d6" ui-align="center">Panel Body<br/>${i.order+1}</div>
+          </ui-content>
+          <div
+            if.bind="!i.fixed"
+            slot="panel-footer"
+            class="ui-gridder__resize"
+            mousedown.trigger="startResize($event)"
+          ></div>
+        </ui-panel>
+
+        <div class="ui-gridder__ghost" ref="ghost" if.bind="!!dragEl"></div>
+      </div>
     </div>
-  </div>
+  </ui-page>
 </template>

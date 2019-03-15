@@ -23,8 +23,11 @@
   grid-template-columns: auto auto 1fr auto;
   position: relative;
 
-  &.ui-drag-handle {
+  > .ui-drag-handle {
+    cursor: grab;
     grid-area: drag-handle;
+    transform: scaleY(1.5);
+    width: 16px;
   }
 
   &__title {

@@ -1,0 +1,83 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2019
+// @license   : MIT
+
+.ui-gridder {
+  --gridder-gap: 4px;
+  grid-area: content;
+  overflow: auto;
+
+  &__container {
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-rows: 100px;
+    grid-template-columns: repeat(12, 1fr); // repeat(auto-fill, minmax(180px, 1fr));
+    min-width: 100%;
+    padding: calc(var(--gridder-gap) / 2);
+    place-content: stretch;
+    position: relative;
+  }
+
+  &__cell {
+    align-self: stretch;
+    margin: var(--gridder-gap);
+  }
+
+  &__ghost {
+    background-color: rgba($primary, 0.05);
+    border: 1px dashed $primary;
+    grid-column-start: auto;
+    grid-row-start: auto;
+    pointer-events: none;
+    position: absolute;
+    z-index: 50;
+  }
+
+  &__cell:hover &__move,
+  &__cell:hover &__resize {
+    display: block;
+  }
+
+  &__move {
+    background: $white;
+    box-shadow: 0 0 1px $gray;
+    cursor: grab;
+    display: none;
+    font-size: 16px;
+    line-height: 1;
+    opacity: 0.5;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: translateY(-100%);
+    z-index: 100;
+
+    &:hover,
+    &:active {
+      opacity: 1;
+    }
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+
+  &__resize {
+    border: 8px solid transparent;
+    border-color: transparent $gray $gray transparent;
+    bottom: 0;
+    cursor: nwse-resize;
+    display: none;
+    line-height: 1;
+    opacity: 0.5;
+    position: absolute;
+    right: 0;
+    z-index: 100;
+
+    &:hover,
+    &:active {
+      opacity: 1;
+    }
+  }
+}

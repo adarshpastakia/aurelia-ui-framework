@@ -8,6 +8,7 @@ export const ValueConverters = [
   ObjectConverters.SliceValueConverter,
   ObjectConverters.SortValueConverter,
   ObjectConverters.SplitValueConverter,
+  ObjectConverters.OrderByValueConverter,
   TextConverters.AgeValueConverter,
   TextConverters.CurrencyValueConverter,
   TextConverters.DateValueConverter,
