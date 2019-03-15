@@ -1,0 +1,14 @@
+<template
+  class="ui-gridder__cell"
+  min-width="50px"
+  close.trigger="remove()"
+  data-allow-drop.bind="allowDrop"
+  dragstart.trigger="startDrag($event)"
+  dragend.trigger="stopDrag($event)"
+  dragenter.trigger="utils.move($event)"
+>
+  <slot></slot>
+
+  <ui-drag-handle if.bind="allowDrag"></ui-drag-handle>
+  <div if.bind="allowResize" class="ui-gridder__resize" mousedown.trigger="utils.startResize($event)"></div>
+</template>

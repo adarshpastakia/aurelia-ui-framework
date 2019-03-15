@@ -13,6 +13,7 @@ import { Card } from "./card";
 import { DataPanels } from "./data";
 import { Forms } from "./forms";
 import { registerValidators, UIValidationRenderer } from "./forms/ui-validation";
+import { Gridder } from "./gridder";
 import { Icons } from "./icons";
 import "./libs/array";
 import { Countries as _Countries } from "./libs/countries";
@@ -72,6 +73,7 @@ export class UIFrameworkConfig {
       this.loadFromModule(TabPanel);
       this.loadFromModule(DataPanels);
       this.loadFromModule(Calendar);
+      this.loadFromModule(Gridder);
     }
   };
 

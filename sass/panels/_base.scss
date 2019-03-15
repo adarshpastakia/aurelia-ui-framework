@@ -14,6 +14,12 @@
   position: relative;
 }
 
+.ui-drag-handle {
+  cursor: grab;
+  grid-area: drag-handle;
+  width: 16px;
+}
+
 .ui-header {
   align-items: center;
   display: grid;
@@ -22,13 +28,6 @@
   grid-template-areas: "drag-handle icon title actions";
   grid-template-columns: auto auto 1fr auto;
   position: relative;
-
-  > .ui-drag-handle {
-    cursor: grab;
-    grid-area: drag-handle;
-    transform: scaleY(1.5);
-    width: 16px;
-  }
 
   &__title {
     grid-area: title;
