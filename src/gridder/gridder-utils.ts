@@ -11,6 +11,7 @@ export namespace GridderUtils {
   export let dragEl: HTMLElement & { originalIndex?: number };
 
   export let colCount;
+  export let rowCount;
   export let minWidth;
   export let minHeight = 100;
 

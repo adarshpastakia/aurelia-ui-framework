@@ -5,14 +5,10 @@
 	 width="22px" height="22px" viewBox="0 0 22 22" enable-background="new 0 0 22 22" xml:space="preserve">
 <rect fill="#ECF0F1" width="22" height="22"/>
 <rect fill="#546A79" width="22" height="4.552"/>
+<rect x="1.896" y="6.448" fill="#8697CB" width="9.104" height="3.035"/>
+<rect x="1.896" y="9.483" fill="#FFFFFF" width="18.207" height="10.621"/>
 <circle fill="#ED7161" cx="2.276" cy="2.276" r="1.138"/>
 <circle fill="#F0C419" cx="5.689" cy="2.276" r="1.138"/>
 <circle fill="#4FBA6F" cx="9.104" cy="2.276" r="1.138"/>
-<rect x="1.517" y="16.689" fill="#FFFFFF" width="4.931" height="3.793"/>
-<rect x="1.517" y="6.069" fill="#FFFFFF" width="11.758" height="3.793"/>
-<rect x="15.172" y="6.069" fill="#FFFFFF" width="4.932" height="3.793"/>
-<rect x="1.517" y="11.379" fill="#FFFFFF" width="4.931" height="3.792"/>
-<rect x="8.345" y="16.689" fill="#FFFFFF" width="11.759" height="3.793"/>
-<rect x="8.345" y="11.379" fill="#FFFFFF" width="4.931" height="3.792"/>
-<rect x="15.172" y="11.379" fill="#FFFFFF" width="4.932" height="3.792"/>
+<rect x="11" y="6.449" fill="#DAD7C5" width="9.104" height="3.034"/>
 </svg>

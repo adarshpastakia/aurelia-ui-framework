@@ -8,13 +8,14 @@ import { PLATFORM } from "aurelia-pal";
 
 PLATFORM.moduleName("./viewport");
 PLATFORM.moduleName("./page");
+PLATFORM.moduleName("./gridder");
 PLATFORM.moduleName("./responsive");
 
 const group = "Layouts";
 
-export const CoreRoutes = [
+export const LayoutRoutes = [
   {
-    moduleId: "core/viewport",
+    moduleId: "layout/viewport",
     name: "viewport",
     route: "viewport",
     title: "Viewport",
@@ -22,7 +23,7 @@ export const CoreRoutes = [
     nav: true
   },
   {
-    moduleId: "core/page",
+    moduleId: "layout/page",
     name: "page",
     route: "page",
     title: "Page",
@@ -30,10 +31,18 @@ export const CoreRoutes = [
     nav: true
   },
   {
-    moduleId: "core/responsive",
+    moduleId: "layout/responsive",
     name: "responsive",
     route: "responsive",
     title: "Responsive Grid",
+    group,
+    nav: true
+  },
+  {
+    moduleId: "layout/gridder",
+    name: "gridder",
+    route: "gridder",
+    title: "Gridder",
     group,
     nav: true
   }

@@ -9,10 +9,10 @@ import { autoinject } from "aurelia-framework";
 import { Router, RouterConfiguration } from "aurelia-router";
 import { UIApplication } from "aurelia-ui-framework";
 import { ButtonRoutes } from "../buttons/routes";
-import { CoreRoutes } from "../core/routes";
 import { DataRoutes } from "../data/routes";
 import { FormRoutes } from "../form/routes";
 import { GuideRoutes } from "../guide/routes";
+import { LayoutRoutes } from "../layout/routes";
 import { LibRoutes } from "../libs/routes";
 import { OverlayRoutes } from "../overlay/routes";
 import { PanelRoutes } from "../panels/routes";
@@ -30,7 +30,7 @@ export class DocsPage {
       ...GuideRoutes,
       ...StyleRoutes,
       ...LibRoutes,
-      ...CoreRoutes,
+      ...LayoutRoutes,
       ...ButtonRoutes,
       ...FormRoutes,
       ...PanelRoutes,

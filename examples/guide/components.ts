@@ -4,21 +4,26 @@
  * @copyright : 2019
  * @license   : MIT
  */
-import ALERT from "@images/ui-alert.svg";
 import BREADCRUMBS from "@images/ui-breadcrumbs.svg";
 import BUTTONS from "@images/ui-buttons.svg";
+import CARD from "@images/ui-card.svg";
 import DATE from "@images/ui-date.svg";
 import DIALOG from "@images/ui-dialog.svg";
 import FORM from "@images/ui-form.svg";
 import GRID from "@images/ui-grid.svg";
+import GRIDDER from "@images/ui-gridder.svg";
 import INPUTS from "@images/ui-inputs.svg";
 import LISTS from "@images/ui-list.svg";
 import MENU from "@images/ui-menu.svg";
 import MESSAGE from "@images/ui-message.svg";
 import NOTIFICATION from "@images/ui-notification.svg";
 import PAGE from "@images/ui-page.svg";
+import PANEL from "@images/ui-panel.svg";
+import SIDEBAR from "@images/ui-sidebar.svg";
+import TAB from "@images/ui-tab.svg";
 import TAG from "@images/ui-tag.svg";
 import TOGGLES from "@images/ui-toggle.svg";
+import TOOLBAR from "@images/ui-toolbar.svg";
 import VIEWPORT from "@images/ui-viewport.svg";
 import WIZARD from "@images/ui-wizard.svg";
 
@@ -42,8 +47,14 @@ export class ComponentPage {
         {
           href: "/docs/responsive",
           title: "Responsive Grid",
-          description: "12 column responsive grid layout",
+          description: "12 column responsive flexbox layout",
           image: GRID
+        },
+        {
+          href: "/docs/gridder",
+          title: "Gridder",
+          description: "12 column gridster style layout",
+          image: GRIDDER
         }
       ]
     },
@@ -122,32 +133,38 @@ export class ComponentPage {
         {
           href: "/docs/panel",
           title: "Panels",
-          description: "Simple collapsible/closeable panel with headers"
+          description: "Simple collapsible/closeable panel with headers",
+          image: PANEL
         },
         {
           href: "/docs/card",
           title: "Cards",
-          description: "Card layout panel"
+          description: "Card layout panel",
+          image: CARD
         },
         {
           href: "/docs/tabs",
           title: "Tabbed Panel",
-          description: "Tabbed layout panel"
+          description: "Tabbed layout panel",
+          image: TAB
         },
         {
           href: "/docs/sidebar",
           title: "Sidebar",
-          description: "Section side content"
+          description: "Section side content",
+          image: SIDEBAR
         },
         {
           href: "/docs/toolbar",
           title: "Toolbar",
-          description: "Toolbar for arranging action buttons"
+          description: "Toolbar for arranging action buttons",
+          image: TOOLBAR
         },
         {
           href: "/docs/message",
           title: "Message Panel",
-          description: "Themed closeable message panel"
+          description: "Themed closeable message panel",
+          image: MESSAGE
         }
       ]
     },
@@ -184,7 +201,7 @@ export class ComponentPage {
           href: "docs/notification",
           title: "Notification Service",
           description: "Service to render overlay alerts, messages and toast notifications",
-          image: ALERT
+          image: NOTIFICATION
         }
       ]
     }

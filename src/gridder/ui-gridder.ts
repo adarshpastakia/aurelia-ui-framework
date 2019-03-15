@@ -5,6 +5,7 @@
  * @license   : MIT
  */
 import { children, customElement, inlineView } from "aurelia-framework";
+import { UIInternal } from "../utils/ui-internal";
 import { GridderUtils } from "./gridder-utils";
 
 @customElement("ui-gridder")
@@ -31,6 +32,11 @@ export class UIGridder {
   }
 
   protected cellsChanged() {
-    GridderUtils.cells = this.cells;
+    UIInternal.queueTask(() => {
+      GridderUtils.cells = this.cells;
+      GridderUtils.rowCount = Math.floor(
+        this.element.firstElementChild.offsetHeight / GridderUtils.minHeight
+      );
+    });
   }
 }
