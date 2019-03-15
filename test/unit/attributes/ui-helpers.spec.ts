@@ -6,8 +6,8 @@
  */
 
 import { bootstrap } from "aurelia-bootstrapper";
-import { PLATFORM } from "aurelia-framework";
 import { StageComponent } from "aurelia-testing";
+import { auconfig } from "../../jest-pretest";
 
 describe("ui-helpers", () => {
   let component;
@@ -30,7 +30,7 @@ describe("ui-helpers", () => {
       .boundTo(vm);
 
     component.bootstrap(aurelia => {
-      aurelia.use.standardConfiguration().plugin(PLATFORM.moduleName("aurelia-ui-framework"));
+      auconfig(aurelia);
     });
 
     await component.create(bootstrap);

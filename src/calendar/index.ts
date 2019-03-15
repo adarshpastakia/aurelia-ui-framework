@@ -5,6 +5,6 @@
  * @license   : MIT
  */
 import { UIDatePicker } from "./ui-date-picker";
-import { UIRangePicker } from "./ui-range-picker";
+// import { UIRangePicker } from "./ui-range-picker";
 
-export const Calendar = [UIDatePicker, UIRangePicker];
+export const Calendar = [UIDatePicker];

@@ -112,8 +112,9 @@
     },
     "testRegex": "\\.spec\\.(ts|js)$",
     "setupFiles": [
-      "<rootDir>/test/jest-pretest.ts"
+      "<rootDir>/test/jest-setup.ts"
     ],
+    "setupTestFrameworkScriptFile": "<rootDir>/test/jest-pretest.ts",
     "testEnvironment": "node",
     "collectCoverage": true,
     "collectCoverageFrom": [

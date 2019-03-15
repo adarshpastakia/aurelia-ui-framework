@@ -6,9 +6,10 @@
  */
 
 import { bootstrap } from "aurelia-bootstrapper";
-import { Container, PLATFORM } from "aurelia-framework";
+import { Container } from "aurelia-framework";
 import { StageComponent } from "aurelia-testing";
 import { UIApplication, UIFrameworkConfig } from "aurelia-ui-framework";
+import { auconfig } from "../jest-pretest";
 
 describe("aurelia-ui-framework test", () => {
   let component;
@@ -22,15 +23,13 @@ describe("aurelia-ui-framework test", () => {
       .boundTo({});
 
     component.bootstrap(aurelia => {
-      aurelia.use
-        .standardConfiguration()
-        .plugin(PLATFORM.moduleName("aurelia-ui-framework"), (config: UIFrameworkConfig) => {
-          config
-            .setApiBaseUrl(AppBaseUrl)
-            .setApiHeaders(AppHeaders)
-            .setKeyValue("title", "Test Title")
-            .use.all();
-        });
+      auconfig(aurelia, (config: UIFrameworkConfig) => {
+        config
+          .setApiBaseUrl(AppBaseUrl)
+          .setApiHeaders(AppHeaders)
+          .setKeyValue("title", "Test Title")
+          .use.all();
+      });
     });
 
     await component.create(bootstrap);

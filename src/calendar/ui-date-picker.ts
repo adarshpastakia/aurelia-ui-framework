@@ -10,9 +10,9 @@ import {
   bindingMode,
   computedFrom,
   customElement,
+  inlineView,
   viewResources
 } from "aurelia-framework";
-import { getLogger } from "aurelia-logging";
 import { parseISO, startOfDay, startOfMonth } from "date-fns";
 import { CalendarHead } from "./calendar-head";
 import {
@@ -29,9 +29,11 @@ import {
 import { DaysPage } from "./days-page";
 import { MonthsPage } from "./months-page";
 import { TimePage } from "./time-page";
+import view from "./ui-date-picker.html";
 import { YearsPage } from "./years-page";
 
 @customElement("ui-date-picker")
+@inlineView(view)
 @viewResources(CalendarHead, DaysPage, MonthsPage, YearsPage, TimePage)
 export class UIDatePicker {
   @bindable({ defaultBindingMode: bindingMode.twoWay })

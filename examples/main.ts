@@ -10,8 +10,8 @@ import "./sass/main.scss";
 export function configure(aurelia: Aurelia) {
   aurelia.use
     .standardConfiguration()
-    .plugin(PLATFORM.moduleName("aurelia-ui-virtualization"))
     .plugin(PLATFORM.moduleName("aurelia-validation"))
+    .plugin(PLATFORM.moduleName("aurelia-ui-virtualization"))
     .plugin(PLATFORM.moduleName("aurelia-ui-framework"), (config: UIFrameworkConfig) => {
       config
         .setKeyValue("title", "Aurelia UI Framework")

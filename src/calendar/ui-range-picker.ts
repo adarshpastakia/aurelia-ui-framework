@@ -10,6 +10,7 @@ import {
   bindingMode,
   computedFrom,
   customElement,
+  inlineView,
   viewResources
 } from "aurelia-framework";
 import {
@@ -38,9 +39,11 @@ import {
 import { DaysPage } from "./days-page";
 import { MonthsPage } from "./months-page";
 import { TimePage } from "./time-page";
+import view from "./ui-range-picker.html";
 import { YearsPage } from "./years-page";
 
 @customElement("ui-range-picker")
+@inlineView(view)
 @viewResources(CalendarHead, DaysPage, MonthsPage, YearsPage, TimePage)
 export class UIRangePicker {
   @bindable({ defaultBindingMode: bindingMode.twoWay })

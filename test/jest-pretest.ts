@@ -1,6 +1,10 @@
-import { Options } from "aurelia-loader-nodejs";
-import { globalize } from "aurelia-pal-nodejs";
-import "aurelia-polyfills";
-import * as path from "path";
-Options.relativeToDir = path.join(__dirname, "unit");
-globalize();
+import { PLATFORM } from "aurelia-pal";
+export const auconfig = (aurelia, callback?) => {
+  aurelia.use
+    .standardConfiguration()
+    .plugin(PLATFORM.moduleName("aurelia-validation"))
+    .plugin(PLATFORM.moduleName("aurelia-ui-virtualization"))
+    .plugin(PLATFORM.moduleName("aurelia-ui-framework"), callback);
+};
+
+jest.setTimeout(30000);

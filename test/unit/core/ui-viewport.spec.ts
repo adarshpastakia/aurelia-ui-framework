@@ -6,11 +6,12 @@
  */
 
 import { bootstrap } from "aurelia-bootstrapper";
-import { Container, PLATFORM } from "aurelia-framework";
+import { Container } from "aurelia-framework";
 import { StageComponent } from "aurelia-testing";
 import { UIApplication } from "aurelia-ui-framework";
 // tslint:disable-next-line
 import { UIInternal } from "aurelia-ui-framework/utils/ui-internal";
+import { auconfig } from "../../jest-pretest";
 
 describe("ui-viewport", () => {
   let component;
@@ -38,7 +39,7 @@ describe("ui-viewport", () => {
       .boundTo({});
 
     component.bootstrap(aurelia => {
-      aurelia.use.standardConfiguration().plugin(PLATFORM.moduleName("aurelia-ui-framework"));
+      auconfig(aurelia);
     });
 
     await component.create(bootstrap);

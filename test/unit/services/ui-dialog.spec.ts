@@ -6,9 +6,10 @@
  */
 
 import { bootstrap } from "aurelia-bootstrapper";
-import { Container, inlineView, PLATFORM } from "aurelia-framework";
-import { ComponentTester, StageComponent } from "aurelia-testing";
+import { Container, inlineView } from "aurelia-framework";
+import { StageComponent } from "aurelia-testing";
 import { UIDialogService } from "aurelia-ui-framework";
+import { auconfig } from "../../jest-pretest";
 
 @inlineView(`<template>
 <ui-dialog icon="head-icon" label="Header Title">
@@ -18,7 +19,7 @@ import { UIDialogService } from "aurelia-ui-framework";
 class MyDialog {}
 
 describe("ui-dialog", () => {
-  let component: ComponentTester;
+  let component;
 
   const vm = {};
 
@@ -28,8 +29,7 @@ describe("ui-dialog", () => {
       .boundTo(vm);
 
     component.bootstrap(aurelia => {
-      aurelia.use.standardConfiguration().plugin(PLATFORM.moduleName("aurelia-ui-framework"));
-      return aurelia.use;
+      auconfig(aurelia);
     });
 
     await component.create(bootstrap);

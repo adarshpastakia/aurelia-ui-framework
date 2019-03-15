@@ -6,13 +6,13 @@
  */
 
 import { bootstrap } from "aurelia-bootstrapper";
-import { PLATFORM } from "aurelia-framework";
-import { ComponentTester, StageComponent } from "aurelia-testing";
+import { StageComponent } from "aurelia-testing";
 // tslint:disable-next-line
 import { UIInternal } from "aurelia-ui-framework/utils/ui-internal";
+import { auconfig } from "../../jest-pretest";
 
 describe("ui-panel", () => {
-  let component: ComponentTester;
+  let component;
 
   const vm = {
     collapsed: false
@@ -45,8 +45,7 @@ describe("ui-panel", () => {
       .boundTo(vm);
 
     component.bootstrap(aurelia => {
-      aurelia.use.standardConfiguration().plugin(PLATFORM.moduleName("aurelia-ui-framework"));
-      return aurelia.use;
+      auconfig(aurelia);
     });
 
     await component.create(bootstrap);
