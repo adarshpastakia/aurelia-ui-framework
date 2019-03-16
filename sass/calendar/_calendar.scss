@@ -12,12 +12,16 @@
 
   &__range {
     display: grid;
-    grid-template-columns: auto 2px auto;
+    grid-template-columns: 20em 2px 20em;
 
     .ui-divider {
       @extend %vr;
       transform: none;
       width: 2px;
+    }
+
+    + .ui-calendar__footer {
+      max-width: 40em;
     }
   }
 
@@ -32,9 +36,16 @@
   }
 
   &__footer {
-    @extend %ui-flex;
     --gutter: 0;
+    align-items: start;
     background-color: $base-component-bg;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    max-width: 20em;
+  }
+
+  &__tags {
+    @extend %ui-flex;
   }
 
   &__tag {
@@ -45,6 +56,7 @@
     font-size: 0.8em;
     margin: 2px 4px;
     padding: 0 0.25em;
+    white-space: pre-wrap;
 
     &:hover {
       background-color: rgba($primary, 0.5);
@@ -59,6 +71,12 @@
         background-color: rgba($danger, 0.5);
         color: $base-bg;
       }
+    }
+
+    &[data-active="true"] {
+      background-color: rgba($primary, 0.85);
+      color: $base-bg;
+      pointer-events: none;
     }
   }
 

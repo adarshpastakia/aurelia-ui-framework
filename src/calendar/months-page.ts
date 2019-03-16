@@ -30,7 +30,7 @@ export class MonthsPage {
 
     const classes = [];
     if (this.config) {
-      if (isSameMonth(date, this.config.date)) {
+      if (isDate(this.config.date) && isSameMonth(date, this.config.date)) {
         classes.push("selected");
       }
 

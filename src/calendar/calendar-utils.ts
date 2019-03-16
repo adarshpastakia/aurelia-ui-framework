@@ -11,6 +11,8 @@ import {
   addYears,
   endOfDecade,
   endOfMonth,
+  endOfWeek,
+  endOfYear,
   format,
   isAfter,
   isBefore,
@@ -19,6 +21,7 @@ import {
   startOfDay,
   startOfDecade,
   startOfMonth,
+  startOfWeek,
   startOfYear
 } from "date-fns";
 
@@ -51,9 +54,7 @@ export interface IDatePreset {
 }
 
 export interface IDateConfig {
-  date?: Date | undefined;
-  start?: Date | undefined;
-  end?: Date | undefined;
+  date?: [Date, Date] | Date | undefined;
 
   minDate: Date | undefined;
   maxDate: Date | undefined;
@@ -90,6 +91,38 @@ export const parseDate = (date: Date | string | undefined): Date => {
     }
   } else if (date) {
     return date as Date;
+  }
+  return null;
+};
+
+export const parseRange = (date: string | [string, string] | undefined): [Date, Date] => {
+  if (isString(date)) {
+    const before = date.includes("-");
+    if (date.startsWith(CALENDAR_GRAIN.DAY)) {
+      const today = startOfDay(new Date());
+      const diff = addDays(new Date(), parseInt(date.replace(CALENDAR_GRAIN.DAY, "") || "0", 10));
+      return before ? [diff, today] : [today, diff];
+    }
+    if (date.startsWith(CALENDAR_GRAIN.WEEK)) {
+      const start = startOfWeek(new Date());
+      const end = endOfWeek(new Date());
+      const diff = parseInt(date.replace(CALENDAR_GRAIN.WEEK, "") || "0", 10);
+      return [addWeeks(start, diff), addWeeks(end, diff)];
+    }
+    if (date.startsWith(CALENDAR_GRAIN.MONTH)) {
+      const start = startOfMonth(new Date());
+      const end = endOfMonth(new Date());
+      const diff = parseInt(date.replace(CALENDAR_GRAIN.MONTH, "") || "0", 10);
+      return [addMonths(start, diff), addMonths(end, diff)];
+    }
+    if (date.startsWith(CALENDAR_GRAIN.YEAR)) {
+      const start = startOfYear(new Date());
+      const end = endOfYear(new Date());
+      const diff = parseInt(date.replace(CALENDAR_GRAIN.YEAR, "") || "0", 10);
+      return [addYears(start, diff), addYears(end, diff)];
+    }
+  } else if (isArray(date)) {
+    return [parseISO(date[0]), parseISO(date[1])];
   }
   return null;
 };

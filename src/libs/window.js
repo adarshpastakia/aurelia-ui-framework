@@ -38,6 +38,9 @@ isEmpty = function(a) {
   return a === undefined || a === null || a === "" || a.length === 0 || Object.keys(a).length == 0;
 };
 isArray = Array.isArray;
+isDate = function(a) {
+  return a instanceof Date;
+};
 isString = function(a) {
   return typeof a === "string";
 };
@@ -50,7 +53,6 @@ isDecimal = function(a) {
 isObject = function(a) {
   return a && typeof a === "object";
 };
-
 isFunction = function(a) {
   return typeof a === "function";
 };
