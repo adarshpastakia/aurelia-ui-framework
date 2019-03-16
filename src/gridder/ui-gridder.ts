@@ -12,6 +12,13 @@ import { GridderUtils } from "./gridder-utils";
 @inlineView(`<template class="ui-gridder">
 <div class="ui-gridder__container"><slot></slot>
   <div class="ui-gridder__ghost" ref="ghost" show.bind="!!utils.dragEl"></div>
+
+  <div class="ui-gridder__overlay" if.bind="false && !!utils.dragEl">
+  <template repeat.for="row of utils.rowCount">
+  <template repeat.for="col of utils.colCount">
+  <div class="ui-gridder__cell" data-row.bind="row" data-col.bind="col"></div>
+  </template></template>
+  </div>
 </div>
 </template>`)
 export class UIGridder {

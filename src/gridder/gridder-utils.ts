@@ -26,6 +26,7 @@ export namespace GridderUtils {
 
   export function startMove(el: HTMLElement) {
     dragEl = el;
+    dragEl.style.zIndex = "2";
     dragEl.style.opacity = "0.5";
     updateGhost(dragEl);
     dragEl.originalIndex = cells.indexOf(dragEl.au.controller.viewModel);
@@ -52,6 +53,7 @@ export namespace GridderUtils {
             );
       }
     }
+    dragEl.style.zIndex = "unset";
     dragEl.style.opacity = "1";
     dragEl = null;
     dropEl = null;
