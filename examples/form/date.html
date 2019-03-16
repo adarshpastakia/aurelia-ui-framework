@@ -7,25 +7,55 @@
         <div class="x-section-title">Examples</div>
         <div
           class="x-example-block"
-          with.bind="{chkboxes:[], radio:'', toggles:[], disabled:false, dt:'2019-03-02'}"
+          with.bind="{chkboxes:[], radio:'', toggles:[], disabled:false, dt:'$day'}"
         >
           <div class="x-example-display">
             <ui-date-picker
               date.bind="dt"
+              date-label.bind="dtLabel"
               date-presets.bind="[{preset:'$day', label:'Today'},{preset:'$day-1', label:'Yesterday'},{preset:'$day-7', label:'Last Week'}]"
             ></ui-date-picker>
             <span>&nbsp;</span>
-            <ui-date-picker min-date.bind="dt" disabled-dates.bind="['2019-03-18', '$day-7', '$day+7', dt]"></ui-date-picker>
+            <ui-date-picker
+              min-date.bind="dt"
+              disabled-dates.bind="['2019-03-18', '$day-7', '$day+7', dt]"
+            ></ui-date-picker>
             <span>&nbsp;</span>
             <ui-date-picker disabled-dates.call="disableDays(date)"></ui-date-picker>
 
+            <hr/>
             <h5>Date Range</h5>
-            <ui-range-picker start.bind="start" end.bind="end"></ui-range-picker>
+            <ui-range-picker
+              date.bind="dtRange"
+              date-label.bind="dtRangeLabel"
+              date-presets.bind="[
+              {preset:'$day-6', label:'Last 7 Days'},
+              {preset:'$day+6', label:'Next 7 Days'},
+              {preset:'$week', label:'This Week'},
+              {preset:'$week-1', label:'Last Week'},
+              {preset:'$week+1', label:'Next Week'},
+              {preset:'$month', label:'This Month'},
+              {preset:'$month-1', label:'Last Month'},
+              {preset:'$month+1', label:'Next Month'},
+              {preset:'$year', label:'This Year'},
+              {preset:'$year-1', label:'Last Year'},
+              {preset:'$year+1', label:'Next Year'}
+                ]"
+            ></ui-range-picker>
           </div>
 
           <div class="x-example-options">
             <h5>Values</h5>
-            <p>${dt | datetime}</p>
+            <div ui-margin="b">
+              Selected Date:
+              <div ui-font="sm mono">${dtLabel}</div>
+              <div ui-font="sm mono">${dt}</div>
+            </div>
+            <div ui-margin="b">
+              Selected Range:
+              <div ui-font="sm mono">${dtRangeLabel}</div>
+              <div ui-font="sm mono">${dtRange}</div>
+            </div>
           </div>
         </div>
 

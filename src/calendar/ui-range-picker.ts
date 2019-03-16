@@ -16,25 +16,24 @@ import {
 import {
   addMonths,
   endOfDay,
-  endOfWeek,
   isAfter,
   isBefore,
   isSameDay,
   isSameMonth,
-  parseISO,
   startOfDay,
-  startOfMonth,
-  startOfWeek
+  startOfMonth
 } from "date-fns";
+import { UIFormat } from "../utils/ui-format";
 import { CalendarHead } from "./calendar-head";
 import {
   buildHeaderConfig,
   CALENDAR_VIEWS,
   changeMonth,
   getTitle,
-  IDateDisabled,
+  IDatePreset,
   IHeaderConfig,
-  parseDate
+  parseDate,
+  parseRange
 } from "./calendar-utils";
 import { DaysPage } from "./days-page";
 import { MonthsPage } from "./months-page";
@@ -47,9 +46,7 @@ import { YearsPage } from "./years-page";
 @viewResources(CalendarHead, DaysPage, MonthsPage, YearsPage, TimePage)
 export class UIRangePicker {
   @bindable({ defaultBindingMode: bindingMode.twoWay })
-  public start: string | undefined;
-  @bindable({ defaultBindingMode: bindingMode.twoWay })
-  public end: string | undefined;
+  public date: [string, string] | string | undefined;
 
   @bindable()
   public minDate: string | undefined;
@@ -57,7 +54,13 @@ export class UIRangePicker {
   public maxDate: string | undefined;
 
   @bindable()
-  public disabledDates: IDateDisabled;
+  public format: string = "dd MMM yyyy";
+
+  @bindable()
+  public datePresets: IDatePreset[] = [];
+
+  @bindable({ defaultBindingMode: bindingMode.fromView })
+  public dateLabel: string;
 
   protected startMonth = startOfMonth(new Date());
   protected endMonth = startOfMonth(addMonths(new Date(), 1));
@@ -71,22 +74,35 @@ export class UIRangePicker {
 
   protected selecting: Date;
 
-  protected startChanged() {
-    this.startMonth = startOfMonth(parseISO(this.start));
+  private selectedDate: [Date, Date];
+
+  protected bind() {
+    this.dateChanged();
   }
 
-  protected endChanged() {
-    this.endMonth = startOfMonth(parseISO(this.end));
+  protected dateChanged() {
+    this.selectedDate = parseRange(this.date);
+    if (this.selectedDate) {
+      this.startMonth = startOfMonth(this.selectedDate[0]);
+      this.endMonth = startOfMonth(this.selectedDate[1]);
+
+      const preset = this.datePresets.find(p => p.preset === this.date);
+      this.dateLabel = preset
+        ? preset.label
+        : `${UIFormat.date(this.selectedDate[0], this.format)} ~ ${UIFormat.date(
+            this.selectedDate[1],
+            this.format
+          )}`;
+    }
   }
 
-  @computedFrom("start", "end", "hilight", "selecting", "minDate", "maxDate", "disabledDates")
+  @computedFrom("selectedDate", "hilight", "selecting", "minDate", "maxDate", "disabledDates")
   get config() {
     return {
-      start: this.selecting ? this.selecting : parseISO(this.start),
-      end: this.selecting ? this.hilight : parseISO(this.end),
-      minDate: parseISO(this.minDate),
-      maxDate: parseISO(this.maxDate),
-      disabled: this.disabledDatesList
+      date: this.selecting ? ([this.selecting, this.hilight] as [Date, Date]) : this.selectedDate,
+      minDate: parseDate(this.minDate),
+      maxDate: parseDate(this.maxDate),
+      disabled: []
     };
   }
 
@@ -110,16 +126,6 @@ export class UIRangePicker {
   @computedFrom("endMonth", "endPage", "minDate", "maxDate")
   get endHeaderOptions(): IHeaderConfig {
     return buildHeaderConfig(this.endMonth, this.endPage, { ...this.config, page: this.endPage });
-  }
-
-  get disabledDatesList() {
-    if (isArray(this.disabledDates)) {
-      return this.disabledDates.map(d => {
-        const dt = parseDate(d);
-        return dt ? startOfDay(dt).toISOString() : null;
-      });
-    }
-    return this.disabledDates;
   }
 
   protected startHeaderClicked($event: MouseEvent) {
@@ -167,8 +173,7 @@ export class UIRangePicker {
     if (target.dataset.date) {
       const date = new Date(target.dataset.date);
       if (this.selecting && (isSameDay(date, this.selecting) || isAfter(date, this.selecting))) {
-        this.end = endOfDay(date).toISOString();
-        this.start = startOfDay(this.selecting).toISOString();
+        this.date = [startOfDay(this.selecting).toISOString(), endOfDay(date).toISOString()];
         this.selecting = null;
       } else {
         this.selecting = date;
@@ -214,12 +219,7 @@ export class UIRangePicker {
   }
 
   protected selectPreset(preset) {
-    this.selecting = null;
-    switch (preset) {
-      case "$week":
-        this.start = startOfWeek(new Date()).toISOString();
-        this.end = endOfWeek(new Date()).toISOString();
-        break;
-    }
+    this.cancelSelection();
+    this.date = preset;
   }
 }

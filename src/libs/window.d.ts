@@ -29,6 +29,7 @@ function isTrue(arg: any): arg is true;
 function isFalse(arg: any): arg is false;
 function isNull(arg: any): boolean;
 function isEmpty(arg: any): boolean;
+function isDate(arg: any): arg is Date;
 function isArray(arg: any): arg is Array<any>;
 function isString(arg: any): arg is String;
 function isNumber(arg: any): arg is number;

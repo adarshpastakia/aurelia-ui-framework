@@ -39,7 +39,7 @@ export class YearsPage {
       classes.push("date-other");
     }
     if (this.config) {
-      if (isSameYear(date, this.config.date)) {
+      if (isDate(this.config.date) && isSameYear(date, this.config.date)) {
         classes.push("selected");
       }
 

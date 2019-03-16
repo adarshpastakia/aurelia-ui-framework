@@ -15,7 +15,6 @@
     "lib": ["es2017", "dom"],
     "paths": {
       "aurelia-ui-framework": ["./src/aurelia-ui-framework"],
-      "aurelia-ui-framework/*": ["./src/*"],
       "@images/*": ["./images/*"]
     }
   },

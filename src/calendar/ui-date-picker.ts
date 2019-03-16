@@ -13,7 +13,8 @@ import {
   inlineView,
   viewResources
 } from "aurelia-framework";
-import { parseISO, startOfDay, startOfMonth } from "date-fns";
+import { isValid, parseISO, startOfDay, startOfMonth } from "date-fns";
+import { UIFormat } from "../utils/ui-format";
 import { CalendarHead } from "./calendar-head";
 import {
   buildHeaderConfig,
@@ -48,7 +49,13 @@ export class UIDatePicker {
   public disabledDates: IDateDisabled;
 
   @bindable()
-  public datePresets: IDatePreset[];
+  public format: string = "dd MMM yyyy HH:mm";
+
+  @bindable()
+  public datePresets: IDatePreset[] = [];
+
+  @bindable({ defaultBindingMode: bindingMode.fromView })
+  public dateLabel: string;
 
   protected currentPage = CALENDAR_VIEWS.DAYS;
   protected month: Date = startOfMonth(new Date());
@@ -59,13 +66,22 @@ export class UIDatePicker {
 
   private selectedDate: Date;
 
-  protected dateChanged() {
-    this.selectedDate = parseDate(this.date);
-    this.time = new Date(this.selectedDate);
-    this.month = startOfMonth(this.selectedDate);
+  protected bind() {
+    this.dateChanged();
   }
 
-  @computedFrom("date", "minDate", "maxDate", "disabledDates")
+  protected dateChanged() {
+    this.selectedDate = parseDate(this.date);
+    if (isValid(this.selectedDate)) {
+      this.time = new Date(this.selectedDate);
+      this.month = startOfMonth(this.selectedDate);
+
+      const preset = this.datePresets.find(p => p.preset === this.date);
+      this.dateLabel = preset ? preset.label : UIFormat.datetime(this.selectedDate, this.format);
+    }
+  }
+
+  @computedFrom("selectedDate", "currentPage", "minDate", "maxDate", "disabledDates")
   get config(): IDateConfig {
     return {
       date: this.selectedDate,
@@ -90,7 +106,7 @@ export class UIDatePicker {
     if (isArray(this.disabledDates)) {
       return this.disabledDates.map(d => {
         const dt = parseDate(d);
-        return dt ? startOfDay(dt).toISOString() : null;
+        return !isEmpty(dt) ? startOfDay(dt).toISOString() : null;
       });
     }
     return this.disabledDates;
@@ -133,8 +149,8 @@ export class UIDatePicker {
   }
 
   protected selectPreset(preset) {
-    const parsed = parseDate(preset);
-    this.date = parsed ? parsed.toISOString() : "";
+    this.cancelSelection();
+    this.date = preset;
   }
 
   private updateDate(dt: Date, tm: Date = this.time) {

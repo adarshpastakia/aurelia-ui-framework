@@ -68,19 +68,21 @@ export class DaysPage {
       classes.push("date-today");
     }
     if (this.config) {
-      if (
-        isAfter(startOfDay(date), this.config.start) &&
-        isBefore(endOfDay(date), this.config.end)
-      ) {
-        classes.push("select-hilight");
+      if (isArray(this.config.date)) {
+        if (
+          isAfter(startOfDay(date), this.config.date[0]) &&
+          isBefore(endOfDay(date), this.config.date[1])
+        ) {
+          classes.push("select-hilight");
+        }
+        if (isSameDay(date, this.config.date[0])) {
+          classes.push("select-start");
+        }
+        if (isSameDay(date, this.config.date[1])) {
+          classes.push("select-end");
+        }
       }
-      if (isSameDay(date, this.config.start)) {
-        classes.push("select-start");
-      }
-      if (isSameDay(date, this.config.end)) {
-        classes.push("select-end");
-      }
-      if (isSameDay(date, this.config.date)) {
+      if (isDate(this.config.date) && isSameDay(date, this.config.date)) {
         classes.push("selected");
       }
 
