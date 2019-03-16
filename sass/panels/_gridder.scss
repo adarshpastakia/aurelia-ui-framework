@@ -11,7 +11,8 @@
   grid-area: content;
   overflow: auto;
 
-  &__container {
+  &__container,
+  &__overlay {
     display: grid;
     grid-auto-flow: row;
     grid-auto-rows: var(--gridder-row-size);
@@ -96,6 +97,17 @@
     &:hover,
     &:active {
       opacity: 1;
+    }
+  }
+
+  &__overlay {
+    @include position(absolute, 0);
+    background-color: rgba($gray, 0.1);
+    z-index: 1;
+
+    .ui-gridder__cell {
+      background-color: rgba($white, 0.5);
+      border: 1px dashed $gray;
     }
   }
 }
