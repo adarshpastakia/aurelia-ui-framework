@@ -255,6 +255,62 @@
     resize: vertical;
   }
 
+  input[type="file"] {
+    line-height: 1;
+    padding: 0.358rem 0.5rem;
+  }
+
+  &-file {
+    &__dropzone {
+      border: 2px dashed $gray;
+      color: $gray;
+      display: grid;
+      font-size: 1.25rem;
+      font-weight: $font-weight-light;
+      grid-area: input;
+      grid-gap: 0.5rem;
+      grid-template-columns: auto auto;
+      padding: 3rem 0;
+      place-content: center;
+      text-align: center;
+
+      .ui-icon {
+        font-size: 3rem;
+      }
+      span {
+        pointer-events: none;
+      }
+
+      &.dragging {
+        border-color: $input-focus-color;
+        color: $input-focus-color;
+      }
+
+      & + input {
+        box-shadow: none;
+        display: none;
+      }
+    }
+
+    &__list {
+      grid-area: 2 / 1 / 2 / 7;
+
+      > div {
+        align-items: start;
+        display: grid;
+        grid-gap: 8px;
+        grid-template-columns: auto auto 1fr;
+        line-height: 1.5;
+        margin: 4px 0;
+        overflow: hidden;
+
+        > label {
+          @include ellipsis();
+        }
+      }
+    }
+  }
+
   &__tags {
     align-items: stretch;
     display: flex;

@@ -1,0 +1,40 @@
+<template
+  class="ui-input ui-input-file ${classes}"
+  aria-disabled.bind="disabled || isDisabled"
+  aria-readonly.bind="readonly"
+>
+  <input-wrapper>
+    <slot></slot>
+    <div
+      ref="dropZone"
+      if.bind="maxFiles>1"
+      class="ui-input-file__dropzone ${dragging?'dragging':''}"
+      click.trigger="inputEl.click()"
+      dragover.trigger="dragEnter($event)"
+      dragleave.trigger="dragExit($event)"
+      drop.trigger="drop($event)"
+    >
+      <ui-svg-icon icon="upload"></ui-svg-icon>
+      <span>Drop files here<br />or click to browse</span>
+    </div>
+    <input
+      type="file"
+      ref="inputEl"
+      role="file"
+      size="1"
+      change.trigger="fileChoose($event)"
+      placeholder.bind="placeholder"
+      disabled.bind="disabled || isDisabled || isPlain"
+      readonly.bind="readonly"
+      value.two-way="value"
+      keypress.trigger="fireEnter($event)"
+    />
+  </input-wrapper>
+  <div class="ui-input-file__list" if.bind="maxFiles>1">
+    <div repeat.for="file of files">
+      <a click.trigger="remove($index)"><ui-svg-icon icon="cross" ui-color="red"></ui-svg-icon></a>
+      <label>${file.name}</label>
+      <span ui-color="muted">(<small innerhtml.bind="file.size | number:'0.00b'"></small>)</span>
+    </div>
+  </div>
+</template>

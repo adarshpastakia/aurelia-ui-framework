@@ -9,6 +9,7 @@ import { UICheckbox } from "./ui-checkbox";
 import { UIField } from "./ui-field";
 import { UIFieldWrapper } from "./ui-field-wrapper";
 import { UIFieldset } from "./ui-fieldset";
+import { UIFileInput } from "./ui-file";
 import { UIForm } from "./ui-form";
 import { UIInput } from "./ui-input";
 import { UIInputAddon } from "./ui-input-addons";
@@ -36,5 +37,6 @@ export const Forms = [
   UITextarea,
   UIToggle,
   UIPasswordMeter,
-  UISlider
+  UISlider,
+  UIFileInput
 ];

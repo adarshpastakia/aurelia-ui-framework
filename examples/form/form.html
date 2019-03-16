@@ -134,6 +134,11 @@
                       <ui-row><ui-col>Mobile</ui-col><ui-col>Work</ui-col></ui-row>
                     </ui-input-info>
                   </ui-field>
+                </ui-col>
+              </ui-row>
+              <hr />
+              <ui-row>
+                <ui-col>
                   <ui-field plain.bind="!isEditing" label="Gender">
                     <ui-option-group value="m">
                       <ui-radio model="m"><img src.bind="images.male" height="18" /> Male</ui-radio>
@@ -141,6 +146,14 @@
                         <img src.bind="images.female" height="18" /> Female
                       </ui-radio>
                     </ui-option-group>
+                  </ui-field>
+                  <ui-field label="File">
+                    <ui-file placeholder="Select a file..."></ui-file>
+                  </ui-field>
+                </ui-col>
+                <ui-col>
+                  <ui-field label="File">
+                    <ui-file placeholder="Select a file..." max-files="5"></ui-file>
                   </ui-field>
                 </ui-col>
               </ui-row>
