@@ -32,21 +32,24 @@ export class UITag {
   @bindable()
   public type: "normal" | "solid" = "normal";
 
+  @bindable()
+  public closeable: boolean = false;
+
   protected vmElement: HTMLAnchorElement;
 
   protected style: string = "normal";
-  protected closeable: boolean = false;
 
-  constructor(protected element: Element) {
-    this.closeable = element.hasAttribute("closeable");
-
-    this.hrefChanged();
-  }
+  constructor(protected element: Element) {}
 
   public close(): void {
     UIInternal.fireCallbackEvent(this, "beforeclose", this.id).then(b =>
       b ? this.remove() : undefined
     );
+  }
+
+  protected bind() {
+    this.hrefChanged();
+    this.closeable = !isFalse(this.closeable);
   }
 
   protected hrefChanged(): void {

@@ -12,6 +12,6 @@
     "skipLibCheck": true,
     "lib": ["es2017", "dom"]
   },
-  "include": ["./src/**/*.ts", "./typings/**/*.d.ts"],
+  "include": ["./src/**/*.ts"],
   "exclude": [".vscode", "dist", "doc", "node_modules", "test"]
 }
