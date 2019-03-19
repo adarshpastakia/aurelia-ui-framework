@@ -5,26 +5,23 @@
   data-collapsed.bind="collapsed"
 >
   <div class="ui-panel__header">
-    <slot name="panel-header">
-      <ui-header>
+    <ui-header>
+      <slot name="header-icon">
         <ui-header-icon if.bind="icon" icon.bind="icon"></ui-header-icon>
-        <ui-header-title if.bind="label">${label}</ui-header-title>
-
-        <slot name="header-actions"></slot>
-      </ui-header>
-    </slot>
+      </slot>
+      <ui-header-title if.bind="label">${label}</ui-header-title>
+      <slot name="header-actions"></slot>
+    </ui-header>
     <div class="ui-panel__header__actions" if.bind="collapsible || closeable || expandable">
       <ui-divider></ui-divider>
       <template if.bind="expandable">
         <ui-button type="tool" click.trigger="toggleExpand(!expanded)">
-          <ui-svg-icon icon="expand" if.bind="!expanded"></ui-svg-icon>
-          <ui-svg-icon icon="collapse" if.bind="expanded"></ui-svg-icon>
+          <ui-svg-icon icon.bind="expanded?'collapse':'expand'"></ui-svg-icon>
         </ui-button>
       </template>
       <template if.bind="collapsible && !expanded">
         <ui-button type="tool" click.trigger="toggleCollapse(!collapsed)">
-          <ui-svg-icon icon="minus" if.bind="!collapsed"></ui-svg-icon>
-          <ui-svg-icon icon="plus" if.bind="collapsed"></ui-svg-icon>
+          <ui-svg-icon icon.bind="collapsed?'plus':'minus'"></ui-svg-icon>
         </ui-button>
       </template>
       <template if.bind="closeable">

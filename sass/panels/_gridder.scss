@@ -37,7 +37,8 @@
 
     .ui-panel__header[data-autohide="true"] {
       left: 0;
-      max-height: 5px;
+      max-height: 8px;
+      opacity: 0.05;
       overflow: hidden;
       position: absolute;
       right: 0;
@@ -46,6 +47,7 @@
 
       &:hover {
         max-height: unset;
+        opacity: 1;
       }
     }
   }

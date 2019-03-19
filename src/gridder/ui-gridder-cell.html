@@ -1,0 +1,47 @@
+<template
+  class="ui-gridder__cell"
+  data-allow-drop.bind="!pinned"
+  dragenter.trigger="utils.move($event)"
+>
+  <div ref="vmElement" class="ui-panel-base ui-panel" data-expanded.bind="expanded">
+    <div class="ui-panel__header" data-autohide.bind="autoHideHeader">
+      <ui-drag-handle if.bind="moveable && !pinned"></ui-drag-handle>
+      <ui-header>
+        <slot name="header-icon">
+          <ui-header-icon if.bind="icon" icon.bind="icon"></ui-header-icon>
+        </slot>
+        <ui-header-title if.bind="label">${label}</ui-header-title>
+
+        <slot name="header-actions"></slot>
+      </ui-header>
+      <div class="ui-panel__header__actions" if.bind="closeable || expandable || pinnable">
+        <ui-divider></ui-divider>
+        <template if.bind="pinnable">
+          <ui-button type="tool" click.trigger="togglePinned(!pinned)" active.bind="pinned">
+            <ui-svg-icon icon.bind="pinned?'pinned':'unpinned'"></ui-svg-icon>
+          </ui-button>
+        </template>
+        <template if.bind="expandable">
+          <ui-button type="tool" click.trigger="toggleExpand(!expanded)">
+            <ui-svg-icon icon.bind="expanded?'collapse':'expand'"></ui-svg-icon>
+          </ui-button>
+        </template>
+        <template if.bind="closeable">
+          <ui-button type="tool" click.trigger="close()">
+            <ui-svg-icon icon="cross"></ui-svg-icon>
+          </ui-button>
+        </template>
+      </div>
+    </div>
+    <div class="ui-panel__body">
+      <slot></slot>
+    </div>
+    <slot name="panel-footer"></slot>
+  </div>
+
+  <div
+    if.bind="resizeable"
+    class="ui-gridder__resize"
+    mousedown.trigger="utils.startResize($event)"
+  ></div>
+</template>

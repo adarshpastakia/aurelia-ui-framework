@@ -147,6 +147,7 @@
     }
 
     &[data-disabled="true"] {
+      box-shadow: none;
       color: $base-border-color;
       pointer-events: none;
 

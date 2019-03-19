@@ -11,6 +11,23 @@
     }
   </style>
   <ui-page page-title="Gridder Test" ui-margin="xs">
-    <ui-gridder config.bind="colDefs"> </ui-gridder>
+    <ui-gridder>
+      <template repeat.for="cell of colDefs | orderBy:'order'">
+        <ui-gridder-cell
+          config.one-time="cell"
+          label.one-time="$index ? 'Panel':''"
+          auto-hide-header
+          ui-theme="dark"
+          pinned.one-time="!!cell.pinned"
+          moveable.one-time="!!cell.moveable"
+          pinnable.one-time="!!cell.pinnable"
+          closeable.one-time="!!cell.closeable"
+          expandable.one-time="!!cell.expandable"
+          resizeable.one-time="!!cell.resizeable"
+        >
+          <compose view.one-time="cell.view"></compose>
+        </ui-gridder-cell>
+      </template>
+    </ui-gridder>
   </ui-page>
 </template>
