@@ -6,10 +6,12 @@
  */
 import AVATAR_F from "@images/avatar-female.svg";
 import AVATAR_M from "@images/avatar-male.svg";
-import { Countries, getValidationController } from "aurelia-ui-framework";
-import { ValidationController } from "aurelia-validation";
+import { autoinject } from "aurelia-framework";
+import { Countries } from "aurelia-ui-framework";
+import { ValidationController, ValidationControllerFactory } from "aurelia-validation";
 import { FormModel } from "./model";
 
+@autoinject()
 export class FormPage {
   protected images = {
     male: AVATAR_M,
@@ -107,11 +109,8 @@ export class FormPage {
     ]
   };
 
-  protected validationController: ValidationController;
+  constructor(protected validationController: ValidationController) {}
 
-  constructor() {
-    this.validationController = getValidationController();
-  }
   protected validate() {
     this.validationController.validate();
   }

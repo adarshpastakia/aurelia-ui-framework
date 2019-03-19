@@ -60,6 +60,33 @@
                   </ui-field>
                 </ui-col>
               </ui-row>
+              <ui-row>
+                <ui-col>
+                  <ui-field label="Single select">
+                    <ui-list
+                      clear
+                      placeholder="Select a single value..."
+                      options.bind="countries"
+                      value.bind="model.single"
+                      value-property="iso2"
+                      label-property="name"
+                      group-property="continent"
+                      disabled.bind="formDisabled"
+                      readonly.bind="formReadonly"
+                    >
+                      <ui-input-addon>
+                        <ui-flag code.bind="model.single"></ui-flag>
+                      </ui-input-addon>
+                      <template>
+                        <ui-flag size="md" code.bind="$value"></ui-flag>&nbsp;
+                        <span innerhtml.bind="$label"></span>
+                        <span class="ui-badge" innerhtml.bind="$value"></span>
+                      </template>
+                    </ui-list>
+                  </ui-field>
+                </ui-col>
+                <ui-col></ui-col>
+              </ui-row>
             </ui-form>
           </div>
 
