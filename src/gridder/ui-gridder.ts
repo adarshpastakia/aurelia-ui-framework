@@ -4,34 +4,22 @@
  * @copyright : 2019
  * @license   : MIT
  */
-import {
-  bindable,
-  children,
-  customElement,
-  inlineView,
-  View,
-  viewResources
-} from "aurelia-framework";
+import { bindable, children, customElement, inlineView, View } from "aurelia-framework";
 import { UIInternal } from "../utils/ui-internal";
-import { GridderCell } from "./gridder-cell";
 import { GridderUtils } from "./gridder-utils";
 import { IGridderConfig } from "./index";
 import view from "./ui-gridder.html";
 
 @customElement("ui-gridder")
-@viewResources(GridderCell)
 @inlineView(view)
 export class UIGridder {
-  @bindable()
-  public config: IGridderConfig[];
-
   protected ghost: HTMLElement & { startWidth: number; startHeight: number };
 
   protected utils = GridderUtils;
 
   protected owningView: AnyObject;
 
-  @children(".ui-gridder__cell")
+  @children("ui-gridder-cell")
   private cells;
 
   constructor(private element: Element) {}
@@ -58,17 +46,10 @@ export class UIGridder {
   }
 
   protected startDrag($event: DragEvent) {
-    const cell = getParentByTag($event.target, "gridder-cell");
-    cell.setAttribute("draggable", "true");
-    if ($event.dataTransfer) {
-      $event.dataTransfer.setData("text/plain", "drag");
-    }
-    GridderUtils.startMove(cell as HTMLElement);
+    GridderUtils.startMove($event);
     return true;
   }
   protected stopDrag($event: DragEvent) {
-    const cell = getParentByTag($event.target, "gridder-cell");
-    cell.setAttribute("draggable", "false");
     GridderUtils.finishMove($event);
     return true;
   }

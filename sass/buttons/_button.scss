@@ -35,7 +35,7 @@
   &[data-active="true"],
   &[data-open="true"],
   &:active {
-    background-color: mix($btn-bg, $black, 85%);
+    background-color: rgba(mix($btn-bg, $black, 85%), 0.5);
     box-shadow: $btn-active-shadow;
   }
 
@@ -306,6 +306,7 @@
 
   @mixin make-button($theme, $theme-color) {
     &__wrapper.ui-theme--#{$theme} {
+      --btn-ripple: #{mix($theme-color, $white, 75%)};
       #{$base}__inner {
         color: $theme-color;
       }
@@ -316,6 +317,7 @@
       }
 
       &[data-type="solid"] {
+        --btn-ripple: #{mix($theme-color, $white, 25%)};
         #{$base} {
           &:hover {
             background-color: mix($theme-color, $white, 85%);

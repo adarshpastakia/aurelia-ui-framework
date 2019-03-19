@@ -32,10 +32,14 @@ export class UITab {
   @bindable()
   public viewModel: AnyObject;
 
-  protected closeable: boolean = false;
+  @bindable()
+  public closeable: boolean = false;
 
   constructor(protected element: Element) {
     this.id = `tab__${tabSeed++}`;
-    this.closeable = element.hasAttribute("closeable");
+  }
+
+  protected bind() {
+    this.closeable = !isFalse(this.closeable)
   }
 }

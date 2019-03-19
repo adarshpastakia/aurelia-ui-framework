@@ -4,13 +4,7 @@
     dragstart.trigger="startDrag($event)"
     dragend.trigger="stopDrag($event)"
   >
-    <template repeat.for="cell of config | orderBy:'order'" if.bind="owningView">
-      <gridder-cell
-        dragenter.trigger="utils.move($event)"
-        config.bind="cell"
-        owning-view.bind="owningView"
-      ></gridder-cell>
-    </template>
+    <slot></slot>
 
     <div class="ui-gridder__ghost" ref="ghost" show.bind="!!utils.dragEl"></div>
 

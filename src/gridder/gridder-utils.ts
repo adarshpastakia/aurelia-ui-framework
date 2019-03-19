@@ -24,30 +24,39 @@ export namespace GridderUtils {
   let colSpan;
   let rowSpan;
 
-  export function startMove(el: HTMLElement) {
-    dragEl = el;
+  export function startMove($event: DragEvent) {
+    dragEl = getParentByTag($event.target, "ui-gridder-cell") as HTMLElement;
+    dragEl.setAttribute("draggable", "true");
+    if ($event.dataTransfer) {
+      $event.dataTransfer.setData("text/plain", "drag");
+    }
+
     dragEl.style.zIndex = "2";
     dragEl.style.opacity = "0.5";
     updateGhost(dragEl);
-    dragEl.originalIndex = cells.indexOf(dragEl.au.controller.viewModel);
+    dragEl.originalIndex = cells.indexOf(getViewModel(dragEl));
     return true;
   }
-  export function move($event: MouseEvent) {
-    const current = getParentByTag($event.target, "gridder-cell") as HTMLElement;
+  export function move($event: DragEvent) {
+    const current = getParentByTag($event.target, "ui-gridder-cell") as HTMLElement;
+    current.setAttribute("draggable", "false");
     if (isTrue(current.dataset.allowDrop)) {
       $event.preventDefault();
       dropEl = current;
       updateGhost(dropEl);
     }
   }
-  export function finishMove($event: MouseEvent) {
+  export function finishMove($event: DragEvent) {
     if (dropEl) {
       $event.preventDefault();
       if (dropEl !== dragEl) {
-        const newIndex = cells.indexOf(dropEl.au.controller.viewModel);
+        const newIndex = cells.indexOf(getViewModel(dropEl));
         newIndex === cells.length - 1
           ? dragEl.parentElement.appendChild(dragEl)
-          : dragEl.parentElement.insertBefore(dragEl, dropEl);
+          : dragEl.parentElement.insertBefore(
+              dragEl,
+              newIndex > dragEl.originalIndex ? dropEl.nextElementSibling : dropEl
+            );
       }
     }
     dragEl.style.zIndex = "unset";
