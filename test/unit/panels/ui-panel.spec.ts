@@ -8,7 +8,7 @@
 import { bootstrap } from "aurelia-bootstrapper";
 import { StageComponent } from "aurelia-testing";
 // tslint:disable-next-line
-import { UIInternal } from "aurelia-ui-framework/utils/ui-internal";
+import { UIInternal } from "src/utils/ui-internal";
 import { auconfig } from "../../jest-pretest";
 
 describe("ui-panel", () => {
@@ -78,10 +78,10 @@ describe("ui-panel", () => {
 
   it("should have panel collapsible", done => {
     component.waitForElement("#panelWithActions").then(el => {
-      el.au.controller.viewModel.toggleExpand(false);
+      el.au.controller.viewModel.toggleCollapse(true);
       UIInternal.queueTask(() => {
         expect(el.au.controller.viewModel.collapsed).toBeTruthy();
-        el.au.controller.viewModel.toggleExpand(true);
+        el.au.controller.viewModel.toggleCollapse(false);
         UIInternal.queueTask(() => {
           expect(el.au.controller.viewModel.collapsed).toBeFalsy();
           done();
