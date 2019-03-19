@@ -1,0 +1,56 @@
+<template class="ui-gridder__cell" data-allow-drop.bind="!config.pinned">
+  <div ref="panelEl" class="ui-panel-base ui-panel" data-expanded.bind="expanded">
+    <div class="ui-panel__header" data-autohide.bind="config.headAutoHide">
+      <ui-drag-handle if.bind="config.moveable && !config.pinned"></ui-drag-handle>
+      <ui-header>
+        <ui-header-icon if.bind="config.icon" icon.bind="config.icon"></ui-header-icon>
+        <ui-header-title if.bind="config.label">${config.label}</ui-header-title>
+
+        <slot name="header-actions"></slot>
+      </ui-header>
+      <div
+        class="ui-panel__header__actions"
+        if.bind="config.closeable || config.expandable || config.pinnable"
+      >
+        <ui-divider></ui-divider>
+        <template if.bind="config.pinnable">
+          <ui-button
+            type="tool"
+            click.trigger="togglePinned(!config.pinned)"
+            active.bind="config.pinned"
+          >
+            <ui-svg-icon icon="unpinned" if.bind="!config.pinned"></ui-svg-icon>
+            <ui-svg-icon icon="pinned" if.bind="config.pinned"></ui-svg-icon>
+          </ui-button>
+        </template>
+        <template if.bind="config.expandable">
+          <ui-button type="tool" click.trigger="toggleExpand(!expanded)">
+            <ui-svg-icon icon="expand" if.bind="!expanded"></ui-svg-icon>
+            <ui-svg-icon icon="collapse" if.bind="expanded"></ui-svg-icon>
+          </ui-button>
+        </template>
+        <template if.bind="config.closeable">
+          <ui-button type="tool" click.trigger="close()">
+            <ui-svg-icon icon="cross"></ui-svg-icon>
+          </ui-button>
+        </template>
+      </div>
+    </div>
+    <div class="ui-panel__body">
+      <compose
+        class="ui-section"
+        view-model.ref="composeVm"
+        view.bind="view"
+        model.bind="model"
+        view-model.bind="viewModel"
+      ></compose>
+    </div>
+    <slot name="panel-footer"></slot>
+  </div>
+
+  <div
+    if.bind="config.resizeable"
+    class="ui-gridder__resize"
+    mousedown.trigger="utils.startResize($event)"
+  ></div>
+</template>

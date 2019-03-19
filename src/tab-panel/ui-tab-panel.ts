@@ -5,7 +5,6 @@
  * @license   : MIT
  */
 
-import { Subscription } from "aurelia-event-aggregator";
 import {
   autoinject,
   bindable,
@@ -16,6 +15,7 @@ import {
   inlineView,
   View
 } from "aurelia-framework";
+import ResizeObserver from "resize-observer-polyfill";
 import { UIInternal } from "../utils/ui-internal";
 import view from "./ui-tab-panel.html";
 
@@ -64,7 +64,7 @@ export class UITabPanel {
   private overflowEl: Element;
 
   private hasOverflow: boolean = false;
-  private obResize: Subscription;
+  private obResize: ResizeObserver;
 
   private isAttached: boolean = false;
 
@@ -72,9 +72,8 @@ export class UITabPanel {
     if (element.hasAttribute("no-border")) {
       element.classList.add("ui-tab__panel--noborder");
     }
-    this.obResize = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_RESIZE, t =>
-      this.calculateOverflow()
-    );
+    this.obResize = new ResizeObserver(() => this.calculateOverflow());
+    this.obResize.observe(element);
   }
 
   public async activateTab(id: string): Promise<boolean> {
@@ -127,7 +126,7 @@ export class UITabPanel {
   }
 
   protected detached(): void {
-    this.obResize.dispose();
+    this.obResize.disconnect();
   }
 
   protected innerTabsChanged(): void {

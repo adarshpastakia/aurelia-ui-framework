@@ -1,40 +1,5 @@
 <template>
-  <style>
-    .grid-expand {
-      bottom: 1em;
-      box-shadow: 0 0 10em #000000;
-      left: 1em;
-      position: fixed;
-      right: 1em;
-      top: 1em;
-      z-index: 500;
-    }
-  </style>
   <ui-page page-title="Gridder Test" ui-margin="xs">
-    <ui-gridder>
-      <ui-gridder-cell
-        repeat.for="i of colDefs | orderBy:'order' & oneTime"
-        row-span.bind="i.rowSpan"
-        col-span.bind="i.colSpan"
-        allow-drop.bind="!i.fixed"
-        allow-drag.bind="!i.fixed"
-        allow-resize.bind="!i.fixed"
-      >
-        <ui-panel label.bind="$index!=0 ? `Panel ${i.order+1}` : ''" closeable.bind="!i.fixed">
-          <ui-header-actions if.bind="$index!=0">
-            <ui-button type="tool" icon="mdi mdi-tune"></ui-button>
-            <ui-button type="tool" icon="mdi mdi-refresh"></ui-button>
-            <ui-button
-              type="tool"
-              icon="mdi mdi-arrow-expand"
-              click.trigger="toggleExpand($event)"
-            ></ui-button>
-          </ui-header-actions>
-          <ui-content ui-padding="0">
-            <div ui-font="d6" ui-align="center">Panel Body<br />${i.order+1}</div>
-          </ui-content>
-        </ui-panel>
-      </ui-gridder-cell>
-    </ui-gridder>
+    <ui-gridder config.bind="colDefs"> </ui-gridder>
   </ui-page>
 </template>

@@ -7,6 +7,7 @@
 
 import { Subscription } from "aurelia-event-aggregator";
 import { customElement, inlineView } from "aurelia-framework";
+import ResizeObserver from "resize-observer-polyfill";
 import { UIInternal } from "../utils/ui-internal";
 
 @customElement("ui-menubar")
@@ -22,12 +23,11 @@ export class UIMenubar {
   private overflowEl: Element;
 
   private hasOverflow: boolean = false;
-  private obResize: Subscription;
+  private obResize: ResizeObserver;
 
   constructor(protected element: Element) {
-    this.obResize = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_RESIZE, t =>
-      this.calculateOverflow()
-    );
+    this.obResize = new ResizeObserver(() => this.calculateOverflow());
+    this.obResize.observe(element);
   }
 
   protected attached(): void {
@@ -35,7 +35,7 @@ export class UIMenubar {
   }
 
   protected detached(): void {
-    this.obResize.dispose();
+    this.obResize.disconnect();
   }
 
   protected calculateOverflow(): void {

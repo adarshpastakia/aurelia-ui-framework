@@ -69,12 +69,6 @@
     position: relative;
     vertical-align: middle;
 
-    &[data-active="true"] {
-      #{$base} {
-        pointer-events: none;
-      }
-    }
-
     &[data-busy="true"] {
       #{$base} {
         pointer-events: none;

@@ -6,7 +6,22 @@
  */
 
 import { customElement, inlineView } from "aurelia-framework";
+import ResizeObserver from "resize-observer-polyfill";
+import { UIInternal } from "../utils/ui-internal";
 
 @customElement("ui-content")
-@inlineView(`<template class="ui-section__content au-animate animate-slide-in-right animate-slide-out-left" ref="vmElement"><slot></slot></template>`)
-export class UIContent {}
+@inlineView(`<template class="ui-section__content" ref="vmElement"><slot></slot></template>`)
+export class UIContent {
+  private obResize: ResizeObserver;
+
+  constructor(element: Element) {
+    this.obResize = new ResizeObserver(() =>
+      element.dispatchEvent(UIInternal.createEvent("resize"))
+    );
+    this.obResize.observe(element);
+  }
+
+  protected detached() {
+    this.obResize.disconnect();
+  }
+}
