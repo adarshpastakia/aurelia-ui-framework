@@ -10,21 +10,13 @@ import {
   RenderInstruction,
   ValidateResult,
   validateTrigger,
-  ValidationControllerFactory,
-  ValidationRules,
-  Validator
+  ValidationController,
+  ValidationRules
 } from "aurelia-validation";
 
-export const getValidationController = (validator?: Validator) => {
-  const controller = Container.instance
-    .get(ValidationControllerFactory)
-    .createForCurrentScope(validator);
-  controller.validateTrigger = validateTrigger.changeOrBlur;
-  return controller;
-};
-
 export const registerValidators = (container: Container) => {
-  const validator = container.get(Validator);
+  container.get(ValidationController).validateTrigger = validateTrigger.changeOrBlur;
+
   ValidationRules.customRule(
     "url",
     (value, obj) =>
