@@ -31,7 +31,6 @@ import { UIAppConfig } from "./utils/ui-app-config";
 import { UIInternal } from "./utils/ui-internal";
 import { ValueConverters } from "./value-converters";
 import { Viewport } from "./viewport";
-import { ValidationController, validateTrigger } from "aurelia-validation";
 
 export * from "./models/ui-data-model";
 export * from "./services/ui-application";
