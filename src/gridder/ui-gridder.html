@@ -1,0 +1,24 @@
+<template class="ui-gridder">
+  <div
+    class="ui-gridder__container"
+    dragstart.trigger="startDrag($event)"
+    dragend.trigger="stopDrag($event)"
+  >
+    <template repeat.for="cell of config | orderBy:'order'" if.bind="owningView">
+      <gridder-cell
+        dragenter.trigger="utils.move($event)"
+        config.bind="cell"
+        owning-view.bind="owningView"
+      ></gridder-cell>
+    </template>
+
+    <div class="ui-gridder__ghost" ref="ghost" show.bind="!!utils.dragEl"></div>
+
+    <div class="ui-gridder__overlay" if.bind="!!utils.dragEl">
+      <template repeat.for="row of utils.rowCount">
+        <template repeat.for="col of utils.colCount">
+          <div class="ui-gridder__cell" data-row.bind="row" data-col.bind="col"></div> </template
+      ></template>
+    </div>
+  </div>
+</template>

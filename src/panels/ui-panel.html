@@ -1,27 +1,30 @@
 <template
   class="ui-panel-base ui-panel"
   css.bind="{width, minWidth, maxWidth}"
+  data-expanded.bind="expanded"
   data-collapsed.bind="collapsed"
-  dragstart.trigger="startDrag($event)"
-  dragend.trigger="stopDrag($event)"
 >
   <div class="ui-panel__header">
     <slot name="panel-header">
-      <ui-header draggable.bind="allowDrag">
+      <ui-header>
         <ui-header-icon if.bind="icon" icon.bind="icon"></ui-header-icon>
         <ui-header-title if.bind="label">${label}</ui-header-title>
 
         <slot name="header-actions"></slot>
       </ui-header>
     </slot>
-    <div class="ui-panel__header__actions" if.bind="collapsible || closeable">
+    <div class="ui-panel__header__actions" if.bind="collapsible || closeable || expandable">
       <ui-divider></ui-divider>
-      <template if.bind="collapsible">
-        <ui-button type="tool" click.trigger="toggleExpand(false)" if.bind="!collapsed">
-          <ui-svg-icon icon="minus"></ui-svg-icon>
+      <template if.bind="expandable">
+        <ui-button type="tool" click.trigger="toggleExpand(!expanded)">
+          <ui-svg-icon icon="expand" if.bind="!expanded"></ui-svg-icon>
+          <ui-svg-icon icon="collapse" if.bind="expanded"></ui-svg-icon>
         </ui-button>
-        <ui-button type="tool" click.trigger="toggleExpand(true)" if.bind="collapsed">
-          <ui-svg-icon icon="plus"></ui-svg-icon>
+      </template>
+      <template if.bind="collapsible && !expanded">
+        <ui-button type="tool" click.trigger="toggleCollapse(!collapsed)">
+          <ui-svg-icon icon="minus" if.bind="!collapsed"></ui-svg-icon>
+          <ui-svg-icon icon="plus" if.bind="collapsed"></ui-svg-icon>
         </ui-button>
       </template>
       <template if.bind="closeable">

@@ -9,7 +9,7 @@
   --gridder-row-size: 100px;
 
   grid-area: content;
-  overflow: auto;
+  @extend .ui-scroll;
 
   &__container,
   &__overlay {
@@ -33,6 +33,20 @@
       align-self: stretch;
       // stylelint-disable-next-line
       min-width: unset !important;
+    }
+
+    .ui-panel__header[data-autohide="true"] {
+      left: 0;
+      max-height: 5px;
+      overflow: hidden;
+      position: absolute;
+      right: 0;
+      top: 0;
+      z-index: 5;
+
+      &:hover {
+        max-height: unset;
+      }
     }
   }
 
@@ -75,13 +89,6 @@
     }
   }
 
-  &__cell > .ui-drag-handle {
-    left: 0;
-    line-height: 2.5em;
-    position: absolute;
-    top: 0;
-  }
-
   &__resize {
     border: 8px solid transparent;
     border-color: transparent $gray $gray transparent;
@@ -102,11 +109,10 @@
 
   &__overlay {
     @include position(absolute, 0);
-    background-color: rgba($gray, 0.1);
+    display: none;
     z-index: 1;
 
     .ui-gridder__cell {
-      background-color: rgba($white, 0.5);
       border: 1px dashed $gray;
     }
   }

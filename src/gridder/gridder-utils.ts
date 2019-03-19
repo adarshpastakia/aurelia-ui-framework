@@ -33,7 +33,7 @@ export namespace GridderUtils {
     return true;
   }
   export function move($event: MouseEvent) {
-    const current = getParentByTag($event.target, "ui-gridder-cell") as HTMLElement;
+    const current = getParentByTag($event.target, "gridder-cell") as HTMLElement;
     if (isTrue(current.dataset.allowDrop)) {
       $event.preventDefault();
       dropEl = current;
@@ -47,10 +47,7 @@ export namespace GridderUtils {
         const newIndex = cells.indexOf(dropEl.au.controller.viewModel);
         newIndex === cells.length - 1
           ? dragEl.parentElement.appendChild(dragEl)
-          : dragEl.parentElement.insertBefore(
-              dragEl,
-              dragEl.originalIndex > newIndex ? dropEl : dropEl.nextSibling
-            );
+          : dragEl.parentElement.insertBefore(dragEl, dropEl);
       }
     }
     dragEl.style.zIndex = "unset";

@@ -51,10 +51,11 @@
 
   &__header {
     align-items: center;
+    background-color: $base-component-bg;
     display: grid;
     grid-area: header;
-    grid-template-areas: "header actions";
-    grid-template-columns: 1fr auto;
+    grid-template-areas: "drag-handle header actions";
+    grid-template-columns: auto 1fr auto;
     position: relative;
 
     .ui-header {
@@ -92,6 +93,19 @@
       max-height: 0 !important;
       min-height: 0;
     }
+  }
+
+  &[data-expanded="true"] {
+    .ui-footer,
+    .ui-panel__body {
+      // stylelint-disable-next-line declaration-no-important
+      max-height: unset !important;
+      min-height: unset;
+    }
+
+    @include position(fixed, 1em);
+    box-shadow: 0 0 4em rgba(0, 0, 0, 0.9);
+    z-index: 5000;
   }
 
   @mixin make-panel($theme, $theme-color, $tool-color) {

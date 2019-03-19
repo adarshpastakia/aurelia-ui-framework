@@ -4,32 +4,42 @@
  * @copyright : 2019
  * @license   : MIT
  */
-import { children, customElement, inlineView } from "aurelia-framework";
+import {
+  bindable,
+  children,
+  customElement,
+  inlineView,
+  View,
+  viewResources
+} from "aurelia-framework";
 import { UIInternal } from "../utils/ui-internal";
+import { GridderCell } from "./gridder-cell";
 import { GridderUtils } from "./gridder-utils";
+import { IGridderConfig } from "./index";
+import view from "./ui-gridder.html";
 
 @customElement("ui-gridder")
-@inlineView(`<template class="ui-gridder">
-<div class="ui-gridder__container"><slot></slot>
-  <div class="ui-gridder__ghost" ref="ghost" show.bind="!!utils.dragEl"></div>
-
-  <div class="ui-gridder__overlay" if.bind="false && !!utils.dragEl">
-  <template repeat.for="row of utils.rowCount">
-  <template repeat.for="col of utils.colCount">
-  <div class="ui-gridder__cell" data-row.bind="row" data-col.bind="col"></div>
-  </template></template>
-  </div>
-</div>
-</template>`)
+@viewResources(GridderCell)
+@inlineView(view)
 export class UIGridder {
+  @bindable()
+  public config: IGridderConfig[];
+
   protected ghost: HTMLElement & { startWidth: number; startHeight: number };
 
   protected utils = GridderUtils;
 
-  @children("ui-gridder-cell")
+  protected owningView: AnyObject;
+
+  @children(".ui-gridder__cell")
   private cells;
 
   constructor(private element: Element) {}
+
+  // Set current owningView
+  protected created(owningView: View) {
+    this.owningView = owningView;
+  }
 
   protected attached() {
     GridderUtils.colCount = 12; // Math.floor(this.gridder.offsetWidth / 180);
@@ -45,5 +55,21 @@ export class UIGridder {
         this.element.firstElementChild.offsetHeight / GridderUtils.minHeight
       );
     });
+  }
+
+  protected startDrag($event: DragEvent) {
+    const cell = getParentByTag($event.target, "gridder-cell");
+    cell.setAttribute("draggable", "true");
+    if ($event.dataTransfer) {
+      $event.dataTransfer.setData("text/plain", "drag");
+    }
+    GridderUtils.startMove(cell as HTMLElement);
+    return true;
+  }
+  protected stopDrag($event: DragEvent) {
+    const cell = getParentByTag($event.target, "gridder-cell");
+    cell.setAttribute("draggable", "false");
+    GridderUtils.finishMove($event);
+    return true;
   }
 }

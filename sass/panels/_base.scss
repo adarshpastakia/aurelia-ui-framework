@@ -18,6 +18,7 @@
   cursor: grab;
   grid-area: drag-handle;
   width: 16px;
+  @include property-prefix(margin-end, $base-spacing * -1);
 }
 
 .ui-header {
@@ -25,8 +26,8 @@
   display: grid;
   font-size: 1rem;
   grid-area: header;
-  grid-template-areas: "drag-handle icon title actions";
-  grid-template-columns: auto auto 1fr auto;
+  grid-template-areas: "icon title actions";
+  grid-template-columns: auto 1fr auto;
   position: relative;
 
   &__title {
