@@ -10,7 +10,7 @@ import { Container } from "aurelia-framework";
 import { StageComponent } from "aurelia-testing";
 import { UIApplication } from "aurelia-ui-framework";
 // tslint:disable-next-line
-import { UIInternal } from "aurelia-ui-framework/utils/ui-internal";
+import { UIInternal } from "src/utils/ui-internal";
 import { auconfig } from "../../jest-pretest";
 
 describe("ui-viewport", () => {

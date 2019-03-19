@@ -96,7 +96,7 @@
     "moduleNameMapper": {
       "^aurelia-binding$": "<rootDir>/node_modules/aurelia-binding",
       "^aurelia-ui-framework$": "<rootDir>/src/aurelia-ui-framework.ts",
-      "^aurelia-ui-framework/(.*)": "<rootDir>/src/$1"
+      "^src/(.*)": "<rootDir>/src/$1"
     },
     "modulePaths": [
       "<rootDir>/src",
