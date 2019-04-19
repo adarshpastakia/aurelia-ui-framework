@@ -57,7 +57,8 @@
     "expose-loader": "^0.7.5",
     "file-loader": "^2.0.0",
     "gulp": "^4.0.0",
-    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-typescript": "^5.0.1",
     "html-loader": "^0.5.5",
     "html-loader-jest": "^0.2.1",
     "html-webpack-plugin": "^3.2.0",
@@ -86,6 +87,7 @@
     "typescript": "^3.1.2",
     "url-loader": "^1.1.1",
     "vinyl-fs": "^3.0.3",
+    "vinyl-paths": "^2.1.0",
     "webpack": "^4.27.0",
     "webpack-bundle-analyzer": "latest",
     "webpack-cli": "^3.1.2",
@@ -145,8 +147,10 @@
     "heroku-postbuild": "au build --env dev",
     "bump-version": "npm --no-git-tag-version version",
     "modules": "webpack --display-modules",
-    "analyze": "webpack --env.analyze --env.production"
+    "analyze": "webpack --env.analyze --env.production",
+    "dist": "gulp dist",
+    "release": "npm run dist && npm run bump-version"
   },
-  "typings": "typings/aurelia-ui-framework.d.ts",
-  "main": "dist/aurelia-ui-framework.js"
+  "typings": "dist/typings/aurelia-ui-framework.d.ts",
+  "main": "dist/commonjs/aurelia-ui-framework.js"
 }

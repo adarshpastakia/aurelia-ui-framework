@@ -172,8 +172,10 @@ export class UIRangePicker {
     const target = $event.target as HTMLElement;
     if (target.dataset.date) {
       const date = new Date(target.dataset.date);
-      if (this.selecting && (isSameDay(date, this.selecting) || isAfter(date, this.selecting))) {
-        this.date = [startOfDay(this.selecting).toISOString(), endOfDay(date).toISOString()];
+      if (this.selecting) {
+        this.date = isBefore(date, this.selecting)
+          ? [startOfDay(date).toISOString(), endOfDay(this.selecting).toISOString()]
+          : [startOfDay(this.selecting).toISOString(), endOfDay(date).toISOString()];
         this.selecting = null;
       } else {
         this.selecting = date;

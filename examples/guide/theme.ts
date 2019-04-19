@@ -6,7 +6,7 @@
  */
 
 export class ThemePage {
-  protected theming = `@import "~aurelia-ui-framework/sass/palette";
+  protected theming = `@import "~aurelia-ui-framework/sass/colors";
 
 $primary: $indigo;
 $secondary: $pink;
