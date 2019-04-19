@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es5",
     "module": "esnext",
+    "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
@@ -13,5 +14,5 @@
     "lib": ["es2017", "dom"]
   },
   "include": ["./src/**/*.ts"],
-  "exclude": [".vscode", "dist", "doc", "node_modules", "test"]
+  "exclude": [".vscode", "dist", "doc", "test"]
 }
