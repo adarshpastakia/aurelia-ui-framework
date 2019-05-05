@@ -17,7 +17,7 @@ import { Gridder } from "./gridder";
 import { Icons } from "./icons";
 import "./libs/array";
 import { Countries as _Countries } from "./libs/countries";
-import "./libs/phonelib";
+// import "./libs/phonelib";
 import "./libs/string";
 import "./libs/window";
 import { Lists } from "./lists";

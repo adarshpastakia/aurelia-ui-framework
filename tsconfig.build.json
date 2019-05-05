@@ -14,5 +14,5 @@
     "lib": ["es2017", "dom"]
   },
   "include": ["./src/**/*.ts"],
-  "exclude": [".vscode", "dist", "doc", "test"]
+  "exclude": [".vscode", "dist", "doc", "node_modules", "test"]
 }
