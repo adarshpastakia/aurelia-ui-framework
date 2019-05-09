@@ -8,12 +8,14 @@ export default [
     output: [
       {
         file: "dist/es2015/aurelia-ui-framework.js",
-        format: "esm"
+        format: "esm",
+        sourcemap: true
       },
       {
         file: "dist/umd-es2015/aurelia-ui-framework.js",
         format: "umd",
         name: "au.uiFramework",
+        // defining where the namespace/path could be used to get the exports for Aurelia modules
         globals: {
           "aurelia-framework": "au",
           "aurelia-event-aggregator": "au",
@@ -21,13 +23,15 @@ export default [
           "aurelia-logging": "au",
           "aurelia-router": "au",
           "aurelia-metadata": "au",
-          "resize-observer-polyfill": "au",
-          "aurelia-ui-virtualization": "au",
-          "aurelia-validation": "au",
-          "date-fns": "au",
-          "kramed": "au",
-          "numeral": "au"
-        }
+          "aurelia-ui-virtualization": "au.uiVirtualization",
+          "aurelia-validation": "au.validation",
+          // these are not exported in au namespace. date-fns would probably be dateFns? kramed would probably be kramed?
+          // "resize-observer-polyfill": "au",
+          // "date-fns": "au",
+          // "kramed": "au",
+          // "numeral": "au"
+        },
+        sourcemap: true
       }
     ],
     plugins: [
@@ -49,7 +53,8 @@ export default [
     input: "src/aurelia-ui-framework.ts",
     output: {
       file: "dist/es2017/aurelia-ui-framework.js",
-      format: "esm"
+      format: "esm",
+      sourcemap: true
     },
     plugins: [
       json(),
@@ -71,16 +76,16 @@ export default [
     input: "src/aurelia-ui-framework.ts",
     output: [
       {
-        file: "dist/amd/aurelia-ui-framework.js", format: "amd", id: "aurelia-ui-framework"
+        file: "dist/amd/aurelia-ui-framework.js", format: "amd", id: "aurelia-ui-framework", sourcemap: true
       },
       {
-        file: "dist/commonjs/aurelia-ui-framework.js", format: "cjs"
+        file: "dist/commonjs/aurelia-ui-framework.js", format: "cjs", sourcemap: true
       },
       {
-        file: "dist/system/aurelia-ui-framework.js", format: "system"
+        file: "dist/system/aurelia-ui-framework.js", format: "system", sourcemap: true
       },
       {
-        file: "dist/native-modules/aurelia-ui-framework.js", format: "esm"
+        file: "dist/native-modules/aurelia-ui-framework.js", format: "esm", sourcemap: true
       }
     ],
     plugins: [
@@ -105,6 +110,7 @@ export default [
       file: "dist/umd/aurelia-ui-framework.js",
       format: "umd",
       name: "au.uiFramework",
+      // defining where the namespace/path could be used to get the exports for Aurelia modules
       globals: {
         "aurelia-framework": "au",
         "aurelia-event-aggregator": "au",
@@ -112,13 +118,15 @@ export default [
         "aurelia-logging": "au",
         "aurelia-router": "au",
         "aurelia-metadata": "au",
-        "resize-observer-polyfill": "au",
-        "aurelia-ui-virtualization": "au",
-        "aurelia-validation": "au",
-        "date-fns": "au",
-        "kramed": "au",
-        "numeral": "au"
-      }
+        "aurelia-ui-virtualization": "au.uiVirtualiztion",
+        "aurelia-validation": "au.validation",
+        // these are not exported in au namespace. date-fns would probably be dateFns? kramed would probably be kramed?
+        // "resize-observer-polyfill": "au",
+        // "date-fns": "au",
+        // "kramed": "au",
+        // "numeral": "au"
+      },
+      sourcemap: true
     },
     plugins: [
       json(),
