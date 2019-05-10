@@ -5,14 +5,10 @@
  * @license   : MIT
  */
 
-import {
-  bindable,
-  bindingMode,
-  customElement,
-  inlineView,
-  observable,
-  viewResources
-} from "aurelia-framework";
+import { bindable, bindingMode, customElement, inlineView, observable, viewResources } from "aurelia-framework";
+import { AsYouType, CountryCode, getExampleNumber } from "libphonenumber-js";
+// tslint:disable-next-line:no-submodule-imports
+import examples from "libphonenumber-js/examples.mobile.json";
 import { UIInternal } from "../utils/ui-internal";
 import { BaseInput } from "./base-input";
 import { InputWrapper } from "./input-wrapper";
@@ -58,18 +54,16 @@ export class UIPhone extends BaseInput {
   protected valueChanged(): void {
     if (!this.ignoreChange) {
       this.ignoreChange = true;
-      this.inputValue = PhoneLib.formatInput(this.value, this.country);
+      this.update(this.value);
       UIInternal.queueTask(() => (this.ignoreChange = false));
     }
   }
 
   protected countryChanged(): void {
     this.inputCountry = this.country;
-    this.placeholder = PhoneLib.getExample(
-      this.country || "us",
-      this.type === "mobile" ? PhoneLib.TYPE.MOBILE : PhoneLib.TYPE.FIXED_LINE_OR_MOBILE,
-      !!this.country
-    );
+    // @ts-ignore
+    const examplePhone = getExampleNumber((this.country || "US") as CountryCode, examples);
+    this.placeholder = !!this.country ? examplePhone.formatNational() : examplePhone.formatInternational();
   }
 
   protected inputValueChanged(): void {
@@ -80,10 +74,17 @@ export class UIPhone extends BaseInput {
       if (!this.country && val !== "" && !val.startsWith("+")) {
         val = `+${val}`;
       }
-      this.inputValue = PhoneLib.formatInput(val, this.country);
-      this.inputCountry = this.country || PhoneLib.getIso2Code(val, this.country);
-      this.value = PhoneLib.format(val, this.country, PhoneLib.FORMAT.FULL);
+      this.update(val);
       UIInternal.queueTask(() => (this.ignoreChange = false));
+    }
+  }
+
+  private update(value: string) {
+    const newInput = new AsYouType(this.country as CountryCode);
+    this.inputValue = newInput.input(value);
+    this.inputCountry = this.country || newInput.country;
+    if (newInput.getNumber()) {
+      this.value = newInput.getNumber().number.toString();
     }
   }
 }

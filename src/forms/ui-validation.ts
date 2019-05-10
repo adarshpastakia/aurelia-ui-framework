@@ -13,6 +13,7 @@ import {
   ValidationController,
   ValidationRules
 } from "aurelia-validation";
+import { parsePhoneNumberFromString } from "libphonenumber-js";
 
 export const registerValidators = (container: Container) => {
   container.get(ValidationController).validateTrigger = validateTrigger.changeOrBlur;
@@ -31,7 +32,7 @@ export const registerValidators = (container: Container) => {
   ValidationRules.customRule(
     "phone",
     (value, obj) =>
-      value === null || value === undefined || value === "" || PhoneLib.isValid(value),
+      value === null || value === undefined || value === "" || parsePhoneNumberFromString(value).isValid(),
     "\${$displayName} is not a valid phone number."
   );
   ValidationRules.customRule(

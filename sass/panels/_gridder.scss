@@ -92,16 +92,19 @@
   }
 
   &__resize {
-    border: 8px solid transparent;
-    border-color: transparent $gray $gray transparent;
     bottom: 0;
     cursor: nwse-resize;
     display: none;
-    line-height: 1;
+    line-height: 0.75;
     opacity: 0.5;
     position: absolute;
     right: 0;
     z-index: 100;
+
+    &::after {
+      font-size: 2em;
+      content: "\231F";
+    }
 
     &:hover,
     &:active {
