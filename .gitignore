@@ -28,10 +28,10 @@ Thumbs.db
 node_modules
 
 # Compiled files
+/.rollupcache
 /scripts
 /src/environment.js
 /src/environment.ts
-/dist
 /test/coverage-jest
 /test/coverage-karma
 /build

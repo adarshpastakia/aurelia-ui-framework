@@ -25,11 +25,12 @@ export default [
           "aurelia-metadata": "au",
           "aurelia-ui-virtualization": "au.uiVirtualization",
           "aurelia-validation": "au.validation",
-          // these are not exported in au namespace. date-fns would probably be dateFns? kramed would probably be kramed?
-          // "resize-observer-polyfill": "au",
-          // "date-fns": "au",
-          // "kramed": "au",
-          // "numeral": "au"
+          "resize-observer-polyfill": "ResizeObserver",
+          "date-fns": "dateFns",
+          "kramed": "kramed",
+          "numeral": "numeral",
+          "libphonenumber-js": "libphonenumberJs",
+          "libphonenumber-js/examples.mobile.json": "examples"
         },
         sourcemap: true
       }
@@ -118,13 +119,14 @@ export default [
         "aurelia-logging": "au",
         "aurelia-router": "au",
         "aurelia-metadata": "au",
-        "aurelia-ui-virtualization": "au.uiVirtualiztion",
+        "aurelia-ui-virtualization": "au.uiVirtualization",
         "aurelia-validation": "au.validation",
-        // these are not exported in au namespace. date-fns would probably be dateFns? kramed would probably be kramed?
-        // "resize-observer-polyfill": "au",
-        // "date-fns": "au",
-        // "kramed": "au",
-        // "numeral": "au"
+        "resize-observer-polyfill": "ResizeObserver",
+        "date-fns": "dateFns",
+        "kramed": "kramed",
+        "numeral": "numeral",
+        "libphonenumber-js": "libphonenumberJs",
+        "libphonenumber-js/examples.mobile.json": "examples"
       },
       sourcemap: true
     },
@@ -157,7 +159,9 @@ export default [
     "aurelia-validation",
     "date-fns",
     "kramed",
-    "numeral"
+    "numeral",
+    "libphonenumber-js",
+    "libphonenumber-js/examples.mobile.json"
   ];
   return config;
 });

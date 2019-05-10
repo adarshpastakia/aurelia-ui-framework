@@ -8826,16 +8826,17 @@ a[data-disabled="true"] > .ui-card {
     .ui-gridder__move:active {
       cursor: grabbing; }
   .ui-gridder__resize {
-    border: 8px solid transparent;
-    border-color: transparent #8a9ba8 #8a9ba8 transparent;
     bottom: 0;
     cursor: nwse-resize;
     display: none;
-    line-height: 1;
+    line-height: 0.75;
     opacity: 0.5;
     position: absolute;
     right: 0;
     z-index: 100; }
+    .ui-gridder__resize::after {
+      font-size: 2em;
+      content: "\231F"; }
     .ui-gridder__resize:hover, .ui-gridder__resize:active {
       opacity: 1; }
   .ui-gridder__overlay {
