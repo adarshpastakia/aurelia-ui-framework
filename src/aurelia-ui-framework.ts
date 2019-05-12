@@ -122,6 +122,7 @@ export class UIFrameworkConfig {
 
   public useResource(resource: UIResources) {
     this.resources.push(resource);
+    return this;
   }
   private loadResources() {
     return Promise.all(this.resources.map(name => RESOURCE_LOADER[name]())).then(modules => {
