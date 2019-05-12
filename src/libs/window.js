@@ -12,7 +12,7 @@ const UA_SAFARI = "ua-safari";
 const UA_FIREFOX = "ua-firefox";
 const UA_UNKNOWN = "ua-unknown";
 
-window.browserAgent = function() {
+browserAgent = function() {
   var ua = (navigator.userAgent || "").toLowerCase();
   if (ua.indexOf("opr") >= 0) return UA_OPERA;
   else if (ua.indexOf("edge") >= 0) return UA_EDGE;
@@ -22,49 +22,49 @@ window.browserAgent = function() {
   else return UA_UNKNOWN;
 };
 
-window.isTrue = function(b) {
+isTrue = function(b) {
   return /^(true|yes|1|y|on)$/i.test(b);
 };
-window.isFalse = function(b) {
+isFalse = function(b) {
   return /^(false|no|0|n|off)$/i.test(b);
 };
-window.isNull = function(a) {
+isNull = function(a) {
   return a === undefined || a === null;
 };
-window.isEmpty = function(a) {
+isEmpty = function(a) {
   if (typeof a === "number") return false;
   if (typeof a === "boolean") return false;
   if (a instanceof Map || a instanceof Set) return a.size === 0;
   return a === undefined || a === null || a === "" || a.length === 0 || Object.keys(a).length == 0;
 };
-window.isArray = Array.isArray;
-window.isDate = function(a) {
+isArray = Array.isArray;
+isDate = function(a) {
   return a instanceof Date;
 };
-window.isString = function(a) {
+isString = function(a) {
   return typeof a === "string";
 };
-window.isNumber = function(a) {
+isNumber = function(a) {
   return typeof a === "number" && Number.isInteger(a);
 };
-window.isDecimal = function(a) {
+isDecimal = function(a) {
   return typeof a === "number";
 };
-window.isObject = function(a) {
+isObject = function(a) {
   return a && typeof a === "object";
 };
-window.isFunction = function(a) {
+isFunction = function(a) {
   return typeof a === "function";
 };
 
-window.fn = () => null;
-window.getView = el => (el.au && el.au.controller ? el.au.controller.view : null);
-window.getViewModel = el => (el.au && el.au.controller ? el.au.controller.viewModel : null);
-window.getSlotViewModel = el => el.au["au-slot"].container.parent.viewModel;
-window.getComposeViewModel = el =>
+fn = () => null;
+getView = el => (el.au && el.au.controller ? el.au.controller.view : null);
+getViewModel = el => (el.au && el.au.controller ? el.au.controller.viewModel : null);
+getSlotViewModel = el => el.au["au-slot"].container.parent.viewModel;
+getComposeViewModel = el =>
   el.au && el.au.controller ? el.au.controller.viewModel.currentViewModel : null;
 
-window.isRtl = function(el) {
+isRtl = function(el) {
   rtl = false;
   do {
     if ((el.dir || el.style.direction) == "rtl") return true;
@@ -74,7 +74,7 @@ window.isRtl = function(el) {
   return false;
 };
 
-window.hasParent = function(el, parent) {
+hasParent = function(el, parent) {
   do {
     if (el === parent) return true;
     el = el.parentElement;
@@ -82,7 +82,7 @@ window.hasParent = function(el, parent) {
   return false;
 };
 
-window.getParentByTag = function(el, selector, last) {
+getParentByTag = function(el, selector, last) {
   do {
     if (last && last instanceof Element && el === last) return null;
     if (
@@ -97,7 +97,7 @@ window.getParentByTag = function(el, selector, last) {
   return null;
 };
 
-window.getParentByClass = function(el, selector, last) {
+getParentByClass = function(el, selector, last) {
   do {
     if (last && last instanceof Element && el === last) return null;
     if (
@@ -112,14 +112,14 @@ window.getParentByClass = function(el, selector, last) {
   return null;
 };
 
-window.convertToPx = function(size, context) {
+convertToPx = function(size, context) {
   var baseSize = "1";
   if ((size + "").indexOf("em") > -1)
     baseSize = getComputedStyle(context || document.documentElement).fontSize;
   if ((size + "").indexOf("rem") > -1)
     baseSize = getComputedStyle(document.documentElement).fontSize;
   if ((size + "").indexOf("vw") > -1 || (size + "").indexOf("%") > -1)
-    baseSize = window.innerWidth / 100;
+    baseSize = innerWidth / 100;
   return parseFloat(size) * parseFloat(baseSize);
 };
 

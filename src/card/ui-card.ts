@@ -5,6 +5,11 @@
  * @license   : MIT
  */
 import { bindable, customElement, inlineView } from "aurelia-framework";
+import { UICardContent } from "./ui-card-content";
+import { UICardList } from "./ui-card-list";
+import { UICardMedia } from "./ui-card-media";
+import { UICardMeta } from "./ui-card-meta";
+import { UICardTitle } from "./ui-card-title";
 
 @customElement("ui-card")
 @inlineView(`<template class='ui-panel-base ui-card' css.bind='{width, minWidth, maxWidth, height, minHeight, maxHeight}'>
@@ -12,7 +17,7 @@ import { bindable, customElement, inlineView } from "aurelia-framework";
 <div class="ui-card__body"><slot></slot></div>
 <slot name="panel-footer"></slot>
 </template>`)
-export class UICard {
+class UICard {
   @bindable()
   public width: string = "";
   @bindable()
@@ -28,3 +33,5 @@ export class UICard {
 
   constructor(protected element: Element) {}
 }
+
+export const Card = [UICard, UICardContent, UICardMeta, UICardMedia, UICardList, UICardTitle];

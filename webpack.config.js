@@ -41,6 +41,7 @@ module.exports = ({ production, server, extractCss, coverage, analyze, karma } =
   },
   entry: {
     app: ["aurelia-bootstrapper"],
+    framework: ["aurelia-ui-framework"],
     vendor: ["aurelia-framework"]
   },
   mode: production ? "production" : "development",
@@ -225,7 +226,7 @@ module.exports = ({ production, server, extractCss, coverage, analyze, karma } =
   },
   plugins: [
     ...when(!karma, new DuplicatePackageCheckerPlugin()),
-    new AureliaPlugin(),
+    new AureliaPlugin({ dist: 'es2015' }),
     new ProvidePlugin({
       Promise: "bluebird"
     }),

@@ -6,7 +6,7 @@
  */
 
 import { bindable, child, computedFrom, customElement, inlineView } from "aurelia-framework";
-import { IMenuItems } from "../menus";
+import { IMenuItems } from "../menus/ui-menus";
 import { UIDrop } from "../shared/ui-drop";
 import { UIInternal } from "../utils/ui-internal";
 import view from "./ui-button.html";

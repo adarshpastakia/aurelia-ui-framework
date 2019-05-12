@@ -6,8 +6,8 @@
  */
 
 import { bindable, customElement, inlineView, viewResources } from "aurelia-framework";
-import { IMenuItems } from "./index";
 import { MenuItem } from "./menu-item";
+import { IMenuItems } from "./ui-menus";
 
 @customElement("ui-menu")
 @viewResources(MenuItem)

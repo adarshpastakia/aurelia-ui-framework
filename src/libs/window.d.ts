@@ -123,5 +123,5 @@ interface ICountry {
   toIso2(iso3: string): string;
   toIso3(iso2: string): string;
 
-  list: Array<ICountry>;
+  list: Array<ICountryItem>;
 }

@@ -9,11 +9,14 @@ import { customElement, inlineView, ViewSlot } from "aurelia-framework";
 import { AppRouter } from "aurelia-router";
 import { UIAppConfig } from "../utils/ui-app-config";
 import { UIInternal } from "../utils/ui-internal";
+import { UIRouterView } from "./ui-router-view";
+import { UIViewportFooter } from "./ui-viewport-footer";
+import { UIViewportHeader } from "./ui-viewport-header";
 import view from "./ui-viewport.html";
 
 @customElement("ui-viewport")
 @inlineView(view)
-export class UIViewport {
+class UIViewport {
   private dialogContainer;
   private taskbarContainer;
 
@@ -36,3 +39,5 @@ export class UIViewport {
     }
   }
 }
+
+export const Viewport = [UIViewport, UIViewportHeader, UIViewportFooter, UIRouterView];
