@@ -7,7 +7,7 @@
 import { bindable, bindingMode, customElement, inlineView } from "aurelia-framework";
 import { BasePanel } from "../panels/base-panel";
 import { GridderUtils } from "./gridder-utils";
-import { IGridderConfig } from "./index";
+import { IGridderConfig } from "./ui-gridder";
 import view from "./ui-gridder-cell.html";
 
 @customElement("ui-gridder-cell")

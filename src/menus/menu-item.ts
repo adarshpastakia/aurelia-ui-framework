@@ -5,7 +5,7 @@
  * @license   : MIT
  */
 import { bindable, containerless, customElement, inlineView } from "aurelia-framework";
-import { IMenuItems } from "./index";
+import { IMenuItems } from "./ui-menus";
 
 @containerless()
 @customElement("menu-item")

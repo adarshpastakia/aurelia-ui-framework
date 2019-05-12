@@ -5,31 +5,13 @@
  * @license   : MIT
  */
 import { Container, FrameworkConfiguration } from "aurelia-framework";
-// Modules
-import { Attributes } from "./attributes";
-import { Buttons } from "./buttons";
-import { Calendar } from "./calendar";
-import { Card } from "./card";
-import { DataPanels } from "./data";
-import { Forms } from "./forms";
 import { registerValidators, UIValidationRenderer } from "./forms/ui-validation";
-import { Gridder } from "./gridder";
-import { Icons } from "./icons";
 import "./libs/array";
-import { Countries as _Countries } from "./libs/countries";
+import * as _Countries from "./libs/countries";
 import "./libs/string";
 import "./libs/window";
-import { Lists } from "./lists";
-import { Menus } from "./menus";
-import { Page } from "./page";
-import { Panels } from "./panels";
-import { Responsive } from "./responsive";
-import { Shared } from "./shared";
-import { TabPanel } from "./tab-panel";
 import { UIAppConfig } from "./utils/ui-app-config";
 import { UIInternal } from "./utils/ui-internal";
-import { ValueConverters } from "./value-converters";
-import { Viewport } from "./viewport";
 
 export * from "./models/ui-data-model";
 export * from "./services/ui-application";
@@ -52,6 +34,39 @@ const AppConfig = () => {
 AppConfig.prototype.ApiBaseUrl = "";
 AppConfig.prototype.ApiHeaders = "";
 
+export enum UIResources {
+  Buttons = "buttons",
+  Card = "card",
+  Panel = "panel",
+  Menus = "menus",
+  Forms = "forms",
+  Lists = "lists",
+  TabPanel = "tabpanel",
+  DataPanel = "datapanel",
+  Calendar = "calendar",
+  Gridder = "gridder"
+}
+
+const RESOURCE_LOADER: Record<string, () => Promise<AnyObject>> = {
+  viewport: () => import("./viewport/ui-viewport").then(m => m.Viewport),
+  page: () => import("./page/ui-page").then(m => m.Page),
+  icons: () => import("./icons/ui-icons").then(m => m.Icons),
+  responsive: () => import("./responsive/ui-responsive").then(m => m.Responsive),
+  shared: () => import("./shared/ui-shared").then(m => m.Shared),
+  attributes: () => import("./attributes/ui-attributes").then(m => m.Attributes),
+  valueconverters: () => import("./value-converters/value-converters").then(m => m.ValueConverters),
+  [UIResources.Buttons]: () => import("./buttons/ui-buttons").then(m => m.Buttons),
+  [UIResources.Calendar]: () => import("./calendar/ui-calendar").then(m => m.Calendar),
+  [UIResources.Card]: () => import("./card/ui-card").then(m => m.Card),
+  [UIResources.DataPanel]: () => import("./data/ui-data-panels").then(m => m.DataPanels),
+  [UIResources.Forms]: () => import("./forms/ui-forms").then(m => m.Forms),
+  [UIResources.Gridder]: () => import("./gridder/ui-gridder").then(m => m.Gridder),
+  [UIResources.Lists]: () => import("./lists/ui-lists").then(m => m.Lists),
+  [UIResources.Menus]: () => import("./menus/ui-menus").then(m => m.Menus),
+  [UIResources.Panel]: () => import("./panels/ui-panels").then(m => m.Panels),
+  [UIResources.TabPanel]: () => import("./tab-panel/ui-tab-panel").then(m => m.TabPanel)
+};
+
 /**
  * UIFrameworkConfig
  * @description : Framework configuration
@@ -60,29 +75,21 @@ AppConfig.prototype.ApiHeaders = "";
  * @function setKeyValue(k: string, v: AnyObject);
  */
 export class UIFrameworkConfig {
-  public use = {
-    all: () => {
-      this.loadFromModule(Buttons);
-      this.loadFromModule(Card);
-      this.loadFromModule(Panels);
-      this.loadFromModule(Menus);
-      this.loadFromModule(Forms);
-      this.loadFromModule(Lists);
-      this.loadFromModule(TabPanel);
-      this.loadFromModule(DataPanels);
-      this.loadFromModule(Calendar);
-      this.loadFromModule(Gridder);
-    }
-  };
+  private resources = [
+    "viewport",
+    "page",
+    "icons",
+    "responsive",
+    "shared",
+    "attributes",
+    "valueconverters"
+  ];
 
-  constructor(private auConfig: FrameworkConfiguration) {
-    this.loadFromModule(Viewport);
-    this.loadFromModule(Page);
-    this.loadFromModule(Icons);
-    this.loadFromModule(Responsive);
-    this.loadFromModule(Shared);
-    this.loadFromModule(Attributes);
-    this.loadFromModule(ValueConverters);
+  constructor(
+    private auConfig: FrameworkConfiguration,
+    loadResources: (callback: () => Promise<void>) => void
+  ) {
+    loadResources(() => this.loadResources());
   }
 
   public setApiBaseUrl(v: string): UIFrameworkConfig {
@@ -100,8 +107,31 @@ export class UIFrameworkConfig {
     return this;
   }
 
-  private loadFromModule(moduleName) {
-    this.auConfig.globalResources(moduleName);
+  public useStandardResources() {
+    this.useResource(UIResources.Buttons);
+    this.useResource(UIResources.Calendar);
+    this.useResource(UIResources.Card);
+    this.useResource(UIResources.DataPanel);
+    this.useResource(UIResources.Forms);
+    this.useResource(UIResources.Gridder);
+    this.useResource(UIResources.Lists);
+    this.useResource(UIResources.Menus);
+    this.useResource(UIResources.Panel);
+    this.useResource(UIResources.TabPanel);
+  }
+
+  public useResource(resource: UIResources) {
+    this.resources.push(resource);
+  }
+  private loadResources() {
+    return Promise.all(this.resources.map(name => RESOURCE_LOADER[name]())).then(modules => {
+      this.auConfig.globalResources(
+        modules.reduce((a, m) => {
+          a.push(...m);
+          return a;
+        }, [])
+      );
+    });
   }
 }
 
@@ -116,12 +146,15 @@ export function configure(
   );
   registerValidators(auConfig.container);
 
-  const config = new UIFrameworkConfig(auConfig);
+  let loadResources;
+  const config = new UIFrameworkConfig(auConfig, fn => {
+    loadResources = fn;
+  });
   if (isFunction(configCallback)) {
     configCallback(config);
   } else {
-    config.use.all();
+    config.useStandardResources();
   }
-
   auConfig.singleton(UIAppConfig, AppConfig);
+  return loadResources();
 }

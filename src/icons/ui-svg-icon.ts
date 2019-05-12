@@ -5,7 +5,7 @@
  * @license   : MIT
  */
 import { bindable, containerless, customElement, inlineView } from "aurelia-framework";
-import Icons from "./ui-icons.json";
+import Icons from "./svg-icons.json";
 
 @containerless()
 @customElement("ui-svg-icon")

@@ -17,7 +17,10 @@ import {
 } from "aurelia-framework";
 import ResizeObserver from "resize-observer-polyfill";
 import { UIInternal } from "../utils/ui-internal";
+import { UITab } from "./ui-tab";
+import { UITabbarEnd } from "./ui-tab-end";
 import view from "./ui-tab-panel.html";
+import { UITabbarStart } from "./ui-tab-start";
 
 export interface UITabConfig {
   id?: string;
@@ -37,7 +40,7 @@ export interface UITabConfig {
 @autoinject()
 @customElement("ui-tab-panel")
 @inlineView(view)
-export class UITabPanel {
+class UITabPanel {
   @bindable()
   public tabs: UITabConfig[] = [];
   @bindable({ bindingMode: bindingMode.twoWay })
@@ -195,3 +198,5 @@ export class UITabPanel {
     });
   }
 }
+
+export const TabPanel = [UITabPanel, UITab, UITabbarStart, UITabbarEnd];

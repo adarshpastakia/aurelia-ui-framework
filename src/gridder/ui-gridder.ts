@@ -4,15 +4,23 @@
  * @copyright : 2019
  * @license   : MIT
  */
-import { bindable, children, customElement, inlineView, View } from "aurelia-framework";
+import { children, customElement, inlineView, View } from "aurelia-framework";
 import { UIInternal } from "../utils/ui-internal";
 import { GridderUtils } from "./gridder-utils";
-import { IGridderConfig } from "./index";
+import { UIGridderCell } from "./ui-gridder-cell";
 import view from "./ui-gridder.html";
+
+export interface IGridderConfig {
+  order?: number;
+  row?: number;
+  col?: number;
+  rowSpan?: number;
+  colSpan?: number;
+}
 
 @customElement("ui-gridder")
 @inlineView(view)
-export class UIGridder {
+class UIGridder {
   protected ghost: HTMLElement & { startWidth: number; startHeight: number };
 
   protected utils = GridderUtils;
@@ -54,3 +62,5 @@ export class UIGridder {
     return true;
   }
 }
+
+export const Gridder = [UIGridder, UIGridderCell];

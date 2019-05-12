@@ -27,8 +27,7 @@ describe("aurelia-ui-framework test", () => {
         config
           .setApiBaseUrl(AppBaseUrl)
           .setApiHeaders(AppHeaders)
-          .setKeyValue("title", "Test Title")
-          .use.all();
+          .setKeyValue("title", "Test Title");
       });
     });
 

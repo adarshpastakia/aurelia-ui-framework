@@ -48,7 +48,7 @@ describe("valueConverter/ui-text", () => {
       .boundTo({
         date: dt,
         phone: "+971503182424",
-        phoneCountry: "ae",
+        phoneCountry: "AE",
         phoneLocal: "0503182424"
       });
 

@@ -7,32 +7,8 @@ export default [
     input: "src/aurelia-ui-framework.ts",
     output: [
       {
-        file: "dist/es2015/aurelia-ui-framework.js",
-        format: "esm",
-        sourcemap: true
-      },
-      {
-        file: "dist/umd-es2015/aurelia-ui-framework.js",
-        format: "umd",
-        name: "au.uiFramework",
-        // defining where the namespace/path could be used to get the exports for Aurelia modules
-        globals: {
-          "aurelia-framework": "au",
-          "aurelia-event-aggregator": "au",
-          "aurelia-fetch-client": "au",
-          "aurelia-logging": "au",
-          "aurelia-router": "au",
-          "aurelia-metadata": "au",
-          "aurelia-ui-virtualization": "au.uiVirtualization",
-          "aurelia-validation": "au.validation",
-          "resize-observer-polyfill": "ResizeObserver",
-          "date-fns": "dateFns",
-          "kramed": "kramed",
-          "numeral": "numeral",
-          "libphonenumber-js": "libphonenumberJs",
-          "libphonenumber-js/examples.mobile.json": "examples"
-        },
-        sourcemap: true
+        dir: "dist/es2015",
+        format: "esm"
       }
     ],
     plugins: [
@@ -44,6 +20,7 @@ export default [
         cacheRoot: ".rollupcache",
         tsconfigOverride: {
           compilerOptions: {
+            target: "es2015",
             removeComments: true
           }
         }
@@ -52,11 +29,12 @@ export default [
   },
   {
     input: "src/aurelia-ui-framework.ts",
-    output: {
-      file: "dist/es2017/aurelia-ui-framework.js",
-      format: "esm",
-      sourcemap: true
-    },
+    output: [
+      {
+        dir: "dist/es2017",
+        format: "esm"
+      }
+    ],
     plugins: [
       json(),
       html({
@@ -77,16 +55,21 @@ export default [
     input: "src/aurelia-ui-framework.ts",
     output: [
       {
-        file: "dist/amd/aurelia-ui-framework.js", format: "amd", id: "aurelia-ui-framework", sourcemap: true
+        dir: "dist/amd",
+        format: "amd",
+        id: "aurelia-ui-framework"
       },
       {
-        file: "dist/commonjs/aurelia-ui-framework.js", format: "cjs", sourcemap: true
+        dir: "dist/commonjs",
+        format: "cjs"
       },
       {
-        file: "dist/system/aurelia-ui-framework.js", format: "system", sourcemap: true
+        dir: "dist/system",
+        format: "system"
       },
       {
-        file: "dist/native-modules/aurelia-ui-framework.js", format: "esm", sourcemap: true
+        dir: "dist/native-modules",
+        format: "esm"
       }
     ],
     plugins: [
@@ -107,29 +90,32 @@ export default [
   },
   {
     input: "src/aurelia-ui-framework.ts",
-    output: {
-      file: "dist/umd/aurelia-ui-framework.js",
-      format: "umd",
-      name: "au.uiFramework",
-      // defining where the namespace/path could be used to get the exports for Aurelia modules
-      globals: {
-        "aurelia-framework": "au",
-        "aurelia-event-aggregator": "au",
-        "aurelia-fetch-client": "au",
-        "aurelia-logging": "au",
-        "aurelia-router": "au",
-        "aurelia-metadata": "au",
-        "aurelia-ui-virtualization": "au.uiVirtualization",
-        "aurelia-validation": "au.validation",
-        "resize-observer-polyfill": "ResizeObserver",
-        "date-fns": "dateFns",
-        "kramed": "kramed",
-        "numeral": "numeral",
-        "libphonenumber-js": "libphonenumberJs",
-        "libphonenumber-js/examples.mobile.json": "examples"
-      },
-      sourcemap: true
-    },
+    output: [
+      {
+        file: "dist/umd/aurelia-ui-framework.js",
+        format: "umd",
+        name: "au.uiFramework",
+        // defining where the namespace/path could be used to get the exports for Aurelia modules
+        globals: {
+          "aurelia-framework": "au",
+          "aurelia-event-aggregator": "au",
+          "aurelia-fetch-client": "au",
+          "aurelia-logging": "au",
+          "aurelia-router": "au",
+          "aurelia-metadata": "au",
+          "aurelia-ui-virtualization": "au.uiVirtualization",
+          "aurelia-validation": "au.validation",
+          "resize-observer-polyfill": "ResizeObserver",
+          "date-fns": "dateFns",
+          kramed: "kramed",
+          numeral: "numeral",
+          "libphonenumber-js": "libphonenumberJs",
+          "libphonenumber-js/examples.mobile.json": "examples"
+        },
+        esModule: false
+      }
+    ],
+    inlineDynamicImports: true,
     plugins: [
       json(),
       html({
@@ -139,9 +125,61 @@ export default [
         cacheRoot: ".rollupcache",
         tsconfigOverride: {
           compilerOptions: {
+            module: "esnext",
+            outDir: undefined,
             target: "es5",
+            declaration: false,
             removeComments: true
-          }
+          },
+          include: ["src"]
+        }
+      })
+    ]
+  },
+  {
+    input: "src/aurelia-ui-framework.ts",
+    output: [
+      {
+        file: "dist/umd-es2015/aurelia-ui-framework.js",
+        format: "umd",
+        name: "au.uiFramework",
+        // defining where the namespace/path could be used to get the exports for Aurelia modules
+        globals: {
+          "aurelia-framework": "au",
+          "aurelia-event-aggregator": "au",
+          "aurelia-fetch-client": "au",
+          "aurelia-logging": "au",
+          "aurelia-router": "au",
+          "aurelia-metadata": "au",
+          "aurelia-ui-virtualization": "au.uiVirtualization",
+          "aurelia-validation": "au.validation",
+          "resize-observer-polyfill": "ResizeObserver",
+          "date-fns": "dateFns",
+          kramed: "kramed",
+          numeral: "numeral",
+          "libphonenumber-js": "libphonenumberJs",
+          "libphonenumber-js/examples.mobile.json": "examples"
+        },
+        esModule: false
+      }
+    ],
+    inlineDynamicImports: true,
+    plugins: [
+      json(),
+      html({
+        include: "src/**/*.html"
+      }),
+      typescript({
+        cacheRoot: ".rollupcache",
+        tsconfigOverride: {
+          compilerOptions: {
+            module: "esnext",
+            outDir: undefined,
+            target: "es2015",
+            declaration: false,
+            removeComments: true
+          },
+          include: ["src"]
         }
       })
     ]
@@ -163,5 +201,7 @@ export default [
     "libphonenumber-js",
     "libphonenumber-js/examples.mobile.json"
   ];
+  config.output.forEach(output => (output.sourcemap = true));
+  config.output.forEach(output => (output.chunkFileNames = "[name].js"));
   return config;
 });

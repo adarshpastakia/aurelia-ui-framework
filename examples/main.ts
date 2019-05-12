@@ -17,7 +17,7 @@ export function configure(aurelia: Aurelia) {
         .setKeyValue("title", "Aurelia UI Framework")
         .setKeyValue("subtitle", "A bespoke UI Framework for business applications")
         .setKeyValue("logo", LOGO)
-        .use.all();
+        .useStandardResources();
     })
     .feature(PLATFORM.moduleName("resources/index"));
 
