@@ -9,7 +9,7 @@ export class StartPage {
   protected install = `npm install aurelia-ui-framework@next --save`;
 
   protected configure = `import { PLATFORM } from "aurelia-pal";
-import { UIFrameworkConfig } from "aurelia-ui-framework";
+import { UIFrameworkConfig, UIResources } from "aurelia-ui-framework";
 
 export function configure(aurelia) {
   aurelia.use
@@ -19,7 +19,14 @@ export function configure(aurelia) {
       config
         .setApiBaseUrl("/api")
         .setKeyValue("title", "Application Title")
-        .use.all();
+        .useStandardResources();
+
+      /**
+       * Use specific components
+       * config
+       *  .useResource(UIResources.Buttons)
+       *  .useResource(UIResources.Menus)
+       **/
     });
 
   aurelia.start().then(a => a.setRoot());
