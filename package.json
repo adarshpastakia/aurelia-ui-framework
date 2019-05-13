@@ -37,6 +37,7 @@
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.4.4",
     "@types/jest": "^23.3.5",
     "@types/lodash": "^4.14.123",
     "@types/node": "^10.14.6",
@@ -51,6 +52,8 @@
     "aurelia-testing": "^1.0.0",
     "aurelia-tools": "^2.0.0",
     "aurelia-webpack-plugin": "^3.0.0",
+    "babel-jest": "^24.8.0",
+    "babel-preset-es2015": "^6.24.1",
     "copy-webpack-plugin": "^4.5.2",
     "css-loader": "^1.0.0",
     "dts-bundle-generator": "^2.0.0",
@@ -97,6 +100,11 @@
     "webpack-cli": "^3.3.1",
     "webpack-dev-server": "^3.3.1"
   },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  },
   "jest": {
     "testFailureExitCode": 0,
     "moduleNameMapper": {
@@ -115,6 +123,7 @@
     ],
     "transform": {
       "^.+\\.ts$": "ts-jest",
+      "^.+\\.js?$": "babel-jest",
       "^.+\\.html$": "html-loader-jest"
     },
     "testRegex": "\\.spec\\.(ts|js)$",

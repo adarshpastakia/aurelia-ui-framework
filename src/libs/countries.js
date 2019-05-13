@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   toIso2: function(c) {
     var ctry = this.find(c);
     return ctry

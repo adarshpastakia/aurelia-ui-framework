@@ -261,7 +261,7 @@ define(['require', 'exports', './chunk', 'aurelia-framework', 'aurelia-validatio
     }
   });
 
-  module.exports = {
+  var _Countries = {
     toIso2: function(c) {
       var ctry = this.find(c);
       return ctry
@@ -2747,10 +2747,6 @@ define(['require', 'exports', './chunk', 'aurelia-framework', 'aurelia-validatio
     ]
   };
 
-  var _Countries = /*#__PURE__*/Object.freeze({
-
-  });
-
   /**
    * @author    : Adarsh Pastakia
    * @version   : 5.0.0
@@ -2840,7 +2836,7 @@ define(['require', 'exports', './chunk', 'aurelia-framework', 'aurelia-validatio
   const UA_FIREFOX = "ua-firefox";
   const UA_UNKNOWN = "ua-unknown";
 
-  browserAgent = function() {
+  window.browserAgent = function() {
     var ua = (navigator.userAgent || "").toLowerCase();
     if (ua.indexOf("opr") >= 0) return UA_OPERA;
     else if (ua.indexOf("edge") >= 0) return UA_EDGE;
@@ -2850,49 +2846,49 @@ define(['require', 'exports', './chunk', 'aurelia-framework', 'aurelia-validatio
     else return UA_UNKNOWN;
   };
 
-  isTrue = function(b) {
+  window.isTrue = function(b) {
     return /^(true|yes|1|y|on)$/i.test(b);
   };
-  isFalse = function(b) {
+  window.isFalse = function(b) {
     return /^(false|no|0|n|off)$/i.test(b);
   };
-  isNull = function(a) {
+  window.isNull = function(a) {
     return a === undefined || a === null;
   };
-  isEmpty = function(a) {
+  window.isEmpty = function(a) {
     if (typeof a === "number") return false;
     if (typeof a === "boolean") return false;
     if (a instanceof Map || a instanceof Set) return a.size === 0;
     return a === undefined || a === null || a === "" || a.length === 0 || Object.keys(a).length == 0;
   };
-  isArray = Array.isArray;
-  isDate = function(a) {
+  window.isArray = Array.isArray;
+  window.isDate = function(a) {
     return a instanceof Date;
   };
-  isString = function(a) {
+  window.isString = function(a) {
     return typeof a === "string";
   };
-  isNumber = function(a) {
+  window.isNumber = function(a) {
     return typeof a === "number" && Number.isInteger(a);
   };
-  isDecimal = function(a) {
+  window.isDecimal = function(a) {
     return typeof a === "number";
   };
-  isObject = function(a) {
+  window.isObject = function(a) {
     return a && typeof a === "object";
   };
-  isFunction = function(a) {
+  window.isFunction = function(a) {
     return typeof a === "function";
   };
 
-  fn = () => null;
-  getView = el => (el.au && el.au.controller ? el.au.controller.view : null);
-  getViewModel = el => (el.au && el.au.controller ? el.au.controller.viewModel : null);
-  getSlotViewModel = el => el.au["au-slot"].container.parent.viewModel;
-  getComposeViewModel = el =>
+  window.fn = () => null;
+  window.getView = el => (el.au && el.au.controller ? el.au.controller.view : null);
+  window.getViewModel = el => (el.au && el.au.controller ? el.au.controller.viewModel : null);
+  window.getSlotViewModel = el => el.au["au-slot"].container.parent.viewModel;
+  window.getComposeViewModel = el =>
     el.au && el.au.controller ? el.au.controller.viewModel.currentViewModel : null;
 
-  isRtl = function(el) {
+  window.isRtl = function(el) {
     rtl = false;
     do {
       if ((el.dir || el.style.direction) == "rtl") return true;
@@ -2902,7 +2898,7 @@ define(['require', 'exports', './chunk', 'aurelia-framework', 'aurelia-validatio
     return false;
   };
 
-  hasParent = function(el, parent) {
+  window.hasParent = function(el, parent) {
     do {
       if (el === parent) return true;
       el = el.parentElement;
@@ -2910,7 +2906,7 @@ define(['require', 'exports', './chunk', 'aurelia-framework', 'aurelia-validatio
     return false;
   };
 
-  getParentByTag = function(el, selector, last) {
+  window.getParentByTag = function(el, selector, last) {
     do {
       if (last && last instanceof Element && el === last) return null;
       if (
@@ -2925,7 +2921,7 @@ define(['require', 'exports', './chunk', 'aurelia-framework', 'aurelia-validatio
     return null;
   };
 
-  getParentByClass = function(el, selector, last) {
+  window.getParentByClass = function(el, selector, last) {
     do {
       if (last && last instanceof Element && el === last) return null;
       if (
@@ -2940,14 +2936,14 @@ define(['require', 'exports', './chunk', 'aurelia-framework', 'aurelia-validatio
     return null;
   };
 
-  convertToPx = function(size, context) {
+  window.convertToPx = function(size, context) {
     var baseSize = "1";
     if ((size + "").indexOf("em") > -1)
       baseSize = getComputedStyle(context || document.documentElement).fontSize;
     if ((size + "").indexOf("rem") > -1)
       baseSize = getComputedStyle(document.documentElement).fontSize;
     if ((size + "").indexOf("vw") > -1 || (size + "").indexOf("%") > -1)
-      baseSize = innerWidth / 100;
+      baseSize = window.innerWidth / 100;
     return parseFloat(size) * parseFloat(baseSize);
   };
 
@@ -3918,6 +3914,7 @@ define(['require', 'exports', './chunk', 'aurelia-framework', 'aurelia-validatio
       };
       UIFrameworkConfig.prototype.useResource = function (resource) {
           this.resources.push(resource);
+          return this;
       };
       UIFrameworkConfig.prototype.loadResources = function () {
           var _this = this;
