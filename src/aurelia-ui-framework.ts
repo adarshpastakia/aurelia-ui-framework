@@ -7,7 +7,7 @@
 import { Container, FrameworkConfiguration } from "aurelia-framework";
 import { registerValidators, UIValidationRenderer } from "./forms/ui-validation";
 import "./libs/array";
-import * as _Countries from "./libs/countries";
+import _Countries from "./libs/countries";
 import "./libs/string";
 import "./libs/window";
 import { UIAppConfig } from "./utils/ui-app-config";
@@ -124,6 +124,7 @@ export class UIFrameworkConfig {
     this.resources.push(resource);
     return this;
   }
+
   private loadResources() {
     return Promise.all(this.resources.map(name => RESOURCE_LOADER[name]())).then(modules => {
       this.auConfig.globalResources(
@@ -147,7 +148,7 @@ export function configure(
   );
   registerValidators(auConfig.container);
 
-  let loadResources;
+  let loadResources = () => Promise.resolve();
   const config = new UIFrameworkConfig(auConfig, fn => {
     loadResources = fn;
   });
