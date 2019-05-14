@@ -91,7 +91,7 @@ Object.defineProperty(Array.prototype, "groupBy", {
     }
     return this.reduce((a, b) => {
       let key = b;
-      for(i of property.split('.')) key = key[i];
+      for(const i of property.split('.')) key = key[i];
       if (!a.has(key)) {
         a.set(key, []);
       }

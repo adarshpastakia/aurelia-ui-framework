@@ -5,13 +5,17 @@
   data-collapsed.bind="collapsed"
 >
   <div class="ui-panel__header">
-    <ui-header>
-      <slot name="header-icon">
-        <ui-header-icon if.bind="icon" icon.bind="icon"></ui-header-icon>
-      </slot>
-      <ui-header-title if.bind="label">${label}</ui-header-title>
-      <slot name="header-actions"></slot>
-    </ui-header>
+    <slot name="panel-header">
+      <ui-header>
+        <slot name="header-icon" slot="header-icon">
+          <ui-header-icon if.bind="icon" icon.bind="icon"></ui-header-icon>
+        </slot>
+        <slot name="header-title" slot="header-title">
+          <ui-header-title if.bind="label">${label}</ui-header-title>
+        </slot>
+        <slot name="header-actions"></slot>
+      </ui-header>
+    </slot>
     <div class="ui-panel__header__actions" if.bind="collapsible || closeable || expandable">
       <ui-divider></ui-divider>
       <template if.bind="expandable">
