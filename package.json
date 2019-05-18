@@ -163,7 +163,7 @@
     "analyze": "webpack --env.analyze --env.production",
     "predist": "rimraf dist",
     "dist": "rollup -c",
-    "postdist": "dts-bundle-generator -o dist/typings/aurelia-ui-framework.d.ts src/aurelia-ui-framework.ts --external-types",
+    "postdist": "tsc -p tsconfig.build.json && mkdir ./dist/typings/libs && cp ./src/libs/*.d.ts ./dist/typings/libs/.",
     "release": "npm run dist && npm run bump-version"
   },
   "typings": "dist/typings/aurelia-ui-framework.d.ts",
