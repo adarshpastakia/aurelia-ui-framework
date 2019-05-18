@@ -261,7 +261,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
           }
           return this.reduce((a, b) => {
             let key = b;
-            for(i of property.split('.')) key = key[i];
+            for(const i of property.split('.')) key = key[i];
             if (!a.has(key)) {
               a.set(key, []);
             }
@@ -2869,14 +2869,16 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
        * @license   : MIT
        */
 
-      const UA_EDGE = "ua-edge";
-      const UA_OPERA = "ua-opera";
-      const UA_CHROME = "ua-chrome";
-      const UA_SAFARI = "ua-safari";
-      const UA_FIREFOX = "ua-firefox";
-      const UA_UNKNOWN = "ua-unknown";
+      const globalObject = global || window;
 
-      window.browserAgent = function() {
+      globalObject.UA_EDGE = "ua-edge";
+      globalObject.UA_OPERA = "ua-opera";
+      globalObject.UA_CHROME = "ua-chrome";
+      globalObject.UA_SAFARI = "ua-safari";
+      globalObject.UA_FIREFOX = "ua-firefox";
+      globalObject.UA_UNKNOWN = "ua-unknown";
+
+      globalObject.browserAgent = function() {
         var ua = (navigator.userAgent || "").toLowerCase();
         if (ua.indexOf("opr") >= 0) return UA_OPERA;
         else if (ua.indexOf("edge") >= 0) return UA_EDGE;
@@ -2886,49 +2888,49 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
         else return UA_UNKNOWN;
       };
 
-      window.isTrue = function(b) {
+      globalObject.isTrue = function(b) {
         return /^(true|yes|1|y|on)$/i.test(b);
       };
-      window.isFalse = function(b) {
+      globalObject.isFalse = function(b) {
         return /^(false|no|0|n|off)$/i.test(b);
       };
-      window.isNull = function(a) {
+      globalObject.isNull = function(a) {
         return a === undefined || a === null;
       };
-      window.isEmpty = function(a) {
+      globalObject.isEmpty = function(a) {
         if (typeof a === "number") return false;
         if (typeof a === "boolean") return false;
         if (a instanceof Map || a instanceof Set) return a.size === 0;
         return a === undefined || a === null || a === "" || a.length === 0 || Object.keys(a).length == 0;
       };
-      window.isArray = Array.isArray;
-      window.isDate = function(a) {
+      globalObject.isArray = Array.isArray;
+      globalObject.isDate = function(a) {
         return a instanceof Date;
       };
-      window.isString = function(a) {
+      globalObject.isString = function(a) {
         return typeof a === "string";
       };
-      window.isNumber = function(a) {
+      globalObject.isNumber = function(a) {
         return typeof a === "number" && Number.isInteger(a);
       };
-      window.isDecimal = function(a) {
+      globalObject.isDecimal = function(a) {
         return typeof a === "number";
       };
-      window.isObject = function(a) {
+      globalObject.isObject = function(a) {
         return a && typeof a === "object";
       };
-      window.isFunction = function(a) {
+      globalObject.isFunction = function(a) {
         return typeof a === "function";
       };
 
-      window.fn = () => null;
-      window.getView = el => (el.au && el.au.controller ? el.au.controller.view : null);
-      window.getViewModel = el => (el.au && el.au.controller ? el.au.controller.viewModel : null);
-      window.getSlotViewModel = el => el.au["au-slot"].container.parent.viewModel;
-      window.getComposeViewModel = el =>
+      globalObject.fn = () => null;
+      globalObject.getView = el => (el.au && el.au.controller ? el.au.controller.view : null);
+      globalObject.getViewModel = el => (el.au && el.au.controller ? el.au.controller.viewModel : null);
+      globalObject.getSlotViewModel = el => el.au["au-slot"].container.parent.viewModel;
+      globalObject.getComposeViewModel = el =>
         el.au && el.au.controller ? el.au.controller.viewModel.currentViewModel : null;
 
-      window.isRtl = function(el) {
+      globalObject.isRtl = function(el) {
         rtl = false;
         do {
           if ((el.dir || el.style.direction) == "rtl") return true;
@@ -2938,7 +2940,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
         return false;
       };
 
-      window.hasParent = function(el, parent) {
+      globalObject.hasParent = function(el, parent) {
         do {
           if (el === parent) return true;
           el = el.parentElement;
@@ -2946,7 +2948,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
         return false;
       };
 
-      window.getParentByTag = function(el, selector, last) {
+      globalObject.getParentByTag = function(el, selector, last) {
         do {
           if (last && last instanceof Element && el === last) return null;
           if (
@@ -2961,7 +2963,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
         return null;
       };
 
-      window.getParentByClass = function(el, selector, last) {
+      globalObject.getParentByClass = function(el, selector, last) {
         do {
           if (last && last instanceof Element && el === last) return null;
           if (
@@ -2976,7 +2978,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
         return null;
       };
 
-      window.convertToPx = function(size, context) {
+      globalObject.convertToPx = function(size, context) {
         var baseSize = "1";
         if ((size + "").indexOf("em") > -1)
           baseSize = getComputedStyle(context || document.documentElement).fontSize;
@@ -3974,7 +3976,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
               return container.get(UIValidationRenderer);
           });
           registerValidators(auConfig.container);
-          var loadResources;
+          var loadResources = function () { return Promise.resolve(); };
           var config = new UIFrameworkConfig(auConfig, function (fn) {
               loadResources = fn;
           });
