@@ -1,0 +1,30 @@
+export declare class UISidebar {
+    protected element: Element;
+    position: "start" | "end";
+    label: string;
+    width: string;
+    maxWidth: string;
+    minWidth: string;
+    titleBg: string;
+    titleColor: string;
+    titleWeight: string;
+    align: "top" | "bottom";
+    headTrigger: "peek" | "toggle";
+    collapsed: boolean;
+    protected peek: boolean;
+    protected resizeable: boolean;
+    protected collapsible: boolean;
+    protected closeOnClick: boolean;
+    private obClick;
+    private bodyEl;
+    private startX;
+    private isResizing;
+    constructor(element: Element);
+    protected detached(): void;
+    readonly toggleIcon: string;
+    protected startResize($event: MouseEvent): void;
+    protected resize($event: MouseEvent): void;
+    protected stopResize(): void;
+    private doResize;
+    private endResize;
+}
