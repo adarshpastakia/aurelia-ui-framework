@@ -20,6 +20,7 @@ import {
   parseISO,
   startOfDay,
   startOfDecade,
+  startOfMinute,
   startOfMonth,
   startOfWeek,
   startOfYear
@@ -78,14 +79,15 @@ export interface IHeaderConfig {
 
 export const parseDate = (date: Date | string | undefined): Date => {
   if (isString(date)) {
+    const dt = startOfMinute(new Date());
     if (date.startsWith(CALENDAR_GRAIN.DAY)) {
-      return addDays(new Date(), parseInt(date.replace(CALENDAR_GRAIN.DAY, "") || "0", 10));
+      return addDays(dt, parseInt(date.replace(CALENDAR_GRAIN.DAY, "") || "0", 10));
     } else if (date.startsWith(CALENDAR_GRAIN.WEEK)) {
-      return addWeeks(new Date(), parseInt(date.replace(CALENDAR_GRAIN.WEEK, "") || "0", 10));
+      return addWeeks(dt, parseInt(date.replace(CALENDAR_GRAIN.WEEK, "") || "0", 10));
     } else if (date.startsWith(CALENDAR_GRAIN.MONTH)) {
-      return addMonths(new Date(), parseInt(date.replace(CALENDAR_GRAIN.MONTH, "") || "0", 10));
+      return addMonths(dt, parseInt(date.replace(CALENDAR_GRAIN.MONTH, "") || "0", 10));
     } else if (date.startsWith(CALENDAR_GRAIN.YEAR)) {
-      return addYears(new Date(), parseInt(date.replace(CALENDAR_GRAIN.YEAR, "") || "0", 10));
+      return addYears(dt, parseInt(date.replace(CALENDAR_GRAIN.YEAR, "") || "0", 10));
     } else {
       return parseISO(date);
     }
@@ -175,10 +177,10 @@ export const changeMonth = (month: Date, view: CALENDAR_VIEWS, grain: string) =>
 export const buildHeaderConfig = (month: Date, view: CALENDAR_VIEWS, config: IDateConfig) => {
   if (view === CALENDAR_VIEWS.DAYS) {
     return {
-      firstDisabled: isBeforeMin(month, config.minDate, -12),
-      lastDisabled: isAfterMax(month, config.maxDate, 12),
-      prevDisabled: isBeforeMin(month, config.minDate, -1),
-      nextDisabled: isAfterMax(month, config.maxDate, 1),
+      firstDisabled: isBeforeMin(month, startOfYear(config.minDate), -12),
+      lastDisabled: isAfterMax(month, endOfYear(config.maxDate), 12),
+      prevDisabled: isBeforeMin(month, startOfMonth(config.minDate), -1),
+      nextDisabled: isAfterMax(month, endOfMonth(config.maxDate), 1),
 
       firstTooltip: format(addMonths(month, -12), "MMM yyyy"),
       lastTooltip: format(addMonths(month, 12), "MMM yyyy"),
@@ -188,8 +190,8 @@ export const buildHeaderConfig = (month: Date, view: CALENDAR_VIEWS, config: IDa
   }
   if (view === CALENDAR_VIEWS.MONTHS) {
     return {
-      prevDisabled: isBeforeMin(month, config.minDate, -12),
-      nextDisabled: isAfterMax(month, config.maxDate, 12),
+      prevDisabled: isBeforeMin(month, startOfYear(config.minDate), -12),
+      nextDisabled: isAfterMax(month, endOfYear(config.maxDate), 12),
       prevTooltip: format(addYears(month, -1), "yyyy"),
       nextTooltip: format(addYears(month, 1), "yyyy")
     };
@@ -198,8 +200,8 @@ export const buildHeaderConfig = (month: Date, view: CALENDAR_VIEWS, config: IDa
     const start = startOfDecade(month);
     const end = endOfDecade(month);
     return {
-      prevDisabled: isBeforeMin(month, config.minDate, -120),
-      nextDisabled: isAfterMax(month, config.maxDate, 120),
+      prevDisabled: isBeforeMin(month, startOfDecade(config.minDate), -120),
+      nextDisabled: isAfterMax(month, endOfDecade(config.maxDate), 120),
       prevTooltip: format(addYears(start, -10), "yyyy") + "-" + format(addYears(start, -1), "yyyy"),
       nextTooltip: format(addYears(end, 1), "yyyy") + "-" + format(addYears(end, 10), "yyyy")
     };
@@ -218,6 +220,10 @@ export const isDisabled = (config: IDateConfig, date: Date): boolean => {
   let min = config.minDate;
   let max = config.maxDate;
 
+  if (config.page === CALENDAR_VIEWS.DAYS) {
+    min = startOfDay(min);
+    max = startOfDay(max);
+  }
   if (config.page === CALENDAR_VIEWS.MONTHS) {
     min = startOfMonth(startOfDay(min));
     max = endOfMonth(startOfDay(max));
