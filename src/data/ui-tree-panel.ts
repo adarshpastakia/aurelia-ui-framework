@@ -25,7 +25,7 @@ export class UITreePanel {
   public model: AnyObject = undefined;
 
   @bindable()
-  public dataSource: KeyValue[];
+  public options: KeyValue[];
 
   @bindable()
   public labelSearch: string = "Search...";
@@ -65,11 +65,11 @@ export class UITreePanel {
   }
 
   protected bind(): void {
-    this.rootNode = new UITreeModel(this.dataSource, this.maxNodes);
+    this.rootNode = new UITreeModel(this.options, this.maxNodes);
   }
 
-  protected dataSourceChanged(): void {
-    this.rootNode = new UITreeModel(this.dataSource, this.maxNodes);
+  protected optionsChanged(): void {
+    this.rootNode = new UITreeModel(this.options, this.maxNodes);
   }
 
   protected toggleExpand(index): void {
