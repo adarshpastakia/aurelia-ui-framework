@@ -10,6 +10,9 @@
 /styles
 /test
 
+/.idea
+/.vscode
+
 .sass-cache
 .rollupcache
 .DS_Store
