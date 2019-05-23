@@ -24,6 +24,16 @@ Demo Site: [https://aurelia-ui-framework.herokuapp.com](https://aurelia-ui-frame
 * Building the plugin
 
   `npm dist`
+  
+* Using the plugin
+
+  - NPM
+    
+    `npm i aurelia-ui-framework`
+  
+  - Yarn
+  
+    `yarn add aurelia-ui-framework`
 
 * Using plugin as local link
 
@@ -31,26 +41,39 @@ Demo Site: [https://aurelia-ui-framework.herokuapp.com](https://aurelia-ui-frame
 
   `project$> npm link aurelia-ui-framework`
 
-  > webpack.config `resolve.symlinks = false`
+  > webpack.config 
+  > ```
+  > resolve.symlinks = false
+  > resolve.alias: {
+  >        'aurelia-binding': path.resolve(__dirname, 'node_modules/aurelia-binding'),
+  >        'aurelia-framework': path.resolve(__dirname, 'node_modules/aurelia-framework'),
+  >        'aurelia-templating': path.resolve(__dirname, 'node_modules/aurelia-templating'),
+  >        'aurelia-pal': path.resolve(__dirname, 'node_modules/aurelia-pal')
+  >      }
+  >
+  > ```
 
 ---
 
 - #### Package Dependencies
-  - date-fns
-  - numeral
-  - kramed
+  - `date-fns`
+  - `numeral`
+  - `kramed`
+  - `libphonenumber-js`
+  - `resize-observer-polyfill`
 
 
 - #### Optional Dependencies
-  - @mdi/font
+  - `@mdi/font`
+  - `zxcvbn` _Password strength meter_
 
 
 - #### Dev Dependencies
-  - awesome-typescript-loader
-  - stylelint
-  - stylelint-order 
-  - stylelint-webpack-plugin 
-  - tslint
-  - tslint-eslint-rules
-  - tslint-config-prettier
-  - tslint-webpack-plugin 
+  - `awesome-typescript-loader`
+  - `stylelint`
+  - `stylelint-order`
+  - `stylelint-webpack-plugin`
+  - `tslint`
+  - `tslint-eslint-rules`
+  - `tslint-config-prettier`
+  - `tslint-webpack-plugin `
