@@ -133,7 +133,7 @@ export class UIDatePicker {
   }
 
   protected timeChanged(newTime: Date) {
-    this.updateDate(this.date ? parseISO(this.date) : new Date(), newTime);
+    this.updateDate(this.date ? parseDate(this.date) : new Date(), newTime);
   }
 
   protected selectMonth($event: MouseEvent) {
