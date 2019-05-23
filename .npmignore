@@ -7,16 +7,21 @@
 /examples
 /images
 /locales
+/styles
 /test
 
 .sass-cache
-
+.rollupcache
 .DS_Store
 
 /.editorconfig
 /.gitattributes
 /.gitignore
+/.prettierrc
+/.stylelintrc
 /.travis.yml
 /express.js
 /index.ejs
+/Procfile
+/rollup.config.js
 /webpack.config.js
