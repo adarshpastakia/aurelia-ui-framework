@@ -81,12 +81,21 @@ export class OrderByValueConverter {
     if (isEmpty(array)) {
       return [];
     }
+
+    let up = 1;
+    let down = -1;
+
+    if (!isAscending) {
+      up = -1;
+      down = 1;
+    }
+
     if (array instanceof Map) {
       return new Map<string, AnyObject>(
-        [...array].sort((a, b) => (a[property] > b[property] ? 1 : -1))
+        [...array].sort((a, b) => (a[property] > b[property] ? up : down))
       );
     }
-    return [...array].sort((a, b) => (a[property] > b[property] ? 1 : -1));
+    return [...array].sort((a, b) => (a[property] > b[property] ? up : down));
   }
 }
 
