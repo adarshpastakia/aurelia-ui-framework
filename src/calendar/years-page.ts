@@ -6,7 +6,7 @@
  */
 
 import { bindable, customElement, inlineView } from "aurelia-framework";
-import { addYears, format, isSameYear, setYear, startOfDecade } from "date-fns";
+import { addYears, format, isSameYear, startOfDecade } from "date-fns";
 import { IDateConfig, isDisabled } from "./calendar-utils";
 import view from "./years-page.html";
 

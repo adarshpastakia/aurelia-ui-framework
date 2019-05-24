@@ -20,18 +20,18 @@ export const registerValidators = (container: Container) => {
 
   ValidationRules.customRule(
     "url",
-    (value, obj) =>
+    (value) =>
       value === null ||
       value === undefined ||
       value === "" ||
-      /^((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?$/.test(
+      /^((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-.]+[^#?\s]+)(.*)?(#[\w\-]+)?$/.test(
         value
       ),
     "\${$displayName} is not a valid url."
   );
   ValidationRules.customRule(
     "phone",
-    (value, obj) =>
+    (value) =>
       value === null || value === undefined || value === "" || parsePhoneNumberFromString(value).isValid(),
     "\${$displayName} is not a valid phone number."
   );

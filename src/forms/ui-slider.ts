@@ -5,7 +5,7 @@
  * @license   : MIT
  */
 
-import { bindable, bindingMode, containerless, customElement, inlineView } from "aurelia-framework";
+import { bindable, bindingMode, customElement, inlineView } from "aurelia-framework";
 
 @customElement("ui-slider")
 @inlineView(`<template class="ui-slider" css.bind="{'--slider-pos': (value-min)/(max-min)}">

@@ -7,15 +7,15 @@
 
 String.prototype.interpolate = function(model) {
   return this.replace(/\${([^{}]*)}/g, function(a, b) {
-    var r = model[b];
+    const r = model[b];
     return typeof r === "string" || typeof r === "number" ? r : a;
   });
 };
 
 String.prototype.ascii = function() {
-  str = this.toString();
+  let str = this.toString();
   if (isEmpty(str)) return "";
-  var conversions = {};
+  const conversions = {};
   conversions["ae"] = "ä|æ|ǽ";
   conversions["oe"] = "ö|œ";
   conversions["ue"] = "ü";
@@ -66,8 +66,8 @@ String.prototype.ascii = function() {
   conversions["ij"] = "ĳ";
   conversions["OE"] = "Œ";
   conversions["f"] = "ƒ";
-  for (var i in conversions) {
-    var re = new RegExp(conversions[i], "g");
+  for (const i in conversions) {
+    const re = new RegExp(conversions[i], "g");
     str = str.replace(re, i);
   }
   return str;

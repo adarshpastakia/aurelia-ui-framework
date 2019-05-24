@@ -15,7 +15,7 @@ globalObject.UA_FIREFOX = "ua-firefox";
 globalObject.UA_UNKNOWN = "ua-unknown";
 
 globalObject.browserAgent = function() {
-  var ua = (navigator.userAgent || "").toLowerCase();
+  const ua = (navigator.userAgent || "").toLowerCase();
   if (ua.indexOf("opr") >= 0) return UA_OPERA;
   else if (ua.indexOf("edge") >= 0) return UA_EDGE;
   else if (ua.indexOf("chrome") >= 0) return UA_CHROME;
@@ -37,7 +37,7 @@ globalObject.isEmpty = function(a) {
   if (typeof a === "number") return false;
   if (typeof a === "boolean") return false;
   if (a instanceof Map || a instanceof Set) return a.size === 0;
-  return a === undefined || a === null || a === "" || a.length === 0 || Object.keys(a).length == 0;
+  return a === undefined || a === null || a === "" || a.length === 0 || Object.keys(a).length === 0;
 };
 globalObject.isArray = Array.isArray;
 globalObject.isDate = function(a) {
@@ -67,10 +67,9 @@ globalObject.getComposeViewModel = el =>
   el.au && el.au.controller ? el.au.controller.viewModel.currentViewModel : null;
 
 globalObject.isRtl = function(el) {
-  rtl = false;
   do {
-    if ((el.dir || el.style.direction) == "rtl") return true;
-    if ((el.dir || el.style.direction) == "ltr") return false;
+    if ((el.dir || el.style.direction) === "rtl") return true;
+    if ((el.dir || el.style.direction) === "ltr") return false;
     el = el.parentElement;
   } while (el != null);
   return false;
@@ -115,7 +114,7 @@ globalObject.getParentByClass = function(el, selector, last) {
 };
 
 globalObject.convertToPx = function(size, context) {
-  var baseSize = "1";
+  let baseSize = "1";
   if ((size + "").indexOf("em") > -1)
     baseSize = getComputedStyle(context || document.documentElement).fontSize;
   if ((size + "").indexOf("rem") > -1)

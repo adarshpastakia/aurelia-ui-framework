@@ -43,7 +43,7 @@ export class UISidebar {
   protected collapsible: boolean = false;
   protected closeOnClick: boolean = false;
 
-  private obClick;
+  private readonly obClick;
   private bodyEl;
   private startX: number = 0;
   private isResizing: boolean = false;

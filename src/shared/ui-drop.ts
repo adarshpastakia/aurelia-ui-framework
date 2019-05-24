@@ -61,7 +61,7 @@ export class UIDrop {
     this.isOpen = open === undefined ? !this.isOpen : open;
     if (this.isOpen) {
       this.obClick = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_CLICK, t => this.canClose(t));
-      this.obResize = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_RESIZE, t =>
+      this.obResize = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_RESIZE, () =>
         this.updatePosition()
       );
       UIInternal.queueMicroTask(() => {
@@ -95,15 +95,15 @@ export class UIDrop {
     }
   }
 
-  private canClose(t: Element): void {
-    if (!hasParent(t, this.vmElement) && !hasParent(t, this.anchorEl)) {
+  protected close($event: UIEvent) {
+    $event.stopEvent();
+    if (this.closeOnClick) {
       this.closeDrop();
     }
   }
 
-  private close($event: UIEvent) {
-    $event.stopEvent();
-    if (this.closeOnClick) {
+  private canClose(t: Element): void {
+    if (!hasParent(t, this.vmElement) && !hasParent(t, this.anchorEl)) {
       this.closeDrop();
     }
   }

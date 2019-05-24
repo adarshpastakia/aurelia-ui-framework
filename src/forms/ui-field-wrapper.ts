@@ -5,7 +5,7 @@
  * @license   : MIT
  */
 
-import { autoinject, bindable, computedFrom, customElement, inlineView } from "aurelia-framework";
+import { bindable, computedFrom, customElement, inlineView } from "aurelia-framework";
 
 @customElement("ui-field-wrapper")
 @inlineView(`<template class="ui-field__wrapper \${classes}">

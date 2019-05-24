@@ -64,7 +64,7 @@ export class UIDropdown {
     return !isNull(this.model) ? this.model[this.labelProperty] || this.model : this.placeholder;
   }
 
-  private toggleDrop($event: Event): void {
+  protected toggleDrop($event: Event): void {
     $event.stopEvent();
     const beforeEvent = this.dropEl.isOpen ? "beforeopen" : "beforeclose";
     const afterEvent = this.dropEl.isOpen ? "close" : "open";

@@ -13,7 +13,7 @@ const UA_SAFARI;
 const UA_FIREFOX;
 const UA_UNKNOWN;
 
-var FileData: any;
+const FileData: any;
 
 function browserAgent(): string;
 function browserVersion(): string;

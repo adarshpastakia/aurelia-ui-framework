@@ -5,7 +5,6 @@
  * @license   : MIT
  */
 
-import { Subscription } from "aurelia-event-aggregator";
 import { customElement, inlineView } from "aurelia-framework";
 import ResizeObserver from "resize-observer-polyfill";
 import { UIInternal } from "../utils/ui-internal";
