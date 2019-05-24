@@ -38,6 +38,7 @@ describe("valueConverter/ui-text", () => {
         <div id="time">\${"2018-01-01T00:00:00.000" | time}</div>
         <div id="datetime">\${"2018-01-01T00:00:00.000" | datetime}</div>
         <div id="utc">\${"2018-01-01T00:00:00.000" | utc}</div>
+        <div id="iso">\${"2018-01-01T00:00:00.000" | iso}</div>
         <div id="age">\${date | age}</div>
         <div id="fromNow">\${date | fromnow}</div>
         <div id="number">\${91824 | number}</div>
@@ -121,13 +122,14 @@ describe("valueConverter/ui-text", () => {
   });
 
   it("should format dates", done => {
-    component.waitForElements("#date, #time, #datetime, #utc, #age, #fromNow").then(el => {
+    component.waitForElements("#date, #time, #datetime, #utc, #iso, #age, #fromNow").then(el => {
       expect(el[0].innerHTML).toBe("01 Jan 2018");
       expect(el[1].innerHTML).toBe("12:00 AM");
       expect(el[2].innerHTML).toBe("01 Jan 2018 12:00 AM");
       expect(el[3].innerHTML).not.toBeNull();
-      expect(el[4].innerHTML).toBe("2 hours");
-      expect(el[5].innerHTML).toBe("about 2 hours ago");
+      expect(el[4].innerHTML).not.toBeNull();
+      expect(el[5].innerHTML).toBe("2 hours");
+      expect(el[6].innerHTML).toBe("about 2 hours ago");
       done();
     });
   });

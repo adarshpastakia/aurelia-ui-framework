@@ -42,12 +42,12 @@ export namespace UIFormat {
     return !dt || !isValid(dt) ? null : format(dt, ft, { awareOfUnicodeTokens: true });
   }
 
-  export function dateToISO(dt): string {
+  export function utcDate(dt): string {
     dt = parseDate(dt);
     return !dt || !isValid(dt) ? null : toDate(dt).toISOString();
   }
 
-  export function utcDate(dt): string {
+  export function dateToISO(dt): string {
     dt = parseDate(dt);
     return !dt || !isValid(dt)
       ? null

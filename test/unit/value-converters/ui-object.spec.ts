@@ -30,8 +30,13 @@ describe("valueConverter/ui-object", () => {
 
         <div repeat.for="i of [] | sort" class="sortArray">sort</div>
         <div repeat.for="i of [9,4,2] | sort" class="sortArray">sort</div>
-        <div repeat.for="i of [9,4,2] | sort:null:true" class="sortArray">sort</div>
+        <div repeat.for="i of [9,4,2] | sort:null:false" class="sortArray">sort</div>
         <div repeat.for="i of map | sort" class="sortArray">sort</div>
+
+        <div repeat.for="i of [] | orderBy" class="orderByArray">orderBy</div>
+        <div repeat.for="i of [2,4,9] | orderBy" class="orderByArray">orderBy</div>
+        <div repeat.for="i of [2,4,9] | orderBy:null:false" class="orderByArray">orderBy</div>
+        <div repeat.for="i of map | orderBy" class="orderByArray">orderBy</div>
 
         <div repeat.for="i of [] | filter" class="filterBlank">filter</div>
         <div repeat.for="i of [1,2,3] | filter" class="filterBlank">filter</div>
@@ -43,7 +48,7 @@ describe("valueConverter/ui-object", () => {
         </ui-viewport>`
       )
       .boundTo({
-        map: new Map([["1", 2], ["2", 24], ["3", 49]]),
+        map: new Map([["2", 24], ["3", 49], ["1", 2]]),
         mapProp: new Map([["a", { prop: 2 }], ["b", { prop: 24 }], ["c", { prop: 49 }]]),
         objectProp: [{ prop: 2 }, { prop: 24 }, { prop: 49 }]
       });
@@ -96,6 +101,13 @@ describe("valueConverter/ui-object", () => {
 
   it("should repeat using sort", done => {
     component.waitForElements(".sortArray").then(el => {
+      expect(el).toHaveLength(9);
+      done();
+    });
+  });
+
+  it("should repeat using orderBy", done => {
+    component.waitForElements(".orderByArray").then(el => {
       expect(el).toHaveLength(9);
       done();
     });

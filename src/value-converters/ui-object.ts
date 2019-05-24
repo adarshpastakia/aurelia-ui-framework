@@ -92,7 +92,7 @@ export class OrderByValueConverter {
 
     if (array instanceof Map) {
       return new Map<string, AnyObject>(
-        [...array].sort((a, b) => (a[property] > b[property] ? up : down))
+        [...array].sort((a, b) => (a[0] > b[0] ? up : down))
       );
     }
     return [...array].sort((a, b) => (a[property] > b[property] ? up : down));
@@ -110,7 +110,7 @@ export class SortValueConverter {
       return [];
     }
     if (array instanceof Map) {
-      return new Map<string, AnyObject>([...array].sortBy("0", !!property));
+      return new Map<string, AnyObject>([...array].sortBy("0", isAscending));
     }
     return [...array].sortBy(property, isAscending);
   }

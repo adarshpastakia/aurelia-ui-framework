@@ -37,7 +37,7 @@ describe("ui-panel", () => {
               </ui-toolbar>
             </ui-footer>
           </ui-panel>
-          <ui-panel id="panelWithActions" collapsible closable collapsed.bind="collapsed">
+          <ui-panel id="panelWithActions" expandable collapsible closable collapsed.bind="collapsed">
             <ui-content>Panel Content</ui-content>
           </ui-panel>
         </div>`
@@ -84,6 +84,20 @@ describe("ui-panel", () => {
         el.au.controller.viewModel.toggleCollapse(false);
         UIInternal.queueTask(() => {
           expect(el.au.controller.viewModel.collapsed).toBeFalsy();
+          done();
+        });
+      });
+    });
+  });
+
+  it("should have panel expandable", done => {
+    component.waitForElement("#panelWithActions").then(el => {
+      el.au.controller.viewModel.toggleExpand(true);
+      UIInternal.queueTask(() => {
+        expect(el.au.controller.viewModel.expanded).toBeTruthy();
+        el.au.controller.viewModel.toggleExpand(false);
+        UIInternal.queueTask(() => {
+          expect(el.au.controller.viewModel.expanded).toBeFalsy();
           done();
         });
       });
