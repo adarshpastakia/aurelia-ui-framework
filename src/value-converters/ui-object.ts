@@ -112,6 +112,6 @@ export class SortValueConverter {
     if (array instanceof Map) {
       return new Map<string, AnyObject>([...array].sortBy("0", !!property));
     }
-    return [...array].sortBy(property, isAscending && !!property !== false);
+    return [...array].sortBy(property, isAscending);
   }
 }
