@@ -28,14 +28,14 @@ describe("ui-format", () => {
 
   it("should format dateISO", done => {
     const dt = new Date();
-    expect(UIFormat.dateToISO(dt)).toBe(dt.toISOString());
+    expect(UIFormat.dateToISO(dt)).not.toBeNull();
     expect(UIFormat.dateToISO("Invalid")).toBeNull();
     done();
   });
 
   it("should format dateUTC", done => {
     const dt = new Date();
-    expect(UIFormat.utcDate(dt)).not.toBeNull();
+    expect(UIFormat.utcDate(dt)).toBe(dt.toISOString());
     expect(UIFormat.utcDate("Invalid")).toBeNull();
     done();
   });

@@ -24,7 +24,7 @@ describe("ui-helpers", () => {
           <ui-viewport-header ui-bg="primary"></ui-viewport-header>
           <div id="el" ui-theme.bind="theme" ui-bg="primary" ui-color="primary" ui-padding="x sm@md" ui-margin="x sm@md"
             ui-border="sm primary" ui-font="lg" ui-weight="bold" ui-align="center" ui-text="upper" ui-hover="green"
-            ui-gutter="sm" ui-hide="down@md" ui-show="up@xl" ui-clip="4" ui-scroll ui-paper.bind="paper"></div>
+            ui-gutter="sm" ui-hide="down@md" ui-show="up@xl" ui-clip="4" ui-scroll ui-paper.bind="paper" ui-shadow="1" ui-line="2" ui-link></div>
         </ui-viewport>`
       )
       .boundTo(vm);
@@ -118,6 +118,27 @@ describe("ui-helpers", () => {
   it("should apply scroll", done => {
     component.waitForElement("#el").then(el => {
       expect(el.className).toContain("ui-scroll");
+      done();
+    });
+  });
+
+  it("should apply link", done => {
+    component.waitForElement("#el").then(el => {
+      expect(el.className).toContain("ui-link");
+      done();
+    });
+  });
+
+  it("should apply lineHeight", done => {
+    component.waitForElement("#el").then(el => {
+      expect(el.style.lineHeight).toBe("2");
+      done();
+    });
+  });
+
+  it("should apply shadow", done => {
+    component.waitForElement("#el").then(el => {
+      expect(el.className).toContain("ui-shadow--1");
       done();
     });
   });
