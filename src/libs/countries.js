@@ -1,19 +1,19 @@
 export default {
   toIso2: function(c) {
-    var ctry = this.find(c);
+    const ctry = this.find(c);
     return ctry
       ? ctry.iso2
       : null;
   },
   toIso3: function(c) {
-    var ctry = this.find(c);
+    const ctry = this.find(c);
     return ctry
       ? ctry.iso3
       : null;
   },
   find: function(c) {
     return this.list.find(function(ct) {
-      return (ct.iso3.toLowerCase() === c.toLowerCase() || ct.iso2.toLowerCase() == c.toLowerCase());
+      return (ct.iso3.toLowerCase() === c.toLowerCase() || ct.iso2.toLowerCase() === c.toLowerCase());
     });
   },
   list: [

@@ -5,7 +5,6 @@
  * @license   : MIT
  */
 
-import { Subscription } from "aurelia-event-aggregator";
 import { bindable, customElement, inlineView } from "aurelia-framework";
 import ResizeObserver from "resize-observer-polyfill";
 import { UIInternal } from "../utils/ui-internal";
@@ -37,7 +36,7 @@ interface IBreadcrumbItem {
 </template>`)
 export class UIBreadcrumbs {
   @bindable()
-  public items = [];
+  public items: IBreadcrumbItem[] = [];
 
   private wrapperEl: Element;
   private overflowEl: Element;

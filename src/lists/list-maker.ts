@@ -201,6 +201,125 @@ export class ListMaker extends BaseInput {
     }
   }
 
+  protected listClass(option, index): string {
+    const classes = ["ui-list__item"];
+    option.__selected = false;
+    if (!this.multiple) {
+      if (this.matcher) {
+        if (this.matcher({ option, value: this.value })) {
+          option.__selected = true;
+          classes.push("ui-list__item--selected");
+        }
+      } else if ((option[this.valueProperty] || option) === this.value) {
+        option.__selected = true;
+        classes.push("ui-list__item--selected");
+      }
+    } else if (this.multiple && this.value) {
+      if (this.matcher) {
+        this.value.forEach(value => {
+          if (this.matcher({ option, value })) {
+            option.__selected = true;
+            classes.push("ui-list__item--disabled");
+          }
+        });
+      } else if (this.value.includes(option[this.valueProperty] || option)) {
+        option.__selected = true;
+        classes.push("ui-list__item--disabled");
+      }
+    }
+    if (this.hilightIndex === index) {
+      classes.push("ui-list__item--hilight");
+    }
+    return classes.join(" ");
+  }
+
+  protected buildOption(option: AnyObject, el: Element, unmark: boolean = false): boolean {
+    if (el) {
+      el.innerHTML = "";
+      const tpl = this.template
+        ? this.template.outerHTML
+        : `<template><div innerhtml.bind="$label"></div></template>`;
+      const model = {
+        $label:
+          this.isFiltered && !unmark
+            ? this.markOption(option)
+            : option[this.labelProperty] || option,
+        $model: option,
+        $value: option[this.valueProperty] || option
+      };
+      // if (isObject(option)) {
+      //   Object.assign(model, option);
+      // }
+      const view = UIInternal.compileTemplate(tpl, model);
+      view.appendNodesTo(el);
+    }
+    return true;
+  }
+
+  protected checkKeyEvent($event: KeyboardEvent): boolean {
+    if ([KEY_DOWN, KEY_UP].includes($event.keyCode)) {
+      if (this.dropEl && !this.dropEl.isOpen) {
+        this.dropEl.toggleDrop();
+      }
+      if ($event.keyCode === KEY_DOWN) {
+        this.hilightIndex =
+          this.hilightIndex === -1 && this.model
+            ? this.innerOptions.indexOf(this.model)
+            : this.hilightIndex >= this.innerOptions.length || this.hilightIndex < -1
+            ? -1
+            : this.hilightIndex;
+        while (
+          this.hilightIndex + 1 !== this.innerOptions.length &&
+          (this.innerOptions[this.hilightIndex + 1].__type === "group" ||
+            this.innerOptions[this.hilightIndex + 1].__selected ||
+            this.innerOptions[this.hilightIndex + 1].__disabled)
+          ) {
+          this.hilightIndex++;
+        }
+        this.hilightIndex = this.hilightIndex + 1;
+      }
+      if ($event.keyCode === KEY_UP) {
+        this.hilightIndex =
+          this.hilightIndex === -1 && this.model
+            ? this.innerOptions.indexOf(this.model)
+            : this.hilightIndex === -1
+            ? this.innerOptions.length
+            : this.hilightIndex;
+
+        while (
+          this.hilightIndex - 1 > 0 &&
+          (this.innerOptions[this.hilightIndex - 1].__type === "group" ||
+            this.innerOptions[this.hilightIndex - 1].__selected ||
+            this.innerOptions[this.hilightIndex - 1].__disabled)
+          ) {
+          this.hilightIndex--;
+        }
+        this.hilightIndex = this.hilightIndex - 1;
+      }
+      UIInternal.queueTask(() => {
+        const selected = this.listContainer.querySelector(".ui-list__item--hilight");
+        if (selected) {
+          selected.scrollIntoView({ block: "nearest" });
+        }
+      });
+      $event.stopEvent();
+    } else if (this.hilightIndex !== -1 && $event.keyCode === ENTER) {
+      this.selectOption(this.innerOptions[this.hilightIndex]);
+      $event.stopEvent();
+    } else if (this.allowAny && !!this.inputValue.trim() && $event.keyCode === ENTER) {
+      this.selectOption(this.inputValue);
+      $event.stopEvent();
+    } else if (this.multiple && $event.keyCode === BACKSPACE) {
+      if (this.model.length > 0 && this.inputValue.length === 0) {
+        $event.stopEvent();
+        this.removeOption(this.model.last());
+      }
+    } else {
+      this.fireEnter($event);
+    }
+    return true;
+  }
+
   private async fetchOptions(query?: string) {
     this.showLoading();
     const result = await this.query({ query });
@@ -250,38 +369,6 @@ export class ListMaker extends BaseInput {
     });
   }
 
-  private listClass(option, index): string {
-    const classes = ["ui-list__item"];
-    option.__selected = false;
-    if (!this.multiple) {
-      if (this.matcher) {
-        if (this.matcher({ option, value: this.value })) {
-          option.__selected = true;
-          classes.push("ui-list__item--selected");
-        }
-      } else if ((option[this.valueProperty] || option) === this.value) {
-        option.__selected = true;
-        classes.push("ui-list__item--selected");
-      }
-    } else if (this.multiple && this.value) {
-      if (this.matcher) {
-        this.value.forEach(value => {
-          if (this.matcher({ option, value })) {
-            option.__selected = true;
-            classes.push("ui-list__item--disabled");
-          }
-        });
-      } else if (this.value.includes(option[this.valueProperty] || option)) {
-        option.__selected = true;
-        classes.push("ui-list__item--disabled");
-      }
-    }
-    if (this.hilightIndex === index) {
-      classes.push("ui-list__item--hilight");
-    }
-    return classes.join(" ");
-  }
-
   private markOption(option: AnyObject): void {
     let lbl = option[this.labelProperty] || `${option}`;
     if (isEmpty(this.inputValue)) {
@@ -299,92 +386,5 @@ export class ListMaker extends BaseInput {
         lbl.substr(start + this.inputValue.length);
     }
     return lbl;
-  }
-
-  private buildOption(option: AnyObject, el: Element, unmark: boolean = false): boolean {
-    if (el) {
-      el.innerHTML = "";
-      const tpl = this.template
-        ? this.template.outerHTML
-        : `<template><div innerhtml.bind="$label"></div></template>`;
-      const model = {
-        $label:
-          this.isFiltered && !unmark
-            ? this.markOption(option)
-            : option[this.labelProperty] || option,
-        $model: option,
-        $value: option[this.valueProperty] || option
-      };
-      // if (isObject(option)) {
-      //   Object.assign(model, option);
-      // }
-      const view = UIInternal.compileTemplate(tpl, model);
-      view.appendNodesTo(el);
-    }
-    return true;
-  }
-
-  private checkKeyEvent($event: KeyboardEvent): boolean {
-    if ([KEY_DOWN, KEY_UP].includes($event.keyCode)) {
-      if (this.dropEl && !this.dropEl.isOpen) {
-        this.dropEl.toggleDrop();
-      }
-      if ($event.keyCode === KEY_DOWN) {
-        this.hilightIndex =
-          this.hilightIndex === -1 && this.model
-            ? this.innerOptions.indexOf(this.model)
-            : this.hilightIndex >= this.innerOptions.length || this.hilightIndex < -1
-            ? -1
-            : this.hilightIndex;
-        while (
-          this.hilightIndex + 1 !== this.innerOptions.length &&
-          (this.innerOptions[this.hilightIndex + 1].__type === "group" ||
-            this.innerOptions[this.hilightIndex + 1].__selected ||
-            this.innerOptions[this.hilightIndex + 1].__disabled)
-        ) {
-          this.hilightIndex++;
-        }
-        this.hilightIndex = this.hilightIndex + 1;
-      }
-      if ($event.keyCode === KEY_UP) {
-        this.hilightIndex =
-          this.hilightIndex === -1 && this.model
-            ? this.innerOptions.indexOf(this.model)
-            : this.hilightIndex === -1
-            ? this.innerOptions.length
-            : this.hilightIndex;
-
-        while (
-          this.hilightIndex - 1 > 0 &&
-          (this.innerOptions[this.hilightIndex - 1].__type === "group" ||
-            this.innerOptions[this.hilightIndex - 1].__selected ||
-            this.innerOptions[this.hilightIndex - 1].__disabled)
-        ) {
-          this.hilightIndex--;
-        }
-        this.hilightIndex = this.hilightIndex - 1;
-      }
-      UIInternal.queueTask(() => {
-        const selected = this.listContainer.querySelector(".ui-list__item--hilight");
-        if (selected) {
-          selected.scrollIntoView({ block: "nearest" });
-        }
-      });
-      $event.stopEvent();
-    } else if (this.hilightIndex !== -1 && $event.keyCode === ENTER) {
-      this.selectOption(this.innerOptions[this.hilightIndex]);
-      $event.stopEvent();
-    } else if (this.allowAny && !!this.inputValue.trim() && $event.keyCode === ENTER) {
-      this.selectOption(this.inputValue);
-      $event.stopEvent();
-    } else if (this.multiple && $event.keyCode === BACKSPACE) {
-      if (this.model.length > 0 && this.inputValue.length === 0) {
-        $event.stopEvent();
-        this.removeOption(this.model.last());
-      }
-    } else {
-      this.fireEnter($event);
-    }
-    return true;
   }
 }

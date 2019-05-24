@@ -30,17 +30,17 @@ export class UIDialogElement {
   @bindable()
   public maxHeight: string = "100%";
 
-  @bindable({ defaultBindingMode: bindingMode.oneWay })
+  @bindable({ defaultBindingMode: bindingMode.toView })
   public help: boolean | (() => void) = false;
   @bindable({ defaultBindingMode: bindingMode.oneTime })
   public modal: boolean = false;
-  @bindable({ defaultBindingMode: bindingMode.oneWay })
+  @bindable({ defaultBindingMode: bindingMode.toView })
   public closeable: boolean = true;
-  @bindable({ defaultBindingMode: bindingMode.oneWay })
+  @bindable({ defaultBindingMode: bindingMode.toView })
   public maximizable: boolean = true;
-  @bindable({ defaultBindingMode: bindingMode.oneWay })
+  @bindable({ defaultBindingMode: bindingMode.toView })
   public minimizable: boolean = true;
-  @bindable({ defaultBindingMode: bindingMode.oneWay })
+  @bindable({ defaultBindingMode: bindingMode.toView })
   public hideToolbox: boolean = false;
 
   @bindable()
@@ -52,8 +52,6 @@ export class UIDialogElement {
   protected minimized: boolean = false;
   protected maximized: boolean = false;
 
-  private dialogEl: Element;
-
   private position = {
     bottom: "auto",
     left: "0",
@@ -62,7 +60,6 @@ export class UIDialogElement {
   };
 
   private taskButton;
-  private previousPosition;
 
   constructor(protected element: Element) {
     this.help = element.hasAttribute("help.trigger");
@@ -95,13 +92,9 @@ export class UIDialogElement {
   protected attached(): void {
     if (!this.modal) {
       const iconEl = this.element.querySelector(".ui-header__icon .ui-icon");
-      const labelEl = this.element.querySelector(".ui-header__title") as HTMLElement;
       if (iconEl) {
         this.icon = iconEl.au.controller.viewModel.icon;
       }
-      // if (labelEl) {
-      //   this.label = labelEl.innerText;
-      // }
       this.taskButton = UIInternal.compileTemplate(
         `<template><ui-button size="sm" ui-theme="primary" type.bind="active?'solid':'default'" label.bind="label" icon.bind="icon"></ui-button></template>`,
         this

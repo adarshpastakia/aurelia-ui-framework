@@ -7,7 +7,7 @@
 
 import { Container, DOM } from "aurelia-framework";
 import { getLogger } from "aurelia-logging";
-import { UIAppConfig } from "../utils/ui-app-config";
+import { UIAppConfig } from "./ui-app-config";
 
 export namespace UITether {
   export type Position = "tl" | "tr" | "bl" | "br" | "tc" | "bc";

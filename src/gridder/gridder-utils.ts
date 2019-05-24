@@ -103,7 +103,7 @@ export namespace GridderUtils {
     ghost.style.left = dragEl.offsetLeft + "px";
   };
 
-  const stopResize = ($event: MouseEvent) => {
+  const stopResize = () => {
     dragEl = null;
     document.removeEventListener("mousemove", resize);
     document.removeEventListener("mouseup", stopResize);

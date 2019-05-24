@@ -5,8 +5,7 @@
  * @license   : MIT
  */
 
-import { bindable, bindingMode, customElement, DOM, inlineView } from "aurelia-framework";
-import { UIInternal } from "../utils/ui-internal";
+import { bindable, bindingMode, customElement, inlineView } from "aurelia-framework";
 import { BasePanel } from "./base-panel";
 import view from "./ui-panel.html";
 

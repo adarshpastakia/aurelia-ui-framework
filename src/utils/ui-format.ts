@@ -19,7 +19,7 @@ export namespace UIFormat {
       sanitize: false,
       smartLists: true,
       smartypants: false
-    }).replace(/(\<a href=)/gi, '<a class="ui-link" target="_blank" href=');
+    }).replace(/(<a href=)/gi, '<a class="ui-link" target="_blank" href=');
   }
 
   // Dates

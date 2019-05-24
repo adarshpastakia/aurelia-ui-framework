@@ -100,7 +100,7 @@ export class UIButton {
     }
   }
 
-  protected fireClick($event: MouseEvent): boolean {
+  protected fireClick(): boolean {
     if (!this.href) {
       if (this.hasDrop && !this.split) {
         this.toggleDrop();

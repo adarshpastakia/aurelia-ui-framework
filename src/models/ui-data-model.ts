@@ -132,7 +132,7 @@ export class UIDataModel {
         if (result !== false) {
           return this.doGet(id);
         }
-        Promise.reject(ERROR_CODES.REJECTED);
+        return Promise.reject(ERROR_CODES.REJECTED);
       })
       .then(response => this.postGet(response));
   }
@@ -154,7 +154,7 @@ export class UIDataModel {
             return this.doPost();
           }
         }
-        Promise.reject(ERROR_CODES.REJECTED);
+        return Promise.reject(ERROR_CODES.REJECTED);
       })
       .then(response => {
         this.loaded = true;
@@ -178,7 +178,7 @@ export class UIDataModel {
         if (result !== false) {
           return this.doDelete();
         }
-        Promise.reject(ERROR_CODES.REJECTED);
+        return Promise.reject(ERROR_CODES.REJECTED);
       })
       .then(response => {
         this.postDelete(response);
@@ -244,6 +244,7 @@ export class UIDataModel {
     );
     return POJO;
   }
+
   /**
    * @description Deserialize POJO object into the data model properties
    */
@@ -256,42 +257,48 @@ export class UIDataModel {
     this.metadata.updated = { ...json };
     Object.keys(json).forEach(prop => (this[prop] = json[prop]));
   }
+
   // Pre/Post hooks for fetch calls
   public preGet() {
     //
   }
+
   public preSave() {
     //
   }
+
   public preDelete() {
     //
   }
-  public postGet(response) {
-    //
-  }
-  public postSave(response) {
-    //
-  }
-  public postDelete(response) {
+
+  public postGet(_: AnyObject) {
     //
   }
 
-  private generateId() {
-    return Math.round(Math.random() * new Date().getTime()).toString(18);
+  public postSave(_: AnyObject) {
+    //
   }
 
-  private propertyGetter(prop) {
+  public postDelete(_: AnyObject) {
+    //
+  }
+
+  protected propertyGetter(prop) {
     return function() {
       return this["_" + prop];
     };
   }
 
-  private propertySetter(prop) {
+  protected propertySetter(prop) {
     return function(v) {
       this["_" + prop] = v;
       this.updateDirty(prop, v);
       return v;
     };
+  }
+
+  private generateId() {
+    return Math.round(Math.random() * new Date().getTime()).toString(18);
   }
 
   private updateDirty(prop, value) {
@@ -329,10 +336,11 @@ export class UIDataModel {
         return json;
       })
       .catch(e => {
-        Promise.reject(e);
         this.busy = false;
+        return Promise.reject(e);
       });
   }
+
   private doPost() {
     this.busy = true;
     return this.httpClient
@@ -343,10 +351,11 @@ export class UIDataModel {
         return json;
       })
       .catch(e => {
-        Promise.reject(e);
         this.busy = false;
+        return Promise.reject(e);
       });
   }
+
   private doPut() {
     this.busy = true;
     return this.httpClient
@@ -357,10 +366,11 @@ export class UIDataModel {
         return json;
       })
       .catch(e => {
-        Promise.reject(e);
         this.busy = false;
+        return Promise.reject(e);
       });
   }
+
   private doDelete() {
     this.busy = true;
     return this.httpClient
@@ -370,15 +380,9 @@ export class UIDataModel {
         return json;
       })
       .catch(e => {
-        Promise.reject(e);
         this.busy = false;
+        return Promise.reject(e);
       });
-  }
-  private doUpdate() {
-    this.id = this[this.idProperty] || this.generateId();
-    this.metadata.dirtyProps = [];
-    this.metadata.original = { ...this.serialize() };
-    this.metadata.updated = { ...this.serialize() };
   }
 }
 

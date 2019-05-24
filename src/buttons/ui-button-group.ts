@@ -40,7 +40,7 @@ export class UIButtonGroup {
   @children("ui-button")
   private buttons: UIButton[];
 
-  private toggle: boolean = false;
+  private readonly toggle: boolean = false;
 
   constructor(protected element: Element) {
     if (element.hasAttribute("equal")) {

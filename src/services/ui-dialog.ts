@@ -7,7 +7,6 @@
 import { autoinject, CompositionEngine, Container, singleton, View } from "aurelia-framework";
 import { UIAppConfig } from "../utils/ui-app-config";
 import { UIInternal } from "../utils/ui-internal";
-// import { UIDialogElement } from "./../panels/ui-dialog";
 
 @autoinject()
 @singleton()
@@ -33,14 +32,15 @@ export class UIDialogService {
     private appConfig: UIAppConfig,
     private container: Container,
     private compositionEngine: CompositionEngine
-  ) {}
+  ) {
+  }
 
   public open(viewModel, model?) {
-    this.openDialog(viewModel, model);
+    return this.openDialog(viewModel, model);
   }
 
   public openModal(viewModel, model?) {
-    this.openDialog(viewModel, model, true);
+    return this.openDialog(viewModel, model, true);
   }
 
   private openDialog(viewModel, model, modal = false) {
@@ -94,7 +94,7 @@ export class UIDialogService {
       UIInternal.subscribe("dlg:drag", d => this.startDrag(d));
 
       document.addEventListener("mousemove", e => this.drag(e));
-      document.addEventListener("mouseup", e => this.stopDrag(e));
+      document.addEventListener("mouseup", () => this.stopDrag());
 
       if (this.appConfig.TaskbarContainer) {
         this.appConfig.TaskbarContainer.anchor.addEventListener("click", (e: AnyObject) => {
@@ -146,7 +146,7 @@ export class UIDialogService {
     }
   }
 
-  private stopDrag($event): void {
+  private stopDrag(): void {
     if (this.dragObject.isDragging) {
       this.dragObject.isDragging = false;
     }

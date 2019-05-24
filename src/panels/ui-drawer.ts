@@ -27,7 +27,7 @@ export class UIDrawer {
   protected push: boolean = false;
   protected closeOnClick: boolean = false;
 
-  private obClick;
+  private readonly obClick;
   private isAttached = false;
 
   constructor(protected element: Element) {

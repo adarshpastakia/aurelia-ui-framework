@@ -36,7 +36,7 @@ export class UICheckbox {
     }
   }
 
-  private checkChanged($event: TextEvent) {
+  protected checkChanged($event: TextEvent) {
     $event.stopPropagation();
     this.element.dispatchEvent(UIInternal.createEvent("change", this));
   }

@@ -4,6 +4,7 @@
   ref="__el"
   keydown.delegate="__keyCheck($event.keyCode)"
 >
+  <!--suppress HtmlFormInputWithoutLabel -->
   <input
     blur.trigger="$event.target.focus()"
     readonly.one-time="true"
@@ -36,16 +37,16 @@
         type="outline"
         size="sm"
         css.bind="{minWidth:'4rem'}"
-        >${cancelLabel}</ui-button
-      >
+      >${cancelLabel}
+      </ui-button>
       <ui-button
         click.trigger="__close(true)"
         ui-theme.bind="theme"
         type="solid"
         size="sm"
         css.bind="{minWidth:'4rem'}"
-        >${okLabel}</ui-button
-      >
+      >${okLabel}
+      </ui-button>
     </div>
   </div>
 </div>

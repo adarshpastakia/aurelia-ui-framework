@@ -51,7 +51,7 @@ export class UIFileInput extends BaseInput {
     return false;
   }
 
-  protected dragExit($event) {
+  protected dragExit() {
     this.dragging = false;
   }
 

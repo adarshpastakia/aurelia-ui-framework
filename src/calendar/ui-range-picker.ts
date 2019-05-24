@@ -5,24 +5,8 @@
  * @license   : MIT
  */
 
-import {
-  bindable,
-  bindingMode,
-  computedFrom,
-  customElement,
-  inlineView,
-  viewResources
-} from "aurelia-framework";
-import {
-  addMonths,
-  endOfDay,
-  isAfter,
-  isBefore,
-  isSameDay,
-  isSameMonth,
-  startOfDay,
-  startOfMonth
-} from "date-fns";
+import { bindable, bindingMode, computedFrom, customElement, inlineView, viewResources } from "aurelia-framework";
+import { addMonths, endOfDay, isAfter, isBefore, isSameMonth, startOfDay, startOfMonth } from "date-fns";
 import { UIFormat } from "../utils/ui-format";
 import { CalendarHead } from "./calendar-head";
 import {
@@ -90,9 +74,9 @@ export class UIRangePicker {
       this.dateLabel = preset
         ? preset.label
         : `${UIFormat.date(this.selectedDate[0], this.format)} ~ ${UIFormat.date(
-            this.selectedDate[1],
-            this.format
-          )}`;
+          this.selectedDate[1],
+          this.format
+        )}`;
     }
   }
 
@@ -123,6 +107,7 @@ export class UIRangePicker {
       page: this.startPage
     });
   }
+
   @computedFrom("endMonth", "endPage", "minDate", "maxDate")
   get endHeaderOptions(): IHeaderConfig {
     return buildHeaderConfig(this.endMonth, this.endPage, { ...this.config, page: this.endPage });
