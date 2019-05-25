@@ -11,16 +11,36 @@ import { UIInternal } from "../utils/ui-internal";
 @autoinject()
 @customAttribute("ui-badge")
 export class UIBadge {
+  /**
+   * Badge value
+   * `ui-badge="9"`
+   */
   @bindable({ primaryProperty: true })
   protected value: string = "";
+
+  /**
+   * Badge icon
+   * `ui-badge.bind="{icon:''; value:''}`
+   */
   @bindable()
   protected icon: string = "";
+
+  /**
+   * Badge theme
+   * `ui-badge.bind="{theme:''; value:''}`
+   */
   @bindable()
   protected theme: string = "";
+
+  /**
+   * Badge tooltip
+   * `ui-badge.bind="{tooltip:''; value:''}`
+   */
   @bindable()
   protected tooltip: string = "";
 
-  constructor(protected element: Element) {}
+  constructor(protected element: Element) {
+  }
 
   protected attached(): void {
     if (this.value || this.icon) {

@@ -14,29 +14,62 @@ import view from "./ui-button.html";
 @customElement("ui-button")
 @inlineView(view)
 export class UIButton {
+  /**
+   * Button icon
+   */
   @bindable()
   public icon: string = "";
+  /**
+   * Href for link type buttons
+   */
   @bindable()
   public href: string = "";
+  /**
+   * Button label, used when button had dropdown
+   */
   @bindable()
   public label: string = "";
+  /**
+   * Button size
+   */
   @bindable()
   public size: "nm" | "sm" | "md" | "lg" = "nm";
+  /**
+   * Button type
+   */
   @bindable()
   public type: "default" | "solid" | "link" = "default";
+  /**
+   * Button id
+   */
   @bindable()
   public id: string = "";
 
+
+  /**
+   * Busy indicator
+   */
   @bindable()
   public busy: boolean = false;
+  /**
+   * Active button
+   */
   @bindable()
   public active: boolean = false;
+  /**
+   * Disabled
+   */
   @bindable()
   public disabled: boolean = false;
 
+
+  /**
+   * Menu items to create auto dropdown
+   */
   @bindable()
   public menuItems: IMenuItems[];
 
+  /*** Start private props ***/
   @child("div.ui-drop")
   protected elDropdown: Element;
   protected hasDrop: boolean = false;
@@ -47,6 +80,7 @@ export class UIButton {
   protected split: boolean = false;
 
   private elDisabled: boolean = false;
+  /*** End private props ***/
 
   constructor(public element: Element) {
     if (element.hasAttribute("icon-hilight")) {
