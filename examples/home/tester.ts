@@ -116,7 +116,8 @@ export class Tester {
     }
   ];
 
-  constructor(private notificationService: UINotificationService) {}
+  constructor(private notificationService: UINotificationService) {
+  }
 
   public notif(record: KeyValue) {
     this.notificationService.toast({

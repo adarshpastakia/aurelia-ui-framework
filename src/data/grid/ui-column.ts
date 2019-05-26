@@ -32,6 +32,7 @@ export class UIColumn {
       maxWidth: this.maxWidth
     };
   }
+
   @bindable()
   public dataId: string;
 
@@ -43,7 +44,7 @@ export class UIColumn {
   @bindable()
   public minWidth: string = "80px";
   @bindable()
-  public maxWidth: string = "420px";
+  public maxWidth: string = "600px";
 
   /**
    * Process value
@@ -113,11 +114,11 @@ export class UIColumn {
     if (!this.template && !this.label) {
       this.label = this.element.innerHTML || "";
     }
-    this.width = convertToPx(this.width) + "px";
   }
 
   protected onDrag = $event => this.resize($event);
   protected onDragEnd = $event => this.stopResize($event);
+
   protected startResize($event: MouseEvent) {
     $event.stopEvent();
 
@@ -127,14 +128,19 @@ export class UIColumn {
     document.addEventListener("mousemove", this.onDrag);
     document.addEventListener("mouseup", this.onDragEnd);
   }
+
   protected resize($event: MouseEvent) {
     $event.stopEvent();
     const x = $event.x || $event.clientX;
     const diff = x - this.startX;
 
-    UIInternal.queueTask(() => (this.width = parseInt(this.width, 10) + diff + "px"));
-    this.startX = x;
+    const newWidth = convertToPx(this.width) + diff;
+    if (newWidth < convertToPx(this.maxWidth) && newWidth > convertToPx(this.minWidth)) {
+      UIInternal.queueTask(() => (this.width = newWidth + "px"));
+      this.startX = x;
+    }
   }
+
   protected stopResize($event: MouseEvent) {
     $event.stopEvent();
     this.isResizing = false;
