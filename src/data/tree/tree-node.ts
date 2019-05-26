@@ -5,7 +5,7 @@
  * @license   : MIT
  */
 import { bindable, computedFrom, inlineView } from "aurelia-framework";
-import { UITreeNode } from "../models/ui-tree-model";
+import { UITreeNode } from "../../models/ui-tree-model";
 import view from "./tree-node.html";
 import { UITreePanel } from "./ui-tree-panel";
 

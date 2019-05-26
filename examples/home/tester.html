@@ -11,23 +11,41 @@
     }
   </style>
   <ui-page page-title="Gridder Test" ui-margin="xs">
-    <ui-gridder>
-      <template repeat.for="cell of colDefs | orderBy:'order'">
-        <ui-gridder-cell
-          config.one-time="cell"
-          label.one-time="$index ? 'Panel':''"
-          auto-hide-header
-          ui-theme="dark"
-          pinned.one-time="!!cell.pinned"
-          moveable.one-time="!!cell.moveable"
-          pinnable.one-time="!!cell.pinnable"
-          closeable.one-time="!!cell.closeable"
-          expandable.one-time="!!cell.expandable"
-          resizeable.one-time="!!cell.resizeable"
-        >
-          <compose view.one-time="cell.view"></compose>
-        </ui-gridder-cell>
-      </template>
-    </ui-gridder>
+    <!--    <ui-gridder>-->
+    <!--      <template repeat.for="cell of colDefs | orderBy:'order'">-->
+    <!--        <ui-gridder-cell-->
+    <!--          config.one-time="cell"-->
+    <!--          label.one-time="$index ? 'Panel':''"-->
+    <!--          auto-hide-header-->
+    <!--          ui-theme="dark"-->
+    <!--          pinned.one-time="!!cell.pinned"-->
+    <!--          moveable.one-time="!!cell.moveable"-->
+    <!--          pinnable.one-time="!!cell.pinnable"-->
+    <!--          closeable.one-time="!!cell.closeable"-->
+    <!--          expandable.one-time="!!cell.expandable"-->
+    <!--          resizeable.one-time="!!cell.resizeable"-->
+    <!--        >-->
+    <!--          <compose view.one-time="cell.view"></compose>-->
+    <!--        </ui-gridder-cell>-->
+    <!--      </template>-->
+    <!--    </ui-gridder>-->
+
+    <ui-datagrid data-source.bind="countries" ui-scroll>
+      <ui-column data-id="continent" resizeable>Continent</ui-column>
+      <ui-column data-id="name" sortable>Name</ui-column>
+      <ui-column data-id="fullname">Fullname</ui-column>
+      <ui-column data-id="iso2" locked="start">
+        <template>
+          <ui-flag code.bind="$value"></ui-flag>
+          <span>${$record.name}</span>
+        </template>
+      </ui-column>
+      <ui-column locked="end" width="80px">
+        <template>
+          <ui-button type="tool" ui-theme="info" icon="mdi mdi-information" size="sm"
+                     click.trigger="notif($record)"></ui-button>
+        </template>
+      </ui-column>
+    </ui-datagrid>
   </ui-page>
 </template>

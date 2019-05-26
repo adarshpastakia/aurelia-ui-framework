@@ -1,4 +1,5 @@
-<div class="${class} ui-alert" data-open="false" ui-theme.bind="theme" ref="__el">
+<div class="${className} ui-alert" data-open="false" ui-theme.bind="theme" ref="__el"
+     bindable="theme,title,icon,timeout,cancelLabel,okLabel,type,__close,autoClose">
   <div class="ui-alert__wrapper">
     <div if.bind="icon" class="ui-alert__icon">
       <ui-icon icon.bind="icon"></ui-icon>

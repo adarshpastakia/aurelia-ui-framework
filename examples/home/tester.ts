@@ -4,10 +4,16 @@
  * @copyright : 2019
  * @license   : MIT
  */
+import { autoinject } from "aurelia-framework";
 import { PLATFORM } from "aurelia-pal";
+import { Countries, UINotificationService } from "aurelia-ui-framework";
 
 let order = 0;
+
+@autoinject()
 export class Tester {
+  protected countries = Countries.list;
+
   protected colDefs = [
     { order: order++, colSpan: 8, rowSpan: 1, col: 1, row: 1, pinned: true },
     {
@@ -109,6 +115,18 @@ export class Tester {
       expandable: true
     }
   ];
+
+  constructor(private notificationService: UINotificationService) {
+  }
+
+
+  public notif(record: KeyValue) {
+    this.notificationService.alert({
+      message: `Clicked: <ui-flag code="${record.iso2}"></ui-flag> ${record.name}`,
+      theme: "info",
+      autoClose: false
+    });
+  }
 
   // protected ghost: HTMLElement & { startWidth: number; startHeight: number };
   // protected gridder: HTMLElement;
