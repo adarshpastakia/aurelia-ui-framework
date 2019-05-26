@@ -21,9 +21,7 @@
       <div class="ui-btn__icon" if.bind="icon && !busy">
         <ui-icon icon.bind="icon"></ui-icon>
       </div>
-      <div class="ui-btn__label">
-        <slot>${label}</slot>
-      </div>
+      <div class="ui-btn__label"><slot>${label}</slot></div>
       <div class="ui-btn__caret" if.bind="hasDrop && !split">
         <ui-svg-icon icon="caret"></ui-svg-icon>
       </div>
