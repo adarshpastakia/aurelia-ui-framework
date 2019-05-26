@@ -5,8 +5,8 @@
  * @license   : MIT
  */
 import { bindable, bindingMode, customElement, inlineView, viewResources } from "aurelia-framework";
-import { UITreeModel, UITreeNode } from "../models/ui-tree-model";
-import { UIInternal } from "../utils/ui-internal";
+import { UITreeModel, UITreeNode } from "../../models/ui-tree-model";
+import { UIInternal } from "../../utils/ui-internal";
 import { TreeNode } from "./tree-node";
 
 @customElement("ui-tree-panel")

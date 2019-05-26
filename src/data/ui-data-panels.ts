@@ -4,6 +4,8 @@
  * @copyright : 2019
  * @license   : MIT
  */
-import { UITreePanel } from "./ui-tree-panel";
+import { UIColumn } from "./grid/ui-column";
+import { UIDataGrid } from "./grid/ui-data-grid";
+import { UITreePanel } from "./tree/ui-tree-panel";
 
-export const DataPanels = [UITreePanel];
+export const DataPanels = [UITreePanel, UIDataGrid, UIColumn];

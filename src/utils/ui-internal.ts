@@ -83,12 +83,12 @@ export namespace UIInternal {
     return Promise.resolve(true);
   }
 
-  export function compileTemplate(tpl: string, viewModel: AnyObject = {}): View {
+  export function compileTemplate(tpl: string, viewModel: AnyObject = {}, bindingContext = {}): View {
     const viewFactory = Container.instance
       .get(ViewCompiler)
       .compile(tpl, Container.instance.get(ViewResources));
     const view = viewFactory.create(Container.instance);
-    view.bind(viewModel);
+    view.bind(viewModel, bindingContext);
     return view;
   }
 }

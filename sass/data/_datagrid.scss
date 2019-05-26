@@ -94,7 +94,7 @@
       }
     }
 
-    &__locked {
+    &__locked--start {
       @extend %grid-row;
       @include sticky();
       flex: 0 0 auto;

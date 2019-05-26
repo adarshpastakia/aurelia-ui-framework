@@ -4,7 +4,15 @@
  * @copyright : 2018
  * @license   : MIT
  */
-import { autoinject, Container, singleton, View, ViewCompiler } from "aurelia-framework";
+import {
+  autoinject,
+  Container,
+  singleton,
+  TemplatingEngine,
+  View,
+  ViewCompiler,
+  viewResources
+} from "aurelia-framework";
 import { UIAppConfig } from "../utils/ui-app-config";
 import { UIInternal } from "../utils/ui-internal";
 import alertView from "./alert-view.html";
@@ -29,8 +37,10 @@ export class UINotificationService {
   constructor(
     private appConfig: UIAppConfig,
     private container: Container,
-    private compiler: ViewCompiler
-  ) {}
+    private compiler: ViewCompiler,
+    private templatingEngine: TemplatingEngine
+  ) {
+  }
 
   public alert(
     message: string | UIAlertConfig,
@@ -94,7 +104,7 @@ export class UINotificationService {
         theme: "default",
         timeout: 5000,
         type: "default",
-        class: forToastNotification ? "ui-toast" : "ui-message",
+        className: forToastNotification ? "ui-toast" : "ui-message",
         ...config
       };
       cfg.autoClose = cfg.type !== "confirm" && cfg.autoClose;
