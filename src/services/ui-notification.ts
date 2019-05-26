@@ -10,8 +10,7 @@ import {
   singleton,
   TemplatingEngine,
   View,
-  ViewCompiler,
-  viewResources
+  ViewCompiler
 } from "aurelia-framework";
 import { UIAppConfig } from "../utils/ui-app-config";
 import { UIInternal } from "../utils/ui-internal";
@@ -39,8 +38,7 @@ export class UINotificationService {
     private container: Container,
     private compiler: ViewCompiler,
     private templatingEngine: TemplatingEngine
-  ) {
-  }
+  ) {}
 
   public alert(
     message: string | UIAlertConfig,
@@ -105,7 +103,8 @@ export class UINotificationService {
         timeout: 5000,
         type: "default",
         className: forToastNotification ? "ui-toast" : "ui-message",
-        ...config
+        ...config,
+        message: `<div>${config.message}</div>`
       };
       cfg.autoClose = cfg.type !== "confirm" && cfg.autoClose;
       const viewFactory = this.compiler.compile(`<template>${toastView}</template>`);
@@ -126,9 +125,13 @@ export class UINotificationService {
         setTimeout(cfg.__close, cfg.timeout);
       }
 
-      UIInternal.queueTask(
-        () => ((view as View & { firstChild: HTMLElement }).firstChild.dataset.open = "true")
-      );
+      UIInternal.queueTask(() => {
+        const el = (view as View & { firstChild: HTMLElement }).firstChild;
+        el.dataset.open = "true";
+        this.templatingEngine.enhance({
+          element: el.querySelector(".ui-alert__body > div")
+        });
+      });
     });
   }
 
@@ -139,7 +142,8 @@ export class UINotificationService {
         okLabel: "OK",
         theme: "default",
         type: "alert",
-        ...config
+        ...config,
+        message: `<div>${config.message}</div>`
       };
       const viewFactory = this.compiler.compile(`<template>${alertView}</template>`);
       const view = viewFactory.create(this.container);
@@ -159,6 +163,14 @@ export class UINotificationService {
       };
       view.bind(cfg);
       this.appConfig.DialogContainer.add(view);
+
+      UIInternal.queueTask(() => {
+        const el = (view as View & { firstChild: HTMLElement }).firstChild;
+        this.templatingEngine.enhance({
+          element: el.querySelector(".ui-alert__body > div")
+        });
+      });
+
       cfg.keyEl.focus();
     });
   }
