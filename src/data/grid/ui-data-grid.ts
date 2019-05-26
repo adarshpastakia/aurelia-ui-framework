@@ -5,7 +5,8 @@
  * @license   : MIT
  */
 
-import { bindable, children, computedFrom, customElement, inlineView, viewResources } from "aurelia-framework";
+import { bindable, children, customElement, inlineView, viewResources } from "aurelia-framework";
+import { UIDataSource } from "../../models/ui-data-source";
 import { BodyCell } from "./body-cell";
 import { HeaderCell } from "./header-cell";
 import view from "./ui-data-grid.html";
@@ -20,11 +21,16 @@ export class UIDataGrid {
   @children("ui-column")
   public columns;
 
-  @computedFrom("dataSource", "dataSource.data")
-  get dataList() {
+  /*** Start private props ***/
+  protected ds;
+  /*** End private props ***/
+
+  protected dataSourceChanged() {
     if (isArray(this.dataSource)) {
-      return this.dataSource;
+      this.ds = new UIDataSource(this.dataSource);
     }
-    return [];
+    if (this.dataSource instanceof UIDataSource) {
+      this.ds = this.dataSource;
+    }
   }
 }

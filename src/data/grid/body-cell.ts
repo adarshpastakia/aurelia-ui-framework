@@ -10,8 +10,8 @@ import { UIColumn } from "./ui-column";
 
 @containerless()
 @inlineView(`<template>
-        <div class="ui-datagrid__cell" css.bind="column.css">
-          <div class="ui-datagrid__cell__wrapper" ref="el"></div>
+        <div class="ui-datagrid__cell" css.bind="column.css" data-resizing.bind="column.isResizing">
+          <div class="ui-datagrid__cell__wrapper" ref="el" ui-align.bind="column.align"></div>
         </div>
       </template>`)
 export class BodyCell {
@@ -24,6 +24,10 @@ export class BodyCell {
 
   protected attached() {
     this.recordChanged();
+    if (this.column.noPadding) {
+      this.el.style.paddingTop = 0;
+      this.el.style.paddingBottom = 0;
+    }
   }
 
   protected recordChanged() {
