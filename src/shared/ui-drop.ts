@@ -97,7 +97,6 @@ export class UIDrop {
   }
 
   protected close($event: UIEvent) {
-    $event.stopEvent();
     if (this.closeOnClick) {
       this.closeDrop();
     }

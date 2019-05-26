@@ -18,7 +18,7 @@ export class MenuPage {
     { label: "Menu Item", icon: "mdi mdi-music", disabled: () => true },
     "-",
     {
-      label: "Menu Item",
+      label: "Menu Item Dynamic",
       icon: "mdi mdi-music",
       items: () => new Promise(resolve => {
         setTimeout(() => resolve([

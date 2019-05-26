@@ -82,8 +82,6 @@ export class UIMenuItem {
 
   protected fireClick($event: MouseEvent): boolean {
     if (!this.href) {
-      $event.stopEvent();
-
       if (this.hasDrop && !this.split) {
         return this.toggleDrop();
       }
