@@ -12,8 +12,8 @@ import { UITether } from "../utils/ui-tether";
 @containerless()
 @customElement("ui-drop")
 @inlineView(
-  `<template><div slot="ui-drop" class="ui-drop" mouseup.delegate="closeDrop()" data-open.bind="isOpen">
-  <div ref="vmElement" class="ui-drop__body \${class}" mouseup.delegate="close($event)"><slot></slot></div>
+  `<template><div slot="ui-drop" class="ui-drop" click.delegate="closeDrop()" data-open.bind="isOpen">
+  <div ref="vmElement" class="ui-drop__body \${class}" click.delegate="close($event)"><slot></slot></div>
   </div></template>`
 )
 export class UIDrop {
@@ -64,6 +64,7 @@ export class UIDrop {
       this.obResize = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_RESIZE, () =>
         this.updatePosition()
       );
+      this.element.dispatchEvent(UIInternal.createEvent("open"));
       UIInternal.queueMicroTask(() => {
         this.tetherObj.updatePosition();
         this.vmElement.dataset.show = "true";

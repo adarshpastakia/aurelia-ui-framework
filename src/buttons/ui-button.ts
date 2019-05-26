@@ -67,7 +67,7 @@ export class UIButton {
    * Menu items to create auto dropdown
    */
   @bindable()
-  public menuItems: IMenuItems[];
+  public menuItems: IMenuItems[] | (() => IMenuItems[]);
 
   /*** Start private props ***/
   @child("div.ui-drop")
@@ -80,6 +80,7 @@ export class UIButton {
   protected split: boolean = false;
 
   private elDisabled: boolean = false;
+
   /*** End private props ***/
 
   constructor(public element: Element) {
@@ -137,7 +138,7 @@ export class UIButton {
   protected fireClick(): boolean {
     if (!this.href) {
       if (this.hasDrop && !this.split) {
-        this.toggleDrop();
+        return this.toggleDrop();
       } else {
         return this.element.dispatchEvent(UIInternal.createEvent("click", this.id));
       }
@@ -145,12 +146,13 @@ export class UIButton {
     }
   }
 
-  private toggleDrop(): void {
+  private toggleDrop(): boolean {
     const beforeEvent = this.dropEl.isOpen ? "beforeopen" : "beforeclose";
     const afterEvent = this.dropEl.isOpen ? "close" : "open";
     if (this.element.dispatchEvent(UIInternal.createEvent(beforeEvent)) !== false) {
       this.dropEl.toggleDrop();
       this.element.dispatchEvent(UIInternal.createEvent(afterEvent));
     }
+    return false;
   }
 }

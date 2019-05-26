@@ -20,11 +20,13 @@ export class MenuPage {
     {
       label: "Menu Item",
       icon: "mdi mdi-music",
-      items: [
-        { label: "Menu Item", icon: "mdi mdi-music" },
-        { label: "Menu Item", icon: "mdi mdi-music" },
-        { label: "Menu Item", icon: "mdi mdi-music" }
-      ]
+      items: () => new Promise(resolve => {
+        setTimeout(() => resolve([
+          { label: "Menu Item", icon: "mdi mdi-music" },
+          { label: "Menu Item", icon: "mdi mdi-music" },
+          { label: "Menu Item", icon: "mdi mdi-music" }
+        ]), 2000);
+      })
     }
   ];
 

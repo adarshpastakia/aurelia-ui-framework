@@ -22,7 +22,7 @@ class UIViewport {
 
   constructor(private appConfig: UIAppConfig, protected router: AppRouter) {
     window.addEventListener("resize", () => UIInternal.broadcast(UIInternal.EVT_VIEWPORT_RESIZE));
-    document.addEventListener("mouseup", $event => this.broadcastEvent($event));
+    document.addEventListener("click", $event => this.broadcastEvent($event));
   }
 
   protected attached(): void {

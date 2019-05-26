@@ -23,7 +23,8 @@
               busy.bind="busy"
               type.bind="type"
               ui-theme.bind="theme"
-              >Only Text</ui-button
+            >Only Text
+            </ui-button
             >
             <ui-button
               disabled.bind="disabled"
@@ -43,7 +44,7 @@
               label="Dropdown"
             >
               <ui-drop>
-                <div ui-padding>I'm the<br />dropdown :)</div>
+                <div ui-padding>I'm the<br/>dropdown :)</div>
               </ui-drop>
             </ui-button>
             <ui-button
@@ -56,11 +57,21 @@
               label="Split Dropdown"
             >
               <ui-drop>
-                <div ui-padding>I'm the<br />dropdown :)</div>
+                <div ui-padding>I'm the<br/>dropdown :)</div>
               </ui-drop>
             </ui-button>
+            <ui-button
+              disabled.bind="disabled"
+              busy.bind="busy"
+              type.bind="type"
+              ui-theme.bind="theme"
+              icon="mdi mdi-account"
+              label="Dynamic Menu"
+              menu-items.bind="actionItems"
+            >
+            </ui-button>
 
-            <hr />
+            <hr/>
             <h5>Sizes</h5>
             <ui-button
               disabled.bind="disabled"
@@ -121,7 +132,7 @@
               </ui-button>
             </div>
 
-            <hr />
+            <hr/>
             <h5>Variants</h5>
             <ui-button
               disabled.bind="disabled"
@@ -140,7 +151,8 @@
               ui-theme.bind="theme"
               icon="mdi mdi-account"
               icon-end
-              >Icon End</ui-button
+            >Icon End
+            </ui-button
             >
             <ui-button
               disabled.bind="disabled"
@@ -150,7 +162,8 @@
               icon="mdi mdi-account"
               icon-end
               icon-hilight
-              >Icon End Hilight</ui-button
+            >Icon End Hilight
+            </ui-button
             >
             <ui-button
               disabled.bind="disabled"
@@ -159,7 +172,8 @@
               ui-theme.bind="theme"
               icon="mdi mdi-account"
               icon-top
-              >Icon Top</ui-button
+            >Icon Top
+            </ui-button
             >
             <ui-button
               disabled.bind="disabled"
@@ -198,7 +212,7 @@
         <div class="x-section-title">Properties</div>
         <x-blockquote>Attributes marked with value <b>none</b> do not require a value</x-blockquote>
         <x-code-table code-template.bind="buttonAttrs"></x-code-table>
-        <hr />
+        <hr/>
         <x-code-table code-template.bind="dropAttrs"></x-code-table>
       </ui-container>
     </ui-content>
