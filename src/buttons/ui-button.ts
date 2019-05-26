@@ -153,6 +153,6 @@ export class UIButton {
       this.dropEl.toggleDrop();
       this.element.dispatchEvent(UIInternal.createEvent(afterEvent));
     }
-    return false;
+    return true;
   }
 }

@@ -21,7 +21,7 @@ import { IMenuItems } from "./ui-menus";
     disabled.bind="typeof item.disabled === 'function' ? item.disabled() : item.disabled"
     active.bind="typeof item.active === 'function' ? item.active() : item.active"
     hide.bind="typeof item.hidden === 'function' ? item.hidden() : item.hidden"
-    click.trigger="onClick($event)">
+    click.delegate="onClick($event)">
       <ui-drop view-model.ref="dropEl" if.bind="item.items">
         <ui-menu if.bind="dropEl.isOpen" menu-items.bind="item.items" noitems-label.bind="noitemsLabel"></ui-menu>
       </ui-drop>
@@ -41,8 +41,7 @@ export class MenuItem {
   protected onClick($event) {
     // @ts-ignore
     if (this.item.items) {
-      $event.stopEvent();
-      return false;
+      $event.stopPropagation();
     }
     // @ts-ignore
     if (this.item.handler) {

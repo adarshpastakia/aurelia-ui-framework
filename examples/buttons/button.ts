@@ -153,7 +153,15 @@ export class ButtonPage {
     setTimeout(() => resolve([
       { label: "Menu Item", icon: "mdi mdi-music" },
       { label: "Menu Item", icon: "mdi mdi-music" },
-      { label: "Menu Item", icon: "mdi mdi-music" }
+      {
+        label: "Menu Item", icon: "mdi mdi-music", items: () => new Promise(resolvein => {
+          setTimeout(() => resolvein([
+            { label: "Menu Item", icon: "mdi mdi-music" },
+            { label: "Menu Item", icon: "mdi mdi-music" },
+            { label: "Menu Item", icon: "mdi mdi-music" }
+          ]), 2000);
+        })
+      }
     ]), 2000);
   });
 }
