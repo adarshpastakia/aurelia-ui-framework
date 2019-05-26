@@ -9,18 +9,21 @@
       <div class="ui-datagrid__row__wrapper">
         <div class="ui-datagrid__row__locked--start">
           <template repeat.for="col of columns | filter:'start':'locked'">
-            <header-cell column.bind="col"></header-cell>
+            <header-cell column.bind="col" sort.trigger="ds.sortBy(col.dataId)" 
+              sort-by.bind="ds.sortByProperty" sort-order.bind="ds.sortByOrder"></header-cell>
           </template>
         </div>
         <div class="ui-datagrid__row__scrolling">
           <template repeat.for="col of columns | filter:false:'locked'">
-            <header-cell column.bind="col"></header-cell>
+            <header-cell column.bind="col" sort.trigger="ds.sortBy(col.dataId)" 
+              sort-by.bind="ds.sortByProperty" sort-order.bind="ds.sortByOrder"></header-cell>
           </template>
         </div>
         <div class="ui-datagrid__cell ui-datagrid__cell--filler"></div>
         <div class="ui-datagrid__row__locked--end">
           <template repeat.for="col of columns | filter:'end':'locked'">
-            <header-cell column.bind="col"></header-cell>
+            <header-cell column.bind="col" sort.trigger="ds.sortBy(col.dataId)" 
+              sort-by.bind="ds.sortByProperty" sort-order.bind="ds.sortByOrder"></header-cell>
           </template>
         </div>
       </div>
@@ -30,7 +33,7 @@
   <div class="ui-datagrid__body" ref="dgBody">
 
     <div class="ui-datagrid__row ${$even ? 'ui-datagrid__row--even':'ui-datagrid__row--odd'}"
-         virtual-repeat.for="record of dataList">
+         virtual-repeat.for="record of ds.data">
 
       <div class="ui-datagrid__row__wrapper">
         <div class="ui-datagrid__row__locked--start">

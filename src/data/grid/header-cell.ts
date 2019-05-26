@@ -6,20 +6,36 @@
  */
 
 import { bindable, containerless, inlineView } from "aurelia-framework";
+import { UIInternal } from "../../utils/ui-internal";
 import { UIColumn } from "./ui-column";
 
 @containerless()
 @inlineView(`<template>
         <div class="ui-datagrid__cell" css.bind="css" with.bind="column">
-          <div class="ui-datagrid__cell__wrapper" innerhtml.bind="label"></div>
-          <div class="ui-datagrid__cell__sorter" if.bind="sortable">
+          <div class="ui-datagrid__cell__wrapper" innerhtml.bind="label"
+            click.trigger="fireSortEvent()"></div>
+          <div class="ui-datagrid__cell__sorter" if.bind="sortable" 
+            data-sort.bind="sortBy === dataId ? sortOrder : ''">
             <i></i>
             <i></i>
           </div>
-          <div class="ui-datagrid__cell__resizer" if.bind="resizeable"></div>
+          <div class="ui-datagrid__cell__resizer" if.bind="resizeable" mousedown.trigger="startResize($event)"></div>
         </div>
       </template>`)
 export class HeaderCell {
   @bindable()
   public column: UIColumn;
+
+  @bindable()
+  public sortBy: string;
+  @bindable()
+  public sortOrder: string;
+
+  constructor(private element: Element) {}
+
+  protected fireSortEvent() {
+    if (this.column.sortable) {
+      this.element.dispatchEvent(UIInternal.createEvent("sort"));
+    }
+  }
 }

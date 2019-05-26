@@ -116,15 +116,12 @@ export class Tester {
     }
   ];
 
-  constructor(private notificationService: UINotificationService) {
-  }
-
+  constructor(private notificationService: UINotificationService) {}
 
   public notif(record: KeyValue) {
-    this.notificationService.alert({
+    this.notificationService.toast({
       message: `Clicked: <ui-flag code="${record.iso2}"></ui-flag> ${record.name}`,
-      theme: "info",
-      autoClose: false
+      theme: "info"
     });
   }
 

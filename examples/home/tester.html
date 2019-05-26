@@ -31,18 +31,18 @@
     <!--    </ui-gridder>-->
 
     <ui-datagrid data-source.bind="countries" ui-scroll>
-      <ui-column data-id="continent" resizeable>Continent</ui-column>
-      <ui-column data-id="name" sortable>Name</ui-column>
-      <ui-column data-id="fullname">Fullname</ui-column>
+      <ui-column data-id="continent" resizeable sortable>Continent</ui-column>
+      <ui-column data-id="name" resizeable sortable>Name</ui-column>
+      <ui-column data-id="fullname" resizeable>Fullname</ui-column>
       <ui-column data-id="iso2" locked="start">
         <template>
           <ui-flag code.bind="$value"></ui-flag>
           <span>${$record.name}</span>
         </template>
       </ui-column>
-      <ui-column locked="end" width="80px">
+      <ui-column locked="end" width="80px" no-padding align="center">
         <template>
-          <ui-button type="tool" ui-theme="info" icon="mdi mdi-information" size="sm"
+          <ui-button type="outline" ui-theme="info" icon="mdi mdi-information" size="sm"
                      click.trigger="notif($record)"></ui-button>
         </template>
       </ui-column>

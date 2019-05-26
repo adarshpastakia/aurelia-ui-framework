@@ -4,10 +4,15 @@
  * @copyright : 2019
  * @license   : MIT
  */
-import { bindable, computedFrom, customElement, noView, processContent, View } from "aurelia-framework";
+import {
+  bindable,
+  computedFrom,
+  customElement,
+  noView,
+  processContent,
+  View
+} from "aurelia-framework";
 import { UIFormat } from "aurelia-ui-framework";
-import { format } from "date-fns";
-import { parseDate } from "../../calendar/calendar-utils";
 import { UIInternal } from "../../utils/ui-internal";
 
 interface ICallbackModel {
@@ -19,6 +24,14 @@ interface ICallbackModel {
 @processContent(false)
 @noView()
 export class UIColumn {
+  @computedFrom("width", "minWidth", "maxWidth")
+  get css() {
+    return {
+      width: this.width,
+      minWidth: this.minWidth,
+      maxWidth: this.maxWidth
+    };
+  }
   @bindable()
   public dataId: string;
 
@@ -36,7 +49,7 @@ export class UIColumn {
    * Process value
    */
   @bindable()
-  public value: ((model: ICallbackModel) => string | number | boolean | Date);
+  public value: (model: ICallbackModel) => string | number | boolean | Date;
   /**
    * Format value
    */
@@ -55,19 +68,23 @@ export class UIColumn {
   public template;
 
   /*** Start private props ***/
-  private resizeable: boolean = false;
-  private sortable: boolean = false;
+  public resizeable: boolean = false;
+  public sortable: boolean = false;
+  public noPadding: boolean = false;
+
+  protected startX;
+  protected isResizing;
 
   private owningView;
 
   /*** End private props ***/
-
 
   constructor(private element: Element) {
     this.template = element.querySelector("template");
 
     this.sortable = element.hasAttribute("sortable");
     this.resizeable = element.hasAttribute("resizeable");
+    this.noPadding = element.hasAttribute("no-padding");
   }
 
   public compileCell(el: Element, record: KeyValue): boolean {
@@ -75,7 +92,7 @@ export class UIColumn {
       el.innerHTML = "";
       const tpl = this.template
         ? this.template.outerHTML
-        : `<template><div innerhtml.bind="$value"></div></template>`;
+        : `<template><span innerhtml.bind="$value"></span></template>`;
       const model = {
         $record: record,
         $value: this.processValue(record)
@@ -96,15 +113,34 @@ export class UIColumn {
     if (!this.template && !this.label) {
       this.label = this.element.innerHTML || "";
     }
+    this.width = convertToPx(this.width) + "px";
   }
 
-  @computedFrom("width", "minWidth", "maxWidth")
-  get css() {
-    return {
-      width: this.width,
-      minWidth: this.minWidth,
-      maxWidth: this.maxWidth
-    };
+  protected onDrag = $event => this.resize($event);
+  protected onDragEnd = $event => this.stopResize($event);
+  protected startResize($event: MouseEvent) {
+    $event.stopEvent();
+
+    this.startX = $event.x || $event.clientX;
+    this.isResizing = true;
+
+    document.addEventListener("mousemove", this.onDrag);
+    document.addEventListener("mouseup", this.onDragEnd);
+  }
+  protected resize($event: MouseEvent) {
+    $event.stopEvent();
+    const x = $event.x || $event.clientX;
+    const diff = x - this.startX;
+
+    UIInternal.queueTask(() => (this.width = parseInt(this.width, 10) + diff + "px"));
+    this.startX = x;
+  }
+  protected stopResize($event: MouseEvent) {
+    $event.stopEvent();
+    this.isResizing = false;
+
+    document.removeEventListener("mousemove", this.onDrag);
+    document.removeEventListener("mouseup", this.onDragEnd);
   }
 
   private processValue(record: KeyValue) {
