@@ -21,11 +21,9 @@ import { IMenuItems } from "./ui-menus";
     disabled.bind="typeof item.disabled === 'function' ? item.disabled() : item.disabled"
     active.bind="typeof item.active === 'function' ? item.active() : item.active"
     hide.bind="typeof item.hidden === 'function' ? item.hidden() : item.hidden"
-    click.trigger="item.handler && item.handler()">
-      <ui-drop if.bind="item.items">
-        <ui-menu>
-          <menu-item repeat.for="innerItem of item.items" item.bind="innerItem"></menu-item>
-        </ui-menu>
+    click.trigger="onClick($event)">
+      <ui-drop view-model.ref="dropEl" if.bind="item.items">
+        <ui-menu if.bind="dropEl.isOpen" menu-items.bind="item.items" noitems-label.bind="noitemsLabel"></ui-menu>
       </ui-drop>
     </ui-menu-item>
   </template>
@@ -36,4 +34,21 @@ import { IMenuItems } from "./ui-menus";
 export class MenuItem {
   @bindable()
   protected item: IMenuItems;
+
+  @bindable()
+  protected noitemsLabel: string = "No Menu";
+
+  protected onClick($event) {
+    // @ts-ignore
+    if (this.item.items) {
+      $event.stopEvent();
+      return false;
+    }
+    // @ts-ignore
+    if (this.item.handler) {
+      // @ts-ignore
+      this.item.handler();
+    }
+    return true;
+  }
 }

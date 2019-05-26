@@ -85,19 +85,19 @@ export class UIMenuItem {
       $event.stopEvent();
 
       if (this.hasDrop && !this.split) {
-        this.toggleDrop();
-        return false;
+        return this.toggleDrop();
       }
       return this.element.dispatchEvent(UIInternal.createEvent("click", this.id));
     }
   }
 
-  private toggleDrop(): void {
+  private toggleDrop(): boolean {
     const beforeEvent = this.dropEl.isOpen ? "beforeopen" : "beforeclose";
     const afterEvent = this.dropEl.isOpen ? "close" : "open";
     if (this.element.dispatchEvent(UIInternal.createEvent(beforeEvent)) !== false) {
       this.dropEl.toggleDrop();
       this.element.dispatchEvent(UIInternal.createEvent(afterEvent));
     }
+    return false;
   }
 }

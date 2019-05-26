@@ -21,7 +21,9 @@
       <div class="ui-btn__icon" if.bind="icon && !busy">
         <ui-icon icon.bind="icon"></ui-icon>
       </div>
-      <div class="ui-btn__label"><slot>${label}</slot></div>
+      <div class="ui-btn__label">
+        <slot>${label}</slot>
+      </div>
       <div class="ui-btn__caret" if.bind="hasDrop && !split">
         <ui-svg-icon icon="caret"></ui-svg-icon>
       </div>
@@ -37,5 +39,9 @@
       </a>
     </template>
   </div>
-  <slot name="ui-drop"><ui-drop view-model.ref="dropEl" if.bind="menuItems"><ui-menu menu-items.bind="menuItems"></ui-menu></ui-drop></slot>
+  <slot name="ui-drop">
+    <ui-drop view-model.ref="dropEl" if.bind="menuItems">
+      <ui-menu if.bind="dropEl.isOpen" menu-items.bind="menuItems"></ui-menu>
+    </ui-drop>
+  </slot>
 </template>
