@@ -94,7 +94,7 @@ export namespace UITether {
     if (anchorY === "t") {
       y = anchorRect.top;
     } else if (anchorY === "b") {
-      y = anchorY.bottom;
+      y = anchorRect.bottom;
     } else if (anchorY === "c") {
       y = anchorRect.top + anchorRect.height / 2;
     }
@@ -190,7 +190,7 @@ export namespace UITether {
           DOM.removeNode(dropdownEl.parentElement);
         }
       },
-      updatePosition: (newAnchorEl?: Element, newConfig?) => {
+      updatePosition: (newAnchorEl?: Element, newConfig = {}) => {
         anchorEl = newAnchorEl || anchorEl;
         updatePosition(anchorEl, dropdownEl, scroller, { ...config, ...newConfig });
       }
