@@ -5,7 +5,7 @@
 
 .ui-alert {
   display: grid;
-  justify-content: flex-end;
+  justify-content: stretch;
 
   &__wrapper {
     align-items: center;
@@ -96,7 +96,8 @@
   }
 
   &.ui-toast {
-    min-width: 18rem;
+    max-width: 32rem;
+    min-width: 16rem;
     transform: translate(100%, 0);
     transition: transform 0.5s;
     transition-delay: 10ms;

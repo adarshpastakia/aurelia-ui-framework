@@ -10,6 +10,7 @@
   grid-template-rows: auto 1fr auto;
 
   $base: #{&};
+
   %grid-row {
     display: flex;
     flex-flow: row nowrap;
@@ -50,6 +51,10 @@
       &__counter {
         background-color: $datagrid-head-bg;
         color: $datagrid-head-color;
+      }
+
+      &__wrapper {
+        @include property-prefix(padding-end, 0);
       }
     }
   }
@@ -96,6 +101,11 @@
 
     &--filler {
       flex: 1 1 0;
+
+      #{$base}__cell {
+        border: 0;
+      }
+
       td > div {
         background-color: $base-bg;
       }
@@ -109,7 +119,7 @@
       z-index: 2;
 
       #{$base}__cell:last-child {
-        @include property-prefix(border-end, 1px solid $base-border-color);
+        @include property-prefix(border-end, 1px solid $base-shadow-color);
       }
 
       @at-root [dir="rtl"] & {
@@ -126,7 +136,7 @@
       z-index: 2;
 
       #{$base}__cell:first-child {
-        @include property-prefix(border-start, 1px solid $base-border-color);
+        @include property-prefix(border-start, 1px solid $base-shadow-color);
       }
 
       @at-root [dir="rtl"] & {
@@ -144,7 +154,7 @@
   }
 
   &__cell {
-    @include property-prefix(border-end, 1px dotted $base-shadow-color);
+    @include property-prefix(border-end, 1px dotted $base-border-color);
     display: grid;
     flex: 0 0 auto;
     grid-template-columns: 1fr auto auto;
@@ -183,9 +193,11 @@
         opacity: 0.25;
         width: 4px;
       }
+
       i:first-child {
         border-top: 0;
       }
+
       i:last-child {
         border-bottom: 0;
       }
@@ -204,6 +216,7 @@
     }
 
     &--filler {
+      border: 0;
       flex: 1 1 1rem;
     }
 
@@ -212,7 +225,7 @@
     }
 
     &[data-resizing="true"] {
-      @include property-prefix(border-end, 2px solid $base-shadow-color);
+      @include property-prefix(border-end, 2px solid $base-border-color);
     }
   }
 }
