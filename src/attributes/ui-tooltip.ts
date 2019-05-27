@@ -38,7 +38,7 @@ export class UITooltip {
    * `ui-tooltip.bind="{theme:''; value:''}`
    */
   @bindable()
-  public position: "left" | "right" | "top" | "bottom" = "bottom";
+  public position: "left" | "right" | "top" | "bottom" = "top";
 
   /*** Start private props ***/
   private id = `tooltip-${seed++}`;
@@ -94,9 +94,26 @@ export class UITooltip {
     TooltipEl.className = `ui-tooltip ui-theme--${this.theme}`;
     TooltipEl.innerHTML = this.value;
     TooltipEl.dataset.id = this.id;
+    TooltipEl.dataset.pos = this.position;
 
     /*** Update tooltip tether ***/
-    TooltipEl.tether.updatePosition(this.parentEl);
+    let anchorPosition: UITether.Position = "tc";
+    let position: UITether.Position = "bc";
+    switch (this.position) {
+      case "right":
+        anchorPosition = "cr";
+        position = "cl";
+        break;
+      case "left":
+        anchorPosition = "cl";
+        position = "cr";
+        break;
+      case "bottom":
+        anchorPosition = "bc";
+        position = "tc";
+        break;
+    }
+    TooltipEl.tether.updatePosition(this.parentEl, { position, anchorPosition });
 
     /*** Set display timeout ***/
     this.timer = setTimeout(() => (TooltipEl.dataset.open = "true"), 500);
