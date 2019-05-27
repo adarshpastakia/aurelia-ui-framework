@@ -10,17 +10,21 @@ import { getLogger } from "aurelia-logging";
 import { UIAppConfig } from "./ui-app-config";
 
 export namespace UITether {
-  export type Position = "tl" | "tr" | "bl" | "br" | "tc" | "bc";
+  export type Position = "tl" | "tr" | "bl" | "br" | "tc" | "bc" | "cl" | "cr";
+
   export interface Tether {
     dispose(): void;
-    updatePosition(newAnchor?: Element): void;
+
+    updatePosition(newAnchor?: Element, newConfig?: TetherConfig): void;
   }
+
   export interface TetherConfig {
     resize?: boolean;
     attachToViewport?: boolean;
     position?: Position;
     anchorPosition?: Position;
   }
+
   export function tether(
     anchorEl: Element,
     dropdownEl: HTMLDivElement,
@@ -90,7 +94,9 @@ export namespace UITether {
     if (anchorY === "t") {
       y = anchorRect.top;
     } else if (anchorY === "b") {
-      y = anchorRect.bottom;
+      y = anchorY.bottom;
+    } else if (anchorY === "c") {
+      y = anchorRect.top + anchorRect.height / 2;
     }
 
     if (posX === (isRtl ? "l" : "r")) {
@@ -101,6 +107,9 @@ export namespace UITether {
     }
     if (posY === "b") {
       y -= dropdownRect.height;
+    }
+    if (posY === "c") {
+      y -= dropdownRect.height / 2;
     }
 
     // TODO: Test it, i have no idea wtf i wrote
@@ -181,9 +190,9 @@ export namespace UITether {
           DOM.removeNode(dropdownEl.parentElement);
         }
       },
-      updatePosition: (newAnchorEl?: Element) => {
+      updatePosition: (newAnchorEl?: Element, newConfig?) => {
         anchorEl = newAnchorEl || anchorEl;
-        updatePosition(anchorEl, dropdownEl, scroller, config);
+        updatePosition(anchorEl, dropdownEl, scroller, { ...config, ...newConfig });
       }
     };
   }

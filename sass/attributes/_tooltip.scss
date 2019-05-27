@@ -27,9 +27,21 @@
     content: "";
     display: block;
     height: 1em;
-    margin: 0 auto;
+    margin: auto;
     width: 1em;
     @include position(absolute, null 0);
+  }
+
+  &[data-pos="right"] {
+    margin-left: 1em;
+
+    &::after {
+      @include position(absolute, 0 null 0 0);
+      border-right-color: currentColor;
+      border-top-color: transparent;
+      border-width: 1em 1em 1em 0;
+      margin-left: -0.5em;
+    }
   }
 
   &[data-open="true"] {

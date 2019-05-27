@@ -101,6 +101,7 @@ export class UIColumn {
 
       const view = UIInternal.compileTemplate(tpl, model, this.owningView.bindingContext);
       view.appendNodesTo(el);
+      view.attached();
     }
     return true;
   }
