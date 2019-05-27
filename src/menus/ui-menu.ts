@@ -14,10 +14,10 @@ import { IMenuItems } from "./ui-menus";
 @viewResources(MenuItem)
 @inlineView(`<template class="ui-menu"><slot>
   <div if.bind="isLoading" ui-padding="xs" ui-align="center"><ui-svg-icon icon="busy" class="ui-anim--spin"></ui-svg-icon></div>
-  <template if.bind="!isLoading && items.length">
+  <template if.bind="!isLoading && items && items.length">
     <menu-item repeat.for="item of items" item.bind="item" noitems-label.bind="noitemsLabel"></menu-item>
   </template>
-  <template if.bind="!isLoading && items.length===0">
+  <template if.bind="!isLoading && items && items.length===0">
     <div ui-padding="xs" ui-color="muted" ui-font="sm" innerhtml.bind="noitemsLabel"></div>
   </template>
 </slot></template>`)
@@ -28,7 +28,7 @@ export class UIMenu {
   @bindable()
   public noitemsLabel: string = "No Menu";
 
-  protected items = [];
+  protected items;
   protected isLoading = false;
 
   constructor(protected element: Element) {
@@ -63,7 +63,7 @@ export class UIMenu {
     } else if (isArray(this.menuItems)) {
       this.items = this.menuItems;
     } else {
-      this.items = [];
+      this.items = undefined;
     }
   }
 }
