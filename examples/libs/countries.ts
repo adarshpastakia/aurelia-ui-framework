@@ -10,6 +10,6 @@ export class CountriesPage {
   protected countries = new Map();
 
   protected attached() {
-    this.countries = Countries.list.sortBy(["continent", "name"]).groupBy("continent");
+    this.countries = [...Countries.list].sortBy(["continent", "name"]).groupBy("continent");
   }
 }
