@@ -5,58 +5,44 @@
         <p class="x-page-title">Card like data list with filtering and lazy loading</p>
 
         <div class="x-section-title">Examples</div>
-        <div
-          class="x-example-block"
-          with.bind="{type:'normal',theme:'default', busy:false, disabled:false}"
-        >
-          <div class="x-example-display" css.bind="{height: '400px'}" ui-scroll>
-            <div class="ui-datalist">
-              <div class="ui-datalist__wrapper" with.bind="{isOpen:{}}">
-                <a repeat.for="i of 9">
-                  <div class="ui-datalist__item" data-open.bind="isOpen[i]">
-                    <div class="ui-datalist__item__head">
-                      <div
-                        class="ui-datalist__avatar ${i % 3 ? '' : 'ui-datalist__avatar--round'}"
-                        ui-bg="${i % 2 ? 'violet' : 'indigo'}"
-                        ui-color="white"
-                      >
-                        <ui-icon icon="mdi mdi-music"></ui-icon>
-                      </div>
-                      <div class="ui-datalist__titlebar">
-                        <div class="ui-datalist__title">Track Title</div>
-                        <div class="ui-datalist__meta">Track Album</div>
-                        <div class="ui-datalist__meta">Track Artist</div>
-                      </div>
-                      <div class="ui-datalist__data">
-                        <data label="My Label">My Value</data>
-                        <data label="Duration">3:15</data>
-                        <data label="Genre">Psychedelic Rock</data>
-                        <data label="Year">1972</data>
-                      </div>
-                      <div class="ui-datalist__toolbox">
-                        <ui-button-group type="tool">
-                          <ui-button ui-theme="success" icon="mdi mdi-play"></ui-button>
-                          <ui-button ui-theme="info" icon="mdi mdi-pause"></ui-button>
-                        </ui-button-group>
-                        <ui-button-group vertical>
-                          <ui-button type="tool" menu-items.bind="actions" no-caret>
-                            <ui-svg-icon icon="overflow"></ui-svg-icon>
-                          </ui-button>
-                          <ui-button type="tool" click.trigger="isOpen[i] = !isOpen[i]">
-                            <ui-svg-icon icon="caret"></ui-svg-icon>
-                          </ui-button>
-                        </ui-button-group>
-                      </div>
-                    </div>
-                    <div class="ui-datalist__item__body">
+        <div class="x-example-block">
+          <div class="x-example-display">
+            <ui-page css.bind="{height: '600px'}">
+
+              <ui-data-list data-source.bind="ds" vertical>
+
+                <template>
+                  <ui-data-card actions.bind="actions" click.trigger="notif($record)">
+                    <ui-avatar ui-bg="gray-dark" ui-color="white" icon="mdi mdi-music" round>
+                      <img
+                        src="https://upload.wikimedia.org/wikipedia/en/thumb/3/3b/Dark_Side_of_the_Moon.png/220px-Dark_Side_of_the_Moon.png"/>
+                    </ui-avatar>
+                    <ui-card-title>${$record.title}</ui-card-title>
+                    <ui-card-meta>
+                      <span>${$record.album}</span>
+                      <span ui-font="md">${$record.artist}</span>
+                    </ui-card-meta>
+                    <ui-data-table>
+                      <data label="Duration">${$record.duration}</data>
+                      <data label="Year">${$record.year}</data>
+                      <data label="Genre">${$record.genre}</data>
+                    </ui-data-table>
+                    <ui-button-group type="tool" slot="card-actions">
+                      <ui-button ui-theme="success" icon="mdi mdi-play"></ui-button>
+                      <ui-button ui-theme="info" icon="mdi mdi-pause"></ui-button>
+                    </ui-button-group>
+                    <ui-card-content>
                       <ui-content ui-padding>
                         <lipsum-para></lipsum-para>
                       </ui-content>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </div>
+                    </ui-card-content>
+                  </ui-data-card>
+
+                </template>
+
+              </ui-data-list>
+
+            </ui-page>
           </div>
 
           <!-- <div class="x-example-options">
