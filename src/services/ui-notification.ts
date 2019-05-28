@@ -38,7 +38,8 @@ export class UINotificationService {
     private container: Container,
     private compiler: ViewCompiler,
     private templatingEngine: TemplatingEngine
-  ) {}
+  ) {
+  }
 
   public alert(
     message: string | UIAlertConfig,
@@ -127,7 +128,7 @@ export class UINotificationService {
 
       UIInternal.queueTask(() => {
         const el = (view as View & { firstChild: HTMLElement }).firstChild;
-        el.dataset.open = "true";
+        setTimeout(() => el.dataset.open = "true", 50);
         this.templatingEngine.enhance({
           element: el.querySelector(".ui-alert__body > div")
         });

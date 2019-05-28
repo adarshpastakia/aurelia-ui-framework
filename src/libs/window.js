@@ -75,9 +75,29 @@ globalObject.isRtl = function(el) {
   return false;
 };
 
-globalObject.hasParent = function(el, parent) {
+const isLastElement = (el, last) => {
+  if (last && last instanceof Element && el === last) return true;
+  else if (
+    last &&
+    typeof last === "string" &&
+    (el.classList.contains(last) || el.tagName.toLowerCase() === last.toLowerCase())
+  )
+    return true;
+  else
+    return false;
+};
+
+globalObject.hasParent = function(el, parent, last) {
   do {
-    if (el === parent) return true;
+    if (parent && parent instanceof Element && el === parent) return true;
+    if (
+      parent &&
+      typeof parent === "string" &&
+      (el.classList.contains(parent) || el.tagName.toLowerCase() === parent.toLowerCase())
+    )
+      return true;
+    if (isLastElement(el, last))
+      return false;
     el = el.parentElement;
   } while (el !== null);
   return false;
@@ -85,12 +105,7 @@ globalObject.hasParent = function(el, parent) {
 
 globalObject.getParentByTag = function(el, selector, last) {
   do {
-    if (last && last instanceof Element && el === last) return null;
-    if (
-      last &&
-      typeof last === "string" &&
-      (el.classList.contains(last) || el.tagName.toLowerCase() === last.toLowerCase())
-    )
+    if (isLastElement(el, last))
       return null;
     if (el.tagName.toLowerCase() === selector.toLowerCase()) return el;
     el = el.parentElement;
@@ -100,12 +115,7 @@ globalObject.getParentByTag = function(el, selector, last) {
 
 globalObject.getParentByClass = function(el, selector, last) {
   do {
-    if (last && last instanceof Element && el === last) return null;
-    if (
-      last &&
-      typeof last === "string" &&
-      (el.classList.contains(last) || el.tagName.toLowerCase() === last.toLowerCase())
-    )
+    if (isLastElement(el, last))
       return null;
     if (el.classList.contains(selector)) return el;
     el = el.parentElement;

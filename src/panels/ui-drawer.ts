@@ -36,7 +36,7 @@ export class UIDrawer {
       element.hasAttribute("close-on-click") && !isFalse(element.getAttribute("close-on-click"));
 
     this.obClick = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_CLICK, target =>
-      !this.closeOnClick && getParentByClass(target, "ui-drawer__body")
+      !this.closeOnClick && hasParent(target, "ui-drawer__body", "ui-drawer")
         ? undefined
         : ((element as HTMLElement).dataset.peek = "false")
     );
