@@ -19,10 +19,6 @@
         pointer-events: none;
       }
     }
-
-    &:not(:first-child) {
-      margin-left: -1px;
-    }
   }
 
   #{$base}__inner {
@@ -36,6 +32,10 @@
 
   &:not(&--vertical) {
     grid-auto-flow: column;
+
+    #{$base}__wrapper:not(:first-child) {
+      margin-left: -1px;
+    }
 
     #{$base}__wrapper:not(:first-child) #{$base}__inner {
       border-bottom-left-radius: 0;
@@ -53,6 +53,7 @@
           @include property-prefix(padding-start, 0.5em);
         }
       }
+
       #{$base}__wrapper:not(:last-child) {
         #{$base}__inner #{$base} {
           @include property-prefix(padding-end, 0.5em);

@@ -1,51 +1,62 @@
 <template>
-  <style>
-    .grid-expand {
-      bottom: 1em;
-      box-shadow: 0 0 10em #000000;
-      left: 1em;
-      position: fixed;
-      right: 1em;
-      top: 1em;
-      z-index: 500;
-    }
-  </style>
-  <ui-page page-title="Gridder Test" ui-margin="xs">
-    <!--    <ui-gridder>-->
-    <!--      <template repeat.for="cell of colDefs | orderBy:'order'">-->
-    <!--        <ui-gridder-cell-->
-    <!--          config.one-time="cell"-->
-    <!--          label.one-time="$index ? 'Panel':''"-->
-    <!--          auto-hide-header-->
-    <!--          ui-theme="dark"-->
-    <!--          pinned.one-time="!!cell.pinned"-->
-    <!--          moveable.one-time="!!cell.moveable"-->
-    <!--          pinnable.one-time="!!cell.pinnable"-->
-    <!--          closeable.one-time="!!cell.closeable"-->
-    <!--          expandable.one-time="!!cell.expandable"-->
-    <!--          resizeable.one-time="!!cell.resizeable"-->
-    <!--        >-->
-    <!--          <compose view.one-time="cell.view"></compose>-->
-    <!--        </ui-gridder-cell>-->
-    <!--      </template>-->
-    <!--    </ui-gridder>-->
+  <ui-page page-title="Tester" ui-margin="xs">
+    <ui-data-list data-source.bind="ds" vertical>
 
-    <ui-datagrid data-source.bind="countries" ui-scroll>
-      <ui-column data-id="continent" resizeable sortable>Continent</ui-column>
-      <ui-column data-id="name" resizeable sortable>Name</ui-column>
-      <ui-column data-id="fullname" resizeable>Fullname</ui-column>
-      <ui-column data-id="iso2" locked="start">
-        <template>
-          <ui-flag code="${$value}"></ui-flag>
-          <span click.trigger="notif($record)" ui-link ui-tooltip="value.bind:$record.fullname + ' Info'; position.bind:'right'">${$record.name}</span>
-        </template>
-      </ui-column>
-      <ui-column locked="end" width="80px" no-padding align="center">
-        <template>
-          <ui-button type="outline" ui-theme="info" icon="mdi mdi-information" size="sm"
-                     click.trigger="notif($record)" ui-tooltip="Country Info"></ui-button>
-        </template>
-      </ui-column>
-    </ui-datagrid>
+      <template>
+        <ui-data-card actions.bind="[{ label: 'Menu Item', icon: 'mdi mdi-music' }]">
+          <ui-avatar ui-bg="gray-dark" ui-color="white" icon="mdi mdi-music" round>
+            <img
+                 src="https://upload.wikimedia.org/wikipedia/en/thumb/3/3b/Dark_Side_of_the_Moon.png/220px-Dark_Side_of_the_Moon.png"/>
+          </ui-avatar>
+          <ui-card-title>${$record.title}</ui-card-title>
+          <ui-card-meta>
+            <span>${$record.album}</span>
+            <span>${$record.artist}</span>
+          </ui-card-meta>
+          <ui-data-table>
+            <data label="Duration">${$record.duration}</data>
+            <data label="Year">${$record.year}</data>
+            <data label="Genre">${$record.genre}</data>
+          </ui-data-table>
+          <ui-button-group type="tool" slot="card-actions">
+            <ui-button ui-theme="success" icon="mdi mdi-play"></ui-button>
+            <ui-button ui-theme="info" icon="mdi mdi-pause"></ui-button>
+          </ui-button-group>
+          <ui-card-content>
+            <ui-content ui-padding>
+              <lipsum-para></lipsum-para>
+            </ui-content>
+          </ui-card-content>
+        </ui-data-card>
+
+        <ui-card>
+          <ui-card-media>
+            <img height="300"
+              src="https://upload.wikimedia.org/wikipedia/en/thumb/3/3b/Dark_Side_of_the_Moon.png/220px-Dark_Side_of_the_Moon.png"/>
+            <ui-card-title>${$record.title}</ui-card-title>
+          </ui-card-media>
+          <ui-card-title>${$record.album}</ui-card-title>
+          <ui-card-meta>
+            <span>${$record.artist}</span>
+            <span>${$record.duration}</span>
+          </ui-card-meta>
+          <ui-card-meta>
+            <span>${$record.genre}</span>
+            <span>${$record.year}</span>
+          </ui-card-meta>
+          <ui-footer ui-font="md">
+            <ui-toolbar>
+              <ui-filler></ui-filler>
+              <ui-button-group type="tool">
+                <ui-button ui-theme="success" icon="mdi mdi-play"></ui-button>
+                <ui-button ui-theme="info" icon="mdi mdi-pause"></ui-button>
+              </ui-button-group>
+            </ui-toolbar>
+          </ui-footer>
+        </ui-card>
+
+      </template>
+
+    </ui-data-list>
   </ui-page>
 </template>
