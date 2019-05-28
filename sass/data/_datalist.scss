@@ -148,6 +148,7 @@
   &__toolbox {
     grid-area: toolbox;
     padding: 0.5em;
+    pointer-events: none;
 
     .ui-btn__group {
       box-shadow: 0 0 1px 0 $base-shadow-color;

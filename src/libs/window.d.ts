@@ -39,17 +39,21 @@ function isFunction(arg: any): arg is Function;
 
 function isRtl(el: Element | HTMLElement): boolean;
 
-function hasParent(element: Element | HTMLElement, parent: Element | HTMLElement): boolean;
+function hasParent(
+  element: Element | HTMLElement,
+  parent: string | Element | HTMLElement,
+  lastElement?: string | Element | HTMLElement
+): boolean;
 function getParentByTag(
   element: Element | HTMLElement,
   selector: string,
-  lastElement?: any
-): Element;
+  lastElement?: string | Element | HTMLElement
+): HTMLElement | undefined;
 function getParentByClass(
   element: Element | HTMLElement,
   selector: string,
-  lastElement?: any
-): Element;
+  lastElement?: string | Element | HTMLElement
+): HTMLElement | undefined;
 
 function convertToPx(size, context?): number;
 

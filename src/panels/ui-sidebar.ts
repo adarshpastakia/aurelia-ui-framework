@@ -55,7 +55,7 @@ export class UISidebar {
       element.hasAttribute("close-on-click") && !isFalse(element.getAttribute("close-on-click"));
 
     this.obClick = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_CLICK, target =>
-      !this.peek || (!this.closeOnClick && getParentByClass(target, "ui-sidebar__body"))
+      !this.peek || (!this.closeOnClick && hasParent(target, "ui-sidebar__body", "ui-sidebar"))
         ? undefined
         : UIInternal.queueTask(() => (this.peek = false))
     );
@@ -106,6 +106,7 @@ export class UISidebar {
     document.removeEventListener("mousemove", this.doResize);
     document.removeEventListener("mouseup", this.endResize);
   }
+
   private doResize = e => this.resize(e);
   private endResize = () => this.stopResize();
 }

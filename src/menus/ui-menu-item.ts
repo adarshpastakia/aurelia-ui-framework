@@ -47,8 +47,8 @@ export class UIMenuItem {
   protected attached() {
     UIInternal.queueTask(() => {
       this.hasDrop = !!this.elDropdown;
-      this.isInMenubar = !!getParentByClass(this.element, "ui-menu__bar");
-      const isInDropdown = !!getParentByClass(this.element, "ui-drop__body");
+      this.isInMenubar = hasParent(this.element, "ui-menu__bar");
+      const isInDropdown = hasParent(this.element, "ui-drop__body");
       if (this.hasDrop) {
         this.dropEl = getSlotViewModel(this.elDropdown) as UIDrop;
         if (isInDropdown || !this.isInMenubar) {

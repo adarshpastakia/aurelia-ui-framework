@@ -25,7 +25,7 @@ export namespace GridderUtils {
   let rowSpan;
 
   export function startMove($event: DragEvent) {
-    dragEl = getParentByTag($event.target, "ui-gridder-cell") as HTMLElement;
+    dragEl = getParentByTag($event.target, "ui-gridder-cell");
     dragEl.setAttribute("draggable", "true");
     if ($event.dataTransfer) {
       $event.dataTransfer.setData("text/plain", "drag");
@@ -38,7 +38,7 @@ export namespace GridderUtils {
     return true;
   }
   export function move($event: DragEvent) {
-    const current = getParentByTag($event.target, "ui-gridder-cell") as HTMLElement;
+    const current = getParentByTag($event.target, "ui-gridder-cell");
     current.setAttribute("draggable", "false");
     if (isTrue(current.dataset.allowDrop)) {
       $event.preventDefault();
