@@ -1,62 +1,7 @@
 <template>
   <ui-page page-title="Tester" ui-margin="xs">
-    <ui-data-list data-source.bind="ds" >
-
-      <template>
-        <ui-data-card actions.bind="[{ label: 'Menu Item', icon: 'mdi mdi-music' }]">
-          <ui-avatar ui-bg="gray-dark" ui-color="white" icon="mdi mdi-music" round>
-            <img
-                 src="https://upload.wikimedia.org/wikipedia/en/thumb/3/3b/Dark_Side_of_the_Moon.png/220px-Dark_Side_of_the_Moon.png"/>
-          </ui-avatar>
-          <ui-card-title>${$record.title}</ui-card-title>
-          <ui-card-meta>
-            <span>${$record.album}</span>
-            <span ui-font="md">${$record.artist}</span>
-          </ui-card-meta>
-          <ui-data-table>
-            <data label="Duration">${$record.duration}</data>
-            <data label="Year">${$record.year}</data>
-            <data label="Genre">${$record.genre}</data>
-          </ui-data-table>
-          <ui-button-group type="tool" slot="card-actions">
-            <ui-button ui-theme="success" icon="mdi mdi-play"></ui-button>
-            <ui-button ui-theme="info" icon="mdi mdi-pause"></ui-button>
-          </ui-button-group>
-          <ui-card-content>
-            <ui-content ui-padding>
-              <lipsum-para></lipsum-para>
-            </ui-content>
-          </ui-card-content>
-        </ui-data-card>
-
-        <!--<ui-card>-->
-          <!--<ui-card-media>-->
-            <!--<img height="300" width="300"-->
-              <!--src="https://upload.wikimedia.org/wikipedia/en/thumb/3/3b/Dark_Side_of_the_Moon.png/220px-Dark_Side_of_the_Moon.png"/>-->
-            <!--<ui-card-title>${$record.title}</ui-card-title>-->
-          <!--</ui-card-media>-->
-          <!--<ui-card-title>${$record.album}</ui-card-title>-->
-          <!--<ui-card-meta>-->
-            <!--<span>${$record.artist}</span>-->
-            <!--<span>${$record.duration}</span>-->
-          <!--</ui-card-meta>-->
-          <!--<ui-card-meta>-->
-            <!--<span>${$record.genre}</span>-->
-            <!--<span>${$record.year}</span>-->
-          <!--</ui-card-meta>-->
-          <!--<ui-footer ui-font="md">-->
-            <!--<ui-toolbar>-->
-              <!--<ui-filler></ui-filler>-->
-              <!--<ui-button-group type="tool" size="sm">-->
-                <!--<ui-button ui-theme="success" icon="mdi mdi-play"></ui-button>-->
-                <!--<ui-button ui-theme="info" icon="mdi mdi-pause"></ui-button>-->
-              <!--</ui-button-group>-->
-            <!--</ui-toolbar>-->
-          <!--</ui-footer>-->
-        <!--</ui-card>-->
-
-      </template>
-
-    </ui-data-list>
+    <ui-content>
+      <h1 ui-align="center" ui-font="d1" ui-color="muted">Testing page</h1>
+    </ui-content>
   </ui-page>
 </template>
