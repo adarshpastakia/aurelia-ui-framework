@@ -38,7 +38,7 @@ export class UIButton {
    * Button type
    */
   @bindable()
-  public type: "default" | "solid" | "link" = "default";
+  public type: "default" | "outline" | "solid" | "tool" = "default";
   /**
    * Button id
    */

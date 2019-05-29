@@ -19,7 +19,7 @@ import { UIInternal } from "../../utils/ui-internal";
     <ui-button-group vertical if.bind="actions">
       <ui-button type="tool" no-caret>
         <ui-svg-icon icon="overflow"></ui-svg-icon>
-        <ui-drop close-on-click="false" anchor="br" position="tr">
+        <ui-drop anchor="br" position="tr">
           <ui-menu menu-items.bind="actions"></ui-menu>
         </ui-drop>
       </ui-button>
