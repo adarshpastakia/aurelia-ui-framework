@@ -186,6 +186,47 @@
             >
               With Icon Hilight
             </ui-button>
+
+            <hr/>
+            <h5>Button Groups</h5>
+            <ui-button-group
+              disabled.bind="disabled"
+              type.bind="type"
+              ui-theme.bind="theme">
+              <ui-button>One</ui-button>
+              <ui-button>Two</ui-button>
+              <ui-button>Three</ui-button>
+            </ui-button-group>
+
+            <ui-button-group
+              vertical
+              disabled.bind="disabled"
+              type.bind="type"
+              ui-theme.bind="theme">
+              <ui-button>One</ui-button>
+              <ui-button>Two</ui-button>
+              <ui-button>Three</ui-button>
+            </ui-button-group>
+
+            <ui-button-group
+              toggle
+              value="2"
+              disabled.bind="disabled"
+              type.bind="type"
+              ui-theme.bind="theme">
+              <ui-button id="1">One</ui-button>
+              <ui-button id="2">Two</ui-button>
+              <ui-button id="3">Three</ui-button>
+            </ui-button-group>
+
+
+            <ui-button-group
+              separator="or"
+              disabled.bind="disabled">
+              <ui-button ui-theme="success" type="solid">One</ui-button>
+              <ui-button ui-theme="warning" type="solid">Two</ui-button>
+              <ui-button ui-theme="danger" type="solid">Three</ui-button>
+            </ui-button-group>
           </div>
 
           <div class="x-example-options">
