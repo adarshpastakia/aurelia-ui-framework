@@ -81,7 +81,7 @@
     }
 
     @at-root #{$base}__group,
-      & {
+    & {
       &[data-disabled="true"] {
         background-color: rgba(0, 0, 0, 0.05);
 
@@ -112,63 +112,69 @@
       &[data-size="lg"] #{$base}__inner {
         font-size: map-get($font-sizes, lg);
       }
-    }
 
-    &[data-type="outline"] {
-      #{$base} {
-        &__inner {
-          box-shadow: 0 0 0 1px rgba($btn-color, 0.75), 0 1px 1px rgba($btn-color, 0.25);
+      &[data-type="outline"] {
+        #{$base} {
+          &__inner {
+            box-shadow: 0 0 0 1px rgba($btn-color, 0.75), 0 1px 1px rgba($btn-color, 0.25);
+          }
         }
       }
-    }
 
-    &[data-type="solid"] {
-      --btn-ripple: #{$white};
-      #{$base} {
-        &:hover {
-          background-color: mix($btn-color, $white, 85%);
+      &[data-type="solid"] {
+        --btn-ripple: #{$white};
+
+        #{$base} {
+          &:hover {
+            background-color: mix($btn-color, $white, 85%);
+          }
+
+          &[data-active="true"],
+          &[data-open="true"],
+          &:active {
+            background-color: mix($btn-color, $black, 85%);
+          }
+
+          &__inner {
+            background-color: $btn-color;
+            color: $btn-bg;
+          }
         }
 
-        &[data-active="true"],
-        &[data-open="true"],
-        &:active {
-          background-color: mix($btn-color, $black, 85%);
+        &#{$base}__icon--hilight #{$base}__icon {
+          background-color: mix($btn-color, $black, 30%);
+          color: $white;
         }
-        &__inner {
-          background-color: $btn-color;
-          color: $btn-bg;
+
+        #{$base}__divider {
+          background-color: rgba($white, 0.2);
         }
       }
-      &#{$base}__icon--hilight #{$base}__icon {
-        background-color: mix($btn-color, $black, 30%);
-        color: $white;
-      }
 
-      #{$base}__divider {
-        background-color: rgba($white, 0.2);
-      }
-    }
+      &[data-type="tool"] {
+        box-shadow: none;
 
-    &[data-type="tool"] {
-      #{$base}__inner {
-        background-color: transparent;
-        border-color: transparent;
-        box-shadow: 0 0 0 1px rgba($base-invert, 0.025);
-      }
+        #{$base}__inner {
+          background-color: transparent;
+          border-color: transparent;
+          box-shadow: 0 0 0 1px rgba($base-invert, 0.025);
+        }
 
-      #{$base}::before {
-        background-image: none;
-      }
+        #{$base}::before {
+          background-image: none;
+        }
 
-      #{$base}:hover {
-        background-color: rgba(mix($gray, $base-theme, 30%), 0.25);
-      }
+        #{$base}:hover {
+          background-color: rgba(mix($gray, $base-theme, 30%), 0.25);
+        }
 
-      &.ui-theme--inverse #{$base}__inner {
-        color: $gray-light;
+        &.ui-theme--inverse #{$base}__inner {
+          color: $gray-light;
+        }
       }
     }
   }
+
 
   &__icon {
     grid-area: icon;
@@ -182,7 +188,6 @@
 
   .ui-svg-icon {
     font-size: 1.5em;
-    margin: 0.15em;
   }
 
   &__label {
@@ -237,15 +242,18 @@
       }
     }
   }
+
   &__icon--hilight & {
     &__icon {
       background-color: $btn-color;
       color: $btn-bg;
     }
+
     &__label {
       padding: 0 0.5em;
     }
   }
+
   &__icon--top & {
     grid-template-areas: "icon icon caret" "label badge caret";
 
@@ -298,6 +306,7 @@
         background-color: transparent;
         color: $white;
       }
+
       &:hover {
         background-color: rgba($black, 0.85);
       }
@@ -305,11 +314,14 @@
   }
 
   @mixin make-button($theme, $theme-color) {
+    &__group.ui-theme--#{$theme},
     &__wrapper.ui-theme--#{$theme} {
       --btn-ripple: #{mix($theme-color, $white, 75%)};
+
       #{$base}__inner {
         color: $theme-color;
       }
+
       &[data-type="outline"] {
         #{$base}__inner {
           box-shadow: 0 0 0 1px rgba($theme-color, 0.75), 0 1px 1px rgba($theme-color, 0.5);
@@ -318,6 +330,7 @@
 
       &[data-type="solid"] {
         --btn-ripple: #{mix($theme-color, $white, 25%)};
+
         #{$base} {
           &:hover {
             background-color: mix($theme-color, $white, 85%);
@@ -328,11 +341,13 @@
           &:active {
             background-color: mix($theme-color, $black, 85%);
           }
+
           &__inner {
             background-color: $theme-color;
             color: $white;
           }
         }
+
         &#{$base}__icon--hilight #{$base}__icon {
           background-color: mix($theme-color, $black, 50%);
           color: $white;
