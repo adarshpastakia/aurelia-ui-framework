@@ -1,185 +1,187 @@
 <template>
   <ui-page page-title="Responsive Grid">
     <ui-content ui-padding ui-scroll>
-      <p class="x-page-title">12 column responsive flexbox layout</p>
+      <ui-container>
+        <p class="x-page-title">12 column responsive flexbox layout</p>
 
-      <div class="x-section-title">Basic Flexbox Layout</div>
-      <ui-container ui-border>
-        <ui-row>
-          <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
-          <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
-          <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
-          <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
-          <ui-col size="3" ui-bg="base">
+        <div class="x-section-title">Basic Flexbox Layout</div>
+        <ui-container ui-border>
+          <ui-row>
+            <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
+            <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
+            <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
+            <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
+            <ui-col size="3" ui-bg="base">
+              <ui-row>
+                <ui-col size="12" ui-bg="gray">&nbsp;</ui-col>
+                <ui-col size="12" ui-bg="gray">&nbsp;</ui-col>
+              </ui-row>
+            </ui-col>
+            <ui-col size="6" ui-bg="gray-light">
+              <ui-row>
+                <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
+                <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
+                <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
+                <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
+              </ui-row>
+            </ui-col>
+            <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
+          </ui-row>
+          <ui-row>
+            <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
+            <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
+            <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
+            <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
+          </ui-row>
+        </ui-container>
+
+        <div class="x-section-title">Responsive columns</div>
+        <ui-container ui-border>
+          <ui-row>
+            <ui-col
+              size="1@xxl 2@xl 3@lg 4@md 6@sm"
+              ui-bg="gray"
+              ui-color="white"
+              ui-weight="medium"
+              ui-padding="sm"
+            >
+              <div ui-hide="down@xxl">1@xxl</div>
+              <div ui-hide="down@xl up@xxl">2@xl</div>
+              <div ui-hide="down@lg up@xl">3@lg</div>
+              <div ui-hide="down@md up@lg">4@md</div>
+              <div ui-hide="down@sm up@md">6@sm</div>
+            </ui-col>
+            <ui-col size="1@xxl 2@xl 3@lg 4@md 6@sm" ui-bg="gray">&nbsp;</ui-col>
+            <ui-col size="1@xxl 2@xl 3@lg 4@md 6@sm" ui-bg="gray">&nbsp;</ui-col>
+            <ui-col size="1@xxl 2@xl 3@lg 4@md 6@sm" ui-bg="gray">&nbsp;</ui-col>
+            <ui-col size="1@xxl 2@xl 3@lg 4@md 6@sm" ui-bg="gray">&nbsp;</ui-col>
+            <ui-col size="1@xxl 2@xl 3@lg 4@md 6@sm" ui-bg="gray">&nbsp;</ui-col>
+            <ui-col size="1@xxl 2@xl 3@lg 4@md 6@sm" ui-bg="gray">&nbsp;</ui-col>
+            <ui-col size="1@xxl 2@xl 3@lg 4@md 6@sm" ui-bg="gray">&nbsp;</ui-col>
+            <ui-col size="1@xxl 2@xl 3@lg 4@md 6@sm" ui-bg="gray">&nbsp;</ui-col>
+            <ui-col size="1@xxl 2@xl 3@lg 4@md 6@sm" ui-bg="gray">&nbsp;</ui-col>
+            <ui-col size="1@xxl 2@xl 3@lg 4@md 6@sm" ui-bg="gray">&nbsp;</ui-col>
+            <ui-col size="1@xxl 2@xl 3@lg 4@md 6@sm" ui-bg="gray">&nbsp;</ui-col>
+          </ui-row>
+        </ui-container>
+
+        <div class="x-section-title">Row Alignment</div>
+        <ui-container ui-border ui-padding>
+          <ui-row halign="start">
+            <ui-col ui-color="muted">Start</ui-col>
+            <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
+            <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
+          </ui-row>
+          <ui-row halign="center">
+            <ui-col ui-color="muted" ui-border="t">Center</ui-col>
+            <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
+            <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
+          </ui-row>
+          <ui-row halign="end">
+            <ui-col ui-color="muted" ui-border="t">End</ui-col>
+            <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
+            <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
+          </ui-row>
+          <ui-row halign="spaced">
+            <ui-col ui-color="muted" ui-border="t">Spaced Between</ui-col>
+            <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
+            <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
+          </ui-row>
+          <ui-row halign="even">
+            <ui-col ui-color="muted" ui-border="t">Spaced Even</ui-col>
+            <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
+            <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
+          </ui-row>
+          <ui-row valign="top">
+            <ui-col ui-color="muted" ui-border="t">Top</ui-col>
+            <ui-col size="3" ui-bg="gray" style="height: 4em">&nbsp;</ui-col>
+            <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
+          </ui-row>
+          <ui-row valign="middle">
+            <ui-col ui-color="muted" ui-border="t">Middle</ui-col>
+            <ui-col size="3" ui-bg="gray" style="height: 4em">&nbsp;</ui-col>
+            <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
+          </ui-row>
+          <ui-row valign="bottom">
+            <ui-col ui-color="muted" ui-border="t">Bottom</ui-col>
+            <ui-col size="3" ui-bg="gray" style="height: 4em">&nbsp;</ui-col>
+            <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
+          </ui-row>
+          <ui-row>
+            <ui-col ui-color="muted" ui-border="t">Stretch</ui-col>
+            <ui-col size="3" ui-bg="gray" style="height: 4em">&nbsp;</ui-col>
+            <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
+          </ui-row>
+          <ui-row>
+            <ui-col ui-color="muted" ui-border="t">Self Align</ui-col>
+            <ui-col size="3" ui-bg="gray" style="height: 4em">&nbsp;</ui-col>
+            <ui-col size="2" align="top" ui-bg="gray">&nbsp;</ui-col>
+            <ui-col size="2" align="middle" ui-bg="gray">&nbsp;</ui-col>
+            <ui-col size="2" align="bottom" ui-bg="gray">&nbsp;</ui-col>
+            <ui-col size="3" align="stretch" ui-bg="gray">&nbsp;</ui-col>
+          </ui-row>
+        </ui-container>
+
+        <div class="x-section-title">Gutter</div>
+        <ui-container ui-border ui-padding>
+          <div ui-color="muted">None</div>
+          <ui-container ui-gutter="0" ui-bg="gray-light">
             <ui-row>
-              <ui-col size="12" ui-bg="gray">&nbsp;</ui-col>
-              <ui-col size="12" ui-bg="gray">&nbsp;</ui-col>
+              <ui-col size="3" ui-bg="info">&nbsp;</ui-col>
+              <ui-col size="3" ui-bg="danger">&nbsp;</ui-col>
+              <ui-col size="3" ui-bg="success">&nbsp;</ui-col>
+              <ui-col size="3" ui-bg="warning">&nbsp;</ui-col>
             </ui-row>
-          </ui-col>
-          <ui-col size="6" ui-bg="gray-light">
+          </ui-container>
+          <div ui-color="muted">Small</div>
+          <ui-container ui-gutter="sm" ui-bg="gray-light">
             <ui-row>
-              <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
-              <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
-              <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
-              <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
+              <ui-col size="3" ui-bg="info">&nbsp;</ui-col>
+              <ui-col size="3" ui-bg="danger">&nbsp;</ui-col>
+              <ui-col size="3" ui-bg="success">&nbsp;</ui-col>
+              <ui-col size="3" ui-bg="warning">&nbsp;</ui-col>
             </ui-row>
-          </ui-col>
-          <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
-        </ui-row>
-        <ui-row>
-          <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
-          <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
-          <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
-          <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
-        </ui-row>
+          </ui-container>
+          <div ui-color="muted">Normal</div>
+          <ui-container ui-gutter ui-bg="gray-light">
+            <ui-row>
+              <ui-col size="3" ui-bg="info">&nbsp;</ui-col>
+              <ui-col size="3" ui-bg="danger">&nbsp;</ui-col>
+              <ui-col size="3" ui-bg="success">&nbsp;</ui-col>
+              <ui-col size="3" ui-bg="warning">&nbsp;</ui-col>
+            </ui-row>
+          </ui-container>
+          <div ui-color="muted">Medium</div>
+          <ui-container ui-gutter="md" ui-bg="gray-light">
+            <ui-row>
+              <ui-col size="3" ui-bg="info">&nbsp;</ui-col>
+              <ui-col size="3" ui-bg="danger">&nbsp;</ui-col>
+              <ui-col size="3" ui-bg="success">&nbsp;</ui-col>
+              <ui-col size="3" ui-bg="warning">&nbsp;</ui-col>
+            </ui-row>
+          </ui-container>
+          <div ui-color="muted">Large</div>
+          <ui-container ui-gutter="lg" ui-bg="gray-light">
+            <ui-row>
+              <ui-col size="3" ui-bg="info">&nbsp;</ui-col>
+              <ui-col size="3" ui-bg="danger">&nbsp;</ui-col>
+              <ui-col size="3" ui-bg="success">&nbsp;</ui-col>
+              <ui-col size="3" ui-bg="warning">&nbsp;</ui-col>
+            </ui-row>
+          </ui-container>
+        </ui-container>
+
+        <div class="x-section-title">Using the Grid</div>
+        <x-code-block lang="html" page="app.html" code.bind="gridHtml"></x-code-block>
+
+        <div class="x-section-title">Properties</div>
+        <x-blockquote>Attributes marked with value <b>none</b> do not require a value</x-blockquote>
+        <x-code-table code-template.bind="containerAttrs"></x-code-table>
+        <hr/>
+        <x-code-table code-template.bind="rowAttrs"></x-code-table>
+        <hr/>
+        <x-code-table code-template.bind="colAttrs"></x-code-table>
       </ui-container>
-
-      <div class="x-section-title">Responsive columns</div>
-      <ui-container ui-border>
-        <ui-row>
-          <ui-col
-            size="1@xxl 2@xl 3@lg 4@md 6@sm"
-            ui-bg="gray"
-            ui-color="white"
-            ui-weight="medium"
-            ui-padding="sm"
-          >
-            <div ui-hide="down@xxl">1@xxl</div>
-            <div ui-hide="down@xl up@xxl">2@xl</div>
-            <div ui-hide="down@lg up@xl">3@lg</div>
-            <div ui-hide="down@md up@lg">4@md</div>
-            <div ui-hide="down@sm up@md">6@sm</div>
-          </ui-col>
-          <ui-col size="1@xxl 2@xl 3@lg 4@md 6@sm" ui-bg="gray">&nbsp;</ui-col>
-          <ui-col size="1@xxl 2@xl 3@lg 4@md 6@sm" ui-bg="gray">&nbsp;</ui-col>
-          <ui-col size="1@xxl 2@xl 3@lg 4@md 6@sm" ui-bg="gray">&nbsp;</ui-col>
-          <ui-col size="1@xxl 2@xl 3@lg 4@md 6@sm" ui-bg="gray">&nbsp;</ui-col>
-          <ui-col size="1@xxl 2@xl 3@lg 4@md 6@sm" ui-bg="gray">&nbsp;</ui-col>
-          <ui-col size="1@xxl 2@xl 3@lg 4@md 6@sm" ui-bg="gray">&nbsp;</ui-col>
-          <ui-col size="1@xxl 2@xl 3@lg 4@md 6@sm" ui-bg="gray">&nbsp;</ui-col>
-          <ui-col size="1@xxl 2@xl 3@lg 4@md 6@sm" ui-bg="gray">&nbsp;</ui-col>
-          <ui-col size="1@xxl 2@xl 3@lg 4@md 6@sm" ui-bg="gray">&nbsp;</ui-col>
-          <ui-col size="1@xxl 2@xl 3@lg 4@md 6@sm" ui-bg="gray">&nbsp;</ui-col>
-          <ui-col size="1@xxl 2@xl 3@lg 4@md 6@sm" ui-bg="gray">&nbsp;</ui-col>
-        </ui-row>
-      </ui-container>
-
-      <div class="x-section-title">Row Alignment</div>
-      <ui-container ui-border ui-padding>
-        <ui-row halign="start">
-          <ui-col ui-color="muted">Start</ui-col>
-          <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
-          <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
-        </ui-row>
-        <ui-row halign="center">
-          <ui-col ui-color="muted" ui-border="t">Center</ui-col>
-          <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
-          <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
-        </ui-row>
-        <ui-row halign="end">
-          <ui-col ui-color="muted" ui-border="t">End</ui-col>
-          <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
-          <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
-        </ui-row>
-        <ui-row halign="spaced">
-          <ui-col ui-color="muted" ui-border="t">Spaced Between</ui-col>
-          <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
-          <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
-        </ui-row>
-        <ui-row halign="even">
-          <ui-col ui-color="muted" ui-border="t">Spaced Even</ui-col>
-          <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
-          <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
-        </ui-row>
-        <ui-row valign="top">
-          <ui-col ui-color="muted" ui-border="t">Top</ui-col>
-          <ui-col size="3" ui-bg="gray" style="height: 4em">&nbsp;</ui-col>
-          <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
-        </ui-row>
-        <ui-row valign="middle">
-          <ui-col ui-color="muted" ui-border="t">Middle</ui-col>
-          <ui-col size="3" ui-bg="gray" style="height: 4em">&nbsp;</ui-col>
-          <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
-        </ui-row>
-        <ui-row valign="bottom">
-          <ui-col ui-color="muted" ui-border="t">Bottom</ui-col>
-          <ui-col size="3" ui-bg="gray" style="height: 4em">&nbsp;</ui-col>
-          <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
-        </ui-row>
-        <ui-row>
-          <ui-col ui-color="muted" ui-border="t">Stretch</ui-col>
-          <ui-col size="3" ui-bg="gray" style="height: 4em">&nbsp;</ui-col>
-          <ui-col size="3" ui-bg="gray">&nbsp;</ui-col>
-        </ui-row>
-        <ui-row>
-          <ui-col ui-color="muted" ui-border="t">Self Align</ui-col>
-          <ui-col size="3" ui-bg="gray" style="height: 4em">&nbsp;</ui-col>
-          <ui-col size="2" align="top" ui-bg="gray">&nbsp;</ui-col>
-          <ui-col size="2" align="middle" ui-bg="gray">&nbsp;</ui-col>
-          <ui-col size="2" align="bottom" ui-bg="gray">&nbsp;</ui-col>
-          <ui-col size="3" align="stretch" ui-bg="gray">&nbsp;</ui-col>
-        </ui-row>
-      </ui-container>
-
-      <div class="x-section-title">Gutter</div>
-      <ui-container ui-border ui-padding>
-        <div ui-color="muted">None</div>
-        <ui-container ui-gutter="0" ui-bg="gray-light">
-          <ui-row>
-            <ui-col size="3" ui-bg="info">&nbsp;</ui-col>
-            <ui-col size="3" ui-bg="danger">&nbsp;</ui-col>
-            <ui-col size="3" ui-bg="success">&nbsp;</ui-col>
-            <ui-col size="3" ui-bg="warning">&nbsp;</ui-col>
-          </ui-row>
-        </ui-container>
-        <div ui-color="muted">Small</div>
-        <ui-container ui-gutter="sm" ui-bg="gray-light">
-          <ui-row>
-            <ui-col size="3" ui-bg="info">&nbsp;</ui-col>
-            <ui-col size="3" ui-bg="danger">&nbsp;</ui-col>
-            <ui-col size="3" ui-bg="success">&nbsp;</ui-col>
-            <ui-col size="3" ui-bg="warning">&nbsp;</ui-col>
-          </ui-row>
-        </ui-container>
-        <div ui-color="muted">Normal</div>
-        <ui-container ui-gutter ui-bg="gray-light">
-          <ui-row>
-            <ui-col size="3" ui-bg="info">&nbsp;</ui-col>
-            <ui-col size="3" ui-bg="danger">&nbsp;</ui-col>
-            <ui-col size="3" ui-bg="success">&nbsp;</ui-col>
-            <ui-col size="3" ui-bg="warning">&nbsp;</ui-col>
-          </ui-row>
-        </ui-container>
-        <div ui-color="muted">Medium</div>
-        <ui-container ui-gutter="md" ui-bg="gray-light">
-          <ui-row>
-            <ui-col size="3" ui-bg="info">&nbsp;</ui-col>
-            <ui-col size="3" ui-bg="danger">&nbsp;</ui-col>
-            <ui-col size="3" ui-bg="success">&nbsp;</ui-col>
-            <ui-col size="3" ui-bg="warning">&nbsp;</ui-col>
-          </ui-row>
-        </ui-container>
-        <div ui-color="muted">Large</div>
-        <ui-container ui-gutter="lg" ui-bg="gray-light">
-          <ui-row>
-            <ui-col size="3" ui-bg="info">&nbsp;</ui-col>
-            <ui-col size="3" ui-bg="danger">&nbsp;</ui-col>
-            <ui-col size="3" ui-bg="success">&nbsp;</ui-col>
-            <ui-col size="3" ui-bg="warning">&nbsp;</ui-col>
-          </ui-row>
-        </ui-container>
-      </ui-container>
-
-      <div class="x-section-title">Using the Grid</div>
-      <x-code-block lang="html" page="app.html" code.bind="gridHtml"></x-code-block>
-
-      <div class="x-section-title">Properties</div>
-      <x-blockquote>Attributes marked with value <b>none</b> do not require a value</x-blockquote>
-      <x-code-table code-template.bind="containerAttrs"></x-code-table>
-      <hr />
-      <x-code-table code-template.bind="rowAttrs"></x-code-table>
-      <hr />
-      <x-code-table code-template.bind="colAttrs"></x-code-table>
     </ui-content>
   </ui-page>
 </template>
