@@ -92,8 +92,36 @@ export class DatalistPage {
 
   protected datalistHtml = `<template>
 
-  <!-- TODO -->
-
+  <ui-data-list data-source.bind="ds" vertical>
+  
+    <template>
+      <ui-data-card actions.bind="actions" click.trigger="notif($record)">
+        <ui-avatar ui-bg="gray-dark" ui-color="white" icon="mdi mdi-music" round></ui-avatar>
+        <ui-card-title>\${$record.title}</ui-card-title>
+        <ui-card-meta>
+          <span>\${$record.album}</span>
+          <span ui-font="md">\${$record.artist}</span>
+        </ui-card-meta>
+        <ui-data-table>
+          <data label="Duration">\${$record.duration}</data>
+          <data label="Year">\${$record.year}</data>
+          <data label="Genre">\${$record.genre}</data>
+        </ui-data-table>
+        <ui-button-group type="tool" slot="card-actions">
+          <ui-button ui-theme="success" icon="mdi mdi-play"></ui-button>
+          <ui-button ui-theme="info" icon="mdi mdi-pause"></ui-button>
+        </ui-button-group>
+        <ui-card-content>
+          <ui-content ui-padding>
+            <lipsum-para></lipsum-para>
+          </ui-content>
+        </ui-card-content>
+      </ui-data-card>
+  
+    </template>
+  
+  </ui-data-list>
+  
 </template>`;
 
   protected datalistAttrs = {
