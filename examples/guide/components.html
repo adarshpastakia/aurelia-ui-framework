@@ -1,37 +1,39 @@
 <template>
   <ui-page page-title="Components">
     <ui-content ui-padding ui-scroll>
-      <template repeat.for="group of components">
-        <div class="x-section-title">${group.title}</div>
-        <ui-row ui-gutter="md" valign="stretch">
-          <a
-            as-element="ui-col"
-            href.bind="comp.href"
-            size="4"
-            min-width="360px"
-            max-width="400px"
-            repeat.for="comp of group.items"
-            data-disabled.bind="!comp.href"
-            content-stretch
-          >
-            <ui-card>
-              <ui-card-content>
-                <ui-row ui-gutter>
-                  <ui-col size="auto" ui-padding="sm">
-                    <img if.bind="comp.image" src.bind="comp.image" height="48" />
-                  </ui-col>
-                  <ui-col size="fill">
-                    <h4>${comp.title}</h4>
-                    <div ui-color="muted">
-                      ${comp.description}
-                    </div>
-                  </ui-col>
-                </ui-row>
-              </ui-card-content>
-            </ui-card>
-          </a>
-        </ui-row>
-      </template>
+      <ui-container>
+        <template repeat.for="group of components">
+          <div class="x-section-title">${group.title}</div>
+          <ui-row ui-gutter="md" valign="stretch">
+            <a
+              as-element="ui-col"
+              href.bind="comp.href"
+              size="4"
+              min-width="360px"
+              max-width="400px"
+              repeat.for="comp of group.items"
+              data-disabled.bind="!comp.href"
+              content-stretch
+            >
+              <ui-card>
+                <ui-card-content>
+                  <ui-row ui-gutter>
+                    <ui-col size="auto" ui-padding="sm">
+                      <img if.bind="comp.image" src.bind="comp.image" height="48"/>
+                    </ui-col>
+                    <ui-col size="fill">
+                      <h4>${comp.title}</h4>
+                      <div ui-color="muted">
+                        ${comp.description}
+                      </div>
+                    </ui-col>
+                  </ui-row>
+                </ui-card-content>
+              </ui-card>
+            </a>
+          </ui-row>
+        </template>
+      </ui-container>
     </ui-content>
   </ui-page>
 </template>
