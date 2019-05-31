@@ -38,7 +38,7 @@ export class UITooltip {
    * `ui-tooltip.bind="{theme:''; value:''}`
    */
   @bindable()
-  public position: "left" | "right" | "top" | "bottom" = "top";
+  public position: "left" | "right" | "top" | "bottom" = "bottom";
 
   /*** Start private props ***/
   private id = `tooltip-${seed++}`;
