@@ -284,13 +284,13 @@ export class UIDataModel {
   }
 
   protected propertyGetter(prop) {
-    return () => {
+    return function() {
       return this["_" + prop];
     };
   }
 
   protected propertySetter(prop) {
-    return (v) => {
+    return function(v) {
       this["_" + prop] = v;
       this.updateDirty(prop, v);
       return v;
