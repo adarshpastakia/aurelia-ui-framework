@@ -51,11 +51,13 @@
   &__head {
     display: block;
     grid-area: head;
+    margin-bottom: 1px;
   }
 
   &__foot {
     display: block;
     grid-area: foot;
+    margin-top: 1px;
   }
 
   &__content {
