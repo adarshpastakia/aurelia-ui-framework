@@ -4,86 +4,100 @@
 // @license   : MIT
 
 .ui-toolbar {
-  align-items: center;
-  background-color: $toolbar-bg;
-  display: flex;
-  flex-flow: row nowrap;
-  padding: 2px 0;
-
   &--end {
-    justify-content: flex-end;
+    &, & > .ui-container {
+      justify-content: flex-end;
+    }
   }
 
-  > .ui-text {
-    padding: 0 ($base-spacing / 2);
+  & > .ui-container {
+    flex: 1;
   }
 
-  > .ui-field {
-    --min-width: 8rem;
-    flex: 0 0 auto;
-    grid-template-columns: auto minmax(var(--min-width), 1fr);
+  &, & > .ui-container {
+    align-items: center;
+    background-color: $toolbar-bg;
+    display: flex;
+    flex-flow: row nowrap;
+    padding: 2px 0;
 
-    .ui-field__label {
-      grid-column: 1;
-      width: auto;
+    > .ui-text {
+      padding: 0 ($base-spacing / 2);
     }
 
-    .ui-input,
-    .ui-input__info,
-    .ui-field__wrapper {
-      border: 0;
-      grid-column: 2;
-    }
+    > .ui-field {
+      --min-width: 8rem;
+      flex: 0 0 auto;
+      grid-template-columns: auto minmax(var(--min-width), 1fr);
 
-    &--spring {
-      .ui-input {
+      .ui-field__label {
+        grid-column: 1;
+        width: auto;
+      }
+
+      .ui-input,
+      .ui-input__info,
+      .ui-field__wrapper {
         border: 0;
-        width: var(--min-width);
+        grid-column: 2;
+      }
 
-        &:focus-within {
-          width: var(--max-width);
+      &--spring {
+        .ui-input {
+          border: 0;
+          width: var(--min-width);
+
+          &:focus-within {
+            width: var(--max-width);
+          }
+        }
+      }
+
+      &:not(:focus-within) {
+        &,
+        .ui-field__wrapper,
+        .ui-input {
+          background: none;
+          box-shadow: 0 -1px 0 0 $base-border-color inset;
         }
       }
     }
 
-    &:not(:focus-within) {
-      &,
-      .ui-field__wrapper,
-      .ui-input {
-        background: none;
-        box-shadow: 0 -1px 0 0 $base-border-color inset;
-      }
+    > .ui-icon {
+      font-size: 1.5em;
+      padding: 0.1em;
     }
-  }
 
-  > .ui-icon {
-    font-size: 1.5em;
-    padding: 0.1em;
-  }
-
-  > .ui-divider {
-    @extend %vr;
-    margin: 4px;
+    > .ui-divider {
+      @extend %vr;
+      margin: 4px;
+    }
   }
 
   &.ui-theme--primary {
     background-color: mix($primary, $base-theme, 9%);
   }
+
   &.ui-theme--secondary {
     background-color: mix($secondary, $base-theme, 9%);
   }
+
   &.ui-theme--info {
     background-color: mix($info, $base-theme, 9%);
   }
+
   &.ui-theme--danger {
     background-color: mix($danger, $base-theme, 9%);
   }
+
   &.ui-theme--success {
     background-color: mix($success, $base-theme, 9%);
   }
+
   &.ui-theme--warning {
     background-color: mix($warning, $base-theme, 9%);
   }
+
   &.ui-theme--dark {
     background-color: $gray-dark;
     color: $gray-light;

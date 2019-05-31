@@ -32,6 +32,17 @@
     @include position(absolute, null 0);
   }
 
+  &[data-pos="bottom"] {
+    margin-top: 1em;
+
+    &::after {
+      @include position(absolute, -0.5em 0 null 0);
+      border-bottom-color: currentColor;
+      border-top-color: transparent;
+      border-width: 0 1em 1em;
+    }
+  }
+
   &[data-pos="right"] {
     margin-left: 1em;
 
