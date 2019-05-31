@@ -1,6 +1,13 @@
 <template>
-  <ui-section>
+  <ui-section dir.bind="dir">
     <ui-sidebar ui-margin="b--xs" ui-paper width="18rem">
+      <ui-section-head ui-shadow>
+        <ui-toolbar>
+          <ui-filler></ui-filler>
+<!--          <ui-button type="tool" icon="mdi ${themeIcon}" ui-tooltip="Toggle light/dark theme" click.trigger="toggleTheme()"></ui-button>-->
+          <ui-button type="tool" icon="mdi ${dirIcon}" ui-tooltip="Toggle left-to-right/right-to-left" click.trigger="toggleDir()"></ui-button>
+        </ui-toolbar>
+      </ui-section-head>
       <ui-content ui-scroll>
         <compose view="./navigation.html"></compose>
       </ui-content>

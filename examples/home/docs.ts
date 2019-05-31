@@ -5,7 +5,7 @@
  * @license   : MIT
  */
 
-import { autoinject } from "aurelia-framework";
+import { autoinject, computedFrom } from "aurelia-framework";
 import { Router, RouterConfiguration } from "aurelia-router";
 import { UIApplication } from "aurelia-ui-framework";
 import { ButtonRoutes } from "../buttons/routes";
@@ -22,7 +22,11 @@ import { StyleRoutes } from "../style/routes";
 export class DocsPage {
   protected router: Router;
 
-  constructor(private app: UIApplication) {}
+  protected dir = "ltr";
+  protected theme = "light";
+
+  constructor(private app: UIApplication) {
+  }
 
   protected configureRouter(config: RouterConfiguration, router: Router): void {
     this.router = router;
@@ -37,5 +41,28 @@ export class DocsPage {
       ...DataRoutes,
       ...OverlayRoutes
     ]);
+  }
+
+  @computedFrom("dir")
+  get dirIcon() {
+    return this.dir === "ltr" ? "mdi-format-textdirection-r-to-l" : "mdi-format-textdirection-l-to-r";
+  }
+
+  @computedFrom("theme")
+  get themeIcon() {
+    return this.theme === "light" ? "mdi-lightbulb-outline" : "mdi-lightbulb";
+  }
+
+  protected toggleDir() {
+    this.dir = this.dir === "ltr" ? "rtl" : "ltr";
+  }
+
+  protected toggleTheme(): void {
+    this.theme = this.theme === "light" ? "dark" : "light";
+    if (this.theme === "light") {
+      document.documentElement.classList.remove("ui-theme-dark");
+    } else {
+      document.documentElement.classList.add("ui-theme-dark");
+    }
   }
 }
