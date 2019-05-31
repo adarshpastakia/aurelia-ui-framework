@@ -16,8 +16,7 @@ export class UIContent {
 
   constructor(element: Element) {
     this.obResize = new ResizeObserver(() =>
-      element.dispatchEvent(UIInternal.createEvent("resize"))
-    );
+      element.dispatchEvent(UIInternal.createEvent("resize", element.getBoundingClientRect())));
     this.obResize.observe(element);
   }
 

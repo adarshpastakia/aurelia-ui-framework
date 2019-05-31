@@ -5,7 +5,7 @@
         click.delegate="startHeaderClicked($event)"
         config.bind="startHeaderOptions"
         show-first-last.bind="startPage === VIEWS.DAYS"
-        >${startTitle}
+      >${startTitle}
       </calendar-head>
       <days-page
         if.bind="startPage === VIEWS.DAYS"
@@ -33,7 +33,7 @@
         click.delegate="endHeaderClicked($event)"
         config.bind="endHeaderOptions"
         show-first-last.bind="endPage === VIEWS.DAYS"
-        >${endTitle}
+      >${endTitle}
       </calendar-head>
       <days-page
         if.bind="endPage === VIEWS.DAYS"
@@ -61,16 +61,15 @@
       <a
         class="ui-calendar__tag"
         repeat.for="preset of datePresets"
-        data-active.bind="preset.preset == date"
+        data-active.bind="preset.preset === date"
         click.trigger="selectPreset(preset.preset)"
-        >${preset.label}</a
-      >
+      >${preset.label}</a>
     </div>
     <a
       if.bind="selecting || startPage !== VIEWS.DAYS || endPage !== VIEWS.DAYS"
       class="ui-calendar__tag cancel"
       click.trigger="cancelSelection()"
-      >Cancel</a
+    >Cancel</a
     >
   </div>
 </template>
