@@ -45,7 +45,6 @@ export class UIButton {
   @bindable()
   public id: string = "";
 
-
   /**
    * Busy indicator
    */
@@ -61,7 +60,6 @@ export class UIButton {
    */
   @bindable()
   public disabled: boolean = false;
-
 
   /**
    * Menu items to create auto dropdown
@@ -136,6 +134,10 @@ export class UIButton {
   }
 
   protected fireClick($event): boolean {
+    if (this.isDisabled || this.busy) {
+      $event.stopEvent();
+      return false;
+    }
     if (!this.href) {
       if (this.hasDrop && !this.split) {
         return this.toggleDrop();
@@ -143,7 +145,6 @@ export class UIButton {
         $event.stopEvent();
         return this.element.dispatchEvent(UIInternal.createEvent("click", this.id));
       }
-      return false;
     }
   }
 
