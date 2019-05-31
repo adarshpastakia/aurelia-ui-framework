@@ -67,6 +67,8 @@
     "istanbul-instrumenter-loader": "^3.0.1",
     "jest": "^23.6.0",
     "jest-cli": "^23.6.0",
+    "jest-dom": "^3.4.0",
+    "jsdom-global": "^3.0.2",
     "json-loader": "^0.5.7",
     "mini-css-extract-plugin": "^0.4.3",
     "minimatch": "^3.0.4",
@@ -109,8 +111,7 @@
     "testFailureExitCode": 0,
     "moduleNameMapper": {
       "^aurelia-binding$": "<rootDir>/node_modules/aurelia-binding",
-      "^aurelia-ui-framework$": "<rootDir>/src/aurelia-ui-framework.ts",
-      "^src/(.*)": "<rootDir>/src/$1"
+      "^aurelia-ui-framework$": "<rootDir>/src/aurelia-ui-framework.ts"
     },
     "modulePaths": [
       "<rootDir>/src",

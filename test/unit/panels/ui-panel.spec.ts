@@ -7,14 +7,14 @@
 
 import { bootstrap } from "aurelia-bootstrapper";
 import { StageComponent } from "aurelia-testing";
-// tslint:disable-next-line
-import { UIInternal } from "src/utils/ui-internal";
+import { UIInternal } from "../../../src/utils/ui-internal";
 import { auconfig } from "../../jest-pretest";
 
 describe("ui-panel", () => {
   let component;
 
   const vm = {
+    expanded: false,
     collapsed: false
   };
 
@@ -37,7 +37,7 @@ describe("ui-panel", () => {
               </ui-toolbar>
             </ui-footer>
           </ui-panel>
-          <ui-panel id="panelWithActions" expandable collapsible closable collapsed.bind="collapsed">
+          <ui-panel id="panelWithActions" expandable collapsible closable collapsed.bind="collapsed" expanded.bind="expanded">
             <ui-content>Panel Content</ui-content>
           </ui-panel>
         </div>`
@@ -58,7 +58,7 @@ describe("ui-panel", () => {
   it("should have panel", done => {
     component.waitForElement("#panelNoHeader").then(el => {
       expect(el).not.toBeNull();
-      expect(el.querySelector(".ui-header__icon .ui-icon").className).toContain("head-icon");
+      expect(el.querySelector(".ui-header__icon .ui-icon").classList).toContain("head-icon");
       expect(el.querySelector(".ui-header__title").textContent).toBe("Header Title");
       done();
     });
@@ -67,7 +67,7 @@ describe("ui-panel", () => {
   it("should have panel with header", done => {
     component.waitForElement("#panelWithHeader").then(el => {
       expect(el).not.toBeNull();
-      expect(el.querySelector(".ui-header__icon .ui-icon").className).toContain("head-icon");
+      expect(el.querySelector(".ui-header__icon .ui-icon").classList).toContain("head-icon");
       expect(el.querySelector(".ui-header__title").textContent).toBe("Header Title");
       expect(el.querySelector(".ui-header__actions")).not.toBeNull();
       expect(el.querySelector(".ui-header__actions button")).not.toBeNull();
@@ -78,12 +78,13 @@ describe("ui-panel", () => {
 
   it("should have panel collapsible", done => {
     component.waitForElement("#panelWithActions").then(el => {
-      el.au.controller.viewModel.toggleCollapse(true);
-      UIInternal.queueTask(() => {
-        expect(el.au.controller.viewModel.collapsed).toBeTruthy();
-        el.au.controller.viewModel.toggleCollapse(false);
-        UIInternal.queueTask(() => {
-          expect(el.au.controller.viewModel.collapsed).toBeFalsy();
+      const viewModel = getViewModel(el);
+      vm.collapsed = true;
+      UIInternal.queueMicroTask(() => {
+        expect(viewModel.collapsed).toBeTruthy();
+        vm.collapsed = false;
+        UIInternal.queueMicroTask(() => {
+          expect(viewModel.collapsed).toBeFalsy();
           done();
         });
       });
@@ -92,12 +93,13 @@ describe("ui-panel", () => {
 
   it("should have panel expandable", done => {
     component.waitForElement("#panelWithActions").then(el => {
-      el.au.controller.viewModel.toggleExpand(true);
-      UIInternal.queueTask(() => {
-        expect(el.au.controller.viewModel.expanded).toBeTruthy();
-        el.au.controller.viewModel.toggleExpand(false);
-        UIInternal.queueTask(() => {
-          expect(el.au.controller.viewModel.expanded).toBeFalsy();
+      const viewModel = getViewModel(el);
+      vm.expanded = true;
+      UIInternal.queueMicroTask(() => {
+        expect(viewModel.expanded).toBeTruthy();
+        vm.expanded = false;
+        UIInternal.queueMicroTask(() => {
+          expect(viewModel.expanded).toBeFalsy();
           done();
         });
       });
@@ -106,14 +108,15 @@ describe("ui-panel", () => {
 
   it("should have panel closable", done => {
     component.waitForElement("#panelWithActions").then(el => {
-      el.au.controller.viewModel.beforeclose = () => false;
-      el.au.controller.viewModel.close();
+      const viewModel = getViewModel(el);
+      viewModel.beforeclose = () => false;
+      viewModel.close();
       expect(component.element.querySelector("#panelWithActions")).not.toBeNull();
 
-      el.au.controller.viewModel.beforeclose = () => true;
-      el.au.controller.viewModel.close();
-      UIInternal.queueTask(() => {
-        UIInternal.queueTask(() => {
+      viewModel.beforeclose = () => true;
+      viewModel.close();
+      UIInternal.queueMicroTask(() => {
+        UIInternal.queueMicroTask(() => {
           expect(component.element.querySelector("#panelWithActions")).toBeNull();
           done();
         });

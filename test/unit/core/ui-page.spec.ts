@@ -17,7 +17,11 @@ describe("ui-page", () => {
       .inView(
         `<div>
           <ui-page page-title="Page Title">
-            <ui-section centered><p>Hello</p></ui-section>
+            <ui-section centered>
+              <ui-content css.bind="{width:'3em',height:'3em'}">
+                <p>Hello</p>
+              </ui-content>
+            </ui-section>
           </ui-page>
         </div>`
       )
