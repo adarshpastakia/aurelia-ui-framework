@@ -7,8 +7,7 @@
 
 import { bootstrap } from "aurelia-bootstrapper";
 import { StageComponent } from "aurelia-testing";
-// tslint:disable-next-line
-import { UIInternal } from "src/utils/ui-internal";
+import { UIInternal } from "../../../src/utils/ui-internal";
 import { auconfig } from "../../jest-pretest";
 
 describe("ui-internal", () => {
