@@ -73,6 +73,7 @@ export class UIColumn {
   public sortable: boolean = false;
   public noPadding: boolean = false;
 
+  protected isRtl;
   protected startX;
   protected isResizing;
 
@@ -125,6 +126,7 @@ export class UIColumn {
 
     this.startX = $event.x || $event.clientX;
     this.isResizing = true;
+    this.isRtl = isRtl(this.element);
 
     document.addEventListener("mousemove", this.onDrag);
     document.addEventListener("mouseup", this.onDragEnd);
@@ -135,7 +137,7 @@ export class UIColumn {
     const x = $event.x || $event.clientX;
     const diff = x - this.startX;
 
-    const newWidth = convertToPx(this.width) + diff;
+    const newWidth = convertToPx(this.width) + (diff * (this.isRtl ? -1 : 1));
     if (newWidth < convertToPx(this.maxWidth) && newWidth > convertToPx(this.minWidth)) {
       UIInternal.queueTask(() => (this.width = newWidth + "px"));
       this.startX = x;
