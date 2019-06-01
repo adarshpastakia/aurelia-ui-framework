@@ -3,9 +3,9 @@
 // @copyright : 2019
 // @license   : MIT
 
-@import "./colors";
+@import "./theme/colors";
 
 $base-theme: $white;
 $base-invert: $black;
 
-@import "./aurelia-ui-framework";
+@import "./theme/themes";

@@ -1,0 +1,58 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2019
+// @license   : MIT
+
+mark {
+  background: mix($secondary, $white, 10%);
+}
+
+code {
+  background: rgba($gray, 0.1);
+  color: rgba($danger, 0.75);
+}
+
+abbr[title] {
+  border-bottom: 1px dashed rgba($base-color, 0.75);
+}
+
+.ui-table {
+  thead th {
+    background: $table-head-bg;
+    color: $table-head-color;
+  }
+
+  tr:nth-child(even) {
+    background-color: $row-even-bg;
+  }
+
+  tr:nth-child(odd) {
+    background-color: $row-odd-bg;
+  }
+}
+
+.ui-link {
+  color: $secondary;
+
+  &::before {
+    background: $secondary;
+  }
+}
+
+.ui-subheading {
+  color: rgba($base-color, 0.5);
+}
+
+dl {
+  &.ui-dl--striped {
+    dt:nth-child(2n + 1),
+    dt:nth-child(2n + 1) + dd {
+      background-color: $row-odd-bg;
+    }
+
+    dt:nth-child(4n + 1),
+    dt:nth-child(4n + 1) + dd {
+      background-color: $row-even-bg;
+    }
+  }
+}

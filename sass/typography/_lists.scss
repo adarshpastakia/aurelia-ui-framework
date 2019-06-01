@@ -49,16 +49,4 @@ dl {
       }
     }
   }
-
-  &.ui-dl--striped {
-    dt:nth-child(2n + 1),
-    dt:nth-child(2n + 1) + dd {
-      background-color: $row-odd-bg;
-    }
-
-    dt:nth-child(4n + 1),
-    dt:nth-child(4n + 1) + dd {
-      background-color: $row-even-bg;
-    }
-  }
 }

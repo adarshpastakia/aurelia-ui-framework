@@ -4,7 +4,6 @@
 // @license   : MIT
 
 .ui-btn__group {
-  box-shadow: $shadow-level1;
   display: inline-grid;
   margin: 2px;
   vertical-align: text-top;
@@ -60,9 +59,7 @@
         }
 
         &::after {
-          background-color: $base-bg;
           border-radius: 1em;
-          box-shadow: 0 0 2px 0 $gray inset;
           content: attr(data-separator);
           font-size: 0.8em;
           font-variant: small-caps;

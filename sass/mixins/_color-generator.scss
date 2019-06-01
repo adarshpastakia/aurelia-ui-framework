@@ -29,21 +29,21 @@ $colors: map-merge($colors, $base-scale);
 $colors: map-merge($colors, $color-list);
 
 // Shadows
-$shadow-level0: 0 0 0 1px rgba($shadow, 0.15), 0 0 0 rgba($shadow, 0), 0 0 0 rgba($shadow, 0) !default;
-$shadow-level1: 0 0 0 1px rgba($shadow, 0.1), 0 0 0 rgba($shadow, 0), 0 1px 1px rgba($shadow, 0.2) !default;
-$shadow-level2: 0 0 0 1px rgba($shadow, 0.1), 0 1px 1px rgba($shadow, 0.2),
-  0 2px 6px rgba($shadow, 0.2) !default;
-$shadow-level3: 0 0 0 1px rgba($shadow, 0.1), 0 2px 4px rgba($shadow, 0.2),
-  0 8px 24px rgba($shadow, 0.2) !default;
-$shadow-level4: 0 0 0 1px rgba($shadow, 0.1), 0 4px 8px rgba($shadow, 0.2),
-  0 18px 46px 6px rgba($shadow, 0.2) !default;
+$light-shadow-level0: 0 0 0 1px rgba($shadow, 0.15), 0 0 0 rgba($shadow, 0), 0 0 0 rgba($shadow, 0) !default;
+$light-shadow-level1: 0 0 0 1px rgba($shadow, 0.1), 0 0 0 rgba($shadow, 0), 0 1px 1px rgba($shadow, 0.2) !default;
+$light-shadow-level2: 0 0 0 1px rgba($shadow, 0.1), 0 1px 1px rgba($shadow, 0.2), 0 2px 6px rgba($shadow, 0.2) !default;
+$light-shadow-level3: 0 0 0 1px rgba($shadow, 0.1), 0 2px 4px rgba($shadow, 0.2), 0 8px 24px rgba($shadow, 0.2) !default;
+$light-shadow-level4: 0 0 0 1px rgba($shadow, 0.1), 0 4px 8px rgba($shadow, 0.2), 0 18px 46px 6px rgba($shadow, 0.2) !default;
 
-$dark-shadow-level0: 0 0 0 1px rgba($shadow, 0.4), 0 0 0 rgba($shadow, 0), 0 0 0 rgba($shadow, 0) !default;
-$dark-shadow-level1: 0 0 0 1px rgba($shadow, 0.2), 0 0 0 rgba($shadow, 0),
-  0 1px 1px rgba($shadow, 0.4) !default;
-$dark-shadow-level2: 0 0 0 1px rgba($shadow, 0.2), 0 1px 1px rgba($shadow, 0.4),
-  0 2px 6px rgba($shadow, 0.4) !default;
-$dark-shadow-level3: 0 0 0 1px rgba($shadow, 0.2), 0 2px 4px rgba($shadow, 0.4),
-  0 8px 24px rgba($shadow, 0.4) !default;
-$dark-shadow-level4: 0 0 0 1px rgba($shadow, 0.2), 0 4px 8px rgba($shadow, 0.4),
-  0 18px 46px 6px rgba($shadow, 0.4) !default;
+$dark-shadow-level0: 0 0 0 1px rgba($shadow, 0.5), 0 0 0 rgba($shadow, 0), 0 0 0 rgba($shadow, 0) !default;
+$dark-shadow-level1: 0 0 0 1px rgba($shadow, 0.3), 0 0 0 rgba($shadow, 0), 0 1px 1px rgba($shadow, 0.6) !default;
+$dark-shadow-level2: 0 0 0 1px rgba($shadow, 0.3), 0 1px 1px rgba($shadow, 0.6), 0 2px 6px rgba($shadow, 0.6) !default;
+$dark-shadow-level3: 0 0 0 1px rgba($shadow, 0.3), 0 2px 4px rgba($shadow, 0.6), 0 8px 24px rgba($shadow, 0.6) !default;
+$dark-shadow-level4: 0 0 0 1px rgba($shadow, 0.3), 0 4px 8px rgba($shadow, 0.6), 0 18px 46px 6px rgba($shadow, 0.6) !default;
+
+$light: abs(lightness($base-theme)) > 50;
+$shadow-level0: if($light, $light-shadow-level0, $dark-shadow-level0);
+$shadow-level1: if($light, $light-shadow-level1, $dark-shadow-level1);
+$shadow-level2: if($light, $light-shadow-level2, $dark-shadow-level2);
+$shadow-level3: if($light, $light-shadow-level3, $dark-shadow-level3);
+$shadow-level4: if($light, $light-shadow-level4, $dark-shadow-level4);

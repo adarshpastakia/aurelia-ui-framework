@@ -30,7 +30,6 @@
   }
 
   &__card {
-    box-shadow: $shadow-level0;
     cursor: default;
     display: grid;
     grid-template-areas: "avatar card-title datalist toolbox" "avatar card-meta datalist toolbox" "content content content content";
@@ -84,10 +83,6 @@
 
     &[href] {
       cursor: pointer;
-
-      &:hover {
-        box-shadow: $shadow-level2;
-      }
     }
   }
 
@@ -137,7 +132,6 @@
       display: block;
 
       &::before {
-        color: $gray;
         content: attr(label);
         display: block;
         font-size: 0.75em;
@@ -149,10 +143,6 @@
     grid-area: toolbox;
     padding: 0.5em;
     pointer-events: none;
-
-    .ui-btn__group {
-      box-shadow: 0 0 1px 0 $base-shadow-color;
-    }
 
     .ui-btn__inner {
       font-size: 0.8em;

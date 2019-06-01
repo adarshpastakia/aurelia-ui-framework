@@ -4,14 +4,8 @@
 // @license   : MIT
 
 .ui-tag {
-  $tag-bg: $base-theme;
-  $tag-color: mix($tag-bg, $base-color, 35%);
-
   align-items: center;
-  background-color: $tag-bg;
   border-radius: 1.5em;
-  box-shadow: 0 0 0 1px rgba($tag-color, 0.25);
-  color: $tag-color;
   display: inline-grid;
   font-size: 0.8em;
   grid-template-areas: "avatar label value close";
@@ -27,9 +21,7 @@
   }
 
   &__icon {
-    background-color: $tag-color;
     border-radius: 1em;
-    color: $tag-bg;
     grid-area: avatar;
     height: 1.85em;
     width: 1.9em;
@@ -66,8 +58,6 @@
   }
 
   &__label {
-    background-color: $tag-color;
-    color: $tag-bg;
     grid-area: label;
     padding: 0.42em 0.5em;
 
@@ -87,22 +77,10 @@
 
   &__label:not(:empty) ~ &__value {
     padding: 0.42em 0.5em;
-    @include property-prefix(border-start, 1px solid rgba($white, 0.3));
   }
 
   &__label:not(:empty) + &__icon {
     border-radius: 0;
-  }
-
-  &--solid {
-    background-color: $tag-color;
-    color: $tag-bg;
-
-    .ui-tag__icon,
-    .ui-tag__label {
-      background-color: rgba(0, 0, 0, 0.4);
-      color: $gray-light;
-    }
   }
 
   &__close {
@@ -125,36 +103,5 @@
   }
   &--lg {
     font-size: 1.2em;
-  }
-
-  @mixin make-tag($theme, $theme-color) {
-    &.ui-theme--#{$theme} {
-      box-shadow: 0 0 0 1px $theme-color;
-      color: $theme-color;
-
-      &.ui-tag--solid {
-        background-color: $theme-color;
-        color: $white;
-
-        .ui-tag__icon,
-        .ui-tag__label {
-          background-color: rgba(0, 0, 0, 0.2);
-        }
-      }
-
-      .ui-tag__icon,
-      .ui-tag__label {
-        background-color: $theme-color;
-        color: $white;
-      }
-    }
-  }
-
-  @each $label, $color in $base-colors {
-    @include make-tag($label, mix($color, $gray, 75%));
-  }
-
-  @each $label, $color in $color-list {
-    @include make-tag($label, mix($color, $gray, 75%));
   }
 }

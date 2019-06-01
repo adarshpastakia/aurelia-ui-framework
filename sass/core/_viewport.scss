@@ -141,17 +141,13 @@
 }
 
 .ui-loader {
-  background-color: rgba($white, 0.1);
   cursor: wait;
   display: block;
   z-index: 99999;
   @include position(absolute, 0);
 
   > div {
-    background-color: $base-component-bg;
     border-radius: 2px;
-    box-shadow: $shadow-level3;
-    color: $primary;
     font-size: 2rem;
     height: 3rem;
     line-height: 0;
@@ -167,8 +163,6 @@
 
   &__body {
     @include position(fixed, 0 null null 0);
-    background-color: $base-component-bg;
-    box-shadow: $shadow-level3;
     cursor: default;
     max-height: 40vh;
     max-width: 50vw;

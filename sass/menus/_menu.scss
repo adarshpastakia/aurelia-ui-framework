@@ -7,7 +7,7 @@
   display: block;
   min-width: 4em;
 
-  $base: #{&};
+  $base: unquote(".ui-menu");
 
   &__group {
     border: 0;
@@ -23,7 +23,6 @@
     }
 
     &__label {
-      color: $gray;
       font-size: 0.85em;
       margin: 0 0.5em;
       padding: 4px 0;
@@ -53,7 +52,6 @@
     &::after {
       content: "";
       @include position(absolute, null 0 0);
-      @extend %hr;
     }
 
     &:last-child::after {
@@ -80,10 +78,6 @@
       padding: 0 0.5em;
 
       &:hover {
-        background-color: $menu-hover-bg;
-        box-shadow: 0 0 1px 0 $menu-active-bg inset;
-        color: $menu-hover-color;
-
         .ui-icon {
           color: inherit;
         }
@@ -91,24 +85,11 @@
 
       &[data-open="true"],
       &:active {
-        background-color: $menu-active-bg;
-        color: $menu-active-color;
         transition: background-color 0.5s;
       }
 
-      &[data-active="true"] {
-        background-color: $menu-active-bg;
-        box-shadow: 4px 0 0 0 $menu-active-border-color inset;
-        color: $menu-active-color;
-      }
-
       &[data-disabled="true"] {
-        color: $gray;
         pointer-events: none;
-      }
-
-      @at-root [dir="rtl"] &[data-active="true"] {
-        box-shadow: -4px 0 0 0 $menu-active-border-color inset;
       }
     }
 
@@ -139,15 +120,8 @@
           vertical-align: middle;
         }
 
-        &:hover {
-          background-color: $menu-hover-bg;
-          color: $menu-hover-color;
-        }
-
         &[data-open="true"],
         &:active {
-          background-color: $menu-active-bg;
-          color: $menu-active-color;
           transition: background-color 0.5s;
         }
       }
@@ -165,19 +139,16 @@
   .ui-divider {
     display: block;
     margin: 4px 0;
-    @extend %hr;
   }
 
   &__bar {
     align-content: space-between;
-    background-color: $menubar-bg;
     display: grid;
     grid-template-columns: 1fr auto;
     position: relative;
 
     &::after {
       content: "";
-      @extend %hr;
       @include position(absolute, null 0 0);
     }
 
@@ -193,9 +164,6 @@
       }
 
       #{$base}__item {
-        &__link[data-active="true"] {
-          box-shadow: 0 -2px 0 0 $menu-active-color inset;
-        }
         &__label {
           padding: 0.25em;
         }
@@ -206,7 +174,6 @@
 
       #{$base}__group {
         align-items: stretch;
-        border: 1px solid rgba($base-border-color, 0.5);
         margin: 0;
         padding: 0;
 
