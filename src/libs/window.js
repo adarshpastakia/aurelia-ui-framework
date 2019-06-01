@@ -67,12 +67,7 @@ globalObject.getComposeViewModel = el =>
   el.au && el.au.controller ? el.au.controller.viewModel.currentViewModel : null;
 
 globalObject.isRtl = function(el) {
-  do {
-    if ((el.dir || el.style.direction) === "rtl") return true;
-    if ((el.dir || el.style.direction) === "ltr") return false;
-    el = el.parentElement;
-  } while (el != null);
-  return false;
+  return window.getComputedStyle(el).direction === "rtl";
 };
 
 const isLastElement = (el, last) => {
