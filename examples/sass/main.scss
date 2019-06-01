@@ -6,7 +6,18 @@
 @import "sass/flag-icons";
 @import "sass/aurelia-ui-framework";
 
-@import "./blockquote";
-@import "./code-block";
-@import "./doc-styles";
-@import "./home-styles";
+.theme-light {
+  @import "sass/light-theme";
+  @import "./blockquote";
+  @import "./code-block";
+  @import "./doc-styles";
+  @import "./home-styles";
+}
+
+.theme-dark {
+  @import "sass/dark-theme";
+  @import "./blockquote";
+  @import "./code-block";
+  @import "./doc-styles";
+  @import "./home-styles";
+}

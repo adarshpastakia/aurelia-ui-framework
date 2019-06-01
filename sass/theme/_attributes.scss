@@ -1,0 +1,49 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2018
+// @license   : MIT
+
+.ui-badge {
+  background-color: rgba($gray-light, 0.95);
+  box-shadow: 0 0 0 1px rgba($base-color, 0.25) inset;
+  color: $base-color;
+
+  &--md {
+    font-size: 1em;
+  }
+
+  &--lg {
+    font-size: 1.2em;
+  }
+
+  @mixin make-badge($theme, $theme-color) {
+    &.ui-theme--#{$theme} {
+      background-color: rgba($theme-color, 0.95);
+      color: $white;
+    }
+  }
+
+  @include make-badge(dark, $gray-dark);
+  @each $label, $color in $base-colors {
+    @include make-badge($label, mix($color, $gray, 75%));
+  }
+
+  @each $label, $color in $color-list {
+    @include make-badge($label, mix($color, $gray, 75%));
+  }
+}
+
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2019
+// @license   : MIT
+
+.ui-tooltip {
+  background-color: $tooltip-bg;
+  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.5);
+  color: $tooltip-color;
+
+  &::after {
+    color: $tooltip-bg;
+  }
+}

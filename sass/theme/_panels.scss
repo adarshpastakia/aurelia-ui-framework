@@ -1,0 +1,443 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2018
+// @license   : MIT
+
+.ui-panel-base {
+  background-color: $base-theme;
+}
+
+.ui-header {
+  &__actions {
+    > .ui-divider {
+      @extend %vr;
+    }
+  }
+
+  &::after {
+    @extend %hr;
+  }
+}
+
+.ui-footer {
+  color: $gray;
+
+  &::after {
+    @extend %hr;
+  }
+}
+
+.ui-panel {
+  box-shadow: $shadow-level0;
+
+  &.ui-paper {
+    box-shadow: $shadow-level2;
+  }
+
+  $base: unquote(".ui-panel");
+
+  &__body {
+    > .ui-scroll {
+      border: 2px solid $base-component-bg;
+    }
+  }
+
+  &__header {
+    background-color: $base-component-bg;
+
+    &__actions {
+      > .ui-divider {
+        @extend %vr;
+      }
+    }
+  }
+
+  &[data-expanded="true"] {
+    box-shadow: 0 0 4em rgba(0, 0, 0, 0.9);
+  }
+
+  @mixin make-panel($theme, $theme-color, $tool-color) {
+    &.ui-theme--#{$theme} {
+      #{$base}__header {
+        background-color: $theme-color;
+        color: $white;
+
+        .ui-divider {
+          @extend %vr-dark;
+        }
+
+        .ui-btn__wrapper[data-type="tool"] .ui-btn__inner {
+          background-color: $tool-color;
+          color: $white;
+        }
+      }
+    }
+  }
+  @each $label, $color in $base-colors {
+    @include make-panel($label, mix($color, $gray, 85%), rgba($color, 0.95));
+  }
+  @include make-panel(dark, $gray-dark, rgba($black, 0.15));
+}
+
+.ui-card {
+  @extend .ui-paper;
+
+  $base: unquote(".ui-card");
+  @at-root a {
+    &:hover > #{$base} {
+      box-shadow: $shadow-level3;
+    }
+
+    &[data-disabled="true"] > #{$base} {
+      box-shadow: $shadow-level0;
+    }
+  }
+
+  &__meta {
+    color: $gray;
+  }
+
+  &__content {
+    > .ui-scroll {
+      border: 2px solid $base-component-bg;
+    }
+  }
+
+  &__media {
+    > #{$base}__title {
+      background-color: rgba($black, 0.7);
+      color: $white;
+    }
+  }
+
+  .ui-divider {
+    @extend %hr;
+  }
+}
+
+.ui-tab {
+  &__panel {
+    &--noborder {
+      .ui-tab__body {
+        border-color: transparent;
+      }
+    }
+
+    &:not([data-align="bottom"]) {
+      .ui-tab__body {
+        border-top-color: $tab-active-color;
+      }
+    }
+
+    &[data-align="bottom"] {
+      .ui-tab__button {
+        &[data-active="true"] {
+          box-shadow: 0 1px 0 0 $base-component-bg inset, 0 3px 0 0 $tab-active-color,
+          0 0 0 1px $tab-active-color inset;
+        }
+      }
+
+      .ui-tab__body {
+        border-bottom-color: $tab-active-color;
+      }
+    }
+  }
+
+  &__button {
+    background-color: $base-component-bg;
+    border-radius: $base-border-radius;
+    box-shadow: 0 0 0 1px $base-border-color inset;
+
+    &[data-active="true"] {
+      background-color: $base-component-bg;
+      box-shadow: 0 -1px 0 0 $base-component-bg inset, 0 -3px 0 0 $tab-active-color,
+      0 0 0 1px $tab-active-color inset;
+
+      @at-root .ui-menu > & {
+        box-shadow: 0 -3px 0 0 $tab-active-color inset, 0 3px 0 0 $tab-active-color inset,
+        0 -1px 0 0 $base-component-bg inset, 0 0 0 1px $base-border-color inset;
+      }
+    }
+
+    &[data-disabled="true"] {
+      color: $base-border-color;
+
+      &::before {
+        background-color: rgba($gray, 0.25);
+      }
+    }
+  }
+
+  &__body {
+    background-color: $base-component-bg;
+    border: 1px solid $base-border-color;
+
+    > .ui-section,
+    > .ui-section__content,
+    > .ui-router-view {
+      background-color: $base-component-bg;
+    }
+  }
+}
+
+.ui-alert {
+  &__wrapper {
+    background-color: $base-color;
+    box-shadow: $shadow-level2;
+    color: $base-bg;
+  }
+
+  &.ui-toast {
+    .ui-alert__wrapper {
+      background-color: $base-theme;
+      box-shadow: $shadow-level3;
+      color: $base-color;
+    }
+
+    .ui-alert__icon {
+      background-color: $base-color;
+      color: $white;
+    }
+  }
+
+  @mixin make-alert($theme, $theme-color) {
+    &.ui-theme--#{$theme} {
+      .ui-alert__wrapper {
+        background-color: $theme-color;
+        color: $white;
+      }
+
+      &.ui-toast .ui-alert__wrapper {
+        background-color: $base-theme;
+        color: $theme-color;
+
+        .ui-alert__icon {
+          background-color: $theme-color;
+          color: $white;
+        }
+      }
+    }
+  }
+
+  @each $label, $color in $base-colors {
+    @include make-alert($label, $color);
+  }
+}
+
+.ui-dialog {
+  box-shadow: $shadow-level4;
+
+  .ui-panel__header {
+    background-color: $dlg-header-active-bg;
+    color: $dlg-header-active-color;
+    font-weight: $font-weight-medium;
+
+    &__actions {
+      .ui-dlg--tool {
+        .ui-btn {
+          .ui-icon {
+            background-color: $white;
+            border: 0.05em solid $gray;
+          }
+
+          &:hover .ui-icon {
+            background-color: $gray-light;
+          }
+        }
+
+        &[data-disabled="true"] {
+          .ui-icon {
+            color: $dlg-header-inactive-color;
+          }
+        }
+      }
+    }
+  }
+
+  &__wrapper {
+    &[data-modal="true"] {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    &[data-active="false"] .ui-dialog {
+      box-shadow: $shadow-level2;
+
+      .ui-panel__header {
+        background-color: $dlg-header-inactive-bg;
+        color: $dlg-header-inactive-color;
+
+        .ui-dlg--tool:not(:hover) {
+          background-color: transparent;
+
+          .ui-icon {
+            color: $dlg-header-inactive-color;
+          }
+        }
+      }
+    }
+  }
+}
+
+.ui-drawer {
+  &__body {
+    background-color: $sidebar-bg;
+  }
+
+  &__shim {
+    background-color: transparent;
+  }
+
+  $base: unquote(".ui-drawer");
+
+  &[data-align="start"] &__body {
+    @extend .ui-border--e;
+  }
+
+  &[data-align="end"] &__body {
+    @extend .ui-border--s;
+  }
+
+  &__toggler {
+    color: $primary;
+  }
+
+  &[data-peek="true"] {
+    #{$base}__shim {
+      background-color: $sidebar-shim;
+    }
+  }
+}
+
+.ui-sidebar {
+  background-color: $sidebar-bg;
+
+  @at-root .ui-page & {
+    box-shadow: none;
+  }
+
+  &__titlebar {
+    &::after {
+      @extend %hr;
+    }
+  }
+
+  &__body {
+    background-color: $base-theme;
+  }
+
+  $base: unquote(".ui-sidebar");
+
+  &[data-position="start"] {
+    @extend .ui-border--e;
+  }
+
+  &[data-position="end"] {
+    @extend .ui-border--s;
+  }
+
+  &__toggler {
+    &:hover {
+      color: $primary;
+    }
+  }
+
+  &__resizer {
+    background-color: $sidebar-resizer;
+    box-shadow: $shadow-level2;
+
+    &[data-resizing="true"] {
+      background: none;
+      border-left: 2px dotted rgba($base-invert, 0.25);
+    }
+  }
+
+  &[data-collapsed="true"] {
+    #{$base}__body {
+      @extend .ui-border--e;
+    }
+
+    &[data-position="end"] {
+      #{$base}__body {
+        @extend .ui-border--s;
+      }
+    }
+
+    &[data-peek="true"] {
+      #{$base}__body {
+        box-shadow: 0 0 20px 0 $base-shadow-color;
+      }
+    }
+  }
+}
+
+.ui-toolbar {
+  &, & > .ui-container {
+    background-color: $toolbar-bg;
+
+    > .ui-field {
+      &:not(:focus-within) {
+        &,
+        .ui-field__wrapper,
+        .ui-input {
+          background: none;
+          box-shadow: 0 -1px 0 0 $base-border-color inset;
+        }
+      }
+    }
+
+    > .ui-divider {
+      @extend %vr;
+    }
+  }
+
+  &.ui-theme--primary {
+    background-color: mix($primary, $base-theme, 9%);
+  }
+
+  &.ui-theme--secondary {
+    background-color: mix($secondary, $base-theme, 9%);
+  }
+
+  &.ui-theme--info {
+    background-color: mix($info, $base-theme, 9%);
+  }
+
+  &.ui-theme--danger {
+    background-color: mix($danger, $base-theme, 9%);
+  }
+
+  &.ui-theme--success {
+    background-color: mix($success, $base-theme, 9%);
+  }
+
+  &.ui-theme--warning {
+    background-color: mix($warning, $base-theme, 9%);
+  }
+
+  &.ui-theme--dark {
+    background-color: $gray-dark;
+    color: $gray-light;
+
+    .ui-divider {
+      @extend %vr-dark;
+    }
+  }
+}
+
+.ui-gridder {
+  &__ghost {
+    background-color: rgba($primary, 0.05);
+    border: 1px dashed $primary;
+  }
+
+  &__move {
+    background: $white;
+    box-shadow: 0 0 1px $gray;
+  }
+
+  &__overlay {
+    .ui-gridder__cell {
+      border: 1px dashed $gray;
+    }
+  }
+}

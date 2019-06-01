@@ -156,13 +156,11 @@
 }
 
 .ui-link {
-  color: $secondary;
   cursor: pointer;
   position: relative;
 
   &::before {
     @include transition(width 0.25s);
-    background: $secondary;
     bottom: 0;
     content: "";
     display: block;

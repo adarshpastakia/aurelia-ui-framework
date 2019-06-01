@@ -1,0 +1,208 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2019
+// @license   : MIT
+
+body {
+  background-color: $base-bg;
+  color: $base-color;
+}
+
+%hr {
+  border-bottom: 1px solid $divider-hilight;
+  border-top: 1px solid $divider-bg;
+}
+
+%vr {
+  border-left: 1px solid $divider-bg;
+  border-right: 1px solid $divider-hilight;
+}
+
+%vr-dark {
+  border-left-color: $shadow;
+  border-right-color: $white;
+}
+
+hr {
+  @extend %hr;
+  margin: 0.5rem 0;
+}
+
+::-moz-selection {
+  background: rgba($secondary, 0.75);
+  color: $white;
+}
+
+::selection {
+  background: rgba($secondary, 0.75);
+  color: $white;
+}
+
+::-webkit-scrollbar {
+  &-thumb {
+    background: rgba($gray, 0.75);
+
+    &:hover {
+      background: $gray;
+    }
+  }
+
+  &-track {
+    background: rgba($gray, 0.05);
+    box-shadow: 1px 1px 2px 0 $base-shadow-color inset, -1px -1px 2px 0 $base-shadow-color inset;
+  }
+}
+
+::-webkit-input-placeholder {
+  color: $input-placeholder;
+}
+
+::-moz-placeholder {
+  color: $input-placeholder;
+}
+
+::-ms-input-placeholder {
+  color: $input-placeholder;
+}
+
+:-ms-input-placeholder {
+  color: $input-placeholder;
+}
+
+::-o-placeholder {
+  color: $input-placeholder;
+}
+
+::placeholder {
+  color: $input-placeholder;
+}
+
+.ui {
+  &-text-divider {
+    border: 1px solid $base-border-color;
+  }
+
+  &-border {
+    &,
+    &--xy {
+      border-color: $base-border-color;
+    }
+
+    &--x {
+      @include property-prefix(border-start-color, $base-border-color, border-left);
+      @include property-prefix(border-end-color, $base-border-color, border-right);
+    }
+
+    &--s {
+      @include property-prefix(border-start-color, $base-border-color, border-left);
+    }
+
+    &--e {
+      @include property-prefix(border-end-color, $base-border-color, border-right);
+    }
+
+    &--y {
+      border-bottom-color: $base-border-color;
+      border-top-color: $base-border-color;
+    }
+
+    &--t {
+      border-top-color: $base-border-color;
+    }
+
+    &--b {
+      border-bottom-color: $base-border-color;
+    }
+  }
+
+  &-shadow,
+  &-shadow--0 {
+    box-shadow: $shadow-level0;
+  }
+
+  &-shadow--1 {
+    box-shadow: $shadow-level1;
+  }
+
+  &-shadow--2 {
+    box-shadow: $shadow-level2;
+  }
+
+  &-shadow--3 {
+    box-shadow: $shadow-level3;
+  }
+
+  &-shadow--4 {
+    box-shadow: $shadow-level4;
+  }
+
+  @each $label, $color in $colors {
+    &-bg--#{$label} {
+      background-color: $color;
+    }
+
+    &-color--#{$label} {
+      color: $color;
+    }
+
+    &-border--#{$label} {
+      border-color: $color;
+    }
+
+    &-hover--#{$label} {
+      @at-root &:hover {
+        color: $color;
+      }
+      @at-root &[data-type="tool"] .ui-btn:hover {
+        color: $color;
+      }
+    }
+
+    &-hover--bg-#{$label} {
+      @at-root &:hover {
+        background-color: $color;
+      }
+      @at-root &[data-type="tool"] .ui-btn:hover {
+        background-color: $color;
+      }
+    }
+  }
+}
+
+.ui-page {
+  background-color: $base-component-bg;
+
+  &__title {
+    background-color: $page-title-bg;
+    color: $page-title-color;
+  }
+
+  &__body {
+    > .ui-scroll {
+      border: 2px solid $base-component-bg;
+    }
+  }
+}
+
+.ui-section {
+  &__content {
+    background-color: $base-theme;
+  }
+}
+
+.ui-loader {
+  background-color: rgba($white, 0.1);
+
+  > div {
+    background-color: $base-component-bg;
+    box-shadow: $shadow-level3;
+    color: $primary;
+  }
+}
+
+.ui-drop {
+  &__body {
+    background-color: $base-component-bg;
+    box-shadow: $shadow-level3;
+  }
+}

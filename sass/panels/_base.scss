@@ -4,7 +4,6 @@
 // @license   : MIT
 
 .ui-panel-base {
-  background-color: $base-theme;
   display: grid;
   grid-template-areas: "header" "body" "footer";
   grid-template-rows: auto 1fr auto;
@@ -66,25 +65,21 @@
 
     > .ui-divider {
       margin: 2px 4px;
-      @extend %vr;
     }
   }
 
   &::after {
     @include position(absolute, null 0 0);
     content: "";
-    @extend %hr;
   }
 }
 
 .ui-footer {
-  color: $gray;
   grid-area: footer;
   position: relative;
 
   &::after {
     content: "";
     @include position(absolute, 0 0 null);
-    @extend %hr;
   }
 }

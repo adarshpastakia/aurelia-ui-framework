@@ -12,19 +12,13 @@
   }
 
   &__title {
-    color: $base-muted;
     font-size: 0.9rem;
     padding: (0.5 * $base-spacing) $base-spacing;
   }
 
   &__item {
-    color: $base-color;
     cursor: pointer;
     padding: (0.5 * $base-spacing) $base-spacing;
-
-    u {
-      color: $list-item-active-bg;
-    }
 
     > .ui-badge {
       float: right;
@@ -35,17 +29,7 @@
       }
     }
 
-    // &:hover:not(&--selected):not(&--disabled) {
-    //   background-color: var(--list-hover-bg);
-    //   color: var(--list-hover-color);
-    //   u {
-    //     color: inherit;
-    //   }
-    // }
-
     &--selected {
-      background-color: $list-item-active-bg;
-      color: $list-item-active-color;
       cursor: default;
       pointer-events: none;
 
@@ -63,18 +47,10 @@
         color: inherit;
       }
     }
-
-    &:hover,
-    &--hilight {
-      background-color: $list-item-hover-bg;
-      color: $list-item-hover-color;
-    }
   }
 }
 
 .ui-dropdown {
-  background-color: $base-component-bg;
-  box-shadow: 0 0 0 1px $base-border-color inset;
   display: grid;
 
   &__link {
@@ -83,13 +59,6 @@
     grid-template-areas: "error icon label caret";
     grid-template-columns: auto auto 1fr auto;
     padding: 0 0.5rem;
-
-    &[data-open="true"],
-    &:active {
-      background-color: $menu-active-bg;
-      color: $menu-active-color;
-      transition: background-color 0.5s;
-    }
 
     &[data-disabled="true"] {
       opacity: 0.5;

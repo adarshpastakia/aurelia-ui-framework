@@ -6,7 +6,6 @@
 .ui-panel {
   align-self: start;
   border-radius: $base-border-radius;
-  box-shadow: $shadow-level0;
   display: grid;
   grid-template-areas: "header" "body" "footer";
   grid-template-rows: auto 1fr auto;
@@ -15,11 +14,8 @@
   overflow: hidden;
   position: relative;
 
-  &.ui-paper {
-    box-shadow: $shadow-level2;
-  }
+  $base: unquote(".ui-panel");
 
-  $base: #{&};
   &__group {
     > #{$base} {
       border-radius: 0;
@@ -28,6 +24,7 @@
         border-top-left-radius: $base-border-radius;
         border-top-right-radius: $base-border-radius;
       }
+
       &:last-child {
         border-bottom-left-radius: $base-border-radius;
         border-bottom-right-radius: $base-border-radius;
@@ -43,15 +40,10 @@
     grid-template-rows: 1fr;
     overflow: hidden;
     position: relative;
-
-    > .ui-scroll {
-      border: 2px solid $base-component-bg;
-    }
   }
 
   &__header {
     align-items: center;
-    background-color: $base-component-bg;
     display: grid;
     grid-area: header;
     grid-template-areas: "drag-handle header actions";
@@ -108,24 +100,4 @@
     z-index: 5000;
   }
 
-  @mixin make-panel($theme, $theme-color, $tool-color) {
-    &.ui-theme--#{$theme} {
-      #{$base}__header {
-        background-color: $theme-color;
-        color: $white;
-
-        .ui-divider {
-          @extend %vr-dark;
-        }
-        .ui-btn__wrapper[data-type="tool"] .ui-btn__inner {
-          background-color: $tool-color;
-          color: $white;
-        }
-      }
-    }
-  }
-  @each $label, $color in $base-colors {
-    @include make-panel($label, mix($color, $gray, 85%), rgba($color, 0.95));
-  }
-  @include make-panel(dark, $gray-dark, rgba($black, 0.15));
 }

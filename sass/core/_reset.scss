@@ -5,9 +5,11 @@
 @if $google-font-sans-serif {
   @import url($google-font-sans-serif);
 }
+
 @if $google-font-serif {
   @import url($google-font-serif);
 }
+
 @if $google-font-mono {
   @import url($google-font-mono);
 }
@@ -15,9 +17,11 @@
 @if $local-font-sans-serif {
   @import url($local-font-sans-serif);
 }
+
 @if $local-font-serif {
   @import url($local-font-serif);
 }
+
 @if $local-font-mono {
   @import url($local-font-mono);
 }
@@ -41,8 +45,6 @@ html {
 }
 
 body {
-  background-color: $base-bg;
-  color: $base-color;
   cursor: default;
   height: 100vh;
   line-height: $base-line-height;
@@ -60,79 +62,24 @@ body {
 }
 
 %hr {
-  border-bottom: 1px solid $divider-hilight;
-  border-top: 1px solid $divider-bg;
   height: 0;
   opacity: 0.25;
   transform: scaleY(0.5);
 }
+
 %vr {
   align-self: stretch;
-  border-left: 1px solid $divider-bg;
-  border-right: 1px solid $divider-hilight;
   opacity: 0.25;
   transform: scaleX(0.5);
 }
+
 %vr-dark {
-  border-left-color: $shadow;
-  border-right-color: $white;
-}
-
-hr {
-  @extend %hr;
-  margin: 0.5rem 0;
-}
-
-::-moz-selection {
-  background: rgba($secondary, 0.75);
-  color: $white;
-}
-
-::selection {
-  background: rgba($secondary, 0.75);
-  color: $white;
+  @extend %vr;
 }
 
 ::-webkit-scrollbar {
   height: 5px;
   width: 5px;
-
-  &-thumb {
-    background: rgba($gray, 0.75);
-
-    &:hover {
-      background: $gray;
-    }
-  }
-
-  &-track {
-    background: rgba($gray, 0.05);
-    box-shadow: 1px 1px 2px 0 $base-shadow-color inset, -1px -1px 2px 0 $base-shadow-color inset;
-  }
-}
-
-::-webkit-input-placeholder {
-  color: $input-placeholder;
-}
-
-::-moz-placeholder {
-  color: $input-placeholder;
-}
-
-::-ms-input-placeholder {
-  color: $input-placeholder;
-}
-
-:-ms-input-placeholder {
-  color: $input-placeholder;
-}
-
-::-o-placeholder {
-  color: $input-placeholder;
-}
-
-::placeholder {
-  color: $input-placeholder;
 }
 
 input[type="search"]::-webkit-search-cancel-button {

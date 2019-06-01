@@ -1,0 +1,172 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2019
+// @license   : MIT
+
+.ui-datagrid {
+  $base: unquote(".ui-datagrid");
+
+  &__body {
+    #{$base}__cell__counter {
+      background-color: $datagrid-head-column-bg;
+      color: $datagrid-head-column-color;
+    }
+  }
+
+  &__body &__row {
+    &:hover #{$base}__cell {
+      background-color: $datagrid-hover-bg;
+    }
+  }
+
+  &__head {
+    #{$base}__cell {
+      &,
+      &__counter {
+        background-color: $datagrid-head-bg;
+        color: $datagrid-head-color;
+      }
+    }
+  }
+
+  &__foot {
+    #{$base}__cell {
+      &,
+      &__counter {
+        background-color: $datagrid-foot-bg;
+        border-top: 1px solid $base-border-color;
+        color: $datagrid-foot-color;
+      }
+    }
+  }
+
+  &__row {
+    background-color: $base-bg;
+
+    &--even #{$base}__cell {
+      background-color: $datagrid-row-even-bg;
+    }
+
+    &--odd #{$base}__cell {
+      background-color: $datagrid-row-odd-bg;
+    }
+
+    &:hover:not(:last-child) {
+      background-color: rgba($secondary, 0.2);
+    }
+
+    &--filler {
+      td > div {
+        background-color: $base-bg;
+      }
+    }
+
+    &__locked--start {
+      #{$base}__cell:last-child {
+        @include property-prefix(border-end, 1px solid $base-shadow-color);
+      }
+    }
+
+    &__locked--end {
+      #{$base}__cell:first-child {
+        @include property-prefix(border-start, 1px solid $base-shadow-color);
+      }
+    }
+  }
+
+  &__cell {
+    @include property-prefix(border-end, 1px dotted $base-border-color);
+
+    &__resizer {
+      @include property-prefix(border-start, 1px solid $base-border-color);
+    }
+
+    &__sorter {
+      i {
+        border-color: $datagrid-head-color transparent;
+      }
+    }
+
+    &[data-resizing="true"] {
+      @include property-prefix(border-end, 2px solid $base-border-color);
+    }
+  }
+}
+
+.ui-tree {
+  &__container {
+    border-top: 1px solid $base-border-color;
+  }
+
+  &__search {
+    .ui-input {
+      box-shadow: none;
+    }
+  }
+
+  &__expander {
+    &:hover {
+      color: $tree-active-bg;
+    }
+  }
+
+  &__checkbox {
+    &:hover {
+      color: $tree-active-bg;
+    }
+  }
+
+  &__label {
+    &:hover {
+      background-color: $tree-hover-bg;
+      color: $tree-hover-color;
+    }
+  }
+
+  &__show-more {
+    color: $secondary;
+  }
+
+  &__no-children {
+    color: $base-muted;
+  }
+
+  &--selected &__label {
+    background-color: $tree-active-bg;
+    color: $tree-active-color;
+  }
+}
+
+.ui-datalist {
+  &__card {
+    box-shadow: $shadow-level0;
+
+    .ui-card__content {
+      &::before {
+        @extend %hr;
+      }
+    }
+
+    &[href] {
+      &:hover {
+        box-shadow: $shadow-level2;
+      }
+    }
+  }
+
+  &__table {
+    data {
+      display: block;
+
+      &::before {
+        color: $base-muted;
+      }
+    }
+  }
+
+  &__toolbox {
+    .ui-btn__group {
+      box-shadow: 0 0 1px 0 $base-shadow-color;
+    }
+  }
+}

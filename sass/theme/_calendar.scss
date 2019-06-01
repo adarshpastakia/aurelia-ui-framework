@@ -1,0 +1,143 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2019
+// @license   : MIT
+
+.ui-calendar {
+  border: 1px solid $base-border-color;
+  border-radius: $base-border-radius;
+
+  &__range {
+    .ui-divider {
+      @extend %vr;
+    }
+  }
+
+  &__header {
+    background-color: $base-component-bg;
+  }
+
+  &__footer {
+    background-color: $base-component-bg;
+  }
+
+  &__tag {
+    background-color: rgba($primary, 0.05);
+    border: 1px solid rgba($primary, 0.5);
+    color: $primary;
+
+    &:hover {
+      background-color: rgba($primary, 0.5);
+      color: $base-bg;
+    }
+
+    &.cancel {
+      border-color: rgba($danger, 0.5);
+      color: $danger;
+
+      &:hover {
+        background-color: rgba($danger, 0.5);
+        color: $base-bg;
+      }
+    }
+
+    &[data-active="true"] {
+      background-color: rgba($primary, 0.85);
+      color: $base-bg;
+    }
+  }
+
+  &__title {
+    color: $primary;
+    font-weight: $font-weight-medium;
+  }
+
+  &__tool {
+    color: $primary;
+
+    &:hover {
+      background-color: rgba($primary, 0.15);
+      border-color: rgba($base-border-color, 0.75);
+    }
+
+    &[data-disabled="true"] {
+      color: rgba($gray, 0.5);
+    }
+  }
+
+  &__clock {
+    border-top: 1px solid rgba($base-border-color, 0.75);
+
+    &__ampm {
+      background: $gray;
+      border: 1px solid $base-border-color;
+
+      > div {
+        background-color: $base-theme;
+        border: 1px solid rgba($shadow, 0.5);
+        box-shadow: 0 0 2px 0 rgba($shadow, 0.25) inset;
+      }
+
+      &::before {
+        background-color: $yellow;
+        color: $gray-dark;
+      }
+      &::after {
+        background-color: $gray-dark;
+        color: $white;
+      }
+    }
+  }
+
+  &__page {
+    &__head {
+      background-color: $calendar-head-bg;
+      color: $calendar-head-color;
+    }
+
+    &__cell {
+      &:hover {
+        background-color: rgba($primary, 0.15);
+      }
+
+      &.selected {
+        background-color: rgba($primary, 0.15);
+        box-shadow: 0 0 0 1px $primary inset;
+        color: $primary;
+      }
+
+      &.week {
+        background-color: rgba($base-color, 0.05);
+        color: $gray;
+      }
+
+      &.date-other {
+        color: rgba($base-color, 0.65);
+      }
+      &.date-today {
+        &::before {
+          color: $secondary;
+        }
+      }
+
+      &.select-start,
+      &.select-end {
+        background-color: rgba($primary, 0.5);
+        color: $white;
+
+        &::before {
+          color: $white;
+        }
+      }
+      &.select-hilight {
+        background-color: rgba($primary, 0.15);
+        color: $primary;
+      }
+
+      &.disabled {
+        background-color: rgba($gray, 0.05);
+        color: rgba($gray, 0.5);
+      }
+    }
+  }
+}

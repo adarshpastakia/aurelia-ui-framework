@@ -13,7 +13,6 @@
 }
 
 .ui-page {
-  background-color: $base-component-bg;
   display: grid;
   grid-area: content;
   grid-template-areas: "title" "alert" "body";
@@ -24,8 +23,6 @@
   @include enable-gpu();
 
   &__title {
-    background-color: $page-title-bg;
-    color: $page-title-color;
     font-size: calc(0.9 * 1rem);
     grid-area: title;
     padding: 0 $base-spacing;
@@ -37,10 +34,6 @@
   &__body {
     grid-area: body;
     @extend %ui-section;
-
-    > .ui-scroll {
-      border: 2px solid $base-component-bg;
-    }
   }
 }
 
@@ -61,7 +54,6 @@
   }
 
   &__content {
-    background-color: $base-theme;
     display: block;
     grid-area: content;
     position: relative;

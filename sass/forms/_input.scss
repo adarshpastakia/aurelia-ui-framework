@@ -4,11 +4,7 @@
 // @license   : MIT
 
 .ui-input {
-  $input-bevel: 0 1px 2px 0 rgba($black, 0.25) inset;
-  background-color: $input-bg;
   border-radius: $base-border-radius;
-  box-shadow: 0 0 0 1px rgba($base-border-color, 0.5) inset, $input-bevel;
-  color: $input-color;
   display: grid;
   flex: 1 1 1rem;
   grid-column: 1;
@@ -20,11 +16,8 @@
 
   &.ui-list {
     grid-template-areas: "addon-start error input counter clear addon-end drop-handle" "list-container . . . . . .";
-
-    .ui-list__container {
-      border-top: 1px solid $base-border-color;
-    }
   }
+
   &.ui-phone {
     grid-template-areas: "addon-start error flag input counter clear addon-end drop-handle";
     grid-template-columns: auto auto auto 1fr auto auto auto auto;
@@ -35,12 +28,12 @@
     }
   }
 
-  $base: #{&};
+  $base: unquote(".ui-input");
 
   &--textarea {
     grid-template-areas: "addon-start error input clear addon-end" "counter . . . .";
+
     #{$base}__counter {
-      border-top: 1px dashed $base-border-color;
       grid-column: span 5;
       place-content: start;
     }
@@ -48,6 +41,7 @@
     #{$base}__error {
       align-self: start;
     }
+
     #{$base}__clear {
       position: absolute;
       right: 0;
@@ -65,7 +59,6 @@
   }
 
   &::after {
-    background-color: $input-focus-color;
     bottom: 0;
     content: "";
     height: 2px;
@@ -78,39 +71,19 @@
   }
 
   &:focus-within {
-    box-shadow: 0 0 0 1px rgba($input-focus-color, 0.5) inset, $input-bevel;
     &::after {
       transition: width 0.4s;
       width: 100%;
     }
   }
 
-  // stylelint-disable-next-line
-  > tpl {
-    display: none;
-  }
-
-  &--invalid {
-    background-color: $input-error-bg;
-    box-shadow: 0 0 0 1px rgba($input-error-color, 0.25) inset, $input-bevel;
-    &:focus-within {
-      box-shadow: 0 0 0 1px rgba($input-error-color, 0.5) inset, $input-bevel;
-    }
-    &::after {
-      background-color: $input-error-color;
-    }
-  }
-
   &--readonly {
-    background-color: $input-bg;
-    box-shadow: 0 0 0 1px rgba($base-border-color, 0.25) inset, $input-bevel;
 
     &::after {
       display: none;
     }
 
     &::before {
-      background-color: rgba($gray, 0.05);
       content: "";
       cursor: default;
     }
@@ -122,7 +95,6 @@
     }
 
     &::before {
-      background-color: rgba($gray, 0.25);
       content: "";
       cursor: not-allowed;
     }
@@ -144,10 +116,6 @@
       font-size: 1rem;
     }
 
-    .ui-option {
-      color: $base-color;
-    }
-
     & + &,
     &--end {
       grid-area: addon-end;
@@ -162,8 +130,6 @@
   }
 
   &__info {
-    background-color: $base-component-bg;
-    box-shadow: 0 1px 0 0 $base-component-bg inset, 0 0 0 1px $base-border-color inset;
     grid-column: 1;
     padding: 0.25rem 0.5rem;
 
@@ -176,7 +142,6 @@
   &__counter,
   &__error,
   &__clear {
-    color: $gray;
     display: grid;
     opacity: 0.5;
     padding: 0.25rem;
@@ -184,14 +149,11 @@
   }
 
   &__drop-handle {
-    box-shadow: 0 0 1px 0 $gray;
-    color: $gray;
     cursor: pointer;
     font-size: 1.5em;
     grid-area: drop-handle;
 
     &:hover {
-      color: $primary;
       opacity: 1;
     }
   }
@@ -199,20 +161,18 @@
   &__clear {
     cursor: pointer;
     grid-area: clear;
+
     &:hover {
       opacity: 1;
     }
   }
 
   &__error {
-    color: $input-error-color;
     grid-area: error;
     opacity: 1;
     z-index: 5;
 
     > ul {
-      background: $input-error-color;
-      color: $white;
       display: none;
       font-size: 0.9rem;
       list-style: none;
@@ -235,9 +195,7 @@
 
   input,
   textarea {
-    background: none;
     border: 0;
-    color: $input-color;
     font-size: 1rem;
     font-weight: $font-weight-light;
     grid-area: input;
@@ -262,8 +220,6 @@
 
   &-file {
     &__dropzone {
-      border: 2px dashed $gray;
-      color: $gray;
       display: grid;
       font-size: 1.25rem;
       font-weight: $font-weight-light;
@@ -277,18 +233,9 @@
       .ui-icon {
         font-size: 3rem;
       }
+
       span {
         pointer-events: none;
-      }
-
-      &.dragging {
-        border-color: $input-focus-color;
-        color: $input-focus-color;
-      }
-
-      & + input {
-        box-shadow: none;
-        display: none;
       }
     }
 
@@ -319,9 +266,7 @@
 
     .ui-tag {
       align-items: center;
-      background-color: rgba($gray, 0.1);
       border-radius: 2px;
-      box-shadow: 0 0 1px 0 $gray;
       display: grid;
       font-size: 0.8rem;
       grid-gap: 4px;

@@ -1,0 +1,115 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2018
+// @license   : MIT
+
+.ui-menu {
+  $base: unquote(".ui-menu");
+
+  &__group {
+    &__label {
+      color: $gray;
+    }
+
+    &::after {
+      @extend %hr;
+    }
+  }
+
+  &__item {
+
+    &__link {
+
+      &:hover {
+        background-color: $menu-hover-bg;
+        box-shadow: 0 0 1px 0 $menu-active-bg inset;
+        color: $menu-hover-color;
+      }
+
+      &[data-open="true"],
+      &:active {
+        background-color: $menu-active-bg;
+        color: $menu-active-color;
+      }
+
+      &[data-active="true"] {
+        background-color: $menu-active-bg;
+        box-shadow: 4px 0 0 0 $menu-active-border-color inset;
+        color: $menu-active-color;
+      }
+
+      &[data-disabled="true"] {
+        color: $gray;
+      }
+
+      @at-root [dir="rtl"] &[data-active="true"] {
+        box-shadow: -4px 0 0 0 $menu-active-border-color inset;
+      }
+    }
+
+    &__caret {
+
+      &--split {
+
+        &:hover {
+          background-color: $menu-hover-bg;
+          color: $menu-hover-color;
+        }
+
+        &[data-open="true"],
+        &:active {
+          background-color: $menu-active-bg;
+          color: $menu-active-color;
+        }
+      }
+    }
+  }
+
+  .ui-divider {
+    @extend %hr;
+  }
+
+  &__bar {
+    background-color: $menubar-bg;
+
+    &::after {
+      @extend %hr;
+    }
+
+    &__wrapper {
+
+      .ui-divider {
+        @extend %vr;
+      }
+
+      #{$base}__item {
+        &__link[data-active="true"] {
+          box-shadow: 0 -2px 0 0 $menu-active-color inset;
+        }
+      }
+
+      #{$base}__group {
+        border: 1px solid rgba($base-border-color, 0.5);
+      }
+    }
+  }
+}
+
+.ui-breadcrumbs {
+  color: $secondary;
+
+  &__wrapper {
+    color: $secondary;
+  }
+
+  &__link,
+  &__overflow {
+    &::after {
+      color: $base-muted;
+    }
+  }
+
+  &__label {
+    color: $base-muted;
+  }
+}

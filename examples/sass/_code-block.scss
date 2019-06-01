@@ -109,6 +109,7 @@
 }
 
 .x-code-table {
+  @extend .ui-table;
   caption {
     white-space: nowrap;
   }

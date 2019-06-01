@@ -7,7 +7,6 @@
   display: grid;
 
   &__body {
-    background-color: $sidebar-bg;
     bottom: 0;
     display: grid;
     grid-area: body;
@@ -23,7 +22,6 @@
   }
 
   &__shim {
-    background-color: transparent;
     height: 0;
     transition: background-color 1s;
     width: 0;
@@ -31,15 +29,13 @@
     @include position(fixed, 0);
   }
 
-  $base: #{&};
+  $base: unquote(".ui-drawer");
   &[data-align="start"] &__body {
-    @extend .ui-border--e;
     left: 0;
     transform: translateX(-100%);
   }
 
   &[data-align="end"] &__body {
-    @extend .ui-border--s;
     right: 0;
     transform: translateX(100%);
   }
@@ -62,7 +58,6 @@
 
   &__toggler {
     align-self: center;
-    color: $primary;
     cursor: pointer;
     font-size: 1.5rem;
     line-height: 1;
@@ -76,7 +71,6 @@
 
   &[data-peek="true"] {
     #{$base}__shim {
-      background-color: $sidebar-shim;
       height: unset;
       width: unset;
     }

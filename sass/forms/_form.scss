@@ -33,8 +33,6 @@
 }
 
 .ui-fieldset {
-  border: 1px solid $base-border-color;
-  border-radius: $base-border-radius;
   display: block;
   flex: 1 1 12rem;
   margin: var(--gutter);
@@ -66,18 +64,14 @@
   position: relative;
 
   &::before {
-    background-image: -webkit-linear-gradient(left, $red, $yellow, $green);
     background-size: 100% 8px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25) inset;
     content: "";
     display: block;
     height: 4px;
   }
 
   &::after {
-    background-color: $base-bg;
     bottom: 0;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25) inset;
     content: "";
     left: var(--password-strength);
     position: absolute;

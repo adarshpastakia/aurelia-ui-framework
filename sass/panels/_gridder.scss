@@ -53,8 +53,6 @@
   }
 
   &__ghost {
-    background-color: rgba($primary, 0.05);
-    border: 1px dashed $primary;
     grid-column-start: auto;
     grid-row-start: auto;
     pointer-events: none;
@@ -68,8 +66,6 @@
   }
 
   &__move {
-    background: $white;
-    box-shadow: 0 0 1px $gray;
     cursor: grab;
     display: none;
     font-size: 16px;
@@ -116,9 +112,5 @@
     @include position(absolute, 0);
     display: none;
     z-index: 1;
-
-    .ui-gridder__cell {
-      border: 1px dashed $gray;
-    }
   }
 }

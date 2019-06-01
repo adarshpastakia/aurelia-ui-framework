@@ -1,0 +1,320 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2019
+// @license   : MIT
+
+.ui-fieldset {
+  border: 1px solid $base-border-color;
+  border-radius: $base-border-radius;
+}
+
+.ui-password-meter {
+
+  &::before {
+    background-image: -webkit-linear-gradient(left, $red, $yellow, $green);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25) inset;
+  }
+
+  &::after {
+    background-color: $base-bg;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25) inset;
+  }
+}
+
+.ui-field {
+  &:focus-within &__label {
+    color: $input-focus-color;
+    font-weight: $font-weight-medium;
+  }
+
+  $base: unquote(".ui-field");
+
+  &__label {
+    &::after {
+      color: $secondary;
+    }
+  }
+
+  &__wrapper {
+    background-color: $base-component-bg;
+    border-radius: $base-border-radius;
+    box-shadow: 0 0 0 1px $base-border-color inset;
+  }
+
+  &--plain &__wrapper,
+  &--plain {
+    background-color: transparent;
+    box-shadow: none;
+
+    .ui-input {
+      background-color: transparent;
+      border-color: transparent;
+      box-shadow: none;
+
+      &__info {
+        background: none;
+        box-shadow: none;
+      }
+    }
+
+    .ui-dropdown {
+      background: none;
+      box-shadow: none;
+    }
+  }
+}
+
+.ui-input {
+  $input-bevel: 0 1px 2px 0 rgba($black, 0.25) inset;
+  background-color: $input-bg;
+  box-shadow: 0 0 0 1px rgba($base-border-color, 0.5) inset, $input-bevel;
+  color: $input-color;
+
+  &.ui-list {
+    .ui-list__container {
+      border-top: 1px solid $base-border-color;
+    }
+  }
+
+  $base: unquote(".ui-input");
+
+  &--textarea {
+    #{$base}__counter {
+      border-top: 1px dashed $base-border-color;
+    }
+  }
+
+  &::after {
+    background-color: $input-focus-color;
+  }
+
+  &:focus-within {
+    box-shadow: 0 0 0 1px rgba($input-focus-color, 0.5) inset, $input-bevel;
+  }
+
+  &--invalid {
+    background-color: $input-error-bg;
+    box-shadow: 0 0 0 1px rgba($input-error-color, 0.25) inset, $input-bevel;
+
+    &:focus-within {
+      box-shadow: 0 0 0 1px rgba($input-error-color, 0.5) inset, $input-bevel;
+    }
+
+    &::after {
+      background-color: $input-error-color;
+    }
+  }
+
+  &--readonly {
+    background-color: $input-bg;
+    box-shadow: 0 0 0 1px rgba($base-border-color, 0.25) inset, $input-bevel;
+
+    &::before {
+      background-color: rgba($gray, 0.05);
+    }
+  }
+
+  &--disabled {
+    &::before {
+      background-color: rgba($gray, 0.25);
+    }
+  }
+
+  &__addon {
+    .ui-option {
+      color: $base-color;
+    }
+  }
+
+  &__info {
+    background-color: $base-component-bg;
+    box-shadow: 0 1px 0 0 $base-component-bg inset, 0 0 0 1px $base-border-color inset;
+  }
+
+  &__drop-handle,
+  &__counter,
+  &__error,
+  &__clear {
+    color: $gray;
+  }
+
+  &__drop-handle {
+    box-shadow: 0 0 1px 0 $gray;
+    color: $gray;
+
+    &:hover {
+      color: $primary;
+    }
+  }
+
+  &__error {
+    color: $input-error-color;
+
+    > ul {
+      background: $input-error-color;
+      color: $white;
+    }
+  }
+
+  input,
+  textarea {
+    background: none;
+    color: $input-color;
+  }
+
+  &-file {
+    &__dropzone {
+      border: 2px dashed $gray;
+      color: $gray;
+
+      &.dragging {
+        border-color: $input-focus-color;
+        color: $input-focus-color;
+      }
+
+      & + input {
+        box-shadow: none;
+        display: none;
+      }
+    }
+  }
+
+  &__tags {
+
+    .ui-tag {
+      background-color: rgba($gray, 0.1);
+      box-shadow: 0 0 1px 0 $gray;
+    }
+  }
+}
+
+.ui-list {
+
+  &__title {
+    color: $base-muted;
+  }
+
+  &__item {
+    color: $base-color;
+
+    u {
+      color: $list-item-active-bg;
+    }
+
+    &--selected {
+      background-color: $list-item-active-bg;
+      color: $list-item-active-color;
+    }
+
+    &:hover,
+    &--hilight {
+      background-color: $list-item-hover-bg;
+      color: $list-item-hover-color;
+    }
+  }
+}
+
+.ui-dropdown {
+  background-color: $base-component-bg;
+  box-shadow: 0 0 0 1px $base-border-color inset;
+
+  &__link {
+
+    &[data-open="true"],
+    &:active {
+      background-color: $menu-active-bg;
+      color: $menu-active-color;
+    }
+  }
+}
+
+.ui-option {
+
+  &__toggle {
+    background-color: $toggle-bg;
+    box-shadow: $shadow-level1 inset;
+
+    &::before {
+      color: $toggle-color;
+    }
+
+    &::after {
+      background-color: $base-theme;
+      box-shadow: 0 0 1px 0 $gray inset;
+    }
+  }
+
+  &__control {
+
+    > input {
+
+      &:focus ~ .ui-option__toggle {
+        box-shadow: 0 0 3px 2px $input-focus-color;
+      }
+
+      &:checked {
+        ~ .ui-option__toggle {
+          background-color: $toggle-on-bg;
+
+          &::before {
+            color: $toggle-on-color;
+          }
+        }
+      }
+
+      &:hover ~ .ui-icon,
+      &:focus ~ .ui-icon {
+        color: $input-focus-color;
+      }
+    }
+  }
+
+  @mixin make-toggle($theme, $theme-color) {
+    &.ui-theme--#{$theme} {
+      input:checked {
+        ~ .ui-option__toggle {
+          &::before {
+            background-color: $theme-color;
+            color: $white;
+          }
+        }
+      }
+    }
+  }
+
+  @each $label, $color in $base-colors {
+    @include make-toggle($label, $color);
+  }
+
+  @each $label, $color in $color-list {
+    @include make-toggle($label, $color);
+  }
+}
+
+.ui-slider {
+  &__bubble {
+    background-color: $input-bg;
+    border: 1px solid $base-border-color;
+    border-radius: $base-border-radius;
+  }
+
+  &__min,
+  &__max {
+    color: $base-muted;
+  }
+
+  &__bar {
+    background-color: $base-bg;
+
+    &::after {
+      background-color: $primary;
+    }
+
+    & > input {
+      &::-webkit-slider-thumb {
+        background-color: $input-bg;
+        border: 1px solid $base-border-color;
+      }
+    }
+  }
+}

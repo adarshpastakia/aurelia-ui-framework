@@ -40,10 +40,6 @@ small {
   font-size: map-get($font-sizes, sm);
 }
 
-mark {
-  background: mix($secondary, $white, 10%);
-}
-
 img {
   border: 0;
 }
@@ -54,8 +50,6 @@ pre {
 }
 
 code {
-  background: rgba($gray, 0.1);
-  color: rgba($danger, 0.75);
   font-family: $font-family-mono;
   padding: 0 0.1em;
 }
@@ -66,7 +60,6 @@ article {
 }
 
 abbr[title] {
-  border-bottom: 1px dashed rgba($base-color, 0.75);
   cursor: help;
   text-decoration: none;
 }
@@ -125,7 +118,7 @@ ol {
   }
 }
 
-table {
+.ui-table {
   border-spacing: 2px;
   table-layout: fixed;
   width: 100%;
@@ -136,21 +129,8 @@ table {
     text-align: left;
   }
 
-  thead th {
-    background: $table-head-bg;
-    color: $table-head-color;
-  }
-
   td {
     padding: ($base-spacing / 4) ($base-spacing / 2);
-  }
-
-  tr:nth-child(even) {
-    background-color: $row-even-bg;
-  }
-
-  tr:nth-child(odd) {
-    background-color: $row-odd-bg;
   }
 
   @include max-breakpoint(sm) {
