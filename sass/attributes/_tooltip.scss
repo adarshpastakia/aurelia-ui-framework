@@ -20,38 +20,61 @@
   @include transition(opacity 500ms);
 
   &::after {
-    border: 0 solid transparent;
-    border-top-color: currentcolor;
-    border-width: 1em 1em 0;
+    border: 1em solid transparent;
     color: $tooltip-bg;
     content: "";
     display: block;
     height: 1em;
     margin: auto;
+    position: absolute;
     width: 1em;
-    @include position(absolute, null 0);
+    @include position(absolute, -0.75em)
+  }
+
+  &[data-pos="top"] {
+    margin-bottom: 1em;
+
+    &::after {
+      border-bottom-width: 0;
+      border-top-color: currentColor;
+      bottom: -0.5em;
+      top: unset;
+    }
   }
 
   &[data-pos="bottom"] {
     margin-top: 1em;
 
     &::after {
-      @include position(absolute, -0.5em 0 null 0);
       border-bottom-color: currentColor;
-      border-top-color: transparent;
-      border-width: 0 1em 1em;
+      border-top-width: 0;
+      bottom: unset;
     }
   }
 
+  @at-root [dir="rtl"] &[data-pos="left"],
   &[data-pos="right"] {
     margin-left: 1em;
 
     &::after {
-      @include position(absolute, 0 null 0 0);
+      border-left-width: 0;
       border-right-color: currentColor;
-      border-top-color: transparent;
-      border-width: 1em 1em 1em 0;
-      margin-left: -0.5em;
+      border-right-width: 1em;
+      left: -0.75em;
+      right: unset;
+    }
+  }
+
+  @at-root [dir="rtl"] &[data-pos="right"],
+  &[data-pos="left"] {
+    margin-left: -1em;
+
+    &::after {
+      border-left-color: currentColor;
+      border-left-width: 1em;
+      border-right-width: 0;
+      left: unset;
+      right: -0.75em;
     }
   }
 
