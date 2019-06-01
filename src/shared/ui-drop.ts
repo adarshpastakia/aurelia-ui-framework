@@ -6,6 +6,7 @@
  */
 import { Subscription } from "aurelia-event-aggregator";
 import { bindable, containerless, customElement, inlineView } from "aurelia-framework";
+import ResizeObserver from "resize-observer-polyfill";
 import { UIInternal } from "../utils/ui-internal";
 import { UITether } from "../utils/ui-tether";
 
@@ -33,7 +34,8 @@ export class UIDrop {
 
   private anchorEl: Element;
   private obClick: Subscription;
-  private obResize: Subscription;
+  private obResize: ResizeObserver;
+  private obViewportResize: Subscription;
 
   constructor(protected element: Element) {
     this.position = (element.getAttribute("position") as UITether.Position) || "tl";
@@ -61,9 +63,15 @@ export class UIDrop {
     this.isOpen = open === undefined ? !this.isOpen : open;
     if (this.isOpen) {
       this.obClick = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_CLICK, t => this.canClose(t));
-      this.obResize = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_RESIZE, () =>
+      // observe viewport resize
+      this.obViewportResize = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_RESIZE, () =>
         this.updatePosition()
       );
+      // observe body resize
+      this.obResize = new ResizeObserver(() =>
+        this.updatePosition());
+      this.obResize.observe(this.vmElement);
+      this.obResize.observe(this.anchorEl);
       this.element.dispatchEvent(UIInternal.createEvent("open"));
       UIInternal.queueMicroTask(() => {
         this.tetherObj.updatePosition();
@@ -85,7 +93,10 @@ export class UIDrop {
       this.obClick.dispose();
     }
     if (this.obResize) {
-      this.obResize.dispose();
+      this.obResize.disconnect();
+    }
+    if (this.obViewportResize) {
+      this.obViewportResize.dispose();
     }
   }
 
