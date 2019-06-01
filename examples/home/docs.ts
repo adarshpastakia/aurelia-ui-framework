@@ -55,6 +55,7 @@ export class DocsPage {
 
   protected toggleDir() {
     this.dir = this.dir === "ltr" ? "rtl" : "ltr";
+    document.documentElement.dir = this.dir;
   }
 
   protected toggleTheme(): void {
