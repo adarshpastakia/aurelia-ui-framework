@@ -91,7 +91,7 @@ $dlg-header-inactive-color: $gray;
 
 // Form Controls
 $input-bg: $base-theme !default;
-$input-color: $gray-dark !default;
+$input-color: mix($base-color, $base-theme, 85%) !default;
 $input-placeholder: $gray !default;
 $input-focus-color: $primary !default;
 $input-error-bg: mix($danger, $base-theme, 4%) !default;
