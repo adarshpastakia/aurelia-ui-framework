@@ -21,7 +21,6 @@
     border-radius: 1em;
     box-shadow: $shadow-level1 inset;
     cursor: pointer;
-    direction: ltr;
     font-size: 1rem;
     margin: 0 4px;
     opacity: 0.9;
@@ -40,8 +39,8 @@
       margin: auto;
       padding: 2px;
       position: absolute;
-      text-align: right;
       width: 100%;
+      @include property-prefix(text-align, end);
     }
 
     &::after {
@@ -91,6 +90,7 @@
       ~ .ui-icon:first-of-type {
         display: block;
       }
+
       ~ .ui-icon:last-of-type {
         display: none;
       }
@@ -105,19 +105,26 @@
         ~ .ui-icon:first-of-type {
           display: none;
         }
+
         ~ .ui-icon:last-of-type {
           display: block;
         }
 
         ~ .ui-option__toggle {
           background-color: $toggle-on-bg;
+
           &::before {
             color: $toggle-on-color;
             content: var(--toggle-on);
-            text-align: left;
+            @include property-prefix(text-align, start);
           }
+
           &::after {
             left: calc(100% - 1em);
+          }
+
+          @at-root [dir="rtl"] &::after {
+            left: calc(-100% + 1em);
           }
         }
       }
