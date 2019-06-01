@@ -16,6 +16,7 @@
   $btn-bg: mix($base-theme, $base-invert, 99%);
   $btn-color: mix($btn-bg, $base-color, 15%);
 
+  $root: #{&};
   $base: unquote(".ui-btn");
 
   &:hover {
@@ -26,7 +27,7 @@
   &[data-active="true"],
   &[data-open="true"],
   &:active {
-    background-color: rgba(mix($btn-bg, $black, 65%), 0.5);
+    background-color: rgba(mix($btn-bg, $btn-color, 65%), 0.5);
     box-shadow: $btn-active-shadow;
   }
 
@@ -43,7 +44,7 @@
   &__wrapper {
     --btn-ripple: #{$btn-color};
 
-    @at-root #{$base}__group,
+    @at-root #{$root}__group,
     & {
       &[data-disabled="true"] {
         background-color: rgba(0, 0, 0, 0.05);
@@ -58,9 +59,9 @@
       }
 
       &[data-type="solid"] {
-        --btn-ripple: #{$white};
-
         #{$base} {
+          --btn-ripple: #{$white};
+
           &:hover {
             background-color: mix($btn-color, $white, 85%);
           }
@@ -68,7 +69,7 @@
           &[data-active="true"],
           &[data-open="true"],
           &:active {
-            background-color: mix($btn-color, $black, 65%);
+            background-color: mix($btn-color, $btn-bg, 65%);
           }
 
           &__inner {
@@ -125,7 +126,7 @@
   // Ripple effect
   @if ($button-ripple) {
     &::after {
-      background: radial-gradient(circle, var(--btn-ripple) 1%, transparent 1%) center;
+      background-image: radial-gradient(circle, var(--btn-ripple) 1%, transparent 1%);
     }
   }
 
@@ -145,7 +146,9 @@
   @mixin make-button($theme, $theme-color) {
     &__group.ui-theme--#{$theme},
     &__wrapper.ui-theme--#{$theme} {
-      --btn-ripple: #{mix($theme-color, $white, 75%)};
+      & #{$base} {
+        --btn-ripple: #{mix($theme-color, $white, 75%)};
+      }
 
       #{$base}__inner {
         color: $theme-color;
@@ -163,9 +166,9 @@
       }
 
       &[data-type="solid"] {
-        --btn-ripple: #{mix($theme-color, $white, 25%)};
-
         #{$base} {
+          --btn-ripple: #{mix($theme-color, $white, 25%)};
+
           &:hover {
             background-color: mix($theme-color, $white, 85%);
           }
@@ -204,7 +207,7 @@
     box-shadow: none;
   }
 
-  &:not(&--vertical)#{$base} __group--with-separator {
+  &#{$base}__group--with-separator:not(&--vertical) {
     #{$base}__wrapper:not(:last-child) {
       #{$base}__inner #{$base} {
         @include property-prefix(padding-end, 0.5em);
