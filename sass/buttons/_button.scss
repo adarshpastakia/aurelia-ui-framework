@@ -35,7 +35,7 @@
   &[data-active="true"],
   &[data-open="true"],
   &:active {
-    background-color: rgba(mix($btn-bg, $black, 85%), 0.5);
+    background-color: rgba(mix($btn-bg, $black, 65%), 0.5);
     box-shadow: $btn-active-shadow;
   }
 
@@ -132,7 +132,7 @@
           &[data-active="true"],
           &[data-open="true"],
           &:active {
-            background-color: mix($btn-color, $black, 85%);
+            background-color: mix($btn-color, $black, 65%);
           }
 
           &__inner {
@@ -174,7 +174,6 @@
       }
     }
   }
-
 
   &__icon {
     grid-area: icon;
@@ -339,7 +338,7 @@
           &[data-active="true"],
           &[data-open="true"],
           &:active {
-            background-color: mix($theme-color, $black, 85%);
+            background-color: mix($theme-color, $black, 65%);
           }
 
           &__inner {
