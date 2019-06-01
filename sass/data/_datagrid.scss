@@ -9,7 +9,7 @@
   grid-template-areas: "head" "body" "foot";
   grid-template-rows: auto 1fr auto;
 
-  $base: #{&};
+  $base: unquote(".ui-datagrid");
 
   %grid-row {
     display: flex;
@@ -22,20 +22,9 @@
     grid-area: body;
     z-index: 1;
 
-    #{$base}__cell__counter {
-      background-color: $datagrid-head-column-bg;
-      color: $datagrid-head-column-color;
-    }
-
     > div:not(#{$base}__row):first-child,
     > div:not(#{$base}__row):last-child {
       flex: 0 0 auto;
-    }
-  }
-
-  &__body &__row {
-    &:hover #{$base}__cell {
-      background-color: $datagrid-hover-bg;
     }
   }
 
@@ -47,12 +36,6 @@
     z-index: 2;
 
     #{$base}__cell {
-      &,
-      &__counter {
-        background-color: $datagrid-head-bg;
-        color: $datagrid-head-color;
-      }
-
       &__wrapper {
         @include property-prefix(padding-end, 0);
       }
@@ -65,19 +48,9 @@
     grid-area: foot;
     padding-top: 1px;
     z-index: 2;
-
-    #{$base}__cell {
-      &,
-      &__counter {
-        background-color: $datagrid-foot-bg;
-        border-top: 1px solid $base-border-color;
-        color: $datagrid-foot-color;
-      }
-    }
   }
 
   &__row {
-    background-color: #ffffff;
     flex: 0 0 auto;
     height: calc(2rem + 2px);
     min-width: 100%;
@@ -87,27 +60,11 @@
       height: 100%;
     }
 
-    &--even #{$base}__cell {
-      background-color: $datagrid-row-even-bg;
-    }
-
-    &--odd #{$base}__cell {
-      background-color: $datagrid-row-odd-bg;
-    }
-
-    &:hover:not(:last-child) {
-      background-color: rgba($secondary, 0.2);
-    }
-
     &--filler {
       flex: 1 1 0;
 
       #{$base}__cell {
         border: 0;
-      }
-
-      td > div {
-        background-color: $base-bg;
       }
     }
 
@@ -117,10 +74,6 @@
       flex: 0 0 auto;
       left: 0;
       z-index: 2;
-
-      #{$base}__cell:last-child {
-        @include property-prefix(border-end, 1px solid $base-shadow-color);
-      }
 
       @at-root [dir="rtl"] & {
         left: auto;
@@ -134,10 +87,6 @@
       flex: 0 0 auto;
       right: 0;
       z-index: 2;
-
-      #{$base}__cell:first-child {
-        @include property-prefix(border-start, 1px solid $base-shadow-color);
-      }
 
       @at-root [dir="rtl"] & {
         left: 0;
@@ -154,13 +103,11 @@
   }
 
   &__cell {
-    @include property-prefix(border-end, 1px dotted $base-border-color);
     display: grid;
     flex: 0 0 auto;
     grid-template-columns: 1fr auto auto;
 
     &__counter {
-      color: var(--color-gray);
       flex: 0 0 auto;
       padding: 0.5rem;
       width: 2.5rem;
@@ -172,7 +119,6 @@
     }
 
     &__resizer {
-      @include property-prefix(border-start, 1px solid $base-border-color);
       cursor: col-resize;
       width: 2px;
     }
@@ -188,7 +134,6 @@
       i {
         background-position: center;
         border: 4px solid transparent;
-        border-color: $datagrid-head-color transparent;
         display: block;
         opacity: 0.25;
         width: 4px;
@@ -222,10 +167,6 @@
 
     &--sortable {
       cursor: pointer;
-    }
-
-    &[data-resizing="true"] {
-      @include property-prefix(border-end, 2px solid $base-border-color);
     }
   }
 }

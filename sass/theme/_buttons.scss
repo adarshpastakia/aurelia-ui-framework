@@ -1,0 +1,284 @@
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2019
+// @license   : MIT
+// @author    : Adarsh Pastakia
+// @version   : 5.0.0
+// @copyright : 2018
+// @license   : MIT
+
+.ui-btn {
+  $btn-shadow: 0 0 0 1px rgba($shadow, 0.2), 0 1px 1px rgba($shadow, 0.2);
+  $btn-hover-shadow: inset 0 0 1px rgba($shadow, 0.2);
+  $btn-active-shadow: inset 0 1px 2px rgba($shadow, 0.2);
+  $btn-gloss: linear-gradient(180deg, rgba(#ffffff, 0.1), rgba(#ffffff, 0));
+
+  $btn-bg: mix($base-theme, $base-invert, 99%);
+  $btn-color: mix($btn-bg, $base-color, 15%);
+
+  $base: unquote(".ui-btn");
+
+  &:hover {
+    background-color: mix($btn-bg, $white, 85%);
+    box-shadow: $btn-hover-shadow;
+  }
+
+  &[data-active="true"],
+  &[data-open="true"],
+  &:active {
+    background-color: rgba(mix($btn-bg, $black, 65%), 0.5);
+    box-shadow: $btn-active-shadow;
+  }
+
+  &::before {
+    background-image: $btn-gloss;
+  }
+
+  &__inner {
+    background-color: $btn-bg;
+    box-shadow: $btn-shadow;
+    color: $btn-color;
+  }
+
+  &__wrapper {
+    --btn-ripple: #{$btn-color};
+
+    @at-root #{$base}__group,
+    & {
+      &[data-disabled="true"] {
+        background-color: rgba(0, 0, 0, 0.05);
+      }
+
+      &[data-type="outline"] {
+        #{$base} {
+          &__inner {
+            box-shadow: 0 0 0 1px rgba($btn-color, 0.75), 0 1px 1px rgba($btn-color, 0.25);
+          }
+        }
+      }
+
+      &[data-type="solid"] {
+        --btn-ripple: #{$white};
+
+        #{$base} {
+          &:hover {
+            background-color: mix($btn-color, $white, 85%);
+          }
+
+          &[data-active="true"],
+          &[data-open="true"],
+          &:active {
+            background-color: mix($btn-color, $black, 65%);
+          }
+
+          &__inner {
+            background-color: $btn-color;
+            color: $btn-bg;
+          }
+        }
+
+        &#{$base}__icon--hilight #{$base}__icon {
+          background-color: mix($btn-color, $black, 30%);
+          color: $white;
+        }
+
+        #{$base}__divider {
+          background-color: rgba($white, 0.2);
+        }
+      }
+
+      &[data-type="tool"] {
+        box-shadow: none;
+
+        #{$base}__inner {
+          background-color: transparent;
+          border-color: transparent;
+          box-shadow: 0 0 0 1px rgba($base-invert, 0.025);
+        }
+
+        #{$base}::before {
+          background-image: none;
+        }
+
+        #{$base}:hover {
+          background-color: rgba(mix($gray, $base-theme, 30%), 0.25);
+        }
+
+        &.ui-theme--inverse #{$base}__inner {
+          color: $gray-light;
+        }
+      }
+    }
+  }
+
+  &__icon--hilight #{$base} {
+    &__icon {
+      background-color: $btn-color;
+      color: $btn-bg;
+    }
+  }
+
+  &__divider {
+    background-color: rgba($black, 0.2);
+  }
+
+  // Ripple effect
+  @if ($button-ripple) {
+    &::after {
+      background: radial-gradient(circle, var(--btn-ripple) 1%, transparent 1%) center;
+    }
+  }
+
+  &__wrapper.ui-theme--inverse {
+    #{$base} {
+      &__inner {
+        background-color: transparent;
+        color: $white;
+      }
+
+      &:hover {
+        background-color: rgba($black, 0.85);
+      }
+    }
+  }
+
+  @mixin make-button($theme, $theme-color) {
+    &__group.ui-theme--#{$theme},
+    &__wrapper.ui-theme--#{$theme} {
+      --btn-ripple: #{mix($theme-color, $white, 75%)};
+
+      #{$base}__inner {
+        color: $theme-color;
+      }
+
+      &#{$base}__icon--hilight #{$base}__icon {
+        background-color: mix($theme-color, $black, 90%);
+        color: $white;
+      }
+
+      &[data-type="outline"] {
+        #{$base}__inner {
+          box-shadow: 0 0 0 1px rgba($theme-color, 0.75), 0 1px 1px rgba($theme-color, 0.5);
+        }
+      }
+
+      &[data-type="solid"] {
+        --btn-ripple: #{mix($theme-color, $white, 25%)};
+
+        #{$base} {
+          &:hover {
+            background-color: mix($theme-color, $white, 85%);
+          }
+
+          &[data-active="true"],
+          &[data-open="true"],
+          &:active {
+            background-color: mix($theme-color, $black, 65%);
+          }
+
+          &__inner {
+            background-color: $theme-color;
+            color: $white;
+          }
+        }
+
+        &#{$base}__icon--hilight #{$base}__icon {
+          background-color: mix($theme-color, $black, 50%);
+          color: $white;
+        }
+      }
+    }
+  }
+
+  @each $label, $color in $base-colors {
+    @include make-button($label, $color);
+  }
+}
+
+.ui-btn__group {
+  box-shadow: $shadow-level1;
+
+  $base: unquote(".ui-btn");
+
+  #{$base}__inner {
+    box-shadow: none;
+  }
+
+  &:not(&--vertical)#{$base} __group--with-separator {
+    #{$base}__wrapper:not(:last-child) {
+      #{$base}__inner #{$base} {
+        @include property-prefix(padding-end, 0.5em);
+      }
+
+      &::after {
+        background-color: $base-bg;
+        box-shadow: 0 0 2px 0 $gray inset;
+      }
+    }
+  }
+}
+
+.ui-tag {
+  $tag-bg: $base-theme;
+  $tag-color: mix($tag-bg, $base-color, 35%);
+
+  background-color: $tag-bg;
+  box-shadow: 0 0 0 1px rgba($tag-color, 0.25);
+  color: $tag-color;
+
+  &__icon {
+    background-color: $tag-color;
+    color: $tag-bg;
+  }
+
+  &__label {
+    background-color: $tag-color;
+    color: $tag-bg;
+  }
+
+  &__label:not(:empty) ~ &__value {
+    @include property-prefix(border-start, 1px solid rgba($white, 0.3));
+  }
+
+  &--solid {
+    background-color: $tag-color;
+    color: $tag-bg;
+
+    .ui-tag__icon,
+    .ui-tag__label {
+      background-color: rgba(0, 0, 0, 0.4);
+      color: $gray-light;
+    }
+  }
+
+  @mixin make-tag($theme, $theme-color) {
+    &.ui-theme--#{$theme} {
+      box-shadow: 0 0 0 1px $theme-color;
+      color: $theme-color;
+
+      &.ui-tag--solid {
+        background-color: $theme-color;
+        color: $white;
+
+        .ui-tag__icon,
+        .ui-tag__label {
+          background-color: rgba(0, 0, 0, 0.2);
+        }
+      }
+
+      .ui-tag__icon,
+      .ui-tag__label {
+        background-color: $theme-color;
+        color: $white;
+      }
+    }
+  }
+
+  @each $label, $color in $base-colors {
+    @include make-tag($label, mix($color, $gray, 75%));
+  }
+
+  @each $label, $color in $color-list {
+    @include make-tag($label, mix($color, $gray, 75%));
+  }
+}

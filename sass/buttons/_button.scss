@@ -4,14 +4,6 @@
 // @license   : MIT
 
 .ui-btn {
-  $btn-shadow: 0 0 0 1px rgba($shadow, 0.2), 0 1px 1px rgba($shadow, 0.2);
-  $btn-hover-shadow: inset 0 0 1px rgba($shadow, 0.2);
-  $btn-active-shadow: inset 0 1px 2px rgba($shadow, 0.2);
-  $btn-gloss: linear-gradient(180deg, rgba(#ffffff, 0.1), rgba(#ffffff, 0));
-
-  $btn-bg: mix($base-theme, $base-invert, 99%);
-  $btn-color: mix($btn-bg, $base-color, 15%);
-
   align-items: center;
   display: grid;
   grid-template-areas: "icon label badge caret";
@@ -25,22 +17,9 @@
     grid-area: badge;
   }
 
-  $base: #{&};
-
-  &:hover {
-    background-color: mix($btn-bg, $white, 85%);
-    box-shadow: $btn-hover-shadow;
-  }
-
-  &[data-active="true"],
-  &[data-open="true"],
-  &:active {
-    background-color: rgba(mix($btn-bg, $black, 65%), 0.5);
-    box-shadow: $btn-active-shadow;
-  }
+  $base: unquote(".ui-btn");
 
   &::before {
-    background-image: $btn-gloss;
     content: "";
     pointer-events: none;
     z-index: 2;
@@ -48,10 +27,7 @@
   }
 
   &__inner {
-    background-color: $btn-bg;
     border-radius: $base-border-radius;
-    box-shadow: $btn-shadow;
-    color: $btn-color;
     display: grid;
     grid-template-areas: "button divider caret";
     grid-template-columns: 1fr auto auto;
@@ -60,8 +36,6 @@
   }
 
   &__wrapper {
-    --btn-ripple: #{$btn-color};
-
     display: inline-block;
     margin: 2px;
     max-width: 12em;
@@ -83,7 +57,6 @@
     @at-root #{$base}__group,
     & {
       &[data-disabled="true"] {
-        background-color: rgba(0, 0, 0, 0.05);
 
         #{$base} {
           pointer-events: none;
@@ -113,65 +86,6 @@
         font-size: map-get($font-sizes, lg);
       }
 
-      &[data-type="outline"] {
-        #{$base} {
-          &__inner {
-            box-shadow: 0 0 0 1px rgba($btn-color, 0.75), 0 1px 1px rgba($btn-color, 0.25);
-          }
-        }
-      }
-
-      &[data-type="solid"] {
-        --btn-ripple: #{$white};
-
-        #{$base} {
-          &:hover {
-            background-color: mix($btn-color, $white, 85%);
-          }
-
-          &[data-active="true"],
-          &[data-open="true"],
-          &:active {
-            background-color: mix($btn-color, $black, 65%);
-          }
-
-          &__inner {
-            background-color: $btn-color;
-            color: $btn-bg;
-          }
-        }
-
-        &#{$base}__icon--hilight #{$base}__icon {
-          background-color: mix($btn-color, $black, 30%);
-          color: $white;
-        }
-
-        #{$base}__divider {
-          background-color: rgba($white, 0.2);
-        }
-      }
-
-      &[data-type="tool"] {
-        box-shadow: none;
-
-        #{$base}__inner {
-          background-color: transparent;
-          border-color: transparent;
-          box-shadow: 0 0 0 1px rgba($base-invert, 0.025);
-        }
-
-        #{$base}::before {
-          background-image: none;
-        }
-
-        #{$base}:hover {
-          background-color: rgba(mix($gray, $base-theme, 30%), 0.25);
-        }
-
-        &.ui-theme--inverse #{$base}__inner {
-          color: $gray-light;
-        }
-      }
     }
   }
 
@@ -243,11 +157,6 @@
   }
 
   &__icon--hilight & {
-    &__icon {
-      background-color: $btn-color;
-      color: $btn-bg;
-    }
-
     &__label {
       padding: 0 0.5em;
     }
@@ -272,7 +181,6 @@
   }
 
   &__divider {
-    background-color: rgba($black, 0.2);
     grid-area: divider;
     margin: 4px 0;
     width: 1px;
@@ -282,7 +190,6 @@
   @if ($button-ripple) {
     &::after {
       @include position(absolute, 0);
-      background: radial-gradient(circle, var(--btn-ripple) 1%, transparent 1%) center;
       background-position: center;
       background-repeat: no-repeat;
       background-size: 10000% 10000%;
@@ -297,69 +204,5 @@
       opacity: 0.3;
       transition: background-size 0s, opacity 0s 0s;
     }
-  }
-
-  &__wrapper.ui-theme--inverse {
-    #{$base} {
-      &__inner {
-        background-color: transparent;
-        color: $white;
-      }
-
-      &:hover {
-        background-color: rgba($black, 0.85);
-      }
-    }
-  }
-
-  @mixin make-button($theme, $theme-color) {
-    &__group.ui-theme--#{$theme},
-    &__wrapper.ui-theme--#{$theme} {
-      --btn-ripple: #{mix($theme-color, $white, 75%)};
-
-      #{$base}__inner {
-        color: $theme-color;
-      }
-
-      &[data-type="outline"] {
-        #{$base}__inner {
-          box-shadow: 0 0 0 1px rgba($theme-color, 0.75), 0 1px 1px rgba($theme-color, 0.5);
-        }
-      }
-
-      &[data-type="solid"] {
-        --btn-ripple: #{mix($theme-color, $white, 25%)};
-
-        #{$base} {
-          &:hover {
-            background-color: mix($theme-color, $white, 85%);
-          }
-
-          &[data-active="true"],
-          &[data-open="true"],
-          &:active {
-            background-color: mix($theme-color, $black, 65%);
-          }
-
-          &__inner {
-            background-color: $theme-color;
-            color: $white;
-          }
-        }
-
-        &#{$base}__icon--hilight #{$base}__icon {
-          background-color: mix($theme-color, $black, 50%);
-          color: $white;
-        }
-      }
-
-      &#{$base}__icon--hilight #{$base}__icon {
-        background-color: mix($theme-color, $black, 90%);
-      }
-    }
-  }
-
-  @each $label, $color in $base-colors {
-    @include make-button($label, $color);
   }
 }

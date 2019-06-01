@@ -12,12 +12,8 @@
   margin: var(--gutter);
   min-width: 12rem;
 
-  &:focus-within &__label {
-    color: $input-focus-color;
-    font-weight: $font-weight-medium;
-  }
+  $base: unquote(".ui-field");
 
-  $base: #{&};
   &--inline {
     @include min-breakpoint(md) {
       --min-width: 15rem;
@@ -53,7 +49,6 @@
     position: relative;
 
     &::after {
-      color: $secondary;
       content: " ";
       display: inline-block;
       font-family: serif;
@@ -66,9 +61,6 @@
   }
 
   &__wrapper {
-    background-color: $base-component-bg;
-    border-radius: $base-border-radius;
-    box-shadow: 0 0 0 1px $base-border-color inset;
     display: flex;
     flex-flow: row nowrap;
     grid-column: 1;
@@ -111,26 +103,19 @@
 
   &--plain &__wrapper,
   &--plain {
-    background-color: transparent;
-    box-shadow: none;
 
     .ui-input {
-      background-color: transparent;
-      border-color: transparent;
-      box-shadow: none;
       input,
       textarea {
         cursor: default;
         height: auto;
         resize: none;
       }
+
       &::after {
         display: none;
       }
-      &__info {
-        background: none;
-        box-shadow: none;
-      }
+
       &__drop-handle,
       &__counter,
       &__error,
@@ -138,10 +123,8 @@
         display: none;
       }
     }
-    .ui-dropdown {
-      background: none;
-      box-shadow: none;
 
+    .ui-dropdown {
       .ui-menu__item__caret {
         visibility: hidden;
       }

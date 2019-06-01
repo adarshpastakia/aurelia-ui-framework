@@ -17,9 +17,7 @@
   }
 
   &__toggle {
-    background-color: $toggle-bg;
     border-radius: 1em;
-    box-shadow: $shadow-level1 inset;
     cursor: pointer;
     font-size: 1rem;
     margin: 0 4px;
@@ -31,7 +29,6 @@
     --toggle-off: "O";
 
     &::before {
-      color: $toggle-color;
       content: var(--toggle-off);
       display: block;
       font-size: 0.8em;
@@ -44,9 +41,7 @@
     }
 
     &::after {
-      background-color: $base-theme;
       border-radius: 1em;
-      box-shadow: 0 0 1px 0 $gray inset;
       content: "";
       display: block;
       height: calc(1em - 2px);
@@ -66,7 +61,6 @@
     position: relative;
 
     > span {
-      color: inherit;
       font-size: 0.95em;
       line-height: 1.5rem;
       white-space: nowrap;
@@ -97,7 +91,6 @@
 
       &:focus ~ .ui-option__toggle {
         border-radius: 1em;
-        box-shadow: 0 0 3px 2px $input-focus-color;
         overflow: hidden;
       }
 
@@ -111,10 +104,8 @@
         }
 
         ~ .ui-option__toggle {
-          background-color: $toggle-on-bg;
 
           &::before {
-            color: $toggle-on-color;
             content: var(--toggle-on);
             @include property-prefix(text-align, start);
           }
@@ -128,11 +119,6 @@
           }
         }
       }
-
-      &:hover ~ .ui-icon,
-      &:focus ~ .ui-icon {
-        color: $input-focus-color;
-      }
     }
   }
 
@@ -143,26 +129,5 @@
       opacity: 0.4;
       pointer-events: none;
     }
-  }
-
-  @mixin make-toggle($theme, $theme-color) {
-    &.ui-theme--#{$theme} {
-      input:checked {
-        ~ .ui-option__toggle {
-          &::before {
-            background-color: $theme-color;
-            color: $white;
-          }
-        }
-      }
-    }
-  }
-
-  @each $label, $color in $base-colors {
-    @include make-toggle($label, $color);
-  }
-
-  @each $label, $color in $color-list {
-    @include make-toggle($label, $color);
   }
 }

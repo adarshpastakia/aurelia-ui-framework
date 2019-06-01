@@ -4,10 +4,7 @@
 // @license   : MIT
 
 .ui-badge {
-  background-color: rgba($gray-light, 0.95);
   border-radius: 1em;
-  box-shadow: 0 0 0 1px rgba($base-color, 0.25) inset;
-  color: $base-color;
   display: inline-grid;
   font-size: 0.7em;
   line-height: 1.5em;
@@ -21,21 +18,5 @@
   }
   &--lg {
     font-size: 1.2em;
-  }
-
-  @mixin make-badge($theme, $theme-color) {
-    &.ui-theme--#{$theme} {
-      background-color: rgba($theme-color, 0.95);
-      color: $white;
-    }
-  }
-
-  @include make-badge(dark, $gray-dark);
-  @each $label, $color in $base-colors {
-    @include make-badge($label, mix($color, $gray, 75%));
-  }
-
-  @each $label, $color in $color-list {
-    @include make-badge($label, mix($color, $gray, 75%));
   }
 }

@@ -5,14 +5,11 @@
 
 .ui-dialog {
   border-radius: $base-border-radius;
-  box-shadow: $shadow-level4;
   pointer-events: all;
   position: absolute;
   z-index: 102;
 
   .ui-panel__header {
-    background-color: $dlg-header-active-bg;
-    color: $dlg-header-active-color;
     font-weight: $font-weight-medium;
     min-height: 2rem;
 
@@ -27,20 +24,16 @@
           overflow: hidden;
 
           .ui-icon {
-            background-color: $white;
-            border: 0.05em solid $gray;
             border-radius: 1rem;
             margin: 0;
           }
 
           &:hover .ui-icon {
-            background-color: $gray-light;
           }
         }
 
         &[data-disabled="true"] {
           .ui-icon {
-            color: $dlg-header-inactive-color;
             opacity: 0.5;
           }
         }
@@ -51,7 +44,6 @@
   &__wrapper {
     &[data-modal="true"] {
       @include position(fixed, 0);
-      background-color: rgba(0, 0, 0, 0.05);
       display: grid;
       grid-template-columns: auto;
       grid-template-rows: auto;
@@ -70,17 +62,12 @@
     }
 
     &[data-active="false"] .ui-dialog {
-      box-shadow: $shadow-level2;
       z-index: 101;
 
       .ui-panel__header {
-        background-color: $dlg-header-inactive-bg;
-        color: $dlg-header-inactive-color;
 
         .ui-dlg--tool:not(:hover) {
-          background-color: transparent;
           .ui-icon {
-            color: $dlg-header-inactive-color;
             opacity: 0.5;
           }
         }

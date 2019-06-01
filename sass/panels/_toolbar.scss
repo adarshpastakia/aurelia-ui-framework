@@ -16,7 +16,6 @@
 
   &, & > .ui-container {
     align-items: center;
-    background-color: $toolbar-bg;
     display: flex;
     flex-flow: row nowrap;
     padding: 2px 0;
@@ -52,15 +51,6 @@
           }
         }
       }
-
-      &:not(:focus-within) {
-        &,
-        .ui-field__wrapper,
-        .ui-input {
-          background: none;
-          box-shadow: 0 -1px 0 0 $base-border-color inset;
-        }
-      }
     }
 
     > .ui-icon {
@@ -69,41 +59,7 @@
     }
 
     > .ui-divider {
-      @extend %vr;
       margin: 4px;
-    }
-  }
-
-  &.ui-theme--primary {
-    background-color: mix($primary, $base-theme, 9%);
-  }
-
-  &.ui-theme--secondary {
-    background-color: mix($secondary, $base-theme, 9%);
-  }
-
-  &.ui-theme--info {
-    background-color: mix($info, $base-theme, 9%);
-  }
-
-  &.ui-theme--danger {
-    background-color: mix($danger, $base-theme, 9%);
-  }
-
-  &.ui-theme--success {
-    background-color: mix($success, $base-theme, 9%);
-  }
-
-  &.ui-theme--warning {
-    background-color: mix($warning, $base-theme, 9%);
-  }
-
-  &.ui-theme--dark {
-    background-color: $gray-dark;
-    color: $gray-light;
-
-    .ui-divider {
-      @extend %vr-dark;
     }
   }
 }

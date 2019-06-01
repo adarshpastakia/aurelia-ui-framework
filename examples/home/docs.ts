@@ -61,9 +61,11 @@ export class DocsPage {
   protected toggleTheme(): void {
     this.theme = this.theme === "light" ? "dark" : "light";
     if (this.theme === "light") {
-      document.documentElement.classList.remove("ui-theme-dark");
+      document.documentElement.classList.add("theme-light");
+      document.documentElement.classList.remove("theme-dark");
     } else {
-      document.documentElement.classList.add("ui-theme-dark");
+      document.documentElement.classList.add("theme-dark");
+      document.documentElement.classList.remove("theme-light");
     }
   }
 }

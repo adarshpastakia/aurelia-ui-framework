@@ -19,12 +19,13 @@
     font-size: 1.8rem;
     padding: 0.5rem;
   }
+
   &__body {
     font-size: 1.1em;
     padding: 1rem;
   }
 
-  $base: #{&};
+  $base: unquote(".x-blockquote");
   @mixin make-blockquote($theme, $color) {
     &.#{$theme} {
       border-color: rgba($color, 0.5);

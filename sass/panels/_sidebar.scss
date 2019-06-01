@@ -4,7 +4,6 @@
 // @license   : MIT
 
 .ui-sidebar {
-  background-color: $sidebar-bg;
   display: grid;
   grid-area: side-start;
   grid-template-areas: "titlebar" "body";
@@ -31,12 +30,10 @@
     &::after {
       content: "";
       @include position(absolute, null 0 0);
-      @extend %hr;
     }
   }
 
   &__body {
-    background-color: $base-theme;
     display: grid;
     grid-area: body;
     grid-template-areas: "head" "content" "foot";
@@ -44,20 +41,17 @@
     overflow: hidden;
   }
 
-  $base: #{&};
-  &[data-position="start"] {
-    @extend .ui-border--e;
-  }
+  $base: unquote(".ui-sidebar");
 
   &[data-position="end"] {
     grid-area: side-end;
-    @extend .ui-border--s;
 
     #{$base}__titlebar {
       grid-template-areas: "toggler title";
       grid-template-columns: auto 1fr;
       @extend .ui-align--end;
     }
+
     #{$base}__resizer {
       border-radius: 0 4px 4px 0;
       left: 0;
@@ -88,19 +82,13 @@
     line-height: 1;
     padding: 0.5rem;
 
-    &:hover {
-      color: $primary;
-    }
-
     @at-root [dir="rtl"] & {
       transform: scaleX(-1);
     }
   }
 
   &__resizer {
-    background-color: $sidebar-resizer;
     border-radius: 4px 0 0 4px;
-    box-shadow: $shadow-level2;
     cursor: col-resize;
     height: 4em;
     opacity: 0.75;
@@ -115,8 +103,6 @@
     }
 
     &[data-resizing="true"] {
-      background: none;
-      border-left: 2px dotted rgba($base-invert, 0.25);
       height: 100%;
     }
 
@@ -134,6 +120,7 @@
     #{$base}__titlebar {
       max-width: 2rem;
     }
+
     #{$base}__title {
       left: 0;
       line-height: 1;
@@ -149,7 +136,6 @@
       grid-area: unset;
       left: 2rem;
       transform: translateX(calc(-100% - 2rem));
-      @extend .ui-border--e;
     }
 
     #{$base}__resizer {
@@ -160,17 +146,16 @@
       #{$base}__title {
         transform: rotate(90deg);
       }
+
       #{$base}__body {
         left: auto;
         right: 2rem;
         transform: translateX(calc(100% + 2rem));
-        @extend .ui-border--s;
       }
     }
 
     &[data-peek="true"] {
       #{$base}__body {
-        box-shadow: 0 0 20px 0 $base-shadow-color;
         transform: translateX(0);
         transition: transform 0.5s;
         z-index: 24;
@@ -181,6 +166,7 @@
       #{$base}__title {
         left: -2em;
       }
+
       #{$base}__body {
         left: auto;
         right: 2rem;
@@ -191,6 +177,7 @@
         #{$base}__title {
           left: 2em;
         }
+
         #{$base}__body {
           left: calc(2rem - 2px);
           right: auto;

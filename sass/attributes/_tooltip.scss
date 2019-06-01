@@ -4,10 +4,7 @@
 // @license   : MIT
 
 .ui-tooltip {
-  background-color: $tooltip-bg;
   border-radius: $base-border-radius;
-  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.5);
-  color: $tooltip-color;
   font-size: 0.8em;
   margin-top: -0.5em;
   min-width: 2em;
@@ -21,7 +18,6 @@
 
   &::after {
     border: 1em solid transparent;
-    color: $tooltip-bg;
     content: "";
     display: block;
     height: 1em;
