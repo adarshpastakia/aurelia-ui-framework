@@ -73,8 +73,6 @@
   &__floating-container {
     @include enable-gpu();
     @include position(fixed, 0);
-    background-color: initial;
-    color: initial;
     pointer-events: none;
     z-index: 200;
 
