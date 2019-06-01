@@ -3,7 +3,7 @@
 <!--    <ui-content>Test</ui-content>-->
 <!--  </ui-drawer>-->
   <ui-viewport>
-    <ui-viewport-header ui-bg="primary-dark" ui-color="white">
+    <ui-viewport-header ui-bg="primary-dark" ui-color="white" dir="ltr">
       <ui-row valign="middle" halign="spaced" ui-padding="x--sm">
         <a href="/" class="x-title ui-row ui-row--middle ${hideTitle?'x-title--hide':''}">
           <img src.bind="app.config.logo" height="48" as-element="ui-col" size="auto"/>
@@ -36,7 +36,7 @@
 
     <ui-router-view></ui-router-view>
 
-    <ui-viewport-footer ui-align="end" ui-padding="x" ui-color="gray" ui-font="sm">
+    <ui-viewport-footer ui-align="end" ui-padding="x" ui-color="gray" ui-font="sm" dir="ltr">
       <span>Copyright &copy; 2019, </span>
       <span>Adarsh Pastakia | Version 5.0.0 | </span>
       <span><a ui-link href="/tester">Tester</a> | </span>

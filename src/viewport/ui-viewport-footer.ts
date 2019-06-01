@@ -5,11 +5,14 @@
  * @license   : MIT
  */
 
-import { containerless, customElement, inlineView } from "aurelia-framework";
+import { bindable, containerless, customElement, inlineView } from "aurelia-framework";
 
 @containerless()
 @customElement("ui-viewport-footer")
 @inlineView(
-  `<template><footer class="ui-viewport__footer" slot="ui-viewport__footer" ref="vmElement"><slot></slot></footer></template>`
+  `<template><footer dir.bind="dir" class="ui-viewport__footer" slot="ui-viewport__footer" ref="vmElement"><slot></slot></footer></template>`
 )
-export class UIViewportFooter {}
+export class UIViewportFooter {
+  @bindable()
+  public dir = "ltr";
+}
