@@ -4,7 +4,7 @@
 // @license   : MIT
 
 .ui-badge {
-  background-color: rgba($gray-light, 0.95);
+  background-color: rgba(mix($base-theme, $gray, 30%), 0.95);
   box-shadow: 0 0 0 1px rgba($base-color, 0.25) inset;
   color: $base-color;
 
