@@ -83,16 +83,6 @@
   @extend .ui-paper;
 
   $base: unquote(".ui-card");
-  @at-root a {
-    &:hover > #{$base} {
-      box-shadow: $shadow-level3;
-    }
-
-    &[data-disabled="true"] > #{$base} {
-      box-shadow: $shadow-level0;
-    }
-  }
-
   &__meta {
     color: $gray;
   }
@@ -112,6 +102,16 @@
 
   .ui-divider {
     @extend %hr;
+  }
+}
+
+a {
+  &:hover > .ui-card {
+    box-shadow: $shadow-level3;
+  }
+
+  &[data-disabled="true"] > .ui-card {
+    box-shadow: $shadow-level0;
   }
 }
 
@@ -311,10 +311,6 @@
 .ui-sidebar {
   background-color: $sidebar-bg;
 
-  @at-root .ui-page & {
-    box-shadow: none;
-  }
-
   &__titlebar {
     &::after {
       @extend %hr;
@@ -368,6 +364,10 @@
       }
     }
   }
+}
+
+.ui-page .ui-sidebar {
+  box-shadow: none;
 }
 
 .ui-toolbar {
