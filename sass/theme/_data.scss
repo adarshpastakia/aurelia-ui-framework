@@ -13,10 +13,8 @@
     }
   }
 
-  &__body &__row {
-    &:hover #{$base}__cell {
-      background-color: $datagrid-hover-bg;
-    }
+  &__body #{$base}__row:hover #{$base}__cell {
+    background-color: $datagrid-hover-bg;
   }
 
   &__head {
