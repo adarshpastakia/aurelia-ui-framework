@@ -40,6 +40,14 @@
     grid-template-rows: 1fr;
     overflow: hidden;
     position: relative;
+
+    > compose {
+      display: grid;
+      grid-area: content;
+      grid-template-areas: "content";
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr;
+    }
   }
 
   &__header {
