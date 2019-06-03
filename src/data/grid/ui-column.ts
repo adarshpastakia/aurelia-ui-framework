@@ -139,8 +139,10 @@ export class UIColumn {
 
     const newWidth = convertToPx(this.width) + (diff * (this.isRtl ? -1 : 1));
     if (newWidth < convertToPx(this.maxWidth) && newWidth > convertToPx(this.minWidth)) {
-      UIInternal.queueTask(() => (this.width = newWidth + "px"));
-      this.startX = x;
+      UIInternal.queueTask(() => {
+        this.width = newWidth + "px";
+        this.startX = x;
+      });
     }
   }
 
