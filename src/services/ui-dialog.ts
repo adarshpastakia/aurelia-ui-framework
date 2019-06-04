@@ -5,6 +5,7 @@
  * @license   : MIT
  */
 import { autoinject, CompositionEngine, Container, singleton, View } from "aurelia-framework";
+import { Origin } from "aurelia-metadata";
 import { UIAppConfig } from "../utils/ui-app-config";
 import { UIInternal } from "../utils/ui-internal";
 
@@ -197,9 +198,12 @@ export class UIDialogService {
   }
 
   private getViewModel(instruction): Promise<AnyObject> {
-    if (isString(instruction.viewModel)) {
-      return this.compositionEngine.ensureViewModel(instruction);
+    if (isFunction(instruction.viewModel)) {
+      const moduleId = Origin.get(instruction.viewModel).moduleId;
+      if (moduleId) {
+        instruction.viewModel = moduleId;
+      }
     }
-    return Promise.resolve(instruction);
+    return this.compositionEngine.ensureViewModel(instruction);
   }
 }
