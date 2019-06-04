@@ -19,7 +19,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', 
       var UIContent = (function () {
           function UIContent(element) {
               this.obResize = new ResizeObserver(function () {
-                  return element.dispatchEvent(UIInternal.createEvent("resize"));
+                  return element.dispatchEvent(UIInternal.createEvent("resize", element.getBoundingClientRect()));
               });
               this.obResize.observe(element);
           }

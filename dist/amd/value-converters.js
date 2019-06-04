@@ -97,10 +97,16 @@ define(['exports', './chunk', 'aurelia-framework', 'libphonenumber-js', 'date-fn
           if (isEmpty(array)) {
               return [];
           }
-          if (array instanceof Map) {
-              return new Map(__chunk_1.__spread(array).sort(function (a, b) { return (a[property] > b[property] ? 1 : -1); }));
+          var up = 1;
+          var down = -1;
+          if (!isAscending) {
+              up = -1;
+              down = 1;
           }
-          return __chunk_1.__spread(array).sort(function (a, b) { return (a[property] > b[property] ? 1 : -1); });
+          if (array instanceof Map) {
+              return new Map(__chunk_1.__spread(array).sort(function (a, b) { return (a[0] > b[0] ? up : down); }));
+          }
+          return __chunk_1.__spread(array).sort(function (a, b) { return (a[property] > b[property] ? up : down); });
       };
       OrderByValueConverter = __chunk_1.__decorate([
           aureliaFramework.valueConverter("orderBy")
@@ -116,9 +122,9 @@ define(['exports', './chunk', 'aurelia-framework', 'libphonenumber-js', 'date-fn
               return [];
           }
           if (array instanceof Map) {
-              return new Map(__chunk_1.__spread(array).sortBy("0", !!property));
+              return new Map(__chunk_1.__spread(array).sortBy("0", isAscending));
           }
-          return __chunk_1.__spread(array).sortBy(property, isAscending && !!property !== false);
+          return __chunk_1.__spread(array).sortBy(property, isAscending);
       };
       SortValueConverter = __chunk_1.__decorate([
           aureliaFramework.valueConverter("sort")

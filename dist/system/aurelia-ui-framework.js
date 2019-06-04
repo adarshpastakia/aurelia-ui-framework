@@ -1,6 +1,6 @@
 System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libphonenumber-js', './chunk2.js', 'aurelia-event-aggregator', './chunk3.js', 'aurelia-logging', 'aurelia-metadata', 'aurelia-fetch-client', 'date-fns', 'kramed', 'numeral', './chunk4.js'], function (exports, module) {
   'use strict';
-  var __values, __decorate, __metadata, __assign, __spread, autoinject, computedFrom, Container, singleton, CompositionEngine, ViewCompiler, ValidationController, validateTrigger, ValidationRules, parsePhoneNumberFromString, UIAppConfig, UIInternal, getLogger, metadata, json, HttpClient;
+  var __values, __decorate, __metadata, __assign, __spread, autoinject, computedFrom, Container, singleton, CompositionEngine, ViewCompiler, TemplatingEngine, ValidationController, validateTrigger, ValidationRules, parsePhoneNumberFromString, UIAppConfig, UIInternal, getLogger, metadata, Origin, json, HttpClient;
   return {
     setters: [function (module) {
       __values = module.a;
@@ -15,6 +15,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
       singleton = module.singleton;
       CompositionEngine = module.CompositionEngine;
       ViewCompiler = module.ViewCompiler;
+      TemplatingEngine = module.TemplatingEngine;
     }, function (module) {
       ValidationController = module.ValidationController;
       validateTrigger = module.validateTrigger;
@@ -29,6 +30,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
       getLogger = module.getLogger;
     }, function (module) {
       metadata = module.metadata;
+      Origin = module.Origin;
     }, function (module) {
       json = module.json;
       HttpClient = module.HttpClient;
@@ -45,13 +47,13 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
 
       var registerValidators = function (container) {
           container.get(ValidationController).validateTrigger = validateTrigger.changeOrBlur;
-          ValidationRules.customRule("url", function (value, obj) {
+          ValidationRules.customRule("url", function (value) {
               return value === null ||
                   value === undefined ||
                   value === "" ||
-                  /^((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?$/.test(value);
+                  /^((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-.]+[^#?\s]+)(.*)?(#[\w\-]+)?$/.test(value);
           }, "\${$displayName} is not a valid url.");
-          ValidationRules.customRule("phone", function (value, obj) {
+          ValidationRules.customRule("phone", function (value) {
               return value === null || value === undefined || value === "" || parsePhoneNumberFromString(value).isValid();
           }, "\${$displayName} is not a valid phone number.");
           ValidationRules.customRule("number", function (value, obj, min, max) {
@@ -303,20 +305,20 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
 
       var _Countries = {
         toIso2: function(c) {
-          var ctry = this.find(c);
+          const ctry = this.find(c);
           return ctry
             ? ctry.iso2
             : null;
         },
         toIso3: function(c) {
-          var ctry = this.find(c);
+          const ctry = this.find(c);
           return ctry
             ? ctry.iso3
             : null;
         },
         find: function(c) {
           return this.list.find(function(ct) {
-            return (ct.iso3.toLowerCase() === c.toLowerCase() || ct.iso2.toLowerCase() == c.toLowerCase());
+            return (ct.iso3.toLowerCase() === c.toLowerCase() || ct.iso2.toLowerCase() === c.toLowerCase());
           });
         },
         list: [
@@ -2796,15 +2798,15 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
 
       String.prototype.interpolate = function(model) {
         return this.replace(/\${([^{}]*)}/g, function(a, b) {
-          var r = model[b];
+          const r = model[b];
           return typeof r === "string" || typeof r === "number" ? r : a;
         });
       };
 
       String.prototype.ascii = function() {
-        str = this.toString();
+        let str = this.toString();
         if (isEmpty(str)) return "";
-        var conversions = {};
+        const conversions = {};
         conversions["ae"] = "ä|æ|ǽ";
         conversions["oe"] = "ö|œ";
         conversions["ue"] = "ü";
@@ -2855,8 +2857,8 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
         conversions["ij"] = "ĳ";
         conversions["OE"] = "Œ";
         conversions["f"] = "ƒ";
-        for (var i in conversions) {
-          var re = new RegExp(conversions[i], "g");
+        for (const i in conversions) {
+          const re = new RegExp(conversions[i], "g");
           str = str.replace(re, i);
         }
         return str;
@@ -2879,7 +2881,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
       globalObject.UA_UNKNOWN = "ua-unknown";
 
       globalObject.browserAgent = function() {
-        var ua = (navigator.userAgent || "").toLowerCase();
+        const ua = (navigator.userAgent || "").toLowerCase();
         if (ua.indexOf("opr") >= 0) return UA_OPERA;
         else if (ua.indexOf("edge") >= 0) return UA_EDGE;
         else if (ua.indexOf("chrome") >= 0) return UA_CHROME;
@@ -2901,7 +2903,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
         if (typeof a === "number") return false;
         if (typeof a === "boolean") return false;
         if (a instanceof Map || a instanceof Set) return a.size === 0;
-        return a === undefined || a === null || a === "" || a.length === 0 || Object.keys(a).length == 0;
+        return a === undefined || a === null || a === "" || a.length === 0 || Object.keys(a).length === 0;
       };
       globalObject.isArray = Array.isArray;
       globalObject.isDate = function(a) {
@@ -2931,18 +2933,32 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
         el.au && el.au.controller ? el.au.controller.viewModel.currentViewModel : null;
 
       globalObject.isRtl = function(el) {
-        rtl = false;
-        do {
-          if ((el.dir || el.style.direction) == "rtl") return true;
-          if ((el.dir || el.style.direction) == "ltr") return false;
-          el = el.parentElement;
-        } while (el != null);
-        return false;
+        return window.getComputedStyle(el).direction === "rtl";
       };
 
-      globalObject.hasParent = function(el, parent) {
+      const isLastElement = (el, last) => {
+        if (last && last instanceof Element && el === last) return true;
+        else if (
+          last &&
+          typeof last === "string" &&
+          (el.classList.contains(last) || el.tagName.toLowerCase() === last.toLowerCase())
+        )
+          return true;
+        else
+          return false;
+      };
+
+      globalObject.hasParent = function(el, parent, last) {
         do {
-          if (el === parent) return true;
+          if (parent && parent instanceof Element && el === parent) return true;
+          if (
+            parent &&
+            typeof parent === "string" &&
+            (el.classList.contains(parent) || el.tagName.toLowerCase() === parent.toLowerCase())
+          )
+            return true;
+          if (isLastElement(el, last))
+            return false;
           el = el.parentElement;
         } while (el !== null);
         return false;
@@ -2950,12 +2966,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
 
       globalObject.getParentByTag = function(el, selector, last) {
         do {
-          if (last && last instanceof Element && el === last) return null;
-          if (
-            last &&
-            typeof last === "string" &&
-            (el.classList.contains(last) || el.tagName.toLowerCase() === last.toLowerCase())
-          )
+          if (isLastElement(el, last))
             return null;
           if (el.tagName.toLowerCase() === selector.toLowerCase()) return el;
           el = el.parentElement;
@@ -2965,12 +2976,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
 
       globalObject.getParentByClass = function(el, selector, last) {
         do {
-          if (last && last instanceof Element && el === last) return null;
-          if (
-            last &&
-            typeof last === "string" &&
-            (el.classList.contains(last) || el.tagName.toLowerCase() === last.toLowerCase())
-          )
+          if (isLastElement(el, last))
             return null;
           if (el.classList.contains(selector)) return el;
           el = el.parentElement;
@@ -2979,7 +2985,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
       };
 
       globalObject.convertToPx = function(size, context) {
-        var baseSize = "1";
+        let baseSize = "1";
         if ((size + "").indexOf("em") > -1)
           baseSize = getComputedStyle(context || document.documentElement).fontSize;
         if ((size + "").indexOf("rem") > -1)
@@ -3324,7 +3330,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
                   if (result !== false) {
                       return _this.doGet(id);
                   }
-                  Promise.reject(ERROR_CODES.REJECTED);
+                  return Promise.reject(ERROR_CODES.REJECTED);
               })
                   .then(function (response) { return _this.postGet(response); });
           };
@@ -3343,7 +3349,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
                           return _this.doPost();
                       }
                   }
-                  Promise.reject(ERROR_CODES.REJECTED);
+                  return Promise.reject(ERROR_CODES.REJECTED);
               })
                   .then(function (response) {
                   _this.loaded = true;
@@ -3363,7 +3369,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
                   if (result !== false) {
                       return _this.doDelete();
                   }
-                  Promise.reject(ERROR_CODES.REJECTED);
+                  return Promise.reject(ERROR_CODES.REJECTED);
               })
                   .then(function (response) {
                   _this.postDelete(response);
@@ -3417,14 +3423,11 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
           };
           UIDataModel.prototype.preDelete = function () {
           };
-          UIDataModel.prototype.postGet = function (response) {
+          UIDataModel.prototype.postGet = function (_) {
           };
-          UIDataModel.prototype.postSave = function (response) {
+          UIDataModel.prototype.postSave = function (_) {
           };
-          UIDataModel.prototype.postDelete = function (response) {
-          };
-          UIDataModel.prototype.generateId = function () {
-              return Math.round(Math.random() * new Date().getTime()).toString(18);
+          UIDataModel.prototype.postDelete = function (_) {
           };
           UIDataModel.prototype.propertyGetter = function (prop) {
               return function () {
@@ -3437,6 +3440,9 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
                   this.updateDirty(prop, v);
                   return v;
               };
+          };
+          UIDataModel.prototype.generateId = function () {
+              return Math.round(Math.random() * new Date().getTime()).toString(18);
           };
           UIDataModel.prototype.updateDirty = function (prop, value) {
               var hasDirty = this.metadata.dirtyProps.indexOf(prop) > -1;
@@ -3469,8 +3475,8 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
                   return json;
               })
                   .catch(function (e) {
-                  Promise.reject(e);
                   _this.busy = false;
+                  return Promise.reject(e);
               });
           };
           UIDataModel.prototype.doPost = function () {
@@ -3484,8 +3490,8 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
                   return json;
               })
                   .catch(function (e) {
-                  Promise.reject(e);
                   _this.busy = false;
+                  return Promise.reject(e);
               });
           };
           UIDataModel.prototype.doPut = function () {
@@ -3499,8 +3505,8 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
                   return json;
               })
                   .catch(function (e) {
-                  Promise.reject(e);
                   _this.busy = false;
+                  return Promise.reject(e);
               });
           };
           UIDataModel.prototype.doDelete = function () {
@@ -3513,15 +3519,9 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
                   return json;
               })
                   .catch(function (e) {
-                  Promise.reject(e);
                   _this.busy = false;
+                  return Promise.reject(e);
               });
-          };
-          UIDataModel.prototype.doUpdate = function () {
-              this.id = this[this.idProperty] || this.generateId();
-              this.metadata.dirtyProps = [];
-              this.metadata.original = __assign({}, this.serialize());
-              this.metadata.updated = __assign({}, this.serialize());
           };
           __decorate([
               computedFrom("metadata.dirtyProps.length"),
@@ -3617,10 +3617,10 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
               };
           }
           UIDialogService.prototype.open = function (viewModel, model) {
-              this.openDialog(viewModel, model);
+              return this.openDialog(viewModel, model);
           };
           UIDialogService.prototype.openModal = function (viewModel, model) {
-              this.openDialog(viewModel, model, true);
+              return this.openDialog(viewModel, model, true);
           };
           UIDialogService.prototype.openDialog = function (viewModel, model, modal) {
               var _this = this;
@@ -3669,7 +3669,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
                   UIInternal.subscribe("dlg:minimize", function (d) { return _this.minimizeDialog(d.dialog); });
                   UIInternal.subscribe("dlg:drag", function (d) { return _this.startDrag(d); });
                   document.addEventListener("mousemove", function (e) { return _this.drag(e); });
-                  document.addEventListener("mouseup", function (e) { return _this.stopDrag(e); });
+                  document.addEventListener("mouseup", function () { return _this.stopDrag(); });
                   if (this.appConfig.TaskbarContainer) {
                       this.appConfig.TaskbarContainer.anchor.addEventListener("click", function (e) {
                           try {
@@ -3710,7 +3710,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
                   }
               }
           };
-          UIDialogService.prototype.stopDrag = function ($event) {
+          UIDialogService.prototype.stopDrag = function () {
               if (this.dragObject.isDragging) {
                   this.dragObject.isDragging = false;
               }
@@ -3756,10 +3756,13 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
               dialog.active = true;
           };
           UIDialogService.prototype.getViewModel = function (instruction) {
-              if (isString(instruction.viewModel)) {
-                  return this.compositionEngine.ensureViewModel(instruction);
+              if (isFunction(instruction.viewModel)) {
+                  var moduleId = Origin.get(instruction.viewModel).moduleId;
+                  if (moduleId) {
+                      instruction.viewModel = moduleId;
+                  }
               }
-              return Promise.resolve(instruction);
+              return this.compositionEngine.ensureViewModel(instruction);
           };
           UIDialogService = __decorate([
               autoinject(),
@@ -3771,15 +3774,16 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
           return UIDialogService;
       }()));
 
-      var alertView = "<div class=\"ui-dialog__wrapper\" data-modal.bind=\"true\" ref=\"__el\" keydown.delegate=\"__keyCheck($event.keyCode)\">\n  <input blur.trigger=\"$event.target.focus()\" readonly.one-time=\"true\" tabindex=\"0\" css.bind=\"{opacity:0}\" ref=\"keyEl\">\n  <div class=\"ui-panel-base ui-dialog\" ui-border=\"xy ${theme}\" data-active.bind=\"true\" css.bind=\"{minWidth: '18rem'}\">\n    <div class=\"ui-panel__body\" ref=\"vmElement\">\n      <ui-row ui-color.bind=\"theme\">\n        <ui-col ui-padding=\"sm\" size=\"auto\" if.bind=\"icon\" ui-font=\"xl\">\n          <ui-icon icon.bind=\"icon\"></ui-icon>\n        </ui-col>\n        <ui-col ui-padding=\"sm\" size=\"fill\">\n          <div if.bind=\"title\" ui-weight=\"medium\" innerhtml.bind=\"title\"></div>\n          <div innerhtml.bind=\"message\"></div>\n        </ui-col>\n      </ui-row>\n    </div>\n    <div class=\"ui-footer\" ui-padding=\"y--sm\" ui-align=\"center\">\n      <ui-button if.bind=\"type!=='alert'\" click.trigger=\"__close(false)\" ui-theme.bind=\"theme\" type=\"outline\" size=\"sm\" css.bind=\"{minWidth:'4rem'}\">${cancelLabel}</ui-button>\n      <ui-button click.trigger=\"__close(true)\" ui-theme.bind=\"theme\" type=\"solid\" size=\"sm\" css.bind=\"{minWidth:'4rem'}\">${okLabel}</ui-button>\n    </div>\n  </div>\n</div>\n";
+      var alertView = "<div class=\"ui-dialog__wrapper\" data-modal.bind=\"true\" ref=\"__el\" keydown.delegate=\"__keyCheck($event.keyCode)\">\n  <!--suppress HtmlFormInputWithoutLabel -->\n  <input blur.trigger=\"$event.target.focus()\" readonly.one-time=\"true\" tabindex=\"0\" css.bind=\"{opacity:0}\" ref=\"keyEl\">\n  <div class=\"ui-panel-base ui-dialog\" ui-border=\"xy ${theme}\" data-active.bind=\"true\" css.bind=\"{minWidth: '18rem'}\">\n    <div class=\"ui-panel__body\" ref=\"vmElement\">\n      <ui-row ui-color.bind=\"theme\">\n        <ui-col ui-padding=\"sm\" size=\"auto\" if.bind=\"icon\" ui-font=\"xl\">\n          <ui-icon icon.bind=\"icon\"></ui-icon>\n        </ui-col>\n        <ui-col ui-padding=\"sm\" size=\"fill\">\n          <div if.bind=\"title\" ui-weight=\"medium\" innerhtml.bind=\"title\"></div>\n          <div class=\"ui-alert__body\" innerhtml.bind=\"message\"></div>\n        </ui-col>\n      </ui-row>\n    </div>\n    <div class=\"ui-footer\" ui-padding=\"y--sm\" ui-align=\"center\">\n      <ui-button if.bind=\"type!=='alert'\" click.trigger=\"__close(false)\" ui-theme.bind=\"theme\" type=\"outline\" size=\"sm\" css.bind=\"{minWidth:'4rem'}\">${cancelLabel}\n      </ui-button>\n      <ui-button click.trigger=\"__close(true)\" ui-theme.bind=\"theme\" type=\"solid\" size=\"sm\" css.bind=\"{minWidth:'4rem'}\">${okLabel}\n      </ui-button>\n    </div>\n  </div>\n</div>\n";
 
-      var toastView = "<div class=\"${class} ui-alert\" data-open=\"false\" ui-theme.bind=\"theme\" ref=\"__el\">\n    <div class=\"ui-alert__wrapper\">\n      <div if.bind=\"icon\" class=\"ui-alert__icon\"><ui-icon icon.bind=\"icon\"></ui-icon></div>\n      <div if.bind=\"title\" class=\"ui-alert__title\" innerhtml.bind=\"title\"></div>\n      <div class=\"ui-alert__body\" innerhtml.bind=\"message\"></div>\n      <div class=\"ui-alert__close\" click.trigger=\"__close(false)\">\n        <ui-svg-icon icon=\"cross\"></ui-svg-icon>\n      </div>\n      <div class=\"ui-alert__footer\" if.bind=\"type==='confirm'\">\n        <a click.trigger=\"__close(false)\">${cancelLabel}</a>\n        <a click.trigger=\"__close(true)\" ui-weight=\"bold\">${okLabel}</a>\n      </div>\n      <div if.bind=\"autoClose\" class=\"ui-alert__progress\" css.bind=\"{transitionDuration: timeout+'ms'}\"></div>\n    </div>\n  </div>\n\n";
+      var toastView = "<div class=\"${className} ui-alert\" data-open=\"false\" ui-theme.bind=\"theme\" ref=\"__el\" bindable=\"theme,title,icon,timeout,cancelLabel,okLabel,type,__close,autoClose\">\n  <div class=\"ui-alert__wrapper\">\n    <div if.bind=\"icon\" class=\"ui-alert__icon\">\n      <ui-icon icon.bind=\"icon\"></ui-icon>\n    </div>\n    <div if.bind=\"title\" class=\"ui-alert__title\" innerhtml.bind=\"title\"></div>\n    <div class=\"ui-alert__body\" innerhtml.bind=\"message\"></div>\n    <div class=\"ui-alert__close\" click.trigger=\"__close(false)\">\n      <ui-svg-icon icon=\"cross\"></ui-svg-icon>\n    </div>\n    <div class=\"ui-alert__footer\" if.bind=\"type==='confirm'\">\n      <a click.trigger=\"__close(false)\">${cancelLabel}</a>\n      <a click.trigger=\"__close(true)\" ui-weight=\"bold\">${okLabel}</a>\n    </div>\n    <div if.bind=\"autoClose\" class=\"ui-alert__progress\" css.bind=\"{transitionDuration: timeout+'ms'}\"></div>\n  </div>\n</div>\n";
 
       var UINotificationService = exports('UINotificationService', (function () {
-          function UINotificationService(appConfig, container, compiler) {
+          function UINotificationService(appConfig, container, compiler, templatingEngine) {
               this.appConfig = appConfig;
               this.container = container;
               this.compiler = compiler;
+              this.templatingEngine = templatingEngine;
           }
           UINotificationService.prototype.alert = function (message, title, config) {
               if (config === void 0) { config = {}; }
@@ -3817,7 +3821,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
           UINotificationService.prototype.createToast = function (config, forToastNotification) {
               var _this = this;
               return new Promise(function (resolve) {
-                  var cfg = __assign({ autoClose: true, cancelLabel: "Cancel", okLabel: "OK", theme: "default", timeout: 5000, type: "default", class: forToastNotification ? "ui-toast" : "ui-message" }, config);
+                  var cfg = __assign({ autoClose: true, cancelLabel: "Cancel", okLabel: "OK", theme: "default", timeout: 5000, type: "default", className: forToastNotification ? "ui-toast" : "ui-message" }, config, { message: "<div>" + config.message + "</div>" });
                   cfg.autoClose = cfg.type !== "confirm" && cfg.autoClose;
                   var viewFactory = _this.compiler.compile("<template>" + toastView + "</template>");
                   var view = viewFactory.create(_this.container);
@@ -3833,13 +3837,19 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
                   if (cfg.autoClose) {
                       setTimeout(cfg.__close, cfg.timeout);
                   }
-                  UIInternal.queueTask(function () { return (view.firstChild.dataset.open = "true"); });
+                  UIInternal.queueTask(function () {
+                      var el = view.firstChild;
+                      setTimeout(function () { return el.dataset.open = "true"; }, 50);
+                      _this.templatingEngine.enhance({
+                          element: el.querySelector(".ui-alert__body > div")
+                      });
+                  });
               });
           };
           UINotificationService.prototype.createAlert = function (config) {
               var _this = this;
               return new Promise(function (resolve) {
-                  var cfg = __assign({ cancelLabel: "Cancel", okLabel: "OK", theme: "default", type: "alert" }, config);
+                  var cfg = __assign({ cancelLabel: "Cancel", okLabel: "OK", theme: "default", type: "alert" }, config, { message: "<div>" + config.message + "</div>" });
                   var viewFactory = _this.compiler.compile("<template>" + alertView + "</template>");
                   var view = viewFactory.create(_this.container);
                   cfg.__keyCheck = function (key) {
@@ -3859,6 +3869,12 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
                   };
                   view.bind(cfg);
                   _this.appConfig.DialogContainer.add(view);
+                  UIInternal.queueTask(function () {
+                      var el = view.firstChild;
+                      _this.templatingEngine.enhance({
+                          element: el.querySelector(".ui-alert__body > div")
+                      });
+                  });
                   cfg.keyEl.focus();
               });
           };
@@ -3867,7 +3883,8 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
               autoinject(),
               __metadata("design:paramtypes", [UIAppConfig,
                   Container,
-                  ViewCompiler])
+                  ViewCompiler,
+                  TemplatingEngine])
           ], UINotificationService);
           return UINotificationService;
       }()));

@@ -88,7 +88,7 @@ var GridderUtils;
         GridderUtils.ghost.style.top = GridderUtils.dragEl.offsetTop + "px";
         GridderUtils.ghost.style.left = GridderUtils.dragEl.offsetLeft + "px";
     };
-    const stopResize = ($event) => {
+    const stopResize = () => {
         GridderUtils.dragEl = null;
         document.removeEventListener("mousemove", resize);
         document.removeEventListener("mouseup", stopResize);

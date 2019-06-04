@@ -1,4 +1,4 @@
-import { autoinject, Container, computedFrom, singleton, CompositionEngine, ViewCompiler } from 'aurelia-framework';
+import { autoinject, Container, computedFrom, singleton, CompositionEngine, ViewCompiler, TemplatingEngine } from 'aurelia-framework';
 import { ValidationController, validateTrigger, ValidationRules } from 'aurelia-validation';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
 import { a as UIAppConfig } from './chunk.js';
@@ -6,7 +6,7 @@ import 'aurelia-event-aggregator';
 import { a as UIInternal } from './chunk2.js';
 import { a as __decorate, b as __metadata } from './chunk3.js';
 import { getLogger } from 'aurelia-logging';
-import { metadata } from 'aurelia-metadata';
+import { metadata, Origin } from 'aurelia-metadata';
 import { json, HttpClient } from 'aurelia-fetch-client';
 import 'date-fns';
 import 'kramed';
@@ -15,11 +15,11 @@ export { a as UIFormat } from './chunk4.js';
 
 const registerValidators = (container) => {
     container.get(ValidationController).validateTrigger = validateTrigger.changeOrBlur;
-    ValidationRules.customRule("url", (value, obj) => value === null ||
+    ValidationRules.customRule("url", (value) => value === null ||
         value === undefined ||
         value === "" ||
-        /^((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?$/.test(value), "\${$displayName} is not a valid url.");
-    ValidationRules.customRule("phone", (value, obj) => value === null || value === undefined || value === "" || parsePhoneNumberFromString(value).isValid(), "\${$displayName} is not a valid phone number.");
+        /^((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-.]+[^#?\s]+)(.*)?(#[\w\-]+)?$/.test(value), "\${$displayName} is not a valid url.");
+    ValidationRules.customRule("phone", (value) => value === null || value === undefined || value === "" || parsePhoneNumberFromString(value).isValid(), "\${$displayName} is not a valid phone number.");
     ValidationRules.customRule("number", (value, obj, min, max) => value === null ||
         value === undefined ||
         value === "" ||
@@ -221,20 +221,20 @@ Object.defineProperty(Array.prototype, "sortBy", {
 
 var _Countries = {
   toIso2: function(c) {
-    var ctry = this.find(c);
+    const ctry = this.find(c);
     return ctry
       ? ctry.iso2
       : null;
   },
   toIso3: function(c) {
-    var ctry = this.find(c);
+    const ctry = this.find(c);
     return ctry
       ? ctry.iso3
       : null;
   },
   find: function(c) {
     return this.list.find(function(ct) {
-      return (ct.iso3.toLowerCase() === c.toLowerCase() || ct.iso2.toLowerCase() == c.toLowerCase());
+      return (ct.iso3.toLowerCase() === c.toLowerCase() || ct.iso2.toLowerCase() === c.toLowerCase());
     });
   },
   list: [
@@ -2714,15 +2714,15 @@ var _Countries = {
 
 String.prototype.interpolate = function(model) {
   return this.replace(/\${([^{}]*)}/g, function(a, b) {
-    var r = model[b];
+    const r = model[b];
     return typeof r === "string" || typeof r === "number" ? r : a;
   });
 };
 
 String.prototype.ascii = function() {
-  str = this.toString();
+  let str = this.toString();
   if (isEmpty(str)) return "";
-  var conversions = {};
+  const conversions = {};
   conversions["ae"] = "ä|æ|ǽ";
   conversions["oe"] = "ö|œ";
   conversions["ue"] = "ü";
@@ -2773,8 +2773,8 @@ String.prototype.ascii = function() {
   conversions["ij"] = "ĳ";
   conversions["OE"] = "Œ";
   conversions["f"] = "ƒ";
-  for (var i in conversions) {
-    var re = new RegExp(conversions[i], "g");
+  for (const i in conversions) {
+    const re = new RegExp(conversions[i], "g");
     str = str.replace(re, i);
   }
   return str;
@@ -2797,7 +2797,7 @@ globalObject.UA_FIREFOX = "ua-firefox";
 globalObject.UA_UNKNOWN = "ua-unknown";
 
 globalObject.browserAgent = function() {
-  var ua = (navigator.userAgent || "").toLowerCase();
+  const ua = (navigator.userAgent || "").toLowerCase();
   if (ua.indexOf("opr") >= 0) return UA_OPERA;
   else if (ua.indexOf("edge") >= 0) return UA_EDGE;
   else if (ua.indexOf("chrome") >= 0) return UA_CHROME;
@@ -2819,7 +2819,7 @@ globalObject.isEmpty = function(a) {
   if (typeof a === "number") return false;
   if (typeof a === "boolean") return false;
   if (a instanceof Map || a instanceof Set) return a.size === 0;
-  return a === undefined || a === null || a === "" || a.length === 0 || Object.keys(a).length == 0;
+  return a === undefined || a === null || a === "" || a.length === 0 || Object.keys(a).length === 0;
 };
 globalObject.isArray = Array.isArray;
 globalObject.isDate = function(a) {
@@ -2849,18 +2849,32 @@ globalObject.getComposeViewModel = el =>
   el.au && el.au.controller ? el.au.controller.viewModel.currentViewModel : null;
 
 globalObject.isRtl = function(el) {
-  rtl = false;
-  do {
-    if ((el.dir || el.style.direction) == "rtl") return true;
-    if ((el.dir || el.style.direction) == "ltr") return false;
-    el = el.parentElement;
-  } while (el != null);
-  return false;
+  return window.getComputedStyle(el).direction === "rtl";
 };
 
-globalObject.hasParent = function(el, parent) {
+const isLastElement = (el, last) => {
+  if (last && last instanceof Element && el === last) return true;
+  else if (
+    last &&
+    typeof last === "string" &&
+    (el.classList.contains(last) || el.tagName.toLowerCase() === last.toLowerCase())
+  )
+    return true;
+  else
+    return false;
+};
+
+globalObject.hasParent = function(el, parent, last) {
   do {
-    if (el === parent) return true;
+    if (parent && parent instanceof Element && el === parent) return true;
+    if (
+      parent &&
+      typeof parent === "string" &&
+      (el.classList.contains(parent) || el.tagName.toLowerCase() === parent.toLowerCase())
+    )
+      return true;
+    if (isLastElement(el, last))
+      return false;
     el = el.parentElement;
   } while (el !== null);
   return false;
@@ -2868,12 +2882,7 @@ globalObject.hasParent = function(el, parent) {
 
 globalObject.getParentByTag = function(el, selector, last) {
   do {
-    if (last && last instanceof Element && el === last) return null;
-    if (
-      last &&
-      typeof last === "string" &&
-      (el.classList.contains(last) || el.tagName.toLowerCase() === last.toLowerCase())
-    )
+    if (isLastElement(el, last))
       return null;
     if (el.tagName.toLowerCase() === selector.toLowerCase()) return el;
     el = el.parentElement;
@@ -2883,12 +2892,7 @@ globalObject.getParentByTag = function(el, selector, last) {
 
 globalObject.getParentByClass = function(el, selector, last) {
   do {
-    if (last && last instanceof Element && el === last) return null;
-    if (
-      last &&
-      typeof last === "string" &&
-      (el.classList.contains(last) || el.tagName.toLowerCase() === last.toLowerCase())
-    )
+    if (isLastElement(el, last))
       return null;
     if (el.classList.contains(selector)) return el;
     el = el.parentElement;
@@ -2897,7 +2901,7 @@ globalObject.getParentByClass = function(el, selector, last) {
 };
 
 globalObject.convertToPx = function(size, context) {
-  var baseSize = "1";
+  let baseSize = "1";
   if ((size + "").indexOf("em") > -1)
     baseSize = getComputedStyle(context || document.documentElement).fontSize;
   if ((size + "").indexOf("rem") > -1)
@@ -3211,7 +3215,7 @@ class UIDataModel {
             if (result !== false) {
                 return this.doGet(id);
             }
-            Promise.reject(ERROR_CODES.REJECTED);
+            return Promise.reject(ERROR_CODES.REJECTED);
         })
             .then(response => this.postGet(response));
     }
@@ -3229,7 +3233,7 @@ class UIDataModel {
                     return this.doPost();
                 }
             }
-            Promise.reject(ERROR_CODES.REJECTED);
+            return Promise.reject(ERROR_CODES.REJECTED);
         })
             .then(response => {
             this.loaded = true;
@@ -3248,7 +3252,7 @@ class UIDataModel {
             if (result !== false) {
                 return this.doDelete();
             }
-            Promise.reject(ERROR_CODES.REJECTED);
+            return Promise.reject(ERROR_CODES.REJECTED);
         })
             .then(response => {
             this.postDelete(response);
@@ -3299,14 +3303,11 @@ class UIDataModel {
     }
     preDelete() {
     }
-    postGet(response) {
+    postGet(_) {
     }
-    postSave(response) {
+    postSave(_) {
     }
-    postDelete(response) {
-    }
-    generateId() {
-        return Math.round(Math.random() * new Date().getTime()).toString(18);
+    postDelete(_) {
     }
     propertyGetter(prop) {
         return function () {
@@ -3319,6 +3320,9 @@ class UIDataModel {
             this.updateDirty(prop, v);
             return v;
         };
+    }
+    generateId() {
+        return Math.round(Math.random() * new Date().getTime()).toString(18);
     }
     updateDirty(prop, value) {
         const hasDirty = this.metadata.dirtyProps.indexOf(prop) > -1;
@@ -3350,8 +3354,8 @@ class UIDataModel {
             return json;
         })
             .catch(e => {
-            Promise.reject(e);
             this.busy = false;
+            return Promise.reject(e);
         });
     }
     doPost() {
@@ -3364,8 +3368,8 @@ class UIDataModel {
             return json;
         })
             .catch(e => {
-            Promise.reject(e);
             this.busy = false;
+            return Promise.reject(e);
         });
     }
     doPut() {
@@ -3378,8 +3382,8 @@ class UIDataModel {
             return json;
         })
             .catch(e => {
-            Promise.reject(e);
             this.busy = false;
+            return Promise.reject(e);
         });
     }
     doDelete() {
@@ -3391,15 +3395,9 @@ class UIDataModel {
             return json;
         })
             .catch(e => {
-            Promise.reject(e);
             this.busy = false;
+            return Promise.reject(e);
         });
-    }
-    doUpdate() {
-        this.id = this[this.idProperty] || this.generateId();
-        this.metadata.dirtyProps = [];
-        this.metadata.original = Object.assign({}, this.serialize());
-        this.metadata.updated = Object.assign({}, this.serialize());
     }
 }
 __decorate([
@@ -3481,10 +3479,10 @@ let UIDialogService = class UIDialogService {
         };
     }
     open(viewModel, model) {
-        this.openDialog(viewModel, model);
+        return this.openDialog(viewModel, model);
     }
     openModal(viewModel, model) {
-        this.openDialog(viewModel, model, true);
+        return this.openDialog(viewModel, model, true);
     }
     openDialog(viewModel, model, modal = false) {
         this.initialize();
@@ -3528,7 +3526,7 @@ let UIDialogService = class UIDialogService {
             UIInternal.subscribe("dlg:minimize", d => this.minimizeDialog(d.dialog));
             UIInternal.subscribe("dlg:drag", d => this.startDrag(d));
             document.addEventListener("mousemove", e => this.drag(e));
-            document.addEventListener("mouseup", e => this.stopDrag(e));
+            document.addEventListener("mouseup", () => this.stopDrag());
             if (this.appConfig.TaskbarContainer) {
                 this.appConfig.TaskbarContainer.anchor.addEventListener("click", (e) => {
                     try {
@@ -3569,7 +3567,7 @@ let UIDialogService = class UIDialogService {
             }
         }
     }
-    stopDrag($event) {
+    stopDrag() {
         if (this.dragObject.isDragging) {
             this.dragObject.isDragging = false;
         }
@@ -3614,10 +3612,13 @@ let UIDialogService = class UIDialogService {
         dialog.active = true;
     }
     getViewModel(instruction) {
-        if (isString(instruction.viewModel)) {
-            return this.compositionEngine.ensureViewModel(instruction);
+        if (isFunction(instruction.viewModel)) {
+            const moduleId = Origin.get(instruction.viewModel).moduleId;
+            if (moduleId) {
+                instruction.viewModel = moduleId;
+            }
         }
-        return Promise.resolve(instruction);
+        return this.compositionEngine.ensureViewModel(instruction);
     }
 };
 UIDialogService = __decorate([
@@ -3628,15 +3629,16 @@ UIDialogService = __decorate([
         CompositionEngine])
 ], UIDialogService);
 
-var alertView = "<div class=\"ui-dialog__wrapper\" data-modal.bind=\"true\" ref=\"__el\" keydown.delegate=\"__keyCheck($event.keyCode)\">\n  <input blur.trigger=\"$event.target.focus()\" readonly.one-time=\"true\" tabindex=\"0\" css.bind=\"{opacity:0}\" ref=\"keyEl\">\n  <div class=\"ui-panel-base ui-dialog\" ui-border=\"xy ${theme}\" data-active.bind=\"true\" css.bind=\"{minWidth: '18rem'}\">\n    <div class=\"ui-panel__body\" ref=\"vmElement\">\n      <ui-row ui-color.bind=\"theme\">\n        <ui-col ui-padding=\"sm\" size=\"auto\" if.bind=\"icon\" ui-font=\"xl\">\n          <ui-icon icon.bind=\"icon\"></ui-icon>\n        </ui-col>\n        <ui-col ui-padding=\"sm\" size=\"fill\">\n          <div if.bind=\"title\" ui-weight=\"medium\" innerhtml.bind=\"title\"></div>\n          <div innerhtml.bind=\"message\"></div>\n        </ui-col>\n      </ui-row>\n    </div>\n    <div class=\"ui-footer\" ui-padding=\"y--sm\" ui-align=\"center\">\n      <ui-button if.bind=\"type!=='alert'\" click.trigger=\"__close(false)\" ui-theme.bind=\"theme\" type=\"outline\" size=\"sm\" css.bind=\"{minWidth:'4rem'}\">${cancelLabel}</ui-button>\n      <ui-button click.trigger=\"__close(true)\" ui-theme.bind=\"theme\" type=\"solid\" size=\"sm\" css.bind=\"{minWidth:'4rem'}\">${okLabel}</ui-button>\n    </div>\n  </div>\n</div>\n";
+var alertView = "<div class=\"ui-dialog__wrapper\" data-modal.bind=\"true\" ref=\"__el\" keydown.delegate=\"__keyCheck($event.keyCode)\">\n  <!--suppress HtmlFormInputWithoutLabel -->\n  <input blur.trigger=\"$event.target.focus()\" readonly.one-time=\"true\" tabindex=\"0\" css.bind=\"{opacity:0}\" ref=\"keyEl\">\n  <div class=\"ui-panel-base ui-dialog\" ui-border=\"xy ${theme}\" data-active.bind=\"true\" css.bind=\"{minWidth: '18rem'}\">\n    <div class=\"ui-panel__body\" ref=\"vmElement\">\n      <ui-row ui-color.bind=\"theme\">\n        <ui-col ui-padding=\"sm\" size=\"auto\" if.bind=\"icon\" ui-font=\"xl\">\n          <ui-icon icon.bind=\"icon\"></ui-icon>\n        </ui-col>\n        <ui-col ui-padding=\"sm\" size=\"fill\">\n          <div if.bind=\"title\" ui-weight=\"medium\" innerhtml.bind=\"title\"></div>\n          <div class=\"ui-alert__body\" innerhtml.bind=\"message\"></div>\n        </ui-col>\n      </ui-row>\n    </div>\n    <div class=\"ui-footer\" ui-padding=\"y--sm\" ui-align=\"center\">\n      <ui-button if.bind=\"type!=='alert'\" click.trigger=\"__close(false)\" ui-theme.bind=\"theme\" type=\"outline\" size=\"sm\" css.bind=\"{minWidth:'4rem'}\">${cancelLabel}\n      </ui-button>\n      <ui-button click.trigger=\"__close(true)\" ui-theme.bind=\"theme\" type=\"solid\" size=\"sm\" css.bind=\"{minWidth:'4rem'}\">${okLabel}\n      </ui-button>\n    </div>\n  </div>\n</div>\n";
 
-var toastView = "<div class=\"${class} ui-alert\" data-open=\"false\" ui-theme.bind=\"theme\" ref=\"__el\">\n    <div class=\"ui-alert__wrapper\">\n      <div if.bind=\"icon\" class=\"ui-alert__icon\"><ui-icon icon.bind=\"icon\"></ui-icon></div>\n      <div if.bind=\"title\" class=\"ui-alert__title\" innerhtml.bind=\"title\"></div>\n      <div class=\"ui-alert__body\" innerhtml.bind=\"message\"></div>\n      <div class=\"ui-alert__close\" click.trigger=\"__close(false)\">\n        <ui-svg-icon icon=\"cross\"></ui-svg-icon>\n      </div>\n      <div class=\"ui-alert__footer\" if.bind=\"type==='confirm'\">\n        <a click.trigger=\"__close(false)\">${cancelLabel}</a>\n        <a click.trigger=\"__close(true)\" ui-weight=\"bold\">${okLabel}</a>\n      </div>\n      <div if.bind=\"autoClose\" class=\"ui-alert__progress\" css.bind=\"{transitionDuration: timeout+'ms'}\"></div>\n    </div>\n  </div>\n\n";
+var toastView = "<div class=\"${className} ui-alert\" data-open=\"false\" ui-theme.bind=\"theme\" ref=\"__el\" bindable=\"theme,title,icon,timeout,cancelLabel,okLabel,type,__close,autoClose\">\n  <div class=\"ui-alert__wrapper\">\n    <div if.bind=\"icon\" class=\"ui-alert__icon\">\n      <ui-icon icon.bind=\"icon\"></ui-icon>\n    </div>\n    <div if.bind=\"title\" class=\"ui-alert__title\" innerhtml.bind=\"title\"></div>\n    <div class=\"ui-alert__body\" innerhtml.bind=\"message\"></div>\n    <div class=\"ui-alert__close\" click.trigger=\"__close(false)\">\n      <ui-svg-icon icon=\"cross\"></ui-svg-icon>\n    </div>\n    <div class=\"ui-alert__footer\" if.bind=\"type==='confirm'\">\n      <a click.trigger=\"__close(false)\">${cancelLabel}</a>\n      <a click.trigger=\"__close(true)\" ui-weight=\"bold\">${okLabel}</a>\n    </div>\n    <div if.bind=\"autoClose\" class=\"ui-alert__progress\" css.bind=\"{transitionDuration: timeout+'ms'}\"></div>\n  </div>\n</div>\n";
 
 let UINotificationService = class UINotificationService {
-    constructor(appConfig, container, compiler) {
+    constructor(appConfig, container, compiler, templatingEngine) {
         this.appConfig = appConfig;
         this.container = container;
         this.compiler = compiler;
+        this.templatingEngine = templatingEngine;
     }
     alert(message, title, config = {}) {
         config = this.buildConfig(message, title, config);
@@ -3668,7 +3670,7 @@ let UINotificationService = class UINotificationService {
     }
     createToast(config, forToastNotification) {
         return new Promise(resolve => {
-            const cfg = Object.assign({ autoClose: true, cancelLabel: "Cancel", okLabel: "OK", theme: "default", timeout: 5000, type: "default", class: forToastNotification ? "ui-toast" : "ui-message" }, config);
+            const cfg = Object.assign({ autoClose: true, cancelLabel: "Cancel", okLabel: "OK", theme: "default", timeout: 5000, type: "default", className: forToastNotification ? "ui-toast" : "ui-message" }, config, { message: `<div>${config.message}</div>` });
             cfg.autoClose = cfg.type !== "confirm" && cfg.autoClose;
             const viewFactory = this.compiler.compile(`<template>${toastView}</template>`);
             const view = viewFactory.create(this.container);
@@ -3684,12 +3686,18 @@ let UINotificationService = class UINotificationService {
             if (cfg.autoClose) {
                 setTimeout(cfg.__close, cfg.timeout);
             }
-            UIInternal.queueTask(() => (view.firstChild.dataset.open = "true"));
+            UIInternal.queueTask(() => {
+                const el = view.firstChild;
+                setTimeout(() => el.dataset.open = "true", 50);
+                this.templatingEngine.enhance({
+                    element: el.querySelector(".ui-alert__body > div")
+                });
+            });
         });
     }
     createAlert(config) {
         return new Promise(resolve => {
-            const cfg = Object.assign({ cancelLabel: "Cancel", okLabel: "OK", theme: "default", type: "alert" }, config);
+            const cfg = Object.assign({ cancelLabel: "Cancel", okLabel: "OK", theme: "default", type: "alert" }, config, { message: `<div>${config.message}</div>` });
             const viewFactory = this.compiler.compile(`<template>${alertView}</template>`);
             const view = viewFactory.create(this.container);
             cfg.__keyCheck = key => {
@@ -3709,6 +3717,12 @@ let UINotificationService = class UINotificationService {
             };
             view.bind(cfg);
             this.appConfig.DialogContainer.add(view);
+            UIInternal.queueTask(() => {
+                const el = view.firstChild;
+                this.templatingEngine.enhance({
+                    element: el.querySelector(".ui-alert__body > div")
+                });
+            });
             cfg.keyEl.focus();
         });
     }
@@ -3718,7 +3732,8 @@ UINotificationService = __decorate([
     autoinject(),
     __metadata("design:paramtypes", [UIAppConfig,
         Container,
-        ViewCompiler])
+        ViewCompiler,
+        TemplatingEngine])
 ], UINotificationService);
 
 const Countries = _Countries;

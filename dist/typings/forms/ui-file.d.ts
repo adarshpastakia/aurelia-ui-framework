@@ -14,7 +14,7 @@ export declare class UIFileInput extends BaseInput {
     constructor(element: Element);
     protected attached(): void;
     protected dragEnter($event: any): boolean;
-    protected dragExit($event: any): void;
+    protected dragExit(): void;
     protected drop($event: any): boolean;
     protected fileChoose(evt: any): void;
     protected remove(index: any): void;

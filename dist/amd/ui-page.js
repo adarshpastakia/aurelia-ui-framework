@@ -5,7 +5,7 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
   var UIContent = (function () {
       function UIContent(element) {
           this.obResize = new ResizeObserver(function () {
-              return element.dispatchEvent(__chunk_3.UIInternal.createEvent("resize"));
+              return element.dispatchEvent(__chunk_3.UIInternal.createEvent("resize", element.getBoundingClientRect()));
           });
           this.obResize.observe(element);
       }

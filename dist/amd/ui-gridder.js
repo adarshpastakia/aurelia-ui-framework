@@ -84,7 +84,7 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           GridderUtils.ghost.style.top = GridderUtils.dragEl.offsetTop + "px";
           GridderUtils.ghost.style.left = GridderUtils.dragEl.offsetLeft + "px";
       };
-      var stopResize = function ($event) {
+      var stopResize = function () {
           GridderUtils.dragEl = null;
           document.removeEventListener("mousemove", resize);
           document.removeEventListener("mouseup", stopResize);

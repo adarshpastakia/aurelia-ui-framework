@@ -24,7 +24,7 @@ var UITether;
         }
         const [posY, posX] = config.position.split("");
         const [anchorY, anchorX] = config.anchorPosition.split("");
-        const isRtl = window.getComputedStyle(scrollerEl).direction === "rtl";
+        const rtl = isRtl(scrollerEl);
         let x = 0;
         let y = 0;
         let clientHeight = document.body.clientHeight;
@@ -32,6 +32,7 @@ var UITether;
         let clientX = 0;
         let clientY = 0;
         logger.debug("tether", {
+            rtl,
             anchorRect,
             anchorX,
             anchorY,
@@ -45,10 +46,10 @@ var UITether;
             clientX = scrollerRect.left;
             clientY = scrollerRect.top;
         }
-        if (anchorX === (isRtl ? "r" : "l")) {
+        if (anchorX === (rtl ? "r" : "l")) {
             x = anchorRect.left;
         }
-        else if (anchorX === (isRtl ? "l" : "r")) {
+        else if (anchorX === (rtl ? "l" : "r")) {
             x = anchorRect.right;
         }
         else if (anchorX === "c") {
@@ -60,7 +61,10 @@ var UITether;
         else if (anchorY === "b") {
             y = anchorRect.bottom;
         }
-        if (posX === (isRtl ? "l" : "r")) {
+        else if (anchorY === "c") {
+            y = anchorRect.top + anchorRect.height / 2;
+        }
+        if (posX === (rtl ? "l" : "r")) {
             x -= dropdownRect.width;
         }
         if (posX === "c") {
@@ -69,6 +73,10 @@ var UITether;
         if (posY === "b") {
             y -= dropdownRect.height;
         }
+        if (posY === "c") {
+            y -= dropdownRect.height / 2;
+        }
+        logger.debug("tether2", { x, y });
         if (x + dropdownRect.width > clientWidth) {
             x = anchorRect.right - dropdownRect.width;
         }
@@ -77,20 +85,21 @@ var UITether;
         }
         if (y + dropdownRect.height > clientHeight) {
             y =
-                posY === "t" && anchorY === "b" ? anchorRect.top - dropdownRect.height : anchorRect.bottom;
+                posY === "t" && anchorY === "b" ? anchorRect.top - dropdownRect.height - 2 : anchorRect.bottom;
         }
         else if (y < clientY) {
             y =
                 posY === "b" && anchorY === "t" ? anchorRect.bottom - dropdownRect.height : anchorRect.top;
         }
+        logger.debug("tether3", { x, y });
         if (!config.attachToViewport) {
-            x -= scrollerRect.left - scrollerEl.scrollLeft;
-            y -= scrollerRect.top - scrollerEl.scrollTop;
-            x -= 1;
-            y -= 1;
-            if (isRtl && scrollerEl.scrollHeight > scrollerEl.offsetHeight) {
+            x -= scrollerRect.left - scrollerEl.scrollLeft + 2;
+            y -= scrollerRect.top - scrollerEl.scrollTop + 1;
+            logger.debug("tether4", { x, y });
+            if (rtl && scrollerEl.scrollHeight > scrollerEl.offsetHeight) {
                 x -= 5;
             }
+            logger.debug("tether5", { x, y });
         }
         dropdownEl.style.transform = `translate(${x}px, ${y}px)`;
     }
@@ -111,21 +120,26 @@ var UITether;
         } while (el !== null);
         return null;
     }
-    function attach(anchorEl, dropdownEl, config) {
+    function initScroller(anchorEl, scrollCallback) {
         const scroller = getParentScroller(anchorEl) || document.body;
-        const scrollCallback = () => {
-            if (dropdownEl.parentElement.dataset.open) {
-                updatePosition(anchorEl, dropdownEl, scroller, config);
-            }
-        };
         if (!scroller.scrollHandler) {
             scroller.scrollHandler = () => scrollHandler(scroller.scrollCallbacks);
             scroller.addEventListener("scroll", scroller.scrollHandler);
             scroller.scrollCallbacks = new Set();
         }
+        scroller.scrollCallbacks.add(scrollCallback);
+        return scroller;
+    }
+    function attach(anchorEl, dropdownEl, config) {
         const container = Container.instance.get(UIAppConfig).FloatingContainer;
         config.attachToViewport ? container.appendChild(dropdownEl.parentElement || dropdownEl) : fn();
-        scroller.scrollCallbacks.add(scrollCallback);
+        let scroller;
+        const scrollCallback = () => {
+            if (dropdownEl.parentElement.dataset.open) {
+                updatePosition(anchorEl, dropdownEl, scroller, config);
+            }
+        };
+        scroller = initScroller(anchorEl, scrollCallback);
         return {
             dispose: () => {
                 scroller.scrollCallbacks.delete(scrollCallback);
@@ -136,9 +150,10 @@ var UITether;
                     DOM.removeNode(dropdownEl.parentElement);
                 }
             },
-            updatePosition: (newAnchorEl) => {
+            updatePosition: (newAnchorEl, newConfig = {}) => {
                 anchorEl = newAnchorEl || anchorEl;
-                updatePosition(anchorEl, dropdownEl, scroller, config);
+                scroller = initScroller(anchorEl, scrollCallback);
+                updatePosition(anchorEl, dropdownEl, scroller, Object.assign({}, config, newConfig));
             }
         };
     }

@@ -23,22 +23,32 @@ var UIRouterView = (function () {
 
 var UIViewportFooter = (function () {
     function UIViewportFooter() {
+        this.dir = "ltr";
     }
+    __decorate([
+        bindable(),
+        __metadata("design:type", Object)
+    ], UIViewportFooter.prototype, "dir", void 0);
     UIViewportFooter = __decorate([
         containerless(),
         customElement("ui-viewport-footer"),
-        inlineView("<template><footer class=\"ui-viewport__footer\" slot=\"ui-viewport__footer\" ref=\"vmElement\"><slot></slot></footer></template>")
+        inlineView("<template><footer dir.bind=\"dir\" class=\"ui-viewport__footer\" slot=\"ui-viewport__footer\" ref=\"vmElement\"><slot></slot></footer></template>")
     ], UIViewportFooter);
     return UIViewportFooter;
 }());
 
 var UIViewportHeader = (function () {
     function UIViewportHeader() {
+        this.dir = "ltr";
     }
+    __decorate([
+        bindable(),
+        __metadata("design:type", Object)
+    ], UIViewportHeader.prototype, "dir", void 0);
     UIViewportHeader = __decorate([
         containerless(),
         customElement("ui-viewport-header"),
-        inlineView("<template><header class=\"ui-viewport__header\" slot=\"ui-viewport__header\" ref=\"vmElement\"><slot></slot></header></template>")
+        inlineView("<template><header dir.bind=\"dir\" class=\"ui-viewport__header\" slot=\"ui-viewport__header\" ref=\"vmElement\"><slot></slot></header></template>")
     ], UIViewportHeader);
     return UIViewportHeader;
 }());

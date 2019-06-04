@@ -1,22 +1,436 @@
-System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', './chunk3.js'], function (exports, module) {
+System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', './chunk3.js', 'date-fns', 'kramed', 'numeral', './chunk4.js'], function (exports, module) {
   'use strict';
-  var __decorate, __metadata, __spread, computedFrom, bindable, inlineView, bindingMode, customElement, viewResources, UIInternal;
+  var __decorate, __metadata, __assign, __spread, computedFrom, bindable, customElement, processContent, noView, containerless, inlineView, children, viewResources, bindingMode, UIInternal, UIFormat;
   return {
     setters: [function (module) {
       __decorate = module.b;
       __metadata = module.c;
+      __assign = module.d;
       __spread = module.e;
     }, function (module) {
       computedFrom = module.computedFrom;
       bindable = module.bindable;
-      inlineView = module.inlineView;
-      bindingMode = module.bindingMode;
       customElement = module.customElement;
+      processContent = module.processContent;
+      noView = module.noView;
+      containerless = module.containerless;
+      inlineView = module.inlineView;
+      children = module.children;
       viewResources = module.viewResources;
+      bindingMode = module.bindingMode;
     }, function () {}, function (module) {
       UIInternal = module.a;
+    }, function () {}, function () {}, function () {}, function (module) {
+      UIFormat = module.a;
     }],
     execute: function () {
+
+      var UIColumn = (function () {
+          function UIColumn(element) {
+              var _this = this;
+              this.element = element;
+              this.label = "";
+              this.width = "250px";
+              this.minWidth = "80px";
+              this.maxWidth = "600px";
+              this.type = "text";
+              this.align = "start";
+              this.locked = false;
+              this.resizeable = false;
+              this.sortable = false;
+              this.noPadding = false;
+              this.onDrag = function ($event) { return _this.resize($event); };
+              this.onDragEnd = function ($event) { return _this.stopResize($event); };
+              this.template = element.querySelector("template");
+              this.sortable = element.hasAttribute("sortable");
+              this.resizeable = element.hasAttribute("resizeable");
+              this.noPadding = element.hasAttribute("no-padding");
+          }
+          Object.defineProperty(UIColumn.prototype, "css", {
+              get: function () {
+                  return {
+                      width: this.width,
+                      minWidth: this.minWidth,
+                      maxWidth: this.maxWidth
+                  };
+              },
+              enumerable: true,
+              configurable: true
+          });
+          UIColumn.prototype.compileCell = function (el, record) {
+              if (el) {
+                  el.innerHTML = "";
+                  var tpl = this.template
+                      ? this.template.outerHTML
+                      : "<template><span innerhtml.bind=\"$value\"></span></template>";
+                  var model = {
+                      $record: record,
+                      $value: this.processValue(record)
+                  };
+                  var view = UIInternal.compileTemplate(tpl, model, this.owningView.bindingContext);
+                  view.appendNodesTo(el);
+                  view.attached();
+              }
+              return true;
+          };
+          UIColumn.prototype.created = function (owningView) {
+              this.owningView = owningView;
+          };
+          UIColumn.prototype.bind = function () {
+              if (!this.template && !this.label) {
+                  this.label = this.element.innerHTML || "";
+              }
+          };
+          UIColumn.prototype.startResize = function ($event) {
+              $event.stopEvent();
+              this.startX = $event.x || $event.clientX;
+              this.isResizing = true;
+              this.isRtl = isRtl(this.element);
+              document.addEventListener("mousemove", this.onDrag);
+              document.addEventListener("mouseup", this.onDragEnd);
+          };
+          UIColumn.prototype.resize = function ($event) {
+              var _this = this;
+              $event.stopEvent();
+              var x = $event.x || $event.clientX;
+              var diff = x - this.startX;
+              var newWidth = convertToPx(this.width) + (diff * (this.isRtl ? -1 : 1));
+              if (newWidth < convertToPx(this.maxWidth) && newWidth > convertToPx(this.minWidth)) {
+                  UIInternal.queueTask(function () {
+                      _this.width = newWidth + "px";
+                      _this.startX = x;
+                  });
+              }
+          };
+          UIColumn.prototype.stopResize = function ($event) {
+              $event.stopEvent();
+              this.isResizing = false;
+              document.removeEventListener("mousemove", this.onDrag);
+              document.removeEventListener("mouseup", this.onDragEnd);
+          };
+          UIColumn.prototype.processValue = function (record) {
+              var value = record[this.dataId] || "";
+              if (isFunction(this.value)) {
+                  value = this.value({ record: record, value: value });
+              }
+              if (isFunction(this.format)) {
+                  value = this.value({ record: record, value: value });
+              }
+              else {
+                  switch (this.type) {
+                      case "date":
+                          value = UIFormat.date(value, this.format);
+                          break;
+                      case "time":
+                          value = UIFormat.time(value, this.format);
+                          break;
+                      case "datetime":
+                          value = UIFormat.datetime(value, this.format);
+                          break;
+                      case "number":
+                          value = UIFormat.number(value, this.format);
+                          break;
+                      case "currency":
+                          value = UIFormat.currency(value, this.format);
+                          break;
+                  }
+              }
+              return value;
+          };
+          __decorate([
+              computedFrom("width", "minWidth", "maxWidth"),
+              __metadata("design:type", Object),
+              __metadata("design:paramtypes", [])
+          ], UIColumn.prototype, "css", null);
+          __decorate([
+              bindable(),
+              __metadata("design:type", String)
+          ], UIColumn.prototype, "dataId", void 0);
+          __decorate([
+              bindable(),
+              __metadata("design:type", String)
+          ], UIColumn.prototype, "label", void 0);
+          __decorate([
+              bindable(),
+              __metadata("design:type", String)
+          ], UIColumn.prototype, "width", void 0);
+          __decorate([
+              bindable(),
+              __metadata("design:type", String)
+          ], UIColumn.prototype, "minWidth", void 0);
+          __decorate([
+              bindable(),
+              __metadata("design:type", String)
+          ], UIColumn.prototype, "maxWidth", void 0);
+          __decorate([
+              bindable(),
+              __metadata("design:type", Function)
+          ], UIColumn.prototype, "value", void 0);
+          __decorate([
+              bindable(),
+              __metadata("design:type", Object)
+          ], UIColumn.prototype, "format", void 0);
+          __decorate([
+              bindable(),
+              __metadata("design:type", String)
+          ], UIColumn.prototype, "type", void 0);
+          __decorate([
+              bindable(),
+              __metadata("design:type", String)
+          ], UIColumn.prototype, "align", void 0);
+          __decorate([
+              bindable(),
+              __metadata("design:type", Object)
+          ], UIColumn.prototype, "locked", void 0);
+          UIColumn = __decorate([
+              customElement("ui-column"),
+              processContent(false),
+              noView(),
+              __metadata("design:paramtypes", [Element])
+          ], UIColumn);
+          return UIColumn;
+      }());
+
+      var UIDataSource = (function () {
+          function UIDataSource(dataOrApi, options) {
+              if (options === void 0) { options = {}; }
+              this.isPaginated = false;
+              this.pageNo = 0;
+              this.totalPages = 0;
+              this.recordsPerPage = 50;
+              this.sortByOrder = "asc";
+              this.data = [];
+              this.original = [];
+              this.options = {
+                  rootProperty: "",
+                  dataProperty: "data",
+                  pageProperty: "pageno",
+                  countProperty: "total",
+                  sortProperty: "sortBy",
+                  orderProperty: "sortOrder",
+                  perPageProperty: "pageCount"
+              };
+              this.options = __assign({}, this.options, options);
+              this.isPaginated = options.paginated;
+              this.recordsPerPage = options.recordsPerPage || 50;
+              this.sortByProperty = options.defaultSortProperty;
+              this.sortByOrder = options.defaultSortOrder || "asc";
+              if (isArray(dataOrApi)) {
+                  this.original = dataOrApi;
+                  this.performFilter();
+              }
+              else {
+                  this.apiSlug = dataOrApi;
+              }
+          }
+          UIDataSource.prototype.sortBy = function (property) {
+              if (this.sortByProperty === property) {
+                  this.sortByOrder = this.sortByOrder === "asc" ? "desc" : "asc";
+              }
+              else {
+                  this.sortByProperty = property;
+                  this.sortByOrder = "asc";
+              }
+              this.performFilter();
+          };
+          UIDataSource.prototype.performFilter = function () {
+              var data = __spread(this.original);
+              if (this.sortByProperty) {
+                  data = data.sortBy(this.sortByProperty, this.sortByOrder === "asc");
+              }
+              if (this.isPaginated) {
+                  this.totalPages = Math.ceil(data.length / this.recordsPerPage);
+                  data = data.splice(this.pageNo * this.recordsPerPage, this.recordsPerPage);
+              }
+              this.data = data;
+          };
+          return UIDataSource;
+      }());
+
+      var BodyCell = (function () {
+          function BodyCell() {
+          }
+          BodyCell.prototype.attached = function () {
+              this.recordChanged();
+              if (this.column.noPadding) {
+                  this.el.style.paddingTop = 0;
+                  this.el.style.paddingBottom = 0;
+              }
+          };
+          BodyCell.prototype.recordChanged = function () {
+              this.column.compileCell(this.el, this.record);
+          };
+          __decorate([
+              bindable(),
+              __metadata("design:type", UIColumn)
+          ], BodyCell.prototype, "column", void 0);
+          __decorate([
+              bindable(),
+              __metadata("design:type", Object)
+          ], BodyCell.prototype, "record", void 0);
+          BodyCell = __decorate([
+              containerless(),
+              inlineView("<template>\n        <div class=\"ui-datagrid__cell\" css.bind=\"column.css\" data-resizing.bind=\"column.isResizing\">\n          <div class=\"ui-datagrid__cell__wrapper\" ref=\"el\" ui-align.bind=\"column.align\"></div>\n        </div>\n      </template>")
+          ], BodyCell);
+          return BodyCell;
+      }());
+
+      var HeaderCell = (function () {
+          function HeaderCell(element) {
+              this.element = element;
+          }
+          HeaderCell.prototype.fireSortEvent = function () {
+              if (this.column.sortable) {
+                  this.element.dispatchEvent(UIInternal.createEvent("sort"));
+              }
+          };
+          __decorate([
+              bindable(),
+              __metadata("design:type", UIColumn)
+          ], HeaderCell.prototype, "column", void 0);
+          __decorate([
+              bindable(),
+              __metadata("design:type", String)
+          ], HeaderCell.prototype, "sortBy", void 0);
+          __decorate([
+              bindable(),
+              __metadata("design:type", String)
+          ], HeaderCell.prototype, "sortOrder", void 0);
+          HeaderCell = __decorate([
+              containerless(),
+              inlineView("<template>\n        <div class=\"ui-datagrid__cell\" css.bind=\"css\" with.bind=\"column\">\n          <div class=\"ui-datagrid__cell__wrapper\" innerhtml.bind=\"label\"\n            click.trigger=\"fireSortEvent()\"></div>\n          <div class=\"ui-datagrid__cell__sorter\" \n            data-sort.bind=\"sortBy === dataId ? sortOrder : ''\">\n            <i if.bind=\"sortable\"></i>\n            <i if.bind=\"sortable\"></i>\n          </div>\n          <div class=\"ui-datagrid__cell__resizer\" if.bind=\"resizeable\" mousedown.trigger=\"startResize($event)\"></div>\n        </div>\n      </template>"),
+              __metadata("design:paramtypes", [Element])
+          ], HeaderCell);
+          return HeaderCell;
+      }());
+
+      var view = "<template class=\"ui-datagrid\">\n\n  <div show.bind=\"false\">\n    <slot></slot>\n  </div>\n\n  <div class=\"ui-datagrid__head\">\n    <div class=\"ui-datagrid__row\">\n      <div class=\"ui-datagrid__row__wrapper\">\n        <div class=\"ui-datagrid__row__locked--start\">\n          <template repeat.for=\"col of columns | filter:'start':'locked'\">\n            <header-cell column.bind=\"col\" sort.trigger=\"ds.sortBy(col.dataId)\" sort-by.bind=\"ds.sortByProperty\" sort-order.bind=\"ds.sortByOrder\"></header-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__row__scrolling\">\n          <template repeat.for=\"col of columns | filter:false:'locked'\">\n            <header-cell column.bind=\"col\" sort.trigger=\"ds.sortBy(col.dataId)\" sort-by.bind=\"ds.sortByProperty\" sort-order.bind=\"ds.sortByOrder\"></header-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__cell ui-datagrid__cell--filler\"></div>\n        <div class=\"ui-datagrid__row__locked--end\">\n          <template repeat.for=\"col of columns | filter:'end':'locked'\">\n            <header-cell column.bind=\"col\" sort.trigger=\"ds.sortBy(col.dataId)\" sort-by.bind=\"ds.sortByProperty\" sort-order.bind=\"ds.sortByOrder\"></header-cell>\n          </template>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"ui-datagrid__body\" ref=\"dgBody\">\n\n    <div class=\"ui-datagrid__row ${$even ? 'ui-datagrid__row--even':'ui-datagrid__row--odd'}\" virtual-repeat.for=\"record of ds.data\">\n\n      <div class=\"ui-datagrid__row__wrapper\">\n        <div class=\"ui-datagrid__row__locked--start\">\n          <template repeat.for=\"col of columns | filter:'start':'locked'\">\n            <body-cell column.bind=\"col\" record.bind=\"record\"></body-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__row__scrolling\">\n          <template repeat.for=\"col of columns | filter:false:'locked'\">\n            <body-cell column.bind=\"col\" record.bind=\"record\"></body-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__cell ui-datagrid__cell--filler\"></div>\n        <div class=\"ui-datagrid__row__locked--end\">\n          <template repeat.for=\"col of columns | filter:'end':'locked'\">\n            <body-cell column.bind=\"col\" record.bind=\"record\"></body-cell>\n          </template>\n        </div>\n      </div>\n\n    </div>\n\n  </div>\n\n  <div class=\"ui-datagrid__foot\"></div>\n</template>\n";
+
+      var UIDataGrid = (function () {
+          function UIDataGrid() {
+          }
+          UIDataGrid.prototype.dataSourceChanged = function () {
+              if (isArray(this.dataSource)) {
+                  this.ds = new UIDataSource(this.dataSource);
+              }
+              if (this.dataSource instanceof UIDataSource) {
+                  this.ds = this.dataSource;
+              }
+          };
+          __decorate([
+              bindable(),
+              __metadata("design:type", Object)
+          ], UIDataGrid.prototype, "dataSource", void 0);
+          __decorate([
+              children("ui-column"),
+              __metadata("design:type", Object)
+          ], UIDataGrid.prototype, "columns", void 0);
+          UIDataGrid = __decorate([
+              customElement("ui-datagrid"),
+              viewResources(HeaderCell, BodyCell),
+              inlineView(view)
+          ], UIDataGrid);
+          return UIDataGrid;
+      }());
+
+      var UIDataCard = (function () {
+          function UIDataCard(element) {
+              this.element = element;
+              this.open = false;
+          }
+          UIDataCard.prototype.attached = function () {
+              this.hrefChanged();
+          };
+          UIDataCard.prototype.hrefChanged = function () {
+              if (this.vmElement) {
+                  if (this.href) {
+                      this.vmElement.href = this.href;
+                  }
+                  else if (this.element.hasAttribute("click.trigger")) {
+                      this.vmElement.href = "javascript:;";
+                  }
+                  else if (this.vmElement.attributes.getNamedItem("href")) {
+                      this.vmElement.attributes.removeNamedItem("href");
+                  }
+              }
+          };
+          UIDataCard.prototype.fireClick = function ($event) {
+              if (hasParent($event.target, "ui-datalist__toolbox", "ui-datalist__card")) {
+                  $event.stopEvent();
+                  return false;
+              }
+              if (!this.href) {
+                  return this.element.dispatchEvent(UIInternal.createEvent("click"));
+              }
+          };
+          __decorate([
+              bindable(),
+              __metadata("design:type", String)
+          ], UIDataCard.prototype, "href", void 0);
+          __decorate([
+              bindable(),
+              __metadata("design:type", Array)
+          ], UIDataCard.prototype, "actions", void 0);
+          __decorate([
+              bindable(),
+              __metadata("design:type", Boolean)
+          ], UIDataCard.prototype, "open", void 0);
+          UIDataCard = __decorate([
+              containerless(),
+              customElement("ui-data-card"),
+              inlineView("<template><a class=\"ui-datalist__card\" ref=\"vmElement\" data-open.bind=\"open\" click.trigger=\"fireClick($event)\">\n  <slot name=\"panel-header\"></slot>\n  <slot></slot>\n  <div class=\"ui-datalist__toolbox\">\n    <slot name=\"card-actions\"></slot>\n    <ui-button-group vertical if.bind=\"actions\">\n      <ui-button type=\"tool\" no-caret>\n        <ui-svg-icon icon=\"overflow\"></ui-svg-icon>\n        <ui-drop anchor=\"br\" position=\"tr\">\n          <ui-menu menu-items.bind=\"actions\"></ui-menu>\n        </ui-drop>\n      </ui-button>\n      <ui-button type=\"tool\" click.trigger=\"open = !open\">\n        <ui-svg-icon icon=\"caret\"></ui-svg-icon>\n      </ui-button>\n    </ui-button-group>\n  </div>\n  <slot name=\"panel-footer\"></slot>\n</a></template>"),
+              __metadata("design:paramtypes", [Element])
+          ], UIDataCard);
+          return UIDataCard;
+      }());
+
+      var view$1 = "<template class=\"ui-datalist ui-scroll--y\">\n  <slot></slot>\n  <div class=\"ui-datalist__wrapper\">\n\n    <template repeat.for=\"record of dataSource\">\n      <div ref=\"el\" show.one-time=\"compileTemplate(el, record)\"></div>\n    </template>\n\n  </div>\n  <div class=\"ui-datalist__loader\" if.bind=\"isLoading\">\n    <ui-svg-icon icon=\"busy\" class=\"ui-anim--spin\"></ui-svg-icon>\n  </div>\n</template>\n";
+
+      var UIDataList = (function () {
+          function UIDataList(element) {
+              this.template = element.querySelector("template");
+              if (element.hasAttribute("vertical")) {
+                  element.classList.add("ui-datalist--vertical");
+              }
+          }
+          UIDataList.prototype.created = function (owningView) {
+              this.owningView = owningView;
+          };
+          UIDataList.prototype.compileTemplate = function (el, record) {
+              if (el) {
+                  var tpl = "<template>" + this.template.innerHTML + "</template>";
+                  var model = {
+                      $record: record
+                  };
+                  var tplView = UIInternal.compileTemplate(tpl, model, this.owningView.bindingContext);
+                  tplView.insertNodesBefore(el);
+                  tplView.attached();
+                  el.remove();
+              }
+              return true;
+          };
+          __decorate([
+              bindable(),
+              __metadata("design:type", Object)
+          ], UIDataList.prototype, "dataSource", void 0);
+          UIDataList = __decorate([
+              customElement("ui-data-list"),
+              processContent(false),
+              inlineView(view$1),
+              __metadata("design:paramtypes", [Element])
+          ], UIDataList);
+          return UIDataList;
+      }());
+
+      var UIDataTable = (function () {
+          function UIDataTable() {
+          }
+          UIDataTable = __decorate([
+              customElement("ui-data-table"),
+              inlineView("<template class=\"ui-datalist__table\"><slot></slot></template>")
+          ], UIDataTable);
+          return UIDataTable;
+      }());
 
       var NODE_ID = 0;
       var UITreeModel = (function () {
@@ -224,7 +638,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', 
           return UITreeNode;
       }());
 
-      var view = "<template class=\"ui-tree__node ${isSelected ? 'ui-tree--selected':''}\">\n  <div class=\"ui-tree__spacer\" repeat.for=\"i of node.level\"></div>\n  <template if.bind=\"node.id !== 'node-more' && node.id !== 'node-empty'\">\n    <div class=\"ui-tree__expander\" click.trigger=\"tree.toggleExpand(index)\" if.bind=\"!node.leaf\">\n      <ui-svg-icon icon.bind=\"node.expandIcon\"></ui-svg-icon>\n    </div>\n    <div class=\"ui-tree__checkbox\" click.trigger=\"tree.toggleCheck(node)\" if.bind=\"tree.checkable !== false && node.level >= tree.checkable\">\n      <ui-svg-icon icon.bind=\"node.checkIcon\"></ui-svg-icon>\n    </div>\n    <div class=\"ui-tree__icon\">\n      <ui-svg-icon if.bind=\"node.loading\" icon=\"busy\" class=\"ui-anim--spin\"></ui-svg-icon>\n      <ui-icon else class.bind=\"node.nodeIcon\"></ui-icon>\n    </div>\n    <div class=\"ui-tree__label\" click.trigger=\"tree.select(node)\">${node.label}</div>\n  </template>\n  <template if.bind=\"node.id === 'node-more'\">\n    <a class=\"ui-tree__show-more\" click.trigger=\"tree.toggleMore(index)\">\n      <span if.bind=\"node.showingMore\">${tree.labelLess}</span>\n      <span else>${tree.labelMore}</span>\n    </a>\n  </template>\n  <template if.bind=\"node.id === 'node-empty'\">\n    <div class=\"ui-tree__no-children\" ui-color=\"gray\">${tree.labelEmpty}</div>\n  </template>\n</template>\n";
+      var view$2 = "<template class=\"ui-tree__node ${isSelected ? 'ui-tree--selected':''}\">\n  <div class=\"ui-tree__spacer\" repeat.for=\"i of node.level\"></div>\n  <template if.bind=\"node.id !== 'node-more' && node.id !== 'node-empty'\">\n    <div class=\"ui-tree__expander\" click.trigger=\"tree.toggleExpand(index)\" if.bind=\"!node.leaf\">\n      <ui-svg-icon icon.bind=\"node.expandIcon\"></ui-svg-icon>\n    </div>\n    <div class=\"ui-tree__checkbox\" click.trigger=\"tree.toggleCheck(node)\" if.bind=\"tree.checkable !== false && node.level >= tree.checkable\">\n      <ui-svg-icon icon.bind=\"node.checkIcon\"></ui-svg-icon>\n    </div>\n    <div class=\"ui-tree__icon\">\n      <ui-svg-icon if.bind=\"node.loading\" icon=\"busy\" class=\"ui-anim--spin\"></ui-svg-icon>\n      <ui-icon else class.bind=\"node.nodeIcon\"></ui-icon>\n    </div>\n    <div class=\"ui-tree__label\" click.trigger=\"tree.select(node)\">${node.label}</div>\n  </template>\n  <template if.bind=\"node.id === 'node-more'\">\n    <a class=\"ui-tree__show-more\" click.trigger=\"tree.toggleMore(index)\">\n      <span if.bind=\"node.showingMore\">${tree.labelLess}</span>\n      <span else>${tree.labelMore}</span>\n    </a>\n  </template>\n  <template if.bind=\"node.id === 'node-empty'\">\n    <div class=\"ui-tree__no-children\" ui-color=\"gray\">${tree.labelEmpty}</div>\n  </template>\n</template>\n";
 
       var TreeNode = (function () {
           function TreeNode() {
@@ -254,7 +668,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', 
               __metadata("design:paramtypes", [])
           ], TreeNode.prototype, "isSelected", null);
           TreeNode = __decorate([
-              inlineView(view)
+              inlineView(view$2)
           ], TreeNode);
           return TreeNode;
       }());
@@ -289,10 +703,10 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', 
               }
           };
           UITreePanel.prototype.bind = function () {
-              this.rootNode = new UITreeModel(this.dataSource, this.maxNodes);
+              this.rootNode = new UITreeModel(this.options, this.maxNodes);
           };
-          UITreePanel.prototype.dataSourceChanged = function () {
-              this.rootNode = new UITreeModel(this.dataSource, this.maxNodes);
+          UITreePanel.prototype.optionsChanged = function () {
+              this.rootNode = new UITreeModel(this.options, this.maxNodes);
           };
           UITreePanel.prototype.toggleExpand = function (index) {
               this.rootNode.toggleExpand(index);
@@ -335,7 +749,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', 
           __decorate([
               bindable(),
               __metadata("design:type", Array)
-          ], UITreePanel.prototype, "dataSource", void 0);
+          ], UITreePanel.prototype, "options", void 0);
           __decorate([
               bindable(),
               __metadata("design:type", String)
@@ -373,7 +787,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', 
           return UITreePanel;
       }());
 
-      var DataPanels = exports('DataPanels', [UITreePanel]);
+      var DataPanels = exports('DataPanels', [UITreePanel, UIDataGrid, UIColumn, UIDataList, UIDataCard, UIDataTable]);
 
     }
   };

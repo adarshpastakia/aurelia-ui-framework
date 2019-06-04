@@ -13,6 +13,34 @@ System.register(['./chunk.js', 'aurelia-framework'], function (exports, module) 
     }],
     execute: function () {
 
+      var UIAvatar = (function () {
+          function UIAvatar(element) {
+              this.element = element;
+              this.icon = "";
+              this.size = "nm";
+              if (element.hasAttribute("round")) {
+                  element.classList.add("ui-avatar--round");
+              }
+              if (element.hasAttribute("flip-on-rtl")) {
+                  element.classList.add("flip-on-rtl");
+              }
+          }
+          __decorate([
+              bindable(),
+              __metadata("design:type", String)
+          ], UIAvatar.prototype, "icon", void 0);
+          __decorate([
+              bindable(),
+              __metadata("design:type", String)
+          ], UIAvatar.prototype, "size", void 0);
+          UIAvatar = __decorate([
+              customElement("ui-avatar"),
+              inlineView("<template class=\"ui-avatar\"><slot><ui-icon ui-font.bind=\"size\" icon.bind=\"icon\"></ui-icon></slot></template>"),
+              __metadata("design:paramtypes", [Element])
+          ], UIAvatar);
+          return UIAvatar;
+      }());
+
       var UIFlag = (function () {
           function UIFlag(element) {
               this.element = element;
@@ -174,12 +202,12 @@ System.register(['./chunk.js', 'aurelia-framework'], function (exports, module) 
           UISvgIcon = __decorate([
               containerless(),
               customElement("ui-svg-icon"),
-              inlineView("<template><svg ref=\"vmElement\" slot=\"svg-icon\" class=\"ui-icon ui-svg-icon ${class}\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\" width=\"24\" height=\"24\" viewBox=\"${viewBox}\"><path d.bind=\"iconPath\" /></svg></template>")
+              inlineView("<template><svg ref=\"vmElement\" slot=\"svg-icon\" class=\"ui-icon ui-svg-icon ${class}\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\"24\" height=\"24\" viewBox=\"${viewBox}\"><path d.bind=\"iconPath\"></path></svg></template>")
           ], UISvgIcon);
           return UISvgIcon;
       }());
 
-      var Icons$1 = exports('Icons', [UIIcon, UIFlag, UISvgIcon]);
+      var Icons$1 = exports('Icons', [UIIcon, UIFlag, UISvgIcon, UIAvatar]);
 
     }
   };

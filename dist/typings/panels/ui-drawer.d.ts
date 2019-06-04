@@ -5,7 +5,7 @@ export declare class UIDrawer {
     maxWidth: string;
     protected push: boolean;
     protected closeOnClick: boolean;
-    private obClick;
+    private readonly obClick;
     private isAttached;
     constructor(element: Element);
     protected attached(): void;

@@ -9,8 +9,8 @@ export declare class UIDialogService {
     private initialized;
     private dragObject;
     constructor(appConfig: UIAppConfig, container: Container, compositionEngine: CompositionEngine);
-    open(viewModel: any, model?: any): void;
-    openModal(viewModel: any, model?: any): void;
+    open(viewModel: any, model?: any): Promise<{}>;
+    openModal(viewModel: any, model?: any): Promise<{}>;
     private openDialog;
     private initialize;
     private startDrag;

@@ -104,7 +104,6 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
       UIDialogElement.prototype.attached = function () {
           if (!this.modal) {
               var iconEl = this.element.querySelector(".ui-header__icon .ui-icon");
-              var labelEl = this.element.querySelector(".ui-header__title");
               if (iconEl) {
                   this.icon = iconEl.au.controller.viewModel.icon;
               }
@@ -166,7 +165,7 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           __chunk_1.__metadata("design:type", String)
       ], UIDialogElement.prototype, "maxHeight", void 0);
       __chunk_1.__decorate([
-          aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.oneWay }),
+          aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.toView }),
           __chunk_1.__metadata("design:type", Object)
       ], UIDialogElement.prototype, "help", void 0);
       __chunk_1.__decorate([
@@ -174,19 +173,19 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           __chunk_1.__metadata("design:type", Boolean)
       ], UIDialogElement.prototype, "modal", void 0);
       __chunk_1.__decorate([
-          aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.oneWay }),
+          aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.toView }),
           __chunk_1.__metadata("design:type", Boolean)
       ], UIDialogElement.prototype, "closeable", void 0);
       __chunk_1.__decorate([
-          aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.oneWay }),
+          aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.toView }),
           __chunk_1.__metadata("design:type", Boolean)
       ], UIDialogElement.prototype, "maximizable", void 0);
       __chunk_1.__decorate([
-          aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.oneWay }),
+          aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.toView }),
           __chunk_1.__metadata("design:type", Boolean)
       ], UIDialogElement.prototype, "minimizable", void 0);
       __chunk_1.__decorate([
-          aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.oneWay }),
+          aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.toView }),
           __chunk_1.__metadata("design:type", Boolean)
       ], UIDialogElement.prototype, "hideToolbox", void 0);
       __chunk_1.__decorate([
@@ -220,7 +219,7 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           this.closeOnClick =
               element.hasAttribute("close-on-click") && !isFalse(element.getAttribute("close-on-click"));
           this.obClick = __chunk_3.UIInternal.subscribe(__chunk_3.UIInternal.EVT_VIEWPORT_CLICK, function (target) {
-              return !_this.closeOnClick && getParentByClass(target, "ui-drawer__body")
+              return !_this.closeOnClick && hasParent(target, "ui-drawer__body", "ui-drawer")
                   ? undefined
                   : (element.dataset.peek = "false");
           });
@@ -471,7 +470,7 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           this.closeOnClick =
               element.hasAttribute("close-on-click") && !isFalse(element.getAttribute("close-on-click"));
           this.obClick = __chunk_3.UIInternal.subscribe(__chunk_3.UIInternal.EVT_VIEWPORT_CLICK, function (target) {
-              return !_this.peek || (!_this.closeOnClick && getParentByClass(target, "ui-sidebar__body"))
+              return !_this.peek || (!_this.closeOnClick && hasParent(target, "ui-sidebar__body", "ui-sidebar"))
                   ? undefined
                   : __chunk_3.UIInternal.queueTask(function () { return (_this.peek = false); });
           });

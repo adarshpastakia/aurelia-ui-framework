@@ -107,7 +107,6 @@ let UIDialogElement = class UIDialogElement {
     attached() {
         if (!this.modal) {
             const iconEl = this.element.querySelector(".ui-header__icon .ui-icon");
-            const labelEl = this.element.querySelector(".ui-header__title");
             if (iconEl) {
                 this.icon = iconEl.au.controller.viewModel.icon;
             }
@@ -166,7 +165,7 @@ __decorate([
     __metadata("design:type", String)
 ], UIDialogElement.prototype, "maxHeight", void 0);
 __decorate([
-    bindable({ defaultBindingMode: bindingMode.oneWay }),
+    bindable({ defaultBindingMode: bindingMode.toView }),
     __metadata("design:type", Object)
 ], UIDialogElement.prototype, "help", void 0);
 __decorate([
@@ -174,19 +173,19 @@ __decorate([
     __metadata("design:type", Boolean)
 ], UIDialogElement.prototype, "modal", void 0);
 __decorate([
-    bindable({ defaultBindingMode: bindingMode.oneWay }),
+    bindable({ defaultBindingMode: bindingMode.toView }),
     __metadata("design:type", Boolean)
 ], UIDialogElement.prototype, "closeable", void 0);
 __decorate([
-    bindable({ defaultBindingMode: bindingMode.oneWay }),
+    bindable({ defaultBindingMode: bindingMode.toView }),
     __metadata("design:type", Boolean)
 ], UIDialogElement.prototype, "maximizable", void 0);
 __decorate([
-    bindable({ defaultBindingMode: bindingMode.oneWay }),
+    bindable({ defaultBindingMode: bindingMode.toView }),
     __metadata("design:type", Boolean)
 ], UIDialogElement.prototype, "minimizable", void 0);
 __decorate([
-    bindable({ defaultBindingMode: bindingMode.oneWay }),
+    bindable({ defaultBindingMode: bindingMode.toView }),
     __metadata("design:type", Boolean)
 ], UIDialogElement.prototype, "hideToolbox", void 0);
 __decorate([
@@ -216,7 +215,7 @@ let UIDrawer = class UIDrawer {
         this.push = element.hasAttribute("push");
         this.closeOnClick =
             element.hasAttribute("close-on-click") && !isFalse(element.getAttribute("close-on-click"));
-        this.obClick = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_CLICK, target => !this.closeOnClick && getParentByClass(target, "ui-drawer__body")
+        this.obClick = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_CLICK, target => !this.closeOnClick && hasParent(target, "ui-drawer__body", "ui-drawer")
             ? undefined
             : (element.dataset.peek = "false"));
     }
@@ -459,7 +458,7 @@ let UISidebar = class UISidebar {
         this.collapsible = element.hasAttribute("collapsible");
         this.closeOnClick =
             element.hasAttribute("close-on-click") && !isFalse(element.getAttribute("close-on-click"));
-        this.obClick = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_CLICK, target => !this.peek || (!this.closeOnClick && getParentByClass(target, "ui-sidebar__body"))
+        this.obClick = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_CLICK, target => !this.peek || (!this.closeOnClick && hasParent(target, "ui-sidebar__body", "ui-sidebar"))
             ? undefined
             : UIInternal.queueTask(() => (this.peek = false)));
     }

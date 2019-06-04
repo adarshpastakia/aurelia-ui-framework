@@ -66,13 +66,14 @@ var UIInternal;
         return Promise.resolve(true);
     }
     UIInternal.invokeLifecycle = invokeLifecycle;
-    function compileTemplate(tpl, viewModel) {
+    function compileTemplate(tpl, viewModel, bindingContext) {
         if (viewModel === void 0) { viewModel = {}; }
+        if (bindingContext === void 0) { bindingContext = {}; }
         var viewFactory = Container.instance
             .get(ViewCompiler)
             .compile(tpl, Container.instance.get(ViewResources));
         var view = viewFactory.create(Container.instance);
-        view.bind(viewModel);
+        view.bind(viewModel, bindingContext);
         return view;
     }
     UIInternal.compileTemplate = compileTemplate;

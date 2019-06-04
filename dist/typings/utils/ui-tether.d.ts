@@ -1,8 +1,8 @@
 export declare namespace UITether {
-    type Position = "tl" | "tr" | "bl" | "br" | "tc" | "bc";
+    type Position = "tl" | "tr" | "bl" | "br" | "tc" | "bc" | "cl" | "cr";
     interface Tether {
         dispose(): void;
-        updatePosition(newAnchor?: Element): void;
+        updatePosition(newAnchor?: Element, newConfig?: TetherConfig): void;
     }
     interface TetherConfig {
         resize?: boolean;
@@ -12,6 +12,6 @@ export declare namespace UITether {
     }
     function tether(anchorEl: Element, dropdownEl: HTMLDivElement, config?: TetherConfig): {
         dispose: () => void;
-        updatePosition: (newAnchorEl?: Element) => void;
+        updatePosition: (newAnchorEl?: Element, newConfig?: {}) => void;
     };
 }

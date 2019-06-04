@@ -22,10 +22,8 @@ export declare class UIDialogElement {
     protected active: boolean;
     protected minimized: boolean;
     protected maximized: boolean;
-    private dialogEl;
     private position;
     private taskButton;
-    private previousPosition;
     constructor(element: Element);
     cancel(): void;
     close(result?: AnyObject): void;

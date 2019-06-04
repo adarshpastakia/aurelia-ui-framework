@@ -7,7 +7,7 @@ import ResizeObserver from 'resize-observer-polyfill';
 var UIContent = (function () {
     function UIContent(element) {
         this.obResize = new ResizeObserver(function () {
-            return element.dispatchEvent(UIInternal.createEvent("resize"));
+            return element.dispatchEvent(UIInternal.createEvent("resize", element.getBoundingClientRect()));
         });
         this.obResize.observe(element);
     }
