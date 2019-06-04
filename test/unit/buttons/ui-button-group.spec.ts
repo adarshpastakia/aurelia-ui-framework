@@ -26,9 +26,10 @@ describe("ui-button-group", () => {
         `<div>
           <ui-viewport>
           
-            <ui-button-group id="testGroup" vertical toggle equal value.two-way="value">
+            <ui-button-group id="testGroup" separator="or" vertical toggle equal value.two-way="value">
               <ui-button id="btn1">One</ui-button>
               <ui-button id="btn2">Two</ui-button>
+              <ui-button id="btn3">Three</ui-button>
             </ui-button-group>
 
           </ui-viewport>
@@ -57,9 +58,25 @@ describe("ui-button-group", () => {
   it("should have value", done => {
     component.waitForElement("#testGroup").then(el => {
       expect(el.querySelector("#btn1").dataset.active).toBeTruthy();
+      done();
+    });
+  });
+
+  it("should change value on click", done => {
+    component.waitForElement("#testGroup").then(el => {
       el.querySelector("#btn2 .ui-btn").click();
       UIInternal.queueMicroTask(() => {
         expect(vm.value).toBe("btn2");
+        done();
+      });
+    });
+  });
+
+  it("should change value on bind", done => {
+    component.waitForElement("#testGroup").then(el => {
+      vm.value = "btn3";
+      UIInternal.queueMicroTask(() => {
+        expect(el.querySelector("#btn3").dataset.active).toBeTruthy();
         done();
       });
     });
