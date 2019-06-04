@@ -18,5 +18,5 @@ export declare class UIDropdown {
     protected valueChanged(): void;
     protected select(model: AnyObject): void;
     readonly selectedLabel: any;
-    private toggleDrop;
+    protected toggleDrop($event: Event): void;
 }

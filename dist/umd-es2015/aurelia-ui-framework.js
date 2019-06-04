@@ -11,11 +11,11 @@
 
   const registerValidators = (container) => {
       container.get(aureliaValidation.ValidationController).validateTrigger = aureliaValidation.validateTrigger.changeOrBlur;
-      aureliaValidation.ValidationRules.customRule("url", (value, obj) => value === null ||
+      aureliaValidation.ValidationRules.customRule("url", (value) => value === null ||
           value === undefined ||
           value === "" ||
-          /^((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?$/.test(value), "\${$displayName} is not a valid url.");
-      aureliaValidation.ValidationRules.customRule("phone", (value, obj) => value === null || value === undefined || value === "" || libphonenumberJs.parsePhoneNumberFromString(value).isValid(), "\${$displayName} is not a valid phone number.");
+          /^((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-.]+[^#?\s]+)(.*)?(#[\w\-]+)?$/.test(value), "\${$displayName} is not a valid url.");
+      aureliaValidation.ValidationRules.customRule("phone", (value) => value === null || value === undefined || value === "" || libphonenumberJs.parsePhoneNumberFromString(value).isValid(), "\${$displayName} is not a valid phone number.");
       aureliaValidation.ValidationRules.customRule("number", (value, obj, min, max) => value === null ||
           value === undefined ||
           value === "" ||
@@ -217,20 +217,20 @@
 
   var _Countries = {
     toIso2: function(c) {
-      var ctry = this.find(c);
+      const ctry = this.find(c);
       return ctry
         ? ctry.iso2
         : null;
     },
     toIso3: function(c) {
-      var ctry = this.find(c);
+      const ctry = this.find(c);
       return ctry
         ? ctry.iso3
         : null;
     },
     find: function(c) {
       return this.list.find(function(ct) {
-        return (ct.iso3.toLowerCase() === c.toLowerCase() || ct.iso2.toLowerCase() == c.toLowerCase());
+        return (ct.iso3.toLowerCase() === c.toLowerCase() || ct.iso2.toLowerCase() === c.toLowerCase());
       });
     },
     list: [
@@ -2710,15 +2710,15 @@
 
   String.prototype.interpolate = function(model) {
     return this.replace(/\${([^{}]*)}/g, function(a, b) {
-      var r = model[b];
+      const r = model[b];
       return typeof r === "string" || typeof r === "number" ? r : a;
     });
   };
 
   String.prototype.ascii = function() {
-    str = this.toString();
+    let str = this.toString();
     if (isEmpty(str)) return "";
-    var conversions = {};
+    const conversions = {};
     conversions["ae"] = "ä|æ|ǽ";
     conversions["oe"] = "ö|œ";
     conversions["ue"] = "ü";
@@ -2769,8 +2769,8 @@
     conversions["ij"] = "ĳ";
     conversions["OE"] = "Œ";
     conversions["f"] = "ƒ";
-    for (var i in conversions) {
-      var re = new RegExp(conversions[i], "g");
+    for (const i in conversions) {
+      const re = new RegExp(conversions[i], "g");
       str = str.replace(re, i);
     }
     return str;
@@ -2793,7 +2793,7 @@
   globalObject.UA_UNKNOWN = "ua-unknown";
 
   globalObject.browserAgent = function() {
-    var ua = (navigator.userAgent || "").toLowerCase();
+    const ua = (navigator.userAgent || "").toLowerCase();
     if (ua.indexOf("opr") >= 0) return UA_OPERA;
     else if (ua.indexOf("edge") >= 0) return UA_EDGE;
     else if (ua.indexOf("chrome") >= 0) return UA_CHROME;
@@ -2815,7 +2815,7 @@
     if (typeof a === "number") return false;
     if (typeof a === "boolean") return false;
     if (a instanceof Map || a instanceof Set) return a.size === 0;
-    return a === undefined || a === null || a === "" || a.length === 0 || Object.keys(a).length == 0;
+    return a === undefined || a === null || a === "" || a.length === 0 || Object.keys(a).length === 0;
   };
   globalObject.isArray = Array.isArray;
   globalObject.isDate = function(a) {
@@ -2845,18 +2845,32 @@
     el.au && el.au.controller ? el.au.controller.viewModel.currentViewModel : null;
 
   globalObject.isRtl = function(el) {
-    rtl = false;
-    do {
-      if ((el.dir || el.style.direction) == "rtl") return true;
-      if ((el.dir || el.style.direction) == "ltr") return false;
-      el = el.parentElement;
-    } while (el != null);
-    return false;
+    return window.getComputedStyle(el).direction === "rtl";
   };
 
-  globalObject.hasParent = function(el, parent) {
+  const isLastElement = (el, last) => {
+    if (last && last instanceof Element && el === last) return true;
+    else if (
+      last &&
+      typeof last === "string" &&
+      (el.classList.contains(last) || el.tagName.toLowerCase() === last.toLowerCase())
+    )
+      return true;
+    else
+      return false;
+  };
+
+  globalObject.hasParent = function(el, parent, last) {
     do {
-      if (el === parent) return true;
+      if (parent && parent instanceof Element && el === parent) return true;
+      if (
+        parent &&
+        typeof parent === "string" &&
+        (el.classList.contains(parent) || el.tagName.toLowerCase() === parent.toLowerCase())
+      )
+        return true;
+      if (isLastElement(el, last))
+        return false;
       el = el.parentElement;
     } while (el !== null);
     return false;
@@ -2864,12 +2878,7 @@
 
   globalObject.getParentByTag = function(el, selector, last) {
     do {
-      if (last && last instanceof Element && el === last) return null;
-      if (
-        last &&
-        typeof last === "string" &&
-        (el.classList.contains(last) || el.tagName.toLowerCase() === last.toLowerCase())
-      )
+      if (isLastElement(el, last))
         return null;
       if (el.tagName.toLowerCase() === selector.toLowerCase()) return el;
       el = el.parentElement;
@@ -2879,12 +2888,7 @@
 
   globalObject.getParentByClass = function(el, selector, last) {
     do {
-      if (last && last instanceof Element && el === last) return null;
-      if (
-        last &&
-        typeof last === "string" &&
-        (el.classList.contains(last) || el.tagName.toLowerCase() === last.toLowerCase())
-      )
+      if (isLastElement(el, last))
         return null;
       if (el.classList.contains(selector)) return el;
       el = el.parentElement;
@@ -2893,7 +2897,7 @@
   };
 
   globalObject.convertToPx = function(size, context) {
-    var baseSize = "1";
+    let baseSize = "1";
     if ((size + "").indexOf("em") > -1)
       baseSize = getComputedStyle(context || document.documentElement).fontSize;
     if ((size + "").indexOf("rem") > -1)
@@ -2987,12 +2991,12 @@
           return Promise.resolve(true);
       }
       UIInternal.invokeLifecycle = invokeLifecycle;
-      function compileTemplate(tpl, viewModel = {}) {
+      function compileTemplate(tpl, viewModel = {}, bindingContext = {}) {
           const viewFactory = aureliaFramework.Container.instance
               .get(aureliaFramework.ViewCompiler)
               .compile(tpl, aureliaFramework.Container.instance.get(aureliaFramework.ViewResources));
           const view = viewFactory.create(aureliaFramework.Container.instance);
-          view.bind(viewModel);
+          view.bind(viewModel, bindingContext);
           return view;
       }
       UIInternal.compileTemplate = compileTemplate;
@@ -3321,7 +3325,7 @@
               if (result !== false) {
                   return this.doGet(id);
               }
-              Promise.reject(ERROR_CODES.REJECTED);
+              return Promise.reject(ERROR_CODES.REJECTED);
           })
               .then(response => this.postGet(response));
       }
@@ -3339,7 +3343,7 @@
                       return this.doPost();
                   }
               }
-              Promise.reject(ERROR_CODES.REJECTED);
+              return Promise.reject(ERROR_CODES.REJECTED);
           })
               .then(response => {
               this.loaded = true;
@@ -3358,7 +3362,7 @@
               if (result !== false) {
                   return this.doDelete();
               }
-              Promise.reject(ERROR_CODES.REJECTED);
+              return Promise.reject(ERROR_CODES.REJECTED);
           })
               .then(response => {
               this.postDelete(response);
@@ -3409,14 +3413,11 @@
       }
       preDelete() {
       }
-      postGet(response) {
+      postGet(_) {
       }
-      postSave(response) {
+      postSave(_) {
       }
-      postDelete(response) {
-      }
-      generateId() {
-          return Math.round(Math.random() * new Date().getTime()).toString(18);
+      postDelete(_) {
       }
       propertyGetter(prop) {
           return function () {
@@ -3429,6 +3430,9 @@
               this.updateDirty(prop, v);
               return v;
           };
+      }
+      generateId() {
+          return Math.round(Math.random() * new Date().getTime()).toString(18);
       }
       updateDirty(prop, value) {
           const hasDirty = this.metadata.dirtyProps.indexOf(prop) > -1;
@@ -3460,8 +3464,8 @@
               return json;
           })
               .catch(e => {
-              Promise.reject(e);
               this.busy = false;
+              return Promise.reject(e);
           });
       }
       doPost() {
@@ -3474,8 +3478,8 @@
               return json;
           })
               .catch(e => {
-              Promise.reject(e);
               this.busy = false;
+              return Promise.reject(e);
           });
       }
       doPut() {
@@ -3488,8 +3492,8 @@
               return json;
           })
               .catch(e => {
-              Promise.reject(e);
               this.busy = false;
+              return Promise.reject(e);
           });
       }
       doDelete() {
@@ -3501,15 +3505,9 @@
               return json;
           })
               .catch(e => {
-              Promise.reject(e);
               this.busy = false;
+              return Promise.reject(e);
           });
-      }
-      doUpdate() {
-          this.id = this[this.idProperty] || this.generateId();
-          this.metadata.dirtyProps = [];
-          this.metadata.original = Object.assign({}, this.serialize());
-          this.metadata.updated = Object.assign({}, this.serialize());
       }
   }
   __decorate([
@@ -3591,10 +3589,10 @@
           };
       }
       open(viewModel, model) {
-          this.openDialog(viewModel, model);
+          return this.openDialog(viewModel, model);
       }
       openModal(viewModel, model) {
-          this.openDialog(viewModel, model, true);
+          return this.openDialog(viewModel, model, true);
       }
       openDialog(viewModel, model, modal = false) {
           this.initialize();
@@ -3638,7 +3636,7 @@
               UIInternal.subscribe("dlg:minimize", d => this.minimizeDialog(d.dialog));
               UIInternal.subscribe("dlg:drag", d => this.startDrag(d));
               document.addEventListener("mousemove", e => this.drag(e));
-              document.addEventListener("mouseup", e => this.stopDrag(e));
+              document.addEventListener("mouseup", () => this.stopDrag());
               if (this.appConfig.TaskbarContainer) {
                   this.appConfig.TaskbarContainer.anchor.addEventListener("click", (e) => {
                       try {
@@ -3679,7 +3677,7 @@
               }
           }
       }
-      stopDrag($event) {
+      stopDrag() {
           if (this.dragObject.isDragging) {
               this.dragObject.isDragging = false;
           }
@@ -3724,10 +3722,13 @@
           dialog.active = true;
       }
       getViewModel(instruction) {
-          if (isString(instruction.viewModel)) {
-              return this.compositionEngine.ensureViewModel(instruction);
+          if (isFunction(instruction.viewModel)) {
+              const moduleId = aureliaMetadata.Origin.get(instruction.viewModel).moduleId;
+              if (moduleId) {
+                  instruction.viewModel = moduleId;
+              }
           }
-          return Promise.resolve(instruction);
+          return this.compositionEngine.ensureViewModel(instruction);
       }
   };
   exports.UIDialogService = __decorate([
@@ -3738,15 +3739,16 @@
           aureliaFramework.CompositionEngine])
   ], exports.UIDialogService);
 
-  var alertView = "<div class=\"ui-dialog__wrapper\" data-modal.bind=\"true\" ref=\"__el\" keydown.delegate=\"__keyCheck($event.keyCode)\">\n  <input blur.trigger=\"$event.target.focus()\" readonly.one-time=\"true\" tabindex=\"0\" css.bind=\"{opacity:0}\" ref=\"keyEl\">\n  <div class=\"ui-panel-base ui-dialog\" ui-border=\"xy ${theme}\" data-active.bind=\"true\" css.bind=\"{minWidth: '18rem'}\">\n    <div class=\"ui-panel__body\" ref=\"vmElement\">\n      <ui-row ui-color.bind=\"theme\">\n        <ui-col ui-padding=\"sm\" size=\"auto\" if.bind=\"icon\" ui-font=\"xl\">\n          <ui-icon icon.bind=\"icon\"></ui-icon>\n        </ui-col>\n        <ui-col ui-padding=\"sm\" size=\"fill\">\n          <div if.bind=\"title\" ui-weight=\"medium\" innerhtml.bind=\"title\"></div>\n          <div innerhtml.bind=\"message\"></div>\n        </ui-col>\n      </ui-row>\n    </div>\n    <div class=\"ui-footer\" ui-padding=\"y--sm\" ui-align=\"center\">\n      <ui-button if.bind=\"type!=='alert'\" click.trigger=\"__close(false)\" ui-theme.bind=\"theme\" type=\"outline\" size=\"sm\" css.bind=\"{minWidth:'4rem'}\">${cancelLabel}</ui-button>\n      <ui-button click.trigger=\"__close(true)\" ui-theme.bind=\"theme\" type=\"solid\" size=\"sm\" css.bind=\"{minWidth:'4rem'}\">${okLabel}</ui-button>\n    </div>\n  </div>\n</div>\n";
+  var alertView = "<div class=\"ui-dialog__wrapper\" data-modal.bind=\"true\" ref=\"__el\" keydown.delegate=\"__keyCheck($event.keyCode)\">\n  <!--suppress HtmlFormInputWithoutLabel -->\n  <input blur.trigger=\"$event.target.focus()\" readonly.one-time=\"true\" tabindex=\"0\" css.bind=\"{opacity:0}\" ref=\"keyEl\">\n  <div class=\"ui-panel-base ui-dialog\" ui-border=\"xy ${theme}\" data-active.bind=\"true\" css.bind=\"{minWidth: '18rem'}\">\n    <div class=\"ui-panel__body\" ref=\"vmElement\">\n      <ui-row ui-color.bind=\"theme\">\n        <ui-col ui-padding=\"sm\" size=\"auto\" if.bind=\"icon\" ui-font=\"xl\">\n          <ui-icon icon.bind=\"icon\"></ui-icon>\n        </ui-col>\n        <ui-col ui-padding=\"sm\" size=\"fill\">\n          <div if.bind=\"title\" ui-weight=\"medium\" innerhtml.bind=\"title\"></div>\n          <div class=\"ui-alert__body\" innerhtml.bind=\"message\"></div>\n        </ui-col>\n      </ui-row>\n    </div>\n    <div class=\"ui-footer\" ui-padding=\"y--sm\" ui-align=\"center\">\n      <ui-button if.bind=\"type!=='alert'\" click.trigger=\"__close(false)\" ui-theme.bind=\"theme\" type=\"outline\" size=\"sm\" css.bind=\"{minWidth:'4rem'}\">${cancelLabel}\n      </ui-button>\n      <ui-button click.trigger=\"__close(true)\" ui-theme.bind=\"theme\" type=\"solid\" size=\"sm\" css.bind=\"{minWidth:'4rem'}\">${okLabel}\n      </ui-button>\n    </div>\n  </div>\n</div>\n";
 
-  var toastView = "<div class=\"${class} ui-alert\" data-open=\"false\" ui-theme.bind=\"theme\" ref=\"__el\">\n    <div class=\"ui-alert__wrapper\">\n      <div if.bind=\"icon\" class=\"ui-alert__icon\"><ui-icon icon.bind=\"icon\"></ui-icon></div>\n      <div if.bind=\"title\" class=\"ui-alert__title\" innerhtml.bind=\"title\"></div>\n      <div class=\"ui-alert__body\" innerhtml.bind=\"message\"></div>\n      <div class=\"ui-alert__close\" click.trigger=\"__close(false)\">\n        <ui-svg-icon icon=\"cross\"></ui-svg-icon>\n      </div>\n      <div class=\"ui-alert__footer\" if.bind=\"type==='confirm'\">\n        <a click.trigger=\"__close(false)\">${cancelLabel}</a>\n        <a click.trigger=\"__close(true)\" ui-weight=\"bold\">${okLabel}</a>\n      </div>\n      <div if.bind=\"autoClose\" class=\"ui-alert__progress\" css.bind=\"{transitionDuration: timeout+'ms'}\"></div>\n    </div>\n  </div>\n\n";
+  var toastView = "<div class=\"${className} ui-alert\" data-open=\"false\" ui-theme.bind=\"theme\" ref=\"__el\" bindable=\"theme,title,icon,timeout,cancelLabel,okLabel,type,__close,autoClose\">\n  <div class=\"ui-alert__wrapper\">\n    <div if.bind=\"icon\" class=\"ui-alert__icon\">\n      <ui-icon icon.bind=\"icon\"></ui-icon>\n    </div>\n    <div if.bind=\"title\" class=\"ui-alert__title\" innerhtml.bind=\"title\"></div>\n    <div class=\"ui-alert__body\" innerhtml.bind=\"message\"></div>\n    <div class=\"ui-alert__close\" click.trigger=\"__close(false)\">\n      <ui-svg-icon icon=\"cross\"></ui-svg-icon>\n    </div>\n    <div class=\"ui-alert__footer\" if.bind=\"type==='confirm'\">\n      <a click.trigger=\"__close(false)\">${cancelLabel}</a>\n      <a click.trigger=\"__close(true)\" ui-weight=\"bold\">${okLabel}</a>\n    </div>\n    <div if.bind=\"autoClose\" class=\"ui-alert__progress\" css.bind=\"{transitionDuration: timeout+'ms'}\"></div>\n  </div>\n</div>\n";
 
   exports.UINotificationService = class UINotificationService {
-      constructor(appConfig, container, compiler) {
+      constructor(appConfig, container, compiler, templatingEngine) {
           this.appConfig = appConfig;
           this.container = container;
           this.compiler = compiler;
+          this.templatingEngine = templatingEngine;
       }
       alert(message, title, config = {}) {
           config = this.buildConfig(message, title, config);
@@ -3778,7 +3780,7 @@
       }
       createToast(config, forToastNotification) {
           return new Promise(resolve => {
-              const cfg = Object.assign({ autoClose: true, cancelLabel: "Cancel", okLabel: "OK", theme: "default", timeout: 5000, type: "default", class: forToastNotification ? "ui-toast" : "ui-message" }, config);
+              const cfg = Object.assign({ autoClose: true, cancelLabel: "Cancel", okLabel: "OK", theme: "default", timeout: 5000, type: "default", className: forToastNotification ? "ui-toast" : "ui-message" }, config, { message: `<div>${config.message}</div>` });
               cfg.autoClose = cfg.type !== "confirm" && cfg.autoClose;
               const viewFactory = this.compiler.compile(`<template>${toastView}</template>`);
               const view = viewFactory.create(this.container);
@@ -3794,12 +3796,18 @@
               if (cfg.autoClose) {
                   setTimeout(cfg.__close, cfg.timeout);
               }
-              UIInternal.queueTask(() => (view.firstChild.dataset.open = "true"));
+              UIInternal.queueTask(() => {
+                  const el = view.firstChild;
+                  setTimeout(() => el.dataset.open = "true", 50);
+                  this.templatingEngine.enhance({
+                      element: el.querySelector(".ui-alert__body > div")
+                  });
+              });
           });
       }
       createAlert(config) {
           return new Promise(resolve => {
-              const cfg = Object.assign({ cancelLabel: "Cancel", okLabel: "OK", theme: "default", type: "alert" }, config);
+              const cfg = Object.assign({ cancelLabel: "Cancel", okLabel: "OK", theme: "default", type: "alert" }, config, { message: `<div>${config.message}</div>` });
               const viewFactory = this.compiler.compile(`<template>${alertView}</template>`);
               const view = viewFactory.create(this.container);
               cfg.__keyCheck = key => {
@@ -3819,6 +3827,12 @@
               };
               view.bind(cfg);
               this.appConfig.DialogContainer.add(view);
+              UIInternal.queueTask(() => {
+                  const el = view.firstChild;
+                  this.templatingEngine.enhance({
+                      element: el.querySelector(".ui-alert__body > div")
+                  });
+              });
               cfg.keyEl.focus();
           });
       }
@@ -3828,7 +3842,8 @@
       aureliaFramework.autoinject(),
       __metadata("design:paramtypes", [UIAppConfig,
           aureliaFramework.Container,
-          aureliaFramework.ViewCompiler])
+          aureliaFramework.ViewCompiler,
+          aureliaFramework.TemplatingEngine])
   ], exports.UINotificationService);
 
   (function (UIFormat) {
@@ -3841,7 +3856,7 @@
               sanitize: false,
               smartLists: true,
               smartypants: false
-          }).replace(/(\<a href=)/gi, '<a class="ui-link" target="_blank" href=');
+          }).replace(/(<a href=)/gi, '<a class="ui-link" target="_blank" href=');
       }
       UIFormat.toHTML = toHTML;
       function parseDate(dt) {
@@ -3862,12 +3877,12 @@
           return !dt || !dateFns.isValid(dt) ? null : dateFns.format(dt, ft, { awareOfUnicodeTokens: true });
       }
       UIFormat.datetime = datetime;
-      function dateToISO(dt) {
+      function utcDate(dt) {
           dt = parseDate(dt);
           return !dt || !dateFns.isValid(dt) ? null : dateFns.toDate(dt).toISOString();
       }
-      UIFormat.dateToISO = dateToISO;
-      function utcDate(dt) {
+      UIFormat.utcDate = utcDate;
+      function dateToISO(dt) {
           dt = parseDate(dt);
           return !dt || !dateFns.isValid(dt)
               ? null
@@ -3875,7 +3890,7 @@
                   awareOfUnicodeTokens: true
               });
       }
-      UIFormat.utcDate = utcDate;
+      UIFormat.dateToISO = dateToISO;
       function age(dt) {
           dt = parseDate(dt);
           return !dt || !dateFns.isValid(dt) ? "" : dateFns.formatDistanceStrict(dt, new Date());
@@ -4030,19 +4045,33 @@
   ], UIRouterView);
 
   let UIViewportFooter = class UIViewportFooter {
+      constructor() {
+          this.dir = "ltr";
+      }
   };
+  __decorate([
+      aureliaFramework.bindable(),
+      __metadata("design:type", Object)
+  ], UIViewportFooter.prototype, "dir", void 0);
   UIViewportFooter = __decorate([
       aureliaFramework.containerless(),
       aureliaFramework.customElement("ui-viewport-footer"),
-      aureliaFramework.inlineView(`<template><footer class="ui-viewport__footer" slot="ui-viewport__footer" ref="vmElement"><slot></slot></footer></template>`)
+      aureliaFramework.inlineView(`<template><footer dir.bind="dir" class="ui-viewport__footer" slot="ui-viewport__footer" ref="vmElement"><slot></slot></footer></template>`)
   ], UIViewportFooter);
 
   let UIViewportHeader = class UIViewportHeader {
+      constructor() {
+          this.dir = "ltr";
+      }
   };
+  __decorate([
+      aureliaFramework.bindable(),
+      __metadata("design:type", Object)
+  ], UIViewportHeader.prototype, "dir", void 0);
   UIViewportHeader = __decorate([
       aureliaFramework.containerless(),
       aureliaFramework.customElement("ui-viewport-header"),
-      aureliaFramework.inlineView(`<template><header class="ui-viewport__header" slot="ui-viewport__header" ref="vmElement"><slot></slot></header></template>`)
+      aureliaFramework.inlineView(`<template><header dir.bind="dir" class="ui-viewport__header" slot="ui-viewport__header" ref="vmElement"><slot></slot></header></template>`)
   ], UIViewportHeader);
 
   var view = "<template class=\"ui-viewport\" role=\"main\">\n  <slot name=\"ui-viewport__header\"></slot>\n  <div class=\"ui-viewport__body\">\n    <slot></slot>\n    <div class=\"ui-viewport__dialog-container\" ref=\"dialogContainer\"></div>\n    <div class=\"ui-viewport__alert-container\" ref=\"appConfig.AlertContainer\"></div>\n    <div class=\"ui-viewport__toast-container\" ref=\"appConfig.ToastContainer\"></div>\n  </div>\n  <section role=\"tablist\" class=\"ui-viewport__taskbar\">\n    <div class=\"ui-viewport__taskbar--start\"><slot name=\"taskbar-start\"></slot></div>\n    <div class=\"ui-viewport__taskbar__wrapper\" ref=\"taskbarContainer\"></div>\n    <div class=\"ui-viewport__taskbar--end\"><slot name=\"taskbar-links\"></slot></div>\n  </section>\n  <slot name=\"ui-viewport__footer\"></slot>\n  <div class=\"ui-viewport__floating-container\" ref=\"appConfig.FloatingContainer\"></div>\n  <ui-loader busy.bind=\"router.isNavigating\"></ui-loader>\n</template>\n";
@@ -4079,7 +4108,7 @@
 
   let UIContent = class UIContent {
       constructor(element) {
-          this.obResize = new ResizeObserver(() => element.dispatchEvent(UIInternal.createEvent("resize")));
+          this.obResize = new ResizeObserver(() => element.dispatchEvent(UIInternal.createEvent("resize", element.getBoundingClientRect())));
           this.obResize.observe(element);
       }
       detached() {
@@ -4141,6 +4170,33 @@
   var uiPage = /*#__PURE__*/Object.freeze({
     Page: Page
   });
+
+  let UIAvatar = class UIAvatar {
+      constructor(element) {
+          this.element = element;
+          this.icon = "";
+          this.size = "nm";
+          if (element.hasAttribute("round")) {
+              element.classList.add("ui-avatar--round");
+          }
+          if (element.hasAttribute("flip-on-rtl")) {
+              element.classList.add("flip-on-rtl");
+          }
+      }
+  };
+  __decorate([
+      aureliaFramework.bindable(),
+      __metadata("design:type", String)
+  ], UIAvatar.prototype, "icon", void 0);
+  __decorate([
+      aureliaFramework.bindable(),
+      __metadata("design:type", String)
+  ], UIAvatar.prototype, "size", void 0);
+  UIAvatar = __decorate([
+      aureliaFramework.customElement("ui-avatar"),
+      aureliaFramework.inlineView(`<template class="ui-avatar"><slot><ui-icon ui-font.bind="size" icon.bind="icon"></ui-icon></slot></template>`),
+      __metadata("design:paramtypes", [Element])
+  ], UIAvatar);
 
   let UIFlag = class UIFlag {
       constructor(element) {
@@ -4302,10 +4358,10 @@
   UISvgIcon = __decorate([
       aureliaFramework.containerless(),
       aureliaFramework.customElement("ui-svg-icon"),
-      aureliaFramework.inlineView(`<template><svg ref="vmElement" slot="svg-icon" class="ui-icon ui-svg-icon \${class}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="\${viewBox}"><path d.bind="iconPath" /></svg></template>`)
+      aureliaFramework.inlineView(`<template><svg ref="vmElement" slot="svg-icon" class="ui-icon ui-svg-icon \${class}" xmlns="http://www.w3.org/2000/svg" version="1.1" width="24" height="24" viewBox="\${viewBox}"><path d.bind="iconPath"></path></svg></template>`)
   ], UISvgIcon);
 
-  const Icons$1 = [UIIcon, UIFlag, UISvgIcon];
+  const Icons$1 = [UIIcon, UIFlag, UISvgIcon, UIAvatar];
 
   var uiIcons = /*#__PURE__*/Object.freeze({
     Icons: Icons$1
@@ -4503,7 +4559,7 @@
           }
           const [posY, posX] = config.position.split("");
           const [anchorY, anchorX] = config.anchorPosition.split("");
-          const isRtl = window.getComputedStyle(scrollerEl).direction === "rtl";
+          const rtl = isRtl(scrollerEl);
           let x = 0;
           let y = 0;
           let clientHeight = document.body.clientHeight;
@@ -4511,6 +4567,7 @@
           let clientX = 0;
           let clientY = 0;
           logger.debug("tether", {
+              rtl,
               anchorRect,
               anchorX,
               anchorY,
@@ -4524,10 +4581,10 @@
               clientX = scrollerRect.left;
               clientY = scrollerRect.top;
           }
-          if (anchorX === (isRtl ? "r" : "l")) {
+          if (anchorX === (rtl ? "r" : "l")) {
               x = anchorRect.left;
           }
-          else if (anchorX === (isRtl ? "l" : "r")) {
+          else if (anchorX === (rtl ? "l" : "r")) {
               x = anchorRect.right;
           }
           else if (anchorX === "c") {
@@ -4539,7 +4596,10 @@
           else if (anchorY === "b") {
               y = anchorRect.bottom;
           }
-          if (posX === (isRtl ? "l" : "r")) {
+          else if (anchorY === "c") {
+              y = anchorRect.top + anchorRect.height / 2;
+          }
+          if (posX === (rtl ? "l" : "r")) {
               x -= dropdownRect.width;
           }
           if (posX === "c") {
@@ -4548,6 +4608,10 @@
           if (posY === "b") {
               y -= dropdownRect.height;
           }
+          if (posY === "c") {
+              y -= dropdownRect.height / 2;
+          }
+          logger.debug("tether2", { x, y });
           if (x + dropdownRect.width > clientWidth) {
               x = anchorRect.right - dropdownRect.width;
           }
@@ -4556,20 +4620,21 @@
           }
           if (y + dropdownRect.height > clientHeight) {
               y =
-                  posY === "t" && anchorY === "b" ? anchorRect.top - dropdownRect.height : anchorRect.bottom;
+                  posY === "t" && anchorY === "b" ? anchorRect.top - dropdownRect.height - 2 : anchorRect.bottom;
           }
           else if (y < clientY) {
               y =
                   posY === "b" && anchorY === "t" ? anchorRect.bottom - dropdownRect.height : anchorRect.top;
           }
+          logger.debug("tether3", { x, y });
           if (!config.attachToViewport) {
-              x -= scrollerRect.left - scrollerEl.scrollLeft;
-              y -= scrollerRect.top - scrollerEl.scrollTop;
-              x -= 1;
-              y -= 1;
-              if (isRtl && scrollerEl.scrollHeight > scrollerEl.offsetHeight) {
+              x -= scrollerRect.left - scrollerEl.scrollLeft + 2;
+              y -= scrollerRect.top - scrollerEl.scrollTop + 1;
+              logger.debug("tether4", { x, y });
+              if (rtl && scrollerEl.scrollHeight > scrollerEl.offsetHeight) {
                   x -= 5;
               }
+              logger.debug("tether5", { x, y });
           }
           dropdownEl.style.transform = `translate(${x}px, ${y}px)`;
       }
@@ -4590,21 +4655,26 @@
           } while (el !== null);
           return null;
       }
-      function attach(anchorEl, dropdownEl, config) {
+      function initScroller(anchorEl, scrollCallback) {
           const scroller = getParentScroller(anchorEl) || document.body;
-          const scrollCallback = () => {
-              if (dropdownEl.parentElement.dataset.open) {
-                  updatePosition(anchorEl, dropdownEl, scroller, config);
-              }
-          };
           if (!scroller.scrollHandler) {
               scroller.scrollHandler = () => scrollHandler(scroller.scrollCallbacks);
               scroller.addEventListener("scroll", scroller.scrollHandler);
               scroller.scrollCallbacks = new Set();
           }
+          scroller.scrollCallbacks.add(scrollCallback);
+          return scroller;
+      }
+      function attach(anchorEl, dropdownEl, config) {
           const container = aureliaFramework.Container.instance.get(UIAppConfig).FloatingContainer;
           config.attachToViewport ? container.appendChild(dropdownEl.parentElement || dropdownEl) : fn();
-          scroller.scrollCallbacks.add(scrollCallback);
+          let scroller;
+          const scrollCallback = () => {
+              if (dropdownEl.parentElement.dataset.open) {
+                  updatePosition(anchorEl, dropdownEl, scroller, config);
+              }
+          };
+          scroller = initScroller(anchorEl, scrollCallback);
           return {
               dispose: () => {
                   scroller.scrollCallbacks.delete(scrollCallback);
@@ -4615,9 +4685,10 @@
                       aureliaFramework.DOM.removeNode(dropdownEl.parentElement);
                   }
               },
-              updatePosition: (newAnchorEl) => {
+              updatePosition: (newAnchorEl, newConfig = {}) => {
                   anchorEl = newAnchorEl || anchorEl;
-                  updatePosition(anchorEl, dropdownEl, scroller, config);
+                  scroller = initScroller(anchorEl, scrollCallback);
+                  updatePosition(anchorEl, dropdownEl, scroller, Object.assign({}, config, newConfig));
               }
           };
       }
@@ -4653,7 +4724,11 @@
           this.isOpen = open === undefined ? !this.isOpen : open;
           if (this.isOpen) {
               this.obClick = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_CLICK, t => this.canClose(t));
-              this.obResize = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_RESIZE, t => this.updatePosition());
+              this.obViewportResize = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_RESIZE, () => this.updatePosition());
+              this.obResize = new ResizeObserver(() => this.updatePosition());
+              this.obResize.observe(this.vmElement);
+              this.obResize.observe(this.anchorEl);
+              this.element.dispatchEvent(UIInternal.createEvent("open"));
               UIInternal.queueMicroTask(() => {
                   this.tetherObj.updatePosition();
                   this.vmElement.dataset.show = "true";
@@ -4672,7 +4747,10 @@
               this.obClick.dispose();
           }
           if (this.obResize) {
-              this.obResize.dispose();
+              this.obResize.disconnect();
+          }
+          if (this.obViewportResize) {
+              this.obViewportResize.dispose();
           }
       }
       detached() {
@@ -4681,14 +4759,13 @@
               this.tetherObj.dispose();
           }
       }
-      canClose(t) {
-          if (!hasParent(t, this.vmElement) && !hasParent(t, this.anchorEl)) {
+      close($event) {
+          if (this.closeOnClick) {
               this.closeDrop();
           }
       }
-      close($event) {
-          $event.stopEvent();
-          if (this.closeOnClick) {
+      canClose(t) {
+          if (!hasParent(t, this.vmElement) && !hasParent(t, this.anchorEl)) {
               this.closeDrop();
           }
       }
@@ -4700,8 +4777,8 @@
   UIDrop = __decorate([
       aureliaFramework.containerless(),
       aureliaFramework.customElement("ui-drop"),
-      aureliaFramework.inlineView(`<template><div slot="ui-drop" class="ui-drop" mouseup.delegate="closeDrop()" data-open.bind="isOpen">
-  <div ref="vmElement" class="ui-drop__body \${class}" mouseup.delegate="close($event)"><slot></slot></div>
+      aureliaFramework.inlineView(`<template><div slot="ui-drop" class="ui-drop" click.delegate="closeDrop()" data-open.bind="isOpen">
+  <div ref="vmElement" class="ui-drop__body \${class}" click.delegate="close($event)"><slot></slot></div>
   </div></template>`),
       __metadata("design:paramtypes", [Element])
   ], UIDrop);
@@ -5073,7 +5150,7 @@
           this.element = element;
           this.value = "";
           this.theme = "";
-          this.position = "";
+          this.position = "bottom";
           this.id = `tooltip-${seed++}`;
           this.showFn = () => this.show();
           this.hideFn = () => this.hide();
@@ -5110,7 +5187,24 @@
           TooltipEl.className = `ui-tooltip ui-theme--${this.theme}`;
           TooltipEl.innerHTML = this.value;
           TooltipEl.dataset.id = this.id;
-          TooltipEl.tether.updatePosition(this.parentEl);
+          TooltipEl.dataset.pos = this.position;
+          let anchorPosition = "tc";
+          let position = "bc";
+          switch (this.position) {
+              case "right":
+                  anchorPosition = "cr";
+                  position = "cl";
+                  break;
+              case "left":
+                  anchorPosition = "cl";
+                  position = "cr";
+                  break;
+              case "bottom":
+                  anchorPosition = "bc";
+                  position = "tc";
+                  break;
+          }
+          TooltipEl.tether.updatePosition(this.parentEl, { position, anchorPosition });
           this.timer = setTimeout(() => (TooltipEl.dataset.open = "true"), 500);
       }
       hide() {
@@ -5133,7 +5227,7 @@
   ], UITooltip.prototype, "theme", void 0);
   __decorate([
       aureliaFramework.bindable(),
-      __metadata("design:type", Object)
+      __metadata("design:type", String)
   ], UITooltip.prototype, "position", void 0);
   UITooltip = __decorate([
       aureliaFramework.autoinject(),
@@ -5219,10 +5313,16 @@
           if (isEmpty(array)) {
               return [];
           }
-          if (array instanceof Map) {
-              return new Map([...array].sort((a, b) => (a[property] > b[property] ? 1 : -1)));
+          let up = 1;
+          let down = -1;
+          if (!isAscending) {
+              up = -1;
+              down = 1;
           }
-          return [...array].sort((a, b) => (a[property] > b[property] ? 1 : -1));
+          if (array instanceof Map) {
+              return new Map([...array].sort((a, b) => (a[0] > b[0] ? up : down)));
+          }
+          return [...array].sort((a, b) => (a[property] > b[property] ? up : down));
       }
   };
   OrderByValueConverter = __decorate([
@@ -5234,9 +5334,9 @@
               return [];
           }
           if (array instanceof Map) {
-              return new Map([...array].sortBy("0", !!property));
+              return new Map([...array].sortBy("0", isAscending));
           }
-          return [...array].sortBy(property, isAscending && !!property !== false);
+          return [...array].sortBy(property, isAscending);
       }
   };
   SortValueConverter = __decorate([
@@ -5412,7 +5512,7 @@
     ValueConverters: ValueConverters
   });
 
-  var view$1 = "<template class=\"ui-btn__wrapper\" data-disabled.bind=\"isDisabled\" data-busy.bind=\"busy\" data-type.bind=\"type\" data-size.bind=\"size\" data-active.bind=\"active\">\n  <div class=\"ui-btn__inner\" click.trigger=\"$event.stopEvent()\">\n    <a ref=\"badgeEl\" class=\"ui-btn\" click.trigger=\"fireClick($event)\" data-active.bind=\"active\" data-open.bind=\"!split && dropEl.isOpen\">\n      <div class=\"ui-btn__icon\" if.bind=\"busy\">\n        <ui-svg-icon icon=\"busy\" class=\"ui-anim--spin\"></ui-svg-icon>\n      </div>\n      <slot name=\"svg-icon\"></slot>\n      <div class=\"ui-btn__icon\" if.bind=\"icon && !busy\">\n        <ui-icon icon.bind=\"icon\"></ui-icon>\n      </div>\n      <div class=\"ui-btn__label\"><slot>${label}</slot></div>\n      <div class=\"ui-btn__caret\" if.bind=\"hasDrop && !split\">\n        <ui-svg-icon icon=\"caret\"></ui-svg-icon>\n      </div>\n    </a>\n    <template if.bind=\"hasDrop && split\">\n      <div class=\"ui-btn__divider\"></div>\n      <a class=\"ui-btn ui-btn__caret ui-btn__caret--split\" data-open.bind=\"split && dropEl.isOpen\" click.trigger=\"toggleDrop()\">\n        <ui-svg-icon icon=\"caret\"></ui-svg-icon>\n      </a>\n    </template>\n  </div>\n  <slot name=\"ui-drop\"><ui-drop view-model.ref=\"dropEl\" if.bind=\"menuItems\"><ui-menu menu-items.bind=\"menuItems\"></ui-menu></ui-drop></slot>\n</template>\n";
+  var view$1 = "<template class=\"ui-btn__wrapper\" data-disabled.bind=\"isDisabled\" data-busy.bind=\"busy\" data-type.bind=\"type\" data-size.bind=\"size\" data-active.bind=\"active\">\n  <div class=\"ui-btn__inner\">\n    <a ref=\"badgeEl\" class=\"ui-btn\" click.trigger=\"fireClick($event)\" data-active.bind=\"active\" data-open.bind=\"!split && dropEl.isOpen\">\n      <div class=\"ui-btn__icon\" if.bind=\"busy\">\n        <ui-svg-icon icon=\"busy\" class=\"ui-anim--spin\"></ui-svg-icon>\n      </div>\n      <slot name=\"svg-icon\"></slot>\n      <div class=\"ui-btn__icon\" if.bind=\"icon && !busy\">\n        <ui-icon icon.bind=\"icon\"></ui-icon>\n      </div>\n      <div class=\"ui-btn__label\"><slot>${label}</slot></div>\n      <div class=\"ui-btn__caret\" if.bind=\"hasDrop && !split\">\n        <ui-svg-icon icon=\"caret\"></ui-svg-icon>\n      </div>\n    </a>\n    <template if.bind=\"hasDrop && split\">\n      <div class=\"ui-btn__divider\"></div>\n      <a class=\"ui-btn ui-btn__caret ui-btn__caret--split\" data-open.bind=\"split && dropEl.isOpen\" click.trigger=\"toggleDrop()\">\n        <ui-svg-icon icon=\"caret\"></ui-svg-icon>\n      </a>\n    </template>\n  </div>\n  <slot name=\"ui-drop\">\n    <ui-drop view-model.ref=\"dropEl\" if.bind=\"menuItems\">\n      <ui-menu if.bind=\"dropEl.isOpen\" menu-items.bind=\"menuItems\"></ui-menu>\n    </ui-drop>\n  </slot>\n</template>\n";
 
   let UIButton = class UIButton {
       constructor(element) {
@@ -5475,14 +5575,18 @@
           }
       }
       fireClick($event) {
+          if (this.isDisabled || this.busy) {
+              $event.stopEvent();
+              return false;
+          }
           if (!this.href) {
               if (this.hasDrop && !this.split) {
-                  this.toggleDrop();
+                  return this.toggleDrop();
               }
               else {
+                  $event.stopEvent();
                   return this.element.dispatchEvent(UIInternal.createEvent("click", this.id));
               }
-              return false;
           }
       }
       toggleDrop() {
@@ -5492,6 +5596,7 @@
               this.dropEl.toggleDrop();
               this.element.dispatchEvent(UIInternal.createEvent(afterEvent));
           }
+          return true;
       }
   };
   __decorate([
@@ -5532,7 +5637,7 @@
   ], UIButton.prototype, "disabled", void 0);
   __decorate([
       aureliaFramework.bindable(),
-      __metadata("design:type", Array)
+      __metadata("design:type", Object)
   ], UIButton.prototype, "menuItems", void 0);
   __decorate([
       aureliaFramework.child("div.ui-drop"),
@@ -5558,6 +5663,7 @@
           this.type = "default";
           this.disabled = false;
           this.toggle = false;
+          this.elDisabled = false;
           if (element.hasAttribute("equal")) {
               element.classList.add("ui-btn__group--equal");
           }
@@ -5565,6 +5671,12 @@
               element.classList.add("ui-btn__group--vertical");
           }
           this.toggle = element.hasAttribute("toggle");
+      }
+      get isDisabled() {
+          return this.disabled || this.elDisabled;
+      }
+      disable(disabled) {
+          this.elDisabled = disabled;
       }
       attached() {
           if (this.separator) {
@@ -5577,7 +5689,6 @@
       buttonsChanged() {
           this.buttons.forEach(b => {
               b.element.dataset.separator = this.separator;
-              b.element.au.controller.viewModel.type = this.type;
           });
       }
       valueChanged(newValue, oldValue) {
@@ -5629,10 +5740,15 @@
       aureliaFramework.children("ui-button"),
       __metadata("design:type", Array)
   ], UIButtonGroup.prototype, "buttons", void 0);
+  __decorate([
+      aureliaFramework.computedFrom("disabled", "elDisabled"),
+      __metadata("design:type", Boolean),
+      __metadata("design:paramtypes", [])
+  ], UIButtonGroup.prototype, "isDisabled", null);
   UIButtonGroup = __decorate([
       aureliaFramework.autoinject(),
       aureliaFramework.customElement("ui-button-group"),
-      aureliaFramework.inlineView(`<template class="ui-btn__group" click.delegate="buttonClicked($event)" data-disabled.bind="isDisabled" data-size.bind="size"><slot></slot></template>`),
+      aureliaFramework.inlineView(`<template class="ui-btn__group" click.delegate="buttonClicked($event)" data-disabled.bind="isDisabled" data-size.bind="size" data-type.bind="type"><slot></slot></template>`),
       __metadata("design:paramtypes", [Element])
   ], UIButtonGroup);
 
@@ -5767,17 +5883,18 @@
   })(CALENDAR_GRAIN || (CALENDAR_GRAIN = {}));
   const parseDate = (date) => {
       if (isString(date)) {
+          const dt = dateFns.startOfMinute(new Date());
           if (date.startsWith(CALENDAR_GRAIN.DAY)) {
-              return dateFns.addDays(new Date(), parseInt(date.replace(CALENDAR_GRAIN.DAY, "") || "0", 10));
+              return dateFns.addDays(dt, parseInt(date.replace(CALENDAR_GRAIN.DAY, "") || "0", 10));
           }
           else if (date.startsWith(CALENDAR_GRAIN.WEEK)) {
-              return dateFns.addWeeks(new Date(), parseInt(date.replace(CALENDAR_GRAIN.WEEK, "") || "0", 10));
+              return dateFns.addWeeks(dt, parseInt(date.replace(CALENDAR_GRAIN.WEEK, "") || "0", 10));
           }
           else if (date.startsWith(CALENDAR_GRAIN.MONTH)) {
-              return dateFns.addMonths(new Date(), parseInt(date.replace(CALENDAR_GRAIN.MONTH, "") || "0", 10));
+              return dateFns.addMonths(dt, parseInt(date.replace(CALENDAR_GRAIN.MONTH, "") || "0", 10));
           }
           else if (date.startsWith(CALENDAR_GRAIN.YEAR)) {
-              return dateFns.addYears(new Date(), parseInt(date.replace(CALENDAR_GRAIN.YEAR, "") || "0", 10));
+              return dateFns.addYears(dt, parseInt(date.replace(CALENDAR_GRAIN.YEAR, "") || "0", 10));
           }
           else {
               return dateFns.parseISO(date);
@@ -5866,10 +5983,10 @@
   const buildHeaderConfig = (month, view, config) => {
       if (view === CALENDAR_VIEWS.DAYS) {
           return {
-              firstDisabled: isBeforeMin(month, config.minDate, -12),
-              lastDisabled: isAfterMax(month, config.maxDate, 12),
-              prevDisabled: isBeforeMin(month, config.minDate, -1),
-              nextDisabled: isAfterMax(month, config.maxDate, 1),
+              firstDisabled: isBeforeMin(month, dateFns.startOfYear(config.minDate), -12),
+              lastDisabled: isAfterMax(month, dateFns.endOfYear(config.maxDate), 12),
+              prevDisabled: isBeforeMin(month, dateFns.startOfMonth(config.minDate), -1),
+              nextDisabled: isAfterMax(month, dateFns.endOfMonth(config.maxDate), 1),
               firstTooltip: dateFns.format(dateFns.addMonths(month, -12), "MMM yyyy"),
               lastTooltip: dateFns.format(dateFns.addMonths(month, 12), "MMM yyyy"),
               prevTooltip: dateFns.format(dateFns.addMonths(month, -1), "MMM yyyy"),
@@ -5878,8 +5995,8 @@
       }
       if (view === CALENDAR_VIEWS.MONTHS) {
           return {
-              prevDisabled: isBeforeMin(month, config.minDate, -12),
-              nextDisabled: isAfterMax(month, config.maxDate, 12),
+              prevDisabled: isBeforeMin(month, dateFns.startOfYear(config.minDate), -12),
+              nextDisabled: isAfterMax(month, dateFns.endOfYear(config.maxDate), 12),
               prevTooltip: dateFns.format(dateFns.addYears(month, -1), "yyyy"),
               nextTooltip: dateFns.format(dateFns.addYears(month, 1), "yyyy")
           };
@@ -5888,8 +6005,8 @@
           const start = dateFns.startOfDecade(month);
           const end = dateFns.endOfDecade(month);
           return {
-              prevDisabled: isBeforeMin(month, config.minDate, -120),
-              nextDisabled: isAfterMax(month, config.maxDate, 120),
+              prevDisabled: isBeforeMin(month, dateFns.startOfDecade(config.minDate), -120),
+              nextDisabled: isAfterMax(month, dateFns.endOfDecade(config.maxDate), 120),
               prevTooltip: dateFns.format(dateFns.addYears(start, -10), "yyyy") + "-" + dateFns.format(dateFns.addYears(start, -1), "yyyy"),
               nextTooltip: dateFns.format(dateFns.addYears(end, 1), "yyyy") + "-" + dateFns.format(dateFns.addYears(end, 10), "yyyy")
           };
@@ -5904,6 +6021,10 @@
   const isDisabled = (config, date) => {
       let min = config.minDate;
       let max = config.maxDate;
+      if (config.page === CALENDAR_VIEWS.DAYS) {
+          min = dateFns.startOfDay(min);
+          max = dateFns.startOfDay(max);
+      }
       if (config.page === CALENDAR_VIEWS.MONTHS) {
           min = dateFns.startOfMonth(dateFns.startOfDay(min));
           max = dateFns.endOfMonth(dateFns.startOfDay(max));
@@ -6095,7 +6216,7 @@
       __metadata("design:paramtypes", [Element])
   ], TimePage);
 
-  var view$6 = "<template class=\"ui-calendar\">\n  <calendar-head click.delegate=\"headerClicked($event)\" config.bind=\"headerOptions\" show-first-last.bind=\"currentPage === VIEWS.DAYS\">${title}\n  </calendar-head>\n  <days-page if.bind=\"currentPage === VIEWS.DAYS\" month.bind=\"month\" config.to-view=\"config\" click.delegate=\"selectDate($event)\"></days-page>\n  <months-page if.bind=\"currentPage === VIEWS.MONTHS\" month.bind=\"month\" config.to-view=\"config\" click.delegate=\"selectMonth($event)\"></months-page>\n  <years-page if.bind=\"currentPage === VIEWS.YEARS\" month.bind=\"month\" config.to-view=\"config\" click.delegate=\"selectMonth($event)\"></years-page>\n  <time-page time.bind=\"time\" change.trigger=\"timeChanged($event.detail)\"></time-page>\n  <div class=\"ui-calendar__footer\">\n    <div class=\"ui-calendar__tags\">\n      <a class=\"ui-calendar__tag\" repeat.for=\"preset of datePresets\" data-active.bind=\"preset.preset == date\" click.trigger=\"selectPreset(preset.preset)\">${preset.label}</a>\n    </div>\n    <a if.bind=\"selecting || currentPage !== VIEWS.DAYS\" class=\"ui-calendar__tag cancel\" click.trigger=\"cancelSelection()\">Cancel</a>\n  </div>\n</template>\n";
+  var view$6 = "<template class=\"ui-calendar\">\n  <calendar-head click.delegate=\"headerClicked($event)\" config.bind=\"headerOptions\" show-first-last.bind=\"currentPage === VIEWS.DAYS\">${title}\n  </calendar-head>\n  <days-page if.bind=\"currentPage === VIEWS.DAYS\" month.bind=\"month\" config.to-view=\"config\" click.delegate=\"selectDate($event)\"></days-page>\n  <months-page if.bind=\"currentPage === VIEWS.MONTHS\" month.bind=\"month\" config.to-view=\"config\" click.delegate=\"selectMonth($event)\"></months-page>\n  <years-page if.bind=\"currentPage === VIEWS.YEARS\" month.bind=\"month\" config.to-view=\"config\" click.delegate=\"selectMonth($event)\"></years-page>\n  <time-page time.bind=\"time\" change.trigger=\"timeChanged($event.detail)\"></time-page>\n  <div class=\"ui-calendar__footer\">\n    <div class=\"ui-calendar__tags\">\n      <a class=\"ui-calendar__tag\" repeat.for=\"preset of datePresets\" data-active.bind=\"preset.preset === date\" click.trigger=\"selectPreset(preset.preset)\">${preset.label}</a>\n    </div>\n    <a if.bind=\"selecting || currentPage !== VIEWS.DAYS\" class=\"ui-calendar__tag cancel\" click.trigger=\"cancelSelection()\">Cancel</a>\n  </div>\n</template>\n";
 
   var view$7 = "<template data-page=\"years\" class=\"ui-calendar__page\">\n  <template if.bind=\"isAttached\">\n    <div class=\"ui-calendar__page__row\">\n      <a repeat.for=\"d of 12\" with.bind=\"getYear(d, month, config)\" data-date.bind=\"date\" class=\"ui-calendar__page__cell year ${classes}\">${label}\n      </a>\n    </div>\n  </template>\n</template>\n";
 
@@ -6205,7 +6326,7 @@
           }
       }
       timeChanged(newTime) {
-          this.updateDate(this.date ? dateFns.parseISO(this.date) : new Date(), newTime);
+          this.updateDate(this.date ? parseDate(this.date) : new Date(), newTime);
       }
       selectMonth($event) {
           const target = $event.target;
@@ -6276,7 +6397,7 @@
       aureliaFramework.viewResources(CalendarHead, DaysPage, MonthsPage, YearsPage, TimePage)
   ], UIDatePicker);
 
-  var view$8 = "<template class=\"ui-calendar\">\n  <div class=\"ui-calendar__range\">\n    <div>\n      <calendar-head click.delegate=\"startHeaderClicked($event)\" config.bind=\"startHeaderOptions\" show-first-last.bind=\"startPage === VIEWS.DAYS\">${startTitle}\n      </calendar-head>\n      <days-page if.bind=\"startPage === VIEWS.DAYS\" month.bind=\"startMonth\" config.to-view=\"config\" mouseover.delegate=\"hilightDate($event)\" click.delegate=\"selectDate($event)\"></days-page>\n      <months-page if.bind=\"startPage === VIEWS.MONTHS\" month.bind=\"startMonth\" config.to-view=\"config\" click.delegate=\"selectStartMonth($event)\"></months-page>\n      <years-page if.bind=\"startPage === VIEWS.YEARS\" month.bind=\"startMonth\" config.to-view=\"config\" click.delegate=\"selectStartMonth($event)\"></years-page>\n    </div>\n    <ui-divider></ui-divider>\n    <div>\n      <calendar-head click.delegate=\"endHeaderClicked($event)\" config.bind=\"endHeaderOptions\" show-first-last.bind=\"endPage === VIEWS.DAYS\">${endTitle}\n      </calendar-head>\n      <days-page if.bind=\"endPage === VIEWS.DAYS\" month.bind=\"endMonth\" config.to-view=\"config\" mouseover.delegate=\"hilightDate($event)\" click.delegate=\"selectDate($event)\"></days-page>\n      <months-page if.bind=\"endPage === VIEWS.MONTHS\" month.bind=\"endMonth\" config.to-view=\"config\" click.delegate=\"selectEndMonth($event)\"></months-page>\n      <years-page if.bind=\"endPage === VIEWS.YEARS\" month.bind=\"endMonth\" config.to-view=\"config\" click.delegate=\"selectEndMonth($event)\"></years-page>\n    </div>\n  </div>\n  <div class=\"ui-calendar__footer\">\n    <div class=\"ui-calendar__tags\">\n      <a class=\"ui-calendar__tag\" repeat.for=\"preset of datePresets\" data-active.bind=\"preset.preset == date\" click.trigger=\"selectPreset(preset.preset)\">${preset.label}</a>\n    </div>\n    <a if.bind=\"selecting || startPage !== VIEWS.DAYS || endPage !== VIEWS.DAYS\" class=\"ui-calendar__tag cancel\" click.trigger=\"cancelSelection()\">Cancel</a>\n  </div>\n</template>\n";
+  var view$8 = "<template class=\"ui-calendar\">\n  <div class=\"ui-calendar__range\">\n    <div>\n      <calendar-head click.delegate=\"startHeaderClicked($event)\" config.bind=\"startHeaderOptions\" show-first-last.bind=\"startPage === VIEWS.DAYS\">${startTitle}\n      </calendar-head>\n      <days-page if.bind=\"startPage === VIEWS.DAYS\" month.bind=\"startMonth\" config.to-view=\"config\" mouseover.delegate=\"hilightDate($event)\" click.delegate=\"selectDate($event)\"></days-page>\n      <months-page if.bind=\"startPage === VIEWS.MONTHS\" month.bind=\"startMonth\" config.to-view=\"config\" click.delegate=\"selectStartMonth($event)\"></months-page>\n      <years-page if.bind=\"startPage === VIEWS.YEARS\" month.bind=\"startMonth\" config.to-view=\"config\" click.delegate=\"selectStartMonth($event)\"></years-page>\n    </div>\n    <ui-divider></ui-divider>\n    <div>\n      <calendar-head click.delegate=\"endHeaderClicked($event)\" config.bind=\"endHeaderOptions\" show-first-last.bind=\"endPage === VIEWS.DAYS\">${endTitle}\n      </calendar-head>\n      <days-page if.bind=\"endPage === VIEWS.DAYS\" month.bind=\"endMonth\" config.to-view=\"config\" mouseover.delegate=\"hilightDate($event)\" click.delegate=\"selectDate($event)\"></days-page>\n      <months-page if.bind=\"endPage === VIEWS.MONTHS\" month.bind=\"endMonth\" config.to-view=\"config\" click.delegate=\"selectEndMonth($event)\"></months-page>\n      <years-page if.bind=\"endPage === VIEWS.YEARS\" month.bind=\"endMonth\" config.to-view=\"config\" click.delegate=\"selectEndMonth($event)\"></years-page>\n    </div>\n  </div>\n  <div class=\"ui-calendar__footer\">\n    <div class=\"ui-calendar__tags\">\n      <a class=\"ui-calendar__tag\" repeat.for=\"preset of datePresets\" data-active.bind=\"preset.preset === date\" click.trigger=\"selectPreset(preset.preset)\">${preset.label}</a>\n    </div>\n    <a if.bind=\"selecting || startPage !== VIEWS.DAYS || endPage !== VIEWS.DAYS\" class=\"ui-calendar__tag cancel\" click.trigger=\"cancelSelection()\">Cancel</a>\n  </div>\n</template>\n";
 
   let UIRangePicker = class UIRangePicker {
       constructor() {
@@ -6579,6 +6700,425 @@
     Card: Card
   });
 
+  let UIColumn = class UIColumn {
+      constructor(element) {
+          this.element = element;
+          this.label = "";
+          this.width = "250px";
+          this.minWidth = "80px";
+          this.maxWidth = "600px";
+          this.type = "text";
+          this.align = "start";
+          this.locked = false;
+          this.resizeable = false;
+          this.sortable = false;
+          this.noPadding = false;
+          this.onDrag = $event => this.resize($event);
+          this.onDragEnd = $event => this.stopResize($event);
+          this.template = element.querySelector("template");
+          this.sortable = element.hasAttribute("sortable");
+          this.resizeable = element.hasAttribute("resizeable");
+          this.noPadding = element.hasAttribute("no-padding");
+      }
+      get css() {
+          return {
+              width: this.width,
+              minWidth: this.minWidth,
+              maxWidth: this.maxWidth
+          };
+      }
+      compileCell(el, record) {
+          if (el) {
+              el.innerHTML = "";
+              const tpl = this.template
+                  ? this.template.outerHTML
+                  : `<template><span innerhtml.bind="$value"></span></template>`;
+              const model = {
+                  $record: record,
+                  $value: this.processValue(record)
+              };
+              const view = UIInternal.compileTemplate(tpl, model, this.owningView.bindingContext);
+              view.appendNodesTo(el);
+              view.attached();
+          }
+          return true;
+      }
+      created(owningView) {
+          this.owningView = owningView;
+      }
+      bind() {
+          if (!this.template && !this.label) {
+              this.label = this.element.innerHTML || "";
+          }
+      }
+      startResize($event) {
+          $event.stopEvent();
+          this.startX = $event.x || $event.clientX;
+          this.isResizing = true;
+          this.isRtl = isRtl(this.element);
+          document.addEventListener("mousemove", this.onDrag);
+          document.addEventListener("mouseup", this.onDragEnd);
+      }
+      resize($event) {
+          $event.stopEvent();
+          const x = $event.x || $event.clientX;
+          const diff = x - this.startX;
+          const newWidth = convertToPx(this.width) + (diff * (this.isRtl ? -1 : 1));
+          if (newWidth < convertToPx(this.maxWidth) && newWidth > convertToPx(this.minWidth)) {
+              UIInternal.queueTask(() => {
+                  this.width = newWidth + "px";
+                  this.startX = x;
+              });
+          }
+      }
+      stopResize($event) {
+          $event.stopEvent();
+          this.isResizing = false;
+          document.removeEventListener("mousemove", this.onDrag);
+          document.removeEventListener("mouseup", this.onDragEnd);
+      }
+      processValue(record) {
+          let value = record[this.dataId] || "";
+          if (isFunction(this.value)) {
+              value = this.value({ record, value });
+          }
+          if (isFunction(this.format)) {
+              value = this.value({ record, value });
+          }
+          else {
+              switch (this.type) {
+                  case "date":
+                      value = exports.UIFormat.date(value, this.format);
+                      break;
+                  case "time":
+                      value = exports.UIFormat.time(value, this.format);
+                      break;
+                  case "datetime":
+                      value = exports.UIFormat.datetime(value, this.format);
+                      break;
+                  case "number":
+                      value = exports.UIFormat.number(value, this.format);
+                      break;
+                  case "currency":
+                      value = exports.UIFormat.currency(value, this.format);
+                      break;
+              }
+          }
+          return value;
+      }
+  };
+  __decorate([
+      aureliaFramework.computedFrom("width", "minWidth", "maxWidth"),
+      __metadata("design:type", Object),
+      __metadata("design:paramtypes", [])
+  ], UIColumn.prototype, "css", null);
+  __decorate([
+      aureliaFramework.bindable(),
+      __metadata("design:type", String)
+  ], UIColumn.prototype, "dataId", void 0);
+  __decorate([
+      aureliaFramework.bindable(),
+      __metadata("design:type", String)
+  ], UIColumn.prototype, "label", void 0);
+  __decorate([
+      aureliaFramework.bindable(),
+      __metadata("design:type", String)
+  ], UIColumn.prototype, "width", void 0);
+  __decorate([
+      aureliaFramework.bindable(),
+      __metadata("design:type", String)
+  ], UIColumn.prototype, "minWidth", void 0);
+  __decorate([
+      aureliaFramework.bindable(),
+      __metadata("design:type", String)
+  ], UIColumn.prototype, "maxWidth", void 0);
+  __decorate([
+      aureliaFramework.bindable(),
+      __metadata("design:type", Function)
+  ], UIColumn.prototype, "value", void 0);
+  __decorate([
+      aureliaFramework.bindable(),
+      __metadata("design:type", Object)
+  ], UIColumn.prototype, "format", void 0);
+  __decorate([
+      aureliaFramework.bindable(),
+      __metadata("design:type", String)
+  ], UIColumn.prototype, "type", void 0);
+  __decorate([
+      aureliaFramework.bindable(),
+      __metadata("design:type", String)
+  ], UIColumn.prototype, "align", void 0);
+  __decorate([
+      aureliaFramework.bindable(),
+      __metadata("design:type", Object)
+  ], UIColumn.prototype, "locked", void 0);
+  UIColumn = __decorate([
+      aureliaFramework.customElement("ui-column"),
+      aureliaFramework.processContent(false),
+      aureliaFramework.noView(),
+      __metadata("design:paramtypes", [Element])
+  ], UIColumn);
+
+  class UIDataSource {
+      constructor(dataOrApi, options = {}) {
+          this.isPaginated = false;
+          this.pageNo = 0;
+          this.totalPages = 0;
+          this.recordsPerPage = 50;
+          this.sortByOrder = "asc";
+          this.data = [];
+          this.original = [];
+          this.options = {
+              rootProperty: "",
+              dataProperty: "data",
+              pageProperty: "pageno",
+              countProperty: "total",
+              sortProperty: "sortBy",
+              orderProperty: "sortOrder",
+              perPageProperty: "pageCount"
+          };
+          this.options = Object.assign({}, this.options, options);
+          this.isPaginated = options.paginated;
+          this.recordsPerPage = options.recordsPerPage || 50;
+          this.sortByProperty = options.defaultSortProperty;
+          this.sortByOrder = options.defaultSortOrder || "asc";
+          if (isArray(dataOrApi)) {
+              this.original = dataOrApi;
+              this.performFilter();
+          }
+          else {
+              this.apiSlug = dataOrApi;
+          }
+      }
+      sortBy(property) {
+          if (this.sortByProperty === property) {
+              this.sortByOrder = this.sortByOrder === "asc" ? "desc" : "asc";
+          }
+          else {
+              this.sortByProperty = property;
+              this.sortByOrder = "asc";
+          }
+          this.performFilter();
+      }
+      performFilter() {
+          let data = [...this.original];
+          if (this.sortByProperty) {
+              data = data.sortBy(this.sortByProperty, this.sortByOrder === "asc");
+          }
+          if (this.isPaginated) {
+              this.totalPages = Math.ceil(data.length / this.recordsPerPage);
+              data = data.splice(this.pageNo * this.recordsPerPage, this.recordsPerPage);
+          }
+          this.data = data;
+      }
+  }
+
+  let BodyCell = class BodyCell {
+      attached() {
+          this.recordChanged();
+          if (this.column.noPadding) {
+              this.el.style.paddingTop = 0;
+              this.el.style.paddingBottom = 0;
+          }
+      }
+      recordChanged() {
+          this.column.compileCell(this.el, this.record);
+      }
+  };
+  __decorate([
+      aureliaFramework.bindable(),
+      __metadata("design:type", UIColumn)
+  ], BodyCell.prototype, "column", void 0);
+  __decorate([
+      aureliaFramework.bindable(),
+      __metadata("design:type", Object)
+  ], BodyCell.prototype, "record", void 0);
+  BodyCell = __decorate([
+      aureliaFramework.containerless(),
+      aureliaFramework.inlineView(`<template>
+        <div class="ui-datagrid__cell" css.bind="column.css" data-resizing.bind="column.isResizing">
+          <div class="ui-datagrid__cell__wrapper" ref="el" ui-align.bind="column.align"></div>
+        </div>
+      </template>`)
+  ], BodyCell);
+
+  let HeaderCell = class HeaderCell {
+      constructor(element) {
+          this.element = element;
+      }
+      fireSortEvent() {
+          if (this.column.sortable) {
+              this.element.dispatchEvent(UIInternal.createEvent("sort"));
+          }
+      }
+  };
+  __decorate([
+      aureliaFramework.bindable(),
+      __metadata("design:type", UIColumn)
+  ], HeaderCell.prototype, "column", void 0);
+  __decorate([
+      aureliaFramework.bindable(),
+      __metadata("design:type", String)
+  ], HeaderCell.prototype, "sortBy", void 0);
+  __decorate([
+      aureliaFramework.bindable(),
+      __metadata("design:type", String)
+  ], HeaderCell.prototype, "sortOrder", void 0);
+  HeaderCell = __decorate([
+      aureliaFramework.containerless(),
+      aureliaFramework.inlineView(`<template>
+        <div class="ui-datagrid__cell" css.bind="css" with.bind="column">
+          <div class="ui-datagrid__cell__wrapper" innerhtml.bind="label"
+            click.trigger="fireSortEvent()"></div>
+          <div class="ui-datagrid__cell__sorter" 
+            data-sort.bind="sortBy === dataId ? sortOrder : ''">
+            <i if.bind="sortable"></i>
+            <i if.bind="sortable"></i>
+          </div>
+          <div class="ui-datagrid__cell__resizer" if.bind="resizeable" mousedown.trigger="startResize($event)"></div>
+        </div>
+      </template>`),
+      __metadata("design:paramtypes", [Element])
+  ], HeaderCell);
+
+  var view$9 = "<template class=\"ui-datagrid\">\n\n  <div show.bind=\"false\">\n    <slot></slot>\n  </div>\n\n  <div class=\"ui-datagrid__head\">\n    <div class=\"ui-datagrid__row\">\n      <div class=\"ui-datagrid__row__wrapper\">\n        <div class=\"ui-datagrid__row__locked--start\">\n          <template repeat.for=\"col of columns | filter:'start':'locked'\">\n            <header-cell column.bind=\"col\" sort.trigger=\"ds.sortBy(col.dataId)\" sort-by.bind=\"ds.sortByProperty\" sort-order.bind=\"ds.sortByOrder\"></header-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__row__scrolling\">\n          <template repeat.for=\"col of columns | filter:false:'locked'\">\n            <header-cell column.bind=\"col\" sort.trigger=\"ds.sortBy(col.dataId)\" sort-by.bind=\"ds.sortByProperty\" sort-order.bind=\"ds.sortByOrder\"></header-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__cell ui-datagrid__cell--filler\"></div>\n        <div class=\"ui-datagrid__row__locked--end\">\n          <template repeat.for=\"col of columns | filter:'end':'locked'\">\n            <header-cell column.bind=\"col\" sort.trigger=\"ds.sortBy(col.dataId)\" sort-by.bind=\"ds.sortByProperty\" sort-order.bind=\"ds.sortByOrder\"></header-cell>\n          </template>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"ui-datagrid__body\" ref=\"dgBody\">\n\n    <div class=\"ui-datagrid__row ${$even ? 'ui-datagrid__row--even':'ui-datagrid__row--odd'}\" virtual-repeat.for=\"record of ds.data\">\n\n      <div class=\"ui-datagrid__row__wrapper\">\n        <div class=\"ui-datagrid__row__locked--start\">\n          <template repeat.for=\"col of columns | filter:'start':'locked'\">\n            <body-cell column.bind=\"col\" record.bind=\"record\"></body-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__row__scrolling\">\n          <template repeat.for=\"col of columns | filter:false:'locked'\">\n            <body-cell column.bind=\"col\" record.bind=\"record\"></body-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__cell ui-datagrid__cell--filler\"></div>\n        <div class=\"ui-datagrid__row__locked--end\">\n          <template repeat.for=\"col of columns | filter:'end':'locked'\">\n            <body-cell column.bind=\"col\" record.bind=\"record\"></body-cell>\n          </template>\n        </div>\n      </div>\n\n    </div>\n\n  </div>\n\n  <div class=\"ui-datagrid__foot\"></div>\n</template>\n";
+
+  let UIDataGrid = class UIDataGrid {
+      dataSourceChanged() {
+          if (isArray(this.dataSource)) {
+              this.ds = new UIDataSource(this.dataSource);
+          }
+          if (this.dataSource instanceof UIDataSource) {
+              this.ds = this.dataSource;
+          }
+      }
+  };
+  __decorate([
+      aureliaFramework.bindable(),
+      __metadata("design:type", Object)
+  ], UIDataGrid.prototype, "dataSource", void 0);
+  __decorate([
+      aureliaFramework.children("ui-column"),
+      __metadata("design:type", Object)
+  ], UIDataGrid.prototype, "columns", void 0);
+  UIDataGrid = __decorate([
+      aureliaFramework.customElement("ui-datagrid"),
+      aureliaFramework.viewResources(HeaderCell, BodyCell),
+      aureliaFramework.inlineView(view$9)
+  ], UIDataGrid);
+
+  let UIDataCard = class UIDataCard {
+      constructor(element) {
+          this.element = element;
+          this.open = false;
+      }
+      attached() {
+          this.hrefChanged();
+      }
+      hrefChanged() {
+          if (this.vmElement) {
+              if (this.href) {
+                  this.vmElement.href = this.href;
+              }
+              else if (this.element.hasAttribute("click.trigger")) {
+                  this.vmElement.href = "javascript:;";
+              }
+              else if (this.vmElement.attributes.getNamedItem("href")) {
+                  this.vmElement.attributes.removeNamedItem("href");
+              }
+          }
+      }
+      fireClick($event) {
+          if (hasParent($event.target, "ui-datalist__toolbox", "ui-datalist__card")) {
+              $event.stopEvent();
+              return false;
+          }
+          if (!this.href) {
+              return this.element.dispatchEvent(UIInternal.createEvent("click"));
+          }
+      }
+  };
+  __decorate([
+      aureliaFramework.bindable(),
+      __metadata("design:type", String)
+  ], UIDataCard.prototype, "href", void 0);
+  __decorate([
+      aureliaFramework.bindable(),
+      __metadata("design:type", Array)
+  ], UIDataCard.prototype, "actions", void 0);
+  __decorate([
+      aureliaFramework.bindable(),
+      __metadata("design:type", Boolean)
+  ], UIDataCard.prototype, "open", void 0);
+  UIDataCard = __decorate([
+      aureliaFramework.containerless(),
+      aureliaFramework.customElement("ui-data-card"),
+      aureliaFramework.inlineView(`<template><a class="ui-datalist__card" ref="vmElement" data-open.bind="open" click.trigger="fireClick($event)">
+  <slot name="panel-header"></slot>
+  <slot></slot>
+  <div class="ui-datalist__toolbox">
+    <slot name="card-actions"></slot>
+    <ui-button-group vertical if.bind="actions">
+      <ui-button type="tool" no-caret>
+        <ui-svg-icon icon="overflow"></ui-svg-icon>
+        <ui-drop anchor="br" position="tr">
+          <ui-menu menu-items.bind="actions"></ui-menu>
+        </ui-drop>
+      </ui-button>
+      <ui-button type="tool" click.trigger="open = !open">
+        <ui-svg-icon icon="caret"></ui-svg-icon>
+      </ui-button>
+    </ui-button-group>
+  </div>
+  <slot name="panel-footer"></slot>
+</a></template>`),
+      __metadata("design:paramtypes", [Element])
+  ], UIDataCard);
+
+  var view$a = "<template class=\"ui-datalist ui-scroll--y\">\n  <slot></slot>\n  <div class=\"ui-datalist__wrapper\">\n\n    <template repeat.for=\"record of dataSource\">\n      <div ref=\"el\" show.one-time=\"compileTemplate(el, record)\"></div>\n    </template>\n\n  </div>\n  <div class=\"ui-datalist__loader\" if.bind=\"isLoading\">\n    <ui-svg-icon icon=\"busy\" class=\"ui-anim--spin\"></ui-svg-icon>\n  </div>\n</template>\n";
+
+  let UIDataList = class UIDataList {
+      constructor(element) {
+          this.template = element.querySelector("template");
+          if (element.hasAttribute("vertical")) {
+              element.classList.add("ui-datalist--vertical");
+          }
+      }
+      created(owningView) {
+          this.owningView = owningView;
+      }
+      compileTemplate(el, record) {
+          if (el) {
+              const tpl = `<template>${this.template.innerHTML}</template>`;
+              const model = {
+                  $record: record
+              };
+              const tplView = UIInternal.compileTemplate(tpl, model, this.owningView.bindingContext);
+              tplView.insertNodesBefore(el);
+              tplView.attached();
+              el.remove();
+          }
+          return true;
+      }
+  };
+  __decorate([
+      aureliaFramework.bindable(),
+      __metadata("design:type", Object)
+  ], UIDataList.prototype, "dataSource", void 0);
+  UIDataList = __decorate([
+      aureliaFramework.customElement("ui-data-list"),
+      aureliaFramework.processContent(false),
+      aureliaFramework.inlineView(view$a),
+      __metadata("design:paramtypes", [Element])
+  ], UIDataList);
+
+  let UIDataTable = class UIDataTable {
+  };
+  UIDataTable = __decorate([
+      aureliaFramework.customElement("ui-data-table"),
+      aureliaFramework.inlineView(`<template class="ui-datalist__table"><slot></slot></template>`)
+  ], UIDataTable);
+
   let NODE_ID = 0;
   class UITreeModel {
       constructor(children, maxNodes = 0) {
@@ -6770,7 +7310,7 @@
       __metadata("design:paramtypes", [])
   ], UITreeNode.prototype, "expandIcon", null);
 
-  var view$9 = "<template class=\"ui-tree__node ${isSelected ? 'ui-tree--selected':''}\">\n  <div class=\"ui-tree__spacer\" repeat.for=\"i of node.level\"></div>\n  <template if.bind=\"node.id !== 'node-more' && node.id !== 'node-empty'\">\n    <div class=\"ui-tree__expander\" click.trigger=\"tree.toggleExpand(index)\" if.bind=\"!node.leaf\">\n      <ui-svg-icon icon.bind=\"node.expandIcon\"></ui-svg-icon>\n    </div>\n    <div class=\"ui-tree__checkbox\" click.trigger=\"tree.toggleCheck(node)\" if.bind=\"tree.checkable !== false && node.level >= tree.checkable\">\n      <ui-svg-icon icon.bind=\"node.checkIcon\"></ui-svg-icon>\n    </div>\n    <div class=\"ui-tree__icon\">\n      <ui-svg-icon if.bind=\"node.loading\" icon=\"busy\" class=\"ui-anim--spin\"></ui-svg-icon>\n      <ui-icon else class.bind=\"node.nodeIcon\"></ui-icon>\n    </div>\n    <div class=\"ui-tree__label\" click.trigger=\"tree.select(node)\">${node.label}</div>\n  </template>\n  <template if.bind=\"node.id === 'node-more'\">\n    <a class=\"ui-tree__show-more\" click.trigger=\"tree.toggleMore(index)\">\n      <span if.bind=\"node.showingMore\">${tree.labelLess}</span>\n      <span else>${tree.labelMore}</span>\n    </a>\n  </template>\n  <template if.bind=\"node.id === 'node-empty'\">\n    <div class=\"ui-tree__no-children\" ui-color=\"gray\">${tree.labelEmpty}</div>\n  </template>\n</template>\n";
+  var view$b = "<template class=\"ui-tree__node ${isSelected ? 'ui-tree--selected':''}\">\n  <div class=\"ui-tree__spacer\" repeat.for=\"i of node.level\"></div>\n  <template if.bind=\"node.id !== 'node-more' && node.id !== 'node-empty'\">\n    <div class=\"ui-tree__expander\" click.trigger=\"tree.toggleExpand(index)\" if.bind=\"!node.leaf\">\n      <ui-svg-icon icon.bind=\"node.expandIcon\"></ui-svg-icon>\n    </div>\n    <div class=\"ui-tree__checkbox\" click.trigger=\"tree.toggleCheck(node)\" if.bind=\"tree.checkable !== false && node.level >= tree.checkable\">\n      <ui-svg-icon icon.bind=\"node.checkIcon\"></ui-svg-icon>\n    </div>\n    <div class=\"ui-tree__icon\">\n      <ui-svg-icon if.bind=\"node.loading\" icon=\"busy\" class=\"ui-anim--spin\"></ui-svg-icon>\n      <ui-icon else class.bind=\"node.nodeIcon\"></ui-icon>\n    </div>\n    <div class=\"ui-tree__label\" click.trigger=\"tree.select(node)\">${node.label}</div>\n  </template>\n  <template if.bind=\"node.id === 'node-more'\">\n    <a class=\"ui-tree__show-more\" click.trigger=\"tree.toggleMore(index)\">\n      <span if.bind=\"node.showingMore\">${tree.labelLess}</span>\n      <span else>${tree.labelMore}</span>\n    </a>\n  </template>\n  <template if.bind=\"node.id === 'node-empty'\">\n    <div class=\"ui-tree__no-children\" ui-color=\"gray\">${tree.labelEmpty}</div>\n  </template>\n</template>\n";
 
   let TreeNode = class TreeNode {
       get isSelected() {
@@ -6795,7 +7335,7 @@
       __metadata("design:paramtypes", [])
   ], TreeNode.prototype, "isSelected", null);
   TreeNode = __decorate([
-      aureliaFramework.inlineView(view$9)
+      aureliaFramework.inlineView(view$b)
   ], TreeNode);
 
   let UITreePanel = class UITreePanel {
@@ -6825,10 +7365,10 @@
           }
       }
       bind() {
-          this.rootNode = new UITreeModel(this.dataSource, this.maxNodes);
+          this.rootNode = new UITreeModel(this.options, this.maxNodes);
       }
-      dataSourceChanged() {
-          this.rootNode = new UITreeModel(this.dataSource, this.maxNodes);
+      optionsChanged() {
+          this.rootNode = new UITreeModel(this.options, this.maxNodes);
       }
       toggleExpand(index) {
           this.rootNode.toggleExpand(index);
@@ -6871,7 +7411,7 @@
   __decorate([
       aureliaFramework.bindable(),
       __metadata("design:type", Array)
-  ], UITreePanel.prototype, "dataSource", void 0);
+  ], UITreePanel.prototype, "options", void 0);
   __decorate([
       aureliaFramework.bindable(),
       __metadata("design:type", String)
@@ -6913,13 +7453,13 @@
       __metadata("design:paramtypes", [Element])
   ], UITreePanel);
 
-  const DataPanels = [UITreePanel];
+  const DataPanels = [UITreePanel, UIDataGrid, UIColumn, UIDataList, UIDataCard, UIDataTable];
 
   var uiDataPanels = /*#__PURE__*/Object.freeze({
     DataPanels: DataPanels
   });
 
-  var view$a = "<template class=\"ui-option\" data-disabled.bind=\"disabled || isDisabled\">\n  <label class=\"ui-option__control\">\n    <input size=\"1\" type=\"checkbox\" checked.bind=\"checked\" model.bind=\"model\" matcher.bind=\"matcher\" disabled.bind=\"disabled\" change.trigger=\"checkChanged($event)\">\n    <ui-svg-icon icon=\"check-off\"></ui-svg-icon>\n    <ui-svg-icon icon=\"check-on\"></ui-svg-icon>\n    <span>\n      <slot></slot>\n    </span>\n  </label>\n</template>\n";
+  var view$c = "<template class=\"ui-option\" data-disabled.bind=\"disabled || isDisabled\">\n  <label class=\"ui-option__control\">\n    <input size=\"1\" type=\"checkbox\" checked.bind=\"checked\" model.bind=\"model\" matcher.bind=\"matcher\" disabled.bind=\"disabled\" change.trigger=\"checkChanged($event)\">\n    <ui-svg-icon icon=\"check-off\"></ui-svg-icon>\n    <ui-svg-icon icon=\"check-on\"></ui-svg-icon>\n    <span>\n      <slot></slot>\n    </span>\n  </label>\n</template>\n";
 
   let UICheckbox = class UICheckbox {
       constructor(element) {
@@ -6958,7 +7498,7 @@
   ], UICheckbox.prototype, "disabled", void 0);
   UICheckbox = __decorate([
       aureliaFramework.customElement("ui-checkbox"),
-      aureliaFramework.inlineView(view$a),
+      aureliaFramework.inlineView(view$c),
       __metadata("design:paramtypes", [Element])
   ], UICheckbox);
 
@@ -7056,7 +7596,7 @@
   </template>`)
   ], UIFieldWrapper);
 
-  var view$b = "<template>\n  <fieldset class=\"ui-fieldset ${class}\" data-open.bind=\"!optional || checked\" ref=\"vmElement\">\n    <legend if.bind=\"label\">\n      <ui-checkbox if.bind=\"optional\" checked.bind=\"checked\">${label}</ui-checkbox>\n      <span if.bind=\"!optional\">${label}</span>\n    </legend>\n    <div class=\"ui-fieldset__body\">\n      <slot></slot>\n    </div>\n  </fieldset>\n</template>\n";
+  var view$d = "<template>\n  <fieldset class=\"ui-fieldset ${class}\" data-open.bind=\"!optional || checked\" ref=\"vmElement\">\n    <legend if.bind=\"label\">\n      <ui-checkbox if.bind=\"optional\" checked.bind=\"checked\">${label}</ui-checkbox>\n      <span if.bind=\"!optional\">${label}</span>\n    </legend>\n    <div class=\"ui-fieldset__body\">\n      <slot></slot>\n    </div>\n  </fieldset>\n</template>\n";
 
   let UIFieldset = class UIFieldset {
       constructor(element) {
@@ -7100,7 +7640,7 @@
   UIFieldset = __decorate([
       aureliaFramework.containerless(),
       aureliaFramework.customElement("ui-fieldset"),
-      aureliaFramework.inlineView(view$b),
+      aureliaFramework.inlineView(view$d),
       __metadata("design:paramtypes", [Element])
   ], UIFieldset);
 
@@ -7186,20 +7726,20 @@
       __metadata("design:paramtypes", [])
   ], BaseInput.prototype, "classes", null);
 
-  var view$c = "<template>\n  <div class=\"ui-input__error\" if.bind=\"errors && errors.length\">\n    <ui-svg-icon icon=\"alert\"></ui-svg-icon>\n    <ul>\n      <li repeat.for=\"err of errors\">${err.message || err}</li>\n    </ul>\n  </div>\n  <div class=\"ui-input__counter\" if.bind=\"showCounter && (value.length > 0 || maxlength > 0)\">\n    ${counter}\n  </div>\n  <div class=\"ui-input__clear\" if.bind=\"allowClear && value.length > 0\" click.trigger=\"clear()\">\n    <ui-svg-icon icon=\"cross\"></ui-svg-icon>\n  </div>\n  <div class=\"ui-input__drop-handle\" if.bind=\"dropHandle\" click.trigger=\"toggleDrop()\">\n    <ui-svg-icon icon.bind=\"dropHandle\"></ui-svg-icon>\n  </div>\n  <slot></slot>\n</template>\n";
+  var view$e = "<template>\n  <div class=\"ui-input__error\" if.bind=\"errors && errors.length\">\n    <ui-svg-icon icon=\"alert\"></ui-svg-icon>\n    <ul>\n      <li repeat.for=\"err of errors\">${err.message || err}</li>\n    </ul>\n  </div>\n  <div class=\"ui-input__counter\" if.bind=\"showCounter && (value.length > 0 || maxlength > 0)\">\n    ${counter}\n  </div>\n  <div class=\"ui-input__clear\" if.bind=\"allowClear && value.length > 0\" click.trigger=\"clear()\">\n    <ui-svg-icon icon=\"cross\"></ui-svg-icon>\n  </div>\n  <div class=\"ui-input__drop-handle\" if.bind=\"dropHandle\" click.trigger=\"toggleDrop()\">\n    <ui-svg-icon icon.bind=\"dropHandle\"></ui-svg-icon>\n  </div>\n  <slot></slot>\n</template>\n";
 
   let InputWrapper = class InputWrapper {
   };
   InputWrapper = __decorate([
       aureliaFramework.containerless(),
-      aureliaFramework.inlineView(view$c),
+      aureliaFramework.inlineView(view$e),
       aureliaFramework.processContent((compiler, resources, node, instruction) => {
           instruction.inheritBindingContext = true;
           return true;
       })
   ], InputWrapper);
 
-  var view$d = "<template class=\"ui-input ui-input-file ${classes}\" aria-disabled.bind=\"disabled || isDisabled\" aria-readonly.bind=\"readonly\">\n  <input-wrapper>\n    <slot></slot>\n    <div ref=\"dropZone\" if.bind=\"maxFiles>1\" class=\"ui-input-file__dropzone ${dragging?'dragging':''}\" click.trigger=\"inputEl.click()\" dragover.trigger=\"dragEnter($event)\" dragleave.trigger=\"dragExit($event)\" drop.trigger=\"drop($event)\">\n      <ui-svg-icon icon=\"upload\"></ui-svg-icon>\n      <span>Drop files here<br>or click to browse</span>\n    </div>\n    <input type=\"file\" ref=\"inputEl\" role=\"file\" size=\"1\" change.trigger=\"fileChoose($event)\" placeholder.bind=\"placeholder\" disabled.bind=\"disabled || isDisabled || isPlain\" readonly.bind=\"readonly\" value.two-way=\"value\" keypress.trigger=\"fireEnter($event)\">\n  </input-wrapper>\n  <div class=\"ui-input-file__list\" if.bind=\"maxFiles>1\">\n    <div repeat.for=\"file of files\">\n      <a click.trigger=\"remove($index)\"><ui-svg-icon icon=\"cross\" ui-color=\"red\"></ui-svg-icon></a>\n      <label>${file.name}</label>\n      <span ui-color=\"muted\">(<small innerhtml.bind=\"file.size | number:'0.00b'\"></small>)</span>\n    </div>\n  </div>\n</template>\n";
+  var view$f = "<template class=\"ui-input ui-input-file ${classes}\" aria-disabled.bind=\"disabled || isDisabled\" aria-readonly.bind=\"readonly\">\n  <input-wrapper>\n    <slot></slot>\n    <div ref=\"dropZone\" if.bind=\"maxFiles>1\" class=\"ui-input-file__dropzone ${dragging?'dragging':''}\" click.trigger=\"inputEl.click()\" dragover.trigger=\"dragEnter($event)\" dragleave.trigger=\"dragExit($event)\" drop.trigger=\"drop($event)\">\n      <ui-svg-icon icon=\"upload\"></ui-svg-icon>\n      <span>Drop files here<br>or click to browse</span>\n    </div>\n    <input type=\"file\" ref=\"inputEl\" role=\"file\" size=\"1\" change.trigger=\"fileChoose($event)\" placeholder.bind=\"placeholder\" disabled.bind=\"disabled || isDisabled || isPlain\" readonly.bind=\"readonly\" value.two-way=\"value\" keypress.trigger=\"fireEnter($event)\">\n  </input-wrapper>\n  <div class=\"ui-input-file__list\" if.bind=\"maxFiles>1\">\n    <div repeat.for=\"file of files\">\n      <a click.trigger=\"remove($index)\"><ui-svg-icon icon=\"cross\" ui-color=\"red\"></ui-svg-icon></a>\n      <label>${file.name}</label>\n      <span ui-color=\"muted\">(<small innerhtml.bind=\"file.size | number:'0.00b'\"></small>)</span>\n    </div>\n  </div>\n</template>\n";
 
   let UIFileInput = class UIFileInput extends BaseInput {
       constructor(element) {
@@ -7222,7 +7762,7 @@
           $event.preventDefault();
           return false;
       }
-      dragExit($event) {
+      dragExit() {
           this.dragging = false;
       }
       drop($event) {
@@ -7282,7 +7822,7 @@
   UIFileInput = __decorate([
       aureliaFramework.customElement("ui-file"),
       aureliaFramework.viewResources(InputWrapper),
-      aureliaFramework.inlineView(view$d),
+      aureliaFramework.inlineView(view$f),
       __metadata("design:paramtypes", [Element])
   ], UIFileInput);
 
@@ -7321,7 +7861,7 @@
       __metadata("design:paramtypes", [Element])
   ], UIForm);
 
-  var view$e = "<template class=\"ui-input ${classes}\" aria-disabled.bind=\"disabled || isDisabled\" aria-readonly.bind=\"readonly\">\n  <input-wrapper>\n    <slot></slot>\n    <input ref=\"inputEl\" role=\"textbox\" size=\"1\" placeholder.bind=\"placeholder\" disabled.bind=\"disabled || isDisabled || isPlain\" readonly.bind=\"readonly\" value.two-way=\"value\" type.bind=\"type\" autocomplete.bind=\"autocomplete\" keypress.trigger=\"fireEnter($event)\">\n  </input-wrapper>\n</template>\n";
+  var view$g = "<template class=\"ui-input ${classes}\" aria-disabled.bind=\"disabled || isDisabled\" aria-readonly.bind=\"readonly\">\n  <input-wrapper>\n    <slot></slot>\n    <!--suppress HtmlFormInputWithoutLabel -->\n    <input ref=\"inputEl\" role=\"textbox\" size=\"1\" placeholder.bind=\"placeholder\" disabled.bind=\"disabled || isDisabled || isPlain\" readonly.bind=\"readonly\" value.two-way=\"value\" type.bind=\"type\" autocomplete.bind=\"autocomplete\" keypress.trigger=\"fireEnter($event)\">\n  </input-wrapper>\n</template>\n";
 
   let UIInput = class UIInput extends BaseInput {
       constructor(element) {
@@ -7417,7 +7957,7 @@
   UIInput = __decorate([
       aureliaFramework.customElement("ui-input"),
       aureliaFramework.viewResources(InputWrapper),
-      aureliaFramework.inlineView(view$e),
+      aureliaFramework.inlineView(view$g),
       __metadata("design:paramtypes", [Element])
   ], UIInput);
 
@@ -7474,7 +8014,7 @@
       __metadata("design:paramtypes", [Element])
   ], UIInputInfo);
 
-  var view$f = "<template class=\"ui-option\" data-disabled.bind=\"isDisabled || disabled\">\n  <label class=\"ui-option__control\">\n    <input size=\"1\" type=\"radio\" name.bind=\"name\" checked.bind=\"checked\" model.bind=\"model\" matcher.bind=\"matcher\" disabled.bind=\"disabled\" change.trigger=\"checkChanged($event)\">\n    <ui-svg-icon icon=\"radio-off\"></ui-svg-icon>\n    <ui-svg-icon icon=\"radio-on\"></ui-svg-icon>\n    <span>\n      <slot></slot>\n    </span>\n  </label>\n</template>\n";
+  var view$h = "<template class=\"ui-option\" data-disabled.bind=\"isDisabled || disabled\">\n  <label class=\"ui-option__control\">\n    <input size=\"1\" type=\"radio\" name.bind=\"name\" checked.bind=\"checked\" model.bind=\"model\" matcher.bind=\"matcher\" disabled.bind=\"disabled\" change.trigger=\"checkChanged($event)\">\n    <ui-svg-icon icon=\"radio-off\"></ui-svg-icon>\n    <ui-svg-icon icon=\"radio-on\"></ui-svg-icon>\n    <span>\n      <slot></slot>\n    </span>\n  </label>\n</template>\n";
 
   let UIRadio = class UIRadio {
       constructor(element) {
@@ -7513,7 +8053,7 @@
   ], UIRadio.prototype, "disabled", void 0);
   UIRadio = __decorate([
       aureliaFramework.customElement("ui-radio"),
-      aureliaFramework.inlineView(view$f),
+      aureliaFramework.inlineView(view$h),
       __metadata("design:paramtypes", [Element])
   ], UIRadio);
 
@@ -7619,7 +8159,7 @@
       aureliaFramework.inlineView(`<template class="ui-password-meter" css.bind="strength" ui-tooltip.bind="tooltip"></template>`)
   ], UIPasswordMeter);
 
-  var view$g = "<template class=\"ui-input ui-phone ${classes}\" aria-disabled.bind=\"disabled || isDisabled\" aria-readonly.bind=\"readonly\">\n  <input-wrapper>\n    <slot></slot>\n    <ui-flag code.bind=\"inputCountry\"></ui-flag>\n    <input ref=\"inputEl\" role=\"textbox\" size=\"1\" placeholder.bind=\"placeholder\" disabled.bind=\"disabled || isDisabled || isPlain\" readonly.bind=\"readonly\" value.two-way=\"inputValue\" autocomplete.bind=\"autocomplete\" keypress.trigger=\"fireEnter($event)\">\n  </input-wrapper>\n</template>\n";
+  var view$i = "<template class=\"ui-input ui-phone ${classes}\" aria-disabled.bind=\"disabled || isDisabled\" aria-readonly.bind=\"readonly\">\n  <input-wrapper>\n    <slot></slot>\n    <ui-flag code.bind=\"inputCountry\"></ui-flag>\n    <!--suppress HtmlFormInputWithoutLabel -->\n    <input ref=\"inputEl\" role=\"textbox\" size=\"1\" placeholder.bind=\"placeholder\" disabled.bind=\"disabled || isDisabled || isPlain\" readonly.bind=\"readonly\" value.two-way=\"inputValue\" autocomplete.bind=\"autocomplete\" keypress.trigger=\"fireEnter($event)\">\n  </input-wrapper>\n</template>\n";
 
   let UIPhone = class UIPhone extends BaseInput {
       constructor(element) {
@@ -7701,7 +8241,7 @@
   UIPhone = __decorate([
       aureliaFramework.customElement("ui-phone"),
       aureliaFramework.viewResources(InputWrapper),
-      aureliaFramework.inlineView(view$g),
+      aureliaFramework.inlineView(view$i),
       __metadata("design:paramtypes", [Element])
   ], UIPhone);
 
@@ -7746,7 +8286,7 @@
 </template>`)
   ], UISlider);
 
-  var view$h = "<template class=\"ui-input ui-input--textarea ${classes}\" aria-disabled.bind=\"disabled || isDisabled\" aria-readonly.bind=\"readonly\">\n  <input-wrapper>\n    <slot></slot>\n    <textarea class=\"ui-input__control\" ref=\"inputEl\" role=\"textbox\" rows.bind=\"rows\" placeholder.bind=\"placeholder\" disabled.bind=\"disabled || isDisabled || isPlain\" readonly.bind=\"readonly\" value.two-way=\"value\"></textarea>\n  </input-wrapper>\n</template>\n";
+  var view$j = "<template class=\"ui-input ui-input--textarea ${classes}\" aria-disabled.bind=\"disabled || isDisabled\" aria-readonly.bind=\"readonly\">\n  <input-wrapper>\n    <slot></slot>\n    <!--suppress HtmlFormInputWithoutLabel -->\n    <textarea class=\"ui-input__control\" ref=\"inputEl\" role=\"textbox\" rows.bind=\"rows\" placeholder.bind=\"placeholder\" disabled.bind=\"disabled || isDisabled || isPlain\" readonly.bind=\"readonly\" value.two-way=\"value\"></textarea>\n  </input-wrapper>\n</template>\n";
 
   let UITextarea = class UITextarea extends BaseInput {
       constructor(element) {
@@ -7808,11 +8348,11 @@
   UITextarea = __decorate([
       aureliaFramework.customElement("ui-textarea"),
       aureliaFramework.viewResources(InputWrapper),
-      aureliaFramework.inlineView(view$h),
+      aureliaFramework.inlineView(view$j),
       __metadata("design:paramtypes", [Element])
   ], UITextarea);
 
-  var view$i = "<template class=\"ui-option\" data-disabled.bind=\"disabled || isDisabled\">\n  <label class=\"ui-option__control\">\n    <input size=\"1\" type=\"checkbox\" checked.bind=\"checked\" model.bind=\"model\" matcher.bind=\"matcher\" disabled.bind=\"disabled\" change.trigger=\"checkChanged($event)\">\n    <div class=\"ui-option__toggle\" css.bind=\"{'--toggle-on': labelOn, '--toggle-off': labelOff, width}\"></div>\n    <span><slot></slot></span>\n  </label>\n</template>\n";
+  var view$k = "<template class=\"ui-option\" data-disabled.bind=\"disabled || isDisabled\">\n  <label class=\"ui-option__control\">\n    <input size=\"1\" type=\"checkbox\" checked.bind=\"checked\" model.bind=\"model\" matcher.bind=\"matcher\" disabled.bind=\"disabled\" change.trigger=\"checkChanged($event)\">\n    <div class=\"ui-option__toggle\" css.bind=\"{'--toggle-on': labelOn, '--toggle-off': labelOff, width}\"></div>\n    <span><slot></slot></span>\n  </label>\n</template>\n";
 
   let UIToggle = class UIToggle {
       constructor(element) {
@@ -7865,7 +8405,7 @@
   ], UIToggle.prototype, "width", void 0);
   UIToggle = __decorate([
       aureliaFramework.customElement("ui-toggle"),
-      aureliaFramework.inlineView(view$i),
+      aureliaFramework.inlineView(view$k),
       __metadata("design:paramtypes", [Element])
   ], UIToggle);
 
@@ -7976,7 +8516,7 @@
           GridderUtils.ghost.style.top = GridderUtils.dragEl.offsetTop + "px";
           GridderUtils.ghost.style.left = GridderUtils.dragEl.offsetLeft + "px";
       };
-      const stopResize = ($event) => {
+      const stopResize = () => {
           GridderUtils.dragEl = null;
           document.removeEventListener("mousemove", resize);
           document.removeEventListener("mouseup", stopResize);
@@ -8024,7 +8564,7 @@
       }
   }
 
-  var view$j = "<template class=\"ui-gridder__cell\" data-allow-drop.bind=\"!pinned\" dragenter.trigger=\"utils.move($event)\">\n  <div ref=\"vmElement\" class=\"ui-panel-base ui-panel\" data-expanded.bind=\"expanded\">\n    <div class=\"ui-panel__header\" data-autohide.bind=\"autoHideHeader\">\n      <ui-drag-handle if.bind=\"moveable && !pinned\"></ui-drag-handle>\n      <ui-header>\n        <slot name=\"header-icon\">\n          <ui-header-icon if.bind=\"icon\" icon.bind=\"icon\"></ui-header-icon>\n        </slot>\n        <ui-header-title if.bind=\"label\">${label}</ui-header-title>\n\n        <slot name=\"header-actions\"></slot>\n      </ui-header>\n      <div class=\"ui-panel__header__actions\" if.bind=\"closeable || expandable || pinnable\">\n        <ui-divider></ui-divider>\n        <template if.bind=\"pinnable\">\n          <ui-button type=\"tool\" click.trigger=\"togglePinned(!pinned)\" active.bind=\"pinned\">\n            <ui-svg-icon icon.bind=\"pinned?'pinned':'unpinned'\"></ui-svg-icon>\n          </ui-button>\n        </template>\n        <template if.bind=\"expandable\">\n          <ui-button type=\"tool\" click.trigger=\"toggleExpand(!expanded)\">\n            <ui-svg-icon icon.bind=\"expanded?'collapse':'expand'\"></ui-svg-icon>\n          </ui-button>\n        </template>\n        <template if.bind=\"closeable\">\n          <ui-button type=\"tool\" click.trigger=\"close()\">\n            <ui-svg-icon icon=\"cross\"></ui-svg-icon>\n          </ui-button>\n        </template>\n      </div>\n    </div>\n    <div class=\"ui-panel__body\">\n      <slot></slot>\n    </div>\n    <slot name=\"panel-footer\"></slot>\n  </div>\n\n  <div if.bind=\"resizeable\" class=\"ui-gridder__resize\" mousedown.trigger=\"utils.startResize($event)\"></div>\n</template>\n";
+  var view$l = "<template class=\"ui-gridder__cell\" data-allow-drop.bind=\"!pinned\" dragenter.trigger=\"utils.move($event)\">\n  <div ref=\"vmElement\" class=\"ui-panel-base ui-panel\" data-expanded.bind=\"expanded\">\n    <div class=\"ui-panel__header\" data-autohide.bind=\"autoHideHeader\">\n      <ui-drag-handle if.bind=\"moveable && !pinned\"></ui-drag-handle>\n      <ui-header>\n        <slot name=\"header-icon\">\n          <ui-header-icon if.bind=\"icon\" icon.bind=\"icon\"></ui-header-icon>\n        </slot>\n        <ui-header-title if.bind=\"label\">${label}</ui-header-title>\n\n        <slot name=\"header-actions\"></slot>\n      </ui-header>\n      <div class=\"ui-panel__header__actions\" if.bind=\"closeable || expandable || pinnable\">\n        <ui-divider></ui-divider>\n        <template if.bind=\"pinnable\">\n          <ui-button type=\"tool\" click.trigger=\"togglePinned(!pinned)\" active.bind=\"pinned\">\n            <ui-svg-icon icon.bind=\"pinned?'pinned':'unpinned'\"></ui-svg-icon>\n          </ui-button>\n        </template>\n        <template if.bind=\"expandable\">\n          <ui-button type=\"tool\" click.trigger=\"toggleExpand(!expanded)\">\n            <ui-svg-icon icon.bind=\"expanded?'collapse':'expand'\"></ui-svg-icon>\n          </ui-button>\n        </template>\n        <template if.bind=\"closeable\">\n          <ui-button type=\"tool\" click.trigger=\"close()\">\n            <ui-svg-icon icon=\"cross\"></ui-svg-icon>\n          </ui-button>\n        </template>\n      </div>\n    </div>\n    <div class=\"ui-panel__body\">\n      <slot></slot>\n    </div>\n    <slot name=\"panel-footer\"></slot>\n  </div>\n\n  <div if.bind=\"resizeable\" class=\"ui-gridder__resize\" mousedown.trigger=\"utils.startResize($event)\"></div>\n</template>\n";
 
   let UIGridderCell = class UIGridderCell extends BasePanel {
       constructor(element) {
@@ -8106,11 +8646,11 @@
   ], UIGridderCell.prototype, "autoHideHeader", void 0);
   UIGridderCell = __decorate([
       aureliaFramework.customElement("ui-gridder-cell"),
-      aureliaFramework.inlineView(view$j),
+      aureliaFramework.inlineView(view$l),
       __metadata("design:paramtypes", [Element])
   ], UIGridderCell);
 
-  var view$k = "<template class=\"ui-gridder\">\n  <div class=\"ui-gridder__container\" dragstart.trigger=\"startDrag($event)\" dragend.trigger=\"stopDrag($event)\">\n    <slot></slot>\n\n    <div class=\"ui-gridder__ghost\" ref=\"ghost\" show.bind=\"!!utils.dragEl\"></div>\n\n    <div class=\"ui-gridder__overlay\" if.bind=\"!!utils.dragEl\">\n      <template repeat.for=\"row of utils.rowCount\">\n        <template repeat.for=\"col of utils.colCount\">\n          <div class=\"ui-gridder__cell\" data-row.bind=\"row\" data-col.bind=\"col\"></div> </template></template>\n    </div>\n  </div>\n</template>\n";
+  var view$m = "<template class=\"ui-gridder\">\n  <div class=\"ui-gridder__container\" dragstart.trigger=\"startDrag($event)\" dragend.trigger=\"stopDrag($event)\">\n    <slot></slot>\n\n    <div class=\"ui-gridder__ghost\" ref=\"ghost\" show.bind=\"!!utils.dragEl\"></div>\n\n    <div class=\"ui-gridder__overlay\" if.bind=\"!!utils.dragEl\">\n      <template repeat.for=\"row of utils.rowCount\">\n        <template repeat.for=\"col of utils.colCount\">\n          <div class=\"ui-gridder__cell\" data-row.bind=\"row\" data-col.bind=\"col\"></div> </template></template>\n    </div>\n  </div>\n</template>\n";
 
   let UIGridder = class UIGridder {
       constructor(element) {
@@ -8146,7 +8686,7 @@
   ], UIGridder.prototype, "cells", void 0);
   UIGridder = __decorate([
       aureliaFramework.customElement("ui-gridder"),
-      aureliaFramework.inlineView(view$k),
+      aureliaFramework.inlineView(view$m),
       __metadata("design:paramtypes", [Element])
   ], UIGridder);
   const Gridder = [UIGridder, UIGridderCell];
@@ -8155,7 +8695,7 @@
     Gridder: Gridder
   });
 
-  var view$l = "<template class=\"ui-dropdown\">\n  <a data-active.bind=\"active\" disabled.bind=\"disabled\" click.trigger=\"toggleDrop($event)\" class=\"ui-dropdown__link\" data-open.bind=\"dropEl.isOpen\" data-disabled.bind=\"disabled\">\n    <ui-icon class=\"ui-dropdown__icon\" icon=\"${iconPrefix} ${model[iconProperty]}\" if.bind=\"iconProperty\"></ui-icon>\n    <div class=\"ui-input__error\" if.bind=\"errors && errors.length\">\n      <ui-svg-icon icon=\"alert\"></ui-svg-icon>\n      <ul>\n        <li repeat.for=\"err of errors\">${err}</li>\n      </ul>\n    </div>\n    <span class=\"ui-dropdown__label\">${selectedLabel}</span>\n    <ui-svg-icon class=\"ui-dropdown__caret\" icon=\"caret\"></ui-svg-icon>\n  </a>\n  <ui-drop view-model.ref=\"dropEl\">\n    <div>\n      <template repeat.for=\"option of options\">\n        <div class=\"ui-list__item ${(option[valueProperty] || option) === value?'ui-list__item--selected':''}\" click.trigger=\"select(option)\">\n          <ui-icon if.bind=\"iconProperty\" icon=\"${iconPrefix} ${option[iconProperty]}\"></ui-icon>\n          ${option[labelProperty] || option}\n        </div>\n      </template>\n    </div>\n  </ui-drop>\n</template>\n";
+  var view$n = "<template class=\"ui-dropdown\">\n  <a data-active.bind=\"active\" disabled.bind=\"disabled\" click.trigger=\"toggleDrop($event)\" class=\"ui-dropdown__link\" data-open.bind=\"dropEl.isOpen\" data-disabled.bind=\"disabled\">\n    <ui-icon class=\"ui-dropdown__icon\" icon=\"${iconPrefix} ${model[iconProperty]}\" if.bind=\"iconProperty\"></ui-icon>\n    <div class=\"ui-input__error\" if.bind=\"errors && errors.length\">\n      <ui-svg-icon icon=\"alert\"></ui-svg-icon>\n      <ul>\n        <li repeat.for=\"err of errors\">${err}</li>\n      </ul>\n    </div>\n    <span class=\"ui-dropdown__label\">${selectedLabel}</span>\n    <ui-svg-icon class=\"ui-dropdown__caret\" icon=\"caret\"></ui-svg-icon>\n  </a>\n  <ui-drop view-model.ref=\"dropEl\">\n    <div>\n      <template repeat.for=\"option of options\">\n        <div class=\"ui-list__item ${(option[valueProperty] || option) === value?'ui-list__item--selected':''}\" click.trigger=\"select(option)\">\n          <ui-icon if.bind=\"iconProperty\" icon=\"${iconPrefix} ${option[iconProperty]}\"></ui-icon>\n          ${option[labelProperty] || option}\n        </div>\n      </template>\n    </div>\n  </ui-drop>\n</template>\n";
 
   let UIDropdown = class UIDropdown {
       constructor(element) {
@@ -8243,30 +8783,30 @@
   ], UIDropdown.prototype, "selectedLabel", null);
   UIDropdown = __decorate([
       aureliaFramework.customElement("ui-dropdown"),
-      aureliaFramework.inlineView(view$l),
+      aureliaFramework.inlineView(view$n),
       __metadata("design:paramtypes", [Element])
   ], UIDropdown);
 
-  var view$m = "<template>\n  <div if.bind=\"$parent.innerOptions\" mouseout.trigger=\"hilightIndex = -1\">\n    <template repeat.for=\"option of innerOptions\">\n      <div if.bind=\"option.__type==='group'\" class=\"ui-list__title\">${option.label}</div>\n      <div else class.bind=\"listClass(option, $index, value, hilightIndex)\" with.bind=\"{option}\" ref=\"__el\" mouseover.trigger=\"hilightIndex = $index\" show.one-time=\"buildOption(option, __el, !inputValue)\" click.trigger=\"selectOption(option)\" data-model.bind=\"option\"></div>\n    </template>\n  </div>\n  <div if.bind=\"isLoading\" ui-padding ui-align=\"center\" ui-font=\"lg\" ui-color=\"gray\">\n    <ui-svg-icon icon=\"busy\" class=\"ui-anim--spin\"></ui-svg-icon>\n  </div>\n  <div if.bind=\"isLoaded && innerOptions.length === 0\" ui-padding ui-color=\"gray\" ui-font=\"sm\">\n    ${noOptionsText}\n  </div>\n</template>\n";
+  var view$o = "<template>\n  <div if.bind=\"$parent.innerOptions\" mouseout.trigger=\"hilightIndex = -1\">\n    <template repeat.for=\"option of innerOptions\">\n      <div if.bind=\"option.__type==='group'\" class=\"ui-list__title\">${option.label}</div>\n      <div else class.bind=\"listClass(option, $index, value, hilightIndex)\" with.bind=\"{option}\" ref=\"__el\" mouseover.trigger=\"hilightIndex = $index\" show.one-time=\"buildOption(option, __el, !inputValue)\" click.trigger=\"selectOption(option)\" data-model.bind=\"option\"></div>\n    </template>\n  </div>\n  <div if.bind=\"isLoading\" ui-padding ui-align=\"center\" ui-font=\"lg\" ui-color=\"gray\">\n    <ui-svg-icon icon=\"busy\" class=\"ui-anim--spin\"></ui-svg-icon>\n  </div>\n  <div if.bind=\"isLoaded && innerOptions.length === 0\" ui-padding ui-color=\"gray\" ui-font=\"sm\">\n    ${noOptionsText}\n  </div>\n</template>\n";
 
   let ListContainer = class ListContainer {
   };
   ListContainer = __decorate([
       aureliaFramework.containerless(),
-      aureliaFramework.inlineView(view$m),
+      aureliaFramework.inlineView(view$o),
       aureliaFramework.processContent((compiler, resources, node, instruction) => {
           instruction.inheritBindingContext = true;
           return true;
       })
   ], ListContainer);
 
-  var view$n = "<template>\n  <div class=\"ui-input__tags\" click.trigger=\"inputEl.focus()\">\n    <template if.bind=\"multiple\">\n      <div class=\"ui-tag\" repeat.for=\"m of model\">\n        <span with.bind=\"{m}\" show.one-time=\"buildOption(m, __el, true) & debounce\" ref=\"__el\"></span>\n        <span class=\"ui-tag__close\" click.trigger=\"removeOption(m)\">&#x00D7;</span>\n      </div>\n    </template>\n    <input ref=\"$parent.inputEl\" role=\"combo\" size=\"1\" placeholder.bind=\"placeholder\" disabled.bind=\"disabled || isDisabled || isPlain\" readonly.bind=\"readonly\" value.two-way=\"inputValue\" input.trigger=\"filterOptions() & debounce\" keydown.trigger=\"checkKeyEvent($event)\" change.trigger=\"false\" focus.trigger=\"toggleDrop(true)\" blur.trigger=\"[canToggleDrop($event), resetQuery(true)] & debounce\">\n  </div>\n</template>\n";
+  var view$p = "<template>\n  <div class=\"ui-input__tags\" click.trigger=\"inputEl.focus()\">\n    <template if.bind=\"multiple\">\n      <div class=\"ui-tag\" repeat.for=\"m of model\">\n        <span with.bind=\"{m}\" show.one-time=\"buildOption(m, __el, true) & debounce\" ref=\"__el\"></span>\n        <span class=\"ui-tag__close\" click.trigger=\"removeOption(m)\">&#x00D7;</span>\n      </div>\n    </template>\n    <!--suppress HtmlFormInputWithoutLabel -->\n    <input ref=\"$parent.inputEl\" role=\"combo\" size=\"1\" placeholder.bind=\"placeholder\" disabled.bind=\"disabled || isDisabled || isPlain\" readonly.bind=\"readonly\" value.two-way=\"inputValue\" input.trigger=\"filterOptions() & debounce\" keydown.trigger=\"checkKeyEvent($event)\" change.trigger=\"false\" focus.trigger=\"toggleDrop(true)\" blur.trigger=\"[canToggleDrop($event), resetQuery(true)] & debounce\">\n  </div>\n</template>\n";
 
   let ListInput = class ListInput {
   };
   ListInput = __decorate([
       aureliaFramework.containerless(),
-      aureliaFramework.inlineView(view$n),
+      aureliaFramework.inlineView(view$p),
       aureliaFramework.processContent((compiler, resources, node, instruction) => {
           instruction.inheritBindingContext = true;
           return true;
@@ -8447,52 +8987,6 @@
               this.loadOptions();
           }
       }
-      fetchOptions(query) {
-          return __awaiter(this, void 0, void 0, function* () {
-              this.showLoading();
-              const result = yield this.query({ query });
-              if (!this.options) {
-                  this.options = result;
-              }
-              this.buildOptions(result || []);
-          });
-      }
-      showLoading() {
-          this.isLoaded = false;
-          this.isLoading = true;
-          this.innerOptions = [];
-          if (this.dropEl) {
-              UIInternal.queueMicroTask(() => this.dropEl.updatePosition());
-          }
-      }
-      buildOptions(options, silent = false) {
-          if (!silent) {
-              this.showLoading();
-          }
-          const optionsClone = options.map(o => (isString(o) ? `${o}` : Object.assign({}, o)));
-          UIInternal.queueTask(() => {
-              this.isLoading = false;
-              if (this.groupProperty) {
-                  const groups = optionsClone
-                      .sortBy([this.groupProperty, this.labelProperty])
-                      .groupBy(this.groupProperty);
-                  groups.forEach((items, label) => this.innerOptions.push({ __type: "group", label }, ...items));
-              }
-              else {
-                  this.innerOptions = optionsClone.sortBy(this.labelProperty);
-              }
-              this.isLoaded = true;
-              UIInternal.queueTask(() => {
-                  const selected = this.listContainer.querySelector(".ui-list__item--selected");
-                  if (selected) {
-                      selected.scrollIntoView({ block: "nearest" });
-                  }
-              });
-              if (this.dropEl) {
-                  UIInternal.queueTask(() => this.dropEl.updatePosition());
-              }
-          });
-      }
       listClass(option, index) {
           const classes = ["ui-list__item"];
           option.__selected = false;
@@ -8526,24 +9020,6 @@
               classes.push("ui-list__item--hilight");
           }
           return classes.join(" ");
-      }
-      markOption(option) {
-          let lbl = option[this.labelProperty] || `${option}`;
-          if (isEmpty(this.inputValue)) {
-              return lbl;
-          }
-          const rx = new RegExp(this.inputValue, "i");
-          const asc = lbl.toString().ascii();
-          if (rx.test(asc)) {
-              const start = asc.search(rx);
-              lbl =
-                  lbl.substr(0, start) +
-                      "<u>" +
-                      lbl.substr(start, this.inputValue.length) +
-                      "</u>" +
-                      lbl.substr(start + this.inputValue.length);
-          }
-          return lbl;
       }
       buildOption(option, el, unmark = false) {
           if (el) {
@@ -8625,9 +9101,73 @@
           }
           return true;
       }
+      fetchOptions(query) {
+          return __awaiter(this, void 0, void 0, function* () {
+              this.showLoading();
+              const result = yield this.query({ query });
+              if (!this.options) {
+                  this.options = result;
+              }
+              this.buildOptions(result || []);
+          });
+      }
+      showLoading() {
+          this.isLoaded = false;
+          this.isLoading = true;
+          this.innerOptions = [];
+          if (this.dropEl) {
+              UIInternal.queueMicroTask(() => this.dropEl.updatePosition());
+          }
+      }
+      buildOptions(options, silent = false) {
+          if (!silent) {
+              this.showLoading();
+          }
+          const optionsClone = options.map(o => (isString(o) ? `${o}` : Object.assign({}, o)));
+          UIInternal.queueTask(() => {
+              this.isLoading = false;
+              if (this.groupProperty) {
+                  const groups = optionsClone
+                      .sortBy([this.groupProperty, this.labelProperty])
+                      .groupBy(this.groupProperty);
+                  groups.forEach((items, label) => this.innerOptions.push({ __type: "group", label }, ...items));
+              }
+              else {
+                  this.innerOptions = optionsClone.sortBy(this.labelProperty);
+              }
+              this.isLoaded = true;
+              UIInternal.queueTask(() => {
+                  const selected = this.listContainer.querySelector(".ui-list__item--selected");
+                  if (selected) {
+                      selected.scrollIntoView({ block: "nearest" });
+                  }
+              });
+              if (this.dropEl) {
+                  UIInternal.queueTask(() => this.dropEl.updatePosition());
+              }
+          });
+      }
+      markOption(option) {
+          let lbl = option[this.labelProperty] || `${option}`;
+          if (isEmpty(this.inputValue)) {
+              return lbl;
+          }
+          const rx = new RegExp(this.inputValue, "i");
+          const asc = lbl.toString().ascii();
+          if (rx.test(asc)) {
+              const start = asc.search(rx);
+              lbl =
+                  lbl.substr(0, start) +
+                      "<u>" +
+                      lbl.substr(start, this.inputValue.length) +
+                      "</u>" +
+                      lbl.substr(start + this.inputValue.length);
+          }
+          return lbl;
+      }
   }
 
-  var view$o = "<template class=\"ui-input ui-list ${classes}\" aria-disabled.bind=\"disabled || isDisabled\" aria-readonly.bind=\"readonly\">\n  <input-wrapper model.bind=\"$this\">\n    <slot></slot>\n    <list-input></list-input>\n    <div class=\"ui-list__container\" ref=\"listContainer\" css.bind=\"{height}\">\n      <list-container></list-container>\n    </div>\n  </input-wrapper>\n</template>\n";
+  var view$q = "<template class=\"ui-input ui-list ${classes}\" aria-disabled.bind=\"disabled || isDisabled\" aria-readonly.bind=\"readonly\">\n  <input-wrapper model.bind=\"$this\">\n    <slot></slot>\n    <list-input></list-input>\n    <div class=\"ui-list__container\" ref=\"listContainer\" css.bind=\"{height}\">\n      <list-container></list-container>\n    </div>\n  </input-wrapper>\n</template>\n";
 
   let UIList = class UIList extends ListMaker {
       constructor(element) {
@@ -8726,11 +9266,11 @@
   UIList = __decorate([
       aureliaFramework.customElement("ui-list"),
       aureliaFramework.viewResources(InputWrapper, ListInput, ListContainer),
-      aureliaFramework.inlineView(view$o),
+      aureliaFramework.inlineView(view$q),
       __metadata("design:paramtypes", [Element])
   ], UIList);
 
-  var view$p = "<template class=\"ui-input ${classes}\" aria-disabled.bind=\"disabled || isDisabled\" aria-readonly.bind=\"readonly\">\n  <input-wrapper>\n    <slot></slot>\n    <list-input></list-input>\n  </input-wrapper>\n  <ui-drop view-model.ref=\"dropEl\" class=\"ui-list\" close.trigger=\"resetQuery()\">\n    <div ref=\"listContainer\" class=\"ui-list__container\">\n      <list-container></list-container>\n    </div>\n  </ui-drop>\n</template>\n";
+  var view$r = "<template class=\"ui-input ${classes}\" aria-disabled.bind=\"disabled || isDisabled\" aria-readonly.bind=\"readonly\">\n  <input-wrapper>\n    <slot></slot>\n    <list-input></list-input>\n  </input-wrapper>\n  <ui-drop view-model.ref=\"dropEl\" class=\"ui-list\" close.trigger=\"resetQuery()\">\n    <div ref=\"listContainer\" class=\"ui-list__container\">\n      <list-container></list-container>\n    </div>\n  </ui-drop>\n</template>\n";
 
   let UISelect = class UISelect extends ListMaker {
       constructor(element) {
@@ -8827,7 +9367,7 @@
   UISelect = __decorate([
       aureliaFramework.customElement("ui-select"),
       aureliaFramework.viewResources(InputWrapper, ListInput, ListContainer),
-      aureliaFramework.inlineView(view$p),
+      aureliaFramework.inlineView(view$r),
       __metadata("design:paramtypes", [Element])
   ], UISelect);
 
@@ -8872,7 +9412,7 @@
   };
   __decorate([
       aureliaFramework.bindable(),
-      __metadata("design:type", Object)
+      __metadata("design:type", Array)
   ], UIBreadcrumbs.prototype, "items", void 0);
   UIBreadcrumbs = __decorate([
       aureliaFramework.customElement("ui-breadcrumbs"),
@@ -8898,11 +9438,27 @@
   ], UIBreadcrumbs);
 
   let MenuItem = class MenuItem {
+      constructor() {
+          this.noitemsLabel = "No Menu";
+      }
+      onClick($event) {
+          if (this.item.items) {
+              $event.stopPropagation();
+          }
+          if (this.item.handler) {
+              this.item.handler();
+          }
+          return true;
+      }
   };
   __decorate([
       aureliaFramework.bindable(),
       __metadata("design:type", Object)
   ], MenuItem.prototype, "item", void 0);
+  __decorate([
+      aureliaFramework.bindable(),
+      __metadata("design:type", String)
+  ], MenuItem.prototype, "noitemsLabel", void 0);
   MenuItem = __decorate([
       aureliaFramework.containerless(),
       aureliaFramework.customElement("menu-item"),
@@ -8918,11 +9474,9 @@
     disabled.bind="typeof item.disabled === 'function' ? item.disabled() : item.disabled"
     active.bind="typeof item.active === 'function' ? item.active() : item.active"
     hide.bind="typeof item.hidden === 'function' ? item.hidden() : item.hidden"
-    click.trigger="item.handler && item.handler()">
-      <ui-drop if.bind="item.items">
-        <ui-menu>
-          <menu-item repeat.for="innerItem of item.items" item.bind="innerItem"></menu-item>
-        </ui-menu>
+    click.delegate="onClick($event)">
+      <ui-drop view-model.ref="dropEl" if.bind="item.items">
+        <ui-menu if.bind="dropEl.isOpen" menu-items.bind="item.items" noitems-label.bind="noitemsLabel"></ui-menu>
       </ui-drop>
     </ui-menu-item>
   </template>
@@ -8935,24 +9489,59 @@
   let UIMenu = class UIMenu {
       constructor(element) {
           this.element = element;
+          this.noitemsLabel = "No Menu";
+          this.isLoading = false;
       }
       attached() {
-          const active = this.element.querySelector(".ui-menu__item__link[data-active='true']");
-          if (active) {
-              active.scrollIntoView({ block: "center", inline: "nearest" });
+          this.loadMenuItems();
+          UIInternal.queueTask(() => {
+              const active = this.element.querySelector(".ui-menu__item__link[data-active='true']");
+              if (active) {
+                  active.scrollIntoView({ block: "center", inline: "nearest" });
+              }
+          });
+      }
+      loadMenuItems() {
+          if (isFunction(this.menuItems)) {
+              this.isLoading = true;
+              const ret = this.menuItems();
+              if (ret instanceof Promise) {
+                  ret.then(items => {
+                      this.items = items;
+                      this.isLoading = false;
+                  });
+              }
+              else {
+                  this.items = ret;
+                  this.isLoading = false;
+              }
+          }
+          else if (isArray(this.menuItems)) {
+              this.items = this.menuItems;
+          }
+          else {
+              this.items = undefined;
           }
       }
   };
   __decorate([
       aureliaFramework.bindable(),
-      __metadata("design:type", Array)
+      __metadata("design:type", Object)
   ], UIMenu.prototype, "menuItems", void 0);
+  __decorate([
+      aureliaFramework.bindable(),
+      __metadata("design:type", String)
+  ], UIMenu.prototype, "noitemsLabel", void 0);
   UIMenu = __decorate([
       aureliaFramework.customElement("ui-menu"),
       aureliaFramework.viewResources(MenuItem),
       aureliaFramework.inlineView(`<template class="ui-menu"><slot>
-  <template if.bind="menuItems">
-    <menu-item repeat.for="item of menuItems" item.bind="item"></menu-item>
+  <div if.bind="isLoading" ui-padding="xs" ui-align="center"><ui-svg-icon icon="busy" class="ui-anim--spin"></ui-svg-icon></div>
+  <template if.bind="!isLoading && items && items.length">
+    <menu-item repeat.for="item of items" item.bind="item" noitems-label.bind="noitemsLabel"></menu-item>
+  </template>
+  <template if.bind="!isLoading && items && items.length===0">
+    <div ui-padding="xs" ui-color="muted" ui-font="sm" innerhtml.bind="noitemsLabel"></div>
   </template>
 </slot></template>`),
       __metadata("design:paramtypes", [Element])
@@ -8988,7 +9577,7 @@
       __metadata("design:paramtypes", [Element])
   ], UIMenuGroup);
 
-  var view$q = "<template class=\"ui-menu__item\" value.bind=\"value\">\n  <a ref=\"badgeEl\" data-active.bind=\"active\" data-disabled.bind=\"disabled\" click.trigger=\"fireClick($event)\" class=\"ui-menu__item__link\" data-open.bind=\"!split && dropEl.isOpen\">\n    <ui-icon class=\"ui-menu__item__icon\" icon.bind=\"icon\" if.bind=\"icon\" ui-color.bind=\"iconColor\"></ui-icon>\n    <span class=\"ui-menu__item__label\">\n      <slot>${label}</slot>\n    </span>\n    <ui-svg-icon if.bind=\"!split && hasDrop\" class=\"ui-menu__item__caret\" icon.bind=\"dropIcon\"></ui-svg-icon>\n  </a>\n  <a data-active.bind=\"split && dropEl.isOpen\" class=\"ui-menu__item__caret ui-menu__item__caret--split\" if.bind=\"split && hasDrop\" click.trigger=\"toggleDrop()\" data-open.bind=\"split && dropEl.isOpen\">\n    <ui-svg-icon class=\"ui-icon__caret split\" icon.bind=\"dropIcon\"></ui-svg-icon>\n  </a>\n  <slot name=\"ui-drop\"></slot>\n</template>\n";
+  var view$s = "<template class=\"ui-menu__item\" value.bind=\"value\">\n  <a ref=\"badgeEl\" data-active.bind=\"active\" data-disabled.bind=\"disabled\" click.trigger=\"fireClick($event)\" class=\"ui-menu__item__link\" data-open.bind=\"!split && dropEl.isOpen\">\n    <ui-icon class=\"ui-menu__item__icon\" icon.bind=\"icon\" if.bind=\"icon\" ui-color.bind=\"iconColor\"></ui-icon>\n    <span class=\"ui-menu__item__label\">\n      <slot>${label}</slot>\n    </span>\n    <ui-svg-icon if.bind=\"!split && hasDrop\" class=\"ui-menu__item__caret\" icon.bind=\"dropIcon\"></ui-svg-icon>\n  </a>\n  <a data-active.bind=\"split && dropEl.isOpen\" class=\"ui-menu__item__caret ui-menu__item__caret--split\" if.bind=\"split && hasDrop\" click.trigger=\"toggleDrop()\" data-open.bind=\"split && dropEl.isOpen\">\n    <ui-svg-icon class=\"ui-icon__caret split\" icon.bind=\"dropIcon\"></ui-svg-icon>\n  </a>\n  <slot name=\"ui-drop\"></slot>\n</template>\n";
 
   let UIMenuItem = class UIMenuItem {
       constructor(element) {
@@ -9007,8 +9596,8 @@
       attached() {
           UIInternal.queueTask(() => {
               this.hasDrop = !!this.elDropdown;
-              this.isInMenubar = !!getParentByClass(this.element, "ui-menu__bar");
-              const isInDropdown = !!getParentByClass(this.element, "ui-drop__body");
+              this.isInMenubar = hasParent(this.element, "ui-menu__bar");
+              const isInDropdown = hasParent(this.element, "ui-drop__body");
               if (this.hasDrop) {
                   this.dropEl = getSlotViewModel(this.elDropdown);
                   if (isInDropdown || !this.isInMenubar) {
@@ -9040,10 +9629,8 @@
       }
       fireClick($event) {
           if (!this.href) {
-              $event.stopEvent();
               if (this.hasDrop && !this.split) {
-                  this.toggleDrop();
-                  return false;
+                  return this.toggleDrop();
               }
               return this.element.dispatchEvent(UIInternal.createEvent("click", this.id));
           }
@@ -9055,6 +9642,7 @@
               this.dropEl.toggleDrop();
               this.element.dispatchEvent(UIInternal.createEvent(afterEvent));
           }
+          return false;
       }
   };
   __decorate([
@@ -9091,7 +9679,7 @@
   ], UIMenuItem.prototype, "elDropdown", void 0);
   UIMenuItem = __decorate([
       aureliaFramework.customElement("ui-menu-item"),
-      aureliaFramework.inlineView(view$q),
+      aureliaFramework.inlineView(view$s),
       __metadata("design:paramtypes", [Element])
   ], UIMenuItem);
 
@@ -9146,7 +9734,7 @@
     Menus: Menus
   });
 
-  var view$r = "<template>\n  <div ref=\"vmElement\" slot=\"page-alert\" class=\"ui-alert ui-alert--inline\" data-open.bind=\"open\">\n    <div class=\"ui-alert__wrapper\">\n      <div if.bind=\"icon\" class=\"ui-alert__icon\">\n        <ui-icon icon.bind=\"icon\"></ui-icon>\n      </div>\n      <div if.bind=\"alertTitle\" class=\"ui-alert__title\" innerhtml.bind=\"alertTitle\"></div>\n      <div class=\"ui-alert__body\"><slot></slot></div>\n      <div class=\"ui-alert__close\" click.trigger=\"close(false)\" if.bind=\"closeable\">\n        <ui-svg-icon icon=\"cross\"></ui-svg-icon>\n      </div>\n      <div class=\"ui-alert__footer\" if.bind=\"type==='confirm'\">\n        <a click.trigger=\"close(false)\">${cancelLabel}</a>\n        <a click.trigger=\"close(true)\" ui-weight=\"bold\">${okLabel}</a>\n      </div>\n    </div>\n  </div>\n</template>\n";
+  var view$t = "<template>\n  <div ref=\"vmElement\" slot=\"page-alert\" class=\"ui-alert ui-alert--inline\" data-open.bind=\"open\">\n    <div class=\"ui-alert__wrapper\">\n      <div if.bind=\"icon\" class=\"ui-alert__icon\">\n        <ui-icon icon.bind=\"icon\"></ui-icon>\n      </div>\n      <div if.bind=\"alertTitle\" class=\"ui-alert__title\" innerhtml.bind=\"alertTitle\"></div>\n      <div class=\"ui-alert__body\"><slot></slot></div>\n      <div class=\"ui-alert__close\" click.trigger=\"close(false)\" if.bind=\"closeable\">\n        <ui-svg-icon icon=\"cross\"></ui-svg-icon>\n      </div>\n      <div class=\"ui-alert__footer\" if.bind=\"type==='confirm'\">\n        <a click.trigger=\"close(false)\">${cancelLabel}</a>\n        <a click.trigger=\"close(true)\" ui-weight=\"bold\">${okLabel}</a>\n      </div>\n    </div>\n  </div>\n</template>\n";
 
   let UIAlert = class UIAlert {
       constructor(element) {
@@ -9193,11 +9781,11 @@
   UIAlert = __decorate([
       aureliaFramework.containerless(),
       aureliaFramework.customElement("ui-alert"),
-      aureliaFramework.inlineView(view$r),
+      aureliaFramework.inlineView(view$t),
       __metadata("design:paramtypes", [Element])
   ], UIAlert);
 
-  var view$s = "<template class=\"ui-dialog__wrapper\" data-modal.bind=\"modal\" data-minimized.bind=\"minimized\" data-active.bind=\"active\" mousedown.trigger=\"activate()\">\n  <div class=\"ui-panel-base ui-dialog\" css.bind=\"css\" ref=\"dialogEl\">\n    <div class=\"ui-panel__header\" mousedown.delegate=\"startDrag($event)\">\n      <slot name=\"panel-header\">\n        <ui-header>\n          <ui-header-icon icon.bind=\"icon\" if.bind=\"icon\"></ui-header-icon>\n          <ui-header-title>${label}</ui-header-title>\n        </ui-header>\n      </slot>\n      <div class=\"ui-panel__header__actions\" if.bind=\"!hideToolbox\" mousedown.delegate=\"false\">\n        <ui-divider></ui-divider>\n        <ui-button if.bind=\"help\" class=\"ui-dlg--tool\" ui-theme=\"info\" type=\"tool\">\n          <ui-svg-icon ui-color=\"blue\" view-box=\"2 2 20 20\" icon=\"dlg-help\"></ui-svg-icon>\n        </ui-button>\n        <ui-button disabled.bind=\"!maximizable\" class=\"ui-dlg--tool\" type=\"tool\" click.trigger=\"maximized = !maximized\">\n          <ui-svg-icon ui-color=\"teal\" view-box=\"2 2 20 20\" icon.bind=\"maximized?'dlg-collapse':'dlg-expand'\"></ui-svg-icon>\n        </ui-button>\n        <ui-button disabled.bind=\"modal || !minimizable\" class=\"ui-dlg--tool\" type=\"tool\" click.trigger=\"minimize()\">\n          <ui-svg-icon ui-color=\"yellow\" view-box=\"2 2 20 20\" icon=\"dlg-minimize\"></ui-svg-icon>\n        </ui-button>\n        <ui-button disabled.bind=\"!closeable\" class=\"ui-dlg--tool\" type=\"tool\" click.trigger=\"close()\">\n          <ui-svg-icon ui-color=\"red\" view-box=\"2 2 20 20\" icon=\"dlg-close\"></ui-svg-icon>\n        </ui-button>\n      </div>\n    </div>\n    <div class=\"ui-panel__body\" ref=\"vmElement\">\n      <slot></slot>\n    </div>\n    <slot name=\"panel-footer\"></slot>\n  </div>\n</template>\n";
+  var view$u = "<template class=\"ui-dialog__wrapper\" data-modal.bind=\"modal\" data-minimized.bind=\"minimized\" data-active.bind=\"active\" mousedown.trigger=\"activate()\">\n  <div class=\"ui-panel-base ui-dialog\" css.bind=\"css\" ref=\"dialogEl\">\n    <div class=\"ui-panel__header\" mousedown.delegate=\"startDrag($event)\">\n      <slot name=\"panel-header\">\n        <ui-header>\n          <ui-header-icon icon.bind=\"icon\" if.bind=\"icon\"></ui-header-icon>\n          <ui-header-title>${label}</ui-header-title>\n        </ui-header>\n      </slot>\n      <div class=\"ui-panel__header__actions\" if.bind=\"!hideToolbox\" mousedown.delegate=\"false\">\n        <ui-divider></ui-divider>\n        <ui-button if.bind=\"help\" class=\"ui-dlg--tool\" ui-theme=\"info\" type=\"tool\">\n          <ui-svg-icon ui-color=\"blue\" view-box=\"2 2 20 20\" icon=\"dlg-help\"></ui-svg-icon>\n        </ui-button>\n        <ui-button disabled.bind=\"!maximizable\" class=\"ui-dlg--tool\" type=\"tool\" click.trigger=\"maximized = !maximized\">\n          <ui-svg-icon ui-color=\"teal\" view-box=\"2 2 20 20\" icon.bind=\"maximized?'dlg-collapse':'dlg-expand'\"></ui-svg-icon>\n        </ui-button>\n        <ui-button disabled.bind=\"modal || !minimizable\" class=\"ui-dlg--tool\" type=\"tool\" click.trigger=\"minimize()\">\n          <ui-svg-icon ui-color=\"yellow\" view-box=\"2 2 20 20\" icon=\"dlg-minimize\"></ui-svg-icon>\n        </ui-button>\n        <ui-button disabled.bind=\"!closeable\" class=\"ui-dlg--tool\" type=\"tool\" click.trigger=\"close()\">\n          <ui-svg-icon ui-color=\"red\" view-box=\"2 2 20 20\" icon=\"dlg-close\"></ui-svg-icon>\n        </ui-button>\n      </div>\n    </div>\n    <div class=\"ui-panel__body\" ref=\"vmElement\">\n      <slot></slot>\n    </div>\n    <slot name=\"panel-footer\"></slot>\n  </div>\n</template>\n";
 
   let UIDialogElement = class UIDialogElement {
       constructor(element) {
@@ -9249,7 +9837,6 @@
       attached() {
           if (!this.modal) {
               const iconEl = this.element.querySelector(".ui-header__icon .ui-icon");
-              const labelEl = this.element.querySelector(".ui-header__title");
               if (iconEl) {
                   this.icon = iconEl.au.controller.viewModel.icon;
               }
@@ -9308,7 +9895,7 @@
       __metadata("design:type", String)
   ], UIDialogElement.prototype, "maxHeight", void 0);
   __decorate([
-      aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.oneWay }),
+      aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.toView }),
       __metadata("design:type", Object)
   ], UIDialogElement.prototype, "help", void 0);
   __decorate([
@@ -9316,19 +9903,19 @@
       __metadata("design:type", Boolean)
   ], UIDialogElement.prototype, "modal", void 0);
   __decorate([
-      aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.oneWay }),
+      aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.toView }),
       __metadata("design:type", Boolean)
   ], UIDialogElement.prototype, "closeable", void 0);
   __decorate([
-      aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.oneWay }),
+      aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.toView }),
       __metadata("design:type", Boolean)
   ], UIDialogElement.prototype, "maximizable", void 0);
   __decorate([
-      aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.oneWay }),
+      aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.toView }),
       __metadata("design:type", Boolean)
   ], UIDialogElement.prototype, "minimizable", void 0);
   __decorate([
-      aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.oneWay }),
+      aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.toView }),
       __metadata("design:type", Boolean)
   ], UIDialogElement.prototype, "hideToolbox", void 0);
   __decorate([
@@ -9342,7 +9929,7 @@
   ], UIDialogElement.prototype, "css", null);
   UIDialogElement = __decorate([
       aureliaFramework.customElement("ui-dialog"),
-      aureliaFramework.inlineView(view$s),
+      aureliaFramework.inlineView(view$u),
       __metadata("design:paramtypes", [Element])
   ], UIDialogElement);
 
@@ -9358,7 +9945,7 @@
           this.push = element.hasAttribute("push");
           this.closeOnClick =
               element.hasAttribute("close-on-click") && !isFalse(element.getAttribute("close-on-click"));
-          this.obClick = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_CLICK, target => !this.closeOnClick && getParentByClass(target, "ui-drawer__body")
+          this.obClick = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_CLICK, target => !this.closeOnClick && hasParent(target, "ui-drawer__body", "ui-drawer")
               ? undefined
               : (element.dataset.peek = "false"));
       }
@@ -9494,7 +10081,7 @@
       __metadata("design:paramtypes", [Element])
   ], UIHeaderTitle);
 
-  var view$t = "<template class=\"ui-panel-base ui-panel\" css.bind=\"{width, minWidth, maxWidth}\" data-expanded.bind=\"expanded\" data-collapsed.bind=\"collapsed\">\n  <div class=\"ui-panel__header\">\n    <slot name=\"panel-header\">\n      <ui-header>\n        <slot name=\"header-icon\" slot=\"header-icon\">\n          <ui-header-icon if.bind=\"icon\" icon.bind=\"icon\"></ui-header-icon>\n        </slot>\n        <slot name=\"header-title\" slot=\"header-title\">\n          <ui-header-title if.bind=\"label\">${label}</ui-header-title>\n        </slot>\n        <slot name=\"header-actions\"></slot>\n      </ui-header>\n    </slot>\n    <div class=\"ui-panel__header__actions\" if.bind=\"collapsible || closeable || expandable\">\n      <ui-divider></ui-divider>\n      <template if.bind=\"expandable\">\n        <ui-button type=\"tool\" click.trigger=\"toggleExpand(!expanded)\">\n          <ui-svg-icon icon.bind=\"expanded?'collapse':'expand'\"></ui-svg-icon>\n        </ui-button>\n      </template>\n      <template if.bind=\"collapsible && !expanded\">\n        <ui-button type=\"tool\" click.trigger=\"toggleCollapse(!collapsed)\">\n          <ui-svg-icon icon.bind=\"collapsed?'plus':'minus'\"></ui-svg-icon>\n        </ui-button>\n      </template>\n      <template if.bind=\"closeable\">\n        <ui-button type=\"tool\" click.trigger=\"close()\">\n          <ui-svg-icon icon=\"cross\"></ui-svg-icon>\n        </ui-button>\n      </template>\n    </div>\n  </div>\n  <div class=\"ui-panel__body\" css.bind=\"{height, minHeight, maxHeight}\">\n    <slot></slot>\n  </div>\n  <slot name=\"panel-footer\"></slot>\n</template>\n";
+  var view$v = "<template class=\"ui-panel-base ui-panel\" css.bind=\"{width, minWidth, maxWidth}\" data-expanded.bind=\"expanded\" data-collapsed.bind=\"collapsed\">\n  <div class=\"ui-panel__header\">\n    <slot name=\"panel-header\">\n      <ui-header>\n        <slot name=\"header-icon\" slot=\"header-icon\">\n          <ui-header-icon if.bind=\"icon\" icon.bind=\"icon\"></ui-header-icon>\n        </slot>\n        <slot name=\"header-title\" slot=\"header-title\">\n          <ui-header-title if.bind=\"label\">${label}</ui-header-title>\n        </slot>\n        <slot name=\"header-actions\"></slot>\n      </ui-header>\n    </slot>\n    <div class=\"ui-panel__header__actions\" if.bind=\"collapsible || closeable || expandable\">\n      <ui-divider></ui-divider>\n      <template if.bind=\"expandable\">\n        <ui-button type=\"tool\" click.trigger=\"toggleExpand(!expanded)\">\n          <ui-svg-icon icon.bind=\"expanded?'collapse':'expand'\"></ui-svg-icon>\n        </ui-button>\n      </template>\n      <template if.bind=\"collapsible && !expanded\">\n        <ui-button type=\"tool\" click.trigger=\"toggleCollapse(!collapsed)\">\n          <ui-svg-icon icon.bind=\"collapsed?'plus':'minus'\"></ui-svg-icon>\n        </ui-button>\n      </template>\n      <template if.bind=\"closeable\">\n        <ui-button type=\"tool\" click.trigger=\"close()\">\n          <ui-svg-icon icon=\"cross\"></ui-svg-icon>\n        </ui-button>\n      </template>\n    </div>\n  </div>\n  <div class=\"ui-panel__body\" css.bind=\"{height, minHeight, maxHeight}\">\n    <slot></slot>\n  </div>\n  <slot name=\"panel-footer\"></slot>\n</template>\n";
 
   let UIPanel = class UIPanel extends BasePanel {
       constructor(element) {
@@ -9573,11 +10160,11 @@
   ], UIPanel.prototype, "collapsible", void 0);
   UIPanel = __decorate([
       aureliaFramework.customElement("ui-panel"),
-      aureliaFramework.inlineView(view$t),
+      aureliaFramework.inlineView(view$v),
       __metadata("design:paramtypes", [Element])
   ], UIPanel);
 
-  var view$u = "<template class=\"ui-sidebar\" click.delegate=\"headTrigger === 'toggle' ? collapsed = false : peek = true\" data-peek.bind=\"peek\" data-collapsed.bind=\"collapsed\" data-position.bind=\"position\" data-align.bind=\"align\">\n  <div class=\"ui-sidebar__titlebar\" ui-bg.bind=\"titleBg\" ui-color.bind=\"titleColor\" ui-weight.bind=\"titleWeight\" if.bind=\"collapsible || label\" click.trigger=\"[collapsed = collapsible && !collapsed, $event.stopEvent()]\" css.bind=\"{width}\">\n    <div class=\"ui-sidebar__toggler\" if.bind=\"collapsible\">\n      <ui-svg-icon icon.bind=\"toggleIcon\"></ui-svg-icon>\n    </div>\n    <div class=\"ui-sidebar__title\" ui-color.bind=\"collapsed ? titleBg : ''\">\n      <slot name=\"sidebar-title\"><span if.bind=\"label\" innerhtml.bind=\"label\"></span></slot>\n    </div>\n  </div>\n  <div class=\"ui-sidebar__body\" css.bind=\"{width, maxWidth, minWidth}\" ref=\"bodyEl\">\n    <slot></slot>\n  </div>\n  <div class=\"ui-sidebar__resizer\" if.bind=\"resizeable\" data-resizing.bind=\"isResizing\" mousedown.trigger=\"startResize($event)\"></div>\n</template>\n";
+  var view$w = "<template class=\"ui-sidebar\" click.delegate=\"headTrigger === 'toggle' ? collapsed = false : peek = true\" data-peek.bind=\"peek\" data-collapsed.bind=\"collapsed\" data-position.bind=\"position\" data-align.bind=\"align\">\n  <div class=\"ui-sidebar__titlebar\" ui-bg.bind=\"titleBg\" ui-color.bind=\"titleColor\" ui-weight.bind=\"titleWeight\" if.bind=\"collapsible || label\" click.trigger=\"[collapsed = collapsible && !collapsed, $event.stopEvent()]\" css.bind=\"{width}\">\n    <div class=\"ui-sidebar__toggler\" if.bind=\"collapsible\">\n      <ui-svg-icon icon.bind=\"toggleIcon\"></ui-svg-icon>\n    </div>\n    <div class=\"ui-sidebar__title\" ui-color.bind=\"collapsed ? titleBg : ''\">\n      <slot name=\"sidebar-title\"><span if.bind=\"label\" innerhtml.bind=\"label\"></span></slot>\n    </div>\n  </div>\n  <div class=\"ui-sidebar__body\" css.bind=\"{width, maxWidth, minWidth}\" ref=\"bodyEl\">\n    <slot></slot>\n  </div>\n  <div class=\"ui-sidebar__resizer\" if.bind=\"resizeable\" data-resizing.bind=\"isResizing\" mousedown.trigger=\"startResize($event)\"></div>\n</template>\n";
 
   let UISidebar = class UISidebar {
       constructor(element) {
@@ -9601,7 +10188,7 @@
           this.collapsible = element.hasAttribute("collapsible");
           this.closeOnClick =
               element.hasAttribute("close-on-click") && !isFalse(element.getAttribute("close-on-click"));
-          this.obClick = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_CLICK, target => !this.peek || (!this.closeOnClick && getParentByClass(target, "ui-sidebar__body"))
+          this.obClick = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_CLICK, target => !this.peek || (!this.closeOnClick && hasParent(target, "ui-sidebar__body", "ui-sidebar"))
               ? undefined
               : UIInternal.queueTask(() => (this.peek = false)));
       }
@@ -9696,7 +10283,7 @@
   ], UISidebar.prototype, "toggleIcon", null);
   UISidebar = __decorate([
       aureliaFramework.customElement("ui-sidebar"),
-      aureliaFramework.inlineView(view$u),
+      aureliaFramework.inlineView(view$w),
       __metadata("design:paramtypes", [Element])
   ], UISidebar);
 
@@ -9803,7 +10390,7 @@
       __metadata("design:paramtypes", [Element])
   ], UITabbarEnd);
 
-  var view$v = "<template class=\"ui-tab__panel\" data-align.bind=\"align\">\n  <div class=\"ui-tab__bar\">\n    <div class=\"ui-tab__bar__start\">\n      <slot name=\"tabbar-start\"></slot>\n    </div>\n    <div class=\"ui-tab__bar__wrapper\" ref=\"wrapperEl\">\n      <!-- repeat tabs -->\n      <template repeat.for=\"tab of tabs\">\n        <div class=\"ui-tab__button\" data-id.bind=\"tab.id\" data-active.bind=\"tab.active\" data-disabled.bind=\"tab.disabled\" click.trigger=\"activateTab(tab.id)\" ui-tooltip.bind=\"tab.label\">\n          <span class=\"ui-tab__button__icon\" if.bind=\"tab.icon\">\n            <ui-icon icon.bind=\"tab.icon\"></ui-icon>\n          </span>\n          <span class=\"ui-tab__button__label\" innerhtml.bind=\"tab.label\"></span>\n          <span class=\"ui-tab__button__close\" if.bind=\"tab.closeable\" click.trigger=\"[closeTab(tab.id), $event.stopEvent()]\">\n            <ui-svg-icon icon=\"cross\"></ui-svg-icon>\n          </span>\n        </div>\n      </template>\n    </div>\n    <div class=\"ui-tab__bar__end\">\n      <slot name=\"tabbar-end\"></slot>\n    </div>\n    <div class=\"ui-tab__bar__overflow\" show.bind=\"hasOverflow\">\n      <ui-button no-caret type=\"link\" ui-theme=\"secondary\" size=\"sm\">\n        <ui-svg-icon class=\"ui-btn__icon\" icon=\"overflow\"></ui-svg-icon>\n        <ui-drop><ui-menu ref=\"overflowEl\"></ui-menu></ui-drop>\n      </ui-button>\n    </div>\n  </div>\n  <div class=\"ui-tab__body\">\n    <slot></slot>\n\n    <compose view-model.ref=\"composeVm\" class=\"ui-section\" view.bind=\"activeTab.view\" model.bind=\"activeTab.model\" view-model.bind=\"activeTab.viewModel\"></compose>\n  </div>\n</template>\n";
+  var view$x = "<template class=\"ui-tab__panel\" data-align.bind=\"align\">\n  <div class=\"ui-tab__bar\">\n    <div class=\"ui-tab__bar__start\">\n      <slot name=\"tabbar-start\"></slot>\n    </div>\n    <div class=\"ui-tab__bar__wrapper\" ref=\"wrapperEl\">\n      <!-- repeat tabs -->\n      <template repeat.for=\"tab of tabs\">\n        <div class=\"ui-tab__button\" data-id.bind=\"tab.id\" data-active.bind=\"tab.active\" data-disabled.bind=\"tab.disabled\" click.trigger=\"activateTab(tab.id)\" ui-tooltip.bind=\"tab.label\">\n          <span class=\"ui-tab__button__icon\" if.bind=\"tab.icon\">\n            <ui-icon icon.bind=\"tab.icon\"></ui-icon>\n          </span>\n          <span class=\"ui-tab__button__label\" innerhtml.bind=\"tab.label\"></span>\n          <span class=\"ui-tab__button__close\" if.bind=\"tab.closeable\" click.trigger=\"[closeTab(tab.id), $event.stopEvent()]\">\n            <ui-svg-icon icon=\"cross\"></ui-svg-icon>\n          </span>\n        </div>\n      </template>\n    </div>\n    <div class=\"ui-tab__bar__end\">\n      <slot name=\"tabbar-end\"></slot>\n    </div>\n    <div class=\"ui-tab__bar__overflow\" show.bind=\"hasOverflow\">\n      <ui-button no-caret type=\"link\" ui-theme=\"secondary\" size=\"sm\">\n        <ui-svg-icon class=\"ui-btn__icon\" icon=\"overflow\"></ui-svg-icon>\n        <ui-drop><ui-menu ref=\"overflowEl\"></ui-menu></ui-drop>\n      </ui-button>\n    </div>\n  </div>\n  <div class=\"ui-tab__body\">\n    <slot></slot>\n\n    <compose view-model.ref=\"composeVm\" class=\"ui-section\" view.bind=\"activeTab.view\" model.bind=\"activeTab.model\" view-model.bind=\"activeTab.viewModel\"></compose>\n  </div>\n</template>\n";
 
   let UITabbarStart = class UITabbarStart {
       constructor(element) {
@@ -9832,7 +10419,6 @@
       }
       activateTab(id) {
           return __awaiter(this, void 0, void 0, function* () {
-              const tab = this.tabs.find(t => t.id === id);
               let result = true;
               if (this.composeVm.currentViewModel) {
                   result = yield UIInternal.invokeLifecycle(this.composeVm.currentViewModel, "canDeactivate");
@@ -9965,7 +10551,7 @@
   UITabPanel = __decorate([
       aureliaFramework.autoinject(),
       aureliaFramework.customElement("ui-tab-panel"),
-      aureliaFramework.inlineView(view$v),
+      aureliaFramework.inlineView(view$x),
       __metadata("design:paramtypes", [Element])
   ], UITabPanel);
   const TabPanel = [UITabPanel, UITab, UITabbarStart, UITabbarEnd];

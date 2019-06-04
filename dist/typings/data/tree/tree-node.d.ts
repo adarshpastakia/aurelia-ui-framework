@@ -1,4 +1,4 @@
-import { UITreeNode } from "../models/ui-tree-model";
+import { UITreeNode } from "../../models/ui-tree-model";
 import { UITreePanel } from "./ui-tree-panel";
 export declare class TreeNode {
     node: UITreeNode;

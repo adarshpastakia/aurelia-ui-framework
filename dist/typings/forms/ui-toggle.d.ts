@@ -11,5 +11,5 @@ export declare class UIToggle {
     constructor(element: Element);
     disable(b: boolean): void;
     protected bind(): void;
-    private checkChanged;
+    protected checkChanged($event: TextEvent): void;
 }

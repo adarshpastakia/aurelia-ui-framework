@@ -109,7 +109,7 @@ ListContainer = __decorate([
     })
 ], ListContainer);
 
-var view$2 = "<template>\n  <div class=\"ui-input__tags\" click.trigger=\"inputEl.focus()\">\n    <template if.bind=\"multiple\">\n      <div class=\"ui-tag\" repeat.for=\"m of model\">\n        <span with.bind=\"{m}\" show.one-time=\"buildOption(m, __el, true) & debounce\" ref=\"__el\"></span>\n        <span class=\"ui-tag__close\" click.trigger=\"removeOption(m)\">&#x00D7;</span>\n      </div>\n    </template>\n    <input ref=\"$parent.inputEl\" role=\"combo\" size=\"1\" placeholder.bind=\"placeholder\" disabled.bind=\"disabled || isDisabled || isPlain\" readonly.bind=\"readonly\" value.two-way=\"inputValue\" input.trigger=\"filterOptions() & debounce\" keydown.trigger=\"checkKeyEvent($event)\" change.trigger=\"false\" focus.trigger=\"toggleDrop(true)\" blur.trigger=\"[canToggleDrop($event), resetQuery(true)] & debounce\">\n  </div>\n</template>\n";
+var view$2 = "<template>\n  <div class=\"ui-input__tags\" click.trigger=\"inputEl.focus()\">\n    <template if.bind=\"multiple\">\n      <div class=\"ui-tag\" repeat.for=\"m of model\">\n        <span with.bind=\"{m}\" show.one-time=\"buildOption(m, __el, true) & debounce\" ref=\"__el\"></span>\n        <span class=\"ui-tag__close\" click.trigger=\"removeOption(m)\">&#x00D7;</span>\n      </div>\n    </template>\n    <!--suppress HtmlFormInputWithoutLabel -->\n    <input ref=\"$parent.inputEl\" role=\"combo\" size=\"1\" placeholder.bind=\"placeholder\" disabled.bind=\"disabled || isDisabled || isPlain\" readonly.bind=\"readonly\" value.two-way=\"inputValue\" input.trigger=\"filterOptions() & debounce\" keydown.trigger=\"checkKeyEvent($event)\" change.trigger=\"false\" focus.trigger=\"toggleDrop(true)\" blur.trigger=\"[canToggleDrop($event), resetQuery(true)] & debounce\">\n  </div>\n</template>\n";
 
 let ListInput = class ListInput {
 };
@@ -296,50 +296,6 @@ class ListMaker extends BaseInput {
             this.loadOptions();
         }
     }
-    async fetchOptions(query) {
-        this.showLoading();
-        const result = await this.query({ query });
-        if (!this.options) {
-            this.options = result;
-        }
-        this.buildOptions(result || []);
-    }
-    showLoading() {
-        this.isLoaded = false;
-        this.isLoading = true;
-        this.innerOptions = [];
-        if (this.dropEl) {
-            UIInternal.queueMicroTask(() => this.dropEl.updatePosition());
-        }
-    }
-    buildOptions(options, silent = false) {
-        if (!silent) {
-            this.showLoading();
-        }
-        const optionsClone = options.map(o => (isString(o) ? `${o}` : Object.assign({}, o)));
-        UIInternal.queueTask(() => {
-            this.isLoading = false;
-            if (this.groupProperty) {
-                const groups = optionsClone
-                    .sortBy([this.groupProperty, this.labelProperty])
-                    .groupBy(this.groupProperty);
-                groups.forEach((items, label) => this.innerOptions.push({ __type: "group", label }, ...items));
-            }
-            else {
-                this.innerOptions = optionsClone.sortBy(this.labelProperty);
-            }
-            this.isLoaded = true;
-            UIInternal.queueTask(() => {
-                const selected = this.listContainer.querySelector(".ui-list__item--selected");
-                if (selected) {
-                    selected.scrollIntoView({ block: "nearest" });
-                }
-            });
-            if (this.dropEl) {
-                UIInternal.queueTask(() => this.dropEl.updatePosition());
-            }
-        });
-    }
     listClass(option, index) {
         const classes = ["ui-list__item"];
         option.__selected = false;
@@ -373,24 +329,6 @@ class ListMaker extends BaseInput {
             classes.push("ui-list__item--hilight");
         }
         return classes.join(" ");
-    }
-    markOption(option) {
-        let lbl = option[this.labelProperty] || `${option}`;
-        if (isEmpty(this.inputValue)) {
-            return lbl;
-        }
-        const rx = new RegExp(this.inputValue, "i");
-        const asc = lbl.toString().ascii();
-        if (rx.test(asc)) {
-            const start = asc.search(rx);
-            lbl =
-                lbl.substr(0, start) +
-                    "<u>" +
-                    lbl.substr(start, this.inputValue.length) +
-                    "</u>" +
-                    lbl.substr(start + this.inputValue.length);
-        }
-        return lbl;
     }
     buildOption(option, el, unmark = false) {
         if (el) {
@@ -471,6 +409,68 @@ class ListMaker extends BaseInput {
             this.fireEnter($event);
         }
         return true;
+    }
+    async fetchOptions(query) {
+        this.showLoading();
+        const result = await this.query({ query });
+        if (!this.options) {
+            this.options = result;
+        }
+        this.buildOptions(result || []);
+    }
+    showLoading() {
+        this.isLoaded = false;
+        this.isLoading = true;
+        this.innerOptions = [];
+        if (this.dropEl) {
+            UIInternal.queueMicroTask(() => this.dropEl.updatePosition());
+        }
+    }
+    buildOptions(options, silent = false) {
+        if (!silent) {
+            this.showLoading();
+        }
+        const optionsClone = options.map(o => (isString(o) ? `${o}` : Object.assign({}, o)));
+        UIInternal.queueTask(() => {
+            this.isLoading = false;
+            if (this.groupProperty) {
+                const groups = optionsClone
+                    .sortBy([this.groupProperty, this.labelProperty])
+                    .groupBy(this.groupProperty);
+                groups.forEach((items, label) => this.innerOptions.push({ __type: "group", label }, ...items));
+            }
+            else {
+                this.innerOptions = optionsClone.sortBy(this.labelProperty);
+            }
+            this.isLoaded = true;
+            UIInternal.queueTask(() => {
+                const selected = this.listContainer.querySelector(".ui-list__item--selected");
+                if (selected) {
+                    selected.scrollIntoView({ block: "nearest" });
+                }
+            });
+            if (this.dropEl) {
+                UIInternal.queueTask(() => this.dropEl.updatePosition());
+            }
+        });
+    }
+    markOption(option) {
+        let lbl = option[this.labelProperty] || `${option}`;
+        if (isEmpty(this.inputValue)) {
+            return lbl;
+        }
+        const rx = new RegExp(this.inputValue, "i");
+        const asc = lbl.toString().ascii();
+        if (rx.test(asc)) {
+            const start = asc.search(rx);
+            lbl =
+                lbl.substr(0, start) +
+                    "<u>" +
+                    lbl.substr(start, this.inputValue.length) +
+                    "</u>" +
+                    lbl.substr(start + this.inputValue.length);
+        }
+        return lbl;
     }
 }
 

@@ -13,7 +13,7 @@ var UIFormat;
             sanitize: false,
             smartLists: true,
             smartypants: false
-        }).replace(/(\<a href=)/gi, '<a class="ui-link" target="_blank" href=');
+        }).replace(/(<a href=)/gi, '<a class="ui-link" target="_blank" href=');
     }
     UIFormat.toHTML = toHTML;
     function parseDate(dt) {
@@ -37,12 +37,12 @@ var UIFormat;
         return !dt || !isValid(dt) ? null : format(dt, ft, { awareOfUnicodeTokens: true });
     }
     UIFormat.datetime = datetime;
-    function dateToISO(dt) {
+    function utcDate(dt) {
         dt = parseDate(dt);
         return !dt || !isValid(dt) ? null : toDate(dt).toISOString();
     }
-    UIFormat.dateToISO = dateToISO;
-    function utcDate(dt) {
+    UIFormat.utcDate = utcDate;
+    function dateToISO(dt) {
         dt = parseDate(dt);
         return !dt || !isValid(dt)
             ? null
@@ -50,7 +50,7 @@ var UIFormat;
                 awareOfUnicodeTokens: true
             });
     }
-    UIFormat.utcDate = utcDate;
+    UIFormat.dateToISO = dateToISO;
     function age(dt) {
         dt = parseDate(dt);
         return !dt || !isValid(dt) ? "" : formatDistanceStrict(dt, new Date());

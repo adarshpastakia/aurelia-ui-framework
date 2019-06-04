@@ -4,6 +4,7 @@ import './chunk2.js';
 import 'aurelia-event-aggregator';
 import { a as UIInternal } from './chunk3.js';
 import 'aurelia-logging';
+import ResizeObserver from 'resize-observer-polyfill';
 import { a as UITether } from './chunk5.js';
 
 var UIDivider = (function () {
@@ -63,9 +64,15 @@ var UIDrop = (function () {
         this.isOpen = open === undefined ? !this.isOpen : open;
         if (this.isOpen) {
             this.obClick = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_CLICK, function (t) { return _this.canClose(t); });
-            this.obResize = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_RESIZE, function (t) {
+            this.obViewportResize = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_RESIZE, function () {
                 return _this.updatePosition();
             });
+            this.obResize = new ResizeObserver(function () {
+                return _this.updatePosition();
+            });
+            this.obResize.observe(this.vmElement);
+            this.obResize.observe(this.anchorEl);
+            this.element.dispatchEvent(UIInternal.createEvent("open"));
             UIInternal.queueMicroTask(function () {
                 _this.tetherObj.updatePosition();
                 _this.vmElement.dataset.show = "true";
@@ -85,7 +92,10 @@ var UIDrop = (function () {
             this.obClick.dispose();
         }
         if (this.obResize) {
-            this.obResize.dispose();
+            this.obResize.disconnect();
+        }
+        if (this.obViewportResize) {
+            this.obViewportResize.dispose();
         }
     };
     UIDrop.prototype.detached = function () {
@@ -94,14 +104,13 @@ var UIDrop = (function () {
             this.tetherObj.dispose();
         }
     };
-    UIDrop.prototype.canClose = function (t) {
-        if (!hasParent(t, this.vmElement) && !hasParent(t, this.anchorEl)) {
+    UIDrop.prototype.close = function ($event) {
+        if (this.closeOnClick) {
             this.closeDrop();
         }
     };
-    UIDrop.prototype.close = function ($event) {
-        $event.stopEvent();
-        if (this.closeOnClick) {
+    UIDrop.prototype.canClose = function (t) {
+        if (!hasParent(t, this.vmElement) && !hasParent(t, this.anchorEl)) {
             this.closeDrop();
         }
     };
@@ -112,7 +121,7 @@ var UIDrop = (function () {
     UIDrop = __decorate([
         containerless(),
         customElement("ui-drop"),
-        inlineView("<template><div slot=\"ui-drop\" class=\"ui-drop\" mouseup.delegate=\"closeDrop()\" data-open.bind=\"isOpen\">\n  <div ref=\"vmElement\" class=\"ui-drop__body ${class}\" mouseup.delegate=\"close($event)\"><slot></slot></div>\n  </div></template>"),
+        inlineView("<template><div slot=\"ui-drop\" class=\"ui-drop\" click.delegate=\"closeDrop()\" data-open.bind=\"isOpen\">\n  <div ref=\"vmElement\" class=\"ui-drop__body ${class}\" click.delegate=\"close($event)\"><slot></slot></div>\n  </div></template>"),
         __metadata("design:paramtypes", [Element])
     ], UIDrop);
     return UIDrop;

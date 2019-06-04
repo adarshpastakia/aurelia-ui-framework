@@ -39,7 +39,7 @@ let UIBreadcrumbs = class UIBreadcrumbs {
 };
 __decorate([
     bindable(),
-    __metadata("design:type", Object)
+    __metadata("design:type", Array)
 ], UIBreadcrumbs.prototype, "items", void 0);
 UIBreadcrumbs = __decorate([
     customElement("ui-breadcrumbs"),
@@ -65,11 +65,27 @@ UIBreadcrumbs = __decorate([
 ], UIBreadcrumbs);
 
 let MenuItem = class MenuItem {
+    constructor() {
+        this.noitemsLabel = "No Menu";
+    }
+    onClick($event) {
+        if (this.item.items) {
+            $event.stopPropagation();
+        }
+        if (this.item.handler) {
+            this.item.handler();
+        }
+        return true;
+    }
 };
 __decorate([
     bindable(),
     __metadata("design:type", Object)
 ], MenuItem.prototype, "item", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", String)
+], MenuItem.prototype, "noitemsLabel", void 0);
 MenuItem = __decorate([
     containerless(),
     customElement("menu-item"),
@@ -85,11 +101,9 @@ MenuItem = __decorate([
     disabled.bind="typeof item.disabled === 'function' ? item.disabled() : item.disabled"
     active.bind="typeof item.active === 'function' ? item.active() : item.active"
     hide.bind="typeof item.hidden === 'function' ? item.hidden() : item.hidden"
-    click.trigger="item.handler && item.handler()">
-      <ui-drop if.bind="item.items">
-        <ui-menu>
-          <menu-item repeat.for="innerItem of item.items" item.bind="innerItem"></menu-item>
-        </ui-menu>
+    click.delegate="onClick($event)">
+      <ui-drop view-model.ref="dropEl" if.bind="item.items">
+        <ui-menu if.bind="dropEl.isOpen" menu-items.bind="item.items" noitems-label.bind="noitemsLabel"></ui-menu>
       </ui-drop>
     </ui-menu-item>
   </template>
@@ -102,24 +116,59 @@ MenuItem = __decorate([
 let UIMenu = class UIMenu {
     constructor(element) {
         this.element = element;
+        this.noitemsLabel = "No Menu";
+        this.isLoading = false;
     }
     attached() {
-        const active = this.element.querySelector(".ui-menu__item__link[data-active='true']");
-        if (active) {
-            active.scrollIntoView({ block: "center", inline: "nearest" });
+        this.loadMenuItems();
+        UIInternal.queueTask(() => {
+            const active = this.element.querySelector(".ui-menu__item__link[data-active='true']");
+            if (active) {
+                active.scrollIntoView({ block: "center", inline: "nearest" });
+            }
+        });
+    }
+    loadMenuItems() {
+        if (isFunction(this.menuItems)) {
+            this.isLoading = true;
+            const ret = this.menuItems();
+            if (ret instanceof Promise) {
+                ret.then(items => {
+                    this.items = items;
+                    this.isLoading = false;
+                });
+            }
+            else {
+                this.items = ret;
+                this.isLoading = false;
+            }
+        }
+        else if (isArray(this.menuItems)) {
+            this.items = this.menuItems;
+        }
+        else {
+            this.items = undefined;
         }
     }
 };
 __decorate([
     bindable(),
-    __metadata("design:type", Array)
+    __metadata("design:type", Object)
 ], UIMenu.prototype, "menuItems", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", String)
+], UIMenu.prototype, "noitemsLabel", void 0);
 UIMenu = __decorate([
     customElement("ui-menu"),
     viewResources(MenuItem),
     inlineView(`<template class="ui-menu"><slot>
-  <template if.bind="menuItems">
-    <menu-item repeat.for="item of menuItems" item.bind="item"></menu-item>
+  <div if.bind="isLoading" ui-padding="xs" ui-align="center"><ui-svg-icon icon="busy" class="ui-anim--spin"></ui-svg-icon></div>
+  <template if.bind="!isLoading && items && items.length">
+    <menu-item repeat.for="item of items" item.bind="item" noitems-label.bind="noitemsLabel"></menu-item>
+  </template>
+  <template if.bind="!isLoading && items && items.length===0">
+    <div ui-padding="xs" ui-color="muted" ui-font="sm" innerhtml.bind="noitemsLabel"></div>
   </template>
 </slot></template>`),
     __metadata("design:paramtypes", [Element])
@@ -174,8 +223,8 @@ let UIMenuItem = class UIMenuItem {
     attached() {
         UIInternal.queueTask(() => {
             this.hasDrop = !!this.elDropdown;
-            this.isInMenubar = !!getParentByClass(this.element, "ui-menu__bar");
-            const isInDropdown = !!getParentByClass(this.element, "ui-drop__body");
+            this.isInMenubar = hasParent(this.element, "ui-menu__bar");
+            const isInDropdown = hasParent(this.element, "ui-drop__body");
             if (this.hasDrop) {
                 this.dropEl = getSlotViewModel(this.elDropdown);
                 if (isInDropdown || !this.isInMenubar) {
@@ -207,10 +256,8 @@ let UIMenuItem = class UIMenuItem {
     }
     fireClick($event) {
         if (!this.href) {
-            $event.stopEvent();
             if (this.hasDrop && !this.split) {
-                this.toggleDrop();
-                return false;
+                return this.toggleDrop();
             }
             return this.element.dispatchEvent(UIInternal.createEvent("click", this.id));
         }
@@ -222,6 +269,7 @@ let UIMenuItem = class UIMenuItem {
             this.dropEl.toggleDrop();
             this.element.dispatchEvent(UIInternal.createEvent(afterEvent));
         }
+        return false;
     }
 };
 __decorate([

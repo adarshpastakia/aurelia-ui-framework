@@ -1,9 +1,9 @@
-import { UITreeNode } from "../models/ui-tree-model";
+import { UITreeNode } from "../../models/ui-tree-model";
 export declare class UITreePanel {
     protected element: Element;
     value: AnyObject;
     model: AnyObject;
-    dataSource: KeyValue[];
+    options: KeyValue[];
     labelSearch: string;
     labelEmpty: string;
     labelLess: string;
@@ -15,7 +15,7 @@ export declare class UITreePanel {
     constructor(element: Element);
     select(node: UITreeNode): Promise<false | void>;
     protected bind(): void;
-    protected dataSourceChanged(): void;
+    protected optionsChanged(): void;
     protected toggleExpand(index: any): void;
     protected toggleMore(index: any): void;
     protected toggleCheck(node: any): void;

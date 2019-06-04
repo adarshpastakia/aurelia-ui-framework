@@ -27,18 +27,17 @@ export declare class UIDataModel {
     preGet(): void;
     preSave(): void;
     preDelete(): void;
-    postGet(response: any): void;
-    postSave(response: any): void;
-    postDelete(response: any): void;
+    postGet(_: AnyObject): void;
+    postSave(_: AnyObject): void;
+    postDelete(_: AnyObject): void;
+    protected propertyGetter(prop: any): () => any;
+    protected propertySetter(prop: any): (v: any) => any;
     private generateId;
-    private propertyGetter;
-    private propertySetter;
     private updateDirty;
     private callPreHook;
     private doGet;
     private doPost;
     private doPut;
     private doDelete;
-    private doUpdate;
 }
 export declare function serializable(defaultValue?: any): AnyObject;

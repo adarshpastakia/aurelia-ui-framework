@@ -107,12 +107,11 @@ var UITabPanel = (function () {
     }
     UITabPanel.prototype.activateTab = function (id) {
         return __awaiter(this, void 0, void 0, function () {
-            var tab, result;
+            var result;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        tab = this.tabs.find(function (t) { return t.id === id; });
                         result = true;
                         if (!this.composeVm.currentViewModel) return [3, 2];
                         return [4, UIInternal.invokeLifecycle(this.composeVm.currentViewModel, "canDeactivate")];

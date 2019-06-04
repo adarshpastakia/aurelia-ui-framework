@@ -13,6 +13,7 @@ export declare class UIDrop {
     private anchorEl;
     private obClick;
     private obResize;
+    private obViewportResize;
     constructor(element: Element);
     tether(anchorEl: Element): void;
     updatePosition(): void;
@@ -20,6 +21,6 @@ export declare class UIDrop {
     closeDrop(): void;
     protected disposeListeners(): void;
     protected detached(): void;
+    protected close($event: UIEvent): void;
     private canClose;
-    private close;
 }

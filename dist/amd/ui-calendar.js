@@ -49,17 +49,18 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
   })(CALENDAR_GRAIN || (CALENDAR_GRAIN = {}));
   var parseDate = function (date) {
       if (isString(date)) {
+          var dt = dateFns.startOfMinute(new Date());
           if (date.startsWith(CALENDAR_GRAIN.DAY)) {
-              return dateFns.addDays(new Date(), parseInt(date.replace(CALENDAR_GRAIN.DAY, "") || "0", 10));
+              return dateFns.addDays(dt, parseInt(date.replace(CALENDAR_GRAIN.DAY, "") || "0", 10));
           }
           else if (date.startsWith(CALENDAR_GRAIN.WEEK)) {
-              return dateFns.addWeeks(new Date(), parseInt(date.replace(CALENDAR_GRAIN.WEEK, "") || "0", 10));
+              return dateFns.addWeeks(dt, parseInt(date.replace(CALENDAR_GRAIN.WEEK, "") || "0", 10));
           }
           else if (date.startsWith(CALENDAR_GRAIN.MONTH)) {
-              return dateFns.addMonths(new Date(), parseInt(date.replace(CALENDAR_GRAIN.MONTH, "") || "0", 10));
+              return dateFns.addMonths(dt, parseInt(date.replace(CALENDAR_GRAIN.MONTH, "") || "0", 10));
           }
           else if (date.startsWith(CALENDAR_GRAIN.YEAR)) {
-              return dateFns.addYears(new Date(), parseInt(date.replace(CALENDAR_GRAIN.YEAR, "") || "0", 10));
+              return dateFns.addYears(dt, parseInt(date.replace(CALENDAR_GRAIN.YEAR, "") || "0", 10));
           }
           else {
               return dateFns.parseISO(date);
@@ -148,10 +149,10 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
   var buildHeaderConfig = function (month, view, config) {
       if (view === CALENDAR_VIEWS.DAYS) {
           return {
-              firstDisabled: isBeforeMin(month, config.minDate, -12),
-              lastDisabled: isAfterMax(month, config.maxDate, 12),
-              prevDisabled: isBeforeMin(month, config.minDate, -1),
-              nextDisabled: isAfterMax(month, config.maxDate, 1),
+              firstDisabled: isBeforeMin(month, dateFns.startOfYear(config.minDate), -12),
+              lastDisabled: isAfterMax(month, dateFns.endOfYear(config.maxDate), 12),
+              prevDisabled: isBeforeMin(month, dateFns.startOfMonth(config.minDate), -1),
+              nextDisabled: isAfterMax(month, dateFns.endOfMonth(config.maxDate), 1),
               firstTooltip: dateFns.format(dateFns.addMonths(month, -12), "MMM yyyy"),
               lastTooltip: dateFns.format(dateFns.addMonths(month, 12), "MMM yyyy"),
               prevTooltip: dateFns.format(dateFns.addMonths(month, -1), "MMM yyyy"),
@@ -160,8 +161,8 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
       }
       if (view === CALENDAR_VIEWS.MONTHS) {
           return {
-              prevDisabled: isBeforeMin(month, config.minDate, -12),
-              nextDisabled: isAfterMax(month, config.maxDate, 12),
+              prevDisabled: isBeforeMin(month, dateFns.startOfYear(config.minDate), -12),
+              nextDisabled: isAfterMax(month, dateFns.endOfYear(config.maxDate), 12),
               prevTooltip: dateFns.format(dateFns.addYears(month, -1), "yyyy"),
               nextTooltip: dateFns.format(dateFns.addYears(month, 1), "yyyy")
           };
@@ -170,8 +171,8 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           var start = dateFns.startOfDecade(month);
           var end = dateFns.endOfDecade(month);
           return {
-              prevDisabled: isBeforeMin(month, config.minDate, -120),
-              nextDisabled: isAfterMax(month, config.maxDate, 120),
+              prevDisabled: isBeforeMin(month, dateFns.startOfDecade(config.minDate), -120),
+              nextDisabled: isAfterMax(month, dateFns.endOfDecade(config.maxDate), 120),
               prevTooltip: dateFns.format(dateFns.addYears(start, -10), "yyyy") + "-" + dateFns.format(dateFns.addYears(start, -1), "yyyy"),
               nextTooltip: dateFns.format(dateFns.addYears(end, 1), "yyyy") + "-" + dateFns.format(dateFns.addYears(end, 10), "yyyy")
           };
@@ -188,6 +189,10 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
   var isDisabled = function (config, date) {
       var min = config.minDate;
       var max = config.maxDate;
+      if (config.page === CALENDAR_VIEWS.DAYS) {
+          min = dateFns.startOfDay(min);
+          max = dateFns.startOfDay(max);
+      }
       if (config.page === CALENDAR_VIEWS.MONTHS) {
           min = dateFns.startOfMonth(dateFns.startOfDay(min));
           max = dateFns.endOfMonth(dateFns.startOfDay(max));
@@ -394,7 +399,7 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
       return TimePage;
   }());
 
-  var view$4 = "<template class=\"ui-calendar\">\n  <calendar-head click.delegate=\"headerClicked($event)\" config.bind=\"headerOptions\" show-first-last.bind=\"currentPage === VIEWS.DAYS\">${title}\n  </calendar-head>\n  <days-page if.bind=\"currentPage === VIEWS.DAYS\" month.bind=\"month\" config.to-view=\"config\" click.delegate=\"selectDate($event)\"></days-page>\n  <months-page if.bind=\"currentPage === VIEWS.MONTHS\" month.bind=\"month\" config.to-view=\"config\" click.delegate=\"selectMonth($event)\"></months-page>\n  <years-page if.bind=\"currentPage === VIEWS.YEARS\" month.bind=\"month\" config.to-view=\"config\" click.delegate=\"selectMonth($event)\"></years-page>\n  <time-page time.bind=\"time\" change.trigger=\"timeChanged($event.detail)\"></time-page>\n  <div class=\"ui-calendar__footer\">\n    <div class=\"ui-calendar__tags\">\n      <a class=\"ui-calendar__tag\" repeat.for=\"preset of datePresets\" data-active.bind=\"preset.preset == date\" click.trigger=\"selectPreset(preset.preset)\">${preset.label}</a>\n    </div>\n    <a if.bind=\"selecting || currentPage !== VIEWS.DAYS\" class=\"ui-calendar__tag cancel\" click.trigger=\"cancelSelection()\">Cancel</a>\n  </div>\n</template>\n";
+  var view$4 = "<template class=\"ui-calendar\">\n  <calendar-head click.delegate=\"headerClicked($event)\" config.bind=\"headerOptions\" show-first-last.bind=\"currentPage === VIEWS.DAYS\">${title}\n  </calendar-head>\n  <days-page if.bind=\"currentPage === VIEWS.DAYS\" month.bind=\"month\" config.to-view=\"config\" click.delegate=\"selectDate($event)\"></days-page>\n  <months-page if.bind=\"currentPage === VIEWS.MONTHS\" month.bind=\"month\" config.to-view=\"config\" click.delegate=\"selectMonth($event)\"></months-page>\n  <years-page if.bind=\"currentPage === VIEWS.YEARS\" month.bind=\"month\" config.to-view=\"config\" click.delegate=\"selectMonth($event)\"></years-page>\n  <time-page time.bind=\"time\" change.trigger=\"timeChanged($event.detail)\"></time-page>\n  <div class=\"ui-calendar__footer\">\n    <div class=\"ui-calendar__tags\">\n      <a class=\"ui-calendar__tag\" repeat.for=\"preset of datePresets\" data-active.bind=\"preset.preset === date\" click.trigger=\"selectPreset(preset.preset)\">${preset.label}</a>\n    </div>\n    <a if.bind=\"selecting || currentPage !== VIEWS.DAYS\" class=\"ui-calendar__tag cancel\" click.trigger=\"cancelSelection()\">Cancel</a>\n  </div>\n</template>\n";
 
   var view$5 = "<template data-page=\"years\" class=\"ui-calendar__page\">\n  <template if.bind=\"isAttached\">\n    <div class=\"ui-calendar__page__row\">\n      <a repeat.for=\"d of 12\" with.bind=\"getYear(d, month, config)\" data-date.bind=\"date\" class=\"ui-calendar__page__cell year ${classes}\">${label}\n      </a>\n    </div>\n  </template>\n</template>\n";
 
@@ -522,7 +527,7 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           }
       };
       UIDatePicker.prototype.timeChanged = function (newTime) {
-          this.updateDate(this.date ? dateFns.parseISO(this.date) : new Date(), newTime);
+          this.updateDate(this.date ? parseDate(this.date) : new Date(), newTime);
       };
       UIDatePicker.prototype.selectMonth = function ($event) {
           var target = $event.target;
@@ -595,7 +600,7 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
       return UIDatePicker;
   }());
 
-  var view$6 = "<template class=\"ui-calendar\">\n  <div class=\"ui-calendar__range\">\n    <div>\n      <calendar-head click.delegate=\"startHeaderClicked($event)\" config.bind=\"startHeaderOptions\" show-first-last.bind=\"startPage === VIEWS.DAYS\">${startTitle}\n      </calendar-head>\n      <days-page if.bind=\"startPage === VIEWS.DAYS\" month.bind=\"startMonth\" config.to-view=\"config\" mouseover.delegate=\"hilightDate($event)\" click.delegate=\"selectDate($event)\"></days-page>\n      <months-page if.bind=\"startPage === VIEWS.MONTHS\" month.bind=\"startMonth\" config.to-view=\"config\" click.delegate=\"selectStartMonth($event)\"></months-page>\n      <years-page if.bind=\"startPage === VIEWS.YEARS\" month.bind=\"startMonth\" config.to-view=\"config\" click.delegate=\"selectStartMonth($event)\"></years-page>\n    </div>\n    <ui-divider></ui-divider>\n    <div>\n      <calendar-head click.delegate=\"endHeaderClicked($event)\" config.bind=\"endHeaderOptions\" show-first-last.bind=\"endPage === VIEWS.DAYS\">${endTitle}\n      </calendar-head>\n      <days-page if.bind=\"endPage === VIEWS.DAYS\" month.bind=\"endMonth\" config.to-view=\"config\" mouseover.delegate=\"hilightDate($event)\" click.delegate=\"selectDate($event)\"></days-page>\n      <months-page if.bind=\"endPage === VIEWS.MONTHS\" month.bind=\"endMonth\" config.to-view=\"config\" click.delegate=\"selectEndMonth($event)\"></months-page>\n      <years-page if.bind=\"endPage === VIEWS.YEARS\" month.bind=\"endMonth\" config.to-view=\"config\" click.delegate=\"selectEndMonth($event)\"></years-page>\n    </div>\n  </div>\n  <div class=\"ui-calendar__footer\">\n    <div class=\"ui-calendar__tags\">\n      <a class=\"ui-calendar__tag\" repeat.for=\"preset of datePresets\" data-active.bind=\"preset.preset == date\" click.trigger=\"selectPreset(preset.preset)\">${preset.label}</a>\n    </div>\n    <a if.bind=\"selecting || startPage !== VIEWS.DAYS || endPage !== VIEWS.DAYS\" class=\"ui-calendar__tag cancel\" click.trigger=\"cancelSelection()\">Cancel</a>\n  </div>\n</template>\n";
+  var view$6 = "<template class=\"ui-calendar\">\n  <div class=\"ui-calendar__range\">\n    <div>\n      <calendar-head click.delegate=\"startHeaderClicked($event)\" config.bind=\"startHeaderOptions\" show-first-last.bind=\"startPage === VIEWS.DAYS\">${startTitle}\n      </calendar-head>\n      <days-page if.bind=\"startPage === VIEWS.DAYS\" month.bind=\"startMonth\" config.to-view=\"config\" mouseover.delegate=\"hilightDate($event)\" click.delegate=\"selectDate($event)\"></days-page>\n      <months-page if.bind=\"startPage === VIEWS.MONTHS\" month.bind=\"startMonth\" config.to-view=\"config\" click.delegate=\"selectStartMonth($event)\"></months-page>\n      <years-page if.bind=\"startPage === VIEWS.YEARS\" month.bind=\"startMonth\" config.to-view=\"config\" click.delegate=\"selectStartMonth($event)\"></years-page>\n    </div>\n    <ui-divider></ui-divider>\n    <div>\n      <calendar-head click.delegate=\"endHeaderClicked($event)\" config.bind=\"endHeaderOptions\" show-first-last.bind=\"endPage === VIEWS.DAYS\">${endTitle}\n      </calendar-head>\n      <days-page if.bind=\"endPage === VIEWS.DAYS\" month.bind=\"endMonth\" config.to-view=\"config\" mouseover.delegate=\"hilightDate($event)\" click.delegate=\"selectDate($event)\"></days-page>\n      <months-page if.bind=\"endPage === VIEWS.MONTHS\" month.bind=\"endMonth\" config.to-view=\"config\" click.delegate=\"selectEndMonth($event)\"></months-page>\n      <years-page if.bind=\"endPage === VIEWS.YEARS\" month.bind=\"endMonth\" config.to-view=\"config\" click.delegate=\"selectEndMonth($event)\"></years-page>\n    </div>\n  </div>\n  <div class=\"ui-calendar__footer\">\n    <div class=\"ui-calendar__tags\">\n      <a class=\"ui-calendar__tag\" repeat.for=\"preset of datePresets\" data-active.bind=\"preset.preset === date\" click.trigger=\"selectPreset(preset.preset)\">${preset.label}</a>\n    </div>\n    <a if.bind=\"selecting || startPage !== VIEWS.DAYS || endPage !== VIEWS.DAYS\" class=\"ui-calendar__tag cancel\" click.trigger=\"cancelSelection()\">Cancel</a>\n  </div>\n</template>\n";
 
   var UIRangePicker = (function () {
       function UIRangePicker() {

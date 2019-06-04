@@ -337,7 +337,7 @@ let UITooltip = class UITooltip {
         this.element = element;
         this.value = "";
         this.theme = "";
-        this.position = "";
+        this.position = "bottom";
         this.id = `tooltip-${seed++}`;
         this.showFn = () => this.show();
         this.hideFn = () => this.hide();
@@ -374,7 +374,24 @@ let UITooltip = class UITooltip {
         TooltipEl.className = `ui-tooltip ui-theme--${this.theme}`;
         TooltipEl.innerHTML = this.value;
         TooltipEl.dataset.id = this.id;
-        TooltipEl.tether.updatePosition(this.parentEl);
+        TooltipEl.dataset.pos = this.position;
+        let anchorPosition = "tc";
+        let position = "bc";
+        switch (this.position) {
+            case "right":
+                anchorPosition = "cr";
+                position = "cl";
+                break;
+            case "left":
+                anchorPosition = "cl";
+                position = "cr";
+                break;
+            case "bottom":
+                anchorPosition = "bc";
+                position = "tc";
+                break;
+        }
+        TooltipEl.tether.updatePosition(this.parentEl, { position, anchorPosition });
         this.timer = setTimeout(() => (TooltipEl.dataset.open = "true"), 500);
     }
     hide() {
@@ -397,7 +414,7 @@ __decorate([
 ], UITooltip.prototype, "theme", void 0);
 __decorate([
     bindable(),
-    __metadata("design:type", Object)
+    __metadata("design:type", String)
 ], UITooltip.prototype, "position", void 0);
 UITooltip = __decorate([
     autoinject(),

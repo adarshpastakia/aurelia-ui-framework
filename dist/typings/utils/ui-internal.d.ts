@@ -12,5 +12,5 @@ export declare namespace UIInternal {
     function createEvent<T = {}>(name: string, data?: T): CustomEvent;
     function fireCallbackEvent(vm: AnyObject, event: string, data?: AnyObject): Promise<boolean>;
     function invokeLifecycle(instance: any, name: any, model?: any): Promise<AnyObject>;
-    function compileTemplate(tpl: string, viewModel?: AnyObject): View;
+    function compileTemplate(tpl: string, viewModel?: AnyObject, bindingContext?: {}): View;
 }

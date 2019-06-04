@@ -103,7 +103,6 @@ let UITabPanel = class UITabPanel {
     }
     activateTab(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const tab = this.tabs.find(t => t.id === id);
             let result = true;
             if (this.composeVm.currentViewModel) {
                 result = yield UIInternal.invokeLifecycle(this.composeVm.currentViewModel, "canDeactivate");

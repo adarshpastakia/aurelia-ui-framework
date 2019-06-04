@@ -3,8 +3,8 @@ export declare namespace UIFormat {
     function date(dt: AnyObject, ft?: string): string;
     function time(dt: AnyObject, ft?: string): string;
     function datetime(dt: AnyObject, ft?: string): string;
-    function dateToISO(dt: any): string;
     function utcDate(dt: any): string;
+    function dateToISO(dt: any): string;
     function age(dt: AnyObject): string;
     function fromNow(dt: AnyObject): string;
     function number(nm: AnyObject, fm?: string): string;

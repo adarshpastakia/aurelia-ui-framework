@@ -78,10 +78,16 @@ let OrderByValueConverter = class OrderByValueConverter {
         if (isEmpty(array)) {
             return [];
         }
-        if (array instanceof Map) {
-            return new Map([...array].sort((a, b) => (a[property] > b[property] ? 1 : -1)));
+        let up = 1;
+        let down = -1;
+        if (!isAscending) {
+            up = -1;
+            down = 1;
         }
-        return [...array].sort((a, b) => (a[property] > b[property] ? 1 : -1));
+        if (array instanceof Map) {
+            return new Map([...array].sort((a, b) => (a[0] > b[0] ? up : down)));
+        }
+        return [...array].sort((a, b) => (a[property] > b[property] ? up : down));
     }
 };
 OrderByValueConverter = __decorate([
@@ -93,9 +99,9 @@ let SortValueConverter = class SortValueConverter {
             return [];
         }
         if (array instanceof Map) {
-            return new Map([...array].sortBy("0", !!property));
+            return new Map([...array].sortBy("0", isAscending));
         }
-        return [...array].sortBy(property, isAscending && !!property !== false);
+        return [...array].sortBy(property, isAscending);
     }
 };
 SortValueConverter = __decorate([

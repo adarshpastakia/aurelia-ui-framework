@@ -141,7 +141,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', 
           return ListContainer;
       }());
 
-      var view$2 = "<template>\n  <div class=\"ui-input__tags\" click.trigger=\"inputEl.focus()\">\n    <template if.bind=\"multiple\">\n      <div class=\"ui-tag\" repeat.for=\"m of model\">\n        <span with.bind=\"{m}\" show.one-time=\"buildOption(m, __el, true) & debounce\" ref=\"__el\"></span>\n        <span class=\"ui-tag__close\" click.trigger=\"removeOption(m)\">&#x00D7;</span>\n      </div>\n    </template>\n    <input ref=\"$parent.inputEl\" role=\"combo\" size=\"1\" placeholder.bind=\"placeholder\" disabled.bind=\"disabled || isDisabled || isPlain\" readonly.bind=\"readonly\" value.two-way=\"inputValue\" input.trigger=\"filterOptions() & debounce\" keydown.trigger=\"checkKeyEvent($event)\" change.trigger=\"false\" focus.trigger=\"toggleDrop(true)\" blur.trigger=\"[canToggleDrop($event), resetQuery(true)] & debounce\">\n  </div>\n</template>\n";
+      var view$2 = "<template>\n  <div class=\"ui-input__tags\" click.trigger=\"inputEl.focus()\">\n    <template if.bind=\"multiple\">\n      <div class=\"ui-tag\" repeat.for=\"m of model\">\n        <span with.bind=\"{m}\" show.one-time=\"buildOption(m, __el, true) & debounce\" ref=\"__el\"></span>\n        <span class=\"ui-tag__close\" click.trigger=\"removeOption(m)\">&#x00D7;</span>\n      </div>\n    </template>\n    <!--suppress HtmlFormInputWithoutLabel -->\n    <input ref=\"$parent.inputEl\" role=\"combo\" size=\"1\" placeholder.bind=\"placeholder\" disabled.bind=\"disabled || isDisabled || isPlain\" readonly.bind=\"readonly\" value.two-way=\"inputValue\" input.trigger=\"filterOptions() & debounce\" keydown.trigger=\"checkKeyEvent($event)\" change.trigger=\"false\" focus.trigger=\"toggleDrop(true)\" blur.trigger=\"[canToggleDrop($event), resetQuery(true)] & debounce\">\n  </div>\n</template>\n";
 
       var ListInput = (function () {
           function ListInput() {
@@ -339,67 +339,6 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', 
                   this.loadOptions();
               }
           };
-          ListMaker.prototype.fetchOptions = function (query) {
-              return __awaiter(this, void 0, void 0, function () {
-                  var result;
-                  return __generator(this, function (_a) {
-                      switch (_a.label) {
-                          case 0:
-                              this.showLoading();
-                              return [4, this.query({ query: query })];
-                          case 1:
-                              result = _a.sent();
-                              if (!this.options) {
-                                  this.options = result;
-                              }
-                              this.buildOptions(result || []);
-                              return [2];
-                      }
-                  });
-              });
-          };
-          ListMaker.prototype.showLoading = function () {
-              var _this = this;
-              this.isLoaded = false;
-              this.isLoading = true;
-              this.innerOptions = [];
-              if (this.dropEl) {
-                  UIInternal.queueMicroTask(function () { return _this.dropEl.updatePosition(); });
-              }
-          };
-          ListMaker.prototype.buildOptions = function (options, silent) {
-              var _this = this;
-              if (silent === void 0) { silent = false; }
-              if (!silent) {
-                  this.showLoading();
-              }
-              var optionsClone = options.map(function (o) { return (isString(o) ? "" + o : __assign({}, o)); });
-              UIInternal.queueTask(function () {
-                  _this.isLoading = false;
-                  if (_this.groupProperty) {
-                      var groups = optionsClone
-                          .sortBy([_this.groupProperty, _this.labelProperty])
-                          .groupBy(_this.groupProperty);
-                      groups.forEach(function (items, label) {
-                          var _a;
-                          return (_a = _this.innerOptions).push.apply(_a, __spread([{ __type: "group", label: label }], items));
-                      });
-                  }
-                  else {
-                      _this.innerOptions = optionsClone.sortBy(_this.labelProperty);
-                  }
-                  _this.isLoaded = true;
-                  UIInternal.queueTask(function () {
-                      var selected = _this.listContainer.querySelector(".ui-list__item--selected");
-                      if (selected) {
-                          selected.scrollIntoView({ block: "nearest" });
-                      }
-                  });
-                  if (_this.dropEl) {
-                      UIInternal.queueTask(function () { return _this.dropEl.updatePosition(); });
-                  }
-              });
-          };
           ListMaker.prototype.listClass = function (option, index) {
               var _this = this;
               var classes = ["ui-list__item"];
@@ -434,24 +373,6 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', 
                   classes.push("ui-list__item--hilight");
               }
               return classes.join(" ");
-          };
-          ListMaker.prototype.markOption = function (option) {
-              var lbl = option[this.labelProperty] || "" + option;
-              if (isEmpty(this.inputValue)) {
-                  return lbl;
-              }
-              var rx = new RegExp(this.inputValue, "i");
-              var asc = lbl.toString().ascii();
-              if (rx.test(asc)) {
-                  var start = asc.search(rx);
-                  lbl =
-                      lbl.substr(0, start) +
-                          "<u>" +
-                          lbl.substr(start, this.inputValue.length) +
-                          "</u>" +
-                          lbl.substr(start + this.inputValue.length);
-              }
-              return lbl;
           };
           ListMaker.prototype.buildOption = function (option, el, unmark) {
               if (unmark === void 0) { unmark = false; }
@@ -534,6 +455,85 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', 
                   this.fireEnter($event);
               }
               return true;
+          };
+          ListMaker.prototype.fetchOptions = function (query) {
+              return __awaiter(this, void 0, void 0, function () {
+                  var result;
+                  return __generator(this, function (_a) {
+                      switch (_a.label) {
+                          case 0:
+                              this.showLoading();
+                              return [4, this.query({ query: query })];
+                          case 1:
+                              result = _a.sent();
+                              if (!this.options) {
+                                  this.options = result;
+                              }
+                              this.buildOptions(result || []);
+                              return [2];
+                      }
+                  });
+              });
+          };
+          ListMaker.prototype.showLoading = function () {
+              var _this = this;
+              this.isLoaded = false;
+              this.isLoading = true;
+              this.innerOptions = [];
+              if (this.dropEl) {
+                  UIInternal.queueMicroTask(function () { return _this.dropEl.updatePosition(); });
+              }
+          };
+          ListMaker.prototype.buildOptions = function (options, silent) {
+              var _this = this;
+              if (silent === void 0) { silent = false; }
+              if (!silent) {
+                  this.showLoading();
+              }
+              var optionsClone = options.map(function (o) { return (isString(o) ? "" + o : __assign({}, o)); });
+              UIInternal.queueTask(function () {
+                  _this.isLoading = false;
+                  if (_this.groupProperty) {
+                      var groups = optionsClone
+                          .sortBy([_this.groupProperty, _this.labelProperty])
+                          .groupBy(_this.groupProperty);
+                      groups.forEach(function (items, label) {
+                          var _a;
+                          return (_a = _this.innerOptions).push.apply(_a, __spread([{ __type: "group", label: label }], items));
+                      });
+                  }
+                  else {
+                      _this.innerOptions = optionsClone.sortBy(_this.labelProperty);
+                  }
+                  _this.isLoaded = true;
+                  UIInternal.queueTask(function () {
+                      var selected = _this.listContainer.querySelector(".ui-list__item--selected");
+                      if (selected) {
+                          selected.scrollIntoView({ block: "nearest" });
+                      }
+                  });
+                  if (_this.dropEl) {
+                      UIInternal.queueTask(function () { return _this.dropEl.updatePosition(); });
+                  }
+              });
+          };
+          ListMaker.prototype.markOption = function (option) {
+              var lbl = option[this.labelProperty] || "" + option;
+              if (isEmpty(this.inputValue)) {
+                  return lbl;
+              }
+              var rx = new RegExp(this.inputValue, "i");
+              var asc = lbl.toString().ascii();
+              if (rx.test(asc)) {
+                  var start = asc.search(rx);
+                  lbl =
+                      lbl.substr(0, start) +
+                          "<u>" +
+                          lbl.substr(start, this.inputValue.length) +
+                          "</u>" +
+                          lbl.substr(start + this.inputValue.length);
+              }
+              return lbl;
           };
           return ListMaker;
       }(BaseInput));
