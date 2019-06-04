@@ -4,15 +4,8 @@
  * @copyright : 2019
  * @license   : MIT
  */
-import {
-  bindable,
-  computedFrom,
-  customElement,
-  noView,
-  processContent,
-  View
-} from "aurelia-framework";
-import { UIFormat } from "aurelia-ui-framework";
+import { bindable, computedFrom, customElement, noView, processContent, View } from "aurelia-framework";
+import { UIFormat } from "../../utils/ui-format";
 import { UIInternal } from "../../utils/ui-internal";
 
 interface ICallbackModel {
