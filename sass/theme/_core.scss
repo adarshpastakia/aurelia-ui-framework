@@ -116,10 +116,12 @@ hr {
   }
 
   &-shadow,
+  &-icon--round,
   &-shadow--0 {
     box-shadow: $shadow-level0;
   }
 
+  &-paper,
   &-shadow--1 {
     box-shadow: $shadow-level1;
   }
