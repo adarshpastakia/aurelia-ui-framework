@@ -13,6 +13,10 @@
   position: relative;
   user-select: text;
 
+  & + .x-code-block {
+    margin-top: 0.5em;
+  }
+
   pre {
     margin: 0;
     max-height: 32rem;
@@ -30,6 +34,7 @@
   .token.deleted {
     color: #2b95d6;
   }
+
   .token.selector,
   .token.attr-name,
   .token.char,
@@ -38,6 +43,7 @@
   .token.inserted {
     color: #f5498b;
   }
+
   .token.atrule,
   .token.attr-value,
   .token.string,
@@ -45,10 +51,12 @@
   .token.class-name {
     color: #00b3a4;
   }
+
   .token.keyword,
   .token.class-name {
     color: #106ba3;
   }
+
   .token.operator,
   .token.entity,
   .token.url,
@@ -56,9 +64,11 @@
     background: none;
     color: #c99765;
   }
+
   .token.punctuation {
     color: #5c7080;
   }
+
   .token.comment,
   .token.prolog,
   .token.doctype,
@@ -94,14 +104,17 @@
     background-color: #2d3538;
     content: "Shell";
   }
+
   &.ts::after {
     background-color: #294e80;
     content: "Typescript";
   }
+
   &.html::after {
     background-color: #d55736;
     content: "HTML";
   }
+
   &.scss::after {
     background-color: #cc6699;
     content: "SCSS";
@@ -110,6 +123,7 @@
 
 .x-code-table {
   @extend .ui-table;
+
   caption {
     white-space: nowrap;
   }
