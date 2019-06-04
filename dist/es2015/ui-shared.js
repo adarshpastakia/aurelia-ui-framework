@@ -4,6 +4,7 @@ import 'aurelia-event-aggregator';
 import { a as UIInternal } from './chunk2.js';
 import { a as __decorate, b as __metadata } from './chunk3.js';
 import 'aurelia-logging';
+import ResizeObserver from 'resize-observer-polyfill';
 import { a as UITether } from './chunk5.js';
 
 let UIDivider = class UIDivider {
@@ -59,7 +60,11 @@ let UIDrop = class UIDrop {
         this.isOpen = open === undefined ? !this.isOpen : open;
         if (this.isOpen) {
             this.obClick = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_CLICK, t => this.canClose(t));
-            this.obResize = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_RESIZE, t => this.updatePosition());
+            this.obViewportResize = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_RESIZE, () => this.updatePosition());
+            this.obResize = new ResizeObserver(() => this.updatePosition());
+            this.obResize.observe(this.vmElement);
+            this.obResize.observe(this.anchorEl);
+            this.element.dispatchEvent(UIInternal.createEvent("open"));
             UIInternal.queueMicroTask(() => {
                 this.tetherObj.updatePosition();
                 this.vmElement.dataset.show = "true";
@@ -78,7 +83,10 @@ let UIDrop = class UIDrop {
             this.obClick.dispose();
         }
         if (this.obResize) {
-            this.obResize.dispose();
+            this.obResize.disconnect();
+        }
+        if (this.obViewportResize) {
+            this.obViewportResize.dispose();
         }
     }
     detached() {
@@ -87,14 +95,13 @@ let UIDrop = class UIDrop {
             this.tetherObj.dispose();
         }
     }
-    canClose(t) {
-        if (!hasParent(t, this.vmElement) && !hasParent(t, this.anchorEl)) {
+    close($event) {
+        if (this.closeOnClick) {
             this.closeDrop();
         }
     }
-    close($event) {
-        $event.stopEvent();
-        if (this.closeOnClick) {
+    canClose(t) {
+        if (!hasParent(t, this.vmElement) && !hasParent(t, this.anchorEl)) {
             this.closeDrop();
         }
     }
@@ -106,8 +113,8 @@ __decorate([
 UIDrop = __decorate([
     containerless(),
     customElement("ui-drop"),
-    inlineView(`<template><div slot="ui-drop" class="ui-drop" mouseup.delegate="closeDrop()" data-open.bind="isOpen">
-  <div ref="vmElement" class="ui-drop__body \${class}" mouseup.delegate="close($event)"><slot></slot></div>
+    inlineView(`<template><div slot="ui-drop" class="ui-drop" click.delegate="closeDrop()" data-open.bind="isOpen">
+  <div ref="vmElement" class="ui-drop__body \${class}" click.delegate="close($event)"><slot></slot></div>
   </div></template>`),
     __metadata("design:paramtypes", [Element])
 ], UIDrop);

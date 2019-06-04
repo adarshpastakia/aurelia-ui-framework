@@ -1,5 +1,33 @@
 define(['exports', './chunk', 'aurelia-framework'], function (exports, __chunk_1, aureliaFramework) { 'use strict';
 
+  var UIAvatar = (function () {
+      function UIAvatar(element) {
+          this.element = element;
+          this.icon = "";
+          this.size = "nm";
+          if (element.hasAttribute("round")) {
+              element.classList.add("ui-avatar--round");
+          }
+          if (element.hasAttribute("flip-on-rtl")) {
+              element.classList.add("flip-on-rtl");
+          }
+      }
+      __chunk_1.__decorate([
+          aureliaFramework.bindable(),
+          __chunk_1.__metadata("design:type", String)
+      ], UIAvatar.prototype, "icon", void 0);
+      __chunk_1.__decorate([
+          aureliaFramework.bindable(),
+          __chunk_1.__metadata("design:type", String)
+      ], UIAvatar.prototype, "size", void 0);
+      UIAvatar = __chunk_1.__decorate([
+          aureliaFramework.customElement("ui-avatar"),
+          aureliaFramework.inlineView("<template class=\"ui-avatar\"><slot><ui-icon ui-font.bind=\"size\" icon.bind=\"icon\"></ui-icon></slot></template>"),
+          __chunk_1.__metadata("design:paramtypes", [Element])
+      ], UIAvatar);
+      return UIAvatar;
+  }());
+
   var UIFlag = (function () {
       function UIFlag(element) {
           this.element = element;
@@ -161,12 +189,12 @@ define(['exports', './chunk', 'aurelia-framework'], function (exports, __chunk_1
       UISvgIcon = __chunk_1.__decorate([
           aureliaFramework.containerless(),
           aureliaFramework.customElement("ui-svg-icon"),
-          aureliaFramework.inlineView("<template><svg ref=\"vmElement\" slot=\"svg-icon\" class=\"ui-icon ui-svg-icon ${class}\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\" width=\"24\" height=\"24\" viewBox=\"${viewBox}\"><path d.bind=\"iconPath\" /></svg></template>")
+          aureliaFramework.inlineView("<template><svg ref=\"vmElement\" slot=\"svg-icon\" class=\"ui-icon ui-svg-icon ${class}\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\"24\" height=\"24\" viewBox=\"${viewBox}\"><path d.bind=\"iconPath\"></path></svg></template>")
       ], UISvgIcon);
       return UISvgIcon;
   }());
 
-  var Icons$1 = [UIIcon, UIFlag, UISvgIcon];
+  var Icons$1 = [UIIcon, UIFlag, UISvgIcon, UIAvatar];
 
   exports.Icons = Icons$1;
 

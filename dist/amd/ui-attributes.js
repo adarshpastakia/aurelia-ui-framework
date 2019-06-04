@@ -393,7 +393,7 @@ define(['exports', './chunk', 'aurelia-framework', './chunk2', 'aurelia-event-ag
           this.element = element;
           this.value = "";
           this.theme = "";
-          this.position = "";
+          this.position = "bottom";
           this.id = "tooltip-" + seed++;
           this.showFn = function () { return _this.show(); };
           this.hideFn = function () { return _this.hide(); };
@@ -430,7 +430,24 @@ define(['exports', './chunk', 'aurelia-framework', './chunk2', 'aurelia-event-ag
           TooltipEl.className = "ui-tooltip ui-theme--" + this.theme;
           TooltipEl.innerHTML = this.value;
           TooltipEl.dataset.id = this.id;
-          TooltipEl.tether.updatePosition(this.parentEl);
+          TooltipEl.dataset.pos = this.position;
+          var anchorPosition = "tc";
+          var position = "bc";
+          switch (this.position) {
+              case "right":
+                  anchorPosition = "cr";
+                  position = "cl";
+                  break;
+              case "left":
+                  anchorPosition = "cl";
+                  position = "cr";
+                  break;
+              case "bottom":
+                  anchorPosition = "bc";
+                  position = "tc";
+                  break;
+          }
+          TooltipEl.tether.updatePosition(this.parentEl, { position: position, anchorPosition: anchorPosition });
           this.timer = setTimeout(function () { return (TooltipEl.dataset.open = "true"); }, 500);
       };
       UITooltip.prototype.hide = function () {
@@ -452,7 +469,7 @@ define(['exports', './chunk', 'aurelia-framework', './chunk2', 'aurelia-event-ag
       ], UITooltip.prototype, "theme", void 0);
       __chunk_1.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Object)
+          __chunk_1.__metadata("design:type", String)
       ], UITooltip.prototype, "position", void 0);
       UITooltip = __chunk_1.__decorate([
           aureliaFramework.autoinject(),

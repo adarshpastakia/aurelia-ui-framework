@@ -40,11 +40,11 @@ export declare class ListMaker extends BaseInput {
     protected removeOption(model: any): void;
     protected resetQuery(clearFilter?: boolean): void;
     protected clear(): void;
+    protected listClass(option: any, index: any): string;
+    protected buildOption(option: AnyObject, el: Element, unmark?: boolean): boolean;
+    protected checkKeyEvent($event: KeyboardEvent): boolean;
     private fetchOptions;
     private showLoading;
     private buildOptions;
-    private listClass;
     private markOption;
-    private buildOption;
-    private checkKeyEvent;
 }

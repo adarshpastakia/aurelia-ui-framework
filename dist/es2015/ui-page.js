@@ -6,7 +6,7 @@ import ResizeObserver from 'resize-observer-polyfill';
 
 let UIContent = class UIContent {
     constructor(element) {
-        this.obResize = new ResizeObserver(() => element.dispatchEvent(UIInternal.createEvent("resize")));
+        this.obResize = new ResizeObserver(() => element.dispatchEvent(UIInternal.createEvent("resize", element.getBoundingClientRect())));
         this.obResize.observe(element);
     }
     detached() {

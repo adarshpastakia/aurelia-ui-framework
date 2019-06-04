@@ -2,7 +2,7 @@ export declare class UITooltip {
     protected element: Element;
     value: string;
     theme: string;
-    position: string;
+    position: "left" | "right" | "top" | "bottom";
     private id;
     private timer;
     private parentEl;

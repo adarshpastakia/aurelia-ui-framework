@@ -8,5 +8,5 @@ export declare class UIRadio {
     protected isDisabled: boolean;
     constructor(element: Element);
     disable(b: boolean): void;
-    private checkChanged;
+    protected checkChanged($event: TextEvent): void;
 }

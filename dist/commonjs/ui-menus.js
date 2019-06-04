@@ -45,7 +45,7 @@ var UIBreadcrumbs = (function () {
     };
     __chunk_1.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", Object)
+        __chunk_1.__metadata("design:type", Array)
     ], UIBreadcrumbs.prototype, "items", void 0);
     UIBreadcrumbs = __chunk_1.__decorate([
         aureliaFramework.customElement("ui-breadcrumbs"),
@@ -57,15 +57,29 @@ var UIBreadcrumbs = (function () {
 
 var MenuItem = (function () {
     function MenuItem() {
+        this.noitemsLabel = "No Menu";
     }
+    MenuItem.prototype.onClick = function ($event) {
+        if (this.item.items) {
+            $event.stopPropagation();
+        }
+        if (this.item.handler) {
+            this.item.handler();
+        }
+        return true;
+    };
     __chunk_1.__decorate([
         aureliaFramework.bindable(),
         __chunk_1.__metadata("design:type", Object)
     ], MenuItem.prototype, "item", void 0);
+    __chunk_1.__decorate([
+        aureliaFramework.bindable(),
+        __chunk_1.__metadata("design:type", String)
+    ], MenuItem.prototype, "noitemsLabel", void 0);
     MenuItem = __chunk_1.__decorate([
         aureliaFramework.containerless(),
         aureliaFramework.customElement("menu-item"),
-        aureliaFramework.inlineView("<template>\n  <template if.bind=\"item.group\">\n    <ui-menu-group label.bind=\"item.group\">\n      <menu-item repeat.for=\"groupItem of item.items\" item.bind=\"groupItem\"></menu-item>\n    </ui-menu-group>\n  </template>\n  <template if.bind=\"item.label\">\n    <ui-menu-item label.bind=\"item.label\" href.bind=\"item.href\"\n    icon.bind=\"item.icon\" icon-color.bind=\"item.iconColor\" ui-badge=\"value.bind:item.badge; theme.bind:item.badgeTheme;\"\n    disabled.bind=\"typeof item.disabled === 'function' ? item.disabled() : item.disabled\"\n    active.bind=\"typeof item.active === 'function' ? item.active() : item.active\"\n    hide.bind=\"typeof item.hidden === 'function' ? item.hidden() : item.hidden\"\n    click.trigger=\"item.handler && item.handler()\">\n      <ui-drop if.bind=\"item.items\">\n        <ui-menu>\n          <menu-item repeat.for=\"innerItem of item.items\" item.bind=\"innerItem\"></menu-item>\n        </ui-menu>\n      </ui-drop>\n    </ui-menu-item>\n  </template>\n  <template if.bind=\"item === '-'\">\n    <ui-divider></ui-divider>\n  </template>\n</template>")
+        aureliaFramework.inlineView("<template>\n  <template if.bind=\"item.group\">\n    <ui-menu-group label.bind=\"item.group\">\n      <menu-item repeat.for=\"groupItem of item.items\" item.bind=\"groupItem\"></menu-item>\n    </ui-menu-group>\n  </template>\n  <template if.bind=\"item.label\">\n    <ui-menu-item label.bind=\"item.label\" href.bind=\"item.href\"\n    icon.bind=\"item.icon\" icon-color.bind=\"item.iconColor\" ui-badge=\"value.bind:item.badge; theme.bind:item.badgeTheme;\"\n    disabled.bind=\"typeof item.disabled === 'function' ? item.disabled() : item.disabled\"\n    active.bind=\"typeof item.active === 'function' ? item.active() : item.active\"\n    hide.bind=\"typeof item.hidden === 'function' ? item.hidden() : item.hidden\"\n    click.delegate=\"onClick($event)\">\n      <ui-drop view-model.ref=\"dropEl\" if.bind=\"item.items\">\n        <ui-menu if.bind=\"dropEl.isOpen\" menu-items.bind=\"item.items\" noitems-label.bind=\"noitemsLabel\"></ui-menu>\n      </ui-drop>\n    </ui-menu-item>\n  </template>\n  <template if.bind=\"item === '-'\">\n    <ui-divider></ui-divider>\n  </template>\n</template>")
     ], MenuItem);
     return MenuItem;
 }());
@@ -73,21 +87,54 @@ var MenuItem = (function () {
 var UIMenu = (function () {
     function UIMenu(element) {
         this.element = element;
+        this.noitemsLabel = "No Menu";
+        this.isLoading = false;
     }
     UIMenu.prototype.attached = function () {
-        var active = this.element.querySelector(".ui-menu__item__link[data-active='true']");
-        if (active) {
-            active.scrollIntoView({ block: "center", inline: "nearest" });
+        var _this = this;
+        this.loadMenuItems();
+        __chunk_3.UIInternal.queueTask(function () {
+            var active = _this.element.querySelector(".ui-menu__item__link[data-active='true']");
+            if (active) {
+                active.scrollIntoView({ block: "center", inline: "nearest" });
+            }
+        });
+    };
+    UIMenu.prototype.loadMenuItems = function () {
+        var _this = this;
+        if (isFunction(this.menuItems)) {
+            this.isLoading = true;
+            var ret = this.menuItems();
+            if (ret instanceof Promise) {
+                ret.then(function (items) {
+                    _this.items = items;
+                    _this.isLoading = false;
+                });
+            }
+            else {
+                this.items = ret;
+                this.isLoading = false;
+            }
+        }
+        else if (isArray(this.menuItems)) {
+            this.items = this.menuItems;
+        }
+        else {
+            this.items = undefined;
         }
     };
     __chunk_1.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", Array)
+        __chunk_1.__metadata("design:type", Object)
     ], UIMenu.prototype, "menuItems", void 0);
+    __chunk_1.__decorate([
+        aureliaFramework.bindable(),
+        __chunk_1.__metadata("design:type", String)
+    ], UIMenu.prototype, "noitemsLabel", void 0);
     UIMenu = __chunk_1.__decorate([
         aureliaFramework.customElement("ui-menu"),
         aureliaFramework.viewResources(MenuItem),
-        aureliaFramework.inlineView("<template class=\"ui-menu\"><slot>\n  <template if.bind=\"menuItems\">\n    <menu-item repeat.for=\"item of menuItems\" item.bind=\"item\"></menu-item>\n  </template>\n</slot></template>"),
+        aureliaFramework.inlineView("<template class=\"ui-menu\"><slot>\n  <div if.bind=\"isLoading\" ui-padding=\"xs\" ui-align=\"center\"><ui-svg-icon icon=\"busy\" class=\"ui-anim--spin\"></ui-svg-icon></div>\n  <template if.bind=\"!isLoading && items && items.length\">\n    <menu-item repeat.for=\"item of items\" item.bind=\"item\" noitems-label.bind=\"noitemsLabel\"></menu-item>\n  </template>\n  <template if.bind=\"!isLoading && items && items.length===0\">\n    <div ui-padding=\"xs\" ui-color=\"muted\" ui-font=\"sm\" innerhtml.bind=\"noitemsLabel\"></div>\n  </template>\n</slot></template>"),
         __chunk_1.__metadata("design:paramtypes", [Element])
     ], UIMenu);
     return UIMenu;
@@ -141,8 +188,8 @@ var UIMenuItem = (function () {
         var _this = this;
         __chunk_3.UIInternal.queueTask(function () {
             _this.hasDrop = !!_this.elDropdown;
-            _this.isInMenubar = !!getParentByClass(_this.element, "ui-menu__bar");
-            var isInDropdown = !!getParentByClass(_this.element, "ui-drop__body");
+            _this.isInMenubar = hasParent(_this.element, "ui-menu__bar");
+            var isInDropdown = hasParent(_this.element, "ui-drop__body");
             if (_this.hasDrop) {
                 _this.dropEl = getSlotViewModel(_this.elDropdown);
                 if (isInDropdown || !_this.isInMenubar) {
@@ -174,10 +221,8 @@ var UIMenuItem = (function () {
     };
     UIMenuItem.prototype.fireClick = function ($event) {
         if (!this.href) {
-            $event.stopEvent();
             if (this.hasDrop && !this.split) {
-                this.toggleDrop();
-                return false;
+                return this.toggleDrop();
             }
             return this.element.dispatchEvent(__chunk_3.UIInternal.createEvent("click", this.id));
         }
@@ -189,6 +234,7 @@ var UIMenuItem = (function () {
             this.dropEl.toggleDrop();
             this.element.dispatchEvent(__chunk_3.UIInternal.createEvent(afterEvent));
         }
+        return false;
     };
     __chunk_1.__decorate([
         aureliaFramework.bindable(),

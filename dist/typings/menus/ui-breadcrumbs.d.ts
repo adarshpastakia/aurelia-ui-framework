@@ -1,6 +1,11 @@
+interface IBreadcrumbItem {
+    icon?: string;
+    href?: string;
+    labels?: string;
+}
 export declare class UIBreadcrumbs {
     protected element: Element;
-    items: any[];
+    items: IBreadcrumbItem[];
     private wrapperEl;
     private overflowEl;
     private hasOverflow;
@@ -11,3 +16,4 @@ export declare class UIBreadcrumbs {
     protected calculateOverflow(): void;
     protected resetOverflow(): void;
 }
+export {};

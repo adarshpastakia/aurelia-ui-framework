@@ -1,6 +1,33 @@
 import { bindable, customElement, inlineView, containerless } from 'aurelia-framework';
 import { a as __decorate, b as __metadata } from './chunk3.js';
 
+let UIAvatar = class UIAvatar {
+    constructor(element) {
+        this.element = element;
+        this.icon = "";
+        this.size = "nm";
+        if (element.hasAttribute("round")) {
+            element.classList.add("ui-avatar--round");
+        }
+        if (element.hasAttribute("flip-on-rtl")) {
+            element.classList.add("flip-on-rtl");
+        }
+    }
+};
+__decorate([
+    bindable(),
+    __metadata("design:type", String)
+], UIAvatar.prototype, "icon", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", String)
+], UIAvatar.prototype, "size", void 0);
+UIAvatar = __decorate([
+    customElement("ui-avatar"),
+    inlineView(`<template class="ui-avatar"><slot><ui-icon ui-font.bind="size" icon.bind="icon"></ui-icon></slot></template>`),
+    __metadata("design:paramtypes", [Element])
+], UIAvatar);
+
 let UIFlag = class UIFlag {
     constructor(element) {
         this.element = element;
@@ -161,10 +188,10 @@ __decorate([
 UISvgIcon = __decorate([
     containerless(),
     customElement("ui-svg-icon"),
-    inlineView(`<template><svg ref="vmElement" slot="svg-icon" class="ui-icon ui-svg-icon \${class}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="\${viewBox}"><path d.bind="iconPath" /></svg></template>`)
+    inlineView(`<template><svg ref="vmElement" slot="svg-icon" class="ui-icon ui-svg-icon \${class}" xmlns="http://www.w3.org/2000/svg" version="1.1" width="24" height="24" viewBox="\${viewBox}"><path d.bind="iconPath"></path></svg></template>`)
 ], UISvgIcon);
 
-const Icons$1 = [UIIcon, UIFlag, UISvgIcon];
+const Icons$1 = [UIIcon, UIFlag, UISvgIcon, UIAvatar];
 
 export { Icons$1 as Icons };
 //# sourceMappingURL=ui-icons.js.map

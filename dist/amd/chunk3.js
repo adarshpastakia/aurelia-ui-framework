@@ -64,13 +64,14 @@ define(['exports', 'aurelia-framework', 'aurelia-event-aggregator'], function (e
           return Promise.resolve(true);
       }
       UIInternal.invokeLifecycle = invokeLifecycle;
-      function compileTemplate(tpl, viewModel) {
+      function compileTemplate(tpl, viewModel, bindingContext) {
           if (viewModel === void 0) { viewModel = {}; }
+          if (bindingContext === void 0) { bindingContext = {}; }
           var viewFactory = aureliaFramework.Container.instance
               .get(aureliaFramework.ViewCompiler)
               .compile(tpl, aureliaFramework.Container.instance.get(aureliaFramework.ViewResources));
           var view = viewFactory.create(aureliaFramework.Container.instance);
-          view.bind(viewModel);
+          view.bind(viewModel, bindingContext);
           return view;
       }
       UIInternal.compileTemplate = compileTemplate;

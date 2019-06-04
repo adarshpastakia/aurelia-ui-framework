@@ -6,12 +6,12 @@ export declare class UIButton {
     href: string;
     label: string;
     size: "nm" | "sm" | "md" | "lg";
-    type: "default" | "solid" | "link";
+    type: "default" | "outline" | "solid" | "tool";
     id: string;
     busy: boolean;
     active: boolean;
     disabled: boolean;
-    menuItems: IMenuItems[];
+    menuItems: IMenuItems[] | (() => IMenuItems[]);
     protected elDropdown: Element;
     protected hasDrop: boolean;
     protected dropEl: UIDrop;
@@ -23,6 +23,6 @@ export declare class UIButton {
     disable(disabled: boolean): void;
     protected attached(): void;
     protected hrefChanged(): void;
-    protected fireClick($event: MouseEvent): boolean;
+    protected fireClick($event: any): boolean;
     private toggleDrop;
 }

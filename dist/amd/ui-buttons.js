@@ -1,6 +1,6 @@
 define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', './chunk3'], function (exports, __chunk_1, aureliaFramework, aureliaEventAggregator, __chunk_3) { 'use strict';
 
-  var view = "<template class=\"ui-btn__wrapper\" data-disabled.bind=\"isDisabled\" data-busy.bind=\"busy\" data-type.bind=\"type\" data-size.bind=\"size\" data-active.bind=\"active\">\n  <div class=\"ui-btn__inner\" click.trigger=\"$event.stopEvent()\">\n    <a ref=\"badgeEl\" class=\"ui-btn\" click.trigger=\"fireClick($event)\" data-active.bind=\"active\" data-open.bind=\"!split && dropEl.isOpen\">\n      <div class=\"ui-btn__icon\" if.bind=\"busy\">\n        <ui-svg-icon icon=\"busy\" class=\"ui-anim--spin\"></ui-svg-icon>\n      </div>\n      <slot name=\"svg-icon\"></slot>\n      <div class=\"ui-btn__icon\" if.bind=\"icon && !busy\">\n        <ui-icon icon.bind=\"icon\"></ui-icon>\n      </div>\n      <div class=\"ui-btn__label\"><slot>${label}</slot></div>\n      <div class=\"ui-btn__caret\" if.bind=\"hasDrop && !split\">\n        <ui-svg-icon icon=\"caret\"></ui-svg-icon>\n      </div>\n    </a>\n    <template if.bind=\"hasDrop && split\">\n      <div class=\"ui-btn__divider\"></div>\n      <a class=\"ui-btn ui-btn__caret ui-btn__caret--split\" data-open.bind=\"split && dropEl.isOpen\" click.trigger=\"toggleDrop()\">\n        <ui-svg-icon icon=\"caret\"></ui-svg-icon>\n      </a>\n    </template>\n  </div>\n  <slot name=\"ui-drop\"><ui-drop view-model.ref=\"dropEl\" if.bind=\"menuItems\"><ui-menu menu-items.bind=\"menuItems\"></ui-menu></ui-drop></slot>\n</template>\n";
+  var view = "<template class=\"ui-btn__wrapper\" data-disabled.bind=\"isDisabled\" data-busy.bind=\"busy\" data-type.bind=\"type\" data-size.bind=\"size\" data-active.bind=\"active\">\n  <div class=\"ui-btn__inner\">\n    <a ref=\"badgeEl\" class=\"ui-btn\" click.trigger=\"fireClick($event)\" data-active.bind=\"active\" data-open.bind=\"!split && dropEl.isOpen\">\n      <div class=\"ui-btn__icon\" if.bind=\"busy\">\n        <ui-svg-icon icon=\"busy\" class=\"ui-anim--spin\"></ui-svg-icon>\n      </div>\n      <slot name=\"svg-icon\"></slot>\n      <div class=\"ui-btn__icon\" if.bind=\"icon && !busy\">\n        <ui-icon icon.bind=\"icon\"></ui-icon>\n      </div>\n      <div class=\"ui-btn__label\"><slot>${label}</slot></div>\n      <div class=\"ui-btn__caret\" if.bind=\"hasDrop && !split\">\n        <ui-svg-icon icon=\"caret\"></ui-svg-icon>\n      </div>\n    </a>\n    <template if.bind=\"hasDrop && split\">\n      <div class=\"ui-btn__divider\"></div>\n      <a class=\"ui-btn ui-btn__caret ui-btn__caret--split\" data-open.bind=\"split && dropEl.isOpen\" click.trigger=\"toggleDrop()\">\n        <ui-svg-icon icon=\"caret\"></ui-svg-icon>\n      </a>\n    </template>\n  </div>\n  <slot name=\"ui-drop\">\n    <ui-drop view-model.ref=\"dropEl\" if.bind=\"menuItems\">\n      <ui-menu if.bind=\"dropEl.isOpen\" menu-items.bind=\"menuItems\"></ui-menu>\n    </ui-drop>\n  </slot>\n</template>\n";
 
   var UIButton = (function () {
       function UIButton(element) {
@@ -68,14 +68,18 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           }
       };
       UIButton.prototype.fireClick = function ($event) {
+          if (this.isDisabled || this.busy) {
+              $event.stopEvent();
+              return false;
+          }
           if (!this.href) {
               if (this.hasDrop && !this.split) {
-                  this.toggleDrop();
+                  return this.toggleDrop();
               }
               else {
+                  $event.stopEvent();
                   return this.element.dispatchEvent(__chunk_3.UIInternal.createEvent("click", this.id));
               }
-              return false;
           }
       };
       UIButton.prototype.toggleDrop = function () {
@@ -85,6 +89,7 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
               this.dropEl.toggleDrop();
               this.element.dispatchEvent(__chunk_3.UIInternal.createEvent(afterEvent));
           }
+          return true;
       };
       __chunk_1.__decorate([
           aureliaFramework.bindable(),
@@ -124,7 +129,7 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
       ], UIButton.prototype, "disabled", void 0);
       __chunk_1.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Array)
+          __chunk_1.__metadata("design:type", Object)
       ], UIButton.prototype, "menuItems", void 0);
       __chunk_1.__decorate([
           aureliaFramework.child("div.ui-drop"),
@@ -152,6 +157,7 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           this.type = "default";
           this.disabled = false;
           this.toggle = false;
+          this.elDisabled = false;
           if (element.hasAttribute("equal")) {
               element.classList.add("ui-btn__group--equal");
           }
@@ -160,6 +166,16 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           }
           this.toggle = element.hasAttribute("toggle");
       }
+      Object.defineProperty(UIButtonGroup.prototype, "isDisabled", {
+          get: function () {
+              return this.disabled || this.elDisabled;
+          },
+          enumerable: true,
+          configurable: true
+      });
+      UIButtonGroup.prototype.disable = function (disabled) {
+          this.elDisabled = disabled;
+      };
       UIButtonGroup.prototype.attached = function () {
           var _this = this;
           if (this.separator) {
@@ -173,7 +189,6 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           var _this = this;
           this.buttons.forEach(function (b) {
               b.element.dataset.separator = _this.separator;
-              b.element.au.controller.viewModel.type = _this.type;
           });
       };
       UIButtonGroup.prototype.valueChanged = function (newValue, oldValue) {
@@ -224,10 +239,15 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           aureliaFramework.children("ui-button"),
           __chunk_1.__metadata("design:type", Array)
       ], UIButtonGroup.prototype, "buttons", void 0);
+      __chunk_1.__decorate([
+          aureliaFramework.computedFrom("disabled", "elDisabled"),
+          __chunk_1.__metadata("design:type", Boolean),
+          __chunk_1.__metadata("design:paramtypes", [])
+      ], UIButtonGroup.prototype, "isDisabled", null);
       UIButtonGroup = __chunk_1.__decorate([
           aureliaFramework.autoinject(),
           aureliaFramework.customElement("ui-button-group"),
-          aureliaFramework.inlineView("<template class=\"ui-btn__group\" click.delegate=\"buttonClicked($event)\" data-disabled.bind=\"isDisabled\" data-size.bind=\"size\"><slot></slot></template>"),
+          aureliaFramework.inlineView("<template class=\"ui-btn__group\" click.delegate=\"buttonClicked($event)\" data-disabled.bind=\"isDisabled\" data-size.bind=\"size\" data-type.bind=\"type\"><slot></slot></template>"),
           __chunk_1.__metadata("design:paramtypes", [Element])
       ], UIButtonGroup);
       return UIButtonGroup;

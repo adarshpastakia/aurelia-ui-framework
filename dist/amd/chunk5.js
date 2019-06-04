@@ -22,7 +22,7 @@ define(['exports', './chunk', 'aurelia-framework', './chunk2', 'aurelia-logging'
           }
           var _a = __chunk_1.__read(config.position.split(""), 2), posY = _a[0], posX = _a[1];
           var _b = __chunk_1.__read(config.anchorPosition.split(""), 2), anchorY = _b[0], anchorX = _b[1];
-          var isRtl = window.getComputedStyle(scrollerEl).direction === "rtl";
+          var rtl = isRtl(scrollerEl);
           var x = 0;
           var y = 0;
           var clientHeight = document.body.clientHeight;
@@ -30,6 +30,7 @@ define(['exports', './chunk', 'aurelia-framework', './chunk2', 'aurelia-logging'
           var clientX = 0;
           var clientY = 0;
           logger.debug("tether", {
+              rtl: rtl,
               anchorRect: anchorRect,
               anchorX: anchorX,
               anchorY: anchorY,
@@ -43,10 +44,10 @@ define(['exports', './chunk', 'aurelia-framework', './chunk2', 'aurelia-logging'
               clientX = scrollerRect.left;
               clientY = scrollerRect.top;
           }
-          if (anchorX === (isRtl ? "r" : "l")) {
+          if (anchorX === (rtl ? "r" : "l")) {
               x = anchorRect.left;
           }
-          else if (anchorX === (isRtl ? "l" : "r")) {
+          else if (anchorX === (rtl ? "l" : "r")) {
               x = anchorRect.right;
           }
           else if (anchorX === "c") {
@@ -58,7 +59,10 @@ define(['exports', './chunk', 'aurelia-framework', './chunk2', 'aurelia-logging'
           else if (anchorY === "b") {
               y = anchorRect.bottom;
           }
-          if (posX === (isRtl ? "l" : "r")) {
+          else if (anchorY === "c") {
+              y = anchorRect.top + anchorRect.height / 2;
+          }
+          if (posX === (rtl ? "l" : "r")) {
               x -= dropdownRect.width;
           }
           if (posX === "c") {
@@ -67,6 +71,10 @@ define(['exports', './chunk', 'aurelia-framework', './chunk2', 'aurelia-logging'
           if (posY === "b") {
               y -= dropdownRect.height;
           }
+          if (posY === "c") {
+              y -= dropdownRect.height / 2;
+          }
+          logger.debug("tether2", { x: x, y: y });
           if (x + dropdownRect.width > clientWidth) {
               x = anchorRect.right - dropdownRect.width;
           }
@@ -75,20 +83,21 @@ define(['exports', './chunk', 'aurelia-framework', './chunk2', 'aurelia-logging'
           }
           if (y + dropdownRect.height > clientHeight) {
               y =
-                  posY === "t" && anchorY === "b" ? anchorRect.top - dropdownRect.height : anchorRect.bottom;
+                  posY === "t" && anchorY === "b" ? anchorRect.top - dropdownRect.height - 2 : anchorRect.bottom;
           }
           else if (y < clientY) {
               y =
                   posY === "b" && anchorY === "t" ? anchorRect.bottom - dropdownRect.height : anchorRect.top;
           }
+          logger.debug("tether3", { x: x, y: y });
           if (!config.attachToViewport) {
-              x -= scrollerRect.left - scrollerEl.scrollLeft;
-              y -= scrollerRect.top - scrollerEl.scrollTop;
-              x -= 1;
-              y -= 1;
-              if (isRtl && scrollerEl.scrollHeight > scrollerEl.offsetHeight) {
+              x -= scrollerRect.left - scrollerEl.scrollLeft + 2;
+              y -= scrollerRect.top - scrollerEl.scrollTop + 1;
+              logger.debug("tether4", { x: x, y: y });
+              if (rtl && scrollerEl.scrollHeight > scrollerEl.offsetHeight) {
                   x -= 5;
               }
+              logger.debug("tether5", { x: x, y: y });
           }
           dropdownEl.style.transform = "translate(" + x + "px, " + y + "px)";
       }
@@ -110,21 +119,26 @@ define(['exports', './chunk', 'aurelia-framework', './chunk2', 'aurelia-logging'
           } while (el !== null);
           return null;
       }
-      function attach(anchorEl, dropdownEl, config) {
+      function initScroller(anchorEl, scrollCallback) {
           var scroller = getParentScroller(anchorEl) || document.body;
-          var scrollCallback = function () {
-              if (dropdownEl.parentElement.dataset.open) {
-                  updatePosition(anchorEl, dropdownEl, scroller, config);
-              }
-          };
           if (!scroller.scrollHandler) {
               scroller.scrollHandler = function () { return scrollHandler(scroller.scrollCallbacks); };
               scroller.addEventListener("scroll", scroller.scrollHandler);
               scroller.scrollCallbacks = new Set();
           }
+          scroller.scrollCallbacks.add(scrollCallback);
+          return scroller;
+      }
+      function attach(anchorEl, dropdownEl, config) {
           var container = aureliaFramework.Container.instance.get(__chunk_2.UIAppConfig).FloatingContainer;
           config.attachToViewport ? container.appendChild(dropdownEl.parentElement || dropdownEl) : fn();
-          scroller.scrollCallbacks.add(scrollCallback);
+          var scroller;
+          var scrollCallback = function () {
+              if (dropdownEl.parentElement.dataset.open) {
+                  updatePosition(anchorEl, dropdownEl, scroller, config);
+              }
+          };
+          scroller = initScroller(anchorEl, scrollCallback);
           return {
               dispose: function () {
                   scroller.scrollCallbacks.delete(scrollCallback);
@@ -135,9 +149,11 @@ define(['exports', './chunk', 'aurelia-framework', './chunk2', 'aurelia-logging'
                       aureliaFramework.DOM.removeNode(dropdownEl.parentElement);
                   }
               },
-              updatePosition: function (newAnchorEl) {
+              updatePosition: function (newAnchorEl, newConfig) {
+                  if (newConfig === void 0) { newConfig = {}; }
                   anchorEl = newAnchorEl || anchorEl;
-                  updatePosition(anchorEl, dropdownEl, scroller, config);
+                  scroller = initScroller(anchorEl, scrollCallback);
+                  updatePosition(anchorEl, dropdownEl, scroller, __chunk_1.__assign({}, config, newConfig));
               }
           };
       }

@@ -66,12 +66,12 @@ var UIInternal;
         return Promise.resolve(true);
     }
     UIInternal.invokeLifecycle = invokeLifecycle;
-    function compileTemplate(tpl, viewModel = {}) {
+    function compileTemplate(tpl, viewModel = {}, bindingContext = {}) {
         const viewFactory = Container.instance
             .get(ViewCompiler)
             .compile(tpl, Container.instance.get(ViewResources));
         const view = viewFactory.create(Container.instance);
-        view.bind(viewModel);
+        view.bind(viewModel, bindingContext);
         return view;
     }
     UIInternal.compileTemplate = compileTemplate;

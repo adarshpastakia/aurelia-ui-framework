@@ -18,22 +18,32 @@ define(['exports', './chunk', 'aurelia-framework', './chunk2', 'aurelia-event-ag
 
   var UIViewportFooter = (function () {
       function UIViewportFooter() {
+          this.dir = "ltr";
       }
+      __chunk_1.__decorate([
+          aureliaFramework.bindable(),
+          __chunk_1.__metadata("design:type", Object)
+      ], UIViewportFooter.prototype, "dir", void 0);
       UIViewportFooter = __chunk_1.__decorate([
           aureliaFramework.containerless(),
           aureliaFramework.customElement("ui-viewport-footer"),
-          aureliaFramework.inlineView("<template><footer class=\"ui-viewport__footer\" slot=\"ui-viewport__footer\" ref=\"vmElement\"><slot></slot></footer></template>")
+          aureliaFramework.inlineView("<template><footer dir.bind=\"dir\" class=\"ui-viewport__footer\" slot=\"ui-viewport__footer\" ref=\"vmElement\"><slot></slot></footer></template>")
       ], UIViewportFooter);
       return UIViewportFooter;
   }());
 
   var UIViewportHeader = (function () {
       function UIViewportHeader() {
+          this.dir = "ltr";
       }
+      __chunk_1.__decorate([
+          aureliaFramework.bindable(),
+          __chunk_1.__metadata("design:type", Object)
+      ], UIViewportHeader.prototype, "dir", void 0);
       UIViewportHeader = __chunk_1.__decorate([
           aureliaFramework.containerless(),
           aureliaFramework.customElement("ui-viewport-header"),
-          aureliaFramework.inlineView("<template><header class=\"ui-viewport__header\" slot=\"ui-viewport__header\" ref=\"vmElement\"><slot></slot></header></template>")
+          aureliaFramework.inlineView("<template><header dir.bind=\"dir\" class=\"ui-viewport__header\" slot=\"ui-viewport__header\" ref=\"vmElement\"><slot></slot></header></template>")
       ], UIViewportHeader);
       return UIViewportHeader;
   }());

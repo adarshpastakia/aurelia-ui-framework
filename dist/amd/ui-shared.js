@@ -1,4 +1,6 @@
-define(['exports', './chunk', 'aurelia-framework', './chunk2', 'aurelia-event-aggregator', './chunk3', 'aurelia-logging', './chunk5'], function (exports, __chunk_1, aureliaFramework, __chunk_2, aureliaEventAggregator, __chunk_3, aureliaLogging, __chunk_5) { 'use strict';
+define(['exports', './chunk', 'aurelia-framework', './chunk2', 'aurelia-event-aggregator', './chunk3', 'aurelia-logging', 'resize-observer-polyfill', './chunk5'], function (exports, __chunk_1, aureliaFramework, __chunk_2, aureliaEventAggregator, __chunk_3, aureliaLogging, ResizeObserver, __chunk_5) { 'use strict';
+
+  ResizeObserver = ResizeObserver && ResizeObserver.hasOwnProperty('default') ? ResizeObserver['default'] : ResizeObserver;
 
   var UIDivider = (function () {
       function UIDivider() {
@@ -57,9 +59,15 @@ define(['exports', './chunk', 'aurelia-framework', './chunk2', 'aurelia-event-ag
           this.isOpen = open === undefined ? !this.isOpen : open;
           if (this.isOpen) {
               this.obClick = __chunk_3.UIInternal.subscribe(__chunk_3.UIInternal.EVT_VIEWPORT_CLICK, function (t) { return _this.canClose(t); });
-              this.obResize = __chunk_3.UIInternal.subscribe(__chunk_3.UIInternal.EVT_VIEWPORT_RESIZE, function (t) {
+              this.obViewportResize = __chunk_3.UIInternal.subscribe(__chunk_3.UIInternal.EVT_VIEWPORT_RESIZE, function () {
                   return _this.updatePosition();
               });
+              this.obResize = new ResizeObserver(function () {
+                  return _this.updatePosition();
+              });
+              this.obResize.observe(this.vmElement);
+              this.obResize.observe(this.anchorEl);
+              this.element.dispatchEvent(__chunk_3.UIInternal.createEvent("open"));
               __chunk_3.UIInternal.queueMicroTask(function () {
                   _this.tetherObj.updatePosition();
                   _this.vmElement.dataset.show = "true";
@@ -79,7 +87,10 @@ define(['exports', './chunk', 'aurelia-framework', './chunk2', 'aurelia-event-ag
               this.obClick.dispose();
           }
           if (this.obResize) {
-              this.obResize.dispose();
+              this.obResize.disconnect();
+          }
+          if (this.obViewportResize) {
+              this.obViewportResize.dispose();
           }
       };
       UIDrop.prototype.detached = function () {
@@ -88,14 +99,13 @@ define(['exports', './chunk', 'aurelia-framework', './chunk2', 'aurelia-event-ag
               this.tetherObj.dispose();
           }
       };
-      UIDrop.prototype.canClose = function (t) {
-          if (!hasParent(t, this.vmElement) && !hasParent(t, this.anchorEl)) {
+      UIDrop.prototype.close = function ($event) {
+          if (this.closeOnClick) {
               this.closeDrop();
           }
       };
-      UIDrop.prototype.close = function ($event) {
-          $event.stopEvent();
-          if (this.closeOnClick) {
+      UIDrop.prototype.canClose = function (t) {
+          if (!hasParent(t, this.vmElement) && !hasParent(t, this.anchorEl)) {
               this.closeDrop();
           }
       };
@@ -106,7 +116,7 @@ define(['exports', './chunk', 'aurelia-framework', './chunk2', 'aurelia-event-ag
       UIDrop = __chunk_1.__decorate([
           aureliaFramework.containerless(),
           aureliaFramework.customElement("ui-drop"),
-          aureliaFramework.inlineView("<template><div slot=\"ui-drop\" class=\"ui-drop\" mouseup.delegate=\"closeDrop()\" data-open.bind=\"isOpen\">\n  <div ref=\"vmElement\" class=\"ui-drop__body ${class}\" mouseup.delegate=\"close($event)\"><slot></slot></div>\n  </div></template>"),
+          aureliaFramework.inlineView("<template><div slot=\"ui-drop\" class=\"ui-drop\" click.delegate=\"closeDrop()\" data-open.bind=\"isOpen\">\n  <div ref=\"vmElement\" class=\"ui-drop__body ${class}\" click.delegate=\"close($event)\"><slot></slot></div>\n  </div></template>"),
           __chunk_1.__metadata("design:paramtypes", [Element])
       ], UIDrop);
       return UIDrop;

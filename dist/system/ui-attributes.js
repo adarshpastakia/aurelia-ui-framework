@@ -411,7 +411,7 @@ System.register(['./chunk.js', 'aurelia-framework', './chunk2.js', 'aurelia-even
               this.element = element;
               this.value = "";
               this.theme = "";
-              this.position = "";
+              this.position = "bottom";
               this.id = "tooltip-" + seed++;
               this.showFn = function () { return _this.show(); };
               this.hideFn = function () { return _this.hide(); };
@@ -448,7 +448,24 @@ System.register(['./chunk.js', 'aurelia-framework', './chunk2.js', 'aurelia-even
               TooltipEl.className = "ui-tooltip ui-theme--" + this.theme;
               TooltipEl.innerHTML = this.value;
               TooltipEl.dataset.id = this.id;
-              TooltipEl.tether.updatePosition(this.parentEl);
+              TooltipEl.dataset.pos = this.position;
+              var anchorPosition = "tc";
+              var position = "bc";
+              switch (this.position) {
+                  case "right":
+                      anchorPosition = "cr";
+                      position = "cl";
+                      break;
+                  case "left":
+                      anchorPosition = "cl";
+                      position = "cr";
+                      break;
+                  case "bottom":
+                      anchorPosition = "bc";
+                      position = "tc";
+                      break;
+              }
+              TooltipEl.tether.updatePosition(this.parentEl, { position: position, anchorPosition: anchorPosition });
               this.timer = setTimeout(function () { return (TooltipEl.dataset.open = "true"); }, 500);
           };
           UITooltip.prototype.hide = function () {
@@ -470,7 +487,7 @@ System.register(['./chunk.js', 'aurelia-framework', './chunk2.js', 'aurelia-even
           ], UITooltip.prototype, "theme", void 0);
           __decorate([
               bindable(),
-              __metadata("design:type", Object)
+              __metadata("design:type", String)
           ], UITooltip.prototype, "position", void 0);
           UITooltip = __decorate([
               autoinject(),

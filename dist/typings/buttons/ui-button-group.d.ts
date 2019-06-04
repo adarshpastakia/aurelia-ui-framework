@@ -3,12 +3,15 @@ export declare class UIButtonGroup {
     value: string;
     separator: string;
     size: "nm" | "sm" | "md" | "lg";
-    type: "default" | "solid" | "link";
+    type: "default" | "outline" | "solid" | "tool";
     disabled: boolean;
     private currentSelected;
     private buttons;
-    private toggle;
+    private readonly toggle;
+    private elDisabled;
     constructor(element: Element);
+    readonly isDisabled: boolean;
+    disable(disabled: boolean): void;
     protected attached(): void;
     protected buttonsChanged(): void;
     protected valueChanged(newValue: any, oldValue: any): void;

@@ -1,6 +1,6 @@
-System.register(['./chunk.js', 'aurelia-framework', './chunk2.js', 'aurelia-event-aggregator', './chunk3.js', 'aurelia-logging', './chunk5.js'], function (exports, module) {
+System.register(['./chunk.js', 'aurelia-framework', './chunk2.js', 'aurelia-event-aggregator', './chunk3.js', 'aurelia-logging', 'resize-observer-polyfill', './chunk5.js'], function (exports, module) {
   'use strict';
-  var __decorate, __metadata, customElement, inlineView, bindable, containerless, UIInternal, UITether;
+  var __decorate, __metadata, customElement, inlineView, bindable, containerless, UIInternal, ResizeObserver, UITether;
   return {
     setters: [function (module) {
       __decorate = module.b;
@@ -13,6 +13,8 @@ System.register(['./chunk.js', 'aurelia-framework', './chunk2.js', 'aurelia-even
     }, function () {}, function () {}, function (module) {
       UIInternal = module.a;
     }, function () {}, function (module) {
+      ResizeObserver = module.default;
+    }, function (module) {
       UITether = module.a;
     }],
     execute: function () {
@@ -74,9 +76,15 @@ System.register(['./chunk.js', 'aurelia-framework', './chunk2.js', 'aurelia-even
               this.isOpen = open === undefined ? !this.isOpen : open;
               if (this.isOpen) {
                   this.obClick = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_CLICK, function (t) { return _this.canClose(t); });
-                  this.obResize = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_RESIZE, function (t) {
+                  this.obViewportResize = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_RESIZE, function () {
                       return _this.updatePosition();
                   });
+                  this.obResize = new ResizeObserver(function () {
+                      return _this.updatePosition();
+                  });
+                  this.obResize.observe(this.vmElement);
+                  this.obResize.observe(this.anchorEl);
+                  this.element.dispatchEvent(UIInternal.createEvent("open"));
                   UIInternal.queueMicroTask(function () {
                       _this.tetherObj.updatePosition();
                       _this.vmElement.dataset.show = "true";
@@ -96,7 +104,10 @@ System.register(['./chunk.js', 'aurelia-framework', './chunk2.js', 'aurelia-even
                   this.obClick.dispose();
               }
               if (this.obResize) {
-                  this.obResize.dispose();
+                  this.obResize.disconnect();
+              }
+              if (this.obViewportResize) {
+                  this.obViewportResize.dispose();
               }
           };
           UIDrop.prototype.detached = function () {
@@ -105,14 +116,13 @@ System.register(['./chunk.js', 'aurelia-framework', './chunk2.js', 'aurelia-even
                   this.tetherObj.dispose();
               }
           };
-          UIDrop.prototype.canClose = function (t) {
-              if (!hasParent(t, this.vmElement) && !hasParent(t, this.anchorEl)) {
+          UIDrop.prototype.close = function ($event) {
+              if (this.closeOnClick) {
                   this.closeDrop();
               }
           };
-          UIDrop.prototype.close = function ($event) {
-              $event.stopEvent();
-              if (this.closeOnClick) {
+          UIDrop.prototype.canClose = function (t) {
+              if (!hasParent(t, this.vmElement) && !hasParent(t, this.anchorEl)) {
                   this.closeDrop();
               }
           };
@@ -123,7 +133,7 @@ System.register(['./chunk.js', 'aurelia-framework', './chunk2.js', 'aurelia-even
           UIDrop = __decorate([
               containerless(),
               customElement("ui-drop"),
-              inlineView("<template><div slot=\"ui-drop\" class=\"ui-drop\" mouseup.delegate=\"closeDrop()\" data-open.bind=\"isOpen\">\n  <div ref=\"vmElement\" class=\"ui-drop__body ${class}\" mouseup.delegate=\"close($event)\"><slot></slot></div>\n  </div></template>"),
+              inlineView("<template><div slot=\"ui-drop\" class=\"ui-drop\" click.delegate=\"closeDrop()\" data-open.bind=\"isOpen\">\n  <div ref=\"vmElement\" class=\"ui-drop__body ${class}\" click.delegate=\"close($event)\"><slot></slot></div>\n  </div></template>"),
               __metadata("design:paramtypes", [Element])
           ], UIDrop);
           return UIDrop;

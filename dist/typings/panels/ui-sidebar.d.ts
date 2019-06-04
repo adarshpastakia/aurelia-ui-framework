@@ -15,7 +15,7 @@ export declare class UISidebar {
     protected resizeable: boolean;
     protected collapsible: boolean;
     protected closeOnClick: boolean;
-    private obClick;
+    private readonly obClick;
     private bodyEl;
     private startX;
     private isResizing;
