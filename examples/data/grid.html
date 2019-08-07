@@ -8,26 +8,57 @@
         <div class="x-example-block">
           <div class="x-example-display">
             <ui-page css.bind="{height: '600px'}">
-              <ui-datagrid data-source.bind="countries" ui-scroll>
-                <ui-column data-id="iso2" locked="start" label="Country">
+              <ui-datagrid
+                data-source.bind="countries"
+                ui-scroll
+                checkable
+                counter
+                selected.bind="mySelected"
+              >
+                <ui-column data-id="name" locked="start" label="Country" sortable>
                   <template>
-                    <ui-flag round code="${$value}"></ui-flag>
-                    <span click.trigger="notif($record)" ui-link
-                          ui-tooltip="value.bind:'Info: '+$record.fullname; position.bind:'right'">${$record.name}</span>
+                    <ui-flag round code="${$record.iso2}"></ui-flag>
+                    <span
+                      click.trigger="notif($record)"
+                      ui-link
+                      ui-tooltip="value.bind:'Info: '+$record.fullname; position.bind:'right'"
+                      >${$record.name}</span
+                    >
                   </template>
                 </ui-column>
                 <ui-column data-id="iso2" sortable width="70px">Code2</ui-column>
                 <ui-column data-id="iso3" sortable width="70px">Code3</ui-column>
                 <ui-column data-id="continent" resizeable sortable>Continent</ui-column>
                 <ui-column data-id="capital" resizeable sortable>Capital</ui-column>
-                <ui-column data-id="fullname" resizeable sortable width="400px" max-width="600px">Fullname</ui-column>
+                <ui-column data-id="fullname" resizeable sortable width="400px" max-width="600px"
+                  >Fullname</ui-column
+                >
                 <ui-column locked="end" width="80px" no-padding align="center">
                   <template>
-                    <ui-button type="outline" ui-theme="info" icon="mdi mdi-information" size="sm"
-                               click.trigger="notif($record)" ui-tooltip="Country Info"></ui-button>
+                    <ui-button
+                      type="outline"
+                      ui-theme="info"
+                      icon="mdi mdi-information"
+                      size="sm"
+                      click.trigger="notif($record)"
+                      ui-tooltip="Country Info"
+                    ></ui-button>
                   </template>
                 </ui-column>
               </ui-datagrid>
+              <ui-sidebar position="end" width="180px">
+                <ui-content ui-scroll>
+                  <template repeat.for="record of mySelected" class="ui-ellipsis">
+                    <ui-flag
+                      round
+                      code="${record.iso2}"
+                      size="lg"
+                      ui-margin="xs"
+                      ui-tooltip="value.bind:record.name; position.bind:'top'"
+                    ></ui-flag>
+                  </template>
+                </ui-content>
+              </ui-sidebar>
             </ui-page>
           </div>
 

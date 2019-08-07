@@ -3,6 +3,7 @@
     <input
       size="1"
       type="checkbox"
+      data-checked="${checked}"
       checked.bind="checked"
       model.bind="model"
       matcher.bind="matcher"
@@ -10,6 +11,7 @@
       change.trigger="checkChanged($event)"
     />
     <ui-svg-icon icon="check-off"></ui-svg-icon>
+    <ui-svg-icon icon="tree-check-half"></ui-svg-icon>
     <ui-svg-icon icon="check-on"></ui-svg-icon>
     <span>
       <slot></slot>

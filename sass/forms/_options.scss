@@ -89,9 +89,27 @@
         display: none;
       }
 
+      ~ .ui-icon:nth-of-type(2) {
+        display: none;
+      }
+
       &:focus ~ .ui-option__toggle {
         border-radius: 1em;
         overflow: hidden;
+      }
+
+      &[data-checked="__2__"] {
+        ~ .ui-icon:first-of-type {
+          display: none;
+        }
+
+        ~ .ui-icon:last-of-type {
+          display: none;
+        }
+
+        ~ .ui-icon:nth-of-type(2) {
+          display: block;
+        }
       }
 
       &:checked {

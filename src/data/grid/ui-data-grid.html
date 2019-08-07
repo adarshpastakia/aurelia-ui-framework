@@ -1,5 +1,4 @@
 <template class="ui-datagrid">
-
   <div show.bind="false">
     <slot></slot>
   </div>
@@ -8,22 +7,43 @@
     <div class="ui-datagrid__row">
       <div class="ui-datagrid__row__wrapper">
         <div class="ui-datagrid__row__locked--start">
+          <div class="ui-datagrid__cell" css.bind="{width: '42px'}" if.bind="checkable">
+            <div class="ui-datagrid__cell__wrapper">
+              <ui-checkbox
+                checked.to-view="selected.length === ds.data.length ? true : selected.length === 0 ? false : '__2__'"
+                change.trigger="toggleSelectionAll($event)"
+              ></ui-checkbox>
+            </div>
+          </div>
+          <div class="ui-datagrid__cell" css.bind="{width: '42px'}" if.bind="showCounter"></div>
           <template repeat.for="col of columns | filter:'start':'locked'">
-            <header-cell column.bind="col" sort.trigger="ds.sortBy(col.dataId)" 
-              sort-by.bind="ds.sortByProperty" sort-order.bind="ds.sortByOrder"></header-cell>
+            <header-cell
+              column.bind="col"
+              sort.trigger="ds.sortBy(col.dataId)"
+              sort-by.bind="ds.sortByProperty"
+              sort-order.bind="ds.sortByOrder"
+            ></header-cell>
           </template>
         </div>
         <div class="ui-datagrid__row__scrolling">
           <template repeat.for="col of columns | filter:false:'locked'">
-            <header-cell column.bind="col" sort.trigger="ds.sortBy(col.dataId)" 
-              sort-by.bind="ds.sortByProperty" sort-order.bind="ds.sortByOrder"></header-cell>
+            <header-cell
+              column.bind="col"
+              sort.trigger="ds.sortBy(col.dataId)"
+              sort-by.bind="ds.sortByProperty"
+              sort-order.bind="ds.sortByOrder"
+            ></header-cell>
           </template>
         </div>
         <div class="ui-datagrid__cell ui-datagrid__cell--filler"></div>
         <div class="ui-datagrid__row__locked--end">
           <template repeat.for="col of columns | filter:'end':'locked'">
-            <header-cell column.bind="col" sort.trigger="ds.sortBy(col.dataId)" 
-              sort-by.bind="ds.sortByProperty" sort-order.bind="ds.sortByOrder"></header-cell>
+            <header-cell
+              column.bind="col"
+              sort.trigger="ds.sortBy(col.dataId)"
+              sort-by.bind="ds.sortByProperty"
+              sort-order.bind="ds.sortByOrder"
+            ></header-cell>
           </template>
         </div>
       </div>
@@ -31,12 +51,27 @@
   </div>
 
   <div class="ui-datagrid__body" ref="dgBody">
-
-    <div class="ui-datagrid__row ${$even ? 'ui-datagrid__row--even':'ui-datagrid__row--odd'}"
-         virtual-repeat.for="record of ds.data">
-
-      <div class="ui-datagrid__row__wrapper">
+    <div
+      class="ui-datagrid__row ${$even ? 'ui-datagrid__row--even':'ui-datagrid__row--odd'}"
+      virtual-repeat.for="record of ds.data"
+    >
+      <div
+        class="ui-datagrid__row__wrapper ${selected.includes(record) ? 'ui-datagrid__row--selected' : ''}"
+      >
         <div class="ui-datagrid__row__locked--start">
+          <div class="ui-datagrid__cell ui-datagrid__cell--head" css.bind="{width: '42px'}" if.bind="checkable">
+            <div class="ui-datagrid__cell__wrapper">
+              <ui-checkbox
+                checked.to-view="selected.includes(record)"
+                change.trigger="toggleSelection($event, record)"
+              ></ui-checkbox>
+            </div>
+          </div>
+          <div class="ui-datagrid__cell ui-datagrid__cell--head" css.bind="{width: '42px'}" if.bind="showCounter">
+            <div class="ui-datagrid__cell__wrapper">
+              <span css.bind="{fontSize:'.8em'}">${$index + 1}</span>
+            </div>
+          </div>
           <template repeat.for="col of columns | filter:'start':'locked'">
             <body-cell column.bind="col" record.bind="record"></body-cell>
           </template>
@@ -53,9 +88,7 @@
           </template>
         </div>
       </div>
-
     </div>
-
   </div>
 
   <div class="ui-datagrid__foot"></div>

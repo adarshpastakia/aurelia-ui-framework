@@ -38,10 +38,11 @@ export class DatagridPage {
     events: []
   };
 
+  protected mySelected = [];
+
   protected countries = [...Countries.list];
 
-  constructor(private notificationService: UINotificationService) {
-  }
+  constructor(private notificationService: UINotificationService) {}
 
   protected notif(record: KeyValue) {
     this.notificationService.toast({

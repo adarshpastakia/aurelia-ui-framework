@@ -17,6 +17,14 @@
     background-color: $datagrid-hover-bg;
   }
 
+  &__body #{$base}__row #{$base}__row--selected #{$base}__cell {
+    background-color: $datagrid-selected-bg;
+  }
+
+  &__body #{$base}__row #{$base}__row__wrapper #{$base}__cell--head {
+    background-color: $datagrid-cell-head-bg;
+  }
+
   &__head {
     #{$base}__cell {
       &,
@@ -47,10 +55,6 @@
 
     &--odd #{$base}__cell {
       background-color: $datagrid-row-odd-bg;
-    }
-
-    &:hover:not(:last-child) {
-      background-color: rgba($secondary, 0.2);
     }
 
     &--filler {

@@ -65,9 +65,11 @@ $datagrid-head-column-bg: mix($base-theme, $base-invert, 90%) !default;
 $datagrid-head-column-color: $base-color !default;
 $datagrid-head-bg: mix($primary, $base-theme, 70%) !default;
 $datagrid-head-color: $white !default;
-$datagrid-hover-bg: mix($primary, $base-theme, 15%) !default;
+$datagrid-hover-bg: mix($primary, $base-theme, 10%) !default;
+$datagrid-selected-bg: mix($primary, $base-theme, 20%) !default;
 $datagrid-row-odd-bg: mix($gray, $base-theme, 2%) !default;
 $datagrid-row-even-bg: mix($gray, $base-theme, 5%) !default;
+$datagrid-cell-head-bg: mix($gray, $base-theme, 20%) !default;
 $datagrid-foot-bg: mix($gray, $base-theme, 9%) !default;
 $datagrid-foot-color: $base-invert !default;
 
