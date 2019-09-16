@@ -1,4 +1,7 @@
 ## Aurelia UI Framework
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/adarshpastakia/aurelia-ui-framework.svg)](https://greenkeeper.io/)
+
 #### A bespoke UI Framework for business applications
 
 ---
