@@ -1,7 +1,5 @@
 ## Aurelia UI Framework
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/adarshpastakia/aurelia-ui-framework.svg)](https://greenkeeper.io/)
-
 #### A bespoke UI Framework for business applications
 
 ---
@@ -14,9 +12,10 @@ Demo Site: [https://aurelia-ui-framework.herokuapp.com](https://aurelia-ui-frame
 ![Forks](https://img.shields.io/github/forks/adarshpastakia/aurelia-ui-framework.svg?logoColor=blue&style=social&logo=github "GitHub Forks")
 ![Issues](https://img.shields.io/github/issues/adarshpastakia/aurelia-ui-framework.svg?logoColor=blue&style=social&logo=github "GitHub Issues")
 
-![Build](https://img.shields.io/travis/adarshpastakia/aurelia-ui-framework/master.svg?style=popout-square&logo=travis&label= "Travis Build")
-![Coverage](https://img.shields.io/codecov/c/github/adarshpastakia/aurelia-ui-framework/master.svg?style=popout-square&logo=codecov&label= "Code Coverage")
-![NPM Release](https://img.shields.io/npm/v/aurelia-ui-framework/next.svg?style=popout-square&logo=npm&label= "NPM Release")
+![Build](https://img.shields.io/travis/adarshpastakia/aurelia-ui-framework/master.svg?style=for-the-badge&logo=travis&color=363636&label=)
+![Coverage](https://img.shields.io/codecov/c/github/adarshpastakia/aurelia-ui-framework/master.svg?style=for-the-badge&logo=codecov&color=363636&label=)
+![NPM Release](https://img.shields.io/npm/v/aurelia-ui-framework/next.svg?style=for-the-badge&logo=npm&color=363636&label=)
+![Greenkeeper badge](https://img.shields.io/badge/GreenKeeper-GreenKeeper-363636?style=for-the-badge&logo=greenkeeper&label=)
 
 ---
 
