@@ -1,9 +1,9 @@
-import { PLATFORM } from "aurelia-pal";
 // tslint:disable-next-line:no-submodule-imports
-import "jest-dom/extend-expect";
+import "@testing-library/jest-dom/extend-expect";
+import { PLATFORM } from "aurelia-pal";
 
 export const auconfig = (aurelia, callback?) => {
-  aurelia.use
+  return aurelia.use
     .standardConfiguration()
     .plugin(PLATFORM.moduleName("aurelia-validation"))
     .plugin(PLATFORM.moduleName("aurelia-ui-virtualization"))

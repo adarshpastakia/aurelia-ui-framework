@@ -28,7 +28,7 @@ describe("ui-page", () => {
       .boundTo({});
 
     component.bootstrap(aurelia => {
-      auconfig(aurelia);
+      return auconfig(aurelia);
     });
 
     await component.create(bootstrap);

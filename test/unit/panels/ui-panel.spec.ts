@@ -45,7 +45,7 @@ describe("ui-panel", () => {
       .boundTo(vm);
 
     component.bootstrap(aurelia => {
-      auconfig(aurelia);
+      return auconfig(aurelia);
     });
 
     await component.create(bootstrap);

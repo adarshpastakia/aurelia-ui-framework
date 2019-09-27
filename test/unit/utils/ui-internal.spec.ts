@@ -22,7 +22,7 @@ describe("ui-internal", () => {
       .boundTo(vm);
 
     component.bootstrap(aurelia => {
-      auconfig(aurelia);
+      return auconfig(aurelia);
     });
 
     await component.create(bootstrap);

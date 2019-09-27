@@ -23,7 +23,7 @@ describe("aurelia-ui-framework test", () => {
       .boundTo({});
 
     component.bootstrap(aurelia => {
-      auconfig(aurelia, (config: UIFrameworkConfig) => {
+      return auconfig(aurelia, (config: UIFrameworkConfig) => {
         config
           .setApiBaseUrl(AppBaseUrl)
           .setApiHeaders(AppHeaders)

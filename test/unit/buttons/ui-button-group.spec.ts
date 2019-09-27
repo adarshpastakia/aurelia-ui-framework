@@ -7,7 +7,6 @@
 
 import { bootstrap } from "aurelia-bootstrapper";
 import { StageComponent } from "aurelia-testing";
-import { UIButton } from "../../../src/buttons/ui-button";
 import { UIInternal } from "../../../src/utils/ui-internal";
 import { auconfig } from "../../jest-pretest";
 
@@ -38,7 +37,7 @@ describe("ui-button-group", () => {
       .boundTo(vm);
 
     component.bootstrap(aurelia => {
-      auconfig(aurelia);
+      return auconfig(aurelia);
     });
 
     await component.create(bootstrap);

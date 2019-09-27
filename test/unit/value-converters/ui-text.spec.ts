@@ -54,7 +54,7 @@ describe("valueConverter/ui-text", () => {
       });
 
     component.bootstrap(aurelia => {
-      auconfig(aurelia);
+      return auconfig(aurelia);
     });
 
     await component.create(bootstrap);
@@ -66,7 +66,7 @@ describe("valueConverter/ui-text", () => {
 
   it("should format json", done => {
     component.waitForElement("#json").then(el => {
-      expect(el.innerHTML).toBe('{"a":"a"}');
+      expect(el.innerHTML).toBe("{\"a\":\"a\"}");
       done();
     });
   });
