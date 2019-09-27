@@ -14,10 +14,15 @@ import { UIInternal } from "../utils/ui-internal";
 export class UIContent {
   private obResize: ResizeObserver;
 
-  constructor(element: Element) {
+  constructor(private element: Element) {}
+
+  protected attached() {
     this.obResize = new ResizeObserver(() =>
-      element.dispatchEvent(UIInternal.createEvent("resize", element.getBoundingClientRect())));
-    this.obResize.observe(element);
+      this.element.dispatchEvent(
+        UIInternal.createEvent("resize", this.element.getBoundingClientRect())
+      )
+    );
+    this.obResize.observe(this.element);
   }
 
   protected detached() {
