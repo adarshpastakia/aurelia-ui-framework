@@ -23,7 +23,7 @@ import { UIInternal } from "../../utils/ui-internal";
           <ui-menu menu-items.bind="actions"></ui-menu>
         </ui-drop>
       </ui-button>
-      <ui-button type="tool" click.trigger="open = !open">
+      <ui-button type="tool" click.trigger="toggleExpand()">
         <ui-svg-icon icon="caret"></ui-svg-icon>
       </ui-button>
     </ui-button-group>
@@ -41,8 +41,7 @@ export class UIDataCard {
 
   protected vmElement;
 
-  constructor(private element: Element) {
-  }
+  constructor(private element: Element) {}
 
   protected attached() {
     this.hrefChanged();
@@ -57,6 +56,13 @@ export class UIDataCard {
       } else if (this.vmElement.attributes.getNamedItem("href")) {
         this.vmElement.attributes.removeNamedItem("href");
       }
+    }
+  }
+
+  protected toggleExpand() {
+    this.open = !this.open;
+    if (this.open) {
+      setTimeout(() => this.vmElement.scrollIntoView({ inline: "nearest" }), 500);
     }
   }
 
