@@ -29,17 +29,23 @@ export namespace UIFormat {
 
   export function date(dt: AnyObject, ft: string = "dd MMM yyyy"): string {
     dt = parseDate(dt);
-    return !dt || !isValid(dt) ? null : format(dt, ft, { awareOfUnicodeTokens: true });
+    return !dt || !isValid(dt)
+      ? null
+      : format(dt, ft, { useAdditionalDayOfYearTokens: true, useAdditionalWeekYearTokens: true });
   }
 
   export function time(dt: AnyObject, ft: string = "hh:mm a"): string {
     dt = parseDate(dt);
-    return !dt || !isValid(dt) ? null : format(dt, ft, { awareOfUnicodeTokens: true });
+    return !dt || !isValid(dt)
+      ? null
+      : format(dt, ft, { useAdditionalDayOfYearTokens: true, useAdditionalWeekYearTokens: true });
   }
 
   export function datetime(dt: AnyObject, ft: string = "dd MMM yyyy hh:mm a"): string {
     dt = parseDate(dt);
-    return !dt || !isValid(dt) ? null : format(dt, ft, { awareOfUnicodeTokens: true });
+    return !dt || !isValid(dt)
+      ? null
+      : format(dt, ft, { useAdditionalDayOfYearTokens: true, useAdditionalWeekYearTokens: true });
   }
 
   export function utcDate(dt): string {
@@ -52,7 +58,8 @@ export namespace UIFormat {
     return !dt || !isValid(dt)
       ? null
       : format(dt, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", {
-          awareOfUnicodeTokens: true
+          useAdditionalDayOfYearTokens: true,
+          useAdditionalWeekYearTokens: true
         });
   }
 
