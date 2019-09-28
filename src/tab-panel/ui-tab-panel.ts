@@ -75,8 +75,6 @@ class UITabPanel {
     if (element.hasAttribute("no-border")) {
       element.classList.add("ui-tab__panel--noborder");
     }
-    this.obResize = new ResizeObserver(() => this.calculateOverflow());
-    this.obResize.observe(element);
   }
 
   public async activateTab(id: string): Promise<boolean> {
@@ -121,6 +119,9 @@ class UITabPanel {
     this.composeVm.owningView = this.owningView;
     this.composeVm.viewResources = this.owningView.resources;
     setTimeout(() => this.calculateOverflow(), 200);
+
+    this.obResize = new ResizeObserver(() => this.calculateOverflow());
+    this.obResize.observe(this.element);
 
     this.isAttached = true;
     this.tabsChanged();
