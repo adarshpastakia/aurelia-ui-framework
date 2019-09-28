@@ -28,16 +28,7 @@ export class UITreeModel {
     node.expanded = !node.expanded;
 
     if (node.expanded) {
-      let injectedChildren = node.children.sortBy("label");
-      if (injectedChildren.length === 0) {
-        injectedChildren.push(new UITreeNode({ id: "node-empty", leaf: true }, node));
-      }
-      if (this.maxNodes > 0 && injectedChildren.length > this.maxNodes) {
-        injectedChildren = [
-          ...injectedChildren.slice(0, this.maxNodes),
-          new UITreeNode({ id: "node-more", leaf: true }, node)
-        ];
-      }
+      const injectedChildren = this.getChildren(node);
       this.nodes = [
         ...this.nodes.slice(0, index + 1),
         ...injectedChildren,
@@ -96,17 +87,7 @@ export class UITreeModel {
     children.forEach(child => {
       nodes.push(child);
       if (child.expanded) {
-        let injectedChildren = child.children.sortBy("label");
-        if (injectedChildren.length === 0) {
-          injectedChildren.push(new UITreeNode({ id: "node-empty", leaf: true }, child));
-        }
-        if (this.maxNodes > 0 && injectedChildren.length > this.maxNodes) {
-          injectedChildren = [
-            ...injectedChildren.slice(0, this.maxNodes),
-            new UITreeNode({ id: "node-more", leaf: true }, child)
-          ];
-        }
-        nodes.push(...this.getExpandedTree(injectedChildren));
+        nodes.push(...this.getExpandedTree(this.getChildren(child)));
       }
     });
     return nodes;
@@ -126,6 +107,20 @@ export class UITreeModel {
       }
       return retVal;
     });
+  }
+
+  private getChildren(node) {
+    let injectedChildren = node.children.sortBy("label");
+    if (injectedChildren.length === 0) {
+      injectedChildren.push(new UITreeNode({ id: "node-empty", leaf: true }, node));
+    }
+    if (this.maxNodes > 0 && injectedChildren.length > this.maxNodes) {
+      injectedChildren = [
+        ...injectedChildren.slice(0, this.maxNodes),
+        new UITreeNode({ id: "node-more", leaf: true }, node)
+      ];
+    }
+    return injectedChildren;
   }
 }
 
