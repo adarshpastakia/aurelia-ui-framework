@@ -6,7 +6,6 @@
  */
 import { Subscription } from "aurelia-event-aggregator";
 import { bindable, containerless, customElement, inlineView } from "aurelia-framework";
-import { getLogger } from "aurelia-logging";
 import ResizeObserver from "resize-observer-polyfill";
 import { UIInternal } from "../utils/ui-internal";
 import { UITether } from "../utils/ui-tether";
@@ -37,8 +36,6 @@ export class UIDrop {
   private obClick: Subscription;
   private obResize: ResizeObserver;
   private obViewportResize: Subscription;
-
-  private logger = getLogger("UIDrop");
 
   constructor(protected element: Element) {
     this.position = (element.getAttribute("position") as UITether.Position) || "tl";
@@ -83,7 +80,6 @@ export class UIDrop {
   }
 
   public closeDrop() {
-    this.logger.debug("closeDrop");
     UIInternal.queueTask(() => {
       this.isOpen = false;
       this.disposeListeners();
@@ -112,7 +108,6 @@ export class UIDrop {
 
   protected close($event: UIEvent) {
     if (this.closeOnClick) {
-      this.logger.debug("close", "closing");
       this.closeDrop();
     } else {
       $event.stopEvent(true);
@@ -120,9 +115,7 @@ export class UIDrop {
   }
 
   private canClose(t: Element): void {
-    this.logger.debug("canClose");
     if (!hasParent(t, this.vmElement) && !hasParent(t, this.anchorEl)) {
-      this.logger.debug("canClose", "closing");
       this.closeDrop();
     }
   }
