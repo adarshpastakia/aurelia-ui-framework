@@ -37,6 +37,8 @@ export class UIDropdown {
 
   @bindable()
   public disabled: boolean = false;
+  @bindable()
+  public multiple: boolean = false;
 
   protected dropEl: UIDrop;
   protected model: AnyObject = undefined;

@@ -7,7 +7,7 @@
     <slot></slot>
     <list-input></list-input>
   </input-wrapper>
-  <ui-drop view-model.ref="dropEl" class="ui-list" close.trigger="resetQuery()">
+  <ui-drop view-model.ref="dropEl" multiple.bind="multiple" class="ui-list" close.trigger="resetQuery()">
     <div ref="listContainer" class="ui-list__container">
       <list-container></list-container>
     </div>

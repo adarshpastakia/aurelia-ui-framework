@@ -21,7 +21,7 @@
     <span class="ui-dropdown__label">${selectedLabel}</span>
     <ui-svg-icon class="ui-dropdown__caret" icon="caret"></ui-svg-icon>
   </a>
-  <ui-drop view-model.ref="dropEl">
+  <ui-drop view-model.ref="dropEl" close-on-click="${!multiple}">
     <div>
       <template repeat.for="option of options">
         <div
