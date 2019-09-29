@@ -9,7 +9,7 @@ export const calculateOverflow = (wrapperEl: Element, overflowEl: Element): bool
   const isRtl = window.getComputedStyle(wrapperEl).direction === "rtl";
 
   resetOverflow(wrapperEl, overflowEl);
-  while (isOutOfBounds(wrapperEl, wrapperEl.lastElementChild)) {
+  while (isOutOfBounds(wrapperEl, wrapperEl.lastElementChild, isRtl)) {
     !!overflowEl.firstElementChild
       ? overflowEl.insertBefore(wrapperEl.lastElementChild, overflowEl.firstElementChild)
       : overflowEl.appendChild(wrapperEl.lastElementChild);
@@ -23,6 +23,8 @@ const resetOverflow = (wrapperEl: Element, overflowEl: Element): void => {
   });
 };
 
-const isOutOfBounds = (wrapperEl: Element, itemEl: Element) => {
-  return itemEl.getBoundingClientRect().right > wrapperEl.getBoundingClientRect().right;
+const isOutOfBounds = (wrapperEl: Element, itemEl: Element, isRtl: boolean) => {
+  return isRtl
+    ? itemEl.getBoundingClientRect().left < wrapperEl.getBoundingClientRect().left
+    : itemEl.getBoundingClientRect().right > wrapperEl.getBoundingClientRect().right;
 };
