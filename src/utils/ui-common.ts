@@ -9,7 +9,7 @@ export const calculateOverflow = (wrapperEl: Element, overflowEl: Element): bool
   const isRtl = window.getComputedStyle(wrapperEl).direction === "rtl";
 
   resetOverflow(wrapperEl, overflowEl);
-  while (isOutOfBounds(wrapperEl, wrapperEl.lastElementChild, isRtl)) {
+  while (wrapperEl.lastElementChild && isOutOfBounds(wrapperEl, wrapperEl.lastElementChild, isRtl)) {
     !!overflowEl.firstElementChild
       ? overflowEl.insertBefore(wrapperEl.lastElementChild, overflowEl.firstElementChild)
       : overflowEl.appendChild(wrapperEl.lastElementChild);
