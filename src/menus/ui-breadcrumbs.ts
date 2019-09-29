@@ -62,7 +62,7 @@ export class UIBreadcrumbs {
     if (this.wrapperEl.offsetWidth > this.element.offsetWidth) {
       this.hasOverflow = true;
       while (this.wrapperEl.offsetWidth > this.element.offsetWidth - 50) {
-        this.overflowEl.appendChild(this.wrapperEl.children[0]);
+        this.overflowEl.appendChild(this.wrapperEl.firstElementChild);
       }
     } else {
       this.hasOverflow = false;
@@ -71,9 +71,9 @@ export class UIBreadcrumbs {
 
   protected resetOverflow(): void {
     this.hasOverflow = false;
-    // @ts-ignore
-    [...this.overflowEl.children].reverse().forEach(child => {
-      this.wrapperEl.insertBefore(child, this.wrapperEl.children[0]);
+    const currentFirstChild = this.wrapperEl.firstElementChild;
+    this.overflowEl.children.forEach(child => {
+      this.wrapperEl.insertBefore(child, currentFirstChild);
     });
   }
 }

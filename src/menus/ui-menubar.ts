@@ -7,6 +7,7 @@
 
 import { customElement, inlineView } from "aurelia-framework";
 import ResizeObserver from "resize-observer-polyfill";
+import { calculateOverflow } from "../utils/ui-common";
 import { UIInternal } from "../utils/ui-internal";
 
 @customElement("ui-menubar")
@@ -38,26 +39,6 @@ export class UIMenubar {
   }
 
   protected calculateOverflow(): void {
-    this.resetOverflow();
-    const overflowItems = [];
-    const isRtl = window.getComputedStyle(this.wrapperEl).direction === "rtl";
-    // @ts-ignore
-    [...this.wrapperEl.children].reverse().forEach(item => {
-      if (
-        (!isRtl && this.wrapperEl.offsetWidth - (item.offsetLeft + item.offsetWidth) <= 30) ||
-        (isRtl && this.wrapperEl.offsetWidth - item.offsetLeft >= this.wrapperEl.offsetWidth - 30)
-      ) {
-        overflowItems.splice(0, 0, item);
-        this.hasOverflow = true;
-      }
-    });
-    this.overflowEl.append(...overflowItems);
-  }
-
-  protected resetOverflow(): void {
-    this.hasOverflow = false;
-    this.overflowEl.children.forEach(child => {
-      this.wrapperEl.appendChild(child);
-    });
+    this.hasOverflow = calculateOverflow(this.wrapperEl, this.overflowEl);
   }
 }

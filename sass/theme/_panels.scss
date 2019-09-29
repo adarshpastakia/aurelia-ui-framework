@@ -133,12 +133,25 @@ a {
       .ui-tab__button {
         &[data-active="true"] {
           box-shadow: 0 1px 0 0 $base-component-bg inset, 0 3px 0 0 $tab-active-color,
-          0 0 0 1px $tab-active-color inset;
+            0 0 0 1px $tab-active-color inset;
         }
       }
 
       .ui-tab__body {
         border-bottom-color: $tab-active-color;
+      }
+    }
+  }
+
+  &__bar {
+    &__overflow {
+      .ui-menu {
+        .ui-tab__button {
+          box-shadow: none;
+          &[data-active="true"] {
+            background-color: rgba($tab-active-color, 0.5);
+          }
+        }
       }
     }
   }
@@ -151,11 +164,11 @@ a {
     &[data-active="true"] {
       background-color: $base-component-bg;
       box-shadow: 0 -1px 0 0 $base-component-bg inset, 0 -3px 0 0 $tab-active-color,
-      0 0 0 1px $tab-active-color inset;
+        0 0 0 1px $tab-active-color inset;
 
       @at-root .ui-menu > & {
         box-shadow: 0 -3px 0 0 $tab-active-color inset, 0 3px 0 0 $tab-active-color inset,
-        0 -1px 0 0 $base-component-bg inset, 0 0 0 1px $base-border-color inset;
+          0 -1px 0 0 $base-component-bg inset, 0 0 0 1px $base-border-color inset;
       }
     }
 
@@ -371,7 +384,8 @@ a {
 }
 
 .ui-toolbar {
-  &, & > .ui-container {
+  &,
+  & > .ui-container {
     background-color: $toolbar-bg;
 
     > .ui-field {

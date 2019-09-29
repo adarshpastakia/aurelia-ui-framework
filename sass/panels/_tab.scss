@@ -17,7 +17,6 @@
     grid-template-areas: "tabbar" "body";
     grid-template-rows: auto 1fr;
 
-
     &[data-align="bottom"] {
       grid-template-areas: "body" "tabbar";
       grid-template-rows: 1fr auto;
