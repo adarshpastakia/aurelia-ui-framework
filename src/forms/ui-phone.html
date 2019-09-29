@@ -5,7 +5,9 @@
 >
   <input-wrapper>
     <slot></slot>
-    <ui-flag code.bind="inputCountry"></ui-flag>
+    <ui-input-addon>
+      <ui-flag code.bind="inputCountry"></ui-flag>
+    </ui-input-addon>
     <!--suppress HtmlFormInputWithoutLabel -->
     <input
       ref="inputEl"
