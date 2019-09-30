@@ -18,7 +18,7 @@ $base-invert: $black !default;
 
 $base-bg: mix($gray, $base-theme, 15%) !default;
 $base-color: mix($gray, $base-invert, 15%) !default;
-$base-muted: mix($base-invert, $base-theme, 65%) !default;
+$base-muted: mix($muted, $base-invert, 50%) !default;
 $base-component-bg: mix($gray, $base-theme, 5%) !default;
 
 $base-border-color: mix($gray, $base-theme, 30%) !default;
