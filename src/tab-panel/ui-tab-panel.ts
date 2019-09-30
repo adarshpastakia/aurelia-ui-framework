@@ -38,6 +38,7 @@ export interface UITabConfig {
   element?: AnyObject;
   viewModel?: AnyObject;
 }
+
 @autoinject()
 @customElement("ui-tab-panel")
 @inlineView(view)
@@ -119,7 +120,6 @@ class UITabPanel {
   protected attached(): void {
     this.composeVm.owningView = this.owningView;
     this.composeVm.viewResources = this.owningView.resources;
-    setTimeout(() => this.calculateOverflow(), 200);
 
     this.obResize = new ResizeObserver(() => this.calculateOverflow());
     this.obResize.observe(this.element);
@@ -145,12 +145,13 @@ class UITabPanel {
         this.active = this.activeTab.id;
         this.activeTab.active = true;
       }
+      UIInternal.queueTask(() => this.calculateOverflow());
     }
   }
 
   protected activate(id: string): boolean {
     const newTab = this.tabs.find(tab => tab.id === id);
-    if (newTab) {
+    if (newTab && !newTab.disabled) {
       this.element.dispatchEvent(UIInternal.createEvent("change", id));
 
       if (this.activeTab) {
@@ -167,7 +168,10 @@ class UITabPanel {
   protected remove(id: string): boolean {
     const tab = this.tabs.find(t => t.id === id);
     this.element.dispatchEvent(UIInternal.createEvent("close", id));
-    this.tabs.splice(this.tabs.indexOf(tab), 1);
+    this.overflowEl.innerHTML = "";
+    UIInternal.queueTask(() => {
+      this.tabs = [...this.tabs.splice(this.tabs.indexOf(tab), 1)];
+    });
     if (tab.element) {
       UIInternal.queueTask(() => DOM.removeNode(tab.element));
     }

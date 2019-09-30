@@ -117,7 +117,6 @@
 
     &[data-disabled="true"] {
       box-shadow: none;
-      pointer-events: none;
 
       &::before {
         content: "";

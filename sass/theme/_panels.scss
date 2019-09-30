@@ -20,7 +20,7 @@
 }
 
 .ui-footer {
-  color: $gray;
+  color: $base-muted;
 
   &::after {
     @extend %hr;
@@ -84,7 +84,7 @@
 
   $base: unquote(".ui-card");
   &__meta {
-    color: $gray;
+    color: $base-muted;
   }
 
   &__content {
@@ -173,7 +173,7 @@ a {
     }
 
     &[data-disabled="true"] {
-      color: $base-border-color;
+      color: rgba($base-muted, 0.5);
 
       &::before {
         background-color: rgba($gray, 0.25);
