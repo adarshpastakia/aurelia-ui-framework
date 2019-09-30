@@ -10,6 +10,7 @@ export declare class UITreeModel {
     private getCheckedNodes;
     private getExpandedTree;
     private filterNodes;
+    private getChildren;
 }
 export declare class UITreeNode {
     private parent?;

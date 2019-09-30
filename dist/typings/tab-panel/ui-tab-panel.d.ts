@@ -43,7 +43,6 @@ declare class UITabPanel {
     protected activate(id: string): boolean;
     protected remove(id: string): boolean;
     protected calculateOverflow(): void;
-    protected resetOverflow(): void;
 }
 export declare const TabPanel: (typeof UITab | typeof UITabbarEnd | typeof UITabbarStart | typeof UITabPanel)[];
 export {};

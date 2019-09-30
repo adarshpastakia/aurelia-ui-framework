@@ -1,12 +1,12 @@
-System.register(['./chunk.js', 'aurelia-framework', 'libphonenumber-js', 'aurelia-event-aggregator', './chunk3.js', './chunk6.js', 'libphonenumber-js/examples.mobile.json'], function (exports, module) {
+System.register(['./_tslib.js', 'aurelia-framework', 'libphonenumber-js', 'aurelia-event-aggregator', './ui-internal.js', './input-wrapper.js', 'libphonenumber-js/examples.mobile.json'], function (exports) {
   'use strict';
   var __decorate, __metadata, __extends, __values, bindable, bindingMode, customElement, inlineView, computedFrom, containerless, viewResources, children, observable, getExampleNumber, AsYouType, UIInternal, InputWrapper, BaseInput, examples;
   return {
     setters: [function (module) {
-      __decorate = module.b;
-      __metadata = module.c;
-      __extends = module.g;
-      __values = module.a;
+      __decorate = module.a;
+      __metadata = module.b;
+      __extends = module.f;
+      __values = module._;
     }, function (module) {
       bindable = module.bindable;
       bindingMode = module.bindingMode;
@@ -21,16 +21,16 @@ System.register(['./chunk.js', 'aurelia-framework', 'libphonenumber-js', 'aureli
       getExampleNumber = module.getExampleNumber;
       AsYouType = module.AsYouType;
     }, function () {}, function (module) {
-      UIInternal = module.a;
+      UIInternal = module.U;
     }, function (module) {
-      InputWrapper = module.a;
-      BaseInput = module.b;
+      InputWrapper = module.I;
+      BaseInput = module.B;
     }, function (module) {
       examples = module.default;
     }],
     execute: function () {
 
-      var view = "<template class=\"ui-option\" data-disabled.bind=\"disabled || isDisabled\">\n  <label class=\"ui-option__control\">\n    <input size=\"1\" type=\"checkbox\" checked.bind=\"checked\" model.bind=\"model\" matcher.bind=\"matcher\" disabled.bind=\"disabled\" change.trigger=\"checkChanged($event)\">\n    <ui-svg-icon icon=\"check-off\"></ui-svg-icon>\n    <ui-svg-icon icon=\"check-on\"></ui-svg-icon>\n    <span>\n      <slot></slot>\n    </span>\n  </label>\n</template>\n";
+      var view = "<template class=\"ui-option\" data-disabled.bind=\"disabled || isDisabled\">\n  <label class=\"ui-option__control\">\n    <input size=\"1\" type=\"checkbox\" data-checked=\"${checked}\" checked.bind=\"checked\" model.bind=\"model\" matcher.bind=\"matcher\" disabled.bind=\"disabled\" change.trigger=\"checkChanged($event)\">\n    <ui-svg-icon icon=\"check-off\"></ui-svg-icon>\n    <ui-svg-icon icon=\"tree-check-half\"></ui-svg-icon>\n    <ui-svg-icon icon=\"check-on\"></ui-svg-icon>\n    <span>\n      <slot></slot>\n    </span>\n  </label>\n</template>\n";
 
       var UICheckbox = (function () {
           function UICheckbox(element) {
@@ -683,7 +683,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'libphonenumber-js', 'aureli
           return UIPasswordMeter;
       }());
 
-      var view$5 = "<template class=\"ui-input ui-phone ${classes}\" aria-disabled.bind=\"disabled || isDisabled\" aria-readonly.bind=\"readonly\">\n  <input-wrapper>\n    <slot></slot>\n    <ui-flag code.bind=\"inputCountry\"></ui-flag>\n    <!--suppress HtmlFormInputWithoutLabel -->\n    <input ref=\"inputEl\" role=\"textbox\" size=\"1\" placeholder.bind=\"placeholder\" disabled.bind=\"disabled || isDisabled || isPlain\" readonly.bind=\"readonly\" value.two-way=\"inputValue\" autocomplete.bind=\"autocomplete\" keypress.trigger=\"fireEnter($event)\">\n  </input-wrapper>\n</template>\n";
+      var view$5 = "<template class=\"ui-input ui-phone ${classes}\" aria-disabled.bind=\"disabled || isDisabled\" aria-readonly.bind=\"readonly\">\n  <input-wrapper>\n    <slot></slot>\n    <ui-input-addon>\n      <ui-flag code.bind=\"inputCountry\"></ui-flag>\n    </ui-input-addon>\n    <!--suppress HtmlFormInputWithoutLabel -->\n    <input ref=\"inputEl\" role=\"textbox\" size=\"1\" placeholder.bind=\"placeholder\" disabled.bind=\"disabled || isDisabled || isPlain\" readonly.bind=\"readonly\" value.two-way=\"inputValue\" autocomplete.bind=\"autocomplete\" keypress.trigger=\"fireEnter($event)\">\n  </input-wrapper>\n</template>\n";
 
       var UIPhone = (function (_super) {
           __extends(UIPhone, _super);

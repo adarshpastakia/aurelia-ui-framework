@@ -1,11 +1,11 @@
-System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', './chunk3.js', 'date-fns', 'kramed', 'numeral', './chunk4.js'], function (exports, module) {
+System.register(['./_tslib.js', 'aurelia-framework', 'aurelia-event-aggregator', './ui-internal.js', 'date-fns', 'kramed', 'numeral', './ui-format.js'], function (exports) {
   'use strict';
   var __decorate, __metadata, __assign, bindable, customElement, inlineView, computedFrom, bindingMode, viewResources, UIInternal, startOfMinute, addDays, addWeeks, addMonths, addYears, parseISO, startOfDay, startOfWeek, endOfWeek, startOfMonth, endOfMonth, startOfYear, endOfYear, format, startOfDecade, endOfDecade, isValid, isBefore, isAfter, getDay, setDay, isSameMonth, isSameDay, endOfDay, setMonth, getHours, setHours, getMinutes, setMinutes, isSameYear, UIFormat;
   return {
     setters: [function (module) {
-      __decorate = module.b;
-      __metadata = module.c;
-      __assign = module.d;
+      __decorate = module.a;
+      __metadata = module.b;
+      __assign = module.c;
     }, function (module) {
       bindable = module.bindable;
       customElement = module.customElement;
@@ -14,7 +14,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', 
       bindingMode = module.bindingMode;
       viewResources = module.viewResources;
     }, function () {}, function (module) {
-      UIInternal = module.a;
+      UIInternal = module.U;
     }, function (module) {
       startOfMinute = module.startOfMinute;
       addDays = module.addDays;
@@ -47,7 +47,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', 
       setMinutes = module.setMinutes;
       isSameYear = module.isSameYear;
     }, function () {}, function () {}, function (module) {
-      UIFormat = module.a;
+      UIFormat = module.U;
     }],
     execute: function () {
 
@@ -703,14 +703,14 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', 
           });
           Object.defineProperty(UIRangePicker.prototype, "startHeaderOptions", {
               get: function () {
-                  return buildHeaderConfig(this.startMonth, this.startPage, __assign({}, this.config, { page: this.startPage }));
+                  return buildHeaderConfig(this.startMonth, this.startPage, __assign(__assign({}, this.config), { page: this.startPage }));
               },
               enumerable: true,
               configurable: true
           });
           Object.defineProperty(UIRangePicker.prototype, "endHeaderOptions", {
               get: function () {
-                  return buildHeaderConfig(this.endMonth, this.endPage, __assign({}, this.config, { page: this.endPage }));
+                  return buildHeaderConfig(this.endMonth, this.endPage, __assign(__assign({}, this.config), { page: this.endPage }));
               },
               enumerable: true,
               configurable: true

@@ -1,4 +1,4 @@
-define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', './chunk3', './chunk7'], function (exports, __chunk_1, aureliaFramework, aureliaEventAggregator, __chunk_3, __chunk_7) { 'use strict';
+define(['exports', './_tslib', 'aurelia-framework', 'aurelia-event-aggregator', './ui-internal', './base-panel'], function (exports, _tslib, aureliaFramework, aureliaEventAggregator, uiInternal, basePanel) { 'use strict';
 
   var view = "<template>\n  <div ref=\"vmElement\" slot=\"page-alert\" class=\"ui-alert ui-alert--inline\" data-open.bind=\"open\">\n    <div class=\"ui-alert__wrapper\">\n      <div if.bind=\"icon\" class=\"ui-alert__icon\">\n        <ui-icon icon.bind=\"icon\"></ui-icon>\n      </div>\n      <div if.bind=\"alertTitle\" class=\"ui-alert__title\" innerhtml.bind=\"alertTitle\"></div>\n      <div class=\"ui-alert__body\"><slot></slot></div>\n      <div class=\"ui-alert__close\" click.trigger=\"close(false)\" if.bind=\"closeable\">\n        <ui-svg-icon icon=\"cross\"></ui-svg-icon>\n      </div>\n      <div class=\"ui-alert__footer\" if.bind=\"type==='confirm'\">\n        <a click.trigger=\"close(false)\">${cancelLabel}</a>\n        <a click.trigger=\"close(true)\" ui-weight=\"bold\">${okLabel}</a>\n      </div>\n    </div>\n  </div>\n</template>\n";
 
@@ -15,39 +15,39 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           this.closeable = element.hasAttribute("closeable");
       }
       UIAlert.prototype.close = function (result) {
-          if (this.element.dispatchEvent(__chunk_3.UIInternal.createEvent("close", result)) !== false) {
+          if (this.element.dispatchEvent(uiInternal.UIInternal.createEvent("close", result)) !== false) {
               this.open = false;
           }
       };
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.twoWay }),
-          __chunk_1.__metadata("design:type", Object)
+          _tslib.__metadata("design:type", Object)
       ], UIAlert.prototype, "open", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Object)
+          _tslib.__metadata("design:type", Object)
       ], UIAlert.prototype, "icon", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Object)
+          _tslib.__metadata("design:type", Object)
       ], UIAlert.prototype, "alertTitle", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Object)
+          _tslib.__metadata("design:type", Object)
       ], UIAlert.prototype, "okLabel", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Object)
+          _tslib.__metadata("design:type", Object)
       ], UIAlert.prototype, "cancelLabel", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIAlert.prototype, "type", void 0);
-      UIAlert = __chunk_1.__decorate([
+      UIAlert = _tslib.__decorate([
           aureliaFramework.containerless(),
           aureliaFramework.customElement("ui-alert"),
           aureliaFramework.inlineView(view),
-          __chunk_1.__metadata("design:paramtypes", [Element])
+          _tslib.__metadata("design:paramtypes", [Element])
       ], UIAlert);
       return UIAlert;
   }());
@@ -86,15 +86,15 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           this.close();
       };
       UIDialogElement.prototype.close = function (result) {
-          __chunk_3.UIInternal.broadcast("dlg:close", { dialog: this, result: result });
+          uiInternal.UIInternal.broadcast("dlg:close", { dialog: this, result: result });
       };
       UIDialogElement.prototype.minimize = function () {
           this.minimized = !this.minimized;
           this.active = !this.minimized;
-          __chunk_3.UIInternal.broadcast("dlg:minimize", { dialog: this });
+          uiInternal.UIInternal.broadcast("dlg:minimize", { dialog: this });
       };
       UIDialogElement.prototype.activate = function () {
-          __chunk_3.UIInternal.broadcast("dlg:activate", { dialog: this });
+          uiInternal.UIInternal.broadcast("dlg:activate", { dialog: this });
       };
       UIDialogElement.prototype.bind = function () {
           if (this.modal) {
@@ -107,13 +107,13 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
               if (iconEl) {
                   this.icon = iconEl.au.controller.viewModel.icon;
               }
-              this.taskButton = __chunk_3.UIInternal.compileTemplate("<template><ui-button size=\"sm\" ui-theme=\"primary\" type.bind=\"active?'solid':'default'\" label.bind=\"label\" icon.bind=\"icon\"></ui-button></template>", this);
+              this.taskButton = uiInternal.UIInternal.compileTemplate("<template><ui-button size=\"sm\" ui-theme=\"primary\" type.bind=\"active?'solid':'default'\" label.bind=\"label\" icon.bind=\"icon\"></ui-button></template>", this);
           }
       };
       UIDialogElement.prototype.startDrag = function ($event) {
           if ($event.button === 0) {
               $event.stopEvent();
-              __chunk_3.UIInternal.broadcast("dlg:drag", {
+              uiInternal.UIInternal.broadcast("dlg:drag", {
                   dialog: this,
                   startX: $event.x || $event.clientX,
                   startY: $event.y || $event.clientY
@@ -122,7 +122,7 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
       };
       Object.defineProperty(UIDialogElement.prototype, "css", {
           get: function () {
-              var pos = __chunk_1.__assign({ height: this.height, maxHeight: this.maxHeight, maxWidth: this.maxWidth, minHeight: this.minHeight, minWidth: this.minWidth, width: this.width }, this.position);
+              var pos = _tslib.__assign({ height: this.height, maxHeight: this.maxHeight, maxWidth: this.maxWidth, minHeight: this.minHeight, minWidth: this.minWidth, width: this.width }, this.position);
               if (this.maximized) {
                   pos.top = pos.left = pos.right = pos.bottom = "0";
                   pos.width = pos.height = "auto";
@@ -132,75 +132,75 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           enumerable: true,
           configurable: true
       });
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Object)
+          _tslib.__metadata("design:type", Object)
       ], UIDialogElement.prototype, "label", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Object)
+          _tslib.__metadata("design:type", Object)
       ], UIDialogElement.prototype, "icon", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIDialogElement.prototype, "width", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIDialogElement.prototype, "minWidth", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIDialogElement.prototype, "maxWidth", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIDialogElement.prototype, "height", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIDialogElement.prototype, "minHeight", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIDialogElement.prototype, "maxHeight", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.toView }),
-          __chunk_1.__metadata("design:type", Object)
+          _tslib.__metadata("design:type", Object)
       ], UIDialogElement.prototype, "help", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.oneTime }),
-          __chunk_1.__metadata("design:type", Boolean)
+          _tslib.__metadata("design:type", Boolean)
       ], UIDialogElement.prototype, "modal", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.toView }),
-          __chunk_1.__metadata("design:type", Boolean)
+          _tslib.__metadata("design:type", Boolean)
       ], UIDialogElement.prototype, "closeable", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.toView }),
-          __chunk_1.__metadata("design:type", Boolean)
+          _tslib.__metadata("design:type", Boolean)
       ], UIDialogElement.prototype, "maximizable", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.toView }),
-          __chunk_1.__metadata("design:type", Boolean)
+          _tslib.__metadata("design:type", Boolean)
       ], UIDialogElement.prototype, "minimizable", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.toView }),
-          __chunk_1.__metadata("design:type", Boolean)
+          _tslib.__metadata("design:type", Boolean)
       ], UIDialogElement.prototype, "hideToolbox", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Function)
+          _tslib.__metadata("design:type", Function)
       ], UIDialogElement.prototype, "beforeclose", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.computedFrom("width", "minWidth", "maxWidth", "height", "minHeight", "maxHeight", "minimized", "maximized", "position.left", "position.top"),
-          __chunk_1.__metadata("design:type", Object),
-          __chunk_1.__metadata("design:paramtypes", [])
+          _tslib.__metadata("design:type", Object),
+          _tslib.__metadata("design:paramtypes", [])
       ], UIDialogElement.prototype, "css", null);
-      UIDialogElement = __chunk_1.__decorate([
+      UIDialogElement = _tslib.__decorate([
           aureliaFramework.customElement("ui-dialog"),
           aureliaFramework.inlineView(view$1),
-          __chunk_1.__metadata("design:paramtypes", [Element])
+          _tslib.__metadata("design:paramtypes", [Element])
       ], UIDialogElement);
       return UIDialogElement;
   }());
@@ -218,7 +218,7 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           this.push = element.hasAttribute("push");
           this.closeOnClick =
               element.hasAttribute("close-on-click") && !isFalse(element.getAttribute("close-on-click"));
-          this.obClick = __chunk_3.UIInternal.subscribe(__chunk_3.UIInternal.EVT_VIEWPORT_CLICK, function (target) {
+          this.obClick = uiInternal.UIInternal.subscribe(uiInternal.UIInternal.EVT_VIEWPORT_CLICK, function (target) {
               return !_this.closeOnClick && hasParent(target, "ui-drawer__body", "ui-drawer")
                   ? undefined
                   : (element.dataset.peek = "false");
@@ -226,7 +226,7 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
       }
       UIDrawer.prototype.attached = function () {
           var _this = this;
-          __chunk_3.UIInternal.queueTask(function () {
+          uiInternal.UIInternal.queueTask(function () {
               return _this.element.nextElementSibling.style.setProperty("--drawer-width", _this.width);
           });
           this.isAttached = true;
@@ -241,22 +241,22 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
               this.element.nextElementSibling.style.setProperty("--drawer-width", this.width);
           }
       };
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIDrawer.prototype, "align", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIDrawer.prototype, "width", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIDrawer.prototype, "maxWidth", void 0);
-      UIDrawer = __chunk_1.__decorate([
+      UIDrawer = _tslib.__decorate([
           aureliaFramework.customElement("ui-drawer"),
           aureliaFramework.inlineView("<template class=\"ui-drawer\" data-push.bind=\"push\" data-align.bind=\"align\">\n<div class=\"ui-drawer__shim\"></div>\n<div class=\"ui-drawer__body\" css.bind=\"{width, maxWidth}\">\n  <slot></slot>\n</div>\n</template>\n"),
-          __chunk_1.__metadata("design:paramtypes", [Element])
+          _tslib.__metadata("design:paramtypes", [Element])
       ], UIDrawer);
       return UIDrawer;
   }());
@@ -267,11 +267,11 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
       UIDrawerToggle.prototype.toggleOpen = function () {
           this.drawer.dataset.peek = "" + !isTrue(this.drawer.dataset.peek);
       };
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", HTMLElement)
+          _tslib.__metadata("design:type", HTMLElement)
       ], UIDrawerToggle.prototype, "drawer", void 0);
-      UIDrawerToggle = __chunk_1.__decorate([
+      UIDrawerToggle = _tslib.__decorate([
           aureliaFramework.customElement("ui-drawer-toggle"),
           aureliaFramework.inlineView("<template class='ui-drawer__toggler' click.trigger='toggleOpen()'><slot><ui-svg-icon icon='menu'></ui-svg-icon></slot></template>")
       ], UIDrawerToggle);
@@ -282,11 +282,11 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
       function UIFooter(element) {
           this.element = element;
       }
-      UIFooter = __chunk_1.__decorate([
+      UIFooter = _tslib.__decorate([
           aureliaFramework.containerless(),
           aureliaFramework.customElement("ui-footer"),
           aureliaFramework.inlineView("<template><div class=\"ui-footer\" slot=\"panel-footer\" ref=\"vmElement\"><slot></slot></template>"),
-          __chunk_1.__metadata("design:paramtypes", [Element])
+          _tslib.__metadata("design:paramtypes", [Element])
       ], UIFooter);
       return UIFooter;
   }());
@@ -297,19 +297,19 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           this.label = "";
           this.icon = "";
       }
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Object)
+          _tslib.__metadata("design:type", Object)
       ], UIHeader.prototype, "label", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Object)
+          _tslib.__metadata("design:type", Object)
       ], UIHeader.prototype, "icon", void 0);
-      UIHeader = __chunk_1.__decorate([
+      UIHeader = _tslib.__decorate([
           aureliaFramework.containerless(),
           aureliaFramework.customElement("ui-header"),
           aureliaFramework.inlineView("<template><div class=\"ui-header\" slot=\"panel-header\" ref=\"vmElement\">\n  <slot name=\"header-icon\"><div class=\"ui-header__icon\" if.bind=\"icon\"><ui-icon icon.bind=\"icon\"></ui-icon></div></slot>\n  <slot name=\"header-title\"><div class=\"ui-header__title\" if.bind=\"label\" innerhtml.bind=\"label\"></div></slot>\n  <slot name=\"header-actions\"></slot>\n  </div></template>"),
-          __chunk_1.__metadata("design:paramtypes", [Element])
+          _tslib.__metadata("design:paramtypes", [Element])
       ], UIHeader);
       return UIHeader;
   }());
@@ -318,11 +318,11 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
       function UIHeaderActions(element) {
           this.element = element;
       }
-      UIHeaderActions = __chunk_1.__decorate([
+      UIHeaderActions = _tslib.__decorate([
           aureliaFramework.containerless(),
           aureliaFramework.customElement("ui-header-actions"),
           aureliaFramework.inlineView("<template><div ref=\"vmElement\" slot=\"header-actions\" class=\"ui-header__actions\"><slot></slot></div></template>"),
-          __chunk_1.__metadata("design:paramtypes", [Element])
+          _tslib.__metadata("design:paramtypes", [Element])
       ], UIHeaderActions);
       return UIHeaderActions;
   }());
@@ -332,15 +332,15 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           this.element = element;
           this.icon = "";
       }
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIHeaderIcon.prototype, "icon", void 0);
-      UIHeaderIcon = __chunk_1.__decorate([
+      UIHeaderIcon = _tslib.__decorate([
           aureliaFramework.containerless(),
           aureliaFramework.customElement("ui-header-icon"),
           aureliaFramework.inlineView("<template><div ref=\"vmElement\" slot=\"header-icon\" class='ui-header__icon'><slot><ui-icon icon.bind=\"icon\"></ui-icon></slot></div></template>"),
-          __chunk_1.__metadata("design:paramtypes", [Element])
+          _tslib.__metadata("design:paramtypes", [Element])
       ], UIHeaderIcon);
       return UIHeaderIcon;
   }());
@@ -349,11 +349,11 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
       function UIHeaderTitle(element) {
           this.element = element;
       }
-      UIHeaderTitle = __chunk_1.__decorate([
+      UIHeaderTitle = _tslib.__decorate([
           aureliaFramework.containerless(),
           aureliaFramework.customElement("ui-header-title"),
           aureliaFramework.inlineView("<template><div ref=\"vmElement\" slot=\"header-title\" class='ui-header__title'><slot></slot></div></template>"),
-          __chunk_1.__metadata("design:paramtypes", [Element])
+          _tslib.__metadata("design:paramtypes", [Element])
       ], UIHeaderTitle);
       return UIHeaderTitle;
   }());
@@ -361,7 +361,7 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
   var view$2 = "<template class=\"ui-panel-base ui-panel\" css.bind=\"{width, minWidth, maxWidth}\" data-expanded.bind=\"expanded\" data-collapsed.bind=\"collapsed\">\n  <div class=\"ui-panel__header\">\n    <slot name=\"panel-header\">\n      <ui-header>\n        <slot name=\"header-icon\" slot=\"header-icon\">\n          <ui-header-icon if.bind=\"icon\" icon.bind=\"icon\"></ui-header-icon>\n        </slot>\n        <slot name=\"header-title\" slot=\"header-title\">\n          <ui-header-title if.bind=\"label\">${label}</ui-header-title>\n        </slot>\n        <slot name=\"header-actions\"></slot>\n      </ui-header>\n    </slot>\n    <div class=\"ui-panel__header__actions\" if.bind=\"collapsible || closeable || expandable\">\n      <ui-divider></ui-divider>\n      <template if.bind=\"expandable\">\n        <ui-button type=\"tool\" click.trigger=\"toggleExpand(!expanded)\">\n          <ui-svg-icon icon.bind=\"expanded?'collapse':'expand'\"></ui-svg-icon>\n        </ui-button>\n      </template>\n      <template if.bind=\"collapsible && !expanded\">\n        <ui-button type=\"tool\" click.trigger=\"toggleCollapse(!collapsed)\">\n          <ui-svg-icon icon.bind=\"collapsed?'plus':'minus'\"></ui-svg-icon>\n        </ui-button>\n      </template>\n      <template if.bind=\"closeable\">\n        <ui-button type=\"tool\" click.trigger=\"close()\">\n          <ui-svg-icon icon=\"cross\"></ui-svg-icon>\n        </ui-button>\n      </template>\n    </div>\n  </div>\n  <div class=\"ui-panel__body\" css.bind=\"{height, minHeight, maxHeight}\">\n    <slot></slot>\n  </div>\n  <slot name=\"panel-footer\"></slot>\n</template>\n";
 
   var UIPanel = (function (_super) {
-      __chunk_1.__extends(UIPanel, _super);
+      _tslib.__extends(UIPanel, _super);
       function UIPanel(element) {
           var _this = _super.call(this) || this;
           _this.element = element;
@@ -380,69 +380,69 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           _this.collapsible = false;
           return _this;
       }
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIPanel.prototype, "label", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIPanel.prototype, "icon", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.twoWay }),
-          __chunk_1.__metadata("design:type", Boolean)
+          _tslib.__metadata("design:type", Boolean)
       ], UIPanel.prototype, "collapsed", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.twoWay }),
-          __chunk_1.__metadata("design:type", Boolean)
+          _tslib.__metadata("design:type", Boolean)
       ], UIPanel.prototype, "expanded", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIPanel.prototype, "width", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIPanel.prototype, "minWidth", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIPanel.prototype, "maxWidth", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIPanel.prototype, "height", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIPanel.prototype, "minHeight", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIPanel.prototype, "maxHeight", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Function)
+          _tslib.__metadata("design:type", Function)
       ], UIPanel.prototype, "beforeclose", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Boolean)
+          _tslib.__metadata("design:type", Boolean)
       ], UIPanel.prototype, "closeable", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Boolean)
+          _tslib.__metadata("design:type", Boolean)
       ], UIPanel.prototype, "expandable", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Boolean)
+          _tslib.__metadata("design:type", Boolean)
       ], UIPanel.prototype, "collapsible", void 0);
-      UIPanel = __chunk_1.__decorate([
+      UIPanel = _tslib.__decorate([
           aureliaFramework.customElement("ui-panel"),
           aureliaFramework.inlineView(view$2),
-          __chunk_1.__metadata("design:paramtypes", [Element])
+          _tslib.__metadata("design:paramtypes", [Element])
       ], UIPanel);
       return UIPanel;
-  }(__chunk_7.BasePanel));
+  }(basePanel.BasePanel));
 
   var view$3 = "<template class=\"ui-sidebar\" click.delegate=\"headTrigger === 'toggle' ? collapsed = false : peek = true\" data-peek.bind=\"peek\" data-collapsed.bind=\"collapsed\" data-position.bind=\"position\" data-align.bind=\"align\">\n  <div class=\"ui-sidebar__titlebar\" ui-bg.bind=\"titleBg\" ui-color.bind=\"titleColor\" ui-weight.bind=\"titleWeight\" if.bind=\"collapsible || label\" click.trigger=\"[collapsed = collapsible && !collapsed, $event.stopEvent()]\" css.bind=\"{width}\">\n    <div class=\"ui-sidebar__toggler\" if.bind=\"collapsible\">\n      <ui-svg-icon icon.bind=\"toggleIcon\"></ui-svg-icon>\n    </div>\n    <div class=\"ui-sidebar__title\" ui-color.bind=\"collapsed ? titleBg : ''\">\n      <slot name=\"sidebar-title\"><span if.bind=\"label\" innerhtml.bind=\"label\"></span></slot>\n    </div>\n  </div>\n  <div class=\"ui-sidebar__body\" css.bind=\"{width, maxWidth, minWidth}\" ref=\"bodyEl\">\n    <slot></slot>\n  </div>\n  <div class=\"ui-sidebar__resizer\" if.bind=\"resizeable\" data-resizing.bind=\"isResizing\" mousedown.trigger=\"startResize($event)\"></div>\n</template>\n";
 
@@ -469,10 +469,10 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           this.collapsible = element.hasAttribute("collapsible");
           this.closeOnClick =
               element.hasAttribute("close-on-click") && !isFalse(element.getAttribute("close-on-click"));
-          this.obClick = __chunk_3.UIInternal.subscribe(__chunk_3.UIInternal.EVT_VIEWPORT_CLICK, function (target) {
+          this.obClick = uiInternal.UIInternal.subscribe(uiInternal.UIInternal.EVT_VIEWPORT_CLICK, function (target) {
               return !_this.peek || (!_this.closeOnClick && hasParent(target, "ui-sidebar__body", "ui-sidebar"))
                   ? undefined
-                  : __chunk_3.UIInternal.queueTask(function () { return (_this.peek = false); });
+                  : uiInternal.UIInternal.queueTask(function () { return (_this.peek = false); });
           });
       }
       UISidebar.prototype.detached = function () {
@@ -518,59 +518,59 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           document.removeEventListener("mousemove", this.doResize);
           document.removeEventListener("mouseup", this.endResize);
       };
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UISidebar.prototype, "position", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UISidebar.prototype, "label", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UISidebar.prototype, "width", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UISidebar.prototype, "maxWidth", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UISidebar.prototype, "minWidth", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UISidebar.prototype, "titleBg", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UISidebar.prototype, "titleColor", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UISidebar.prototype, "titleWeight", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UISidebar.prototype, "align", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UISidebar.prototype, "headTrigger", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.twoWay }),
-          __chunk_1.__metadata("design:type", Boolean)
+          _tslib.__metadata("design:type", Boolean)
       ], UISidebar.prototype, "collapsed", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.computedFrom("collapsed", "position"),
-          __chunk_1.__metadata("design:type", Object),
-          __chunk_1.__metadata("design:paramtypes", [])
+          _tslib.__metadata("design:type", Object),
+          _tslib.__metadata("design:paramtypes", [])
       ], UISidebar.prototype, "toggleIcon", null);
-      UISidebar = __chunk_1.__decorate([
+      UISidebar = _tslib.__decorate([
           aureliaFramework.customElement("ui-sidebar"),
           aureliaFramework.inlineView(view$3),
-          __chunk_1.__metadata("design:paramtypes", [Element])
+          _tslib.__metadata("design:paramtypes", [Element])
       ], UISidebar);
       return UISidebar;
   }());
@@ -582,10 +582,10 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
               element.classList.add("ui-row--end");
           }
       }
-      UIToolbar = __chunk_1.__decorate([
+      UIToolbar = _tslib.__decorate([
           aureliaFramework.customElement("ui-toolbar"),
           aureliaFramework.inlineView("<template class=\"ui-toolbar\"><slot></slot></template>"),
-          __chunk_1.__metadata("design:paramtypes", [Element])
+          _tslib.__metadata("design:paramtypes", [Element])
       ], UIToolbar);
       return UIToolbar;
   }());

@@ -1,13 +1,13 @@
-System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', './chunk3.js', 'resize-observer-polyfill'], function (exports, module) {
+System.register(['./_tslib.js', 'aurelia-framework', 'aurelia-event-aggregator', './ui-internal.js', 'resize-observer-polyfill', './ui-common.js'], function (exports) {
   'use strict';
-  var __decorate, __metadata, __awaiter, __generator, __spread, bindable, customElement, inlineView, containerless, DOM, bindingMode, children, autoinject, UIInternal, ResizeObserver;
+  var __decorate, __metadata, __awaiter, __generator, __spread, bindable, customElement, inlineView, containerless, DOM, bindingMode, children, autoinject, UIInternal, ResizeObserver, calculateOverflow;
   return {
     setters: [function (module) {
-      __decorate = module.b;
-      __metadata = module.c;
-      __awaiter = module.h;
-      __generator = module.i;
-      __spread = module.e;
+      __decorate = module.a;
+      __metadata = module.b;
+      __awaiter = module.g;
+      __generator = module.h;
+      __spread = module.d;
     }, function (module) {
       bindable = module.bindable;
       customElement = module.customElement;
@@ -18,9 +18,11 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', 
       children = module.children;
       autoinject = module.autoinject;
     }, function () {}, function (module) {
-      UIInternal = module.a;
+      UIInternal = module.U;
     }, function (module) {
       ResizeObserver = module.default;
+    }, function (module) {
+      calculateOverflow = module.c;
     }],
     execute: function () {
 
@@ -113,7 +115,6 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', 
 
       var UITabPanel = (function () {
           function UITabPanel(element) {
-              var _this = this;
               this.element = element;
               this.tabs = [];
               this.align = "top";
@@ -122,8 +123,6 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', 
               if (element.hasAttribute("no-border")) {
                   element.classList.add("ui-tab__panel--noborder");
               }
-              this.obResize = new ResizeObserver(function () { return _this.calculateOverflow(); });
-              this.obResize.observe(element);
           }
           UITabPanel.prototype.activateTab = function (id) {
               return __awaiter(this, void 0, void 0, function () {
@@ -189,7 +188,8 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', 
               var _this = this;
               this.composeVm.owningView = this.owningView;
               this.composeVm.viewResources = this.owningView.resources;
-              setTimeout(function () { return _this.calculateOverflow(); }, 200);
+              this.obResize = new ResizeObserver(function () { return _this.calculateOverflow(); });
+              this.obResize.observe(this.element);
               this.isAttached = true;
               this.tabsChanged();
           };
@@ -201,6 +201,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', 
               this.tabsChanged();
           };
           UITabPanel.prototype.tabsChanged = function () {
+              var _this = this;
               if (this.isAttached) {
                   this.active = (this.tabs.find(function (tab) { return tab.active; }) || {}).id;
                   if (!this.active) {
@@ -208,11 +209,12 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', 
                       this.active = this.activeTab.id;
                       this.activeTab.active = true;
                   }
+                  UIInternal.queueTask(function () { return _this.calculateOverflow(); });
               }
           };
           UITabPanel.prototype.activate = function (id) {
               var newTab = this.tabs.find(function (tab) { return tab.id === id; });
-              if (newTab) {
+              if (newTab && !newTab.disabled) {
                   this.element.dispatchEvent(UIInternal.createEvent("change", id));
                   if (this.activeTab) {
                       this.activeTab.active = false;
@@ -225,35 +227,20 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', 
               return false;
           };
           UITabPanel.prototype.remove = function (id) {
+              var _this = this;
               var tab = this.tabs.find(function (t) { return t.id === id; });
               this.element.dispatchEvent(UIInternal.createEvent("close", id));
-              this.tabs.splice(this.tabs.indexOf(tab), 1);
+              this.overflowEl.innerHTML = "";
+              UIInternal.queueTask(function () {
+                  _this.tabs = __spread(_this.tabs.splice(_this.tabs.indexOf(tab), 1));
+              });
               if (tab.element) {
                   UIInternal.queueTask(function () { return DOM.removeNode(tab.element); });
               }
               return true;
           };
           UITabPanel.prototype.calculateOverflow = function () {
-              var _this = this;
-              var _a;
-              this.resetOverflow();
-              var overflowItems = [];
-              var isRtl = window.getComputedStyle(this.wrapperEl).direction === "rtl";
-              __spread(this.wrapperEl.children).reverse().forEach(function (item) {
-                  if ((!isRtl && _this.wrapperEl.offsetWidth - (item.offsetLeft + item.offsetWidth) <= 30) ||
-                      (isRtl && _this.wrapperEl.offsetWidth - item.offsetLeft >= _this.wrapperEl.offsetWidth - 30)) {
-                      overflowItems.splice(0, 0, item);
-                      _this.hasOverflow = true;
-                  }
-              });
-              (_a = this.overflowEl).append.apply(_a, __spread(overflowItems));
-          };
-          UITabPanel.prototype.resetOverflow = function () {
-              var _this = this;
-              this.hasOverflow = false;
-              this.overflowEl.children.forEach(function (child) {
-                  _this.wrapperEl.appendChild(child);
-              });
+              this.hasOverflow = calculateOverflow(this.wrapperEl, this.overflowEl);
           };
           __decorate([
               bindable(),

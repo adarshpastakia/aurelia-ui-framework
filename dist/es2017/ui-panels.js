@@ -1,8 +1,8 @@
 import { bindable, bindingMode, containerless, customElement, inlineView, computedFrom } from 'aurelia-framework';
 import 'aurelia-event-aggregator';
-import { a as UIInternal } from './chunk2.js';
-import { a as __decorate, b as __metadata } from './chunk3.js';
-import { a as BasePanel } from './chunk7.js';
+import { U as UIInternal } from './ui-internal.js';
+import { _ as __decorate, a as __metadata } from './_tslib.js';
+import { B as BasePanel } from './base-panel.js';
 
 var view = "<template>\n  <div ref=\"vmElement\" slot=\"page-alert\" class=\"ui-alert ui-alert--inline\" data-open.bind=\"open\">\n    <div class=\"ui-alert__wrapper\">\n      <div if.bind=\"icon\" class=\"ui-alert__icon\">\n        <ui-icon icon.bind=\"icon\"></ui-icon>\n      </div>\n      <div if.bind=\"alertTitle\" class=\"ui-alert__title\" innerhtml.bind=\"alertTitle\"></div>\n      <div class=\"ui-alert__body\"><slot></slot></div>\n      <div class=\"ui-alert__close\" click.trigger=\"close(false)\" if.bind=\"closeable\">\n        <ui-svg-icon icon=\"cross\"></ui-svg-icon>\n      </div>\n      <div class=\"ui-alert__footer\" if.bind=\"type==='confirm'\">\n        <a click.trigger=\"close(false)\">${cancelLabel}</a>\n        <a click.trigger=\"close(true)\" ui-weight=\"bold\">${okLabel}</a>\n      </div>\n    </div>\n  </div>\n</template>\n";
 

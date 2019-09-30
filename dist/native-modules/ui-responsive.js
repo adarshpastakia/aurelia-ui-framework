@@ -1,4 +1,4 @@
-import { b as __decorate, c as __metadata } from './chunk.js';
+import { a as __decorate, b as __metadata } from './_tslib.js';
 import { bindable, computedFrom, customElement, inlineView } from 'aurelia-framework';
 
 var UICol = (function () {

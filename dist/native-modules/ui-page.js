@@ -1,16 +1,20 @@
-import { b as __decorate, c as __metadata } from './chunk.js';
+import { a as __decorate, b as __metadata } from './_tslib.js';
 import { customElement, inlineView, bindable } from 'aurelia-framework';
 import 'aurelia-event-aggregator';
-import { a as UIInternal } from './chunk3.js';
+import { U as UIInternal } from './ui-internal.js';
 import ResizeObserver from 'resize-observer-polyfill';
 
 var UIContent = (function () {
     function UIContent(element) {
-        this.obResize = new ResizeObserver(function () {
-            return element.dispatchEvent(UIInternal.createEvent("resize", element.getBoundingClientRect()));
-        });
-        this.obResize.observe(element);
+        this.element = element;
     }
+    UIContent.prototype.attached = function () {
+        var _this = this;
+        this.obResize = new ResizeObserver(function () {
+            return _this.element.dispatchEvent(UIInternal.createEvent("resize", _this.element.getBoundingClientRect()));
+        });
+        this.obResize.observe(this.element);
+    };
     UIContent.prototype.detached = function () {
         this.obResize.disconnect();
     };

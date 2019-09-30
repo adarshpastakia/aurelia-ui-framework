@@ -1,8 +1,8 @@
-import { g as __extends, b as __decorate, c as __metadata } from './chunk.js';
+import { f as __extends, a as __decorate, b as __metadata } from './_tslib.js';
 import { bindable, bindingMode, customElement, inlineView, children } from 'aurelia-framework';
 import 'aurelia-event-aggregator';
-import { a as UIInternal } from './chunk3.js';
-import { a as BasePanel } from './chunk7.js';
+import { U as UIInternal } from './ui-internal.js';
+import { B as BasePanel } from './base-panel.js';
 
 var GridderUtils;
 (function (GridderUtils) {

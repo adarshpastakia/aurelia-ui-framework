@@ -1,16 +1,16 @@
-System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', './chunk3.js', 'resize-observer-polyfill'], function (exports, module) {
+System.register(['./_tslib.js', 'aurelia-framework', 'aurelia-event-aggregator', './ui-internal.js', 'resize-observer-polyfill'], function (exports) {
   'use strict';
   var __decorate, __metadata, customElement, inlineView, bindable, UIInternal, ResizeObserver;
   return {
     setters: [function (module) {
-      __decorate = module.b;
-      __metadata = module.c;
+      __decorate = module.a;
+      __metadata = module.b;
     }, function (module) {
       customElement = module.customElement;
       inlineView = module.inlineView;
       bindable = module.bindable;
     }, function () {}, function (module) {
-      UIInternal = module.a;
+      UIInternal = module.U;
     }, function (module) {
       ResizeObserver = module.default;
     }],
@@ -18,11 +18,15 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', 
 
       var UIContent = (function () {
           function UIContent(element) {
-              this.obResize = new ResizeObserver(function () {
-                  return element.dispatchEvent(UIInternal.createEvent("resize", element.getBoundingClientRect()));
-              });
-              this.obResize.observe(element);
+              this.element = element;
           }
+          UIContent.prototype.attached = function () {
+              var _this = this;
+              this.obResize = new ResizeObserver(function () {
+                  return _this.element.dispatchEvent(UIInternal.createEvent("resize", _this.element.getBoundingClientRect()));
+              });
+              this.obResize.observe(this.element);
+          };
           UIContent.prototype.detached = function () {
               this.obResize.disconnect();
           };

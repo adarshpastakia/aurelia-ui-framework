@@ -3655,7 +3655,7 @@
           }
       }
       startDrag(startObject) {
-          this.dragObject = Object.assign({}, startObject, { dlgHeight: startObject.dialog.dialogEl.offsetHeight, dlgWidth: startObject.dialog.dialogEl.offsetWidth, isDragging: true, left: parseInt(startObject.dialog.position.left, 10), maxHeight: this.appConfig.DialogContainer.anchor.offsetHeight, maxWidth: this.appConfig.DialogContainer.anchor.offsetWidth, top: parseInt(startObject.dialog.position.top, 10) });
+          this.dragObject = Object.assign(Object.assign({}, startObject), { dlgHeight: startObject.dialog.dialogEl.offsetHeight, dlgWidth: startObject.dialog.dialogEl.offsetWidth, isDragging: true, left: parseInt(startObject.dialog.position.left, 10), maxHeight: this.appConfig.DialogContainer.anchor.offsetHeight, maxWidth: this.appConfig.DialogContainer.anchor.offsetWidth, top: parseInt(startObject.dialog.position.top, 10) });
       }
       drag($event) {
           if (this.dragObject.isDragging) {
@@ -3780,7 +3780,7 @@
       }
       createToast(config, forToastNotification) {
           return new Promise(resolve => {
-              const cfg = Object.assign({ autoClose: true, cancelLabel: "Cancel", okLabel: "OK", theme: "default", timeout: 5000, type: "default", className: forToastNotification ? "ui-toast" : "ui-message" }, config, { message: `<div>${config.message}</div>` });
+              const cfg = Object.assign(Object.assign({ autoClose: true, cancelLabel: "Cancel", okLabel: "OK", theme: "default", timeout: 5000, type: "default", className: forToastNotification ? "ui-toast" : "ui-message" }, config), { message: `<div>${config.message}</div>` });
               cfg.autoClose = cfg.type !== "confirm" && cfg.autoClose;
               const viewFactory = this.compiler.compile(`<template>${toastView}</template>`);
               const view = viewFactory.create(this.container);
@@ -3807,7 +3807,7 @@
       }
       createAlert(config) {
           return new Promise(resolve => {
-              const cfg = Object.assign({ cancelLabel: "Cancel", okLabel: "OK", theme: "default", type: "alert" }, config, { message: `<div>${config.message}</div>` });
+              const cfg = Object.assign(Object.assign({ cancelLabel: "Cancel", okLabel: "OK", theme: "default", type: "alert" }, config), { message: `<div>${config.message}</div>` });
               const viewFactory = this.compiler.compile(`<template>${alertView}</template>`);
               const view = viewFactory.create(this.container);
               cfg.__keyCheck = key => {
@@ -3864,17 +3864,23 @@
       }
       function date(dt, ft = "dd MMM yyyy") {
           dt = parseDate(dt);
-          return !dt || !dateFns.isValid(dt) ? null : dateFns.format(dt, ft, { awareOfUnicodeTokens: true });
+          return !dt || !dateFns.isValid(dt)
+              ? null
+              : dateFns.format(dt, ft, { useAdditionalDayOfYearTokens: true, useAdditionalWeekYearTokens: true });
       }
       UIFormat.date = date;
       function time(dt, ft = "hh:mm a") {
           dt = parseDate(dt);
-          return !dt || !dateFns.isValid(dt) ? null : dateFns.format(dt, ft, { awareOfUnicodeTokens: true });
+          return !dt || !dateFns.isValid(dt)
+              ? null
+              : dateFns.format(dt, ft, { useAdditionalDayOfYearTokens: true, useAdditionalWeekYearTokens: true });
       }
       UIFormat.time = time;
       function datetime(dt, ft = "dd MMM yyyy hh:mm a") {
           dt = parseDate(dt);
-          return !dt || !dateFns.isValid(dt) ? null : dateFns.format(dt, ft, { awareOfUnicodeTokens: true });
+          return !dt || !dateFns.isValid(dt)
+              ? null
+              : dateFns.format(dt, ft, { useAdditionalDayOfYearTokens: true, useAdditionalWeekYearTokens: true });
       }
       UIFormat.datetime = datetime;
       function utcDate(dt) {
@@ -3887,7 +3893,8 @@
           return !dt || !dateFns.isValid(dt)
               ? null
               : dateFns.format(dt, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", {
-                  awareOfUnicodeTokens: true
+                  useAdditionalDayOfYearTokens: true,
+                  useAdditionalWeekYearTokens: true
               });
       }
       UIFormat.dateToISO = dateToISO;
@@ -4108,8 +4115,11 @@
 
   let UIContent = class UIContent {
       constructor(element) {
-          this.obResize = new ResizeObserver(() => element.dispatchEvent(UIInternal.createEvent("resize", element.getBoundingClientRect())));
-          this.obResize.observe(element);
+          this.element = element;
+      }
+      attached() {
+          this.obResize = new ResizeObserver(() => this.element.dispatchEvent(UIInternal.createEvent("resize", this.element.getBoundingClientRect())));
+          this.obResize.observe(this.element);
       }
       detached() {
           this.obResize.disconnect();
@@ -4540,7 +4550,7 @@
   var UITether;
   (function (UITether) {
       function tether(anchorEl, dropdownEl, config = Config) {
-          return attach(anchorEl, dropdownEl, Object.assign({}, Config, config));
+          return attach(anchorEl, dropdownEl, Object.assign(Object.assign({}, Config), config));
       }
       UITether.tether = tether;
       const Config = {
@@ -4688,7 +4698,7 @@
               updatePosition: (newAnchorEl, newConfig = {}) => {
                   anchorEl = newAnchorEl || anchorEl;
                   scroller = initScroller(anchorEl, scrollCallback);
-                  updatePosition(anchorEl, dropdownEl, scroller, Object.assign({}, config, newConfig));
+                  updatePosition(anchorEl, dropdownEl, scroller, Object.assign(Object.assign({}, config), newConfig));
               }
           };
       }
@@ -4762,6 +4772,9 @@
       close($event) {
           if (this.closeOnClick) {
               this.closeDrop();
+          }
+          else {
+              $event.stopEvent(true);
           }
       }
       canClose(t) {
@@ -6438,10 +6451,10 @@
           return getTitle(this.endMonth, this.endPage);
       }
       get startHeaderOptions() {
-          return buildHeaderConfig(this.startMonth, this.startPage, Object.assign({}, this.config, { page: this.startPage }));
+          return buildHeaderConfig(this.startMonth, this.startPage, Object.assign(Object.assign({}, this.config), { page: this.startPage }));
       }
       get endHeaderOptions() {
-          return buildHeaderConfig(this.endMonth, this.endPage, Object.assign({}, this.config, { page: this.endPage }));
+          return buildHeaderConfig(this.endMonth, this.endPage, Object.assign(Object.assign({}, this.config), { page: this.endPage }));
       }
       startHeaderClicked($event) {
           const target = $event.target;
@@ -6877,7 +6890,7 @@
               orderProperty: "sortOrder",
               perPageProperty: "pageCount"
           };
-          this.options = Object.assign({}, this.options, options);
+          this.options = Object.assign(Object.assign({}, this.options), options);
           this.isPaginated = options.paginated;
           this.recordsPerPage = options.recordsPerPage || 50;
           this.sortByProperty = options.defaultSortProperty;
@@ -6981,9 +6994,17 @@
       __metadata("design:paramtypes", [Element])
   ], HeaderCell);
 
-  var view$9 = "<template class=\"ui-datagrid\">\n\n  <div show.bind=\"false\">\n    <slot></slot>\n  </div>\n\n  <div class=\"ui-datagrid__head\">\n    <div class=\"ui-datagrid__row\">\n      <div class=\"ui-datagrid__row__wrapper\">\n        <div class=\"ui-datagrid__row__locked--start\">\n          <template repeat.for=\"col of columns | filter:'start':'locked'\">\n            <header-cell column.bind=\"col\" sort.trigger=\"ds.sortBy(col.dataId)\" sort-by.bind=\"ds.sortByProperty\" sort-order.bind=\"ds.sortByOrder\"></header-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__row__scrolling\">\n          <template repeat.for=\"col of columns | filter:false:'locked'\">\n            <header-cell column.bind=\"col\" sort.trigger=\"ds.sortBy(col.dataId)\" sort-by.bind=\"ds.sortByProperty\" sort-order.bind=\"ds.sortByOrder\"></header-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__cell ui-datagrid__cell--filler\"></div>\n        <div class=\"ui-datagrid__row__locked--end\">\n          <template repeat.for=\"col of columns | filter:'end':'locked'\">\n            <header-cell column.bind=\"col\" sort.trigger=\"ds.sortBy(col.dataId)\" sort-by.bind=\"ds.sortByProperty\" sort-order.bind=\"ds.sortByOrder\"></header-cell>\n          </template>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"ui-datagrid__body\" ref=\"dgBody\">\n\n    <div class=\"ui-datagrid__row ${$even ? 'ui-datagrid__row--even':'ui-datagrid__row--odd'}\" virtual-repeat.for=\"record of ds.data\">\n\n      <div class=\"ui-datagrid__row__wrapper\">\n        <div class=\"ui-datagrid__row__locked--start\">\n          <template repeat.for=\"col of columns | filter:'start':'locked'\">\n            <body-cell column.bind=\"col\" record.bind=\"record\"></body-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__row__scrolling\">\n          <template repeat.for=\"col of columns | filter:false:'locked'\">\n            <body-cell column.bind=\"col\" record.bind=\"record\"></body-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__cell ui-datagrid__cell--filler\"></div>\n        <div class=\"ui-datagrid__row__locked--end\">\n          <template repeat.for=\"col of columns | filter:'end':'locked'\">\n            <body-cell column.bind=\"col\" record.bind=\"record\"></body-cell>\n          </template>\n        </div>\n      </div>\n\n    </div>\n\n  </div>\n\n  <div class=\"ui-datagrid__foot\"></div>\n</template>\n";
+  var view$9 = "<template class=\"ui-datagrid\">\n  <div show.bind=\"false\">\n    <slot></slot>\n  </div>\n\n  <div class=\"ui-datagrid__head\">\n    <div class=\"ui-datagrid__row\">\n      <div class=\"ui-datagrid__row__wrapper\">\n        <div class=\"ui-datagrid__row__locked--start\">\n          <div class=\"ui-datagrid__cell\" css.bind=\"{width: '42px'}\" if.bind=\"checkable\">\n            <div class=\"ui-datagrid__cell__wrapper\">\n              <ui-checkbox checked.to-view=\"selected.length === ds.data.length ? true : selected.length === 0 ? false : '__2__'\" change.trigger=\"toggleSelectionAll($event)\"></ui-checkbox>\n            </div>\n          </div>\n          <div class=\"ui-datagrid__cell\" css.bind=\"{width: '42px'}\" if.bind=\"showCounter\"></div>\n          <template repeat.for=\"col of columns | filter:'start':'locked'\">\n            <header-cell column.bind=\"col\" sort.trigger=\"ds.sortBy(col.dataId)\" sort-by.bind=\"ds.sortByProperty\" sort-order.bind=\"ds.sortByOrder\"></header-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__row__scrolling\">\n          <template repeat.for=\"col of columns | filter:false:'locked'\">\n            <header-cell column.bind=\"col\" sort.trigger=\"ds.sortBy(col.dataId)\" sort-by.bind=\"ds.sortByProperty\" sort-order.bind=\"ds.sortByOrder\"></header-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__cell ui-datagrid__cell--filler\"></div>\n        <div class=\"ui-datagrid__row__locked--end\">\n          <template repeat.for=\"col of columns | filter:'end':'locked'\">\n            <header-cell column.bind=\"col\" sort.trigger=\"ds.sortBy(col.dataId)\" sort-by.bind=\"ds.sortByProperty\" sort-order.bind=\"ds.sortByOrder\"></header-cell>\n          </template>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"ui-datagrid__body\" ref=\"dgBody\">\n    <div class=\"ui-datagrid__row ${$even ? 'ui-datagrid__row--even':'ui-datagrid__row--odd'}\" virtual-repeat.for=\"record of ds.data\">\n      <div class=\"ui-datagrid__row__wrapper ${selected.includes(record) ? 'ui-datagrid__row--selected' : ''}\">\n        <div class=\"ui-datagrid__row__locked--start\">\n          <div class=\"ui-datagrid__cell ui-datagrid__cell--head\" css.bind=\"{width: '42px'}\" if.bind=\"checkable\">\n            <div class=\"ui-datagrid__cell__wrapper\">\n              <ui-checkbox checked.to-view=\"selected.includes(record)\" change.trigger=\"toggleSelection($event, record)\"></ui-checkbox>\n            </div>\n          </div>\n          <div class=\"ui-datagrid__cell ui-datagrid__cell--head\" css.bind=\"{width: '42px'}\" if.bind=\"showCounter\">\n            <div class=\"ui-datagrid__cell__wrapper\">\n              <span css.bind=\"{fontSize:'.8em'}\">${$index + 1}</span>\n            </div>\n          </div>\n          <template repeat.for=\"col of columns | filter:'start':'locked'\">\n            <body-cell column.bind=\"col\" record.bind=\"record\"></body-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__row__scrolling\">\n          <template repeat.for=\"col of columns | filter:false:'locked'\">\n            <body-cell column.bind=\"col\" record.bind=\"record\"></body-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__cell ui-datagrid__cell--filler\"></div>\n        <div class=\"ui-datagrid__row__locked--end\">\n          <template repeat.for=\"col of columns | filter:'end':'locked'\">\n            <body-cell column.bind=\"col\" record.bind=\"record\"></body-cell>\n          </template>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"ui-datagrid__foot\"></div>\n</template>\n";
 
   let UIDataGrid = class UIDataGrid {
+      constructor(element) {
+          this.element = element;
+          this.selected = [];
+          this.showCounter = element.hasAttribute("counter");
+      }
+      attached() {
+          this.checkable = this.checkable || this.element.hasAttribute("checkable");
+      }
       dataSourceChanged() {
           if (isArray(this.dataSource)) {
               this.ds = new UIDataSource(this.dataSource);
@@ -6992,11 +7013,30 @@
               this.ds = this.dataSource;
           }
       }
+      toggleSelection($event, record) {
+          if (!this.selected) {
+              this.selected = [];
+          }
+          this.selected = $event.detail.checked
+              ? [...this.selected, record]
+              : this.selected.filter(r => r !== record);
+      }
+      toggleSelectionAll($event) {
+          this.selected = this.selected.length === 0 ? [...this.ds.data] : [];
+      }
   };
   __decorate([
       aureliaFramework.bindable(),
       __metadata("design:type", Object)
   ], UIDataGrid.prototype, "dataSource", void 0);
+  __decorate([
+      aureliaFramework.bindable(),
+      __metadata("design:type", Boolean)
+  ], UIDataGrid.prototype, "checkable", void 0);
+  __decorate([
+      aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.twoWay }),
+      __metadata("design:type", Array)
+  ], UIDataGrid.prototype, "selected", void 0);
   __decorate([
       aureliaFramework.children("ui-column"),
       __metadata("design:type", Object)
@@ -7004,7 +7044,8 @@
   UIDataGrid = __decorate([
       aureliaFramework.customElement("ui-datagrid"),
       aureliaFramework.viewResources(HeaderCell, BodyCell),
-      aureliaFramework.inlineView(view$9)
+      aureliaFramework.inlineView(view$9),
+      __metadata("design:paramtypes", [Element])
   ], UIDataGrid);
 
   let UIDataCard = class UIDataCard {
@@ -7026,6 +7067,12 @@
               else if (this.vmElement.attributes.getNamedItem("href")) {
                   this.vmElement.attributes.removeNamedItem("href");
               }
+          }
+      }
+      toggleExpand() {
+          this.open = !this.open;
+          if (this.open) {
+              setTimeout(() => this.vmElement.scrollIntoView({ inline: "nearest" }), 500);
           }
       }
       fireClick($event) {
@@ -7065,7 +7112,7 @@
           <ui-menu menu-items.bind="actions"></ui-menu>
         </ui-drop>
       </ui-button>
-      <ui-button type="tool" click.trigger="open = !open">
+      <ui-button type="tool" click.trigger="toggleExpand()">
         <ui-svg-icon icon="caret"></ui-svg-icon>
       </ui-button>
     </ui-button-group>
@@ -7136,16 +7183,7 @@
           const node = this.nodes[index];
           node.expanded = !node.expanded;
           if (node.expanded) {
-              let injectedChildren = node.children.sortBy("label");
-              if (injectedChildren.length === 0) {
-                  injectedChildren.push(new UITreeNode({ id: "node-empty", leaf: true }, node));
-              }
-              if (this.maxNodes > 0 && injectedChildren.length > this.maxNodes) {
-                  injectedChildren = [
-                      ...injectedChildren.slice(0, this.maxNodes),
-                      new UITreeNode({ id: "node-more", leaf: true }, node)
-                  ];
-              }
+              const injectedChildren = this.getChildren(node);
               this.nodes = [
                   ...this.nodes.slice(0, index + 1),
                   ...injectedChildren,
@@ -7200,17 +7238,7 @@
           children.forEach(child => {
               nodes.push(child);
               if (child.expanded) {
-                  let injectedChildren = child.children.sortBy("label");
-                  if (injectedChildren.length === 0) {
-                      injectedChildren.push(new UITreeNode({ id: "node-empty", leaf: true }, child));
-                  }
-                  if (this.maxNodes > 0 && injectedChildren.length > this.maxNodes) {
-                      injectedChildren = [
-                          ...injectedChildren.slice(0, this.maxNodes),
-                          new UITreeNode({ id: "node-more", leaf: true }, child)
-                      ];
-                  }
-                  nodes.push(...this.getExpandedTree(injectedChildren));
+                  nodes.push(...this.getExpandedTree(this.getChildren(child)));
               }
           });
           return nodes;
@@ -7228,6 +7256,19 @@
               }
               return retVal;
           });
+      }
+      getChildren(node) {
+          let injectedChildren = node.children.sortBy("label");
+          if (injectedChildren.length === 0) {
+              injectedChildren.push(new UITreeNode({ id: "node-empty", leaf: true }, node));
+          }
+          if (this.maxNodes > 0 && injectedChildren.length > this.maxNodes) {
+              injectedChildren = [
+                  ...injectedChildren.slice(0, this.maxNodes),
+                  new UITreeNode({ id: "node-more", leaf: true }, node)
+              ];
+          }
+          return injectedChildren;
       }
   }
   class UITreeNode {
@@ -7459,7 +7500,7 @@
     DataPanels: DataPanels
   });
 
-  var view$c = "<template class=\"ui-option\" data-disabled.bind=\"disabled || isDisabled\">\n  <label class=\"ui-option__control\">\n    <input size=\"1\" type=\"checkbox\" checked.bind=\"checked\" model.bind=\"model\" matcher.bind=\"matcher\" disabled.bind=\"disabled\" change.trigger=\"checkChanged($event)\">\n    <ui-svg-icon icon=\"check-off\"></ui-svg-icon>\n    <ui-svg-icon icon=\"check-on\"></ui-svg-icon>\n    <span>\n      <slot></slot>\n    </span>\n  </label>\n</template>\n";
+  var view$c = "<template class=\"ui-option\" data-disabled.bind=\"disabled || isDisabled\">\n  <label class=\"ui-option__control\">\n    <input size=\"1\" type=\"checkbox\" data-checked=\"${checked}\" checked.bind=\"checked\" model.bind=\"model\" matcher.bind=\"matcher\" disabled.bind=\"disabled\" change.trigger=\"checkChanged($event)\">\n    <ui-svg-icon icon=\"check-off\"></ui-svg-icon>\n    <ui-svg-icon icon=\"tree-check-half\"></ui-svg-icon>\n    <ui-svg-icon icon=\"check-on\"></ui-svg-icon>\n    <span>\n      <slot></slot>\n    </span>\n  </label>\n</template>\n";
 
   let UICheckbox = class UICheckbox {
       constructor(element) {
@@ -8159,7 +8200,7 @@
       aureliaFramework.inlineView(`<template class="ui-password-meter" css.bind="strength" ui-tooltip.bind="tooltip"></template>`)
   ], UIPasswordMeter);
 
-  var view$i = "<template class=\"ui-input ui-phone ${classes}\" aria-disabled.bind=\"disabled || isDisabled\" aria-readonly.bind=\"readonly\">\n  <input-wrapper>\n    <slot></slot>\n    <ui-flag code.bind=\"inputCountry\"></ui-flag>\n    <!--suppress HtmlFormInputWithoutLabel -->\n    <input ref=\"inputEl\" role=\"textbox\" size=\"1\" placeholder.bind=\"placeholder\" disabled.bind=\"disabled || isDisabled || isPlain\" readonly.bind=\"readonly\" value.two-way=\"inputValue\" autocomplete.bind=\"autocomplete\" keypress.trigger=\"fireEnter($event)\">\n  </input-wrapper>\n</template>\n";
+  var view$i = "<template class=\"ui-input ui-phone ${classes}\" aria-disabled.bind=\"disabled || isDisabled\" aria-readonly.bind=\"readonly\">\n  <input-wrapper>\n    <slot></slot>\n    <ui-input-addon>\n      <ui-flag code.bind=\"inputCountry\"></ui-flag>\n    </ui-input-addon>\n    <!--suppress HtmlFormInputWithoutLabel -->\n    <input ref=\"inputEl\" role=\"textbox\" size=\"1\" placeholder.bind=\"placeholder\" disabled.bind=\"disabled || isDisabled || isPlain\" readonly.bind=\"readonly\" value.two-way=\"inputValue\" autocomplete.bind=\"autocomplete\" keypress.trigger=\"fireEnter($event)\">\n  </input-wrapper>\n</template>\n";
 
   let UIPhone = class UIPhone extends BaseInput {
       constructor(element) {
@@ -8695,7 +8736,7 @@
     Gridder: Gridder
   });
 
-  var view$n = "<template class=\"ui-dropdown\">\n  <a data-active.bind=\"active\" disabled.bind=\"disabled\" click.trigger=\"toggleDrop($event)\" class=\"ui-dropdown__link\" data-open.bind=\"dropEl.isOpen\" data-disabled.bind=\"disabled\">\n    <ui-icon class=\"ui-dropdown__icon\" icon=\"${iconPrefix} ${model[iconProperty]}\" if.bind=\"iconProperty\"></ui-icon>\n    <div class=\"ui-input__error\" if.bind=\"errors && errors.length\">\n      <ui-svg-icon icon=\"alert\"></ui-svg-icon>\n      <ul>\n        <li repeat.for=\"err of errors\">${err}</li>\n      </ul>\n    </div>\n    <span class=\"ui-dropdown__label\">${selectedLabel}</span>\n    <ui-svg-icon class=\"ui-dropdown__caret\" icon=\"caret\"></ui-svg-icon>\n  </a>\n  <ui-drop view-model.ref=\"dropEl\">\n    <div>\n      <template repeat.for=\"option of options\">\n        <div class=\"ui-list__item ${(option[valueProperty] || option) === value?'ui-list__item--selected':''}\" click.trigger=\"select(option)\">\n          <ui-icon if.bind=\"iconProperty\" icon=\"${iconPrefix} ${option[iconProperty]}\"></ui-icon>\n          ${option[labelProperty] || option}\n        </div>\n      </template>\n    </div>\n  </ui-drop>\n</template>\n";
+  var view$n = "<template class=\"ui-dropdown\">\n  <a data-active.bind=\"active\" disabled.bind=\"disabled\" click.trigger=\"toggleDrop($event)\" class=\"ui-dropdown__link\" data-open.bind=\"dropEl.isOpen\" data-disabled.bind=\"disabled\">\n    <ui-icon class=\"ui-dropdown__icon\" icon=\"${iconPrefix} ${model[iconProperty]}\" if.bind=\"iconProperty\"></ui-icon>\n    <div class=\"ui-input__error\" if.bind=\"errors && errors.length\">\n      <ui-svg-icon icon=\"alert\"></ui-svg-icon>\n      <ul>\n        <li repeat.for=\"err of errors\">${err}</li>\n      </ul>\n    </div>\n    <span class=\"ui-dropdown__label\">${selectedLabel}</span>\n    <ui-svg-icon class=\"ui-dropdown__caret\" icon=\"caret\"></ui-svg-icon>\n  </a>\n  <ui-drop view-model.ref=\"dropEl\" close-on-click=\"${!multiple}\">\n    <div>\n      <template repeat.for=\"option of options\">\n        <div class=\"ui-list__item ${(option[valueProperty] || option) === value?'ui-list__item--selected':''}\" click.trigger=\"select(option)\">\n          <ui-icon if.bind=\"iconProperty\" icon=\"${iconPrefix} ${option[iconProperty]}\"></ui-icon>\n          ${option[labelProperty] || option}\n        </div>\n      </template>\n    </div>\n  </ui-drop>\n</template>\n";
 
   let UIDropdown = class UIDropdown {
       constructor(element) {
@@ -8708,6 +8749,7 @@
           this.iconProperty = "";
           this.iconPrefix = "";
           this.disabled = false;
+          this.multiple = false;
           this.model = undefined;
       }
       attached() {
@@ -8776,6 +8818,10 @@
       aureliaFramework.bindable(),
       __metadata("design:type", Boolean)
   ], UIDropdown.prototype, "disabled", void 0);
+  __decorate([
+      aureliaFramework.bindable(),
+      __metadata("design:type", Boolean)
+  ], UIDropdown.prototype, "multiple", void 0);
   __decorate([
       aureliaFramework.computedFrom("model"),
       __metadata("design:type", Object),
@@ -9270,7 +9316,7 @@
       __metadata("design:paramtypes", [Element])
   ], UIList);
 
-  var view$r = "<template class=\"ui-input ${classes}\" aria-disabled.bind=\"disabled || isDisabled\" aria-readonly.bind=\"readonly\">\n  <input-wrapper>\n    <slot></slot>\n    <list-input></list-input>\n  </input-wrapper>\n  <ui-drop view-model.ref=\"dropEl\" class=\"ui-list\" close.trigger=\"resetQuery()\">\n    <div ref=\"listContainer\" class=\"ui-list__container\">\n      <list-container></list-container>\n    </div>\n  </ui-drop>\n</template>\n";
+  var view$r = "<template class=\"ui-input ${classes}\" aria-disabled.bind=\"disabled || isDisabled\" aria-readonly.bind=\"readonly\">\n  <input-wrapper>\n    <slot></slot>\n    <list-input></list-input>\n  </input-wrapper>\n  <ui-drop view-model.ref=\"dropEl\" multiple.bind=\"multiple\" class=\"ui-list\" close.trigger=\"resetQuery()\">\n    <div ref=\"listContainer\" class=\"ui-list__container\">\n      <list-container></list-container>\n    </div>\n  </ui-drop>\n</template>\n";
 
   let UISelect = class UISelect extends ListMaker {
       constructor(element) {
@@ -9396,7 +9442,7 @@
           if (this.wrapperEl.offsetWidth > this.element.offsetWidth) {
               this.hasOverflow = true;
               while (this.wrapperEl.offsetWidth > this.element.offsetWidth - 50) {
-                  this.overflowEl.appendChild(this.wrapperEl.children[0]);
+                  this.overflowEl.appendChild(this.wrapperEl.firstElementChild);
               }
           }
           else {
@@ -9405,8 +9451,9 @@
       }
       resetOverflow() {
           this.hasOverflow = false;
-          [...this.overflowEl.children].reverse().forEach(child => {
-              this.wrapperEl.insertBefore(child, this.wrapperEl.children[0]);
+          const currentFirstChild = this.wrapperEl.firstElementChild;
+          this.overflowEl.children.forEach(child => {
+              this.wrapperEl.insertBefore(child, currentFirstChild);
           });
       }
   };
@@ -9683,6 +9730,27 @@
       __metadata("design:paramtypes", [Element])
   ], UIMenuItem);
 
+  const calculateOverflow = (wrapperEl, overflowEl) => {
+      const isRtl = window.getComputedStyle(wrapperEl).direction === "rtl";
+      resetOverflow(wrapperEl, overflowEl);
+      while (wrapperEl.lastElementChild && isOutOfBounds(wrapperEl, wrapperEl.lastElementChild, isRtl)) {
+          !!overflowEl.firstElementChild
+              ? overflowEl.insertBefore(wrapperEl.lastElementChild, overflowEl.firstElementChild)
+              : overflowEl.appendChild(wrapperEl.lastElementChild);
+      }
+      return !!overflowEl.children.length;
+  };
+  const resetOverflow = (wrapperEl, overflowEl) => {
+      overflowEl.children.forEach(child => {
+          wrapperEl.appendChild(child);
+      });
+  };
+  const isOutOfBounds = (wrapperEl, itemEl, isRtl) => {
+      return isRtl
+          ? itemEl.getBoundingClientRect().left < wrapperEl.getBoundingClientRect().left
+          : itemEl.getBoundingClientRect().right > wrapperEl.getBoundingClientRect().right;
+  };
+
   let UIMenubar = class UIMenubar {
       constructor(element) {
           this.element = element;
@@ -9697,23 +9765,7 @@
           this.obResize.disconnect();
       }
       calculateOverflow() {
-          this.resetOverflow();
-          const overflowItems = [];
-          const isRtl = window.getComputedStyle(this.wrapperEl).direction === "rtl";
-          [...this.wrapperEl.children].reverse().forEach(item => {
-              if ((!isRtl && this.wrapperEl.offsetWidth - (item.offsetLeft + item.offsetWidth) <= 30) ||
-                  (isRtl && this.wrapperEl.offsetWidth - item.offsetLeft >= this.wrapperEl.offsetWidth - 30)) {
-                  overflowItems.splice(0, 0, item);
-                  this.hasOverflow = true;
-              }
-          });
-          this.overflowEl.append(...overflowItems);
-      }
-      resetOverflow() {
-          this.hasOverflow = false;
-          this.overflowEl.children.forEach(child => {
-              this.wrapperEl.appendChild(child);
-          });
+          this.hasOverflow = calculateOverflow(this.wrapperEl, this.overflowEl);
       }
   };
   UIMenubar = __decorate([
@@ -10414,8 +10466,6 @@
           if (element.hasAttribute("no-border")) {
               element.classList.add("ui-tab__panel--noborder");
           }
-          this.obResize = new ResizeObserver(() => this.calculateOverflow());
-          this.obResize.observe(element);
       }
       activateTab(id) {
           return __awaiter(this, void 0, void 0, function* () {
@@ -10456,7 +10506,8 @@
       attached() {
           this.composeVm.owningView = this.owningView;
           this.composeVm.viewResources = this.owningView.resources;
-          setTimeout(() => this.calculateOverflow(), 200);
+          this.obResize = new ResizeObserver(() => this.calculateOverflow());
+          this.obResize.observe(this.element);
           this.isAttached = true;
           this.tabsChanged();
       }
@@ -10475,11 +10526,12 @@
                   this.active = this.activeTab.id;
                   this.activeTab.active = true;
               }
+              UIInternal.queueTask(() => this.calculateOverflow());
           }
       }
       activate(id) {
           const newTab = this.tabs.find(tab => tab.id === id);
-          if (newTab) {
+          if (newTab && !newTab.disabled) {
               this.element.dispatchEvent(UIInternal.createEvent("change", id));
               if (this.activeTab) {
                   this.activeTab.active = false;
@@ -10494,30 +10546,17 @@
       remove(id) {
           const tab = this.tabs.find(t => t.id === id);
           this.element.dispatchEvent(UIInternal.createEvent("close", id));
-          this.tabs.splice(this.tabs.indexOf(tab), 1);
+          this.overflowEl.innerHTML = "";
+          UIInternal.queueTask(() => {
+              this.tabs = [...this.tabs.splice(this.tabs.indexOf(tab), 1)];
+          });
           if (tab.element) {
               UIInternal.queueTask(() => aureliaFramework.DOM.removeNode(tab.element));
           }
           return true;
       }
       calculateOverflow() {
-          this.resetOverflow();
-          const overflowItems = [];
-          const isRtl = window.getComputedStyle(this.wrapperEl).direction === "rtl";
-          [...this.wrapperEl.children].reverse().forEach(item => {
-              if ((!isRtl && this.wrapperEl.offsetWidth - (item.offsetLeft + item.offsetWidth) <= 30) ||
-                  (isRtl && this.wrapperEl.offsetWidth - item.offsetLeft >= this.wrapperEl.offsetWidth - 30)) {
-                  overflowItems.splice(0, 0, item);
-                  this.hasOverflow = true;
-              }
-          });
-          this.overflowEl.append(...overflowItems);
-      }
-      resetOverflow() {
-          this.hasOverflow = false;
-          this.overflowEl.children.forEach(child => {
-              this.wrapperEl.appendChild(child);
-          });
+          this.hasOverflow = calculateOverflow(this.wrapperEl, this.overflowEl);
       }
   };
   __decorate([

@@ -8,5 +8,6 @@ export declare class UIDataCard {
     constructor(element: Element);
     protected attached(): void;
     protected hrefChanged(): void;
+    protected toggleExpand(): void;
     protected fireClick($event: MouseEvent): boolean;
 }

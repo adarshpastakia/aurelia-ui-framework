@@ -1,11 +1,11 @@
-import { b as __decorate, c as __metadata, d as __assign } from './chunk.js';
+import { a as __decorate, b as __metadata, c as __assign } from './_tslib.js';
 import { bindable, customElement, inlineView, computedFrom, bindingMode, viewResources } from 'aurelia-framework';
 import 'aurelia-event-aggregator';
-import { a as UIInternal } from './chunk3.js';
+import { U as UIInternal } from './ui-internal.js';
 import { startOfMinute, addDays, addWeeks, addMonths, addYears, parseISO, startOfDay, startOfWeek, endOfWeek, startOfMonth, endOfMonth, startOfYear, endOfYear, format, startOfDecade, endOfDecade, isValid, isBefore, isAfter, getDay, setDay, isSameMonth, isSameDay, endOfDay, setMonth, getHours, setHours, getMinutes, setMinutes, isSameYear } from 'date-fns';
 import 'kramed';
 import 'numeral';
-import { a as UIFormat } from './chunk4.js';
+import { U as UIFormat } from './ui-format.js';
 
 var view = "<template class=\"ui-calendar__header\">\n  <a class=\"ui-calendar__tool first\" data-tool=\"first\" if.bind=\"showFirstLast\" data-disabled.bind=\"config.firstDisabled\" ui-tooltip.bind=\"config.firstTooltip\"><ui-svg-icon icon=\"page-first\"></ui-svg-icon></a>\n  <a class=\"ui-calendar__tool prev\" data-tool=\"prev\" data-disabled.bind=\"config.prevDisabled\" ui-tooltip.bind=\"config.prevTooltip\"><ui-svg-icon icon=\"page-previous\"></ui-svg-icon></a>\n  <a class=\"ui-calendar__title\" data-tool=\"title\"><slot></slot></a>\n  <a class=\"ui-calendar__tool next\" data-tool=\"next\" data-disabled.bind=\"config.nextDisabled\" ui-tooltip.bind=\"config.nextTooltip\"><ui-svg-icon icon=\"page-next\"></ui-svg-icon></a>\n  <a class=\"ui-calendar__tool last\" data-tool=\"last\" if.bind=\"showFirstLast\" data-disabled.bind=\"config.lastDisabled\" ui-tooltip.bind=\"config.lastTooltip\"><ui-svg-icon icon=\"page-last\"></ui-svg-icon></a>\n</template>\n";
 
@@ -659,14 +659,14 @@ var UIRangePicker = (function () {
     });
     Object.defineProperty(UIRangePicker.prototype, "startHeaderOptions", {
         get: function () {
-            return buildHeaderConfig(this.startMonth, this.startPage, __assign({}, this.config, { page: this.startPage }));
+            return buildHeaderConfig(this.startMonth, this.startPage, __assign(__assign({}, this.config), { page: this.startPage }));
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(UIRangePicker.prototype, "endHeaderOptions", {
         get: function () {
-            return buildHeaderConfig(this.endMonth, this.endPage, __assign({}, this.config, { page: this.endPage }));
+            return buildHeaderConfig(this.endMonth, this.endPage, __assign(__assign({}, this.config), { page: this.endPage }));
         },
         enumerable: true,
         configurable: true

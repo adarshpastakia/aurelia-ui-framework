@@ -1,4 +1,4 @@
-define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', './chunk3', './chunk7'], function (exports, __chunk_1, aureliaFramework, aureliaEventAggregator, __chunk_3, __chunk_7) { 'use strict';
+define(['exports', './_tslib', 'aurelia-framework', 'aurelia-event-aggregator', './ui-internal', './base-panel'], function (exports, _tslib, aureliaFramework, aureliaEventAggregator, uiInternal, basePanel) { 'use strict';
 
   var GridderUtils;
   (function (GridderUtils) {
@@ -90,7 +90,7 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           document.removeEventListener("mouseup", stopResize);
       };
       function updateGhost(el) {
-          __chunk_3.UIInternal.queueTask(function () {
+          uiInternal.UIInternal.queueTask(function () {
               GridderUtils.ghost.startWidth = el.offsetWidth;
               GridderUtils.ghost.startHeight = el.offsetHeight;
               GridderUtils.ghost.style.top = el.offsetTop + "px";
@@ -104,7 +104,7 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
   var view = "<template class=\"ui-gridder__cell\" data-allow-drop.bind=\"!pinned\" dragenter.trigger=\"utils.move($event)\">\n  <div ref=\"vmElement\" class=\"ui-panel-base ui-panel\" data-expanded.bind=\"expanded\">\n    <div class=\"ui-panel__header\" data-autohide.bind=\"autoHideHeader\">\n      <ui-drag-handle if.bind=\"moveable && !pinned\"></ui-drag-handle>\n      <ui-header>\n        <slot name=\"header-icon\">\n          <ui-header-icon if.bind=\"icon\" icon.bind=\"icon\"></ui-header-icon>\n        </slot>\n        <ui-header-title if.bind=\"label\">${label}</ui-header-title>\n\n        <slot name=\"header-actions\"></slot>\n      </ui-header>\n      <div class=\"ui-panel__header__actions\" if.bind=\"closeable || expandable || pinnable\">\n        <ui-divider></ui-divider>\n        <template if.bind=\"pinnable\">\n          <ui-button type=\"tool\" click.trigger=\"togglePinned(!pinned)\" active.bind=\"pinned\">\n            <ui-svg-icon icon.bind=\"pinned?'pinned':'unpinned'\"></ui-svg-icon>\n          </ui-button>\n        </template>\n        <template if.bind=\"expandable\">\n          <ui-button type=\"tool\" click.trigger=\"toggleExpand(!expanded)\">\n            <ui-svg-icon icon.bind=\"expanded?'collapse':'expand'\"></ui-svg-icon>\n          </ui-button>\n        </template>\n        <template if.bind=\"closeable\">\n          <ui-button type=\"tool\" click.trigger=\"close()\">\n            <ui-svg-icon icon=\"cross\"></ui-svg-icon>\n          </ui-button>\n        </template>\n      </div>\n    </div>\n    <div class=\"ui-panel__body\">\n      <slot></slot>\n    </div>\n    <slot name=\"panel-footer\"></slot>\n  </div>\n\n  <div if.bind=\"resizeable\" class=\"ui-gridder__resize\" mousedown.trigger=\"utils.startResize($event)\"></div>\n</template>\n";
 
   var UIGridderCell = (function (_super) {
-      __chunk_1.__extends(UIGridderCell, _super);
+      _tslib.__extends(UIGridderCell, _super);
       function UIGridderCell(element) {
           var _this = _super.call(this) || this;
           _this.element = element;
@@ -134,57 +134,57 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
       UIGridderCell.prototype.togglePinned = function (pinned) {
           this.pinned = pinned;
       };
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIGridderCell.prototype, "label", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIGridderCell.prototype, "icon", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.twoWay }),
-          __chunk_1.__metadata("design:type", Object)
+          _tslib.__metadata("design:type", Object)
       ], UIGridderCell.prototype, "config", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.twoWay }),
-          __chunk_1.__metadata("design:type", Boolean)
+          _tslib.__metadata("design:type", Boolean)
       ], UIGridderCell.prototype, "pinned", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.twoWay }),
-          __chunk_1.__metadata("design:type", Boolean)
+          _tslib.__metadata("design:type", Boolean)
       ], UIGridderCell.prototype, "expanded", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Boolean)
+          _tslib.__metadata("design:type", Boolean)
       ], UIGridderCell.prototype, "closeable", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Boolean)
+          _tslib.__metadata("design:type", Boolean)
       ], UIGridderCell.prototype, "expandable", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Boolean)
+          _tslib.__metadata("design:type", Boolean)
       ], UIGridderCell.prototype, "moveable", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Boolean)
+          _tslib.__metadata("design:type", Boolean)
       ], UIGridderCell.prototype, "pinnable", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Boolean)
+          _tslib.__metadata("design:type", Boolean)
       ], UIGridderCell.prototype, "resizeable", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Boolean)
+          _tslib.__metadata("design:type", Boolean)
       ], UIGridderCell.prototype, "autoHideHeader", void 0);
-      UIGridderCell = __chunk_1.__decorate([
+      UIGridderCell = _tslib.__decorate([
           aureliaFramework.customElement("ui-gridder-cell"),
           aureliaFramework.inlineView(view),
-          __chunk_1.__metadata("design:paramtypes", [Element])
+          _tslib.__metadata("design:paramtypes", [Element])
       ], UIGridderCell);
       return UIGridderCell;
-  }(__chunk_7.BasePanel));
+  }(basePanel.BasePanel));
 
   var view$1 = "<template class=\"ui-gridder\">\n  <div class=\"ui-gridder__container\" dragstart.trigger=\"startDrag($event)\" dragend.trigger=\"stopDrag($event)\">\n    <slot></slot>\n\n    <div class=\"ui-gridder__ghost\" ref=\"ghost\" show.bind=\"!!utils.dragEl\"></div>\n\n    <div class=\"ui-gridder__overlay\" if.bind=\"!!utils.dragEl\">\n      <template repeat.for=\"row of utils.rowCount\">\n        <template repeat.for=\"col of utils.colCount\">\n          <div class=\"ui-gridder__cell\" data-row.bind=\"row\" data-col.bind=\"col\"></div> </template></template>\n    </div>\n  </div>\n</template>\n";
 
@@ -203,7 +203,7 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
       };
       UIGridder.prototype.cellsChanged = function () {
           var _this = this;
-          __chunk_3.UIInternal.queueTask(function () {
+          uiInternal.UIInternal.queueTask(function () {
               GridderUtils.cells = _this.cells;
               GridderUtils.rowCount = Math.floor(_this.element.firstElementChild.offsetHeight / GridderUtils.minHeight);
           });
@@ -216,14 +216,14 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           GridderUtils.finishMove($event);
           return true;
       };
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.children("ui-gridder-cell"),
-          __chunk_1.__metadata("design:type", Object)
+          _tslib.__metadata("design:type", Object)
       ], UIGridder.prototype, "cells", void 0);
-      UIGridder = __chunk_1.__decorate([
+      UIGridder = _tslib.__decorate([
           aureliaFramework.customElement("ui-gridder"),
           aureliaFramework.inlineView(view$1),
-          __chunk_1.__metadata("design:paramtypes", [Element])
+          _tslib.__metadata("design:paramtypes", [Element])
       ], UIGridder);
       return UIGridder;
   }());

@@ -1,10 +1,10 @@
-System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', './chunk3.js'], function (exports, module) {
+System.register(['./_tslib.js', 'aurelia-framework', 'aurelia-event-aggregator', './ui-internal.js'], function (exports) {
   'use strict';
   var __decorate, __metadata, bindable, child, computedFrom, customElement, inlineView, bindingMode, children, autoinject, DOM, containerless, UIInternal;
   return {
     setters: [function (module) {
-      __decorate = module.b;
-      __metadata = module.c;
+      __decorate = module.a;
+      __metadata = module.b;
     }, function (module) {
       bindable = module.bindable;
       child = module.child;
@@ -17,7 +17,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', 
       DOM = module.DOM;
       containerless = module.containerless;
     }, function () {}, function (module) {
-      UIInternal = module.a;
+      UIInternal = module.U;
     }],
     execute: function () {
 

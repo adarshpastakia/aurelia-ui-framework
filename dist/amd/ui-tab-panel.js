@@ -1,4 +1,4 @@
-define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', './chunk3', 'resize-observer-polyfill'], function (exports, __chunk_1, aureliaFramework, aureliaEventAggregator, __chunk_3, ResizeObserver) { 'use strict';
+define(['exports', './_tslib', 'aurelia-framework', 'aurelia-event-aggregator', './ui-internal', 'resize-observer-polyfill', './ui-common'], function (exports, _tslib, aureliaFramework, aureliaEventAggregator, uiInternal, ResizeObserver, uiCommon) { 'use strict';
 
   ResizeObserver = ResizeObserver && ResizeObserver.hasOwnProperty('default') ? ResizeObserver['default'] : ResizeObserver;
 
@@ -17,46 +17,46 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
       UITab.prototype.bind = function () {
           this.closeable = !isFalse(this.closeable);
       };
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UITab.prototype, "id", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UITab.prototype, "label", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UITab.prototype, "icon", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Boolean)
+          _tslib.__metadata("design:type", Boolean)
       ], UITab.prototype, "active", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Boolean)
+          _tslib.__metadata("design:type", Boolean)
       ], UITab.prototype, "disabled", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Object)
+          _tslib.__metadata("design:type", Object)
       ], UITab.prototype, "view", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Object)
+          _tslib.__metadata("design:type", Object)
       ], UITab.prototype, "model", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Object)
+          _tslib.__metadata("design:type", Object)
       ], UITab.prototype, "viewModel", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Boolean)
+          _tslib.__metadata("design:type", Boolean)
       ], UITab.prototype, "closeable", void 0);
-      UITab = __chunk_1.__decorate([
+      UITab = _tslib.__decorate([
           aureliaFramework.customElement("ui-tab"),
           aureliaFramework.inlineView("<template class=\"ui-tab\" data-active.bind=\"active\" data-hide.bind=\"!!view || !!viewModel\"><slot></slot></template>"),
-          __chunk_1.__metadata("design:paramtypes", [Element])
+          _tslib.__metadata("design:paramtypes", [Element])
       ], UITab);
       return UITab;
   }());
@@ -65,11 +65,11 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
       function UITabbarEnd(element) {
           this.element = element;
       }
-      UITabbarEnd = __chunk_1.__decorate([
+      UITabbarEnd = _tslib.__decorate([
           aureliaFramework.containerless(),
           aureliaFramework.customElement("ui-tabbar-end"),
           aureliaFramework.inlineView("<template><div slot=\"tabbar-end\"><slot></slot></div></template>"),
-          __chunk_1.__metadata("design:paramtypes", [Element])
+          _tslib.__metadata("design:paramtypes", [Element])
       ], UITabbarEnd);
       return UITabbarEnd;
   }());
@@ -80,18 +80,17 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
       function UITabbarStart(element) {
           this.element = element;
       }
-      UITabbarStart = __chunk_1.__decorate([
+      UITabbarStart = _tslib.__decorate([
           aureliaFramework.containerless(),
           aureliaFramework.customElement("ui-tabbar-start"),
           aureliaFramework.inlineView("<template><div slot=\"tabbar-start\"><slot></slot></div></template>"),
-          __chunk_1.__metadata("design:paramtypes", [Element])
+          _tslib.__metadata("design:paramtypes", [Element])
       ], UITabbarStart);
       return UITabbarStart;
   }());
 
   var UITabPanel = (function () {
       function UITabPanel(element) {
-          var _this = this;
           this.element = element;
           this.tabs = [];
           this.align = "top";
@@ -100,25 +99,23 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           if (element.hasAttribute("no-border")) {
               element.classList.add("ui-tab__panel--noborder");
           }
-          this.obResize = new ResizeObserver(function () { return _this.calculateOverflow(); });
-          this.obResize.observe(element);
       }
       UITabPanel.prototype.activateTab = function (id) {
-          return __chunk_1.__awaiter(this, void 0, void 0, function () {
+          return _tslib.__awaiter(this, void 0, void 0, function () {
               var result;
               var _this = this;
-              return __chunk_1.__generator(this, function (_a) {
+              return _tslib.__generator(this, function (_a) {
                   switch (_a.label) {
                       case 0:
                           result = true;
                           if (!this.composeVm.currentViewModel) return [3, 2];
-                          return [4, __chunk_3.UIInternal.invokeLifecycle(this.composeVm.currentViewModel, "canDeactivate")];
+                          return [4, uiInternal.UIInternal.invokeLifecycle(this.composeVm.currentViewModel, "canDeactivate")];
                       case 1:
                           result = _a.sent();
                           _a.label = 2;
                       case 2:
                           if (result) {
-                              return [2, __chunk_3.UIInternal.fireCallbackEvent(this, "beforechange", {
+                              return [2, uiInternal.UIInternal.fireCallbackEvent(this, "beforechange", {
                                       activeTab: this.activeTab.id,
                                       activeViewModel: this.composeVm.currentViewModel,
                                       newTab: id
@@ -133,22 +130,22 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           });
       };
       UITabPanel.prototype.closeTab = function (id) {
-          return __chunk_1.__awaiter(this, void 0, void 0, function () {
+          return _tslib.__awaiter(this, void 0, void 0, function () {
               var tab, result;
               var _this = this;
-              return __chunk_1.__generator(this, function (_a) {
+              return _tslib.__generator(this, function (_a) {
                   switch (_a.label) {
                       case 0:
                           tab = this.tabs.find(function (t) { return t.id === id; });
                           result = true;
                           if (!(this.activeTab.id === id && this.composeVm.currentViewModel)) return [3, 2];
-                          return [4, __chunk_3.UIInternal.invokeLifecycle(this.composeVm.currentViewModel, "canDeactivate")];
+                          return [4, uiInternal.UIInternal.invokeLifecycle(this.composeVm.currentViewModel, "canDeactivate")];
                       case 1:
                           result = _a.sent();
                           _a.label = 2;
                       case 2:
                           if (result) {
-                              return [2, __chunk_3.UIInternal.fireCallbackEvent(this, "beforeclose", tab.id).then(function (b) {
+                              return [2, uiInternal.UIInternal.fireCallbackEvent(this, "beforeclose", tab.id).then(function (b) {
                                       return b ? _this.remove(id) : false;
                                   })];
                           }
@@ -167,7 +164,8 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           var _this = this;
           this.composeVm.owningView = this.owningView;
           this.composeVm.viewResources = this.owningView.resources;
-          setTimeout(function () { return _this.calculateOverflow(); }, 200);
+          this.obResize = new ResizeObserver(function () { return _this.calculateOverflow(); });
+          this.obResize.observe(this.element);
           this.isAttached = true;
           this.tabsChanged();
       };
@@ -179,6 +177,7 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           this.tabsChanged();
       };
       UITabPanel.prototype.tabsChanged = function () {
+          var _this = this;
           if (this.isAttached) {
               this.active = (this.tabs.find(function (tab) { return tab.active; }) || {}).id;
               if (!this.active) {
@@ -186,12 +185,13 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
                   this.active = this.activeTab.id;
                   this.activeTab.active = true;
               }
+              uiInternal.UIInternal.queueTask(function () { return _this.calculateOverflow(); });
           }
       };
       UITabPanel.prototype.activate = function (id) {
           var newTab = this.tabs.find(function (tab) { return tab.id === id; });
-          if (newTab) {
-              this.element.dispatchEvent(__chunk_3.UIInternal.createEvent("change", id));
+          if (newTab && !newTab.disabled) {
+              this.element.dispatchEvent(uiInternal.UIInternal.createEvent("change", id));
               if (this.activeTab) {
                   this.activeTab.active = false;
               }
@@ -203,69 +203,54 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           return false;
       };
       UITabPanel.prototype.remove = function (id) {
+          var _this = this;
           var tab = this.tabs.find(function (t) { return t.id === id; });
-          this.element.dispatchEvent(__chunk_3.UIInternal.createEvent("close", id));
-          this.tabs.splice(this.tabs.indexOf(tab), 1);
+          this.element.dispatchEvent(uiInternal.UIInternal.createEvent("close", id));
+          this.overflowEl.innerHTML = "";
+          uiInternal.UIInternal.queueTask(function () {
+              _this.tabs = _tslib.__spread(_this.tabs.splice(_this.tabs.indexOf(tab), 1));
+          });
           if (tab.element) {
-              __chunk_3.UIInternal.queueTask(function () { return aureliaFramework.DOM.removeNode(tab.element); });
+              uiInternal.UIInternal.queueTask(function () { return aureliaFramework.DOM.removeNode(tab.element); });
           }
           return true;
       };
       UITabPanel.prototype.calculateOverflow = function () {
-          var _this = this;
-          var _a;
-          this.resetOverflow();
-          var overflowItems = [];
-          var isRtl = window.getComputedStyle(this.wrapperEl).direction === "rtl";
-          __chunk_1.__spread(this.wrapperEl.children).reverse().forEach(function (item) {
-              if ((!isRtl && _this.wrapperEl.offsetWidth - (item.offsetLeft + item.offsetWidth) <= 30) ||
-                  (isRtl && _this.wrapperEl.offsetWidth - item.offsetLeft >= _this.wrapperEl.offsetWidth - 30)) {
-                  overflowItems.splice(0, 0, item);
-                  _this.hasOverflow = true;
-              }
-          });
-          (_a = this.overflowEl).append.apply(_a, __chunk_1.__spread(overflowItems));
+          this.hasOverflow = uiCommon.calculateOverflow(this.wrapperEl, this.overflowEl);
       };
-      UITabPanel.prototype.resetOverflow = function () {
-          var _this = this;
-          this.hasOverflow = false;
-          this.overflowEl.children.forEach(function (child) {
-              _this.wrapperEl.appendChild(child);
-          });
-      };
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Array)
+          _tslib.__metadata("design:type", Array)
       ], UITabPanel.prototype, "tabs", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable({ bindingMode: aureliaFramework.bindingMode.twoWay }),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UITabPanel.prototype, "active", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UITabPanel.prototype, "align", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Function)
+          _tslib.__metadata("design:type", Function)
       ], UITabPanel.prototype, "beforechange", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Function)
+          _tslib.__metadata("design:type", Function)
       ], UITabPanel.prototype, "beforeclose", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.children("ui-tab"),
-          __chunk_1.__metadata("design:type", Array)
+          _tslib.__metadata("design:type", Array)
       ], UITabPanel.prototype, "innerTabs", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable({ bindingMode: aureliaFramework.bindingMode.toView }),
-          __chunk_1.__metadata("design:type", Object)
+          _tslib.__metadata("design:type", Object)
       ], UITabPanel.prototype, "activeTab", void 0);
-      UITabPanel = __chunk_1.__decorate([
+      UITabPanel = _tslib.__decorate([
           aureliaFramework.autoinject(),
           aureliaFramework.customElement("ui-tab-panel"),
           aureliaFramework.inlineView(view),
-          __chunk_1.__metadata("design:paramtypes", [Element])
+          _tslib.__metadata("design:paramtypes", [Element])
       ], UITabPanel);
       return UITabPanel;
   }());

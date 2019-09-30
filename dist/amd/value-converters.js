@@ -1,4 +1,4 @@
-define(['exports', './chunk', 'aurelia-framework', 'libphonenumber-js', 'date-fns', 'kramed', 'numeral', './chunk4'], function (exports, __chunk_1, aureliaFramework, libphonenumberJs, dateFns, kramed, numeral, __chunk_4) { 'use strict';
+define(['exports', './_tslib', 'aurelia-framework', 'libphonenumber-js', 'date-fns', 'kramed', 'numeral', './ui-format'], function (exports, _tslib, aureliaFramework, libphonenumberJs, dateFns, kramed, numeral, uiFormat) { 'use strict';
 
   kramed = kramed && kramed.hasOwnProperty('default') ? kramed['default'] : kramed;
   numeral = numeral && numeral.hasOwnProperty('default') ? numeral['default'] : numeral;
@@ -10,7 +10,7 @@ define(['exports', './chunk', 'aurelia-framework', 'libphonenumber-js', 'date-fn
           if (char === void 0) { char = ","; }
           return (object || "").split(new RegExp("[" + char + "]"));
       };
-      SplitValueConverter = __chunk_1.__decorate([
+      SplitValueConverter = _tslib.__decorate([
           aureliaFramework.valueConverter("split")
       ], SplitValueConverter);
       return SplitValueConverter;
@@ -26,7 +26,7 @@ define(['exports', './chunk', 'aurelia-framework', 'libphonenumber-js', 'date-fn
           object.forEach(function (value, key) { return map.set(key, value); });
           return map;
       };
-      ObjectMapValueConverter = __chunk_1.__decorate([
+      ObjectMapValueConverter = _tslib.__decorate([
           aureliaFramework.valueConverter("objectMap")
       ], ObjectMapValueConverter);
       return ObjectMapValueConverter;
@@ -37,7 +37,7 @@ define(['exports', './chunk', 'aurelia-framework', 'libphonenumber-js', 'date-fn
       GroupValueConverter.prototype.toView = function (array, property) {
           return array.groupBy(property);
       };
-      GroupValueConverter = __chunk_1.__decorate([
+      GroupValueConverter = _tslib.__decorate([
           aureliaFramework.valueConverter("group")
       ], GroupValueConverter);
       return GroupValueConverter;
@@ -49,7 +49,7 @@ define(['exports', './chunk', 'aurelia-framework', 'libphonenumber-js', 'date-fn
           if (end === void 0) { end = 0; }
           return end === 0 ? array : array.slice(0, end);
       };
-      SliceValueConverter = __chunk_1.__decorate([
+      SliceValueConverter = _tslib.__decorate([
           aureliaFramework.valueConverter("slice")
       ], SliceValueConverter);
       return SliceValueConverter;
@@ -84,7 +84,7 @@ define(['exports', './chunk', 'aurelia-framework', 'libphonenumber-js', 'date-fn
               });
           }
       };
-      FilterValueConverter = __chunk_1.__decorate([
+      FilterValueConverter = _tslib.__decorate([
           aureliaFramework.valueConverter("filter")
       ], FilterValueConverter);
       return FilterValueConverter;
@@ -104,11 +104,11 @@ define(['exports', './chunk', 'aurelia-framework', 'libphonenumber-js', 'date-fn
               down = 1;
           }
           if (array instanceof Map) {
-              return new Map(__chunk_1.__spread(array).sort(function (a, b) { return (a[0] > b[0] ? up : down); }));
+              return new Map(_tslib.__spread(array).sort(function (a, b) { return (a[0] > b[0] ? up : down); }));
           }
-          return __chunk_1.__spread(array).sort(function (a, b) { return (a[property] > b[property] ? up : down); });
+          return _tslib.__spread(array).sort(function (a, b) { return (a[property] > b[property] ? up : down); });
       };
-      OrderByValueConverter = __chunk_1.__decorate([
+      OrderByValueConverter = _tslib.__decorate([
           aureliaFramework.valueConverter("orderBy")
       ], OrderByValueConverter);
       return OrderByValueConverter;
@@ -122,11 +122,11 @@ define(['exports', './chunk', 'aurelia-framework', 'libphonenumber-js', 'date-fn
               return [];
           }
           if (array instanceof Map) {
-              return new Map(__chunk_1.__spread(array).sortBy("0", isAscending));
+              return new Map(_tslib.__spread(array).sortBy("0", isAscending));
           }
-          return __chunk_1.__spread(array).sortBy(property, isAscending);
+          return _tslib.__spread(array).sortBy(property, isAscending);
       };
-      SortValueConverter = __chunk_1.__decorate([
+      SortValueConverter = _tslib.__decorate([
           aureliaFramework.valueConverter("sort")
       ], SortValueConverter);
       return SortValueConverter;
@@ -148,7 +148,7 @@ define(['exports', './chunk', 'aurelia-framework', 'libphonenumber-js', 'date-fn
       JsonValueConverter.prototype.toView = function (value) {
           return JSON.stringify(value);
       };
-      JsonValueConverter = __chunk_1.__decorate([
+      JsonValueConverter = _tslib.__decorate([
           aureliaFramework.valueConverter("json")
       ], JsonValueConverter);
       return JsonValueConverter;
@@ -157,9 +157,9 @@ define(['exports', './chunk', 'aurelia-framework', 'libphonenumber-js', 'date-fn
       function MarkdownValueConverter() {
       }
       MarkdownValueConverter.prototype.toView = function (value) {
-          return __chunk_4.UIFormat.toHTML(value || "");
+          return uiFormat.UIFormat.toHTML(value || "");
       };
-      MarkdownValueConverter = __chunk_1.__decorate([
+      MarkdownValueConverter = _tslib.__decorate([
           aureliaFramework.valueConverter("md")
       ], MarkdownValueConverter);
       return MarkdownValueConverter;
@@ -171,7 +171,7 @@ define(['exports', './chunk', 'aurelia-framework', 'libphonenumber-js', 'date-fn
           if (country === void 0) { country = ""; }
           return getPhone(value, country).formatInternational();
       };
-      PhoneValueConverter = __chunk_1.__decorate([
+      PhoneValueConverter = _tslib.__decorate([
           aureliaFramework.valueConverter("phone")
       ], PhoneValueConverter);
       return PhoneValueConverter;
@@ -183,7 +183,7 @@ define(['exports', './chunk', 'aurelia-framework', 'libphonenumber-js', 'date-fn
           if (country === void 0) { country = "us"; }
           return getPhone(value, country).formatNational();
       };
-      PhoneLocalValueConverter = __chunk_1.__decorate([
+      PhoneLocalValueConverter = _tslib.__decorate([
           aureliaFramework.valueConverter("phoneLocal")
       ], PhoneLocalValueConverter);
       return PhoneLocalValueConverter;
@@ -196,7 +196,7 @@ define(['exports', './chunk', 'aurelia-framework', 'libphonenumber-js', 'date-fn
           var phoneNumber = getPhone(value, country);
           return "<span class=\"ui-flag " + phoneNumber.country + "\"></span>&nbsp;" + phoneNumber.formatInternational();
       };
-      PhoneHtmlValueConverter = __chunk_1.__decorate([
+      PhoneHtmlValueConverter = _tslib.__decorate([
           aureliaFramework.valueConverter("phoneHtml")
       ], PhoneHtmlValueConverter);
       return PhoneHtmlValueConverter;
@@ -209,7 +209,7 @@ define(['exports', './chunk', 'aurelia-framework', 'libphonenumber-js', 'date-fn
           var phoneNumber = getPhone(value, country);
           return "<span class=\"ui-flag " + phoneNumber.country + "\"></span>&nbsp;" + phoneNumber.formatNational();
       };
-      PhoneLocalHtmlValueConverter = __chunk_1.__decorate([
+      PhoneLocalHtmlValueConverter = _tslib.__decorate([
           aureliaFramework.valueConverter("phoneLocalHtml")
       ], PhoneLocalHtmlValueConverter);
       return PhoneLocalHtmlValueConverter;
@@ -218,9 +218,9 @@ define(['exports', './chunk', 'aurelia-framework', 'libphonenumber-js', 'date-fn
       function DateValueConverter() {
       }
       DateValueConverter.prototype.toView = function (value, format) {
-          return __chunk_4.UIFormat.date(value, format);
+          return uiFormat.UIFormat.date(value, format);
       };
-      DateValueConverter = __chunk_1.__decorate([
+      DateValueConverter = _tslib.__decorate([
           aureliaFramework.valueConverter("date")
       ], DateValueConverter);
       return DateValueConverter;
@@ -229,9 +229,9 @@ define(['exports', './chunk', 'aurelia-framework', 'libphonenumber-js', 'date-fn
       function TimeValueConverter() {
       }
       TimeValueConverter.prototype.toView = function (value, format) {
-          return __chunk_4.UIFormat.time(value, format);
+          return uiFormat.UIFormat.time(value, format);
       };
-      TimeValueConverter = __chunk_1.__decorate([
+      TimeValueConverter = _tslib.__decorate([
           aureliaFramework.valueConverter("time")
       ], TimeValueConverter);
       return TimeValueConverter;
@@ -240,9 +240,9 @@ define(['exports', './chunk', 'aurelia-framework', 'libphonenumber-js', 'date-fn
       function DatetimeValueConverter() {
       }
       DatetimeValueConverter.prototype.toView = function (value, format) {
-          return __chunk_4.UIFormat.datetime(value, format);
+          return uiFormat.UIFormat.datetime(value, format);
       };
-      DatetimeValueConverter = __chunk_1.__decorate([
+      DatetimeValueConverter = _tslib.__decorate([
           aureliaFramework.valueConverter("datetime")
       ], DatetimeValueConverter);
       return DatetimeValueConverter;
@@ -251,9 +251,9 @@ define(['exports', './chunk', 'aurelia-framework', 'libphonenumber-js', 'date-fn
       function FromNowValueConverter() {
       }
       FromNowValueConverter.prototype.toView = function (value) {
-          return __chunk_4.UIFormat.fromNow(value);
+          return uiFormat.UIFormat.fromNow(value);
       };
-      FromNowValueConverter = __chunk_1.__decorate([
+      FromNowValueConverter = _tslib.__decorate([
           aureliaFramework.valueConverter("fromnow")
       ], FromNowValueConverter);
       return FromNowValueConverter;
@@ -262,9 +262,9 @@ define(['exports', './chunk', 'aurelia-framework', 'libphonenumber-js', 'date-fn
       function AgeValueConverter() {
       }
       AgeValueConverter.prototype.toView = function (value) {
-          return __chunk_4.UIFormat.age(value);
+          return uiFormat.UIFormat.age(value);
       };
-      AgeValueConverter = __chunk_1.__decorate([
+      AgeValueConverter = _tslib.__decorate([
           aureliaFramework.valueConverter("age")
       ], AgeValueConverter);
       return AgeValueConverter;
@@ -273,9 +273,9 @@ define(['exports', './chunk', 'aurelia-framework', 'libphonenumber-js', 'date-fn
       function UtcValueConverter() {
       }
       UtcValueConverter.prototype.toView = function (value) {
-          return __chunk_4.UIFormat.utcDate(value);
+          return uiFormat.UIFormat.utcDate(value);
       };
-      UtcValueConverter = __chunk_1.__decorate([
+      UtcValueConverter = _tslib.__decorate([
           aureliaFramework.valueConverter("utc")
       ], UtcValueConverter);
       return UtcValueConverter;
@@ -284,9 +284,9 @@ define(['exports', './chunk', 'aurelia-framework', 'libphonenumber-js', 'date-fn
       function IsoValueConverter() {
       }
       IsoValueConverter.prototype.toView = function (value) {
-          return __chunk_4.UIFormat.dateToISO(value);
+          return uiFormat.UIFormat.dateToISO(value);
       };
-      IsoValueConverter = __chunk_1.__decorate([
+      IsoValueConverter = _tslib.__decorate([
           aureliaFramework.valueConverter("iso")
       ], IsoValueConverter);
       return IsoValueConverter;
@@ -295,9 +295,9 @@ define(['exports', './chunk', 'aurelia-framework', 'libphonenumber-js', 'date-fn
       function NumberValueConverter() {
       }
       NumberValueConverter.prototype.toView = function (value, format) {
-          return __chunk_4.UIFormat.number(value, format);
+          return uiFormat.UIFormat.number(value, format);
       };
-      NumberValueConverter = __chunk_1.__decorate([
+      NumberValueConverter = _tslib.__decorate([
           aureliaFramework.valueConverter("number")
       ], NumberValueConverter);
       return NumberValueConverter;
@@ -306,9 +306,9 @@ define(['exports', './chunk', 'aurelia-framework', 'libphonenumber-js', 'date-fn
       function CurrencyValueConverter() {
       }
       CurrencyValueConverter.prototype.toView = function (value, symbol, format) {
-          return __chunk_4.UIFormat.currency(value, symbol, format);
+          return uiFormat.UIFormat.currency(value, symbol, format);
       };
-      CurrencyValueConverter = __chunk_1.__decorate([
+      CurrencyValueConverter = _tslib.__decorate([
           aureliaFramework.valueConverter("currency")
       ], CurrencyValueConverter);
       return CurrencyValueConverter;
@@ -317,9 +317,9 @@ define(['exports', './chunk', 'aurelia-framework', 'libphonenumber-js', 'date-fn
       function PercentValueConverter() {
       }
       PercentValueConverter.prototype.toView = function (value) {
-          return __chunk_4.UIFormat.percent(value);
+          return uiFormat.UIFormat.percent(value);
       };
-      PercentValueConverter = __chunk_1.__decorate([
+      PercentValueConverter = _tslib.__decorate([
           aureliaFramework.valueConverter("percent")
       ], PercentValueConverter);
       return PercentValueConverter;

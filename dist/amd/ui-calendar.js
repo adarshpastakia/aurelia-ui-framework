@@ -1,4 +1,4 @@
-define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', './chunk3', 'date-fns', 'kramed', 'numeral', './chunk4'], function (exports, __chunk_1, aureliaFramework, aureliaEventAggregator, __chunk_3, dateFns, kramed, numeral, __chunk_4) { 'use strict';
+define(['exports', './_tslib', 'aurelia-framework', 'aurelia-event-aggregator', './ui-internal', 'date-fns', 'kramed', 'numeral', './ui-format'], function (exports, _tslib, aureliaFramework, aureliaEventAggregator, uiInternal, dateFns, kramed, numeral, uiFormat) { 'use strict';
 
   kramed = kramed && kramed.hasOwnProperty('default') ? kramed['default'] : kramed;
   numeral = numeral && numeral.hasOwnProperty('default') ? numeral['default'] : numeral;
@@ -11,15 +11,15 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           this.config = {};
       }
       CalendarHead.TITLE = "title";
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Boolean)
+          _tslib.__metadata("design:type", Boolean)
       ], CalendarHead.prototype, "showFirstLast", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Object)
+          _tslib.__metadata("design:type", Object)
       ], CalendarHead.prototype, "config", void 0);
-      CalendarHead = __chunk_1.__decorate([
+      CalendarHead = _tslib.__decorate([
           aureliaFramework.customElement("calendar-head"),
           aureliaFramework.inlineView(view)
       ], CalendarHead);
@@ -273,15 +273,15 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           }
           return { date: date, label: dateFns.format(date, "dd"), classes: classes.join(" ") };
       };
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Date)
+          _tslib.__metadata("design:type", Date)
       ], DaysPage.prototype, "month", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Object)
+          _tslib.__metadata("design:type", Object)
       ], DaysPage.prototype, "config", void 0);
-      DaysPage = __chunk_1.__decorate([
+      DaysPage = _tslib.__decorate([
           aureliaFramework.customElement("days-page"),
           aureliaFramework.inlineView(view$1)
       ], DaysPage);
@@ -304,21 +304,21 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
               if (isDate(this.config.date) && dateFns.isSameMonth(date, this.config.date)) {
                   classes.push("selected");
               }
-              if (isDisabled(__chunk_1.__assign({ disabled: [] }, this.config), date)) {
+              if (isDisabled(_tslib.__assign({ disabled: [] }, this.config), date)) {
                   classes.push("disabled");
               }
           }
           return { date: date, label: dateFns.format(date, "MMM"), classes: classes.join(" ") };
       };
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Date)
+          _tslib.__metadata("design:type", Date)
       ], MonthsPage.prototype, "month", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Object)
+          _tslib.__metadata("design:type", Object)
       ], MonthsPage.prototype, "config", void 0);
-      MonthsPage = __chunk_1.__decorate([
+      MonthsPage = _tslib.__decorate([
           aureliaFramework.customElement("months-page"),
           aureliaFramework.inlineView(view$2)
       ], MonthsPage);
@@ -370,31 +370,31 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           this.fireChange();
       };
       TimePage.prototype.fireChange = function () {
-          this.element.dispatchEvent(__chunk_3.UIInternal.createEvent("change", this.time));
+          this.element.dispatchEvent(uiInternal.UIInternal.createEvent("change", this.time));
       };
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Date)
+          _tslib.__metadata("design:type", Date)
       ], TimePage.prototype, "time", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.computedFrom("time"),
-          __chunk_1.__metadata("design:type", String),
-          __chunk_1.__metadata("design:paramtypes", [String])
+          _tslib.__metadata("design:type", String),
+          _tslib.__metadata("design:paramtypes", [String])
       ], TimePage.prototype, "hour", null);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.computedFrom("time"),
-          __chunk_1.__metadata("design:type", Number),
-          __chunk_1.__metadata("design:paramtypes", [Number])
+          _tslib.__metadata("design:type", Number),
+          _tslib.__metadata("design:paramtypes", [Number])
       ], TimePage.prototype, "minute", null);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.computedFrom("time"),
-          __chunk_1.__metadata("design:type", Object),
-          __chunk_1.__metadata("design:paramtypes", [])
+          _tslib.__metadata("design:type", Object),
+          _tslib.__metadata("design:paramtypes", [])
       ], TimePage.prototype, "ampm", null);
-      TimePage = __chunk_1.__decorate([
+      TimePage = _tslib.__decorate([
           aureliaFramework.customElement("time-page"),
           aureliaFramework.inlineView(view$3),
-          __chunk_1.__metadata("design:paramtypes", [Element])
+          _tslib.__metadata("design:paramtypes", [Element])
       ], TimePage);
       return TimePage;
   }());
@@ -424,21 +424,21 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
               if (isDate(this.config.date) && dateFns.isSameYear(date, this.config.date)) {
                   classes.push("selected");
               }
-              if (isDisabled(__chunk_1.__assign({ disabled: [] }, this.config), date)) {
+              if (isDisabled(_tslib.__assign({ disabled: [] }, this.config), date)) {
                   classes.push("disabled");
               }
           }
           return { date: date, label: dateFns.format(date, "yyyy"), classes: classes.join(" ") };
       };
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Date)
+          _tslib.__metadata("design:type", Date)
       ], YearsPage.prototype, "month", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Object)
+          _tslib.__metadata("design:type", Object)
       ], YearsPage.prototype, "config", void 0);
-      YearsPage = __chunk_1.__decorate([
+      YearsPage = _tslib.__decorate([
           aureliaFramework.customElement("years-page"),
           aureliaFramework.inlineView(view$5)
       ], YearsPage);
@@ -464,7 +464,7 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
               this.time = new Date(this.selectedDate);
               this.month = dateFns.startOfMonth(this.selectedDate);
               var preset = this.datePresets.find(function (p) { return p.preset === _this.date; });
-              this.dateLabel = preset ? preset.label : __chunk_4.UIFormat.datetime(this.selectedDate, this.format);
+              this.dateLabel = preset ? preset.label : uiFormat.UIFormat.datetime(this.selectedDate, this.format);
           }
       };
       Object.defineProperty(UIDatePicker.prototype, "config", {
@@ -549,50 +549,50 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           dt.setMinutes(tm.getMinutes());
           this.date = dt.toISOString();
       };
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.twoWay }),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIDatePicker.prototype, "date", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIDatePicker.prototype, "minDate", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIDatePicker.prototype, "maxDate", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Object)
+          _tslib.__metadata("design:type", Object)
       ], UIDatePicker.prototype, "disabledDates", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIDatePicker.prototype, "format", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Array)
+          _tslib.__metadata("design:type", Array)
       ], UIDatePicker.prototype, "datePresets", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.fromView }),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIDatePicker.prototype, "dateLabel", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.computedFrom("selectedDate", "currentPage", "minDate", "maxDate", "disabledDates"),
-          __chunk_1.__metadata("design:type", Object),
-          __chunk_1.__metadata("design:paramtypes", [])
+          _tslib.__metadata("design:type", Object),
+          _tslib.__metadata("design:paramtypes", [])
       ], UIDatePicker.prototype, "config", null);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.computedFrom("month", "currentPage"),
-          __chunk_1.__metadata("design:type", String),
-          __chunk_1.__metadata("design:paramtypes", [])
+          _tslib.__metadata("design:type", String),
+          _tslib.__metadata("design:paramtypes", [])
       ], UIDatePicker.prototype, "title", null);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.computedFrom("month", "currentPage", "minDate", "maxDate"),
-          __chunk_1.__metadata("design:type", Object),
-          __chunk_1.__metadata("design:paramtypes", [])
+          _tslib.__metadata("design:type", Object),
+          _tslib.__metadata("design:paramtypes", [])
       ], UIDatePicker.prototype, "headerOptions", null);
-      UIDatePicker = __chunk_1.__decorate([
+      UIDatePicker = _tslib.__decorate([
           aureliaFramework.customElement("ui-date-picker"),
           aureliaFramework.inlineView(view$4),
           aureliaFramework.viewResources(CalendarHead, DaysPage, MonthsPage, YearsPage, TimePage)
@@ -624,7 +624,7 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
               var preset = this.datePresets.find(function (p) { return p.preset === _this.date; });
               this.dateLabel = preset
                   ? preset.label
-                  : __chunk_4.UIFormat.date(this.selectedDate[0], this.format) + " ~ " + __chunk_4.UIFormat.date(this.selectedDate[1], this.format);
+                  : uiFormat.UIFormat.date(this.selectedDate[0], this.format) + " ~ " + uiFormat.UIFormat.date(this.selectedDate[1], this.format);
           }
       };
       Object.defineProperty(UIRangePicker.prototype, "config", {
@@ -655,14 +655,14 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
       });
       Object.defineProperty(UIRangePicker.prototype, "startHeaderOptions", {
           get: function () {
-              return buildHeaderConfig(this.startMonth, this.startPage, __chunk_1.__assign({}, this.config, { page: this.startPage }));
+              return buildHeaderConfig(this.startMonth, this.startPage, _tslib.__assign(_tslib.__assign({}, this.config), { page: this.startPage }));
           },
           enumerable: true,
           configurable: true
       });
       Object.defineProperty(UIRangePicker.prototype, "endHeaderOptions", {
           get: function () {
-              return buildHeaderConfig(this.endMonth, this.endPage, __chunk_1.__assign({}, this.config, { page: this.endPage }));
+              return buildHeaderConfig(this.endMonth, this.endPage, _tslib.__assign(_tslib.__assign({}, this.config), { page: this.endPage }));
           },
           enumerable: true,
           configurable: true
@@ -751,56 +751,56 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           this.cancelSelection();
           this.date = preset;
       };
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.twoWay }),
-          __chunk_1.__metadata("design:type", Object)
+          _tslib.__metadata("design:type", Object)
       ], UIRangePicker.prototype, "date", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIRangePicker.prototype, "minDate", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIRangePicker.prototype, "maxDate", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIRangePicker.prototype, "format", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Array)
+          _tslib.__metadata("design:type", Array)
       ], UIRangePicker.prototype, "datePresets", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.fromView }),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIRangePicker.prototype, "dateLabel", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.computedFrom("selectedDate", "hilight", "selecting", "minDate", "maxDate", "disabledDates"),
-          __chunk_1.__metadata("design:type", Object),
-          __chunk_1.__metadata("design:paramtypes", [])
+          _tslib.__metadata("design:type", Object),
+          _tslib.__metadata("design:paramtypes", [])
       ], UIRangePicker.prototype, "config", null);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.computedFrom("startMonth", "startPage"),
-          __chunk_1.__metadata("design:type", String),
-          __chunk_1.__metadata("design:paramtypes", [])
+          _tslib.__metadata("design:type", String),
+          _tslib.__metadata("design:paramtypes", [])
       ], UIRangePicker.prototype, "startTitle", null);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.computedFrom("endMonth", "endPage"),
-          __chunk_1.__metadata("design:type", String),
-          __chunk_1.__metadata("design:paramtypes", [])
+          _tslib.__metadata("design:type", String),
+          _tslib.__metadata("design:paramtypes", [])
       ], UIRangePicker.prototype, "endTitle", null);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.computedFrom("startMonth", "startPage", "minDate", "maxDate"),
-          __chunk_1.__metadata("design:type", Object),
-          __chunk_1.__metadata("design:paramtypes", [])
+          _tslib.__metadata("design:type", Object),
+          _tslib.__metadata("design:paramtypes", [])
       ], UIRangePicker.prototype, "startHeaderOptions", null);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.computedFrom("endMonth", "endPage", "minDate", "maxDate"),
-          __chunk_1.__metadata("design:type", Object),
-          __chunk_1.__metadata("design:paramtypes", [])
+          _tslib.__metadata("design:type", Object),
+          _tslib.__metadata("design:paramtypes", [])
       ], UIRangePicker.prototype, "endHeaderOptions", null);
-      UIRangePicker = __chunk_1.__decorate([
+      UIRangePicker = _tslib.__decorate([
           aureliaFramework.customElement("ui-range-picker"),
           aureliaFramework.inlineView(view$6),
           aureliaFramework.viewResources(CalendarHead, DaysPage, MonthsPage, YearsPage, TimePage)

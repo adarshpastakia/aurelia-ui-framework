@@ -1,11 +1,11 @@
-import { computedFrom, bindable, customElement, processContent, noView, containerless, inlineView, children, viewResources, bindingMode } from 'aurelia-framework';
+import { computedFrom, bindable, customElement, processContent, noView, containerless, inlineView, bindingMode, children, viewResources } from 'aurelia-framework';
 import 'aurelia-event-aggregator';
-import { a as UIInternal } from './chunk2.js';
-import { a as __decorate, b as __metadata } from './chunk3.js';
+import { U as UIInternal } from './ui-internal.js';
+import { _ as __decorate, a as __metadata } from './_tslib.js';
 import 'date-fns';
 import 'kramed';
 import 'numeral';
-import { a as UIFormat } from './chunk4.js';
+import { U as UIFormat } from './ui-format.js';
 
 let UIColumn = class UIColumn {
     constructor(element) {
@@ -184,7 +184,7 @@ class UIDataSource {
             orderProperty: "sortOrder",
             perPageProperty: "pageCount"
         };
-        this.options = Object.assign({}, this.options, options);
+        this.options = Object.assign(Object.assign({}, this.options), options);
         this.isPaginated = options.paginated;
         this.recordsPerPage = options.recordsPerPage || 50;
         this.sortByProperty = options.defaultSortProperty;
@@ -288,9 +288,17 @@ HeaderCell = __decorate([
     __metadata("design:paramtypes", [Element])
 ], HeaderCell);
 
-var view = "<template class=\"ui-datagrid\">\n\n  <div show.bind=\"false\">\n    <slot></slot>\n  </div>\n\n  <div class=\"ui-datagrid__head\">\n    <div class=\"ui-datagrid__row\">\n      <div class=\"ui-datagrid__row__wrapper\">\n        <div class=\"ui-datagrid__row__locked--start\">\n          <template repeat.for=\"col of columns | filter:'start':'locked'\">\n            <header-cell column.bind=\"col\" sort.trigger=\"ds.sortBy(col.dataId)\" sort-by.bind=\"ds.sortByProperty\" sort-order.bind=\"ds.sortByOrder\"></header-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__row__scrolling\">\n          <template repeat.for=\"col of columns | filter:false:'locked'\">\n            <header-cell column.bind=\"col\" sort.trigger=\"ds.sortBy(col.dataId)\" sort-by.bind=\"ds.sortByProperty\" sort-order.bind=\"ds.sortByOrder\"></header-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__cell ui-datagrid__cell--filler\"></div>\n        <div class=\"ui-datagrid__row__locked--end\">\n          <template repeat.for=\"col of columns | filter:'end':'locked'\">\n            <header-cell column.bind=\"col\" sort.trigger=\"ds.sortBy(col.dataId)\" sort-by.bind=\"ds.sortByProperty\" sort-order.bind=\"ds.sortByOrder\"></header-cell>\n          </template>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"ui-datagrid__body\" ref=\"dgBody\">\n\n    <div class=\"ui-datagrid__row ${$even ? 'ui-datagrid__row--even':'ui-datagrid__row--odd'}\" virtual-repeat.for=\"record of ds.data\">\n\n      <div class=\"ui-datagrid__row__wrapper\">\n        <div class=\"ui-datagrid__row__locked--start\">\n          <template repeat.for=\"col of columns | filter:'start':'locked'\">\n            <body-cell column.bind=\"col\" record.bind=\"record\"></body-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__row__scrolling\">\n          <template repeat.for=\"col of columns | filter:false:'locked'\">\n            <body-cell column.bind=\"col\" record.bind=\"record\"></body-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__cell ui-datagrid__cell--filler\"></div>\n        <div class=\"ui-datagrid__row__locked--end\">\n          <template repeat.for=\"col of columns | filter:'end':'locked'\">\n            <body-cell column.bind=\"col\" record.bind=\"record\"></body-cell>\n          </template>\n        </div>\n      </div>\n\n    </div>\n\n  </div>\n\n  <div class=\"ui-datagrid__foot\"></div>\n</template>\n";
+var view = "<template class=\"ui-datagrid\">\n  <div show.bind=\"false\">\n    <slot></slot>\n  </div>\n\n  <div class=\"ui-datagrid__head\">\n    <div class=\"ui-datagrid__row\">\n      <div class=\"ui-datagrid__row__wrapper\">\n        <div class=\"ui-datagrid__row__locked--start\">\n          <div class=\"ui-datagrid__cell\" css.bind=\"{width: '42px'}\" if.bind=\"checkable\">\n            <div class=\"ui-datagrid__cell__wrapper\">\n              <ui-checkbox checked.to-view=\"selected.length === ds.data.length ? true : selected.length === 0 ? false : '__2__'\" change.trigger=\"toggleSelectionAll($event)\"></ui-checkbox>\n            </div>\n          </div>\n          <div class=\"ui-datagrid__cell\" css.bind=\"{width: '42px'}\" if.bind=\"showCounter\"></div>\n          <template repeat.for=\"col of columns | filter:'start':'locked'\">\n            <header-cell column.bind=\"col\" sort.trigger=\"ds.sortBy(col.dataId)\" sort-by.bind=\"ds.sortByProperty\" sort-order.bind=\"ds.sortByOrder\"></header-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__row__scrolling\">\n          <template repeat.for=\"col of columns | filter:false:'locked'\">\n            <header-cell column.bind=\"col\" sort.trigger=\"ds.sortBy(col.dataId)\" sort-by.bind=\"ds.sortByProperty\" sort-order.bind=\"ds.sortByOrder\"></header-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__cell ui-datagrid__cell--filler\"></div>\n        <div class=\"ui-datagrid__row__locked--end\">\n          <template repeat.for=\"col of columns | filter:'end':'locked'\">\n            <header-cell column.bind=\"col\" sort.trigger=\"ds.sortBy(col.dataId)\" sort-by.bind=\"ds.sortByProperty\" sort-order.bind=\"ds.sortByOrder\"></header-cell>\n          </template>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"ui-datagrid__body\" ref=\"dgBody\">\n    <div class=\"ui-datagrid__row ${$even ? 'ui-datagrid__row--even':'ui-datagrid__row--odd'}\" virtual-repeat.for=\"record of ds.data\">\n      <div class=\"ui-datagrid__row__wrapper ${selected.includes(record) ? 'ui-datagrid__row--selected' : ''}\">\n        <div class=\"ui-datagrid__row__locked--start\">\n          <div class=\"ui-datagrid__cell ui-datagrid__cell--head\" css.bind=\"{width: '42px'}\" if.bind=\"checkable\">\n            <div class=\"ui-datagrid__cell__wrapper\">\n              <ui-checkbox checked.to-view=\"selected.includes(record)\" change.trigger=\"toggleSelection($event, record)\"></ui-checkbox>\n            </div>\n          </div>\n          <div class=\"ui-datagrid__cell ui-datagrid__cell--head\" css.bind=\"{width: '42px'}\" if.bind=\"showCounter\">\n            <div class=\"ui-datagrid__cell__wrapper\">\n              <span css.bind=\"{fontSize:'.8em'}\">${$index + 1}</span>\n            </div>\n          </div>\n          <template repeat.for=\"col of columns | filter:'start':'locked'\">\n            <body-cell column.bind=\"col\" record.bind=\"record\"></body-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__row__scrolling\">\n          <template repeat.for=\"col of columns | filter:false:'locked'\">\n            <body-cell column.bind=\"col\" record.bind=\"record\"></body-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__cell ui-datagrid__cell--filler\"></div>\n        <div class=\"ui-datagrid__row__locked--end\">\n          <template repeat.for=\"col of columns | filter:'end':'locked'\">\n            <body-cell column.bind=\"col\" record.bind=\"record\"></body-cell>\n          </template>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"ui-datagrid__foot\"></div>\n</template>\n";
 
 let UIDataGrid = class UIDataGrid {
+    constructor(element) {
+        this.element = element;
+        this.selected = [];
+        this.showCounter = element.hasAttribute("counter");
+    }
+    attached() {
+        this.checkable = this.checkable || this.element.hasAttribute("checkable");
+    }
     dataSourceChanged() {
         if (isArray(this.dataSource)) {
             this.ds = new UIDataSource(this.dataSource);
@@ -299,11 +307,30 @@ let UIDataGrid = class UIDataGrid {
             this.ds = this.dataSource;
         }
     }
+    toggleSelection($event, record) {
+        if (!this.selected) {
+            this.selected = [];
+        }
+        this.selected = $event.detail.checked
+            ? [...this.selected, record]
+            : this.selected.filter(r => r !== record);
+    }
+    toggleSelectionAll($event) {
+        this.selected = this.selected.length === 0 ? [...this.ds.data] : [];
+    }
 };
 __decorate([
     bindable(),
     __metadata("design:type", Object)
 ], UIDataGrid.prototype, "dataSource", void 0);
+__decorate([
+    bindable(),
+    __metadata("design:type", Boolean)
+], UIDataGrid.prototype, "checkable", void 0);
+__decorate([
+    bindable({ defaultBindingMode: bindingMode.twoWay }),
+    __metadata("design:type", Array)
+], UIDataGrid.prototype, "selected", void 0);
 __decorate([
     children("ui-column"),
     __metadata("design:type", Object)
@@ -311,7 +338,8 @@ __decorate([
 UIDataGrid = __decorate([
     customElement("ui-datagrid"),
     viewResources(HeaderCell, BodyCell),
-    inlineView(view)
+    inlineView(view),
+    __metadata("design:paramtypes", [Element])
 ], UIDataGrid);
 
 let UIDataCard = class UIDataCard {
@@ -333,6 +361,12 @@ let UIDataCard = class UIDataCard {
             else if (this.vmElement.attributes.getNamedItem("href")) {
                 this.vmElement.attributes.removeNamedItem("href");
             }
+        }
+    }
+    toggleExpand() {
+        this.open = !this.open;
+        if (this.open) {
+            setTimeout(() => this.vmElement.scrollIntoView({ inline: "nearest" }), 500);
         }
     }
     fireClick($event) {
@@ -372,7 +406,7 @@ UIDataCard = __decorate([
           <ui-menu menu-items.bind="actions"></ui-menu>
         </ui-drop>
       </ui-button>
-      <ui-button type="tool" click.trigger="open = !open">
+      <ui-button type="tool" click.trigger="toggleExpand()">
         <ui-svg-icon icon="caret"></ui-svg-icon>
       </ui-button>
     </ui-button-group>
@@ -443,16 +477,7 @@ class UITreeModel {
         const node = this.nodes[index];
         node.expanded = !node.expanded;
         if (node.expanded) {
-            let injectedChildren = node.children.sortBy("label");
-            if (injectedChildren.length === 0) {
-                injectedChildren.push(new UITreeNode({ id: "node-empty", leaf: true }, node));
-            }
-            if (this.maxNodes > 0 && injectedChildren.length > this.maxNodes) {
-                injectedChildren = [
-                    ...injectedChildren.slice(0, this.maxNodes),
-                    new UITreeNode({ id: "node-more", leaf: true }, node)
-                ];
-            }
+            const injectedChildren = this.getChildren(node);
             this.nodes = [
                 ...this.nodes.slice(0, index + 1),
                 ...injectedChildren,
@@ -507,17 +532,7 @@ class UITreeModel {
         children.forEach(child => {
             nodes.push(child);
             if (child.expanded) {
-                let injectedChildren = child.children.sortBy("label");
-                if (injectedChildren.length === 0) {
-                    injectedChildren.push(new UITreeNode({ id: "node-empty", leaf: true }, child));
-                }
-                if (this.maxNodes > 0 && injectedChildren.length > this.maxNodes) {
-                    injectedChildren = [
-                        ...injectedChildren.slice(0, this.maxNodes),
-                        new UITreeNode({ id: "node-more", leaf: true }, child)
-                    ];
-                }
-                nodes.push(...this.getExpandedTree(injectedChildren));
+                nodes.push(...this.getExpandedTree(this.getChildren(child)));
             }
         });
         return nodes;
@@ -535,6 +550,19 @@ class UITreeModel {
             }
             return retVal;
         });
+    }
+    getChildren(node) {
+        let injectedChildren = node.children.sortBy("label");
+        if (injectedChildren.length === 0) {
+            injectedChildren.push(new UITreeNode({ id: "node-empty", leaf: true }, node));
+        }
+        if (this.maxNodes > 0 && injectedChildren.length > this.maxNodes) {
+            injectedChildren = [
+                ...injectedChildren.slice(0, this.maxNodes),
+                new UITreeNode({ id: "node-more", leaf: true }, node)
+            ];
+        }
+        return injectedChildren;
     }
 }
 class UITreeNode {

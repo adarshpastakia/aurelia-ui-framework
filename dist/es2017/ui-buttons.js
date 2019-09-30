@@ -1,7 +1,7 @@
 import { bindable, child, computedFrom, customElement, inlineView, bindingMode, children, autoinject, containerless, DOM } from 'aurelia-framework';
 import 'aurelia-event-aggregator';
-import { a as UIInternal } from './chunk2.js';
-import { a as __decorate, b as __metadata } from './chunk3.js';
+import { U as UIInternal } from './ui-internal.js';
+import { _ as __decorate, a as __metadata } from './_tslib.js';
 
 var view = "<template class=\"ui-btn__wrapper\" data-disabled.bind=\"isDisabled\" data-busy.bind=\"busy\" data-type.bind=\"type\" data-size.bind=\"size\" data-active.bind=\"active\">\n  <div class=\"ui-btn__inner\">\n    <a ref=\"badgeEl\" class=\"ui-btn\" click.trigger=\"fireClick($event)\" data-active.bind=\"active\" data-open.bind=\"!split && dropEl.isOpen\">\n      <div class=\"ui-btn__icon\" if.bind=\"busy\">\n        <ui-svg-icon icon=\"busy\" class=\"ui-anim--spin\"></ui-svg-icon>\n      </div>\n      <slot name=\"svg-icon\"></slot>\n      <div class=\"ui-btn__icon\" if.bind=\"icon && !busy\">\n        <ui-icon icon.bind=\"icon\"></ui-icon>\n      </div>\n      <div class=\"ui-btn__label\"><slot>${label}</slot></div>\n      <div class=\"ui-btn__caret\" if.bind=\"hasDrop && !split\">\n        <ui-svg-icon icon=\"caret\"></ui-svg-icon>\n      </div>\n    </a>\n    <template if.bind=\"hasDrop && split\">\n      <div class=\"ui-btn__divider\"></div>\n      <a class=\"ui-btn ui-btn__caret ui-btn__caret--split\" data-open.bind=\"split && dropEl.isOpen\" click.trigger=\"toggleDrop()\">\n        <ui-svg-icon icon=\"caret\"></ui-svg-icon>\n      </a>\n    </template>\n  </div>\n  <slot name=\"ui-drop\">\n    <ui-drop view-model.ref=\"dropEl\" if.bind=\"menuItems\">\n      <ui-menu if.bind=\"dropEl.isOpen\" menu-items.bind=\"menuItems\"></ui-menu>\n    </ui-drop>\n  </slot>\n</template>\n";
 

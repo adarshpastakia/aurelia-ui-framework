@@ -1,8 +1,8 @@
-import { b as __decorate, c as __metadata } from './chunk.js';
+import { a as __decorate, b as __metadata } from './_tslib.js';
 import { bindable, containerless, customElement, inlineView, ViewSlot } from 'aurelia-framework';
-import { a as UIAppConfig } from './chunk2.js';
+import { U as UIAppConfig } from './ui-app-config.js';
 import 'aurelia-event-aggregator';
-import { a as UIInternal } from './chunk3.js';
+import { U as UIInternal } from './ui-internal.js';
 import { AppRouter } from 'aurelia-router';
 
 var UIRouterView = (function () {

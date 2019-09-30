@@ -1,8 +1,9 @@
 import { bindable, customElement, inlineView, containerless, viewResources, child } from 'aurelia-framework';
 import 'aurelia-event-aggregator';
-import { a as UIInternal } from './chunk2.js';
-import { a as __decorate, b as __metadata } from './chunk3.js';
+import { U as UIInternal } from './ui-internal.js';
+import { _ as __decorate, a as __metadata } from './_tslib.js';
 import ResizeObserver from 'resize-observer-polyfill';
+import { c as calculateOverflow } from './ui-common.js';
 
 let UIBreadcrumbs = class UIBreadcrumbs {
     constructor(element) {
@@ -23,7 +24,7 @@ let UIBreadcrumbs = class UIBreadcrumbs {
         if (this.wrapperEl.offsetWidth > this.element.offsetWidth) {
             this.hasOverflow = true;
             while (this.wrapperEl.offsetWidth > this.element.offsetWidth - 50) {
-                this.overflowEl.appendChild(this.wrapperEl.children[0]);
+                this.overflowEl.appendChild(this.wrapperEl.firstElementChild);
             }
         }
         else {
@@ -32,8 +33,9 @@ let UIBreadcrumbs = class UIBreadcrumbs {
     }
     resetOverflow() {
         this.hasOverflow = false;
-        [...this.overflowEl.children].reverse().forEach(child => {
-            this.wrapperEl.insertBefore(child, this.wrapperEl.children[0]);
+        const currentFirstChild = this.wrapperEl.firstElementChild;
+        this.overflowEl.children.forEach(child => {
+            this.wrapperEl.insertBefore(child, currentFirstChild);
         });
     }
 };
@@ -324,23 +326,7 @@ let UIMenubar = class UIMenubar {
         this.obResize.disconnect();
     }
     calculateOverflow() {
-        this.resetOverflow();
-        const overflowItems = [];
-        const isRtl = window.getComputedStyle(this.wrapperEl).direction === "rtl";
-        [...this.wrapperEl.children].reverse().forEach(item => {
-            if ((!isRtl && this.wrapperEl.offsetWidth - (item.offsetLeft + item.offsetWidth) <= 30) ||
-                (isRtl && this.wrapperEl.offsetWidth - item.offsetLeft >= this.wrapperEl.offsetWidth - 30)) {
-                overflowItems.splice(0, 0, item);
-                this.hasOverflow = true;
-            }
-        });
-        this.overflowEl.append(...overflowItems);
-    }
-    resetOverflow() {
-        this.hasOverflow = false;
-        this.overflowEl.children.forEach(child => {
-            this.wrapperEl.appendChild(child);
-        });
+        this.hasOverflow = calculateOverflow(this.wrapperEl, this.overflowEl);
     }
 };
 UIMenubar = __decorate([

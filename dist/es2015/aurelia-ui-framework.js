@@ -1,17 +1,17 @@
 import { autoinject, Container, computedFrom, singleton, CompositionEngine, ViewCompiler, TemplatingEngine } from 'aurelia-framework';
 import { ValidationController, validateTrigger, ValidationRules } from 'aurelia-validation';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
-import { a as UIAppConfig } from './chunk.js';
+import { U as UIAppConfig } from './ui-app-config.js';
 import 'aurelia-event-aggregator';
-import { a as UIInternal } from './chunk2.js';
-import { a as __decorate, b as __metadata } from './chunk3.js';
+import { U as UIInternal } from './ui-internal.js';
+import { _ as __decorate, a as __metadata } from './_tslib.js';
 import { getLogger } from 'aurelia-logging';
 import { metadata, Origin } from 'aurelia-metadata';
 import { json, HttpClient } from 'aurelia-fetch-client';
 import 'date-fns';
 import 'kramed';
 import 'numeral';
-export { a as UIFormat } from './chunk4.js';
+export { U as UIFormat } from './ui-format.js';
 
 const registerValidators = (container) => {
     container.get(ValidationController).validateTrigger = validateTrigger.changeOrBlur;
@@ -3545,7 +3545,7 @@ let UIDialogService = class UIDialogService {
         }
     }
     startDrag(startObject) {
-        this.dragObject = Object.assign({}, startObject, { dlgHeight: startObject.dialog.dialogEl.offsetHeight, dlgWidth: startObject.dialog.dialogEl.offsetWidth, isDragging: true, left: parseInt(startObject.dialog.position.left, 10), maxHeight: this.appConfig.DialogContainer.anchor.offsetHeight, maxWidth: this.appConfig.DialogContainer.anchor.offsetWidth, top: parseInt(startObject.dialog.position.top, 10) });
+        this.dragObject = Object.assign(Object.assign({}, startObject), { dlgHeight: startObject.dialog.dialogEl.offsetHeight, dlgWidth: startObject.dialog.dialogEl.offsetWidth, isDragging: true, left: parseInt(startObject.dialog.position.left, 10), maxHeight: this.appConfig.DialogContainer.anchor.offsetHeight, maxWidth: this.appConfig.DialogContainer.anchor.offsetWidth, top: parseInt(startObject.dialog.position.top, 10) });
     }
     drag($event) {
         if (this.dragObject.isDragging) {
@@ -3670,7 +3670,7 @@ let UINotificationService = class UINotificationService {
     }
     createToast(config, forToastNotification) {
         return new Promise(resolve => {
-            const cfg = Object.assign({ autoClose: true, cancelLabel: "Cancel", okLabel: "OK", theme: "default", timeout: 5000, type: "default", className: forToastNotification ? "ui-toast" : "ui-message" }, config, { message: `<div>${config.message}</div>` });
+            const cfg = Object.assign(Object.assign({ autoClose: true, cancelLabel: "Cancel", okLabel: "OK", theme: "default", timeout: 5000, type: "default", className: forToastNotification ? "ui-toast" : "ui-message" }, config), { message: `<div>${config.message}</div>` });
             cfg.autoClose = cfg.type !== "confirm" && cfg.autoClose;
             const viewFactory = this.compiler.compile(`<template>${toastView}</template>`);
             const view = viewFactory.create(this.container);
@@ -3697,7 +3697,7 @@ let UINotificationService = class UINotificationService {
     }
     createAlert(config) {
         return new Promise(resolve => {
-            const cfg = Object.assign({ cancelLabel: "Cancel", okLabel: "OK", theme: "default", type: "alert" }, config, { message: `<div>${config.message}</div>` });
+            const cfg = Object.assign(Object.assign({ cancelLabel: "Cancel", okLabel: "OK", theme: "default", type: "alert" }, config), { message: `<div>${config.message}</div>` });
             const viewFactory = this.compiler.compile(`<template>${alertView}</template>`);
             const view = viewFactory.create(this.container);
             cfg.__keyCheck = key => {

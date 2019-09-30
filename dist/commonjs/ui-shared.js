@@ -2,19 +2,19 @@
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-var __chunk_1 = require('./chunk.js');
+var _tslib = require('./_tslib.js');
 var aureliaFramework = require('aurelia-framework');
-require('./chunk2.js');
+require('./ui-app-config.js');
 require('aurelia-event-aggregator');
-var __chunk_3 = require('./chunk3.js');
+var uiInternal = require('./ui-internal.js');
 require('aurelia-logging');
 var ResizeObserver = _interopDefault(require('resize-observer-polyfill'));
-var __chunk_5 = require('./chunk5.js');
+var uiTether = require('./ui-tether.js');
 
 var UIDivider = (function () {
     function UIDivider() {
     }
-    UIDivider = __chunk_1.__decorate([
+    UIDivider = _tslib.__decorate([
         aureliaFramework.customElement("ui-divider"),
         aureliaFramework.inlineView("<template class='ui-divider'><slot></slot></template>")
     ], UIDivider);
@@ -26,13 +26,13 @@ var UIDragHandle = (function () {
         this.element = element;
     }
     UIDragHandle.prototype.fireDragEvent = function ($event, evt) {
-        this.element.dispatchEvent(__chunk_3.UIInternal.createEvent(evt));
+        this.element.dispatchEvent(uiInternal.UIInternal.createEvent(evt));
         return true;
     };
-    UIDragHandle = __chunk_1.__decorate([
+    UIDragHandle = _tslib.__decorate([
         aureliaFramework.customElement("ui-drag-handle"),
         aureliaFramework.inlineView("<template class=\"ui-drag-handle\" ui-color=\"gray\"\n    mousedown.trigger=\"fireDragEvent($event,'dragstart')\" click.trigger=\"fireDragEvent($event,'dragend')\"><ui-svg-icon icon=\"drag\"></ui-svg-icon></template>"),
-        __chunk_1.__metadata("design:paramtypes", [Element])
+        _tslib.__metadata("design:paramtypes", [Element])
     ], UIDragHandle);
     return UIDragHandle;
 }());
@@ -51,7 +51,7 @@ var UIDrop = (function () {
         this.attachToViewport = element.hasAttribute("attach-to-viewport");
     }
     UIDrop.prototype.tether = function (anchorEl) {
-        this.tetherObj = __chunk_5.UITether.tether((this.anchorEl = anchorEl), this.vmElement, {
+        this.tetherObj = uiTether.UITether.tether((this.anchorEl = anchorEl), this.vmElement, {
             anchorPosition: this.anchorPosition,
             attachToViewport: this.attachToViewport,
             position: this.position,
@@ -67,17 +67,15 @@ var UIDrop = (function () {
         this.vmElement.dataset.show = "false";
         this.isOpen = open === undefined ? !this.isOpen : open;
         if (this.isOpen) {
-            this.obClick = __chunk_3.UIInternal.subscribe(__chunk_3.UIInternal.EVT_VIEWPORT_CLICK, function (t) { return _this.canClose(t); });
-            this.obViewportResize = __chunk_3.UIInternal.subscribe(__chunk_3.UIInternal.EVT_VIEWPORT_RESIZE, function () {
+            this.obClick = uiInternal.UIInternal.subscribe(uiInternal.UIInternal.EVT_VIEWPORT_CLICK, function (t) { return _this.canClose(t); });
+            this.obViewportResize = uiInternal.UIInternal.subscribe(uiInternal.UIInternal.EVT_VIEWPORT_RESIZE, function () {
                 return _this.updatePosition();
             });
-            this.obResize = new ResizeObserver(function () {
-                return _this.updatePosition();
-            });
+            this.obResize = new ResizeObserver(function () { return _this.updatePosition(); });
             this.obResize.observe(this.vmElement);
             this.obResize.observe(this.anchorEl);
-            this.element.dispatchEvent(__chunk_3.UIInternal.createEvent("open"));
-            __chunk_3.UIInternal.queueMicroTask(function () {
+            this.element.dispatchEvent(uiInternal.UIInternal.createEvent("open"));
+            uiInternal.UIInternal.queueMicroTask(function () {
                 _this.tetherObj.updatePosition();
                 _this.vmElement.dataset.show = "true";
             });
@@ -85,10 +83,10 @@ var UIDrop = (function () {
     };
     UIDrop.prototype.closeDrop = function () {
         var _this = this;
-        __chunk_3.UIInternal.queueTask(function () {
+        uiInternal.UIInternal.queueTask(function () {
             _this.isOpen = false;
             _this.disposeListeners();
-            _this.element.dispatchEvent(__chunk_3.UIInternal.createEvent("close"));
+            _this.element.dispatchEvent(uiInternal.UIInternal.createEvent("close"));
         });
     };
     UIDrop.prototype.disposeListeners = function () {
@@ -112,21 +110,24 @@ var UIDrop = (function () {
         if (this.closeOnClick) {
             this.closeDrop();
         }
+        else {
+            $event.stopEvent(true);
+        }
     };
     UIDrop.prototype.canClose = function (t) {
         if (!hasParent(t, this.vmElement) && !hasParent(t, this.anchorEl)) {
             this.closeDrop();
         }
     };
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UIDrop.prototype, "class", void 0);
-    UIDrop = __chunk_1.__decorate([
+    UIDrop = _tslib.__decorate([
         aureliaFramework.containerless(),
         aureliaFramework.customElement("ui-drop"),
         aureliaFramework.inlineView("<template><div slot=\"ui-drop\" class=\"ui-drop\" click.delegate=\"closeDrop()\" data-open.bind=\"isOpen\">\n  <div ref=\"vmElement\" class=\"ui-drop__body ${class}\" click.delegate=\"close($event)\"><slot></slot></div>\n  </div></template>"),
-        __chunk_1.__metadata("design:paramtypes", [Element])
+        _tslib.__metadata("design:paramtypes", [Element])
     ], UIDrop);
     return UIDrop;
 }());
@@ -134,7 +135,7 @@ var UIDrop = (function () {
 var UIFiller = (function () {
     function UIFiller() {
     }
-    UIFiller = __chunk_1.__decorate([
+    UIFiller = _tslib.__decorate([
         aureliaFramework.customElement("ui-filler"),
         aureliaFramework.inlineView("<template class='ui-col ui-col--fill'></template>")
     ], UIFiller);
@@ -145,11 +146,11 @@ var UILoader = (function () {
     function UILoader() {
         this.busy = false;
     }
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", Boolean)
+        _tslib.__metadata("design:type", Boolean)
     ], UILoader.prototype, "busy", void 0);
-    UILoader = __chunk_1.__decorate([
+    UILoader = _tslib.__decorate([
         aureliaFramework.customElement("ui-loader"),
         aureliaFramework.inlineView("<template><div ref=\"vmElement\" class=\"ui-loader\" if.bind=\"busy\">\n  <div><ui-svg-icon icon=\"loader\" class=\"ui-anim--spin\"></ui-svg-icon></div>\n</div></template>")
     ], UILoader);
@@ -159,7 +160,7 @@ var UILoader = (function () {
 var UITextDivider = (function () {
     function UITextDivider() {
     }
-    UITextDivider = __chunk_1.__decorate([
+    UITextDivider = _tslib.__decorate([
         aureliaFramework.customElement("ui-text-divider"),
         aureliaFramework.inlineView("<template><fieldset class='ui-text-divider'><legend ref='vmElement'><slot></slot></legend></fieldset></template>")
     ], UITextDivider);

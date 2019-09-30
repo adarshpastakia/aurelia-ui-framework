@@ -2,11 +2,12 @@
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-var __chunk_1 = require('./chunk.js');
+var _tslib = require('./_tslib.js');
 var aureliaFramework = require('aurelia-framework');
 require('aurelia-event-aggregator');
-var __chunk_3 = require('./chunk3.js');
+var uiInternal = require('./ui-internal.js');
 var ResizeObserver = _interopDefault(require('resize-observer-polyfill'));
+var uiCommon = require('./ui-common.js');
 
 var UIBreadcrumbs = (function () {
     function UIBreadcrumbs(element) {
@@ -19,7 +20,7 @@ var UIBreadcrumbs = (function () {
     }
     UIBreadcrumbs.prototype.attached = function () {
         var _this = this;
-        __chunk_3.UIInternal.queueTask(function () { return _this.calculateOverflow(); });
+        uiInternal.UIInternal.queueTask(function () { return _this.calculateOverflow(); });
     };
     UIBreadcrumbs.prototype.detached = function () {
         this.obResize.disconnect();
@@ -29,7 +30,7 @@ var UIBreadcrumbs = (function () {
         if (this.wrapperEl.offsetWidth > this.element.offsetWidth) {
             this.hasOverflow = true;
             while (this.wrapperEl.offsetWidth > this.element.offsetWidth - 50) {
-                this.overflowEl.appendChild(this.wrapperEl.children[0]);
+                this.overflowEl.appendChild(this.wrapperEl.firstElementChild);
             }
         }
         else {
@@ -39,18 +40,19 @@ var UIBreadcrumbs = (function () {
     UIBreadcrumbs.prototype.resetOverflow = function () {
         var _this = this;
         this.hasOverflow = false;
-        __chunk_1.__spread(this.overflowEl.children).reverse().forEach(function (child) {
-            _this.wrapperEl.insertBefore(child, _this.wrapperEl.children[0]);
+        var currentFirstChild = this.wrapperEl.firstElementChild;
+        this.overflowEl.children.forEach(function (child) {
+            _this.wrapperEl.insertBefore(child, currentFirstChild);
         });
     };
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", Array)
+        _tslib.__metadata("design:type", Array)
     ], UIBreadcrumbs.prototype, "items", void 0);
-    UIBreadcrumbs = __chunk_1.__decorate([
+    UIBreadcrumbs = _tslib.__decorate([
         aureliaFramework.customElement("ui-breadcrumbs"),
         aureliaFramework.inlineView("<template class=\"ui-breadcrumbs\">\n  <div class=\"ui-breadcrumbs__overflow\" show.bind=\"hasOverflow\">\n  <ui-button type=\"tool\" size=\"xs\" no-caret ui-theme=\"secondary\">\n    <ui-svg-icon class=\"ui-btn__icon\" icon=\"ellipsis\"></ui-svg-icon>\n    <ui-drop close-on-click=\"false\"><ui-menu ref=\"overflowEl\"></ui-menu></ui-drop>\n  </ui-button>\n  </div>\n  <div class=\"ui-breadcrumbs__wrapper\" ref=\"wrapperEl\">\n  <template repeat.for=\"item of items\">\n    <template if.bind=\"item.href\">\n    <a class=\"ui-breadcrumbs__link\" href.bind=\"item.href\"><ui-icon if.bind=\"item.icon\" icon.bind=\"item.icon\"></ui-icon>${item.label}</a>\n    </template>\n    <template else>\n    <span class=\"ui-breadcrumbs__label\"><ui-icon if.bind=\"item.icon\" icon.bind=\"item.icon\"></ui-icon>${item.label}</span>\n    </template>\n  </template>\n  </div>\n</template>"),
-        __chunk_1.__metadata("design:paramtypes", [Element])
+        _tslib.__metadata("design:paramtypes", [Element])
     ], UIBreadcrumbs);
     return UIBreadcrumbs;
 }());
@@ -68,15 +70,15 @@ var MenuItem = (function () {
         }
         return true;
     };
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", Object)
+        _tslib.__metadata("design:type", Object)
     ], MenuItem.prototype, "item", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], MenuItem.prototype, "noitemsLabel", void 0);
-    MenuItem = __chunk_1.__decorate([
+    MenuItem = _tslib.__decorate([
         aureliaFramework.containerless(),
         aureliaFramework.customElement("menu-item"),
         aureliaFramework.inlineView("<template>\n  <template if.bind=\"item.group\">\n    <ui-menu-group label.bind=\"item.group\">\n      <menu-item repeat.for=\"groupItem of item.items\" item.bind=\"groupItem\"></menu-item>\n    </ui-menu-group>\n  </template>\n  <template if.bind=\"item.label\">\n    <ui-menu-item label.bind=\"item.label\" href.bind=\"item.href\"\n    icon.bind=\"item.icon\" icon-color.bind=\"item.iconColor\" ui-badge=\"value.bind:item.badge; theme.bind:item.badgeTheme;\"\n    disabled.bind=\"typeof item.disabled === 'function' ? item.disabled() : item.disabled\"\n    active.bind=\"typeof item.active === 'function' ? item.active() : item.active\"\n    hide.bind=\"typeof item.hidden === 'function' ? item.hidden() : item.hidden\"\n    click.delegate=\"onClick($event)\">\n      <ui-drop view-model.ref=\"dropEl\" if.bind=\"item.items\">\n        <ui-menu if.bind=\"dropEl.isOpen\" menu-items.bind=\"item.items\" noitems-label.bind=\"noitemsLabel\"></ui-menu>\n      </ui-drop>\n    </ui-menu-item>\n  </template>\n  <template if.bind=\"item === '-'\">\n    <ui-divider></ui-divider>\n  </template>\n</template>")
@@ -93,7 +95,7 @@ var UIMenu = (function () {
     UIMenu.prototype.attached = function () {
         var _this = this;
         this.loadMenuItems();
-        __chunk_3.UIInternal.queueTask(function () {
+        uiInternal.UIInternal.queueTask(function () {
             var active = _this.element.querySelector(".ui-menu__item__link[data-active='true']");
             if (active) {
                 active.scrollIntoView({ block: "center", inline: "nearest" });
@@ -123,19 +125,19 @@ var UIMenu = (function () {
             this.items = undefined;
         }
     };
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", Object)
+        _tslib.__metadata("design:type", Object)
     ], UIMenu.prototype, "menuItems", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UIMenu.prototype, "noitemsLabel", void 0);
-    UIMenu = __chunk_1.__decorate([
+    UIMenu = _tslib.__decorate([
         aureliaFramework.customElement("ui-menu"),
         aureliaFramework.viewResources(MenuItem),
         aureliaFramework.inlineView("<template class=\"ui-menu\"><slot>\n  <div if.bind=\"isLoading\" ui-padding=\"xs\" ui-align=\"center\"><ui-svg-icon icon=\"busy\" class=\"ui-anim--spin\"></ui-svg-icon></div>\n  <template if.bind=\"!isLoading && items && items.length\">\n    <menu-item repeat.for=\"item of items\" item.bind=\"item\" noitems-label.bind=\"noitemsLabel\"></menu-item>\n  </template>\n  <template if.bind=\"!isLoading && items && items.length===0\">\n    <div ui-padding=\"xs\" ui-color=\"muted\" ui-font=\"sm\" innerhtml.bind=\"noitemsLabel\"></div>\n  </template>\n</slot></template>"),
-        __chunk_1.__metadata("design:paramtypes", [Element])
+        _tslib.__metadata("design:paramtypes", [Element])
     ], UIMenu);
     return UIMenu;
 }());
@@ -151,19 +153,19 @@ var UIMenuGroup = (function () {
             this.vmElement.classList.add("ui-menu__group--collapsible");
         }
     };
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UIMenuGroup.prototype, "label", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", Boolean)
+        _tslib.__metadata("design:type", Boolean)
     ], UIMenuGroup.prototype, "collapsed", void 0);
-    UIMenuGroup = __chunk_1.__decorate([
+    UIMenuGroup = _tslib.__decorate([
         aureliaFramework.containerless(),
         aureliaFramework.customElement("ui-menu-group"),
         aureliaFramework.inlineView("<template><fieldset class=\"ui-menu__group\" data-collapsed.bind=\"collapsed\" ref=\"vmElement\">\n    <legend class=\"ui-menu__group__label\" if.bind=\"label\" innerhtml.bind=\"label\" click.trigger=\"collapsed = !collapsed\"></legend>\n    <div class=\"ui-menu__group__container\"><slot></slot></div>\n  </fieldset></template>"),
-        __chunk_1.__metadata("design:paramtypes", [Element])
+        _tslib.__metadata("design:paramtypes", [Element])
     ], UIMenuGroup);
     return UIMenuGroup;
 }());
@@ -186,7 +188,7 @@ var UIMenuItem = (function () {
     }
     UIMenuItem.prototype.attached = function () {
         var _this = this;
-        __chunk_3.UIInternal.queueTask(function () {
+        uiInternal.UIInternal.queueTask(function () {
             _this.hasDrop = !!_this.elDropdown;
             _this.isInMenubar = hasParent(_this.element, "ui-menu__bar");
             var isInDropdown = hasParent(_this.element, "ui-drop__body");
@@ -224,54 +226,54 @@ var UIMenuItem = (function () {
             if (this.hasDrop && !this.split) {
                 return this.toggleDrop();
             }
-            return this.element.dispatchEvent(__chunk_3.UIInternal.createEvent("click", this.id));
+            return this.element.dispatchEvent(uiInternal.UIInternal.createEvent("click", this.id));
         }
     };
     UIMenuItem.prototype.toggleDrop = function () {
         var beforeEvent = this.dropEl.isOpen ? "beforeopen" : "beforeclose";
         var afterEvent = this.dropEl.isOpen ? "close" : "open";
-        if (this.element.dispatchEvent(__chunk_3.UIInternal.createEvent(beforeEvent)) !== false) {
+        if (this.element.dispatchEvent(uiInternal.UIInternal.createEvent(beforeEvent)) !== false) {
             this.dropEl.toggleDrop();
-            this.element.dispatchEvent(__chunk_3.UIInternal.createEvent(afterEvent));
+            this.element.dispatchEvent(uiInternal.UIInternal.createEvent(afterEvent));
         }
         return false;
     };
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UIMenuItem.prototype, "label", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UIMenuItem.prototype, "href", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UIMenuItem.prototype, "icon", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UIMenuItem.prototype, "iconColor", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UIMenuItem.prototype, "id", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", Boolean)
+        _tslib.__metadata("design:type", Boolean)
     ], UIMenuItem.prototype, "active", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", Boolean)
+        _tslib.__metadata("design:type", Boolean)
     ], UIMenuItem.prototype, "disabled", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.child(".ui-drop"),
-        __chunk_1.__metadata("design:type", Element)
+        _tslib.__metadata("design:type", Element)
     ], UIMenuItem.prototype, "elDropdown", void 0);
-    UIMenuItem = __chunk_1.__decorate([
+    UIMenuItem = _tslib.__decorate([
         aureliaFramework.customElement("ui-menu-item"),
         aureliaFramework.inlineView(view),
-        __chunk_1.__metadata("design:paramtypes", [Element])
+        _tslib.__metadata("design:paramtypes", [Element])
     ], UIMenuItem);
     return UIMenuItem;
 }());
@@ -286,37 +288,18 @@ var UIMenubar = (function () {
     }
     UIMenubar.prototype.attached = function () {
         var _this = this;
-        __chunk_3.UIInternal.queueTask(function () { return _this.calculateOverflow(); });
+        uiInternal.UIInternal.queueTask(function () { return _this.calculateOverflow(); });
     };
     UIMenubar.prototype.detached = function () {
         this.obResize.disconnect();
     };
     UIMenubar.prototype.calculateOverflow = function () {
-        var _this = this;
-        var _a;
-        this.resetOverflow();
-        var overflowItems = [];
-        var isRtl = window.getComputedStyle(this.wrapperEl).direction === "rtl";
-        __chunk_1.__spread(this.wrapperEl.children).reverse().forEach(function (item) {
-            if ((!isRtl && _this.wrapperEl.offsetWidth - (item.offsetLeft + item.offsetWidth) <= 30) ||
-                (isRtl && _this.wrapperEl.offsetWidth - item.offsetLeft >= _this.wrapperEl.offsetWidth - 30)) {
-                overflowItems.splice(0, 0, item);
-                _this.hasOverflow = true;
-            }
-        });
-        (_a = this.overflowEl).append.apply(_a, __chunk_1.__spread(overflowItems));
+        this.hasOverflow = uiCommon.calculateOverflow(this.wrapperEl, this.overflowEl);
     };
-    UIMenubar.prototype.resetOverflow = function () {
-        var _this = this;
-        this.hasOverflow = false;
-        this.overflowEl.children.forEach(function (child) {
-            _this.wrapperEl.appendChild(child);
-        });
-    };
-    UIMenubar = __chunk_1.__decorate([
+    UIMenubar = _tslib.__decorate([
         aureliaFramework.customElement("ui-menubar"),
         aureliaFramework.inlineView("<template class=\"ui-menu__bar\">\n  <div class=\"ui-menu__bar__wrapper\" ref=\"wrapperEl\"><slot></slot></div>\n  <ui-button type=\"tool\" size=\"xs\" no-caret class=\"ui-menu__overflow\" ui-theme=\"secondary\" show.bind=\"hasOverflow\">\n    <ui-svg-icon class=\"ui-btn__icon\" icon=\"overflow\"></ui-svg-icon>\n    <ui-drop close-on-click=\"false\"><ui-menu ref=\"overflowEl\"></ui-menu></ui-drop>\n  </ui-button>\n</template>"),
-        __chunk_1.__metadata("design:paramtypes", [Element])
+        _tslib.__metadata("design:paramtypes", [Element])
     ], UIMenubar);
     return UIMenubar;
 }());

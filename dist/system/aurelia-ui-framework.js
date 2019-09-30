@@ -1,13 +1,13 @@
-System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libphonenumber-js', './chunk2.js', 'aurelia-event-aggregator', './chunk3.js', 'aurelia-logging', 'aurelia-metadata', 'aurelia-fetch-client', 'date-fns', 'kramed', 'numeral', './chunk4.js'], function (exports, module) {
+System.register(['./_tslib.js', 'aurelia-framework', 'aurelia-validation', 'libphonenumber-js', './ui-app-config.js', 'aurelia-event-aggregator', './ui-internal.js', 'aurelia-logging', 'aurelia-metadata', 'aurelia-fetch-client', 'date-fns', 'kramed', 'numeral', './ui-format.js'], function (exports, module) {
   'use strict';
   var __values, __decorate, __metadata, __assign, __spread, autoinject, computedFrom, Container, singleton, CompositionEngine, ViewCompiler, TemplatingEngine, ValidationController, validateTrigger, ValidationRules, parsePhoneNumberFromString, UIAppConfig, UIInternal, getLogger, metadata, Origin, json, HttpClient;
   return {
     setters: [function (module) {
-      __values = module.a;
-      __decorate = module.b;
-      __metadata = module.c;
-      __assign = module.d;
-      __spread = module.e;
+      __values = module._;
+      __decorate = module.a;
+      __metadata = module.b;
+      __assign = module.c;
+      __spread = module.d;
     }, function (module) {
       autoinject = module.autoinject;
       computedFrom = module.computedFrom;
@@ -23,9 +23,9 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
     }, function (module) {
       parsePhoneNumberFromString = module.parsePhoneNumberFromString;
     }, function (module) {
-      UIAppConfig = module.a;
+      UIAppConfig = module.U;
     }, function () {}, function (module) {
-      UIInternal = module.a;
+      UIInternal = module.U;
     }, function (module) {
       getLogger = module.getLogger;
     }, function (module) {
@@ -35,7 +35,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
       json = module.json;
       HttpClient = module.HttpClient;
     }, function () {}, function () {}, function () {}, function (module) {
-      exports('UIFormat', module.a);
+      exports('UIFormat', module.U);
     }],
     execute: function () {
 
@@ -82,7 +82,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
                   for (var _e = __values(instruction.unrender), _f = _e.next(); !_f.done; _f = _e.next()) {
                       var _g = _f.value, result = _g.result, elements = _g.elements;
                       try {
-                          for (var elements_1 = __values(elements), elements_1_1 = elements_1.next(); !elements_1_1.done; elements_1_1 = elements_1.next()) {
+                          for (var elements_1 = (e_2 = void 0, __values(elements)), elements_1_1 = elements_1.next(); !elements_1_1.done; elements_1_1 = elements_1.next()) {
                               var element = elements_1_1.value;
                               this.remove(element, result);
                           }
@@ -107,7 +107,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
                   for (var _h = __values(instruction.render), _j = _h.next(); !_j.done; _j = _h.next()) {
                       var _k = _j.value, result = _k.result, elements = _k.elements;
                       try {
-                          for (var elements_2 = __values(elements), elements_2_1 = elements_2.next(); !elements_2_1.done; elements_2_1 = elements_2.next()) {
+                          for (var elements_2 = (e_4 = void 0, __values(elements)), elements_2_1 = elements_2.next(); !elements_2_1.done; elements_2_1 = elements_2.next()) {
                               var element = elements_2_1.value;
                               this.add(element, result);
                           }
@@ -3688,7 +3688,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
               }
           };
           UIDialogService.prototype.startDrag = function (startObject) {
-              this.dragObject = __assign({}, startObject, { dlgHeight: startObject.dialog.dialogEl.offsetHeight, dlgWidth: startObject.dialog.dialogEl.offsetWidth, isDragging: true, left: parseInt(startObject.dialog.position.left, 10), maxHeight: this.appConfig.DialogContainer.anchor.offsetHeight, maxWidth: this.appConfig.DialogContainer.anchor.offsetWidth, top: parseInt(startObject.dialog.position.top, 10) });
+              this.dragObject = __assign(__assign({}, startObject), { dlgHeight: startObject.dialog.dialogEl.offsetHeight, dlgWidth: startObject.dialog.dialogEl.offsetWidth, isDragging: true, left: parseInt(startObject.dialog.position.left, 10), maxHeight: this.appConfig.DialogContainer.anchor.offsetHeight, maxWidth: this.appConfig.DialogContainer.anchor.offsetWidth, top: parseInt(startObject.dialog.position.top, 10) });
           };
           UIDialogService.prototype.drag = function ($event) {
               if (this.dragObject.isDragging) {
@@ -3821,7 +3821,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
           UINotificationService.prototype.createToast = function (config, forToastNotification) {
               var _this = this;
               return new Promise(function (resolve) {
-                  var cfg = __assign({ autoClose: true, cancelLabel: "Cancel", okLabel: "OK", theme: "default", timeout: 5000, type: "default", className: forToastNotification ? "ui-toast" : "ui-message" }, config, { message: "<div>" + config.message + "</div>" });
+                  var cfg = __assign(__assign({ autoClose: true, cancelLabel: "Cancel", okLabel: "OK", theme: "default", timeout: 5000, type: "default", className: forToastNotification ? "ui-toast" : "ui-message" }, config), { message: "<div>" + config.message + "</div>" });
                   cfg.autoClose = cfg.type !== "confirm" && cfg.autoClose;
                   var viewFactory = _this.compiler.compile("<template>" + toastView + "</template>");
                   var view = viewFactory.create(_this.container);
@@ -3849,7 +3849,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-validation', 'libph
           UINotificationService.prototype.createAlert = function (config) {
               var _this = this;
               return new Promise(function (resolve) {
-                  var cfg = __assign({ cancelLabel: "Cancel", okLabel: "OK", theme: "default", type: "alert" }, config, { message: "<div>" + config.message + "</div>" });
+                  var cfg = __assign(__assign({ cancelLabel: "Cancel", okLabel: "OK", theme: "default", type: "alert" }, config), { message: "<div>" + config.message + "</div>" });
                   var viewFactory = _this.compiler.compile("<template>" + alertView + "</template>");
                   var view = viewFactory.create(_this.container);
                   cfg.__keyCheck = function (key) {

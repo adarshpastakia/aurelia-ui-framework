@@ -1,20 +1,20 @@
-System.register(['./chunk.js', 'aurelia-framework', './chunk2.js', 'aurelia-event-aggregator', './chunk3.js', 'aurelia-logging', './chunk5.js'], function (exports, module) {
+System.register(['./_tslib.js', 'aurelia-framework', './ui-app-config.js', 'aurelia-event-aggregator', './ui-internal.js', 'aurelia-logging', './ui-tether.js'], function (exports) {
   'use strict';
   var __decorate, __metadata, __extends, __spread, bindable, autoinject, customAttribute, UIInternal, UITether;
   return {
     setters: [function (module) {
-      __decorate = module.b;
-      __metadata = module.c;
-      __extends = module.g;
-      __spread = module.e;
+      __decorate = module.a;
+      __metadata = module.b;
+      __extends = module.f;
+      __spread = module.d;
     }, function (module) {
       bindable = module.bindable;
       autoinject = module.autoinject;
       customAttribute = module.customAttribute;
     }, function () {}, function () {}, function (module) {
-      UIInternal = module.a;
+      UIInternal = module.U;
     }, function () {}, function (module) {
-      UITether = module.a;
+      UITether = module.U;
     }],
     execute: function () {
 

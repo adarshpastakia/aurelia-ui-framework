@@ -1,10 +1,10 @@
-import { b as __decorate, c as __metadata, g as __extends, e as __spread } from './chunk.js';
+import { a as __decorate, b as __metadata, f as __extends, d as __spread } from './_tslib.js';
 import { bindable, autoinject, customAttribute } from 'aurelia-framework';
-import './chunk2.js';
+import './ui-app-config.js';
 import 'aurelia-event-aggregator';
-import { a as UIInternal } from './chunk3.js';
+import { U as UIInternal } from './ui-internal.js';
 import 'aurelia-logging';
-import { a as UITether } from './chunk5.js';
+import { U as UITether } from './ui-tether.js';
 
 var UIBadge = (function () {
     function UIBadge(element) {

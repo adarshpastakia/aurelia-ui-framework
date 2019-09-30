@@ -168,7 +168,7 @@
                 for (var _e = __values(instruction.unrender), _f = _e.next(); !_f.done; _f = _e.next()) {
                     var _g = _f.value, result = _g.result, elements = _g.elements;
                     try {
-                        for (var elements_1 = __values(elements), elements_1_1 = elements_1.next(); !elements_1_1.done; elements_1_1 = elements_1.next()) {
+                        for (var elements_1 = (e_2 = void 0, __values(elements)), elements_1_1 = elements_1.next(); !elements_1_1.done; elements_1_1 = elements_1.next()) {
                             var element = elements_1_1.value;
                             this.remove(element, result);
                         }
@@ -193,7 +193,7 @@
                 for (var _h = __values(instruction.render), _j = _h.next(); !_j.done; _j = _h.next()) {
                     var _k = _j.value, result = _k.result, elements = _k.elements;
                     try {
-                        for (var elements_2 = __values(elements), elements_2_1 = elements_2.next(); !elements_2_1.done; elements_2_1 = elements_2.next()) {
+                        for (var elements_2 = (e_4 = void 0, __values(elements)), elements_2_1 = elements_2.next(); !elements_2_1.done; elements_2_1 = elements_2.next()) {
                             var element = elements_2_1.value;
                             this.add(element, result);
                         }
@@ -3858,7 +3858,7 @@
             }
         };
         UIDialogService.prototype.startDrag = function (startObject) {
-            this.dragObject = __assign({}, startObject, { dlgHeight: startObject.dialog.dialogEl.offsetHeight, dlgWidth: startObject.dialog.dialogEl.offsetWidth, isDragging: true, left: parseInt(startObject.dialog.position.left, 10), maxHeight: this.appConfig.DialogContainer.anchor.offsetHeight, maxWidth: this.appConfig.DialogContainer.anchor.offsetWidth, top: parseInt(startObject.dialog.position.top, 10) });
+            this.dragObject = __assign(__assign({}, startObject), { dlgHeight: startObject.dialog.dialogEl.offsetHeight, dlgWidth: startObject.dialog.dialogEl.offsetWidth, isDragging: true, left: parseInt(startObject.dialog.position.left, 10), maxHeight: this.appConfig.DialogContainer.anchor.offsetHeight, maxWidth: this.appConfig.DialogContainer.anchor.offsetWidth, top: parseInt(startObject.dialog.position.top, 10) });
         };
         UIDialogService.prototype.drag = function ($event) {
             if (this.dragObject.isDragging) {
@@ -3991,7 +3991,7 @@
         UINotificationService.prototype.createToast = function (config, forToastNotification) {
             var _this = this;
             return new Promise(function (resolve) {
-                var cfg = __assign({ autoClose: true, cancelLabel: "Cancel", okLabel: "OK", theme: "default", timeout: 5000, type: "default", className: forToastNotification ? "ui-toast" : "ui-message" }, config, { message: "<div>" + config.message + "</div>" });
+                var cfg = __assign(__assign({ autoClose: true, cancelLabel: "Cancel", okLabel: "OK", theme: "default", timeout: 5000, type: "default", className: forToastNotification ? "ui-toast" : "ui-message" }, config), { message: "<div>" + config.message + "</div>" });
                 cfg.autoClose = cfg.type !== "confirm" && cfg.autoClose;
                 var viewFactory = _this.compiler.compile("<template>" + toastView + "</template>");
                 var view = viewFactory.create(_this.container);
@@ -4019,7 +4019,7 @@
         UINotificationService.prototype.createAlert = function (config) {
             var _this = this;
             return new Promise(function (resolve) {
-                var cfg = __assign({ cancelLabel: "Cancel", okLabel: "OK", theme: "default", type: "alert" }, config, { message: "<div>" + config.message + "</div>" });
+                var cfg = __assign(__assign({ cancelLabel: "Cancel", okLabel: "OK", theme: "default", type: "alert" }, config), { message: "<div>" + config.message + "</div>" });
                 var viewFactory = _this.compiler.compile("<template>" + alertView + "</template>");
                 var view = viewFactory.create(_this.container);
                 cfg.__keyCheck = function (key) {
@@ -4078,19 +4078,25 @@
         function date(dt, ft) {
             if (ft === void 0) { ft = "dd MMM yyyy"; }
             dt = parseDate(dt);
-            return !dt || !dateFns.isValid(dt) ? null : dateFns.format(dt, ft, { awareOfUnicodeTokens: true });
+            return !dt || !dateFns.isValid(dt)
+                ? null
+                : dateFns.format(dt, ft, { useAdditionalDayOfYearTokens: true, useAdditionalWeekYearTokens: true });
         }
         UIFormat.date = date;
         function time(dt, ft) {
             if (ft === void 0) { ft = "hh:mm a"; }
             dt = parseDate(dt);
-            return !dt || !dateFns.isValid(dt) ? null : dateFns.format(dt, ft, { awareOfUnicodeTokens: true });
+            return !dt || !dateFns.isValid(dt)
+                ? null
+                : dateFns.format(dt, ft, { useAdditionalDayOfYearTokens: true, useAdditionalWeekYearTokens: true });
         }
         UIFormat.time = time;
         function datetime(dt, ft) {
             if (ft === void 0) { ft = "dd MMM yyyy hh:mm a"; }
             dt = parseDate(dt);
-            return !dt || !dateFns.isValid(dt) ? null : dateFns.format(dt, ft, { awareOfUnicodeTokens: true });
+            return !dt || !dateFns.isValid(dt)
+                ? null
+                : dateFns.format(dt, ft, { useAdditionalDayOfYearTokens: true, useAdditionalWeekYearTokens: true });
         }
         UIFormat.datetime = datetime;
         function utcDate(dt) {
@@ -4103,7 +4109,8 @@
             return !dt || !dateFns.isValid(dt)
                 ? null
                 : dateFns.format(dt, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", {
-                    awareOfUnicodeTokens: true
+                    useAdditionalDayOfYearTokens: true,
+                    useAdditionalWeekYearTokens: true
                 });
         }
         UIFormat.dateToISO = dateToISO;
@@ -4339,11 +4346,15 @@
 
     var UIContent = (function () {
         function UIContent(element) {
-            this.obResize = new ResizeObserver(function () {
-                return element.dispatchEvent(UIInternal.createEvent("resize", element.getBoundingClientRect()));
-            });
-            this.obResize.observe(element);
+            this.element = element;
         }
+        UIContent.prototype.attached = function () {
+            var _this = this;
+            this.obResize = new ResizeObserver(function () {
+                return _this.element.dispatchEvent(UIInternal.createEvent("resize", _this.element.getBoundingClientRect()));
+            });
+            this.obResize.observe(this.element);
+        };
         UIContent.prototype.detached = function () {
             this.obResize.disconnect();
         };
@@ -4802,7 +4813,7 @@
     (function (UITether) {
         function tether(anchorEl, dropdownEl, config) {
             if (config === void 0) { config = Config; }
-            return attach(anchorEl, dropdownEl, __assign({}, Config, config));
+            return attach(anchorEl, dropdownEl, __assign(__assign({}, Config), config));
         }
         UITether.tether = tether;
         var Config = {
@@ -4952,7 +4963,7 @@
                     if (newConfig === void 0) { newConfig = {}; }
                     anchorEl = newAnchorEl || anchorEl;
                     scroller = initScroller(anchorEl, scrollCallback);
-                    updatePosition(anchorEl, dropdownEl, scroller, __assign({}, config, newConfig));
+                    updatePosition(anchorEl, dropdownEl, scroller, __assign(__assign({}, config), newConfig));
                 }
             };
         }
@@ -4992,9 +5003,7 @@
                 this.obViewportResize = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_RESIZE, function () {
                     return _this.updatePosition();
                 });
-                this.obResize = new ResizeObserver(function () {
-                    return _this.updatePosition();
-                });
+                this.obResize = new ResizeObserver(function () { return _this.updatePosition(); });
                 this.obResize.observe(this.vmElement);
                 this.obResize.observe(this.anchorEl);
                 this.element.dispatchEvent(UIInternal.createEvent("open"));
@@ -5032,6 +5041,9 @@
         UIDrop.prototype.close = function ($event) {
             if (this.closeOnClick) {
                 this.closeDrop();
+            }
+            else {
+                $event.stopEvent(true);
             }
         };
         UIDrop.prototype.canClose = function (t) {
@@ -6921,14 +6933,14 @@
         });
         Object.defineProperty(UIRangePicker.prototype, "startHeaderOptions", {
             get: function () {
-                return buildHeaderConfig(this.startMonth, this.startPage, __assign({}, this.config, { page: this.startPage }));
+                return buildHeaderConfig(this.startMonth, this.startPage, __assign(__assign({}, this.config), { page: this.startPage }));
             },
             enumerable: true,
             configurable: true
         });
         Object.defineProperty(UIRangePicker.prototype, "endHeaderOptions", {
             get: function () {
-                return buildHeaderConfig(this.endMonth, this.endPage, __assign({}, this.config, { page: this.endPage }));
+                return buildHeaderConfig(this.endMonth, this.endPage, __assign(__assign({}, this.config), { page: this.endPage }));
             },
             enumerable: true,
             configurable: true
@@ -7378,7 +7390,7 @@
                 orderProperty: "sortOrder",
                 perPageProperty: "pageCount"
             };
-            this.options = __assign({}, this.options, options);
+            this.options = __assign(__assign({}, this.options), options);
             this.isPaginated = options.paginated;
             this.recordsPerPage = options.recordsPerPage || 50;
             this.sortByProperty = options.defaultSortProperty;
@@ -7472,11 +7484,17 @@
         return HeaderCell;
     }());
 
-    var view$9 = "<template class=\"ui-datagrid\">\n\n  <div show.bind=\"false\">\n    <slot></slot>\n  </div>\n\n  <div class=\"ui-datagrid__head\">\n    <div class=\"ui-datagrid__row\">\n      <div class=\"ui-datagrid__row__wrapper\">\n        <div class=\"ui-datagrid__row__locked--start\">\n          <template repeat.for=\"col of columns | filter:'start':'locked'\">\n            <header-cell column.bind=\"col\" sort.trigger=\"ds.sortBy(col.dataId)\" sort-by.bind=\"ds.sortByProperty\" sort-order.bind=\"ds.sortByOrder\"></header-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__row__scrolling\">\n          <template repeat.for=\"col of columns | filter:false:'locked'\">\n            <header-cell column.bind=\"col\" sort.trigger=\"ds.sortBy(col.dataId)\" sort-by.bind=\"ds.sortByProperty\" sort-order.bind=\"ds.sortByOrder\"></header-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__cell ui-datagrid__cell--filler\"></div>\n        <div class=\"ui-datagrid__row__locked--end\">\n          <template repeat.for=\"col of columns | filter:'end':'locked'\">\n            <header-cell column.bind=\"col\" sort.trigger=\"ds.sortBy(col.dataId)\" sort-by.bind=\"ds.sortByProperty\" sort-order.bind=\"ds.sortByOrder\"></header-cell>\n          </template>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"ui-datagrid__body\" ref=\"dgBody\">\n\n    <div class=\"ui-datagrid__row ${$even ? 'ui-datagrid__row--even':'ui-datagrid__row--odd'}\" virtual-repeat.for=\"record of ds.data\">\n\n      <div class=\"ui-datagrid__row__wrapper\">\n        <div class=\"ui-datagrid__row__locked--start\">\n          <template repeat.for=\"col of columns | filter:'start':'locked'\">\n            <body-cell column.bind=\"col\" record.bind=\"record\"></body-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__row__scrolling\">\n          <template repeat.for=\"col of columns | filter:false:'locked'\">\n            <body-cell column.bind=\"col\" record.bind=\"record\"></body-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__cell ui-datagrid__cell--filler\"></div>\n        <div class=\"ui-datagrid__row__locked--end\">\n          <template repeat.for=\"col of columns | filter:'end':'locked'\">\n            <body-cell column.bind=\"col\" record.bind=\"record\"></body-cell>\n          </template>\n        </div>\n      </div>\n\n    </div>\n\n  </div>\n\n  <div class=\"ui-datagrid__foot\"></div>\n</template>\n";
+    var view$9 = "<template class=\"ui-datagrid\">\n  <div show.bind=\"false\">\n    <slot></slot>\n  </div>\n\n  <div class=\"ui-datagrid__head\">\n    <div class=\"ui-datagrid__row\">\n      <div class=\"ui-datagrid__row__wrapper\">\n        <div class=\"ui-datagrid__row__locked--start\">\n          <div class=\"ui-datagrid__cell\" css.bind=\"{width: '42px'}\" if.bind=\"checkable\">\n            <div class=\"ui-datagrid__cell__wrapper\">\n              <ui-checkbox checked.to-view=\"selected.length === ds.data.length ? true : selected.length === 0 ? false : '__2__'\" change.trigger=\"toggleSelectionAll($event)\"></ui-checkbox>\n            </div>\n          </div>\n          <div class=\"ui-datagrid__cell\" css.bind=\"{width: '42px'}\" if.bind=\"showCounter\"></div>\n          <template repeat.for=\"col of columns | filter:'start':'locked'\">\n            <header-cell column.bind=\"col\" sort.trigger=\"ds.sortBy(col.dataId)\" sort-by.bind=\"ds.sortByProperty\" sort-order.bind=\"ds.sortByOrder\"></header-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__row__scrolling\">\n          <template repeat.for=\"col of columns | filter:false:'locked'\">\n            <header-cell column.bind=\"col\" sort.trigger=\"ds.sortBy(col.dataId)\" sort-by.bind=\"ds.sortByProperty\" sort-order.bind=\"ds.sortByOrder\"></header-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__cell ui-datagrid__cell--filler\"></div>\n        <div class=\"ui-datagrid__row__locked--end\">\n          <template repeat.for=\"col of columns | filter:'end':'locked'\">\n            <header-cell column.bind=\"col\" sort.trigger=\"ds.sortBy(col.dataId)\" sort-by.bind=\"ds.sortByProperty\" sort-order.bind=\"ds.sortByOrder\"></header-cell>\n          </template>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"ui-datagrid__body\" ref=\"dgBody\">\n    <div class=\"ui-datagrid__row ${$even ? 'ui-datagrid__row--even':'ui-datagrid__row--odd'}\" virtual-repeat.for=\"record of ds.data\">\n      <div class=\"ui-datagrid__row__wrapper ${selected.includes(record) ? 'ui-datagrid__row--selected' : ''}\">\n        <div class=\"ui-datagrid__row__locked--start\">\n          <div class=\"ui-datagrid__cell ui-datagrid__cell--head\" css.bind=\"{width: '42px'}\" if.bind=\"checkable\">\n            <div class=\"ui-datagrid__cell__wrapper\">\n              <ui-checkbox checked.to-view=\"selected.includes(record)\" change.trigger=\"toggleSelection($event, record)\"></ui-checkbox>\n            </div>\n          </div>\n          <div class=\"ui-datagrid__cell ui-datagrid__cell--head\" css.bind=\"{width: '42px'}\" if.bind=\"showCounter\">\n            <div class=\"ui-datagrid__cell__wrapper\">\n              <span css.bind=\"{fontSize:'.8em'}\">${$index + 1}</span>\n            </div>\n          </div>\n          <template repeat.for=\"col of columns | filter:'start':'locked'\">\n            <body-cell column.bind=\"col\" record.bind=\"record\"></body-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__row__scrolling\">\n          <template repeat.for=\"col of columns | filter:false:'locked'\">\n            <body-cell column.bind=\"col\" record.bind=\"record\"></body-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__cell ui-datagrid__cell--filler\"></div>\n        <div class=\"ui-datagrid__row__locked--end\">\n          <template repeat.for=\"col of columns | filter:'end':'locked'\">\n            <body-cell column.bind=\"col\" record.bind=\"record\"></body-cell>\n          </template>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"ui-datagrid__foot\"></div>\n</template>\n";
 
     var UIDataGrid = (function () {
-        function UIDataGrid() {
+        function UIDataGrid(element) {
+            this.element = element;
+            this.selected = [];
+            this.showCounter = element.hasAttribute("counter");
         }
+        UIDataGrid.prototype.attached = function () {
+            this.checkable = this.checkable || this.element.hasAttribute("checkable");
+        };
         UIDataGrid.prototype.dataSourceChanged = function () {
             if (isArray(this.dataSource)) {
                 this.ds = new UIDataSource(this.dataSource);
@@ -7485,10 +7503,28 @@
                 this.ds = this.dataSource;
             }
         };
+        UIDataGrid.prototype.toggleSelection = function ($event, record) {
+            if (!this.selected) {
+                this.selected = [];
+            }
+            this.selected = $event.detail.checked
+                ? __spread(this.selected, [record]) : this.selected.filter(function (r) { return r !== record; });
+        };
+        UIDataGrid.prototype.toggleSelectionAll = function ($event) {
+            this.selected = this.selected.length === 0 ? __spread(this.ds.data) : [];
+        };
         __decorate([
             aureliaFramework.bindable(),
             __metadata("design:type", Object)
         ], UIDataGrid.prototype, "dataSource", void 0);
+        __decorate([
+            aureliaFramework.bindable(),
+            __metadata("design:type", Boolean)
+        ], UIDataGrid.prototype, "checkable", void 0);
+        __decorate([
+            aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.twoWay }),
+            __metadata("design:type", Array)
+        ], UIDataGrid.prototype, "selected", void 0);
         __decorate([
             aureliaFramework.children("ui-column"),
             __metadata("design:type", Object)
@@ -7496,7 +7532,8 @@
         UIDataGrid = __decorate([
             aureliaFramework.customElement("ui-datagrid"),
             aureliaFramework.viewResources(HeaderCell, BodyCell),
-            aureliaFramework.inlineView(view$9)
+            aureliaFramework.inlineView(view$9),
+            __metadata("design:paramtypes", [Element])
         ], UIDataGrid);
         return UIDataGrid;
     }());
@@ -7520,6 +7557,13 @@
                 else if (this.vmElement.attributes.getNamedItem("href")) {
                     this.vmElement.attributes.removeNamedItem("href");
                 }
+            }
+        };
+        UIDataCard.prototype.toggleExpand = function () {
+            var _this = this;
+            this.open = !this.open;
+            if (this.open) {
+                setTimeout(function () { return _this.vmElement.scrollIntoView({ inline: "nearest" }); }, 500);
             }
         };
         UIDataCard.prototype.fireClick = function ($event) {
@@ -7546,7 +7590,7 @@
         UIDataCard = __decorate([
             aureliaFramework.containerless(),
             aureliaFramework.customElement("ui-data-card"),
-            aureliaFramework.inlineView("<template><a class=\"ui-datalist__card\" ref=\"vmElement\" data-open.bind=\"open\" click.trigger=\"fireClick($event)\">\n  <slot name=\"panel-header\"></slot>\n  <slot></slot>\n  <div class=\"ui-datalist__toolbox\">\n    <slot name=\"card-actions\"></slot>\n    <ui-button-group vertical if.bind=\"actions\">\n      <ui-button type=\"tool\" no-caret>\n        <ui-svg-icon icon=\"overflow\"></ui-svg-icon>\n        <ui-drop anchor=\"br\" position=\"tr\">\n          <ui-menu menu-items.bind=\"actions\"></ui-menu>\n        </ui-drop>\n      </ui-button>\n      <ui-button type=\"tool\" click.trigger=\"open = !open\">\n        <ui-svg-icon icon=\"caret\"></ui-svg-icon>\n      </ui-button>\n    </ui-button-group>\n  </div>\n  <slot name=\"panel-footer\"></slot>\n</a></template>"),
+            aureliaFramework.inlineView("<template><a class=\"ui-datalist__card\" ref=\"vmElement\" data-open.bind=\"open\" click.trigger=\"fireClick($event)\">\n  <slot name=\"panel-header\"></slot>\n  <slot></slot>\n  <div class=\"ui-datalist__toolbox\">\n    <slot name=\"card-actions\"></slot>\n    <ui-button-group vertical if.bind=\"actions\">\n      <ui-button type=\"tool\" no-caret>\n        <ui-svg-icon icon=\"overflow\"></ui-svg-icon>\n        <ui-drop anchor=\"br\" position=\"tr\">\n          <ui-menu menu-items.bind=\"actions\"></ui-menu>\n        </ui-drop>\n      </ui-button>\n      <ui-button type=\"tool\" click.trigger=\"toggleExpand()\">\n        <ui-svg-icon icon=\"caret\"></ui-svg-icon>\n      </ui-button>\n    </ui-button-group>\n  </div>\n  <slot name=\"panel-footer\"></slot>\n</a></template>"),
             __metadata("design:paramtypes", [Element])
         ], UIDataCard);
         return UIDataCard;
@@ -7618,15 +7662,7 @@
             var node = this.nodes[index];
             node.expanded = !node.expanded;
             if (node.expanded) {
-                var injectedChildren = node.children.sortBy("label");
-                if (injectedChildren.length === 0) {
-                    injectedChildren.push(new UITreeNode({ id: "node-empty", leaf: true }, node));
-                }
-                if (this.maxNodes > 0 && injectedChildren.length > this.maxNodes) {
-                    injectedChildren = __spread(injectedChildren.slice(0, this.maxNodes), [
-                        new UITreeNode({ id: "node-more", leaf: true }, node)
-                    ]);
-                }
+                var injectedChildren = this.getChildren(node);
                 this.nodes = __spread(this.nodes.slice(0, index + 1), injectedChildren, this.nodes.slice(index + 1));
             }
             else {
@@ -7676,16 +7712,7 @@
             children.forEach(function (child) {
                 nodes.push(child);
                 if (child.expanded) {
-                    var injectedChildren = child.children.sortBy("label");
-                    if (injectedChildren.length === 0) {
-                        injectedChildren.push(new UITreeNode({ id: "node-empty", leaf: true }, child));
-                    }
-                    if (_this.maxNodes > 0 && injectedChildren.length > _this.maxNodes) {
-                        injectedChildren = __spread(injectedChildren.slice(0, _this.maxNodes), [
-                            new UITreeNode({ id: "node-more", leaf: true }, child)
-                        ]);
-                    }
-                    nodes.push.apply(nodes, __spread(_this.getExpandedTree(injectedChildren)));
+                    nodes.push.apply(nodes, __spread(_this.getExpandedTree(_this.getChildren(child))));
                 }
             });
             return nodes;
@@ -7704,6 +7731,18 @@
                 }
                 return retVal;
             });
+        };
+        UITreeModel.prototype.getChildren = function (node) {
+            var injectedChildren = node.children.sortBy("label");
+            if (injectedChildren.length === 0) {
+                injectedChildren.push(new UITreeNode({ id: "node-empty", leaf: true }, node));
+            }
+            if (this.maxNodes > 0 && injectedChildren.length > this.maxNodes) {
+                injectedChildren = __spread(injectedChildren.slice(0, this.maxNodes), [
+                    new UITreeNode({ id: "node-more", leaf: true }, node)
+                ]);
+            }
+            return injectedChildren;
         };
         return UITreeModel;
     }());
@@ -7961,7 +8000,7 @@
         DataPanels: DataPanels
     });
 
-    var view$c = "<template class=\"ui-option\" data-disabled.bind=\"disabled || isDisabled\">\n  <label class=\"ui-option__control\">\n    <input size=\"1\" type=\"checkbox\" checked.bind=\"checked\" model.bind=\"model\" matcher.bind=\"matcher\" disabled.bind=\"disabled\" change.trigger=\"checkChanged($event)\">\n    <ui-svg-icon icon=\"check-off\"></ui-svg-icon>\n    <ui-svg-icon icon=\"check-on\"></ui-svg-icon>\n    <span>\n      <slot></slot>\n    </span>\n  </label>\n</template>\n";
+    var view$c = "<template class=\"ui-option\" data-disabled.bind=\"disabled || isDisabled\">\n  <label class=\"ui-option__control\">\n    <input size=\"1\" type=\"checkbox\" data-checked=\"${checked}\" checked.bind=\"checked\" model.bind=\"model\" matcher.bind=\"matcher\" disabled.bind=\"disabled\" change.trigger=\"checkChanged($event)\">\n    <ui-svg-icon icon=\"check-off\"></ui-svg-icon>\n    <ui-svg-icon icon=\"tree-check-half\"></ui-svg-icon>\n    <ui-svg-icon icon=\"check-on\"></ui-svg-icon>\n    <span>\n      <slot></slot>\n    </span>\n  </label>\n</template>\n";
 
     var UICheckbox = (function () {
         function UICheckbox(element) {
@@ -8718,7 +8757,7 @@
         return UIPasswordMeter;
     }());
 
-    var view$i = "<template class=\"ui-input ui-phone ${classes}\" aria-disabled.bind=\"disabled || isDisabled\" aria-readonly.bind=\"readonly\">\n  <input-wrapper>\n    <slot></slot>\n    <ui-flag code.bind=\"inputCountry\"></ui-flag>\n    <!--suppress HtmlFormInputWithoutLabel -->\n    <input ref=\"inputEl\" role=\"textbox\" size=\"1\" placeholder.bind=\"placeholder\" disabled.bind=\"disabled || isDisabled || isPlain\" readonly.bind=\"readonly\" value.two-way=\"inputValue\" autocomplete.bind=\"autocomplete\" keypress.trigger=\"fireEnter($event)\">\n  </input-wrapper>\n</template>\n";
+    var view$i = "<template class=\"ui-input ui-phone ${classes}\" aria-disabled.bind=\"disabled || isDisabled\" aria-readonly.bind=\"readonly\">\n  <input-wrapper>\n    <slot></slot>\n    <ui-input-addon>\n      <ui-flag code.bind=\"inputCountry\"></ui-flag>\n    </ui-input-addon>\n    <!--suppress HtmlFormInputWithoutLabel -->\n    <input ref=\"inputEl\" role=\"textbox\" size=\"1\" placeholder.bind=\"placeholder\" disabled.bind=\"disabled || isDisabled || isPlain\" readonly.bind=\"readonly\" value.two-way=\"inputValue\" autocomplete.bind=\"autocomplete\" keypress.trigger=\"fireEnter($event)\">\n  </input-wrapper>\n</template>\n";
 
     var UIPhone = (function (_super) {
         __extends(UIPhone, _super);
@@ -9265,7 +9304,7 @@
         Gridder: Gridder
     });
 
-    var view$n = "<template class=\"ui-dropdown\">\n  <a data-active.bind=\"active\" disabled.bind=\"disabled\" click.trigger=\"toggleDrop($event)\" class=\"ui-dropdown__link\" data-open.bind=\"dropEl.isOpen\" data-disabled.bind=\"disabled\">\n    <ui-icon class=\"ui-dropdown__icon\" icon=\"${iconPrefix} ${model[iconProperty]}\" if.bind=\"iconProperty\"></ui-icon>\n    <div class=\"ui-input__error\" if.bind=\"errors && errors.length\">\n      <ui-svg-icon icon=\"alert\"></ui-svg-icon>\n      <ul>\n        <li repeat.for=\"err of errors\">${err}</li>\n      </ul>\n    </div>\n    <span class=\"ui-dropdown__label\">${selectedLabel}</span>\n    <ui-svg-icon class=\"ui-dropdown__caret\" icon=\"caret\"></ui-svg-icon>\n  </a>\n  <ui-drop view-model.ref=\"dropEl\">\n    <div>\n      <template repeat.for=\"option of options\">\n        <div class=\"ui-list__item ${(option[valueProperty] || option) === value?'ui-list__item--selected':''}\" click.trigger=\"select(option)\">\n          <ui-icon if.bind=\"iconProperty\" icon=\"${iconPrefix} ${option[iconProperty]}\"></ui-icon>\n          ${option[labelProperty] || option}\n        </div>\n      </template>\n    </div>\n  </ui-drop>\n</template>\n";
+    var view$n = "<template class=\"ui-dropdown\">\n  <a data-active.bind=\"active\" disabled.bind=\"disabled\" click.trigger=\"toggleDrop($event)\" class=\"ui-dropdown__link\" data-open.bind=\"dropEl.isOpen\" data-disabled.bind=\"disabled\">\n    <ui-icon class=\"ui-dropdown__icon\" icon=\"${iconPrefix} ${model[iconProperty]}\" if.bind=\"iconProperty\"></ui-icon>\n    <div class=\"ui-input__error\" if.bind=\"errors && errors.length\">\n      <ui-svg-icon icon=\"alert\"></ui-svg-icon>\n      <ul>\n        <li repeat.for=\"err of errors\">${err}</li>\n      </ul>\n    </div>\n    <span class=\"ui-dropdown__label\">${selectedLabel}</span>\n    <ui-svg-icon class=\"ui-dropdown__caret\" icon=\"caret\"></ui-svg-icon>\n  </a>\n  <ui-drop view-model.ref=\"dropEl\" close-on-click=\"${!multiple}\">\n    <div>\n      <template repeat.for=\"option of options\">\n        <div class=\"ui-list__item ${(option[valueProperty] || option) === value?'ui-list__item--selected':''}\" click.trigger=\"select(option)\">\n          <ui-icon if.bind=\"iconProperty\" icon=\"${iconPrefix} ${option[iconProperty]}\"></ui-icon>\n          ${option[labelProperty] || option}\n        </div>\n      </template>\n    </div>\n  </ui-drop>\n</template>\n";
 
     var UIDropdown = (function () {
         function UIDropdown(element) {
@@ -9278,6 +9317,7 @@
             this.iconProperty = "";
             this.iconPrefix = "";
             this.disabled = false;
+            this.multiple = false;
             this.model = undefined;
         }
         UIDropdown.prototype.attached = function () {
@@ -9350,6 +9390,10 @@
             aureliaFramework.bindable(),
             __metadata("design:type", Boolean)
         ], UIDropdown.prototype, "disabled", void 0);
+        __decorate([
+            aureliaFramework.bindable(),
+            __metadata("design:type", Boolean)
+        ], UIDropdown.prototype, "multiple", void 0);
         __decorate([
             aureliaFramework.computedFrom("model"),
             __metadata("design:type", Object),
@@ -9883,7 +9927,7 @@
         return UIList;
     }(ListMaker));
 
-    var view$r = "<template class=\"ui-input ${classes}\" aria-disabled.bind=\"disabled || isDisabled\" aria-readonly.bind=\"readonly\">\n  <input-wrapper>\n    <slot></slot>\n    <list-input></list-input>\n  </input-wrapper>\n  <ui-drop view-model.ref=\"dropEl\" class=\"ui-list\" close.trigger=\"resetQuery()\">\n    <div ref=\"listContainer\" class=\"ui-list__container\">\n      <list-container></list-container>\n    </div>\n  </ui-drop>\n</template>\n";
+    var view$r = "<template class=\"ui-input ${classes}\" aria-disabled.bind=\"disabled || isDisabled\" aria-readonly.bind=\"readonly\">\n  <input-wrapper>\n    <slot></slot>\n    <list-input></list-input>\n  </input-wrapper>\n  <ui-drop view-model.ref=\"dropEl\" multiple.bind=\"multiple\" class=\"ui-list\" close.trigger=\"resetQuery()\">\n    <div ref=\"listContainer\" class=\"ui-list__container\">\n      <list-container></list-container>\n    </div>\n  </ui-drop>\n</template>\n";
 
     var UISelect = (function (_super) {
         __extends(UISelect, _super);
@@ -10015,7 +10059,7 @@
             if (this.wrapperEl.offsetWidth > this.element.offsetWidth) {
                 this.hasOverflow = true;
                 while (this.wrapperEl.offsetWidth > this.element.offsetWidth - 50) {
-                    this.overflowEl.appendChild(this.wrapperEl.children[0]);
+                    this.overflowEl.appendChild(this.wrapperEl.firstElementChild);
                 }
             }
             else {
@@ -10025,8 +10069,9 @@
         UIBreadcrumbs.prototype.resetOverflow = function () {
             var _this = this;
             this.hasOverflow = false;
-            __spread(this.overflowEl.children).reverse().forEach(function (child) {
-                _this.wrapperEl.insertBefore(child, _this.wrapperEl.children[0]);
+            var currentFirstChild = this.wrapperEl.firstElementChild;
+            this.overflowEl.children.forEach(function (child) {
+                _this.wrapperEl.insertBefore(child, currentFirstChild);
             });
         };
         __decorate([
@@ -10262,6 +10307,27 @@
         return UIMenuItem;
     }());
 
+    var calculateOverflow = function (wrapperEl, overflowEl) {
+        var isRtl = window.getComputedStyle(wrapperEl).direction === "rtl";
+        resetOverflow(wrapperEl, overflowEl);
+        while (wrapperEl.lastElementChild && isOutOfBounds(wrapperEl, wrapperEl.lastElementChild, isRtl)) {
+            !!overflowEl.firstElementChild
+                ? overflowEl.insertBefore(wrapperEl.lastElementChild, overflowEl.firstElementChild)
+                : overflowEl.appendChild(wrapperEl.lastElementChild);
+        }
+        return !!overflowEl.children.length;
+    };
+    var resetOverflow = function (wrapperEl, overflowEl) {
+        overflowEl.children.forEach(function (child) {
+            wrapperEl.appendChild(child);
+        });
+    };
+    var isOutOfBounds = function (wrapperEl, itemEl, isRtl) {
+        return isRtl
+            ? itemEl.getBoundingClientRect().left < wrapperEl.getBoundingClientRect().left
+            : itemEl.getBoundingClientRect().right > wrapperEl.getBoundingClientRect().right;
+    };
+
     var UIMenubar = (function () {
         function UIMenubar(element) {
             var _this = this;
@@ -10278,26 +10344,7 @@
             this.obResize.disconnect();
         };
         UIMenubar.prototype.calculateOverflow = function () {
-            var _this = this;
-            var _a;
-            this.resetOverflow();
-            var overflowItems = [];
-            var isRtl = window.getComputedStyle(this.wrapperEl).direction === "rtl";
-            __spread(this.wrapperEl.children).reverse().forEach(function (item) {
-                if ((!isRtl && _this.wrapperEl.offsetWidth - (item.offsetLeft + item.offsetWidth) <= 30) ||
-                    (isRtl && _this.wrapperEl.offsetWidth - item.offsetLeft >= _this.wrapperEl.offsetWidth - 30)) {
-                    overflowItems.splice(0, 0, item);
-                    _this.hasOverflow = true;
-                }
-            });
-            (_a = this.overflowEl).append.apply(_a, __spread(overflowItems));
-        };
-        UIMenubar.prototype.resetOverflow = function () {
-            var _this = this;
-            this.hasOverflow = false;
-            this.overflowEl.children.forEach(function (child) {
-                _this.wrapperEl.appendChild(child);
-            });
+            this.hasOverflow = calculateOverflow(this.wrapperEl, this.overflowEl);
         };
         UIMenubar = __decorate([
             aureliaFramework.customElement("ui-menubar"),
@@ -11011,7 +11058,6 @@
 
     var UITabPanel = (function () {
         function UITabPanel(element) {
-            var _this = this;
             this.element = element;
             this.tabs = [];
             this.align = "top";
@@ -11020,8 +11066,6 @@
             if (element.hasAttribute("no-border")) {
                 element.classList.add("ui-tab__panel--noborder");
             }
-            this.obResize = new ResizeObserver(function () { return _this.calculateOverflow(); });
-            this.obResize.observe(element);
         }
         UITabPanel.prototype.activateTab = function (id) {
             return __awaiter(this, void 0, void 0, function () {
@@ -11087,7 +11131,8 @@
             var _this = this;
             this.composeVm.owningView = this.owningView;
             this.composeVm.viewResources = this.owningView.resources;
-            setTimeout(function () { return _this.calculateOverflow(); }, 200);
+            this.obResize = new ResizeObserver(function () { return _this.calculateOverflow(); });
+            this.obResize.observe(this.element);
             this.isAttached = true;
             this.tabsChanged();
         };
@@ -11099,6 +11144,7 @@
             this.tabsChanged();
         };
         UITabPanel.prototype.tabsChanged = function () {
+            var _this = this;
             if (this.isAttached) {
                 this.active = (this.tabs.find(function (tab) { return tab.active; }) || {}).id;
                 if (!this.active) {
@@ -11106,11 +11152,12 @@
                     this.active = this.activeTab.id;
                     this.activeTab.active = true;
                 }
+                UIInternal.queueTask(function () { return _this.calculateOverflow(); });
             }
         };
         UITabPanel.prototype.activate = function (id) {
             var newTab = this.tabs.find(function (tab) { return tab.id === id; });
-            if (newTab) {
+            if (newTab && !newTab.disabled) {
                 this.element.dispatchEvent(UIInternal.createEvent("change", id));
                 if (this.activeTab) {
                     this.activeTab.active = false;
@@ -11123,35 +11170,20 @@
             return false;
         };
         UITabPanel.prototype.remove = function (id) {
+            var _this = this;
             var tab = this.tabs.find(function (t) { return t.id === id; });
             this.element.dispatchEvent(UIInternal.createEvent("close", id));
-            this.tabs.splice(this.tabs.indexOf(tab), 1);
+            this.overflowEl.innerHTML = "";
+            UIInternal.queueTask(function () {
+                _this.tabs = __spread(_this.tabs.splice(_this.tabs.indexOf(tab), 1));
+            });
             if (tab.element) {
                 UIInternal.queueTask(function () { return aureliaFramework.DOM.removeNode(tab.element); });
             }
             return true;
         };
         UITabPanel.prototype.calculateOverflow = function () {
-            var _this = this;
-            var _a;
-            this.resetOverflow();
-            var overflowItems = [];
-            var isRtl = window.getComputedStyle(this.wrapperEl).direction === "rtl";
-            __spread(this.wrapperEl.children).reverse().forEach(function (item) {
-                if ((!isRtl && _this.wrapperEl.offsetWidth - (item.offsetLeft + item.offsetWidth) <= 30) ||
-                    (isRtl && _this.wrapperEl.offsetWidth - item.offsetLeft >= _this.wrapperEl.offsetWidth - 30)) {
-                    overflowItems.splice(0, 0, item);
-                    _this.hasOverflow = true;
-                }
-            });
-            (_a = this.overflowEl).append.apply(_a, __spread(overflowItems));
-        };
-        UITabPanel.prototype.resetOverflow = function () {
-            var _this = this;
-            this.hasOverflow = false;
-            this.overflowEl.children.forEach(function (child) {
-                _this.wrapperEl.appendChild(child);
-            });
+            this.hasOverflow = calculateOverflow(this.wrapperEl, this.overflowEl);
         };
         __decorate([
             aureliaFramework.bindable(),

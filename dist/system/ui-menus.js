@@ -1,11 +1,10 @@
-System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', './chunk3.js', 'resize-observer-polyfill'], function (exports, module) {
+System.register(['./_tslib.js', 'aurelia-framework', 'aurelia-event-aggregator', './ui-internal.js', 'resize-observer-polyfill', './ui-common.js'], function (exports) {
   'use strict';
-  var __spread, __decorate, __metadata, bindable, customElement, inlineView, containerless, viewResources, child, UIInternal, ResizeObserver;
+  var __decorate, __metadata, bindable, customElement, inlineView, containerless, viewResources, child, UIInternal, ResizeObserver, calculateOverflow;
   return {
     setters: [function (module) {
-      __spread = module.e;
-      __decorate = module.b;
-      __metadata = module.c;
+      __decorate = module.a;
+      __metadata = module.b;
     }, function (module) {
       bindable = module.bindable;
       customElement = module.customElement;
@@ -14,9 +13,11 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', 
       viewResources = module.viewResources;
       child = module.child;
     }, function () {}, function (module) {
-      UIInternal = module.a;
+      UIInternal = module.U;
     }, function (module) {
       ResizeObserver = module.default;
+    }, function (module) {
+      calculateOverflow = module.c;
     }],
     execute: function () {
 
@@ -41,7 +42,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', 
               if (this.wrapperEl.offsetWidth > this.element.offsetWidth) {
                   this.hasOverflow = true;
                   while (this.wrapperEl.offsetWidth > this.element.offsetWidth - 50) {
-                      this.overflowEl.appendChild(this.wrapperEl.children[0]);
+                      this.overflowEl.appendChild(this.wrapperEl.firstElementChild);
                   }
               }
               else {
@@ -51,8 +52,9 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', 
           UIBreadcrumbs.prototype.resetOverflow = function () {
               var _this = this;
               this.hasOverflow = false;
-              __spread(this.overflowEl.children).reverse().forEach(function (child) {
-                  _this.wrapperEl.insertBefore(child, _this.wrapperEl.children[0]);
+              var currentFirstChild = this.wrapperEl.firstElementChild;
+              this.overflowEl.children.forEach(function (child) {
+                  _this.wrapperEl.insertBefore(child, currentFirstChild);
               });
           };
           __decorate([
@@ -304,26 +306,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', 
               this.obResize.disconnect();
           };
           UIMenubar.prototype.calculateOverflow = function () {
-              var _this = this;
-              var _a;
-              this.resetOverflow();
-              var overflowItems = [];
-              var isRtl = window.getComputedStyle(this.wrapperEl).direction === "rtl";
-              __spread(this.wrapperEl.children).reverse().forEach(function (item) {
-                  if ((!isRtl && _this.wrapperEl.offsetWidth - (item.offsetLeft + item.offsetWidth) <= 30) ||
-                      (isRtl && _this.wrapperEl.offsetWidth - item.offsetLeft >= _this.wrapperEl.offsetWidth - 30)) {
-                      overflowItems.splice(0, 0, item);
-                      _this.hasOverflow = true;
-                  }
-              });
-              (_a = this.overflowEl).append.apply(_a, __spread(overflowItems));
-          };
-          UIMenubar.prototype.resetOverflow = function () {
-              var _this = this;
-              this.hasOverflow = false;
-              this.overflowEl.children.forEach(function (child) {
-                  _this.wrapperEl.appendChild(child);
-              });
+              this.hasOverflow = calculateOverflow(this.wrapperEl, this.overflowEl);
           };
           UIMenubar = __decorate([
               customElement("ui-menubar"),

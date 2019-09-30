@@ -1,13 +1,16 @@
 import { customElement, inlineView, bindable } from 'aurelia-framework';
 import 'aurelia-event-aggregator';
-import { a as UIInternal } from './chunk2.js';
-import { a as __decorate, b as __metadata } from './chunk3.js';
+import { U as UIInternal } from './ui-internal.js';
+import { _ as __decorate, a as __metadata } from './_tslib.js';
 import ResizeObserver from 'resize-observer-polyfill';
 
 let UIContent = class UIContent {
     constructor(element) {
-        this.obResize = new ResizeObserver(() => element.dispatchEvent(UIInternal.createEvent("resize", element.getBoundingClientRect())));
-        this.obResize.observe(element);
+        this.element = element;
+    }
+    attached() {
+        this.obResize = new ResizeObserver(() => this.element.dispatchEvent(UIInternal.createEvent("resize", this.element.getBoundingClientRect())));
+        this.obResize.observe(this.element);
     }
     detached() {
         this.obResize.disconnect();

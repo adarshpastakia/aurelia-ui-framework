@@ -1,6 +1,6 @@
 'use strict';
 
-var __chunk_1 = require('./chunk.js');
+var _tslib = require('./_tslib.js');
 var aureliaFramework = require('aurelia-framework');
 
 var UIAvatar = (function () {
@@ -15,18 +15,18 @@ var UIAvatar = (function () {
             element.classList.add("flip-on-rtl");
         }
     }
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UIAvatar.prototype, "icon", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UIAvatar.prototype, "size", void 0);
-    UIAvatar = __chunk_1.__decorate([
+    UIAvatar = _tslib.__decorate([
         aureliaFramework.customElement("ui-avatar"),
         aureliaFramework.inlineView("<template class=\"ui-avatar\"><slot><ui-icon ui-font.bind=\"size\" icon.bind=\"icon\"></ui-icon></slot></template>"),
-        __chunk_1.__metadata("design:paramtypes", [Element])
+        _tslib.__metadata("design:paramtypes", [Element])
     ], UIAvatar);
     return UIAvatar;
 }());
@@ -40,18 +40,18 @@ var UIFlag = (function () {
             element.classList.add("ui-icon--round");
         }
     }
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UIFlag.prototype, "code", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UIFlag.prototype, "size", void 0);
-    UIFlag = __chunk_1.__decorate([
+    UIFlag = _tslib.__decorate([
         aureliaFramework.customElement("ui-flag"),
         aureliaFramework.inlineView("<template ui-font.bind=\"size\" class=\"ui-flag ${code}\"></template>"),
-        __chunk_1.__metadata("design:paramtypes", [Element])
+        _tslib.__metadata("design:paramtypes", [Element])
     ], UIFlag);
     return UIFlag;
 }());
@@ -68,18 +68,18 @@ var UIIcon = (function () {
             element.classList.add("flip-on-rtl");
         }
     }
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UIIcon.prototype, "icon", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UIIcon.prototype, "size", void 0);
-    UIIcon = __chunk_1.__decorate([
+    UIIcon = _tslib.__decorate([
         aureliaFramework.customElement("ui-icon"),
         aureliaFramework.inlineView("<template ui-font.bind=\"size\" class=\"ui-icon ${icon}\"><slot></slot></template>"),
-        __chunk_1.__metadata("design:paramtypes", [Element])
+        _tslib.__metadata("design:paramtypes", [Element])
     ], UIIcon);
     return UIIcon;
 }());
@@ -177,19 +177,19 @@ var UISvgIcon = (function () {
             this.iconPath = Icons.unknown;
         }
     };
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UISvgIcon.prototype, "icon", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UISvgIcon.prototype, "class", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", Object)
+        _tslib.__metadata("design:type", Object)
     ], UISvgIcon.prototype, "viewBox", void 0);
-    UISvgIcon = __chunk_1.__decorate([
+    UISvgIcon = _tslib.__decorate([
         aureliaFramework.containerless(),
         aureliaFramework.customElement("ui-svg-icon"),
         aureliaFramework.inlineView("<template><svg ref=\"vmElement\" slot=\"svg-icon\" class=\"ui-icon ui-svg-icon ${class}\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\"24\" height=\"24\" viewBox=\"${viewBox}\"><path d.bind=\"iconPath\"></path></svg></template>")

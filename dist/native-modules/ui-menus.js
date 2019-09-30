@@ -1,8 +1,9 @@
-import { e as __spread, b as __decorate, c as __metadata } from './chunk.js';
+import { a as __decorate, b as __metadata } from './_tslib.js';
 import { bindable, customElement, inlineView, containerless, viewResources, child } from 'aurelia-framework';
 import 'aurelia-event-aggregator';
-import { a as UIInternal } from './chunk3.js';
+import { U as UIInternal } from './ui-internal.js';
 import ResizeObserver from 'resize-observer-polyfill';
+import { c as calculateOverflow } from './ui-common.js';
 
 var UIBreadcrumbs = (function () {
     function UIBreadcrumbs(element) {
@@ -25,7 +26,7 @@ var UIBreadcrumbs = (function () {
         if (this.wrapperEl.offsetWidth > this.element.offsetWidth) {
             this.hasOverflow = true;
             while (this.wrapperEl.offsetWidth > this.element.offsetWidth - 50) {
-                this.overflowEl.appendChild(this.wrapperEl.children[0]);
+                this.overflowEl.appendChild(this.wrapperEl.firstElementChild);
             }
         }
         else {
@@ -35,8 +36,9 @@ var UIBreadcrumbs = (function () {
     UIBreadcrumbs.prototype.resetOverflow = function () {
         var _this = this;
         this.hasOverflow = false;
-        __spread(this.overflowEl.children).reverse().forEach(function (child) {
-            _this.wrapperEl.insertBefore(child, _this.wrapperEl.children[0]);
+        var currentFirstChild = this.wrapperEl.firstElementChild;
+        this.overflowEl.children.forEach(function (child) {
+            _this.wrapperEl.insertBefore(child, currentFirstChild);
         });
     };
     __decorate([
@@ -288,26 +290,7 @@ var UIMenubar = (function () {
         this.obResize.disconnect();
     };
     UIMenubar.prototype.calculateOverflow = function () {
-        var _this = this;
-        var _a;
-        this.resetOverflow();
-        var overflowItems = [];
-        var isRtl = window.getComputedStyle(this.wrapperEl).direction === "rtl";
-        __spread(this.wrapperEl.children).reverse().forEach(function (item) {
-            if ((!isRtl && _this.wrapperEl.offsetWidth - (item.offsetLeft + item.offsetWidth) <= 30) ||
-                (isRtl && _this.wrapperEl.offsetWidth - item.offsetLeft >= _this.wrapperEl.offsetWidth - 30)) {
-                overflowItems.splice(0, 0, item);
-                _this.hasOverflow = true;
-            }
-        });
-        (_a = this.overflowEl).append.apply(_a, __spread(overflowItems));
-    };
-    UIMenubar.prototype.resetOverflow = function () {
-        var _this = this;
-        this.hasOverflow = false;
-        this.overflowEl.children.forEach(function (child) {
-            _this.wrapperEl.appendChild(child);
-        });
+        this.hasOverflow = calculateOverflow(this.wrapperEl, this.overflowEl);
     };
     UIMenubar = __decorate([
         customElement("ui-menubar"),

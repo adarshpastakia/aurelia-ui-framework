@@ -1,15 +1,15 @@
-System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', './chunk3.js', './chunk6.js'], function (exports, module) {
+System.register(['./_tslib.js', 'aurelia-framework', 'aurelia-event-aggregator', './ui-internal.js', './input-wrapper.js'], function (exports) {
   'use strict';
-  var __decorate, __metadata, __extends, __spread, __awaiter, __generator, __assign, bindable, bindingMode, computedFrom, customElement, inlineView, containerless, processContent, viewResources, UIInternal, BaseInput, InputWrapper;
+  var __decorate, __metadata, __extends, __spread, __awaiter, __assign, __generator, bindable, bindingMode, computedFrom, customElement, inlineView, containerless, processContent, viewResources, UIInternal, BaseInput, InputWrapper;
   return {
     setters: [function (module) {
-      __decorate = module.b;
-      __metadata = module.c;
-      __extends = module.g;
-      __spread = module.e;
-      __awaiter = module.h;
-      __generator = module.i;
-      __assign = module.d;
+      __decorate = module.a;
+      __metadata = module.b;
+      __extends = module.f;
+      __spread = module.d;
+      __awaiter = module.g;
+      __assign = module.c;
+      __generator = module.h;
     }, function (module) {
       bindable = module.bindable;
       bindingMode = module.bindingMode;
@@ -20,14 +20,14 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', 
       processContent = module.processContent;
       viewResources = module.viewResources;
     }, function () {}, function (module) {
-      UIInternal = module.a;
+      UIInternal = module.U;
     }, function (module) {
-      BaseInput = module.b;
-      InputWrapper = module.a;
+      BaseInput = module.B;
+      InputWrapper = module.I;
     }],
     execute: function () {
 
-      var view = "<template class=\"ui-dropdown\">\n  <a data-active.bind=\"active\" disabled.bind=\"disabled\" click.trigger=\"toggleDrop($event)\" class=\"ui-dropdown__link\" data-open.bind=\"dropEl.isOpen\" data-disabled.bind=\"disabled\">\n    <ui-icon class=\"ui-dropdown__icon\" icon=\"${iconPrefix} ${model[iconProperty]}\" if.bind=\"iconProperty\"></ui-icon>\n    <div class=\"ui-input__error\" if.bind=\"errors && errors.length\">\n      <ui-svg-icon icon=\"alert\"></ui-svg-icon>\n      <ul>\n        <li repeat.for=\"err of errors\">${err}</li>\n      </ul>\n    </div>\n    <span class=\"ui-dropdown__label\">${selectedLabel}</span>\n    <ui-svg-icon class=\"ui-dropdown__caret\" icon=\"caret\"></ui-svg-icon>\n  </a>\n  <ui-drop view-model.ref=\"dropEl\">\n    <div>\n      <template repeat.for=\"option of options\">\n        <div class=\"ui-list__item ${(option[valueProperty] || option) === value?'ui-list__item--selected':''}\" click.trigger=\"select(option)\">\n          <ui-icon if.bind=\"iconProperty\" icon=\"${iconPrefix} ${option[iconProperty]}\"></ui-icon>\n          ${option[labelProperty] || option}\n        </div>\n      </template>\n    </div>\n  </ui-drop>\n</template>\n";
+      var view = "<template class=\"ui-dropdown\">\n  <a data-active.bind=\"active\" disabled.bind=\"disabled\" click.trigger=\"toggleDrop($event)\" class=\"ui-dropdown__link\" data-open.bind=\"dropEl.isOpen\" data-disabled.bind=\"disabled\">\n    <ui-icon class=\"ui-dropdown__icon\" icon=\"${iconPrefix} ${model[iconProperty]}\" if.bind=\"iconProperty\"></ui-icon>\n    <div class=\"ui-input__error\" if.bind=\"errors && errors.length\">\n      <ui-svg-icon icon=\"alert\"></ui-svg-icon>\n      <ul>\n        <li repeat.for=\"err of errors\">${err}</li>\n      </ul>\n    </div>\n    <span class=\"ui-dropdown__label\">${selectedLabel}</span>\n    <ui-svg-icon class=\"ui-dropdown__caret\" icon=\"caret\"></ui-svg-icon>\n  </a>\n  <ui-drop view-model.ref=\"dropEl\" close-on-click=\"${!multiple}\">\n    <div>\n      <template repeat.for=\"option of options\">\n        <div class=\"ui-list__item ${(option[valueProperty] || option) === value?'ui-list__item--selected':''}\" click.trigger=\"select(option)\">\n          <ui-icon if.bind=\"iconProperty\" icon=\"${iconPrefix} ${option[iconProperty]}\"></ui-icon>\n          ${option[labelProperty] || option}\n        </div>\n      </template>\n    </div>\n  </ui-drop>\n</template>\n";
 
       var UIDropdown = (function () {
           function UIDropdown(element) {
@@ -40,6 +40,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', 
               this.iconProperty = "";
               this.iconPrefix = "";
               this.disabled = false;
+              this.multiple = false;
               this.model = undefined;
           }
           UIDropdown.prototype.attached = function () {
@@ -112,6 +113,10 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', 
               bindable(),
               __metadata("design:type", Boolean)
           ], UIDropdown.prototype, "disabled", void 0);
+          __decorate([
+              bindable(),
+              __metadata("design:type", Boolean)
+          ], UIDropdown.prototype, "multiple", void 0);
           __decorate([
               computedFrom("model"),
               __metadata("design:type", Object),
@@ -645,7 +650,7 @@ System.register(['./chunk.js', 'aurelia-framework', 'aurelia-event-aggregator', 
           return UIList;
       }(ListMaker));
 
-      var view$4 = "<template class=\"ui-input ${classes}\" aria-disabled.bind=\"disabled || isDisabled\" aria-readonly.bind=\"readonly\">\n  <input-wrapper>\n    <slot></slot>\n    <list-input></list-input>\n  </input-wrapper>\n  <ui-drop view-model.ref=\"dropEl\" class=\"ui-list\" close.trigger=\"resetQuery()\">\n    <div ref=\"listContainer\" class=\"ui-list__container\">\n      <list-container></list-container>\n    </div>\n  </ui-drop>\n</template>\n";
+      var view$4 = "<template class=\"ui-input ${classes}\" aria-disabled.bind=\"disabled || isDisabled\" aria-readonly.bind=\"readonly\">\n  <input-wrapper>\n    <slot></slot>\n    <list-input></list-input>\n  </input-wrapper>\n  <ui-drop view-model.ref=\"dropEl\" multiple.bind=\"multiple\" class=\"ui-list\" close.trigger=\"resetQuery()\">\n    <div ref=\"listContainer\" class=\"ui-list__container\">\n      <list-container></list-container>\n    </div>\n  </ui-drop>\n</template>\n";
 
       var UISelect = (function (_super) {
           __extends(UISelect, _super);

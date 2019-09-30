@@ -1,10 +1,10 @@
-System.register(['./chunk.js', 'aurelia-framework', './chunk2.js', 'aurelia-event-aggregator', './chunk3.js', 'aurelia-router'], function (exports, module) {
+System.register(['./_tslib.js', 'aurelia-framework', './ui-app-config.js', 'aurelia-event-aggregator', './ui-internal.js', 'aurelia-router'], function (exports) {
   'use strict';
   var __decorate, __metadata, bindable, containerless, customElement, inlineView, ViewSlot, UIAppConfig, UIInternal, AppRouter;
   return {
     setters: [function (module) {
-      __decorate = module.b;
-      __metadata = module.c;
+      __decorate = module.a;
+      __metadata = module.b;
     }, function (module) {
       bindable = module.bindable;
       containerless = module.containerless;
@@ -12,9 +12,9 @@ System.register(['./chunk.js', 'aurelia-framework', './chunk2.js', 'aurelia-even
       inlineView = module.inlineView;
       ViewSlot = module.ViewSlot;
     }, function (module) {
-      UIAppConfig = module.a;
+      UIAppConfig = module.U;
     }, function () {}, function (module) {
-      UIInternal = module.a;
+      UIInternal = module.U;
     }, function (module) {
       AppRouter = module.AppRouter;
     }],

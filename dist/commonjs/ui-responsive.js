@@ -1,6 +1,6 @@
 'use strict';
 
-var __chunk_1 = require('./chunk.js');
+var _tslib = require('./_tslib.js');
 var aureliaFramework = require('aurelia-framework');
 
 var UICol = (function () {
@@ -39,35 +39,35 @@ var UICol = (function () {
         enumerable: true,
         configurable: true
     });
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UICol.prototype, "size", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UICol.prototype, "width", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UICol.prototype, "maxWidth", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UICol.prototype, "minWidth", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UICol.prototype, "align", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.computedFrom("align", "size"),
-        __chunk_1.__metadata("design:type", String),
-        __chunk_1.__metadata("design:paramtypes", [])
+        _tslib.__metadata("design:type", String),
+        _tslib.__metadata("design:paramtypes", [])
     ], UICol.prototype, "classes", null);
-    UICol = __chunk_1.__decorate([
+    UICol = _tslib.__decorate([
         aureliaFramework.customElement("ui-col"),
         aureliaFramework.inlineView("<template class.bind='classes' css.bind=\"{ width, maxWidth, minWidth}\"><slot></slot></template>"),
-        __chunk_1.__metadata("design:paramtypes", [Element])
+        _tslib.__metadata("design:paramtypes", [Element])
     ], UICol);
     return UICol;
 }());
@@ -79,10 +79,10 @@ var UIContainer = (function () {
             element.classList.add("ui-container--fluid");
         }
     }
-    UIContainer = __chunk_1.__decorate([
+    UIContainer = _tslib.__decorate([
         aureliaFramework.customElement("ui-container"),
         aureliaFramework.inlineView("<template class='ui-container'><slot></slot></template>"),
-        __chunk_1.__metadata("design:paramtypes", [Element])
+        _tslib.__metadata("design:paramtypes", [Element])
     ], UIContainer);
     return UIContainer;
 }());
@@ -92,14 +92,14 @@ var UIGrid = (function () {
         this.element = element;
         this.size = "nm";
     }
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UIGrid.prototype, "size", void 0);
-    UIGrid = __chunk_1.__decorate([
+    UIGrid = _tslib.__decorate([
         aureliaFramework.customElement("ui-grid"),
         aureliaFramework.inlineView("<template class='ui-grid ui-grid--${size}'><slot></slot></template>"),
-        __chunk_1.__metadata("design:paramtypes", [Element])
+        _tslib.__metadata("design:paramtypes", [Element])
     ], UIGrid);
     return UIGrid;
 }());
@@ -139,23 +139,23 @@ var UIRow = (function () {
         enumerable: true,
         configurable: true
     });
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UIRow.prototype, "halign", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UIRow.prototype, "valign", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.computedFrom("halign", "valign"),
-        __chunk_1.__metadata("design:type", String),
-        __chunk_1.__metadata("design:paramtypes", [])
+        _tslib.__metadata("design:type", String),
+        _tslib.__metadata("design:paramtypes", [])
     ], UIRow.prototype, "classes", null);
-    UIRow = __chunk_1.__decorate([
+    UIRow = _tslib.__decorate([
         aureliaFramework.customElement("ui-row"),
         aureliaFramework.inlineView("<template class.bind='classes'><slot></slot></template>"),
-        __chunk_1.__metadata("design:paramtypes", [Element])
+        _tslib.__metadata("design:paramtypes", [Element])
     ], UIRow);
     return UIRow;
 }());

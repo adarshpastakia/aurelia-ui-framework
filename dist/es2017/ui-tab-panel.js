@@ -1,8 +1,9 @@
 import { bindable, customElement, inlineView, containerless, bindingMode, children, autoinject, DOM } from 'aurelia-framework';
 import 'aurelia-event-aggregator';
-import { a as UIInternal } from './chunk2.js';
-import { a as __decorate, b as __metadata } from './chunk3.js';
+import { U as UIInternal } from './ui-internal.js';
+import { _ as __decorate, a as __metadata } from './_tslib.js';
 import ResizeObserver from 'resize-observer-polyfill';
+import { c as calculateOverflow } from './ui-common.js';
 
 let tabSeed = 0;
 let UITab = class UITab {
@@ -98,8 +99,6 @@ let UITabPanel = class UITabPanel {
         if (element.hasAttribute("no-border")) {
             element.classList.add("ui-tab__panel--noborder");
         }
-        this.obResize = new ResizeObserver(() => this.calculateOverflow());
-        this.obResize.observe(element);
     }
     async activateTab(id) {
         let result = true;
@@ -136,7 +135,8 @@ let UITabPanel = class UITabPanel {
     attached() {
         this.composeVm.owningView = this.owningView;
         this.composeVm.viewResources = this.owningView.resources;
-        setTimeout(() => this.calculateOverflow(), 200);
+        this.obResize = new ResizeObserver(() => this.calculateOverflow());
+        this.obResize.observe(this.element);
         this.isAttached = true;
         this.tabsChanged();
     }
@@ -155,11 +155,12 @@ let UITabPanel = class UITabPanel {
                 this.active = this.activeTab.id;
                 this.activeTab.active = true;
             }
+            UIInternal.queueTask(() => this.calculateOverflow());
         }
     }
     activate(id) {
         const newTab = this.tabs.find(tab => tab.id === id);
-        if (newTab) {
+        if (newTab && !newTab.disabled) {
             this.element.dispatchEvent(UIInternal.createEvent("change", id));
             if (this.activeTab) {
                 this.activeTab.active = false;
@@ -174,30 +175,17 @@ let UITabPanel = class UITabPanel {
     remove(id) {
         const tab = this.tabs.find(t => t.id === id);
         this.element.dispatchEvent(UIInternal.createEvent("close", id));
-        this.tabs.splice(this.tabs.indexOf(tab), 1);
+        this.overflowEl.innerHTML = "";
+        UIInternal.queueTask(() => {
+            this.tabs = [...this.tabs.splice(this.tabs.indexOf(tab), 1)];
+        });
         if (tab.element) {
             UIInternal.queueTask(() => DOM.removeNode(tab.element));
         }
         return true;
     }
     calculateOverflow() {
-        this.resetOverflow();
-        const overflowItems = [];
-        const isRtl = window.getComputedStyle(this.wrapperEl).direction === "rtl";
-        [...this.wrapperEl.children].reverse().forEach(item => {
-            if ((!isRtl && this.wrapperEl.offsetWidth - (item.offsetLeft + item.offsetWidth) <= 30) ||
-                (isRtl && this.wrapperEl.offsetWidth - item.offsetLeft >= this.wrapperEl.offsetWidth - 30)) {
-                overflowItems.splice(0, 0, item);
-                this.hasOverflow = true;
-            }
-        });
-        this.overflowEl.append(...overflowItems);
-    }
-    resetOverflow() {
-        this.hasOverflow = false;
-        this.overflowEl.children.forEach(child => {
-            this.wrapperEl.appendChild(child);
-        });
+        this.hasOverflow = calculateOverflow(this.wrapperEl, this.overflowEl);
     }
 };
 __decorate([

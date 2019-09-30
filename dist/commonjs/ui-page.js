@@ -2,26 +2,30 @@
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-var __chunk_1 = require('./chunk.js');
+var _tslib = require('./_tslib.js');
 var aureliaFramework = require('aurelia-framework');
 require('aurelia-event-aggregator');
-var __chunk_3 = require('./chunk3.js');
+var uiInternal = require('./ui-internal.js');
 var ResizeObserver = _interopDefault(require('resize-observer-polyfill'));
 
 var UIContent = (function () {
     function UIContent(element) {
-        this.obResize = new ResizeObserver(function () {
-            return element.dispatchEvent(__chunk_3.UIInternal.createEvent("resize", element.getBoundingClientRect()));
-        });
-        this.obResize.observe(element);
+        this.element = element;
     }
+    UIContent.prototype.attached = function () {
+        var _this = this;
+        this.obResize = new ResizeObserver(function () {
+            return _this.element.dispatchEvent(uiInternal.UIInternal.createEvent("resize", _this.element.getBoundingClientRect()));
+        });
+        this.obResize.observe(this.element);
+    };
     UIContent.prototype.detached = function () {
         this.obResize.disconnect();
     };
-    UIContent = __chunk_1.__decorate([
+    UIContent = _tslib.__decorate([
         aureliaFramework.customElement("ui-content"),
         aureliaFramework.inlineView("<template class=\"ui-section__content\" ref=\"vmElement\"><slot></slot></template>"),
-        __chunk_1.__metadata("design:paramtypes", [Element])
+        _tslib.__metadata("design:paramtypes", [Element])
     ], UIContent);
     return UIContent;
 }());
@@ -32,10 +36,10 @@ var UISection = (function () {
             element.classList.add("ui-section--centered");
         }
     }
-    UISection = __chunk_1.__decorate([
+    UISection = _tslib.__decorate([
         aureliaFramework.customElement("ui-section"),
         aureliaFramework.inlineView("<template class=\"ui-section au-animate animate-slide-in-right animate-slide-out-left\" role=\"main\"><slot></slot></template>"),
-        __chunk_1.__metadata("design:paramtypes", [Element])
+        _tslib.__metadata("design:paramtypes", [Element])
     ], UISection);
     return UISection;
 }());
@@ -43,7 +47,7 @@ var UISection = (function () {
 var UISectionFoot = (function () {
     function UISectionFoot() {
     }
-    UISectionFoot = __chunk_1.__decorate([
+    UISectionFoot = _tslib.__decorate([
         aureliaFramework.customElement("ui-section-foot"),
         aureliaFramework.inlineView("<template class=\"ui-section__foot\"><slot></slot></template>")
     ], UISectionFoot);
@@ -53,7 +57,7 @@ var UISectionFoot = (function () {
 var UISectionHead = (function () {
     function UISectionHead() {
     }
-    UISectionHead = __chunk_1.__decorate([
+    UISectionHead = _tslib.__decorate([
         aureliaFramework.customElement("ui-section-head"),
         aureliaFramework.inlineView("<template class=\"ui-section__head\"><slot></slot></template>")
     ], UISectionHead);
@@ -64,11 +68,11 @@ var UIPage = (function () {
     function UIPage() {
         this.pageTitle = "";
     }
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UIPage.prototype, "pageTitle", void 0);
-    UIPage = __chunk_1.__decorate([
+    UIPage = _tslib.__decorate([
         aureliaFramework.customElement("ui-page"),
         aureliaFramework.inlineView("<template class=\"ui-page au-animate animate-slide-in-right animate-slide-out-left\" role=\"main\">\n  <div class=\"ui-page__title\" if.bind=\"pageTitle\">${pageTitle}</div>\n  <slot name=\"page-alert\"></slot>\n  <div class=\"ui-page__body\"><slot></slot></div>\n</template>")
     ], UIPage);

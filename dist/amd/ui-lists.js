@@ -1,6 +1,6 @@
-define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', './chunk3', './chunk6'], function (exports, __chunk_1, aureliaFramework, aureliaEventAggregator, __chunk_3, __chunk_6) { 'use strict';
+define(['exports', './_tslib', 'aurelia-framework', 'aurelia-event-aggregator', './ui-internal', './input-wrapper'], function (exports, _tslib, aureliaFramework, aureliaEventAggregator, uiInternal, inputWrapper) { 'use strict';
 
-  var view = "<template class=\"ui-dropdown\">\n  <a data-active.bind=\"active\" disabled.bind=\"disabled\" click.trigger=\"toggleDrop($event)\" class=\"ui-dropdown__link\" data-open.bind=\"dropEl.isOpen\" data-disabled.bind=\"disabled\">\n    <ui-icon class=\"ui-dropdown__icon\" icon=\"${iconPrefix} ${model[iconProperty]}\" if.bind=\"iconProperty\"></ui-icon>\n    <div class=\"ui-input__error\" if.bind=\"errors && errors.length\">\n      <ui-svg-icon icon=\"alert\"></ui-svg-icon>\n      <ul>\n        <li repeat.for=\"err of errors\">${err}</li>\n      </ul>\n    </div>\n    <span class=\"ui-dropdown__label\">${selectedLabel}</span>\n    <ui-svg-icon class=\"ui-dropdown__caret\" icon=\"caret\"></ui-svg-icon>\n  </a>\n  <ui-drop view-model.ref=\"dropEl\">\n    <div>\n      <template repeat.for=\"option of options\">\n        <div class=\"ui-list__item ${(option[valueProperty] || option) === value?'ui-list__item--selected':''}\" click.trigger=\"select(option)\">\n          <ui-icon if.bind=\"iconProperty\" icon=\"${iconPrefix} ${option[iconProperty]}\"></ui-icon>\n          ${option[labelProperty] || option}\n        </div>\n      </template>\n    </div>\n  </ui-drop>\n</template>\n";
+  var view = "<template class=\"ui-dropdown\">\n  <a data-active.bind=\"active\" disabled.bind=\"disabled\" click.trigger=\"toggleDrop($event)\" class=\"ui-dropdown__link\" data-open.bind=\"dropEl.isOpen\" data-disabled.bind=\"disabled\">\n    <ui-icon class=\"ui-dropdown__icon\" icon=\"${iconPrefix} ${model[iconProperty]}\" if.bind=\"iconProperty\"></ui-icon>\n    <div class=\"ui-input__error\" if.bind=\"errors && errors.length\">\n      <ui-svg-icon icon=\"alert\"></ui-svg-icon>\n      <ul>\n        <li repeat.for=\"err of errors\">${err}</li>\n      </ul>\n    </div>\n    <span class=\"ui-dropdown__label\">${selectedLabel}</span>\n    <ui-svg-icon class=\"ui-dropdown__caret\" icon=\"caret\"></ui-svg-icon>\n  </a>\n  <ui-drop view-model.ref=\"dropEl\" close-on-click=\"${!multiple}\">\n    <div>\n      <template repeat.for=\"option of options\">\n        <div class=\"ui-list__item ${(option[valueProperty] || option) === value?'ui-list__item--selected':''}\" click.trigger=\"select(option)\">\n          <ui-icon if.bind=\"iconProperty\" icon=\"${iconPrefix} ${option[iconProperty]}\"></ui-icon>\n          ${option[labelProperty] || option}\n        </div>\n      </template>\n    </div>\n  </ui-drop>\n</template>\n";
 
   var UIDropdown = (function () {
       function UIDropdown(element) {
@@ -13,6 +13,7 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           this.iconProperty = "";
           this.iconPrefix = "";
           this.disabled = false;
+          this.multiple = false;
           this.model = undefined;
       }
       UIDropdown.prototype.attached = function () {
@@ -40,60 +41,64 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           $event.stopEvent();
           var beforeEvent = this.dropEl.isOpen ? "beforeopen" : "beforeclose";
           var afterEvent = this.dropEl.isOpen ? "close" : "open";
-          if (this.element.dispatchEvent(__chunk_3.UIInternal.createEvent(beforeEvent)) !== false) {
+          if (this.element.dispatchEvent(uiInternal.UIInternal.createEvent(beforeEvent)) !== false) {
               this.dropEl.toggleDrop();
-              this.element.dispatchEvent(__chunk_3.UIInternal.createEvent(afterEvent));
+              this.element.dispatchEvent(uiInternal.UIInternal.createEvent(afterEvent));
           }
       };
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.twoWay }),
-          __chunk_1.__metadata("design:type", Object)
+          _tslib.__metadata("design:type", Object)
       ], UIDropdown.prototype, "value", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Array)
+          _tslib.__metadata("design:type", Array)
       ], UIDropdown.prototype, "errors", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIDropdown.prototype, "name", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIDropdown.prototype, "placeholder", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIDropdown.prototype, "labelProperty", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIDropdown.prototype, "valueProperty", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIDropdown.prototype, "iconProperty", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIDropdown.prototype, "iconPrefix", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Array)
+          _tslib.__metadata("design:type", Array)
       ], UIDropdown.prototype, "options", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Boolean)
+          _tslib.__metadata("design:type", Boolean)
       ], UIDropdown.prototype, "disabled", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
+          aureliaFramework.bindable(),
+          _tslib.__metadata("design:type", Boolean)
+      ], UIDropdown.prototype, "multiple", void 0);
+      _tslib.__decorate([
           aureliaFramework.computedFrom("model"),
-          __chunk_1.__metadata("design:type", Object),
-          __chunk_1.__metadata("design:paramtypes", [])
+          _tslib.__metadata("design:type", Object),
+          _tslib.__metadata("design:paramtypes", [])
       ], UIDropdown.prototype, "selectedLabel", null);
-      UIDropdown = __chunk_1.__decorate([
+      UIDropdown = _tslib.__decorate([
           aureliaFramework.customElement("ui-dropdown"),
           aureliaFramework.inlineView(view),
-          __chunk_1.__metadata("design:paramtypes", [Element])
+          _tslib.__metadata("design:paramtypes", [Element])
       ], UIDropdown);
       return UIDropdown;
   }());
@@ -103,7 +108,7 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
   var ListContainer = (function () {
       function ListContainer() {
       }
-      ListContainer = __chunk_1.__decorate([
+      ListContainer = _tslib.__decorate([
           aureliaFramework.containerless(),
           aureliaFramework.inlineView(view$1),
           aureliaFramework.processContent(function (compiler, resources, node, instruction) {
@@ -119,7 +124,7 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
   var ListInput = (function () {
       function ListInput() {
       }
-      ListInput = __chunk_1.__decorate([
+      ListInput = _tslib.__decorate([
           aureliaFramework.containerless(),
           aureliaFramework.inlineView(view$2),
           aureliaFramework.processContent(function (compiler, resources, node, instruction) {
@@ -135,7 +140,7 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
   var BACKSPACE = 8;
   var ENTER = 13;
   var ListMaker = (function (_super) {
-      __chunk_1.__extends(ListMaker, _super);
+      _tslib.__extends(ListMaker, _super);
       function ListMaker() {
           var _this = _super !== null && _super.apply(this, arguments) || this;
           _this.value = undefined;
@@ -201,7 +206,7 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
               this.inputValue = "";
           }
           if (!this.dropEl) {
-              __chunk_3.UIInternal.queueTask(function () {
+              uiInternal.UIInternal.queueTask(function () {
                   var selected = _this.listContainer.querySelector(".ui-list__item--selected");
                   if (selected) {
                       selected.scrollIntoView({ block: "nearest" });
@@ -214,7 +219,7 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           var _this = this;
           if (this.dropEl) {
               if (open === true && this.dropEl.isOpen) {
-                  __chunk_3.UIInternal.queueMicroTask(function () { return _this.dropEl.updatePosition(); });
+                  uiInternal.UIInternal.queueMicroTask(function () { return _this.dropEl.updatePosition(); });
                   return;
               }
               if (_super.prototype.toggleDrop.call(this, open)) {
@@ -255,8 +260,8 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           if (this.multiple) {
               if (!(this.value || []).includes(model[this.valueProperty] || model)) {
                   this.value = this.value
-                      ? __chunk_1.__spread(this.value, [model[this.valueProperty] || model]) : [model[this.valueProperty] || model];
-                  this.model = this.model ? __chunk_1.__spread(this.model, [model]) : [model];
+                      ? _tslib.__spread(this.value, [model[this.valueProperty] || model]) : [model[this.valueProperty] || model];
+                  this.model = this.model ? _tslib.__spread(this.model, [model]) : [model];
               }
               this.inputValue = "";
               this.inputEl.focus();
@@ -277,14 +282,14 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
               this.isFiltered = false;
               this.loadOptions();
           }
-          this.element.dispatchEvent(__chunk_3.UIInternal.createEvent("change", this.value));
-          this.element.dispatchEvent(__chunk_3.UIInternal.createEvent("select", this.model));
+          this.element.dispatchEvent(uiInternal.UIInternal.createEvent("change", this.value));
+          this.element.dispatchEvent(uiInternal.UIInternal.createEvent("select", this.model));
           setTimeout(function () { return (_this.ignoreChange = false); }, 500);
       };
       ListMaker.prototype.removeOption = function (model) {
           var _this = this;
           this.ignoreChange = true;
-          this.model = __chunk_1.__spread(this.model.filter(function (m) { return m !== model; }));
+          this.model = _tslib.__spread(this.model.filter(function (m) { return m !== model; }));
           this.value = this.value.filter(function (m) { return m !== (model[_this.valueProperty] || model); });
           setTimeout(function () { return (_this.ignoreChange = false); }, 500);
       };
@@ -361,7 +366,7 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
                   $model: option,
                   $value: option[this.valueProperty] || option
               };
-              var view = __chunk_3.UIInternal.compileTemplate(tpl, model);
+              var view = uiInternal.UIInternal.compileTemplate(tpl, model);
               view.appendNodesTo(el);
           }
           return true;
@@ -402,7 +407,7 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
                   }
                   this.hilightIndex = this.hilightIndex - 1;
               }
-              __chunk_3.UIInternal.queueTask(function () {
+              uiInternal.UIInternal.queueTask(function () {
                   var selected = _this.listContainer.querySelector(".ui-list__item--hilight");
                   if (selected) {
                       selected.scrollIntoView({ block: "nearest" });
@@ -430,9 +435,9 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           return true;
       };
       ListMaker.prototype.fetchOptions = function (query) {
-          return __chunk_1.__awaiter(this, void 0, void 0, function () {
+          return _tslib.__awaiter(this, void 0, void 0, function () {
               var result;
-              return __chunk_1.__generator(this, function (_a) {
+              return _tslib.__generator(this, function (_a) {
                   switch (_a.label) {
                       case 0:
                           this.showLoading();
@@ -454,7 +459,7 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           this.isLoading = true;
           this.innerOptions = [];
           if (this.dropEl) {
-              __chunk_3.UIInternal.queueMicroTask(function () { return _this.dropEl.updatePosition(); });
+              uiInternal.UIInternal.queueMicroTask(function () { return _this.dropEl.updatePosition(); });
           }
       };
       ListMaker.prototype.buildOptions = function (options, silent) {
@@ -463,8 +468,8 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           if (!silent) {
               this.showLoading();
           }
-          var optionsClone = options.map(function (o) { return (isString(o) ? "" + o : __chunk_1.__assign({}, o)); });
-          __chunk_3.UIInternal.queueTask(function () {
+          var optionsClone = options.map(function (o) { return (isString(o) ? "" + o : _tslib.__assign({}, o)); });
+          uiInternal.UIInternal.queueTask(function () {
               _this.isLoading = false;
               if (_this.groupProperty) {
                   var groups = optionsClone
@@ -472,21 +477,21 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
                       .groupBy(_this.groupProperty);
                   groups.forEach(function (items, label) {
                       var _a;
-                      return (_a = _this.innerOptions).push.apply(_a, __chunk_1.__spread([{ __type: "group", label: label }], items));
+                      return (_a = _this.innerOptions).push.apply(_a, _tslib.__spread([{ __type: "group", label: label }], items));
                   });
               }
               else {
                   _this.innerOptions = optionsClone.sortBy(_this.labelProperty);
               }
               _this.isLoaded = true;
-              __chunk_3.UIInternal.queueTask(function () {
+              uiInternal.UIInternal.queueTask(function () {
                   var selected = _this.listContainer.querySelector(".ui-list__item--selected");
                   if (selected) {
                       selected.scrollIntoView({ block: "nearest" });
                   }
               });
               if (_this.dropEl) {
-                  __chunk_3.UIInternal.queueTask(function () { return _this.dropEl.updatePosition(); });
+                  uiInternal.UIInternal.queueTask(function () { return _this.dropEl.updatePosition(); });
               }
           });
       };
@@ -509,12 +514,12 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           return lbl;
       };
       return ListMaker;
-  }(__chunk_6.BaseInput));
+  }(inputWrapper.BaseInput));
 
   var view$3 = "<template class=\"ui-input ui-list ${classes}\" aria-disabled.bind=\"disabled || isDisabled\" aria-readonly.bind=\"readonly\">\n  <input-wrapper model.bind=\"$this\">\n    <slot></slot>\n    <list-input></list-input>\n    <div class=\"ui-list__container\" ref=\"listContainer\" css.bind=\"{height}\">\n      <list-container></list-container>\n    </div>\n  </input-wrapper>\n</template>\n";
 
   var UIList = (function (_super) {
-      __chunk_1.__extends(UIList, _super);
+      _tslib.__extends(UIList, _super);
       function UIList(element) {
           var _this = _super.call(this, element) || this;
           _this.element = element;
@@ -549,79 +554,79 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
       UIList.prototype.attached = function () {
           this.loadOptions();
       };
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.twoWay }),
-          __chunk_1.__metadata("design:type", Object)
+          _tslib.__metadata("design:type", Object)
       ], UIList.prototype, "value", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.twoWay }),
-          __chunk_1.__metadata("design:type", Object)
+          _tslib.__metadata("design:type", Object)
       ], UIList.prototype, "model", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Array)
+          _tslib.__metadata("design:type", Array)
       ], UIList.prototype, "errors", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIList.prototype, "name", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIList.prototype, "height", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIList.prototype, "placeholder", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIList.prototype, "labelProperty", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIList.prototype, "valueProperty", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIList.prototype, "groupProperty", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Function)
+          _tslib.__metadata("design:type", Function)
       ], UIList.prototype, "query", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Array)
+          _tslib.__metadata("design:type", Array)
       ], UIList.prototype, "options", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Boolean)
+          _tslib.__metadata("design:type", Boolean)
       ], UIList.prototype, "readonly", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Boolean)
+          _tslib.__metadata("design:type", Boolean)
       ], UIList.prototype, "disabled", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIList.prototype, "noOptionsText", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Function)
+          _tslib.__metadata("design:type", Function)
       ], UIList.prototype, "matcher", void 0);
-      UIList = __chunk_1.__decorate([
+      UIList = _tslib.__decorate([
           aureliaFramework.customElement("ui-list"),
-          aureliaFramework.viewResources(__chunk_6.InputWrapper, ListInput, ListContainer),
+          aureliaFramework.viewResources(inputWrapper.InputWrapper, ListInput, ListContainer),
           aureliaFramework.inlineView(view$3),
-          __chunk_1.__metadata("design:paramtypes", [Element])
+          _tslib.__metadata("design:paramtypes", [Element])
       ], UIList);
       return UIList;
   }(ListMaker));
 
-  var view$4 = "<template class=\"ui-input ${classes}\" aria-disabled.bind=\"disabled || isDisabled\" aria-readonly.bind=\"readonly\">\n  <input-wrapper>\n    <slot></slot>\n    <list-input></list-input>\n  </input-wrapper>\n  <ui-drop view-model.ref=\"dropEl\" class=\"ui-list\" close.trigger=\"resetQuery()\">\n    <div ref=\"listContainer\" class=\"ui-list__container\">\n      <list-container></list-container>\n    </div>\n  </ui-drop>\n</template>\n";
+  var view$4 = "<template class=\"ui-input ${classes}\" aria-disabled.bind=\"disabled || isDisabled\" aria-readonly.bind=\"readonly\">\n  <input-wrapper>\n    <slot></slot>\n    <list-input></list-input>\n  </input-wrapper>\n  <ui-drop view-model.ref=\"dropEl\" multiple.bind=\"multiple\" class=\"ui-list\" close.trigger=\"resetQuery()\">\n    <div ref=\"listContainer\" class=\"ui-list__container\">\n      <list-container></list-container>\n    </div>\n  </ui-drop>\n</template>\n";
 
   var UISelect = (function (_super) {
-      __chunk_1.__extends(UISelect, _super);
+      _tslib.__extends(UISelect, _super);
       function UISelect(element) {
           var _this = _super.call(this, element) || this;
           _this.element = element;
@@ -658,67 +663,67 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
           this.isGrouped = !!this.groupProperty;
           this.valueChanged();
       };
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.twoWay }),
-          __chunk_1.__metadata("design:type", Object)
+          _tslib.__metadata("design:type", Object)
       ], UISelect.prototype, "value", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.twoWay }),
-          __chunk_1.__metadata("design:type", Object)
+          _tslib.__metadata("design:type", Object)
       ], UISelect.prototype, "model", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Array)
+          _tslib.__metadata("design:type", Array)
       ], UISelect.prototype, "errors", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UISelect.prototype, "name", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UISelect.prototype, "placeholder", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UISelect.prototype, "labelProperty", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UISelect.prototype, "valueProperty", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UISelect.prototype, "groupProperty", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Function)
+          _tslib.__metadata("design:type", Function)
       ], UISelect.prototype, "query", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Array)
+          _tslib.__metadata("design:type", Array)
       ], UISelect.prototype, "options", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Boolean)
+          _tslib.__metadata("design:type", Boolean)
       ], UISelect.prototype, "readonly", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Boolean)
+          _tslib.__metadata("design:type", Boolean)
       ], UISelect.prototype, "disabled", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UISelect.prototype, "noOptionsText", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Function)
+          _tslib.__metadata("design:type", Function)
       ], UISelect.prototype, "matcher", void 0);
-      UISelect = __chunk_1.__decorate([
+      UISelect = _tslib.__decorate([
           aureliaFramework.customElement("ui-select"),
-          aureliaFramework.viewResources(__chunk_6.InputWrapper, ListInput, ListContainer),
+          aureliaFramework.viewResources(inputWrapper.InputWrapper, ListInput, ListContainer),
           aureliaFramework.inlineView(view$4),
-          __chunk_1.__metadata("design:paramtypes", [Element])
+          _tslib.__metadata("design:paramtypes", [Element])
       ], UISelect);
       return UISelect;
   }(ListMaker));

@@ -2,20 +2,20 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-var __chunk_1 = require('./chunk.js');
+var _tslib = require('./_tslib.js');
 var aureliaFramework = require('aurelia-framework');
 var aureliaValidation = require('aurelia-validation');
 var libphonenumberJs = require('libphonenumber-js');
-var __chunk_2 = require('./chunk2.js');
+var uiAppConfig = require('./ui-app-config.js');
 require('aurelia-event-aggregator');
-var __chunk_3 = require('./chunk3.js');
+var uiInternal = require('./ui-internal.js');
 var aureliaLogging = require('aurelia-logging');
 var aureliaMetadata = require('aurelia-metadata');
 var aureliaFetchClient = require('aurelia-fetch-client');
 require('date-fns');
 require('kramed');
 require('numeral');
-var __chunk_4 = require('./chunk4.js');
+var uiFormat = require('./ui-format.js');
 
 var registerValidators = function (container) {
     container.get(aureliaValidation.ValidationController).validateTrigger = aureliaValidation.validateTrigger.changeOrBlur;
@@ -51,10 +51,10 @@ var UIValidationRenderer = (function () {
     UIValidationRenderer.prototype.render = function (instruction) {
         var e_1, _a, e_2, _b, e_3, _c, e_4, _d;
         try {
-            for (var _e = __chunk_1.__values(instruction.unrender), _f = _e.next(); !_f.done; _f = _e.next()) {
+            for (var _e = _tslib.__values(instruction.unrender), _f = _e.next(); !_f.done; _f = _e.next()) {
                 var _g = _f.value, result = _g.result, elements = _g.elements;
                 try {
-                    for (var elements_1 = __chunk_1.__values(elements), elements_1_1 = elements_1.next(); !elements_1_1.done; elements_1_1 = elements_1.next()) {
+                    for (var elements_1 = (e_2 = void 0, _tslib.__values(elements)), elements_1_1 = elements_1.next(); !elements_1_1.done; elements_1_1 = elements_1.next()) {
                         var element = elements_1_1.value;
                         this.remove(element, result);
                     }
@@ -76,10 +76,10 @@ var UIValidationRenderer = (function () {
             finally { if (e_1) throw e_1.error; }
         }
         try {
-            for (var _h = __chunk_1.__values(instruction.render), _j = _h.next(); !_j.done; _j = _h.next()) {
+            for (var _h = _tslib.__values(instruction.render), _j = _h.next(); !_j.done; _j = _h.next()) {
                 var _k = _j.value, result = _k.result, elements = _k.elements;
                 try {
-                    for (var elements_2 = __chunk_1.__values(elements), elements_2_1 = elements_2.next(); !elements_2_1.done; elements_2_1 = elements_2.next()) {
+                    for (var elements_2 = (e_4 = void 0, _tslib.__values(elements)), elements_2_1 = elements_2.next(); !elements_2_1.done; elements_2_1 = elements_2.next()) {
                         var element = elements_2_1.value;
                         this.add(element, result);
                     }
@@ -3005,7 +3005,7 @@ var UIHttpService = (function () {
                         });
                     }
                     if (response.status === 401 && response.url.includes(this.httpClient.baseUrl)) {
-                        __chunk_3.UIInternal.broadcast("auf:unauthorized", null);
+                        uiInternal.UIInternal.broadcast("auf:unauthorized", null);
                     }
                     else if (response.status >= 400) {
                         return response.text().then(function (resp) {
@@ -3193,9 +3193,9 @@ var UIHttpService = (function () {
         }
         return headers;
     };
-    UIHttpService = __chunk_1.__decorate([
+    UIHttpService = _tslib.__decorate([
         aureliaFramework.autoinject(),
-        __chunk_1.__metadata("design:paramtypes", [aureliaFetchClient.HttpClient, __chunk_2.UIAppConfig])
+        _tslib.__metadata("design:paramtypes", [aureliaFetchClient.HttpClient, uiAppConfig.UIAppConfig])
     ], UIHttpService);
     return UIHttpService;
 }());
@@ -3212,8 +3212,8 @@ var UIDataModel = (function () {
         this.loaded = false;
         this.metadata = aureliaMetadata.metadata.getOrCreateOwn(aureliaMetadata.metadata.properties, ModelMetadata, Object.getPrototypeOf(this));
         Object.defineProperties(this, this.metadata.propertyDefs);
-        this.metadata.original = __chunk_1.__assign({}, this.serialize());
-        this.metadata.updated = __chunk_1.__assign({}, this.serialize());
+        this.metadata.original = _tslib.__assign({}, this.serialize());
+        this.metadata.updated = _tslib.__assign({}, this.serialize());
         Object.defineProperties(this, {
             apiSlug: {
                 enumerable: false,
@@ -3349,23 +3349,23 @@ var UIDataModel = (function () {
         });
     };
     UIDataModel.prototype.update = function () {
-        this.metadata.updated = __chunk_1.__assign({}, this.serialize());
+        this.metadata.updated = _tslib.__assign({}, this.serialize());
     };
     UIDataModel.prototype.reset = function () {
-        this.metadata.updated = __chunk_1.__assign({}, this.metadata.original);
+        this.metadata.updated = _tslib.__assign({}, this.metadata.original);
         this.discard();
     };
     UIDataModel.prototype.discard = function () {
         var _this = this;
         this.metadata.dirtyProps = [];
-        var updated = __chunk_1.__assign({}, this.metadata.updated);
+        var updated = _tslib.__assign({}, this.metadata.updated);
         this.metadata.serializableProps.forEach(function (prop) { return (_this[prop] = updated[prop]); });
     };
     UIDataModel.prototype.addObserver = function (ob) {
         this.metadata.observers.push(ob);
     };
     UIDataModel.prototype.observe = function (property, callback) {
-        this.metadata.observers.push(__chunk_3.UIInternal.observe(this, property, callback));
+        this.metadata.observers.push(uiInternal.UIInternal.observe(this, property, callback));
     };
     UIDataModel.prototype.dispose = function () {
         this.logger.info("Model Disposing");
@@ -3385,8 +3385,8 @@ var UIDataModel = (function () {
         if (json[this.idProperty]) {
             this.internalId = json[this.idProperty];
         }
-        this.metadata.original = __chunk_1.__assign({}, json);
-        this.metadata.updated = __chunk_1.__assign({}, json);
+        this.metadata.original = _tslib.__assign({}, json);
+        this.metadata.updated = _tslib.__assign({}, json);
         Object.keys(json).forEach(function (prop) { return (_this[prop] = json[prop]); });
     };
     UIDataModel.prototype.preGet = function () {
@@ -3495,15 +3495,15 @@ var UIDataModel = (function () {
             return Promise.reject(e);
         });
     };
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.computedFrom("metadata.dirtyProps.length"),
-        __chunk_1.__metadata("design:type", Boolean),
-        __chunk_1.__metadata("design:paramtypes", [])
+        _tslib.__metadata("design:type", Boolean),
+        _tslib.__metadata("design:paramtypes", [])
     ], UIDataModel.prototype, "isDirty", null);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.computedFrom("metadata.dirtyProps.length"),
-        __chunk_1.__metadata("design:type", Object),
-        __chunk_1.__metadata("design:paramtypes", [])
+        _tslib.__metadata("design:type", Object),
+        _tslib.__metadata("design:paramtypes", [])
     ], UIDataModel.prototype, "dirtyProps", null);
     return UIDataModel;
 }());
@@ -3550,7 +3550,7 @@ var UIApplication = (function () {
         for (var _i = 1; _i < arguments.length; _i++) {
             rest[_i - 1] = arguments[_i];
         }
-        (_a = this.logger).info.apply(_a, __chunk_1.__spread([tag], rest));
+        (_a = this.logger).info.apply(_a, _tslib.__spread([tag], rest));
     };
     UIApplication.prototype.debug = function (tag) {
         var _a;
@@ -3558,12 +3558,12 @@ var UIApplication = (function () {
         for (var _i = 1; _i < arguments.length; _i++) {
             rest[_i - 1] = arguments[_i];
         }
-        (_a = this.logger).debug.apply(_a, __chunk_1.__spread([tag], rest));
+        (_a = this.logger).debug.apply(_a, _tslib.__spread([tag], rest));
     };
-    UIApplication = __chunk_1.__decorate([
+    UIApplication = _tslib.__decorate([
         aureliaFramework.singleton(),
         aureliaFramework.autoinject(),
-        __chunk_1.__metadata("design:paramtypes", [__chunk_2.UIAppConfig])
+        _tslib.__metadata("design:paramtypes", [uiAppConfig.UIAppConfig])
     ], UIApplication);
     return UIApplication;
 }());
@@ -3607,7 +3607,7 @@ var UIDialogService = (function () {
         return new Promise(function (resolve) {
             _this.getViewModel(instruction)
                 .then(function (newInstruction) {
-                return __chunk_3.UIInternal.invokeLifecycle(newInstruction.viewModel, "canActivate", model);
+                return uiInternal.UIInternal.invokeLifecycle(newInstruction.viewModel, "canActivate", model);
             })
                 .then(function (canActivate) {
                 return canActivate !== false
@@ -3636,10 +3636,10 @@ var UIDialogService = (function () {
         var _this = this;
         if (!this.initialized) {
             this.initialized = true;
-            __chunk_3.UIInternal.subscribe("dlg:close", function (d) { return _this.closeDialog(d); });
-            __chunk_3.UIInternal.subscribe("dlg:activate", function (d) { return _this.activate(d.dialog); });
-            __chunk_3.UIInternal.subscribe("dlg:minimize", function (d) { return _this.minimizeDialog(d.dialog); });
-            __chunk_3.UIInternal.subscribe("dlg:drag", function (d) { return _this.startDrag(d); });
+            uiInternal.UIInternal.subscribe("dlg:close", function (d) { return _this.closeDialog(d); });
+            uiInternal.UIInternal.subscribe("dlg:activate", function (d) { return _this.activate(d.dialog); });
+            uiInternal.UIInternal.subscribe("dlg:minimize", function (d) { return _this.minimizeDialog(d.dialog); });
+            uiInternal.UIInternal.subscribe("dlg:drag", function (d) { return _this.startDrag(d); });
             document.addEventListener("mousemove", function (e) { return _this.drag(e); });
             document.addEventListener("mouseup", function () { return _this.stopDrag(); });
             if (this.appConfig.TaskbarContainer) {
@@ -3660,7 +3660,7 @@ var UIDialogService = (function () {
         }
     };
     UIDialogService.prototype.startDrag = function (startObject) {
-        this.dragObject = __chunk_1.__assign({}, startObject, { dlgHeight: startObject.dialog.dialogEl.offsetHeight, dlgWidth: startObject.dialog.dialogEl.offsetWidth, isDragging: true, left: parseInt(startObject.dialog.position.left, 10), maxHeight: this.appConfig.DialogContainer.anchor.offsetHeight, maxWidth: this.appConfig.DialogContainer.anchor.offsetWidth, top: parseInt(startObject.dialog.position.top, 10) });
+        this.dragObject = _tslib.__assign(_tslib.__assign({}, startObject), { dlgHeight: startObject.dialog.dialogEl.offsetHeight, dlgWidth: startObject.dialog.dialogEl.offsetWidth, isDragging: true, left: parseInt(startObject.dialog.position.left, 10), maxHeight: this.appConfig.DialogContainer.anchor.offsetHeight, maxWidth: this.appConfig.DialogContainer.anchor.offsetWidth, top: parseInt(startObject.dialog.position.top, 10) });
     };
     UIDialogService.prototype.drag = function ($event) {
         if (this.dragObject.isDragging) {
@@ -3702,9 +3702,9 @@ var UIDialogService = (function () {
         var _this = this;
         if (detail && detail.dialog) {
             var dialog_1 = detail.dialog, result_1 = detail.result;
-            __chunk_3.UIInternal.invokeLifecycle(dialog_1.viewController.viewModel, "canDeactivate", result_1).then(function (canDeactivate) {
+            uiInternal.UIInternal.invokeLifecycle(dialog_1.viewController.viewModel, "canDeactivate", result_1).then(function (canDeactivate) {
                 if (canDeactivate !== false) {
-                    __chunk_3.UIInternal.invokeLifecycle(dialog_1.viewController.viewModel, "deactivate");
+                    uiInternal.UIInternal.invokeLifecycle(dialog_1.viewController.viewModel, "deactivate");
                     _this.appConfig.DialogContainer.remove(dialog_1.viewController.view);
                     if (dialog_1.taskButton) {
                         _this.appConfig.TaskbarContainer.remove(dialog_1.taskButton);
@@ -3736,10 +3736,10 @@ var UIDialogService = (function () {
         }
         return this.compositionEngine.ensureViewModel(instruction);
     };
-    UIDialogService = __chunk_1.__decorate([
+    UIDialogService = _tslib.__decorate([
         aureliaFramework.autoinject(),
         aureliaFramework.singleton(),
-        __chunk_1.__metadata("design:paramtypes", [__chunk_2.UIAppConfig,
+        _tslib.__metadata("design:paramtypes", [uiAppConfig.UIAppConfig,
             aureliaFramework.Container,
             aureliaFramework.CompositionEngine])
     ], UIDialogService);
@@ -3793,7 +3793,7 @@ var UINotificationService = (function () {
     UINotificationService.prototype.createToast = function (config, forToastNotification) {
         var _this = this;
         return new Promise(function (resolve) {
-            var cfg = __chunk_1.__assign({ autoClose: true, cancelLabel: "Cancel", okLabel: "OK", theme: "default", timeout: 5000, type: "default", className: forToastNotification ? "ui-toast" : "ui-message" }, config, { message: "<div>" + config.message + "</div>" });
+            var cfg = _tslib.__assign(_tslib.__assign({ autoClose: true, cancelLabel: "Cancel", okLabel: "OK", theme: "default", timeout: 5000, type: "default", className: forToastNotification ? "ui-toast" : "ui-message" }, config), { message: "<div>" + config.message + "</div>" });
             cfg.autoClose = cfg.type !== "confirm" && cfg.autoClose;
             var viewFactory = _this.compiler.compile("<template>" + toastView + "</template>");
             var view = viewFactory.create(_this.container);
@@ -3804,12 +3804,12 @@ var UINotificationService = (function () {
                     view.removeNodes();
                 }, 500);
             };
-            view.bind(__chunk_1.__assign({}, cfg));
+            view.bind(_tslib.__assign({}, cfg));
             view.appendNodesTo(forToastNotification ? _this.appConfig.ToastContainer : _this.appConfig.AlertContainer);
             if (cfg.autoClose) {
                 setTimeout(cfg.__close, cfg.timeout);
             }
-            __chunk_3.UIInternal.queueTask(function () {
+            uiInternal.UIInternal.queueTask(function () {
                 var el = view.firstChild;
                 setTimeout(function () { return el.dataset.open = "true"; }, 50);
                 _this.templatingEngine.enhance({
@@ -3821,7 +3821,7 @@ var UINotificationService = (function () {
     UINotificationService.prototype.createAlert = function (config) {
         var _this = this;
         return new Promise(function (resolve) {
-            var cfg = __chunk_1.__assign({ cancelLabel: "Cancel", okLabel: "OK", theme: "default", type: "alert" }, config, { message: "<div>" + config.message + "</div>" });
+            var cfg = _tslib.__assign(_tslib.__assign({ cancelLabel: "Cancel", okLabel: "OK", theme: "default", type: "alert" }, config), { message: "<div>" + config.message + "</div>" });
             var viewFactory = _this.compiler.compile("<template>" + alertView + "</template>");
             var view = viewFactory.create(_this.container);
             cfg.__keyCheck = function (key) {
@@ -3841,7 +3841,7 @@ var UINotificationService = (function () {
             };
             view.bind(cfg);
             _this.appConfig.DialogContainer.add(view);
-            __chunk_3.UIInternal.queueTask(function () {
+            uiInternal.UIInternal.queueTask(function () {
                 var el = view.firstChild;
                 _this.templatingEngine.enhance({
                     element: el.querySelector(".ui-alert__body > div")
@@ -3850,10 +3850,10 @@ var UINotificationService = (function () {
             cfg.keyEl.focus();
         });
     };
-    UINotificationService = __chunk_1.__decorate([
+    UINotificationService = _tslib.__decorate([
         aureliaFramework.singleton(),
         aureliaFramework.autoinject(),
-        __chunk_1.__metadata("design:paramtypes", [__chunk_2.UIAppConfig,
+        _tslib.__metadata("design:paramtypes", [uiAppConfig.UIAppConfig,
             aureliaFramework.Container,
             aureliaFramework.ViewCompiler,
             aureliaFramework.TemplatingEngine])
@@ -3863,11 +3863,11 @@ var UINotificationService = (function () {
 
 var _a;
 var Countries = _Countries;
-var queueTask = __chunk_3.UIInternal.queueTask;
-var queueMicroTask = __chunk_3.UIInternal.queueMicroTask;
-var broadcast = __chunk_3.UIInternal.broadcast;
-var subscribe = __chunk_3.UIInternal.subscribe;
-var subscribeOnce = __chunk_3.UIInternal.subscribeOnce;
+var queueTask = uiInternal.UIInternal.queueTask;
+var queueMicroTask = uiInternal.UIInternal.queueMicroTask;
+var broadcast = uiInternal.UIInternal.broadcast;
+var subscribe = uiInternal.UIInternal.subscribe;
+var subscribeOnce = uiInternal.UIInternal.subscribeOnce;
 var AppConfig = function () {
 };
 AppConfig.prototype.ApiBaseUrl = "";
@@ -3885,24 +3885,24 @@ AppConfig.prototype.ApiHeaders = "";
     UIResources["Gridder"] = "gridder";
 })(exports.UIResources || (exports.UIResources = {}));
 var RESOURCE_LOADER = (_a = {
-        viewport: function () { return Promise.resolve(require('./ui-viewport.js')).then(function (m) { return m.Viewport; }); },
-        page: function () { return Promise.resolve(require('./ui-page.js')).then(function (m) { return m.Page; }); },
-        icons: function () { return Promise.resolve(require('./ui-icons.js')).then(function (m) { return m.Icons; }); },
-        responsive: function () { return Promise.resolve(require('./ui-responsive.js')).then(function (m) { return m.Responsive; }); },
-        shared: function () { return Promise.resolve(require('./ui-shared.js')).then(function (m) { return m.Shared; }); },
-        attributes: function () { return Promise.resolve(require('./ui-attributes.js')).then(function (m) { return m.Attributes; }); },
-        valueconverters: function () { return Promise.resolve(require('./value-converters.js')).then(function (m) { return m.ValueConverters; }); }
+        viewport: function () { return new Promise(function (resolve) { resolve(require('./ui-viewport.js')); }).then(function (m) { return m.Viewport; }); },
+        page: function () { return new Promise(function (resolve) { resolve(require('./ui-page.js')); }).then(function (m) { return m.Page; }); },
+        icons: function () { return new Promise(function (resolve) { resolve(require('./ui-icons.js')); }).then(function (m) { return m.Icons; }); },
+        responsive: function () { return new Promise(function (resolve) { resolve(require('./ui-responsive.js')); }).then(function (m) { return m.Responsive; }); },
+        shared: function () { return new Promise(function (resolve) { resolve(require('./ui-shared.js')); }).then(function (m) { return m.Shared; }); },
+        attributes: function () { return new Promise(function (resolve) { resolve(require('./ui-attributes.js')); }).then(function (m) { return m.Attributes; }); },
+        valueconverters: function () { return new Promise(function (resolve) { resolve(require('./value-converters.js')); }).then(function (m) { return m.ValueConverters; }); }
     },
-    _a[exports.UIResources.Buttons] = function () { return Promise.resolve(require('./ui-buttons.js')).then(function (m) { return m.Buttons; }); },
-    _a[exports.UIResources.Calendar] = function () { return Promise.resolve(require('./ui-calendar.js')).then(function (m) { return m.Calendar; }); },
-    _a[exports.UIResources.Card] = function () { return Promise.resolve(require('./ui-card.js')).then(function (m) { return m.Card; }); },
-    _a[exports.UIResources.DataPanel] = function () { return Promise.resolve(require('./ui-data-panels.js')).then(function (m) { return m.DataPanels; }); },
-    _a[exports.UIResources.Forms] = function () { return Promise.resolve(require('./ui-forms.js')).then(function (m) { return m.Forms; }); },
-    _a[exports.UIResources.Gridder] = function () { return Promise.resolve(require('./ui-gridder.js')).then(function (m) { return m.Gridder; }); },
-    _a[exports.UIResources.Lists] = function () { return Promise.resolve(require('./ui-lists.js')).then(function (m) { return m.Lists; }); },
-    _a[exports.UIResources.Menus] = function () { return Promise.resolve(require('./ui-menus.js')).then(function (m) { return m.Menus; }); },
-    _a[exports.UIResources.Panel] = function () { return Promise.resolve(require('./ui-panels.js')).then(function (m) { return m.Panels; }); },
-    _a[exports.UIResources.TabPanel] = function () { return Promise.resolve(require('./ui-tab-panel.js')).then(function (m) { return m.TabPanel; }); },
+    _a[exports.UIResources.Buttons] = function () { return new Promise(function (resolve) { resolve(require('./ui-buttons.js')); }).then(function (m) { return m.Buttons; }); },
+    _a[exports.UIResources.Calendar] = function () { return new Promise(function (resolve) { resolve(require('./ui-calendar.js')); }).then(function (m) { return m.Calendar; }); },
+    _a[exports.UIResources.Card] = function () { return new Promise(function (resolve) { resolve(require('./ui-card.js')); }).then(function (m) { return m.Card; }); },
+    _a[exports.UIResources.DataPanel] = function () { return new Promise(function (resolve) { resolve(require('./ui-data-panels.js')); }).then(function (m) { return m.DataPanels; }); },
+    _a[exports.UIResources.Forms] = function () { return new Promise(function (resolve) { resolve(require('./ui-forms.js')); }).then(function (m) { return m.Forms; }); },
+    _a[exports.UIResources.Gridder] = function () { return new Promise(function (resolve) { resolve(require('./ui-gridder.js')); }).then(function (m) { return m.Gridder; }); },
+    _a[exports.UIResources.Lists] = function () { return new Promise(function (resolve) { resolve(require('./ui-lists.js')); }).then(function (m) { return m.Lists; }); },
+    _a[exports.UIResources.Menus] = function () { return new Promise(function (resolve) { resolve(require('./ui-menus.js')); }).then(function (m) { return m.Menus; }); },
+    _a[exports.UIResources.Panel] = function () { return new Promise(function (resolve) { resolve(require('./ui-panels.js')); }).then(function (m) { return m.Panels; }); },
+    _a[exports.UIResources.TabPanel] = function () { return new Promise(function (resolve) { resolve(require('./ui-tab-panel.js')); }).then(function (m) { return m.TabPanel; }); },
     _a);
 var UIFrameworkConfig = (function () {
     function UIFrameworkConfig(auConfig, loadResources) {
@@ -3951,7 +3951,7 @@ var UIFrameworkConfig = (function () {
         var _this = this;
         return Promise.all(this.resources.map(function (name) { return RESOURCE_LOADER[name](); })).then(function (modules) {
             _this.auConfig.globalResources(modules.reduce(function (a, m) {
-                a.push.apply(a, __chunk_1.__spread(m));
+                a.push.apply(a, _tslib.__spread(m));
                 return a;
             }, []));
         });
@@ -3974,14 +3974,14 @@ function configure(auConfig, configCallback) {
     else {
         config.useStandardResources();
     }
-    auConfig.singleton(__chunk_2.UIAppConfig, AppConfig);
+    auConfig.singleton(uiAppConfig.UIAppConfig, AppConfig);
     return loadResources();
 }
 
 Object.defineProperty(exports, 'UIFormat', {
   enumerable: true,
   get: function () {
-    return __chunk_4.UIFormat;
+    return uiFormat.UIFormat;
   }
 });
 exports.Countries = Countries;

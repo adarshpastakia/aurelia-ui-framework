@@ -1,10 +1,10 @@
 import { valueConverter } from 'aurelia-framework';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
-import { a as __decorate } from './chunk3.js';
+import { _ as __decorate } from './_tslib.js';
 import 'date-fns';
 import 'kramed';
 import 'numeral';
-import { a as UIFormat } from './chunk4.js';
+import { U as UIFormat } from './ui-format.js';
 
 let SplitValueConverter = class SplitValueConverter {
     toView(object, char = ",") {

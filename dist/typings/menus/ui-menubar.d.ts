@@ -8,5 +8,4 @@ export declare class UIMenubar {
     protected attached(): void;
     protected detached(): void;
     protected calculateOverflow(): void;
-    protected resetOverflow(): void;
 }

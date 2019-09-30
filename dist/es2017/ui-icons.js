@@ -1,5 +1,5 @@
 import { bindable, customElement, inlineView, containerless } from 'aurelia-framework';
-import { a as __decorate, b as __metadata } from './chunk3.js';
+import { _ as __decorate, a as __metadata } from './_tslib.js';
 
 let UIAvatar = class UIAvatar {
     constructor(element) {

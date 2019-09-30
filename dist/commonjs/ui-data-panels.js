@@ -1,13 +1,13 @@
 'use strict';
 
-var __chunk_1 = require('./chunk.js');
+var _tslib = require('./_tslib.js');
 var aureliaFramework = require('aurelia-framework');
 require('aurelia-event-aggregator');
-var __chunk_3 = require('./chunk3.js');
+var uiInternal = require('./ui-internal.js');
 require('date-fns');
 require('kramed');
 require('numeral');
-var __chunk_4 = require('./chunk4.js');
+var uiFormat = require('./ui-format.js');
 
 var UIColumn = (function () {
     function UIColumn(element) {
@@ -51,7 +51,7 @@ var UIColumn = (function () {
                 $record: record,
                 $value: this.processValue(record)
             };
-            var view = __chunk_3.UIInternal.compileTemplate(tpl, model, this.owningView.bindingContext);
+            var view = uiInternal.UIInternal.compileTemplate(tpl, model, this.owningView.bindingContext);
             view.appendNodesTo(el);
             view.attached();
         }
@@ -80,7 +80,7 @@ var UIColumn = (function () {
         var diff = x - this.startX;
         var newWidth = convertToPx(this.width) + (diff * (this.isRtl ? -1 : 1));
         if (newWidth < convertToPx(this.maxWidth) && newWidth > convertToPx(this.minWidth)) {
-            __chunk_3.UIInternal.queueTask(function () {
+            uiInternal.UIInternal.queueTask(function () {
                 _this.width = newWidth + "px";
                 _this.startX = x;
             });
@@ -103,74 +103,74 @@ var UIColumn = (function () {
         else {
             switch (this.type) {
                 case "date":
-                    value = __chunk_4.UIFormat.date(value, this.format);
+                    value = uiFormat.UIFormat.date(value, this.format);
                     break;
                 case "time":
-                    value = __chunk_4.UIFormat.time(value, this.format);
+                    value = uiFormat.UIFormat.time(value, this.format);
                     break;
                 case "datetime":
-                    value = __chunk_4.UIFormat.datetime(value, this.format);
+                    value = uiFormat.UIFormat.datetime(value, this.format);
                     break;
                 case "number":
-                    value = __chunk_4.UIFormat.number(value, this.format);
+                    value = uiFormat.UIFormat.number(value, this.format);
                     break;
                 case "currency":
-                    value = __chunk_4.UIFormat.currency(value, this.format);
+                    value = uiFormat.UIFormat.currency(value, this.format);
                     break;
             }
         }
         return value;
     };
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.computedFrom("width", "minWidth", "maxWidth"),
-        __chunk_1.__metadata("design:type", Object),
-        __chunk_1.__metadata("design:paramtypes", [])
+        _tslib.__metadata("design:type", Object),
+        _tslib.__metadata("design:paramtypes", [])
     ], UIColumn.prototype, "css", null);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UIColumn.prototype, "dataId", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UIColumn.prototype, "label", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UIColumn.prototype, "width", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UIColumn.prototype, "minWidth", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UIColumn.prototype, "maxWidth", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", Function)
+        _tslib.__metadata("design:type", Function)
     ], UIColumn.prototype, "value", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", Object)
+        _tslib.__metadata("design:type", Object)
     ], UIColumn.prototype, "format", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UIColumn.prototype, "type", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UIColumn.prototype, "align", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", Object)
+        _tslib.__metadata("design:type", Object)
     ], UIColumn.prototype, "locked", void 0);
-    UIColumn = __chunk_1.__decorate([
+    UIColumn = _tslib.__decorate([
         aureliaFramework.customElement("ui-column"),
         aureliaFramework.processContent(false),
         aureliaFramework.noView(),
-        __chunk_1.__metadata("design:paramtypes", [Element])
+        _tslib.__metadata("design:paramtypes", [Element])
     ], UIColumn);
     return UIColumn;
 }());
@@ -194,7 +194,7 @@ var UIDataSource = (function () {
             orderProperty: "sortOrder",
             perPageProperty: "pageCount"
         };
-        this.options = __chunk_1.__assign({}, this.options, options);
+        this.options = _tslib.__assign(_tslib.__assign({}, this.options), options);
         this.isPaginated = options.paginated;
         this.recordsPerPage = options.recordsPerPage || 50;
         this.sortByProperty = options.defaultSortProperty;
@@ -218,7 +218,7 @@ var UIDataSource = (function () {
         this.performFilter();
     };
     UIDataSource.prototype.performFilter = function () {
-        var data = __chunk_1.__spread(this.original);
+        var data = _tslib.__spread(this.original);
         if (this.sortByProperty) {
             data = data.sortBy(this.sortByProperty, this.sortByOrder === "asc");
         }
@@ -244,15 +244,15 @@ var BodyCell = (function () {
     BodyCell.prototype.recordChanged = function () {
         this.column.compileCell(this.el, this.record);
     };
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", UIColumn)
+        _tslib.__metadata("design:type", UIColumn)
     ], BodyCell.prototype, "column", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", Object)
+        _tslib.__metadata("design:type", Object)
     ], BodyCell.prototype, "record", void 0);
-    BodyCell = __chunk_1.__decorate([
+    BodyCell = _tslib.__decorate([
         aureliaFramework.containerless(),
         aureliaFramework.inlineView("<template>\n        <div class=\"ui-datagrid__cell\" css.bind=\"column.css\" data-resizing.bind=\"column.isResizing\">\n          <div class=\"ui-datagrid__cell__wrapper\" ref=\"el\" ui-align.bind=\"column.align\"></div>\n        </div>\n      </template>")
     ], BodyCell);
@@ -265,34 +265,40 @@ var HeaderCell = (function () {
     }
     HeaderCell.prototype.fireSortEvent = function () {
         if (this.column.sortable) {
-            this.element.dispatchEvent(__chunk_3.UIInternal.createEvent("sort"));
+            this.element.dispatchEvent(uiInternal.UIInternal.createEvent("sort"));
         }
     };
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", UIColumn)
+        _tslib.__metadata("design:type", UIColumn)
     ], HeaderCell.prototype, "column", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], HeaderCell.prototype, "sortBy", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], HeaderCell.prototype, "sortOrder", void 0);
-    HeaderCell = __chunk_1.__decorate([
+    HeaderCell = _tslib.__decorate([
         aureliaFramework.containerless(),
         aureliaFramework.inlineView("<template>\n        <div class=\"ui-datagrid__cell\" css.bind=\"css\" with.bind=\"column\">\n          <div class=\"ui-datagrid__cell__wrapper\" innerhtml.bind=\"label\"\n            click.trigger=\"fireSortEvent()\"></div>\n          <div class=\"ui-datagrid__cell__sorter\" \n            data-sort.bind=\"sortBy === dataId ? sortOrder : ''\">\n            <i if.bind=\"sortable\"></i>\n            <i if.bind=\"sortable\"></i>\n          </div>\n          <div class=\"ui-datagrid__cell__resizer\" if.bind=\"resizeable\" mousedown.trigger=\"startResize($event)\"></div>\n        </div>\n      </template>"),
-        __chunk_1.__metadata("design:paramtypes", [Element])
+        _tslib.__metadata("design:paramtypes", [Element])
     ], HeaderCell);
     return HeaderCell;
 }());
 
-var view = "<template class=\"ui-datagrid\">\n\n  <div show.bind=\"false\">\n    <slot></slot>\n  </div>\n\n  <div class=\"ui-datagrid__head\">\n    <div class=\"ui-datagrid__row\">\n      <div class=\"ui-datagrid__row__wrapper\">\n        <div class=\"ui-datagrid__row__locked--start\">\n          <template repeat.for=\"col of columns | filter:'start':'locked'\">\n            <header-cell column.bind=\"col\" sort.trigger=\"ds.sortBy(col.dataId)\" sort-by.bind=\"ds.sortByProperty\" sort-order.bind=\"ds.sortByOrder\"></header-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__row__scrolling\">\n          <template repeat.for=\"col of columns | filter:false:'locked'\">\n            <header-cell column.bind=\"col\" sort.trigger=\"ds.sortBy(col.dataId)\" sort-by.bind=\"ds.sortByProperty\" sort-order.bind=\"ds.sortByOrder\"></header-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__cell ui-datagrid__cell--filler\"></div>\n        <div class=\"ui-datagrid__row__locked--end\">\n          <template repeat.for=\"col of columns | filter:'end':'locked'\">\n            <header-cell column.bind=\"col\" sort.trigger=\"ds.sortBy(col.dataId)\" sort-by.bind=\"ds.sortByProperty\" sort-order.bind=\"ds.sortByOrder\"></header-cell>\n          </template>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"ui-datagrid__body\" ref=\"dgBody\">\n\n    <div class=\"ui-datagrid__row ${$even ? 'ui-datagrid__row--even':'ui-datagrid__row--odd'}\" virtual-repeat.for=\"record of ds.data\">\n\n      <div class=\"ui-datagrid__row__wrapper\">\n        <div class=\"ui-datagrid__row__locked--start\">\n          <template repeat.for=\"col of columns | filter:'start':'locked'\">\n            <body-cell column.bind=\"col\" record.bind=\"record\"></body-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__row__scrolling\">\n          <template repeat.for=\"col of columns | filter:false:'locked'\">\n            <body-cell column.bind=\"col\" record.bind=\"record\"></body-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__cell ui-datagrid__cell--filler\"></div>\n        <div class=\"ui-datagrid__row__locked--end\">\n          <template repeat.for=\"col of columns | filter:'end':'locked'\">\n            <body-cell column.bind=\"col\" record.bind=\"record\"></body-cell>\n          </template>\n        </div>\n      </div>\n\n    </div>\n\n  </div>\n\n  <div class=\"ui-datagrid__foot\"></div>\n</template>\n";
+var view = "<template class=\"ui-datagrid\">\n  <div show.bind=\"false\">\n    <slot></slot>\n  </div>\n\n  <div class=\"ui-datagrid__head\">\n    <div class=\"ui-datagrid__row\">\n      <div class=\"ui-datagrid__row__wrapper\">\n        <div class=\"ui-datagrid__row__locked--start\">\n          <div class=\"ui-datagrid__cell\" css.bind=\"{width: '42px'}\" if.bind=\"checkable\">\n            <div class=\"ui-datagrid__cell__wrapper\">\n              <ui-checkbox checked.to-view=\"selected.length === ds.data.length ? true : selected.length === 0 ? false : '__2__'\" change.trigger=\"toggleSelectionAll($event)\"></ui-checkbox>\n            </div>\n          </div>\n          <div class=\"ui-datagrid__cell\" css.bind=\"{width: '42px'}\" if.bind=\"showCounter\"></div>\n          <template repeat.for=\"col of columns | filter:'start':'locked'\">\n            <header-cell column.bind=\"col\" sort.trigger=\"ds.sortBy(col.dataId)\" sort-by.bind=\"ds.sortByProperty\" sort-order.bind=\"ds.sortByOrder\"></header-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__row__scrolling\">\n          <template repeat.for=\"col of columns | filter:false:'locked'\">\n            <header-cell column.bind=\"col\" sort.trigger=\"ds.sortBy(col.dataId)\" sort-by.bind=\"ds.sortByProperty\" sort-order.bind=\"ds.sortByOrder\"></header-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__cell ui-datagrid__cell--filler\"></div>\n        <div class=\"ui-datagrid__row__locked--end\">\n          <template repeat.for=\"col of columns | filter:'end':'locked'\">\n            <header-cell column.bind=\"col\" sort.trigger=\"ds.sortBy(col.dataId)\" sort-by.bind=\"ds.sortByProperty\" sort-order.bind=\"ds.sortByOrder\"></header-cell>\n          </template>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"ui-datagrid__body\" ref=\"dgBody\">\n    <div class=\"ui-datagrid__row ${$even ? 'ui-datagrid__row--even':'ui-datagrid__row--odd'}\" virtual-repeat.for=\"record of ds.data\">\n      <div class=\"ui-datagrid__row__wrapper ${selected.includes(record) ? 'ui-datagrid__row--selected' : ''}\">\n        <div class=\"ui-datagrid__row__locked--start\">\n          <div class=\"ui-datagrid__cell ui-datagrid__cell--head\" css.bind=\"{width: '42px'}\" if.bind=\"checkable\">\n            <div class=\"ui-datagrid__cell__wrapper\">\n              <ui-checkbox checked.to-view=\"selected.includes(record)\" change.trigger=\"toggleSelection($event, record)\"></ui-checkbox>\n            </div>\n          </div>\n          <div class=\"ui-datagrid__cell ui-datagrid__cell--head\" css.bind=\"{width: '42px'}\" if.bind=\"showCounter\">\n            <div class=\"ui-datagrid__cell__wrapper\">\n              <span css.bind=\"{fontSize:'.8em'}\">${$index + 1}</span>\n            </div>\n          </div>\n          <template repeat.for=\"col of columns | filter:'start':'locked'\">\n            <body-cell column.bind=\"col\" record.bind=\"record\"></body-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__row__scrolling\">\n          <template repeat.for=\"col of columns | filter:false:'locked'\">\n            <body-cell column.bind=\"col\" record.bind=\"record\"></body-cell>\n          </template>\n        </div>\n        <div class=\"ui-datagrid__cell ui-datagrid__cell--filler\"></div>\n        <div class=\"ui-datagrid__row__locked--end\">\n          <template repeat.for=\"col of columns | filter:'end':'locked'\">\n            <body-cell column.bind=\"col\" record.bind=\"record\"></body-cell>\n          </template>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"ui-datagrid__foot\"></div>\n</template>\n";
 
 var UIDataGrid = (function () {
-    function UIDataGrid() {
+    function UIDataGrid(element) {
+        this.element = element;
+        this.selected = [];
+        this.showCounter = element.hasAttribute("counter");
     }
+    UIDataGrid.prototype.attached = function () {
+        this.checkable = this.checkable || this.element.hasAttribute("checkable");
+    };
     UIDataGrid.prototype.dataSourceChanged = function () {
         if (isArray(this.dataSource)) {
             this.ds = new UIDataSource(this.dataSource);
@@ -301,18 +307,37 @@ var UIDataGrid = (function () {
             this.ds = this.dataSource;
         }
     };
-    __chunk_1.__decorate([
+    UIDataGrid.prototype.toggleSelection = function ($event, record) {
+        if (!this.selected) {
+            this.selected = [];
+        }
+        this.selected = $event.detail.checked
+            ? _tslib.__spread(this.selected, [record]) : this.selected.filter(function (r) { return r !== record; });
+    };
+    UIDataGrid.prototype.toggleSelectionAll = function ($event) {
+        this.selected = this.selected.length === 0 ? _tslib.__spread(this.ds.data) : [];
+    };
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", Object)
+        _tslib.__metadata("design:type", Object)
     ], UIDataGrid.prototype, "dataSource", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
+        aureliaFramework.bindable(),
+        _tslib.__metadata("design:type", Boolean)
+    ], UIDataGrid.prototype, "checkable", void 0);
+    _tslib.__decorate([
+        aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.twoWay }),
+        _tslib.__metadata("design:type", Array)
+    ], UIDataGrid.prototype, "selected", void 0);
+    _tslib.__decorate([
         aureliaFramework.children("ui-column"),
-        __chunk_1.__metadata("design:type", Object)
+        _tslib.__metadata("design:type", Object)
     ], UIDataGrid.prototype, "columns", void 0);
-    UIDataGrid = __chunk_1.__decorate([
+    UIDataGrid = _tslib.__decorate([
         aureliaFramework.customElement("ui-datagrid"),
         aureliaFramework.viewResources(HeaderCell, BodyCell),
-        aureliaFramework.inlineView(view)
+        aureliaFramework.inlineView(view),
+        _tslib.__metadata("design:paramtypes", [Element])
     ], UIDataGrid);
     return UIDataGrid;
 }());
@@ -338,32 +363,39 @@ var UIDataCard = (function () {
             }
         }
     };
+    UIDataCard.prototype.toggleExpand = function () {
+        var _this = this;
+        this.open = !this.open;
+        if (this.open) {
+            setTimeout(function () { return _this.vmElement.scrollIntoView({ inline: "nearest" }); }, 500);
+        }
+    };
     UIDataCard.prototype.fireClick = function ($event) {
         if (hasParent($event.target, "ui-datalist__toolbox", "ui-datalist__card")) {
             $event.stopEvent();
             return false;
         }
         if (!this.href) {
-            return this.element.dispatchEvent(__chunk_3.UIInternal.createEvent("click"));
+            return this.element.dispatchEvent(uiInternal.UIInternal.createEvent("click"));
         }
     };
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UIDataCard.prototype, "href", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", Array)
+        _tslib.__metadata("design:type", Array)
     ], UIDataCard.prototype, "actions", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", Boolean)
+        _tslib.__metadata("design:type", Boolean)
     ], UIDataCard.prototype, "open", void 0);
-    UIDataCard = __chunk_1.__decorate([
+    UIDataCard = _tslib.__decorate([
         aureliaFramework.containerless(),
         aureliaFramework.customElement("ui-data-card"),
-        aureliaFramework.inlineView("<template><a class=\"ui-datalist__card\" ref=\"vmElement\" data-open.bind=\"open\" click.trigger=\"fireClick($event)\">\n  <slot name=\"panel-header\"></slot>\n  <slot></slot>\n  <div class=\"ui-datalist__toolbox\">\n    <slot name=\"card-actions\"></slot>\n    <ui-button-group vertical if.bind=\"actions\">\n      <ui-button type=\"tool\" no-caret>\n        <ui-svg-icon icon=\"overflow\"></ui-svg-icon>\n        <ui-drop anchor=\"br\" position=\"tr\">\n          <ui-menu menu-items.bind=\"actions\"></ui-menu>\n        </ui-drop>\n      </ui-button>\n      <ui-button type=\"tool\" click.trigger=\"open = !open\">\n        <ui-svg-icon icon=\"caret\"></ui-svg-icon>\n      </ui-button>\n    </ui-button-group>\n  </div>\n  <slot name=\"panel-footer\"></slot>\n</a></template>"),
-        __chunk_1.__metadata("design:paramtypes", [Element])
+        aureliaFramework.inlineView("<template><a class=\"ui-datalist__card\" ref=\"vmElement\" data-open.bind=\"open\" click.trigger=\"fireClick($event)\">\n  <slot name=\"panel-header\"></slot>\n  <slot></slot>\n  <div class=\"ui-datalist__toolbox\">\n    <slot name=\"card-actions\"></slot>\n    <ui-button-group vertical if.bind=\"actions\">\n      <ui-button type=\"tool\" no-caret>\n        <ui-svg-icon icon=\"overflow\"></ui-svg-icon>\n        <ui-drop anchor=\"br\" position=\"tr\">\n          <ui-menu menu-items.bind=\"actions\"></ui-menu>\n        </ui-drop>\n      </ui-button>\n      <ui-button type=\"tool\" click.trigger=\"toggleExpand()\">\n        <ui-svg-icon icon=\"caret\"></ui-svg-icon>\n      </ui-button>\n    </ui-button-group>\n  </div>\n  <slot name=\"panel-footer\"></slot>\n</a></template>"),
+        _tslib.__metadata("design:paramtypes", [Element])
     ], UIDataCard);
     return UIDataCard;
 }());
@@ -386,22 +418,22 @@ var UIDataList = (function () {
             var model = {
                 $record: record
             };
-            var tplView = __chunk_3.UIInternal.compileTemplate(tpl, model, this.owningView.bindingContext);
+            var tplView = uiInternal.UIInternal.compileTemplate(tpl, model, this.owningView.bindingContext);
             tplView.insertNodesBefore(el);
             tplView.attached();
             el.remove();
         }
         return true;
     };
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", Object)
+        _tslib.__metadata("design:type", Object)
     ], UIDataList.prototype, "dataSource", void 0);
-    UIDataList = __chunk_1.__decorate([
+    UIDataList = _tslib.__decorate([
         aureliaFramework.customElement("ui-data-list"),
         aureliaFramework.processContent(false),
         aureliaFramework.inlineView(view$1),
-        __chunk_1.__metadata("design:paramtypes", [Element])
+        _tslib.__metadata("design:paramtypes", [Element])
     ], UIDataList);
     return UIDataList;
 }());
@@ -409,7 +441,7 @@ var UIDataList = (function () {
 var UIDataTable = (function () {
     function UIDataTable() {
     }
-    UIDataTable = __chunk_1.__decorate([
+    UIDataTable = _tslib.__decorate([
         aureliaFramework.customElement("ui-data-table"),
         aureliaFramework.inlineView("<template class=\"ui-datalist__table\"><slot></slot></template>")
     ], UIDataTable);
@@ -434,23 +466,15 @@ var UITreeModel = (function () {
         var node = this.nodes[index];
         node.expanded = !node.expanded;
         if (node.expanded) {
-            var injectedChildren = node.children.sortBy("label");
-            if (injectedChildren.length === 0) {
-                injectedChildren.push(new UITreeNode({ id: "node-empty", leaf: true }, node));
-            }
-            if (this.maxNodes > 0 && injectedChildren.length > this.maxNodes) {
-                injectedChildren = __chunk_1.__spread(injectedChildren.slice(0, this.maxNodes), [
-                    new UITreeNode({ id: "node-more", leaf: true }, node)
-                ]);
-            }
-            this.nodes = __chunk_1.__spread(this.nodes.slice(0, index + 1), injectedChildren, this.nodes.slice(index + 1));
+            var injectedChildren = this.getChildren(node);
+            this.nodes = _tslib.__spread(this.nodes.slice(0, index + 1), injectedChildren, this.nodes.slice(index + 1));
         }
         else {
             var lastIndex = this.nodes.lastIndex(node.id, "parentId");
             while (this.nodes[lastIndex].expanded) {
                 lastIndex = this.nodes.lastIndex(this.nodes[lastIndex].id, "parentId");
             }
-            this.nodes = __chunk_1.__spread(this.nodes.slice(0, index + 1), this.nodes.slice(lastIndex + 1));
+            this.nodes = _tslib.__spread(this.nodes.slice(0, index + 1), this.nodes.slice(lastIndex + 1));
         }
     };
     UITreeModel.prototype.toggleMore = function (index) {
@@ -463,10 +487,10 @@ var UITreeModel = (function () {
                 injectedChildren.push(new UITreeNode({ id: "node-empty", leaf: true }, node));
             }
             if (this.maxNodes > 0 && injectedChildren.length > this.maxNodes) {
-                injectedChildren = __chunk_1.__spread(injectedChildren.slice(0, this.maxNodes));
+                injectedChildren = _tslib.__spread(injectedChildren.slice(0, this.maxNodes));
             }
         }
-        this.nodes = __chunk_1.__spread(this.nodes.slice(0, parentIndex + 1), injectedChildren, [
+        this.nodes = _tslib.__spread(this.nodes.slice(0, parentIndex + 1), injectedChildren, [
             this.nodes[index]
         ], this.nodes.slice(index + 1));
     };
@@ -492,16 +516,7 @@ var UITreeModel = (function () {
         children.forEach(function (child) {
             nodes.push(child);
             if (child.expanded) {
-                var injectedChildren = child.children.sortBy("label");
-                if (injectedChildren.length === 0) {
-                    injectedChildren.push(new UITreeNode({ id: "node-empty", leaf: true }, child));
-                }
-                if (_this.maxNodes > 0 && injectedChildren.length > _this.maxNodes) {
-                    injectedChildren = __chunk_1.__spread(injectedChildren.slice(0, _this.maxNodes), [
-                        new UITreeNode({ id: "node-more", leaf: true }, child)
-                    ]);
-                }
-                nodes.push.apply(nodes, __chunk_1.__spread(_this.getExpandedTree(injectedChildren)));
+                nodes.push.apply(nodes, _tslib.__spread(_this.getExpandedTree(_this.getChildren(child))));
             }
         });
         return nodes;
@@ -520,6 +535,18 @@ var UITreeModel = (function () {
             }
             return retVal;
         });
+    };
+    UITreeModel.prototype.getChildren = function (node) {
+        var injectedChildren = node.children.sortBy("label");
+        if (injectedChildren.length === 0) {
+            injectedChildren.push(new UITreeNode({ id: "node-empty", leaf: true }, node));
+        }
+        if (this.maxNodes > 0 && injectedChildren.length > this.maxNodes) {
+            injectedChildren = _tslib.__spread(injectedChildren.slice(0, this.maxNodes), [
+                new UITreeNode({ id: "node-more", leaf: true }, node)
+            ]);
+        }
+        return injectedChildren;
     };
     return UITreeModel;
 }());
@@ -604,20 +631,20 @@ var UITreeNode = (function () {
             c.updateChild(prop, v);
         });
     };
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.computedFrom("leaf", "icon", "expanded", "iconOpen", "iconClosed"),
-        __chunk_1.__metadata("design:type", Object),
-        __chunk_1.__metadata("design:paramtypes", [])
+        _tslib.__metadata("design:type", Object),
+        _tslib.__metadata("design:paramtypes", [])
     ], UITreeNode.prototype, "nodeIcon", null);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.computedFrom("checked"),
-        __chunk_1.__metadata("design:type", Object),
-        __chunk_1.__metadata("design:paramtypes", [])
+        _tslib.__metadata("design:type", Object),
+        _tslib.__metadata("design:paramtypes", [])
     ], UITreeNode.prototype, "checkIcon", null);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.computedFrom("expanded"),
-        __chunk_1.__metadata("design:type", Object),
-        __chunk_1.__metadata("design:paramtypes", [])
+        _tslib.__metadata("design:type", Object),
+        _tslib.__metadata("design:paramtypes", [])
     ], UITreeNode.prototype, "expandIcon", null);
     return UITreeNode;
 }());
@@ -634,24 +661,24 @@ var TreeNode = (function () {
         enumerable: true,
         configurable: true
     });
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", UITreeNode)
+        _tslib.__metadata("design:type", UITreeNode)
     ], TreeNode.prototype, "node", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", Number)
+        _tslib.__metadata("design:type", Number)
     ], TreeNode.prototype, "index", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", UITreePanel)
+        _tslib.__metadata("design:type", UITreePanel)
     ], TreeNode.prototype, "tree", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.computedFrom("tree.value", "node.id"),
-        __chunk_1.__metadata("design:type", Boolean),
-        __chunk_1.__metadata("design:paramtypes", [])
+        _tslib.__metadata("design:type", Boolean),
+        _tslib.__metadata("design:paramtypes", [])
     ], TreeNode.prototype, "isSelected", null);
-    TreeNode = __chunk_1.__decorate([
+    TreeNode = _tslib.__decorate([
         aureliaFramework.inlineView(view$2)
     ], TreeNode);
     return TreeNode;
@@ -677,11 +704,11 @@ var UITreePanel = (function () {
             if (node.level >= this.checkable) {
                 node.toggleCheck();
                 this.getCheckedValues();
-                this.element.dispatchEvent(__chunk_3.UIInternal.createEvent("checked", this.value));
+                this.element.dispatchEvent(uiInternal.UIInternal.createEvent("checked", this.value));
             }
         }
         else {
-            return __chunk_3.UIInternal.fireCallbackEvent(this, "beforeselect").then(function (b) {
+            return uiInternal.UIInternal.fireCallbackEvent(this, "beforeselect").then(function (b) {
                 return b ? _this.changeSelection(node) : false;
             });
         }
@@ -701,7 +728,7 @@ var UITreePanel = (function () {
     UITreePanel.prototype.toggleCheck = function (node) {
         node.toggleCheck();
         this.getCheckedValues();
-        this.element.dispatchEvent(__chunk_3.UIInternal.createEvent("checked", this.value));
+        this.element.dispatchEvent(uiInternal.UIInternal.createEvent("checked", this.value));
     };
     UITreePanel.prototype.getCheckedValues = function () {
         var _this = this;
@@ -720,53 +747,53 @@ var UITreePanel = (function () {
     UITreePanel.prototype.changeSelection = function (node) {
         this.value = node.id;
         this.model = node.model;
-        this.element.dispatchEvent(__chunk_3.UIInternal.createEvent("select", this.value));
+        this.element.dispatchEvent(uiInternal.UIInternal.createEvent("select", this.value));
     };
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.twoWay }),
-        __chunk_1.__metadata("design:type", Object)
+        _tslib.__metadata("design:type", Object)
     ], UITreePanel.prototype, "value", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable({ defaultBindingMode: aureliaFramework.bindingMode.twoWay }),
-        __chunk_1.__metadata("design:type", Object)
+        _tslib.__metadata("design:type", Object)
     ], UITreePanel.prototype, "model", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", Array)
+        _tslib.__metadata("design:type", Array)
     ], UITreePanel.prototype, "options", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UITreePanel.prototype, "labelSearch", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UITreePanel.prototype, "labelEmpty", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UITreePanel.prototype, "labelLess", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UITreePanel.prototype, "labelMore", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", Number)
+        _tslib.__metadata("design:type", Number)
     ], UITreePanel.prototype, "maxNodes", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", Object)
+        _tslib.__metadata("design:type", Object)
     ], UITreePanel.prototype, "checkable", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", Boolean)
+        _tslib.__metadata("design:type", Boolean)
     ], UITreePanel.prototype, "searchable", void 0);
-    UITreePanel = __chunk_1.__decorate([
+    UITreePanel = _tslib.__decorate([
         aureliaFramework.customElement("ui-tree-panel"),
         aureliaFramework.viewResources(TreeNode),
         aureliaFramework.inlineView("<template class=\"ui-tree__panel\"><ui-field nolabel class=\"ui-tree__search\" if.bind=\"searchable\">\n  <ui-input type=\"search\" placeholder=\"${labelSearch}\" value.bind=\"searchText\" \n  clear.trigger=\"searchTextChanged()\" input.trigger=\"searchTextChanged(searchText) & debounce:200\">\n    <ui-input-addon class=\"ui-text-muted\"><ui-icon icon=\"mdi mdi-magnify\"></ui-icon></ui-input-addon></ui-input></ui-field>\n  <div class=\"ui-tree__container\" nodeclick.delegate=\"itemClicked($event.detail)\" nodeover.delegate=\"itemOver($event.detail)\" nodeout.delegate=\"itemOut($event.detail)\">\n    <tree-node virtual-repeat.for=\"child of rootNode.nodes\" node.bind=\"child\" tree.bind=\"$parent\" index.bind=\"$index\"></tree-node>\n  </div></template>"),
-        __chunk_1.__metadata("design:paramtypes", [Element])
+        _tslib.__metadata("design:paramtypes", [Element])
     ], UITreePanel);
     return UITreePanel;
 }());

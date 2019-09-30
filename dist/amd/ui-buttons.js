@@ -1,4 +1,4 @@
-define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', './chunk3'], function (exports, __chunk_1, aureliaFramework, aureliaEventAggregator, __chunk_3) { 'use strict';
+define(['exports', './_tslib', 'aurelia-framework', 'aurelia-event-aggregator', './ui-internal'], function (exports, _tslib, aureliaFramework, aureliaEventAggregator, uiInternal) { 'use strict';
 
   var view = "<template class=\"ui-btn__wrapper\" data-disabled.bind=\"isDisabled\" data-busy.bind=\"busy\" data-type.bind=\"type\" data-size.bind=\"size\" data-active.bind=\"active\">\n  <div class=\"ui-btn__inner\">\n    <a ref=\"badgeEl\" class=\"ui-btn\" click.trigger=\"fireClick($event)\" data-active.bind=\"active\" data-open.bind=\"!split && dropEl.isOpen\">\n      <div class=\"ui-btn__icon\" if.bind=\"busy\">\n        <ui-svg-icon icon=\"busy\" class=\"ui-anim--spin\"></ui-svg-icon>\n      </div>\n      <slot name=\"svg-icon\"></slot>\n      <div class=\"ui-btn__icon\" if.bind=\"icon && !busy\">\n        <ui-icon icon.bind=\"icon\"></ui-icon>\n      </div>\n      <div class=\"ui-btn__label\"><slot>${label}</slot></div>\n      <div class=\"ui-btn__caret\" if.bind=\"hasDrop && !split\">\n        <ui-svg-icon icon=\"caret\"></ui-svg-icon>\n      </div>\n    </a>\n    <template if.bind=\"hasDrop && split\">\n      <div class=\"ui-btn__divider\"></div>\n      <a class=\"ui-btn ui-btn__caret ui-btn__caret--split\" data-open.bind=\"split && dropEl.isOpen\" click.trigger=\"toggleDrop()\">\n        <ui-svg-icon icon=\"caret\"></ui-svg-icon>\n      </a>\n    </template>\n  </div>\n  <slot name=\"ui-drop\">\n    <ui-drop view-model.ref=\"dropEl\" if.bind=\"menuItems\">\n      <ui-menu if.bind=\"dropEl.isOpen\" menu-items.bind=\"menuItems\"></ui-menu>\n    </ui-drop>\n  </slot>\n</template>\n";
 
@@ -46,7 +46,7 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
       };
       UIButton.prototype.attached = function () {
           var _this = this;
-          __chunk_3.UIInternal.queueTask(function () {
+          uiInternal.UIInternal.queueTask(function () {
               _this.hasDrop = !!_this.elDropdown || !!_this.dropEl;
               if (_this.hasDrop) {
                   if (!_this.dropEl) {
@@ -78,72 +78,72 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
               }
               else {
                   $event.stopEvent();
-                  return this.element.dispatchEvent(__chunk_3.UIInternal.createEvent("click", this.id));
+                  return this.element.dispatchEvent(uiInternal.UIInternal.createEvent("click", this.id));
               }
           }
       };
       UIButton.prototype.toggleDrop = function () {
           var beforeEvent = this.dropEl.isOpen ? "beforeopen" : "beforeclose";
           var afterEvent = this.dropEl.isOpen ? "close" : "open";
-          if (this.element.dispatchEvent(__chunk_3.UIInternal.createEvent(beforeEvent)) !== false) {
+          if (this.element.dispatchEvent(uiInternal.UIInternal.createEvent(beforeEvent)) !== false) {
               this.dropEl.toggleDrop();
-              this.element.dispatchEvent(__chunk_3.UIInternal.createEvent(afterEvent));
+              this.element.dispatchEvent(uiInternal.UIInternal.createEvent(afterEvent));
           }
           return true;
       };
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIButton.prototype, "icon", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIButton.prototype, "href", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIButton.prototype, "label", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIButton.prototype, "size", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIButton.prototype, "type", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIButton.prototype, "id", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Boolean)
+          _tslib.__metadata("design:type", Boolean)
       ], UIButton.prototype, "busy", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Boolean)
+          _tslib.__metadata("design:type", Boolean)
       ], UIButton.prototype, "active", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Boolean)
+          _tslib.__metadata("design:type", Boolean)
       ], UIButton.prototype, "disabled", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Object)
+          _tslib.__metadata("design:type", Object)
       ], UIButton.prototype, "menuItems", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.child("div.ui-drop"),
-          __chunk_1.__metadata("design:type", Element)
+          _tslib.__metadata("design:type", Element)
       ], UIButton.prototype, "elDropdown", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.computedFrom("disabled", "elDisabled"),
-          __chunk_1.__metadata("design:type", Boolean),
-          __chunk_1.__metadata("design:paramtypes", [])
+          _tslib.__metadata("design:type", Boolean),
+          _tslib.__metadata("design:paramtypes", [])
       ], UIButton.prototype, "isDisabled", null);
-      UIButton = __chunk_1.__decorate([
+      UIButton = _tslib.__decorate([
           aureliaFramework.customElement("ui-button"),
           aureliaFramework.inlineView(view),
-          __chunk_1.__metadata("design:paramtypes", [Element])
+          _tslib.__metadata("design:paramtypes", [Element])
       ], UIButton);
       return UIButton;
   }());
@@ -182,7 +182,7 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
               this.element.classList.add("ui-btn__group--with-separator");
           }
           if (this.toggle) {
-              __chunk_3.UIInternal.queueTask(function () { return _this.valueChanged(_this.value, ""); });
+              uiInternal.UIInternal.queueTask(function () { return _this.valueChanged(_this.value, ""); });
           }
       };
       UIButtonGroup.prototype.buttonsChanged = function () {
@@ -211,44 +211,44 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
               this.value = $event.detail;
           }
       };
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable({ bindingMode: aureliaFramework.bindingMode.twoWay }),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIButtonGroup.prototype, "value", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIButtonGroup.prototype, "separator", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIButtonGroup.prototype, "size", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UIButtonGroup.prototype, "type", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Boolean)
+          _tslib.__metadata("design:type", Boolean)
       ], UIButtonGroup.prototype, "disabled", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.child("ui-button[data-active='true']"),
-          __chunk_1.__metadata("design:type", UIButton)
+          _tslib.__metadata("design:type", UIButton)
       ], UIButtonGroup.prototype, "currentSelected", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.children("ui-button"),
-          __chunk_1.__metadata("design:type", Array)
+          _tslib.__metadata("design:type", Array)
       ], UIButtonGroup.prototype, "buttons", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.computedFrom("disabled", "elDisabled"),
-          __chunk_1.__metadata("design:type", Boolean),
-          __chunk_1.__metadata("design:paramtypes", [])
+          _tslib.__metadata("design:type", Boolean),
+          _tslib.__metadata("design:paramtypes", [])
       ], UIButtonGroup.prototype, "isDisabled", null);
-      UIButtonGroup = __chunk_1.__decorate([
+      UIButtonGroup = _tslib.__decorate([
           aureliaFramework.autoinject(),
           aureliaFramework.customElement("ui-button-group"),
           aureliaFramework.inlineView("<template class=\"ui-btn__group\" click.delegate=\"buttonClicked($event)\" data-disabled.bind=\"isDisabled\" data-size.bind=\"size\" data-type.bind=\"type\"><slot></slot></template>"),
-          __chunk_1.__metadata("design:paramtypes", [Element])
+          _tslib.__metadata("design:paramtypes", [Element])
       ], UIButtonGroup);
       return UIButtonGroup;
   }());
@@ -267,7 +267,7 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
       }
       UITag.prototype.close = function () {
           var _this = this;
-          __chunk_3.UIInternal.fireCallbackEvent(this, "beforeclose", this.id).then(function (b) {
+          uiInternal.UIInternal.fireCallbackEvent(this, "beforeclose", this.id).then(function (b) {
               return b ? _this.remove() : undefined;
           });
       };
@@ -288,47 +288,47 @@ define(['exports', './chunk', 'aurelia-framework', 'aurelia-event-aggregator', '
       UITag.prototype.fireClick = function ($event) {
           if (!this.href) {
               $event.stopEvent();
-              return this.element.dispatchEvent(__chunk_3.UIInternal.createEvent("click", this.id));
+              return this.element.dispatchEvent(uiInternal.UIInternal.createEvent("click", this.id));
           }
       };
       UITag.prototype.remove = function () {
           var _this = this;
-          this.element.dispatchEvent(__chunk_3.UIInternal.createEvent("close", this.id));
-          __chunk_3.UIInternal.queueTask(function () { return aureliaFramework.DOM.removeNode(_this.vmElement); });
+          this.element.dispatchEvent(uiInternal.UIInternal.createEvent("close", this.id));
+          uiInternal.UIInternal.queueTask(function () { return aureliaFramework.DOM.removeNode(_this.vmElement); });
       };
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UITag.prototype, "id", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UITag.prototype, "label", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UITag.prototype, "icon", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UITag.prototype, "href", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UITag.prototype, "size", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", String)
+          _tslib.__metadata("design:type", String)
       ], UITag.prototype, "type", void 0);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.bindable(),
-          __chunk_1.__metadata("design:type", Boolean)
+          _tslib.__metadata("design:type", Boolean)
       ], UITag.prototype, "closeable", void 0);
-      UITag = __chunk_1.__decorate([
+      UITag = _tslib.__decorate([
           aureliaFramework.containerless(),
           aureliaFramework.customElement("ui-tag"),
           aureliaFramework.inlineView("<template><a class=\"ui-tag ui-tag--${type} ui-tag--${size}\" click.delegate=\"fireClick($event)\" ref=\"vmElement\">\n    <div class=\"ui-tag__label\">${label}</div>\n    <div class=\"ui-tag__icon\"><slot name=\"avatar\"><ui-icon if.bind=\"icon\" icon.bind=\"icon\"></ui-icon></slot></div>\n    <div class=\"ui-tag__value\"><slot></slot></div>\n    <div class=\"ui-tag__close\" if.bind=\"closeable\" click.trigger=\"[$event.stopEvent(), close()]\">&times;</div>\n  </a></template>"),
-          __chunk_1.__metadata("design:paramtypes", [Element])
+          _tslib.__metadata("design:paramtypes", [Element])
       ], UITag);
       return UITag;
   }());

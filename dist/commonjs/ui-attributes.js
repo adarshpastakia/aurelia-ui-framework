@@ -1,12 +1,12 @@
 'use strict';
 
-var __chunk_1 = require('./chunk.js');
+var _tslib = require('./_tslib.js');
 var aureliaFramework = require('aurelia-framework');
-require('./chunk2.js');
+require('./ui-app-config.js');
 require('aurelia-event-aggregator');
-var __chunk_3 = require('./chunk3.js');
+var uiInternal = require('./ui-internal.js');
 require('aurelia-logging');
-var __chunk_5 = require('./chunk5.js');
+var uiTether = require('./ui-tether.js');
 
 var UIBadge = (function () {
     function UIBadge(element) {
@@ -19,31 +19,31 @@ var UIBadge = (function () {
     UIBadge.prototype.attached = function () {
         if (this.value || this.icon) {
             var vm = getViewModel(this.element);
-            var view = __chunk_3.UIInternal.compileTemplate("<template><div class=\"ui-badge\" ui-theme.bind=\"theme\" ui-tooltip.bind=\"tooltip\">\n        <ui-icon icon.bind=\"icon\" if.bind=\"icon\"></ui-icon>${value}\n      </div></template>", this);
+            var view = uiInternal.UIInternal.compileTemplate("<template><div class=\"ui-badge\" ui-theme.bind=\"theme\" ui-tooltip.bind=\"tooltip\">\n        <ui-icon icon.bind=\"icon\" if.bind=\"icon\"></ui-icon>${value}\n      </div></template>", this);
             (vm ? (vm.badgeEl ? vm.badgeEl : vm.vmElement) : this.element).appendChild(view.fragment);
             view.attached();
         }
     };
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable({ primaryProperty: true }),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UIBadge.prototype, "value", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UIBadge.prototype, "icon", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UIBadge.prototype, "theme", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UIBadge.prototype, "tooltip", void 0);
-    UIBadge = __chunk_1.__decorate([
+    UIBadge = _tslib.__decorate([
         aureliaFramework.autoinject(),
         aureliaFramework.customAttribute("ui-badge"),
-        __chunk_1.__metadata("design:paramtypes", [Element])
+        _tslib.__metadata("design:paramtypes", [Element])
     ], UIBadge);
     return UIBadge;
 }());
@@ -85,209 +85,209 @@ var BaseAttribute = (function () {
             }
         }
     };
-    BaseAttribute = __chunk_1.__decorate([
+    BaseAttribute = _tslib.__decorate([
         aureliaFramework.autoinject(),
-        __chunk_1.__metadata("design:paramtypes", [Element])
+        _tslib.__metadata("design:paramtypes", [Element])
     ], BaseAttribute);
     return BaseAttribute;
 }());
 var UITheme = (function (_super) {
-    __chunk_1.__extends(UITheme, _super);
+    _tslib.__extends(UITheme, _super);
     function UITheme() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.prefix = "ui-theme";
         return _this;
     }
-    UITheme = __chunk_1.__decorate([
+    UITheme = _tslib.__decorate([
         aureliaFramework.autoinject(),
         aureliaFramework.customAttribute("ui-theme")
     ], UITheme);
     return UITheme;
 }(BaseAttribute));
 var UIBg = (function (_super) {
-    __chunk_1.__extends(UIBg, _super);
+    _tslib.__extends(UIBg, _super);
     function UIBg() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.prefix = "ui-bg";
         return _this;
     }
-    UIBg = __chunk_1.__decorate([
+    UIBg = _tslib.__decorate([
         aureliaFramework.autoinject(),
         aureliaFramework.customAttribute("ui-bg")
     ], UIBg);
     return UIBg;
 }(BaseAttribute));
 var UIColor = (function (_super) {
-    __chunk_1.__extends(UIColor, _super);
+    _tslib.__extends(UIColor, _super);
     function UIColor() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.prefix = "ui-color";
         return _this;
     }
-    UIColor = __chunk_1.__decorate([
+    UIColor = _tslib.__decorate([
         aureliaFramework.autoinject(),
         aureliaFramework.customAttribute("ui-color")
     ], UIColor);
     return UIColor;
 }(BaseAttribute));
 var UIHover = (function (_super) {
-    __chunk_1.__extends(UIHover, _super);
+    _tslib.__extends(UIHover, _super);
     function UIHover() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.prefix = "ui-hover";
         return _this;
     }
-    UIHover = __chunk_1.__decorate([
+    UIHover = _tslib.__decorate([
         aureliaFramework.autoinject(),
         aureliaFramework.customAttribute("ui-hover")
     ], UIHover);
     return UIHover;
 }(BaseAttribute));
 var UIShadow = (function (_super) {
-    __chunk_1.__extends(UIShadow, _super);
+    _tslib.__extends(UIShadow, _super);
     function UIShadow() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.prefix = "ui-shadow";
         return _this;
     }
-    UIShadow = __chunk_1.__decorate([
+    UIShadow = _tslib.__decorate([
         aureliaFramework.autoinject(),
         aureliaFramework.customAttribute("ui-shadow")
     ], UIShadow);
     return UIShadow;
 }(BaseAttribute));
 var UIPadding = (function (_super) {
-    __chunk_1.__extends(UIPadding, _super);
+    _tslib.__extends(UIPadding, _super);
     function UIPadding() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.prefix = "ui-padding";
         return _this;
     }
-    UIPadding = __chunk_1.__decorate([
+    UIPadding = _tslib.__decorate([
         aureliaFramework.autoinject(),
         aureliaFramework.customAttribute("ui-padding")
     ], UIPadding);
     return UIPadding;
 }(BaseAttribute));
 var UIMargin = (function (_super) {
-    __chunk_1.__extends(UIMargin, _super);
+    _tslib.__extends(UIMargin, _super);
     function UIMargin() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.prefix = "ui-margin";
         return _this;
     }
-    UIMargin = __chunk_1.__decorate([
+    UIMargin = _tslib.__decorate([
         aureliaFramework.autoinject(),
         aureliaFramework.customAttribute("ui-margin")
     ], UIMargin);
     return UIMargin;
 }(BaseAttribute));
 var UIBorder = (function (_super) {
-    __chunk_1.__extends(UIBorder, _super);
+    _tslib.__extends(UIBorder, _super);
     function UIBorder() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.prefix = "ui-border";
         return _this;
     }
-    UIBorder = __chunk_1.__decorate([
+    UIBorder = _tslib.__decorate([
         aureliaFramework.autoinject(),
         aureliaFramework.customAttribute("ui-border")
     ], UIBorder);
     return UIBorder;
 }(BaseAttribute));
 var UIFont = (function (_super) {
-    __chunk_1.__extends(UIFont, _super);
+    _tslib.__extends(UIFont, _super);
     function UIFont() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.prefix = "ui-font";
         return _this;
     }
-    UIFont = __chunk_1.__decorate([
+    UIFont = _tslib.__decorate([
         aureliaFramework.autoinject(),
         aureliaFramework.customAttribute("ui-font")
     ], UIFont);
     return UIFont;
 }(BaseAttribute));
 var UIWeight = (function (_super) {
-    __chunk_1.__extends(UIWeight, _super);
+    _tslib.__extends(UIWeight, _super);
     function UIWeight() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.prefix = "ui-weight";
         return _this;
     }
-    UIWeight = __chunk_1.__decorate([
+    UIWeight = _tslib.__decorate([
         aureliaFramework.autoinject(),
         aureliaFramework.customAttribute("ui-weight")
     ], UIWeight);
     return UIWeight;
 }(BaseAttribute));
 var UIText = (function (_super) {
-    __chunk_1.__extends(UIText, _super);
+    _tslib.__extends(UIText, _super);
     function UIText() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.prefix = "ui-text";
         return _this;
     }
-    UIText = __chunk_1.__decorate([
+    UIText = _tslib.__decorate([
         aureliaFramework.autoinject(),
         aureliaFramework.customAttribute("ui-text")
     ], UIText);
     return UIText;
 }(BaseAttribute));
 var UIAlign = (function (_super) {
-    __chunk_1.__extends(UIAlign, _super);
+    _tslib.__extends(UIAlign, _super);
     function UIAlign() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.prefix = "ui-align";
         return _this;
     }
-    UIAlign = __chunk_1.__decorate([
+    UIAlign = _tslib.__decorate([
         aureliaFramework.autoinject(),
         aureliaFramework.customAttribute("ui-align")
     ], UIAlign);
     return UIAlign;
 }(BaseAttribute));
 var UIGutter = (function (_super) {
-    __chunk_1.__extends(UIGutter, _super);
+    _tslib.__extends(UIGutter, _super);
     function UIGutter() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.prefix = "ui-gutter";
         return _this;
     }
-    UIGutter = __chunk_1.__decorate([
+    UIGutter = _tslib.__decorate([
         aureliaFramework.autoinject(),
         aureliaFramework.customAttribute("ui-gutter")
     ], UIGutter);
     return UIGutter;
 }(BaseAttribute));
 var UIHide = (function (_super) {
-    __chunk_1.__extends(UIHide, _super);
+    _tslib.__extends(UIHide, _super);
     function UIHide() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.prefix = "ui-hide";
         return _this;
     }
-    UIHide = __chunk_1.__decorate([
+    UIHide = _tslib.__decorate([
         aureliaFramework.autoinject(),
         aureliaFramework.customAttribute("ui-hide")
     ], UIHide);
     return UIHide;
 }(BaseAttribute));
 var UIShow = (function (_super) {
-    __chunk_1.__extends(UIShow, _super);
+    _tslib.__extends(UIShow, _super);
     function UIShow() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.prefix = "ui-show";
         return _this;
     }
-    UIShow = __chunk_1.__decorate([
+    UIShow = _tslib.__decorate([
         aureliaFramework.autoinject(),
         aureliaFramework.customAttribute("ui-show")
     ], UIShow);
     return UIShow;
 }(BaseAttribute));
 var UIClip = (function (_super) {
-    __chunk_1.__extends(UIClip, _super);
+    _tslib.__extends(UIClip, _super);
     function UIClip() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.prefix = "ui-clip";
@@ -301,14 +301,14 @@ var UIClip = (function (_super) {
     UIClip.prototype.valueChanged = function () {
         this.element.style.cssText = "--line-clamp: " + this.value + ";";
     };
-    UIClip = __chunk_1.__decorate([
+    UIClip = _tslib.__decorate([
         aureliaFramework.autoinject(),
         aureliaFramework.customAttribute("ui-clip")
     ], UIClip);
     return UIClip;
 }(BaseAttribute));
 var UILine = (function (_super) {
-    __chunk_1.__extends(UILine, _super);
+    _tslib.__extends(UILine, _super);
     function UILine() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.prefix = "ui-line";
@@ -322,48 +322,48 @@ var UILine = (function (_super) {
     UILine.prototype.valueChanged = function () {
         this.element.style.cssText = "line-height: " + this.value + ";";
     };
-    UILine = __chunk_1.__decorate([
+    UILine = _tslib.__decorate([
         aureliaFramework.autoinject(),
         aureliaFramework.customAttribute("ui-line")
     ], UILine);
     return UILine;
 }(BaseAttribute));
 var UIPaper = (function (_super) {
-    __chunk_1.__extends(UIPaper, _super);
+    _tslib.__extends(UIPaper, _super);
     function UIPaper() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.prefix = "ui-paper";
         _this.singular = true;
         return _this;
     }
-    UIPaper = __chunk_1.__decorate([
+    UIPaper = _tslib.__decorate([
         aureliaFramework.autoinject(),
         aureliaFramework.customAttribute("ui-paper")
     ], UIPaper);
     return UIPaper;
 }(BaseAttribute));
 var UILink = (function (_super) {
-    __chunk_1.__extends(UILink, _super);
+    _tslib.__extends(UILink, _super);
     function UILink() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.prefix = "ui-link";
         _this.singular = true;
         return _this;
     }
-    UILink = __chunk_1.__decorate([
+    UILink = _tslib.__decorate([
         aureliaFramework.autoinject(),
         aureliaFramework.customAttribute("ui-link")
     ], UILink);
     return UILink;
 }(BaseAttribute));
 var UIScroll = (function (_super) {
-    __chunk_1.__extends(UIScroll, _super);
+    _tslib.__extends(UIScroll, _super);
     function UIScroll() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.prefix = "ui-scroll";
         return _this;
     }
-    UIScroll = __chunk_1.__decorate([
+    UIScroll = _tslib.__decorate([
         aureliaFramework.autoinject(),
         aureliaFramework.customAttribute("ui-scroll")
     ], UIScroll);
@@ -416,7 +416,7 @@ var UITooltip = (function () {
         if (!TooltipEl) {
             TooltipEl = document.createElement("div");
             TooltipEl.className = "ui-tooltip";
-            TooltipEl.tether = __chunk_5.UITether.tether(this.parentEl, TooltipEl, {
+            TooltipEl.tether = uiTether.UITether.tether(this.parentEl, TooltipEl, {
                 anchorPosition: "tc",
                 attachToViewport: true,
                 position: "bc",
@@ -467,27 +467,27 @@ var UITooltip = (function () {
             this.show();
         }
     };
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable({ primaryProperty: true }),
-        __chunk_1.__metadata("design:type", Object)
+        _tslib.__metadata("design:type", Object)
     ], UITooltip.prototype, "value", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", Object)
+        _tslib.__metadata("design:type", Object)
     ], UITooltip.prototype, "theme", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UITooltip.prototype, "position", void 0);
-    UITooltip = __chunk_1.__decorate([
+    UITooltip = _tslib.__decorate([
         aureliaFramework.autoinject(),
         aureliaFramework.customAttribute("ui-tooltip"),
-        __chunk_1.__metadata("design:paramtypes", [Element])
+        _tslib.__metadata("design:paramtypes", [Element])
     ], UITooltip);
     return UITooltip;
 }());
 
-var Attributes = __chunk_1.__spread([UIBadge, UITooltip], Object.keys(Helpers).map(function (k) { return Helpers[k]; }));
+var Attributes = _tslib.__spread([UIBadge, UITooltip], Object.keys(Helpers).map(function (k) { return Helpers[k]; }));
 
 exports.Attributes = Attributes;
 //# sourceMappingURL=ui-attributes.js.map

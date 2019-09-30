@@ -1,8 +1,8 @@
 import { bindable, containerless, customElement, inlineView, ViewSlot } from 'aurelia-framework';
-import { a as UIAppConfig } from './chunk.js';
+import { U as UIAppConfig } from './ui-app-config.js';
 import 'aurelia-event-aggregator';
-import { a as UIInternal } from './chunk2.js';
-import { a as __decorate, b as __metadata } from './chunk3.js';
+import { U as UIInternal } from './ui-internal.js';
+import { _ as __decorate, a as __metadata } from './_tslib.js';
 import { AppRouter } from 'aurelia-router';
 
 let UIRouterView = class UIRouterView {

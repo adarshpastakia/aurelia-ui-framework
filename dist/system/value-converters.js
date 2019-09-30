@@ -1,16 +1,16 @@
-System.register(['./chunk.js', 'aurelia-framework', 'libphonenumber-js', 'date-fns', 'kramed', 'numeral', './chunk4.js'], function (exports, module) {
+System.register(['./_tslib.js', 'aurelia-framework', 'libphonenumber-js', 'date-fns', 'kramed', 'numeral', './ui-format.js'], function (exports) {
   'use strict';
   var __decorate, __spread, valueConverter, parsePhoneNumberFromString, UIFormat;
   return {
     setters: [function (module) {
-      __decorate = module.b;
-      __spread = module.e;
+      __decorate = module.a;
+      __spread = module.d;
     }, function (module) {
       valueConverter = module.valueConverter;
     }, function (module) {
       parsePhoneNumberFromString = module.parsePhoneNumberFromString;
     }, function () {}, function () {}, function () {}, function (module) {
-      UIFormat = module.a;
+      UIFormat = module.U;
     }],
     execute: function () {
 

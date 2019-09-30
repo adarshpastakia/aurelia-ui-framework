@@ -1,4 +1,4 @@
-define(['require', 'exports', './chunk', 'aurelia-framework', 'aurelia-validation', 'libphonenumber-js', './chunk2', 'aurelia-event-aggregator', './chunk3', 'aurelia-logging', 'aurelia-metadata', 'aurelia-fetch-client', 'date-fns', 'kramed', 'numeral', './chunk4'], function (require, exports, __chunk_1, aureliaFramework, aureliaValidation, libphonenumberJs, __chunk_2, aureliaEventAggregator, __chunk_3, aureliaLogging, aureliaMetadata, aureliaFetchClient, dateFns, kramed, numeral, __chunk_4) { 'use strict';
+define(['require', 'exports', './_tslib', 'aurelia-framework', 'aurelia-validation', 'libphonenumber-js', './ui-app-config', 'aurelia-event-aggregator', './ui-internal', 'aurelia-logging', 'aurelia-metadata', 'aurelia-fetch-client', 'date-fns', 'kramed', 'numeral', './ui-format'], function (require, exports, _tslib, aureliaFramework, aureliaValidation, libphonenumberJs, uiAppConfig, aureliaEventAggregator, uiInternal, aureliaLogging, aureliaMetadata, aureliaFetchClient, dateFns, kramed, numeral, uiFormat) { 'use strict';
 
   kramed = kramed && kramed.hasOwnProperty('default') ? kramed['default'] : kramed;
   numeral = numeral && numeral.hasOwnProperty('default') ? numeral['default'] : numeral;
@@ -37,10 +37,10 @@ define(['require', 'exports', './chunk', 'aurelia-framework', 'aurelia-validatio
       UIValidationRenderer.prototype.render = function (instruction) {
           var e_1, _a, e_2, _b, e_3, _c, e_4, _d;
           try {
-              for (var _e = __chunk_1.__values(instruction.unrender), _f = _e.next(); !_f.done; _f = _e.next()) {
+              for (var _e = _tslib.__values(instruction.unrender), _f = _e.next(); !_f.done; _f = _e.next()) {
                   var _g = _f.value, result = _g.result, elements = _g.elements;
                   try {
-                      for (var elements_1 = __chunk_1.__values(elements), elements_1_1 = elements_1.next(); !elements_1_1.done; elements_1_1 = elements_1.next()) {
+                      for (var elements_1 = (e_2 = void 0, _tslib.__values(elements)), elements_1_1 = elements_1.next(); !elements_1_1.done; elements_1_1 = elements_1.next()) {
                           var element = elements_1_1.value;
                           this.remove(element, result);
                       }
@@ -62,10 +62,10 @@ define(['require', 'exports', './chunk', 'aurelia-framework', 'aurelia-validatio
               finally { if (e_1) throw e_1.error; }
           }
           try {
-              for (var _h = __chunk_1.__values(instruction.render), _j = _h.next(); !_j.done; _j = _h.next()) {
+              for (var _h = _tslib.__values(instruction.render), _j = _h.next(); !_j.done; _j = _h.next()) {
                   var _k = _j.value, result = _k.result, elements = _k.elements;
                   try {
-                      for (var elements_2 = __chunk_1.__values(elements), elements_2_1 = elements_2.next(); !elements_2_1.done; elements_2_1 = elements_2.next()) {
+                      for (var elements_2 = (e_4 = void 0, _tslib.__values(elements)), elements_2_1 = elements_2.next(); !elements_2_1.done; elements_2_1 = elements_2.next()) {
                           var element = elements_2_1.value;
                           this.add(element, result);
                       }
@@ -2991,7 +2991,7 @@ define(['require', 'exports', './chunk', 'aurelia-framework', 'aurelia-validatio
                           });
                       }
                       if (response.status === 401 && response.url.includes(this.httpClient.baseUrl)) {
-                          __chunk_3.UIInternal.broadcast("auf:unauthorized", null);
+                          uiInternal.UIInternal.broadcast("auf:unauthorized", null);
                       }
                       else if (response.status >= 400) {
                           return response.text().then(function (resp) {
@@ -3179,9 +3179,9 @@ define(['require', 'exports', './chunk', 'aurelia-framework', 'aurelia-validatio
           }
           return headers;
       };
-      UIHttpService = __chunk_1.__decorate([
+      UIHttpService = _tslib.__decorate([
           aureliaFramework.autoinject(),
-          __chunk_1.__metadata("design:paramtypes", [aureliaFetchClient.HttpClient, __chunk_2.UIAppConfig])
+          _tslib.__metadata("design:paramtypes", [aureliaFetchClient.HttpClient, uiAppConfig.UIAppConfig])
       ], UIHttpService);
       return UIHttpService;
   }());
@@ -3198,8 +3198,8 @@ define(['require', 'exports', './chunk', 'aurelia-framework', 'aurelia-validatio
           this.loaded = false;
           this.metadata = aureliaMetadata.metadata.getOrCreateOwn(aureliaMetadata.metadata.properties, ModelMetadata, Object.getPrototypeOf(this));
           Object.defineProperties(this, this.metadata.propertyDefs);
-          this.metadata.original = __chunk_1.__assign({}, this.serialize());
-          this.metadata.updated = __chunk_1.__assign({}, this.serialize());
+          this.metadata.original = _tslib.__assign({}, this.serialize());
+          this.metadata.updated = _tslib.__assign({}, this.serialize());
           Object.defineProperties(this, {
               apiSlug: {
                   enumerable: false,
@@ -3335,23 +3335,23 @@ define(['require', 'exports', './chunk', 'aurelia-framework', 'aurelia-validatio
           });
       };
       UIDataModel.prototype.update = function () {
-          this.metadata.updated = __chunk_1.__assign({}, this.serialize());
+          this.metadata.updated = _tslib.__assign({}, this.serialize());
       };
       UIDataModel.prototype.reset = function () {
-          this.metadata.updated = __chunk_1.__assign({}, this.metadata.original);
+          this.metadata.updated = _tslib.__assign({}, this.metadata.original);
           this.discard();
       };
       UIDataModel.prototype.discard = function () {
           var _this = this;
           this.metadata.dirtyProps = [];
-          var updated = __chunk_1.__assign({}, this.metadata.updated);
+          var updated = _tslib.__assign({}, this.metadata.updated);
           this.metadata.serializableProps.forEach(function (prop) { return (_this[prop] = updated[prop]); });
       };
       UIDataModel.prototype.addObserver = function (ob) {
           this.metadata.observers.push(ob);
       };
       UIDataModel.prototype.observe = function (property, callback) {
-          this.metadata.observers.push(__chunk_3.UIInternal.observe(this, property, callback));
+          this.metadata.observers.push(uiInternal.UIInternal.observe(this, property, callback));
       };
       UIDataModel.prototype.dispose = function () {
           this.logger.info("Model Disposing");
@@ -3371,8 +3371,8 @@ define(['require', 'exports', './chunk', 'aurelia-framework', 'aurelia-validatio
           if (json[this.idProperty]) {
               this.internalId = json[this.idProperty];
           }
-          this.metadata.original = __chunk_1.__assign({}, json);
-          this.metadata.updated = __chunk_1.__assign({}, json);
+          this.metadata.original = _tslib.__assign({}, json);
+          this.metadata.updated = _tslib.__assign({}, json);
           Object.keys(json).forEach(function (prop) { return (_this[prop] = json[prop]); });
       };
       UIDataModel.prototype.preGet = function () {
@@ -3481,15 +3481,15 @@ define(['require', 'exports', './chunk', 'aurelia-framework', 'aurelia-validatio
               return Promise.reject(e);
           });
       };
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.computedFrom("metadata.dirtyProps.length"),
-          __chunk_1.__metadata("design:type", Boolean),
-          __chunk_1.__metadata("design:paramtypes", [])
+          _tslib.__metadata("design:type", Boolean),
+          _tslib.__metadata("design:paramtypes", [])
       ], UIDataModel.prototype, "isDirty", null);
-      __chunk_1.__decorate([
+      _tslib.__decorate([
           aureliaFramework.computedFrom("metadata.dirtyProps.length"),
-          __chunk_1.__metadata("design:type", Object),
-          __chunk_1.__metadata("design:paramtypes", [])
+          _tslib.__metadata("design:type", Object),
+          _tslib.__metadata("design:paramtypes", [])
       ], UIDataModel.prototype, "dirtyProps", null);
       return UIDataModel;
   }());
@@ -3536,7 +3536,7 @@ define(['require', 'exports', './chunk', 'aurelia-framework', 'aurelia-validatio
           for (var _i = 1; _i < arguments.length; _i++) {
               rest[_i - 1] = arguments[_i];
           }
-          (_a = this.logger).info.apply(_a, __chunk_1.__spread([tag], rest));
+          (_a = this.logger).info.apply(_a, _tslib.__spread([tag], rest));
       };
       UIApplication.prototype.debug = function (tag) {
           var _a;
@@ -3544,12 +3544,12 @@ define(['require', 'exports', './chunk', 'aurelia-framework', 'aurelia-validatio
           for (var _i = 1; _i < arguments.length; _i++) {
               rest[_i - 1] = arguments[_i];
           }
-          (_a = this.logger).debug.apply(_a, __chunk_1.__spread([tag], rest));
+          (_a = this.logger).debug.apply(_a, _tslib.__spread([tag], rest));
       };
-      UIApplication = __chunk_1.__decorate([
+      UIApplication = _tslib.__decorate([
           aureliaFramework.singleton(),
           aureliaFramework.autoinject(),
-          __chunk_1.__metadata("design:paramtypes", [__chunk_2.UIAppConfig])
+          _tslib.__metadata("design:paramtypes", [uiAppConfig.UIAppConfig])
       ], UIApplication);
       return UIApplication;
   }());
@@ -3593,7 +3593,7 @@ define(['require', 'exports', './chunk', 'aurelia-framework', 'aurelia-validatio
           return new Promise(function (resolve) {
               _this.getViewModel(instruction)
                   .then(function (newInstruction) {
-                  return __chunk_3.UIInternal.invokeLifecycle(newInstruction.viewModel, "canActivate", model);
+                  return uiInternal.UIInternal.invokeLifecycle(newInstruction.viewModel, "canActivate", model);
               })
                   .then(function (canActivate) {
                   return canActivate !== false
@@ -3622,10 +3622,10 @@ define(['require', 'exports', './chunk', 'aurelia-framework', 'aurelia-validatio
           var _this = this;
           if (!this.initialized) {
               this.initialized = true;
-              __chunk_3.UIInternal.subscribe("dlg:close", function (d) { return _this.closeDialog(d); });
-              __chunk_3.UIInternal.subscribe("dlg:activate", function (d) { return _this.activate(d.dialog); });
-              __chunk_3.UIInternal.subscribe("dlg:minimize", function (d) { return _this.minimizeDialog(d.dialog); });
-              __chunk_3.UIInternal.subscribe("dlg:drag", function (d) { return _this.startDrag(d); });
+              uiInternal.UIInternal.subscribe("dlg:close", function (d) { return _this.closeDialog(d); });
+              uiInternal.UIInternal.subscribe("dlg:activate", function (d) { return _this.activate(d.dialog); });
+              uiInternal.UIInternal.subscribe("dlg:minimize", function (d) { return _this.minimizeDialog(d.dialog); });
+              uiInternal.UIInternal.subscribe("dlg:drag", function (d) { return _this.startDrag(d); });
               document.addEventListener("mousemove", function (e) { return _this.drag(e); });
               document.addEventListener("mouseup", function () { return _this.stopDrag(); });
               if (this.appConfig.TaskbarContainer) {
@@ -3646,7 +3646,7 @@ define(['require', 'exports', './chunk', 'aurelia-framework', 'aurelia-validatio
           }
       };
       UIDialogService.prototype.startDrag = function (startObject) {
-          this.dragObject = __chunk_1.__assign({}, startObject, { dlgHeight: startObject.dialog.dialogEl.offsetHeight, dlgWidth: startObject.dialog.dialogEl.offsetWidth, isDragging: true, left: parseInt(startObject.dialog.position.left, 10), maxHeight: this.appConfig.DialogContainer.anchor.offsetHeight, maxWidth: this.appConfig.DialogContainer.anchor.offsetWidth, top: parseInt(startObject.dialog.position.top, 10) });
+          this.dragObject = _tslib.__assign(_tslib.__assign({}, startObject), { dlgHeight: startObject.dialog.dialogEl.offsetHeight, dlgWidth: startObject.dialog.dialogEl.offsetWidth, isDragging: true, left: parseInt(startObject.dialog.position.left, 10), maxHeight: this.appConfig.DialogContainer.anchor.offsetHeight, maxWidth: this.appConfig.DialogContainer.anchor.offsetWidth, top: parseInt(startObject.dialog.position.top, 10) });
       };
       UIDialogService.prototype.drag = function ($event) {
           if (this.dragObject.isDragging) {
@@ -3688,9 +3688,9 @@ define(['require', 'exports', './chunk', 'aurelia-framework', 'aurelia-validatio
           var _this = this;
           if (detail && detail.dialog) {
               var dialog_1 = detail.dialog, result_1 = detail.result;
-              __chunk_3.UIInternal.invokeLifecycle(dialog_1.viewController.viewModel, "canDeactivate", result_1).then(function (canDeactivate) {
+              uiInternal.UIInternal.invokeLifecycle(dialog_1.viewController.viewModel, "canDeactivate", result_1).then(function (canDeactivate) {
                   if (canDeactivate !== false) {
-                      __chunk_3.UIInternal.invokeLifecycle(dialog_1.viewController.viewModel, "deactivate");
+                      uiInternal.UIInternal.invokeLifecycle(dialog_1.viewController.viewModel, "deactivate");
                       _this.appConfig.DialogContainer.remove(dialog_1.viewController.view);
                       if (dialog_1.taskButton) {
                           _this.appConfig.TaskbarContainer.remove(dialog_1.taskButton);
@@ -3722,10 +3722,10 @@ define(['require', 'exports', './chunk', 'aurelia-framework', 'aurelia-validatio
           }
           return this.compositionEngine.ensureViewModel(instruction);
       };
-      UIDialogService = __chunk_1.__decorate([
+      UIDialogService = _tslib.__decorate([
           aureliaFramework.autoinject(),
           aureliaFramework.singleton(),
-          __chunk_1.__metadata("design:paramtypes", [__chunk_2.UIAppConfig,
+          _tslib.__metadata("design:paramtypes", [uiAppConfig.UIAppConfig,
               aureliaFramework.Container,
               aureliaFramework.CompositionEngine])
       ], UIDialogService);
@@ -3779,7 +3779,7 @@ define(['require', 'exports', './chunk', 'aurelia-framework', 'aurelia-validatio
       UINotificationService.prototype.createToast = function (config, forToastNotification) {
           var _this = this;
           return new Promise(function (resolve) {
-              var cfg = __chunk_1.__assign({ autoClose: true, cancelLabel: "Cancel", okLabel: "OK", theme: "default", timeout: 5000, type: "default", className: forToastNotification ? "ui-toast" : "ui-message" }, config, { message: "<div>" + config.message + "</div>" });
+              var cfg = _tslib.__assign(_tslib.__assign({ autoClose: true, cancelLabel: "Cancel", okLabel: "OK", theme: "default", timeout: 5000, type: "default", className: forToastNotification ? "ui-toast" : "ui-message" }, config), { message: "<div>" + config.message + "</div>" });
               cfg.autoClose = cfg.type !== "confirm" && cfg.autoClose;
               var viewFactory = _this.compiler.compile("<template>" + toastView + "</template>");
               var view = viewFactory.create(_this.container);
@@ -3790,12 +3790,12 @@ define(['require', 'exports', './chunk', 'aurelia-framework', 'aurelia-validatio
                       view.removeNodes();
                   }, 500);
               };
-              view.bind(__chunk_1.__assign({}, cfg));
+              view.bind(_tslib.__assign({}, cfg));
               view.appendNodesTo(forToastNotification ? _this.appConfig.ToastContainer : _this.appConfig.AlertContainer);
               if (cfg.autoClose) {
                   setTimeout(cfg.__close, cfg.timeout);
               }
-              __chunk_3.UIInternal.queueTask(function () {
+              uiInternal.UIInternal.queueTask(function () {
                   var el = view.firstChild;
                   setTimeout(function () { return el.dataset.open = "true"; }, 50);
                   _this.templatingEngine.enhance({
@@ -3807,7 +3807,7 @@ define(['require', 'exports', './chunk', 'aurelia-framework', 'aurelia-validatio
       UINotificationService.prototype.createAlert = function (config) {
           var _this = this;
           return new Promise(function (resolve) {
-              var cfg = __chunk_1.__assign({ cancelLabel: "Cancel", okLabel: "OK", theme: "default", type: "alert" }, config, { message: "<div>" + config.message + "</div>" });
+              var cfg = _tslib.__assign(_tslib.__assign({ cancelLabel: "Cancel", okLabel: "OK", theme: "default", type: "alert" }, config), { message: "<div>" + config.message + "</div>" });
               var viewFactory = _this.compiler.compile("<template>" + alertView + "</template>");
               var view = viewFactory.create(_this.container);
               cfg.__keyCheck = function (key) {
@@ -3827,7 +3827,7 @@ define(['require', 'exports', './chunk', 'aurelia-framework', 'aurelia-validatio
               };
               view.bind(cfg);
               _this.appConfig.DialogContainer.add(view);
-              __chunk_3.UIInternal.queueTask(function () {
+              uiInternal.UIInternal.queueTask(function () {
                   var el = view.firstChild;
                   _this.templatingEngine.enhance({
                       element: el.querySelector(".ui-alert__body > div")
@@ -3836,10 +3836,10 @@ define(['require', 'exports', './chunk', 'aurelia-framework', 'aurelia-validatio
               cfg.keyEl.focus();
           });
       };
-      UINotificationService = __chunk_1.__decorate([
+      UINotificationService = _tslib.__decorate([
           aureliaFramework.singleton(),
           aureliaFramework.autoinject(),
-          __chunk_1.__metadata("design:paramtypes", [__chunk_2.UIAppConfig,
+          _tslib.__metadata("design:paramtypes", [uiAppConfig.UIAppConfig,
               aureliaFramework.Container,
               aureliaFramework.ViewCompiler,
               aureliaFramework.TemplatingEngine])
@@ -3849,11 +3849,11 @@ define(['require', 'exports', './chunk', 'aurelia-framework', 'aurelia-validatio
 
   var _a;
   var Countries = _Countries;
-  var queueTask = __chunk_3.UIInternal.queueTask;
-  var queueMicroTask = __chunk_3.UIInternal.queueMicroTask;
-  var broadcast = __chunk_3.UIInternal.broadcast;
-  var subscribe = __chunk_3.UIInternal.subscribe;
-  var subscribeOnce = __chunk_3.UIInternal.subscribeOnce;
+  var queueTask = uiInternal.UIInternal.queueTask;
+  var queueMicroTask = uiInternal.UIInternal.queueMicroTask;
+  var broadcast = uiInternal.UIInternal.broadcast;
+  var subscribe = uiInternal.UIInternal.subscribe;
+  var subscribeOnce = uiInternal.UIInternal.subscribeOnce;
   var AppConfig = function () {
   };
   AppConfig.prototype.ApiBaseUrl = "";
@@ -3937,7 +3937,7 @@ define(['require', 'exports', './chunk', 'aurelia-framework', 'aurelia-validatio
           var _this = this;
           return Promise.all(this.resources.map(function (name) { return RESOURCE_LOADER[name](); })).then(function (modules) {
               _this.auConfig.globalResources(modules.reduce(function (a, m) {
-                  a.push.apply(a, __chunk_1.__spread(m));
+                  a.push.apply(a, _tslib.__spread(m));
                   return a;
               }, []));
           });
@@ -3960,14 +3960,14 @@ define(['require', 'exports', './chunk', 'aurelia-framework', 'aurelia-validatio
       else {
           config.useStandardResources();
       }
-      auConfig.singleton(__chunk_2.UIAppConfig, AppConfig);
+      auConfig.singleton(uiAppConfig.UIAppConfig, AppConfig);
       return loadResources();
   }
 
   Object.defineProperty(exports, 'UIFormat', {
     enumerable: true,
     get: function () {
-      return __chunk_4.UIFormat;
+      return uiFormat.UIFormat;
     }
   });
   exports.Countries = Countries;

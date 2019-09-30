@@ -1,21 +1,21 @@
-System.register(['./chunk.js', 'aurelia-framework', './chunk2.js', 'aurelia-event-aggregator', './chunk3.js', 'aurelia-logging', 'resize-observer-polyfill', './chunk5.js'], function (exports, module) {
+System.register(['./_tslib.js', 'aurelia-framework', './ui-app-config.js', 'aurelia-event-aggregator', './ui-internal.js', 'aurelia-logging', 'resize-observer-polyfill', './ui-tether.js'], function (exports) {
   'use strict';
   var __decorate, __metadata, customElement, inlineView, bindable, containerless, UIInternal, ResizeObserver, UITether;
   return {
     setters: [function (module) {
-      __decorate = module.b;
-      __metadata = module.c;
+      __decorate = module.a;
+      __metadata = module.b;
     }, function (module) {
       customElement = module.customElement;
       inlineView = module.inlineView;
       bindable = module.bindable;
       containerless = module.containerless;
     }, function () {}, function () {}, function (module) {
-      UIInternal = module.a;
+      UIInternal = module.U;
     }, function () {}, function (module) {
       ResizeObserver = module.default;
     }, function (module) {
-      UITether = module.a;
+      UITether = module.U;
     }],
     execute: function () {
 
@@ -79,9 +79,7 @@ System.register(['./chunk.js', 'aurelia-framework', './chunk2.js', 'aurelia-even
                   this.obViewportResize = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_RESIZE, function () {
                       return _this.updatePosition();
                   });
-                  this.obResize = new ResizeObserver(function () {
-                      return _this.updatePosition();
-                  });
+                  this.obResize = new ResizeObserver(function () { return _this.updatePosition(); });
                   this.obResize.observe(this.vmElement);
                   this.obResize.observe(this.anchorEl);
                   this.element.dispatchEvent(UIInternal.createEvent("open"));
@@ -119,6 +117,9 @@ System.register(['./chunk.js', 'aurelia-framework', './chunk2.js', 'aurelia-even
           UIDrop.prototype.close = function ($event) {
               if (this.closeOnClick) {
                   this.closeDrop();
+              }
+              else {
+                  $event.stopEvent(true);
               }
           };
           UIDrop.prototype.canClose = function (t) {

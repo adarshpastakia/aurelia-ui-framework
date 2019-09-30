@@ -1,21 +1,21 @@
 'use strict';
 
-var __chunk_1 = require('./chunk.js');
+var _tslib = require('./_tslib.js');
 var aureliaFramework = require('aurelia-framework');
-var __chunk_2 = require('./chunk2.js');
+var uiAppConfig = require('./ui-app-config.js');
 require('aurelia-event-aggregator');
-var __chunk_3 = require('./chunk3.js');
+var uiInternal = require('./ui-internal.js');
 var aureliaRouter = require('aurelia-router');
 
 var UIRouterView = (function () {
     function UIRouterView() {
         this.name = "";
     }
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UIRouterView.prototype, "name", void 0);
-    UIRouterView = __chunk_1.__decorate([
+    UIRouterView = _tslib.__decorate([
         aureliaFramework.containerless(),
         aureliaFramework.customElement("ui-router-view"),
         aureliaFramework.inlineView("<template><router-view swap-order=\"with\" name.bind=\"name\" class=\"ui-router-view\" ref=\"vmElement\"></router-view></template>")
@@ -27,11 +27,11 @@ var UIViewportFooter = (function () {
     function UIViewportFooter() {
         this.dir = "ltr";
     }
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", Object)
+        _tslib.__metadata("design:type", Object)
     ], UIViewportFooter.prototype, "dir", void 0);
-    UIViewportFooter = __chunk_1.__decorate([
+    UIViewportFooter = _tslib.__decorate([
         aureliaFramework.containerless(),
         aureliaFramework.customElement("ui-viewport-footer"),
         aureliaFramework.inlineView("<template><footer dir.bind=\"dir\" class=\"ui-viewport__footer\" slot=\"ui-viewport__footer\" ref=\"vmElement\"><slot></slot></footer></template>")
@@ -43,11 +43,11 @@ var UIViewportHeader = (function () {
     function UIViewportHeader() {
         this.dir = "ltr";
     }
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", Object)
+        _tslib.__metadata("design:type", Object)
     ], UIViewportHeader.prototype, "dir", void 0);
-    UIViewportHeader = __chunk_1.__decorate([
+    UIViewportHeader = _tslib.__decorate([
         aureliaFramework.containerless(),
         aureliaFramework.customElement("ui-viewport-header"),
         aureliaFramework.inlineView("<template><header dir.bind=\"dir\" class=\"ui-viewport__header\" slot=\"ui-viewport__header\" ref=\"vmElement\"><slot></slot></header></template>")
@@ -62,7 +62,7 @@ var UIViewport = (function () {
         var _this = this;
         this.appConfig = appConfig;
         this.router = router;
-        window.addEventListener("resize", function () { return __chunk_3.UIInternal.broadcast(__chunk_3.UIInternal.EVT_VIEWPORT_RESIZE); });
+        window.addEventListener("resize", function () { return uiInternal.UIInternal.broadcast(uiInternal.UIInternal.EVT_VIEWPORT_RESIZE); });
         document.addEventListener("mouseup", function ($event) { return _this.broadcastEvent($event); });
     }
     UIViewport.prototype.attached = function () {
@@ -73,13 +73,13 @@ var UIViewport = (function () {
     };
     UIViewport.prototype.broadcastEvent = function ($event) {
         if (!hasParent($event.target, this.appConfig.FloatingContainer)) {
-            __chunk_3.UIInternal.broadcast(__chunk_3.UIInternal.EVT_VIEWPORT_CLICK, $event.target);
+            uiInternal.UIInternal.broadcast(uiInternal.UIInternal.EVT_VIEWPORT_CLICK, $event.target);
         }
     };
-    UIViewport = __chunk_1.__decorate([
+    UIViewport = _tslib.__decorate([
         aureliaFramework.customElement("ui-viewport"),
         aureliaFramework.inlineView(view),
-        __chunk_1.__metadata("design:paramtypes", [__chunk_2.UIAppConfig, aureliaRouter.AppRouter])
+        _tslib.__metadata("design:paramtypes", [uiAppConfig.UIAppConfig, aureliaRouter.AppRouter])
     ], UIViewport);
     return UIViewport;
 }());

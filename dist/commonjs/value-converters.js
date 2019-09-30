@@ -1,12 +1,12 @@
 'use strict';
 
-var __chunk_1 = require('./chunk.js');
+var _tslib = require('./_tslib.js');
 var aureliaFramework = require('aurelia-framework');
 var libphonenumberJs = require('libphonenumber-js');
 require('date-fns');
 require('kramed');
 require('numeral');
-var __chunk_4 = require('./chunk4.js');
+var uiFormat = require('./ui-format.js');
 
 var SplitValueConverter = (function () {
     function SplitValueConverter() {
@@ -15,7 +15,7 @@ var SplitValueConverter = (function () {
         if (char === void 0) { char = ","; }
         return (object || "").split(new RegExp("[" + char + "]"));
     };
-    SplitValueConverter = __chunk_1.__decorate([
+    SplitValueConverter = _tslib.__decorate([
         aureliaFramework.valueConverter("split")
     ], SplitValueConverter);
     return SplitValueConverter;
@@ -31,7 +31,7 @@ var ObjectMapValueConverter = (function () {
         object.forEach(function (value, key) { return map.set(key, value); });
         return map;
     };
-    ObjectMapValueConverter = __chunk_1.__decorate([
+    ObjectMapValueConverter = _tslib.__decorate([
         aureliaFramework.valueConverter("objectMap")
     ], ObjectMapValueConverter);
     return ObjectMapValueConverter;
@@ -42,7 +42,7 @@ var GroupValueConverter = (function () {
     GroupValueConverter.prototype.toView = function (array, property) {
         return array.groupBy(property);
     };
-    GroupValueConverter = __chunk_1.__decorate([
+    GroupValueConverter = _tslib.__decorate([
         aureliaFramework.valueConverter("group")
     ], GroupValueConverter);
     return GroupValueConverter;
@@ -54,7 +54,7 @@ var SliceValueConverter = (function () {
         if (end === void 0) { end = 0; }
         return end === 0 ? array : array.slice(0, end);
     };
-    SliceValueConverter = __chunk_1.__decorate([
+    SliceValueConverter = _tslib.__decorate([
         aureliaFramework.valueConverter("slice")
     ], SliceValueConverter);
     return SliceValueConverter;
@@ -89,7 +89,7 @@ var FilterValueConverter = (function () {
             });
         }
     };
-    FilterValueConverter = __chunk_1.__decorate([
+    FilterValueConverter = _tslib.__decorate([
         aureliaFramework.valueConverter("filter")
     ], FilterValueConverter);
     return FilterValueConverter;
@@ -109,11 +109,11 @@ var OrderByValueConverter = (function () {
             down = 1;
         }
         if (array instanceof Map) {
-            return new Map(__chunk_1.__spread(array).sort(function (a, b) { return (a[0] > b[0] ? up : down); }));
+            return new Map(_tslib.__spread(array).sort(function (a, b) { return (a[0] > b[0] ? up : down); }));
         }
-        return __chunk_1.__spread(array).sort(function (a, b) { return (a[property] > b[property] ? up : down); });
+        return _tslib.__spread(array).sort(function (a, b) { return (a[property] > b[property] ? up : down); });
     };
-    OrderByValueConverter = __chunk_1.__decorate([
+    OrderByValueConverter = _tslib.__decorate([
         aureliaFramework.valueConverter("orderBy")
     ], OrderByValueConverter);
     return OrderByValueConverter;
@@ -127,11 +127,11 @@ var SortValueConverter = (function () {
             return [];
         }
         if (array instanceof Map) {
-            return new Map(__chunk_1.__spread(array).sortBy("0", isAscending));
+            return new Map(_tslib.__spread(array).sortBy("0", isAscending));
         }
-        return __chunk_1.__spread(array).sortBy(property, isAscending);
+        return _tslib.__spread(array).sortBy(property, isAscending);
     };
-    SortValueConverter = __chunk_1.__decorate([
+    SortValueConverter = _tslib.__decorate([
         aureliaFramework.valueConverter("sort")
     ], SortValueConverter);
     return SortValueConverter;
@@ -153,7 +153,7 @@ var JsonValueConverter = (function () {
     JsonValueConverter.prototype.toView = function (value) {
         return JSON.stringify(value);
     };
-    JsonValueConverter = __chunk_1.__decorate([
+    JsonValueConverter = _tslib.__decorate([
         aureliaFramework.valueConverter("json")
     ], JsonValueConverter);
     return JsonValueConverter;
@@ -162,9 +162,9 @@ var MarkdownValueConverter = (function () {
     function MarkdownValueConverter() {
     }
     MarkdownValueConverter.prototype.toView = function (value) {
-        return __chunk_4.UIFormat.toHTML(value || "");
+        return uiFormat.UIFormat.toHTML(value || "");
     };
-    MarkdownValueConverter = __chunk_1.__decorate([
+    MarkdownValueConverter = _tslib.__decorate([
         aureliaFramework.valueConverter("md")
     ], MarkdownValueConverter);
     return MarkdownValueConverter;
@@ -176,7 +176,7 @@ var PhoneValueConverter = (function () {
         if (country === void 0) { country = ""; }
         return getPhone(value, country).formatInternational();
     };
-    PhoneValueConverter = __chunk_1.__decorate([
+    PhoneValueConverter = _tslib.__decorate([
         aureliaFramework.valueConverter("phone")
     ], PhoneValueConverter);
     return PhoneValueConverter;
@@ -188,7 +188,7 @@ var PhoneLocalValueConverter = (function () {
         if (country === void 0) { country = "us"; }
         return getPhone(value, country).formatNational();
     };
-    PhoneLocalValueConverter = __chunk_1.__decorate([
+    PhoneLocalValueConverter = _tslib.__decorate([
         aureliaFramework.valueConverter("phoneLocal")
     ], PhoneLocalValueConverter);
     return PhoneLocalValueConverter;
@@ -201,7 +201,7 @@ var PhoneHtmlValueConverter = (function () {
         var phoneNumber = getPhone(value, country);
         return "<span class=\"ui-flag " + phoneNumber.country + "\"></span>&nbsp;" + phoneNumber.formatInternational();
     };
-    PhoneHtmlValueConverter = __chunk_1.__decorate([
+    PhoneHtmlValueConverter = _tslib.__decorate([
         aureliaFramework.valueConverter("phoneHtml")
     ], PhoneHtmlValueConverter);
     return PhoneHtmlValueConverter;
@@ -214,7 +214,7 @@ var PhoneLocalHtmlValueConverter = (function () {
         var phoneNumber = getPhone(value, country);
         return "<span class=\"ui-flag " + phoneNumber.country + "\"></span>&nbsp;" + phoneNumber.formatNational();
     };
-    PhoneLocalHtmlValueConverter = __chunk_1.__decorate([
+    PhoneLocalHtmlValueConverter = _tslib.__decorate([
         aureliaFramework.valueConverter("phoneLocalHtml")
     ], PhoneLocalHtmlValueConverter);
     return PhoneLocalHtmlValueConverter;
@@ -223,9 +223,9 @@ var DateValueConverter = (function () {
     function DateValueConverter() {
     }
     DateValueConverter.prototype.toView = function (value, format) {
-        return __chunk_4.UIFormat.date(value, format);
+        return uiFormat.UIFormat.date(value, format);
     };
-    DateValueConverter = __chunk_1.__decorate([
+    DateValueConverter = _tslib.__decorate([
         aureliaFramework.valueConverter("date")
     ], DateValueConverter);
     return DateValueConverter;
@@ -234,9 +234,9 @@ var TimeValueConverter = (function () {
     function TimeValueConverter() {
     }
     TimeValueConverter.prototype.toView = function (value, format) {
-        return __chunk_4.UIFormat.time(value, format);
+        return uiFormat.UIFormat.time(value, format);
     };
-    TimeValueConverter = __chunk_1.__decorate([
+    TimeValueConverter = _tslib.__decorate([
         aureliaFramework.valueConverter("time")
     ], TimeValueConverter);
     return TimeValueConverter;
@@ -245,9 +245,9 @@ var DatetimeValueConverter = (function () {
     function DatetimeValueConverter() {
     }
     DatetimeValueConverter.prototype.toView = function (value, format) {
-        return __chunk_4.UIFormat.datetime(value, format);
+        return uiFormat.UIFormat.datetime(value, format);
     };
-    DatetimeValueConverter = __chunk_1.__decorate([
+    DatetimeValueConverter = _tslib.__decorate([
         aureliaFramework.valueConverter("datetime")
     ], DatetimeValueConverter);
     return DatetimeValueConverter;
@@ -256,9 +256,9 @@ var FromNowValueConverter = (function () {
     function FromNowValueConverter() {
     }
     FromNowValueConverter.prototype.toView = function (value) {
-        return __chunk_4.UIFormat.fromNow(value);
+        return uiFormat.UIFormat.fromNow(value);
     };
-    FromNowValueConverter = __chunk_1.__decorate([
+    FromNowValueConverter = _tslib.__decorate([
         aureliaFramework.valueConverter("fromnow")
     ], FromNowValueConverter);
     return FromNowValueConverter;
@@ -267,9 +267,9 @@ var AgeValueConverter = (function () {
     function AgeValueConverter() {
     }
     AgeValueConverter.prototype.toView = function (value) {
-        return __chunk_4.UIFormat.age(value);
+        return uiFormat.UIFormat.age(value);
     };
-    AgeValueConverter = __chunk_1.__decorate([
+    AgeValueConverter = _tslib.__decorate([
         aureliaFramework.valueConverter("age")
     ], AgeValueConverter);
     return AgeValueConverter;
@@ -278,9 +278,9 @@ var UtcValueConverter = (function () {
     function UtcValueConverter() {
     }
     UtcValueConverter.prototype.toView = function (value) {
-        return __chunk_4.UIFormat.utcDate(value);
+        return uiFormat.UIFormat.utcDate(value);
     };
-    UtcValueConverter = __chunk_1.__decorate([
+    UtcValueConverter = _tslib.__decorate([
         aureliaFramework.valueConverter("utc")
     ], UtcValueConverter);
     return UtcValueConverter;
@@ -289,9 +289,9 @@ var IsoValueConverter = (function () {
     function IsoValueConverter() {
     }
     IsoValueConverter.prototype.toView = function (value) {
-        return __chunk_4.UIFormat.dateToISO(value);
+        return uiFormat.UIFormat.dateToISO(value);
     };
-    IsoValueConverter = __chunk_1.__decorate([
+    IsoValueConverter = _tslib.__decorate([
         aureliaFramework.valueConverter("iso")
     ], IsoValueConverter);
     return IsoValueConverter;
@@ -300,9 +300,9 @@ var NumberValueConverter = (function () {
     function NumberValueConverter() {
     }
     NumberValueConverter.prototype.toView = function (value, format) {
-        return __chunk_4.UIFormat.number(value, format);
+        return uiFormat.UIFormat.number(value, format);
     };
-    NumberValueConverter = __chunk_1.__decorate([
+    NumberValueConverter = _tslib.__decorate([
         aureliaFramework.valueConverter("number")
     ], NumberValueConverter);
     return NumberValueConverter;
@@ -311,9 +311,9 @@ var CurrencyValueConverter = (function () {
     function CurrencyValueConverter() {
     }
     CurrencyValueConverter.prototype.toView = function (value, symbol, format) {
-        return __chunk_4.UIFormat.currency(value, symbol, format);
+        return uiFormat.UIFormat.currency(value, symbol, format);
     };
-    CurrencyValueConverter = __chunk_1.__decorate([
+    CurrencyValueConverter = _tslib.__decorate([
         aureliaFramework.valueConverter("currency")
     ], CurrencyValueConverter);
     return CurrencyValueConverter;
@@ -322,9 +322,9 @@ var PercentValueConverter = (function () {
     function PercentValueConverter() {
     }
     PercentValueConverter.prototype.toView = function (value) {
-        return __chunk_4.UIFormat.percent(value);
+        return uiFormat.UIFormat.percent(value);
     };
-    PercentValueConverter = __chunk_1.__decorate([
+    PercentValueConverter = _tslib.__decorate([
         aureliaFramework.valueConverter("percent")
     ], PercentValueConverter);
     return PercentValueConverter;

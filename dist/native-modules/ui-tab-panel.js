@@ -1,8 +1,9 @@
-import { b as __decorate, c as __metadata, h as __awaiter, i as __generator, e as __spread } from './chunk.js';
+import { a as __decorate, b as __metadata, g as __awaiter, h as __generator, d as __spread } from './_tslib.js';
 import { bindable, customElement, inlineView, containerless, DOM, bindingMode, children, autoinject } from 'aurelia-framework';
 import 'aurelia-event-aggregator';
-import { a as UIInternal } from './chunk3.js';
+import { U as UIInternal } from './ui-internal.js';
 import ResizeObserver from 'resize-observer-polyfill';
+import { c as calculateOverflow } from './ui-common.js';
 
 var tabSeed = 0;
 var UITab = (function () {
@@ -93,7 +94,6 @@ var UITabbarStart = (function () {
 
 var UITabPanel = (function () {
     function UITabPanel(element) {
-        var _this = this;
         this.element = element;
         this.tabs = [];
         this.align = "top";
@@ -102,8 +102,6 @@ var UITabPanel = (function () {
         if (element.hasAttribute("no-border")) {
             element.classList.add("ui-tab__panel--noborder");
         }
-        this.obResize = new ResizeObserver(function () { return _this.calculateOverflow(); });
-        this.obResize.observe(element);
     }
     UITabPanel.prototype.activateTab = function (id) {
         return __awaiter(this, void 0, void 0, function () {
@@ -169,7 +167,8 @@ var UITabPanel = (function () {
         var _this = this;
         this.composeVm.owningView = this.owningView;
         this.composeVm.viewResources = this.owningView.resources;
-        setTimeout(function () { return _this.calculateOverflow(); }, 200);
+        this.obResize = new ResizeObserver(function () { return _this.calculateOverflow(); });
+        this.obResize.observe(this.element);
         this.isAttached = true;
         this.tabsChanged();
     };
@@ -181,6 +180,7 @@ var UITabPanel = (function () {
         this.tabsChanged();
     };
     UITabPanel.prototype.tabsChanged = function () {
+        var _this = this;
         if (this.isAttached) {
             this.active = (this.tabs.find(function (tab) { return tab.active; }) || {}).id;
             if (!this.active) {
@@ -188,11 +188,12 @@ var UITabPanel = (function () {
                 this.active = this.activeTab.id;
                 this.activeTab.active = true;
             }
+            UIInternal.queueTask(function () { return _this.calculateOverflow(); });
         }
     };
     UITabPanel.prototype.activate = function (id) {
         var newTab = this.tabs.find(function (tab) { return tab.id === id; });
-        if (newTab) {
+        if (newTab && !newTab.disabled) {
             this.element.dispatchEvent(UIInternal.createEvent("change", id));
             if (this.activeTab) {
                 this.activeTab.active = false;
@@ -205,35 +206,20 @@ var UITabPanel = (function () {
         return false;
     };
     UITabPanel.prototype.remove = function (id) {
+        var _this = this;
         var tab = this.tabs.find(function (t) { return t.id === id; });
         this.element.dispatchEvent(UIInternal.createEvent("close", id));
-        this.tabs.splice(this.tabs.indexOf(tab), 1);
+        this.overflowEl.innerHTML = "";
+        UIInternal.queueTask(function () {
+            _this.tabs = __spread(_this.tabs.splice(_this.tabs.indexOf(tab), 1));
+        });
         if (tab.element) {
             UIInternal.queueTask(function () { return DOM.removeNode(tab.element); });
         }
         return true;
     };
     UITabPanel.prototype.calculateOverflow = function () {
-        var _this = this;
-        var _a;
-        this.resetOverflow();
-        var overflowItems = [];
-        var isRtl = window.getComputedStyle(this.wrapperEl).direction === "rtl";
-        __spread(this.wrapperEl.children).reverse().forEach(function (item) {
-            if ((!isRtl && _this.wrapperEl.offsetWidth - (item.offsetLeft + item.offsetWidth) <= 30) ||
-                (isRtl && _this.wrapperEl.offsetWidth - item.offsetLeft >= _this.wrapperEl.offsetWidth - 30)) {
-                overflowItems.splice(0, 0, item);
-                _this.hasOverflow = true;
-            }
-        });
-        (_a = this.overflowEl).append.apply(_a, __spread(overflowItems));
-    };
-    UITabPanel.prototype.resetOverflow = function () {
-        var _this = this;
-        this.hasOverflow = false;
-        this.overflowEl.children.forEach(function (child) {
-            _this.wrapperEl.appendChild(child);
-        });
+        this.hasOverflow = calculateOverflow(this.wrapperEl, this.overflowEl);
     };
     __decorate([
         bindable(),

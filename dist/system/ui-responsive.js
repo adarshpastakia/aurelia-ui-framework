@@ -1,10 +1,10 @@
-System.register(['./chunk.js', 'aurelia-framework'], function (exports, module) {
+System.register(['./_tslib.js', 'aurelia-framework'], function (exports) {
   'use strict';
   var __decorate, __metadata, bindable, computedFrom, customElement, inlineView;
   return {
     setters: [function (module) {
-      __decorate = module.b;
-      __metadata = module.c;
+      __decorate = module.a;
+      __metadata = module.b;
     }, function (module) {
       bindable = module.bindable;
       computedFrom = module.computedFrom;

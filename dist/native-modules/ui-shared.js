@@ -1,11 +1,11 @@
-import { b as __decorate, c as __metadata } from './chunk.js';
+import { a as __decorate, b as __metadata } from './_tslib.js';
 import { customElement, inlineView, bindable, containerless } from 'aurelia-framework';
-import './chunk2.js';
+import './ui-app-config.js';
 import 'aurelia-event-aggregator';
-import { a as UIInternal } from './chunk3.js';
+import { U as UIInternal } from './ui-internal.js';
 import 'aurelia-logging';
 import ResizeObserver from 'resize-observer-polyfill';
-import { a as UITether } from './chunk5.js';
+import { U as UITether } from './ui-tether.js';
 
 var UIDivider = (function () {
     function UIDivider() {
@@ -67,9 +67,7 @@ var UIDrop = (function () {
             this.obViewportResize = UIInternal.subscribe(UIInternal.EVT_VIEWPORT_RESIZE, function () {
                 return _this.updatePosition();
             });
-            this.obResize = new ResizeObserver(function () {
-                return _this.updatePosition();
-            });
+            this.obResize = new ResizeObserver(function () { return _this.updatePosition(); });
             this.obResize.observe(this.vmElement);
             this.obResize.observe(this.anchorEl);
             this.element.dispatchEvent(UIInternal.createEvent("open"));
@@ -107,6 +105,9 @@ var UIDrop = (function () {
     UIDrop.prototype.close = function ($event) {
         if (this.closeOnClick) {
             this.closeDrop();
+        }
+        else {
+            $event.stopEvent(true);
         }
     };
     UIDrop.prototype.canClose = function (t) {

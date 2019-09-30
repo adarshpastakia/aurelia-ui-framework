@@ -1,11 +1,11 @@
 import { customElement, inlineView, bindable, containerless } from 'aurelia-framework';
-import './chunk.js';
+import './ui-app-config.js';
 import 'aurelia-event-aggregator';
-import { a as UIInternal } from './chunk2.js';
-import { a as __decorate, b as __metadata } from './chunk3.js';
+import { U as UIInternal } from './ui-internal.js';
+import { _ as __decorate, a as __metadata } from './_tslib.js';
 import 'aurelia-logging';
 import ResizeObserver from 'resize-observer-polyfill';
-import { a as UITether } from './chunk5.js';
+import { U as UITether } from './ui-tether.js';
 
 let UIDivider = class UIDivider {
 };
@@ -98,6 +98,9 @@ let UIDrop = class UIDrop {
     close($event) {
         if (this.closeOnClick) {
             this.closeDrop();
+        }
+        else {
+            $event.stopEvent(true);
         }
     }
     canClose(t) {

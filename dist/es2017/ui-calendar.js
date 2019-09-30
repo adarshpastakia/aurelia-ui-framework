@@ -1,11 +1,11 @@
 import { bindable, customElement, inlineView, computedFrom, bindingMode, viewResources } from 'aurelia-framework';
 import 'aurelia-event-aggregator';
-import { a as UIInternal } from './chunk2.js';
-import { a as __decorate, b as __metadata } from './chunk3.js';
+import { U as UIInternal } from './ui-internal.js';
+import { _ as __decorate, a as __metadata } from './_tslib.js';
 import { startOfMinute, addDays, addWeeks, addMonths, addYears, parseISO, startOfDay, startOfWeek, endOfWeek, startOfMonth, endOfMonth, startOfYear, endOfYear, format, startOfDecade, endOfDecade, isValid, isBefore, isAfter, getDay, setDay, isSameMonth, isSameDay, endOfDay, setMonth, getHours, setHours, getMinutes, setMinutes, isSameYear } from 'date-fns';
 import 'kramed';
 import 'numeral';
-import { a as UIFormat } from './chunk4.js';
+import { U as UIFormat } from './ui-format.js';
 
 var view = "<template class=\"ui-calendar__header\">\n  <a class=\"ui-calendar__tool first\" data-tool=\"first\" if.bind=\"showFirstLast\" data-disabled.bind=\"config.firstDisabled\" ui-tooltip.bind=\"config.firstTooltip\"><ui-svg-icon icon=\"page-first\"></ui-svg-icon></a>\n  <a class=\"ui-calendar__tool prev\" data-tool=\"prev\" data-disabled.bind=\"config.prevDisabled\" ui-tooltip.bind=\"config.prevTooltip\"><ui-svg-icon icon=\"page-previous\"></ui-svg-icon></a>\n  <a class=\"ui-calendar__title\" data-tool=\"title\"><slot></slot></a>\n  <a class=\"ui-calendar__tool next\" data-tool=\"next\" data-disabled.bind=\"config.nextDisabled\" ui-tooltip.bind=\"config.nextTooltip\"><ui-svg-icon icon=\"page-next\"></ui-svg-icon></a>\n  <a class=\"ui-calendar__tool last\" data-tool=\"last\" if.bind=\"showFirstLast\" data-disabled.bind=\"config.lastDisabled\" ui-tooltip.bind=\"config.lastTooltip\"><ui-svg-icon icon=\"page-last\"></ui-svg-icon></a>\n</template>\n";
 
@@ -607,10 +607,10 @@ let UIRangePicker = class UIRangePicker {
         return getTitle(this.endMonth, this.endPage);
     }
     get startHeaderOptions() {
-        return buildHeaderConfig(this.startMonth, this.startPage, Object.assign({}, this.config, { page: this.startPage }));
+        return buildHeaderConfig(this.startMonth, this.startPage, Object.assign(Object.assign({}, this.config), { page: this.startPage }));
     }
     get endHeaderOptions() {
-        return buildHeaderConfig(this.endMonth, this.endPage, Object.assign({}, this.config, { page: this.endPage }));
+        return buildHeaderConfig(this.endMonth, this.endPage, Object.assign(Object.assign({}, this.config), { page: this.endPage }));
     }
     startHeaderClicked($event) {
         const target = $event.target;

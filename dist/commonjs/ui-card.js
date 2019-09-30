@@ -1,6 +1,6 @@
 'use strict';
 
-var __chunk_1 = require('./chunk.js');
+var _tslib = require('./_tslib.js');
 var aureliaFramework = require('aurelia-framework');
 
 var UICardContent = (function () {
@@ -10,10 +10,10 @@ var UICardContent = (function () {
             element.classList.add("ui-card__content--fill");
         }
     }
-    UICardContent = __chunk_1.__decorate([
+    UICardContent = _tslib.__decorate([
         aureliaFramework.customElement("ui-card-content"),
         aureliaFramework.inlineView("<template class='ui-card__content'><slot></slot></template>"),
-        __chunk_1.__metadata("design:paramtypes", [Element])
+        _tslib.__metadata("design:paramtypes", [Element])
     ], UICardContent);
     return UICardContent;
 }());
@@ -22,10 +22,10 @@ var UICardList = (function () {
     function UICardList(element) {
         this.element = element;
     }
-    UICardList = __chunk_1.__decorate([
+    UICardList = _tslib.__decorate([
         aureliaFramework.customElement("ui-card-list"),
         aureliaFramework.inlineView("<template class='ui-card__list'><slot></slot></template>"),
-        __chunk_1.__metadata("design:paramtypes", [Element])
+        _tslib.__metadata("design:paramtypes", [Element])
     ], UICardList);
     return UICardList;
 }());
@@ -37,10 +37,10 @@ var UICardMedia = (function () {
             element.classList.add("ui-card__media--top");
         }
     }
-    UICardMedia = __chunk_1.__decorate([
+    UICardMedia = _tslib.__decorate([
         aureliaFramework.customElement("ui-card-media"),
         aureliaFramework.inlineView("<template class='ui-card__media'><slot></slot></template>"),
-        __chunk_1.__metadata("design:paramtypes", [Element])
+        _tslib.__metadata("design:paramtypes", [Element])
     ], UICardMedia);
     return UICardMedia;
 }());
@@ -49,10 +49,10 @@ var UICardMeta = (function () {
     function UICardMeta(element) {
         this.element = element;
     }
-    UICardMeta = __chunk_1.__decorate([
+    UICardMeta = _tslib.__decorate([
         aureliaFramework.customElement("ui-card-meta"),
         aureliaFramework.inlineView("<template class='ui-card__meta'><slot></slot></template>"),
-        __chunk_1.__metadata("design:paramtypes", [Element])
+        _tslib.__metadata("design:paramtypes", [Element])
     ], UICardMeta);
     return UICardMeta;
 }());
@@ -61,10 +61,10 @@ var UICardTitle = (function () {
     function UICardTitle(element) {
         this.element = element;
     }
-    UICardTitle = __chunk_1.__decorate([
+    UICardTitle = _tslib.__decorate([
         aureliaFramework.customElement("ui-card-title"),
         aureliaFramework.inlineView("<template class='ui-card__title'><slot></slot></template>"),
-        __chunk_1.__metadata("design:paramtypes", [Element])
+        _tslib.__metadata("design:paramtypes", [Element])
     ], UICardTitle);
     return UICardTitle;
 }());
@@ -79,34 +79,34 @@ var UICard = (function () {
         this.minHeight = "unset";
         this.maxHeight = "100vh";
     }
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UICard.prototype, "width", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UICard.prototype, "minWidth", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UICard.prototype, "maxWidth", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UICard.prototype, "height", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UICard.prototype, "minHeight", void 0);
-    __chunk_1.__decorate([
+    _tslib.__decorate([
         aureliaFramework.bindable(),
-        __chunk_1.__metadata("design:type", String)
+        _tslib.__metadata("design:type", String)
     ], UICard.prototype, "maxHeight", void 0);
-    UICard = __chunk_1.__decorate([
+    UICard = _tslib.__decorate([
         aureliaFramework.customElement("ui-card"),
         aureliaFramework.inlineView("<template class='ui-panel-base ui-card' css.bind='{width, minWidth, maxWidth, height, minHeight, maxHeight}'>\n<slot name=\"panel-header\"></slot>\n<div class=\"ui-card__body\"><slot></slot></div>\n<slot name=\"panel-footer\"></slot>\n</template>"),
-        __chunk_1.__metadata("design:paramtypes", [Element])
+        _tslib.__metadata("design:paramtypes", [Element])
     ], UICard);
     return UICard;
 }());

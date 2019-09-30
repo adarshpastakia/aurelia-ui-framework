@@ -1,17 +1,17 @@
-import { a as __values, b as __decorate, c as __metadata, d as __assign, e as __spread } from './chunk.js';
+import { _ as __values, a as __decorate, b as __metadata, c as __assign, d as __spread } from './_tslib.js';
 import { autoinject, computedFrom, Container, singleton, CompositionEngine, ViewCompiler, TemplatingEngine } from 'aurelia-framework';
 import { ValidationController, validateTrigger, ValidationRules } from 'aurelia-validation';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
-import { a as UIAppConfig } from './chunk2.js';
+import { U as UIAppConfig } from './ui-app-config.js';
 import 'aurelia-event-aggregator';
-import { a as UIInternal } from './chunk3.js';
+import { U as UIInternal } from './ui-internal.js';
 import { getLogger } from 'aurelia-logging';
 import { metadata, Origin } from 'aurelia-metadata';
 import { json, HttpClient } from 'aurelia-fetch-client';
 import 'date-fns';
 import 'kramed';
 import 'numeral';
-export { a as UIFormat } from './chunk4.js';
+export { U as UIFormat } from './ui-format.js';
 
 var registerValidators = function (container) {
     container.get(ValidationController).validateTrigger = validateTrigger.changeOrBlur;
@@ -50,7 +50,7 @@ var UIValidationRenderer = (function () {
             for (var _e = __values(instruction.unrender), _f = _e.next(); !_f.done; _f = _e.next()) {
                 var _g = _f.value, result = _g.result, elements = _g.elements;
                 try {
-                    for (var elements_1 = __values(elements), elements_1_1 = elements_1.next(); !elements_1_1.done; elements_1_1 = elements_1.next()) {
+                    for (var elements_1 = (e_2 = void 0, __values(elements)), elements_1_1 = elements_1.next(); !elements_1_1.done; elements_1_1 = elements_1.next()) {
                         var element = elements_1_1.value;
                         this.remove(element, result);
                     }
@@ -75,7 +75,7 @@ var UIValidationRenderer = (function () {
             for (var _h = __values(instruction.render), _j = _h.next(); !_j.done; _j = _h.next()) {
                 var _k = _j.value, result = _k.result, elements = _k.elements;
                 try {
-                    for (var elements_2 = __values(elements), elements_2_1 = elements_2.next(); !elements_2_1.done; elements_2_1 = elements_2.next()) {
+                    for (var elements_2 = (e_4 = void 0, __values(elements)), elements_2_1 = elements_2.next(); !elements_2_1.done; elements_2_1 = elements_2.next()) {
                         var element = elements_2_1.value;
                         this.add(element, result);
                     }
@@ -3656,7 +3656,7 @@ var UIDialogService = (function () {
         }
     };
     UIDialogService.prototype.startDrag = function (startObject) {
-        this.dragObject = __assign({}, startObject, { dlgHeight: startObject.dialog.dialogEl.offsetHeight, dlgWidth: startObject.dialog.dialogEl.offsetWidth, isDragging: true, left: parseInt(startObject.dialog.position.left, 10), maxHeight: this.appConfig.DialogContainer.anchor.offsetHeight, maxWidth: this.appConfig.DialogContainer.anchor.offsetWidth, top: parseInt(startObject.dialog.position.top, 10) });
+        this.dragObject = __assign(__assign({}, startObject), { dlgHeight: startObject.dialog.dialogEl.offsetHeight, dlgWidth: startObject.dialog.dialogEl.offsetWidth, isDragging: true, left: parseInt(startObject.dialog.position.left, 10), maxHeight: this.appConfig.DialogContainer.anchor.offsetHeight, maxWidth: this.appConfig.DialogContainer.anchor.offsetWidth, top: parseInt(startObject.dialog.position.top, 10) });
     };
     UIDialogService.prototype.drag = function ($event) {
         if (this.dragObject.isDragging) {
@@ -3789,7 +3789,7 @@ var UINotificationService = (function () {
     UINotificationService.prototype.createToast = function (config, forToastNotification) {
         var _this = this;
         return new Promise(function (resolve) {
-            var cfg = __assign({ autoClose: true, cancelLabel: "Cancel", okLabel: "OK", theme: "default", timeout: 5000, type: "default", className: forToastNotification ? "ui-toast" : "ui-message" }, config, { message: "<div>" + config.message + "</div>" });
+            var cfg = __assign(__assign({ autoClose: true, cancelLabel: "Cancel", okLabel: "OK", theme: "default", timeout: 5000, type: "default", className: forToastNotification ? "ui-toast" : "ui-message" }, config), { message: "<div>" + config.message + "</div>" });
             cfg.autoClose = cfg.type !== "confirm" && cfg.autoClose;
             var viewFactory = _this.compiler.compile("<template>" + toastView + "</template>");
             var view = viewFactory.create(_this.container);
@@ -3817,7 +3817,7 @@ var UINotificationService = (function () {
     UINotificationService.prototype.createAlert = function (config) {
         var _this = this;
         return new Promise(function (resolve) {
-            var cfg = __assign({ cancelLabel: "Cancel", okLabel: "OK", theme: "default", type: "alert" }, config, { message: "<div>" + config.message + "</div>" });
+            var cfg = __assign(__assign({ cancelLabel: "Cancel", okLabel: "OK", theme: "default", type: "alert" }, config), { message: "<div>" + config.message + "</div>" });
             var viewFactory = _this.compiler.compile("<template>" + alertView + "</template>");
             var view = viewFactory.create(_this.container);
             cfg.__keyCheck = function (key) {

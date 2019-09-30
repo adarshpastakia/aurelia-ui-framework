@@ -1,10 +1,10 @@
 import { bindable, autoinject, customAttribute } from 'aurelia-framework';
-import './chunk.js';
+import './ui-app-config.js';
 import 'aurelia-event-aggregator';
-import { a as UIInternal } from './chunk2.js';
-import { a as __decorate, b as __metadata } from './chunk3.js';
+import { U as UIInternal } from './ui-internal.js';
+import { _ as __decorate, a as __metadata } from './_tslib.js';
 import 'aurelia-logging';
-import { a as UITether } from './chunk5.js';
+import { U as UITether } from './ui-tether.js';
 
 let UIBadge = class UIBadge {
     constructor(element) {

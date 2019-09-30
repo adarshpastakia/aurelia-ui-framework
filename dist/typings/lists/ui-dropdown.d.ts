@@ -11,6 +11,7 @@ export declare class UIDropdown {
     iconPrefix: string;
     options: AnyObject[];
     disabled: boolean;
+    multiple: boolean;
     protected dropEl: UIDrop;
     protected model: AnyObject;
     constructor(element: Element);

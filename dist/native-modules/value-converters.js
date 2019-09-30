@@ -1,10 +1,10 @@
-import { b as __decorate, e as __spread } from './chunk.js';
+import { a as __decorate, d as __spread } from './_tslib.js';
 import { valueConverter } from 'aurelia-framework';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
 import 'date-fns';
 import 'kramed';
 import 'numeral';
-import { a as UIFormat } from './chunk4.js';
+import { U as UIFormat } from './ui-format.js';
 
 var SplitValueConverter = (function () {
     function SplitValueConverter() {
