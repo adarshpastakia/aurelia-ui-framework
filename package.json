@@ -31,7 +31,7 @@
     "resize-observer-polyfill": "^1.5.1"
   },
   "optionalDependencies": {
-    "@mdi/font": "^4.4.95",
+    "@mdi/font": "^4.7.95",
     "prismjs": "^1.15.0",
     "zxcvbn": "^4.4.2"
   },
