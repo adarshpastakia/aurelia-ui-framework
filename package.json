@@ -24,7 +24,7 @@
     "aurelia-templating": "^1.10.2",
     "aurelia-ui-virtualization": "^1.0.0-beta.7",
     "aurelia-validation": "^1.5.0",
-    "date-fns": "^2.3.0",
+    "date-fns": "^2.9.0",
     "kramed": "^0.5.6",
     "libphonenumber-js": "^1.7.25",
     "numeral": "^2.0.6",
