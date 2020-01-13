@@ -32,7 +32,7 @@
   },
   "optionalDependencies": {
     "@mdi/font": "^4.4.95",
-    "prismjs": "^1.15.0",
+    "prismjs": "1.18.0",
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
