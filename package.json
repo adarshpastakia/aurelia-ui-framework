@@ -21,7 +21,7 @@
     "aurelia-binding": "^2.5.0",
     "aurelia-fetch-client": "^1.8.2",
     "aurelia-framework": "^1.3.1",
-    "aurelia-templating": "^1.10.2",
+    "aurelia-templating": "1.10.2",
     "aurelia-ui-virtualization": "^1.0.0-beta.7",
     "aurelia-validation": "^1.5.0",
     "date-fns": "^2.3.0",
