@@ -82,7 +82,7 @@
     "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-typescript2": "^0.25.0",
     "sass-loader": "^8.0.0",
-    "style-loader": "^1.0.0",
+    "style-loader": "^1.2.0",
     "stylelint": "^11.0.0",
     "stylelint-order": "^3.1.1",
     "stylelint-webpack-plugin": "^1.0.0",
