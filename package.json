@@ -43,7 +43,7 @@
     "@types/lodash": "^4.14.140",
     "@types/node": "^12.7.8",
     "@types/webpack": "^4.39.1",
-    "acorn": "^7.1.0",
+    "acorn": "^7.2.0",
     "acorn-dynamic-import": "^4.0.0",
     "aurelia-animator-css": "^1.0.4",
     "aurelia-bootstrapper": "^2.3.3",
